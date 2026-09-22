@@ -278,9 +278,15 @@ real, statically rendered page ("the canvas is an index, not a container").
 - **3D is a mode**, justified only because its vertical axis means something: Depth,
   derived from `requires` (ADR-0001) — a layered dependency graph with foundations at
   the bottom.
-- Edge *type* drives colour/line-style; *cluster* drives grouping; *domain* drives
-  filtering. Progressive: start at the focal node + direct edges; expand on demand.
-- Filters by relationship type and by domain.
+- Edge *family* drives colour and filtering — seven readable groups (structure,
+  prerequisites, contrasts, attacks & defences, regulation, lineage, used together)
+  instead of twelve raw types (A29); the exact type is shown in edge labels. *Cluster*
+  drives node colour; *domain* drives filtering. Progressive: arriving from a term
+  starts at the focal node + direct edges; expand one hop at a time, or open the
+  whole map.
+- The full-screen Explorer (`/[lang]/explorer/`) offers 2D (force or layered by
+  Depth) and 3D (height = Depth), a route finder between any two terms, and
+  prerequisite highlighting.
 
 ### Compare / "Don't confuse" view
 Driven by `contrasts-with`. Side-by-side for the pairs learners mix up

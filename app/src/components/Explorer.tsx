@@ -48,6 +48,8 @@ export default function Explorer(props: Props) {
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
   const [routeMsg, setRouteMsg] = useState('');
+  /** Hops shown around the selected term; null = the whole map (SPEC §7: progressive). */
+  const [hops, setHops] = useState<number | null>(null);
   const container = useRef<HTMLDivElement>(null);
   const cyRef = useRef<cytoscape.Core | null>(null);
   const fgRef = useRef<ForceGraphInstance | null>(null);
@@ -59,7 +61,11 @@ export default function Explorer(props: Props) {
         setGraph(g);
         setDomains(new Set(g.nodes.flatMap((n) => n.domain)));
         const focus = new URLSearchParams(window.location.search).get('focus');
-        if (focus && g.nodes.some((n) => n.id === focus)) setSelected(focus);
+        if (focus && g.nodes.some((n) => n.id === focus)) {
+          // Arriving from a term page: start at the focal term and its direct edges.
+          setSelected(focus);
+          setHops(1);
+        }
       });
   }, [graphUrl]);
 
@@ -70,8 +76,30 @@ export default function Explorer(props: Props) {
     const links = graph.links.filter(
       (l) => families.has(l.family) && ids.has(l.source) && ids.has(l.target),
     );
-    return { nodes, links };
-  }, [graph, domains, families]);
+    if (hops === null || !selected || !ids.has(selected)) return { nodes, links };
+    // Neighbourhood mode: everything within `hops` relationships of the selected term.
+    const near = new Set([selected]);
+    let frontier = [selected];
+    for (let h = 0; h < hops; h++) {
+      const next: string[] = [];
+      for (const l of links) {
+        for (const [a, b] of [
+          [l.source, l.target],
+          [l.target, l.source],
+        ]) {
+          if (frontier.includes(a) && !near.has(b)) {
+            near.add(b);
+            next.push(b);
+          }
+        }
+      }
+      frontier = next;
+    }
+    return {
+      nodes: nodes.filter((n) => near.has(n.id)),
+      links: links.filter((l) => near.has(l.source) && near.has(l.target)),
+    };
+  }, [graph, domains, families, hops, hops === null ? null : selected]);
 
   const byId = useMemo(() => new Map((graph?.nodes ?? []).map((n) => [n.id, n])), [graph]);
   const nameToId = useMemo(
@@ -80,6 +108,16 @@ export default function Explorer(props: Props) {
   );
   const colourOf = (n: GraphNode) => props.clusterColours[n.cluster] ?? '#a3a3a3';
   const hl = useMemo(() => new Set(highlight), [highlight]);
+  const selRef = useRef(selected);
+  selRef.current = selected;
+  const hlRef = useRef(hl);
+  hlRef.current = hl;
+  const colour3d = (n: GraphNode) =>
+    n.id === selRef.current
+      ? '#ffffff'
+      : hlRef.current.size && !hlRef.current.has(n.id)
+        ? '#262626'
+        : colourOf(n);
 
   // ---- 2D (Cytoscape) --------------------------------------------------
   useEffect(() => {
@@ -156,11 +194,16 @@ export default function Explorer(props: Props) {
               name: 'cose',
               animate: false,
               nodeRepulsion: () => 9000,
-              idealEdgeLength: () => 90,
+              idealEdgeLength: () => 110,
             } as cytoscape.LayoutOptions),
       minZoom: 0.1,
       maxZoom: 3,
     });
+    // Small neighbourhoods fit too tightly; keep labels readable.
+    if (cy.zoom() > 1.1) {
+      cy.zoom(1.1);
+      cy.center();
+    }
     cy.on('tap', 'node', (e) => setSelected(e.target.id()));
     cy.on('tap', (e) => e.target === cy && setSelected(null));
     cy.on('dbltap', 'node', (e) => (window.location.href = `${termBase}${e.target.id()}/`));
@@ -212,7 +255,7 @@ export default function Explorer(props: Props) {
         .graphData({ nodes, links })
         .nodeLabel((n: GraphNode) => n.term[lang])
         .nodeVal((n: GraphNode) => 1 + n.degree)
-        .nodeColor(colourOf)
+        .nodeColor(colour3d)
         .linkColor((l: GraphLink) => props.familyColours[l.family])
         .linkOpacity(0.45)
         .linkDirectionalArrowLength(3)
@@ -229,9 +272,7 @@ export default function Explorer(props: Props) {
   }, [mode, visible, lang]);
 
   useEffect(() => {
-    fgRef.current?.nodeColor((n: GraphNode) =>
-      n.id === selected ? '#ffffff' : hl.size && !hl.has(n.id) ? '#262626' : colourOf(n),
-    );
+    fgRef.current?.nodeColor(colour3d);
   }, [selected, hl]);
 
   // ---- Tools -----------------------------------------------------------
@@ -377,6 +418,19 @@ export default function Explorer(props: Props) {
                   {ui.showPrerequisites}
                 </button>
               )}
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button class={button(hops === 1)} onClick={() => setHops(1)}>
+                {ui.neighbourhood}
+              </button>
+              {hops !== null && (
+                <button class={button(false)} onClick={() => setHops(hops + 1)}>
+                  {ui.expand}
+                </button>
+              )}
+              <button class={button(hops === null)} onClick={() => setHops(null)}>
+                {ui.wholeMap}
+              </button>
             </div>
           </div>
         )}
