@@ -10,7 +10,8 @@
     "lint:content": "tsx scripts/lint.ts",
     "build": "npm run lint:content && npm run build:graph && astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "test": "vitest run"
   },
   "dependencies": {
     "@astrojs/preact": "^6.0.5",
@@ -32,6 +33,7 @@
     "prettier-plugin-astro": "^0.14.1",
     "tsx": "^4.19.3",
     "typescript": "^5.7.3",
+    "vitest": "^5.0.1",
     "yaml": "^2.7.0"
   }
 }
