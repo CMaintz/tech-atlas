@@ -1,7 +1,8 @@
-# Lexicon — Authoritative v1 Specification
+# Atlas — Authoritative v1 Specification
 
-> **Working name:** `Lexicon` (placeholder — see §13). **Status:** decided; nothing
-> built yet. This is the single source of truth for v1. It supersedes the
+> **Working name:** `Atlas` (decided — `AUTONOMOUS_DECISIONS.md` A1). **Status:** decided; v1.0
+> live at https://cmaintz.github.io/tech-atlas/ (see `AUTONOMOUS_DECISIONS.md` A22 for what
+> remains). This is the single source of truth for v1. It supersedes the
 > exploratory `00`–`09` documents (kept as the *ingestion archive*) and is built on
 > the decisions recorded in [`UNIFIED_VISION.md`](./UNIFIED_VISION.md) (D1–D12) and
 > the schema in [`schema.ts`](./schema.ts). Where this document and the archive
