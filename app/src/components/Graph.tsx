@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'preact/hooks';
 import cytoscape from 'cytoscape';
 
-type GNode = { id: string; label: string; focus: boolean };
+type GNode = { id: string; label: string; focus: boolean; colour: string };
 type GEdge = { source: string; target: string; type: string };
 
 interface Props {
@@ -24,7 +24,7 @@ export default function Graph({ nodes, edges, termBase }: Props) {
       container: ref.current,
       elements: [
         ...nodes.map((n) => ({
-          data: { id: n.id, label: n.label, focus: n.focus ? 1 : 0 },
+          data: { id: n.id, label: n.label, focus: n.focus ? 1 : 0, colour: n.colour },
         })),
         ...edges.map((e) => ({
           data: {
@@ -39,7 +39,9 @@ export default function Graph({ nodes, edges, termBase }: Props) {
         {
           selector: 'node',
           style: {
-            'background-color': '#3b82f6',
+            'background-color': 'data(colour)',
+            width: 16,
+            height: 16,
             label: 'data(label)',
             color: '#e5e5e5',
             'font-size': 10,
@@ -49,7 +51,7 @@ export default function Graph({ nodes, edges, termBase }: Props) {
         },
         {
           selector: 'node[focus = 1]',
-          style: { 'background-color': '#f59e0b', width: 28, height: 28 },
+          style: { width: 26, height: 26, 'border-width': 3, 'border-color': '#ffffff' },
         },
         {
           selector: 'edge',
@@ -79,6 +81,6 @@ export default function Graph({ nodes, edges, termBase }: Props) {
   }, []);
 
   return (
-    <div ref={ref} class="h-[420px] w-full rounded border border-neutral-800 bg-neutral-900" />
+    <div ref={ref} class="h-[360px] w-full rounded border border-neutral-800 bg-neutral-900" />
   );
 }

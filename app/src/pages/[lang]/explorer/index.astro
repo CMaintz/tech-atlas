@@ -1,0 +1,39 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Explorer from '../../../components/Explorer';
+import {
+  CLUSTER_COLOURS,
+  CLUSTER_LABELS,
+  DOMAIN_LABELS,
+  FAMILY_COLOURS,
+  FAMILY_LABELS,
+  LANGS,
+  UI,
+  url,
+  type Lang,
+} from '../../../lib/site';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const ui = UI[lang];
+const localise = (m: Record<string, Record<Lang, string>>) =>
+  Object.fromEntries(Object.entries(m).map(([k, v]) => [k, v[lang]]));
+---
+
+<Base lang={lang} title={ui.explorer} wide>
+  <Explorer
+    client:only="preact"
+    lang={lang}
+    graphUrl={url('graph.json')}
+    termBase={url(`${lang}/terms/`)}
+    ui={{ ...ui }}
+    clusterLabels={localise(CLUSTER_LABELS)}
+    clusterColours={CLUSTER_COLOURS}
+    familyLabels={localise(FAMILY_LABELS)}
+    familyColours={FAMILY_COLOURS}
+    domainLabels={localise(DOMAIN_LABELS)}
+  />
+</Base>

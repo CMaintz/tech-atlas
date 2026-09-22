@@ -6,8 +6,10 @@ interface Props {
   lang?: Lang;
   title?: string;
   description?: string;
+  /** Full-width main area (the Explorer). */
+  wide?: boolean;
 }
-const { lang = 'en', title = 'Atlas', description } = Astro.props;
+const { lang = 'en', title = 'Atlas', description, wide = false } = Astro.props;
 const ui = UI[lang];
 const other: Lang = lang === 'en' ? 'da' : 'en';
 const path = Astro.url.pathname;
@@ -24,6 +26,7 @@ const pageTitle = title === 'Atlas' ? 'Atlas' : `${title} — Atlas`;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
+    <link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
     <meta name="description" content={description ?? ui.tagline} />
     {alternates.map((a) => <link rel="alternate" hreflang={a.lang} href={a.href} />)}
   </head>
@@ -32,13 +35,14 @@ const pageTitle = title === 'Atlas' ? 'Atlas' : `${title} — Atlas`;
       <a href={url(`${lang}/`)} class="font-mono text-lg tracking-tight">atlas</a>
       <nav class="flex gap-5 text-sm text-neutral-400">
         <a class="hover:text-neutral-100" href={url(`${lang}/`)}>{ui.index}</a>
+        <a class="hover:text-neutral-100" href={url(`${lang}/explorer/`)}>{ui.explorer}</a>
         <a class="hover:text-neutral-100" href={url(`${lang}/compare/`)}>{ui.compare}</a>
         <a class="hover:text-neutral-100" href={swapLang(path, other)} hreflang={other}>
           {other.toUpperCase()}
         </a>
       </nav>
     </header>
-    <main class="mx-auto max-w-3xl px-6 py-10">
+    <main class={wide ? '' : 'mx-auto max-w-5xl px-6 py-10'}>
       <slot />
     </main>
   </body>
