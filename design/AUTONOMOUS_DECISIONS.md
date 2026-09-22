@@ -28,18 +28,20 @@ Cytoscape neighbourhood graph.
 `draft: true`; search; relationship sections; compare view (28 pairs); clickable graph;
 Closed Vocabulary lint (E1) + full rule set; GitHub Pages deploy.
 
-### Previously planned (kept for history)
+### Next — full product (one branch + PR per feature, static-first)
 
-1. **Full v1 content** — ~65 security terms (the course ordliste) + ~40 CS
-   (networking / OS / identity), bilingual. Parallelise across agents.
-2. **Closed-Vocabulary lint (E1)** — needs per-language plain-word lists.
-3. **Search** (MiniSearch, bilingual) + **Compare view**.
-4. **Deploy** to GitHub Pages. Pinned action SHAs already resolved:
-   `configure-pages` `983d7736d9b0ae728b81ab479565c72886d7745b`,
-   `upload-pages-artifact` `56afc609e74202658d3ffba0e8f6dda462b719fa`,
-   `deploy-pages` `d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e`.
-5. **Full-product build** — learning system (generated from edges), DB when learning /
-   personalization / semantic search need it, 3D graph mode.
+1. `feat/graph-explorer` — fullscreen explorer on `graph.json` (domain/edge-type filters),
+   persistent sidebar graph (SPEC §7), 3D mode with Depth as the vertical axis
+   (3d-force-graph), Paths (prerequisites; route between two terms), era view.
+2. `feat/articles` — optional long-form layer for ~12 terms (NIS2, GDPR, ISO 27001,
+   Zero Trust, TLS, MFA, …), exempt from Closed Vocabulary; E9 already enforced.
+3. `feat/study` — quizzes generated from edges (cloze over summary, contrasts, prerequisites,
+   distractor filtering), per-term tracking + spaced repetition in localStorage.
+4. `feat/knowledge-map` — mark Know / Familiar / Learning / Don't understand, recolour the
+   graph, recommend missing prerequisites.
+5. Content batch 3 — the writers' wishlist (security incident, risk assessment, RTO/RPO,
+   ISMS, EDR, SOC, hardening, exploit, CVE/CVSS, data controller/processor, privileged
+   account, session hijacking, …).
 
 ## Decisions log
 
@@ -66,5 +68,8 @@ Closed Vocabulary lint (E1) + full rule set; GitHub Pages deploy.
 | A19 | **Symmetric edges live on the alphabetically-first id** | Deterministic rule so parallel authors never write the same pair twice (lint W7 flags duplicates). |
 | A20 | **Content fixes from review:** SSL removed as a TLS alias (it is the predecessor, not a synonym); "virus" removed as a malware alias; DoS `exploits` retargeted from availability (a goal) to vulnerability; incident-reporting no longer `requires` data-breach (NIS2 covers all significant incidents). | Found by the fresh-context content review. |
 | A21 | **Astro 7 editor JSON-schema warning left as-is** | Astro 7 can't generate IDE JSON schema from our zod-3 schema; validation itself works. Fix later by moving `schema.ts` to Astro's bundled zod. |
+| A22 | **v1.0 shipped as SPEC §11 steps 1–4, minus Articles.** Not yet shipped: long-form Articles (step 4), 3D mode on the Depth axis, Paths and era view (step 5), and the persistent/fullscreen sidebar graph (§7 — v1.0 has an inline neighbourhood graph). | These roll into the first full-product branches; `graph.json` is already built for them. Stated plainly so the gap isn't discovered from the spec. |
+| A23 | **`mise run test` runs the full production build** as a smoke test | No unit tests yet; the build catches route collisions and broken content wiring that lint/typecheck miss, so the PR gate now fails where deploy would. |
+| A24 | **Learner progress (quizzes, knowledge map) is local-first in `localStorage`** | Per ADR-0008 a database arrives only with accounts, sync or semantic search. |
 
 Add rows as further solo decisions are made.

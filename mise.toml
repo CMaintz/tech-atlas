@@ -18,8 +18,9 @@ dir = "app"
 run = "npm run check"
 
 [tasks.test]
-description = "Run tests, enforce the coverage floor. (No tests yet — no-op.)"
-run = "echo 'no tests yet' && exit 0"
+description = "Smoke test: the full production build (lint -> derive graph -> astro build). No unit tests yet."
+dir = "app"
+run = "npm run build"
 
 [tasks.audit]
 description = "Dependency vulnerabilities."
