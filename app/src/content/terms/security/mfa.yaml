@@ -1,0 +1,37 @@
+term: { en: Multi-factor authentication, da: Multifaktorgodkendelse }
+aka:
+  en: [MFA, two-factor authentication, 2FA]
+  da: [MFA, tofaktorgodkendelse, 2FA]
+domain: [security]
+cluster: controls
+layer: identity
+status: current
+summary:
+  en: A login that requires two or more independent proofs of identity, not just a password.
+  da: Et login, der kræver to eller flere uafhængige beviser på identitet, ikke kun en adgangskode.
+body:
+  formal:
+    en: An access-control method that grants entry only after a user presents two or more independent factors — something they know, have, or are.
+    da: En adgangskontrolmetode, der kun giver adgang, når en bruger fremviser to eller flere uafhængige faktorer — noget de ved, har eller er.
+  plain:
+    en: Proving who you are in more than one way, so a stolen password alone is not enough.
+    da: At bevise, hvem du er, på mere end én måde, så en stjålet adgangskode alene ikke er nok.
+  inPractice:
+    en: After entering a password, the user approves a prompt on their phone before access is granted.
+    da: Efter at have indtastet en adgangskode godkender brugeren en anmodning på sin telefon, før adgang gives.
+  whyItMatters:
+    en: It blunts the payoff of stolen passwords, which is why it is a primary control against account takeover.
+    da: Det mindsker værdien af stjålne adgangskoder, hvilket er grunden til, at det er en primær kontrol mod kontoovertagelse.
+edges:
+  mitigates:
+    - to: phishing
+      why:
+        en: Even if phishing captures a password, the extra factor blocks the login.
+        da: Selv hvis phishing opsnapper en adgangskode, blokerer den ekstra faktor login.
+      strength: primary
+      confidence: high
+      sources:
+        - { title: NIST SP 800-63B, tier: standard }
+sources:
+  - { title: Cyber Security Fast Track — Ordliste, tier: course-material }
+draft: false

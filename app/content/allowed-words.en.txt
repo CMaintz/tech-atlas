@@ -1,0 +1,7 @@
+# allowed-words (English) — Closed Vocabulary escape hatch (ADR-0004/0009).
+# Technical words that are permitted in a Summary/Body but will never be their
+# own Term: proper nouns, formats, common abbreviations. One per line,
+# alphabetical, each justified with a trailing "# why". Deliberately annoying to
+# add to, so it never becomes a rubber stamp.
+email        # everyday word, never a node
+password     # everyday word in this domain, defined concept lives under `credential`

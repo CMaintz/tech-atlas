@@ -1,0 +1,104 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import Graph from '../../../components/Graph';
+
+export async function getStaticPaths() {
+  const terms = await getCollection('terms');
+  const locales = ['en', 'da'] as const;
+  return locales.flatMap((lang) =>
+    terms.map((t) => ({ params: { lang, slug: t.id }, props: { termId: t.id } })),
+  );
+}
+
+const lang = (Astro.params.lang ?? 'en') as 'en' | 'da';
+const { termId } = Astro.props;
+const all = await getCollection('terms');
+const term = all.find((t) => t.id === termId)!;
+const d = term.data;
+
+// Resolve a bare or namespaced edge target to a loaded entry id.
+const resolve = (ref: string) => {
+  const name = ref.split('/').pop();
+  return all.find((t) => t.id === ref || t.id.endsWith('/' + name))?.id ?? null;
+};
+
+// Build a small neighbourhood: authored out-edges + inverse in-edges among loaded terms.
+type GNode = { id: string; label: string; focus: boolean };
+type GEdge = { source: string; target: string; type: string };
+const nodes = new Map<string, GNode>();
+const edges: GEdge[] = [];
+const add = (id: string) => {
+  const t = all.find((x) => x.id === id);
+  if (t && !nodes.has(id)) nodes.set(id, { id, label: t.data.term[lang], focus: id === term.id });
+};
+add(term.id);
+
+for (const [type, list] of Object.entries(d.edges ?? {})) {
+  for (const e of (list ?? []) as (string | { to: string })[]) {
+    const to = typeof e === 'string' ? e : e.to;
+    const target = resolve(to);
+    if (target) {
+      add(target);
+      edges.push({ source: term.id, target, type });
+    }
+  }
+}
+for (const t of all) {
+  if (t.id === term.id) continue;
+  for (const [type, list] of Object.entries(t.data.edges ?? {})) {
+    for (const e of (list ?? []) as (string | { to: string })[]) {
+      const to = typeof e === 'string' ? e : e.to;
+      if (resolve(to) === term.id) {
+        add(t.id);
+        edges.push({ source: t.id, target: term.id, type });
+      }
+    }
+  }
+}
+
+const facets = [
+  { key: 'formal', label: lang === 'da' ? 'Formelt' : 'Formal' },
+  { key: 'plain', label: lang === 'da' ? 'Forklaret enkelt' : 'In plain English' },
+  { key: 'inPractice', label: lang === 'da' ? 'I praksis' : 'In practice' },
+  { key: 'whyItMatters', label: lang === 'da' ? 'Hvorfor det betyder noget' : 'Why it matters' },
+] as const;
+---
+
+<Base lang={lang} title={d.term[lang]}>
+  <div class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">
+    {d.domain.join(' · ')} · {d.cluster}
+  </div>
+  <h1 class="text-3xl font-semibold">{d.term[lang]}</h1>
+  <p class="mt-2 text-lg text-neutral-300">{d.summary[lang]}</p>
+
+  <div class="mt-8 space-y-5">
+    {
+      facets.map((f) => (
+        <div>
+          <h2 class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">{f.label}</h2>
+          <p class="text-neutral-200">{d.body[f.key][lang]}</p>
+        </div>
+      ))
+    }
+  </div>
+
+  <h2 class="mt-10 mb-2 text-xs tracking-widest text-neutral-500 uppercase">
+    {lang === 'da' ? 'Forbindelser' : 'Connections'}
+  </h2>
+  <Graph client:only="preact" nodes={[...nodes.values()]} edges={edges} />
+
+  <div class="mt-8 text-sm text-neutral-500">
+    <span class="text-xs tracking-widest uppercase">{lang === 'da' ? 'Kilder' : 'Sources'}</span>
+    <ul class="mt-1 list-inside list-disc">
+      {
+        d.sources.map((s) => (
+          <li>
+            {s.title}
+            {s.tier ? ` (${s.tier})` : ''}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Base>

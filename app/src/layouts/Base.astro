@@ -1,0 +1,32 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  lang?: 'en' | 'da';
+  title?: string;
+}
+const { lang = 'en', title = 'Atlas' } = Astro.props;
+const other = lang === 'en' ? 'da' : 'en';
+// Swap the leading /en or /da segment for the other language.
+const otherPath = Astro.url.pathname.replace(/^\/(en|da)/, `/${other}`);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen bg-neutral-950 font-sans text-neutral-100 antialiased">
+    <header class="flex items-center justify-between border-b border-neutral-800 px-6 py-4">
+      <a href={`/${lang}/`} class="font-mono text-lg tracking-tight">atlas</a>
+      <nav class="text-sm text-neutral-400">
+        <a class="hover:text-neutral-100" href={otherPath}>{other.toUpperCase()}</a>
+      </nav>
+    </header>
+    <main class="mx-auto max-w-3xl px-6 py-10">
+      <slot />
+    </main>
+  </body>
+</html>

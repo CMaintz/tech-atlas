@@ -1,0 +1,36 @@
+{
+  "name": "lexicon",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "sync": "astro sync",
+    "build:graph": "tsx scripts/build-graph.ts",
+    "lint:content": "tsx scripts/lint.ts",
+    "build": "npm run lint:content && npm run build:graph && astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/preact": "^6.0.5",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.4",
+    "cytoscape": "^3.31.2",
+    "minisearch": "^7.1.2",
+    "preact": "^10.26.0",
+    "tailwindcss": "^4.3.3",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/cytoscape": "^3.21.9",
+    "@types/node": "^22.13.0",
+    "fast-glob": "^3.3.3",
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3",
+    "yaml": "^2.7.0"
+  }
+}

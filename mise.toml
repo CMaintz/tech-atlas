@@ -1,0 +1,31 @@
+# Foundry gate — the six-verb contract (see AGENTS.md). Tasks operate in app/.
+[tools]
+node = "22.14.0"
+
+[tasks.fix]
+description = "Apply every mechanically-safe fix (format). No judgement calls."
+dir = "app"
+run = "npx prettier --write ."
+
+[tasks.lint]
+description = "Report style violations and content-model smells."
+dir = "app"
+run = ["npx prettier --check .", "npm run lint:content"]
+
+[tasks.typecheck]
+description = "Static type analysis."
+dir = "app"
+run = "npm run check"
+
+[tasks.test]
+description = "Run tests, enforce the coverage floor. (No tests yet — no-op.)"
+run = "echo 'no tests yet' && exit 0"
+
+[tasks.audit]
+description = "Dependency vulnerabilities."
+dir = "app"
+run = "npm audit --audit-level=high"
+
+[tasks.gate]
+description = "lint -> typecheck -> test -> audit, in order. The oracle."
+run = ["mise run lint", "mise run typecheck", "mise run test", "mise run audit"]

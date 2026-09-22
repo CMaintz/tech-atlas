@@ -1,0 +1,27 @@
+term: { en: Social engineering, da: Social engineering }
+aka:
+  en: [social engineering attack]
+  da: [social manipulation]
+domain: [security]
+cluster: awareness
+layer: people
+status: current
+summary:
+  en: Manipulating people into revealing information or granting access, rather than attacking systems directly.
+  da: Manipulation af mennesker til at afsløre oplysninger eller give adgang i stedet for at angribe systemer direkte.
+body:
+  formal:
+    en: An attack technique that exploits human psychology — trust, authority, urgency — to obtain information or access, bypassing technical controls.
+    da: En angrebsteknik, der udnytter menneskelig psykologi — tillid, autoritet, hastværk — til at opnå oplysninger eller adgang uden om tekniske kontroller.
+  plain:
+    en: Tricking a person instead of hacking a computer.
+    da: At narre en person i stedet for at hacke en computer.
+  inPractice:
+    en: An attacker phones the service desk pretending to be a stressed executive and talks an employee into resetting a password.
+    da: En angriber ringer til supportafdelingen, udgiver sig for at være en stresset chef og overtaler en medarbejder til at nulstille en adgangskode.
+  whyItMatters:
+    en: The strongest technical defences fail if a person can be talked into opening the door, so people are a primary attack surface.
+    da: De stærkeste tekniske forsvar fejler, hvis en person kan overtales til at åbne døren, så mennesker er en primær angrebsflade.
+sources:
+  - { title: Cyber Security Fast Track — Ordliste, tier: course-material }
+draft: false

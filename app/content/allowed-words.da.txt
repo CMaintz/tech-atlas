@@ -1,0 +1,5 @@
+# allowed-words (Dansk) — Closed Vocabulary escape hatch (ADR-0004/0009).
+# Danish runs ADVISORY in v1 (warnings only, ADR-0009). Same rules as the English
+# list: one per line, alphabetical, each justified. Danish security vocabulary is
+# largely English loanwords, so this list is expected to stay short.
+e-mail       # dagligdags ord, aldrig en node

@@ -1,0 +1,34 @@
+term: { en: Phishing, da: Phishing }
+aka:
+  en: []
+  da: []
+domain: [security]
+cluster: awareness
+layer: people
+status: current
+summary:
+  en: A fraudulent message that tricks a person into revealing information or granting access.
+  da: En bedragerisk besked, der narrer en person til at afsløre oplysninger eller give adgang.
+body:
+  formal:
+    en: A social-engineering attack that uses fraudulent messages — usually email — to trick a person into revealing credentials or other sensitive information.
+    da: Et social engineering-angreb, der bruger bedrageriske beskeder — oftest e-mail — til at narre en person til at afsløre adgangskoder eller andre følsomme oplysninger.
+  plain:
+    en: A fake message pretending to come from someone you trust, meant to get you to hand over information or click something harmful.
+    da: En falsk besked, der udgiver sig for at komme fra nogen, du stoler på, og som skal få dig til at udlevere oplysninger eller klikke på noget skadeligt.
+  inPractice:
+    en: A finance clerk receives an invoice email, follows the link to a convincing fake login page, and the password is captured.
+    da: En bogholder modtager en faktura-e-mail, følger linket til en overbevisende falsk login-side, og adgangskoden opsnappes.
+  whyItMatters:
+    en: Most breaches begin with phishing, so recognising it is a first line of defence.
+    da: De fleste sikkerhedsbrud starter med phishing, så det at genkende det er en første forsvarslinje.
+edges:
+  kind-of: [social-engineering]
+sources:
+  - { title: Cyber Security Fast Track — Ordliste, tier: course-material }
+  - {
+      title: NIST Glossary — Phishing,
+      tier: standard,
+      url: 'https://csrc.nist.gov/glossary/term/phishing',
+    }
+draft: false

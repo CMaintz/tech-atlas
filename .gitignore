@@ -1,0 +1,18 @@
+# dependencies / build output
+node_modules/
+dist/
+.astro/
+app/src/generated/
+*.log
+
+# raw source inputs — not published (includes copyrighted course material)
+_ingest/
+Syllabus etc/
+graph visualisation examples/
+Technical glossary with 3D visualization/
+*.docx
+*.pdf
+
+# os
+.DS_Store
+Thumbs.db
