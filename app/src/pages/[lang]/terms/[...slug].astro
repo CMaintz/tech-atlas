@@ -2,6 +2,8 @@
 import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import Graph from '../../../components/Graph';
+import KnowledgeStatus from '../../../components/KnowledgeStatus';
+import Quiz from '../../../components/Quiz';
 import {
   CLUSTER_COLOURS,
   CLUSTER_LABELS,
@@ -183,6 +185,19 @@ const aka = d.aka[lang];
           }
         </ul>
       </div>
+      <section class="mt-10 space-y-5 rounded border border-neutral-800 p-4">
+        <h2 class="text-xs tracking-widest text-neutral-500 uppercase">{ui.checkYourself}</h2>
+        <KnowledgeStatus client:only="preact" termId={term.id} ui={{ ...ui }} />
+        <Quiz
+          client:visible
+          lang={lang}
+          graphUrl={url('graph.json')}
+          termBase={url(`${lang}/terms/`)}
+          ui={{ ...ui }}
+          termId={term.id}
+          count={3}
+        />
+      </section>
     </div>
     <aside class="mt-10 lg:sticky lg:top-6 lg:mt-0 lg:self-start">
       <h2 class="mb-2 text-xs tracking-widest text-neutral-500 uppercase">{ui.connections}</h2>
