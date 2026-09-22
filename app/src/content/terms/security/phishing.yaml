@@ -40,6 +40,10 @@ edges:
         da: En opsnappet adgangskode lader angriberen logge ind og tilgå data, som om de var offeret.
       strength: normal
       confidence: high
+  contrasts-with: [pretexting]
+article:
+  en: src/content/articles/security/phishing.en.md
+  da: src/content/articles/security/phishing.da.md
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

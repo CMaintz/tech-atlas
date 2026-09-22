@@ -1,0 +1,58 @@
+term:
+  en: Endpoint detection and response (EDR)
+  da: Endpoint detection and response (EDR)
+aka:
+  en: [EDR]
+  da: [EDR]
+domain: [security]
+cluster: controls
+layer: host
+status: current
+summary:
+  en: Software on each computer and phone that watches for signs of an attack and can stop it on the spot.
+  da: Software på hver computer og telefon, der holder øje med tegn på angreb og kan stoppe dem på stedet.
+body:
+  formal:
+    en: A tool installed on every endpoint that records what programs and users do, flags behaviour that matches known attack patterns, and lets defenders cut the device off, end a process or undo changes from one central screen.
+    da: Et værktøj, der installeres på hvert endpoint, registrerer hvad programmer og brugere gør, markerer adfærd, der ligner kendte angrebsmønstre, og lader forsvarerne isolere enheden, stoppe en proces eller rulle ændringer tilbage fra én central skærm.
+  plain:
+    en: Like a guard posted inside every room of a building rather than only at the front door — they notice odd behaviour and can lock the room at once.
+    da: Som en vagt i hvert eneste rum i bygningen i stedet for kun ved hoveddøren — vagten opdager mærkelig adfærd og kan låse rummet med det samme.
+  inPractice:
+    en: A laptop in sales suddenly starts locking hundreds of files; the EDR tool spots the pattern, stops the process and takes the laptop off the network before the damage spreads.
+    da: En bærbar i salgsafdelingen begynder pludselig at låse hundredvis af filer; EDR-værktøjet genkender mønstret, stopper processen og tager maskinen af netværket, før skaden breder sig.
+  whyItMatters:
+    en: Attackers who slip past the outer defences still have to act on some device, so watching every device closely is often the last real chance to catch them early.
+    da: Angribere, der slipper forbi de ydre forsvar, skal stadig handle på en enhed, så tæt overvågning af hver enhed er ofte den sidste reelle chance for at fange dem tidligt.
+edges:
+  kind-of: [control]
+  requires: [endpoint]
+  mitigates:
+    - to: malware
+      why:
+        en: It recognises harmful programs by what they do, not only by what they look like, and stops them.
+        da: Det genkender skadelige programmer på, hvad de gør, ikke kun på hvordan de ser ud, og stopper dem.
+      strength: primary
+      confidence: high
+    - to: ransomware
+      why:
+        en: Mass locking of files is a clear pattern it can spot and halt within seconds.
+        da: Når mange filer låses på én gang, er det et tydeligt mønster, som det kan opdage og standse på sekunder.
+      strength: normal
+      confidence: high
+  used-with:
+    - to: siem
+      why:
+        en: Its alarms are sent to the SIEM so they can be seen next to events from the rest of the organisation.
+        da: Dets alarmer sendes til SIEM'en, så de kan ses sammen med hændelser fra resten af organisationen.
+      strength: normal
+      confidence: high
+    - soc
+sources:
+  - title: CIS Controls v8 — Control 10 (Malware Defenses) and Control 13 (Network Monitoring and Defense)
+    tier: standard
+    publisher: Center for Internet Security
+  - title: NIST SP 800-83 Rev. 1 — Guide to Malware Incident Prevention and Handling
+    tier: standard
+    publisher: NIST
+draft: true

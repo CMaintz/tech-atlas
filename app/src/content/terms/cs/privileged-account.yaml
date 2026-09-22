@@ -1,0 +1,45 @@
+term:
+  en: Privileged account
+  da: Privilegeret konto
+aka:
+  en: [admin account, administrator account]
+  da: [administratorkonto, admin-konto]
+domain: [cs]
+cluster: identity
+layer: identity
+status: current
+summary:
+  en: An account with power beyond normal use, such as installing software, changing settings or managing other users.
+  da: En konto med mere magt end almindelig brug, fx til at installere software, ændre indstillinger eller styre andre brugere.
+body:
+  formal:
+    en: A user account granted permissions that can change the system itself or reach other users' data — for example a domain admin, root on a server or a cloud owner role — and which therefore needs tighter control than an ordinary account.
+    da: En brugerkonto med rettigheder, der kan ændre selve systemet eller nå andre brugeres data — fx en domæneadministrator, root på en server eller en ejerrolle i skyen — og som derfor kræver strammere kontrol end en almindelig konto.
+  plain:
+    en: Like the master key in a hotel that opens every room — handy for the manager, but a disaster if it is lost or copied.
+    da: Som hovednøglen på et hotel, der åbner alle værelser — praktisk for direktøren, men en katastrofe, hvis den bliver væk eller kopieret.
+  inPractice:
+    en: An IT worker has one normal account for email and web, and a separate admin account used only when installing updates, protected by MFA and logged each time it is used.
+    da: En IT-medarbejder har én almindelig konto til mail og web og en separat administratorkonto, der kun bruges til at installere opdateringer, beskyttes med MFA og logges, hver gang den bruges.
+  whyItMatters:
+    en: Attackers hunt for these accounts first, because taking one over lets them turn off defences and reach everything; fewer and better-guarded admin accounts shrink the damage.
+    da: Angribere går først efter disse konti, fordi en overtaget konto lader dem slå forsvaret fra og nå alt; færre og bedre beskyttede administratorkonti mindsker skaden.
+edges:
+  kind-of: [account]
+  requires:
+    - to: least-privilege
+      why:
+        en: Keeping powers small and giving them only when needed is the main rule for handling these accounts.
+        da: At holde rettighederne små og kun give dem, når der er brug for dem, er hovedreglen for håndtering af disse konti.
+      strength: primary
+      confidence: high
+  used-with:
+    - zero-trust
+sources:
+  - title: CIS Controls v8 — Control 5 (Account Management) and Control 6 (Access Control Management)
+    tier: standard
+    publisher: Center for Internet Security
+  - title: NIST SP 800-53 Rev. 5 — AC-6 (Least Privilege)
+    tier: standard
+    publisher: NIST
+draft: true

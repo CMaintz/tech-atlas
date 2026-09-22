@@ -1,0 +1,40 @@
+term:
+  en: Perimeter security
+  da: Perimetersikkerhed
+aka:
+  en: [perimeter defence, castle-and-moat security]
+  da: [perimeterforsvar, borg-og-voldgrav-modellen]
+domain: [security]
+cluster: fundamentals
+layer: network
+status: current
+summary:
+  en: Guarding the edge between an organisation's own network and the outside world, and trusting what is already inside.
+  da: Beskyttelse af grænsen mellem organisationens eget netværk og omverdenen, hvor det, der allerede er indenfor, bliver betroet.
+body:
+  formal:
+    en: A security model that places its main controls, such as a firewall and VPN, at the border of the internal network. Traffic is checked on the way in or out, while users and machines inside the border are largely trusted by default.
+    da: En sikkerhedsmodel, der placerer de vigtigste kontroller, fx firewall og VPN, ved grænsen til det interne netværk. Trafik kontrolleres på vej ind og ud, mens brugere og maskiner inden for grænsen som udgangspunkt i vid udstrækning er betroede.
+  plain:
+    en: A castle with thick walls and one guarded gate — once you are past the gate, you can walk into almost any room.
+    da: En borg med tykke mure og én bevogtet port — når du først er inden for porten, kan du gå ind i næsten alle rum.
+  inPractice:
+    en: A company lets every office PC reach every server freely because they all sit behind the firewall, so one infected laptop carried in by an employee can reach the finance system.
+    da: En virksomhed lader alle kontorets pc'er tilgå alle servere frit, fordi de står bag firewallen, så en enkelt inficeret bærbar, som en medarbejder tager med ind, kan nå økonomisystemet.
+  whyItMatters:
+    en: With cloud services and remote work there is no longer one clear edge to guard, and an attacker who gets inside meets little resistance.
+    da: Med cloudtjenester og hjemmearbejde er der ikke længere én klar grænse at bevogte, og en angriber, der først er kommet ind, møder kun lidt modstand.
+edges:
+  requires: [network, firewall]
+  contrasts-with:
+    - to: zero-trust
+      why:
+        en: Perimeter security trusts whatever is inside the network; Zero Trust trusts nothing by location alone and checks every request.
+        da: Perimetersikkerhed stoler på alt inden for netværket; Zero Trust stoler ikke på noget alene på grund af placering og kontrollerer hver forespørgsel.
+      strength: primary
+      confidence: high
+sources:
+  - title: NIST SP 800-207 — Zero Trust Architecture
+    tier: standard
+    publisher: NIST
+draft: true

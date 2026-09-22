@@ -30,6 +30,7 @@ edges:
     - cs/audit
   used-with:
     - threat-intelligence
+    - soc
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

@@ -25,7 +25,7 @@ body:
     en: A backup nobody knows how to restore is worthless, and guessing under pressure can turn a one-day outage into weeks.
     da: En backup, som ingen ved, hvordan man genskaber, er værdiløs, og gætteri under pres kan gøre et nedbrud på én dag til flere uger.
 edges:
-  requires: [backup]
+  requires: [backup, recovery-objectives]
   part-of: [contingency-plan]
   mitigates:
     - to: ransomware

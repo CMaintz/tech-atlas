@@ -28,6 +28,7 @@ edges:
   kind-of: [protocol]
   requires: [tls, client, server]
   implements: [confidentiality]
+  mitigates: [session-hijacking]
 sources:
   - title: RFC 9110 — HTTP Semantics
     tier: standard

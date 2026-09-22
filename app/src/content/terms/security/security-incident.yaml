@@ -1,0 +1,52 @@
+term:
+  en: Security incident
+  da: Sikkerhedshændelse
+aka:
+  en: [incident, information security incident]
+  da: [hændelse, informationssikkerhedshændelse]
+domain: [security]
+cluster: fundamentals
+layer: governance
+status: current
+summary:
+  en: An event that has harmed, or may soon harm, the confidentiality, integrity or availability of information or systems.
+  da: En hændelse, der har skadet eller snart kan skade fortroligheden, integriteten eller tilgængeligheden af information eller systemer.
+body:
+  formal:
+    en: An actual or likely breach of the CIA triad, or of the organisation's security policy, that calls for a response. Unlike a threat, which is only a possibility, an incident is something that is happening or has happened.
+    da: Et faktisk eller sandsynligt brud på CIA-triaden eller organisationens sikkerhedspolitik, som kræver en reaktion. Til forskel fra en trussel, som blot er en mulighed, er en hændelse noget, der sker eller er sket.
+  plain:
+    en: A threat is the storm on the weather forecast; the incident is the water now coming through the roof.
+    da: En trussel er stormen i vejrudsigten; hændelsen er vandet, der nu drypper ind gennem taget.
+  inPractice:
+    en: On Monday morning the help desk sees that several laptops have files that will not open, and the security team opens an incident case and starts following its contingency plan.
+    da: Mandag morgen opdager supporten, at flere bærbare har filer, der ikke kan åbnes, og sikkerhedsteamet opretter en hændelsessag og begynder at følge beredskabsplanen.
+  whyItMatters:
+    en: Calling something an incident starts the clock on the response and, under laws such as NIS2 and GDPR, often on a duty to report it to the authorities.
+    da: Når noget kaldes en hændelse, starter uret for håndteringen og, efter regler som NIS2 og GDPR, ofte også for pligten til at rapportere den til myndighederne.
+edges:
+  requires: [cia-triad]
+  contrasts-with:
+    - to: threat
+      why:
+        en: A threat is something that could cause harm; an incident is harm that is actually happening or has happened.
+        da: En trussel er noget, der kan forårsage skade; en hændelse er skade, der faktisk sker eller er sket.
+      strength: primary
+      confidence: high
+  causes:
+    - to: impact
+      why:
+        en: The damage an incident does to the business is what the idea of impact measures.
+        da: Den skade, en hændelse gør på forretningen, er netop det, begrebet konsekvens måler.
+      strength: normal
+      confidence: medium
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management
+    tier: standard
+    publisher: NIST
+  - title: ISO/IEC 27000:2018 — Information security management systems, Overview and vocabulary
+    tier: standard
+    publisher: ISO/IEC
+draft: true

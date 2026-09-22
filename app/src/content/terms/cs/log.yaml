@@ -31,6 +31,7 @@ edges:
         en: A SIEM collects logs from many systems and searches them together for signs of an attack.
         da: Et SIEM samler logs fra mange systemer og gennemsøger dem samlet for tegn på angreb.
       strength: primary
+    - non-repudiation
 sources:
   - title: NIST SP 800-92, Guide to Computer Security Log Management
     url: https://doi.org/10.6028/NIST.SP.800-92

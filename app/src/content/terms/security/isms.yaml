@@ -1,0 +1,48 @@
+term:
+  en: Information security management system (ISMS)
+  da: Ledelsessystem for informationssikkerhed (ISMS)
+aka:
+  en: [ISMS]
+  da: [ISMS]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: The set of policies, roles, processes and records an organisation uses to run its information security in a planned, repeatable way.
+  da: De politikker, roller, processer og dokumenter, en organisation bruger til at styre sin informationssikkerhed planlagt og ensartet.
+body:
+  formal:
+    en: A management system, as laid down in ISO 27001, that sets the scope of protection, assigns roles, bases the choice of controls on a risk assessment, measures how well they work and improves them in a steady cycle.
+    da: Et ledelsessystem, som beskrevet i ISO 27001, der fastlægger, hvad der skal beskyttes, fordeler roller, vælger kontroller ud fra en risikovurdering, måler, hvor godt de virker, og forbedrer dem i en fast cyklus.
+  plain:
+    en: Like the way a well-run kitchen works — not one recipe, but the routines for buying, storing, cooking, cleaning and checking that keep every meal safe day after day.
+    da: Som måden et velfungerende køkken arbejder på — ikke én opskrift, men rutinerne for indkøb, opbevaring, madlavning, rengøring og kontrol, der holder hvert måltid sikkert dag efter dag.
+  inPractice:
+    en: A software firm names a security lead, writes down which systems are in scope, runs a yearly risk assessment, keeps a list of chosen controls and holds a management review each quarter.
+    da: Et softwarefirma udpeger en sikkerhedsansvarlig, skriver ned, hvilke systemer der er omfattet, laver en årlig risikovurdering, fører en liste over valgte kontroller og holder ledelsens evaluering hvert kvartal.
+  whyItMatters:
+    en: Single security fixes fade or get forgotten; a lasting system of owners, reviews and records keeps the work going when people and threats change.
+    da: Enkeltstående sikkerhedstiltag forsvinder eller glemmes; et varigt system med ejere, evalueringer og dokumentation holder arbejdet i gang, når mennesker og trusler skifter.
+edges:
+  requires: [risk-management, security-policy]
+  used-with:
+    - to: pdca
+      why:
+        en: The system is kept alive by running the plan, do, check, act cycle again and again.
+        da: Systemet holdes i live ved at gennemløbe cyklussen planlæg, udfør, kontrollér, handl igen og igen.
+      strength: primary
+      confidence: high
+    - to: statement-of-applicability
+      why:
+        en: The statement records which controls the system uses and why.
+        da: Erklæringen dokumenterer, hvilke kontroller systemet bruger og hvorfor.
+      strength: normal
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO/IEC 27001:2022 — Information security management systems — Requirements
+    tier: standard
+    publisher: ISO/IEC
+draft: true

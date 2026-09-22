@@ -34,6 +34,7 @@ edges:
         da: Den udnytter medarbejdernes tillid til ledelsen og ønsket om at handle hurtigt på hasteordrer.
       strength: primary
       confidence: high
+  used-with: [pretexting]
 sources:
   - title: FBI IC3 — Business Email Compromise
     tier: official-doc

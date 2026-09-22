@@ -1,0 +1,50 @@
+term:
+  en: Hardening
+  da: Hærdning (hardening)
+aka:
+  en: [system hardening, secure configuration]
+  da: [sikker konfiguration]
+domain: [security]
+cluster: controls
+layer: host
+status: current
+summary:
+  en: Making a system harder to attack by turning off what is not needed and changing unsafe default settings.
+  da: At gøre et system sværere at angribe ved at slå det unødvendige fra og ændre usikre standardindstillinger.
+body:
+  formal:
+    en: The practice of reducing the ways into a system by removing unused software and services, closing unused ports, changing default passwords and applying a written safe setup, often taken from a published guide.
+    da: Praksis, hvor man mindsker antallet af veje ind i et system ved at fjerne ubrugt software og tjenester, lukke ubrugte porte, skifte standardadgangskoder og anvende en nedskrevet sikker opsætning, ofte hentet fra en offentlig vejledning.
+  plain:
+    en: Like moving into a new house and changing the locks, bricking up a door you never use and taking the spare key out from under the mat.
+    da: Som at flytte ind i et nyt hus og skifte låsene, mure en dør til, man aldrig bruger, og fjerne reservenøglen under måtten.
+  inPractice:
+    en: Before a new web server goes live, IT removes the sample pages, turns off file sharing from outside, changes the default admin password and checks the setup against a CIS guide.
+    da: Før en ny webserver går i drift, fjerner IT eksempelsiderne, slår fildeling udefra fra, skifter standardadgangskoden til administratoren og tjekker opsætningen mod en CIS-vejledning.
+  whyItMatters:
+    en: Systems often ship set up for ease rather than safety, and attackers know the default settings well; every unused door left open is one more way in.
+    da: Systemer leveres ofte sat op til at være nemme frem for sikre, og angribere kender standardindstillingerne godt; hver ubrugt dør, der står åben, er endnu en vej ind.
+edges:
+  kind-of: [control]
+  mitigates:
+    - to: vulnerability
+      why:
+        en: Removing what is not needed removes the weaknesses that come with it.
+        da: Når man fjerner det, der ikke er brug for, forsvinder de svagheder, der følger med.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: patch-management
+      why:
+        en: Hardening closes doors that are not needed; patching fixes flaws in the ones that must stay open.
+        da: Hærdning lukker døre, der ikke er brug for; patching retter fejl i dem, der skal forblive åbne.
+      strength: normal
+      confidence: high
+sources:
+  - title: CIS Controls v8 — Control 4 (Secure Configuration of Enterprise Assets and Software)
+    tier: standard
+    publisher: Center for Internet Security
+  - title: NIST SP 800-123 — Guide to General Server Security
+    tier: standard
+    publisher: NIST
+draft: true

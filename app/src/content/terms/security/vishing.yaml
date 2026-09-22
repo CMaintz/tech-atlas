@@ -1,0 +1,45 @@
+term:
+  en: Vishing
+  da: Vishing (telefonsvindel)
+aka:
+  en: [voice phishing, phone scam]
+  da: [telefonsvindel, voice phishing]
+domain: [security]
+cluster: awareness
+layer: people
+status: current
+summary:
+  en: Tricking people over the phone or a voice call into giving away information, codes or money.
+  da: Svindel via telefon eller taleopkald, hvor folk narres til at udlevere oplysninger, koder eller penge.
+body:
+  formal:
+    en: A form of social engineering carried out by voice, where the attacker poses as a bank, IT support or a manager and uses tone, urgency and a faked caller number to push the target into acting at once. Newer versions use a copied voice made by a computer.
+    da: En form for social engineering, der foregår med stemmen, hvor angriberen udgiver sig for at være banken, IT-support eller en chef og bruger tonefald, hastværk og et forfalsket nummer til at presse målet til at handle med det samme. Nyere varianter bruger en computerskabt kopi af en kendt stemme.
+  plain:
+    en: A smooth-talking salesman on the phone who never lets you pause long enough to think.
+    da: En glat sælger i telefonen, der aldrig giver dig pause nok til at tænke dig om.
+  inPractice:
+    en: An employee gets a call from "the IT help desk" about a problem with her account, and is talked into reading out the MFA code that just arrived on her phone.
+    da: En medarbejder bliver ringet op af "IT-supporten" om et problem med hendes konto og bliver snakket til at læse den MFA-kode op, der lige er kommet på hendes telefon.
+  whyItMatters:
+    en: A live voice builds trust and pressure faster than any email, and a code read out loud can get an attacker past MFA.
+    da: En levende stemme skaber tillid og pres hurtigere end nogen mail, og en kode, der læses højt, kan få en angriber forbi MFA.
+edges:
+  kind-of: [social-engineering]
+  causes:
+    - to: data-breach
+      why:
+        en: Codes and details handed over on the phone let the caller log in and reach data as if they were the victim.
+        da: Koder og oplysninger, der udleveres i telefonen, lader opringeren logge ind og tilgå data, som om de var offeret.
+      strength: normal
+      confidence: medium
+sources:
+  - title: NIST Glossary — Vishing
+    tier: standard
+    publisher: NIST
+    url: https://csrc.nist.gov/glossary/term/vishing
+  - title: MITRE ATT&CK — T1566.004 Phishing, Spearphishing Voice
+    tier: reference
+    publisher: MITRE
+    url: https://attack.mitre.org/techniques/T1566/004/
+draft: true
