@@ -58,13 +58,13 @@ Kommunikationen skal komme fra få afsendere og bygge på én fælles version af
 
 ## Frister for indberetning
 
-| Regelsæt                             | Hvem skal underrettes     | Frist                                                                                                                                              |
-| ------------------------------------ | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| NIS2 art. 23 – tidlig varsling       | Kompetent myndighed/CSIRT | Senest 24 timer efter, at man er blevet bekendt med en væsentlig hændelse                                                                          |
-| NIS2 art. 23 – hændelsesunderretning | Kompetent myndighed/CSIRT | Senest 72 timer, med en første vurdering                                                                                                           |
-| NIS2 art. 23 – endelig rapport       | Kompetent myndighed/CSIRT | Senest én måned efter hændelsesunderretningen                                                                                                      |
-| GDPR art. 33                         | Datatilsynet              | Senest 72 timer efter, at man er blevet bekendt med bruddet på persondatasikkerheden – medmindre det næppe indebærer en risiko for de registrerede |
-| GDPR art. 34                         | De berørte personer       | Uden unødig forsinkelse, hvis bruddet sandsynligvis indebærer en høj risiko for dem                                                                |
+| Regelsæt                             | Hvem skal underrettes     | Frist                                                                                                                                                                                        |
+| ------------------------------------ | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| NIS2 art. 23 – tidlig varsling       | Kompetent myndighed/CSIRT | Senest 24 timer efter, at man er blevet bekendt med en væsentlig hændelse                                                                                                                    |
+| NIS2 art. 23 – hændelsesunderretning | Kompetent myndighed/CSIRT | Senest 72 timer, med en første vurdering                                                                                                                                                     |
+| NIS2 art. 23 – endelig rapport       | Kompetent myndighed/CSIRT | Senest én måned efter hændelsesunderretningen                                                                                                                                                |
+| GDPR art. 33                         | Datatilsynet              | Uden unødig forsinkelse og så vidt muligt senest 72 timer efter, at man er blevet bekendt med bruddet på persondatasikkerheden – medmindre det næppe indebærer en risiko for de registrerede |
+| GDPR art. 34                         | De berørte personer       | Uden unødig forsinkelse, hvis bruddet sandsynligvis indebærer en høj risiko for dem                                                                                                          |
 
 Uret starter, når man bliver bekendt med hændelsen – ikke når undersøgelsen er færdig. Derfor indberetter man ofte på et ufuldstændigt grundlag og opdaterer senere. Én og samme hændelse kan udløse flere regelsæt på én gang, så planen bør udpege, hvem der vurderer indberetningspligten, og hvem der indsender hver enkelt indberetning.
 

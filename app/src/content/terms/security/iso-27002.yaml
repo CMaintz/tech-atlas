@@ -37,6 +37,11 @@ edges:
     - to: security-policy
       strength: minor
       confidence: medium
+  used-with:
+    - to: statement-of-applicability
+      why:
+        en: The SoA lists the Annex A controls that ISO 27002 explains in detail.
+        da: SoA'en opregner de bilag A-kontroller, som ISO 27002 forklarer i detaljer.
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

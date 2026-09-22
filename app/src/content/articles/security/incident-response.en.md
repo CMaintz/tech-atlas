@@ -58,13 +58,13 @@ Communication should be few voices and one version of the truth. Employees need 
 
 ## Reporting deadlines
 
-| Regime                               | Who is notified                                      | Deadline                                                                                                         |
-| ------------------------------------ | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| NIS2 Art. 23 — early warning         | Competent authority / CSIRT                          | Within 24 hours of becoming aware of a significant incident                                                      |
-| NIS2 Art. 23 — incident notification | Competent authority / CSIRT                          | Within 72 hours, with an initial assessment                                                                      |
-| NIS2 Art. 23 — final report          | Competent authority / CSIRT                          | Within one month of the incident notification                                                                    |
-| GDPR Art. 33                         | Data protection authority (in Denmark: Datatilsynet) | Within 72 hours of becoming aware of a personal data breach, unless it is unlikely to result in a risk to people |
-| GDPR Art. 34                         | The affected individuals                             | Without undue delay, if the breach is likely to result in a high risk to them                                    |
+| Regime                               | Who is notified                                      | Deadline                                                                                                                                                   |
+| ------------------------------------ | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| NIS2 Art. 23 — early warning         | Competent authority / CSIRT                          | Within 24 hours of becoming aware of a significant incident                                                                                                |
+| NIS2 Art. 23 — incident notification | Competent authority / CSIRT                          | Within 72 hours, with an initial assessment                                                                                                                |
+| NIS2 Art. 23 — final report          | Competent authority / CSIRT                          | Within one month of the incident notification                                                                                                              |
+| GDPR Art. 33                         | Data protection authority (in Denmark: Datatilsynet) | Without undue delay and, where feasible, within 72 hours of becoming aware of a personal data breach — unless it is unlikely to result in a risk to people |
+| GDPR Art. 34                         | The affected individuals                             | Without undue delay, if the breach is likely to result in a high risk to them                                                                              |
 
 The clocks run from when you become aware, not when the investigation is finished, so reports are often made with incomplete information and updated later. One incident can trigger several regimes at once, which is why the plan should name who assesses reporting duties and who submits each report.
 

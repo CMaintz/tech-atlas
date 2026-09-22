@@ -26,14 +26,7 @@ body:
     da: Den kobler risikobeslutninger til faktiske kontroller ét sted, så auditorer og ledelse hurtigt kan se, at intet er udeladt uden grund.
 edges:
   part-of: [iso-27001]
-  requires:
-    - to: iso-27002
-      why:
-        en: The annex lists the same controls that ISO 27002 explains in detail.
-        da: Bilaget opregner de samme kontroller, som ISO 27002 forklarer i detaljer.
-      strength: normal
-      confidence: high
-    - risk-treatment
+  requires: [risk-treatment]
 sources:
   - title: ISO/IEC 27001:2022 — Information security management systems — Requirements, clause 6.1.3(d)
     tier: standard
