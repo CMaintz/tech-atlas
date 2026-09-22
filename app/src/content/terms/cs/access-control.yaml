@@ -1,0 +1,43 @@
+term:
+  en: Access control
+  da: Adgangskontrol
+aka:
+  en: []
+  da: []
+domain: [cs, security]
+cluster: identity
+layer: identity
+status: current
+summary:
+  en: The rules and mechanisms that decide who may use which systems, data or rooms, and in what way.
+  da: De regler og mekanismer, der afgør, hvem der må bruge hvilke systemer, data eller lokaler, og på hvilken måde.
+body:
+  formal:
+    en: The combination of authentication and authorization that allows or refuses each request to use something, according to a policy. It covers digital access as well as physical access such as doors.
+    da: Samspillet mellem autentificering og autorisation, som tillader eller afviser hver anmodning om at bruge noget i henhold til en politik. Det dækker både digital adgang og fysisk adgang som døre.
+  plain:
+    en: Like the whole door system of an office building — the key-card readers, the list of who may enter which floor, and the lock that actually holds the door shut.
+    da: Som hele dørsystemet i en kontorbygning — kortlæserne, listen over, hvem der må komme på hvilken etage, og låsen, der faktisk holder døren lukket.
+  inPractice:
+    en: A hospital lets nurses see records only for patients on their own ward; the system checks every request against that rule before showing anything.
+    da: Et hospital lader sygeplejersker se journaler kun for patienter på deres eget afsnit; systemet tjekker hver anmodning mod den regel, før det viser noget.
+  whyItMatters:
+    en: It is how the confidentiality and integrity of data are actually enforced; without it every other policy is just words on paper.
+    da: Det er sådan, fortrolighed og integritet af data rent faktisk håndhæves; uden det er enhver anden politik blot ord på papir.
+edges:
+  kind-of: [control]
+  requires: [authentication]
+  contrasts-with:
+    - to: access-management
+      why:
+        en: Access control is the mechanism that allows or refuses each request; access management is the ongoing process of granting, reviewing and removing that access.
+        da: Adgangskontrol er mekanismen, der tillader eller afviser hver anmodning; adgangsstyring er den løbende proces med at tildele, gennemgå og fjerne adgangen.
+      strength: primary
+      confidence: high
+  used-with: [least-privilege]
+sources:
+  - title: NIST SP 800-162, Guide to Attribute Based Access Control (ABAC) Definition and Considerations
+    url: https://doi.org/10.6028/NIST.SP.800-162
+    tier: standard
+    publisher: NIST
+draft: true

@@ -1,0 +1,42 @@
+term:
+  en: Security policy
+  da: Sikkerhedspolitik
+aka:
+  en: [information security policy]
+  da: [informationssikkerhedspolitik]
+domain: [security]
+cluster: fundamentals
+layer: governance
+status: current
+summary:
+  en: A document that sets out an organisation's goals, responsibilities and principles for information security.
+  da: Et dokument, der fastlægger virksomhedens mål, ansvar og principper for informationssikkerhed.
+body:
+  formal:
+    en: A leadership-approved statement of the organisation's intent for information security — its goals, who is responsible for what, and the rules everyone must follow.
+    da: En ledelsesgodkendt erklæring om organisationens hensigt med informationssikkerheden — dens mål, hvem der har ansvar for hvad, og de regler, alle skal følge.
+  plain:
+    en: Like the house rules on a fridge — short, agreed by the grown-ups, and meant to settle arguments before they start.
+    da: Som husets regler på køleskabet — korte, vedtaget af de voksne og beregnet til at afgøre diskussioner, før de opstår.
+  inPractice:
+    en: A new employee signs the security policy on day one; it says, among other things, that work files may only be stored in approved places.
+    da: En ny medarbejder skriver under på sikkerhedspolitikken første dag; den siger blandt andet, at arbejdsfiler kun må gemmes på godkendte steder.
+  whyItMatters:
+    en: It turns leadership's intent into something written and shared, which every later rule, control and audit can point back to.
+    da: Den gør ledelsens hensigt til noget skriftligt og fælles, som alle senere regler, kontroller og audits kan henvise tilbage til.
+edges:
+  part-of: [governance]
+  mandates:
+    - to: data-classification
+      why:
+        en: The policy usually requires that information be sorted by sensitivity so each kind gets the right protection.
+        da: Politikken kræver typisk, at information inddeles efter følsomhed, så hver slags får den rette beskyttelse.
+      strength: normal
+      confidence: medium
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO/IEC 27002:2022 — Control 5.1, Policies for information security
+    tier: standard
+    publisher: ISO/IEC
+draft: true

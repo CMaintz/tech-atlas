@@ -1,0 +1,36 @@
+term:
+  en: Risk management
+  da: Risikostyring
+aka:
+  en: []
+  da: []
+domain: [security]
+cluster: risk-management
+layer: governance
+status: current
+summary:
+  en: The ongoing work of finding, weighing and handling risks so that time and money go where they protect the most.
+  da: Det løbende arbejde med at finde, vurdere og håndtere risici, så tid og penge bruges der, hvor de beskytter mest.
+body:
+  formal:
+    en: A repeating cycle of spotting what could go wrong, judging how likely and how harmful each risk is, choosing a response, and checking the result over time.
+    da: En gentagen cyklus, hvor man finder ud af, hvad der kan gå galt, vurderer hvor sandsynlig og skadelig hver risiko er, vælger en håndtering og følger op over tid.
+  plain:
+    en: Like a household deciding which locks, insurance and smoke alarms are worth paying for, instead of buying everything or nothing.
+    da: Ligesom en familie, der beslutter, hvilke låse, forsikringer og røgalarmer der er værd at betale for, i stedet for at købe alt eller intet.
+  inPractice:
+    en: Once a year the security coordinator lists the company's main risks, scores them with the managers, and agrees which ones get a budget first.
+    da: En gang om året lister sikkerhedskoordinatoren virksomhedens vigtigste risici, scorer dem sammen med lederne og aftaler, hvilke der får budget først.
+  whyItMatters:
+    en: No company can protect everything equally, so without it money is spent on the loudest fears rather than the real dangers.
+    da: Ingen virksomhed kan beskytte alt lige meget, så uden risikostyring bruges pengene på den største frygt i stedet for de reelle farer.
+edges:
+  requires: [risk, threat, vulnerability]
+  part-of: [governance]
+  used-with: [threat-intelligence]
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO/IEC 27005:2022
+    tier: standard
+draft: true

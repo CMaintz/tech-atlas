@@ -1,0 +1,42 @@
+term:
+  en: Operating system
+  da: Styresystem
+aka:
+  en: [OS]
+  da: [OS, operativsystem]
+domain: [cs]
+cluster: os
+layer: os
+status: current
+summary:
+  en: The base software that runs a computer, shares it between programs and keeps them from interfering with each other.
+  da: Den grundlæggende software, der styrer en computer, deler den mellem programmer og holder dem adskilt fra hinanden.
+body:
+  formal:
+    en: The layer of software between the physical machine and the programs a user runs. It divides time, storage and devices among programs and gives them one common, controlled way to use the machine.
+    da: Det lag af software, der ligger mellem selve maskinen og de programmer, en bruger kører. Det fordeler tid, lagerplads og udstyr mellem programmerne og giver dem én fælles, kontrolleret måde at bruge maskinen på.
+  plain:
+    en: Like the management of an apartment building — tenants share the water, heat and stairs, and the management makes sure no one takes everything or walks into someone else's flat.
+    da: Som administrationen i en boligforening — beboerne deler vand, varme og trappeopgang, og administrationen sørger for, at ingen tager det hele eller går ind i andres lejlighed.
+  inPractice:
+    en: An office laptop runs Windows. When a staff member has email and a budget sheet open at once, the operating system decides which one gets the machine at each moment and stops either from reading the other's data.
+    da: En kontorcomputer kører Windows, macOS eller Linux. Når en medarbejder har mail og et regneark åbent samtidig, bestemmer styresystemet, hvem der får maskinen hvornår, og forhindrer dem i at læse hinandens data.
+  whyItMatters:
+    en: Almost every security control on a computer — logins, permissions, logs — is enforced by the operating system, so a weakness in it undermines everything built on top.
+    da: Næsten alle sikkerhedskontroller på en computer — login, rettigheder, logs — håndhæves af styresystemet, så en svaghed i det undergraver alt, der bygger ovenpå.
+edges:
+  used-with:
+    - to: patch
+      why:
+        en: Operating systems are kept safe over time by applying the patches their vendors publish.
+        da: Styresystemer holdes sikre over tid ved at installere de patches, leverandøren udgiver.
+    - permission
+sources:
+  - title: 'Operating Systems: Three Easy Pieces'
+    url: https://pages.cs.wisc.edu/~remzi/OSTEP/
+    tier: textbook
+    publisher: Arpaci-Dusseau
+  - title: Modern Operating Systems
+    tier: textbook
+    publisher: Tanenbaum & Bos (Pearson)
+draft: true

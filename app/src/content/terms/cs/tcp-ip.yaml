@@ -1,0 +1,35 @@
+term:
+  en: TCP/IP
+  da: TCP/IP
+aka:
+  en: [Internet protocol suite]
+  da: [internetprotokolfamilien]
+domain: [cs]
+cluster: networking
+layer: network
+status: current
+summary:
+  en: The family of protocols that the internet and most other networks use to address, send and deliver data.
+  da: Den familie af protokoller, som internettet og de fleste andre netværk bruger til at adressere, sende og levere data.
+body:
+  formal:
+    en: A layered suite of protocols in which IP moves packets between IP addresses across networks, and TCP on top of it delivers a reliable, ordered stream of data between ports.
+    da: En lagdelt samling protokoller, hvor IP flytter pakker mellem IP-adresser på tværs af netværk, og TCP ovenpå sørger for en pålidelig, ordnet strøm af data mellem porte.
+  plain:
+    en: IP is the postal service that moves envelopes; TCP is the careful clerk who numbers them, checks every one arrived, and asks again for any that went missing.
+    da: IP er postvæsenet, der flytter kuverterne; TCP er den omhyggelige ekspedient, der nummererer dem, tjekker at alle er kommet frem, og beder om dem, der mangler.
+  inPractice:
+    en: Sending an email, loading a web page and syncing a file to the cloud all ride on TCP/IP underneath, whatever program you use.
+    da: At sende en e-mail, åbne en webside og synkronisere en fil til skyen kører alle oven på TCP/IP, uanset hvilket program du bruger.
+  whyItMatters:
+    en: It is the shared language of nearly every network, so firewall rules, logs and many attacks are all described in its terms.
+    da: Det er det fælles sprog for næsten alle netværk, så firewallregler, logs og mange angreb beskrives alle i dets begreber.
+edges:
+  kind-of: [protocol]
+  requires: [ip-address, packet, port]
+sources:
+  - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
+    tier: textbook
+  - title: RFC 9293 — Transmission Control Protocol
+    tier: standard
+draft: true

@@ -1,0 +1,47 @@
+term:
+  en: Data processing agreement (DPA)
+  da: Databehandleraftale
+aka:
+  en: [DPA, data processing addendum]
+  da: [DPA]
+domain: [security]
+cluster: compliance
+layer: data
+status: current
+summary:
+  en: A written contract that sets how a supplier may handle personal data on your behalf.
+  da: En skriftlig aftale, der fastlægger, hvordan en leverandør må håndtere persondata på ens vegne.
+body:
+  formal:
+    en: A binding contract required by GDPR Article 28 between the organisation that decides why personal data is used and the supplier that handles it, covering purpose, security, sub-suppliers, breach notice and removing the data at the end.
+    da: En bindende aftale, som GDPR's artikel 28 kræver mellem den, der bestemmer, hvorfor persondata bruges, og den leverandør, der behandler dem, og som dækker formål, sikkerhed, underleverandører, varsling ved brud og sletning.
+  plain:
+    en: Like the rules you give a house-sitter — what they may touch, who else may come in, and what to do if something goes missing.
+    da: Som de regler, du giver en huspasser — hvad de må røre, hvem der ellers må komme ind, og hvad de skal gøre, hvis noget forsvinder.
+  inPractice:
+    en: A dental clinic signs a DPA with its booking-system provider stating that patient data stays in the EU and is deleted when the contract ends.
+    da: En tandlægeklinik indgår en databehandleraftale med udbyderen af sit bookingsystem om, at patientdata bliver i EU og slettes, når aftalen ophører.
+  whyItMatters:
+    en: Handing data to a supplier without one breaks GDPR, and it leaves you blind to how your customers' data is actually treated.
+    da: At give data til en leverandør uden en sådan aftale er et brud på GDPR og efterlader en uden indsigt i, hvordan kundernes data faktisk behandles.
+edges:
+  requires: [gdpr]
+  used-with:
+    - to: supplier-management
+      why:
+        en: The DPA is the contract tool supplier management uses whenever personal data is involved.
+        da: Databehandleraftalen er det aftaleværktøj, leverandørstyring bruger, når der er persondata involveret.
+      strength: primary
+      confidence: high
+  mitigates:
+    - to: data-breach
+      strength: minor
+      confidence: medium
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: Regulation (EU) 2016/679 (GDPR), Article 28
+    tier: standard
+    publisher: European Union
+    url: 'https://eur-lex.europa.eu/eli/reg/2016/679/oj'
+draft: true

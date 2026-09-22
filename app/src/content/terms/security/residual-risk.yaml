@@ -1,0 +1,42 @@
+term:
+  en: Residual risk
+  da: Residual risiko
+aka:
+  en: []
+  da: [restrisiko]
+domain: [security]
+cluster: risk-management
+layer: governance
+status: current
+summary:
+  en: The risk still left after controls are in place, because no protection removes danger completely.
+  da: Den risiko, der stadig er tilbage, når kontrollerne er på plads, fordi ingen beskyttelse fjerner faren helt.
+body:
+  formal:
+    en: The level of risk that remains once the chosen controls have been applied, which the risk owner must then either formally accept or treat further.
+    da: Det risikoniveau, der er tilbage, efter de valgte kontroller er indført, og som risikoejeren derefter enten skal acceptere formelt eller håndtere yderligere.
+  plain:
+    en: Even with a seat belt, driving still carries some chance of getting hurt.
+    da: Selv med sikkerhedssele er der stadig en vis risiko for at komme til skade, når man kører bil.
+  inPractice:
+    en: After adding MFA and awareness training, phishing drops from red to yellow, and the manager signs off that yellow is acceptable.
+    da: Efter indførelse af MFA og awareness-træning falder phishing fra rød til gul, og lederen skriver under på, at gul er acceptabelt.
+  whyItMatters:
+    en: Pretending controls make risk vanish hides the danger that remains, while naming it forces someone to own it.
+    da: At lade som om kontroller får risikoen til at forsvinde, skjuler den fare, der er tilbage, mens det at navngive den tvinger nogen til at eje den.
+edges:
+  kind-of: [risk]
+  requires: [control]
+  contrasts-with:
+    - to: risk-appetite
+      why:
+        en: Residual risk is what is actually left; risk appetite is how much leadership is willing to leave. The first is measured against the second.
+        da: Residual risiko er det, der faktisk er tilbage; risikoappetit er, hvor meget ledelsen er villig til at lade blive tilbage. Den første måles op mod den anden.
+      strength: primary
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO/IEC 27005:2022
+    tier: standard
+draft: true

@@ -1,0 +1,47 @@
+term:
+  en: Intrusion detection system (IDS)
+  da: Indtrængningsdetektion (IDS)
+aka:
+  en: [IDS]
+  da: [IDS, system til indtrængningsdetektion]
+domain: [security]
+cluster: controls
+layer: network
+status: current
+summary:
+  en: A watcher that inspects network traffic or a machine's activity and warns when it spots signs of an attack — without stopping it.
+  da: En vagt, der holder øje med netværkstrafik eller en maskines aktivitet og advarer ved tegn på angreb — uden selv at stoppe det.
+body:
+  formal:
+    en: A system that examines copies of network packets or activity on a host, compares them against known attack patterns or normal behaviour, and reports matches as alerts while leaving the traffic itself untouched.
+    da: Et system, der undersøger kopier af netværkspakker eller aktivitet på en maskine, sammenligner dem med kendte angrebsmønstre eller normal adfærd og melder fund som alarmer, mens selve trafikken får lov at passere.
+  plain:
+    en: Like a burglar alarm — it rings when someone breaks in, but it does not lock the door.
+    da: Som en tyverialarm — den hyler, når nogen bryder ind, men den låser ikke døren.
+  inPractice:
+    en: The IDS sees a laptop in accounting trying to reach hundreds of other machines in a few seconds and sends an alert to the SIEM, where an analyst decides what to do.
+    da: IDS'en ser en bærbar i bogholderiet forsøge at kontakte hundredvis af andre maskiner på få sekunder og sender en alarm til SIEM'en, hvor en analytiker beslutter, hvad der skal ske.
+  whyItMatters:
+    en: Because it only watches, it can be placed almost anywhere without risk of blocking real work — but someone must act on its warnings, or they are worth nothing.
+    da: Fordi den kun ser på, kan den placeres næsten overalt uden risiko for at blokere rigtigt arbejde — men nogen skal handle på advarslerne, ellers er de intet værd.
+edges:
+  kind-of: [control]
+  requires:
+    - network
+    - packet
+  contrasts-with:
+    - to: intrusion-prevention-system
+      why:
+        en: An IDS only watches and warns; an IPS sits in the path of traffic and blocks what it judges harmful.
+        da: En IDS ser kun på og advarer; en IPS sidder i trafikkens vej og blokerer det, den vurderer som skadeligt.
+      strength: primary
+      confidence: high
+  used-with:
+    - siem
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-94 — Guide to Intrusion Detection and Prevention Systems (IDPS)
+    tier: standard
+    publisher: NIST
+draft: true

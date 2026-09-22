@@ -1,27 +1,50 @@
-term: { en: Social engineering, da: Social engineering }
+term:
+  en: Social engineering
+  da: Social engineering
 aka:
-  en: [social engineering attack]
+  en: [social engineering attack, human hacking]
   da: [social manipulation]
 domain: [security]
 cluster: awareness
 layer: people
 status: current
 summary:
-  en: Manipulating people into revealing information or granting access, rather than attacking systems directly.
-  da: Manipulation af mennesker til at afsløre oplysninger eller give adgang i stedet for at angribe systemer direkte.
+  en: Manipulating people into giving away information or access, instead of breaking into systems directly.
+  da: Manipulation af mennesker, så de udleverer oplysninger eller adgang, i stedet for at bryde direkte ind i systemer.
 body:
   formal:
-    en: An attack technique that exploits human psychology — trust, authority, urgency — to obtain information or access, bypassing technical controls.
-    da: En angrebsteknik, der udnytter menneskelig psykologi — tillid, autoritet, hastværk — til at opnå oplysninger eller adgang uden om tekniske kontroller.
+    en: A family of attacks that play on human trust, respect for authority, helpfulness or time pressure to make a person reveal information or grant access, getting around technical controls entirely.
+    da: En gruppe af angreb, der udnytter menneskers tillid, respekt for autoritet, hjælpsomhed eller tidspres til at få en person til at afsløre oplysninger eller give adgang — helt uden om de tekniske kontroller.
   plain:
-    en: Tricking a person instead of hacking a computer.
-    da: At narre en person i stedet for at hacke en computer.
+    en: A con artist who does not pick the lock but simply talks the doorman into holding the door open.
+    da: En svindler, der ikke dirker låsen op, men blot snakker dørmanden til at holde døren åben.
   inPractice:
-    en: An attacker phones the service desk pretending to be a stressed executive and talks an employee into resetting a password.
-    da: En angriber ringer til supportafdelingen, udgiver sig for at være en stresset chef og overtaler en medarbejder til at nulstille en adgangskode.
+    en: A caller claiming to be from IT support tells a receptionist there is an urgent problem and gets her to read out the code she just received by text.
+    da: En opringer, der påstår at være fra IT-support, fortæller en receptionist, at der er et akut problem, og får hende til at læse den kode op, hun lige har fået på sms.
   whyItMatters:
-    en: The strongest technical defences fail if a person can be talked into opening the door, so people are a primary attack surface.
-    da: De stærkeste tekniske forsvar fejler, hvis en person kan overtales til at åbne døren, så mennesker er en primær angrebsflade.
+    en: The strongest locks and walls do not help if a person can be talked into opening them, so people are a target in their own right.
+    da: De stærkeste låse og mure hjælper ikke, hvis en person kan snakkes til at åbne dem, så mennesker er et mål i sig selv.
+edges:
+  kind-of: [threat]
+  exploits:
+    - to: vulnerability
+      why:
+        en: It treats human trust and helpfulness as the weakness to abuse, rather than a flaw in a machine.
+        da: Det behandler menneskelig tillid og hjælpsomhed som den svaghed, der udnyttes, frem for en fejl i en maskine.
+      strength: primary
+      confidence: medium
+  causes:
+    - to: data-breach
+      why:
+        en: Information handed over to a manipulator is information that has left the organisation's control.
+        da: Oplysninger, der udleveres til en manipulator, er oplysninger, som organisationen har mistet kontrollen over.
+      strength: normal
+      confidence: medium
 sources:
-  - { title: Cyber Security Fast Track — Ordliste, tier: course-material }
-draft: false
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST Glossary — Social Engineering
+    tier: standard
+    publisher: NIST
+    url: https://csrc.nist.gov/glossary/term/social_engineering
+draft: true

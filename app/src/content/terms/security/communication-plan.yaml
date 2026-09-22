@@ -1,0 +1,35 @@
+term:
+  en: Communication plan
+  da: Kommunikationsplan
+aka:
+  en: [crisis communication plan]
+  da: [krisekommunikationsplan]
+domain: [security]
+cluster: incident-response
+layer: governance
+status: current
+summary:
+  en: A plan for who tells what to whom during a crisis — staff, customers, authorities and the press.
+  da: En plan for, hvem der siger hvad til hvem under en krise — medarbejdere, kunder, myndigheder og presse.
+body:
+  formal:
+    en: The part of the contingency plan that fixes who may speak for the company, approval steps, prepared messages, contact lists and reporting deadlines for internal and external communication during an incident.
+    da: Den del af beredskabsplanen, der fastlægger talspersoner, godkendelsesgange, forberedte budskaber, kontaktlister og frister for indberetning ved intern og ekstern kommunikation under en hændelse.
+  plain:
+    en: Like agreeing in advance who in the family calls grandma with bad news, so she does not hear it first from the neighbours.
+    da: Ligesom at aftale på forhånd, hvem i familien der ringer til bedstemor med dårlige nyheder, så hun ikke hører det fra naboerne først.
+  inPractice:
+    en: When customer data leaks, the plan says the director gives the only statement, customers get a prepared email, and the authorities are told within the legal deadline.
+    da: Da kundedata lækker, siger planen, at direktøren giver den eneste udtalelse, kunderne får en forberedt mail, og myndighederne underrettes inden for lovens frist.
+  whyItMatters:
+    en: Confused or late messages can do more harm to trust than the incident itself, and some reports are required by law.
+    da: Forvirrende eller sene budskaber kan skade tilliden mere end selve hændelsen, og nogle indberetninger er lovpligtige.
+edges:
+  part-of: [contingency-plan]
+  used-with: [data-breach, incident-response]
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-61 Rev. 2
+    tier: standard
+draft: true

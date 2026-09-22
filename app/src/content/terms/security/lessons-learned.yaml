@@ -1,0 +1,36 @@
+term:
+  en: Lessons learned
+  da: Lessons learned
+aka:
+  en: [post-incident review, post-mortem]
+  da: [erfaringsopsamling, evaluering]
+domain: [security]
+cluster: incident-response
+layer: governance
+status: current
+summary:
+  en: Looking back after an incident or exercise to see what worked, what failed and what to change next time.
+  da: At se tilbage efter en hændelse eller øvelse for at finde ud af, hvad der virkede, hvad der fejlede, og hvad der skal ændres.
+body:
+  formal:
+    en: The closing step of incident response, in which the people involved review the timeline and decisions without blame and turn findings into owned, dated changes to plans and controls.
+    da: Det afsluttende trin i hændelseshåndteringen, hvor de involverede gennemgår forløb og beslutninger uden at placere skyld og omsætter fundene til ændringer i planer og kontroller med ejer og dato.
+  plain:
+    en: Like a team watching the replay after a match to see why they conceded that goal.
+    da: Ligesom et hold, der ser gengivelsen efter en kamp for at forstå, hvorfor de lukkede det mål ind.
+  inPractice:
+    en: A week after the outage the team meets for an hour, notes that the backup key was stored on the locked server, and assigns someone to move it by Friday.
+    da: En uge efter nedbruddet mødes teamet en time, noterer at nøglen til backuppen lå på den låste server, og udpeger en, der skal flytte den inden fredag.
+  whyItMatters:
+    en: Without it the same mistakes return in the next incident, and the organisation pays twice for the same lesson.
+    da: Uden den vender de samme fejl tilbage ved næste hændelse, og organisationen betaler to gange for den samme lærdom.
+edges:
+  part-of: [incident-response]
+  implements: [pdca]
+  used-with: [security-culture]
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-61 Rev. 2
+    tier: standard
+draft: true

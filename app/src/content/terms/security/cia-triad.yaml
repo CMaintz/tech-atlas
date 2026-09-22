@@ -1,0 +1,35 @@
+term:
+  en: CIA triad
+  da: CIA-triaden
+aka:
+  en: [CIA model]
+  da: [CIA-modellen]
+domain: [security]
+cluster: fundamentals
+layer: governance
+status: current
+summary:
+  en: The three pillars of information security — confidentiality, integrity and availability.
+  da: Informationssikkerhedens tre søjler — fortrolighed, integritet og tilgængelighed.
+body:
+  formal:
+    en: A model that states the goals of information security as three properties — confidentiality, integrity and availability — which every protective measure should serve.
+    da: En model, der beskriver målene for informationssikkerhed som tre egenskaber — fortrolighed, integritet og tilgængelighed — som ethvert beskyttende tiltag bør tjene.
+  plain:
+    en: Like a three-legged stool — if any one leg is missing, the whole thing falls over.
+    da: Som en skammel med tre ben — mangler blot ét af dem, vælter det hele.
+  inPractice:
+    en: When a team rates a new customer database, it asks three questions — who may see it, what if it is wrong, and what if it is down for a day?
+    da: Når et team vurderer en ny kundedatabase, stiller det tre spørgsmål — hvem må se den, hvad hvis den er forkert, og hvad hvis den er nede en hel dag?
+  whyItMatters:
+    en: It gives everyone, from engineers to the board, a shared way to say what is at stake, so no side of protection is forgotten.
+    da: Den giver alle, fra teknikere til bestyrelse, et fælles sprog for, hvad der står på spil, så ingen side af beskyttelsen bliver glemt.
+edges:
+  part-of: [cyber-and-information-security]
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-12 Rev. 1 — An Introduction to Information Security
+    tier: standard
+    publisher: NIST
+draft: true

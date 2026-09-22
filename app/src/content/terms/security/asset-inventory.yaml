@@ -1,0 +1,45 @@
+term:
+  en: Asset inventory
+  da: Aktivfortegnelse (asset inventory)
+aka:
+  en: [IT asset inventory, asset register]
+  da: [asset inventory, aktivliste]
+domain: [security]
+cluster: controls
+layer: governance
+status: current
+summary:
+  en: One complete, up-to-date list of the organisation's computers, devices, systems and software.
+  da: En samlet, opdateret liste over virksomhedens computere, enheder, systemer og software.
+body:
+  formal:
+    en: A maintained record of every hardware and software item the organisation owns or runs, with an owner, location and purpose for each, kept current as things are added or removed.
+    da: En vedligeholdt fortegnelse over alt udstyr og al software, virksomheden ejer eller driver, med ejer, placering og formål for hver enkelt, som holdes ajour, når noget tilføjes eller fjernes.
+  plain:
+    en: Like the list a household makes for home insurance — you cannot protect or claim for what you do not know you have.
+    da: Som den liste, en husstand laver til indboforsikringen — man kan ikke beskytte eller få erstatning for noget, man ikke ved, man har.
+  inPractice:
+    en: A check of the office network finds three laptops and a file-sharing app nobody had listed; they are added with an owner and brought under the same update routine as everything else.
+    da: Et tjek af kontorets netværk finder tre bærbare og en fildelingsapp, som ingen havde registreret; de føjes til listen med en ejer og kommer ind under samme opdateringsrutine som resten.
+  whyItMatters:
+    en: Every other control depends on it — forgotten machines are never updated or watched, and that is exactly where attackers get in.
+    da: Alle andre kontroller afhænger af den — glemte maskiner bliver hverken opdateret eller overvåget, og det er netop dér, angribere kommer ind.
+edges:
+  kind-of: [control]
+  mitigates:
+    - to: shadow-it
+      why:
+        en: Regularly comparing what is found against the list exposes apps and devices nobody approved.
+        da: Når man jævnligt sammenligner det fundne med listen, afsløres apps og enheder, som ingen har godkendt.
+      strength: primary
+      confidence: high
+  used-with:
+    - endpoint
+    - vulnerability-scanning
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: CIS Critical Security Controls v8 — Controls 1 and 2
+    tier: standard
+    publisher: Center for Internet Security
+draft: true

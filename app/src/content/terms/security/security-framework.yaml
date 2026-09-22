@@ -1,0 +1,50 @@
+term:
+  en: Security framework
+  da: Rammeværk
+aka:
+  en: [cybersecurity framework]
+  da: [sikkerhedsrammeværk, framework]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: A ready-made, shared structure of goals and controls that an organisation follows to build and check its security work.
+  da: En færdig, fælles struktur af mål og kontroller, som en organisation følger for at opbygge og tjekke sit sikkerhedsarbejde.
+body:
+  formal:
+    en: A published, structured set of principles, processes and controls — such as ISO 27001 or the CIS Controls — used to organise, rank and measure security work.
+    da: Et offentliggjort, struktureret sæt af principper, processer og kontroller — fx ISO 27001 eller CIS-kontrollerne — som bruges til at organisere, prioritere og måle sikkerhedsarbejdet.
+  plain:
+    en: A trusted recipe book — you do not invent the dish from scratch, you follow proven steps and adjust to taste.
+    da: En gennemprøvet kogebog — man opfinder ikke retten fra bunden, men følger afprøvede trin og tilpasser efter smag.
+  inPractice:
+    en: A new security coordinator uses the CIS Controls as a checklist to see which basic protections the company already has and which to add first.
+    da: En ny sikkerhedskoordinator bruger CIS-kontrollerne som tjekliste for at se, hvilke grundlæggende beskyttelser virksomheden allerede har, og hvilke der skal tilføjes først.
+  whyItMatters:
+    en: It saves organisations from guessing, gives a common language with auditors and partners, and makes it easier to show that rules are met.
+    da: Det sparer organisationen for gætteri, giver et fælles sprog med revisorer og samarbejdspartnere og gør det lettere at vise, at kravene er opfyldt.
+edges:
+  requires: [control]
+  part-of:
+    - to: governance
+      why:
+        en: Frameworks give the overall steering of security work a shared, tested structure.
+        da: Rammeværker giver den overordnede styring af sikkerhedsarbejdet en fælles, afprøvet struktur.
+      strength: normal
+      confidence: medium
+  contrasts-with:
+    - to: security-policy
+      why:
+        en: A framework is an outside, shared structure; a policy is the organisation's own document of its goals and rules.
+        da: Et rammeværk er en fælles struktur udefra; en politik er organisationens eget dokument om dens mål og regler.
+      strength: normal
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 1 og 4
+    tier: course-material
+  - title: NIST Cybersecurity Framework 2.0
+    tier: standard
+    publisher: NIST
+    url: https://www.nist.gov/cyberframework
+draft: true

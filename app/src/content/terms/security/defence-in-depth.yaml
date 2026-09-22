@@ -1,0 +1,51 @@
+term:
+  en: Defence in depth
+  da: Lagdelt sikkerhed (defence in depth)
+aka:
+  en: [defense in depth, layered security]
+  da: [defence in depth, lagdelt forsvar]
+domain: [security]
+cluster: fundamentals
+layer: governance
+status: current
+summary:
+  en: Stacking several independent layers of protection so that when one fails, the next one still stops the attacker.
+  da: Flere uafhængige lag af beskyttelse oven på hinanden, så det næste lag stadig stopper angriberen, når ét svigter.
+body:
+  formal:
+    en: A design principle that combines several different controls — technical, organisational and physical — at different points, so that no single failure leaves an asset unprotected.
+    da: Et designprincip, der kombinerer flere forskellige kontroller — tekniske, organisatoriske og fysiske — på forskellige steder, så ingen enkelt fejl efterlader et aktiv ubeskyttet.
+  plain:
+    en: A castle with a moat, a wall, locked gates and guards — getting past one still leaves the others.
+    da: En borg med voldgrav, mur, låste porte og vagter — kommer man forbi det ene, er de andre der stadig.
+  inPractice:
+    en: A phishing mail slips past the spam filter and the employee clicks, but the second login step and the laptop's security software still block the attacker.
+    da: En phishingmail slipper forbi spamfilteret, og medarbejderen klikker, men login-trin nummer to og sikkerhedssoftwaren på den bærbare blokerer stadig angriberen.
+  whyItMatters:
+    en: Every control fails sometimes, so relying on just one means a single mistake is enough for a breach.
+    da: Enhver kontrol svigter en gang imellem, så hvis man kun har én, er en enkelt fejl nok til et brud.
+edges:
+  requires: [control]
+  mitigates:
+    - to: threat
+      why:
+        en: An attacker must beat several different barriers in a row instead of just one.
+        da: En angriber skal forbi flere forskellige barrierer i træk i stedet for kun én.
+      strength: normal
+      confidence: high
+  used-with:
+    - to: zero-trust
+      why:
+        en: Zero Trust adds checks at every step, which is one more set of layers inside the network.
+        da: Zero Trust tilføjer kontrol ved hvert skridt, hvilket giver endnu flere lag inde i netværket.
+      strength: normal
+      confidence: medium
+    - network-segmentation
+sources:
+  - title: NIST Glossary — Defense-in-Depth
+    tier: standard
+    publisher: NIST
+    url: https://csrc.nist.gov/glossary/term/defense_in_depth
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 4
+    tier: course-material
+draft: true

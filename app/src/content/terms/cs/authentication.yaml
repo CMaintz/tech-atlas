@@ -1,0 +1,47 @@
+term:
+  en: Authentication
+  da: Autentificering
+aka:
+  en: [authn]
+  da: [godkendelse, autentifikation]
+domain: [cs, security]
+cluster: identity
+layer: identity
+status: current
+summary:
+  en: Checking that someone really is who they claim to be, usually by asking for a credential such as a password.
+  da: At kontrollere, at nogen virkelig er den, de udgiver sig for, typisk ved at bede om en loginoplysning som en adgangskode.
+body:
+  formal:
+    en: The process of confirming a claimed identity by checking one or more credentials — something the person knows, has or is — against what the system holds on record.
+    da: Processen, hvor en påstået identitet bekræftes ved at kontrollere én eller flere loginoplysninger — noget personen ved, har eller er — mod det, systemet har registreret.
+  plain:
+    en: Like a border guard comparing your face with your passport photo — the only question is 'are you really you?', not where you may go.
+    da: Som en grænsevagt, der sammenligner dit ansigt med billedet i dit pas — det eneste spørgsmål er 'er du virkelig dig?', ikke hvor du må gå hen.
+  inPractice:
+    en: An employee types her login name and password, then approves a prompt on her phone; only then does the system accept that this really is Mette from finance.
+    da: En medarbejder indtaster brugernavn og adgangskode og godkender derefter en anmodning på sin telefon; først da accepterer systemet, at det virkelig er Mette fra økonomi.
+  whyItMatters:
+    en: Every later decision about access trusts the answer given here, so weak authentication lets an attacker walk in wearing someone else's identity.
+    da: Alle senere beslutninger om adgang stoler på svaret her, så svag autentificering lader en angriber gå ind under en andens identitet.
+edges:
+  requires: [identity, credential]
+  contrasts-with:
+    - to: authorization
+      why:
+        en: Authentication asks who you are; authorization asks what you may do. Passing the first does not grant the second.
+        da: Autentificering spørger, hvem du er; autorisation spørger, hvad du må. At bestå den første giver ikke automatisk den anden.
+      strength: primary
+      confidence: high
+  used-with:
+    - session
+    - to: zero-trust
+      why:
+        en: Zero Trust authenticates every request again instead of trusting anyone already inside the network.
+        da: Zero Trust autentificerer hver forespørgsel på ny i stedet for at stole på alle, der allerede er inde på netværket.
+sources:
+  - title: NIST SP 800-63-3, Digital Identity Guidelines
+    url: https://pages.nist.gov/800-63-3/sp800-63-3.html
+    tier: standard
+    publisher: NIST
+draft: true

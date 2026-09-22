@@ -1,0 +1,49 @@
+term:
+  en: CIS Controls
+  da: CIS-kontroller
+aka:
+  en: [CIS Critical Security Controls, CIS 18]
+  da: [CIS Controls, CIS 18]
+domain: [security]
+cluster: controls
+layer: governance
+status: current
+summary:
+  en: A ranked, public list of security measures from the Center for Internet Security that tells an organisation what to do first.
+  da: En prioriteret, offentlig liste over sikkerhedstiltag fra Center for Internet Security, der viser, hvad man bør gøre først.
+body:
+  formal:
+    en: A set of 18 grouped security controls published by the Center for Internet Security, ordered so that the most effective basic steps come first and split into three levels of ambition.
+    da: Et sæt af 18 grupperede sikkerhedskontroller udgivet af Center for Internet Security, ordnet så de mest effektive grundtiltag kommer først, og delt i tre ambitionsniveauer.
+  plain:
+    en: Like a checklist from a fire safety expert that says "fit smoke alarms before you buy a sprinkler system" — it tells you which protections give the most for the least.
+    da: Som en tjekliste fra en brandekspert, der siger "sæt røgalarmer op, før du køber et sprinkleranlæg" — den viser, hvilke beskyttelser der giver mest for mindst.
+  inPractice:
+    en: A small company with one IT person uses the first level of the list to decide that knowing its devices, updating software and keeping backups come before anything else.
+    da: En lille virksomhed med én IT-medarbejder bruger listens første niveau til at beslutte, at overblik over enheder, opdatering af software og backup kommer før alt andet.
+  whyItMatters:
+    en: Most organisations cannot do everything at once; a shared, ranked list turns a vague goal into a clear order of work and a way to measure progress.
+    da: De fleste virksomheder kan ikke gøre alt på én gang; en fælles, prioriteret liste gør et vagt mål til en klar rækkefølge og en måde at måle fremskridt på.
+edges:
+  kind-of: [security-framework]
+  requires: [control]
+  alternative-to:
+    - to: iso-27002
+      why:
+        en: Both are catalogues of security controls; CIS is shorter and ranked, ISO 27002 is broader and tied to ISO 27001.
+        da: Begge er kataloger over sikkerhedskontroller; CIS er kortere og prioriteret, ISO 27002 er bredere og knyttet til ISO 27001.
+      strength: normal
+      confidence: medium
+  mandates:
+    - asset-inventory
+    - access-management
+    - patch-management
+    - backup
+    - vulnerability-scanning
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: CIS Critical Security Controls v8
+    tier: standard
+    publisher: Center for Internet Security
+draft: true

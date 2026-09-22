@@ -1,0 +1,42 @@
+term:
+  en: Security by design
+  da: Security by design
+aka:
+  en: [secure by design]
+  da: [indbygget sikkerhed]
+domain: [security]
+cluster: fundamentals
+status: current
+summary:
+  en: Thinking security into systems and processes from the very start, instead of adding it at the end.
+  da: At tænke sikkerhed ind fra starten i systemer og processer i stedet for at tilføje den til sidst.
+body:
+  formal:
+    en: The principle that security needs are set out and met in every stage of building a system or process — from first idea through design, building and running it.
+    da: Princippet om, at sikkerhedsbehov fastlægges og opfyldes i alle faser af at bygge et system eller en proces — fra den første idé over design og udvikling til drift.
+  plain:
+    en: Like planning the wiring before the walls go up — doing it later means tearing down walls.
+    da: Som at planlægge el-installationen, før væggene sættes op — gør man det bagefter, må man rive vægge ned.
+  inPractice:
+    en: Before building a new customer portal, the team agrees that it will need MFA and store as little personal data as possible, and plans for both.
+    da: Inden et team bygger en ny kundeportal, aftaler det, at portalen skal have MFA og gemme så få persondata som muligt, og planlægger efter begge dele.
+  whyItMatters:
+    en: Fixing a weakness after launch costs far more than avoiding it on paper, and some weaknesses cannot be fixed at all without starting over.
+    da: Det koster langt mere at rette en svaghed efter lancering end at undgå den på tegnebrættet, og nogle svagheder kan slet ikke rettes uden at starte forfra.
+edges:
+  requires: [cia-triad]
+  mitigates:
+    - to: vulnerability
+      why:
+        en: Weaknesses caught at the planning stage never make it into the finished system.
+        da: Svagheder, der fanges allerede i planlægningen, når aldrig ind i det færdige system.
+      strength: primary
+      confidence: high
+  used-with: [zero-trust]
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-160 Vol. 1 Rev. 1 — Engineering Trustworthy Secure Systems
+    tier: standard
+    publisher: NIST
+draft: true

@@ -1,0 +1,34 @@
+term:
+  en: Process
+  da: Proces
+aka:
+  en: [running program]
+  da: [kørende program]
+domain: [cs]
+cluster: os
+layer: os
+status: current
+summary:
+  en: A program while it is running, with its own space in memory and the rights of the account that started it.
+  da: Et program, mens det kører, med sin egen plads i hukommelsen og de rettigheder, som kontoen, der startede det, har.
+body:
+  formal:
+    en: A running instance of a program, which the operating system gives its own private memory, a share of the machine's time, and the identity and permissions of the account it runs as.
+    da: En kørende forekomst af et program, som styresystemet giver sin egen private hukommelse, en andel af maskinens tid samt identitet og rettigheder fra den konto, det kører som.
+  plain:
+    en: A recipe is the program; actually cooking it in a kitchen, with your own pots and ingredients, is the process. Two cooks can follow the same recipe at the same time.
+    da: En opskrift er programmet; selve madlavningen i et køkken med egne gryder og råvarer er processen. To kokke kan følge den samme opskrift på samme tid.
+  inPractice:
+    en: Opening two browser windows can start several processes. Task Manager on Windows lists each one, which user it belongs to and how much of the machine it is using.
+    da: Åbner man to browservinduer, kan det starte flere processer. Jobliste i Windows viser hver af dem, hvilken bruger de tilhører, og hvor meget af maskinen de bruger.
+  whyItMatters:
+    en: Harmful software runs as a process too, and it inherits the rights of whoever started it — which is why limiting what an account may do limits the damage an attack can cause.
+    da: Skadelig software kører også som en proces og arver rettighederne fra den, der startede den — derfor begrænser man skaden fra et angreb ved at begrænse, hvad en konto må.
+edges:
+  requires: [operating-system]
+sources:
+  - title: 'Operating Systems: Three Easy Pieces'
+    url: https://pages.cs.wisc.edu/~remzi/OSTEP/
+    tier: textbook
+    publisher: Arpaci-Dusseau
+draft: true

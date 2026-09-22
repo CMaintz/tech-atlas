@@ -1,90 +1,123 @@
 /**
  * Content lint — the quality gate (design/SPEC.md §5, design/02_SCHEMA.md §6).
- * Structural checks are enforced now; Closed Vocabulary (E1) is stubbed pending
- * the per-language wordlists (see README). Exits non-zero on any error.
+ * Errors fail the build; warnings are reported. Closed Vocabulary (E1) is blocking
+ * for English and advisory for Danish (ADR-0009).
  */
-import fg from 'fast-glob';
-import { parse } from 'yaml';
-import { readFileSync } from 'node:fs';
-import { TermFrontmatter } from '../src/schema';
+import { existsSync } from 'node:fs';
+import { EDGE_TYPES, LAYERS, type EdgeType } from '../src/schema';
+import { checkClosedVocab } from './closed-vocab';
+import { loadTerms, makeResolver } from './load-terms';
 
-const files = fg.sync('src/content/terms/**/*.yaml');
-const errors: string[] = [];
+const { terms, errors } = loadTerms();
 const warnings: string[] = [];
-type Term = ReturnType<typeof TermFrontmatter.parse>;
-const terms = new Map<string, Term>();
+const { resolve, byName } = makeResolver(terms);
+type RawEdge = string | { to: string };
+const refOf = (e: RawEdge) => (typeof e === 'string' ? e : e.to);
+const edgesOf = (id: string) =>
+  Object.entries(terms.get(id)!.edges ?? {}) as [EdgeType, RawEdge[] | undefined][];
 
-for (const f of files) {
-  const id = f.replace(/^src\/content\/terms\//, '').replace(/\.yaml$/, '');
-  const shortId = id.split('/').pop();
-  const raw = parse(readFileSync(f, 'utf8')) ?? {};
-  const res = TermFrontmatter.safeParse({ id: shortId, ...raw });
-  if (!res.success) {
-    errors.push(
-      `E10 ${id}: ${res.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`,
-    );
-    continue;
-  }
-  if (terms.has(id)) errors.push(`E7 duplicate id: ${id}`);
-  terms.set(id, res.data);
-}
-
-const names = new Map<string, string[]>();
+// E2 dangling · E3 ambiguous · duplicate symmetric edges; neighbourhood size for W1/W4
+const symmetric = new Set<string>();
+const neighbours = new Map<string, Set<string>>([...terms.keys()].map((id) => [id, new Set()]));
 for (const id of terms.keys()) {
-  const n = id.split('/').pop()!;
-  names.set(n, [...(names.get(n) ?? []), id]);
-}
-const resolve = (ref: string): string | null => {
-  if (terms.has(ref)) return ref;
-  const ids = names.get(ref.split('/').pop()!) ?? [];
-  if (ids.length === 0) return null;
-  return ids.find((i) => i === ref || i.startsWith(ref.split('/')[0] + '/')) ?? ids[0];
-};
-
-for (const [id, t] of terms) {
-  let authored = 0;
-  for (const [type, list] of Object.entries(t.edges ?? {})) {
+  for (const [type, list] of edgesOf(id)) {
     for (const e of list ?? []) {
-      authored++;
-      const to = typeof e === 'string' ? e : e.to;
-      const target = resolve(to);
-      if (!target) errors.push(`E2 dangling edge ${id} -${type}-> ${to}`);
-      else if (!to.includes('/') && (names.get(to.split('/').pop()!)?.length ?? 0) > 1)
-        errors.push(`E3 ambiguous edge ${id} -${type}-> ${to} (namespace it)`);
+      const ref = refOf(e);
+      const target = resolve(ref, id);
+      if (!target) {
+        errors.push(`E2 dangling edge ${id} -${type}-> ${ref}`);
+        continue;
+      }
+      neighbours.get(id)!.add(target);
+      neighbours.get(target)!.add(id);
+      if (!ref.includes('/') && (byName.get(ref)?.length ?? 0) > 1) {
+        errors.push(`E3 ambiguous edge ${id} -${type}-> ${ref} (write the namespaced form)`);
+      }
+      if (EDGE_TYPES[type].symmetric) {
+        const key = `${type}|${[id, target].sort().join('|')}`;
+        if (symmetric.has(key)) warnings.push(`W7 symmetric edge authored twice: ${key}`);
+        symmetric.add(key);
+      }
     }
   }
-  if (authored === 0) warnings.push(`W1 orphan (no authored edges): ${id}`);
+}
+for (const [id, n] of neighbours) {
+  if (n.size === 0) warnings.push(`W1 orphan (no edges in or out): ${id}`);
+  else if (n.size < 3) warnings.push(`W4 thin neighbourhood (${n.size} neighbours): ${id}`);
 }
 
 // E4 requires-cycle
-const WHITE = 0,
-  GREY = 1,
-  BLACK = 2;
-const color = new Map<string, number>();
-const reqOf = (id: string): string[] =>
-  ((terms.get(id)?.edges?.requires ?? []) as unknown[])
-    .map((e) => resolve(typeof e === 'string' ? e : (e as { to: string }).to))
+const color = new Map<string, 'grey' | 'black'>();
+const requiresOf = (id: string) =>
+  (terms.get(id)!.edges?.requires ?? [])
+    .map((e) => resolve(refOf(e as RawEdge), id))
     .filter((x): x is string => Boolean(x));
-const dfs = (id: string): boolean => {
-  color.set(id, GREY);
-  for (const n of reqOf(id)) {
-    const c = color.get(n) ?? WHITE;
-    if (c === GREY) return true;
-    if (c === WHITE && dfs(n)) return true;
+const hasCycle = (id: string): boolean => {
+  color.set(id, 'grey');
+  for (const next of requiresOf(id)) {
+    if (color.get(next) === 'grey') return true;
+    if (!color.has(next) && hasCycle(next)) return true;
   }
-  color.set(id, BLACK);
+  color.set(id, 'black');
   return false;
 };
-for (const id of terms.keys())
-  if ((color.get(id) ?? WHITE) === WHITE && dfs(id)) errors.push(`E4 requires cycle at ${id}`);
+for (const id of terms.keys()) {
+  if (!color.has(id) && hasCycle(id)) errors.push(`E4 requires cycle through ${id}`);
+}
 
+// E6 tautological summary · E8 layer out of domain · E7 alias collisions
+const names = new Map<string, string>(); // lowercased display name / id slug -> owning id
+for (const [id, t] of terms) {
+  for (const lang of ['en', 'da'] as const) {
+    const name = t.term[lang].toLowerCase();
+    const opening = t.summary[lang].toLowerCase().replace(/^(a|an|the|en|et|den|det|de)\s+/, '');
+    if (opening.startsWith(name) && /^[\s,.:;—-]/.test(opening.slice(name.length) || ' ')) {
+      errors.push(`E6 tautological summary (${lang}): ${id} starts by restating "${t.term[lang]}"`);
+    }
+  }
+  if (t.layer && !t.domain.some((d) => (LAYERS[d] as readonly string[]).includes(t.layer!))) {
+    errors.push(`E8 layer "${t.layer}" does not belong to any of ${id}'s domains`);
+  }
+  for (const n of new Set([t.term.en, t.term.da].map((x) => x.toLowerCase()))) names.set(n, id);
+  names.set(id.split('/').pop()!.replace(/-/g, ' '), id);
+}
+const aliasOwner = new Map<string, string>();
+for (const [id, t] of terms) {
+  for (const alias of new Set([...t.aka.en, ...t.aka.da].map((x) => x.toLowerCase()))) {
+    const owner = names.get(alias) ?? names.get(alias.replace(/-/g, ' '));
+    if (owner && owner !== id) errors.push(`E7 alias "${alias}" on ${id} is the name of ${owner}`);
+    const other = aliasOwner.get(alias);
+    if (other && other !== id)
+      errors.push(`E7 alias "${alias}" is claimed by both ${other} and ${id}`);
+    aliasOwner.set(alias, id);
+  }
+}
+
+// E9 missing article file
+for (const [id, t] of terms) {
+  for (const path of Object.values(t.article ?? {})) {
+    if (path && !existsSync(path)) errors.push(`E9 ${id}: article file not found: ${path}`);
+  }
+}
+
+// E1 Closed Vocabulary (English blocking, Danish advisory)
+const vocab = checkClosedVocab(terms);
+for (const r of vocab) {
+  const line = `${r.id} (${r.lang}): ${r.unknown.join(', ')}`;
+  if (r.lang === 'en') errors.push(`E1 unknown words ${line}`);
+  else warnings.push(`E1 advisory ${line}`);
+}
+
+// Reports
 const drafts = [...terms.values()].filter((t) => t.draft).length;
+const pct = terms.size ? Math.round((drafts / terms.size) * 100) : 0;
+const byCluster = new Map<string, number>();
+for (const t of terms.values()) byCluster.set(t.cluster, (byCluster.get(t.cluster) ?? 0) + 1);
+
 console.log('\nAtlas content lint');
-console.log(
-  `  terms: ${terms.size}   drafts: ${drafts} (${terms.size ? Math.round((drafts / terms.size) * 100) : 0}%)`,
-);
+console.log(`  terms: ${terms.size}   drafts (W5): ${drafts} (${pct}%)`);
+console.log(`  coverage: ${[...byCluster.entries()].map(([c, n]) => `${c} ${n}`).join(' · ')}`);
 console.log(`  errors: ${errors.length}   warnings: ${warnings.length}`);
-console.log('  NOTE: E1 Closed Vocabulary is stubbed (needs per-language wordlists — see README).');
-for (const w of warnings) console.log('  ! ' + w);
-for (const e of errors) console.log('  x ' + e);
+for (const w of warnings) console.log(`  ! ${w}`);
+for (const e of errors) console.log(`  x ${e}`);
 if (errors.length) process.exit(1);

@@ -1,0 +1,39 @@
+term:
+  en: SIEM
+  da: SIEM
+aka:
+  en: [Security Information and Event Management]
+  da: [Security Information and Event Management]
+domain: [security]
+cluster: controls
+status: current
+summary:
+  en: A system that gathers logs from across the organisation in one place and raises an alarm when something looks wrong.
+  da: Et system, der samler logs fra hele organisationen ét sted og slår alarm, når noget ser forkert ud.
+body:
+  formal:
+    en: A platform that collects log entries from many systems, puts them in one common format, links related events together and checks them against rules to produce alarms for people to investigate.
+    da: En platform, der indsamler logposter fra mange systemer, bringer dem på et fælles format, kobler sammenhængende hændelser og holder dem op mod regler for at skabe alarmer, som mennesker skal undersøge.
+  plain:
+    en: Like a security guard's desk with screens from every camera in the building, plus a helper who points out when the same stranger shows up at three doors.
+    da: Som en vagts skrivebord med skærme fra alle bygningens kameraer, plus en hjælper, der gør opmærksom på, når den samme fremmede dukker op ved tre døre.
+  inPractice:
+    en: The SIEM notices five failed attempts to log in to one account, followed by a successful one from another country ten minutes later, and opens an alarm for the on-call analyst.
+    da: SIEM'en ser fem mislykkede login på én konto efterfulgt af et vellykket login fra et andet land ti minutter senere og opretter en alarm til den vagthavende analytiker.
+  whyItMatters:
+    en: One odd event rarely means much; seeing events from many systems side by side is what turns scattered clues into an attack spotted in time.
+    da: Én enkelt underlig hændelse betyder sjældent meget; det er, når man ser hændelser fra mange systemer side om side, at spredte spor bliver til et angreb opdaget i tide.
+edges:
+  kind-of: [control]
+  requires:
+    - log
+    - cs/audit
+  used-with:
+    - threat-intelligence
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-92 — Guide to Computer Security Log Management
+    tier: standard
+    publisher: NIST
+draft: true

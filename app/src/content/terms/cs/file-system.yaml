@@ -1,0 +1,38 @@
+term:
+  en: File system
+  da: Filsystem
+aka:
+  en: [filesystem]
+  da: []
+domain: [cs]
+cluster: os
+layer: os
+status: current
+summary:
+  en: The way an operating system organises stored data into files and folders and keeps track of who may use each one.
+  da: Den måde, et styresystem organiserer gemte data i filer og mapper på og holder styr på, hvem der må bruge hver enkelt.
+body:
+  formal:
+    en: The part of the operating system that arranges data on a storage device into named files inside folders, and records for each file details such as its owner, its size, when it last changed and who may read or change it.
+    da: Den del af styresystemet, der ordner data på et lagermedie i navngivne filer i mapper og for hver fil registrerer oplysninger som ejer, størrelse, hvornår den sidst blev ændret, og hvem der må læse eller ændre den.
+  plain:
+    en: Like a library's shelves and catalogue — books have names and places, and the catalogue records who owns each one and who may borrow it.
+    da: Som bibliotekets reoler og kartotek — bøgerne har navne og pladser, og kartoteket noterer, hvem der ejer hver bog, og hvem der må låne den.
+  inPractice:
+    en: A shared drive at work holds a folder for HR. The file system lets HR staff open the folder, while everyone else gets 'access denied'.
+    da: Et fælles drev på arbejdet har en mappe til HR. Filsystemet lader HR-medarbejderne åbne mappen, mens alle andre får 'adgang nægtet'.
+  whyItMatters:
+    en: Most of an organisation's sensitive data sits in files, so the file system's permissions are often the last barrier between that data and a data breach.
+    da: De fleste af en organisations følsomme data ligger i filer, så filsystemets rettigheder er ofte den sidste barriere mellem de data og et databrud.
+edges:
+  part-of: [operating-system]
+  used-with: [permission]
+sources:
+  - title: 'Operating Systems: Three Easy Pieces'
+    url: https://pages.cs.wisc.edu/~remzi/OSTEP/
+    tier: textbook
+    publisher: Arpaci-Dusseau
+  - title: Modern Operating Systems
+    tier: textbook
+    publisher: Tanenbaum & Bos (Pearson)
+draft: true

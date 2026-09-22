@@ -1,0 +1,48 @@
+term:
+  en: Shadow IT
+  da: Skygge-IT (shadow IT)
+aka:
+  en: [unsanctioned IT]
+  da: [shadow IT, skygge-it]
+domain: [security]
+cluster: awareness
+layer: people
+status: current
+summary:
+  en: Apps and tools staff use for work without the IT department knowing about or approving them.
+  da: Apps og værktøjer, som medarbejdere bruger i arbejdet, uden at IT-afdelingen kender til eller har godkendt dem.
+body:
+  formal:
+    en: Any software, online service or device used for work outside the organisation's approved set, and therefore outside its asset inventory, access management and security policy.
+    da: Enhver software, onlinetjeneste eller enhed, der bruges i arbejdet uden for organisationens godkendte udvalg — og derfor uden for dens aktivfortegnelse, adgangsstyring og sikkerhedspolitik.
+  plain:
+    en: Like tenants quietly adding their own extension cords and space heaters — it solves their problem, but the landlord has no idea the fire risk exists.
+    da: Som lejere, der i al stilhed tilføjer egne forlængerledninger og varmeovne — det løser deres problem, men udlejeren aner ikke, at brandrisikoen findes.
+  inPractice:
+    en: A sales team starts sharing customer lists through a free file-sharing site because the approved system feels slow, and no one in IT knows.
+    da: Et salgsteam begynder at dele kundelister via en gratis fildelingstjeneste, fordi det godkendte system føles langsomt, og ingen i IT ved det.
+  whyItMatters:
+    en: You cannot protect what you do not know exists, so hidden tools become blind spots where data can leak unnoticed.
+    da: Man kan ikke beskytte det, man ikke ved findes, så skjulte værktøjer bliver blinde vinkler, hvor data kan slippe ud ubemærket.
+edges:
+  requires: [security-policy]
+  causes:
+    - to: vulnerability
+      why:
+        en: Unapproved tools are not updated, reviewed or watched by IT, so their weaknesses go unhandled.
+        da: Ikke-godkendte værktøjer bliver ikke opdateret, gennemgået eller overvåget af IT, så deres svagheder står uhåndterede.
+      strength: primary
+      confidence: high
+    - to: data-breach
+      why:
+        en: Data placed in unknown services can be exposed without anyone noticing.
+        da: Data, der lægges i ukendte tjenester, kan blive afsløret, uden at nogen opdager det.
+      strength: normal
+      confidence: medium
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: Wikipedia — Shadow IT
+    tier: reference
+    url: https://en.wikipedia.org/wiki/Shadow_IT
+draft: true

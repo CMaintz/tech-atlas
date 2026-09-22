@@ -1,0 +1,51 @@
+term:
+  en: Ransomware
+  da: Ransomware
+aka:
+  en: []
+  da: [løsepengeangreb, løsepengevirus]
+domain: [security]
+cluster: awareness
+layer: data
+status: current
+summary:
+  en: Harmful software that locks an organisation's data and demands payment to unlock it.
+  da: Skadelig software, der låser en organisations data og kræver løsepenge for at låse dem op igen.
+body:
+  formal:
+    en: Harmful software that uses encryption to make files or whole systems unreadable to their owner, then demands a ransom for the key — often while also threatening to publish stolen copies.
+    da: Skadelig software, der bruger kryptering til at gøre filer eller hele systemer ulæselige for ejeren og derefter kræver løsepenge for nøglen — ofte samtidig med en trussel om at offentliggøre stjålne kopier.
+  plain:
+    en: A burglar who does not take your things but changes all the locks in your house and sells you the new keys.
+    da: En indbrudstyv, der ikke tager dine ting, men skifter alle låsene i dit hus og sælger dig de nye nøgler.
+  inPractice:
+    en: On a Monday morning a hospital finds every shared drive replaced by unreadable files and a note demanding payment within 72 hours.
+    da: En mandag morgen opdager et hospital, at alle fælles drev er erstattet af ulæselige filer og en besked, der kræver betaling inden for 72 timer.
+  whyItMatters:
+    en: It can stop an entire business at once, and paying gives no guarantee the data comes back — only tested backups do.
+    da: Det kan lamme en hel virksomhed på én gang, og betaling giver ingen garanti for at få data tilbage — det gør kun testede backups.
+edges:
+  kind-of: [threat, malware]
+  requires: [encryption, availability]
+  exploits:
+    - to: vulnerability
+      why:
+        en: It usually gets in and spreads through unpatched weaknesses or stolen logins.
+        da: Det kommer typisk ind og spreder sig via ikke-rettede svagheder eller stjålne logins.
+      strength: normal
+      confidence: high
+  causes:
+    - to: data-breach
+      why:
+        en: Many groups copy data out before locking it, so an attack is often also a breach.
+        da: Mange grupper kopierer data ud, før de låser dem, så et angreb ofte også er et databrud.
+      strength: normal
+      confidence: medium
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST Glossary — Ransomware
+    tier: standard
+    publisher: NIST
+    url: https://csrc.nist.gov/glossary/term/ransomware
+draft: true

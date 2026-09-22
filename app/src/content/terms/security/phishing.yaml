@@ -1,34 +1,50 @@
-term: { en: Phishing, da: Phishing }
+term:
+  en: Phishing
+  da: Phishing
 aka:
-  en: []
-  da: []
+  en: [phishing attack]
+  da: [phishing-angreb]
 domain: [security]
 cluster: awareness
 layer: people
 status: current
 summary:
-  en: A fraudulent message that tricks a person into revealing information or granting access.
-  da: En bedragerisk besked, der narrer en person til at afsløre oplysninger eller give adgang.
+  en: Fake emails or messages sent in bulk to trick people into handing over information or clicking something harmful.
+  da: Falske mails eller beskeder sendt i stor mængde for at narre folk til at udlevere oplysninger eller klikke på noget skadeligt.
 body:
   formal:
-    en: A social-engineering attack that uses fraudulent messages — usually email — to trick a person into revealing credentials or other sensitive information.
-    da: Et social engineering-angreb, der bruger bedrageriske beskeder — oftest e-mail — til at narre en person til at afsløre adgangskoder eller andre følsomme oplysninger.
+    en: A form of social engineering in which messages pretending to come from a trusted sender are sent to many people, aiming to capture a password or other credential, or to get the reader to open a harmful file or link.
+    da: En form for social engineering, hvor beskeder, der udgiver sig for at komme fra en betroet afsender, sendes til mange mennesker for at opsnappe en adgangskode eller anden loginoplysning eller få modtageren til at åbne en skadelig fil eller et skadeligt link.
   plain:
-    en: A fake message pretending to come from someone you trust, meant to get you to hand over information or click something harmful.
-    da: En falsk besked, der udgiver sig for at komme fra nogen, du stoler på, og som skal få dig til at udlevere oplysninger eller klikke på noget skadeligt.
+    en: Like casting a net with bait into the sea — the sender does not care which fish bites, only that some do.
+    da: Som at kaste et net med madding i havet — afsenderen er ligeglad med, hvilken fisk der bider, bare nogle gør.
   inPractice:
-    en: A finance clerk receives an invoice email, follows the link to a convincing fake login page, and the password is captured.
-    da: En bogholder modtager en faktura-e-mail, følger linket til en overbevisende falsk login-side, og adgangskoden opsnappes.
+    en: Thousands of staff get a "your parcel is delayed" message; a few follow the link to a copy of the login page and type their password into it.
+    da: Tusindvis af medarbejdere får en besked om, at "din pakke er forsinket"; nogle få følger linket til en kopi af login-siden og taster deres adgangskode ind.
   whyItMatters:
-    en: Most breaches begin with phishing, so recognising it is a first line of defence.
-    da: De fleste sikkerhedsbrud starter med phishing, så det at genkende det er en første forsvarslinje.
+    en: It is cheap to send and needs only one person to fall for it, which makes it one of the most common first steps in an attack.
+    da: Det er billigt at sende og kræver kun, at én person hopper på det, hvilket gør det til et af de mest almindelige første skridt i et angreb.
 edges:
   kind-of: [social-engineering]
+  requires: [credential]
+  causes:
+    - to: ransomware
+      why:
+        en: A harmful attachment or link in a phishing email is a common way ransomware gets its first foothold.
+        da: En skadelig vedhæftning eller et link i en phishing-mail er en almindelig vej ind for ransomware.
+      strength: normal
+      confidence: medium
+    - to: data-breach
+      why:
+        en: A captured password lets the attacker log in and reach data as if they were the victim.
+        da: En opsnappet adgangskode lader angriberen logge ind og tilgå data, som om de var offeret.
+      strength: normal
+      confidence: high
 sources:
-  - { title: Cyber Security Fast Track — Ordliste, tier: course-material }
-  - {
-      title: NIST Glossary — Phishing,
-      tier: standard,
-      url: 'https://csrc.nist.gov/glossary/term/phishing',
-    }
-draft: false
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST Glossary — Phishing
+    tier: standard
+    publisher: NIST
+    url: https://csrc.nist.gov/glossary/term/phishing
+draft: true

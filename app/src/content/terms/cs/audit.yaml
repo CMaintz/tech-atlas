@@ -1,0 +1,46 @@
+term:
+  en: Audit logging
+  da: Audit-logning
+aka:
+  en: [audit trail, security log]
+  da: [revisionsspor, auditlog, sikkerhedslog]
+domain: [cs]
+cluster: os
+layer: os
+status: current
+summary:
+  en: The operating system's record of who did what, and when, for actions that matter to security.
+  da: Styresystemets optegnelse af, hvem der gjorde hvad og hvornår, for handlinger, der har betydning for sikkerheden.
+body:
+  formal:
+    en: A kind of log in which the operating system or an application records security-relevant actions — logins, changes to permissions, opening protected files — each tied to the account that did it and protected against later change.
+    da: En slags log, hvor styresystemet eller et program registrerer sikkerhedsrelevante handlinger — login, ændrede rettigheder, åbning af beskyttede filer — hver knyttet til den konto, der udførte dem, og beskyttet mod senere ændring.
+  plain:
+    en: Like the visitor book and key-card record at a secure building's front desk — not what happened in general, but exactly who went where and when.
+    da: Som gæstebogen og adgangskortregistreringen i receptionen på en sikret bygning — ikke hvad der skete i almindelighed, men præcis hvem der gik hvorhen og hvornår.
+  inPractice:
+    en: After customer data leaks, the audit log shows that a former employee's account, which should have been closed, opened the customer file at 22:14 the evening before.
+    da: Efter et læk af kundedata viser audit-loggen, at en tidligere medarbejders konto, som burde have været lukket, åbnede kundefilen kl. 22.14 aftenen før.
+  whyItMatters:
+    en: It holds people accountable for their actions and gives investigators and auditors the evidence they need; standards such as ISO 27001 expect it.
+    da: Det gør folk ansvarlige for deres handlinger og giver efterforskere og revisorer det bevis, de har brug for; standarder som ISO 27001 forventer det.
+edges:
+  kind-of: [log]
+  requires: [account]
+  contrasts-with:
+    - to: security/audit
+      why:
+        en: Audit logging is a system's own record of actions; an audit is a person's independent review of whether controls work — which often reads those records.
+        da: Audit-logning er systemets egen optegnelse af handlinger; en audit er en uafhængig gennemgang af, om kontrollerne virker — som ofte læser netop de optegnelser.
+      strength: primary
+      confidence: high
+  used-with: [siem]
+sources:
+  - title: NIST SP 800-92, Guide to Computer Security Log Management
+    url: https://doi.org/10.6028/NIST.SP.800-92
+    tier: standard
+    publisher: NIST
+  - title: Modern Operating Systems
+    tier: textbook
+    publisher: Tanenbaum & Bos (Pearson)
+draft: true

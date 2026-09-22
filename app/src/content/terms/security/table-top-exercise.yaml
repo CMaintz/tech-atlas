@@ -1,0 +1,35 @@
+term:
+  en: Table-top exercise
+  da: Table-top-øvelse
+aka:
+  en: [tabletop exercise, TTX]
+  da: [skrivebordsøvelse]
+domain: [security]
+cluster: incident-response
+layer: people
+status: current
+summary:
+  en: A practice session around a table where a team talks through a made-up crisis step by step to test its plans.
+  da: En øvelse rundt om et bord, hvor et team taler sig igennem en opdigtet krise trin for trin for at afprøve sine planer.
+body:
+  formal:
+    en: A discussion-based exercise in which a host feeds a fictional incident to the people named in the plans, who state their decisions so gaps in roles and procedures show up without touching live systems.
+    da: En samtalebaseret øvelse, hvor en ordstyrer præsenterer en opdigtet hændelse for de personer, planerne udpeger, som fortæller, hvad de vil gøre, så huller i roller og procedurer viser sig uden at røre de rigtige systemer.
+  plain:
+    en: Like a football team walking through a set play on a board before trying it on the pitch.
+    da: Ligesom et fodboldhold, der gennemgår et standardspil på en tavle, før de prøver det på banen.
+  inPractice:
+    en: For two hours the leadership team is told a ransom note has appeared; halfway through they discover nobody knows who may call the police.
+    da: I to timer får ledelsen at vide, at der er dukket et krav om løsesum op; halvvejs opdager de, at ingen ved, hvem der må kontakte politiet.
+  whyItMatters:
+    en: A plan that has never been practised usually fails on the first real day, and finding the flaws in a meeting room is cheap.
+    da: En plan, der aldrig er øvet, fejler som regel første gang, det gælder, og det er billigt at finde fejlene i et mødelokale.
+edges:
+  requires: [contingency-plan, incident-response]
+  causes: [lessons-learned]
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-84
+    tier: standard
+draft: true

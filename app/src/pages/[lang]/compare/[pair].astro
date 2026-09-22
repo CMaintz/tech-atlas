@@ -1,0 +1,86 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import { CLUSTER_LABELS, LANGS, UI, termUrl, type Lang } from '../../../lib/site';
+import { contrastPairs, pairSlug, relationsOf, type ContrastPair } from '../../../lib/terms';
+
+export async function getStaticPaths() {
+  const pairs = contrastPairs(await getCollection('terms'));
+  return LANGS.flatMap((lang) =>
+    pairs.map((p) => ({ params: { lang, pair: pairSlug(p.a, p.b) }, props: { pair: p } })),
+  );
+}
+
+const lang = Astro.params.lang as Lang;
+const ui = UI[lang];
+const { pair } = Astro.props as { pair: ContrastPair };
+const all = await getCollection('terms');
+const sides = [pair.a, pair.b];
+
+// Terms both sides connect to — the common ground that makes them confusable.
+const neighbours = sides.map(
+  (t) =>
+    new Set(
+      relationsOf(t, all)
+        .map((r) => r.target.id)
+        .filter((id) => !sides.some((s) => s.id === id)),
+    ),
+);
+const shared = all.filter((t) => neighbours[0].has(t.id) && neighbours[1].has(t.id));
+const facets = ['formal', 'plain', 'inPractice', 'whyItMatters'] as const;
+const title = `${pair.a.data.term[lang]} ${ui.versus} ${pair.b.data.term[lang]}`;
+---
+
+<Base lang={lang} title={title}>
+  <p class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">{ui.compareTitle}</p>
+  <h1 class="mb-6 text-3xl font-semibold">{title}</h1>
+
+  {
+    pair.why && (
+      <div class="mb-8 rounded border border-neutral-800 bg-neutral-900 px-4 py-3">
+        <h2 class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">{ui.whyDiffer}</h2>
+        <p class="text-neutral-200">{pair.why[lang]}</p>
+      </div>
+    )
+  }
+
+  <div class="grid gap-6 sm:grid-cols-2">
+    {
+      sides.map((t) => (
+        <article>
+          <a class="text-xl font-semibold hover:underline" href={termUrl(lang, t.id)}>
+            {t.data.term[lang]}
+          </a>
+          <p class="mt-1 text-xs tracking-widest text-neutral-500 uppercase">
+            {CLUSTER_LABELS[t.data.cluster]?.[lang] ?? t.data.cluster}
+          </p>
+          <p class="mt-3 text-neutral-300">{t.data.summary[lang]}</p>
+          {facets.map((f) => (
+            <div class="mt-4">
+              <h3 class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">{ui[f]}</h3>
+              <p class="text-sm text-neutral-200">{t.data.body[f][lang]}</p>
+            </div>
+          ))}
+        </article>
+      ))
+    }
+  </div>
+
+  {
+    shared.length > 0 && (
+      <section class="mt-10">
+        <h2 class="mb-2 text-xs tracking-widest text-neutral-500 uppercase">{ui.shared}</h2>
+        <div class="flex flex-wrap gap-2">
+          {shared.map((t) => (
+            <a
+              class="rounded border border-neutral-800 px-2 py-1 text-sm text-neutral-300 hover:border-neutral-400"
+              href={termUrl(lang, t.id)}
+            >
+              {t.data.term[lang]}
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
+</Base>

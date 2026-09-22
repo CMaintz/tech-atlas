@@ -1,0 +1,46 @@
+term:
+  en: Human firewall
+  da: Human firewall
+aka:
+  en: [human layer of defence]
+  da: [menneskelig firewall]
+domain: [security]
+cluster: awareness
+layer: people
+status: current
+summary:
+  en: A workforce that acts as the first line of defence by spotting and stopping attacks aimed at people.
+  da: En medarbejderstab, der fungerer som første forsvarslinje ved at opdage og stoppe angreb rettet mod mennesker.
+body:
+  formal:
+    en: A security culture in which employees reliably recognise, resist and report attempts at manipulation, so that people work as a filter in the same way a firewall filters network traffic.
+    da: En sikkerhedskultur, hvor medarbejderne pålideligt genkender, modstår og melder forsøg på manipulation, så mennesker fungerer som et filter, ligesom en firewall filtrerer netværkstrafik.
+  plain:
+    en: Like a neighbourhood where everyone notices a stranger trying door handles and calls it in — the street itself becomes the alarm.
+    da: Som et kvarter, hvor alle lægger mærke til en fremmed, der prøver dørhåndtag, og ringer det ind — selve gaden bliver alarmen.
+  inPractice:
+    en: Within minutes of a fake invoice email arriving, three staff press the "report" button; IT pulls the email from every inbox before anyone pays.
+    da: Få minutter efter at en falsk faktura-mail er landet, trykker tre medarbejdere på "rapportér"-knappen, og IT fjerner mailen fra alle indbakker, før nogen betaler.
+  whyItMatters:
+    en: Some attacks will always get past technical filters, so the last check is a person — and it helps to treat people as a strength, not only a weakness.
+    da: Nogle angreb vil altid slippe forbi de tekniske filtre, så det sidste tjek er et menneske — og det hjælper at se mennesker som en styrke, ikke kun en svaghed.
+edges:
+  kind-of: [security-culture]
+  requires: [security-awareness]
+  mitigates:
+    - to: social-engineering
+      why:
+        en: Staff who expect manipulation catch it and warn others.
+        da: Medarbejdere, der forventer manipulation, opdager den og advarer andre.
+      strength: primary
+      confidence: high
+    - to: phishing
+      why:
+        en: Fast reporting lets one person's alert protect everyone who got the same email.
+        da: Hurtig indrapportering betyder, at én persons advarsel beskytter alle, der fik samme mail.
+      strength: primary
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+draft: true

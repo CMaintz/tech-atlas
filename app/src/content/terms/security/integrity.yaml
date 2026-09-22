@@ -1,0 +1,35 @@
+term:
+  en: Integrity
+  da: Integritet
+aka:
+  en: [data integrity]
+  da: [dataintegritet]
+domain: [security]
+cluster: fundamentals
+layer: data
+status: current
+summary:
+  en: Making sure information stays correct and complete, and is not changed by accident or without permission.
+  da: At sikre, at information forbliver korrekt og fuldstændig og ikke ændres ved et uheld eller uden tilladelse.
+body:
+  formal:
+    en: The property that information is accurate and complete, and that any change to it is made only by those allowed to, in a way that can be noticed.
+    da: Egenskaben, at information er nøjagtig og fuldstændig, og at enhver ændring kun foretages af dem, der har lov, og på en måde, der kan opdages.
+  plain:
+    en: Like a signed contract — if someone quietly changes a number after signing, the contract can no longer be trusted.
+    da: Som en underskrevet kontrakt — hvis nogen i al stilhed ændrer et tal efter underskriften, kan kontrakten ikke længere stoles på.
+  inPractice:
+    en: An attacker who gets into a supplier's email changes the bank account number on an invoice, and the customer pays the wrong account.
+    da: En angriber, der får adgang til en leverandørs mail, ændrer kontonummeret på en faktura, og kunden betaler til den forkerte konto.
+  whyItMatters:
+    en: Decisions, payments and even medical treatment rely on data being right; wrong data can do more harm than missing data because nobody questions it.
+    da: Beslutninger, betalinger og selv medicinsk behandling bygger på, at data er rigtige; forkerte data kan gøre mere skade end manglende data, fordi ingen stiller spørgsmål ved dem.
+edges:
+  part-of: [cia-triad]
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO/IEC 27000:2018 — Information security management systems — Overview and vocabulary
+    tier: standard
+    publisher: ISO/IEC
+draft: true

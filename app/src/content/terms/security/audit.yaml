@@ -1,0 +1,55 @@
+term:
+  en: Audit
+  da: Audit
+aka:
+  en: [compliance audit, security audit, internal audit]
+  da: [revision, intern audit]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: An independent check of whether an organisation actually follows its own policies and requirements.
+  da: En uafhængig gennemgang af, om en virksomhed faktisk følger sine egne politikker og krav.
+body:
+  formal:
+    en: A planned, documented and impartial examination that gathers evidence to judge whether practice matches set criteria — policies, contracts, laws or a standard — and reports findings for correction.
+    da: En planlagt, dokumenteret og upartisk undersøgelse, der indsamler beviser for at vurdere, om praksis stemmer med fastsatte kriterier — politikker, aftaler, love eller en standard — og rapporterer fund til udbedring.
+  plain:
+    en: A driving test for the organisation — someone watches what you really do, not what you say you do.
+    da: En køreprøve for virksomheden — nogen ser på, hvad man reelt gør, ikke på hvad man siger, man gør.
+  inPractice:
+    en: An internal auditor checks ten former staff and finds that three still have active accounts, which goes into the report as a finding to fix.
+    da: En intern auditor tjekker ti fratrådte medarbejdere og finder, at tre stadig har aktive konti, hvilket kommer med i rapporten som et fund, der skal rettes.
+  whyItMatters:
+    en: Written rules drift away from real behaviour over time; audits catch that drift and give leaders and customers evidence to trust.
+    da: Skrevne regler glider med tiden væk fra den virkelige adfærd; audits fanger den glidning og giver ledelse og kunder et bevis at stole på.
+edges:
+  requires: [security-policy, compliance]
+  contrasts-with:
+    - to: gap-analysis
+      why:
+        en: A gap analysis finds what is missing before you start; an audit checks whether what you claim to do is really done.
+        da: En gap-analyse finder, hvad der mangler, før man går i gang; en audit kontrollerer, om det, man siger, man gør, faktisk bliver gjort.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: pdca
+      why:
+        en: Audits supply the evidence for the Check step of the improvement cycle.
+        da: Audits leverer beviserne til Check-trinnet i forbedringscyklussen.
+      strength: normal
+      confidence: high
+    - to: supplier-management
+      why:
+        en: Organisations audit key suppliers, or read their audit reports, to check they keep their promises.
+        da: Virksomheder auditerer vigtige leverandører eller læser deres auditrapporter for at tjekke, at de holder det, de lover.
+      strength: normal
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO/IEC 27001:2022, Clause 9.2 (Internal audit)
+    tier: standard
+    publisher: ISO/IEC
+draft: true

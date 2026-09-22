@@ -1,0 +1,32 @@
+term:
+  en: Port
+  da: Port
+aka:
+  en: [port number, network port]
+  da: [portnummer, netværksport]
+domain: [cs]
+cluster: networking
+layer: network
+status: current
+summary:
+  en: A number that picks out which program on a device should receive incoming network data.
+  da: Et nummer, der udpeger, hvilket program på en enhed der skal modtage indgående netværksdata.
+body:
+  formal:
+    en: A 16-bit number used by TCP/IP alongside an IP address, so that data reaching a device is handed to the right service running on it.
+    da: Et 16-bit tal, som TCP/IP bruger sammen med en IP-adresse, så data, der når en enhed, overgives til den rette tjeneste, der kører på den.
+  plain:
+    en: If the IP address is the building, the port is the apartment number — it says which door inside the building the letter goes to.
+    da: Hvis IP-adressen er opgangen, er porten lejlighedsnummeret — den fortæller, hvilken dør i bygningen brevet skal til.
+  inPractice:
+    en: A company's web service listens on port 443, so the firewall lets traffic to that port in and keeps every other port closed.
+    da: En virksomheds webtjeneste lytter på port 443, så firewallen lukker trafik til den port ind og holder alle andre porte lukkede.
+  whyItMatters:
+    en: Every open port is a door an attacker can knock on, which is why scans look for open ports and good practice closes the ones not needed.
+    da: Hver åben port er en dør, en angriber kan banke på, og derfor leder scanninger efter åbne porte, og god praksis lukker dem, der ikke bruges.
+edges:
+  requires: [ip-address, protocol]
+sources:
+  - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
+    tier: textbook
+draft: true

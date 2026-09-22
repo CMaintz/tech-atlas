@@ -1,0 +1,42 @@
+term:
+  en: Confidentiality
+  da: Fortrolighed
+aka:
+  en: []
+  da: []
+domain: [security]
+cluster: fundamentals
+layer: data
+status: current
+summary:
+  en: Making sure only the right people can see a piece of information.
+  da: At sikre, at kun de rette personer kan se en given information.
+body:
+  formal:
+    en: The property that information is not made available or disclosed to people, systems or processes that are not allowed to have it.
+    da: Egenskaben, at information ikke gøres tilgængelig eller videregives til personer, systemer eller processer, der ikke har lov til at få den.
+  plain:
+    en: Like a sealed letter — the address is on the outside, but only the person it is meant for should read what is inside.
+    da: Som et lukket brev — adressen står udenpå, men kun den, brevet er til, bør læse indholdet.
+  inPractice:
+    en: An HR system shows salary details only to HR staff and each employee's own manager, not to the whole company.
+    da: Et HR-system viser kun lønoplysninger for HR-medarbejdere og den enkelte medarbejders egen leder — ikke for hele virksomheden.
+  whyItMatters:
+    en: Once secret information has leaked it cannot be taken back, and leaks of personal data can bring fines and lasting damage to trust.
+    da: Når hemmelig information først er lækket, kan den ikke hentes tilbage, og læk af persondata kan give bøder og varig skade på tilliden.
+edges:
+  part-of: [cia-triad]
+  contrasts-with:
+    - to: integrity
+      why:
+        en: Confidentiality is about who can see information; integrity is about whether it has been changed.
+        da: Fortrolighed handler om, hvem der kan se informationen; integritet handler om, hvorvidt den er blevet ændret.
+      strength: primary
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO/IEC 27000:2018 — Information security management systems — Overview and vocabulary
+    tier: standard
+    publisher: ISO/IEC
+draft: true

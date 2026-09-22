@@ -1,0 +1,43 @@
+term:
+  en: Access management
+  da: Adgangsstyring
+aka:
+  en: [identity and access management, IAM]
+  da: [IAM, adgangsstyring og identitetsstyring]
+domain: [security]
+cluster: controls
+layer: identity
+status: current
+summary:
+  en: The rules and routines that decide who may use which data and systems, and that keep those rights correct over time.
+  da: De regler og rutiner, der afgør, hvem der må bruge hvilke data og systemer, og som holder rettighederne korrekte over tid.
+body:
+  formal:
+    en: The ongoing process of granting, reviewing and removing each user account's rights to data and systems, based on the person's role and approved need, so that access control enforces a current decision.
+    da: Den løbende proces med at tildele, gennemgå og fjerne hver brugerkontos rettigheder til data og systemer ud fra personens rolle og godkendte behov, så adgangskontrollen håndhæver en aktuel beslutning.
+  plain:
+    en: Like the office manager who decides who gets a key to which rooms, and collects the keys back when someone changes job or leaves.
+    da: Som kontorchefen, der bestemmer, hvem der får nøgle til hvilke rum, og som samler nøglerne ind igen, når nogen skifter job eller stopper.
+  inPractice:
+    en: When someone in sales moves to HR, their access to the customer system is removed the same week and they get access to staff files instead, approved by the HR manager.
+    da: Når en sælger skifter til HR, fjernes adgangen til kundesystemet samme uge, og i stedet får personen adgang til personalemapper, godkendt af HR-chefen.
+  whyItMatters:
+    en: Rights pile up quietly as people change roles; if nobody checks them, one stolen account can open far more than its owner ever needed.
+    da: Rettigheder hober sig stille op, når folk skifter roller; uden opfølgning kan én stjålet konto åbne langt mere, end ejeren nogensinde havde brug for.
+edges:
+  kind-of: [control]
+  implements: [access-control]
+  requires:
+    - authentication
+    - authorization
+  used-with:
+    - least-privilege
+    - role-based-access-control
+    - mfa
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: CIS Critical Security Controls v8 — Controls 5 and 6
+    tier: standard
+    publisher: Center for Internet Security
+draft: true

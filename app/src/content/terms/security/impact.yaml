@@ -1,0 +1,43 @@
+term:
+  en: Impact
+  da: Konsekvens
+aka:
+  en: [consequence]
+  da: [påvirkning]
+domain: [security]
+cluster: fundamentals
+layer: governance
+status: current
+summary:
+  en: How much harm an event would do to the business if it actually happened — in money, time, trust or safety.
+  da: Hvor stor skade en hændelse vil gøre for forretningen, hvis den faktisk sker — i penge, tid, tillid eller sikkerhed.
+body:
+  formal:
+    en: The size of the damage to an asset or to the business when a threat succeeds, usually rated on a scale from minor to severe as one of the two parts of risk.
+    da: Omfanget af den skade, et aktiv eller forretningen lider, når en trussel lykkes, typisk vurderet på en skala fra lille til alvorlig som den ene af risikoens to dele.
+  plain:
+    en: Spilling coffee on a napkin and spilling it on your laptop are equally likely — but one hurts far more.
+    da: At spilde kaffe på en serviet og på din bærbare er lige sandsynligt — men det ene gør langt mere ondt.
+  inPractice:
+    en: A shop rates losing its web store for a day as high impact because most sales happen online, but a broken office printer as low.
+    da: En butik vurderer, at en dag uden webshop har høj konsekvens, fordi det meste salg sker online, mens en defekt kontorprinter har lav.
+  whyItMatters:
+    en: Rating the harm lets leaders spend their limited money on protecting what would hurt most to lose.
+    da: Når skaden er vurderet, kan ledelsen bruge sine begrænsede midler på at beskytte det, der ville gøre mest ondt at miste.
+edges:
+  part-of:
+    - to: risk
+      why:
+        en: Risk combines how likely something is with how much harm it would do.
+        da: Risiko kombinerer, hvor sandsynligt noget er, med hvor stor skade det vil gøre.
+      strength: primary
+      confidence: high
+  requires: [asset]
+  used-with: [likelihood]
+sources:
+  - title: Cyber Security Fast Track — Ordliste (Risiko)
+    tier: course-material
+  - title: ISO/IEC 27005 — Information security risk management
+    tier: standard
+    publisher: ISO
+draft: true

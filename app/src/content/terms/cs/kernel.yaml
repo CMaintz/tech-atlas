@@ -1,0 +1,43 @@
+term:
+  en: Kernel
+  da: Kerne (kernel)
+aka:
+  en: []
+  da: [kernel]
+domain: [cs]
+cluster: os
+layer: os
+status: current
+summary:
+  en: The core of the operating system, which has full control of the machine and decides what every program may do.
+  da: Kernen i styresystemet, som har fuld kontrol over maskinen og bestemmer, hvad hvert program må.
+body:
+  formal:
+    en: The part of the operating system that runs with full rights over the machine. Ordinary programs cannot touch devices or each other's data directly; they must ask the kernel, which checks and carries out the request.
+    da: Den del af styresystemet, der kører med fulde rettigheder over maskinen. Almindelige programmer kan ikke røre udstyr eller hinandens data direkte; de må bede kernen, som kontrollerer og udfører anmodningen.
+  plain:
+    en: Like the staff at a bank vault — customers never walk into the vault themselves; they hand a slip over the counter, and staff decide whether to fetch what was asked for.
+    da: Som personalet ved bankboksen — kunderne går aldrig selv ind i boksen; de afleverer en seddel ved skranken, og personalet afgør, om de vil hente det ønskede.
+  inPractice:
+    en: When a program saves a file, it does not write to the disk itself. It asks the kernel, which first checks that the user has permission to write in that folder.
+    da: Når et program gemmer en fil, skriver det ikke selv til disken. Det beder kernen, som først kontrollerer, at brugeren har rettighed til at skrive i den mappe.
+  whyItMatters:
+    en: Because the kernel can do anything, an attacker who takes it over controls the whole machine and can hide from every other defence on it.
+    da: Fordi kernen kan alt, kontrollerer en angriber, der overtager den, hele maskinen og kan skjule sig for alle andre forsvar på den.
+edges:
+  part-of: [operating-system]
+  used-with:
+    - to: permission
+      why:
+        en: The kernel is what actually checks permissions each time a program asks to do something.
+        da: Det er kernen, der rent faktisk tjekker rettigheder, hver gang et program beder om at gøre noget.
+    - process
+sources:
+  - title: 'Operating Systems: Three Easy Pieces'
+    url: https://pages.cs.wisc.edu/~remzi/OSTEP/
+    tier: textbook
+    publisher: Arpaci-Dusseau
+  - title: Modern Operating Systems
+    tier: textbook
+    publisher: Tanenbaum & Bos (Pearson)
+draft: true

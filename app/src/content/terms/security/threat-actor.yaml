@@ -1,0 +1,44 @@
+term:
+  en: Threat actor
+  da: Trusselsaktør
+aka:
+  en: [attacker, adversary]
+  da: [angriber, aktør]
+domain: [security]
+cluster: fundamentals
+layer: people
+status: current
+summary:
+  en: The person or group behind an attack, such as a criminal gang, a foreign state, an activist or a careless insider.
+  da: Den person eller gruppe, der står bag et angreb — fx en kriminel bande, en fremmed stat, en aktivist eller en uforsigtig medarbejder.
+body:
+  formal:
+    en: An individual or group that has the intent and the means to harm an organisation, described by its goals, skills and resources, such as crime for money, spying or protest.
+    da: En person eller gruppe, der har både vilje og midler til at skade en organisation, og som beskrives ud fra sine mål, evner og ressourcer — fx kriminalitet for penge, spionage eller protest.
+  plain:
+    en: If a threat is "a break-in could happen", the threat actor is the burglar — with their own reasons, tools and patience.
+    da: Hvis truslen er "der kan ske et indbrud", er trusselsaktøren indbrudstyven — med sine egne motiver, værktøjer og tålmodighed.
+  inPractice:
+    en: A risk team notes that a criminal gang seeking payment is the most likely attacker of their shop, while spying by a foreign state is far less likely.
+    da: Et risikoteam noterer, at en kriminel bande, der vil have penge, er den mest sandsynlige angriber mod deres butik, mens spionage fra en fremmed stat er langt mindre sandsynlig.
+  whyItMatters:
+    en: Knowing who is likely to attack, and why, tells you which defences matter most for your organisation.
+    da: Når man ved, hvem der sandsynligvis angriber og hvorfor, ved man også, hvilke forsvar der betyder mest for ens organisation.
+edges:
+  requires: [threat]
+  part-of: [threat-landscape]
+  exploits:
+    - to: vulnerability
+      why:
+        en: Attackers look for weaknesses in systems and people that they can use to get in.
+        da: Angribere leder efter svagheder i systemer og hos mennesker, som de kan bruge til at komme ind.
+      strength: primary
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 1 (cyberlandskabet og aktører)
+    tier: course-material
+  - title: NIST Glossary — Threat Actor
+    tier: standard
+    publisher: NIST
+    url: https://csrc.nist.gov/glossary/term/threat_actor
+draft: true

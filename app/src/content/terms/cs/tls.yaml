@@ -1,0 +1,43 @@
+term:
+  en: TLS
+  da: TLS
+aka:
+  en: [Transport Layer Security]
+  da: [Transport Layer Security]
+domain: [cs]
+cluster: networking
+layer: network
+status: current
+summary:
+  en: The protocol that puts a protected, encrypted channel around data sent over TCP/IP, as in the padlock on web pages.
+  da: Protokollen, der lægger en beskyttet, krypteret kanal om data sendt over TCP/IP, som hængelåsen på websider.
+body:
+  formal:
+    en: A protocol running on top of TCP/IP that checks the identity of the other side, agrees on shared secrets, and then uses encryption to keep the data private and unaltered in transit.
+    da: En protokol oven på TCP/IP, der kontrollerer modpartens identitet, aftaler fælles hemmeligheder og derefter bruger kryptering til at holde data private og uændrede undervejs.
+  plain:
+    en: Like sending your letters in a locked, sealed case, after first checking the person receiving it is really who they claim to be.
+    da: Som at sende dine breve i en låst, forseglet kuffert efter først at have tjekket, at modtageren virkelig er den, de udgiver sig for.
+  inPractice:
+    en: When online banking shows a padlock in the address bar, TLS is protecting the password and account details on their way to the bank.
+    da: Når netbanken viser en hængelås i adresselinjen, beskytter TLS adgangskoden og kontooplysningerne på vej til banken.
+  whyItMatters:
+    en: Without it, anyone on the same wifi or along the route could read or change passwords and personal data as they pass.
+    da: Uden den kunne alle på det samme wifi eller langs ruten læse eller ændre adgangskoder og persondata, mens de passerer.
+edges:
+  kind-of: [protocol]
+  requires: [tcp-ip, encryption, digital-certificate]
+  implements: [confidentiality, integrity]
+  contrasts-with:
+    - to: vpn
+      why:
+        en: TLS protects one program's connection to one service; a VPN wraps all of a device's traffic in a single protected tunnel.
+        da: TLS beskytter ét programs forbindelse til én tjeneste; en VPN pakker al en enheds trafik ind i én beskyttet tunnel.
+      strength: normal
+      confidence: high
+sources:
+  - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
+    tier: textbook
+  - title: RFC 8446 — The Transport Layer Security (TLS) Protocol Version 1.3
+    tier: standard
+draft: true

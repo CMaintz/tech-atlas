@@ -4,4 +4,17 @@
 # alphabetical, each justified with a trailing "# why". Deliberately annoying to
 # add to, so it never becomes a rubber stamp.
 email        # everyday word, never a node
-password     # everyday word in this domain, defined concept lives under `credential`
+gatekeeper   # everyday English, missing from the frequency list
+hierarchical # everyday English, missing from the frequency list
+inbox        # everyday word for an email inbox
+linux        # proper noun (operating system brand)
+lookup       # everyday English, missing from the frequency list
+macos        # proper noun (operating system brand)
+microsoft    # proper noun (company)
+mitid        # proper noun (Danish national login)
+numeric      # everyday English, missing from the frequency list
+organisational # British spelling of an everyday word
+specification  # everyday English, missing from the frequency list
+watertight   # everyday English, missing from the frequency list
+wifi         # everyday word for wireless networking
+windows      # proper noun (operating system brand)

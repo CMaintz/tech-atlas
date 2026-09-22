@@ -1,0 +1,73 @@
+term:
+  en: NIS2 Directive
+  da: NIS2-direktivet
+aka:
+  en: [NIS2, Directive (EU) 2022/2555]
+  da: [NIS2, NIS2-loven]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: The EU cybersecurity law that sets shared security duties for organisations in important and critical sectors.
+  da: EU's cybersikkerhedslov, der pålægger organisationer i vigtige og kritiske sektorer fælles sikkerhedskrav.
+body:
+  formal:
+    en: An EU directive, adopted in 2022 and written into each member state's own law, that obliges essential and important organisations to manage cyber risk, report serious incidents and hold management accountable.
+    da: Et EU-direktiv fra 2022, som hvert medlemsland skriver ind i sin egen lovgivning, og som forpligter væsentlige og vigtige virksomheder til at styre cyberrisici, indberette alvorlige hændelser og holde ledelsen ansvarlig.
+  plain:
+    en: A shared set of rules for the whole EU, like common building safety rules — every country must adopt it, and firms that keep society running must follow it.
+    da: En fælles regelbog for hele EU, lidt som fælles byggeregler — hvert land skal indføre den, og de virksomheder, der holder samfundet kørende, skal følge den.
+  inPractice:
+    en: A mid-sized Danish water utility learns it falls under NIS2, so its board approves a risk assessment, a plan for reporting incidents within 24 hours, and security terms for its suppliers.
+    da: Et mellemstort dansk vandværk finder ud af, at det er omfattet af NIS2, så bestyrelsen godkender en risikovurdering, en plan for at indberette hændelser inden for 24 timer og sikkerhedskrav til leverandørerne.
+  whyItMatters:
+    en: It widens the first NIS rules to many more sectors and adds large fines and personal accountability for leaders, so security becomes a board-level duty.
+    da: Det udvider de første NIS-regler til mange flere sektorer og tilføjer store bøder og personligt ansvar for ledelsen, så sikkerhed bliver en opgave for bestyrelsen.
+edges:
+  requires: [cyber-and-information-security]
+  mandates:
+    - to: risk-management
+      why:
+        en: Organisations must take measures based on a structured view of their risks.
+        da: Virksomheder skal træffe foranstaltninger ud fra et struktureret overblik over deres risici.
+      strength: primary
+      confidence: high
+    - to: incident-response
+      why:
+        en: Serious incidents must be handled and reported to the authorities within fixed deadlines.
+        da: Alvorlige hændelser skal håndteres og indberettes til myndighederne inden for faste frister.
+      strength: primary
+      confidence: high
+    - to: management-responsibility
+      why:
+        en: Leaders must approve the security measures, oversee them and can be held personally liable.
+        da: Ledelsen skal godkende sikkerhedstiltagene, føre tilsyn med dem og kan holdes personligt ansvarlig.
+      strength: primary
+      confidence: high
+    - to: supplier-management
+      why:
+        en: Security in the supply chain, including suppliers, is one of the required measures.
+        da: Sikkerhed i forsyningskæden, herunder hos leverandører, er et af de krævede tiltag.
+      strength: normal
+      confidence: high
+    - to: security-awareness
+      why:
+        en: Staff and management must receive regular training in basic cyber hygiene.
+        da: Medarbejdere og ledelse skal have løbende træning i grundlæggende cyberhygiejne.
+      strength: normal
+      confidence: high
+    - to: incident-reporting
+      why:
+        en: Significant incidents must be reported to the authorities in stages, starting with an early warning within 24 hours.
+        da: Væsentlige hændelser skal indberettes til myndighederne i trin, begyndende med en tidlig varsling inden for 24 timer.
+      strength: primary
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: Directive (EU) 2022/2555 (NIS2 Directive)
+    tier: standard
+    publisher: European Union
+    url: 'https://eur-lex.europa.eu/eli/dir/2022/2555/oj'
+draft: true

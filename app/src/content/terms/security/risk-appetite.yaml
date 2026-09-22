@@ -1,0 +1,35 @@
+term:
+  en: Risk appetite
+  da: Risikoappetit
+aka:
+  en: [risk tolerance]
+  da: [risikovillighed]
+domain: [security]
+cluster: risk-management
+layer: governance
+status: current
+summary:
+  en: How much risk leadership is willing to live with to reach the company's goals.
+  da: Hvor meget risiko ledelsen er villig til at leve med for at nå virksomhedens mål.
+body:
+  formal:
+    en: A leadership decision stating the amount and type of risk an organisation will accept, used as the line that decides whether a risk needs further treatment.
+    da: En ledelsesbeslutning, der fastlægger mængden og typen af risiko, en organisation vil acceptere, og som bruges som grænsen for, om en risiko skal håndteres yderligere.
+  plain:
+    en: Like how fast you are willing to drive — some people accept more danger to arrive sooner, others do not.
+    da: Ligesom hvor stærkt man er villig til at køre — nogle accepterer mere fare for at komme hurtigere frem, andre gør ikke.
+  inPractice:
+    en: A bank's board states it will accept no risk of losing customer data, but will accept short outages of its internal chat.
+    da: En banks bestyrelse fastslår, at den ikke accepterer nogen risiko for at miste kundedata, men gerne accepterer korte nedbrud af den interne chat.
+  whyItMatters:
+    en: Without a stated limit, every risk decision becomes a matter of opinion, and leadership cannot be held to account.
+    da: Uden en fastlagt grænse bliver hver risikobeslutning et spørgsmål om holdning, og ledelsen kan ikke stilles til ansvar.
+edges:
+  requires: [risk, governance]
+  part-of: [risk-management]
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO/IEC 27005:2022
+    tier: standard
+draft: true

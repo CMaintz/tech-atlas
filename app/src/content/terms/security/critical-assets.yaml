@@ -1,0 +1,35 @@
+term:
+  en: Critical assets
+  da: Kritiske aktiver
+aka:
+  en: [crown jewels]
+  da: []
+domain: [security]
+cluster: risk-management
+layer: governance
+status: current
+summary:
+  en: The systems, processes or data the business cannot run without, and so must protect first.
+  da: De systemer, processer eller data, som forretningen ikke kan køre uden, og som derfor skal beskyttes først.
+body:
+  formal:
+    en: The part of an organisation's assets whose loss, damage or being out of reach would seriously harm its operations, and which therefore get the highest priority for protection.
+    da: Den del af en organisations aktiver, hvis tab, skade eller manglende tilgængelighed vil ramme driften alvorligt, og som derfor får højeste prioritet i beskyttelsen.
+  plain:
+    en: Like the few things you would grab first if your house were on fire.
+    da: Ligesom de få ting, man ville tage med først, hvis ens hus brændte.
+  inPractice:
+    en: A web shop marks its order system and customer database as critical, while the office music player is not.
+    da: En webshop markerer sit ordresystem og sin kundedatabase som kritiske, mens musikanlægget på kontoret ikke er det.
+  whyItMatters:
+    en: Knowing what matters most lets a small security budget cover the things whose loss would actually stop the business.
+    da: Når man ved, hvad der betyder mest, kan et lille sikkerhedsbudget dække de ting, hvis tab faktisk ville stoppe forretningen.
+edges:
+  requires: [asset-inventory, availability]
+  used-with: [data-classification, risk-management]
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO/IEC 27005:2022
+    tier: standard
+draft: true

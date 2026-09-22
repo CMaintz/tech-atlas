@@ -1,0 +1,35 @@
+term:
+  en: IP address
+  da: IP-adresse
+aka:
+  en: [Internet Protocol address, IPv4 address, IPv6 address]
+  da: [IPv4-adresse, IPv6-adresse]
+domain: [cs]
+cluster: networking
+layer: network
+status: current
+summary:
+  en: A number that identifies a device on a network so that data can be delivered to it.
+  da: Et nummer, der identificerer en enhed på et netværk, så data kan leveres til den.
+body:
+  formal:
+    en: A numeric label given to a device's connection to a network, used by the TCP/IP family of protocols to mark where each packet comes from and where it must go.
+    da: En talmærkat, der gives til en enheds forbindelse til et netværk, og som TCP/IP-protokollerne bruger til at angive, hvor hver pakke kommer fra, og hvor den skal hen.
+  plain:
+    en: Like a street address for a house — without it, the postman has no idea where to deliver the letter.
+    da: Som en gadeadresse til et hus — uden den aner postbudet ikke, hvor brevet skal afleveres.
+  inPractice:
+    en: A security analyst sees repeated failed logins in a log, all coming from one IP address abroad, and blocks that address.
+    da: En sikkerhedsanalytiker ser gentagne mislykkede login i en log, der alle kommer fra én IP-adresse i udlandet, og blokerer adressen.
+  whyItMatters:
+    en: Blocking, logging and tracing attacks all start with addresses, although an address alone does not prove who sits behind it.
+    da: Blokering, logning og sporing af angreb starter alle med adresser, selv om en adresse alene ikke beviser, hvem der sidder bag den.
+edges:
+  requires: [network]
+  used-with: [port]
+sources:
+  - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
+    tier: textbook
+  - title: RFC 791 — Internet Protocol
+    tier: standard
+draft: true

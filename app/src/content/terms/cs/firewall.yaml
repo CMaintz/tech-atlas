@@ -1,0 +1,51 @@
+term:
+  en: Firewall
+  da: Firewall
+aka:
+  en: [network firewall]
+  da: [netværksfirewall]
+domain: [cs, security]
+cluster: networking
+layer: network
+status: current
+summary:
+  en: A gatekeeper that checks network traffic against rules and lets through only what is allowed.
+  da: En portvagt, der tjekker netværkstrafik mod regler og kun lukker det igennem, der er tilladt.
+body:
+  formal:
+    en: A device or program placed between networks that inspects each packet — its IP addresses, ports and protocol — and allows or blocks it according to a set of rules.
+    da: En enhed eller et program placeret mellem netværk, som undersøger hver pakke — dens IP-adresser, porte og protokol — og tillader eller blokerer den efter et regelsæt.
+  plain:
+    en: Like a guard at the gate of a building with a list of who may come in and which doors they may use; anyone not on the list is turned away.
+    da: Som en vagt ved porten til en bygning med en liste over, hvem der må komme ind, og hvilke døre de må bruge; alle andre bliver afvist.
+  inPractice:
+    en: A company firewall allows outside traffic only to its web service on port 443 and blocks attempts to reach its internal file shares.
+    da: En virksomheds firewall tillader kun udefrakommende trafik til webtjenesten på port 443 og blokerer forsøg på at nå de interne fildrev.
+  whyItMatters:
+    en: It is one of the oldest and most basic network controls, shrinking what an outsider can reach — but it cannot stop threats that come through allowed doors.
+    da: Den er en af de ældste og mest grundlæggende netværkskontroller og mindsker, hvad en udefrakommende kan nå — men den kan ikke stoppe trusler, der kommer gennem tilladte døre.
+edges:
+  kind-of: [control]
+  requires: [packet, port, ip-address]
+  used-with: [network-segmentation, router]
+  contrasts-with:
+    - to: intrusion-prevention-system
+      why:
+        en: A firewall decides by fixed rules about where traffic may go; an IPS looks inside allowed traffic for signs of an attack.
+        da: En firewall afgør ud fra faste regler, hvor trafik må gå hen; en IPS kigger ind i tilladt trafik efter tegn på angreb.
+      strength: primary
+      confidence: high
+    - human-firewall
+  mitigates:
+    - to: data-breach
+      why:
+        en: Blocking unneeded paths into the network removes many routes an attacker could use to reach data.
+        da: Ved at blokere unødvendige veje ind i netværket fjernes mange ruter, en angriber kunne bruge til at nå data.
+      strength: normal
+      confidence: medium
+sources:
+  - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
+    tier: textbook
+  - title: NIST SP 800-41 Rev. 1 — Guidelines on Firewalls and Firewall Policy
+    tier: standard
+draft: true

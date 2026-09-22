@@ -1,0 +1,36 @@
+term:
+  en: Threat landscape
+  da: Trusselsbillede
+aka:
+  en: []
+  da: [trusselslandskab]
+domain: [security]
+cluster: risk-management
+layer: governance
+status: current
+summary:
+  en: A picture of the kinds of threats a company could face right now, and who or what is behind them.
+  da: Et overblik over de typer trusler, en virksomhed kan blive udsat for lige nu, og hvem eller hvad der står bag.
+body:
+  formal:
+    en: The current picture of which threats are active against an organisation, its sector or country, including the likely attackers, their methods and how these are changing.
+    da: Det aktuelle billede af, hvilke trusler der er rettet mod en organisation, dens branche eller land, herunder de sandsynlige angribere, deres metoder og hvordan de ændrer sig.
+  plain:
+    en: Like a weather forecast for danger, telling you whether to expect rain, storms or a heat wave in the weeks ahead.
+    da: Ligesom en vejrudsigt for farer, der fortæller, om man skal forvente regn, storm eller hedebølge i de kommende uger.
+  inPractice:
+    en: Before the yearly risk review, the team reads the national security agency's report and notes that ransomware against small manufacturers is rising.
+    da: Før den årlige risikogennemgang læser teamet den nationale myndigheds rapport og noterer, at ransomware mod mindre produktionsvirksomheder er stigende.
+  whyItMatters:
+    en: Risks can only be judged against the threats that actually exist, so an outdated picture leads to protecting against yesterday's attacks.
+    da: Risici kan kun vurderes ud fra de trusler, der faktisk findes, så et forældet billede fører til beskyttelse mod gårsdagens angreb.
+edges:
+  requires: [threat]
+  part-of: [risk-management]
+  used-with: [vulnerability-assessment]
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO/IEC 27005:2022
+    tier: standard
+draft: true

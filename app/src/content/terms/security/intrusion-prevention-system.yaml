@@ -1,0 +1,45 @@
+term:
+  en: Intrusion prevention system (IPS)
+  da: Indtrængningsforebyggelse (IPS)
+aka:
+  en: [IPS]
+  da: [IPS, system til indtrængningsforebyggelse]
+domain: [security]
+cluster: controls
+layer: network
+status: current
+summary:
+  en: A guard placed in the path of network traffic that recognises signs of an attack and blocks them as they happen.
+  da: En vagt placeret i netværkstrafikkens vej, som genkender tegn på angreb og blokerer dem, mens de sker.
+body:
+  formal:
+    en: A system placed directly in the flow of network packets that checks each against known attack patterns or unusual behaviour and drops or cuts off the traffic it judges harmful before it reaches its target.
+    da: Et system placeret direkte i strømmen af netværkspakker, som tjekker hver enkelt mod kendte angrebsmønstre eller usædvanlig adfærd og kasserer eller afbryder den trafik, det vurderer som skadelig, før den når sit mål.
+  plain:
+    en: Like a bouncer at the door who turns away anyone matching a description, instead of just phoning the police.
+    da: Som en dørmand, der afviser enhver, der passer på en efterlysning, i stedet for bare at ringe til politiet.
+  inPractice:
+    en: An outside server sends a request built to abuse a known flaw in the company website; the IPS recognises the pattern and drops it, so the request never reaches the site.
+    da: En fremmed server sender en forespørgsel lavet til at misbruge en kendt fejl på firmaets hjemmeside; IPS'en genkender mønstret og kasserer den, så den aldrig når frem.
+  whyItMatters:
+    en: It stops attacks without waiting for a human, but a wrong judgement blocks real users too — so rules must be tuned to balance safety against availability.
+    da: Den stopper angreb uden at vente på et menneske, men en forkert vurdering blokerer også rigtige brugere — så reglerne skal justeres, så sikkerhed og tilgængelighed balancerer.
+edges:
+  kind-of: [control]
+  requires:
+    - packet
+    - firewall
+  mitigates:
+    - to: vulnerability
+      why:
+        en: It can block attempts to use a known weakness while a patch is still pending.
+        da: Den kan blokere forsøg på at udnytte en kendt svaghed, mens en patch stadig mangler.
+      strength: minor
+      confidence: medium
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-94 — Guide to Intrusion Detection and Prevention Systems (IDPS)
+    tier: standard
+    publisher: NIST
+draft: true

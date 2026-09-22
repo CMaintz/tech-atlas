@@ -1,0 +1,41 @@
+term:
+  en: Authorization
+  da: Autorisation
+aka:
+  en: [authz, authorisation]
+  da: [autorisering]
+domain: [cs, security]
+cluster: identity
+layer: identity
+status: current
+summary:
+  en: Deciding what an already identified user is allowed to do, such as which files they may open or change.
+  da: At afgøre, hvad en allerede identificeret bruger har lov til, fx hvilke filer vedkommende må åbne eller ændre.
+body:
+  formal:
+    en: The decision, made after authentication, whether a given identity may perform a given action on a given thing, based on its permissions, roles or other rules.
+    da: Beslutningen, der træffes efter autentificering, om en given identitet må udføre en given handling på noget bestemt, ud fra dens rettigheder, roller eller andre regler.
+  plain:
+    en: Like the coloured band on your wrist at a festival — the gate already knows who you are, and the colour decides whether you may go backstage.
+    da: Som armbåndet på en festival — indgangen ved allerede, hvem du er, og farven på dit armbånd afgør, om du må komme backstage.
+  inPractice:
+    en: Mette is logged in, but when she tries to open the payroll folder the system checks her permissions and refuses, because only HR may read it.
+    da: Mette er logget ind, men da hun prøver at åbne lønmappen, tjekker systemet hendes rettigheder og afviser hende, fordi kun HR må læse den.
+  whyItMatters:
+    en: When authorization grants more than people need, a single stolen login or careless employee can expose far more data than necessary.
+    da: Når autorisation giver mere, end folk har brug for, kan et enkelt stjålet login eller en uforsigtig medarbejder blotlægge langt flere data end nødvendigt.
+edges:
+  requires: [authentication]
+  part-of: [access-control]
+  used-with:
+    - permission
+    - to: zero-trust
+      why:
+        en: Zero Trust makes a fresh authorization decision for every single request.
+        da: Zero Trust træffer en ny autorisationsbeslutning for hver eneste forespørgsel.
+sources:
+  - title: NIST SP 800-162, Guide to Attribute Based Access Control (ABAC) Definition and Considerations
+    url: https://doi.org/10.6028/NIST.SP.800-162
+    tier: standard
+    publisher: NIST
+draft: true

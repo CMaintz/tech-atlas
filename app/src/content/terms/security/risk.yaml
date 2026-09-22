@@ -1,0 +1,42 @@
+term:
+  en: Risk
+  da: Risiko
+aka:
+  en: [security risk]
+  da: [sikkerhedsrisiko]
+domain: [security]
+cluster: fundamentals
+layer: governance
+status: current
+summary:
+  en: How likely it is that a threat uses a vulnerability, combined with how bad the damage would be.
+  da: Sandsynligheden for, at en trussel udnytter en sårbarhed, sammenholdt med hvor slem konsekvensen vil være.
+body:
+  formal:
+    en: A measure of possible harm that combines the likelihood of a threat using a vulnerability with the impact on the organisation if it does.
+    da: Et mål for mulig skade, der kombinerer sandsynligheden for, at en trussel udnytter en sårbarhed, med konsekvensen for organisationen, hvis det sker.
+  plain:
+    en: Like deciding whether to insure a bike — you weigh how often bikes get stolen round here against how much a new one would cost.
+    da: Som når du overvejer at forsikre din cykel — du vejer, hvor tit cykler bliver stjålet i dit område, op mod hvad en ny koster.
+  inPractice:
+    en: A team rates "ransomware on the file server" as likely and severe, so it lands in the red corner of the heat map and gets budget first.
+    da: Et team vurderer "ransomware på filserveren" som sandsynlig og alvorlig, så den havner i det røde hjørne af heat-mappet og får budget først.
+  whyItMatters:
+    en: Money and time are limited; thinking in risk lets an organisation spend them on what could really hurt, not on whatever sounds scariest.
+    da: Penge og tid er begrænsede; tænker man i risiko, kan organisationen bruge dem dér, hvor det virkelig kan gøre ondt — ikke dér, hvor det lyder mest skræmmende.
+edges:
+  requires: [threat, vulnerability, likelihood, impact]
+  contrasts-with:
+    - to: threat
+      why:
+        en: A threat is what could happen; risk also weighs how likely it is and how much it would hurt.
+        da: En trussel er det, der kan ske; risiko vejer også, hvor sandsynligt det er, og hvor ondt det vil gøre.
+      strength: primary
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments
+    tier: standard
+    publisher: NIST
+draft: true

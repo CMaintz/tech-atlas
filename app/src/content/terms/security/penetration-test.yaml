@@ -1,0 +1,51 @@
+term:
+  en: Penetration test
+  da: Penetrationstest
+aka:
+  en: [pentest, pen test, ethical hacking]
+  da: [pentest, etisk hacking]
+domain: [security]
+cluster: controls
+layer: governance
+status: current
+summary:
+  en: An agreed, simulated attack in which skilled testers try to break in, to show how well systems really hold up.
+  da: Et aftalt, simuleret hackerangreb, hvor dygtige testere forsøger at bryde ind for at vise, hvor robuste systemerne reelt er.
+body:
+  formal:
+    en: An authorised test, limited in scope and time, in which people use the same methods as real attackers to find and actually use weaknesses, chaining them together to show what an attacker could reach.
+    da: En godkendt test, afgrænset i omfang og tid, hvor personer bruger de samme metoder som rigtige angribere til at finde og faktisk udnytte svagheder og kæde dem sammen for at vise, hvad en angriber kunne nå.
+  plain:
+    en: Like hiring a professional burglar to try to break into your shop, with your permission, and then write down exactly how they got in.
+    da: Som at hyre en professionel indbrudstyv til at prøve at bryde ind i din butik, med din tilladelse, og bagefter skrive præcis ned, hvordan det lykkedes.
+  inPractice:
+    en: Testers find a forgotten test website, use a weak password there to get onto the network, and within two days show they can read the finance folder — all in a written report.
+    da: Testerne finder en glemt testhjemmeside, bruger en svag adgangskode der til at komme ind på netværket og viser inden for to dage, at de kan læse økonomimappen — alt samlet i en skriftlig rapport.
+  whyItMatters:
+    en: Lists of weaknesses do not show how they combine; seeing a real path from outside to valuable data convinces management and shows what to fix first.
+    da: Lister over svagheder viser ikke, hvordan de spiller sammen; at se en reel vej udefra til værdifulde data overbeviser ledelsen og viser, hvad der skal rettes først.
+edges:
+  requires: [vulnerability]
+  contrasts-with:
+    - to: vulnerability-scanning
+      why:
+        en: A scan automatically lists known weaknesses; a pentest has people actually use and combine them to prove real impact.
+        da: En scanning oplister automatisk kendte svagheder; en pentest lader mennesker faktisk udnytte og kombinere dem for at bevise den reelle konsekvens.
+      strength: primary
+      confidence: high
+    - to: vulnerability-assessment
+      why:
+        en: An assessment ranks weaknesses on paper; a pentest proves which ones can really be used by trying.
+        da: En vurdering prioriterer svagheder på papiret; en pentest beviser ved at prøve, hvilke der reelt kan udnyttes.
+      strength: normal
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-115 — Technical Guide to Information Security Testing and Assessment
+    tier: standard
+    publisher: NIST
+  - title: CIS Critical Security Controls v8 — Control 18
+    tier: standard
+    publisher: Center for Internet Security
+draft: true

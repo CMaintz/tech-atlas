@@ -1,0 +1,32 @@
+term:
+  en: Packet
+  da: Pakke
+aka:
+  en: [data packet]
+  da: [datapakke]
+domain: [cs]
+cluster: networking
+layer: network
+status: current
+summary:
+  en: A small, labelled chunk of data that travels across a network on its own and is put back together at the end.
+  da: En lille, mærket bid data, der rejser selvstændigt over et netværk og samles igen ved modtageren.
+body:
+  formal:
+    en: A unit of data carried across a network, made of a label part holding control details such as sender and receiver addresses, followed by the content itself.
+    da: En enhed af data, der sendes over et netværk, bestående af en mærkat-del med styreoplysninger som afsender- og modtageradresse efterfulgt af selve indholdet.
+  plain:
+    en: Like sending a book by post one page at a time, each page in its own addressed envelope, and reassembling the book when all envelopes arrive.
+    da: Som at sende en bog med posten én side ad gangen, hver side i sin egen adresserede kuvert, og samle bogen igen, når alle kuverterne er kommet frem.
+  inPractice:
+    en: A video call is split into thousands of packets per second, and each one may take a different route before reaching the other person.
+    da: Et videoopkald deles op i tusindvis af pakker i sekundet, og hver af dem kan tage en anden vej, før den når den anden person.
+  whyItMatters:
+    en: Firewalls and intrusion systems inspect traffic packet by packet, so the packet is the unit most network controls actually see and judge.
+    da: Firewalls og indtrængningssystemer undersøger trafikken pakke for pakke, så pakken er den enhed, de fleste netværkskontroller faktisk ser og vurderer.
+edges:
+  requires: [network, protocol]
+sources:
+  - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
+    tier: textbook
+draft: true

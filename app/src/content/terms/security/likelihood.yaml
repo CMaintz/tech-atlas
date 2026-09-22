@@ -1,0 +1,42 @@
+term:
+  en: Likelihood
+  da: Sandsynlighed
+aka:
+  en: [probability]
+  da: []
+domain: [security]
+cluster: fundamentals
+layer: governance
+status: current
+summary:
+  en: How probable it is that a given threat will actually use a weakness and cause harm within a certain period.
+  da: Hvor sandsynligt det er, at en given trussel faktisk udnytter en svaghed og gør skade inden for en bestemt periode.
+body:
+  formal:
+    en: An estimate of how often, or how probably, a threat will exploit a vulnerability, rated from rare to almost certain and combined with impact to score a risk.
+    da: Et skøn over, hvor ofte eller hvor sandsynligt en trussel udnytter en sårbarhed, vurderet fra sjælden til næsten sikker og kombineret med konsekvens til en risikoscore.
+  plain:
+    en: Like a weather forecast for trouble — rain is likely in November, snow in July is not.
+    da: Som en vejrudsigt for problemer — regn er sandsynlig i november, sne i juli er ikke.
+  inPractice:
+    en: A team rates phishing mails as almost certain to arrive each month, but a flood in its top-floor office as rare.
+    da: Et team vurderer, at phishingmails næsten sikkert kommer hver måned, mens en oversvømmelse på kontoret på øverste etage er sjælden.
+  whyItMatters:
+    en: Without a sense of how probable each threat is, an organisation spends as much on unlikely events as on the ones that happen every week.
+    da: Uden en fornemmelse af, hvor sandsynlig hver trussel er, bruger man lige så meget på usandsynlige hændelser som på dem, der sker hver uge.
+edges:
+  part-of:
+    - to: risk
+      why:
+        en: Risk is how likely an event is weighed against how much harm it would do.
+        da: Risiko er, hvor sandsynlig en hændelse er, vejet op mod hvor stor skade den vil gøre.
+      strength: primary
+      confidence: high
+  requires: [threat, vulnerability]
+sources:
+  - title: Cyber Security Fast Track — Ordliste (Risiko)
+    tier: course-material
+  - title: ISO/IEC 27005 — Information security risk management
+    tier: standard
+    publisher: ISO
+draft: true
