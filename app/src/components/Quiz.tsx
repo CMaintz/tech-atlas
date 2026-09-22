@@ -19,7 +19,15 @@ interface Props {
 }
 
 /** A short quiz session, generated from the graph; every answer feeds spaced repetition. */
-export default function Quiz({ lang, graphUrl, termBase, ui, termId, scope = 'all', count = 10 }: Props) {
+export default function Quiz({
+  lang,
+  graphUrl,
+  termBase,
+  ui,
+  termId,
+  scope = 'all',
+  count = 10,
+}: Props) {
   const [graph, setGraph] = useState<Graph | null>(null);
   const [session, setSession] = useState<Question[] | null>(null);
   const [index, setIndex] = useState(0);
@@ -46,11 +54,7 @@ export default function Quiz({ lang, graphUrl, termBase, ui, termId, scope = 'al
       const due = pool.filter((n) => isDue(learner.terms[n.id]));
       const fresh = pool.filter((n) => !learner.terms[n.id]?.box);
       const rest = pool.filter((n) => !due.includes(n) && !fresh.includes(n));
-      const order = [
-        ...quizzer.shuffle(due),
-        ...quizzer.shuffle(fresh),
-        ...quizzer.shuffle(rest),
-      ];
+      const order = [...quizzer.shuffle(due), ...quizzer.shuffle(fresh), ...quizzer.shuffle(rest)];
       qs = [];
       for (const n of order) {
         const options = quizzer.questionsFor(n.id);
@@ -73,7 +77,10 @@ export default function Quiz({ lang, graphUrl, termBase, ui, termId, scope = 'al
 
   if (!session) {
     return (
-      <button class="rounded border border-neutral-400 px-3 py-1.5 text-sm hover:bg-neutral-900" onClick={start}>
+      <button
+        class="rounded border border-neutral-400 px-3 py-1.5 text-sm hover:bg-neutral-900"
+        onClick={start}
+      >
         {ui.start}
       </button>
     );
@@ -83,8 +90,13 @@ export default function Quiz({ lang, graphUrl, termBase, ui, termId, scope = 'al
   if (index >= session.length) {
     return (
       <div class="space-y-3">
-        <p class="text-lg">{ui.score.replace('{n}', String(score)).replace('{m}', String(session.length))}</p>
-        <button class="rounded border border-neutral-400 px-3 py-1.5 text-sm hover:bg-neutral-900" onClick={start}>
+        <p class="text-lg">
+          {ui.score.replace('{n}', String(score)).replace('{m}', String(session.length))}
+        </p>
+        <button
+          class="rounded border border-neutral-400 px-3 py-1.5 text-sm hover:bg-neutral-900"
+          onClick={start}
+        >
           {ui.again}
         </button>
       </div>
@@ -117,7 +129,10 @@ export default function Quiz({ lang, graphUrl, termBase, ui, termId, scope = 'al
                 ? 'border-red-600 bg-red-950/40'
                 : 'border-neutral-800 opacity-60';
           return (
-            <button class={`rounded border px-3 py-2 text-left text-sm ${state}`} onClick={() => answer(o.id)}>
+            <button
+              class={`rounded border px-3 py-2 text-left text-sm ${state}`}
+              onClick={() => answer(o.id)}
+            >
               {o.label}
             </button>
           );
@@ -129,10 +144,19 @@ export default function Quiz({ lang, graphUrl, termBase, ui, termId, scope = 'al
             <span class="text-green-400">{ui.correct}</span>
           ) : (
             <span class="text-red-400">
-              {ui.incorrect} <a class="underline" href={`${termBase}${q.answer}/`}>{answerLabel}</a>
+              {ui.incorrect}{' '}
+              <a class="underline" href={`${termBase}${q.answer}/`}>
+                {answerLabel}
+              </a>
             </span>
           )}
-          <button class="rounded border border-neutral-400 px-3 py-1 hover:bg-neutral-900" onClick={() => { setIndex(index + 1); setChosen(null); }}>
+          <button
+            class="rounded border border-neutral-400 px-3 py-1 hover:bg-neutral-900"
+            onClick={() => {
+              setIndex(index + 1);
+              setChosen(null);
+            }}
+          >
             {ui.next}
           </button>
         </div>

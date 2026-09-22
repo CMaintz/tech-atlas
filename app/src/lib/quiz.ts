@@ -87,7 +87,9 @@ export function makeQuizzer(graph: Graph, lang: Lang, rng: Rng = Math.random) {
       );
     return [
       ...pool((n) => n.cluster === answer.cluster),
-      ...pool((n) => n.cluster !== answer.cluster && n.domain.some((d) => answer.domain.includes(d))),
+      ...pool(
+        (n) => n.cluster !== answer.cluster && n.domain.some((d) => answer.domain.includes(d)),
+      ),
     ].slice(0, 3);
   };
 
@@ -122,7 +124,13 @@ export function makeQuizzer(graph: Graph, lang: Lang, rng: Rng = Math.random) {
     const contrasts = both(id, 'contrasts-with');
     if (contrasts.length) {
       qs.push(
-        build(term, 'contrast', T.contrast[lang](name), byId.get(pick(contrasts, rng))!, new Set([id, ...contrasts])),
+        build(
+          term,
+          'contrast',
+          T.contrast[lang](name),
+          byId.get(pick(contrasts, rng))!,
+          new Set([id, ...contrasts]),
+        ),
       );
     }
     if (term.requires.length) {
@@ -131,18 +139,36 @@ export function makeQuizzer(graph: Graph, lang: Lang, rng: Rng = Math.random) {
         ...prerequisitesOf(graph, id).map((n) => n.id),
         ...dependants(id).map((n) => n.id),
       ]);
-      qs.push(build(term, 'prerequisite', T.prerequisite[lang](name), byId.get(pick(term.requires, rng))!, blocked));
+      qs.push(
+        build(
+          term,
+          'prerequisite',
+          T.prerequisite[lang](name),
+          byId.get(pick(term.requires, rng))!,
+          blocked,
+        ),
+      );
     }
     for (const type of ['mitigates', 'mandates', 'exploits'] as const) {
       const targets = out(id, type);
       if (!targets.length) continue;
       qs.push(
-        build(term, 'relation', T[type][lang](name), byId.get(pick(targets, rng))!, new Set([id, ...targets])),
+        build(
+          term,
+          'relation',
+          T[type][lang](name),
+          byId.get(pick(targets, rng))!,
+          new Set([id, ...targets]),
+        ),
       );
       break; // one relation question per term is enough
     }
     return qs.filter((q): q is Question => q !== null);
   };
 
-  return { questionsFor, shuffle: <T>(xs: T[]) => shuffle(xs, rng), pick: <T>(xs: T[]) => pick(xs, rng) };
+  return {
+    questionsFor,
+    shuffle: <T>(xs: T[]) => shuffle(xs, rng),
+    pick: <T>(xs: T[]) => pick(xs, rng),
+  };
 }

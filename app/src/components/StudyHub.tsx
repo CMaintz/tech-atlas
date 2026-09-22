@@ -52,7 +52,9 @@ export default function StudyHub({ lang, graphUrl, termBase, ui, clusterLabels }
               <dt class="text-xs text-neutral-500">{label}</dt>
               <dd class="text-2xl font-semibold">
                 {value}
-                {label === ui.known && total ? <span class="text-sm text-neutral-500"> / {total}</span> : null}
+                {label === ui.known && total ? (
+                  <span class="text-sm text-neutral-500"> / {total}</span>
+                ) : null}
               </dd>
             </div>
           ))}
@@ -66,7 +68,10 @@ export default function StudyHub({ lang, graphUrl, termBase, ui, clusterLabels }
         <ul class="flex flex-wrap gap-2">
           {next.map((n) => (
             <li>
-              <a class="rounded border border-neutral-700 px-2 py-1 text-sm hover:border-neutral-400" href={`${termBase}${n.id}/`}>
+              <a
+                class="rounded border border-neutral-700 px-2 py-1 text-sm hover:border-neutral-400"
+                href={`${termBase}${n.id}/`}
+              >
                 {n.term[lang]}
               </a>
             </li>
@@ -89,7 +94,14 @@ export default function StudyHub({ lang, graphUrl, termBase, ui, clusterLabels }
             <option value={c}>{label}</option>
           ))}
         </select>
-        <Quiz key={`${scope}-${round}`} lang={lang} graphUrl={graphUrl} termBase={termBase} ui={ui} scope={scope} />
+        <Quiz
+          key={`${scope}-${round}`}
+          lang={lang}
+          graphUrl={graphUrl}
+          termBase={termBase}
+          ui={ui}
+          scope={scope}
+        />
       </section>
     </div>
   );

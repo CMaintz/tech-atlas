@@ -7,6 +7,7 @@ import {
   type GraphLink,
   type GraphNode,
 } from '../lib/graph-model';
+import { loadLearner, type Learner } from '../lib/learner';
 
 type Lang = 'en' | 'da';
 type Dict = Record<string, string>;
@@ -25,6 +26,15 @@ interface Props {
 
 type Mode = '2d' | '3d';
 type Layout = 'force' | 'depth';
+type ColourMode = 'cluster' | 'knowledge';
+
+/** Personal knowledge map colours (SPEC §9): what you know, and what you don't. */
+const KNOWLEDGE_COLOURS: Record<string, string> = {
+  know: '#22c55e',
+  familiar: '#84cc16',
+  learning: '#f59e0b',
+  unknown: '#ef4444',
+};
 
 // 3d-force-graph is large; load it only when 3D is switched on.
 type ForceGraphInstance = {
@@ -50,6 +60,9 @@ export default function Explorer(props: Props) {
   const [routeMsg, setRouteMsg] = useState('');
   /** Hops shown around the selected term; null = the whole map (SPEC §7: progressive). */
   const [hops, setHops] = useState<number | null>(null);
+  const [colourMode, setColourMode] = useState<ColourMode>('cluster');
+  const [learner, setLearner] = useState<Learner>({ terms: {} });
+  useEffect(() => setLearner(loadLearner()), []);
   const container = useRef<HTMLDivElement>(null);
   const cyRef = useRef<cytoscape.Core | null>(null);
   const fgRef = useRef<ForceGraphInstance | null>(null);
@@ -106,7 +119,12 @@ export default function Explorer(props: Props) {
     () => new Map((graph?.nodes ?? []).map((n) => [n.term[lang].toLowerCase(), n.id])),
     [graph, lang],
   );
-  const colourOf = (n: GraphNode) => props.clusterColours[n.cluster] ?? '#a3a3a3';
+  const colourOf = (n: GraphNode) => {
+    if (colourMode === 'cluster') return props.clusterColours[n.cluster] ?? '#a3a3a3';
+    const s = learner.terms[n.id];
+    const status = s?.status ?? ((s?.box ?? 0) >= 3 ? 'know' : s?.box ? 'learning' : undefined);
+    return status ? KNOWLEDGE_COLOURS[status] : '#404040';
+  };
   const hl = useMemo(() => new Set(highlight), [highlight]);
   const selRef = useRef(selected);
   selRef.current = selected;
@@ -212,7 +230,7 @@ export default function Explorer(props: Props) {
       cy.destroy();
       cyRef.current = null;
     };
-  }, [mode, layout, visible, lang]);
+  }, [mode, layout, visible, lang, colourMode, learner]);
 
   // Selection + highlight classes, without re-running the layout.
   useEffect(() => {
@@ -269,7 +287,7 @@ export default function Explorer(props: Props) {
       fgRef.current = null;
       el.innerHTML = '';
     };
-  }, [mode, visible, lang]);
+  }, [mode, visible, lang, colourMode, learner]);
 
   useEffect(() => {
     fgRef.current?.nodeColor(colour3d);
@@ -330,6 +348,19 @@ export default function Explorer(props: Props) {
         {(mode === '3d' || layout === 'depth') && (
           <p class="text-xs text-neutral-500">{ui.depthNote}</p>
         )}
+
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs tracking-widest text-neutral-500 uppercase">{ui.colourBy}</span>
+          <button class={button(colourMode === 'cluster')} onClick={() => setColourMode('cluster')}>
+            {ui.byCluster}
+          </button>
+          <button
+            class={button(colourMode === 'knowledge')}
+            onClick={() => setColourMode('knowledge')}
+          >
+            {ui.byKnowledge}
+          </button>
+        </div>
 
         <fieldset>
           <legend class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">

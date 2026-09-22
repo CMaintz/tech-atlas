@@ -22,7 +22,8 @@ export const UI = {
     index: 'Index',
     compare: 'Compare',
     study: 'Study',
-    studyIntro: 'Questions generated from the map. Right answers come back later; wrong ones come back soon.',
+    studyIntro:
+      'Questions generated from the map. Right answers come back later; wrong ones come back soon.',
     checkYourself: 'Check yourself',
     start: 'Start a session',
     next: 'Next',
@@ -93,7 +94,8 @@ export const UI = {
     index: 'Indeks',
     compare: 'Sammenlign',
     study: 'Øv',
-    studyIntro: 'Spørgsmål genereret ud fra kortet. Rigtige svar vender tilbage senere; forkerte vender snart tilbage.',
+    studyIntro:
+      'Spørgsmål genereret ud fra kortet. Rigtige svar vender tilbage senere; forkerte vender snart tilbage.',
     checkYourself: 'Test dig selv',
     start: 'Start en runde',
     next: 'Næste',
