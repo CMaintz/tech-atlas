@@ -39,6 +39,8 @@ edges:
         da: Rapportering sender fakta videre hurtigt under hændelsen; lessons learned ser tilbage bagefter for at forbedre.
       strength: minor
       confidence: medium
+  requires: [security-incident]
+  used-with: [nis2-entities]
 sources:
   - title: Directive (EU) 2022/2555 (NIS2), Article 23 — Reporting obligations
     tier: standard

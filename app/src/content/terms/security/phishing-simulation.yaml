@@ -34,6 +34,7 @@ edges:
         da: Medarbejdere, der har øvet sig i at spotte falske mails, falder sjældnere for de ægte og indberetter dem oftere.
       strength: primary
       confidence: medium
+    - smishing
   used-with:
     - to: security-awareness
       why:

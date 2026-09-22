@@ -26,7 +26,7 @@ body:
     da: Kryptering er værdiløs, hvis man taler fortroligt med den forkerte; certifikater er det, der beviser, at et websted eller en server er den ægte.
 edges:
   requires: [public-key-cryptography, identity]
-  implements: [authentication]
+  implements: [authentication, non-repudiation]
 sources:
   - title: RFC 5280 — Internet X.509 Public Key Infrastructure Certificate and CRL Profile
     tier: standard

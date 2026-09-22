@@ -35,6 +35,10 @@ edges:
         da: TLS beskytter ét programs forbindelse til én tjeneste; en VPN pakker al en enheds trafik ind i én beskyttet tunnel.
       strength: normal
       confidence: high
+  mitigates: [session-hijacking]
+article:
+  en: src/content/articles/cs/tls.en.md
+  da: src/content/articles/cs/tls.da.md
 sources:
   - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
     tier: textbook

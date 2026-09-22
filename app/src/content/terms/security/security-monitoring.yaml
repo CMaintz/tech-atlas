@@ -1,0 +1,51 @@
+term:
+  en: Security monitoring
+  da: Sikkerhedsovervågning
+aka:
+  en: [continuous monitoring]
+  da: [løbende overvågning]
+domain: [security]
+cluster: controls
+layer: governance
+status: current
+summary:
+  en: Keeping a steady watch on systems and networks so that signs of attack or misuse are spotted while there is still time to act.
+  da: Løbende at holde øje med systemer og netværk, så tegn på angreb eller misbrug opdages, mens der stadig er tid til at handle.
+body:
+  formal:
+    en: The ongoing collection and review of logs, network traffic and device activity against expected behaviour, so that suspicious events are found, raised as alarms and handed on for response.
+    da: Den løbende indsamling og gennemgang af logs, netværkstrafik og aktivitet på enheder holdt op mod forventet adfærd, så mistænkelige hændelser opdages, rejses som alarmer og sendes videre til håndtering.
+  plain:
+    en: Like a night watchman walking the same rounds every hour — not to stop every break-in on the spot, but to notice the broken window before morning.
+    da: Som en nattevagt, der går de samme runder hver time — ikke for at stoppe hvert indbrud på stedet, men for at opdage den knuste rude før morgenen.
+  inPractice:
+    en: A shop chain sends logs from its tills, web shop and firewall to one place and sets alarms for odd patterns, such as card data being copied at night.
+    da: En butikskæde sender logs fra kasseapparater, webshop og firewall til ét sted og sætter alarmer op for usædvanlige mønstre, fx at kortdata kopieres om natten.
+  whyItMatters:
+    en: No defence stops everything, so the time between an attacker getting in and someone noticing decides how much harm is done.
+    da: Intet forsvar stopper alt, så tiden fra en angriber kommer ind, til nogen opdager det, afgør, hvor stor skaden bliver.
+edges:
+  requires: [log]
+  used-with:
+    - to: siem
+      why:
+        en: The SIEM is the usual tool that brings the watched data together and raises the alarms.
+        da: SIEM'en er det typiske værktøj, der samler de overvågede data og slår alarm.
+      strength: primary
+      confidence: high
+    - to: soc
+      why:
+        en: The SOC is the team that does the watching and acts on what it finds.
+        da: SOC'en er det team, der står for overvågningen og handler på det, den finder.
+      strength: primary
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-137 — Information Security Continuous Monitoring (ISCM)
+    tier: standard
+    publisher: NIST
+  - title: CIS Controls v8 — Control 8 (Audit Log Management) and Control 13 (Network Monitoring and Defense)
+    tier: standard
+    publisher: Center for Internet Security
+draft: true

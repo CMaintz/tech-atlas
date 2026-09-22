@@ -30,6 +30,10 @@ edges:
     - authorization
     - least-privilege
     - network-segmentation
+  mitigates: [lateral-movement]
+article:
+  en: src/content/articles/security/zero-trust.en.md
+  da: src/content/articles/security/zero-trust.da.md
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

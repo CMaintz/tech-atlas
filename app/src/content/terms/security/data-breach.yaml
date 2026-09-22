@@ -26,7 +26,8 @@ body:
     da: Brud på persondata medfører lovpligtige indberetninger, bøder og tabt kundetillid, så de skal opdages og håndteres hurtigt.
 edges:
   requires: [confidentiality]
-  used-with: [gdpr]
+  used-with: [gdpr, supervisory-authority]
+  kind-of: [security-incident]
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

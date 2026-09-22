@@ -40,6 +40,10 @@ edges:
         da: Når ramte maskiner hurtigt kobles fra, stoppes låsningen i at sprede sig til flere systemer.
       strength: normal
       confidence: medium
+    - security-incident
+article:
+  en: src/content/articles/security/incident-response.en.md
+  da: src/content/articles/security/incident-response.da.md
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

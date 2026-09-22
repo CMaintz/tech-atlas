@@ -46,6 +46,9 @@ edges:
         da: Trænede medarbejdere opdager og melder falske beskeder i stedet for at handle på dem.
       strength: primary
       confidence: high
+    - pretexting
+    - vishing
+    - smishing
   contrasts-with:
     - to: security-culture
       why:

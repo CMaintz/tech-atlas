@@ -1,0 +1,40 @@
+term:
+  en: Risk assessment
+  da: Risikoanalyse
+aka:
+  en: [risk analysis]
+  da: [risikovurdering]
+domain: [security]
+cluster: risk-management
+layer: governance
+status: current
+summary:
+  en: Working out what could go wrong, how likely it is and how much harm it would do, so the biggest risks get handled first.
+  da: At finde ud af, hvad der kan gå galt, hvor sandsynligt det er, og hvor meget skade det vil gøre, så de største risici håndteres først.
+body:
+  formal:
+    en: The step in risk management that finds each risk by pairing an asset with a threat and a vulnerability, then rates it by likelihood and impact. It can be done with numbers or with scales such as low, medium and high.
+    da: Det trin i risikostyringen, hvor hver risiko findes ved at koble et aktiv med en trussel og en sårbarhed, hvorefter den vurderes ud fra sandsynlighed og konsekvens. Det kan gøres kvantitativt med tal eller kvalitativt med skalaer som lav, middel og høj.
+  plain:
+    en: Before a long drive you ask what could break, how likely it is and how bad it would be — then you check the tyres, not the radio.
+    da: Før en lang køretur spørger du, hvad der kan gå i stykker, hvor sandsynligt det er, og hvor slemt det vil være — og så tjekker du dækkene, ikke radioen.
+  inPractice:
+    en: A small web shop lists its payment system, customer data and warehouse, scores each threat from 1 to 5 for likelihood and impact, and puts the results on a heat map for the board.
+    da: En lille webshop opstiller sit betalingssystem, sine kundedata og sit lager, giver hver trussel point fra 1 til 5 for sandsynlighed og konsekvens og samler resultatet i et heat-map til bestyrelsen.
+  whyItMatters:
+    en: No organisation can protect everything equally; the assessment is what turns worry into a ranked list that tells people where to spend money and time.
+    da: Ingen organisation kan beskytte alt lige meget; analysen gør bekymring til en prioriteret liste, der viser, hvor penge og tid skal bruges.
+edges:
+  part-of: [risk-management]
+  requires: [risk, likelihood, impact, asset]
+  used-with: [vulnerability-assessment, threat-landscape]
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments
+    tier: standard
+    publisher: NIST
+  - title: ISO/IEC 27005:2022 — Guidance on managing information security risks
+    tier: standard
+    publisher: ISO/IEC
+draft: true

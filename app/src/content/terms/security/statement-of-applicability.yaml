@@ -1,0 +1,34 @@
+term:
+  en: Statement of Applicability (SoA)
+  da: Statement of Applicability (SoA)
+aka:
+  en: [SoA]
+  da: [SoA, anvendelseserklæring]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: A document listing every control in the ISO 27001 annex, saying whether each is used, and giving the reason.
+  da: Et dokument, der gennemgår hver kontrol i ISO 27001's bilag og angiver, om den anvendes, og begrundelsen.
+body:
+  formal:
+    en: A record required by ISO 27001 clause 6.1.3(d) that names the controls needed to treat the assessed risks, states for each Annex A control whether it is included or left out, gives the reason and says whether it is in place.
+    da: Et dokument, som ISO 27001 punkt 6.1.3(d) kræver, og som angiver de kontroller, der er nødvendige for at håndtere de vurderede risici, og for hver kontrol i bilag A oplyser, om den er med eller udeladt, begrundelsen og om den er gennemført.
+  plain:
+    en: Like a checklist for a house inspection where you tick each item as done or not needed, and write a line on why.
+    da: Som en tjekliste ved et husesyn, hvor man markerer hvert punkt som klaret eller ikke relevant og skriver en linje om hvorfor.
+  inPractice:
+    en: A cloud start-up marks the control on physical office security as not needed because it has no office and all servers sit with a certified provider; the auditor reads the reason and agrees.
+    da: En cloud-startup markerer kontrollen for fysisk sikring af kontorer som ikke relevant, fordi den ikke har noget kontor og alle servere står hos en certificeret udbyder; auditoren læser begrundelsen og er enig.
+  whyItMatters:
+    en: It links risk decisions to actual controls in one place, so auditors and leaders can see at a glance that nothing was skipped without a reason.
+    da: Den kobler risikobeslutninger til faktiske kontroller ét sted, så auditorer og ledelse hurtigt kan se, at intet er udeladt uden grund.
+edges:
+  part-of: [iso-27001]
+  requires: [risk-treatment]
+sources:
+  - title: ISO/IEC 27001:2022 — Information security management systems — Requirements, clause 6.1.3(d)
+    tier: standard
+    publisher: ISO/IEC
+draft: true
