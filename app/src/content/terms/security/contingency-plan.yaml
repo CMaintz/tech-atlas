@@ -25,7 +25,7 @@ body:
     en: In a crisis people panic and forget, so decisions made calmly in advance are what keep the response orderly.
     da: I en krise går folk i panik og glemmer ting, så beslutninger truffet i ro og mag på forhånd er det, der holder reaktionen ordnet.
 edges:
-  requires: [incident-response, business-impact-analysis]
+  requires: [incident-response, business-impact-analysis, recovery-objectives]
   used-with: [management-responsibility]
 sources:
   - title: Cyber Security Fast Track — Ordliste

@@ -1,0 +1,37 @@
+term:
+  en: Recovery objectives (RTO/RPO)
+  da: Genopretningsmål (RTO/RPO)
+aka:
+  en: [RTO, RPO, recovery time objective, recovery point objective]
+  da: [RTO, RPO, genoprettelsestid, tolereret datatab]
+domain: [security]
+cluster: incident-response
+layer: governance
+status: current
+summary:
+  en: Two agreed limits for a failure — how long a system may be down (RTO) and how much recent data may be lost (RPO).
+  da: To aftalte grænser ved nedbrud — hvor længe et system må være nede (RTO), og hvor meget af de seneste data der må gå tabt (RPO).
+body:
+  formal:
+    en: The recovery time objective (RTO) is the longest a system or process may be unavailable before the harm becomes unacceptable. The recovery point objective (RPO) is the oldest point in time the data may be restored to, which sets how often a backup must be taken.
+    da: Recovery time objective (RTO) er den længste tid, et system eller en proces må være utilgængelig, før skaden bliver uacceptabel. Recovery point objective (RPO) er det ældste tidspunkt, data må genskabes fra, og afgør dermed, hvor ofte der skal tages backup.
+  plain:
+    en: If your phone dies, RTO is how long you can manage without one; RPO is how many days of photos you could stand to lose since your last copy.
+    da: Hvis din telefon går i stykker, er RTO, hvor længe du kan klare dig uden; RPO er, hvor mange dages billeder du kan tåle at miste siden din seneste kopi.
+  inPractice:
+    en: A web shop decides its order system needs an RTO of four hours and an RPO of fifteen minutes, so it copies orders to a second site every fifteen minutes and practises a switch-over twice a year.
+    da: En webshop beslutter, at ordresystemet skal have en RTO på fire timer og en RPO på et kvarter, så den kopierer ordrer til et andet site hvert kvarter og øver et skifte to gange om året.
+  whyItMatters:
+    en: The two numbers turn a vague wish to "be back quickly" into a clear target that decides how much to spend on backup and spare systems.
+    da: De to tal gør et vagt ønske om at "være hurtigt oppe igen" til et klart mål, der afgør, hvor meget der skal bruges på backup og reservesystemer.
+edges:
+  part-of: [business-continuity-plan]
+  requires: [business-impact-analysis, availability]
+sources:
+  - title: NIST SP 800-34 Rev. 1 — Contingency Planning Guide for Federal Information Systems
+    tier: standard
+    publisher: NIST
+  - title: ISO 22301:2019 — Business continuity management systems, Requirements
+    tier: standard
+    publisher: ISO
+draft: true

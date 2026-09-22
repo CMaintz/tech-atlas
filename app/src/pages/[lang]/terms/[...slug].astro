@@ -71,6 +71,19 @@ const aka = d.aka[lang];
     )
   }
 
+  {
+    d.article?.[lang] && (
+      <p class="mt-6">
+        <a
+          class="text-neutral-100 underline hover:text-white"
+          href={url(`${lang}/articles/${term.id}/`)}
+        >
+          {ui.readArticle}
+        </a>
+      </p>
+    )
+  }
+
   <div class="mt-8 space-y-5">
     {
       facets.map((f) => (

@@ -25,7 +25,7 @@ body:
     en: Finding risks is pointless without a decision about each one, and that decision shows who owns it and what it costs.
     da: Det nytter ikke at finde risici uden en beslutning om hver enkelt, og den beslutning viser, hvem der ejer risikoen, og hvad den koster.
 edges:
-  requires: [risk, control]
+  requires: [risk, control, risk-assessment]
   part-of: [risk-management]
   causes: [residual-risk]
 sources:

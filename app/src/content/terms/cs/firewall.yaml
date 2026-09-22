@@ -27,7 +27,7 @@ body:
 edges:
   kind-of: [control]
   requires: [packet, port, ip-address]
-  used-with: [network-segmentation, router]
+  used-with: [network-segmentation, router, perimeter-security]
   contrasts-with:
     - to: intrusion-prevention-system
       why:

@@ -41,6 +41,7 @@ edges:
       strength: normal
       confidence: medium
     - network-segmentation
+  contrasts-with: [perimeter-security]
 sources:
   - title: NIST Glossary — Defense-in-Depth
     tier: standard

@@ -28,6 +28,9 @@ edges:
   requires: [risk, threat, vulnerability]
   part-of: [governance]
   used-with: [threat-intelligence]
+article:
+  en: src/content/articles/security/risk-management.en.md
+  da: src/content/articles/security/risk-management.da.md
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

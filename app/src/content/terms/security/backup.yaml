@@ -36,6 +36,7 @@ edges:
   used-with:
     - disaster-recovery-plan
     - business-continuity-plan
+    - recovery-objectives
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

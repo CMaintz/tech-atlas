@@ -63,6 +63,9 @@ edges:
         da: Væsentlige hændelser skal indberettes til myndighederne i trin, begyndende med en tidlig varsling inden for 24 timer.
       strength: primary
       confidence: high
+article:
+  en: src/content/articles/security/nis2.en.md
+  da: src/content/articles/security/nis2.da.md
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

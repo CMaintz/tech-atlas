@@ -26,7 +26,7 @@ body:
     da: Når en svaghed bliver offentlig, skynder angribere sig at udnytte den; mange reelle angreb, også ransomware, lykkes blot fordi en rettelse fandtes, men aldrig blev installeret.
 edges:
   kind-of: [control]
-  requires: [patch]
+  requires: [patch, cve]
   mitigates:
     - to: vulnerability
       why:
@@ -37,6 +37,7 @@ edges:
     - to: ransomware
       strength: normal
       confidence: medium
+    - exploit
   used-with:
     - vulnerability-scanning
 sources:

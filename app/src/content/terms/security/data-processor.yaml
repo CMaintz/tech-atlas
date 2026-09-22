@@ -1,0 +1,43 @@
+term:
+  en: Data processor
+  da: Databehandler
+aka:
+  en: [processor]
+  da: []
+domain: [security]
+cluster: compliance
+layer: data
+status: current
+summary:
+  en: An outside party that handles personal data on behalf of another organisation and only as that organisation instructs.
+  da: En ekstern part, der håndterer personoplysninger på vegne af en anden organisation og kun efter dennes instruks.
+body:
+  formal:
+    en: Under GDPR Article 4(8), a person or body that handles personal data for a controller; Article 28 requires a binding contract that limits it to the controller's written instructions and sets its security duties.
+    da: Efter GDPR artikel 4, nr. 8, en fysisk eller juridisk person, der behandler personoplysninger for en dataansvarlig; artikel 28 kræver en bindende aftale, der begrænser den til den dataansvarliges skriftlige instruks og fastlægger dens sikkerhedsforpligtelser.
+  plain:
+    en: Like a laundry service that washes a hotel's sheets — it handles them carefully and returns them, but it does not get to decide what the hotel does with them.
+    da: Som et vaskeri, der vasker et hotels sengetøj — det behandler det omhyggeligt og leverer det tilbage, men det bestemmer ikke, hvad hotellet bruger det til.
+  inPractice:
+    en: A payroll company runs salary payments for 200 small firms; for each of them it is a processor, bound by a signed agreement to use the staff data only for payroll.
+    da: Et lønbureau kører lønudbetalinger for 200 små virksomheder; for hver af dem er det databehandler og bundet af en underskrevet aftale om kun at bruge medarbejdernes oplysninger til løn.
+  whyItMatters:
+    en: Much personal data sits with outside suppliers; the processor role makes sure the rules follow the data wherever it goes.
+    da: Mange personoplysninger ligger hos eksterne leverandører; rollen som databehandler sikrer, at reglerne følger med oplysningerne, uanset hvor de havner.
+edges:
+  requires: [gdpr]
+  used-with:
+    - to: supplier-management
+      why:
+        en: Choosing and checking processors is a core part of managing suppliers who touch personal data.
+        da: At vælge og følge op på databehandlere er en central del af at styre leverandører, der håndterer personoplysninger.
+      strength: normal
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: Regulation (EU) 2016/679 (GDPR), Article 4(8) and Article 28
+    tier: standard
+    publisher: European Union
+    url: 'https://eur-lex.europa.eu/eli/reg/2016/679/oj'
+draft: true

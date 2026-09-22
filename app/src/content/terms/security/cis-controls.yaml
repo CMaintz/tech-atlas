@@ -40,6 +40,10 @@ edges:
     - patch-management
     - backup
     - vulnerability-scanning
+    - hardening
+article:
+  en: src/content/articles/security/cis-controls.en.md
+  da: src/content/articles/security/cis-controls.da.md
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

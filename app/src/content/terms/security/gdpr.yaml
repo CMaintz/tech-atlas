@@ -45,6 +45,7 @@ edges:
         da: Brud på persondatasikkerheden skal anmeldes til myndigheden inden for 72 timer.
       strength: normal
       confidence: high
+    - supervisory-authority
   contrasts-with:
     - to: nis2
       why:
@@ -52,6 +53,9 @@ edges:
         da: GDPR beskytter menneskers persondata; NIS2 beskytter de tjenester, samfundet er afhængigt af.
       strength: primary
       confidence: high
+article:
+  en: src/content/articles/security/gdpr.en.md
+  da: src/content/articles/security/gdpr.da.md
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

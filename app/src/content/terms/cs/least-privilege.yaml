@@ -33,6 +33,7 @@ edges:
       why:
         en: Services often run all the time with wide rights, so each should get its own account with only the rights it needs.
         da: Tjenester kører ofte hele tiden med vide rettigheder, så hver bør have sin egen konto med kun de rettigheder, den skal bruge.
+    - service-account
   mitigates:
     - to: ransomware
       why:

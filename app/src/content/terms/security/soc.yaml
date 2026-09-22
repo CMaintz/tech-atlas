@@ -1,0 +1,43 @@
+term:
+  en: Security operations centre (SOC)
+  da: Security operations center (SOC)
+aka:
+  en: [SOC, security operations center]
+  da: [SOC, sikkerhedscenter]
+domain: [security]
+cluster: controls
+layer: people
+status: current
+summary:
+  en: A team that watches an organisation's systems around the clock and acts when an alarm points to a real attack.
+  da: Et team, der overvåger organisationens systemer døgnet rundt og griber ind, når en alarm peger på et reelt angreb.
+body:
+  formal:
+    en: A central function, run in house or bought as a service, whose analysts follow alarms from tools such as SIEM and EDR, sort real threats from noise, look into them and start incident response.
+    da: En central funktion, drevet internt eller købt som en tjeneste, hvor analytikere følger alarmer fra værktøjer som SIEM og EDR, skiller reelle trusler fra støj, undersøger dem og sætter hændelseshåndteringen i gang.
+  plain:
+    en: Like the control room of a fire service — people who never sleep, watch every call that comes in, and decide which ones need a truck right now.
+    da: Som alarmcentralen hos brandvæsenet — folk, der aldrig sover, ser hvert opkald, der kommer ind, og afgør, hvilke der kræver en brandbil lige nu.
+  inPractice:
+    en: At 3 a.m. an analyst at the company's outside SOC sees an admin login from an unknown country, checks with the on-call IT lead that it was not him, and locks the account.
+    da: Klokken 3 om natten ser en analytiker hos virksomhedens eksterne SOC et administratorlogin fra et ukendt land, bekræfter med den vagthavende IT-ansvarlige, at det ikke var ham, og spærrer kontoen.
+  whyItMatters:
+    en: Tools raise alarms, but only people decide what they mean; without someone watching, a warning at night can sit unread until the damage is done.
+    da: Værktøjer slår alarm, men kun mennesker afgør, hvad alarmen betyder; uden nogen til at holde øje kan en advarsel om natten ligge uden at blive læst, til skaden er sket.
+edges:
+  requires: [incident-response]
+  used-with:
+    - to: threat-intelligence
+      why:
+        en: Up-to-date knowledge of how attackers work helps the team tell a real attack from a false alarm.
+        da: Aktuel viden om, hvordan angribere arbejder, hjælper teamet med at skelne et reelt angreb fra en falsk alarm.
+      strength: normal
+      confidence: high
+sources:
+  - title: NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations
+    tier: standard
+    publisher: NIST
+  - title: CIS Controls v8 — Control 17 (Incident Response Management)
+    tier: standard
+    publisher: Center for Internet Security
+draft: true

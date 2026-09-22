@@ -27,6 +27,7 @@ body:
 edges:
   requires: [critical-assets]
   part-of: [risk-management]
+  used-with: [risk-assessment]
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

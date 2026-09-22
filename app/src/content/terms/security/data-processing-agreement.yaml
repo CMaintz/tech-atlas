@@ -33,6 +33,7 @@ edges:
         da: Databehandleraftalen er det aftaleværktøj, leverandørstyring bruger, når der er persondata involveret.
       strength: primary
       confidence: high
+    - data-processor
   mitigates:
     - to: data-breach
       strength: minor

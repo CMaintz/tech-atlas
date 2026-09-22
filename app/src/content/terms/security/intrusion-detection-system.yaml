@@ -38,6 +38,7 @@ edges:
       confidence: high
   used-with:
     - siem
+    - security-monitoring
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

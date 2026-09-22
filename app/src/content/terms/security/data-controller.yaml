@@ -1,0 +1,51 @@
+term:
+  en: Data controller
+  da: Dataansvarlig
+aka:
+  en: [controller]
+  da: [dataansvarlig virksomhed]
+domain: [security]
+cluster: compliance
+layer: data
+status: current
+summary:
+  en: The organisation that decides why and how personal data is used, and so carries the main legal duty under GDPR.
+  da: Den organisation, der bestemmer, hvorfor og hvordan personoplysninger bruges, og derfor bærer hovedansvaret efter GDPR.
+body:
+  formal:
+    en: Under GDPR Article 4(7), the person or body that, alone or with others, decides the purposes and means of handling personal data; it must be able to show that every use of that data follows the law.
+    da: Efter GDPR artikel 4, nr. 7, den fysiske eller juridiske person, der alene eller sammen med andre fastlægger formål og midler for behandlingen af personoplysninger; den skal kunne påvise, at al brug af oplysningerne overholder loven.
+  plain:
+    en: Like the person who hires a moving company — the movers carry the boxes, but it was your choice what to move and where, so it is your job to make sure it is done right.
+    da: Som den, der hyrer et flyttefirma — flyttefolkene bærer kasserne, men det var dit valg, hvad der skulle flyttes og hvorhen, så det er dit ansvar, at det sker ordentligt.
+  inPractice:
+    en: A dental clinic decides to keep patient records in an online booking system; the clinic is the controller and must tell patients how their data is used and answer their requests.
+    da: En tandlægeklinik vælger at gemme patientjournaler i et online bookingsystem; klinikken er dataansvarlig og skal fortælle patienterne, hvordan deres oplysninger bruges, og svare på deres henvendelser.
+  whyItMatters:
+    en: Someone must answer to people and to the authorities for their data; naming the controller makes clear who is liable when it is misused or lost.
+    da: Nogen skal stå til ansvar over for borgerne og myndighederne for deres oplysninger; når den dataansvarlige er udpeget, er det klart, hvem der hæfter, hvis de misbruges eller mistes.
+edges:
+  requires: [gdpr]
+  contrasts-with:
+    - to: data-processor
+      why:
+        en: The controller decides why and how data is used; the processor only handles it on the controller's written instructions.
+        da: Den dataansvarlige bestemmer, hvorfor og hvordan oplysningerne bruges; databehandleren håndterer dem kun efter den dataansvarliges skriftlige instruks.
+      strength: primary
+      confidence: high
+      sources:
+        - title: GDPR (EU) 2016/679, Article 4(7) and 4(8)
+          tier: standard
+  used-with:
+    - to: data-processing-agreement
+      why:
+        en: The controller must put a written agreement in place with every processor it uses.
+        da: Den dataansvarlige skal indgå en skriftlig aftale med hver databehandler, den bruger.
+      strength: primary
+      confidence: high
+sources:
+  - title: Regulation (EU) 2016/679 (GDPR), Article 4(7) and Article 24
+    tier: standard
+    publisher: European Union
+    url: 'https://eur-lex.europa.eu/eli/reg/2016/679/oj'
+draft: true

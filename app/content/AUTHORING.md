@@ -90,3 +90,29 @@ edges:
       strength: primary # primary | normal | minor
       confidence: high # high | medium | low
 ```
+
+## Articles (optional long-form)
+
+Only for terms that genuinely need more than the four facets. Exempt from Closed
+Vocabulary (ADR-0004) — write freely, quote specifications, use any jargon.
+
+- One file per language: `src/content/articles/<folder>/<id>.<lang>.md`
+- Frontmatter:
+
+```yaml
+---
+title: NIS2 in practice
+term: security/nis2
+lang: en
+---
+```
+
+- Link it from the term file:
+
+```yaml
+article:
+  en: src/content/articles/security/nis2.en.md
+  da: src/content/articles/security/nis2.da.md
+```
+
+Lint E9 fails the build if a referenced article file does not exist.

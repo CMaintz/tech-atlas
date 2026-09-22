@@ -26,6 +26,7 @@ body:
     da: Beslutninger, betalinger og selv medicinsk behandling bygger på, at data er rigtige; forkerte data kan gøre mere skade end manglende data, fordi ingen stiller spørgsmål ved dem.
 edges:
   part-of: [cia-triad]
+  contrasts-with: [non-repudiation]
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material
