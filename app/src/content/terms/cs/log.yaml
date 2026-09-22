@@ -1,0 +1,43 @@
+term:
+  en: Log
+  da: Log
+aka:
+  en: [log file, event log]
+  da: [logfil, hændelseslog]
+domain: [cs]
+cluster: os
+layer: os
+status: current
+summary:
+  en: A time-stamped record of events that a system or program writes down as they happen.
+  da: En tidsstemplet optegnelse af hændelser, som et system eller program skriver ned, efterhånden som de sker.
+body:
+  formal:
+    en: A growing list of entries, added in time order, each noting when something happened, where, and what it was — for example a login, an error or a changed setting.
+    da: En voksende liste af poster i tidsrækkefølge, hvor hver post angiver, hvornår noget skete, hvor, og hvad det var — fx et login, en fejl eller en ændret indstilling.
+  plain:
+    en: Like the diary kept on a ship's bridge — the crew notes the time and what happened, entry after entry, so the voyage can be pieced together later.
+    da: Som en skibslogbog — besætningen noterer tidspunktet og hvad der skete, post efter post, så rejsen kan stykkes sammen bagefter.
+  inPractice:
+    en: A server's log shows forty failed logins for the same account within one minute at 3 a.m., followed by one success — a sign that someone guessed the password.
+    da: En servers log viser fyrre mislykkede login på den samme konto inden for ét minut kl. 3 om natten efterfulgt af et vellykket — et tegn på, at nogen har gættet adgangskoden.
+  whyItMatters:
+    en: Without logs an incident cannot be noticed, explained or proven afterwards; they are the raw material for a SIEM and for incident response.
+    da: Uden logs kan en hændelse hverken opdages, forklares eller bevises bagefter; de er råmaterialet for et SIEM og for hændelseshåndtering.
+edges:
+  used-with:
+    - to: siem
+      why:
+        en: A SIEM collects logs from many systems and searches them together for signs of an attack.
+        da: Et SIEM samler logs fra mange systemer og gennemsøger dem samlet for tegn på angreb.
+      strength: primary
+sources:
+  - title: NIST SP 800-92, Guide to Computer Security Log Management
+    url: https://doi.org/10.6028/NIST.SP.800-92
+    tier: standard
+    publisher: NIST
+  - title: RFC 5424, The Syslog Protocol
+    url: https://www.rfc-editor.org/rfc/rfc5424
+    tier: standard
+    publisher: IETF
+draft: true

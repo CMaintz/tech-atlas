@@ -1,45 +1,64 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import Search from '../../components/Search';
+import { CLUSTER_LABELS, DOMAIN_LABELS, LANGS, UI, termUrl, url, type Lang } from '../../lib/site';
 
 export function getStaticPaths() {
-  return [{ params: { lang: 'en' } }, { params: { lang: 'da' } }];
+  return LANGS.map((lang) => ({ params: { lang } }));
 }
 
-const lang = (Astro.params.lang ?? 'en') as 'en' | 'da';
+const lang = Astro.params.lang as Lang;
+const ui = UI[lang];
 const terms = await getCollection('terms');
 
-const byCluster = new Map<string, typeof terms>();
+// Group by primary domain (folder), then cluster.
+const domains = new Map<string, Map<string, typeof terms>>();
 for (const t of terms) {
-  const list = byCluster.get(t.data.cluster) ?? [];
-  list.push(t);
-  byCluster.set(t.data.cluster, list);
+  const domain = t.id.split('/')[0];
+  const clusters = domains.get(domain) ?? new Map();
+  clusters.set(t.data.cluster, [...(clusters.get(t.data.cluster) ?? []), t]);
+  domains.set(domain, clusters);
 }
-const clusters = [...byCluster.entries()].sort((a, b) => a[0].localeCompare(b[0]));
-
-const tagline =
-  lang === 'da'
-    ? 'En tosproget teknisk ordbog, der læses som en vidensgraf.'
-    : 'A bilingual technical dictionary that reads as a knowledge graph.';
+const byName = (a: (typeof terms)[number], b: (typeof terms)[number]) =>
+  a.data.term[lang].localeCompare(b.data.term[lang], lang);
 ---
 
-<Base lang={lang} title="Atlas">
+<Base lang={lang}>
   <h1 class="mb-2 text-3xl font-semibold">Atlas</h1>
-  <p class="mb-10 text-neutral-400">{tagline}</p>
+  <p class="mb-6 text-neutral-400">{ui.tagline}</p>
+  <div class="mb-12">
+    <Search
+      client:load
+      lang={lang}
+      indexUrl={url('search-index.json')}
+      termBase={url(`${lang}/terms/`)}
+      placeholder={ui.search}
+      noResults={ui.noResults}
+    />
+  </div>
+
   {
-    clusters.map(([cluster, items]) => (
-      <section class="mb-8">
-        <h2 class="mb-3 text-xs tracking-widest text-neutral-500 uppercase">{cluster}</h2>
-        <ul class="space-y-2">
-          {items.map((t) => (
-            <li>
-              <a class="text-neutral-100 hover:underline" href={`/${lang}/terms/${t.id}/`}>
-                {t.data.term[lang]}
-              </a>
-              <span class="text-neutral-500"> — {t.data.summary[lang]}</span>
-            </li>
-          ))}
-        </ul>
+    [...domains.entries()].map(([domain, clusters]) => (
+      <section class="mb-12">
+        <h2 class="mb-6 text-xl font-semibold">{DOMAIN_LABELS[domain]?.[lang] ?? domain}</h2>
+        {[...clusters.entries()].map(([cluster, items]) => (
+          <div class="mb-8">
+            <h3 class="mb-3 text-xs tracking-widest text-neutral-500 uppercase">
+              {CLUSTER_LABELS[cluster]?.[lang] ?? cluster} · {items.length}
+            </h3>
+            <ul class="space-y-2">
+              {items.sort(byName).map((t) => (
+                <li>
+                  <a class="text-neutral-100 hover:underline" href={termUrl(lang, t.id)}>
+                    {t.data.term[lang]}
+                  </a>
+                  <span class="text-neutral-500"> — {t.data.summary[lang]}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </section>
     ))
   }

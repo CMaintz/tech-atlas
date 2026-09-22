@@ -1,0 +1,48 @@
+term:
+  en: Incident response
+  da: Hændelseshåndtering
+aka:
+  en: [incident handling, incident management]
+  da: [incident response]
+domain: [security]
+cluster: incident-response
+layer: governance
+status: current
+summary:
+  en: The organised way a company spots, stops and cleans up after a security attack or accident, then gets back to normal.
+  da: Den organiserede måde, en virksomhed opdager, stopper og rydder op efter et sikkerhedsangreb eller uheld og vender tilbage til normal drift.
+body:
+  formal:
+    en: A set of prepared steps — get ready, detect and analyse, contain, remove the cause, recover, and review afterwards — carried out by named people when a security event happens.
+    da: Et sæt forberedte trin — forberedelse, opdagelse og analyse, inddæmning, fjernelse af årsagen, genopretning og efterfølgende evaluering — som udføres af navngivne personer, når en sikkerhedshændelse sker.
+  plain:
+    en: Like a fire drill that turns into the real thing — everyone knows who calls for help, who closes the doors and who counts heads.
+    da: Ligesom en brandøvelse, der bliver til virkelighed — alle ved, hvem der ringer efter hjælp, hvem der lukker dørene, og hvem der tæller op.
+  inPractice:
+    en: The SIEM raises an alarm about a strange sign-in at night; the on-call person locks the account, cuts the laptop off the network and calls the incident lead.
+    da: SIEM giver alarm om et mærkeligt login om natten; vagten spærrer kontoen, kobler den bærbare fra netværket og ringer til den ansvarlige for hændelsen.
+  whyItMatters:
+    en: Minutes count during an attack, and a team that improvises loses time, evidence and money that a prepared team keeps.
+    da: Minutter tæller under et angreb, og et team, der improviserer, mister tid, spor og penge, som et forberedt team bevarer.
+edges:
+  requires: [threat]
+  used-with: [siem]
+  mitigates:
+    - to: data-breach
+      why:
+        en: Fast containment limits how much data leaks and for how long.
+        da: Hurtig inddæmning begrænser, hvor meget data der lækker, og hvor længe.
+      strength: primary
+      confidence: medium
+    - to: ransomware
+      why:
+        en: Cutting infected machines off quickly stops the lock-up from spreading to more systems.
+        da: Når ramte maskiner hurtigt kobles fra, stoppes låsningen i at sprede sig til flere systemer.
+      strength: normal
+      confidence: medium
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-61 Rev. 2
+    tier: standard
+draft: true

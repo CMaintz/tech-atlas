@@ -1,0 +1,49 @@
+term:
+  en: Network segmentation
+  da: Netværkssegmentering
+aka:
+  en: [segmentation]
+  da: [segmentering]
+domain: [cs, security]
+cluster: networking
+layer: network
+status: current
+summary:
+  en: Splitting one network into separate zones, so a problem in one zone cannot easily spread to the others.
+  da: Opdeling af ét netværk i adskilte zoner, så et problem i én zone ikke let kan sprede sig til de andre.
+body:
+  formal:
+    en: The practice of dividing a network into smaller parts, with routers or firewalls between them enforcing which traffic may cross from one part to another.
+    da: Praksis med at opdele et netværk i mindre dele, hvor routere eller firewalls imellem dem håndhæver, hvilken trafik der må krydse fra én del til en anden.
+  plain:
+    en: Like the watertight compartments in a ship — if one fills with water, the doors between them keep the whole ship from sinking.
+    da: Som de vandtætte rum i et skib — hvis ét fyldes med vand, forhindrer dørene imellem dem, at hele skibet synker.
+  inPractice:
+    en: A hospital keeps its medical equipment, guest wifi and office laptops in separate zones, so a virus on a guest's phone cannot reach the scanners.
+    da: Et hospital holder medicinsk udstyr, gæste-wifi og kontorets bærbare i hver sin zone, så en virus på en gæsts telefon ikke kan nå scannerne.
+  whyItMatters:
+    en: Attackers who get in usually try to move sideways to more valuable systems; segmentation limits how far one break-in can go.
+    da: Angribere, der kommer ind, prøver som regel at bevæge sig videre til mere værdifulde systemer; segmentering begrænser, hvor langt ét indbrud kan nå.
+edges:
+  requires: [network, router, firewall]
+  implements: [least-privilege]
+  used-with: [zero-trust]
+  mitigates:
+    - to: ransomware
+      why:
+        en: Walls between zones stop ransomware from spreading from one infected machine to the whole company.
+        da: Vægge mellem zoner forhindrer ransomware i at sprede sig fra én inficeret maskine til hele virksomheden.
+      strength: primary
+      confidence: high
+    - to: data-breach
+      why:
+        en: Keeping sensitive data in its own zone means a break-in elsewhere does not automatically reach it.
+        da: Når følsomme data ligger i deres egen zone, når et indbrud andre steder ikke automatisk frem til dem.
+      strength: normal
+      confidence: high
+sources:
+  - title: Tanenbaum, Computer Networks
+    tier: textbook
+  - title: CIS Controls v8 — Control 12, Network Infrastructure Management
+    tier: standard
+draft: true

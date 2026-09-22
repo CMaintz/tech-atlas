@@ -1,0 +1,42 @@
+term:
+  en: Threat intelligence
+  da: Threat intelligence
+aka:
+  en: [cyber threat intelligence, CTI]
+  da: [trusselsefterretninger]
+domain: [security]
+cluster: risk-management
+layer: governance
+status: current
+summary:
+  en: Up-to-date knowledge about current attackers and their methods, gathered so attacks can be stopped before they land.
+  da: Opdateret viden om aktuelle angribere og deres metoder, indsamlet så angreb kan stoppes, før de rammer.
+body:
+  formal:
+    en: Collected, checked and shared information about active threats — who is attacking, how, and with what signs — turned into advice an organisation can act on.
+    da: Indsamlet, kontrolleret og delt information om aktive trusler — hvem der angriber, hvordan og med hvilke kendetegn — omsat til råd, en organisation kan handle på.
+  plain:
+    en: Like neighbours warning each other that burglars are trying car doors on the street tonight.
+    da: Ligesom naboer, der advarer hinanden om, at der er tyve, som prøver bildøre på vejen i aften.
+  inPractice:
+    en: A sector warning lists web addresses used in a new phishing wave, and the IT team blocks them and adds them to the SIEM before any staff click.
+    da: En advarsel fra branchen lister webadresser brugt i en ny phishing-bølge, og IT-teamet blokerer dem og lægger dem ind i SIEM, før nogen medarbejder klikker.
+  whyItMatters:
+    en: It lets defenders act on what attackers are doing today instead of learning only after being hit.
+    da: Den gør det muligt at handle på det, angriberne gør i dag, i stedet for først at lære det efter at være blevet ramt.
+edges:
+  requires: [threat]
+  used-with: [threat-landscape]
+  mitigates:
+    - to: phishing
+      why:
+        en: Warnings about active phishing waves let senders and links be blocked before staff see them.
+        da: Advarsler om aktive phishing-bølger gør det muligt at blokere afsendere og links, før medarbejderne ser dem.
+      strength: minor
+      confidence: medium
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-150
+    tier: standard
+draft: true

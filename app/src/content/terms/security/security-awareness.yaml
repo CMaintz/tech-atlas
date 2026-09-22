@@ -1,0 +1,66 @@
+term:
+  en: Security awareness
+  da: Awareness
+aka:
+  en: [cyber awareness, security awareness training]
+  da: [sikkerhedsbevidsthed, cyber awareness]
+domain: [security]
+cluster: awareness
+layer: people
+status: current
+summary:
+  en: What staff know about security and how they act on it in daily work.
+  da: Medarbejdernes viden om sikkerhed, og hvordan de handler på den i det daglige arbejde.
+body:
+  formal:
+    en: The level of understanding employees have of the threats facing the organisation, combined with the habits they show in response — built and kept up through planned training, campaigns and follow-up.
+    da: Medarbejdernes forståelse af de trusler, organisationen står over for, sammen med den adfærd, de udviser som svar — opbygget og vedligeholdt gennem planlagt træning, kampagner og opfølgning.
+  plain:
+    en: Like teaching everyone in a building where the fire exits are and why the fire doors must stay shut — knowing is only half of it; doing it every day is the point.
+    da: Som at lære alle i en bygning, hvor nødudgangene er, og hvorfor branddørene skal holdes lukkede — det er ikke nok at vide det; pointen er, at man gør det hver dag.
+  inPractice:
+    en: A company runs short monthly lessons, a fake phishing email every quarter, and tracks how many staff report it instead of clicking.
+    da: En virksomhed afholder korte månedlige lektioner, sender en falsk phishing-mail hvert kvartal og følger med i, hvor mange der melder den i stedet for at klikke.
+  whyItMatters:
+    en: Many attacks aim at people rather than machines, and NIS2 lists training among its minimum requirements, so awareness is both a defence and a legal duty.
+    da: Mange angreb retter sig mod mennesker frem for maskiner, og NIS2 nævner træning blandt minimumskravene, så awareness er både et forsvar og en lovpligt.
+edges:
+  requires: [threat]
+  implements:
+    - to: control
+      why:
+        en: The course glossary counts human measures alongside technical and organisational ones as controls.
+        da: Kursets ordliste regner menneskelige foranstaltninger med som kontroller på linje med tekniske og organisatoriske.
+      strength: normal
+      confidence: high
+  mitigates:
+    - to: social-engineering
+      why:
+        en: People who recognise manipulation are harder to manipulate.
+        da: Mennesker, der kan genkende manipulation, er sværere at manipulere.
+      strength: primary
+      confidence: high
+    - to: phishing
+      why:
+        en: Trained staff spot and report fake messages instead of acting on them.
+        da: Trænede medarbejdere opdager og melder falske beskeder i stedet for at handle på dem.
+      strength: primary
+      confidence: high
+  contrasts-with:
+    - to: security-culture
+      why:
+        en: Awareness is what each person knows and does; culture is the shared habits and attitudes of the whole group.
+        da: Awareness er, hvad den enkelte ved og gør; kultur er gruppens fælles vaner og holdninger.
+      strength: normal
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-50 Rev. 1 — Building a Cybersecurity and Privacy Learning Program
+    tier: standard
+    publisher: NIST
+    url: https://csrc.nist.gov/pubs/sp/800/50/r1/final
+  - title: ISO/IEC 27002:2022 — 6.3 Information security awareness, education and training
+    tier: standard
+    publisher: ISO
+draft: true

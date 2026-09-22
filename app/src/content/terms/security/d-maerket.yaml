@@ -1,0 +1,57 @@
+term:
+  en: D-mærket
+  da: D-mærket
+aka:
+  en: [D-seal, D-label]
+  da: [D-mærke]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: A Danish label for responsible digital behaviour and cybersecurity, with a free self-check tool.
+  da: En dansk mærkningsordning for ansvarlig digital adfærd og cybersikkerhed med et gratis selvevalueringsværktøj.
+body:
+  formal:
+    en: A Danish label scheme whose criteria cover data security, responsible use of data, being open with users and involving users; firms rate themselves with a digital tool and can then apply for the label.
+    da: En dansk mærkningsordning, hvis kriterier dækker datasikkerhed, ansvarlig dataanvendelse, transparens og brugerinddragelse; virksomheder vurderer sig selv med et digitalt værktøj og kan derefter søge om mærket.
+  plain:
+    en: Like a food-hygiene smiley on a restaurant door, but for how carefully a company treats data and security.
+    da: Som en kontrol-smiley på en restaurants dør, men for hvor omhyggeligt en virksomhed behandler data og sikkerhed.
+  inPractice:
+    en: A 30-person web shop runs the self-check, sees it lacks a backup test and a privacy notice, fixes both and shows the label on its site.
+    da: En webshop med 30 ansatte gennemfører selvevalueringen, ser at den mangler en test af backup og en privatlivserklæring, retter begge dele og viser mærket på sin hjemmeside.
+  whyItMatters:
+    en: It gives small firms a simple, low-cost way to see where they stand against NIS2-like demands and to show maturity to customers.
+    da: Det giver små virksomheder en enkel og billig måde at se, hvor de står i forhold til NIS2-lignende krav, og at vise modenhed over for kunder.
+edges:
+  requires: [compliance]
+  used-with:
+    - to: gap-analysis
+      why:
+        en: The self-check works as a guided gap analysis against the label's criteria.
+        da: Selvevalueringen fungerer som en guidet gap-analyse mod mærkets kriterier.
+      strength: primary
+      confidence: high
+    - to: nis2
+      why:
+        en: The course uses the self-check to explore whether a firm lives up to NIS2 requirements.
+        da: Kurset bruger selvevalueringen til at undersøge, om en virksomhed lever op til NIS2-kravene.
+      strength: normal
+      confidence: medium
+  contrasts-with:
+    - to: iso-27001
+      why:
+        en: D-mærket is a light Danish label also covering data ethics; ISO 27001 is a heavier international certification of a security system.
+        da: D-mærket er en let dansk mærkning, der også dækker dataetik; ISO 27001 er en tungere international certificering af et sikkerhedssystem.
+      strength: normal
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 8
+    tier: course-material
+  - title: D-mærket
+    tier: official-doc
+    url: 'https://d-maerket.dk'
+draft: true

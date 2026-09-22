@@ -1,0 +1,39 @@
+term:
+  en: Zero Trust
+  da: Zero Trust
+aka:
+  en: [zero trust architecture, ZTA]
+  da: [Zero Trust-arkitektur, ZTA]
+domain: [security]
+cluster: controls
+layer: identity
+status: current
+summary:
+  en: A security principle of never trusting anyone automatically — every request is checked, even from inside the network.
+  da: Et sikkerhedsprincip om aldrig automatisk at stole på nogen — hver anmodning tjekkes, også fra netværket indefra.
+body:
+  formal:
+    en: A design approach in which no user, device or network location is trusted by default; each request for access is checked for identity, device health and need, and given only the least access required for that one task.
+    da: En designtilgang, hvor ingen bruger, enhed eller netværksplacering er betroet på forhånd; hver anmodning om adgang tjekkes for identitet, enhedens tilstand og behov og får kun den mindste adgang, der kræves til netop den opgave.
+  plain:
+    en: Like a hospital where your badge is checked at every ward door, not just at the main entrance — getting inside the building does not get you everywhere.
+    da: Som et hospital, hvor dit adgangskort tjekkes ved hver afdelingsdør, ikke kun ved hovedindgangen — at være kommet ind i bygningen giver ikke adgang overalt.
+  inPractice:
+    en: An employee at her desk in the office opens the payroll system and is still asked to prove who she is, and her laptop is checked for current updates before the page loads.
+    da: En medarbejder ved sit skrivebord på kontoret åbner lønsystemet og bliver stadig bedt om at bevise, hvem hun er, og hendes bærbare tjekkes for opdateringer, før siden indlæses.
+  whyItMatters:
+    en: Once one machine inside is taken over, a network that trusts its insiders lets the attacker roam freely; checking every request limits how far one break-in spreads.
+    da: Når én maskine indenfor er overtaget, lader et netværk, der stoler på sine egne, angriberen bevæge sig frit; at tjekke hver anmodning begrænser, hvor langt ét indbrud spreder sig.
+edges:
+  requires:
+    - authentication
+    - authorization
+    - least-privilege
+    - network-segmentation
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-207 — Zero Trust Architecture
+    tier: standard
+    publisher: NIST
+draft: true

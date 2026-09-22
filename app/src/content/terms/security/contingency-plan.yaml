@@ -1,0 +1,35 @@
+term:
+  en: Contingency plan
+  da: Beredskabsplan
+aka:
+  en: [incident response plan]
+  da: [hændelsesberedskabsplan]
+domain: [security]
+cluster: incident-response
+layer: governance
+status: current
+summary:
+  en: A written, agreed plan for how the company reacts when something goes wrong — who does what, and in which order.
+  da: En nedskrevet og godkendt plan for, hvordan virksomheden reagerer, når noget går galt — hvem gør hvad og i hvilken rækkefølge.
+body:
+  formal:
+    en: The umbrella document that sets roles, decision powers, escalation routes and first actions for incidents, and ties together the continuity, recovery and communication plans.
+    da: Det overordnede dokument, der fastlægger roller, beslutningskompetence, eskaleringsveje og første handlinger ved hændelser og samler kontinuitets-, genopretnings- og kommunikationsplanerne.
+  plain:
+    en: Like the emergency card on the back of a hotel door, but for the whole company.
+    da: Ligesom nødinstruksen bag på en hoteldør, bare for hele virksomheden.
+  inPractice:
+    en: When the file server goes dark, the IT manager opens the plan, calls the three people on the list and follows the first checklist page.
+    da: Da filserveren går ned, åbner IT-chefen planen, ringer til de tre personer på listen og følger første side af tjeklisten.
+  whyItMatters:
+    en: In a crisis people panic and forget, so decisions made calmly in advance are what keep the response orderly.
+    da: I en krise går folk i panik og glemmer ting, så beslutninger truffet i ro og mag på forhånd er det, der holder reaktionen ordnet.
+edges:
+  requires: [incident-response, business-impact-analysis]
+  used-with: [management-responsibility]
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-34 Rev. 1
+    tier: standard
+draft: true

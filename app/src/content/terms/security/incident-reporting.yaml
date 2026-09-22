@@ -1,0 +1,48 @@
+term:
+  en: Incident reporting
+  da: Hændelsesrapportering
+aka:
+  en: [incident notification, breach notification]
+  da: [indberetning af hændelser, underretning]
+domain: [security]
+cluster: incident-response
+layer: governance
+status: current
+summary:
+  en: Telling the right people and authorities about a serious security event, quickly and within set deadlines.
+  da: At give de rette personer og myndigheder besked om en alvorlig sikkerhedshændelse — hurtigt og inden for faste frister.
+body:
+  formal:
+    en: The duty and process of passing on information about a security incident — inside the organisation and, when rules demand it, to authorities and affected people — in fixed stages and time limits.
+    da: Pligten og processen for at videregive oplysninger om en sikkerhedshændelse — internt og, når reglerne kræver det, til myndigheder og berørte personer — i faste trin og inden for faste frister.
+  plain:
+    en: Like calling the fire brigade and your neighbours as soon as you see smoke, rather than after the fire is out.
+    da: Som at ringe til brandvæsenet og naboerne, så snart man ser røg — ikke først når branden er slukket.
+  inPractice:
+    en: After spotting an attack on its systems, a hospital sends an early warning to the national authority within 24 hours and a fuller report within 72.
+    da: Efter at have opdaget et angreb på sine systemer sender et hospital en tidlig varsling til den nationale myndighed inden for 24 timer og en fyldigere rapport inden for 72.
+  whyItMatters:
+    en: Quick reports let others warn and protect themselves, and missing a legal deadline can bring fines on top of the attack itself.
+    da: Hurtige rapporter gør det muligt for andre at advare og beskytte sig, og overskredne frister kan give bøder oveni selve angrebet.
+edges:
+  part-of:
+    - to: incident-response
+      why:
+        en: Reporting is one of the fixed steps in handling an incident.
+        da: Rapportering er et af de faste trin i håndteringen af en hændelse.
+      strength: primary
+      confidence: high
+  contrasts-with:
+    - to: lessons-learned
+      why:
+        en: Reporting passes facts on quickly during the event; lessons learned looks back afterwards to improve.
+        da: Rapportering sender fakta videre hurtigt under hændelsen; lessons learned ser tilbage bagefter for at forbedre.
+      strength: minor
+      confidence: medium
+sources:
+  - title: Directive (EU) 2022/2555 (NIS2), Article 23 — Reporting obligations
+    tier: standard
+    publisher: European Union
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 3
+    tier: course-material
+draft: true

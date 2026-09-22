@@ -1,0 +1,46 @@
+term:
+  en: ISO 27002
+  da: ISO 27002
+aka:
+  en: [ISO/IEC 27002]
+  da: [ISO/IEC 27002]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: A guidance standard describing each security control in detail — what it is for and how to put it in place.
+  da: En vejledende standard, der beskriver hver sikkerhedskontrol i detaljer — hvad den skal og hvordan den indføres.
+body:
+  formal:
+    en: A companion standard to ISO 27001 (current edition 2022) giving purpose and guidance for 93 controls grouped as organisation, people, physical and technology controls; it cannot be certified against.
+    da: En følgestandard til ISO 27001 (nuværende udgave fra 2022), der giver formål og vejledning for 93 kontroller, grupperet som organisatoriske, menneskelige, fysiske og teknologiske; man kan ikke certificeres efter den.
+  plain:
+    en: If ISO 27001 says "keep the house safe", ISO 27002 is the handbook explaining how to fit locks, alarms and smoke detectors.
+    da: Hvis ISO 27001 siger "hold huset sikkert", er ISO 27002 håndbogen, der forklarer, hvordan man sætter låse, alarmer og røgalarmer op.
+  inPractice:
+    en: A security coordinator writes the company's access rules by following the ISO 27002 guidance for the access control topic.
+    da: En sikkerhedskoordinator skriver virksomhedens adgangsregler ved at følge ISO 27002's vejledning om adgangskontrol.
+  whyItMatters:
+    en: It turns short control titles into practical steps, so organisations do not have to invent each control from scratch.
+    da: Den gør korte kontroloverskrifter til praktiske skridt, så virksomheder ikke selv skal opfinde hver kontrol fra bunden.
+edges:
+  kind-of: [security-framework]
+  requires: [control]
+  used-with:
+    - to: risk-treatment
+      why:
+        en: When treating a risk, teams pick fitting controls and use the guidance to put them in place.
+        da: Når en risiko skal håndteres, vælger man passende kontroller og bruger vejledningen til at indføre dem.
+      strength: normal
+      confidence: high
+    - to: security-policy
+      strength: minor
+      confidence: medium
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO/IEC 27002:2022
+    tier: standard
+    publisher: ISO/IEC
+draft: true

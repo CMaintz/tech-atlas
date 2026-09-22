@@ -1,0 +1,36 @@
+term:
+  en: DNS
+  da: DNS
+aka:
+  en: [Domain Name System]
+  da: [Domain Name System, navneopslag]
+domain: [cs]
+cluster: networking
+layer: network
+status: current
+summary:
+  en: The lookup system that turns names people can read, like example.com, into IP addresses.
+  da: Det opslagssystem, der omsætter navne, mennesker kan læse, som example.com, til IP-adresser.
+body:
+  formal:
+    en: A distributed, hierarchical naming protocol in which devices ask a chain of name services to translate a domain name into the IP address it currently points to.
+    da: En fordelt, hierarkisk navneprotokol, hvor enheder spørger en kæde af navnetjenester om at oversætte et domænenavn til den IP-adresse, det aktuelt peger på.
+  plain:
+    en: Like the contacts list on your phone — you tap a name, and the phone looks up the number for you.
+    da: Som kontaktlisten på din telefon — du trykker på et navn, og telefonen slår nummeret op for dig.
+  inPractice:
+    en: An attacker changes a company's DNS record, so staff typing the usual address are silently sent to a fake login page.
+    da: En angriber ændrer en virksomheds DNS-opslag, så medarbejdere, der skriver den sædvanlige adresse, uden at vide det sendes til en falsk login-side.
+  whyItMatters:
+    en: Nearly every connection starts with a DNS lookup, so whoever controls the answers controls where people end up.
+    da: Næsten hver forbindelse starter med et DNS-opslag, så den, der styrer svarene, styrer, hvor folk ender.
+edges:
+  kind-of: [protocol]
+  part-of: [tcp-ip]
+  requires: [ip-address]
+sources:
+  - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
+    tier: textbook
+  - title: RFC 1034 — Domain Names, Concepts and Facilities
+    tier: standard
+draft: true

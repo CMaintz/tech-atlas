@@ -1,0 +1,50 @@
+term:
+  en: Privacy by design
+  da: Privacy by design
+aka:
+  en: [data protection by design and by default]
+  da: [databeskyttelse gennem design og standardindstillinger]
+domain: [security]
+cluster: compliance
+layer: data
+status: current
+summary:
+  en: The GDPR principle that protection of personal data must be built into systems from the start.
+  da: GDPR-princippet om, at beskyttelse af persondata skal indbygges i systemer fra starten.
+body:
+  formal:
+    en: A duty under GDPR Article 25 to build data protection into systems and processes when they are designed, and to make the most private setting the default — collecting only what is needed.
+    da: En pligt efter GDPR's artikel 25 til at bygge databeskyttelse ind i systemer og processer, når de designes, og at gøre den mest private indstilling til standard — så kun det nødvendige indsamles.
+  plain:
+    en: Putting curtains in the plans for a new house, rather than taping newspaper over the windows after moving in.
+    da: At tegne gardiner ind i planerne til et nyt hus i stedet for at tape aviser for vinduerne, efter man er flyttet ind.
+  inPractice:
+    en: A team building a sign-up form drops the birth-date field it does not need and sets newsletter consent to off by default.
+    da: Et team, der bygger en tilmeldingsformular, fjerner feltet til fødselsdato, som ikke skal bruges, og sætter samtykke til nyhedsbrev som fravalgt som standard.
+  whyItMatters:
+    en: Data you never collect cannot leak, and fixing privacy after launch costs far more than planning it in.
+    da: Data, man aldrig indsamler, kan ikke lække, og at rette op på privatliv efter lancering koster langt mere end at planlægge det ind.
+edges:
+  requires: [confidentiality]
+  contrasts-with:
+    - to: security-by-design
+      why:
+        en: Security by design protects all systems and data; privacy by design is the GDPR principle focused on people's personal data and collecting less.
+        da: Security by design beskytter alle systemer og data; privacy by design er GDPR-princippet med fokus på menneskers persondata og at indsamle mindre.
+      strength: primary
+      confidence: high
+  mitigates:
+    - to: data-breach
+      why:
+        en: Collecting and keeping less personal data shrinks what a breach can expose.
+        da: At indsamle og gemme færre persondata mindsker, hvad et brud kan afsløre.
+      strength: normal
+      confidence: medium
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: Regulation (EU) 2016/679 (GDPR), Article 25
+    tier: standard
+    publisher: European Union
+    url: 'https://eur-lex.europa.eu/eli/reg/2016/679/oj'
+draft: true

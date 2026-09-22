@@ -1,0 +1,33 @@
+term:
+  en: Service
+  da: Tjeneste (service)
+aka:
+  en: [background service, daemon]
+  da: [baggrundstjeneste, service]
+domain: [cs]
+cluster: os
+layer: os
+status: current
+summary:
+  en: A program that runs in the background without a user, often starting with the computer and waiting to handle requests.
+  da: Et program, der kører i baggrunden uden en bruger, ofte starter med computeren og venter på at håndtere forespørgsler.
+body:
+  formal:
+    en: A long-running process that the operating system starts and keeps going on its own, usually under a dedicated account, to provide a function such as printing, updates or answering requests over the network.
+    da: En langvarig proces, som styresystemet selv starter og holder kørende, som regel under en særlig konto, for at levere en funktion som udskrivning, opdateringer eller svar på forespørgsler over netværket.
+  plain:
+    en: Like a night porter — nobody sees them working, but they are always on duty and ready when someone rings the bell.
+    da: Som en natportier — ingen ser vedkommende arbejde, men portieren er altid på vagt og klar, når nogen ringer på klokken.
+  inPractice:
+    en: A company web server runs a web service that starts when the machine is switched on and listens on a port for visitors, even when no one is logged in.
+    da: En virksomheds webserver kører en webtjeneste, der starter, når maskinen tændes, og lytter på en port efter besøgende, selv når ingen er logget ind.
+  whyItMatters:
+    en: Services run all the time, often with wide rights and open to the network, so a forgotten one, or one not kept up to date, is a favourite way in for attackers.
+    da: Tjenester kører hele tiden, ofte med vide rettigheder og åbne mod netværket, så en glemt eller ikke-opdateret tjeneste er en af angribernes foretrukne veje ind.
+edges:
+  kind-of: [process]
+sources:
+  - title: Modern Operating Systems
+    tier: textbook
+    publisher: Tanenbaum & Bos (Pearson)
+draft: true

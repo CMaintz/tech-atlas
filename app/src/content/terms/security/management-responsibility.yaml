@@ -1,0 +1,47 @@
+term:
+  en: Management responsibility
+  da: Ledelsesansvar
+aka:
+  en: [management accountability, leadership accountability]
+  da: [ledelsens ansvar]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: The duty of top leaders to own, approve and be able to show the organisation's security work.
+  da: Den øverste ledelses pligt til at eje, godkende og kunne dokumentere virksomhedens sikkerhedsarbejde.
+body:
+  formal:
+    en: A requirement that the management body approves security measures, oversees their use, takes part in training and answers personally for failures, as set out in NIS2 Article 20.
+    da: Et krav om, at ledelsen godkender sikkerhedstiltag, fører tilsyn med dem, deltager i træning og står personligt til ansvar for svigt, som fastsat i NIS2's artikel 20.
+  plain:
+    en: The captain answers for the ship — even if the crew does the work, the person in charge cannot say "that was not my job".
+    da: Kaptajnen står til ansvar for skibet — selv om besætningen udfører arbejdet, kan den ansvarlige ikke sige "det var ikke min opgave".
+  inPractice:
+    en: A CEO signs off the yearly risk assessment, attends a half-day security course and gets a quarterly status report from the security coordinator.
+    da: En direktør godkender den årlige risikovurdering, deltager i et halvdags sikkerhedskursus og får en kvartalsvis statusrapport fra sikkerhedskoordinatoren.
+  whyItMatters:
+    en: Without leaders who own security, it lacks money and priority; making them answer for it moves it from the server room to the boardroom.
+    da: Uden en ledelse, der ejer sikkerheden, mangler den penge og prioritet; når ledelsen holdes ansvarlig, flytter sikkerhed fra serverrummet til bestyrelseslokalet.
+edges:
+  part-of: [governance]
+  requires: [risk-management]
+  used-with:
+    - to: security-policy
+      why:
+        en: Leaders show their ownership by approving the security policy and its goals.
+        da: Ledelsen viser sit ejerskab ved at godkende sikkerhedspolitikken og dens mål.
+      strength: normal
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: Directive (EU) 2022/2555 (NIS2 Directive), Article 20
+    tier: standard
+    publisher: European Union
+    url: 'https://eur-lex.europa.eu/eli/dir/2022/2555/oj'
+  - title: ISO/IEC 27001:2022, Clause 5 (Leadership)
+    tier: standard
+    publisher: ISO/IEC
+draft: true

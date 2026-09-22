@@ -1,0 +1,42 @@
+term:
+  en: Disaster recovery plan (DRP)
+  da: Disaster recovery plan (DRP)
+aka:
+  en: [DRP, DR plan]
+  da: [DRP, genopretningsplan]
+domain: [security]
+cluster: incident-response
+layer: governance
+status: current
+summary:
+  en: A technical plan for bringing data and systems back after a breakdown or attack, in a set order and time.
+  da: En teknisk plan for at genskabe data og systemer efter et nedbrud eller angreb i en fastlagt rækkefølge og tid.
+body:
+  formal:
+    en: Step-by-step technical instructions for restoring systems and data from backup, with a restore order and target times taken from the business impact analysis.
+    da: Trinvise tekniske instruktioner for at genskabe systemer og data fra backup med en genopretningsrækkefølge og måltider hentet fra konsekvensanalysen.
+  plain:
+    en: Like a rebuild guide for a house after a flood — which walls go up first, where the spare parts are, and how long each step takes.
+    da: Ligesom en genopbygningsvejledning for et hus efter en oversvømmelse — hvilke vægge der sættes op først, hvor reservedelene er, og hvor lang tid hvert trin tager.
+  inPractice:
+    en: After ransomware locks the servers, the IT team wipes them and restores the order system from last night's backup first, then email, then the rest.
+    da: Efter at ransomware har låst serverne, sletter IT-teamet dem og genskaber først ordresystemet fra nattens backup, derefter mail og så resten.
+  whyItMatters:
+    en: A backup nobody knows how to restore is worthless, and guessing under pressure can turn a one-day outage into weeks.
+    da: En backup, som ingen ved, hvordan man genskaber, er værdiløs, og gætteri under pres kan gøre et nedbrud på én dag til flere uger.
+edges:
+  requires: [backup]
+  part-of: [contingency-plan]
+  mitigates:
+    - to: ransomware
+      why:
+        en: A tested way back from clean backups removes the pressure to pay the ransom.
+        da: En afprøvet vej tilbage fra rene backups fjerner presset for at betale løsesummen.
+      strength: primary
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-34 Rev. 1
+    tier: standard
+draft: true

@@ -1,0 +1,35 @@
+term:
+  en: Server
+  da: Server
+aka:
+  en: []
+  da: []
+domain: [cs]
+cluster: networking
+layer: network
+status: current
+summary:
+  en: A computer or program that waits for requests over a network and answers them, such as sending a web page or storing email.
+  da: En computer eller et program, der venter på forespørgsler over et netværk og besvarer dem, fx ved at sende en webside eller gemme e-mail.
+body:
+  formal:
+    en: A program, or the machine running it, that listens on a port for incoming requests from clients and returns responses according to an agreed protocol.
+    da: Et program, eller maskinen der kører det, som lytter på en port efter indkommende forespørgsler fra klienter og sender svar tilbage efter en aftalt protokol.
+  plain:
+    en: Like the counter at a library — it stays open, waits for people to ask for a book, and hands over what they asked for.
+    da: Som skranken på et bibliotek — den holder åbent, venter på, at folk spørger efter en bog, og udleverer det, de bad om.
+  inPractice:
+    en: A company runs its email on a server in a data centre; every employee's phone and laptop contacts that server to fetch and send messages.
+    da: En virksomhed kører sin e-mail på en server i et datacenter; alle medarbejderes telefoner og bærbare kontakter den server for at hente og sende beskeder.
+  whyItMatters:
+    en: Servers hold the shared data and services everyone depends on and can always be reached, so they are prime targets and usually count among the critical assets.
+    da: Servere rummer de fælles data og tjenester, alle er afhængige af, og kan altid nås, så de er oplagte mål og hører typisk til de kritiske aktiver.
+edges:
+  requires: [network, port]
+  used-with: [service]
+sources:
+  - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
+    tier: textbook
+  - title: Tanenbaum, Computer Networks
+    tier: textbook
+draft: true

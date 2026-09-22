@@ -1,0 +1,49 @@
+term:
+  en: Nudging
+  da: Nudging
+aka:
+  en: [nudge, security nudge]
+  da: [nudge, adfærdsdesign]
+domain: [security]
+cluster: awareness
+layer: people
+status: current
+summary:
+  en: Small, gentle prompts that make the safe choice the easy one, without forbidding anything.
+  da: Små, venlige skub, der gør det sikre valg til det lette valg, uden at forbyde noget.
+body:
+  formal:
+    en: Shaping the setting in which people make choices — reminders, sensible default settings, well-timed messages — so the secure option becomes the natural one, while every option stays open.
+    da: At forme de rammer, som folk træffer valg i — påmindelser, fornuftige standardindstillinger, velplacerede beskeder — så den sikre mulighed bliver den naturlige, mens alle muligheder stadig står åbne.
+  plain:
+    en: Like painting footsteps on the floor leading to the stairs — nobody is forced, but most people follow them.
+    da: Som at male fodspor på gulvet hen mod trappen — ingen tvinges, men de fleste følger dem.
+  inPractice:
+    en: A sticker on each monitor says "Leaving? Windows key + L", and the mail system shows a yellow banner on every email from outside the company.
+    da: Et klistermærke på hver skærm siger "Går du? Windows-tast + L", og mailsystemet viser en gul bjælke på alle mails udefra.
+  whyItMatters:
+    en: Training is forgotten in the moment of choice; a nudge shows up right at that moment, so habits change at low cost and without resistance.
+    da: Træning glemmes i det øjeblik, valget træffes; et nudge dukker op netop dér, så vaner ændres billigt og uden modstand.
+edges:
+  implements: [control]
+  used-with:
+    - to: security-awareness
+      why:
+        en: Training explains why; nudges remind people at the moment it counts.
+        da: Træning forklarer hvorfor; nudges minder folk om det i det øjeblik, det gælder.
+      strength: primary
+      confidence: high
+  contrasts-with:
+    - to: security-policy
+      why:
+        en: A policy sets rules that must be followed; a nudge steers behaviour without any rule or penalty.
+        da: En politik fastsætter regler, der skal følges; et nudge styrer adfærd uden regler eller sanktioner.
+      strength: normal
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: Nudge — Improving Decisions About Health, Wealth, and Happiness (Thaler & Sunstein)
+    tier: textbook
+    publisher: Yale University Press
+draft: true

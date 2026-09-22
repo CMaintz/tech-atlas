@@ -1,0 +1,51 @@
+term:
+  en: Denial of service (DoS/DDoS)
+  da: Overbelastningsangreb (DoS/DDoS)
+aka:
+  en: [DoS, DDoS, distributed denial of service]
+  da: [DoS-angreb, DDoS-angreb]
+domain: [security]
+cluster: fundamentals
+layer: network
+status: current
+summary:
+  en: An attack that floods a website or service with so much traffic that real users can no longer reach it.
+  da: Et angreb, der oversvømmer en hjemmeside eller tjeneste med så meget trafik, at rigtige brugere ikke længere kan komme til.
+body:
+  formal:
+    en: An attack that aims to make a system unavailable by using up its capacity, often by sending huge numbers of requests from many machines at once (a distributed attack, DDoS).
+    da: Et angreb, der skal gøre et system utilgængeligt ved at opbruge dets kapacitet — ofte ved at sende enorme mængder forespørgsler fra mange maskiner på én gang (et distribueret angreb, DDoS).
+  plain:
+    en: Thousands of fake customers crowding a shop's doorway so the real ones cannot get in.
+    da: Tusindvis af falske kunder, der stimler sammen i butiksdøren, så de rigtige ikke kan komme ind.
+  inPractice:
+    en: On election day, a council's website is hit by traffic from thousands of hacked devices and stays down for hours.
+    da: På valgdagen bliver en kommunes hjemmeside ramt af trafik fra tusindvis af hackede enheder og er nede i flere timer.
+  whyItMatters:
+    en: No data needs to be stolen for the damage to be real — a business that cannot serve its customers loses money and trust.
+    da: Der behøver ikke blive stjålet data, før skaden er reel — en virksomhed, der ikke kan betjene sine kunder, mister penge og tillid.
+edges:
+  kind-of: [threat]
+  requires: [network]
+  exploits:
+    - to: vulnerability
+      why:
+        en: It abuses the fact that every system can only handle so much, and uses up all of it so the system is no longer there when needed.
+        da: Det udnytter, at ethvert system kun kan klare en vis mængde, og opbruger det hele, så systemet ikke længere er der, når der er brug for det.
+      strength: primary
+      confidence: medium
+  contrasts-with:
+    - to: ransomware
+      why:
+        en: Both make systems unusable, but a flood blocks them from outside while ransomware locks the data from inside.
+        da: Begge gør systemer ubrugelige, men en oversvømmelse blokerer udefra, mens ransomware låser data indefra.
+      strength: minor
+      confidence: medium
+sources:
+  - title: Cyber Security Fast Track — Ordliste (Tilgængelighed)
+    tier: course-material
+  - title: NIST Glossary — Denial of Service
+    tier: standard
+    publisher: NIST
+    url: https://csrc.nist.gov/glossary/term/denial_of_service
+draft: true

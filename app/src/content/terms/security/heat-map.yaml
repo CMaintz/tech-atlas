@@ -1,0 +1,36 @@
+term:
+  en: Risk heat map
+  da: Heat-map
+aka:
+  en: [heat map, risk matrix]
+  da: [risikomatrix]
+domain: [security]
+cluster: risk-management
+layer: governance
+status: current
+summary:
+  en: A colour-coded grid that places each risk by how likely and how harmful it is, so the worst stand out in red.
+  da: Et farvekodet skema, der placerer hver risiko efter, hvor sandsynlig og skadelig den er, så de værste lyser rødt.
+body:
+  formal:
+    en: A chart with chance of happening along one side and size of harm along the other, where each risk is placed and the cells are coloured from green to red by overall level.
+    da: Et skema med sandsynlighed langs den ene side og konsekvens langs den anden, hvor hver risiko placeres, og felterne farves fra grøn til rød efter samlet niveau.
+  plain:
+    en: Like a traffic light for dangers, showing at a glance which ones need action now and which can wait.
+    da: Ligesom et trafiklys for farer, der med ét blik viser, hvilke der kræver handling nu, og hvilke der kan vente.
+  inPractice:
+    en: In a board meeting the coordinator shows a heat map where phishing sits in the red corner and a flooded server room sits in yellow.
+    da: På et bestyrelsesmøde viser koordinatoren et heat-map, hvor phishing ligger i det røde hjørne, og et oversvømmet serverrum ligger i det gule.
+  whyItMatters:
+    en: Managers rarely read long risk lists, but a single picture lets them agree quickly on where to spend.
+    da: Ledere læser sjældent lange risikolister, men ét billede gør det muligt hurtigt at blive enige om, hvor pengene skal bruges.
+edges:
+  requires: [risk]
+  part-of: [risk-management]
+  used-with: [risk-appetite, risk-treatment]
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO/IEC 27005:2022
+    tier: standard
+draft: true

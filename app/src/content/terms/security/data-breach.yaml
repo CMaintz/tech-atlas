@@ -1,0 +1,35 @@
+term:
+  en: Data breach
+  da: Databrud
+aka:
+  en: [data leak, personal data breach]
+  da: [datalæk, brud på persondatasikkerheden]
+domain: [security]
+cluster: incident-response
+layer: data
+status: current
+summary:
+  en: An event where private information is seen, taken, changed or lost by people who should not have it.
+  da: En hændelse, hvor fortrolige oplysninger bliver set, taget, ændret eller mistet af nogen, der ikke burde have dem.
+body:
+  formal:
+    en: A security incident that leads to the accidental or unlawful loss, change, disclosure of, or access to protected data, breaking its confidentiality, integrity or availability.
+    da: En sikkerhedshændelse, der fører til hændeligt eller ulovligt tab, ændring, videregivelse af eller adgang til beskyttede data og dermed bryder deres fortrolighed, integritet eller tilgængelighed.
+  plain:
+    en: Like a lost folder of patient records turning up on a train seat — whoever finds it can read it.
+    da: Ligesom en mistet mappe med patientjournaler, der dukker op på et togsæde — den, der finder den, kan læse den.
+  inPractice:
+    en: An employee emails a file with 2,000 customer addresses to the wrong outside recipient, and the company must decide within 72 hours whether to report it.
+    da: En medarbejder mailer en fil med 2.000 kundeadresser til den forkerte eksterne modtager, og virksomheden skal inden for 72 timer afgøre, om det skal anmeldes.
+  whyItMatters:
+    en: Breaches of personal data carry legal duties, fines and lost customer trust, so they must be spotted and handled fast.
+    da: Brud på persondata medfører lovpligtige indberetninger, bøder og tabt kundetillid, så de skal opdages og håndteres hurtigt.
+edges:
+  requires: [confidentiality]
+  used-with: [gdpr]
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: GDPR (Regulation (EU) 2016/679), Articles 4(12), 33 and 34
+    tier: standard
+draft: true

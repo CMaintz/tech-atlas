@@ -1,0 +1,44 @@
+term:
+  en: Business email compromise (CEO fraud)
+  da: Direktørsvindel (CEO fraud)
+aka:
+  en: [BEC, CEO fraud, invoice fraud]
+  da: [CEO fraud, BEC, fakturasvindel]
+domain: [security]
+cluster: awareness
+layer: people
+status: current
+summary:
+  en: A scam where criminals pose as a boss or supplier by email to trick staff into paying money or sending data.
+  da: Svindel, hvor kriminelle udgiver sig for at være chefen eller en leverandør og narrer ansatte til at betale eller sende data.
+body:
+  formal:
+    en: A targeted fraud in which the attacker takes over or copies the email address of a trusted person and sends a believable request, usually to change bank details or make an urgent payment.
+    da: En målrettet svindel, hvor angriberen overtager eller efterligner en betroet persons mailadresse og sender en troværdig anmodning — oftest om at ændre bankoplysninger eller foretage en hastebetaling.
+  plain:
+    en: A forged note that looks exactly like it came from the boss, telling you to hand the cash box to the person at the door.
+    da: En falsk seddel, der ligner, at den kommer fra chefen, og som beder dig give pengekassen til personen ved døren.
+  inPractice:
+    en: On a Friday afternoon, a bookkeeper gets a mail "from the CEO" asking her to pay a supplier invoice to a new account before the weekend.
+    da: En fredag eftermiddag får en bogholder en mail "fra direktøren", der beder hende betale en leverandørfaktura til en ny konto inden weekenden.
+  whyItMatters:
+    en: No harmful software is needed and the mail often looks perfect, so a quick phone call to check is often the only thing that stops a large loss.
+    da: Der kræves ingen skadelig software, og mailen ser ofte perfekt ud, så et hurtigt opkald for at tjekke er tit det eneste, der stopper et stort tab.
+edges:
+  kind-of: [spear-phishing]
+  requires: [account]
+  exploits:
+    - to: vulnerability
+      why:
+        en: It abuses staff's trust in their leaders and their wish to act quickly on urgent orders.
+        da: Den udnytter medarbejdernes tillid til ledelsen og ønsket om at handle hurtigt på hasteordrer.
+      strength: primary
+      confidence: high
+sources:
+  - title: FBI IC3 — Business Email Compromise
+    tier: official-doc
+    publisher: FBI
+    url: https://www.ic3.gov/
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 2
+    tier: course-material
+draft: true

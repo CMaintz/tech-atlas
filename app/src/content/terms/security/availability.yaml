@@ -1,0 +1,42 @@
+term:
+  en: Availability
+  da: Tilgængelighed
+aka:
+  en: []
+  da: []
+domain: [security]
+cluster: fundamentals
+layer: data
+status: current
+summary:
+  en: Making sure information and systems can be used by the right people when they are needed.
+  da: At sikre, at information og systemer kan bruges af de rette personer, når der er brug for dem.
+body:
+  formal:
+    en: The property that information and systems can be reached and used on demand by those allowed to use them, within agreed times.
+    da: Egenskaben, at information og systemer kan nås og bruges efter behov af dem, der har lov til at bruge dem, inden for aftalte tidsrammer.
+  plain:
+    en: Like a shop's opening hours — the goods are no use to anyone if the door is locked when customers arrive.
+    da: Som en butiks åbningstider — varerne gavner ingen, hvis døren er låst, når kunderne kommer.
+  inPractice:
+    en: A power cut takes down a hospital's patient record system, so doctors must work from paper until it is back.
+    da: En strømafbrydelse lægger et hospitals patientjournalsystem ned, så lægerne må arbejde på papir, indtil det kører igen.
+  whyItMatters:
+    en: Every hour a key system is down can stop sales, delay care or halt production — which is exactly what attacks like ransomware aim for.
+    da: Hver time et vigtigt system er nede, kan salget stoppe, behandlinger blive forsinket eller produktionen gå i stå — og det er netop, hvad angreb som ransomware går efter.
+edges:
+  part-of: [cia-triad]
+  contrasts-with:
+    - to: confidentiality
+      why:
+        en: More locks protect confidentiality but can make information harder to reach; the two must be balanced.
+        da: Flere låse beskytter fortroligheden, men kan gøre information sværere at nå; de to skal balanceres.
+      strength: normal
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO/IEC 27000:2018 — Information security management systems — Overview and vocabulary
+    tier: standard
+    publisher: ISO/IEC
+draft: true

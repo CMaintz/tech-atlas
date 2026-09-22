@@ -1,0 +1,32 @@
+term:
+  en: Protocol
+  da: Protokol
+aka:
+  en: [network protocol]
+  da: [netværksprotokol]
+domain: [cs]
+cluster: networking
+layer: network
+status: current
+summary:
+  en: An agreed set of rules for how devices on a network format, send and answer messages.
+  da: Et aftalt sæt regler for, hvordan enheder på et netværk opbygger, sender og besvarer beskeder.
+body:
+  formal:
+    en: A specification of the format and order of messages exchanged between two or more parties, and of the actions each party takes when a message is sent or received.
+    da: En beskrivelse af formatet og rækkefølgen af de beskeder, der udveksles mellem to eller flere parter, og af hvad hver part gør, når en besked sendes eller modtages.
+  plain:
+    en: Like the unwritten rules of a phone call — you say hello, wait for an answer, take turns, and say goodbye before hanging up.
+    da: Som de uskrevne regler for en telefonsamtale — man siger hej, venter på svar, skiftes til at tale og siger farvel, før man lægger på.
+  inPractice:
+    en: When you open a web page, your laptop and the far-away machine follow the same protocol, so each knows exactly what the other's messages mean.
+    da: Når du åbner en webside, følger din bærbare og den fjerne maskine den samme protokol, så hver af dem ved præcis, hvad den andens beskeder betyder.
+  whyItMatters:
+    en: Devices from different makers only work together because they share protocols, and many attacks work by bending or abusing those rules.
+    da: Enheder fra forskellige producenter virker kun sammen, fordi de deler protokoller, og mange angreb virker ved at bøje eller misbruge reglerne.
+edges:
+  requires: [network]
+sources:
+  - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
+    tier: textbook
+draft: true

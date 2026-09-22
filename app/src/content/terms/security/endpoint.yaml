@@ -1,0 +1,38 @@
+term:
+  en: Endpoint
+  da: Endpoint
+aka:
+  en: [end-user device, endpoint device]
+  da: [slutbrugerenhed]
+domain: [security, cs]
+cluster: controls
+layer: host
+status: current
+summary:
+  en: Any device that connects to the network at its edge and is used directly — a PC, phone, printer or similar.
+  da: Enhver enhed, der kobles på netværket i dets yderkant og bruges direkte — fx en pc, mobil eller printer.
+body:
+  formal:
+    en: A device at the end of a network connection that people or machines use directly, such as a laptop, phone, tablet, printer or smart sensor, as opposed to equipment that only passes traffic along.
+    da: En enhed for enden af en netværksforbindelse, som mennesker eller maskiner bruger direkte, fx en stationær, bærbar, mobil, tablet, printer eller smart sensor, i modsætning til udstyr, der blot sender trafikken videre.
+  plain:
+    en: If the network is a road system, the endpoints are the houses — the places where the roads actually lead and where people live and work.
+    da: Hvis netværket er et vejnet, er endpoints husene — de steder, vejene faktisk fører hen, og hvor folk bor og arbejder.
+  inPractice:
+    en: A sales rep's laptop that travels between home, coffee shops and the office is one endpoint; the meeting-room screen and the reception printer are two more.
+    da: En sælgers bærbare, der flytter mellem hjemmet, caféer og kontoret, er ét endpoint; skærmen i mødelokalet og printeren i receptionen er to mere.
+  whyItMatters:
+    en: Endpoints are where people click, plug in and log in, so they are where most attacks start — and every one needs to be known, updated and watched.
+    da: Endpoints er dér, folk klikker, sætter ting i og logger ind, så det er dér, de fleste angreb begynder — og hvert eneste skal kendes, opdateres og overvåges.
+edges:
+  part-of: [network]
+  requires: [operating-system]
+  used-with:
+    - patch-management
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: CIS Critical Security Controls v8 — Control 1
+    tier: standard
+    publisher: Center for Internet Security
+draft: true

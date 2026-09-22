@@ -1,0 +1,61 @@
+term:
+  en: NIS2 minimum requirements
+  da: Minimumskrav (NIS2)
+aka:
+  en: [NIS2 Article 21 measures, cybersecurity risk-management measures]
+  da: [NIS2-minimumskrav, artikel 21-krav]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: The baseline list of security measures every organisation under NIS2 must have in place.
+  da: Den grundliste af sikkerhedstiltag, som alle virksomheder omfattet af NIS2 skal have på plads.
+body:
+  formal:
+    en: The set of measures listed in Article 21 of NIS2 — among them risk analysis, incident handling, business continuity, supply-chain security, training, encryption and multi-factor authentication — which must fit the organisation's risk.
+    da: De tiltag, der er opregnet i NIS2's artikel 21 — bl.a. risikoanalyse, hændelseshåndtering, driftskontinuitet, sikkerhed i forsyningskæden, træning, kryptering og login med flere faktorer — og som skal stå i forhold til virksomhedens risiko.
+  plain:
+    en: A checklist of must-haves, like the safety equipment every car needs before it may drive on the road.
+    da: En tjekliste over det, man skal have, ligesom det sikkerhedsudstyr, en bil skal have, før den må køre på vejen.
+  inPractice:
+    en: A logistics firm maps each item on the list to what it already does and finds that backups exist but have never been restored in a test.
+    da: En logistikvirksomhed holder hvert punkt på listen op mod det, den allerede gør, og opdager, at der er backup, men at den aldrig er blevet testet med en gendannelse.
+  whyItMatters:
+    en: The list turns a broad law into concrete work, and a missing item can lead to orders or fines from the authority.
+    da: Listen gør en bred lov til konkret arbejde, og et manglende punkt kan føre til påbud eller bøder fra myndigheden.
+edges:
+  part-of: [nis2]
+  mandates:
+    - to: business-continuity-plan
+      why:
+        en: Business continuity, including backup and crisis management, is a listed measure.
+        da: Driftskontinuitet, herunder backup og krisestyring, er et af de opregnede tiltag.
+      strength: primary
+      confidence: high
+    - to: backup
+      strength: normal
+      confidence: high
+    - to: mfa
+      why:
+        en: Multi-factor authentication is named explicitly as a measure to use where appropriate.
+        da: Login med flere faktorer er nævnt direkte som et tiltag, der skal bruges, hvor det er relevant.
+      strength: normal
+      confidence: high
+    - to: encryption
+      strength: normal
+      confidence: high
+    - to: asset-inventory
+      why:
+        en: Asset management is listed alongside access control and staff security.
+        da: Styring af aktiver er nævnt sammen med adgangsstyring og personalesikkerhed.
+      strength: minor
+      confidence: medium
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: Directive (EU) 2022/2555 (NIS2 Directive), Article 21
+    tier: standard
+    publisher: European Union
+    url: 'https://eur-lex.europa.eu/eli/dir/2022/2555/oj'
+draft: true

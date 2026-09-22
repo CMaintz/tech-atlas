@@ -1,0 +1,35 @@
+term:
+  en: Business impact analysis (BIA)
+  da: Konsekvensanalyse (BIA)
+aka:
+  en: [BIA]
+  da: [BIA]
+domain: [security]
+cluster: risk-management
+layer: governance
+status: current
+summary:
+  en: A study of what an outage or incident would do to the business, and how long each activity can be down.
+  da: En analyse af, hvad et nedbrud eller en hændelse vil betyde for forretningen, og hvor længe hver aktivitet kan ligge stille.
+body:
+  formal:
+    en: A structured review of each business activity that estimates the harm of its disruption over time and sets how quickly it and the systems it depends on must be restored.
+    da: En struktureret gennemgang af hver forretningsaktivitet, der vurderer skaden ved en afbrydelse over tid og fastlægger, hvor hurtigt den og de systemer, den bygger på, skal genskabes.
+  plain:
+    en: Like a restaurant asking which hurts more if it breaks, the oven or the coffee machine, and how many hours it could cope without each.
+    da: Ligesom en restaurant, der spørger, hvad der gør mest ondt, hvis det går i stykker, ovnen eller kaffemaskinen, og hvor mange timer den kan klare sig uden hver.
+  inPractice:
+    en: Interviews with each department show that payroll can wait three days, but the booking system loses customers after one hour.
+    da: Interviews med hver afdeling viser, at lønkørslen kan vente tre dage, men at bookingsystemet mister kunder efter en time.
+  whyItMatters:
+    en: It turns vague worry into clear recovery priorities, which every continuity and recovery plan is built on.
+    da: Den gør vag bekymring til klare prioriteter for genopretning, som alle beredskabs- og genopretningsplaner bygger på.
+edges:
+  requires: [critical-assets]
+  part-of: [risk-management]
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO 22301:2019
+    tier: standard
+draft: true

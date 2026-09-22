@@ -1,0 +1,34 @@
+term:
+  en: Network
+  da: Netværk
+aka:
+  en: [computer network]
+  da: [computernetværk]
+domain: [cs]
+cluster: networking
+layer: network
+status: current
+summary:
+  en: A set of connected devices that can send data to each other over cables or radio signals.
+  da: En samling forbundne enheder, der kan sende data til hinanden via kabler eller radiosignaler.
+body:
+  formal:
+    en: A collection of devices joined by links, where each device can exchange data with the others by following shared rules for how messages are sent and delivered.
+    da: En samling enheder forbundet af forbindelser, hvor hver enhed kan udveksle data med de andre ved at følge fælles regler for, hvordan beskeder sendes og leveres.
+  plain:
+    en: Like a road system between houses — once the roads exist, anyone can drive a letter from one house to another.
+    da: Som et vejnet mellem huse — når vejene først findes, kan man køre et brev fra ét hus til et andet.
+  inPractice:
+    en: In an office, every laptop, printer and phone joins the same network, so staff can print, share files and reach the outside world.
+    da: På et kontor er alle bærbare, printere og telefoner på det samme netværk, så medarbejderne kan printe, dele filer og nå omverdenen.
+  whyItMatters:
+    en: Almost every security control is about who may travel on which roads, so you cannot judge those controls without knowing what a network is.
+    da: Næsten alle sikkerhedskontroller handler om, hvem der må færdes på hvilke veje, så man kan ikke vurdere dem uden at vide, hvad et netværk er.
+edges:
+  used-with: [protocol]
+sources:
+  - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
+    tier: textbook
+  - title: Tanenbaum, Computer Networks
+    tier: textbook
+draft: true

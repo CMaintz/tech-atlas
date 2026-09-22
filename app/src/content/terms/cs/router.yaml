@@ -1,0 +1,32 @@
+term:
+  en: Router
+  da: Router
+aka:
+  en: []
+  da: []
+domain: [cs]
+cluster: networking
+layer: network
+status: current
+summary:
+  en: A device that joins networks together and passes each packet on toward its destination.
+  da: En enhed, der forbinder netværk og sender hver pakke videre mod dens destination.
+body:
+  formal:
+    en: A device that connects two or more networks and, for each arriving packet, reads the destination IP address and forwards the packet along the best known path.
+    da: En enhed, der forbinder to eller flere netværk, og som for hver ankommende pakke læser destinationens IP-adresse og sender pakken videre ad den bedste kendte vej.
+  plain:
+    en: Like a sorting office at the post — it does not open letters, it just reads the address and sends each one down the right road.
+    da: Som en postterminal — den åbner ikke brevene, men læser adressen og sender hvert brev ud ad den rigtige vej.
+  inPractice:
+    en: The small box a home internet provider installs is a router, passing traffic between the laptops at home and the outside world.
+    da: Den lille boks, som internetudbyderen sætter op derhjemme, er en router, der sender trafik mellem hjemmets bærbare og omverdenen.
+  whyItMatters:
+    en: Routers sit at the borders between networks, so they are natural places to enforce rules about what may pass — and valuable targets for attackers.
+    da: Routere sidder på grænserne mellem netværk, så de er oplagte steder at håndhæve regler for, hvad der må passere — og værdifulde mål for angribere.
+edges:
+  requires: [ip-address, packet]
+sources:
+  - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
+    tier: textbook
+draft: true

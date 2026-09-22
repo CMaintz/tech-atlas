@@ -7,13 +7,15 @@ type GEdge = { source: string; target: string; type: string };
 interface Props {
   nodes: GNode[];
   edges: GEdge[];
+  /** Base URL of term pages; every node links to its page (SPEC §7: the canvas is an index). */
+  termBase: string;
 }
 
 /**
  * The interactive neighbourhood graph (2D, Cytoscape). ADR-0008: the client-side
  * island; 3D mode via 3d-force-graph arrives in a later phase.
  */
-export default function Graph({ nodes, edges }: Props) {
+export default function Graph({ nodes, edges, termBase }: Props) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -67,6 +69,12 @@ export default function Graph({ nodes, edges }: Props) {
       minZoom: 0.3,
       maxZoom: 2.5,
     });
+    cy.on('tap', 'node', (evt) => {
+      const id = evt.target.id();
+      if (!evt.target.data('focus')) window.location.href = `${termBase}${id}/`;
+    });
+    cy.on('mouseover', 'node', () => ref.current && (ref.current.style.cursor = 'pointer'));
+    cy.on('mouseout', 'node', () => ref.current && (ref.current.style.cursor = 'default'));
     return () => cy.destroy();
   }, []);
 

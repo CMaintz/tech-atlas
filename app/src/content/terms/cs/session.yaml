@@ -1,0 +1,39 @@
+term:
+  en: Session
+  da: Session
+aka:
+  en: [login session]
+  da: [loginsession]
+domain: [cs]
+cluster: identity
+layer: identity
+status: current
+summary:
+  en: The period in which a system remembers that a user has logged in, so they need not prove who they are at every step.
+  da: Den periode, hvor et system husker, at en bruger er logget ind, så vedkommende ikke skal bevise sin identitet ved hvert skridt.
+body:
+  formal:
+    en: A temporary link between a user and a system that begins after successful authentication. The system hands out a short-lived secret marker that proves it is still the same user, until they log out or the time runs out.
+    da: En midlertidig forbindelse mellem en bruger og et system, der begynder efter vellykket autentificering. Systemet udleverer et kortlivet hemmeligt kendetegn, som viser, at det stadig er den samme bruger, indtil vedkommende logger ud, eller tiden udløber.
+  plain:
+    en: Like the hand stamp at a club — you show ID once at the door, then the stamp lets you back in all evening, until it washes off.
+    da: Som stemplet på hånden på et diskotek — du viser ID én gang ved døren, og så lukker stemplet dig ind igen hele aftenen, indtil det bliver vasket af.
+  inPractice:
+    en: An online bank ends the session after ten minutes without activity, so a customer who walks away from a library computer is logged out automatically.
+    da: En netbank afslutter sessionen efter ti minutter uden aktivitet, så en kunde, der går fra en computer på biblioteket, automatisk bliver logget ud.
+  whyItMatters:
+    en: Whoever holds a live session is treated as the user, so an attacker who steals one skips authentication — even MFA — entirely.
+    da: Den, der har en aktiv session, behandles som brugeren, så en angriber, der stjæler den, springer autentificeringen — selv MFA — helt over.
+edges:
+  requires: [authentication]
+  used-with:
+    - to: single-sign-on
+      why:
+        en: Single sign-on works by carrying one session across many applications.
+        da: Single sign-on fungerer ved at føre én session videre til mange programmer.
+sources:
+  - title: NIST SP 800-63B, Authentication and Lifecycle Management
+    url: https://pages.nist.gov/800-63-3/sp800-63b.html
+    tier: standard
+    publisher: NIST
+draft: true

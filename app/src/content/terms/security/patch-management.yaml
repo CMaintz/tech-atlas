@@ -1,0 +1,51 @@
+term:
+  en: Patch management
+  da: Patch management
+aka:
+  en: [update management]
+  da: [opdateringsstyring, patchstyring]
+domain: [security]
+cluster: controls
+layer: host
+status: current
+summary:
+  en: The routine of keeping all software up to date so that known weaknesses are closed before attackers use them.
+  da: Rutinen med at holde al software opdateret, så kendte svagheder lukkes, før angribere udnytter dem.
+body:
+  formal:
+    en: The repeated process of finding out which patches exist for the organisation's software, ranking them by risk, testing them, installing them within a set time and confirming they took effect.
+    da: Den gentagne proces med at finde ud af, hvilke patches der findes til virksomhedens software, prioritere dem efter risiko, teste dem, installere dem inden for en fast frist og bekræfte, at de virker.
+  plain:
+    en: Like a car recall — the fault is known and a fix exists, but it only helps once each car is actually brought in.
+    da: Som når en bilfabrik kalder biler tilbage — fejlen er kendt, og der findes en løsning, men den hjælper først, når hver bil faktisk kommer ind.
+  inPractice:
+    en: A serious weakness in the company's VPN is announced on Tuesday; IT tests the fix that night and has every VPN box updated by Thursday, as the policy's 72-hour rule demands.
+    da: En alvorlig svaghed i firmaets VPN offentliggøres tirsdag; IT tester rettelsen samme aften og har opdateret alle VPN-bokse torsdag, som politikkens 72-timers regel kræver.
+  whyItMatters:
+    en: Once a weakness is made public, attackers race to use it; many real attacks, including ransomware, succeed simply because a fix was available but never installed.
+    da: Når en svaghed bliver offentlig, skynder angribere sig at udnytte den; mange reelle angreb, også ransomware, lykkes blot fordi en rettelse fandtes, men aldrig blev installeret.
+edges:
+  kind-of: [control]
+  requires: [patch]
+  mitigates:
+    - to: vulnerability
+      why:
+        en: Installing the fix removes the known weakness itself.
+        da: Når rettelsen installeres, fjernes selve den kendte svaghed.
+      strength: primary
+      confidence: high
+    - to: ransomware
+      strength: normal
+      confidence: medium
+  used-with:
+    - vulnerability-scanning
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-40 Rev. 4 — Guide to Enterprise Patch Management Planning
+    tier: standard
+    publisher: NIST
+  - title: CIS Critical Security Controls v8 — Control 7
+    tier: standard
+    publisher: Center for Internet Security
+draft: true

@@ -1,0 +1,42 @@
+term:
+  en: Data classification
+  da: Dataklassifikation
+aka:
+  en: [information classification]
+  da: [klassifikation af data, informationsklassifikation]
+domain: [security]
+cluster: fundamentals
+layer: data
+status: current
+summary:
+  en: Sorting data by how sensitive it is — for example public, internal or confidential.
+  da: Opdeling af data efter følsomhed — fx offentlig, intern eller fortrolig.
+body:
+  formal:
+    en: The practice of labelling information by how much harm its loss or leak would cause, so that each level gets matching rules for handling and protection.
+    da: Praksissen med at mærke information efter, hvor stor skade tab eller læk vil forvolde, så hvert niveau får tilsvarende regler for håndtering og beskyttelse.
+  plain:
+    en: Like sorting post into postcards, letters and registered mail — each is handled with a different level of care.
+    da: Som at sortere post i postkort, breve og anbefalede breve — hver slags håndteres med forskellig omhu.
+  inPractice:
+    en: A price list is marked "public", the staff handbook "internal", and payroll files "confidential", which means they may not leave the company unencrypted.
+    da: En prisliste mærkes "offentlig", personalehåndbogen "intern" og lønfiler "fortrolig" — hvilket betyder, at de ikke må forlade virksomheden uden kryptering.
+  whyItMatters:
+    en: Protecting everything to the highest level is too costly, and protecting everything to the lowest is dangerous; classification tells you where to put the effort.
+    da: At beskytte alt på højeste niveau er for dyrt, og at beskytte alt på laveste niveau er farligt; klassifikation viser, hvor indsatsen skal ligge.
+edges:
+  requires: [confidentiality]
+  used-with:
+    - to: encryption
+      why:
+        en: The classification level often decides which data must be encrypted.
+        da: Klassifikationsniveauet afgør ofte, hvilke data der skal krypteres.
+      strength: normal
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO/IEC 27002:2022 — Control 5.12, Classification of information
+    tier: standard
+    publisher: ISO/IEC
+draft: true

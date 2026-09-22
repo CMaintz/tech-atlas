@@ -1,0 +1,35 @@
+term:
+  en: Single sign-on (SSO)
+  da: Single sign-on (SSO)
+aka:
+  en: [SSO]
+  da: [SSO, fælles login]
+domain: [cs]
+cluster: identity
+layer: identity
+status: current
+summary:
+  en: Logging in once to reach many separate applications, with a trusted identity provider vouching for the user to each.
+  da: At logge ind én gang og få adgang til mange programmer, fordi en betroet identitetsudbyder går i god for brugeren.
+body:
+  formal:
+    en: An arrangement in which a user proves who they are once to an identity provider, which then confirms that identity to each connected application, so the applications never see or store the user's password.
+    da: En ordning, hvor en bruger autentificerer sig én gang hos en identitetsudbyder, som derefter bekræfter identiteten over for hvert tilknyttet program, så programmerne aldrig ser eller gemmer brugerens adgangskode.
+  plain:
+    en: Like a hotel key card from reception — you prove who you are once at the desk, and the gym, the pool and your room all trust the card.
+    da: Som et hotelnøglekort fra receptionen — du beviser én gang ved skranken, hvem du er, og fitnessrummet, poolen og dit værelse stoler alle på kortet.
+  inPractice:
+    en: Staff sign in to Microsoft 365 in the morning and can then open the HR system, the staff website and the expenses app without typing another password.
+    da: Medarbejderne logger ind i Microsoft 365 om morgenen og kan derefter åbne HR-systemet, intranettet og udlægsappen uden at indtaste flere adgangskoder.
+  whyItMatters:
+    en: Fewer passwords means fewer to use again or steal, and closing one account locks every door at once — but that single login becomes very valuable and needs MFA.
+    da: Færre adgangskoder betyder færre at genbruge eller stjæle, og lukkes én konto, låses alle døre på én gang — men det ene login bliver meget værdifuldt og kræver MFA.
+edges:
+  implements: [authentication]
+  requires: [identity-provider, session]
+sources:
+  - title: NIST SP 800-63C, Federation and Assertions
+    url: https://pages.nist.gov/800-63-3/sp800-63c.html
+    tier: standard
+    publisher: NIST
+draft: true

@@ -1,0 +1,50 @@
+term:
+  en: Phishing simulation
+  da: Phishing-simulering
+aka:
+  en: [phishing test, simulated phishing campaign]
+  da: [phishing-test, phishing-kampagne]
+domain: [security]
+cluster: awareness
+layer: people
+status: current
+summary:
+  en: Sending staff harmless fake phishing mails to see who clicks and to teach them to spot the real thing.
+  da: Man sender medarbejderne harmløse falske phishingmails for at se, hvem der klikker, og lære dem at genkende de ægte.
+body:
+  formal:
+    en: A planned training exercise in which the organisation sends realistic but safe phishing messages to its own staff, measures how many click or report them, and follows up with short lessons.
+    da: En planlagt træningsøvelse, hvor organisationen sender realistiske, men ufarlige phishingbeskeder til sine egne medarbejdere, måler hvor mange der klikker eller indberetter dem, og følger op med korte lektioner.
+  plain:
+    en: A fire drill for your inbox — practising the right reaction when nothing is really burning.
+    da: En brandøvelse for indbakken — man øver den rigtige reaktion, mens intet brænder.
+  inPractice:
+    en: The security team sends a fake "your parcel is waiting" mail; those who click see a friendly page explaining the warning signs they missed.
+    da: Sikkerhedsteamet sender en falsk "din pakke venter"-mail; de, der klikker, ser en venlig side, der forklarer de advarselstegn, de overså.
+  whyItMatters:
+    en: It turns awareness into a number that can be tracked over time, and gives people safe practice before a real attacker tests them.
+    da: Det gør awareness til et tal, der kan følges over tid, og giver folk sikker øvelse, før en rigtig angriber tester dem.
+edges:
+  kind-of: [control]
+  requires: [phishing]
+  mitigates:
+    - to: phishing
+      why:
+        en: Staff who have practised spotting fake mails are less likely to fall for real ones and more likely to report them.
+        da: Medarbejdere, der har øvet sig i at spotte falske mails, falder sjældnere for de ægte og indberetter dem oftere.
+      strength: primary
+      confidence: medium
+  used-with:
+    - to: security-awareness
+      why:
+        en: Simulations are one of the main tools and measures in an awareness programme.
+        da: Simuleringer er et af de vigtigste værktøjer og målepunkter i et awareness-program.
+      strength: primary
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 2
+    tier: course-material
+  - title: CIS Controls v8 — Control 14 (Security Awareness and Skills Training)
+    tier: standard
+    publisher: Center for Internet Security
+draft: true

@@ -1,0 +1,38 @@
+term:
+  en: Digital identity
+  da: Digital identitet
+aka:
+  en: [identity]
+  da: [identitet]
+domain: [cs]
+cluster: identity
+layer: identity
+status: current
+summary:
+  en: The set of facts that lets a computer system tell one person, device or program apart from all others.
+  da: De oplysninger, der gør det muligt for et it-system at skelne én person, enhed eller ét program fra alle andre.
+body:
+  formal:
+    en: The unique representation of a subject — a person, device or program — within a system, made up of details such as a name, an email address or an employee number.
+    da: Den entydige repræsentation af et subjekt — en person, en enhed eller et program — i et system, bestående af oplysninger som navn, e-mailadresse eller medarbejdernummer.
+  plain:
+    en: Like the details in a passport — name, birth date, photo — which together say who you are, before anyone has checked that it is really you.
+    da: Som oplysningerne i et pas — navn, fødselsdato, foto — der tilsammen siger, hvem du er, før nogen har tjekket, at det faktisk er dig.
+  inPractice:
+    en: In Denmark, the national login every citizen uses ties a person's CPR number to one digital identity that banks, the tax authority and the municipality all recognise.
+    da: I Danmark knytter MitID en persons CPR-nummer til én digital identitet, som banker, Skattestyrelsen og kommunen alle genkender.
+  whyItMatters:
+    en: Every access decision and every audit log entry points back to an identity; if identities are muddled or shared, no one can be held accountable.
+    da: Enhver adgangsbeslutning og enhver post i en audit-log peger tilbage på en identitet; hvis identiteter er uklare eller delte, kan ingen stilles til ansvar.
+edges:
+  used-with:
+    - to: zero-trust
+      why:
+        en: Zero Trust bases each access decision on a verified identity rather than on where a request comes from.
+        da: Zero Trust baserer hver adgangsbeslutning på en verificeret identitet frem for på, hvor en forespørgsel kommer fra.
+sources:
+  - title: NIST SP 800-63-3, Digital Identity Guidelines
+    url: https://pages.nist.gov/800-63-3/sp800-63-3.html
+    tier: standard
+    publisher: NIST
+draft: true

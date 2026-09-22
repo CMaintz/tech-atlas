@@ -1,0 +1,36 @@
+term:
+  en: HTTPS
+  da: HTTPS
+aka:
+  en: [HTTP Secure, HTTP over TLS]
+  da: [HTTP Secure, HTTP over TLS]
+domain: [cs]
+cluster: networking
+layer: network
+status: current
+summary:
+  en: The way web browsers and websites exchange pages with TLS protecting every message, shown by the padlock in the address bar.
+  da: Måden, browsere og websteder udveksler sider på, hvor TLS beskytter hver besked — vist med hængelåsen i adresselinjen.
+body:
+  formal:
+    en: The web's request-and-answer protocol between a client and a server, carried inside a TLS connection, usually on port 443, so the pages, forms and cookies sent are encrypted and checked for changes.
+    da: Webbens protokol for forespørgsel og svar mellem en klient og en server, båret inde i en TLS-forbindelse, typisk på port 443, så sider, formularer og cookies krypteres og tjekkes for ændringer.
+  plain:
+    en: Like ordering from a shop by sealed, tamper-proof envelope instead of shouting your order and card number across the street.
+    da: Som at bestille fra en butik i en forseglet konvolut, der ikke kan pilles ved, i stedet for at råbe sin bestilling og sit kortnummer over gaden.
+  inPractice:
+    en: When a customer types a card number into a web shop whose address starts with https://, the number travels encrypted from the browser to the shop.
+    da: Når en kunde taster sit kortnummer ind i en webshop, hvis adresse starter med https://, rejser nummeret krypteret fra browseren til butikken.
+  whyItMatters:
+    en: Plain, unprotected web traffic can be read and changed by anyone along the route, so HTTPS is now the expected minimum for any website handling logins or personal data.
+    da: Almindelig, ubeskyttet webtrafik kan læses og ændres af alle langs ruten, så HTTPS er i dag det forventede minimum for ethvert websted med login eller persondata.
+edges:
+  kind-of: [protocol]
+  requires: [tls, client, server]
+  implements: [confidentiality]
+sources:
+  - title: RFC 9110 — HTTP Semantics
+    tier: standard
+  - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
+    tier: textbook
+draft: true

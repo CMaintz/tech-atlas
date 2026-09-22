@@ -1,0 +1,195 @@
+# Canonical v1 term manifest — the "curated term list" step of the content
+# pipeline (SPEC §5). Every authored edge must target an id in this list.
+# Security terms come from the course ordliste (the granularity oracle);
+# CS terms are the networking / OS / identity bridge set (D6).
+# `folder` is where the file lives: src/content/terms/<folder>/<id>.yaml
+# `audit` exists in BOTH domains (a deliberate collision) — always write
+# `security/audit` or `cs/audit` when linking to it.
+
+security:
+  fundamentals:
+    - {
+        id: cyber-and-information-security,
+        en: Cyber and information security,
+        da: Cyber- og informationssikkerhed,
+      }
+    - { id: confidentiality, en: Confidentiality, da: Fortrolighed }
+    - { id: integrity, en: Integrity, da: Integritet }
+    - { id: availability, en: Availability, da: Tilgængelighed }
+    - { id: cia-triad, en: CIA triad, da: CIA-triaden }
+    - { id: threat, en: Threat, da: Trussel }
+    - { id: vulnerability, en: Vulnerability, da: Sårbarhed }
+    - { id: risk, en: Risk, da: Risiko }
+    - { id: control, en: Security control, da: Kontrol (foranstaltning) }
+    - { id: governance, en: Governance, da: Governance }
+    - { id: security-policy, en: Security policy, da: Sikkerhedspolitik }
+    - { id: compliance, en: Compliance, da: Compliance }
+    - { id: security-by-design, en: Security by design, da: Security by design }
+    - { id: data-classification, en: Data classification, da: Dataklassifikation }
+    - { id: asset, en: Asset, da: Aktiv }
+    - { id: impact, en: Impact, da: Konsekvens }
+    - { id: likelihood, en: Likelihood, da: Sandsynlighed }
+    - { id: threat-actor, en: Threat actor, da: Trusselsaktør }
+    - { id: malware, en: Malware, da: Malware }
+    - {
+        id: denial-of-service,
+        en: Denial of service (DoS/DDoS),
+        da: Overbelastningsangreb (DoS/DDoS),
+      }
+    - { id: lateral-movement, en: Lateral movement, da: Lateral bevægelse }
+    - { id: defence-in-depth, en: Defence in depth, da: Lagdelt sikkerhed (defence in depth) }
+  awareness:
+    - { id: security-awareness, en: Security awareness, da: Awareness }
+    - { id: security-culture, en: Security culture, da: Sikkerhedskultur }
+    - { id: social-engineering, en: Social engineering, da: Social engineering }
+    - { id: phishing, en: Phishing, da: Phishing }
+    - { id: spear-phishing, en: Spear phishing, da: Spear phishing }
+    - { id: ransomware, en: Ransomware, da: Ransomware }
+    - { id: shadow-it, en: Shadow IT, da: Skygge-IT (shadow IT) }
+    - { id: nudging, en: Nudging, da: Nudging }
+    - { id: human-firewall, en: Human firewall, da: Human firewall }
+    - { id: awareness-maturity, en: Awareness maturity, da: Awareness-modenhed }
+    - { id: phishing-simulation, en: Phishing simulation, da: Phishing-simulering }
+    - {
+        id: business-email-compromise,
+        en: Business email compromise (CEO fraud),
+        da: Direktørsvindel (CEO fraud),
+      }
+  controls:
+    - { id: cis-controls, en: CIS Controls, da: CIS-kontroller }
+    - { id: asset-inventory, en: Asset inventory, da: Aktivfortegnelse (asset inventory) }
+    - { id: access-management, en: Access management, da: Adgangsstyring }
+    - { id: mfa, en: Multi-factor authentication, da: Multifaktorgodkendelse }
+    - { id: two-factor-authentication, en: Two-factor authentication, da: To-faktorautentificering }
+    - { id: patch-management, en: Patch management, da: Patch management }
+    - { id: backup, en: Backup, da: Backup, domain: [security, cs] }
+    - { id: siem, en: SIEM, da: SIEM }
+    - {
+        id: intrusion-detection-system,
+        en: Intrusion detection system (IDS),
+        da: Indtrængningsdetektion (IDS),
+      }
+    - {
+        id: intrusion-prevention-system,
+        en: Intrusion prevention system (IPS),
+        da: Indtrængningsforebyggelse (IPS),
+      }
+    - { id: endpoint, en: Endpoint, da: Endpoint, domain: [security, cs] }
+    - { id: zero-trust, en: Zero Trust, da: Zero Trust }
+    - { id: vulnerability-scanning, en: Vulnerability scanning, da: Sårbarhedsscanning }
+    - { id: vulnerability-assessment, en: Vulnerability assessment, da: Sårbarhedsvurdering }
+    - { id: penetration-test, en: Penetration test, da: Penetrationstest }
+    - { id: change-management, en: Change management, da: Change management }
+  risk-management:
+    - { id: risk-management, en: Risk management, da: Risikostyring }
+    - { id: threat-landscape, en: Threat landscape, da: Trusselsbillede }
+    - { id: critical-assets, en: Critical assets, da: Kritiske aktiver }
+    - {
+        id: business-impact-analysis,
+        en: Business impact analysis (BIA),
+        da: Konsekvensanalyse (BIA),
+      }
+    - { id: risk-treatment, en: Risk treatment, da: Risikohåndtering }
+    - { id: heat-map, en: Risk heat map, da: Heat-map }
+    - { id: residual-risk, en: Residual risk, da: Residual risiko }
+    - { id: risk-appetite, en: Risk appetite, da: Risikoappetit }
+    - { id: threat-intelligence, en: Threat intelligence, da: Threat intelligence }
+  compliance:
+    - { id: nis2, en: NIS2 Directive, da: NIS2-direktivet }
+    - { id: nis2-minimum-requirements, en: NIS2 minimum requirements, da: Minimumskrav (NIS2) }
+    - { id: management-responsibility, en: Management responsibility, da: Ledelsesansvar }
+    - { id: supplier-management, en: Supplier management, da: Leverandørstyring }
+    - {
+        id: data-processing-agreement,
+        en: Data processing agreement (DPA),
+        da: Databehandleraftale,
+      }
+    - { id: gdpr, en: GDPR, da: GDPR }
+    - { id: iso-27001, en: ISO 27001, da: ISO 27001 }
+    - { id: iso-27002, en: ISO 27002, da: ISO 27002 }
+    - { id: d-maerket, en: D-mærket, da: D-mærket }
+    - { id: gap-analysis, en: Gap analysis, da: Gap-analyse }
+    - { id: audit, en: Audit, da: Audit }
+    - { id: pdca, en: Continuous improvement (PDCA), da: Kontinuerlig forbedring (PDCA) }
+    - { id: privacy-by-design, en: Privacy by design, da: Privacy by design }
+    - { id: security-framework, en: Security framework, da: Rammeværk }
+  incident-response:
+    - { id: incident-response, en: Incident response, da: Hændelseshåndtering }
+    - { id: contingency-plan, en: Contingency plan, da: Beredskabsplan }
+    - {
+        id: business-continuity-plan,
+        en: Business continuity plan (BCP),
+        da: Business continuity plan (BCP),
+      }
+    - {
+        id: disaster-recovery-plan,
+        en: Disaster recovery plan (DRP),
+        da: Disaster recovery plan (DRP),
+      }
+    - { id: table-top-exercise, en: Table-top exercise, da: Table-top-øvelse }
+    - { id: communication-plan, en: Communication plan, da: Kommunikationsplan }
+    - { id: lessons-learned, en: Lessons learned, da: Lessons learned }
+    - { id: data-breach, en: Data breach, da: Databrud }
+    - { id: incident-reporting, en: Incident reporting, da: Hændelsesrapportering }
+
+cs:
+  networking:
+    - { id: network, en: Network, da: Netværk }
+    - { id: protocol, en: Protocol, da: Protokol }
+    - { id: ip-address, en: IP address, da: IP-adresse }
+    - { id: tcp-ip, en: TCP/IP, da: TCP/IP }
+    - { id: dns, en: DNS, da: DNS }
+    - { id: port, en: Port, da: Port }
+    - { id: packet, en: Packet, da: Pakke }
+    - { id: router, en: Router, da: Router }
+    - { id: firewall, en: Firewall, da: Firewall, domain: [cs, security] }
+    - { id: vpn, en: VPN, da: VPN }
+    - {
+        id: network-segmentation,
+        en: Network segmentation,
+        da: Netværkssegmentering,
+        domain: [cs, security],
+      }
+    - { id: encryption, en: Encryption, da: Kryptering, domain: [cs, security] }
+    - { id: tls, en: TLS, da: TLS }
+    - { id: internet, en: Internet, da: Internettet }
+    - { id: server, en: Server, da: Server }
+    - { id: client, en: Client, da: Klient }
+    - { id: https, en: HTTPS, da: HTTPS }
+  os:
+    - { id: operating-system, en: Operating system, da: Styresystem }
+    - { id: kernel, en: Kernel, da: Kerne (kernel) }
+    - { id: process, en: Process, da: Proces }
+    - { id: file-system, en: File system, da: Filsystem }
+    - { id: permission, en: Permission, da: Rettighed }
+    - { id: service, en: Service, da: Tjeneste (service) }
+    - { id: log, en: Log, da: Log }
+    - { id: patch, en: Patch, da: Patch }
+    - { id: audit, en: Audit logging, da: Audit-logning }
+  identity:
+    - { id: identity, en: Digital identity, da: Digital identitet }
+    - { id: authentication, en: Authentication, da: Autentificering, domain: [cs, security] }
+    - { id: authorization, en: Authorization, da: Autorisation, domain: [cs, security] }
+    - { id: credential, en: Credential, da: Loginoplysning (credential) }
+    - { id: password, en: Password, da: Adgangskode }
+    - { id: session, en: Session, da: Session }
+    - { id: access-control, en: Access control, da: Adgangskontrol, domain: [cs, security] }
+    - { id: single-sign-on, en: Single sign-on (SSO), da: Single sign-on (SSO) }
+    - {
+        id: role-based-access-control,
+        en: Role-based access control (RBAC),
+        da: Rollebaseret adgangskontrol (RBAC),
+      }
+    - { id: least-privilege, en: Principle of least privilege, da: Mindste privilegium }
+    - { id: identity-provider, en: Identity provider, da: Identitetsudbyder }
+    - { id: account, en: User account, da: Brugerkonto }
+
+  cryptography:
+    - { id: cryptographic-key, en: Cryptographic key, da: Kryptografisk nøgle }
+    - {
+        id: public-key-cryptography,
+        en: Public-key cryptography,
+        da: Asymmetrisk kryptografi (public key),
+      }
+    - { id: digital-certificate, en: Digital certificate, da: Digitalt certifikat }
+    - { id: hashing, en: Hashing, da: Hashing }

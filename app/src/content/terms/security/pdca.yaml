@@ -1,0 +1,44 @@
+term:
+  en: Continuous improvement (PDCA)
+  da: Kontinuerlig forbedring (PDCA)
+aka:
+  en: [PDCA, Plan–Do–Check–Act, Deming cycle, continual improvement]
+  da: [PDCA, Plan–Do–Check–Act, Deming-cirklen, løbende forbedring]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: A repeating four-step loop — Plan, Do, Check, Act — for getting a little better each round.
+  da: En gentagen firetrins-cyklus — Plan, Do, Check, Act — for at blive lidt bedre for hver runde.
+body:
+  formal:
+    en: An improvement method in which you plan changes from goals and risks, carry them out, measure the results against the goals, and act on what you learn before starting the next round.
+    da: En forbedringsmetode, hvor man planlægger ændringer ud fra mål og risici, gennemfører dem, måler resultaterne mod målene og handler på det, man har lært, før næste runde begynder.
+  plain:
+    en: Like a cook adjusting a recipe — try it, taste it, tweak it, and cook it again next week.
+    da: Som en kok, der justerer en opskrift — lav den, smag på den, ret den til og lav den igen i næste uge.
+  inPractice:
+    en: A firm plans a phishing course, runs it, sees click rates fall only in one department, and changes the format there for the next quarter.
+    da: En virksomhed planlægger et phishing-kursus, gennemfører det, ser at klikraten kun falder i én afdeling, og ændrer formatet dér til næste kvartal.
+  whyItMatters:
+    en: Threats and businesses keep changing, so security is never finished; the loop keeps it from going stale after the first effort.
+    da: Trusler og virksomheder ændrer sig hele tiden, så sikkerhed bliver aldrig færdig; cyklussen forhindrer, at den går i stå efter første indsats.
+edges:
+  used-with:
+    - to: risk-management
+      why:
+        en: Risks are reassessed each round, and the results steer the next Plan step.
+        da: Risici vurderes igen i hver runde, og resultatet styrer det næste Plan-trin.
+      strength: normal
+      confidence: high
+    - to: security-policy
+      strength: minor
+      confidence: medium
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO/IEC 27001:2022, Clause 10 (Improvement)
+    tier: standard
+    publisher: ISO/IEC
+draft: true

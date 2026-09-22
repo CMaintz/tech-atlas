@@ -1,0 +1,47 @@
+term:
+  en: Gap analysis
+  da: Gap-analyse
+aka:
+  en: [gap assessment]
+  da: [gap-vurdering]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: A comparison of what an organisation does today with the requirements it wants to meet.
+  da: En sammenligning af, hvad en virksomhed gør i dag, og de krav, den ønsker at leve op til.
+body:
+  formal:
+    en: A structured review that checks current practice against each requirement of a chosen law or standard, records what is missing, and ranks the gaps to form a plan.
+    da: En struktureret gennemgang, der holder den nuværende praksis op mod hvert krav i en valgt lov eller standard, noterer, hvad der mangler, og rangordner hullerne til en plan.
+  plain:
+    en: Holding your packed suitcase against the packing list to see what you still need to buy before the trip.
+    da: At holde den pakkede kuffert op mod pakkelisten for at se, hvad man stadig skal købe inden rejsen.
+  inPractice:
+    en: A consultant walks through the NIS2 minimum requirements with an IT manager, marks each as met, partly met or missing, and turns the result into a 12-month plan.
+    da: En konsulent gennemgår NIS2-minimumskravene med en IT-chef, markerer hvert krav som opfyldt, delvist opfyldt eller manglende og gør resultatet til en 12-måneders plan.
+  whyItMatters:
+    en: It is usually the first step towards compliance, showing where limited time and money will close the biggest holes.
+    da: Det er typisk første skridt mod compliance og viser, hvor begrænset tid og penge lukker de største huller.
+edges:
+  requires: [compliance]
+  used-with:
+    - to: nis2-minimum-requirements
+      why:
+        en: The minimum requirements are a common yardstick for a gap analysis.
+        da: Minimumskravene er en almindelig målestok for en gap-analyse.
+      strength: normal
+      confidence: high
+    - to: pdca
+      why:
+        en: A gap analysis feeds the Plan step and is repeated in Check to measure progress.
+        da: En gap-analyse føder Plan-trinnet og gentages i Check for at måle fremskridt.
+      strength: normal
+      confidence: medium
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 3
+    tier: course-material
+draft: true

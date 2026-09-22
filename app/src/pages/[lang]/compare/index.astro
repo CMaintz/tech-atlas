@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import { LANGS, UI, url, type Lang } from '../../../lib/site';
+import { contrastPairs, pairSlug } from '../../../lib/terms';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const ui = UI[lang];
+const pairs = contrastPairs(await getCollection('terms')).sort((x, y) =>
+  x.a.data.term[lang].localeCompare(y.a.data.term[lang], lang),
+);
+---
+
+<Base lang={lang} title={ui.compareTitle}>
+  <h1 class="mb-2 text-3xl font-semibold">{ui.compareTitle}</h1>
+  <p class="mb-8 text-neutral-400">{ui.compareIntro}</p>
+  <ul class="space-y-3">
+    {
+      pairs.map((p) => (
+        <li>
+          <a
+            class="text-neutral-100 hover:underline"
+            href={url(`${lang}/compare/${pairSlug(p.a, p.b)}/`)}
+          >
+            {p.a.data.term[lang]} <span class="text-neutral-500">{ui.versus}</span>{' '}
+            {p.b.data.term[lang]}
+          </a>
+          {p.why && <p class="text-sm text-neutral-500">{p.why[lang]}</p>}
+        </li>
+      ))
+    }
+  </ul>
+</Base>

@@ -1,0 +1,44 @@
+term:
+  en: Compliance
+  da: Compliance
+aka:
+  en: [regulatory compliance]
+  da: [overholdelse af regler, regelefterlevelse]
+domain: [security]
+cluster: fundamentals
+layer: governance
+status: current
+summary:
+  en: Living up to the laws, rules and standards that apply — for example NIS2, GDPR or ISO 27001.
+  da: At leve op til gældende regler, lovgivning og standarder — fx NIS2, GDPR og ISO 27001.
+body:
+  formal:
+    en: The state of meeting the requirements set by laws, contracts, standards and the organisation's own policies, and being able to show proof that they are met.
+    da: Tilstanden, hvor man opfylder de krav, der stilles af lovgivning, kontrakter, standarder og organisationens egne politikker — og kan dokumentere, at de er opfyldt.
+  plain:
+    en: Like a car passing its road-worthiness check — it proves the car meets the rules, but not that it is driven safely.
+    da: Som en bil, der består synet — det beviser, at bilen overholder reglerne, men ikke at den bliver kørt sikkert.
+  inPractice:
+    en: Before an audit, a coordinator collects proof that backups are tested and that all staff have finished their NIS2 awareness training.
+    da: Før en audit samler en koordinator dokumentation for, at backups bliver testet, og at alle medarbejdere har gennemført deres NIS2-awareness-træning.
+  whyItMatters:
+    en: Failing to comply can mean fines, lost customers and personal liability for managers — and requirements often force needed work that would otherwise be put off.
+    da: Manglende compliance kan betyde bøder, tabte kunder og personligt ansvar for ledelsen — og kravene tvinger ofte nødvendigt arbejde igennem, som ellers ville blive udskudt.
+edges:
+  contrasts-with:
+    - to: cyber-and-information-security
+      why:
+        en: Being compliant means meeting a set of rules; being secure means actually being protected. One does not guarantee the other.
+        da: At være compliant betyder at opfylde et sæt regler; at være sikker betyder rent faktisk at være beskyttet. Det ene garanterer ikke det andet.
+      strength: primary
+      confidence: high
+  used-with:
+    - governance
+    - gap-analysis
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO/IEC 27002:2022 — Control 5.36, Compliance with policies, rules and standards for information security
+    tier: standard
+    publisher: ISO/IEC
+draft: true

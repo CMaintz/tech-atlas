@@ -1,0 +1,44 @@
+term:
+  en: Business continuity plan (BCP)
+  da: Business continuity plan (BCP)
+aka:
+  en: [BCP, continuity plan]
+  da: [BCP, kontinuitetsplan]
+domain: [security]
+cluster: incident-response
+layer: governance
+status: current
+summary:
+  en: A plan for keeping the most important work going during and after a crisis, even if systems are down.
+  da: En plan for at holde det vigtigste arbejde i gang under og efter en krise, også selvom systemerne er nede.
+body:
+  formal:
+    en: A documented set of procedures that keeps critical business activities running at an agreed minimum level during a disruption, based on the priorities set by the business impact analysis.
+    da: Et dokumenteret sæt procedurer, der holder kritiske forretningsaktiviteter kørende på et aftalt minimumsniveau under en afbrydelse, ud fra de prioriteter, konsekvensanalysen har fastlagt.
+  plain:
+    en: Like a shop that keeps selling with a paper notebook and cash when the card terminal dies.
+    da: Ligesom en butik, der bliver ved med at sælge med en notesblok og kontanter, når kortterminalen går ned.
+  inPractice:
+    en: During a week-long outage, a care home follows its BCP — paper medicine charts, phone lists printed in advance, and a backup site for the kitchen orders.
+    da: Under et ugelangt nedbrud følger et plejehjem sin BCP — medicinskemaer på papir, telefonlister printet på forhånd og et andet sted at sende køkkenets bestillinger fra.
+  whyItMatters:
+    en: Customers and patients do not stop needing the service while IT is fixed, so the business must survive the gap.
+    da: Kunder og patienter holder ikke op med at have brug for ydelsen, mens IT bliver repareret, så forretningen skal overleve i mellemtiden.
+edges:
+  requires: [business-impact-analysis]
+  part-of: [contingency-plan]
+  contrasts-with:
+    - to: disaster-recovery-plan
+      why:
+        en: The BCP keeps the business working during the crisis; the DRP gets the technology back afterwards.
+        da: BCP holder forretningen kørende under krisen; DRP får teknikken tilbage bagefter.
+      strength: primary
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO 22301:2019
+    tier: standard
+  - title: NIST SP 800-34 Rev. 1
+    tier: standard
+draft: true

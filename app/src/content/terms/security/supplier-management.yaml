@@ -1,0 +1,47 @@
+term:
+  en: Supplier management
+  da: Leverandørstyring
+aka:
+  en: [supply-chain security, third-party risk management, vendor management]
+  da: [sikkerhed i forsyningskæden, tredjepartsstyring]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: Making sure outside partners who handle your data or systems meet your security demands.
+  da: At sikre, at eksterne partnere, der håndterer ens data eller systemer, lever op til ens sikkerhedskrav.
+body:
+  formal:
+    en: The ongoing process of choosing, contracting, checking and ending relationships with suppliers so that the risks they bring are known and kept within the organisation's limits.
+    da: Den løbende proces med at vælge, indgå aftaler med, kontrollere og afslutte samarbejdet med leverandører, så de risici, de bringer med sig, er kendte og holdes inden for virksomhedens grænser.
+  plain:
+    en: You lock your own front door, but also check that the cleaning company with a spare key looks after it properly.
+    da: Du låser din egen hoveddør, men tjekker også, at rengøringsfirmaet med en ekstra nøgle passer ordentligt på den.
+  inPractice:
+    en: Before moving payroll to a cloud provider, a firm asks for its security report, writes breach-notice terms into the contract and reviews the provider each year.
+    da: Før lønsystemet flyttes til en cloududbyder, beder virksomheden om udbyderens sikkerhedsrapport, skriver krav om varsling ved brud ind i kontrakten og gennemgår udbyderen hvert år.
+  whyItMatters:
+    en: Attackers often go through the weakest supplier to reach many customers at once, so your security is only as strong as your partners'.
+    da: Angribere går ofte gennem den svageste leverandør for at ramme mange kunder på én gang, så ens sikkerhed er kun så stærk som partnernes.
+edges:
+  part-of: [risk-management]
+  requires: [risk]
+  mitigates:
+    - to: data-breach
+      why:
+        en: Clear demands and checks lower the chance that a supplier leaks your data.
+        da: Klare krav og kontrol mindsker risikoen for, at en leverandør lækker ens data.
+      strength: normal
+      confidence: medium
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: Directive (EU) 2022/2555 (NIS2 Directive), Article 21(2)(d)
+    tier: standard
+    publisher: European Union
+    url: 'https://eur-lex.europa.eu/eli/dir/2022/2555/oj'
+  - title: ISO/IEC 27002:2022, Controls 5.19–5.22 (Supplier relationships)
+    tier: standard
+    publisher: ISO/IEC
+draft: true

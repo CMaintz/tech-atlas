@@ -1,0 +1,43 @@
+term:
+  en: Two-factor authentication
+  da: To-faktorautentificering
+aka:
+  en: [2FA, two-step verification]
+  da: [2FA, tofaktorgodkendelse, totrinsbekræftelse]
+domain: [security]
+cluster: controls
+layer: identity
+status: current
+summary:
+  en: The most common form of MFA, where logging in needs exactly two separate proofs, usually a password and a one-time code.
+  da: Den mest udbredte form for MFA, hvor et login kræver præcis to uafhængige beviser, typisk en adgangskode og en engangskode.
+body:
+  formal:
+    en: A form of multi-factor authentication limited to exactly two factors from different categories, most often a password combined with a code or approval from a device the user holds.
+    da: En form for multifaktorgodkendelse begrænset til præcis to faktorer fra forskellige kategorier, oftest en adgangskode kombineret med en kode eller godkendelse fra en enhed, brugeren har.
+  plain:
+    en: Like a door with two different locks — one opened by what you remember, one by what is in your pocket.
+    da: Som en dør med to forskellige låse — den ene åbnes med noget, du husker, den anden med noget, du har i lommen.
+  inPractice:
+    en: A user logs into a web shop with a password, then types the six-digit code the shop just sent by text message to her phone.
+    da: En bruger logger ind i en webshop med sin adgangskode og indtaster derefter den sekscifrede kode, butikken lige har sendt som SMS til hendes telefon.
+  whyItMatters:
+    en: It is the step most services actually offer, so it is where most people first get protection beyond a password — but two proofs of the same kind, like two passwords, do not count.
+    da: Det er det trin, de fleste tjenester faktisk tilbyder, så det er her, de fleste først får beskyttelse ud over en adgangskode — men to beviser af samme slags, fx to adgangskoder, tæller ikke.
+edges:
+  kind-of: [mfa]
+  requires: [password]
+  mitigates:
+    - to: phishing
+      why:
+        en: A captured password alone is not enough to log in, though a fake site that also asks for the code can still defeat it.
+        da: En opsnappet adgangskode alene er ikke nok til at logge ind, men en falsk side, der også beder om koden, kan stadig omgå det.
+      strength: normal
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST SP 800-63B — Digital Identity Guidelines, Authentication
+    tier: standard
+    publisher: NIST
+draft: true

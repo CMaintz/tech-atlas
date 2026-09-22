@@ -1,0 +1,35 @@
+term:
+  en: Role-based access control (RBAC)
+  da: Rollebaseret adgangskontrol (RBAC)
+aka:
+  en: [RBAC]
+  da: [RBAC]
+domain: [cs]
+cluster: identity
+layer: identity
+status: current
+summary:
+  en: Giving permissions to job roles rather than to individual people, and then giving people the roles that fit their job.
+  da: At give rettigheder til jobroller i stedet for til enkeltpersoner og så give folk de roller, der passer til deres job.
+body:
+  formal:
+    en: A form of access control in which permissions are attached to named roles, such as 'accountant' or 'nurse', and accounts receive permissions only by being assigned one or more roles.
+    da: En form for adgangskontrol, hvor rettigheder knyttes til navngivne roller som 'bogholder' eller 'sygeplejerske', og konti kun får rettigheder ved at blive tildelt en eller flere roller.
+  plain:
+    en: Like staff uniforms in a hotel — the uniform, not the person, decides which areas you may enter, and a new waiter simply gets the waiter's uniform.
+    da: Som personaleuniformer på et hotel — det er uniformen og ikke personen, der afgør, hvor man må komme, og en ny tjener får bare tjeneruniformen.
+  inPractice:
+    en: When a new accountant starts, IT adds her to the 'Finance' role and she instantly gets the dozen permissions every accountant needs; when she leaves, one change removes them all.
+    da: Når en ny bogholder starter, tilføjer IT hende til rollen 'Økonomi', og hun får straks de mange rettigheder, alle bogholdere skal bruge; når hun stopper, fjerner én ændring dem alle.
+  whyItMatters:
+    en: Handing out permissions person by person drifts into chaos; roles keep access consistent, easy to review and in line with least privilege.
+    da: Når rettigheder uddeles person for person, ender det i kaos; roller holder adgangen ensartet, let at gennemgå og i tråd med mindste privilegium.
+edges:
+  kind-of: [access-control]
+  requires: [permission]
+sources:
+  - title: NIST SP 800-162, Guide to Attribute Based Access Control (ABAC) Definition and Considerations
+    url: https://doi.org/10.6028/NIST.SP.800-162
+    tier: standard
+    publisher: NIST
+draft: true

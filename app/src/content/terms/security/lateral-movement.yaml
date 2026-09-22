@@ -1,0 +1,51 @@
+term:
+  en: Lateral movement
+  da: Lateral bevægelse
+aka:
+  en: []
+  da: [lateral movement]
+domain: [security]
+cluster: fundamentals
+layer: network
+status: current
+summary:
+  en: What an attacker does after getting a first foothold — spreading from machine to machine inside the network.
+  da: Det, en angriber gør efter at have fået fodfæste — at sprede sig fra maskine til maskine inde i netværket.
+body:
+  formal:
+    en: The stage of an attack in which an intruder who controls one system uses stolen logins and trust between systems to reach others, working toward the most valuable data or accounts.
+    da: Den fase af et angreb, hvor en ubuden gæst, der har kontrol over ét system, bruger stjålne logins og tillid mellem systemer til at nå andre og arbejde sig frem mod de mest værdifulde data eller konti.
+  plain:
+    en: A burglar who gets in through the garage and then walks freely through every unlocked door in the house.
+    da: En indbrudstyv, der kommer ind gennem garagen og derefter går frit gennem alle ulåste døre i huset.
+  inPractice:
+    en: After infecting a receptionist's laptop, an attacker finds an administrator's saved login on it and uses it to reach the file server.
+    da: Efter at have inficeret en receptionists bærbare finder en angriber et gemt administratorlogin på den og bruger det til at nå filserveren.
+  whyItMatters:
+    en: A single weak machine becomes a disaster only if the attacker can move on from it, so limiting that spread keeps small breaches small.
+    da: En enkelt svag maskine bliver kun en katastrofe, hvis angriberen kan komme videre derfra — at begrænse spredningen holder små brud små.
+edges:
+  requires: [network, credential]
+  exploits:
+    - to: vulnerability
+      why:
+        en: It abuses too-broad access and the trust systems give each other inside the network.
+        da: Den udnytter for bred adgang og den tillid, systemer giver hinanden inde i netværket.
+      strength: primary
+      confidence: medium
+  causes:
+    - to: data-breach
+      why:
+        en: Moving further inside is how an attacker reaches the data worth stealing.
+        da: Det er ved at bevæge sig længere ind, at angriberen når de data, der er værd at stjæle.
+      strength: normal
+      confidence: medium
+sources:
+  - title: MITRE ATT&CK — Lateral Movement (TA0008)
+    tier: reference
+    publisher: MITRE
+    url: https://attack.mitre.org/tactics/TA0008/
+  - title: NIST SP 800-207 — Zero Trust Architecture
+    tier: standard
+    publisher: NIST
+draft: true

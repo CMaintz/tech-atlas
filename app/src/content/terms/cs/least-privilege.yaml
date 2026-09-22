@@ -1,0 +1,51 @@
+term:
+  en: Principle of least privilege
+  da: Mindste privilegium
+aka:
+  en: [least privilege, principle of least authority]
+  da: [princippet om mindste privilegium, least privilege]
+domain: [cs]
+cluster: identity
+layer: identity
+status: current
+summary:
+  en: Giving every user, program and service only the permissions its task needs, and nothing more.
+  da: At give hver bruger, hvert program og hver tjeneste kun de rettigheder, der er nødvendige for opgaven, og intet mere.
+body:
+  formal:
+    en: A design principle stating that each account and process should run with the smallest set of permissions, for the shortest time, that still lets it do its job.
+    da: Et designprincip, der siger, at hver konto og proces skal køre med det mindst mulige sæt rettigheder i kortest mulig tid, men stadig kunne udføre sit arbejde.
+  plain:
+    en: Like giving a house-sitter the key to the front door but not to the safe — they can water the plants, and a lost key costs you less.
+    da: Som at give en huspasser nøglen til hoveddøren, men ikke til pengeskabet — de kan vande blomsterne, og en mistet nøgle koster dig mindre.
+  inPractice:
+    en: Office staff work from ordinary accounts and use a separate admin account only when installing software, so a harmful email attachment cannot take over the machine.
+    da: Kontorpersonalet arbejder fra almindelige konti og bruger kun en separat administratorkonto, når der skal installeres software, så en skadelig vedhæftet fil ikke kan overtage maskinen.
+  whyItMatters:
+    en: It limits how far a mistake, a stolen login or harmful software can spread — the damage is capped by what the account was allowed to do.
+    da: Det begrænser, hvor langt en fejl, et stjålet login eller skadelig software kan sprede sig — skaden er begrænset af, hvad kontoen havde lov til.
+edges:
+  requires: [permission]
+  part-of: [zero-trust]
+  used-with:
+    - role-based-access-control
+    - to: service
+      why:
+        en: Services often run all the time with wide rights, so each should get its own account with only the rights it needs.
+        da: Tjenester kører ofte hele tiden med vide rettigheder, så hver bør have sin egen konto med kun de rettigheder, den skal bruge.
+  mitigates:
+    - to: ransomware
+      why:
+        en: Ransomware can only lock the files and machines the infected account is allowed to reach.
+        da: Ransomware kan kun låse de filer og maskiner, den inficerede konto har adgang til.
+      strength: normal
+      confidence: high
+sources:
+  - title: NIST SP 800-207, Zero Trust Architecture
+    url: https://doi.org/10.6028/NIST.SP.800-207
+    tier: standard
+    publisher: NIST
+  - title: Modern Operating Systems
+    tier: textbook
+    publisher: Tanenbaum & Bos (Pearson)
+draft: true

@@ -1,0 +1,39 @@
+term:
+  en: Identity provider
+  da: Identitetsudbyder
+aka:
+  en: [IdP]
+  da: [IdP]
+domain: [cs]
+cluster: identity
+layer: identity
+status: current
+summary:
+  en: A trusted service that stores users' identities, checks their logins and vouches for them to other applications.
+  da: En betroet tjeneste, der gemmer brugernes identiteter, kontrollerer deres login og går i god for dem over for andre programmer.
+body:
+  formal:
+    en: A system that creates and maintains digital identities, performs authentication, and then sends sealed statements about the user to other applications that have agreed to trust it.
+    da: Et system, der opretter og vedligeholder digitale identiteter, udfører autentificering og derefter sender forseglede erklæringer om brugeren til andre programmer, der har aftalt at stole på det.
+  plain:
+    en: Like the passport office — it checks who you are once and issues a document that airlines and hotels accept without checking you from scratch.
+    da: Som paskontoret — det kontrollerer én gang, hvem du er, og udsteder et dokument, som flyselskaber og hoteller godtager uden at tjekke dig forfra.
+  inPractice:
+    en: A company runs one central identity provider for all staff; when an employee leaves, switching off their identity there cuts off email, files and every connected app together.
+    da: En virksomhed bruger Microsoft Entra ID som identitetsudbyder; når en medarbejder stopper, lukker én deaktivering dér for mail, filer og alle tilknyttede apps på én gang.
+  whyItMatters:
+    en: It gathers all logins in one place where MFA and monitoring can be enforced — and makes that place a prime target that must be guarded closely.
+    da: Den samler alle login ét sted, hvor MFA og overvågning kan håndhæves — og gør det sted til et oplagt mål, der skal beskyttes nøje.
+edges:
+  requires: [identity, authentication]
+  used-with:
+    - to: mfa
+      why:
+        en: The identity provider is the natural place to require MFA once for every connected application.
+        da: Identitetsudbyderen er det naturlige sted at kræve MFA én gang for alle tilknyttede programmer.
+sources:
+  - title: NIST SP 800-63C, Federation and Assertions
+    url: https://pages.nist.gov/800-63-3/sp800-63c.html
+    tier: standard
+    publisher: NIST
+draft: true

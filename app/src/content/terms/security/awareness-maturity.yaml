@@ -1,0 +1,49 @@
+term:
+  en: Awareness maturity
+  da: Awareness-modenhed
+aka:
+  en: [security awareness maturity]
+  da: [awareness maturity]
+domain: [security]
+cluster: awareness
+layer: governance
+status: current
+summary:
+  en: A measure of how far an organisation has come in making security part of how its people think and act.
+  da: Et mål for, hvor langt en organisation er nået med at gøre sikkerhed til en del af, hvordan dens folk tænker og handler.
+body:
+  formal:
+    en: An assessment that places an organisation's awareness work on a scale of stages — from nothing in place, through yearly box-ticking, to lasting change in behaviour and security culture — to show where it stands and what to improve next.
+    da: En vurdering, der placerer organisationens awareness-arbejde på en trinvis skala — fra intet på plads, over årlig afkrydsning, til varig ændring i adfærd og sikkerhedskultur — for at vise, hvor den står, og hvad der skal forbedres næste gang.
+  plain:
+    en: Like belt colours in judo — they do not make you fight better, but they tell you honestly where you are and what the next step is.
+    da: Som bæltefarver i judo — de gør dig ikke bedre til at kæmpe, men de fortæller ærligt, hvor du står, og hvad næste skridt er.
+  inPractice:
+    en: A coordinator scores the company as "running a yearly course, but not measuring anything", then sets the goal of tracking phishing reports each quarter to reach the next stage.
+    da: En koordinator vurderer virksomheden som "kører et årligt kursus, men måler ikke noget" og sætter som mål at følge phishing-meldinger hvert kvartal for at nå næste trin.
+  whyItMatters:
+    en: Without a measure, awareness work is judged by how much training was held rather than whether behaviour changed, and leaders cannot see progress.
+    da: Uden et mål bliver awareness-arbejdet vurderet på, hvor meget træning der blev holdt, frem for om adfærden ændrede sig, og ledelsen kan ikke se fremskridt.
+edges:
+  requires: [security-awareness, security-culture]
+  used-with:
+    - to: gap-analysis
+      why:
+        en: The maturity score shows where you are; the gap analysis spells out what separates it from where you want to be.
+        da: Modenhedsscoren viser, hvor man står; gap-analysen beskriver, hvad der skiller det fra, hvor man vil hen.
+      strength: normal
+      confidence: medium
+    - to: pdca
+      why:
+        en: Repeating the measurement each cycle is how the check step of continuous improvement is done for awareness.
+        da: At gentage målingen hver runde er måden, check-trinnet i kontinuerlig forbedring udføres på for awareness.
+      strength: normal
+      confidence: medium
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: SANS Security Awareness Maturity Model
+    tier: reference
+    publisher: SANS Institute
+    url: https://www.sans.org/security-awareness-training/resources/maturity-model/
+draft: true

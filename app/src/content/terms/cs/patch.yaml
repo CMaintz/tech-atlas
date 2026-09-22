@@ -1,0 +1,45 @@
+term:
+  en: Patch
+  da: Patch
+aka:
+  en: [security update, software update]
+  da: [sikkerhedsopdatering, opdatering, rettelse]
+domain: [cs]
+cluster: os
+layer: os
+status: current
+summary:
+  en: A small piece of software from a vendor that fixes a flaw — often a vulnerability — in a program already installed.
+  da: Et lille stykke software fra en leverandør, der retter en fejl — ofte en sårbarhed — i et program, som allerede er installeret.
+body:
+  formal:
+    en: A change published by a software vendor that replaces part of an installed program or operating system to correct a fault, close a vulnerability or add a small improvement, without installing everything again.
+    da: En ændring, som en softwareleverandør udgiver, og som erstatter en del af et installeret program eller styresystem for at rette en fejl, lukke en sårbarhed eller tilføje en lille forbedring uden at geninstallere det hele.
+  plain:
+    en: Like a car maker's recall where the garage swaps one faulty part — the car stays the same, but the known defect is gone.
+    da: Som når en bilproducent kalder biler tilbage, og værkstedet udskifter en enkelt defekt del — bilen er den samme, men den kendte fejl er væk.
+  inPractice:
+    en: On the second Tuesday of each month Microsoft releases patches for Windows; a laptop downloads them and asks the user to restart so they take effect.
+    da: Den anden tirsdag i hver måned udgiver Microsoft patches til Windows; en bærbar henter dem og beder brugeren genstarte, så de træder i kraft.
+  whyItMatters:
+    en: Once a patch is out, attackers study it to learn the flaw, so machines left without the patch become easy targets — a common way in for ransomware.
+    da: Når en patch er udgivet, studerer angribere den for at finde fejlen, så maskiner uden patchen bliver lette mål — en almindelig vej ind for ransomware.
+edges:
+  mitigates:
+    - to: vulnerability
+      why:
+        en: A patch removes the specific flaw an attacker would otherwise abuse.
+        da: En patch fjerner netop den fejl, en angriber ellers ville udnytte.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: vulnerability-scanning
+      why:
+        en: Scanning reveals which machines are missing which patches.
+        da: Scanning afslører, hvilke maskiner der mangler hvilke patches.
+sources:
+  - title: NIST SP 800-40 Rev. 4, Guide to Enterprise Patch Management Planning
+    url: https://doi.org/10.6028/NIST.SP.800-40r4
+    tier: standard
+    publisher: NIST
+draft: true

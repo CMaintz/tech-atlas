@@ -1,0 +1,42 @@
+term:
+  en: VPN
+  da: VPN
+aka:
+  en: [virtual private network]
+  da: [virtuelt privat netværk]
+domain: [cs]
+cluster: networking
+layer: network
+status: current
+summary:
+  en: An encrypted tunnel across a public network that makes a distant device act as if it were inside a private one.
+  da: En krypteret tunnel over et offentligt netværk, der får en fjern enhed til at opføre sig, som om den var på et privat netværk.
+body:
+  formal:
+    en: A technique that wraps a device's packets inside encrypted packets sent to a device at the far end, giving it a private connection to a network it is not physically attached to.
+    da: En teknik, der pakker en enheds pakker ind i krypterede pakker sendt til en enhed i den anden ende, så den får en privat forbindelse til et netværk, den ikke fysisk er tilsluttet.
+  plain:
+    en: Like a private, sealed tunnel from your home straight into the office building, so the walk through the busy public street no longer matters.
+    da: Som en privat, lukket tunnel fra dit hjem direkte ind i kontorbygningen, så turen gennem den travle offentlige gade ikke længere betyder noget.
+  inPractice:
+    en: An employee working from a café connects to the company VPN before opening the internal finance system.
+    da: En medarbejder, der arbejder fra en café, forbinder sig til firmaets VPN, før hun åbner det interne økonomisystem.
+  whyItMatters:
+    en: It lets staff use internal systems safely from anywhere, but once inside, a user often reaches far more than they need — a weakness Zero Trust aims to fix.
+    da: Den lader medarbejdere bruge interne systemer sikkert hvor som helst, men når man først er inde, kan man ofte nå langt mere end nødvendigt — en svaghed, Zero Trust vil løse.
+edges:
+  requires: [network, encryption, ip-address]
+  implements: [confidentiality]
+  contrasts-with:
+    - to: zero-trust
+      why:
+        en: A VPN trusts whoever gets into the network; Zero Trust checks every request no matter where it comes from.
+        da: En VPN stoler på den, der kommer ind på netværket; Zero Trust tjekker hver anmodning, uanset hvor den kommer fra.
+      strength: primary
+      confidence: high
+sources:
+  - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
+    tier: textbook
+  - title: Tanenbaum, Computer Networks
+    tier: textbook
+draft: true

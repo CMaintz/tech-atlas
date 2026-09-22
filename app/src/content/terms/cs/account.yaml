@@ -1,0 +1,50 @@
+term:
+  en: User account
+  da: Brugerkonto
+aka:
+  en: [account]
+  da: [konto]
+domain: [cs]
+cluster: identity
+layer: identity
+status: current
+summary:
+  en: A record in a system that lets a particular person or program log in, and holds the permissions it has been given.
+  da: En registrering i et system, der lader en bestemt person eller et program logge ind, og som rummer de tildelte rettigheder.
+body:
+  formal:
+    en: An entry in an operating system or application that links one identity to its credentials, settings and permissions. One person may have several accounts, and some accounts belong to programs rather than people.
+    da: En post i et styresystem eller program, der knytter én identitet til dens loginoplysninger, indstillinger og rettigheder. Én person kan have flere konti, og nogle konti tilhører programmer frem for mennesker.
+  plain:
+    en: Like a membership card at a gym — the card is not you, but it is how the gym knows you, what you have paid for and which classes you may join.
+    da: Som et medlemskort i et fitnesscenter — kortet er ikke dig, men det er sådan, centret kender dig og ved, hvad du har betalt for, og hvilke hold du må deltage i.
+  inPractice:
+    en: An IT administrator has two accounts — an everyday one for email and a separate admin account used only for making changes to servers.
+    da: En it-administrator har to konti — en almindelig til mail og en separat administratorkonto, der kun bruges til at ændre på servere.
+  whyItMatters:
+    en: Forgotten accounts of former staff and shared accounts that no one owns are a classic way in; reviewing and closing accounts is a core control.
+    da: Glemte konti fra tidligere medarbejdere og delte konti, som ingen ejer, er en klassisk vej ind; at gennemgå og lukke konti er en central kontrol.
+edges:
+  contrasts-with:
+    - to: identity
+      why:
+        en: An identity is who someone is; an account is one login they hold in one system. One identity can have many accounts.
+        da: En identitet er, hvem nogen er; en konto er ét login, vedkommende har i ét system. Én identitet kan have mange konti.
+      strength: primary
+      confidence: high
+  used-with:
+    - credential
+    - to: process
+      why:
+        en: Every process runs on behalf of an account and gets that account's rights.
+        da: Hver proces kører på vegne af en konto og får kontoens rettigheder.
+sources:
+  - title: 'Operating Systems: Three Easy Pieces'
+    url: https://pages.cs.wisc.edu/~remzi/OSTEP/
+    tier: textbook
+    publisher: Arpaci-Dusseau
+  - title: NIST SP 800-63-3, Digital Identity Guidelines
+    url: https://pages.nist.gov/800-63-3/sp800-63-3.html
+    tier: standard
+    publisher: NIST
+draft: true

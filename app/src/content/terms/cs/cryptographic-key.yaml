@@ -1,0 +1,39 @@
+term:
+  en: Cryptographic key
+  da: Kryptografisk nøgle
+aka:
+  en: [key, encryption key]
+  da: [nøgle, krypteringsnøgle]
+domain: [cs]
+cluster: cryptography
+layer: theory
+status: current
+summary:
+  en: The secret value that decides how data is scrambled and restored — whoever holds it can read the protected data.
+  da: Den hemmelige værdi, der bestemmer, hvordan data forvrænges og genskabes — den, der har den, kan læse de beskyttede data.
+body:
+  formal:
+    en: A long, randomly chosen value fed into an encryption or signing process; the process itself is public, so all of the protection rests on keeping the right key secret.
+    da: En lang, tilfældigt valgt værdi, der gives til en krypterings- eller signeringsproces; selve processen er offentlig, så al beskyttelse hviler på at holde den rette nøgle hemmelig.
+  plain:
+    en: Like the key to a padlock — everyone knows how padlocks work, but only the person with the right key can open this one.
+    da: Som nøglen til en hængelås — alle ved, hvordan hængelåse virker, men kun den med den rette nøgle kan åbne netop denne.
+  inPractice:
+    en: An IT team keeps the keys for its encrypted backups in a separate, locked-down system, so a thief who takes the backups cannot also take the keys.
+    da: Et IT-team opbevarer nøglerne til sine krypterede backups i et separat, aflåst system, så en tyv, der tager backuppene, ikke også kan tage nøglerne.
+  whyItMatters:
+    en: Encryption is only as strong as the care taken with its keys; a lost key means lost data, and a leaked key means no protection at all.
+    da: Kryptering er kun så stærk som omhuen med dens nøgler; en mistet nøgle betyder mistede data, og en lækket nøgle betyder ingen beskyttelse overhovedet.
+edges:
+  part-of: [encryption]
+  contrasts-with:
+    - to: password
+      why:
+        en: A password is chosen and remembered by a person; a key is a long random value made and stored by a machine.
+        da: En adgangskode vælges og huskes af et menneske; en nøgle er en lang tilfældig værdi, der skabes og gemmes af en maskine.
+      strength: normal
+      confidence: high
+sources:
+  - title: Paar & Pelzl, Understanding Cryptography
+    tier: textbook
+draft: true

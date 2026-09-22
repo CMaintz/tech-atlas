@@ -1,0 +1,44 @@
+term:
+  en: Permission
+  da: Rettighed
+aka:
+  en: [access right, privilege]
+  da: [adgangsrettighed, tilladelse]
+domain: [cs]
+cluster: os
+layer: os
+status: current
+summary:
+  en: A specific right given to an account, such as to read, change or delete a file, or to run a program.
+  da: En bestemt ret, som en konto får, fx til at læse, ændre eller slette en fil eller til at køre et program.
+body:
+  formal:
+    en: A rule, kept by the operating system or an application, stating which account may perform which action on which thing. Anything not granted is refused.
+    da: En regel, som styresystemet eller et program holder styr på, og som angiver, hvilken konto der må udføre hvilken handling på hvad. Alt, der ikke er givet lov til, bliver afvist.
+  plain:
+    en: Like the keys on a caretaker's ring — each key opens particular doors, and the key to the boiler room does not open the office.
+    da: Som nøglerne på en viceværts nøglering — hver nøgle åbner bestemte døre, og nøglen til fyrrummet åbner ikke kontoret.
+  inPractice:
+    en: An intern's account may read the price list but not change it; a sales manager's account may do both. The difference is simply two different permissions.
+    da: En praktikants konto må læse prislisten, men ikke ændre den; en salgschefs konto må begge dele. Forskellen er blot to forskellige rettigheder.
+  whyItMatters:
+    en: Permissions decide how far a mistake or a stolen login can reach; too many of them turn a small incident into a large one.
+    da: Rettigheder afgør, hvor langt en fejl eller et stjålet login kan række; for mange af dem gør en lille hændelse til en stor.
+edges:
+  part-of: [access-control]
+  requires: [account]
+  used-with:
+    - to: process
+      why:
+        en: Every process carries the permissions of the account it runs as.
+        da: Hver proces bærer rettighederne fra den konto, den kører som.
+sources:
+  - title: 'Operating Systems: Three Easy Pieces'
+    url: https://pages.cs.wisc.edu/~remzi/OSTEP/
+    tier: textbook
+    publisher: Arpaci-Dusseau
+  - title: NIST SP 800-162, Guide to Attribute Based Access Control (ABAC) Definition and Considerations
+    url: https://doi.org/10.6028/NIST.SP.800-162
+    tier: standard
+    publisher: NIST
+draft: true

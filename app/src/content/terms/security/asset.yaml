@@ -1,0 +1,44 @@
+term:
+  en: Asset
+  da: Aktiv
+aka:
+  en: [information asset]
+  da: [informationsaktiv]
+domain: [security]
+cluster: fundamentals
+layer: governance
+status: current
+summary:
+  en: Anything of value to the organisation that needs protecting — data, systems, devices, people or know-how.
+  da: Alt af værdi for organisationen, som skal beskyttes — data, systemer, enheder, medarbejdere eller viden.
+body:
+  formal:
+    en: Any resource the organisation depends on to do its work, whose loss, misuse or disruption would cause harm, and which is therefore in scope for protection.
+    da: Enhver ressource, som organisationen er afhængig af i sit arbejde, og hvis tab, misbrug eller nedbrud vil gøre skade — og som derfor skal beskyttes.
+  plain:
+    en: Everything you would list if you asked "what would hurt to lose?" in your home — the laptop, the photos, the house keys.
+    da: Alt det, du ville nævne, hvis du spurgte dig selv derhjemme, "hvad ville gøre ondt at miste?" — computeren, billederne, husnøglerne.
+  inPractice:
+    en: When starting a risk review, a small firm writes down its customer database, its accounting system, its staff laptops and the one employee who knows how payroll works.
+    da: Da en lille virksomhed starter en risikogennemgang, skriver den kundedatabasen, økonomisystemet, medarbejdernes bærbare og den ene medarbejder, der kan lønkørslen, ned.
+  whyItMatters:
+    en: You cannot protect what you do not know you have, and every risk is a risk to some asset.
+    da: Man kan ikke beskytte det, man ikke ved, man har — og enhver risiko er en risiko for et bestemt aktiv.
+edges:
+  part-of:
+    - to: risk
+      why:
+        en: A risk only means something when it names the asset that could be harmed.
+        da: En risiko giver kun mening, når den peger på det aktiv, der kan tage skade.
+      strength: normal
+      confidence: high
+  used-with: [asset-inventory]
+  requires: [cia-triad]
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 5
+    tier: course-material
+  - title: NIST Glossary — Asset
+    tier: standard
+    publisher: NIST
+    url: https://csrc.nist.gov/glossary/term/asset
+draft: true
