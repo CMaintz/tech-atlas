@@ -43,6 +43,8 @@ export type GraphNode = {
   degree: number;
   /** Direct `requires` targets. */
   requires: string[];
+  /** True when another domain holds a different term of the same name (ADR-0003). */
+  collides: boolean;
 };
 export type GraphLink = {
   source: string;
@@ -102,15 +104,26 @@ export function buildGraph(terms: ModelTerm[]): Graph {
           target,
           type,
           family,
-          weight: Number(
-            (FAMILY_BASE[family] * STRENGTH[strength] * CONFIDENCE[confidence]).toFixed(2),
-          ),
+          // Endpoint degree is folded in below, once every edge is counted (SPEC §6).
+          weight: FAMILY_BASE[family] * STRENGTH[strength] * CONFIDENCE[confidence],
         });
         degree.set(t.id, (degree.get(t.id) ?? 0) + 1);
         degree.set(target, (degree.get(target) ?? 0) + 1);
         if (type === 'requires') requires.get(t.id)!.push(target);
       }
     }
+  }
+
+  // Visual weight = type family × strength × confidence × endpoint degree (SPEC §6, D13).
+  for (const l of links) {
+    const deg = 1 + Math.log2(1 + (degree.get(l.source) ?? 1));
+    l.weight = Number((l.weight * (deg / 3 + 0.7)).toFixed(2));
+  }
+
+  const nameCount = new Map<string, number>();
+  for (const t of terms) {
+    const name = t.id.split('/').pop()!;
+    nameCount.set(name, (nameCount.get(name) ?? 0) + 1);
   }
 
   const memo = new Map<string, number>();
@@ -134,6 +147,7 @@ export function buildGraph(terms: ModelTerm[]): Graph {
     depth: depthOf(t.id),
     degree: degree.get(t.id) ?? 0,
     requires: requires.get(t.id) ?? [],
+    collides: (nameCount.get(t.id.split('/').pop()!) ?? 0) > 1,
   }));
   return { nodes, links };
 }
