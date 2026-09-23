@@ -10,7 +10,11 @@ describe('parseIntent', () => {
       a: 'authentication',
       b: 'authorization',
     });
-    expect(parseIntent('NIS2 mod GDPR')).toEqual({ kind: 'compare', a: 'NIS2', b: 'GDPR' });
+    expect(parseIntent('sammenlign NIS2 mod GDPR')).toEqual({
+      kind: 'compare',
+      a: 'NIS2',
+      b: 'GDPR',
+    });
   });
 
   it('reads routes', () => {
@@ -43,6 +47,7 @@ describe('parseIntent', () => {
   it('leaves ordinary queries alone', () => {
     expect(parseIntent('phishing')).toBeNull();
     expect(parseIntent('multi factor')).toBeNull();
+    expect(parseIntent('beskyttelse mod phishing')).toBeNull();
   });
 });
 

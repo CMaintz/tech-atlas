@@ -68,4 +68,30 @@ describe('makeLinker', () => {
   it('collects mentions across texts', () => {
     expect(en.mentions(['phishing', 'a password'], 'security/phishing')).toEqual(['cs/password']);
   });
+
+  it('resolves a shared name to the page domain, else leaves it unlinked', () => {
+    const both: LinkableTerm[] = [
+      { id: 'security/audit', term: { en: 'Audit', da: 'Audit' } },
+      { id: 'cs/audit', term: { en: 'Audit', da: 'Audit' } },
+      { id: 'cs/log', term: { en: 'Log', da: 'Log' } },
+    ];
+    const l = makeLinker(both, 'en');
+    expect(ids(l.link('the audit trail', { self: 'cs/log' }))).toEqual(['cs/audit']);
+    expect(ids(l.link('the audit trail'))).toEqual([]);
+  });
+
+  it('skips everyday words that spell a term name', () => {
+    const t: LinkableTerm[] = [
+      { id: 'cs/account', term: { en: 'Account', da: 'Konto' } },
+      {
+        id: 'cs/cryptographic-key',
+        term: { en: 'Cryptographic key', da: 'Nøgle' },
+        aka: { en: ['key'], da: [] },
+      },
+    ];
+    expect(ids(makeLinker(t, 'da').link('på et kontor med en konto'))).toEqual(['cs/account']);
+    expect(ids(makeLinker(t, 'en').link('a house key, not a cryptographic key'))).toEqual([
+      'cs/cryptographic-key',
+    ]);
+  });
 });

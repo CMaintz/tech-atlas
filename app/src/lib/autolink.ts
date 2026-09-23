@@ -13,8 +13,41 @@ export type Segment = { text: string; id?: string };
 /** Inflections a name may carry and still count as a mention (longest first). */
 const SUFFIX: Record<Lang, string> = {
   en: "(?:'s|’s|es|s)?",
-  da: '(?:ernes|erne|ens|ets|en|et|ne|er|n|t|r|s|e)?',
+  da: '(?:ernes|erne|ens|ets|en|et|ne|er|n|t|s|e)?',
 };
+
+/**
+ * Surface forms never auto-linked: everyday words that happen to spell a term
+ * name ("key", a business "process", DA "aktiv" = active, "kontor" = office).
+ * The term stays reachable through its fuller names.
+ */
+const STOP: Record<Lang, Set<string>> = {
+  en: new Set(['key', 'keys', 'process', 'processes', 'control', 'controls']),
+  da: new Set([
+    'key',
+    'keys',
+    'nøgle',
+    'nøgler',
+    'nøglen',
+    'process',
+    'proces',
+    'processen',
+    'processer',
+    'control',
+    'controls',
+    'kontrol',
+    'kontrollen',
+    'kontroller',
+    'aktiv',
+    'aktive',
+    'aktivt',
+    'kontor',
+    'evaluering',
+    'evalueringen',
+  ]),
+};
+
+const domainOf = (id: string) => id.split('/')[0];
 
 const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
@@ -25,22 +58,31 @@ export const namesOf = (label: string) => {
 };
 
 export function makeLinker(terms: LinkableTerm[], lang: Lang) {
-  const idOf = new Map<string, string>();
+  const idsOf = new Map<string, string[]>();
   for (const t of terms) {
     // Danish pages also recognise English names — many security terms are loanwords.
     const labels = [t.term[lang], ...(t.aka?.[lang] ?? []), ...(lang === 'da' ? [t.term.en] : [])];
     for (const name of labels.flatMap(namesOf)) {
       const key = name.trim().toLowerCase();
-      if (key.length >= 3 && !idOf.has(key)) idOf.set(key, t.id);
+      const ids = idsOf.get(key) ?? [];
+      if (key.length >= 3 && !ids.includes(t.id)) idsOf.set(key, [...ids, t.id]);
     }
   }
-  const alternation = [...idOf.keys()]
+  const alternation = [...idsOf.keys()]
     .sort((a, b) => b.length - a.length)
     .map(escape)
     .join('|');
   const pattern = alternation
     ? new RegExp(`(?<![\\p{L}\\p{N}])(${alternation})${SUFFIX[lang]}(?![\\p{L}\\p{N}])`, 'giu')
     : null;
+
+  /** A name shared across domains (ADR-0003) resolves to the page's own domain, else stays unlinked. */
+  const resolve = (name: string, self?: string) => {
+    const ids = idsOf.get(name.toLowerCase()) ?? [];
+    if (ids.length === 1) return ids[0];
+    const own = self ? ids.filter((id) => domainOf(id) === domainOf(self)) : [];
+    return own.length === 1 ? own[0] : undefined;
+  };
 
   /**
    * Split text into plain and linked segments. `seen` carries across calls so a
@@ -51,7 +93,8 @@ export function makeLinker(terms: LinkableTerm[], lang: Lang) {
     const out: Segment[] = [];
     let last = 0;
     for (const m of text.matchAll(pattern)) {
-      const id = idOf.get(m[1].toLowerCase());
+      if (STOP[lang].has(m[0].toLowerCase())) continue;
+      const id = resolve(m[1], opts.self);
       if (!id || id === opts.self || opts.seen?.has(id)) continue;
       opts.seen?.add(id);
       if (m.index > last) out.push({ text: text.slice(last, m.index) });
