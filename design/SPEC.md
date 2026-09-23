@@ -111,7 +111,7 @@ Authored as one content file per Term (`content/<domain>/<id>.yaml`). Full schem
 | `cluster` | the one group it is taught alongside (§3). |
 | `layer` | optional facet (`network`, `identity`, `governance`, …); a colour/filter, never a position. |
 | `status` | `current` \| `legacy` \| `emerging`. |
-| `era` | optional year the idea entered use (powers the history view later). |
+| `era` | optional year the idea entered use (powers the Timeline and the Explorer's Time layout, A41). |
 | `summary` | `{ en, da }`, **≤140 chars each**, Closed Vocabulary. The lookup line and search snippet. |
 | `body` | four bilingual facets, Closed Vocabulary (§5). |
 | `edges` | typed relationships, authored one direction (§6). |
@@ -284,9 +284,15 @@ real, statically rendered page ("the canvas is an index, not a container").
   drives node colour; *domain* drives filtering. Progressive: arriving from a term
   starts at the focal node + direct edges; expand one hop at a time, or open the
   whole map.
-- The full-screen Explorer (`/[lang]/explorer/`) offers 2D (force or layered by
-  Depth) and 3D (height = Depth), a route finder between any two terms, and
-  prerequisite highlighting.
+- The full-screen Explorer (`/[lang]/explorer/`) offers 2D (force, layered by
+  Depth, or laid out by Time — x = `era`, undated terms in a side lane) and 3D
+  (height = Depth), a route finder between any two terms, and prerequisite
+  highlighting.
+
+### Timeline (era view)
+`/[lang]/timeline/` lists every Term with an `era` by decade, oldest first, coloured
+by cluster, each linking to its page; a CSS-only domain filter narrows it. Terms
+without an `era` are omitted and counted (A41).
 
 ### Compare / "Don't confuse" view
 Driven by `contrasts-with`. Side-by-side for the pairs learners mix up
@@ -365,10 +371,11 @@ Built after v1.0 (A34–A37) exactly as the data model intended: nothing is hand
 | 5 | 3D mode (Depth axis), Paths, era view. | — |
 
 **Built after v1.0:** Articles, the Explorer (2D/3D, routes, progressive neighbourhoods),
-"What to learn first" paths, and the learning system (§9) — see `AUTONOMOUS_DECISIONS.md`.
+"What to learn first" paths, the learning system (§9), and the era view (Timeline +
+the Explorer's Time layout) — see `AUTONOMOUS_DECISIONS.md`.
 
 **Still deferred:** AI tutor; semantic/vector search; a database; user accounts &
-cross-device progress; the `ai` and `platform` domains; era view (no eras authored);
+cross-device progress; the `ai` and `platform` domains;
 centrality/community features. Each is enabled by, not blocked on, the data model.
 
 ---

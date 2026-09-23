@@ -45,6 +45,12 @@ describe('buildGraph', () => {
     expect(node('security/a').collides).toBe(false);
   });
 
+  it('passes an authored era through, and leaves it absent otherwise', () => {
+    const g2 = buildGraph([{ ...term('security/a'), era: 1995 }, term('security/b')]);
+    expect(g2.nodes[0].era).toBe(1995);
+    expect(g2.nodes[1].era).toBeUndefined();
+  });
+
   it('weights edges higher when their source is better connected', () => {
     const weights = g.links.filter((l) => l.family === 'dependency').map((l) => l.weight);
     expect(Math.min(...weights)).toBeGreaterThan(0);
