@@ -42,13 +42,24 @@ export function saveLearner(l: Learner) {
   }
 }
 
-/** Right answers move a term up a box (reviewed later); wrong answers send it back to box 1. */
+/**
+ * A right answer moves a term up a box — but only when it is new or due, so that
+ * promotion reflects remembering over time, not answering three questions in a
+ * row (the spacing is the point). A wrong answer always sends it back to box 1.
+ */
 export function recordAnswer(l: Learner, id: string, correct: boolean, now = Date.now()): Learner {
   const s = { ...blank(), ...l.terms[id] };
-  s.box = correct ? Math.min(s.box + 1, INTERVALS.length - 1) : 1;
-  s.due = now + INTERVALS[s.box] * DAY;
-  if (correct) s.right++;
-  else s.wrong++;
+  if (!correct) {
+    s.box = 1;
+    s.due = now + INTERVALS[1] * DAY;
+    s.wrong++;
+  } else {
+    if (s.box === 0 || s.due <= now) {
+      s.box = Math.min(s.box + 1, INTERVALS.length - 1);
+      s.due = now + INTERVALS[s.box] * DAY;
+    }
+    s.right++;
+  }
   return { terms: { ...l.terms, [id]: s } };
 }
 
@@ -59,7 +70,7 @@ export function setStatus(l: Learner, id: string, status: Status | undefined): L
 export const isDue = (s: TermState | undefined, now = Date.now()) =>
   !!s && s.box > 0 && s.due <= now;
 
-/** A term counts as known if the learner says so, or has remembered it at least three times running. */
+/** A term counts as known if the learner says so, or has reached box 3 (three spaced right answers). */
 export const isKnown = (s: TermState | undefined) => s?.status === 'know' || (s?.box ?? 0) >= 3;
 
 /**

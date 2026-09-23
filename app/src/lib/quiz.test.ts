@@ -73,6 +73,14 @@ describe('makeQuizzer', () => {
     expect(byKind('contrast').answer).toBe('security/other');
   });
 
+  it('never offers a relative of the question term as a wrong answer', () => {
+    // `child` is kind-of `top`, so it may not appear as a wrong option about `top`.
+    for (const q of qs.filter((x) => x.kind !== 'definition')) {
+      const wrong = q.options.map((o) => o.id).filter((id) => id !== q.answer);
+      expect(wrong).not.toContain('security/child');
+    }
+  });
+
   it('localises labels', () => {
     const da = makeQuizzer(graph, 'da', seeded()).questionsFor('security/top');
     expect(da[0].options.every((o) => o.label.endsWith('-da'))).toBe(true);

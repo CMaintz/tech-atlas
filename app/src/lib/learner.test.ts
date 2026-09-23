@@ -6,11 +6,18 @@ const DAY = 24 * 60 * 60 * 1000;
 const empty: Learner = { terms: {} };
 
 describe('recordAnswer (Leitner spaced repetition)', () => {
-  it('moves a term up a box and schedules it later on a right answer', () => {
-    const l = recordAnswer(recordAnswer(empty, 't', true, 0), 't', true, 0);
+  it('moves a term up a box and schedules it later on a right answer when due', () => {
+    const l = recordAnswer(recordAnswer(empty, 't', true, 0), 't', true, DAY);
     expect(l.terms.t.box).toBe(2);
-    expect(l.terms.t.due).toBe(3 * DAY);
+    expect(l.terms.t.due).toBe(DAY + 3 * DAY);
     expect(l.terms.t.right).toBe(2);
+  });
+
+  it('does not promote a term that is not yet due', () => {
+    let l = empty;
+    for (let i = 0; i < 3; i++) l = recordAnswer(l, 't', true, 0);
+    expect(l.terms.t.box).toBe(1);
+    expect(l.terms.t.right).toBe(3);
   });
 
   it('sends a term back to box 1 (due tomorrow) on a wrong answer', () => {
@@ -36,7 +43,7 @@ describe('isDue / isKnown', () => {
   it('counts a term as known by self-assessment or by three right answers running', () => {
     expect(isKnown(setStatus(empty, 't', 'know').terms.t)).toBe(true);
     let l = empty;
-    for (let i = 0; i < 3; i++) l = recordAnswer(l, 't', true);
+    for (const at of [0, DAY, 4 * DAY]) l = recordAnswer(l, 't', true, at);
     expect(isKnown(l.terms.t)).toBe(true);
     expect(isKnown(undefined)).toBe(false);
   });
