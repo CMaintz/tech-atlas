@@ -8,6 +8,7 @@ domain: [security]
 cluster: compliance
 layer: governance
 status: current
+era: 2005
 summary:
   en: The set of policies, roles, processes and records an organisation uses to run its information security in a planned, repeatable way.
   da: De politikker, roller, processer og dokumenter, en organisation bruger til at styre sin informationssikkerhed planlagt og ensartet.

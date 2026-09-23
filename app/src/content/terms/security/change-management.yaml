@@ -29,6 +29,10 @@ edges:
   requires: [asset-inventory]
   used-with:
     - patch-management
+    - devsecops
+    - gitops
+    - version-control
+  mitigates: [cloud-misconfiguration]
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

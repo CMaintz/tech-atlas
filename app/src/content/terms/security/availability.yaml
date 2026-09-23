@@ -33,6 +33,7 @@ edges:
         da: Flere låse beskytter fortroligheden, men kan gøre information sværere at nå; de to skal balanceres.
       strength: normal
       confidence: high
+  used-with: [monitoring]
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

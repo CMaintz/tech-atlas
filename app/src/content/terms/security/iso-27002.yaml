@@ -8,6 +8,7 @@ domain: [security]
 cluster: compliance
 layer: governance
 status: current
+era: 2005
 summary:
   en: A guidance standard describing each security control in detail — what it is for and how to put it in place.
   da: En vejledende standard, der beskriver hver sikkerhedskontrol i detaljer — hvad den skal og hvordan den indføres.

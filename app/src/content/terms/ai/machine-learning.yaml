@@ -1,0 +1,41 @@
+term:
+  en: Machine learning
+  da: Maskinlæring
+aka:
+  en: [ML]
+  da: [ML, machine learning]
+domain: [ai]
+cluster: ml-fundamentals
+layer: theory
+era: 1959
+status: current
+summary:
+  en: Building computer systems that find patterns in examples and use them to make guesses, instead of following rules a person wrote.
+  da: At bygge computersystemer, der finder mønstre i eksempler og gætter ud fra dem i stedet for at følge regler skrevet af et menneske.
+body:
+  formal:
+    en: A branch of AI in which a program improves at a task by adjusting its own internal numbers from training data, so that its behaviour comes from the data rather than from hand-written instructions.
+    da: En gren af AI, hvor et program bliver bedre til en opgave ved at justere sine egne interne tal ud fra træningsdata, så dets adfærd kommer fra data frem for fra håndskrevne instruktioner.
+  plain:
+    en: Like learning to tell ripe from unripe fruit by handling thousands of pieces, rather than being handed a written list of rules.
+    da: Som at lære at skelne moden fra umoden frugt ved at håndtere tusindvis af stykker, i stedet for at få udleveret en skreven regelbog.
+  inPractice:
+    en: A bank's fraud system is shown millions of past card payments marked honest or false, and learns to flag new payments that look like the false ones.
+    da: En banks svindelsystem får vist millioner af tidligere kortbetalinger mærket som ægte eller falske og lærer at markere nye betalinger, der ligner de falske.
+  whyItMatters:
+    en: Because the behaviour comes from data, nobody wrote down the rules — so the quality, fairness and safety of the result depend on the data and are harder to check.
+    da: Fordi adfærden kommer fra data, har ingen skrevet reglerne ned — så resultatets kvalitet, retfærdighed og sikkerhed afhænger af data og er sværere at kontrollere.
+edges:
+  kind-of: [artificial-intelligence]
+  requires: [training-data]
+sources:
+  - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    tier: textbook
+    publisher: Pearson
+  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    tier: standard
+    publisher: ISO/IEC
+  - title: Samuel (1959), Some Studies in Machine Learning Using the Game of Checkers
+    tier: reference
+    publisher: IBM Journal of Research and Development
+draft: true

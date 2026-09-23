@@ -34,6 +34,7 @@ edges:
         da: Klare krav og kontrol mindsker risikoen for, at en leverandør lækker ens data.
       strength: normal
       confidence: medium
+    - shadow-ai
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

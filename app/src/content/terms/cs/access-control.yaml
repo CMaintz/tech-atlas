@@ -34,7 +34,7 @@ edges:
         da: Adgangskontrol er mekanismen, der tillader eller afviser hver anmodning; adgangsstyring er den løbende proces med at tildele, gennemgå og fjerne adgangen.
       strength: primary
       confidence: high
-  used-with: [least-privilege]
+  used-with: [least-privilege, ai-agent]
 sources:
   - title: NIST SP 800-162, Guide to Attribute Based Access Control (ABAC) Definition and Considerations
     url: https://doi.org/10.6028/NIST.SP.800-162

@@ -8,6 +8,7 @@ domain: [cs]
 cluster: identity
 layer: identity
 status: current
+era: 1992
 summary:
   en: Giving permissions to job roles rather than to individual people, and then giving people the roles that fit their job.
   da: At give rettigheder til jobroller i stedet for til enkeltpersoner og så give folk de roller, der passer til deres job.

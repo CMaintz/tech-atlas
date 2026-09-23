@@ -1,0 +1,35 @@
+term:
+  en: Pod
+  da: Pod
+aka:
+  en: []
+  da: []
+domain: [platform]
+cluster: containers
+layer: orchestration
+status: current
+summary:
+  en: The smallest unit Kubernetes runs — one or a few tightly linked containers that share a network address and storage.
+  da: Den mindste enhed, Kubernetes kører — én eller få tæt forbundne containere, der deler netværksadresse og lager.
+body:
+  formal:
+    en: A group of one or more containers that Kubernetes always places together on the same machine, where they share one IP address and can share storage; pods are short-lived and are replaced rather than repaired.
+    da: En gruppe af en eller flere containere, som Kubernetes altid placerer sammen på den samme maskine, hvor de deler én IP-adresse og kan dele lager; pods er kortlivede og bliver udskiftet frem for repareret.
+  plain:
+    en: Like peas in one pod — they grow together, travel together and are thrown out together.
+    da: Som ærter i én bælg — de vokser sammen, rejser sammen og bliver smidt ud sammen.
+  inPractice:
+    en: A pod holds the web shop's container plus a small helper container that ships its logs; when the pod is moved to another machine, both move as one.
+    da: En pod rummer webshoppens container plus en lille hjælpecontainer, der sender dens logs videre; når poden flyttes til en anden maskine, flytter begge som én.
+  whyItMatters:
+    en: Access rules and security settings in Kubernetes are set per pod, so a pod allowed to run with too many rights can open a way into the whole host.
+    da: Adgangsregler og sikkerhedsindstillinger i Kubernetes sættes pr. pod, så en pod, der må køre med for mange rettigheder, kan åbne en vej ind til hele værten.
+edges:
+  part-of: [kubernetes]
+  requires: [container, ip-address]
+sources:
+  - title: Kubernetes Documentation — Pods
+    url: https://kubernetes.io/docs/concepts/workloads/pods/
+    tier: official-doc
+    publisher: The Kubernetes Authors
+draft: true

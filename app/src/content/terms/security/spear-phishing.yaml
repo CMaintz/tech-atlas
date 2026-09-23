@@ -8,6 +8,7 @@ domain: [security]
 cluster: awareness
 layer: people
 status: current
+era: 2005
 summary:
   en: A phishing message tailored to one person or team, made to look like it comes from someone they know.
   da: En phishing-besked skræddersyet til én person eller ét team, så den ligner noget fra en, de kender.

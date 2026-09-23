@@ -1,0 +1,40 @@
+term:
+  en: Neural network
+  da: Neuralt netværk
+aka:
+  en: [artificial neural network, ANN]
+  da: [kunstigt neuralt netværk]
+domain: [ai]
+cluster: ml-fundamentals
+layer: model
+era: 1958
+status: current
+summary:
+  en: A model made of many small linked units that each weigh their inputs and pass a number on, loosely inspired by the brain.
+  da: En model af mange små forbundne enheder, der hver vægter deres input og sender et tal videre, løst inspireret af hjernen.
+body:
+  formal:
+    en: A mathematical model of connected units arranged in layers; each unit multiplies its inputs by learned weights, adds them up and passes the result on, and training adjusts the weights.
+    da: En matematisk model af forbundne enheder ordnet i lag; hver enhed ganger sine input med lærte vægte, lægger dem sammen og sender resultatet videre, og træningen justerer vægtene.
+  plain:
+    en: Like a huge mixing desk with millions of sliders; training slowly nudges each slider until the sound that comes out is right.
+    da: Som et kæmpe mixerpult med millioner af skydere; træningen skubber langsomt til hver skyder, indtil lyden, der kommer ud, er rigtig.
+  inPractice:
+    en: An email service passes each new message through a neural network that outputs a score for how likely it is to be spam or phishing.
+    da: En mailtjeneste sender hver ny besked gennem et neuralt netværk, der giver en score for, hvor sandsynligt det er, at den er spam eller phishing.
+  whyItMatters:
+    en: Its knowledge is spread across millions of numbers rather than readable rules, so it is hard to see why it gave a certain answer.
+    da: Dens viden er spredt ud over millioner af tal i stedet for læsbare regler, så det er svært at se, hvorfor den gav et bestemt svar.
+edges:
+  part-of: [machine-learning]
+sources:
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning'
+    tier: textbook
+    publisher: MIT Press
+  - title: Rosenblatt (1958), The Perceptron
+    tier: reference
+    publisher: Psychological Review
+  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    tier: standard
+    publisher: ISO/IEC
+draft: true

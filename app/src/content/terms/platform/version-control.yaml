@@ -1,0 +1,39 @@
+term:
+  en: Version control
+  da: Versionsstyring
+aka:
+  en: [source control, revision control]
+  da: [versionskontrol]
+domain: [platform]
+cluster: delivery
+layer: delivery
+era: 1972
+status: current
+summary:
+  en: A system that keeps every saved version of a set of files, with who changed what and when, so work can be compared or rolled back.
+  da: Et system, der gemmer hver version af en samling filer, og hvem der ændrede hvad hvornår, så man kan sammenligne eller rulle tilbage.
+body:
+  formal:
+    en: A store that records each change to a set of files as a numbered or named step with its author, time and reason, lets several people work in separate branches, and joins their work back together.
+    da: Et lager, der registrerer hver ændring i en samling filer som et nummereret eller navngivet trin med forfatter, tidspunkt og begrundelse, lader flere arbejde i hver sin gren og fletter arbejdet sammen igen.
+  plain:
+    en: Like the full edit history of a shared document, where you can see every earlier draft, who wrote each line, and go back to last Tuesday's copy with one click.
+    da: Som den fulde redigeringshistorik i et delt dokument, hvor du kan se alle tidligere udkast, hvem der skrev hver linje, og hente tirsdagens udgave frem med ét klik.
+  inPractice:
+    en: A developer changes a firewall setting in a file, asks a colleague to review it before it is merged, and months later an auditor can see exactly who approved the change and why.
+    da: En udvikler ændrer en firewall-indstilling i en fil og beder en kollega gennemgå den, før den flettes ind; måneder senere kan en revisor se præcis, hvem der godkendte ændringen og hvorfor.
+  whyItMatters:
+    en: Without a trusted history, nobody can prove what was running at a given time or quickly undo a bad change, and both are basic needs for security and audits.
+    da: Uden en pålidelig historik kan ingen bevise, hvad der kørte på et givet tidspunkt, eller hurtigt fortryde en dårlig ændring, og begge dele er grundkrav for sikkerhed og revision.
+edges:
+  part-of: [software-supply-chain]
+sources:
+  - title: Pro Git — Getting Started, About Version Control
+    url: https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control
+    tier: official-doc
+    publisher: Git project
+  - title: NIST SP 800-218 — Secure Software Development Framework (SSDF)
+    url: https://csrc.nist.gov/pubs/sp/800/218/final
+    tier: standard
+    publisher: NIST
+draft: true

@@ -1,0 +1,42 @@
+term:
+  en: Monitoring
+  da: Overvågning (monitoring)
+aka:
+  en: []
+  da: [monitorering]
+domain: [platform]
+cluster: observability
+layer: observability
+status: current
+summary:
+  en: Watching a set of chosen measurements on systems over time and warning people when one moves outside its normal range.
+  da: At holde øje med en række udvalgte målinger på systemer over tid og advare folk, når en af dem bevæger sig uden for det normale.
+body:
+  formal:
+    en: The ongoing collection and display of known measures of a system's health, such as whether it answers, how busy it is and how often it fails, checked against set limits so that known kinds of trouble raise an alarm.
+    da: Løbende indsamling og visning af kendte mål for et systems sundhed, fx om det svarer, hvor travlt det har, og hvor ofte det fejler, holdt op mod faste grænser, så kendte typer af problemer udløser en alarm.
+  plain:
+    en: Like the warning lights on a car's dashboard; they tell you quickly that the oil is low, but not why the engine is making a strange noise.
+    da: Som advarselslamperne på en bils instrumentbræt; de fortæller hurtigt, at olien er lav, men ikke hvorfor motoren laver en underlig lyd.
+  inPractice:
+    en: A dashboard on the operations team's wall shows disk space, memory use and error counts for every server, and turns red when a disk passes ninety percent full.
+    da: En skærm på driftsteamets væg viser diskplads, hukommelsesforbrug og antal fejl for hver server og bliver rød, når en disk er mere end halvfems procent fuld.
+  whyItMatters:
+    en: It keeps services available by catching known problems before users notice, and it is often the first place an attack shows up as odd load or failures.
+    da: Den holder tjenester tilgængelige ved at fange kendte problemer, før brugerne mærker dem, og det er ofte her, et angreb først viser sig som usædvanlig belastning eller fejl.
+edges:
+  requires:
+    - metrics
+  contrasts-with:
+    - to: observability
+      why:
+        en: Monitoring answers questions you chose in advance; observability lets you ask new questions about problems you did not expect.
+        da: Overvågning besvarer spørgsmål, man har valgt på forhånd; observerbarhed lader en stille nye spørgsmål om problemer, man ikke forventede.
+      strength: primary
+      confidence: high
+sources:
+  - title: Google SRE book — Chapter 6, Monitoring Distributed Systems
+    url: https://sre.google/sre-book/monitoring-distributed-systems/
+    tier: reference
+    publisher: Google
+draft: true

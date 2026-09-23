@@ -8,6 +8,7 @@ domain: [security]
 cluster: fundamentals
 layer: network
 status: current
+era: 1996
 summary:
   en: An attack that floods a website or service with so much traffic that real users can no longer reach it.
   da: Et angreb, der oversvømmer en hjemmeside eller tjeneste med så meget trafik, at rigtige brugere ikke længere kan komme til.

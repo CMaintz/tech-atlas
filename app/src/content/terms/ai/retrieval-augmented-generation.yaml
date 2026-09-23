@@ -1,0 +1,46 @@
+term:
+  en: Retrieval-augmented generation (RAG)
+  da: Retrieval-augmented generation (RAG)
+aka:
+  en: [RAG]
+  da: [RAG]
+domain: [ai]
+cluster: llm
+layer: application
+era: 2020
+status: current
+summary:
+  en: Letting a language model first look up relevant passages in your own documents and then answer from them, instead of from memory alone.
+  da: At lade en sprogmodel først slå relevante afsnit op i jeres egne dokumenter og derefter svare ud fra dem i stedet for kun fra hukommelsen.
+body:
+  formal:
+    en: A design in which a search step finds the passages most related to a question, usually by comparing embeddings, and adds them to the prompt so the large language model can base its answer on them.
+    da: Et design, hvor et søgetrin finder de afsnit, der passer bedst til et spørgsmål, typisk ved at sammenligne embeddings, og lægger dem ind i prompten, så den store sprogmodel kan bygge sit svar på dem.
+  plain:
+    en: Like an open-book exam — instead of answering from memory, the student first finds the right pages and then writes the answer.
+    da: Som en eksamen med alle hjælpemidler — i stedet for at svare fra hukommelsen finder den studerende først de rigtige sider og skriver så svaret.
+  inPractice:
+    en: An internal help bot answers "how many days of leave do I get?" by finding the current HR policy, quoting it, and linking to the source.
+    da: En intern hjælpebot svarer på "hvor mange feriedage har jeg?" ved at finde den gældende HR-politik, citere den og linke til kilden.
+  whyItMatters:
+    en: It keeps answers current and checkable without retraining, but the bot can now reach your documents — and must not show a user files they are not allowed to see.
+    da: Det holder svar opdaterede og efterprøvelige uden gentræning, men botten kan nu nå jeres dokumenter — og må ikke vise en bruger filer, vedkommende ikke har adgang til.
+edges:
+  requires: [large-language-model, embedding]
+  mitigates:
+    - to: hallucination
+      why:
+        en: Answering from found sources with links makes invented answers rarer and easier to catch, though it does not remove them.
+        da: At svare ud fra fundne kilder med links gør opdigtede svar sjældnere og lettere at opdage, men fjerner dem ikke.
+      strength: primary
+      confidence: medium
+sources:
+  - title: Lewis et al. (2020), Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
+    tier: reference
+  - title: OWASP Top 10 for Large Language Model Applications
+    tier: reference
+    publisher: OWASP
+  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile
+    tier: standard
+    publisher: NIST
+draft: true

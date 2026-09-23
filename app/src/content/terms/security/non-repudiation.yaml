@@ -8,6 +8,7 @@ domain: [security]
 cluster: fundamentals
 layer: data
 status: current
+era: 1989
 summary:
   en: Proof of who did something that is strong enough that they cannot later deny having done it.
   da: Så stærkt bevis for, hvem der gjorde noget, at vedkommende ikke senere kan nægte at have gjort det.

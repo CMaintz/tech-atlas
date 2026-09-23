@@ -8,6 +8,7 @@ domain: [security]
 cluster: controls
 layer: governance
 status: current
+era: 1972
 summary:
   en: An agreed, simulated attack in which skilled testers try to break in, to show how well systems really hold up.
   da: Et aftalt, simuleret hackerangreb, hvor dygtige testere forsøger at bryde ind for at vise, hvor robuste systemerne reelt er.

@@ -8,6 +8,7 @@ domain: [security]
 cluster: compliance
 layer: data
 status: current
+era: 1995
 summary:
   en: The organisation that decides why and how personal data is used, and so carries the main legal duty under GDPR.
   da: Den organisation, der bestemmer, hvorfor og hvordan personoplysninger bruges, og derfor bærer hovedansvaret efter GDPR.

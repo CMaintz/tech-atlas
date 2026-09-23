@@ -1,0 +1,37 @@
+term:
+  en: Transformer
+  da: Transformer
+aka:
+  en: [transformer architecture]
+  da: [transformer-arkitektur]
+domain: [ai]
+cluster: llm
+layer: model
+era: 2017
+status: current
+summary:
+  en: The neural network design behind today's language models, which weighs how every word in a text relates to every other word.
+  da: Det neurale netværksdesign bag nutidens sprogmodeller, som vejer, hvordan hvert ord i en tekst hænger sammen med alle de andre.
+body:
+  formal:
+    en: A neural network design from 2017 built around "attention", where the model scores how much each token should draw on every other token, and handles all tokens at once rather than one after another.
+    da: Et neuralt netværksdesign fra 2017 bygget op om "attention", hvor modellen vurderer, hvor meget hvert token skal trække på alle andre tokens, og behandler alle tokens på én gang i stedet for ét ad gangen.
+  plain:
+    en: Like reading a whole page at a glance and drawing lines between the words that belong together, instead of reading one word at a time.
+    da: Som at læse en hel side på én gang og tegne streger mellem de ord, der hører sammen, i stedet for at læse ét ord ad gangen.
+  inPractice:
+    en: In "the bank refused the loan because it was too risky", a transformer links "it" to "the loan", which helps it translate the sentence correctly.
+    da: I "banken afviste lånet, fordi det var for risikabelt" kobler en transformer "det" til "lånet", hvilket hjælper den med at oversætte sætningen korrekt.
+  whyItMatters:
+    en: Because it can be trained quickly on huge amounts of text, it made large language models possible — and with them most of today's AI tools.
+    da: Fordi den kan trænes hurtigt på enorme mængder tekst, gjorde den store sprogmodeller mulige — og dermed de fleste af nutidens AI-værktøjer.
+edges:
+  kind-of: [neural-network]
+  requires: [token]
+sources:
+  - title: Vaswani et al. (2017), Attention Is All You Need
+    tier: reference
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning'
+    tier: textbook
+    publisher: MIT Press
+draft: true

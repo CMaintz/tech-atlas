@@ -1,0 +1,36 @@
+term:
+  en: Hallucination
+  da: Hallucination
+aka:
+  en: [confabulation]
+  da: [konfabulering]
+domain: [ai]
+cluster: llm
+layer: inference
+status: current
+summary:
+  en: When an AI model states something false or made up — a fact, a quote, a source — in the same confident tone as a true answer.
+  da: Når en AI-model fremfører noget falsk eller opdigtet — et faktum, et citat, en kilde — i samme sikre tone som et sandt svar.
+body:
+  formal:
+    en: Fluent, plausible output from an AI model that creates new text or images, which is not supported by its input or by fact; it follows from models being built to produce likely text rather than checked truth.
+    da: Flydende og troværdigt output fra en AI-model, der skaber ny tekst eller nye billeder, men som ikke er understøttet af input eller fakta; det følger af, at modellerne er bygget til at skrive sandsynlig tekst frem for tjekket sandhed.
+  plain:
+    en: Like a guest at a party who never admits not knowing — asked anything, they give a smooth, detailed answer, whether or not it is true.
+    da: Som en gæst til en fest, der aldrig indrømmer ikke at vide noget — spurgt om hvad som helst giver de et glat, detaljeret svar, uanset om det er sandt.
+  inPractice:
+    en: A chat assistant lists three court rulings to support a legal claim; a check shows that none of the cases exist.
+    da: En chatassistent nævner tre domme til støtte for et juridisk synspunkt; et tjek viser, at ingen af sagerne findes.
+  whyItMatters:
+    en: Made-up answers look exactly like real ones, so any AI output used for decisions, advice or code needs a person who checks it.
+    da: Opdigtede svar ligner nøjagtigt ægte svar, så alt AI-output, der bruges til beslutninger, rådgivning eller kode, kræver en person, der tjekker det.
+edges:
+  requires: [inference]
+sources:
+  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile (confabulation)
+    tier: standard
+    publisher: NIST
+  - title: Ji et al. (2023), Survey of Hallucination in Natural Language Generation
+    tier: reference
+    publisher: ACM Computing Surveys
+draft: true

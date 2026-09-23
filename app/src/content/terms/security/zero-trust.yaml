@@ -8,6 +8,7 @@ domain: [security]
 cluster: controls
 layer: identity
 status: current
+era: 2010
 summary:
   en: A security principle of never trusting anyone automatically — every request is checked, even from inside the network.
   da: Et sikkerhedsprincip om aldrig automatisk at stole på nogen — hver anmodning tjekkes, også fra netværket indefra.

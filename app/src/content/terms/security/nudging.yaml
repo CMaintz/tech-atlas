@@ -8,6 +8,7 @@ domain: [security]
 cluster: awareness
 layer: people
 status: current
+era: 2008
 summary:
   en: Small, gentle prompts that make the safe choice the easy one, without forbidding anything.
   da: Små, venlige skub, der gør det sikre valg til det lette valg, uden at forbyde noget.

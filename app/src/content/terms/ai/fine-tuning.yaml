@@ -1,0 +1,47 @@
+term:
+  en: Fine-tuning
+  da: Finjustering (fine-tuning)
+aka:
+  en: []
+  da: [fine-tuning, finjustering]
+domain: [ai]
+cluster: llm
+layer: training
+status: current
+summary:
+  en: Giving an already trained model a short extra round of training on a smaller, focused set of examples to change how it behaves.
+  da: At give en allerede trænet model en kort ekstra træningsrunde på et mindre, målrettet sæt eksempler for at ændre dens adfærd.
+body:
+  formal:
+    en: A second, smaller round of model training that starts from a finished general model and adjusts some or all of its weights on task-specific data, such as a company's own texts.
+    da: En anden, mindre runde modeltræning, der starter fra en færdig generel model og justerer nogle eller alle dens vægte på opgavespecifikke data, fx en virksomheds egne tekster.
+  plain:
+    en: Like a trained nurse doing a short course to focus on children's care — the broad skills stay, a narrow set is sharpened.
+    da: Som en uddannet sygeplejerske, der tager et kort kursus for at fokusere på børn — de brede evner bliver, et snævert område skærpes.
+  inPractice:
+    en: An insurer fine-tunes a language model on thousands of past claim letters so it writes replies in the company's tone and format.
+    da: Et forsikringsselskab finjusterer en sprogmodel på tusindvis af tidligere skadebreve, så den skriver svar i virksomhedens tone og form.
+  whyItMatters:
+    en: Data used here is built into the model and hard to remove later, so personal data in it may leak and cannot simply be deleted on request.
+    da: Data brugt her bliver bygget ind i modellen og er svære at fjerne igen, så persondata i dem kan lække og ikke bare kan slettes efter anmodning.
+edges:
+  kind-of: [model-training]
+  requires: [large-language-model]
+  alternative-to:
+    - to: retrieval-augmented-generation
+      why:
+        en: Both adapt a model to your organisation; fine-tuning bakes knowledge into the model, while RAG looks it up at answer time and can be updated or limited per user.
+        da: Begge tilpasser en model til organisationen; finjustering bager viden ind i modellen, mens RAG slår den op, når der svares, og kan opdateres eller begrænses per bruger.
+      strength: primary
+      confidence: high
+  used-with: [training-data]
+sources:
+  - title: Howard & Ruder (2018), Universal Language Model Fine-tuning for Text Classification
+    tier: reference
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning'
+    tier: textbook
+    publisher: MIT Press
+  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    tier: standard
+    publisher: ISO/IEC
+draft: true

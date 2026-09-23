@@ -1,0 +1,43 @@
+term:
+  en: DevSecOps
+  da: DevSecOps
+aka:
+  en: [secure DevOps]
+  da: []
+domain: [platform, security]
+cluster: delivery
+layer: process
+era: 2012
+status: current
+summary:
+  en: Building security checks into the everyday work of the teams that write and run software, rather than adding them at the end.
+  da: At bygge sikkerhedstjek ind i det daglige arbejde hos de teams, der skriver og driver software, i stedet for at tilføje dem til sidst.
+body:
+  formal:
+    en: A way of working in which development, security and operations share responsibility for security, and checks such as code review, vulnerability scanning, SBOM creation and secrets checks run automatically in the pipeline on every change.
+    da: En arbejdsform, hvor udvikling, sikkerhed og drift deler ansvaret for sikkerheden, og tjek som kodegennemgang, sårbarhedsscanning, SBOM-generering og kontrol af hemmeligheder kører automatisk i pipelinen ved hver ændring.
+  plain:
+    en: Like building a house with the fire inspector on site from day one, instead of calling them in when the keys are about to be handed over.
+    da: Som at bygge et hus med brandinspektøren på pladsen fra første dag i stedet for at kalde vedkommende ind, når nøglerne skal overdrages.
+  inPractice:
+    en: A developer gets a note in her change request that she has left a password in the code; she removes it before review, and the security team never has to chase it in production.
+    da: En udvikler får en besked i sin ændringsanmodning om, at hun har efterladt en adgangskode i koden; hun fjerner den før gennemgangen, og sikkerhedsteamet skal aldrig jagte den i driften.
+  whyItMatters:
+    en: Flaws found while code is being written cost far less to fix than flaws found by attackers, and automatic checks keep pace with teams that release many times a day.
+    da: Fejl, der findes, mens koden skrives, er langt billigere at rette end fejl, som angribere finder, og automatiske tjek kan følge med teams, der frigiver mange gange om dagen.
+edges:
+  requires: [ci-cd]
+  implements: [security-by-design]
+  used-with:
+    - sbom
+    - vulnerability-scanning
+sources:
+  - title: NIST SP 800-204D — Strategies for the Integration of Software Supply Chain Security in DevSecOps CI/CD Pipelines
+    url: https://csrc.nist.gov/pubs/sp/800/204/d/final
+    tier: standard
+    publisher: NIST
+  - title: NIST SP 800-218 — Secure Software Development Framework (SSDF)
+    url: https://csrc.nist.gov/pubs/sp/800/218/final
+    tier: standard
+    publisher: NIST
+draft: true

@@ -1,0 +1,40 @@
+term:
+  en: Unsupervised learning
+  da: Ikke-superviseret læring
+aka:
+  en: []
+  da: [unsupervised learning, uovervåget læring]
+domain: [ai]
+cluster: ml-fundamentals
+layer: training
+status: current
+summary:
+  en: Machine learning from examples with no answers attached, where the model finds groups, patterns or odd cases on its own.
+  da: Maskinlæring ud fra eksempler uden svar, hvor modellen selv finder grupper, mønstre eller usædvanlige tilfælde.
+body:
+  formal:
+    en: A form of machine learning that works on training data without labels, finding structure in it — for example grouping similar items or flagging items that differ from the rest.
+    da: En form for maskinlæring, der arbejder på træningsdata uden mærkater og finder struktur i dem — fx ved at gruppere lignende ting eller markere ting, der skiller sig ud fra resten.
+  plain:
+    en: Like sorting a box of mixed buttons into piles by colour and size without anyone telling you what the piles should be.
+    da: Som at sortere en kasse blandede knapper i bunker efter farve og størrelse, uden at nogen har fortalt dig, hvilke bunker der skal være.
+  inPractice:
+    en: A monitoring tool learns what normal logins look like in a company and raises an alert when an account suddenly logs in at 3 a.m. from another country.
+    da: Et overvågningsværktøj lærer, hvordan normale logins ser ud i en virksomhed, og slår alarm, når en konto pludselig logger ind kl. 3 om natten fra et andet land.
+  whyItMatters:
+    en: It can spot new, unknown threats nobody has labeled yet, but it also flags harmless unusual behaviour, so people must still judge the alerts.
+    da: Den kan opdage nye, ukendte trusler, som ingen har mærket endnu, men markerer også harmløs usædvanlig adfærd, så mennesker stadig skal vurdere alarmerne.
+edges:
+  kind-of: [machine-learning]
+  requires: [training-data]
+sources:
+  - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    tier: textbook
+    publisher: Pearson
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning'
+    tier: textbook
+    publisher: MIT Press
+  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    tier: standard
+    publisher: ISO/IEC
+draft: true

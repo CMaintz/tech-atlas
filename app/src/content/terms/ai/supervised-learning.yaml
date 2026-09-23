@@ -1,0 +1,44 @@
+term:
+  en: Supervised learning
+  da: Superviseret læring
+aka:
+  en: []
+  da: [supervised learning, overvåget læring]
+domain: [ai]
+cluster: ml-fundamentals
+layer: training
+status: current
+summary:
+  en: Machine learning from examples that come with the right answer attached, such as emails already marked spam or not spam.
+  da: Maskinlæring ud fra eksempler, hvor det rigtige svar følger med, fx mails der allerede er markeret som spam eller ikke spam.
+body:
+  formal:
+    en: A form of machine learning in which each training example is paired with a label giving the wanted output, and the model learns to map new inputs to the right label.
+    da: En form for maskinlæring, hvor hvert træningseksempel er parret med en mærkat, der angiver det ønskede resultat, og modellen lærer at knytte nye input til den rigtige mærkat.
+  plain:
+    en: Like learning with an answer key — you try each exercise, check the key, and correct yourself.
+    da: Som at lære med en facitliste — du prøver hver opgave, tjekker facit og retter dig selv.
+  inPractice:
+    en: A security team labels thousands of past alerts as real attacks or false alarms, and a model learns to sort new alerts the same way.
+    da: Et sikkerhedsteam mærker tusindvis af tidligere alarmer som ægte angreb eller falske alarmer, og en model lærer at sortere nye alarmer på samme måde.
+  whyItMatters:
+    en: The model can only be as good as its labels; labels are often made by people paid per item, and their mistakes and biases become the model's.
+    da: Modellen kan kun blive så god som sine mærkater; de laves ofte af mennesker betalt per stk., og deres fejl og fordomme bliver modellens.
+edges:
+  kind-of: [machine-learning]
+  requires: [training-data]
+  contrasts-with:
+    - to: unsupervised-learning
+      why:
+        en: Supervised learning is given the right answers to learn from; unsupervised learning gets no answers and must find groups or oddities by itself.
+        da: Superviseret læring får de rigtige svar at lære af; ikke-superviseret læring får ingen svar og må selv finde grupper eller afvigelser.
+      strength: primary
+      confidence: high
+sources:
+  - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    tier: textbook
+    publisher: Pearson
+  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    tier: standard
+    publisher: ISO/IEC
+draft: true

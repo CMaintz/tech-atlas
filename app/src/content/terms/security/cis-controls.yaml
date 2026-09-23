@@ -8,6 +8,7 @@ domain: [security]
 cluster: controls
 layer: governance
 status: current
+era: 2008
 summary:
   en: A ranked, public list of security measures from the Center for Internet Security that tells an organisation what to do first.
   da: En prioriteret, offentlig liste over sikkerhedstiltag fra Center for Internet Security, der viser, hvad man bør gøre først.

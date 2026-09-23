@@ -186,6 +186,13 @@ export const CLUSTER_LABELS: Record<string, Record<Lang, string>> = {
   os: { en: 'Operating systems', da: 'Styresystemer' },
   identity: { en: 'Identity & access', da: 'Identitet og adgang' },
   cryptography: { en: 'Cryptography', da: 'Kryptografi' },
+  'ml-fundamentals': { en: 'Machine learning basics', da: 'Grundlæggende maskinlæring' },
+  llm: { en: 'Language models', da: 'Sprogmodeller' },
+  'ai-risk': { en: 'AI risk & governance', da: 'AI-risiko og governance' },
+  cloud: { en: 'Cloud', da: 'Cloud' },
+  containers: { en: 'Containers & orchestration', da: 'Containere og orkestrering' },
+  delivery: { en: 'Software delivery', da: 'Softwarelevering' },
+  observability: { en: 'Observability', da: 'Observerbarhed' },
 };
 
 export const CLUSTER_COLOURS: Record<string, string> = {
@@ -199,6 +206,13 @@ export const CLUSTER_COLOURS: Record<string, string> = {
   os: '#06b6d4',
   identity: '#14b8a6',
   cryptography: '#6366f1',
+  'ml-fundamentals': '#e879f9',
+  llm: '#d946ef',
+  'ai-risk': '#be185d',
+  cloud: '#38bdf8',
+  containers: '#0ea5e9',
+  delivery: '#84cc16',
+  observability: '#eab308',
 };
 
 export const FAMILY_COLOURS: Record<string, string> = {

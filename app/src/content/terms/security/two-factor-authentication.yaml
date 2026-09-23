@@ -8,6 +8,7 @@ domain: [security]
 cluster: controls
 layer: identity
 status: current
+era: 2011
 summary:
   en: The most common form of MFA, where logging in needs exactly two separate proofs, usually a password and a one-time code.
   da: Den mest udbredte form for MFA, hvor et login kræver præcis to uafhængige beviser, typisk en adgangskode og en engangskode.

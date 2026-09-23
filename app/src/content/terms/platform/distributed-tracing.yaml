@@ -1,0 +1,43 @@
+term:
+  en: Distributed tracing
+  da: Distribueret sporing (tracing)
+aka:
+  en: [tracing, traces]
+  da: [tracing]
+domain: [platform]
+cluster: observability
+layer: observability
+era: 2010
+status: current
+summary:
+  en: Following one user request as it passes through many services, timing each step, to see where it slowed down or failed.
+  da: At følge én brugerforespørgsel gennem mange tjenester og tage tid på hvert trin for at se, hvor den blev langsom eller fejlede.
+body:
+  formal:
+    en: A method where each request gets a shared ID that is passed from service to service, and every service records a timed step, called a span, under that ID, so the full path can be put back together as a trace.
+    da: En metode, hvor hver forespørgsel får et fælles ID, der sendes videre fra tjeneste til tjeneste, og hver tjeneste registrerer et tidsmålt trin, kaldet et span, under det ID, så hele vejen kan samles igen som en sporing.
+  plain:
+    en: Like the tracking page for a parcel, showing each depot it passed and how long it sat there, so you can see it was stuck three days in one place.
+    da: Som sporingssiden for en pakke, der viser hver terminal, den har været igennem, og hvor længe den lå der, så man kan se, at den sad fast tre dage ét sted.
+  inPractice:
+    en: A trace of a slow page load shows the web service answered almost at once but waited four seconds for the stock service, so the team knows where to look.
+    da: En sporing af en langsom sideindlæsning viser, at webtjenesten svarede næsten med det samme, men ventede fire sekunder på lagertjenesten, så teamet ved, hvor de skal kigge.
+  whyItMatters:
+    en: When one click touches dozens of services, logs from each one alone cannot show the chain of cause; traces link them into one story, which also helps follow an attacker's steps.
+    da: Når ét klik berører snesevis af tjenester, kan logs fra hver enkelt ikke vise årsagskæden; sporinger binder dem sammen til én historie, hvilket også hjælper med at følge en angribers skridt.
+edges:
+  part-of: [observability]
+  requires: [service]
+  contrasts-with:
+    - log
+    - metrics
+sources:
+  - title: OpenTelemetry — Traces
+    url: https://opentelemetry.io/docs/concepts/signals/traces/
+    tier: official-doc
+    publisher: OpenTelemetry (CNCF)
+  - title: 'Dapper, a Large-Scale Distributed Systems Tracing Infrastructure (Google, 2010)'
+    url: https://research.google/pubs/dapper-a-large-scale-distributed-systems-tracing-infrastructure/
+    tier: reference
+    publisher: Google
+draft: true

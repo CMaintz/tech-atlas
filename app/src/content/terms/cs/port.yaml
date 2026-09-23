@@ -8,6 +8,7 @@ domain: [cs]
 cluster: networking
 layer: network
 status: current
+era: 1981
 summary:
   en: A number that picks out which program on a device should receive incoming network data.
   da: Et nummer, der udpeger, hvilket program på en enhed der skal modtage indgående netværksdata.

@@ -1,0 +1,33 @@
+term:
+  en: Virtual machine
+  da: Virtuel maskine
+aka:
+  en: [VM]
+  da: [VM]
+domain: [platform]
+cluster: cloud
+layer: infrastructure
+status: current
+summary:
+  en: A whole computer made in software, with its own operating system, running side by side with others on one physical machine.
+  da: En hel computer lavet i software med sit eget styresystem, der kører side om side med andre på én fysisk maskine.
+body:
+  formal:
+    en: A software copy of a complete computer — processor, memory, disk and network card — created by a hypervisor, which runs its own full operating system kept apart from the other virtual machines on the same hardware.
+    da: En softwarekopi af en hel computer — processor, hukommelse, disk og netkort — skabt af en hypervisor, som kører sit eget fulde styresystem adskilt fra de andre virtuelle maskiner på samme hardware.
+  plain:
+    en: Like flats in one apartment block — each has its own front door, kitchen and bathroom, even though they share the same foundations.
+    da: Som lejligheder i én opgang — hver har sin egen hoveddør, sit eget køkken og badeværelse, selvom de deler samme fundament.
+  inPractice:
+    en: A company runs its payroll system, file server and test environment as three virtual machines on one powerful server, each with its own Windows or Linux.
+    da: En virksomhed kører sit lønsystem, sin filserver og sit testmiljø som tre virtuelle maskiner på én kraftig server, hver med sin egen Windows eller Linux.
+  whyItMatters:
+    en: It is the basic building block of most cloud services; strong separation between machines is what lets strangers safely share the same hardware.
+    da: Den er den grundlæggende byggesten i de fleste cloudtjenester; stærk adskillelse mellem maskinerne er det, der gør, at fremmede trygt kan dele den samme hardware.
+edges:
+  requires: [hypervisor, operating-system]
+sources:
+  - title: NIST SP 800-125 — Guide to Security for Full Virtualization Technologies
+    tier: standard
+    publisher: NIST
+draft: true

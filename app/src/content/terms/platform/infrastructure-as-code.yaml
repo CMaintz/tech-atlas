@@ -1,0 +1,45 @@
+term:
+  en: Infrastructure as code (IaC)
+  da: Infrastructure as code (IaC)
+aka:
+  en: [IaC]
+  da: [IaC]
+domain: [platform]
+cluster: delivery
+layer: infrastructure
+status: current
+summary:
+  en: Describing servers, networks and cloud settings in text files that a tool reads to build them, instead of setting them up by hand.
+  da: At beskrive servere, netværk og cloud-indstillinger i tekstfiler, som et værktøj bygger ud fra, i stedet for at sætte dem op i hånden.
+body:
+  formal:
+    en: A practice where the wanted state of servers, networks, access rules and cloud services is written in files kept under version control, and a tool compares that state with what exists and makes the changes needed to match.
+    da: En praksis, hvor den ønskede tilstand for servere, netværk, adgangsregler og cloud-tjenester skrives i filer under versionsstyring, og et værktøj sammenligner tilstanden med det, der findes, og laver de ændringer, der skal til for at de passer sammen.
+  plain:
+    en: Like a detailed recipe instead of a chef's memory; anyone can cook the same dish again, and you can see exactly which ingredient changed since last time.
+    da: Som en detaljeret opskrift i stedet for kokkens hukommelse; alle kan lave den samme ret igen, og man kan se præcis, hvilken ingrediens der er ændret siden sidst.
+  inPractice:
+    en: A company rebuilds its whole test setup in the cloud in twenty minutes from files, and a reviewer spots that one storage area was about to be opened to the internet before it goes live.
+    da: En virksomhed genopbygger hele sit testmiljø i skyen på tyve minutter ud fra filer, og en kollega opdager ved gennemgangen, at et lagerområde var ved at blive åbnet mod internettet, før det går i drift.
+  whyItMatters:
+    en: Settings made by hand drift, get forgotten and cannot be checked; written settings can be reviewed, tested for known mistakes and rebuilt the same way after a disaster.
+    da: Indstillinger lavet i hånden glider, bliver glemt og kan ikke efterprøves; skrevne indstillinger kan gennemgås, testes for kendte fejl og genopbygges ens efter en katastrofe.
+edges:
+  requires: [version-control]
+  mitigates:
+    - to: cloud-misconfiguration
+      why:
+        en: Settings in reviewed files can be checked automatically for known mistakes before anything is built.
+        da: Indstillinger i gennemgåede filer kan tjekkes automatisk for kendte fejl, før noget bygges.
+      strength: primary
+      confidence: high
+  used-with:
+    - secrets-management
+sources:
+  - title: NIST SP 800-204D — Strategies for the Integration of Software Supply Chain Security in DevSecOps CI/CD Pipelines
+    url: https://csrc.nist.gov/pubs/sp/800/204/d/final
+    tier: standard
+    publisher: NIST
+  - title: Infrastructure as Code (Kief Morris, O'Reilly)
+    tier: textbook
+draft: true

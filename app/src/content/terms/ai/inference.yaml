@@ -1,0 +1,43 @@
+term:
+  en: Inference
+  da: Inferens
+aka:
+  en: []
+  da: []
+domain: [ai]
+cluster: ml-fundamentals
+layer: inference
+status: current
+summary:
+  en: Using an already trained model to produce an answer for new input — what happens each time you ask a chat assistant something.
+  da: At bruge en færdigtrænet model til at give et svar på nyt input — det, der sker, hver gang du spørger en chatassistent om noget.
+body:
+  formal:
+    en: The stage where a trained model, with its weights fixed, is run on new input to produce an output such as a label, a score or generated text; the model does not learn from the input by doing so.
+    da: Fasen, hvor en trænet model med faste vægte køres på nyt input for at frembringe et resultat som en kategori, en score eller genereret tekst; modellen lærer ikke af inputtet ved det.
+  plain:
+    en: Like a trained doctor looking at a new patient — the years of study are over, now the knowledge is simply being used.
+    da: Som en uddannet læge, der ser på en ny patient — årene med studier er forbi, nu bliver viden bare brugt.
+  inPractice:
+    en: When a clerk pastes a contract into an online AI tool and asks for a summary, the text is sent to the supplier's servers where inference runs.
+    da: Når en medarbejder indsætter en kontrakt i et online AI-værktøj og beder om et resumé, sendes teksten til leverandørens servere, hvor inferensen kører.
+  whyItMatters:
+    en: Where inference runs decides where your data travels and who can see it — a local model and a foreign cloud service carry very different risks.
+    da: Hvor inferensen kører, afgør, hvor dine data rejser hen, og hvem der kan se dem — en lokal model og en udenlandsk cloudtjeneste har vidt forskellige risici.
+edges:
+  part-of: [machine-learning]
+  contrasts-with:
+    - to: model-training
+      why:
+        en: Training is the slow, one-off stage where the model learns; inference is every later use, where it only applies what it learned.
+        da: Træning er den langsomme engangsfase, hvor modellen lærer; inferens er al senere brug, hvor den kun anvender det lærte.
+      strength: primary
+      confidence: high
+sources:
+  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    tier: standard
+    publisher: ISO/IEC
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning'
+    tier: textbook
+    publisher: MIT Press
+draft: true

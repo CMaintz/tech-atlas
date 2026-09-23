@@ -1,0 +1,37 @@
+term:
+  en: Prompt
+  da: Prompt
+aka:
+  en: []
+  da: []
+domain: [ai]
+cluster: llm
+layer: inference
+status: current
+summary:
+  en: The text you give a language model — a question, an order, pasted files — that it treats as its starting point for an answer.
+  da: Den tekst, du giver en sprogmodel — et spørgsmål, en ordre, indsatte filer — som den bruger som udgangspunkt for sit svar.
+body:
+  formal:
+    en: The full input sent to a language model for one answer, often made of hidden instructions from the service owner (a "system prompt") plus the user's text and any added documents.
+    da: Hele det input, der sendes til en sprogmodel for ét svar, ofte sammensat af skjulte instruktioner fra tjenestens ejer (en "systemprompt") plus brugerens tekst og eventuelle tilføjede dokumenter.
+  plain:
+    en: Like the brief you hand a new temp — the clearer and fuller it is, the better the work, but they will follow whatever the note says.
+    da: Som den opgavebeskrivelse, du giver en ny vikar — jo klarere og fyldigere, jo bedre arbejde, men vikaren følger, hvad der end står på sedlen.
+  inPractice:
+    en: A lawyer pastes a client contract into a chat assistant and writes "list the risky clauses" — the contract and the request together form the prompt.
+    da: En advokat indsætter en klientkontrakt i en chatassistent og skriver "list de risikable klausuler" — kontrakten og anmodningen udgør tilsammen prompten.
+  whyItMatters:
+    en: Whatever goes into a prompt leaves your control and may be stored by the supplier; and because the model cannot tell data from orders, text inside a prompt can steer it.
+    da: Alt, hvad der kommer i en prompt, forlader din kontrol og kan blive gemt af leverandøren; og da modellen ikke kan skelne data fra ordrer, kan tekst i en prompt styre den.
+edges:
+  requires: [large-language-model]
+  part-of: [context-window]
+sources:
+  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile
+    tier: standard
+    publisher: NIST
+  - title: OWASP Top 10 for Large Language Model Applications
+    tier: reference
+    publisher: OWASP
+draft: true

@@ -1,0 +1,58 @@
+term:
+  en: Deepfake
+  da: Deepfake
+aka:
+  en: [voice clone, synthetic media]
+  da: [stemmekloning, syntetiske medier]
+domain: [ai, security]
+cluster: ai-risk
+layer: people
+era: 2017
+status: current
+summary:
+  en: A fake but convincing video, image or voice recording made with AI to show someone saying or doing what they never did.
+  da: Falsk, men overbevisende video, billede eller stemme lavet med AI, der viser nogen sige eller gøre noget, de aldrig har gjort.
+body:
+  formal:
+    en: Media created or altered with deep learning so that a real person's face, body or voice appears in content they did not make, realistic enough to pass as a true recording.
+    da: Medier skabt eller ændret med deep learning, så en virkelig persons ansigt, krop eller stemme optræder i indhold, personen ikke har lavet, og realistisk nok til at gå for en ægte optagelse.
+  plain:
+    en: Like a perfect mask and a perfect voice impression in one — except anyone with a laptop and a few minutes of someone's voice can now make one.
+    da: Som en perfekt maske og en perfekt stemmeimitation på én gang — bare at alle med en bærbar og et par minutters optagelse af en stemme nu kan lave den.
+  inPractice:
+    en: A finance employee joins a video call where the "finance director" and several colleagues are all fakes, and on their orders transfers millions to the attacker's accounts.
+    da: En medarbejder i økonomi deltager i et videomøde, hvor "økonomidirektøren" og flere kolleger alle er falske, og overfører på deres ordre millioner til angriberens konti.
+  whyItMatters:
+    en: Seeing and hearing someone is no longer proof it is them, so payment and approval steps must be checked another way; the EU AI Act also requires deepfakes to be labelled.
+    da: At se og høre en person er ikke længere bevis for, at det er dem, så betalinger og godkendelser skal bekræftes ad en anden vej; EU's AI-forordning kræver også, at deepfakes mærkes.
+edges:
+  requires: [deep-learning]
+  used-with:
+    - to: vishing
+      why:
+        en: A cloned voice of a boss or relative makes a fraud phone call far more believable.
+        da: En klonet stemme fra en chef eller et familiemedlem gør et svindelopkald langt mere troværdigt.
+      strength: primary
+      confidence: high
+    - to: phishing
+      why:
+        en: Fake video or voice messages are added to phishing to make the request look real.
+        da: Falske video- eller stemmebeskeder føjes til phishing for at få anmodningen til at virke ægte.
+      strength: normal
+      confidence: medium
+    - to: social-engineering
+      why:
+        en: A deepfake is a powerful new prop for pretending to be someone the victim trusts.
+        da: En deepfake er et stærkt nyt redskab til at udgive sig for at være en, offeret stoler på.
+      strength: normal
+      confidence: high
+sources:
+  - title: Regulation (EU) 2024/1689 (AI Act), Article 50 — transparency obligations
+    tier: standard
+    publisher: European Union
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+  - title: ENISA Threat Landscape
+    tier: reference
+    publisher: ENISA
+    url: https://www.enisa.europa.eu/topics/cyber-threats/threat-landscape
+draft: true
