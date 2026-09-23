@@ -63,23 +63,25 @@ export function makeQuizzer(graph: Graph, lang: Lang, rng: Rng = Math.random) {
   const dependants = (id: string) =>
     graph.nodes.filter((n) => prerequisitesOf(graph, n.id).some((p) => p.id === id));
 
+  /** Structural relatives (kind of / part of / implements) and alternatives, either direction. */
+  const relatives = (id: string) =>
+    graph.links
+      .filter(
+        (l) =>
+          (l.family === 'structure' || l.type === 'alternative-to') &&
+          (l.source === id || l.target === id),
+      )
+      .map((l) => (l.source === id ? l.target : l.source));
+
   /**
-   * Three wrong answers: same cluster first, then same domain. Never anything
-   * taxonomically joined to the answer or an alternative to it — those would make
-   * the question ambiguous (the Atlas demo's distractor rule).
+   * Three wrong answers: same cluster first, then same domain. Never the question
+   * term, the answer, any other valid answer, or a structural relative or
+   * alternative of any of those — each would make the question ambiguous (the
+   * Atlas demo's distractor rule, widened after review).
    */
-  const distractors = (answer: GraphNode, exclude: Set<string>) => {
-    const joined = new Set([
-      answer.id,
-      ...exclude,
-      ...graph.links
-        .filter(
-          (l) =>
-            (l.family === 'structure' || l.type === 'alternative-to') &&
-            (l.source === answer.id || l.target === answer.id),
-        )
-        .flatMap((l) => [l.source, l.target]),
-    ]);
+  const distractors = (term: GraphNode, answer: GraphNode, exclude: Set<string>) => {
+    const core = [term.id, answer.id, ...exclude];
+    const joined = new Set([...core, ...core.flatMap(relatives)]);
     const pool = (f: (n: GraphNode) => boolean) =>
       shuffle(
         graph.nodes.filter((n) => !joined.has(n.id) && f(n)),
@@ -100,7 +102,7 @@ export function makeQuizzer(graph: Graph, lang: Lang, rng: Rng = Math.random) {
     answer: GraphNode,
     exclude: Set<string>,
   ): Question | null => {
-    const wrong = distractors(answer, exclude);
+    const wrong = distractors(term, answer, exclude);
     if (wrong.length < 3) return null;
     return {
       termId: term.id,
