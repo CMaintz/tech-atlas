@@ -104,6 +104,7 @@ export const UI = {
     timelineIntro:
       'Terms by the decade they entered use. Colour = cluster; click a term to open it.',
     undatedNote: '{n} terms have no year yet and are not shown.',
+    undatedNoteOne: '1 term has no year yet and is not shown.',
     noDated: 'No terms have a year yet.',
     allDomains: 'All',
     decade: '{d}s',
@@ -198,6 +199,7 @@ export const UI = {
     timelineIntro:
       'Begreber efter det årti, de kom i brug. Farve = klynge; klik på et begreb for at åbne det.',
     undatedNote: '{n} begreber har endnu intet årstal og vises ikke.',
+    undatedNoteOne: '1 begreb har endnu intet årstal og vises ikke.',
     noDated: 'Ingen begreber har et årstal endnu.',
     allDomains: 'Alle',
     decade: "{d}'erne",

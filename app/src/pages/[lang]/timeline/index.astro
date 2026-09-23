@@ -43,7 +43,9 @@ const chip =
   <p class="mb-2 text-neutral-400">{ui.timelineIntro}</p>
   {
     undated > 0 && (
-      <p class="mb-8 text-sm text-neutral-500">{ui.undatedNote.replace('{n}', String(undated))}</p>
+      <p class="mb-8 text-sm text-neutral-500">
+        {undated === 1 ? ui.undatedNoteOne : ui.undatedNote.replace('{n}', String(undated))}
+      </p>
     )
   }
   {decades.length === 0 && <p class="text-neutral-400">{ui.noDated}</p>}
