@@ -17,6 +17,8 @@ import {
 import { EDGE_LABELS, RELATION_ORDER, pairSlug, relationsOf } from '../../../lib/terms';
 import { loadGraph } from '../../../lib/graph';
 import { prerequisitesOf } from '../../../lib/graph-model';
+import { makeLinker } from '../../../lib/autolink';
+import Prose from '../../../components/Prose.astro';
 
 export async function getStaticPaths() {
   const terms = await getCollection('terms');
@@ -61,7 +63,24 @@ const edges = relations.map((r) => ({
 }));
 
 const facets = ['formal', 'plain', 'inPractice', 'whyItMatters'] as const;
-const learnFirst = prerequisitesOf(await loadGraph(), term.id);
+const graph = await loadGraph();
+const learnFirst = prerequisitesOf(graph, term.id);
+
+// Auto-link other terms in the body — first mention per page (SPEC §4).
+const linker = makeLinker(
+  all.map((t) => ({ id: t.id, term: t.data.term, aka: t.data.aka })),
+  lang,
+);
+const seen = new Set<string>();
+const linked = Object.fromEntries(
+  facets.map((f) => [f, linker.link(d.body[f][lang], { self: term.id, seen })]),
+);
+
+// Mentions: entries whose prose names this term but that aren't otherwise related (SPEC §6).
+const related = new Set(relations.map((r) => r.target.id));
+const mentionedIn = graph.nodes.filter(
+  (n) => n.id !== term.id && n.mentions.includes(term.id) && !related.has(n.id),
+);
 const aka = d.aka[lang];
 ---
 
@@ -109,7 +128,9 @@ const aka = d.aka[lang];
           facets.map((f) => (
             <div>
               <h2 class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">{ui[f]}</h2>
-              <p class="text-neutral-200">{d.body[f][lang]}</p>
+              <p class="text-neutral-200">
+                <Prose segments={linked[f]} lang={lang} />
+              </p>
             </div>
           ))
         }
@@ -117,7 +138,7 @@ const aka = d.aka[lang];
 
       {
         learnFirst.length > 0 && (
-          <section class="mt-10">
+          <section class="mt-10" id="learn-first">
             <h2 class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">{ui.learnFirst}</h2>
             <p class="mb-2 text-sm text-neutral-500">{ui.learnFirstIntro}</p>
             <ol class="flex flex-wrap items-center gap-1 text-sm">
@@ -198,6 +219,26 @@ const aka = d.aka[lang];
           }
         </ul>
       </div>
+      {
+        mentionedIn.length > 0 && (
+          <section class="mt-8">
+            <h2 class="mb-2 text-xs tracking-widest text-neutral-500 uppercase">
+              {ui.mentionedIn}
+            </h2>
+            <div class="flex flex-wrap gap-2">
+              {mentionedIn.map((n) => (
+                <a
+                  class="rounded border border-dashed border-neutral-800 px-2 py-1 text-sm text-neutral-400 hover:border-neutral-500"
+                  href={termUrl(lang, n.id)}
+                >
+                  {n.term[lang]}
+                </a>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
       <section class="mt-10 space-y-5 rounded border border-neutral-800 p-4">
         <h2 class="text-xs tracking-widest text-neutral-500 uppercase">{ui.checkYourself}</h2>
         <KnowledgeStatus client:only="preact" termId={term.id} ui={{ ...ui }} />

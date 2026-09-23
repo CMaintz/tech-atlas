@@ -74,6 +74,20 @@ export default function Explorer(props: Props) {
         setGraph(g);
         setDomains(new Set(g.nodes.flatMap((n) => n.domain)));
         const focus = new URLSearchParams(window.location.search).get('focus');
+        const params = new URLSearchParams(window.location.search);
+        const a = params.get('from');
+        const b = params.get('to');
+        const nodeOf = (id: string | null) => g.nodes.find((n) => n.id === id);
+        const na = nodeOf(a);
+        const nb = nodeOf(b);
+        if (na && nb) {
+          // Arriving from a search intent: show the route between the two terms.
+          const path = shortestPath(g, na.id, nb.id);
+          setFrom(na.term[lang]);
+          setTo(nb.term[lang]);
+          setHighlight(path ?? []);
+          setRouteMsg(path ? path.map((id) => nodeOf(id)!.term[lang]).join(' → ') : ui.noRoute);
+        }
         if (focus && g.nodes.some((n) => n.id === focus)) {
           // Arriving from a term page: start at the focal term and its direct edges.
           setSelected(focus);

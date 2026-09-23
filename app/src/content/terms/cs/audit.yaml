@@ -2,7 +2,7 @@ term:
   en: Audit logging
   da: Audit-logning
 aka:
-  en: [audit trail, security log]
+  en: [audit log, audit trail, security log]
   da: [revisionsspor, auditlog, sikkerhedslog]
 domain: [cs]
 cluster: os
