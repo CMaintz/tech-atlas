@@ -14,8 +14,8 @@ summary:
   da: En skrevet adresse, der fortæller, hvor noget ligger på internettet, og hvordan man når frem til det, fx en webside eller en fil.
 body:
   formal:
-    en: A text string with fixed parts in a fixed order — the method to use, such as https, then the host name, an optional port, a path, an optional query and an optional fragment — that together point to one thing on a network.
-    da: En tekststreng med faste dele i fast rækkefølge — metoden, fx https, derefter værtsnavnet, en valgfri port, en sti, en valgfri forespørgsel og et valgfrit fragment — som tilsammen peger på én ting på et netværk.
+    en: A text string with fixed parts in a fixed order — the protocol to use, such as https, then the host name, an optional port, a path, an optional query and an optional fragment — that together point to one thing on a network.
+    da: En tekststreng med faste dele i fast rækkefølge — protokollen, fx https, derefter værtsnavnet, en valgfri port, en sti, en valgfri forespørgsel og et valgfrit fragment — som tilsammen peger på én ting på et netværk.
   plain:
     en: Like a postal address with a delivery note — the town and street get you to the building, and the rest says which flat and which letter box.
     da: Som en postadresse med en leveringsbesked — by og gade fører dig til bygningen, og resten siger, hvilken lejlighed og hvilken postkasse.

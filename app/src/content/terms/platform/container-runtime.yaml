@@ -26,8 +26,7 @@ body:
     da: Det er runtimen, der holder hver container adskilt fra værten, så en fejl i den kan lade kode bryde ud af alle containere på maskinen på én gang.
 edges:
   requires: [container, container-image, cs/kernel]
-  part-of: [kubernetes]
-  used-with: [docker]
+  used-with: [docker, kubernetes]
 sources:
   - title: Kubernetes Documentation — Container Runtimes
     url: https://kubernetes.io/docs/setup/production-environment/container-runtimes/

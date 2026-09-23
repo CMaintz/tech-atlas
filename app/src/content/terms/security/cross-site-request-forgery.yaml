@@ -41,6 +41,13 @@ edges:
         da: XSS kører angriberens script inde på det betroede site; CSRF kører intet dér og låner kun brugerens login til at sende én forespørgsel udefra.
       strength: primary
       confidence: high
+  used-with:
+    - to: same-origin-policy
+      why:
+        en: The browser rule does not stop the forged request from being sent, but it keeps the attacker's page from reading a CSRF token, which is what lets that defence work.
+        da: Browserreglen forhindrer ikke, at den forfalskede forespørgsel bliver sendt, men den forhindrer angriberens side i at læse et CSRF-token, og det er det, der får det forsvar til at virke.
+      strength: minor
+      confidence: high
 sources:
   - title: OWASP — Cross Site Request Forgery (CSRF)
     tier: reference

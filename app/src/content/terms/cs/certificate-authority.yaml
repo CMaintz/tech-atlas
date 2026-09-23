@@ -3,7 +3,7 @@ term:
   da: Certifikatudsteder (CA)
 aka:
   en: [certification authority]
-  da: [certificeringsmyndighed]
+  da: []
 domain: [cs]
 cluster: cryptography
 layer: theory

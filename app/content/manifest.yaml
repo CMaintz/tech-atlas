@@ -383,6 +383,9 @@ security:
     - id: cross-site-request-forgery
       en: Cross-site request forgery (CSRF)
       da: Cross-site request forgery (CSRF)
+    - id: csrf-token
+      en: CSRF token
+      da: CSRF-token
   security-operations:
     - id: alert-triage
       en: Alert triage

@@ -14,8 +14,8 @@ summary:
   da: Et tjek ved opstart, der kun lader en computer køre opstartssoftware og en kerne med en betroet digital signatur.
 body:
   formal:
-    en: A feature of the machine's built-in start-up software that checks the digital signature of each piece of code loaded before the operating system — boot loader, kernel and drivers — against keys stored in the machine, and stops if any check fails.
-    da: En funktion i maskinens indbyggede opstartssoftware, der tjekker den digitale signatur på hvert stykke kode, som indlæses før styresystemet — opstartsprogram, kerne og drivere — mod nøgler gemt i maskinen, og stopper, hvis et tjek fejler.
+    en: A chain of checks at start-up — the machine's built-in start-up software checks the digital signature of the start-up program and its own add-on drivers against keys stored in the machine, and that signed start-up program then checks the kernel before handing over; any failed check stops the start.
+    da: En kæde af tjek ved opstart — maskinens indbyggede opstartssoftware tjekker den digitale signatur på opstartsprogrammet og sine egne tilføjede drivere mod nøgler gemt i maskinen, og det signerede opstartsprogram tjekker derefter kernen, før det overlader styringen; et fejlet tjek stopper opstarten.
   plain:
     en: Like a guard at the factory gate who checks every driver's badge before the working day starts, so nobody can slip in while the lights are still off.
     da: Som en vagt ved fabriksporten, der tjekker hver chaufførs adgangskort, før arbejdsdagen går i gang, så ingen kan snige sig ind, mens lyset endnu er slukket.
@@ -44,8 +44,8 @@ sources:
     url: https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/oem-secure-boot
     tier: official-doc
     publisher: Microsoft
-  - title: NIST SP 800-147 — BIOS Protection Guidelines
-    url: https://csrc.nist.gov/pubs/sp/800/147/final
+  - title: NIST SP 800-193 — Platform Firmware Resiliency Guidelines
+    url: https://csrc.nist.gov/pubs/sp/800/193/final
     tier: standard
     publisher: NIST
 draft: true

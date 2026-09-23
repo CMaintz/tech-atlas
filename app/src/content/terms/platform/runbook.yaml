@@ -2,8 +2,8 @@ term:
   en: Runbook
   da: Runbook
 aka:
-  en: [playbook]
-  da: [playbook, driftsvejledning]
+  en: []
+  da: [driftsvejledning]
 domain: [platform]
 cluster: observability
 layer: process

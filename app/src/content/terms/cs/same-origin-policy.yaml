@@ -14,8 +14,8 @@ summary:
   da: En browserregel, der forhindrer en side fra ét site i at læse data, som tilhører et andet site åbent i samme browser.
 body:
   formal:
-    en: A rule built into every web browser that lets a script read content only from its own origin — the same method, host name and port in the URL; it may still send requests to other origins, but cannot read their replies unless they allow it.
-    da: En regel, der er bygget ind i alle webbrowsere, og som kun lader et script læse indhold fra sin egen oprindelse — samme metode, værtsnavn og port i URL'en; det må stadig sende forespørgsler til andre oprindelser, men kan ikke læse svarene, medmindre de tillader det.
+    en: A rule built into every web browser that lets a script read content only from its own origin — the same protocol (such as https), host name and port in the URL; it may still send requests to other origins, but cannot read their replies unless they allow it.
+    da: En regel, der er bygget ind i alle webbrowsere, og som kun lader et script læse indhold fra sin egen oprindelse — samme protokol (fx https), værtsnavn og port i URL'en; det må stadig sende forespørgsler til andre oprindelser, men kan ikke læse svarene, medmindre de tillader det.
   plain:
     en: Like hotel rooms on one key card system — your card works for your own room, and you can knock on any door, but you cannot walk in and read what lies on the next guest's desk.
     da: Som hotelværelser med nøglekort — dit kort virker til dit eget værelse, og du kan banke på alle døre, men du kan ikke gå ind og læse, hvad der ligger på næste gæsts skrivebord.
@@ -27,13 +27,6 @@ body:
     da: Uden den kunne enhver side læse alt, hvad du ser på alle andre sites; men den stopper ikke, at forespørgsler bliver sendt, og derfor virker CSRF stadig, og XSS kommer uden om den ved at køre inde på selve det betroede site.
 edges:
   requires: [web-browser, url]
-  mitigates:
-    - to: cross-site-request-forgery
-      why:
-        en: It does not block the forged request itself, but it keeps the attacker's page from reading a secret value from the target site, which is what makes token-based defences work.
-        da: Den blokerer ikke selve den forfalskede forespørgsel, men forhindrer angriberens side i at læse en hemmelig værdi fra målsitet, og det er det, der får token-baserede forsvar til at virke.
-      strength: minor
-      confidence: high
 sources:
   - title: MDN Web Docs — Same-origin policy
     tier: official-doc

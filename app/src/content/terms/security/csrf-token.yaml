@@ -1,0 +1,43 @@
+term:
+  en: CSRF token
+  da: CSRF-token
+aka:
+  en: [anti-CSRF token, synchronizer token]
+  da: [anti-CSRF-token]
+domain: [security]
+cluster: application-security
+layer: application
+status: current
+summary:
+  en: A secret, hard-to-guess value a site puts in its own forms and checks on every change, so requests started by other sites fail.
+  da: En hemmelig værdi, som et site lægger i sine egne formularer og tjekker ved hver ændring, så forespørgsler fra andre sites fejler.
+body:
+  formal:
+    en: A random value the server ties to the user's session and places in each page or form it sends; any request that changes data must return the value, and the server refuses requests where it is missing or wrong.
+    da: En tilfældig værdi, som serveren knytter til brugerens session og lægger i hver side eller formular, den sender; enhver forespørgsel, der ændrer data, skal sende værdien tilbage, og serveren afviser forespørgsler, hvor den mangler eller er forkert.
+  plain:
+    en: Like a shop that stamps a one-off number on every order form it hands out, and only accepts forms that come back with the number it gave you.
+    da: Som en butik, der stempler et engangsnummer på hver bestillingsseddel, den udleverer, og kun godtager sedler, der kommer tilbage med det nummer, den gav dig.
+  inPractice:
+    en: An online bank adds a hidden field with a fresh value to its transfer form; a forged transfer sent from another site carries the login cookie but not the value, so the bank refuses it.
+    da: En netbank tilføjer et skjult felt med en ny værdi til sin overførselsformular; en forfalsket overførsel sendt fra et andet site har login-cookien med, men ikke værdien, så banken afviser den.
+  whyItMatters:
+    en: The browser sends cookies by itself, so a cookie alone cannot prove the user meant to act; a value that only the site's own pages can read closes that gap.
+    da: Browseren sender selv cookies med, så en cookie alene kan ikke bevise, at brugeren ville handle; en værdi, som kun sitets egne sider kan læse, lukker det hul.
+edges:
+  requires: [session, web-application]
+  mitigates:
+    - to: cross-site-request-forgery
+      why:
+        en: A forged request from another site cannot include the value, because that site cannot read the target site's pages.
+        da: En forfalsket forespørgsel fra et andet site kan ikke have værdien med, fordi det site ikke kan læse målsitets sider.
+      strength: primary
+      confidence: high
+  used-with:
+    - same-origin-policy
+sources:
+  - title: OWASP Cheat Sheet Series — Cross-Site Request Forgery Prevention
+    tier: reference
+    publisher: OWASP
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html
+draft: true
