@@ -310,14 +310,24 @@ language**.
 
 ---
 
-## 9. Learning (deferred, but earned by the data)
+## 9. Learning (built — generated from the data)
 
-Not built in v1. Recorded here because the schema is designed so it comes almost for
-free later: recall questions per Term in a sibling `<id>.quiz.yaml`; cloze over the
-`summary`; "which of these contrasts with X"; "what must you know before X" —
-**all generatable from edges**, which is the argument for the disciplined edge model.
-Spaced repetition over a Cluster is the version worth building. A personal knowledge
-map ("mark what you know → get recommended next concepts") is the phase-after.
+Built after v1.0 (A34–A37) exactly as the data model intended: nothing is hand-authored.
+
+- **Quizzes generated from edges** — on every term page ("Check yourself") and in
+  study sessions (`/[lang]/study/`) scoped by cluster: definition → term, "easily
+  confused with" (`contrasts-with`), "what comes before" (`requires`), and "what does
+  X protect against / require / take advantage of" (`mitigates` / `mandates` /
+  `exploits`). Wrong options come from the same cluster or domain and never include
+  the question term, any valid answer, or their structural relatives and alternatives.
+- **Spaced repetition** — Leitner boxes (review after 0/1/3/7/16/35 days). A right
+  answer promotes a term only when it is new or due; a wrong answer resets it.
+  Sessions put due reviews first.
+- **Personal knowledge map** — mark each term Know / Familiar / Learning / Don't
+  understand; the Explorer can colour by it; the study hub recommends terms whose
+  prerequisites you already know.
+- **Local-first** — all learner state lives in the browser (A24). Accounts and sync
+  arrive only with a backend (ADR-0008).
 
 ---
 
@@ -347,11 +357,12 @@ map ("mark what you know → get recommended next concepts") is the phase-after.
 | 4 | Complete both clusters (~105 terms); Articles for the ~dozen terms that need them; Compare view. | Coverage map has no cluster under ten. |
 | 5 | 3D mode (Depth axis), Paths, era view. | — |
 
-**Deferred past v1 (explicit non-goals for now):** learning system (quizzes,
-flashcards, spaced repetition, personal knowledge map); AI tutor; semantic/vector
-search; a database; user accounts & progress; the `ai` and `platform` domains;
-graph-algorithm features (BFS/shortest-path/centrality as user tools). Each is
-enabled by, not blocked on, the v1 data model.
+**Built after v1.0:** Articles, the Explorer (2D/3D, routes, progressive neighbourhoods),
+"What to learn first" paths, and the learning system (§9) — see `AUTONOMOUS_DECISIONS.md`.
+
+**Still deferred:** AI tutor; semantic/vector search; a database; user accounts &
+cross-device progress; the `ai` and `platform` domains; era view (no eras authored);
+centrality/community features. Each is enabled by, not blocked on, the data model.
 
 ---
 

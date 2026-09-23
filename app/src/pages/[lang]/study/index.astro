@@ -1,0 +1,28 @@
+---
+import Base from '../../../layouts/Base.astro';
+import StudyHub from '../../../components/StudyHub';
+import { CLUSTER_LABELS, LANGS, UI, url, type Lang } from '../../../lib/site';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const ui = UI[lang];
+const clusterLabels = Object.fromEntries(
+  Object.entries(CLUSTER_LABELS).map(([k, v]) => [k, v[lang]]),
+);
+---
+
+<Base lang={lang} title={ui.study}>
+  <h1 class="mb-2 text-3xl font-semibold">{ui.study}</h1>
+  <p class="mb-10 text-neutral-400">{ui.studyIntro}</p>
+  <StudyHub
+    client:only="preact"
+    lang={lang}
+    graphUrl={url('graph.json')}
+    termBase={url(`${lang}/terms/`)}
+    ui={{ ...ui }}
+    clusterLabels={clusterLabels}
+  />
+</Base>

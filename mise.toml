@@ -18,9 +18,9 @@ dir = "app"
 run = "npm run check"
 
 [tasks.test]
-description = "Smoke test: the full production build (lint -> derive graph -> astro build). No unit tests yet."
+description = "Unit tests (vitest), then the full production build as a smoke test."
 dir = "app"
-run = "npm run build"
+run = ["npm test", "npm run build"]
 
 [tasks.audit]
 description = "Dependency vulnerabilities."
