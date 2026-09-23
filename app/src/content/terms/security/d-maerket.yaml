@@ -8,6 +8,7 @@ domain: [security]
 cluster: compliance
 layer: governance
 status: current
+era: 2019
 summary:
   en: A Danish label for responsible digital behaviour and cybersecurity, with a free self-check tool.
   da: En dansk mærkningsordning for ansvarlig digital adfærd og cybersikkerhed med et gratis selvevalueringsværktøj.

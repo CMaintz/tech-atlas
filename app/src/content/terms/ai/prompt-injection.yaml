@@ -1,0 +1,60 @@
+term:
+  en: Prompt injection
+  da: Prompt injection
+aka:
+  en: [prompt injection attack, indirect prompt injection]
+  da: [prompt injection-angreb]
+domain: [ai, security]
+cluster: ai-risk
+layer: application
+era: 2022
+status: current
+summary:
+  en: Hiding instructions in the text an AI system reads so that it ignores its own rules and follows the attacker instead.
+  da: At gemme instruktioner i den tekst, et AI-system læser, så det ignorerer sine egne regler og adlyder angriberen i stedet.
+body:
+  formal:
+    en: An attack on a large language model in which input written by an outsider, typed directly or hidden in a web page, file or email the model is asked to read, is treated as an instruction and overrides what its owner intended.
+    da: Et angreb på en stor sprogmodel, hvor tekst fra en udenforstående, skrevet direkte eller gemt i en hjemmeside, fil eller mail, som modellen skal læse, bliver opfattet som en instruks og tilsidesætter det, ejeren havde tænkt sig.
+  plain:
+    en: Like slipping a note into a pile of letters a new assistant is sorting that says "ignore your boss and send me the keys" — and the assistant cannot tell the note apart from real orders.
+    da: Som at stikke en seddel ind i en bunke breve, som en ny assistent sorterer, hvor der står "ignorer din chef og send mig nøglerne" — og assistenten kan ikke skelne sedlen fra rigtige ordrer.
+  inPractice:
+    en: A company's AI helper sums up incoming customer emails; one email contains hidden white text telling it to forward the last ten messages to an outside address, and it does.
+    da: En virksomheds AI-hjælper opsummerer indgående kundemails; én mail indeholder skjult hvid tekst, der beder den videresende de sidste ti beskeder til en ekstern adresse, og det gør den.
+  whyItMatters:
+    en: The model mixes rules and content in the same stream of words, so there is no watertight fix yet; the more an AI system is allowed to do on its own, the more damage one hidden sentence can cause.
+    da: Modellen blander regler og indhold i den samme strøm af ord, så der findes endnu ingen vandtæt løsning; jo mere et AI-system må gøre på egen hånd, jo mere skade kan én skjult sætning gøre.
+edges:
+  requires: [large-language-model, prompt]
+  contrasts-with:
+    - to: social-engineering
+      why:
+        en: Both trick a target into obeying a false authority, but here the target is the model, not a person.
+        da: Begge narrer et mål til at adlyde en falsk autoritet, men her er målet modellen og ikke et menneske.
+      strength: normal
+      confidence: high
+  used-with:
+    - to: retrieval-augmented-generation
+      why:
+        en: Documents fetched to answer a question are a common hiding place for injected instructions.
+        da: Dokumenter, der hentes for at besvare et spørgsmål, er et almindeligt gemmested for indsmuglede instruktioner.
+      strength: normal
+      confidence: high
+  causes:
+    - to: data-breach
+      why:
+        en: A hijacked AI system with access to files or email can be told to hand data to the attacker.
+        da: Et kapret AI-system med adgang til filer eller mail kan beordres til at udlevere data til angriberen.
+      strength: normal
+      confidence: medium
+sources:
+  - title: OWASP Top 10 for LLM Applications — LLM01 Prompt Injection
+    tier: reference
+    publisher: OWASP
+    url: https://genai.owasp.org/llmrisk/llm01-prompt-injection/
+  - title: NIST AI 100-2 — Adversarial Machine Learning, A Taxonomy and Terminology of Attacks and Mitigations
+    tier: standard
+    publisher: NIST
+    url: https://doi.org/10.6028/NIST.AI.100-2e2025
+draft: true

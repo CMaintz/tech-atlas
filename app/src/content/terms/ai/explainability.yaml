@@ -1,0 +1,56 @@
+term:
+  en: Explainability
+  da: Forklarlighed
+aka:
+  en: [explainable AI, XAI, interpretability]
+  da: [forklarbar AI, XAI]
+domain: [ai]
+cluster: ai-risk
+layer: model
+status: current
+summary:
+  en: How well people can understand why an AI system reached a particular result.
+  da: Hvor godt mennesker kan forstå, hvorfor et AI-system nåede frem til et bestemt resultat.
+body:
+  formal:
+    en: The degree to which the reasons behind a model's output can be shown in terms a person can follow, for example which inputs weighed most, so that the result can be checked, challenged or corrected.
+    da: I hvilken grad grundene bag en models resultat kan vises på en måde, et menneske kan følge, for eksempel hvilke oplysninger der vejede tungest, så resultatet kan kontrolleres, anfægtes eller rettes.
+  plain:
+    en: Like a doctor who does not just say "take these pills" but tells you what they saw in your tests and why that led to the choice.
+    da: Som en læge, der ikke bare siger "tag de her piller", men fortæller, hvad hun så i dine prøver, og hvorfor det førte til valget.
+  inPractice:
+    en: A job applicant is turned down by a screening tool and asks why; the company can show that missing certificates, not age or gender, drove the score.
+    da: En jobansøger bliver fravalgt af et screeningsværktøj og spørger hvorfor; virksomheden kan vise, at manglende certifikater og ikke alder eller køn var årsag til scoren.
+  whyItMatters:
+    en: Without it, nobody can spot hidden unfairness, answer an auditor or give an affected person a real reason, so trust and accountability break down.
+    da: Uden den kan ingen opdage skjult uretfærdighed, svare en revisor eller give en berørt person en reel begrundelse, og så bryder tillid og ansvarlighed sammen.
+edges:
+  requires: [machine-learning]
+  mitigates:
+    - to: ai-bias
+      why:
+        en: Seeing which inputs drive a result makes unfair patterns visible so they can be fixed.
+        da: Når man kan se, hvilke oplysninger der styrer et resultat, bliver uretfærdige mønstre synlige, så de kan rettes.
+      strength: normal
+      confidence: medium
+  part-of:
+    - to: ai-governance
+      why:
+        en: Frameworks such as the NIST AI RMF treat being explainable as one of the qualities governance must secure.
+        da: Rammeværker som NIST AI RMF ser forklarlighed som en af de egenskaber, governance skal sikre.
+      strength: normal
+      confidence: medium
+sources:
+  - title: NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+    tier: standard
+    publisher: NIST
+    url: https://doi.org/10.6028/NIST.AI.100-1
+  - title: NIST IR 8312 — Four Principles of Explainable Artificial Intelligence
+    tier: standard
+    publisher: NIST
+    url: https://doi.org/10.6028/NIST.IR.8312
+  - title: Regulation (EU) 2024/1689 (AI Act), Articles 13 and 86
+    tier: standard
+    publisher: European Union
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+draft: true

@@ -8,6 +8,7 @@ domain: [security]
 cluster: compliance
 layer: governance
 status: current
+era: 2022
 summary:
   en: The two groups of organisations NIS2 covers, sorted by sector and size, with stricter oversight for the essential group.
   da: De to grupper af organisationer, NIS2 omfatter, opdelt efter sektor og størrelse, med strengere tilsyn for de væsentlige.

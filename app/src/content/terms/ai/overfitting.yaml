@@ -1,0 +1,46 @@
+term:
+  en: Overfitting
+  da: Overtilpasning (overfitting)
+aka:
+  en: []
+  da: [overfitting]
+domain: [ai]
+cluster: ml-fundamentals
+layer: training
+status: current
+summary:
+  en: When a model learns its training examples by heart, including their noise, and then does badly on new cases it has not seen.
+  da: Når en model lærer sine træningseksempler udenad, inklusive tilfældig støj, og derefter klarer sig dårligt på nye tilfælde.
+body:
+  formal:
+    en: A failure of model training in which a model fits the training data too closely, so it scores well on that data but poorly on new data; found by testing on data held back from training.
+    da: En fejl i modeltræningen, hvor en model tilpasser sig træningsdata for tæt, så den scorer godt på de data, men dårligt på nye; opdages ved at teste på data, der er holdt uden for træningen.
+  plain:
+    en: Like a student who memorizes last year's exam answers word for word and then fails when the questions are slightly changed.
+    da: Som en studerende, der lærer sidste års eksamenssvar udenad ord for ord og så dumper, når spørgsmålene er en smule ændret.
+  inPractice:
+    en: A model that spotted fraud perfectly in testing misses most real fraud once live, because it had learned details unique to the old examples.
+    da: En model, der fandt svindel perfekt under test, overser det meste rigtige svindel i drift, fordi den havde lært detaljer, der kun fandtes i de gamle eksempler.
+  whyItMatters:
+    en: It makes a model look better on paper than in real use, and a model that memorizes can later repeat private details from its training data.
+    da: Det får en model til at se bedre ud på papiret end i virkeligheden, og en model, der lærer udenad, kan senere gentage private oplysninger fra sine træningsdata.
+edges:
+  requires: [model-training, training-data]
+  causes:
+    - to: data-breach
+      why:
+        en: A model that has memorized its examples can be made to repeat personal data from them word for word.
+        da: En model, der har lært sine eksempler udenad, kan bringes til at gentage persondata fra dem ordret.
+      strength: minor
+      confidence: medium
+sources:
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning'
+    tier: textbook
+    publisher: MIT Press
+  - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    tier: textbook
+    publisher: Pearson
+  - title: Carlini et al. (2021), Extracting Training Data from Large Language Models
+    tier: reference
+    publisher: USENIX Security Symposium
+draft: true

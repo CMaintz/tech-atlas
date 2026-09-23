@@ -8,6 +8,7 @@ domain: [cs]
 cluster: networking
 layer: network
 status: current
+era: 1983
 summary:
   en: The worldwide network of networks that lets almost any connected device reach almost any other.
   da: Det verdensomspændende netværk af netværk, der lader næsten enhver tilsluttet enhed nå næsten enhver anden.

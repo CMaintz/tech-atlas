@@ -1,0 +1,39 @@
+term:
+  en: Container image
+  da: Container-image
+aka:
+  en: []
+  da: []
+domain: [platform]
+cluster: containers
+layer: infrastructure
+status: current
+summary:
+  en: The frozen, read-only package of a program and its files from which identical containers are started.
+  da: Den frosne, skrivebeskyttede pakke med et program og dets filer, som ens containere startes ud fra.
+body:
+  formal:
+    en: A read-only bundle of stacked file layers plus settings — which program to start, which ports it listens on — that is stored in a shared library of images and used as the pattern for starting containers.
+    da: En skrivebeskyttet pakke af lag med filer oven på hinanden plus indstillinger — hvilket program der skal startes, og hvilke porte det lytter på — som gemmes i et fælles bibliotek af images og bruges som skabelon til at starte containere.
+  plain:
+    en: Like a cake recipe with the ingredients already measured out — every cake baked from it comes out the same, and the recipe itself is never eaten.
+    da: Som en kageopskrift med ingredienserne allerede afvejet — hver kage bagt ud fra den bliver ens, og selve opskriften bliver aldrig spist.
+  inPractice:
+    en: Before an image is allowed into production, a pipeline scans it for known vulnerabilities and rejects one built on an old base with an unpatched library.
+    da: Før et image må komme i drift, scanner en pipeline det for kendte sårbarheder og afviser et, der er bygget på en gammel base med et upatchet bibliotek.
+  whyItMatters:
+    en: Every container inherits whatever is inside its image — including old flaws, hidden malware or forgotten passwords — so trusting the source of images is a supply chain question.
+    da: Hver container arver alt, hvad der ligger i dens image — også gamle fejl, skjult malware eller glemte adgangskoder — så tillid til, hvor images kommer fra, er et spørgsmål om forsyningskæden.
+edges:
+  requires: [container, file-system]
+  part-of: [software-supply-chain]
+  used-with: [sbom]
+sources:
+  - title: NIST SP 800-190 — Application Container Security Guide
+    tier: standard
+    publisher: NIST
+  - title: Docker Docs — What is an image?
+    url: https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-an-image/
+    tier: official-doc
+    publisher: Docker
+draft: true

@@ -8,6 +8,7 @@ domain: [cs]
 cluster: networking
 layer: network
 status: current
+era: 1983
 summary:
   en: The lookup system that turns names people can read, like example.com, into IP addresses.
   da: Det opslagssystem, der omsætter navne, mennesker kan læse, som example.com, til IP-adresser.

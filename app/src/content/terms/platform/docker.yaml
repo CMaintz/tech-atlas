@@ -1,0 +1,40 @@
+term:
+  en: Docker
+  da: Docker
+aka:
+  en: []
+  da: []
+domain: [platform]
+cluster: containers
+layer: infrastructure
+era: 2013
+status: current
+summary:
+  en: The popular tool that made containers easy — it builds container images, shares them and runs them with a few commands.
+  da: Det udbredte værktøj, der gjorde containere lette — det bygger container-images, deler dem og kører dem med få kommandoer.
+body:
+  formal:
+    en: A set of tools released in 2013 for building container images from a short recipe file, storing and fetching them from shared image libraries, and starting and stopping containers on a single host.
+    da: Et sæt værktøjer udgivet i 2013 til at bygge container-images ud fra en kort opskriftsfil, gemme og hente dem fra fælles image-biblioteker og starte og stoppe containere på en enkelt vært.
+  plain:
+    en: Like a standard shipping company for software — it packs the goods into the same kind of box every time and delivers them anywhere that accepts that box.
+    da: Som et fast rederi for software — det pakker varerne i den samme slags kasse hver gang og leverer dem overalt, hvor den kasse bliver modtaget.
+  inPractice:
+    en: A developer writes a short file listing the base image and the program's files, runs one build command, and hands the resulting image to operations to run on their servers.
+    da: En udvikler skriver en kort fil med base-image og programmets filer, kører én build-kommando og giver det færdige image til driften, som kører det på deres servere.
+  whyItMatters:
+    en: It is how most people first meet containers; by default its background service runs with full rights on the host, so access to it must be treated like admin access.
+    da: Det er sådan, de fleste først møder containere; som standard kører dets baggrundstjeneste med fulde rettigheder på værten, så adgang til den skal behandles som administratoradgang.
+edges:
+  implements: [container]
+  requires: [container-image]
+  used-with: [kubernetes]
+sources:
+  - title: Docker Docs — Docker overview
+    url: https://docs.docker.com/get-started/docker-overview/
+    tier: official-doc
+    publisher: Docker
+  - title: NIST SP 800-190 — Application Container Security Guide
+    tier: standard
+    publisher: NIST
+draft: true

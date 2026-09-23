@@ -1,0 +1,40 @@
+term:
+  en: Deep learning
+  da: Deep learning
+aka:
+  en: []
+  da: [dyb læring]
+domain: [ai]
+cluster: ml-fundamentals
+layer: model
+era: 2012
+status: current
+summary:
+  en: Machine learning that uses neural networks with many stacked layers, the approach behind modern image, speech and language tools.
+  da: Maskinlæring med neurale netværk i mange lag oven på hinanden — metoden bag moderne værktøjer til billeder, tale og sprog.
+body:
+  formal:
+    en: A kind of machine learning that trains neural networks with many layers, where each layer builds more general features from the output of the layer below, learned directly from raw data.
+    da: En form for maskinlæring, der træner neurale netværk med mange lag, hvor hvert lag bygger mere generelle træk ud fra laget nedenunder, lært direkte fra rå data.
+  plain:
+    en: Like a line of workers where the first notices edges, the next shapes, the next faces — each passes a richer picture up the line.
+    da: Som en række arbejdere, hvor den første ser kanter, den næste former og den næste ansigter — hver giver et rigere billede videre op ad rækken.
+  inPractice:
+    en: A phone unlocks by recognising its owner's face, using a deep learning model trained on millions of face images.
+    da: En telefon låses op ved at genkende ejerens ansigt med en deep learning-model, der er trænet på millioner af ansigtsbilleder.
+  whyItMatters:
+    en: It made AI far more capable after about 2012, but the models need huge amounts of data and computing power and are very hard to explain.
+    da: Det gjorde AI langt mere kraftfuld fra omkring 2012, men modellerne kræver enorme mængder data og regnekraft og er meget svære at forklare.
+edges:
+  kind-of: [machine-learning]
+  requires: [neural-network]
+sources:
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning'
+    tier: textbook
+    publisher: MIT Press
+  - title: Krizhevsky, Sutskever & Hinton (2012), ImageNet Classification with Deep Convolutional Neural Networks
+    tier: reference
+  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    tier: standard
+    publisher: ISO/IEC
+draft: true

@@ -1,0 +1,43 @@
+term:
+  en: Context window
+  da: Kontekstvindue
+aka:
+  en: [context length]
+  da: [kontekstlængde]
+domain: [ai]
+cluster: llm
+layer: inference
+status: current
+summary:
+  en: The most text, counted in tokens, that a language model can take in and keep in view at one time, including its own answer.
+  da: Den største mængde tekst, målt i tokens, som en sprogmodel kan tage ind og have for øje på én gang, inklusive sit eget svar.
+body:
+  formal:
+    en: The fixed limit on how many tokens a language model can handle in one go; the prompt, earlier turns of the chat, added documents and the answer must all fit inside it.
+    da: Den faste grænse for, hvor mange tokens en sprogmodel kan håndtere på én gang; prompten, tidligere dele af samtalen, tilføjede dokumenter og svaret skal alle være inden for den.
+  plain:
+    en: Like the size of a desk — everything the model is working on has to fit on it, and when it is full, something has to be cleared away to make room.
+    da: Som størrelsen på et skrivebord — alt, modellen arbejder med, skal kunne ligge på det, og når det er fuldt, må noget ryddes væk for at gøre plads.
+  inPractice:
+    en: In a very long chat, the assistant "forgets" rules set at the start, because the chat app cut the oldest messages to keep the rest inside the context window — the model itself only sees what it is sent.
+    da: I en meget lang samtale "glemmer" assistenten regler, der blev sat i starten, fordi chat-appen skar de ældste beskeder fra for at holde resten inden for kontekstvinduet — modellen ser kun det, den får sendt.
+  whyItMatters:
+    en: It limits how much a model can check at once, and whatever sits in the window — including text from an untrusted file — shapes the answer.
+    da: Det begrænser, hvor meget en model kan tjekke på én gang, og alt, hvad der ligger i vinduet — også tekst fra en fil, man ikke kan stole på — former svaret.
+edges:
+  requires: [token]
+  part-of: [large-language-model]
+  contrasts-with:
+    - to: training-data
+      why:
+        en: Text in the context window is only read for the current answer; training data shaped the model beforehand. A supplier may still keep chats and reuse them as training data later.
+        da: Tekst i kontekstvinduet læses kun til det aktuelle svar; træningsdata formede modellen på forhånd. En leverandør kan dog gemme samtaler og senere genbruge dem som træningsdata.
+      strength: primary
+      confidence: high
+sources:
+  - title: Vaswani et al. (2017), Attention Is All You Need
+    tier: reference
+  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile
+    tier: standard
+    publisher: NIST
+draft: true

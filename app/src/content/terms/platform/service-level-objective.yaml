@@ -1,0 +1,43 @@
+term:
+  en: Service level objective (SLO)
+  da: Serviceniveaumål (SLO)
+aka:
+  en: [SLO]
+  da: [SLO]
+domain: [platform]
+cluster: observability
+layer: process
+status: current
+summary:
+  en: An internal target for how well a service should work, such as 99.9% of requests answered within a second over 30 days.
+  da: Et internt mål for, hvor godt en tjeneste skal fungere, fx at 99,9 % af forespørgslerne besvares inden for et sekund over 30 dage.
+body:
+  formal:
+    en: A target value for a measured sign of service quality, such as the share of successful or fast requests, over a set time window; the gap to 100% is the error budget, and the SLO is kept stricter than any service level agreement, the contract promise to customers.
+    da: En målværdi for et målt tegn på servicekvalitet, fx andelen af vellykkede eller hurtige forespørgsler, over en fast periode; afstanden til 100 % er fejlbudgettet, og SLO'en holdes strengere end en eventuel SLA, det kontraktlige løfte til kunderne.
+  plain:
+    en: Like a bus company aiming for 98% of buses on time; the timetable it prints for passengers promises less, so it has room to spare before it owes anyone money.
+    da: Som et busselskab, der sigter efter, at 98 % af busserne kører til tiden; køreplanen, det lover passagererne, lover mindre, så der er luft, før det skylder nogen penge.
+  inPractice:
+    en: A team's SLO allows 43 minutes out of service a month; after a bad release uses 40 of them, they pause new features and spend the rest of the month on stability.
+    da: Et teams SLO tillader 43 minutters nedetid om måneden; efter en dårlig frigivelse har brugt 40 af dem, stopper de nye funktioner og bruger resten af måneden på stabilitet.
+  whyItMatters:
+    en: It turns availability from a vague wish into a number that guides choices between speed and safety, and gives early warning before the service level agreement in a supplier contract is broken.
+    da: Det gør tilgængelighed fra et vagt ønske til et tal, der styrer valget mellem hastighed og sikkerhed, og giver varsel, før SLA'en i en leverandørkontrakt bliver brudt.
+edges:
+  requires:
+    - metrics
+    - availability
+  used-with:
+    - to: supplier-management
+      why:
+        en: Supplier contracts carry SLAs, and internal SLOs are set stricter so the promise is kept.
+        da: Leverandørkontrakter indeholder SLA'er, og interne SLO'er sættes strengere, så løftet holdes.
+      strength: normal
+      confidence: medium
+sources:
+  - title: Google SRE book — Chapter 4, Service Level Objectives
+    url: https://sre.google/sre-book/service-level-objectives/
+    tier: reference
+    publisher: Google
+draft: true

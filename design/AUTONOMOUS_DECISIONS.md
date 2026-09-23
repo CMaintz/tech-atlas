@@ -89,3 +89,23 @@ Closed Vocabulary lint (E1) + full rule set; GitHub Pages deploy.
 | A40 | **Review queue** (`/[lang]/review/`) lists every draft by cluster with an "Edit on GitHub" link; footer links it | 150 AI-drafted entries need a human pass; this makes the W5 draft ratio actionable. |
 
 Add rows as further solo decisions are made.
+
+## Batch 4 (AI + platform) decisions
+
+- **`era` = the year a term entered common use** (mainstream adoption), not the year of
+  first invention or publication — e.g. MFA is dated 2011; the GDPR controller/processor
+  roles are dated to Directive 95/46/EC, where they originate.
+- **No `security` domain on ML/LLM terms.** Their security relevance is carried by edges
+  (prompt injection, data poisoning, deepfakes, AI risk), so the domain tag stays honest.
+- **`eu-ai-act` and `ai-governance` have no `layer`** — they are regulation and management
+  practice, not a layer of an AI system.
+- **Proper nouns dropped from English prose to satisfy Closed Vocabulary (E1)** — e.g. the
+  EU Cyber Resilience Act, NTIA, and "Kubernetes" in the GitOps prose; they stay in
+  `sources`. English has no compound splitting, so such names cannot pass E1 otherwise.
+- **Auto-linking: a stop-list for everyday words plus domain-aware collision resolution**
+  (PR #6) — a name shared by two terms links to the one in the page's own domain.
+- **Danish "mod" is a compare separator only after "sammenlign"** (PR #6) — bare "mod"
+  is an everyday word and otherwise produced false compare intents.
+- **EU AI Act dates follow the Digital Omnibus on AI (Regulation (EU) 2026/1744)**: Annex
+  III high-risk duties apply from 2 December 2027, Annex I (AI built into products) from
+  2 August 2028; Article 50 openness duties still from 2 August 2026.

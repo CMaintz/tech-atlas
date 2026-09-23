@@ -8,6 +8,7 @@ domain: [security]
 cluster: compliance
 layer: governance
 status: current
+era: 1950
 summary:
   en: A repeating four-step loop — Plan, Do, Check, Act — for getting a little better each round.
   da: En gentagen firetrins-cyklus — Plan, Do, Check, Act — for at blive lidt bedre for hver runde.

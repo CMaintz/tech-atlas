@@ -8,6 +8,7 @@ domain: [cs]
 cluster: networking
 layer: network
 status: current
+era: 1965
 summary:
   en: A small, labelled chunk of data that travels across a network on its own and is put back together at the end.
   da: En lille, mærket bid data, der rejser selvstændigt over et netværk og samles igen ved modtageren.

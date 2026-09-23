@@ -33,6 +33,7 @@ edges:
         da: Politikken kræver typisk, at information inddeles efter følsomhed, så hver slags får den rette beskyttelse.
       strength: normal
       confidence: medium
+  mitigates: [shadow-ai]
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

@@ -8,6 +8,7 @@ domain: [security]
 cluster: compliance
 layer: data
 status: current
+era: 2016
 summary:
   en: The EU law that protects personal data and gives people rights over how it is used.
   da: EU's databeskyttelseslov, der beskytter personoplysninger og giver folk rettigheder over, hvordan de bruges.
@@ -53,6 +54,7 @@ edges:
         da: GDPR beskytter menneskers persondata; NIS2 beskytter de tjenester, samfundet er afhængigt af.
       strength: primary
       confidence: high
+  used-with: [training-data]
 article:
   en: src/content/articles/security/gdpr.en.md
   da: src/content/articles/security/gdpr.da.md

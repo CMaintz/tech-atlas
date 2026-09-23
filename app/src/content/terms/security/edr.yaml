@@ -8,6 +8,7 @@ domain: [security]
 cluster: controls
 layer: host
 status: current
+era: 2013
 summary:
   en: Software on each computer and phone that watches for signs of an attack and can stop it on the spot.
   da: Software på hver computer og telefon, der holder øje med tegn på angreb og kan stoppe dem på stedet.

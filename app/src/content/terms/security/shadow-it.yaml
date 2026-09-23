@@ -8,6 +8,7 @@ domain: [security]
 cluster: awareness
 layer: people
 status: current
+era: 2012
 summary:
   en: Apps and tools staff use for work without the IT department knowing about or approving them.
   da: Apps og værktøjer, som medarbejdere bruger i arbejdet, uden at IT-afdelingen kender til eller har godkendt dem.

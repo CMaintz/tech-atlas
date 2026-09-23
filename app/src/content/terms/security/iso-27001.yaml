@@ -8,6 +8,7 @@ domain: [security]
 cluster: compliance
 layer: governance
 status: current
+era: 2005
 summary:
   en: The international standard for running an information security management system that can be certified.
   da: Den internationale standard for at drive et ledelsessystem for informationssikkerhed, som kan certificeres.

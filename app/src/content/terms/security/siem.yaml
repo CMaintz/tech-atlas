@@ -7,6 +7,7 @@ aka:
 domain: [security]
 cluster: controls
 status: current
+era: 2005
 summary:
   en: A system that gathers logs from across the organisation in one place and raises an alarm when something looks wrong.
   da: Et system, der samler logs fra hele organisationen ét sted og slår alarm, når noget ser forkert ud.

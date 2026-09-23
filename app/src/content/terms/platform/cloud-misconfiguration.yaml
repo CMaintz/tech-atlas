@@ -1,0 +1,44 @@
+term:
+  en: Cloud misconfiguration
+  da: Fejlkonfiguration i skyen
+aka:
+  en: []
+  da: []
+domain: [platform, security]
+cluster: cloud
+layer: infrastructure
+status: current
+summary:
+  en: A wrong or careless setting in a cloud service — like storage left open to everyone — that exposes data or systems.
+  da: En forkert eller skødesløs indstilling i en cloudtjeneste — fx lager, der står åbent for alle — som blotlægger data eller systemer.
+body:
+  formal:
+    en: A weakness created not by a flaw in the provider's software but by the customer's own choice of settings, such as public access to storage, too broad permissions, disabled logging or open network ports.
+    da: En sårbarhed, der ikke skyldes en fejl i udbyderens software, men kundens egne valg af indstillinger, fx offentlig adgang til lager, for brede rettigheder, slået logning fra eller åbne netværksporte.
+  plain:
+    en: Like a sturdy safe bought for the office but left with its door standing open — the safe works fine; the way it was set up does not.
+    da: Som et solidt pengeskab, der er købt til kontoret, men står med døren på klem — skabet virker fint; det er måden, det er sat op på, der ikke gør.
+  inPractice:
+    en: A developer makes a storage bucket public to share a test file, forgets to change it back, and months later customer records in it are found by strangers searching the internet.
+    da: En udvikler gør en lagerbeholder offentlig for at dele en testfil, glemmer at lave det om, og måneder senere finder fremmede kundedata i den ved at søge på internettet.
+  whyItMatters:
+    en: Cloud settings can be changed in seconds by many people, so one slip can expose large amounts of data — and it is the customer's side of the shared responsibility.
+    da: Cloudindstillinger kan ændres på sekunder af mange personer, så én fejl kan blotlægge store mængder data — og det ligger på kundens side af det delte ansvar.
+edges:
+  kind-of: [vulnerability]
+  requires: [cloud-computing, permission]
+  causes:
+    - to: data-breach
+      why:
+        en: Storage or services left open by mistake are a common way personal data ends up in the wrong hands.
+        da: Lager eller tjenester, der ved en fejl står åbne, er en almindelig måde, hvorpå persondata havner i de forkerte hænder.
+      strength: primary
+      confidence: high
+sources:
+  - title: CSA Cloud Controls Matrix (CCM)
+    tier: reference
+    publisher: Cloud Security Alliance
+  - title: NIST SP 800-145 — The NIST Definition of Cloud Computing
+    tier: standard
+    publisher: NIST
+draft: true

@@ -8,6 +8,7 @@ domain: [cs]
 cluster: networking
 layer: network
 status: current
+era: 1974
 summary:
   en: The family of protocols that the internet and most other networks use to address, send and deliver data.
   da: Den familie af protokoller, som internettet og de fleste andre netværk bruger til at adressere, sende og levere data.

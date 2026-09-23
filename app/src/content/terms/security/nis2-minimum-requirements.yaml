@@ -8,6 +8,7 @@ domain: [security]
 cluster: compliance
 layer: governance
 status: current
+era: 2022
 summary:
   en: The baseline list of security measures every organisation under NIS2 must have in place.
   da: Den grundliste af sikkerhedstiltag, som alle virksomheder omfattet af NIS2 skal have på plads.

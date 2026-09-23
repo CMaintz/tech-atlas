@@ -8,6 +8,7 @@ domain: [security]
 cluster: awareness
 layer: people
 status: current
+era: 2006
 summary:
   en: Tricking people over the phone or a voice call into giving away information, codes or money.
   da: Svindel via telefon eller taleopkald, hvor folk narres til at udlevere oplysninger, koder eller penge.

@@ -8,6 +8,7 @@ domain: [security]
 cluster: controls
 layer: identity
 status: current
+era: 2011
 summary:
   en: A way to log in that asks for two or more separate kinds of proof, such as a password plus a code or an approval in a phone app.
   da: Et login, der kræver to eller flere forskellige slags bevis, fx en adgangskode plus en SMS-kode eller en godkendelse i en app.

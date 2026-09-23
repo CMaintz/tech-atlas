@@ -8,6 +8,7 @@ domain: [security]
 cluster: awareness
 layer: people
 status: current
+era: 2013
 summary:
   en: A scam where criminals pose as a boss or supplier by email to trick staff into paying money or sending data.
   da: Svindel, hvor kriminelle udgiver sig for at være chefen eller en leverandør og narrer ansatte til at betale eller sende data.
@@ -34,7 +35,7 @@ edges:
         da: Den udnytter medarbejdernes tillid til ledelsen og ønsket om at handle hurtigt på hasteordrer.
       strength: primary
       confidence: high
-  used-with: [pretexting]
+  used-with: [pretexting, deepfake]
 sources:
   - title: FBI IC3 — Business Email Compromise
     tier: official-doc

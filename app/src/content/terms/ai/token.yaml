@@ -1,0 +1,34 @@
+term:
+  en: Token
+  da: Token
+aka:
+  en: []
+  da: []
+domain: [ai]
+cluster: llm
+layer: model
+status: current
+summary:
+  en: A small piece of text — a whole word, part of a word or a sign — that a language model reads and writes in; also how use is priced.
+  da: Et lille stykke tekst — et ord, en del af et ord eller et tegn — som en sprogmodel læser og skriver i; også enheden, brug prissættes efter.
+body:
+  formal:
+    en: The unit a language model works in; text is cut into tokens from a fixed list, each token is turned into a number, and the model reads and produces text one token at a time.
+    da: Den enhed, en sprogmodel arbejder i; tekst deles op i tokens fra en fast liste, hvert token laves om til et tal, og modellen læser og skriver tekst ét token ad gangen.
+  plain:
+    en: Like Lego bricks for text — common words are one brick, rare or long words are built from several smaller bricks.
+    da: Som legoklodser til tekst — almindelige ord er én klods, sjældne eller lange ord bygges af flere mindre klodser.
+  inPractice:
+    en: The Danish word "sikkerhedshændelse" may be split into four or five tokens while "the" is one, so the same text in Danish often costs more to process.
+    da: Det danske ord "sikkerhedshændelse" kan blive delt i fire-fem tokens, mens "the" er ét, så den samme tekst på dansk ofte koster mere at behandle.
+  whyItMatters:
+    en: Tokens decide cost, speed and how much a model can take in at once; note that this AI meaning has nothing to do with a login token.
+    da: Tokens bestemmer pris, hastighed og hvor meget en model kan tage ind på én gang; bemærk, at denne AI-betydning intet har med et login-token at gøre.
+edges:
+  part-of: [prompt]
+sources:
+  - title: Sennrich, Haddow & Birch (2016), Neural Machine Translation of Rare Words with Subword Units
+    tier: reference
+  - title: Vaswani et al. (2017), Attention Is All You Need
+    tier: reference
+draft: true

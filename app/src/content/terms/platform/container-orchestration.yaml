@@ -1,0 +1,38 @@
+term:
+  en: Container orchestration
+  da: Container-orkestrering
+aka:
+  en: []
+  da: []
+domain: [platform]
+cluster: containers
+layer: orchestration
+status: current
+summary:
+  en: Automatically starting, spreading, restarting and scaling many containers across a group of machines.
+  da: At starte, fordele, genstarte og skalere mange containere automatisk på tværs af en gruppe maskiner.
+body:
+  formal:
+    en: The automated running of containers across many hosts — deciding where each one runs, replacing those that fail, adding or removing copies as load changes, connecting them over the network and rolling out new versions — from a written description of the wanted state.
+    da: Den automatiske drift af containere på tværs af mange værter — at bestemme, hvor hver kører, erstatte dem, der fejler, tilføje eller fjerne kopier, når belastningen ændrer sig, forbinde dem over netværket og rulle nye versioner ud — ud fra en skriftlig beskrivelse af den ønskede tilstand.
+  plain:
+    en: Like the conductor of an orchestra — the musicians play their own parts, but someone decides who plays when, and brings in a stand-in if one falls ill.
+    da: Som dirigenten i et orkester — musikerne spiller deres egne stemmer, men nogen bestemmer, hvem der spiller hvornår, og sætter en afløser ind, hvis én bliver syg.
+  inPractice:
+    en: When a web shop gets a rush of Black Friday visitors, the orchestration system starts ten more copies of the shop's container and removes them again when traffic drops.
+    da: Når en webshop får et ryk af besøgende på Black Friday, starter orkestreringssystemet ti ekstra kopier af shoppens container og fjerner dem igen, når trafikken falder.
+  whyItMatters:
+    en: Without it, running hundreds of containers by hand is not possible; with it, the control system becomes a high-value target whose access must be tightly guarded.
+    da: Uden den er det umuligt at drive hundredvis af containere i hånden; med den bliver styringssystemet et værdifuldt mål, hvis adgang skal bevogtes nøje.
+edges:
+  requires: [container, network]
+  used-with: [gitops]
+sources:
+  - title: CNCF Cloud Native Glossary — Container orchestration
+    url: https://glossary.cncf.io/container-orchestration/
+    tier: reference
+    publisher: CNCF
+  - title: NIST SP 800-190 — Application Container Security Guide
+    tier: standard
+    publisher: NIST
+draft: true

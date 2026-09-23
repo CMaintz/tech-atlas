@@ -8,6 +8,7 @@ domain: [security]
 cluster: controls
 layer: network
 status: current
+era: 1987
 summary:
   en: A watcher that inspects network traffic or a machine's activity and warns when it spots signs of an attack — without stopping it.
   da: En vagt, der holder øje med netværkstrafik eller en maskines aktivitet og advarer ved tegn på angreb — uden selv at stoppe det.

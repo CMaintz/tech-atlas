@@ -8,6 +8,7 @@ domain: [cs]
 cluster: cryptography
 layer: theory
 status: current
+era: 1976
 summary:
   en: Encryption that uses a pair of keys — one shared openly, one kept private — so strangers can protect data for you without a shared secret.
   da: Kryptering med et nøglepar — én delt åbent, én holdt privat — så fremmede kan beskytte data til dig uden en fælles hemmelighed.

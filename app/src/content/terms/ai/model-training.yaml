@@ -1,0 +1,37 @@
+term:
+  en: Model training
+  da: Modeltræning
+aka:
+  en: [training]
+  da: [træning]
+domain: [ai]
+cluster: ml-fundamentals
+layer: training
+status: current
+summary:
+  en: The costly, one-off stage where a model looks at training data again and again and tunes its internal numbers until its guesses improve.
+  da: Den dyre, engangsfase, hvor en model ser træningsdata igen og igen og justerer sine interne tal, indtil dens gæt bliver bedre.
+body:
+  formal:
+    en: The process of repeatedly feeding training data to a model, measuring how far its outputs are from the wanted answers, and adjusting its weights to shrink that gap; the result is a fixed set of learned numbers.
+    da: Processen, hvor man gentagne gange fodrer en model med træningsdata, måler hvor langt dens resultater er fra de ønskede svar og justerer dens vægte for at mindske afstanden; resultatet er et fast sæt lærte tal.
+  plain:
+    en: Like a darts player throwing thousands of darts, checking how far each lands from the centre, and adjusting their arm a little each time.
+    da: Som en dartspiller, der kaster tusindvis af pile, ser hvor langt hver lander fra midten og justerer armen en smule hver gang.
+  inPractice:
+    en: An AI supplier spends weeks and a room full of special chips training a model once; customers then only use the finished result.
+    da: En AI-leverandør bruger uger og et rum fyldt med særlige chips på at træne en model én gang; kunderne bruger derefter kun det færdige resultat.
+  whyItMatters:
+    en: What happens here decides what the model knows and how it behaves; it is also where poisoned or unlawful data gets built in for good.
+    da: Det, der sker her, afgør, hvad modellen ved, og hvordan den opfører sig; det er også her, forgiftede eller ulovlige data bliver bygget ind for altid.
+edges:
+  part-of: [machine-learning]
+  requires: [training-data]
+sources:
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning'
+    tier: textbook
+    publisher: MIT Press
+  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    tier: standard
+    publisher: ISO/IEC
+draft: true

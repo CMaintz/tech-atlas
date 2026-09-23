@@ -8,6 +8,7 @@ domain: [security]
 cluster: compliance
 layer: data
 status: current
+era: 2009
 summary:
   en: The GDPR principle that protection of personal data must be built into systems from the start.
   da: GDPR-princippet om, at beskyttelse af persondata skal indbygges i systemer fra starten.

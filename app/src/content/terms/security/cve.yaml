@@ -8,6 +8,7 @@ domain: [security]
 cluster: risk-management
 layer: application
 status: current
+era: 1999
 summary:
   en: A public ID number for each known weakness in software (CVE), plus a 0–10 score for how serious it is (CVSS).
   da: Et offentligt ID-nummer for hver kendt svaghed i software (CVE) og en score fra 0 til 10 for, hvor alvorlig den er (CVSS).
@@ -35,6 +36,7 @@ edges:
       confidence: high
     - patch-management
     - threat-intelligence
+    - sbom
 sources:
   - title: CVE Program — About
     tier: official-doc

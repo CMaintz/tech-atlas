@@ -8,6 +8,7 @@ domain: [security]
 cluster: fundamentals
 layer: governance
 status: current
+era: 2000
 summary:
   en: Stacking several independent layers of protection so that when one fails, the next one still stops the attacker.
   da: Flere uafhængige lag af beskyttelse oven på hinanden, så det næste lag stadig stopper angriberen, når ét svigter.

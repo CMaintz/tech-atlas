@@ -8,6 +8,7 @@ domain: [security]
 cluster: incident-response
 layer: governance
 status: current
+era: 1988
 summary:
   en: The organised way a company spots, stops and cleans up after a security attack or accident, then gets back to normal.
   da: Den organiserede måde, en virksomhed opdager, stopper og rydder op efter et sikkerhedsangreb eller uheld og vender tilbage til normal drift.
@@ -26,7 +27,7 @@ body:
     da: Minutter tæller under et angreb, og et team, der improviserer, mister tid, spor og penge, som et forberedt team bevarer.
 edges:
   requires: [threat]
-  used-with: [siem]
+  used-with: [siem, observability]
   mitigates:
     - to: data-breach
       why:

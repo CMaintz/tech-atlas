@@ -1,0 +1,52 @@
+term:
+  en: AI bias
+  da: Bias i AI
+aka:
+  en: [algorithmic bias, machine learning bias]
+  da: [algoritmisk bias, skævhed i AI]
+domain: [ai]
+cluster: ai-risk
+layer: model
+status: current
+summary:
+  en: When an AI system treats some people or cases unfairly because of one-sided data or design choices.
+  da: Når et AI-system systematisk behandler nogle mennesker eller sager uretfærdigt på grund af skæve data eller valg i designet.
+body:
+  formal:
+    en: A systematic error in which a model's results favour or harm certain groups, usually because the training data under-represents them or reflects past unfair decisions, or because of how the goal was defined.
+    da: En systematisk fejl, hvor en models resultater favoriserer eller skader bestemte grupper, som regel fordi træningsdataene underrepræsenterer dem eller afspejler tidligere uretfærdige beslutninger, eller på grund af den måde, målet blev defineret på.
+  plain:
+    en: Like a new manager who only ever learned from one old boss's hiring records — they copy every habit, fair or not, and do it at speed.
+    da: Som en ny leder, der kun har lært af én gammel chefs ansættelser — vedkommende kopierer alle vanerne, fair eller ej, og gør det i højt tempo.
+  inPractice:
+    en: A bank's loan tool trained on twenty years of past decisions scores applicants from certain neighbourhoods lower, even though where people live was never meant to count.
+    da: En banks låneværktøj, der er trænet på tyve års tidligere afgørelser, giver ansøgere fra bestemte postnumre en lavere score, selvom postnummeret aldrig skulle tælle med.
+  whyItMatters:
+    en: Unfair automated decisions can break equal-treatment and data protection law, harm people at scale and damage trust, and they are easy to miss without deliberate testing.
+    da: Uretfærdige automatiske afgørelser kan bryde ligebehandlings- og databeskyttelsesregler, skade mange mennesker på én gang og ødelægge tillid, og de overses let uden bevidst test.
+edges:
+  requires: [training-data, machine-learning]
+  contrasts-with:
+    - to: hallucination
+      why:
+        en: Bias is a steady tilt in results for certain groups; a hallucination is a confident answer that is simply made up.
+        da: Bias er en fast skævhed i resultaterne for bestemte grupper; en hallucination er et selvsikkert svar, der simpelthen er opdigtet.
+      strength: normal
+      confidence: high
+  causes:
+    - to: risk
+      why:
+        en: Unfair outcomes create legal, financial and reputation risk for the organisation using the system.
+        da: Uretfærdige resultater skaber juridisk, økonomisk og omdømmemæssig risiko for den organisation, der bruger systemet.
+      strength: minor
+      confidence: medium
+sources:
+  - title: NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+    tier: standard
+    publisher: NIST
+    url: https://doi.org/10.6028/NIST.AI.100-1
+  - title: NIST SP 1270 — Towards a Standard for Identifying and Managing Bias in Artificial Intelligence
+    tier: standard
+    publisher: NIST
+    url: https://doi.org/10.6028/NIST.SP.1270
+draft: true
