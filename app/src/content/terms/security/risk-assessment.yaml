@@ -27,7 +27,15 @@ body:
 edges:
   part-of: [risk-management]
   requires: [risk, likelihood, impact, asset]
-  used-with: [vulnerability-assessment, threat-landscape]
+  used-with:
+    - vulnerability-assessment
+    - threat-landscape
+    - to: threat-modelling
+      why:
+        en: A threat model lists what could go wrong in a design; a risk assessment weighs how likely and how costly each of those things is.
+        da: En trusselsmodel oplister, hvad der kan gå galt i et design; en risikoanalyse vurderer, hvor sandsynligt og hvor dyrt hver af de ting er.
+      strength: normal
+      confidence: high
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

@@ -1,0 +1,65 @@
+term:
+  en: CER Directive
+  da: CER-direktivet
+aka:
+  en: [Critical Entities Resilience Directive, Directive (EU) 2022/2557]
+  da: [direktivet om kritiske enheders modstandsdygtighed, direktiv (EU) 2022/2557]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+era: 2022
+summary:
+  en: The EU law that makes firms behind vital services like power and water able to withstand floods, sabotage and other physical threats.
+  da: EU-direktivet, der skal ruste udbydere af vitale tjenester som strøm og vand mod sabotage, oversvømmelser og andre fysiske trusler.
+body:
+  formal:
+    en: An EU directive of 14 December 2022, due in national law by October 2024, under which each country names the critical entities in 11 sectors by 17 July 2026; those entities must assess their risks, take physical and organisational measures and report serious disruptions within 24 hours.
+    da: Et EU-direktiv af 14. december 2022, som skulle være gennemført i national ret senest oktober 2024, og hvorefter hvert land senest 17. juli 2026 udpeger de kritiske enheder i 11 sektorer; enhederne skal vurdere deres risici, træffe fysiske og organisatoriske foranstaltninger og indberette alvorlige forstyrrelser inden for 24 timer.
+  plain:
+    en: If NIS2 is about locking the digital doors of a water plant, CER is about the fence, the backup power and what to do when the river floods.
+    da: Hvis NIS2 handler om at låse de digitale døre på et vandværk, handler CER om hegnet, nødstrømmen og hvad man gør, når åen går over sine bredder.
+  inPractice:
+    en: A Danish power grid company named as critical maps risks like storms and sabotage, adds fences, cameras and backup power at key sites, checks staff in sensitive roles, and plans how to get power back fast after an attack on one of its sites.
+    da: Et dansk elnetselskab, der er udpeget som kritisk enhed, kortlægger risici som storme og sabotage, sætter hegn, kameraer og nødstrøm op på vigtige anlæg, baggrundstjekker medarbejdere i følsomme funktioner og planlægger, hvordan strømmen hurtigt kommer tilbage efter et angreb på en transformerstation.
+  whyItMatters:
+    en: Society stops if power, water, transport or hospitals fail, and the threats are not only digital — the directive closes the gap that cyber rules alone leave open. In Denmark it took effect through its own law from 1 July 2025.
+    da: Samfundet går i stå, hvis strøm, vand, transport eller hospitaler svigter, og truslerne er ikke kun digitale — direktivet lukker det hul, som cyberreglerne alene efterlader. I Danmark trådte det i kraft gennem sin egen lov fra 1. juli 2025.
+edges:
+  requires: [critical-assets]
+  mandates:
+    - to: risk-assessment
+      why:
+        en: Critical entities must carry out their own assessment of every relevant risk, natural or caused by people, and repeat it at least every four years.
+        da: Kritiske enheder skal selv vurdere alle relevante risici, både naturskabte og menneskeskabte, og gentage vurderingen mindst hvert fjerde år.
+      strength: primary
+      confidence: high
+    - to: physical-security
+      why:
+        en: The measures must include physical protection of sites, such as fences, barriers and detection tools.
+        da: Foranstaltningerne skal omfatte fysisk beskyttelse af anlæg, fx hegn, barrierer og detektionsudstyr.
+      strength: primary
+      confidence: high
+    - to: incident-reporting
+      why:
+        en: Incidents that seriously disrupt a vital service must be reported to the authority, first within 24 hours.
+        da: Hændelser, der alvorligt forstyrrer en vital tjeneste, skal indberettes til myndigheden, første gang inden for 24 timer.
+      strength: normal
+      confidence: high
+  contrasts-with:
+    - to: nis2
+      why:
+        en: Adopted the same day as twins — NIS2 protects network and information systems, CER protects the physical ability of critical entities to keep running. Entities named under CER count as essential under NIS2.
+        da: Vedtaget samme dag som tvillinger — NIS2 beskytter net- og informationssystemer, CER beskytter kritiske enheders fysiske evne til at holde driften i gang. Enheder udpeget efter CER regnes som væsentlige efter NIS2.
+      strength: primary
+      confidence: high
+sources:
+  - title: Directive (EU) 2022/2557 on the resilience of critical entities
+    tier: standard
+    publisher: European Union
+    url: 'https://eur-lex.europa.eu/eli/dir/2022/2557/oj'
+  - title: Tre nye love styrker Danmarks beredskab og sikkerhed i kritisk infrastruktur
+    tier: official-doc
+    publisher: Styrelsen for Samfundssikkerhed
+    url: 'https://samsik.dk/artikler/2025/07/tre-nye-love-traeder-i-kraft-nis-2-cer-tele/'
+draft: true

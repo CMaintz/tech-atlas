@@ -1,0 +1,57 @@
+term:
+  en: SQL injection
+  da: SQL injection
+aka:
+  en: [SQLi]
+  da: [SQL-injektion]
+domain: [security]
+cluster: application-security
+layer: application
+status: current
+era: 1998
+summary:
+  en: An attack where text typed into a form is read by the database as a command, letting an outsider read or change its data.
+  da: Et angreb, hvor tekst skrevet i en formular læses af databasen som en kommando, så en udefrakommende kan læse eller ændre dens data.
+body:
+  formal:
+    en: An attack on a web application that builds database commands by pasting user input straight into the command text; crafted input changes the meaning of the command, so the database runs instructions the builder never meant it to.
+    da: Et angreb på en webapplikation, der bygger databasekommandoer ved at sætte brugerens input direkte ind i kommandoteksten; særligt udformet input ændrer kommandoens betydning, så databasen udfører instruktioner, udvikleren aldrig havde tænkt sig.
+  plain:
+    en: Like a form that says "Pay the sum of ___ to Anna", where someone writes "10 kroner, and also pay everything to me" in the blank — and the clerk simply does all of it.
+    da: Som en blanket, hvor der står "Betal beløbet ___ til Anna", og nogen skriver "10 kroner, og betal også alt til mig" i feltet — og ekspedienten gør bare det hele.
+  inPractice:
+    en: A shop's search box passes whatever is typed on to its database; an attacker types a short piece of SQL instead of a product name, and the page lists every customer's email and password hash.
+    da: En webshops søgefelt sender det indtastede direkte videre til databasen; en angriber skriver et lille stykke SQL i stedet for et produktnavn, og siden viser alle kunders mail og password-hash.
+  whyItMatters:
+    en: One weak form field can hand over a whole database, and the flaw is still found in new code decades after it was first described — even though a simple coding habit prevents it.
+    da: Ét svagt formularfelt kan udlevere en hel database, og fejlen findes stadig i ny kode årtier efter, den første gang blev beskrevet — selvom en enkel kodevane forhindrer den.
+edges:
+  requires: [database, web-application]
+  exploits:
+    - to: vulnerability
+      why:
+        en: It works only where a program mixes user input into database commands without keeping the two apart.
+        da: Det virker kun, hvor et program blander brugerens input ind i databasekommandoer uden at holde de to adskilt.
+      strength: primary
+      confidence: high
+  causes:
+    - to: data-breach
+      why:
+        en: A successful attack lets the outsider read, copy or change the data the database holds.
+        da: Et vellykket angreb lader den udefrakommende læse, kopiere eller ændre de data, databasen rummer.
+      strength: primary
+      confidence: high
+sources:
+  - title: OWASP — SQL Injection
+    tier: reference
+    publisher: OWASP
+    url: https://owasp.org/www-community/attacks/SQL_Injection
+  - title: OWASP Cheat Sheet Series — SQL Injection Prevention
+    tier: reference
+    publisher: OWASP
+    url: https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html
+  - title: OWASP Top 10:2025 — A05 Injection
+    tier: reference
+    publisher: OWASP
+    url: https://owasp.org/Top10/2025/A05_2025-Injection/
+draft: true

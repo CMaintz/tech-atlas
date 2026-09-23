@@ -1,0 +1,52 @@
+term:
+  en: Log retention
+  da: Logopbevaring
+aka:
+  en: []
+  da: []
+domain: [security]
+cluster: security-operations
+layer: governance
+status: current
+summary:
+  en: Deciding how long each kind of log is kept before it is deleted — long enough to look into incidents, but no longer than needed.
+  da: At fastsætte, hvor længe hver slags log gemmes, før den slettes — længe nok til at efterforske hændelser, men ikke længere end nødvendigt.
+body:
+  formal:
+    en: A documented rule for each type of log stating how long it is stored, where, how it is protected and when it is deleted, based on the risk assessment, legal duties and the purpose of the log.
+    da: En dokumenteret regel for hver type log, der angiver, hvor længe den gemmes, hvor, hvordan den beskyttes, og hvornår den slettes, ud fra risikovurderingen, lovkrav og formålet med loggen.
+  plain:
+    en: Like keeping till receipts; throw them out after a day and you cannot handle a return, keep them forever and the back room fills with paper about people who shopped years ago.
+    da: Som at gemme kassebonner; smider man dem ud efter en dag, kan man ikke tage imod en returvare, gemmer man dem for evigt, fyldes baglokalet med papir om folk, der handlede for mange år siden.
+  inPractice:
+    en: An attack is found in March but began five months earlier; because login logs are kept for twelve months, the company can trace the first break-in, while web logs holding customer data are deleted after ninety days.
+    da: Et angreb opdages i marts, men begyndte fem måneder tidligere; fordi login-logs gemmes i tolv måneder, kan virksomheden spore det første indbrud, mens weblogs med kundedata slettes efter halvfems dage.
+  whyItMatters:
+    en: Attackers often go unseen for months, so logs deleted too soon leave no trail; NIS2 and DORA rules expect a documented period, while GDPR forbids keeping personal data longer than needed.
+    da: Angribere går ofte uopdaget i månedsvis, så logs, der slettes for tidligt, efterlader intet spor; NIS2- og DORA-reglerne forventer en dokumenteret periode, mens GDPR forbyder at gemme persondata længere end nødvendigt.
+edges:
+  part-of: [log-management]
+  requires: [cs/audit]
+  used-with:
+    - to: personal-data
+      why:
+        en: Logs often hold names, addresses and user names, so the GDPR rule against keeping data longer than needed sets an upper limit.
+        da: Logs indeholder ofte navne, adresser og brugernavne, så GDPR's regel om ikke at gemme data længere end nødvendigt sætter en øvre grænse.
+      strength: primary
+      confidence: high
+    - security-incident
+sources:
+  - title: NIST SP 800-92 — Guide to Computer Security Log Management
+    url: https://doi.org/10.6028/NIST.SP.800-92
+    tier: standard
+    publisher: NIST
+  - title: Commission Delegated Regulation (EU) 2024/1774 (DORA RTS on ICT risk management) — Article 12, Logging
+    tier: standard
+    publisher: European Union
+  - title: Commission Implementing Regulation (EU) 2024/2690 (NIS2) — Annex, point 3.2 Monitoring and logging
+    tier: standard
+    publisher: European Union
+  - title: GDPR (Regulation (EU) 2016/679) — Article 5(1)(e), storage limitation
+    tier: standard
+    publisher: European Union
+draft: true

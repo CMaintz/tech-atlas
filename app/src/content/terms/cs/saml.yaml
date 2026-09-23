@@ -1,0 +1,36 @@
+term:
+  en: SAML
+  da: SAML
+aka:
+  en: [Security Assertion Markup Language, SAML 2.0]
+  da: [SAML 2.0]
+domain: [cs]
+cluster: identity
+layer: identity
+status: current
+era: 2002
+summary:
+  en: An older, widely used standard for passing a signed "this user has logged in" message from an identity provider to an app.
+  da: En ældre, udbredt standard, der sender en signeret "denne bruger er logget ind"-besked fra en identitetsudbyder til en app.
+body:
+  formal:
+    en: An open standard in which an identity provider, after authentication, sends the user's browser to the app carrying a signed document, called an assertion, that states who the user is and facts about them; the app checks the signature and trusts it.
+    da: En åben standard, hvor en identitetsudbyder efter autentificering sender brugerens browser videre til appen med et signeret dokument, en såkaldt assertion, der angiver, hvem brugeren er, og oplysninger om vedkommende; appen kontrollerer signaturen og stoler på den.
+  plain:
+    en: Like a sealed letter of introduction from your employer — the hotel does not know you, but it knows the seal and lets you in.
+    da: Som et forseglet anbefalingsbrev fra din arbejdsgiver — hotellet kender ikke dig, men det kender seglet og lukker dig ind.
+  inPractice:
+    en: An employee clicks the payroll system's icon, is sent briefly to the company login page, and lands back in the payroll system logged in — the SAML message did the work in between.
+    da: En medarbejder klikker på lønsystemets ikon, sendes et øjeblik til virksomhedens loginside og lander igen i lønsystemet som logget ind — SAML-beskeden klarede arbejdet imellem.
+  whyItMatters:
+    en: It lets companies connect hundreds of business apps to one login and one place to close accounts, and much of the enterprise world still runs on it.
+    da: Det lader virksomheder koble hundredvis af forretningsapps til ét login og ét sted at lukke konti, og store dele af virksomhedsverdenen kører stadig på det.
+edges:
+  implements: [federation, single-sign-on]
+  requires: [identity-provider, digital-signature]
+sources:
+  - title: OASIS — Assertions and Protocols for the OASIS Security Assertion Markup Language (SAML) V2.0
+    tier: standard
+    publisher: OASIS
+    url: https://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf
+draft: true

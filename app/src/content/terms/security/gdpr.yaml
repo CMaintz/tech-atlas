@@ -26,7 +26,9 @@ body:
     en: It makes privacy a legal duty with real penalties, and it overlaps with NIS2 so one data breach can trigger reports under both laws.
     da: Den gør privatliv til en juridisk pligt med reelle sanktioner, og den overlapper med NIS2, så ét databrud kan udløse anmeldelser efter begge love.
 edges:
-  requires: [confidentiality]
+  requires:
+    - confidentiality
+    - personal-data
   mandates:
     - to: privacy-by-design
       why:
@@ -47,6 +49,12 @@ edges:
       strength: normal
       confidence: high
     - supervisory-authority
+    - to: dpia
+      why:
+        en: "Article 35 requires a DPIA before any processing likely to pose a high risk to people's rights."
+        da: Artikel 35 kræver en konsekvensanalyse før enhver behandling, der sandsynligvis indebærer en høj risiko for personers rettigheder.
+      strength: primary
+      confidence: high
   contrasts-with:
     - to: nis2
       why:

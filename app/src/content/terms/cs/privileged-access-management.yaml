@@ -1,0 +1,51 @@
+term:
+  en: Privileged access management (PAM)
+  da: Styring af privilegeret adgang (PAM)
+aka:
+  en: [PAM, privileged account management]
+  da: [PAM]
+domain: [cs, security]
+cluster: identity
+layer: identity
+status: current
+summary:
+  en: Tools and rules that lock away admin rights, hand them out only when needed and record what is done with them.
+  da: Værktøjer og regler, der låser administratorrettigheder inde, kun udleverer dem ved behov og registrerer, hvad de bruges til.
+body:
+  formal:
+    en: The controls and tooling that keep privileged account passwords in a guarded store, grant admin rights only for a set task and time after approval, and record each privileged session for later review.
+    da: De kontroller og værktøjer, der holder privilegerede kontis adgangskoder i et bevogtet lager, kun giver administratorrettigheder til en bestemt opgave og tid efter godkendelse og optager hver privilegeret session til senere gennemgang.
+  plain:
+    en: Like the key cabinet in a bank — the vault key is signed out for one job, the time is written down, a camera watches, and the key goes back afterwards.
+    da: Som nøgleskabet i en bank — nøglen til boksen kvitteres ud til én opgave, tidspunktet noteres, et kamera ser med, og nøglen afleveres bagefter.
+  inPractice:
+    en: A database admin asks for server rights to install an update; a manager approves, the tool opens a recorded session for two hours with a one-time password, and closes it afterwards.
+    da: En databaseadministrator beder om serverrettigheder for at installere en opdatering; en leder godkender, værktøjet åbner en optaget session i to timer med en engangsadgangskode og lukker den bagefter.
+  whyItMatters:
+    en: Admin accounts are what attackers want most; if nobody holds standing admin rights, a stolen login or an unhappy employee has far less to use.
+    da: Administratorkonti er det, angribere helst vil have; hvis ingen har faste administratorrettigheder, har en stjålen konto eller en utilfreds medarbejder langt mindre at bruge.
+edges:
+  part-of: [access-management]
+  implements: [least-privilege]
+  requires: [privileged-account]
+  mitigates:
+    - to: privilege-escalation
+      why:
+        en: With no standing admin rights to steal and every use approved and recorded, there is little higher access left to grab.
+        da: Uden faste administratorrettigheder at stjæle og med hver brug godkendt og optaget er der kun lidt højere adgang tilbage at snuppe.
+      strength: normal
+      confidence: medium
+    - to: insider-threat
+      why:
+        en: Time-limited, recorded admin sessions make it hard for a trusted insider to misuse powerful rights unseen.
+        da: Tidsbegrænsede, optagede administratorsessioner gør det svært for en betroet insider at misbruge stærke rettigheder ubemærket.
+      strength: normal
+      confidence: high
+sources:
+  - title: NIST SP 1800-18 — Privileged Account Management for the Financial Services Sector
+    tier: standard
+    publisher: NIST
+  - title: CIS Controls v8 — Control 5 (Account Management) and Control 6 (Access Control Management)
+    tier: standard
+    publisher: Center for Internet Security
+draft: true

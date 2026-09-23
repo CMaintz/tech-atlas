@@ -42,6 +42,12 @@ edges:
         da: Ransomware kan kun låse de filer og maskiner, den inficerede konto har adgang til.
       strength: normal
       confidence: high
+    - to: privilege-escalation
+      why:
+        en: Fewer standing rights on each account means fewer stepping stones for an attacker to climb.
+        da: Færre faste rettigheder på hver konto betyder færre trædesten, en angriber kan klatre op ad.
+      strength: normal
+      confidence: high
 sources:
   - title: NIST SP 800-207, Zero Trust Architecture
     url: https://doi.org/10.6028/NIST.SP.800-207

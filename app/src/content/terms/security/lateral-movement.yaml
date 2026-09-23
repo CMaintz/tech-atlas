@@ -40,6 +40,13 @@ edges:
         da: Det er ved at bevæge sig længere ind, at angriberen når de data, der er værd at stjæle.
       strength: normal
       confidence: medium
+  used-with:
+    - to: mitre-attack
+      why:
+        en: Lateral movement is one of the named tactics in the ATT&CK catalogue.
+        da: Lateral bevægelse er en af de navngivne taktikker i ATT&CK-kataloget.
+      strength: normal
+      confidence: medium
 sources:
   - title: MITRE ATT&CK — Lateral Movement (TA0008)
     tier: reference

@@ -1,0 +1,50 @@
+term:
+  en: Digital signature
+  da: Digital signatur
+aka:
+  en: [cryptographic signature]
+  da: [kryptografisk signatur]
+domain: [cs]
+cluster: cryptography
+layer: theory
+status: current
+era: 1976
+summary:
+  en: A mark made with a private key that proves who sent a message and that nobody has changed it since.
+  da: Et mærke lavet med en privat nøgle, der beviser, hvem der sendte en besked, og at ingen har ændret den siden.
+body:
+  formal:
+    en: A method from public-key cryptography in which the sender hashes a message and transforms the hash with their private key; anyone holding the matching public key can check that the result fits the message exactly.
+    da: En metode fra asymmetrisk kryptografi, hvor afsenderen hasher en besked og omdanner hashen med sin private nøgle; alle med den tilsvarende offentlige nøgle kan tjekke, at resultatet passer præcist til beskeden.
+  plain:
+    en: Like a wax seal pressed with a ring only you own — anyone can compare the seal with your known pattern, and a broken seal shows the letter was opened.
+    da: Som et laksegl presset med en ring, kun du ejer — alle kan sammenligne seglet med dit kendte mønster, og et brudt segl viser, at brevet er blevet åbnet.
+  inPractice:
+    en: A software company signs each update it ships; before installing, the computer checks the signature and refuses the update if even one character of the file differs.
+    da: Et softwarefirma signerer hver opdatering, det udsender; før installationen tjekker computeren signaturen og afviser opdateringen, hvis blot ét tegn i filen er anderledes.
+  whyItMatters:
+    en: It lets people trust documents, updates and messages from someone they have never met, and makes it hard for the signer to later deny having sent them.
+    da: Den gør det muligt at stole på dokumenter, opdateringer og beskeder fra nogen, man aldrig har mødt, og gør det svært for underskriveren senere at nægte at have sendt dem.
+edges:
+  requires: [public-key-cryptography, hashing]
+  implements:
+    - to: non-repudiation
+      why:
+        en: Only the holder of the private key can make the signature, so the signer cannot easily claim someone else sent the message.
+        da: Kun den, der har den private nøgle, kan lave signaturen, så underskriveren kan ikke uden videre påstå, at en anden sendte beskeden.
+      strength: primary
+      confidence: high
+    - to: integrity
+      why:
+        en: Any change to the signed message makes the check fail, so tampering is caught at once.
+        da: Enhver ændring af den signerede besked får tjekket til at fejle, så manipulation opdages med det samme.
+      strength: primary
+      confidence: high
+sources:
+  - title: NIST FIPS 186-5 — Digital Signature Standard (DSS)
+    url: https://csrc.nist.gov/pubs/fips/186-5/final
+    tier: standard
+    publisher: NIST
+  - title: Paar & Pelzl, Understanding Cryptography
+    tier: textbook
+draft: true

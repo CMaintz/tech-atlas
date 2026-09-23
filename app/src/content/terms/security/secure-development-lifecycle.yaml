@@ -1,0 +1,53 @@
+term:
+  en: Secure development lifecycle (SDL)
+  da: Sikker udviklingslivscyklus (SDL)
+aka:
+  en: [secure software development lifecycle, SSDLC, security development lifecycle]
+  da: [sikker softwareudvikling]
+domain: [security]
+cluster: application-security
+layer: application
+status: current
+era: 2004
+summary:
+  en: A fixed set of security steps built into every stage of making software, from planning and design through testing to release.
+  da: Et fast sæt sikkerhedstrin bygget ind i alle faser af at lave software, fra planlægning og design over test til udgivelse.
+body:
+  formal:
+    en: A development process that adds set security activities to each phase — security needs at planning, threat modelling at design, safe coding rules and code review while building, security testing before release, and a plan for handling flaws found after release.
+    da: En udviklingsproces, der tilføjer faste sikkerhedsaktiviteter til hver fase — sikkerhedskrav ved planlægning, trusselsmodellering ved design, regler for sikker kode og kodegennemgang under udvikling, sikkerhedstest før udgivelse og en plan for at håndtere fejl, der findes efter udgivelse.
+  plain:
+    en: Like the checks a new building must pass at each stage — drawings approved, foundation inspected, wiring tested — instead of one inspection when it is already finished.
+    da: Som de tjek, en ny bygning skal bestå i hver fase — tegninger godkendt, fundament inspiceret, el-installation testet — i stedet for én inspektion, når den allerede står færdig.
+  inPractice:
+    en: A software company will not ship a release until the design has a threat model, the code has passed review and automatic scans, and a tester has signed off; any flaw found later goes through a set fix-and-notify routine.
+    da: Et softwarefirma udgiver ikke en version, før designet har en trusselsmodel, koden har bestået gennemgang og automatiske scanninger, og en tester har godkendt; en fejl, der findes senere, går gennem en fast rutine for rettelse og besked.
+  whyItMatters:
+    en: Security that depends on each developer remembering it is uneven; building fixed steps into the process makes fewer flaws reach customers and gives buyers something to check against.
+    da: Sikkerhed, der afhænger af, at hver enkelt udvikler husker den, bliver ujævn; faste trin i processen betyder, at færre fejl når kunderne, og giver indkøbere noget at tjekke op imod.
+edges:
+  implements: [security-by-design]
+  mitigates:
+    - to: vulnerability
+      why:
+        en: Checks at every stage catch flaws before release, when they are cheapest to fix.
+        da: Tjek i hver fase fanger fejl før udgivelse, hvor de er billigst at rette.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: vulnerability-scanning
+      why:
+        en: Automatic scans of the code and the parts it is built from run at the build and test stages of the lifecycle.
+        da: Automatiske scanninger af koden og de dele, den er bygget af, kører i livscyklussens udviklings- og testfaser.
+      strength: normal
+      confidence: medium
+sources:
+  - title: Microsoft Security Development Lifecycle (SDL)
+    tier: official-doc
+    publisher: Microsoft
+    url: https://www.microsoft.com/en-us/securityengineering/sdl
+  - title: NIST SP 800-218 — Secure Software Development Framework (SSDF)
+    tier: standard
+    publisher: NIST
+    url: https://csrc.nist.gov/pubs/sp/800/218/final
+draft: true

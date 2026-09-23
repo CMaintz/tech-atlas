@@ -1,0 +1,46 @@
+term:
+  en: API
+  da: API
+aka:
+  en: [application programming interface]
+  da: [programmeringsgrænseflade]
+domain: [cs]
+cluster: web
+layer: application
+status: current
+summary:
+  en: A fixed set of requests one program offers so other programs can use its data or features without seeing its insides.
+  da: Et fast sæt forespørgsler, som et program tilbyder, så andre programmer kan bruge dets data og funktioner uden at se indmaden.
+body:
+  formal:
+    en: A published contract that names the operations a piece of software accepts, the input each one expects and the output it returns; on the web this usually means a server answering HTTP requests with structured data rather than pages.
+    da: En offentliggjort kontrakt, der angiver, hvilke operationer et stykke software tager imod, hvilket input hver forventer, og hvilket output den returnerer; på nettet betyder det typisk en server, der svarer på HTTP-forespørgsler med strukturerede data frem for sider.
+  plain:
+    en: Like the menu and the waiter in a restaurant — you order from a fixed list, the kitchen does the work, and you never need to know how it is cooked.
+    da: Som menukortet og tjeneren på en restaurant — du bestiller fra en fast liste, køkkenet gør arbejdet, og du behøver aldrig vide, hvordan maden laves.
+  inPractice:
+    en: A weather app on a phone sends a request with the user's town to a weather service's API and gets back the temperature and forecast as plain data, which the app then draws.
+    da: En vejrapp på telefonen sender en forespørgsel med brugerens by til en vejrtjenestes API og får temperatur og prognose tilbage som rene data, som appen derefter viser.
+  whyItMatters:
+    en: APIs let separate systems be built and changed on their own and still work together, but each one is also a door that must check who is knocking and what they ask for.
+    da: API'er lader adskilte systemer blive bygget og ændret hver for sig og stadig arbejde sammen, men hvert API er også en dør, der skal tjekke, hvem der banker på, og hvad de beder om.
+edges:
+  requires: [client, server]
+  used-with:
+    - to: http
+      why:
+        en: Most APIs on the web take requests and send answers over HTTP.
+        da: De fleste API'er på nettet tager imod forespørgsler og sender svar over HTTP.
+      strength: primary
+      confidence: high
+    - web-application
+sources:
+  - title: MDN Web Docs — Glossary, API
+    url: https://developer.mozilla.org/en-US/docs/Glossary/API
+    tier: official-doc
+    publisher: Mozilla
+  - title: RFC 9110 — HTTP Semantics
+    url: https://www.rfc-editor.org/rfc/rfc9110
+    tier: standard
+    publisher: IETF
+draft: true

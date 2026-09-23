@@ -1,0 +1,64 @@
+term:
+  en: Passkey
+  da: Passkey
+aka:
+  en: [FIDO credential, discoverable credential]
+  da: [FIDO-nøgle]
+domain: [cs]
+cluster: identity
+layer: identity
+status: emerging
+era: 2022
+summary:
+  en: A login without a password, where your device proves who you are with a secret key that never leaves it.
+  da: Et login uden adgangskode, hvor din enhed beviser, hvem du er, med en hemmelig nøgle, der aldrig forlader den.
+body:
+  formal:
+    en: A credential built on public-key cryptography under the FIDO web login standards, where the device keeps a private key for each site and signs a fresh challenge from it after the user unlocks with a fingerprint, face or PIN; the site stores only the public key.
+    da: En loginoplysning bygget på asymmetrisk kryptografi efter FIDO- og WebAuthn-standarderne, hvor enheden har en privat nøgle for hvert website og signerer en ny udfordring fra det, når brugeren låser op med fingeraftryk, ansigt eller PIN; websitet gemmer kun den offentlige nøgle.
+  plain:
+    en: Like a house key that stays on your key ring and only turns in your own front door — there is nothing to say out loud, so no one can trick you into telling it to a fake door.
+    da: Som en husnøgle, der bliver på dit nøglebundt og kun passer i din egen hoveddør — der er intet at sige højt, så ingen kan narre dig til at fortælle det til en falsk dør.
+  inPractice:
+    en: At login, the phone shows "Use your passkey for example.com?"; the user touches the fingerprint reader and is in — nothing to type, nothing a fake site could capture.
+    da: Ved login viser telefonen "Brug din passkey til example.com?"; brugeren rører fingeraftrykslæseren og er inde — intet at taste, intet en falsk side kan opsnappe.
+  whyItMatters:
+    en: Passwords get guessed, used again and typed into fake pages; a passkey works only on the real site and holds no shared secret worth stealing from the server.
+    da: Adgangskoder bliver gættet, genbrugt og tastet ind på falske sider; en passkey virker kun på det rigtige website, og serveren gemmer ingen fælles hemmelighed, der er værd at stjæle.
+edges:
+  kind-of: [credential]
+  requires: [public-key-cryptography]
+  alternative-to:
+    - to: password
+      why:
+        en: Both prove who you are at login; a passkey does it without anything to remember, type or reuse.
+        da: Begge beviser, hvem du er, ved login; en passkey gør det uden noget at huske, taste eller genbruge.
+      strength: primary
+      confidence: high
+  mitigates:
+    - to: phishing
+      why:
+        en: The key is tied to the real site's address, so a copy of the login page gets nothing it can use.
+        da: Nøglen er bundet til det rigtige websites adresse, så en kopi af loginsiden får intet, den kan bruge.
+      strength: primary
+      confidence: high
+    - to: credential-stuffing
+      why:
+        en: There is no password shared between sites, so logins leaked from one site cannot be tried on another.
+        da: Der er ingen adgangskode, der deles mellem websites, så lækkede login fra ét website kan ikke prøves på et andet.
+      strength: primary
+      confidence: high
+sources:
+  - title: FIDO Alliance — Passkeys
+    tier: official-doc
+    publisher: FIDO Alliance
+    url: https://fidoalliance.org/passkeys/
+  - title: W3C Web Authentication (WebAuthn)
+    tier: standard
+    publisher: W3C
+    url: https://www.w3.org/TR/webauthn-2/
+  - title: Apple, Google and Microsoft Commit to Expanded Support for FIDO Standard (5 May 2022)
+    tier: official-doc
+    publisher: FIDO Alliance
+    url: https://fidoalliance.org/apple-google-and-microsoft-commit-to-expanded-support-for-fido-standard-to-accelerate-availability-of-passwordless-sign-ins/
+draft: true

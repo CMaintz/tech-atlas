@@ -30,6 +30,13 @@ edges:
   used-with:
     - supplier-management
     - vulnerability-scanning
+  mitigates:
+    - to: supply-chain-attack
+      why:
+        en: A list of every component in a product lets a team find a compromised or flawed one quickly.
+        da: En liste over alle komponenter i et produkt lader et team hurtigt finde en kompromitteret eller fejlbehæftet del.
+      strength: normal
+      confidence: medium
 sources:
   - title: The Minimum Elements For a Software Bill of Materials (SBOM)
     url: https://www.ntia.gov/report/2021/minimum-elements-software-bill-materials-sbom

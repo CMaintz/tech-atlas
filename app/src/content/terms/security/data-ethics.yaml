@@ -1,0 +1,53 @@
+term:
+  en: Data ethics
+  da: Dataetik
+aka:
+  en: [responsible use of data]
+  da: [ansvarlig dataanvendelse]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: Asking not only whether a use of data is legal, but whether it is fair, open and in line with what people would expect.
+  da: At spørge ikke kun, om en brug af data er lovlig, men om den er fair, åben og i tråd med, hvad folk kan forvente.
+body:
+  formal:
+    en: The values and choices that guide how an organisation collects, combines and uses data, including by AI, beyond what the law demands — such as fairness, openness, respect for people's choices and avoiding harm. Large Danish companies must state their data ethics policy in their annual report, or explain why they have none.
+    da: De værdier og valg, der styrer, hvordan en organisation indsamler, sammenstiller og bruger data, også via AI, ud over hvad loven kræver — fx retfærdighed, åbenhed, respekt for folks valg og at undgå skade. Store danske virksomheder skal redegøre for deres dataetiske politik i årsrapporten eller forklare, hvorfor de ikke har en.
+  plain:
+    en: The law is the speed limit; ethics is not driving fast past a school just because the sign allows it.
+    da: Loven er fartgrænsen; etik er ikke at køre stærkt forbi en skole, bare fordi skiltet tillader det.
+  inPractice:
+    en: A bank could legally use shopping data to spot customers in money trouble and sell them costly loans; its data ethics board says no and uses the signal to offer free advice instead.
+    da: En bank kunne lovligt bruge indkøbsdata til at finde kunder i økonomiske vanskeligheder og sælge dem dyre lån; dens dataetiske råd siger nej og bruger i stedet signalet til at tilbyde gratis rådgivning.
+  whyItMatters:
+    en: Trust breaks faster than laws change — a use of data that is legal but feels creepy can cost customers, and in Denmark it is part of what D-mærket checks.
+    da: Tillid brydes hurtigere, end love ændres — en brug af data, der er lovlig, men føles grænseoverskridende, kan koste kunder, og i Danmark er det en del af det, D-mærket vurderer.
+edges:
+  requires: [personal-data]
+  contrasts-with:
+    - to: gdpr
+      why:
+        en: GDPR sets what you must do with personal data; data ethics asks what you should do, also with data the law does not cover.
+        da: GDPR fastlægger, hvad man skal gøre med personoplysninger; dataetik spørger, hvad man bør gøre, også med data, loven ikke dækker.
+      strength: primary
+      confidence: high
+  mitigates:
+    - to: ai-bias
+      why:
+        en: An ethics review asks who could be treated unfairly before a data-driven system goes live, which helps catch bias early.
+        da: En etisk vurdering spørger, hvem der kan blive uretfærdigt behandlet, før et datadrevet system tages i brug, og hjælper dermed med at fange bias tidligt.
+      strength: normal
+      confidence: medium
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 8
+    tier: course-material
+  - title: Lovpligtig redegørelse for dataetik (årsregnskabsloven § 99 d)
+    tier: official-doc
+    publisher: Erhvervsstyrelsen
+    url: 'https://erhvervsstyrelsen.dk/vejledning-vejledning-om-lovpligtig-redegoerelse-dataetik'
+  - title: D-mærket
+    tier: official-doc
+    url: 'https://d-maerket.dk'
+draft: true
