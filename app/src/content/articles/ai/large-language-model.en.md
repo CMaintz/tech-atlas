@@ -41,7 +41,7 @@ LLMs arrive in organisations from two directions: officially, through a licensed
 - **Data.** What happens to the text you send? Is it stored, used for further training, processed outside the EU? For personal data this is a GDPR question, and the provider is typically a **data processor** requiring a **data processing agreement**.
 - **Accuracy.** Who checks output before it is used in a decision, a letter to a citizen or a contract?
 - **Access.** If the assistant can read mailboxes, files or systems, it inherits every access problem those systems have — and adds prompt injection on top.
-- **Regulation.** The **EU AI Act** places duties on providers of general-purpose AI models and, depending on the use case, on the organisations deploying them. The Act also expects staff who work with AI to understand it well enough to use it safely (AI literacy).
+- **Regulation.** The **EU AI Act** places duties on providers of general-purpose AI models and, depending on the use case, on the organisations deploying them. The Act also encourages organisations to support AI literacy, so that staff who work with AI understand its strengths and limits.
 
 ### A worked scenario
 

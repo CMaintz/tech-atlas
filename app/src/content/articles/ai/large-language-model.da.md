@@ -41,7 +41,7 @@ LLM'er kommer ind i organisationer fra to sider: officielt gennem en licenseret 
 - **Data.** Hvad sker der med den tekst, man sender? Bliver den gemt, brugt til videre træning, behandlet uden for EU? For persondata er det et GDPR-spørgsmål, og udbyderen er typisk **databehandler**, hvilket kræver en **databehandleraftale**.
 - **Korrekthed.** Hvem tjekker output, før det bruges i en afgørelse, et brev til en borger eller en kontrakt?
 - **Adgang.** Hvis assistenten kan læse postkasser, filer eller systemer, arver den alle de adgangsproblemer, de systemer har – og lægger prompt injection oveni.
-- **Regulering.** **EU's AI-forordning** pålægger udbydere af AI-modeller til almen brug forpligtelser og, afhængigt af anvendelsen, også de organisationer, der tager dem i brug. Forordningen forventer desuden, at medarbejdere, der arbejder med AI, forstår det godt nok til at bruge det sikkert (AI-kompetencer).
+- **Regulering.** **EU's AI-forordning** pålægger udbydere af AI-modeller til almen brug forpligtelser og, afhængigt af anvendelsen, også de organisationer, der tager dem i brug. Forordningen tilskynder desuden organisationer til at understøtte AI-kompetencer, så medarbejdere, der arbejder med AI, forstår dens styrker og begrænsninger.
 
 ### Et gennemregnet eksempel
 
