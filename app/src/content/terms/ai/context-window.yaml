@@ -16,11 +16,11 @@ body:
     en: The fixed limit on how many tokens a language model can handle in one go; the prompt, earlier turns of the chat, added documents and the answer must all fit inside it.
     da: Den faste grænse for, hvor mange tokens en sprogmodel kan håndtere på én gang; prompten, tidligere dele af samtalen, tilføjede dokumenter og svaret skal alle være inden for den.
   plain:
-    en: Like the size of a desk — everything the model is working on has to fit on it, and when it is full, the oldest papers slide off the edge.
-    da: Som størrelsen på et skrivebord — alt, modellen arbejder med, skal kunne ligge på det, og når det er fuldt, glider de ældste papirer ud over kanten.
+    en: Like the size of a desk — everything the model is working on has to fit on it, and when it is full, something has to be cleared away to make room.
+    da: Som størrelsen på et skrivebord — alt, modellen arbejder med, skal kunne ligge på det, og når det er fuldt, må noget ryddes væk for at gøre plads.
   inPractice:
-    en: In a very long chat, the assistant "forgets" rules set at the start, because those early messages no longer fit in its context window.
-    da: I en meget lang samtale "glemmer" assistenten regler, der blev sat i starten, fordi de tidlige beskeder ikke længere er inden for kontekstvinduet.
+    en: In a very long chat, the assistant "forgets" rules set at the start, because the chat app cut the oldest messages to keep the rest inside the context window — the model itself only sees what it is sent.
+    da: I en meget lang samtale "glemmer" assistenten regler, der blev sat i starten, fordi chat-appen skar de ældste beskeder fra for at holde resten inden for kontekstvinduet — modellen ser kun det, den får sendt.
   whyItMatters:
     en: It limits how much a model can check at once, and whatever sits in the window — including text from an untrusted file — shapes the answer.
     da: Det begrænser, hvor meget en model kan tjekke på én gang, og alt, hvad der ligger i vinduet — også tekst fra en fil, man ikke kan stole på — former svaret.

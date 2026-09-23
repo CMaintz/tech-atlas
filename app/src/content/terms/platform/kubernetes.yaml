@@ -27,7 +27,8 @@ body:
     da: Mange cloudplatforme kører nu på det, og dets mange indstillinger for adgang og netværk er en hyppig kilde til fejlkonfiguration i skyen.
 edges:
   implements: [container-orchestration]
-  requires: [container, role-based-access-control]
+  requires: [container]
+  used-with: [role-based-access-control]
 sources:
   - title: Kubernetes Documentation — Overview
     url: https://kubernetes.io/docs/concepts/overview/

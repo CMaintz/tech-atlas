@@ -26,7 +26,7 @@ body:
     da: Data brugt her bliver bygget ind i modellen og er svære at fjerne igen, så persondata i dem kan lække og ikke bare kan slettes efter anmodning.
 edges:
   kind-of: [model-training]
-  requires: [large-language-model]
+  requires: [model-training]
   alternative-to:
     - to: retrieval-augmented-generation
       why:
@@ -34,7 +34,7 @@ edges:
         da: Begge tilpasser en model til organisationen; finjustering bager viden ind i modellen, mens RAG slår den op, når der svares, og kan opdateres eller begrænses per bruger.
       strength: primary
       confidence: high
-  used-with: [training-data]
+  used-with: [large-language-model, training-data]
 sources:
   - title: Howard & Ruder (2018), Universal Language Model Fine-tuning for Text Classification
     tier: reference

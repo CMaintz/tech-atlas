@@ -22,8 +22,8 @@ body:
     en: A pod holds the web shop's container plus a small helper container that ships its logs; when the pod is moved to another machine, both move as one.
     da: En pod rummer webshoppens container plus en lille hjælpecontainer, der sender dens logs videre; når poden flyttes til en anden maskine, flytter begge som én.
   whyItMatters:
-    en: Access rules and security settings in Kubernetes are set per pod, so a pod allowed to run with too many rights can open a way into the whole host.
-    da: Adgangsregler og sikkerhedsindstillinger i Kubernetes sættes pr. pod, så en pod, der må køre med for mange rettigheder, kan åbne en vej ind til hele værten.
+    en: Each pod carries its own security settings, such as whether it may run as the admin user, while what it may change in the cluster comes from the service account it runs as; a pod with too many rights can open a way into the whole host.
+    da: Hver pod har sine egne sikkerhedsindstillinger, fx om den må køre som administrator, mens det, den må ændre i Kubernetes, afgøres af den servicekonto, den kører som; en pod med for mange rettigheder kan åbne en vej ind til hele værten.
 edges:
   part-of: [kubernetes]
   requires: [container, ip-address]
