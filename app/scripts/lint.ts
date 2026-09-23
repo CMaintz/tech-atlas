@@ -10,6 +10,15 @@ import { loadTerms, makeResolver } from './load-terms';
 import { makeLinker } from '../src/lib/autolink';
 import { VECTORS_PATH, semanticInputs } from './semantic-inputs';
 import { compareVectors, type VectorFile } from '../src/lib/semantic';
+import { collisionsOf } from '../src/lib/collisions';
+import { buildGraph, type ModelTerm } from '../src/lib/graph-model';
+import {
+  circularDefinitions,
+  depthHistogram,
+  draftRatioByDomain,
+  missingPrerequisites,
+  redundantChildren,
+} from '../src/lib/lint-rules';
 
 const { terms, errors } = loadTerms();
 const warnings: string[] = [];
@@ -120,6 +129,34 @@ for (const [id, by] of mentionedBy) {
   }
 }
 
+// W2 redundant child · W3 no prerequisites · E5 circular definition (design/02_SCHEMA.md §6)
+const list = [...terms.entries()].map(([id, t]) => ({ ...t, id }));
+for (const { id, parent } of redundantChildren(list, resolve)) {
+  warnings.push(
+    `W2 redundant child: ${id} has no edge its kind-of parent ${parent} lacks, and its summary names the parent`,
+  );
+}
+for (const id of missingPrerequisites(list, resolve)) {
+  warnings.push(`W3 no prerequisites: ${id} requires nothing and nothing requires it`);
+}
+// The definition = summary + the four facets (English, the blocking language — A58).
+const definitionNames = new Map(
+  list.map((t) => [
+    t.id,
+    linker.mentions([t.summary.en, ...Object.values(t.body).map((f) => f.en)], t.id),
+  ]),
+);
+const loops = circularDefinitions(
+  list.map((t) => t.id),
+  (id) => definitionNames.get(id) ?? [],
+  (id) => linker.mentions([terms.get(id)!.body.plain.en], id).length === 0,
+);
+for (const loop of loops) {
+  errors.push(
+    `E5 circular definition: ${loop.join(', ')} name each other and none has a plain facet free of term names`,
+  );
+}
+
 // E1 Closed Vocabulary (English blocking, Danish advisory)
 const vocab = checkClosedVocab(terms);
 for (const r of vocab) {
@@ -149,9 +186,30 @@ const pct = terms.size ? Math.round((drafts / terms.size) * 100) : 0;
 const byCluster = new Map<string, number>();
 for (const t of terms.values()) byCluster.set(t.cluster, (byCluster.get(t.cluster) ?? 0) + 1);
 
+const underTen = [...byCluster.entries()].filter(([, n]) => n < 10).map(([c]) => c);
+const depths = buildGraph(list as ModelTerm[]).nodes.map((n) => n.depth);
+const collisions = collisionsOf(terms.keys());
+
 console.log('\nAtlas content lint');
 console.log(`  terms: ${terms.size}   drafts (W5): ${drafts} (${pct}%)`);
+console.log(
+  `  drafts by domain: ${draftRatioByDomain(list)
+    .map((r) => `${r.domain} ${r.drafts}/${r.total}`)
+    .join(' · ')}`,
+);
 console.log(`  coverage: ${[...byCluster.entries()].map(([c, n]) => `${c} ${n}`).join(' · ')}`);
+console.log(`  clusters under ten: ${underTen.join(', ') || 'none'}`);
+console.log(
+  `  depth histogram: ${depthHistogram(depths)
+    .map((n, d) => `${d}: ${n}`)
+    .join(' · ')}`,
+);
+console.log(
+  `  collisions (Disambiguation pages): ${
+    [...collisions.entries()].map(([name, ids]) => `${name} (${ids.join(', ')})`).join(' · ') ||
+    'none'
+  }`,
+);
 console.log(`  errors: ${errors.length}   warnings: ${warnings.length}`);
 for (const w of warnings) console.log(`  ! ${w}`);
 for (const e of errors) console.log(`  x ${e}`);

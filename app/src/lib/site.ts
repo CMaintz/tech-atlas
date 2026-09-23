@@ -108,6 +108,11 @@ export const UI = {
     readArticle: 'Read the full article →',
     backToTerm: '← Back to the entry',
     draft: 'Draft — this entry has not been reviewed yet.',
+    disambiguationTitle: '“{name}” — several meanings',
+    disambiguationIntro:
+      '“{name}” names different things in different fields. Pick the one you mean.',
+    otherMeanings: '“{name}” also means something else in another field — see every meaning →',
+    searchDisambiguation: '“{name}” has {n} meanings — choose one',
     compareTitle: "Don't confuse these",
     compareIntro: 'Pairs that are easy to mix up, side by side.',
     whyDiffer: 'Why they differ',
@@ -244,6 +249,12 @@ export const UI = {
     readArticle: 'Læs hele artiklen →',
     backToTerm: '← Tilbage til opslaget',
     draft: 'Kladde — dette opslag er endnu ikke gennemgået.',
+    disambiguationTitle: '“{name}” — flere betydninger',
+    disambiguationIntro:
+      '“{name}” betyder forskellige ting inden for forskellige fagområder. Vælg den, du mener.',
+    otherMeanings:
+      '“{name}” betyder også noget andet inden for et andet fagområde — se alle betydninger →',
+    searchDisambiguation: '“{name}” har {n} betydninger — vælg én',
     compareTitle: 'Forveksl ikke disse',
     compareIntro: 'Begrebspar, der er lette at blande sammen, side om side.',
     whyDiffer: 'Hvorfor de er forskellige',

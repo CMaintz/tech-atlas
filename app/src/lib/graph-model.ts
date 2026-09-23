@@ -4,6 +4,7 @@
  */
 import type { EdgeType } from '../schema';
 import { makeLinker } from './autolink';
+import { bareName, collisionsOf } from './collisions';
 
 type RawEdge = string | { to: string; strength?: string; confidence?: string };
 export type ModelTerm = {
@@ -129,11 +130,7 @@ export function buildGraph(terms: ModelTerm[]): Graph {
     l.weight = Number((l.weight * (deg / 3 + 0.7)).toFixed(2));
   }
 
-  const nameCount = new Map<string, number>();
-  for (const t of terms) {
-    const name = t.id.split('/').pop()!;
-    nameCount.set(name, (nameCount.get(name) ?? 0) + 1);
-  }
+  const collisions = collisionsOf(terms.map((t) => t.id));
 
   const linker = makeLinker(terms, 'en');
 
@@ -159,7 +156,7 @@ export function buildGraph(terms: ModelTerm[]): Graph {
     depth: depthOf(t.id),
     degree: degree.get(t.id) ?? 0,
     requires: requires.get(t.id) ?? [],
-    collides: (nameCount.get(t.id.split('/').pop()!) ?? 0) > 1,
+    collides: collisions.has(bareName(t.id)),
     mentions: linker.mentions(
       [t.summary?.en ?? '', ...Object.values(t.body ?? {}).map((f) => f.en)],
       t.id,
