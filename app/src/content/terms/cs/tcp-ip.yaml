@@ -17,7 +17,7 @@ body:
     en: A layered suite of protocols in which IP moves packets between IP addresses across networks, and TCP on top of it delivers a reliable, ordered stream of data between ports.
     da: En lagdelt samling protokoller, hvor IP flytter pakker mellem IP-adresser på tværs af netværk, og TCP ovenpå sørger for en pålidelig, ordnet strøm af data mellem porte.
   plain:
-    en: IP is the postal service that moves envelopes; TCP is the careful clerk who numbers them, checks every one arrived, and asks again for any that went missing.
+    en: IP is the post office that moves envelopes; TCP is the careful clerk who numbers them, checks every one arrived, and asks again for any that went missing.
     da: IP er postvæsenet, der flytter kuverterne; TCP er den omhyggelige ekspedient, der nummererer dem, tjekker at alle er kommet frem, og beder om dem, der mangler.
   inPractice:
     en: Sending an email, loading a web page and syncing a file to the cloud all ride on TCP/IP underneath, whatever program you use.

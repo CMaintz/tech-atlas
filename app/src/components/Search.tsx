@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import MiniSearch from 'minisearch';
 import { parseIntent } from '../lib/intent';
 import { pairSlugFromIds } from '../lib/slug';
+import { collisionForQuery, collisionsOf } from '../lib/collisions';
 import {
   MODEL_CACHE,
   MODEL_FILE_URL,
@@ -32,6 +33,8 @@ interface Props {
   noResults: string;
   /** Templates with {a} / {b} placeholders. */
   intentLabels: { compare: string; route: string; before: string };
+  /** Shown when the query is a name several terms share; {name} and {n} placeholders. */
+  disambiguationLabel: string;
   /** `loading` has a {p} placeholder for the download progress. */
   semanticLabels: {
     enable: string;
@@ -74,6 +77,7 @@ export default function Search({
   placeholder,
   noResults,
   intentLabels,
+  disambiguationLabel,
   semanticLabels,
 }: Props) {
   const [docs, setDocs] = useState<Doc[] | null>(null);
@@ -153,6 +157,7 @@ export default function Search({
   }, [docs, lang]);
 
   const byId = useMemo(() => new Map((docs ?? []).map((d) => [d.id, d])), [docs]);
+  const collisions = useMemo(() => collisionsOf((docs ?? []).map((d) => d.id)), [docs]);
   const best = (phrase: string) => {
     const hit = engine?.search(phrase, { fields: ['en', 'da', 'akaEn', 'akaDa'] })[0];
     return hit ? byId.get(hit.id as string) : undefined;
@@ -245,6 +250,17 @@ export default function Search({
     }
   }
 
+  // A query that is exactly a name several terms share goes to its Disambiguation page (ADR-0003).
+  const shared = collisionForQuery(q, collisions);
+  const disambiguation = shared
+    ? {
+        href: `${langBase}terms/${shared}/`,
+        label: disambiguationLabel
+          .replace('{name}', shared.replace(/-/g, ' '))
+          .replace('{n}', String(collisions.get(shared)!.length)),
+      }
+    : null;
+
   const waiting = natural && semanticOn && !fresh && status !== 'error';
   const note = 'block px-3 py-2 text-sm text-neutral-500';
 
@@ -270,6 +286,16 @@ export default function Search({
                 href={action.href}
               >
                 → {action.label}
+              </a>
+            </li>
+          )}
+          {disambiguation && (
+            <li>
+              <a
+                class="block border-b border-neutral-800 bg-neutral-800/60 px-3 py-2 text-neutral-100 hover:bg-neutral-800"
+                href={disambiguation.href}
+              >
+                → {disambiguation.label}
               </a>
             </li>
           )}
@@ -317,7 +343,7 @@ export default function Search({
               </span>
             </li>
           )}
-          {results.length === 0 && !action && !waiting ? (
+          {results.length === 0 && !action && !disambiguation && !waiting ? (
             <li class="px-3 py-2 text-neutral-500">{noResults}</li>
           ) : (
             results.map((r) => {

@@ -17,7 +17,7 @@ body:
     en: A global system of separately owned networks joined by routers, which all follow TCP/IP so that data from one network can be passed on and delivered to an IP address in another.
     da: Et globalt system af selvstændigt ejede netværk, forbundet af routere, som alle følger TCP/IP, så data fra ét netværk kan sendes videre og leveres til en IP-adresse i et andet.
   plain:
-    en: Like the world's postal services agreeing on one way to write addresses, so a letter posted in Denmark can reach a house in Tokyo.
+    en: Like the world's post offices agreeing on one way to write addresses, so a letter posted in Denmark can reach a house in Tokyo.
     da: Som hvis alverdens postvæsener blev enige om én måde at skrive adresser på, så et brev sendt i Danmark kan nå et hus i Tokyo.
   inPractice:
     en: A small shop's card terminal, website and email all reach customers and the bank through the same internet connection from its provider.
