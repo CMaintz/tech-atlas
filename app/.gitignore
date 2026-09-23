@@ -4,3 +4,8 @@ dist/
 src/generated/
 *.log
 .DS_Store
+
+# local env (Supabase public config for dev builds; see docs/SUPABASE_SETUP.md)
+.env
+.env.*
+!.env.example

@@ -339,8 +339,18 @@ Built after v1.0 (A34–A37) exactly as the data model intended: nothing is hand
 - **Personal knowledge map** — mark each term Know / Familiar / Learning / Don't
   understand; the Explorer can colour by it; the study hub recommends terms whose
   prerequisites you already know.
-- **Local-first** — all learner state lives in the browser (A24). Accounts and sync
-  arrive only with a backend (ADR-0008).
+- **Local-first** — learner state lives in the browser (A24) and the UI reads only
+  that; signed out, offline, or on a build without accounts, everything works as before.
+- **Optional accounts + synced progress** (A44–A47) — sign in with an email magic link
+  or GitHub (Supabase Auth, called from the browser; the site stays static). A signed-in
+  learner's state is one row in `learner_state` (Postgres, Row Level Security: own row
+  only). Sync pulls and merges on sign-in, page load, returning to the tab and coming
+  back online, and pushes a moment after each change. The merge is per term, pure and
+  order-independent: the schedule (box, due) from the most recent answer, the status
+  from the most recent change (clearing counts), right/wrong counts = the larger side.
+  The account page (`/[lang]/account/`) shows sync status and can delete the synced row.
+  Accounts exist only when the build is given `PUBLIC_SUPABASE_URL` and
+  `PUBLIC_SUPABASE_ANON_KEY`; setup is in `docs/SUPABASE_SETUP.md`.
 
 ---
 
@@ -354,7 +364,9 @@ Built after v1.0 (A34–A37) exactly as the data model intended: nothing is hand
 - The whole ~105-term graph fits in memory; progressive loading and server-side graph
   queries are large-scale concerns for later.
 - A database (Postgres + pgvector, or a graph DB) is **deferred** to the phase where
-  learning, personalization, or semantic search actually need it.
+  learning, personalization, or semantic search actually need it. *Post-v1:* learner
+  progress sync uses Supabase (hosted Postgres + Auth) straight from the browser (A44);
+  content, pages and the graph stay static and never touch it.
 
 ---
 
@@ -372,11 +384,11 @@ Built after v1.0 (A34–A37) exactly as the data model intended: nothing is hand
 
 **Built after v1.0:** Articles, the Explorer (2D/3D, routes, progressive neighbourhoods),
 "What to learn first" paths, the learning system (§9), and the era view (Timeline +
-the Explorer's Time layout) — see `AUTONOMOUS_DECISIONS.md`.
+the Explorer's Time layout), and optional accounts with synced progress (§9) — see
+`AUTONOMOUS_DECISIONS.md`.
 
-**Still deferred:** AI tutor; semantic/vector search; a database; user accounts &
-cross-device progress; the `ai` and `platform` domains;
-centrality/community features. Each is enabled by, not blocked on, the data model.
+**Still deferred:** AI tutor; semantic/vector search; a database for content; the `ai` and `platform`
+domains; centrality/community features. Each is enabled by, not blocked on, the data model.
 
 ---
 

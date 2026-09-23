@@ -24,6 +24,10 @@ jobs:
         run: npm ci
       - name: Build
         working-directory: app
+        # Public Supabase config (A44). Unset repo variables => empty => accounts hidden.
+        env:
+          PUBLIC_SUPABASE_URL: ${{ vars.PUBLIC_SUPABASE_URL }}
+          PUBLIC_SUPABASE_ANON_KEY: ${{ vars.PUBLIC_SUPABASE_ANON_KEY }}
         run: npm run build
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:

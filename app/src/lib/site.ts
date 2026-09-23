@@ -8,6 +8,15 @@ export const BASE = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 /** Base-path-aware URL for an internal path. */
 export const url = (path = '') => BASE + path.replace(/^\//, '');
 
+/**
+ * Accounts + synced progress (A44) exist only when the build is given a Supabase
+ * project. Without these two public values every account surface is left out and
+ * the site is exactly the local-only one.
+ */
+export const SUPABASE_URL: string = import.meta.env.PUBLIC_SUPABASE_URL ?? '';
+export const SUPABASE_ANON_KEY: string = import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? '';
+export const ACCOUNTS = !!SUPABASE_URL && !!SUPABASE_ANON_KEY;
+
 export const termUrl = (lang: Lang, id: string) => url(`${lang}/terms/${id}/`);
 
 /** Swap the language segment of the current pathname. */
@@ -110,6 +119,31 @@ export const UI = {
     decade: '{d}s',
     layoutTime: 'By time',
     timeNote: 'Left to right = the year a term entered use. Terms without a year sit on the left.',
+    account: 'Account',
+    signIn: 'Sign in',
+    signOut: 'Sign out',
+    accountIntro:
+      'Sign in to keep your progress in step across devices. Everything works without an account too.',
+    accountsOff: 'Accounts are not enabled on this site. Your progress is stored in this browser.',
+    emailLabel: 'Email',
+    sendLink: 'Email me a sign-in link',
+    linkSent: 'Check your inbox and open the link in this browser to finish signing in.',
+    or: 'or',
+    withGitHub: 'Sign in with GitHub',
+    authError: 'Something went wrong: {msg}',
+    signedInAs: 'Signed in as {email}',
+    syncNow: 'Sync now',
+    sync_syncing: 'Syncing…',
+    sync_synced: 'Progress synced.',
+    sync_offline: 'Offline — changes are kept here and sync when you are back online.',
+    sync_error: 'Could not sync just now — your progress is safe in this browser.',
+    lastSynced: 'Progress synced at {time}.',
+    deleteData: 'Delete my synced data',
+    deleteNote:
+      'Deletes your synced progress from the server and signs you out. Progress in this browser is kept.',
+    deleteConfirm: 'Delete your synced progress from the server and sign out?',
+    deleted: 'Your synced data has been deleted.',
+    syncNote: 'Your progress is stored in this browser — sign in to sync it across devices.',
   },
   da: {
     tagline: 'En tosproget teknisk ordbog, der læses som en vidensgraf.',
@@ -206,6 +240,32 @@ export const UI = {
     layoutTime: 'Efter tid',
     timeNote:
       'Fra venstre mod højre = året, et begreb kom i brug. Begreber uden årstal står til venstre.',
+    account: 'Konto',
+    signIn: 'Log ind',
+    signOut: 'Log ud',
+    accountIntro:
+      'Log ind for at holde dine fremskridt ens på tværs af enheder. Alt virker også uden en konto.',
+    accountsOff: 'Konti er ikke slået til på dette site. Dine fremskridt gemmes i denne browser.',
+    emailLabel: 'E-mail',
+    sendLink: 'Send mig et login-link',
+    linkSent: 'Tjek din indbakke, og åbn linket i denne browser for at logge ind.',
+    or: 'eller',
+    withGitHub: 'Log ind med GitHub',
+    authError: 'Noget gik galt: {msg}',
+    signedInAs: 'Logget ind som {email}',
+    syncNow: 'Synkronisér nu',
+    sync_syncing: 'Synkroniserer …',
+    sync_synced: 'Fremskridt synkroniseret.',
+    sync_offline: 'Offline — ændringer gemmes her og synkroniseres, når du er online igen.',
+    sync_error: 'Kunne ikke synkronisere lige nu — dine fremskridt er sikre i denne browser.',
+    lastSynced: 'Fremskridt synkroniseret kl. {time}.',
+    deleteData: 'Slet mine synkroniserede data',
+    deleteNote:
+      'Sletter dine synkroniserede fremskridt fra serveren og logger dig ud. Fremskridt i denne browser bevares.',
+    deleteConfirm: 'Slet dine synkroniserede fremskridt fra serveren og log ud?',
+    deleted: 'Dine synkroniserede data er slettet.',
+    syncNote:
+      'Dine fremskridt gemmes i denne browser — log ind for at synkronisere dem på tværs af enheder.',
   },
 } as const;
 

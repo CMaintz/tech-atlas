@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
-import { REPO, UI, swapLang, url, type Lang } from '../lib/site';
+import AccountMenu from '../components/AccountMenu';
+import { ACCOUNTS, REPO, UI, swapLang, url, type Lang } from '../lib/site';
 
 interface Props {
   lang?: Lang;
@@ -39,6 +40,20 @@ const pageTitle = title === 'Atlas' ? 'Atlas' : `${title} — Atlas`;
         <a class="hover:text-neutral-100" href={url(`${lang}/timeline/`)}>{ui.timeline}</a>
         <a class="hover:text-neutral-100" href={url(`${lang}/compare/`)}>{ui.compare}</a>
         <a class="hover:text-neutral-100" href={url(`${lang}/study/`)}>{ui.study}</a>
+        {
+          ACCOUNTS && (
+            <AccountMenu
+              client:only="preact"
+              href={url(`${lang}/account/`)}
+              ui={{
+                signIn: ui.signIn,
+                account: ui.account,
+                sync_error: ui.sync_error,
+                sync_offline: ui.sync_offline,
+              }}
+            />
+          )
+        }
         <a class="hover:text-neutral-100" href={swapLang(path, other)} hreflang={other}>
           {other.toUpperCase()}
         </a>
