@@ -27,6 +27,12 @@ body:
 edges:
   requires: [risk, artificial-intelligence]
   mandates:
+    - to: ai-red-teaming
+      why:
+        en: Providers of the most powerful general-purpose models must carry out and document attack testing of the model to find and reduce its risks.
+        da: Udbydere af de mest kraftfulde AI-modeller til almen brug skal udføre og dokumentere angrebstest af modellen for at finde og mindske dens risici.
+      strength: primary
+      confidence: high
     - to: risk-management
       why:
         en: Providers of high-risk systems must run a documented risk management process across the system's whole life.

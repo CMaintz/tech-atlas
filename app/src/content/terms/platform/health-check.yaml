@@ -1,0 +1,46 @@
+term:
+  en: Health check
+  da: Sundhedstjek (health check)
+aka:
+  en: []
+  da: [health check]
+domain: [platform]
+cluster: observability
+layer: observability
+status: current
+summary:
+  en: A small automatic test, repeated every few seconds, that asks a running service whether it is alive and able to answer.
+  da: En lille automatisk test, gentaget med få sekunders mellemrum, der spørger en kørende tjeneste, om den lever og kan svare.
+body:
+  formal:
+    en: A regular request, often to a fixed web address or port, whose answer tells the platform whether a copy of a service is running and ready for work; copies that fail are restarted or taken out of the group that receives traffic.
+    da: En fast, gentaget forespørgsel, ofte til en bestemt webadresse eller port, hvis svar fortæller platformen, om en kopi af en tjeneste kører og er klar til arbejde; kopier, der fejler, genstartes eller tages ud af den gruppe, der modtager trafik.
+  plain:
+    en: Like a lifeguard who calls out to each swimmer now and then; anyone who does not answer gets pulled out of the water.
+    da: Som en livredder, der råber til hver svømmer en gang imellem; den, der ikke svarer, bliver hevet op af vandet.
+  inPractice:
+    en: Kubernetes asks each copy of the order service for a status page every ten seconds; one copy stops answering after running out of memory, so it is restarted and gets no customers until it answers again.
+    da: Kubernetes beder hver kopi af ordretjenesten om en statusside hvert tiende sekund; én kopi holder op med at svare efter at være løbet tør for hukommelse, så den genstartes og får ingen kunder, før den svarer igen.
+  whyItMatters:
+    en: Machines fail all the time; health checks let the platform send traffic around a broken copy within seconds, before users notice and before anyone is woken up.
+    da: Maskiner fejler hele tiden; sundhedstjek lader platformen lede trafikken uden om en defekt kopi på få sekunder, før brugerne mærker det, og før nogen bliver vækket.
+edges:
+  requires: [service]
+  used-with:
+    - to: kubernetes
+      why:
+        en: Kubernetes runs health checks on every container and uses the answers to restart it or hold back traffic.
+        da: Kubernetes kører sundhedstjek på hver container og bruger svarene til at genstarte den eller holde trafik tilbage.
+      strength: primary
+      confidence: high
+    - monitoring
+sources:
+  - title: Kubernetes Documentation — Configure Liveness, Readiness and Startup Probes
+    url: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+    tier: official-doc
+    publisher: The Kubernetes Authors
+  - title: Google SRE book — Chapter 20, Load Balancing in the Datacenter
+    url: https://sre.google/sre-book/load-balancing-datacenter/
+    tier: reference
+    publisher: Google
+draft: true

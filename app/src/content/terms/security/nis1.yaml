@@ -1,0 +1,48 @@
+term:
+  en: NIS1 Directive
+  da: NIS1-direktivet
+aka:
+  en: [NIS1, NIS Directive, Directive (EU) 2016/1148]
+  da: [NIS1, NIS-direktivet]
+domain: [security]
+cluster: compliance
+layer: governance
+status: legacy
+era: 2016
+summary:
+  en: The first EU-wide cybersecurity law, from 2016, which set security and reporting duties for key service providers until NIS2 replaced it.
+  da: EU's første fælles cybersikkerhedslov fra 2016, som gav vigtige tjenesteudbydere krav om sikkerhed og indberetning, indtil NIS2 afløste den.
+body:
+  formal:
+    en: An EU directive adopted in 2016 that each member state wrote into its own law; it covered operators of essential services, such as energy, transport, banking, health and water, and digital service providers, such as online marketplaces, search engines and cloud services.
+    da: Et EU-direktiv fra 2016, som hvert medlemsland skrev ind i sin egen lovgivning; det omfattede operatører af væsentlige tjenester, fx energi, transport, bank, sundhed og vand, samt udbydere af digitale tjenester som online markedspladser, søgemaskiner og cloudtjenester.
+  plain:
+    en: Like the first edition of a book of rules — it set the basic idea that the firms society depends on must protect their systems, but it left each country a lot of room to decide who was covered.
+    da: Som første udgave af en regelbog — den fastslog, at de virksomheder, samfundet er afhængigt af, skal beskytte deres systemer, men den gav hvert land stor frihed til selv at afgøre, hvem der var omfattet.
+  inPractice:
+    en: In 2018 a national energy company was named an operator of essential services, so it had to take suitable security measures and tell the national authority about incidents that seriously disrupted its supply.
+    da: I 2018 blev et nationalt energiselskab udpeget som operatør af en væsentlig tjeneste, så det skulle træffe passende sikkerhedstiltag og give den nationale myndighed besked om hændelser, der alvorligt forstyrrede forsyningen.
+  whyItMatters:
+    en: It was the first time the EU made cyber risk a legal duty across borders; because countries applied it so differently, it was cancelled and replaced by NIS2 from October 2024.
+    da: Det var første gang, EU gjorde cyberrisiko til en juridisk pligt på tværs af grænser; fordi landene anvendte det så forskelligt, blev det ophævet og afløst af NIS2 fra oktober 2024.
+edges:
+  requires: [cyber-and-information-security]
+  mandates:
+    - to: risk-management
+      why:
+        en: Covered organisations had to take measures suited to the risks facing the systems behind their services.
+        da: Omfattede organisationer skulle træffe tiltag, der passede til risiciene for de systemer, som deres tjenester byggede på.
+      strength: primary
+      confidence: high
+    - to: incident-reporting
+      why:
+        en: Incidents with a significant impact on the service had to be reported to the national authority without undue delay.
+        da: Hændelser med betydelig indvirkning på tjenesten skulle indberettes til den nationale myndighed uden unødig forsinkelse.
+      strength: primary
+      confidence: high
+sources:
+  - title: Directive (EU) 2016/1148 (NIS Directive)
+    tier: standard
+    publisher: European Union
+    url: 'https://eur-lex.europa.eu/eli/dir/2016/1148/oj'
+draft: true

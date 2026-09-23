@@ -29,6 +29,7 @@ edges:
   kind-of: [protocol]
   part-of: [tcp-ip]
   requires: [ip-address]
+  used-with: [url]
 sources:
   - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
     tier: textbook

@@ -26,6 +26,7 @@ body:
     da: Containere starter på sekunder og bruger lidt hukommelse, men fordi de deler én kerne, kan en fejl dér lade én container bryde ud og nå de andre på værten.
 edges:
   requires: [cs/process, cs/kernel]
+  used-with: [microservices]
   contrasts-with:
     - to: virtual-machine
       why:

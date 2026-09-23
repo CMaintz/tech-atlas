@@ -1,0 +1,55 @@
+term:
+  en: Code signing
+  da: Kodesignering
+aka:
+  en: [software signing]
+  da: [softwaresignering]
+domain: [platform, security]
+cluster: delivery
+layer: delivery
+status: current
+era: 1996
+summary:
+  en: Adding a digital signature to software so users and systems can check who made it and that nobody changed it afterwards.
+  da: At sætte en digital signatur på software, så brugere og systemer kan tjekke, hvem der har lavet den, og at ingen har ændret den bagefter.
+body:
+  formal:
+    en: The use of digital signatures on programs, updates, scripts and container images, made with the publisher's private key and tied to a digital certificate, so the system installing them can check who published them and that they are unchanged.
+    da: Brug af digitale signaturer på programmer, opdateringer, scripts og container-images, lavet med udgiverens private nøgle og knyttet til et digitalt certifikat, så det system, der installerer dem, kan tjekke udgiveren, og at de er uændrede.
+  plain:
+    en: Like the seal on a medicine bottle printed with the maker's name — if the seal is broken or the name is wrong, you do not swallow what is inside.
+    da: Som forseglingen på et medicinglas med producentens navn — er forseglingen brudt eller navnet forkert, sluger man ikke indholdet.
+  inPractice:
+    en: The last step of a team's CI/CD pipeline signs each release; the servers that run it are set to accept only software carrying that team's signature.
+    da: Det sidste trin i et teams CI/CD-pipeline signerer hver udgivelse; de servere, der kører den, er sat op til kun at godtage software med teamets signatur.
+  whyItMatters:
+    en: Attackers love to slip malware into real-looking updates; a signature check stops a changed file, though it cannot help if the signing key itself is stolen.
+    da: Angribere elsker at smugle malware ind i ægte udseende opdateringer; et signaturtjek stopper en ændret fil, men hjælper ikke, hvis selve signeringsnøglen bliver stjålet.
+edges:
+  requires: [digital-signature, digital-certificate]
+  part-of: [software-supply-chain]
+  mitigates:
+    - to: supply-chain-attack
+      why:
+        en: Software that was changed after it was signed, or signed by the wrong party, fails the check and is not installed.
+        da: Software, der er ændret efter signeringen eller signeret af den forkerte part, fejler tjekket og bliver ikke installeret.
+      strength: primary
+      confidence: high
+  used-with:
+    - pipeline
+    - to: sbom
+      why:
+        en: An SBOM lists what went into the software; a signature proves the software and its list came from the named maker unchanged.
+        da: En SBOM angiver, hvad softwaren består af; en signatur beviser, at softwaren og listen kom uændret fra den nævnte producent.
+      strength: normal
+      confidence: high
+sources:
+  - title: NIST — Security Considerations for Code Signing
+    url: https://csrc.nist.gov/pubs/cswp/1/final
+    tier: standard
+    publisher: NIST
+  - title: Sigstore documentation
+    url: https://docs.sigstore.dev/
+    tier: official-doc
+    publisher: OpenSSF
+draft: true

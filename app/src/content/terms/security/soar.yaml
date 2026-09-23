@@ -1,0 +1,47 @@
+term:
+  en: SOAR
+  da: SOAR
+aka:
+  en: [security orchestration, automation and response]
+  da: [security orchestration, automation and response]
+domain: [security]
+cluster: security-operations
+status: current
+era: 2017
+summary:
+  en: A platform that ties a security team's tools together and runs the routine steps of handling an alarm by itself.
+  da: En platform, der binder sikkerhedsteamets værktøjer sammen og selv udfører de faste trin i håndteringen af en alarm.
+body:
+  formal:
+    en: Software that receives alarms, mostly from a SIEM, and runs stored step-by-step plans across other tools, such as looking up an address in threat intelligence, locking an account or isolating a laptop, while keeping one case record for the analysts.
+    da: Software, der modtager alarmer, oftest fra en SIEM, og kører gemte trin-for-trin-forløb på tværs af andre værktøjer, fx slår en adresse op i trusselsefterretninger, spærrer en konto eller isolerer en bærbar, mens den fører én samlet sag for analytikerne.
+  plain:
+    en: Like a kitchen where the prep cook does all the chopping and measuring from the recipe, so the chef only has to make the real decisions.
+    da: Som et køkken, hvor kokkeassistenten klarer alt forarbejdet efter opskriften, så kokken kun skal træffe de egentlige beslutninger.
+  inPractice:
+    en: When a staff member reports a phishing mail, SOAR pulls out the links, checks them against known bad sites, deletes the same mail from every inbox and hands the analyst a finished summary.
+    da: Når en medarbejder melder en phishingmail, trækker SOAR linkene ud, tjekker dem mod kendte skadelige sider, sletter den samme mail fra alle indbakker og giver analytikeren et færdigt sammendrag.
+  whyItMatters:
+    en: Teams get far more alarms than people can handle by hand; taking the routine steps off their hands answers attacks in minutes instead of hours.
+    da: Teams får langt flere alarmer, end mennesker kan klare i hånden; når de faste trin klares automatisk, besvares angreb på minutter i stedet for timer.
+edges:
+  kind-of: [control]
+  requires:
+    - siem
+    - alert-triage
+  used-with:
+    - to: soc
+      why:
+        en: The SOC's analysts use SOAR to handle routine alarms automatically and spend their time on the hard cases.
+        da: SOC'ens analytikere bruger SOAR til at håndtere rutinealarmer automatisk og bruge deres tid på de svære sager.
+      strength: primary
+      confidence: high
+sources:
+  - title: Wikipedia — Security orchestration, automation and response
+    url: https://en.wikipedia.org/wiki/Security_orchestration,_automation_and_response
+    tier: reference
+  - title: NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management
+    url: https://doi.org/10.6028/NIST.SP.800-61r3
+    tier: standard
+    publisher: NIST
+draft: true

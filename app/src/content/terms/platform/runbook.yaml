@@ -1,0 +1,46 @@
+term:
+  en: Runbook
+  da: Runbook
+aka:
+  en: []
+  da: [driftsvejledning]
+domain: [platform]
+cluster: observability
+layer: process
+status: current
+summary:
+  en: Written step-by-step instructions for handling one known situation, such as a certain alarm, so anyone on call can act fast.
+  da: Skrevne trin-for-trin-instruktioner til at håndtere én kendt situation, fx en bestemt alarm, så enhver på vagt kan handle hurtigt.
+body:
+  formal:
+    en: A kept-up-to-date document tied to a specific alarm or task that says how to confirm the problem, which checks and fixes to try in which order, and when and to whom to pass it on; its steps are often turned into scripts over time.
+    da: Et løbende opdateret dokument knyttet til en bestemt alarm eller opgave, der beskriver, hvordan man bekræfter problemet, hvilke tjek og rettelser man prøver i hvilken rækkefølge, og hvornår og til hvem sagen sendes videre; trinene bliver ofte med tiden til små programmer.
+  plain:
+    en: Like the checklist pilots pull out when a warning light comes on; nobody has to invent the answer under stress.
+    da: Som den tjekliste, piloter tager frem, når en advarselslampe tænder; ingen skal finde på svaret under pres.
+  inPractice:
+    en: At night an alarm says a disk is 95% full; the alarm links to its runbook, and the on-call engineer follows its five steps to clear old log files and add space without calling anyone.
+    da: Om natten melder en alarm, at en disk er 95 % fuld; alarmen linker til sin runbook, og den vagthavende tekniker følger dens fem trin for at rydde gamle logfiler og give mere plads uden at ringe til nogen.
+  whyItMatters:
+    en: In a crisis people forget and guess; a good runbook makes the response fast and the same every time, and lets new staff handle problems only experts knew before.
+    da: I en krise glemmer folk og gætter; en god runbook gør indsatsen hurtig og ens hver gang og lader nye medarbejdere håndtere problemer, som før kun eksperter kunne klare.
+edges:
+  requires: [alerting]
+  used-with:
+    - to: soar
+      why:
+        en: SOAR tools turn the steps of written runbooks into automatic actions that run the moment an alarm arrives.
+        da: SOAR-værktøjer gør trinene i skrevne runbooks til automatiske handlinger, der kører, i samme øjeblik en alarm kommer ind.
+      strength: primary
+      confidence: high
+    - soc
+sources:
+  - title: Google SRE book — Chapter 11, Being On-Call
+    url: https://sre.google/sre-book/being-on-call/
+    tier: reference
+    publisher: Google
+  - title: NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management
+    url: https://doi.org/10.6028/NIST.SP.800-61r3
+    tier: standard
+    publisher: NIST
+draft: true

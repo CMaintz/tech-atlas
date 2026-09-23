@@ -1,0 +1,48 @@
+term:
+  en: Software composition analysis (SCA)
+  da: Software composition analysis (SCA)
+aka:
+  en: [SCA]
+  da: [SCA]
+domain: [platform, security]
+cluster: delivery
+layer: delivery
+status: current
+summary:
+  en: Automatic checking of the outside libraries a program is built from, looking for known flaws and licence problems.
+  da: Automatisk tjek af de eksterne biblioteker, et program er bygget af, for kendte fejl og licensproblemer.
+body:
+  formal:
+    en: A tool-driven method that lists every outside library a program uses, including the libraries those libraries use in turn, matches each name and version against public CVE lists and licence rules, and reports what needs to be updated or replaced.
+    da: En værktøjsdrevet metode, der lister alle eksterne biblioteker, et program bruger, også dem, bibliotekerne selv bruger, sammenligner hvert navn og hver version med offentlige CVE-lister og licensregler og rapporterer, hvad der skal opdateres eller udskiftes.
+  plain:
+    en: Like a food inspector who reads the label of every ingredient a bakery buys in and checks each against the list of recalled products.
+    da: Som en fødevarekontrollant, der læser etiketten på hver ingrediens, et bageri køber ind, og tjekker den mod listen over tilbagekaldte varer.
+  inPractice:
+    en: A code change adds a new library to an app; the CI/CD pipeline runs SCA, finds that the chosen version has a known serious flaw, and blocks the change until the developer picks a fixed version.
+    da: En kodeændring tilføjer et nyt bibliotek til en app; CI/CD-pipelinen kører SCA, opdager, at den valgte version har en kendt alvorlig fejl, og blokerer ændringen, indtil udvikleren vælger en rettet version.
+  whyItMatters:
+    en: Most of the code in a modern app was written by strangers; without this check, one old library can quietly open a hole that attackers already know how to use.
+    da: Det meste af koden i en moderne app er skrevet af fremmede; uden dette tjek kan ét gammelt bibliotek stille åbne et hul, som angribere allerede ved, hvordan de udnytter.
+edges:
+  kind-of: [vulnerability-scanning]
+  requires:
+    - software-supply-chain
+    - cve
+  mitigates:
+    - to: supply-chain-attack
+      why:
+        en: Checking every outside library against known flaws finds weak or tampered parts before they ship.
+        da: Når hvert eksternt bibliotek tjekkes mod kendte fejl, findes svage eller manipulerede dele, før de sendes ud.
+      strength: normal
+      confidence: medium
+sources:
+  - title: OWASP — Component Analysis
+    url: https://owasp.org/www-community/Component_Analysis
+    tier: reference
+    publisher: OWASP Foundation
+  - title: OWASP Dependency-Check
+    url: https://owasp.org/www-project-dependency-check/
+    tier: reference
+    publisher: OWASP Foundation
+draft: true

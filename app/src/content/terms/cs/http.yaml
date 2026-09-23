@@ -28,6 +28,14 @@ body:
 edges:
   kind-of: [protocol]
   requires: [tcp-ip, client, server]
+  used-with:
+    - to: url
+      why:
+        en: Every HTTP request names the resource it wants by its URL.
+        da: Hver HTTP-forespørgsel angiver den ressource, den vil have, med dens URL.
+      strength: primary
+      confidence: high
+    - json
 sources:
   - title: RFC 9110 — HTTP Semantics
     url: https://www.rfc-editor.org/rfc/rfc9110

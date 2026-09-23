@@ -27,6 +27,7 @@ body:
 edges:
   requires: [metrics]
   used-with:
+    - health-check
     - monitoring
     - siem
     - incident-response

@@ -1,0 +1,46 @@
+term:
+  en: Certificate authority (CA)
+  da: Certifikatudsteder (CA)
+aka:
+  en: [certification authority]
+  da: []
+domain: [cs]
+cluster: cryptography
+layer: theory
+status: current
+summary:
+  en: A trusted body that checks who someone is and then signs digital certificates vouching that a public key belongs to them.
+  da: En betroet instans, der tjekker, hvem nogen er, og derefter signerer digitale certifikater, der bekræfter, at en offentlig nøgle er deres.
+body:
+  formal:
+    en: An organisation or system that confirms an applicant's identity, issues digital certificates signed with its own private key, and publishes which certificates it has cancelled; devices trust it because its root certificate is already stored in them.
+    da: En organisation eller et system, der bekræfter en ansøgers identitet, udsteder digitale certifikater signeret med sin egen private nøgle og offentliggør, hvilke certifikater den har tilbagekaldt; enheder stoler på den, fordi dens rodcertifikat allerede ligger i dem.
+  plain:
+    en: Like the passport office — it checks your papers before issuing a passport, and border guards accept the passport because they trust the office, not because they know you.
+    da: Som paskontoret — det tjekker dine papirer, før det udsteder et pas, og grænsevagter godtager passet, fordi de stoler på kontoret, ikke fordi de kender dig.
+  inPractice:
+    en: A web shop proves to a CA that it controls its web address; the CA signs a certificate, and every visitor's browser then shows the padlock without asking.
+    da: En webshop beviser over for en CA, at den råder over sin webadresse; CA'en signerer et certifikat, og alle besøgendes browsere viser derefter hængelåsen uden at spørge.
+  whyItMatters:
+    en: The whole chain of trust rests on a small number of issuers; if one is broken into or careless, attackers can get real-looking certificates for sites that are not theirs.
+    da: Hele tillidskæden hviler på et lille antal udstedere; bliver der brudt ind hos én af dem, eller er den uforsigtig, kan angribere få ægte udseende certifikater til websteder, der ikke er deres.
+edges:
+  part-of: [public-key-infrastructure]
+  requires: [digital-certificate, digital-signature, identity]
+  used-with:
+    - to: tls
+      why:
+        en: TLS checks the other side's certificate, and that check only means something because a trusted CA signed it.
+        da: TLS tjekker modpartens certifikat, og det tjek betyder kun noget, fordi en betroet CA har signeret det.
+      strength: normal
+      confidence: high
+sources:
+  - title: RFC 5280 — Internet X.509 Public Key Infrastructure Certificate and CRL Profile
+    url: https://www.rfc-editor.org/rfc/rfc5280
+    tier: standard
+    publisher: IETF
+  - title: NIST SP 800-32 — Introduction to Public Key Technology and the Federal PKI Infrastructure
+    url: https://csrc.nist.gov/pubs/sp/800/32/final
+    tier: standard
+    publisher: NIST
+draft: true

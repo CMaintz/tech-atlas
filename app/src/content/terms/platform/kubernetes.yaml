@@ -28,7 +28,7 @@ body:
 edges:
   implements: [container-orchestration]
   requires: [container]
-  used-with: [role-based-access-control]
+  used-with: [role-based-access-control, microservices]
 article:
   en: src/content/articles/platform/kubernetes.en.md
   da: src/content/articles/platform/kubernetes.da.md

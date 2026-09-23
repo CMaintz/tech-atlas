@@ -27,6 +27,13 @@ body:
     da: Det udvider de første NIS-regler til mange flere sektorer og tilføjer store bøder og personligt ansvar for ledelsen, så sikkerhed bliver en opgave for bestyrelsen.
 edges:
   requires: [cyber-and-information-security]
+  supersedes:
+    - to: nis1
+      why:
+        en: It repealed the first NIS rules, which stopped applying in October 2024 when member states had to apply NIS2.
+        da: Det ophævede de første NIS-regler, som ophørte med at gælde i oktober 2024, da medlemslandene skulle anvende NIS2.
+      strength: primary
+      confidence: high
   mandates:
     - to: risk-management
       why:

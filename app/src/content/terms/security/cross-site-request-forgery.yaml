@@ -1,0 +1,60 @@
+term:
+  en: Cross-site request forgery (CSRF)
+  da: Cross-site request forgery (CSRF)
+aka:
+  en: [CSRF, XSRF, session riding]
+  da: [CSRF, XSRF]
+domain: [security]
+cluster: application-security
+layer: application
+status: current
+era: 2001
+summary:
+  en: An attack where a harmful page makes your browser send a request to a site you are logged in to, which then acts as if you asked.
+  da: Et angreb, hvor en skadelig side får din browser til at sende en forespørgsel til et site, du er logget ind på, som om du selv bad om det.
+body:
+  formal:
+    en: A flaw in a web application that accepts a changing request only because it carries the user's cookie; since the web browser adds that cookie by itself, a page on another site can start the request without the user knowing.
+    da: En fejl i en webapplikation, der godtager en ændrende forespørgsel alene fordi den bærer brugerens cookie; da webbrowseren selv tilføjer den cookie, kan en side på et andet site sætte forespørgslen i gang, uden at brugeren ved det.
+  plain:
+    en: Like someone slipping a signed order form into your post pile — the shop sees your signature and fills the order, never asking whether you meant to send it.
+    da: Som når nogen lægger en underskrevet bestillingsseddel ind mellem dine breve — butikken ser din underskrift og sender varen uden at spørge, om det var dig, der ville bestille.
+  inPractice:
+    en: While logged in to their online bank, a user opens a forum post with a hidden form; the page quietly sends a money transfer to the bank, which accepts it because the login cookie came along.
+    da: Mens en bruger er logget ind i sin netbank, åbner vedkommende et forumindlæg med en skjult formular; siden sender i al stilhed en overførsel til banken, som godtager den, fordi login-cookien fulgte med.
+  whyItMatters:
+    en: The attacker never needs the password or even to see the answer; one visit to the wrong page can change an email address, a password or move money in the user's name.
+    da: Angriberen behøver hverken adgangskoden eller at se svaret; ét besøg på den forkerte side kan ændre en e-mailadresse, en adgangskode eller flytte penge i brugerens navn.
+edges:
+  requires: [web-application, cookie]
+  exploits:
+    - to: session
+      why:
+        en: The site trusts every request that carries the session cookie, and the browser attaches it even when another site started the request.
+        da: Sitet stoler på enhver forespørgsel med sessionscookien, og browseren sender den med, selv når et andet site startede forespørgslen.
+      strength: primary
+      confidence: high
+  contrasts-with:
+    - to: cross-site-scripting
+      why:
+        en: XSS runs the attacker's script inside the trusted site; CSRF runs nothing there and only borrows the user's login to send one request from outside.
+        da: XSS kører angriberens script inde på det betroede site; CSRF kører intet dér og låner kun brugerens login til at sende én forespørgsel udefra.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: same-origin-policy
+      why:
+        en: The browser rule does not stop the forged request from being sent, but it keeps the attacker's page from reading a CSRF token, which is what lets that defence work.
+        da: Browserreglen forhindrer ikke, at den forfalskede forespørgsel bliver sendt, men den forhindrer angriberens side i at læse et CSRF-token, og det er det, der får det forsvar til at virke.
+      strength: minor
+      confidence: high
+sources:
+  - title: OWASP — Cross Site Request Forgery (CSRF)
+    tier: reference
+    publisher: OWASP
+    url: https://owasp.org/www-community/attacks/csrf
+  - title: OWASP Cheat Sheet Series — Cross-Site Request Forgery Prevention
+    tier: reference
+    publisher: OWASP
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html
+draft: true

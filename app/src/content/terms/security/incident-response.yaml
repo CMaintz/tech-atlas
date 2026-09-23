@@ -28,6 +28,7 @@ body:
 edges:
   requires: [threat]
   used-with:
+    - runbook
     - siem
     - observability
     - to: indicator-of-compromise

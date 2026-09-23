@@ -1,0 +1,39 @@
+term:
+  en: Container registry
+  da: Container-register (registry)
+aka:
+  en: [image registry]
+  da: [image-register]
+domain: [platform]
+cluster: containers
+layer: delivery
+status: current
+summary:
+  en: A shared online store where container images are uploaded, given names and versions, and fetched by the machines that run them.
+  da: Et fælles onlinelager, hvor container-images lægges op, får navne og versioner og hentes af de maskiner, der kører dem.
+body:
+  formal:
+    en: A server that keeps container images in named collections, each image marked with version labels and a unique fingerprint of its content, and that hands them out to anyone with the right to push or pull them.
+    da: En server, der opbevarer container-images i navngivne samlinger, hvor hvert image er mærket med versionsnavne og et unikt fingeraftryk af indholdet, og som udleverer dem til dem, der har ret til at lægge op eller hente.
+  plain:
+    en: Like a library for software boxes — builders hand in new editions, and every machine borrows the exact edition it asks for by name.
+    da: Som et bibliotek for softwarekasser — dem, der bygger, afleverer nye udgaver, og hver maskine låner præcis den udgave, den beder om ved navn.
+  inPractice:
+    en: A pipeline builds the web shop image, pushes it to the company's private registry as version 2.4, and Kubernetes pulls that exact version onto each machine.
+    da: En pipeline bygger webshoppens image, lægger det op i virksomhedens private registry som version 2.4, og Kubernetes henter netop den version ned på hver maskine.
+  whyItMatters:
+    en: Whoever can push to a registry decides what code runs in production, so an open or careless registry is a direct way into the software supply chain.
+    da: Den, der kan lægge images op i et registry, bestemmer, hvilken kode der kører i drift, så et åbent eller sjusket registry er en direkte vej ind i softwareforsyningskæden.
+edges:
+  requires: [container-image]
+  part-of: [software-supply-chain]
+  used-with: [docker]
+sources:
+  - title: Docker Docs — What is a registry?
+    url: https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-registry/
+    tier: official-doc
+    publisher: Docker
+  - title: NIST SP 800-190 — Application Container Security Guide
+    tier: standard
+    publisher: NIST
+draft: true
