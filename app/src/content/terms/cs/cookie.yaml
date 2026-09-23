@@ -1,0 +1,47 @@
+term:
+  en: Cookie
+  da: Cookie
+aka:
+  en: [HTTP cookie, browser cookie]
+  da: [HTTP-cookie, browsercookie]
+domain: [cs]
+cluster: web
+layer: application
+status: current
+era: 1994
+summary:
+  en: A small piece of text a website asks the browser to keep and send back on every visit, so the site can recognise it.
+  da: En lille tekstbid, som et websted beder browseren gemme og sende med tilbage ved hvert besøg, så stedet kan genkende den.
+body:
+  formal:
+    en: A name and value that a server sets in an HTTP reply; the browser stores it for that website and adds it to later requests to the same site until it runs out, with flags that limit where and how it may be sent.
+    da: Et navn og en værdi, som en server sætter i et HTTP-svar; browseren gemmer det for webstedet og lægger det på senere forespørgsler til samme sted, indtil det udløber, med markeringer, der begrænser, hvor og hvordan det må sendes.
+  plain:
+    en: Like the coat check ticket you get at a theatre — you hand it back each time, and the staff know which coat is yours without asking your name.
+    da: Som garderobesedlen i teatret — du rækker den frem hver gang, og personalet ved, hvilken frakke der er din, uden at spørge om dit navn.
+  inPractice:
+    en: After a customer logs in to a web shop, the shop sets a cookie holding a session number, so the basket and login survive as she moves from page to page.
+    da: Når en kunde logger ind i en webshop, sætter butikken en cookie med et sessionsnummer, så kurven og login følger med, mens hun går fra side til side.
+  whyItMatters:
+    en: Whoever holds a login cookie is treated as its owner, so cookies must be kept from scripts and plain HTTP, and those used to track people fall under GDPR consent rules.
+    da: Den, der har en login-cookie, behandles som dens ejer, så cookies skal holdes væk fra scripts og ren HTTP, og cookies til sporing af personer kræver samtykke efter GDPR-reglerne.
+edges:
+  requires: [http, web-browser]
+  used-with:
+    - to: session
+      why:
+        en: A cookie is the usual way a website carries the session marker from one request to the next.
+        da: En cookie er den almindelige måde, et websted bærer sessionens kendetegn fra én forespørgsel til den næste.
+      strength: primary
+      confidence: high
+    - web-application
+sources:
+  - title: RFC 6265 — HTTP State Management Mechanism
+    url: https://www.rfc-editor.org/rfc/rfc6265
+    tier: standard
+    publisher: IETF
+  - title: MDN Web Docs — Using HTTP cookies
+    url: https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies
+    tier: official-doc
+    publisher: Mozilla
+draft: true

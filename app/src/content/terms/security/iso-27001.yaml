@@ -68,6 +68,12 @@ edges:
         da: NIS2 er en lov, man skal overholde; ISO 27001 er en frivillig standard, man kan bruge til at opfylde den.
       strength: normal
       confidence: high
+    - to: nist-csf
+      why:
+        en: ISO 27001 is a management system a firm can be certified against; the NIST CSF is a free, voluntary framework of outcomes with no certificate.
+        da: ISO 27001 er et ledelsessystem, man kan certificeres efter; NIST CSF er et gratis, frivilligt rammeværk af mål uden certifikat.
+      strength: normal
+      confidence: high
 article:
   en: src/content/articles/security/iso-27001.en.md
   da: src/content/articles/security/iso-27001.da.md

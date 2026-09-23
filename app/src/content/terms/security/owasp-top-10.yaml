@@ -1,0 +1,52 @@
+term:
+  en: OWASP Top 10
+  da: OWASP Top 10
+aka:
+  en: []
+  da: []
+domain: [security]
+cluster: application-security
+layer: application
+status: current
+era: 2003
+summary:
+  en: A widely used, regularly updated list of the ten most serious kinds of security flaw found in web applications.
+  da: En udbredt, jævnligt opdateret liste over de ti alvorligste slags sikkerhedsfejl, der findes i webapplikationer.
+body:
+  formal:
+    en: An awareness document from the open OWASP community that ranks ten broad categories of web application risk, such as broken access control and injection, based on data from real tests and a survey of experts, and is renewed every few years; the current edition is from 2025.
+    da: Et awareness-dokument fra det åbne OWASP-fællesskab, der rangerer ti brede kategorier af risici i webapplikationer, fx brudt adgangskontrol og injection, ud fra data fra rigtige test og en rundspørge blandt eksperter, og som fornyes med få års mellemrum; den gældende udgave er fra 2025.
+  plain:
+    en: Like a yearly list from a car safety group of the ten faults most often found in used cars — not every fault, but the ones worth checking first.
+    da: Som en liste fra en bilsikkerhedsorganisation over de ti fejl, der oftest findes i brugte biler — ikke alle fejl, men dem, det er værd at tjekke først.
+  inPractice:
+    en: A company buying a new customer portal writes into the contract that the supplier must show the portal has been tested against every category on the OWASP Top 10.
+    da: En virksomhed, der køber en ny kundeportal, skriver ind i kontrakten, at leverandøren skal vise, at portalen er testet mod alle kategorier på OWASP Top 10.
+  whyItMatters:
+    en: It gives builders, testers and buyers a shared starting point and a common language, but it is a floor, not a full checklist — passing it does not make an application safe.
+    da: Den giver udviklere, testere og indkøbere et fælles udgangspunkt og et fælles sprog, men den er et minimum og ikke en fuld tjekliste — at bestå den gør ikke en applikation sikker.
+edges:
+  requires: [vulnerability, web-application]
+  used-with:
+    - to: penetration-test
+      why:
+        en: Testers often use the list to plan and report what they checked in a web application.
+        da: Testere bruger ofte listen til at planlægge og rapportere, hvad de har tjekket i en webapplikation.
+      strength: normal
+      confidence: high
+    - to: secure-development-lifecycle
+      why:
+        en: Teams use the list to choose which flaws their training, code review and tests should cover first.
+        da: Teams bruger listen til at vælge, hvilke fejl deres uddannelse, kodegennemgang og test først skal dække.
+      strength: normal
+      confidence: medium
+sources:
+  - title: OWASP Top 10:2025
+    tier: reference
+    publisher: OWASP
+    url: https://owasp.org/Top10/2025/
+  - title: OWASP Top Ten project
+    tier: reference
+    publisher: OWASP
+    url: https://owasp.org/www-project-top-ten/
+draft: true

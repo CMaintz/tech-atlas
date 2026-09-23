@@ -40,6 +40,12 @@ edges:
         da: Kurset bruger selvevalueringen til at undersøge, om en virksomhed lever op til NIS2-kravene.
       strength: normal
       confidence: medium
+    - to: data-ethics
+      why:
+        en: "D-mærket's criteria include responsible use of data, so data ethics is part of what the label checks."
+        da: D-mærkets kriterier omfatter ansvarlig dataanvendelse, så dataetik er en del af det, mærket vurderer.
+      strength: normal
+      confidence: high
   contrasts-with:
     - to: iso-27001
       why:

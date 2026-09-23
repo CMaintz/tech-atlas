@@ -1,0 +1,52 @@
+term:
+  en: Privilege escalation
+  da: Rettighedseskalering (privilege escalation)
+aka:
+  en: [elevation of privilege]
+  da: [privilege escalation, rettighedsforøgelse]
+domain: [security]
+cluster: fundamentals
+layer: host
+status: current
+summary:
+  en: An attacker who has a small foothold gaining more rights than they were given, up to full control of the system.
+  da: En angriber med et lille fodfæste, der skaffer sig flere rettigheder end tildelt — helt op til fuld kontrol over systemet.
+body:
+  formal:
+    en: The step in an attack where someone with limited rights on a system uses a flaw, a poor setting or a stolen credential to gain higher rights, typically those of a privileged account or the operating system itself.
+    da: Det trin i et angreb, hvor en person med begrænsede rettigheder på et system udnytter en fejl, en dårlig indstilling eller en stjålen loginoplysning til at få højere rettigheder, typisk en privilegeret kontos eller selve styresystemets.
+  plain:
+    en: Like a hotel guest whose card opens only one room, who finds a way to turn it into the manager's master key.
+    da: Som en hotelgæst, hvis kort kun åbner ét værelse, og som finder en måde at gøre det til direktørens hovednøgle.
+  inPractice:
+    en: After phishing an ordinary user, an attacker finds a program on the laptop that runs with admin rights and can be tricked into running his own code — and now controls the whole machine.
+    da: Efter at have phishet en almindelig bruger finder en angriber et program på den bærbare, der kører med administratorrettigheder og kan narres til at køre hans egen kode — og nu styrer han hele maskinen.
+  whyItMatters:
+    en: An ordinary account can do limited harm; once the attacker holds the highest rights they can turn off protection, hide their tracks and reach everything.
+    da: En almindelig konto kan kun gøre begrænset skade; når angriberen har de højeste rettigheder, kan han slå beskyttelsen fra, skjule sine spor og nå alt.
+edges:
+  kind-of: [threat]
+  requires: [permission, privileged-account]
+  exploits:
+    - to: vulnerability
+      why:
+        en: Gaining higher rights depends on a flaw or a poor setting that lets a low-rights user act as a higher one.
+        da: At få højere rettigheder afhænger af en fejl eller en dårlig indstilling, der lader en bruger med få rettigheder optræde som en med flere.
+      strength: primary
+      confidence: high
+  causes:
+    - to: lateral-movement
+      why:
+        en: Admin rights on one machine often give up stored logins that open the way to the next machines.
+        da: Administratorrettigheder på én maskine giver ofte adgang til gemte loginoplysninger, der åbner vejen til de næste maskiner.
+      strength: normal
+      confidence: medium
+sources:
+  - title: MITRE ATT&CK — Privilege Escalation (TA0004)
+    tier: reference
+    publisher: MITRE
+    url: https://attack.mitre.org/tactics/TA0004/
+  - title: Microsoft — STRIDE threat model (Elevation of privilege)
+    tier: official-doc
+    publisher: Microsoft
+draft: true

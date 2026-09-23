@@ -35,6 +35,12 @@ edges:
       strength: normal
       confidence: medium
     - shadow-ai
+    - to: supply-chain-attack
+      why:
+        en: "Checking suppliers' own security before trusting their software or access shrinks the chance they become the way in."
+        da: At kontrollere leverandørers egen sikkerhed, før man stoler på deres software eller adgang, mindsker risikoen for, at de bliver vejen ind.
+      strength: normal
+      confidence: high
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

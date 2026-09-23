@@ -1,0 +1,64 @@
+term:
+  en: Cross-site scripting (XSS)
+  da: Cross-site scripting (XSS)
+aka:
+  en: [XSS]
+  da: [XSS]
+domain: [security]
+cluster: application-security
+layer: application
+status: current
+era: 2000
+summary:
+  en: An attack that smuggles a harmful script into a web page, so it runs in the browser of everyone who visits the page.
+  da: Et angreb, der smugler et skadeligt script ind på en webside, så det kører i browseren hos alle, der besøger siden.
+body:
+  formal:
+    en: A flaw in a web application that places user input into its pages without making it harmless first; the web browser then runs the input as a script with the same rights as the site's own code, able to read its cookie data and act as the user.
+    da: En fejl i en webapplikation, der sætter brugerens input ind i sine sider uden først at gøre det uskadeligt; webbrowseren kører så inputtet som et script med de samme rettigheder som sidens egen kode og kan læse dens cookies og handle som brugeren.
+  plain:
+    en: Like a notice board where someone pins up a note that, when read aloud, makes the reader hand over their house keys — the board itself never checks what is pinned to it.
+    da: Som en opslagstavle, hvor nogen hænger en seddel op, der får den, der læser den højt, til at udlevere sine husnøgler — tavlen tjekker aldrig, hvad der bliver hængt op.
+  inPractice:
+    en: An attacker posts a product review with a hidden script; every shopper who opens the review page quietly sends their login cookie to the attacker.
+    da: En angriber skriver en produktanmeldelse med et skjult script; hver kunde, der åbner anmeldelsessiden, sender i al stilhed sin login-cookie til angriberen.
+  whyItMatters:
+    en: The harmful code runs inside a site the visitor trusts, so the browser gives it the visitor's session and data; it is one of the most often reported web flaws.
+    da: Den skadelige kode kører inde på et site, som besøgende stoler på, så browseren giver den adgang til den besøgendes session og data; det er en af de oftest rapporterede webfejl.
+edges:
+  requires: [web-browser, web-application]
+  causes:
+    - to: session-hijacking
+      why:
+        en: A script running in the page can read the session cookie and send it to the attacker.
+        da: Et script, der kører på siden, kan læse sessionscookien og sende den til angriberen.
+      strength: primary
+      confidence: high
+  contrasts-with:
+    - to: sql-injection
+      why:
+        en: Both abuse input the site trusts too much, but SQL injection attacks the database on the server, while XSS attacks the visitor's browser.
+        da: Begge misbruger input, som sitet stoler for meget på, men SQL injection angriber databasen på serveren, mens XSS angriber den besøgendes browser.
+      strength: primary
+      confidence: high
+  part-of:
+    - to: owasp-top-10
+      why:
+        en: Since the 2021 edition it is counted under the list's Injection category, which in the 2025 edition is A05.
+        da: Siden 2021-udgaven hører det under listens kategori Injection, som i 2025-udgaven er A05.
+      strength: normal
+      confidence: high
+sources:
+  - title: OWASP — Cross Site Scripting (XSS)
+    tier: reference
+    publisher: OWASP
+    url: https://owasp.org/www-community/attacks/xss/
+  - title: OWASP Cheat Sheet Series — Cross Site Scripting Prevention
+    tier: reference
+    publisher: OWASP
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
+  - title: OWASP Top 10:2025 — A05 Injection
+    tier: reference
+    publisher: OWASP
+    url: https://owasp.org/Top10/2025/A05_2025-Injection/
+draft: true

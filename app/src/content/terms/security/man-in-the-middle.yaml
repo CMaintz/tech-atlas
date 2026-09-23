@@ -1,0 +1,46 @@
+term:
+  en: Man-in-the-middle attack
+  da: Man-in-the-middle-angreb
+aka:
+  en: [MITM, on-path attack, adversary-in-the-middle]
+  da: [MITM, mellemmandsangreb]
+domain: [security]
+cluster: fundamentals
+layer: network
+status: current
+summary:
+  en: An attacker secretly placed between two parties who reads or changes their messages while each believes they talk directly.
+  da: En angriber, der i det skjulte sidder mellem to parter og læser eller ændrer deres beskeder, mens begge tror, de taler direkte sammen.
+body:
+  formal:
+    en: An attack in which the attacker takes a position on the network path between two communicating parties, so that traffic passes through them and can be read, recorded or altered before it is passed on.
+    da: Et angreb, hvor angriberen placerer sig på netværksvejen mellem to kommunikerende parter, så trafikken passerer igennem dem og kan læses, gemmes eller ændres, før den sendes videre.
+  plain:
+    en: Like a postman who steams open your letters, reads them, maybe changes a line, and seals them again before delivery — neither you nor your friend notice.
+    da: Som et postbud, der damper dine breve op, læser dem, måske ændrer en linje og lukker dem igen før omdelingen — hverken du eller din ven opdager noget.
+  inPractice:
+    en: In a café, an attacker sets up a free wifi network with the café's name; guests who join send all their web traffic through the attacker's laptop, which picks out any login that is not protected by HTTPS.
+    da: På en café opretter en angriber et gratis wifi-netværk med caféens navn; gæster, der kobler sig på, sender al deres webtrafik gennem angriberens bærbare, som fisker ethvert login ud, der ikke er beskyttet af HTTPS.
+  whyItMatters:
+    en: Data sent in the clear can be stolen or quietly changed on the way, which is why checking who is at the other end and locking the connection matters.
+    da: Data, der sendes ubeskyttet, kan stjæles eller ændres i det stille undervejs; derfor er det vigtigt at kontrollere, hvem der er i den anden ende, og at kryptere forbindelsen.
+edges:
+  kind-of: [threat]
+  requires: [network, protocol]
+  causes:
+    - to: session-hijacking
+      why:
+        en: A session cookie read in transit lets the attacker take over the victim's logged-in session.
+        da: En sessionscookie, der opsnappes undervejs, lader angriberen overtage offerets indloggede session.
+      strength: normal
+      confidence: high
+sources:
+  - title: NIST Glossary — Man-in-the-Middle Attack (MitM)
+    tier: standard
+    publisher: NIST
+    url: https://csrc.nist.gov/glossary/term/man_in_the_middle_attack
+  - title: MITRE ATT&CK — T1557 Adversary-in-the-Middle
+    tier: reference
+    publisher: MITRE
+    url: https://attack.mitre.org/techniques/T1557/
+draft: true

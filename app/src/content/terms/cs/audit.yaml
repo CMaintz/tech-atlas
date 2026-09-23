@@ -34,7 +34,11 @@ edges:
         da: Audit-logning er systemets egen optegnelse af handlinger; en audit er en uafhængig gennemgang af, om kontrollerne virker — som ofte læser netop de optegnelser.
       strength: primary
       confidence: high
-  used-with: [siem, non-repudiation, version-control]
+  used-with:
+    - siem
+    - non-repudiation
+    - version-control
+    - log-management
 sources:
   - title: NIST SP 800-92, Guide to Computer Security Log Management
     url: https://doi.org/10.6028/NIST.SP.800-92

@@ -1,0 +1,51 @@
+term:
+  en: Insider threat
+  da: Insidertrussel
+aka:
+  en: [insider risk]
+  da: [insiderfejl, insiderrisiko]
+domain: [security]
+cluster: fundamentals
+layer: people
+status: current
+summary:
+  en: Harm that comes from someone already trusted inside the organisation, whether they mean to do damage or simply make a mistake.
+  da: Skade, der kommer fra en person, som allerede er betroet inde i organisationen — enten med vilje eller ved en fejl.
+body:
+  formal:
+    en: The risk that an employee, contractor or partner uses the access they were rightly given to harm the organisation's data or systems, either on purpose (theft, sabotage) or through carelessness (a wrong recipient, a lost laptop).
+    da: Risikoen for, at en medarbejder, konsulent eller samarbejdspartner bruger den adgang, de retmæssigt har fået, til at skade organisationens data eller systemer — enten med vilje (tyveri, sabotage) eller af skødesløshed (forkert modtager, en glemt bærbar).
+  plain:
+    en: Like a shop where the biggest losses come not from burglars but from staff — some who slip goods into their bag, and many more who simply forget to lock up.
+    da: Som en butik, hvor det største svind ikke skyldes indbrudstyve, men personalet — nogle få, der putter varer i tasken, og mange flere, der bare glemmer at låse af.
+  inPractice:
+    en: A sales manager who has accepted a job at a rival copies the full customer list to a private cloud folder in his last week, using the same access he had every day.
+    da: En sælger, der har sagt ja til et job hos en konkurrent, kopierer hele kundelisten til en privat cloudmappe i sin sidste uge — med den samme adgang, han havde hver dag.
+  whyItMatters:
+    en: Walls, firewalls and logins do little against someone already let in, so only limited access, watching for unusual use and a healthy culture keep the damage small.
+    da: Mure, firewalls og login hjælper kun lidt mod en, der allerede er lukket ind; kun begrænset adgang, overvågning af usædvanlig brug og en sund kultur holder skaden nede.
+edges:
+  kind-of: [threat]
+  requires: [threat-actor]
+  exploits:
+    - to: permission
+      why:
+        en: An insider needs no break-in; they misuse the access rights they were given for their job.
+        da: En insider behøver ikke bryde ind; de misbruger de rettigheder, de har fået til deres arbejde.
+      strength: primary
+      confidence: high
+  causes:
+    - to: data-breach
+      why:
+        en: Both a careless and a harmful insider can expose personal or business data to people who should never see it.
+        da: Både en skødesløs og en ondsindet insider kan udsætte person- eller forretningsdata for folk, der aldrig burde se dem.
+      strength: normal
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: NIST Glossary — Insider Threat
+    tier: standard
+    publisher: NIST
+    url: https://csrc.nist.gov/glossary/term/insider_threat
+draft: true

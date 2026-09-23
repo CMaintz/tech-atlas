@@ -1,0 +1,43 @@
+term:
+  en: False positive
+  da: Falsk positiv
+aka:
+  en: [false alarm]
+  da: [falsk alarm]
+domain: [security]
+cluster: security-operations
+status: current
+summary:
+  en: An alarm that points to an attack or problem that is not really there, costing time and slowly wearing down trust in the alarms.
+  da: En alarm, der peger på et angreb eller et problem, som ikke findes i virkeligheden, og som koster tid og slider tilliden til alarmerne ned.
+body:
+  formal:
+    en: The result when a monitoring tool, rule or model marks harmless activity as harmful; its opposite, a false negative, is a real attack that raises no alarm at all.
+    da: Resultatet, når et overvågningsværktøj, en regel eller en model markerer harmløs aktivitet som skadelig; det modsatte, en falsk negativ, er et reelt angreb, der slet ikke udløser nogen alarm.
+  plain:
+    en: Like a car alarm that goes off every time a lorry drives past; after a week, nobody on the street even looks up.
+    da: Som en billarm, der går i gang, hver gang en lastbil kører forbi; efter en uge er der ingen på gaden, der så meget som kigger op.
+  inPractice:
+    en: An alarm reports "possible data theft" from the finance share, but the analyst sees it is the monthly report job that runs on the last day of each month and closes it.
+    da: En alarm melder "muligt datatyveri" fra økonomiafdelingens drev, men analytikeren ser, at det er den månedlige rapportkørsel, der kører den sidste dag i hver måned, og lukker den.
+  whyItMatters:
+    en: Each one wastes a little time, but many of them teach staff to ignore alarms — and then the one real attack is waved through with the rest.
+    da: Hver enkelt spilder lidt tid, men mange af dem lærer medarbejderne at ignorere alarmer — og så bliver det ene reelle angreb vinket igennem sammen med resten.
+edges:
+  requires: [alerting]
+  contrasts-with:
+    - to: security-incident
+      why:
+        en: A security incident is real harm or a real threat; a false positive only looked like one until someone checked.
+        da: En sikkerhedshændelse er reel skade eller en reel trussel; en falsk positiv lignede kun en, indtil nogen tjekkede.
+      strength: primary
+      confidence: high
+  used-with: [soc]
+sources:
+  - title: NIST SP 800-94 — Guide to Intrusion Detection and Prevention Systems (IDPS)
+    url: https://doi.org/10.6028/NIST.SP.800-94
+    tier: standard
+    publisher: NIST
+  - title: Cyber Security Fast Track — SIEM module
+    tier: course-material
+draft: true

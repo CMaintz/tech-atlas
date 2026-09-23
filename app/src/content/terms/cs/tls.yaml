@@ -36,7 +36,14 @@ edges:
         da: TLS beskytter ét programs forbindelse til én tjeneste; en VPN pakker al en enheds trafik ind i én beskyttet tunnel.
       strength: normal
       confidence: high
-  mitigates: [session-hijacking]
+  mitigates:
+    - session-hijacking
+    - to: man-in-the-middle
+      why:
+        en: Encryption plus a checked certificate means an attacker on the path can neither read nor quietly change the traffic.
+        da: Kryptering og et kontrolleret certifikat betyder, at en angriber på vejen hverken kan læse eller i det stille ændre trafikken.
+      strength: primary
+      confidence: high
 article:
   en: src/content/articles/cs/tls.en.md
   da: src/content/articles/cs/tls.da.md

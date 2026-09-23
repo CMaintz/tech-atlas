@@ -34,6 +34,12 @@ edges:
         da: Begge narrer et mål til at adlyde en falsk autoritet, men her er målet modellen og ikke et menneske.
       strength: normal
       confidence: high
+    - to: sql-injection
+      why:
+        en: Both slip commands in through input, but SQL injection targets a database while prompt injection targets a language model.
+        da: Begge smugler kommandoer ind via input, men SQL injection rammer en database, mens prompt injection rammer en sprogmodel.
+      strength: normal
+      confidence: high
   used-with:
     - to: retrieval-augmented-generation
       why:

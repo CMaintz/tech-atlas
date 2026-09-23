@@ -1,0 +1,54 @@
+term:
+  en: Personal data
+  da: Personoplysninger
+aka:
+  en: [personal information]
+  da: [persondata, personhenførbare oplysninger]
+domain: [security]
+cluster: compliance
+layer: data
+status: current
+era: 1995
+summary:
+  en: Any information about a living person who can be named or traced, directly or by putting pieces together.
+  da: Enhver oplysning om en levende person, der kan identificeres, enten direkte eller ved at sætte flere oplysninger sammen.
+body:
+  formal:
+    en: Under GDPR Article 4(1), any information relating to a person who can be named or traced, directly or indirectly, for example by name, ID number, location, online identifier or features of their body, mind, money, culture or social life. Some types, such as health, religion and union membership, are special categories with stricter rules.
+    da: Efter GDPR artikel 4, nr. 1, enhver oplysning om en fysisk person, der kan identificeres direkte eller indirekte, fx ved navn, CPR-nummer, lokation, onlineidentifikator eller forhold vedrørende personens fysiske, psykiske, økonomiske, kulturelle eller sociale identitet. Nogle typer, fx helbred, religion og fagforeningsmedlemskab, er særlige kategorier med skrappere regler.
+  plain:
+    en: Anything that points to you — not just your name, but also your number plate, your face on a camera or the fact that "the only redhead on floor 3" called in sick.
+    da: Alt, der peger på dig — ikke kun dit navn, men også din nummerplade, dit ansigt på et kamera eller at "den eneste rødhårede på 3. sal" har meldt sig syg.
+  inPractice:
+    en: A web shop thinks its order logs are harmless, but they hold IP addresses, delivery addresses and buying habits — all personal data, so the logs fall under GDPR and need access control and a delete date.
+    da: En webshop tror, at dens ordrelogs er harmløse, men de indeholder IP-adresser, leveringsadresser og købsvaner — alt sammen personoplysninger, så logs er omfattet af GDPR og kræver adgangskontrol og en slettefrist.
+  whyItMatters:
+    en: Whether data counts as personal decides whether GDPR applies at all; people often miss indirect cases, and that is where fines and breaches come from.
+    da: Om data tæller som personoplysninger, afgør, om GDPR overhovedet gælder; folk overser ofte de indirekte tilfælde, og det er dér, bøder og brud kommer fra.
+edges:
+  kind-of:
+    - to: asset
+      why:
+        en: Personal data is one of the information assets a firm must know about and protect.
+        da: Personoplysninger er et af de informationsaktiver, en virksomhed skal kende og beskytte.
+      strength: minor
+      confidence: medium
+  used-with:
+    - to: privacy-by-design
+      why:
+        en: Privacy by design starts by asking which personal data a system really needs and collecting no more.
+        da: Privacy by design starter med at spørge, hvilke personoplysninger et system reelt har brug for, og ikke indsamle mere.
+      strength: primary
+      confidence: high
+    - to: training-data
+      why:
+        en: Training data scraped or gathered from people often holds personal data, which brings GDPR into AI projects.
+        da: Træningsdata indsamlet fra mennesker indeholder ofte personoplysninger, hvilket gør GDPR relevant for AI-projekter.
+      strength: normal
+      confidence: high
+sources:
+  - title: Regulation (EU) 2016/679 (GDPR), Article 4(1) and Article 9
+    tier: standard
+    publisher: European Union
+    url: 'https://eur-lex.europa.eu/eli/reg/2016/679/oj'
+draft: true

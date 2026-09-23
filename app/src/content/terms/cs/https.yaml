@@ -27,9 +27,20 @@ body:
     da: Almindelig, ubeskyttet webtrafik kan læses og ændres af alle langs ruten, så HTTPS er i dag det forventede minimum for ethvert websted med login eller persondata.
 edges:
   kind-of: [protocol]
-  requires: [tls, client, server]
+  requires:
+    - tls
+    - client
+    - server
+    - http
   implements: [confidentiality]
-  mitigates: [session-hijacking]
+  mitigates:
+    - session-hijacking
+    - to: man-in-the-middle
+      why:
+        en: Web traffic locked with TLS and a checked certificate cannot be read or altered by someone sitting on the path.
+        da: Webtrafik, der er beskyttet med TLS og et kontrolleret certifikat, kan ikke læses eller ændres af en, der sidder på vejen.
+      strength: normal
+      confidence: high
 sources:
   - title: RFC 9110 — HTTP Semantics
     tier: standard

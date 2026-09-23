@@ -31,6 +31,12 @@ edges:
   used-with:
     - sbom
     - vulnerability-scanning
+    - to: secure-development-lifecycle
+      why:
+        en: The SDL sets which security steps happen at each stage; DevSecOps automates them in the pipeline so they run on every change.
+        da: SDL fastlægger, hvilke sikkerhedstrin der sker i hver fase; DevSecOps automatiserer dem i pipelinen, så de kører ved hver ændring.
+      strength: normal
+      confidence: high
 sources:
   - title: NIST SP 800-204D — Strategies for the Integration of Software Supply Chain Security in DevSecOps CI/CD Pipelines
     url: https://csrc.nist.gov/pubs/sp/800/204/d/final

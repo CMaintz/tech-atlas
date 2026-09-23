@@ -39,6 +39,12 @@ edges:
         da: En gap-analyse føder Plan-trinnet og gentages i Check for at måle fremskridt.
       strength: normal
       confidence: medium
+    - to: nist-csf
+      why:
+        en: Comparing a current profile with a target profile is a gap analysis.
+        da: At sammenligne en nuværende profil med en målprofil er en gap-analyse.
+      strength: normal
+      confidence: high
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

@@ -1,0 +1,47 @@
+term:
+  en: NIST Cybersecurity Framework (CSF)
+  da: NIST Cybersecurity Framework (CSF)
+aka:
+  en: [NIST CSF]
+  da: [NIST CSF]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+era: 2014
+summary:
+  en: A free US framework that sorts security work into six broad goals, from steering it to recovering after an attack.
+  da: Et gratis amerikansk rammeværk, der inddeler sikkerhedsarbejdet i seks overordnede funktioner, fra styring til genopretning efter et angreb.
+body:
+  formal:
+    en: A voluntary framework from the US National Institute of Standards and Technology, first published in February 2014 and updated to version 2.0 in February 2024. Version 2.0 groups outcomes into six functions — Govern, Identify, Protect, Detect, Respond and Recover — and lets a firm compare a current profile with a target profile.
+    da: Et frivilligt rammeværk fra det amerikanske National Institute of Standards and Technology, første gang udgivet i februar 2014 og opdateret til version 2.0 i februar 2024. Version 2.0 samler resultaterne i seks funktioner — Govern, Identify, Protect, Detect, Respond og Recover — og lader en virksomhed sammenligne en nuværende profil med en målprofil.
+  plain:
+    en: A map with six regions rather than a checklist — it shows where you are, where you want to be and which roads connect them, but not exactly how to drive.
+    da: Et kort med seks regioner snarere end en tjekliste — det viser, hvor man er, hvor man vil hen, og hvilke veje der forbinder dem, men ikke præcis hvordan man skal køre.
+  inPractice:
+    en: A Danish software firm with US customers scores itself against the six functions, finds Detect and Recover weak, and uses the gap between its current and target profile to plan next year's budget.
+    da: En dansk softwarevirksomhed med amerikanske kunder vurderer sig selv mod de seks funktioner, finder Detect og Recover svage og bruger forskellen mellem den nuværende profil og målprofilen til at planlægge næste års budget.
+  whyItMatters:
+    en: It gives leaders and technical staff one shared language for security that is free, works for any size of firm and can be mapped to ISO 27001 and the CIS Controls; the Govern function added in 2.0 puts risk ownership with management.
+    da: Det giver ledelse og teknikere ét fælles sprog for sikkerhed, som er gratis, passer til virksomheder af alle størrelser og kan kobles til ISO 27001 og CIS Controls; Govern-funktionen fra version 2.0 placerer ejerskabet af risici hos ledelsen.
+edges:
+  kind-of: [security-framework]
+  requires: [risk-management]
+  used-with:
+    - to: supplier-management
+      why:
+        en: Version 2.0 places supply chain risk management inside the Govern function.
+        da: Version 2.0 placerer styring af risici i forsyningskæden under Govern-funktionen.
+      strength: normal
+      confidence: high
+sources:
+  - title: The NIST Cybersecurity Framework (CSF) 2.0 (NIST CSWP 29)
+    tier: standard
+    publisher: NIST
+    url: 'https://doi.org/10.6028/NIST.CSWP.29'
+  - title: NIST Releases Version 2.0 of Landmark Cybersecurity Framework
+    tier: official-doc
+    publisher: NIST
+    url: 'https://www.nist.gov/news-events/news/2024/02/nist-releases-version-20-landmark-cybersecurity-framework'
+draft: true

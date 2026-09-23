@@ -1,0 +1,45 @@
+term:
+  en: Web application
+  da: Webapplikation
+aka:
+  en: [web app]
+  da: [webapp, webapplikation]
+domain: [cs]
+cluster: web
+layer: application
+status: current
+summary:
+  en: A program you use through a web browser, with its logic and data kept on a server instead of installed on your own machine.
+  da: Et program, man bruger gennem en webbrowser, hvor logik og data ligger på en server i stedet for at være installeret på ens egen maskine.
+body:
+  formal:
+    en: Software split between code running in the browser and code running on one or more servers, which talk over HTTP; the server side usually handles the rules, the stored data and the check of who the user is.
+    da: Software delt mellem kode, der kører i browseren, og kode, der kører på en eller flere servere, som taler sammen over HTTP; serversiden står typisk for reglerne, de gemte data og kontrollen af, hvem brugeren er.
+  plain:
+    en: Like a restaurant — you sit at the table and order from the menu, while the kitchen, the stock and the recipes stay out of sight in the back.
+    da: Som en restaurant — du sidder ved bordet og bestiller fra menukortet, mens køkkenet, lageret og opskrifterne bliver ude bagved, hvor du ikke ser dem.
+  inPractice:
+    en: A team writes shared documents in an online office suite; nothing is installed on their laptops, and every change is saved on the provider's servers as they type.
+    da: Et team skriver fælles dokumenter i en online kontorpakke; intet er installeret på deres bærbare, og hver ændring gemmes på udbyderens servere, mens de skriver.
+  whyItMatters:
+    en: Anyone on the internet can reach it and send it whatever they like, which makes it one of the most common ways into a company's data.
+    da: Alle på internettet kan nå den og sende den, hvad de vil, hvilket gør den til en af de mest almindelige veje ind til en virksomheds data.
+edges:
+  requires: [http, server]
+  used-with:
+    - to: web-browser
+      why:
+        en: The browser is the window through which a web application is shown and used.
+        da: Browseren er det vindue, som en webapplikation vises og bruges igennem.
+      strength: primary
+      confidence: high
+sources:
+  - title: OWASP Web Security Testing Guide
+    url: https://owasp.org/www-project-web-security-testing-guide/
+    tier: reference
+    publisher: OWASP
+  - title: MDN Web Docs — Web technology for developers
+    url: https://developer.mozilla.org/en-US/docs/Web
+    tier: official-doc
+    publisher: Mozilla
+draft: true

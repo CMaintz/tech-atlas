@@ -1,0 +1,46 @@
+term:
+  en: OAuth
+  da: OAuth
+aka:
+  en: [OAuth 2.0]
+  da: [OAuth 2.0]
+domain: [cs]
+cluster: identity
+layer: identity
+status: current
+era: 2007
+summary:
+  en: A way to let one app act on your behalf in another service, with a limited pass instead of your password.
+  da: En måde at lade én app handle på dine vegne i en anden tjeneste med et begrænset adgangsbevis i stedet for din adgangskode.
+body:
+  formal:
+    en: An open standard for delegated authorization in which the owner of an account approves a limited request, and a trusted server then hands the requesting app a short-lived access token that its API accepts in place of the owner's credential.
+    da: En åben standard for delegeret autorisation, hvor ejeren af en konto godkender en begrænset forespørgsel, og en betroet server derefter giver den anmodende app et kortlivet adgangstoken, som API'et accepterer i stedet for ejerens loginoplysninger.
+  plain:
+    en: Like a valet key for a car — it lets the attendant drive and park, but not open the boot or the glove box, and you never hand over your own key.
+    da: Som en parkeringsnøgle til en bil — den lader betjenten køre og parkere, men ikke åbne bagagerummet eller handskerummet, og du afleverer aldrig din egen nøgle.
+  inPractice:
+    en: A calendar app asks for "read access to your Google Calendar"; you approve on Google's own page, and the app gets a token that can read events but not your email.
+    da: En kalenderapp beder om "læseadgang til din Google-kalender"; du godkender på Googles egen side, og appen får et token, der kan læse aftaler, men ikke dine mails.
+  whyItMatters:
+    en: Before it, people typed their real password into third-party apps; now access can be narrow, time-limited and taken back without changing the password.
+    da: Før det tastede folk deres rigtige adgangskode ind i fremmede apps; nu kan adgangen være snæver, tidsbegrænset og trækkes tilbage uden at skifte adgangskode.
+edges:
+  implements: [authorization]
+  requires: [api, account]
+  used-with:
+    - to: saas
+      why:
+        en: Cloud services use it to let one online app reach data in another without sharing passwords.
+        da: Cloudtjenester bruger det til at lade én onlineapp tilgå data i en anden uden at dele adgangskoder.
+      strength: normal
+      confidence: high
+sources:
+  - title: RFC 6749 — The OAuth 2.0 Authorization Framework
+    tier: standard
+    publisher: IETF
+    url: https://www.rfc-editor.org/rfc/rfc6749
+  - title: OAuth Core 1.0
+    tier: official-doc
+    url: https://oauth.net/core/1.0/
+draft: true

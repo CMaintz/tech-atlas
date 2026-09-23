@@ -27,7 +27,15 @@ body:
     da: Minutter tæller under et angreb, og et team, der improviserer, mister tid, spor og penge, som et forberedt team bevarer.
 edges:
   requires: [threat]
-  used-with: [siem, observability]
+  used-with:
+    - siem
+    - observability
+    - to: indicator-of-compromise
+      why:
+        en: Responders search systems for known traces to find out how far an attack has spread.
+        da: Dem, der håndterer hændelsen, søger efter kendte spor for at finde ud af, hvor langt et angreb har spredt sig.
+      strength: normal
+      confidence: high
   mitigates:
     - to: data-breach
       why:
