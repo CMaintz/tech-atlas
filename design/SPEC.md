@@ -313,7 +313,7 @@ embedded at author time by `npm run embed` with a small multilingual model
 (`Xenova/multilingual-e5-small`, 8-bit) into a committed ~218 KB vector file; the lint
 fails (E11) when the vectors no longer match the content. In the browser the same model
 embeds the query in a web worker, loaded lazily — the first time behind an explicit
-"Search by meaning" choice (it is a ~118 MB one-off download, cached by the browser),
+"Search by meaning" choice (it is a ~135 MB one-off download (model + tokenizer), cached by the browser),
 automatically afterwards for queries of three or more words or with no name match.
 Lexical (names and aliases) and semantic rankings are merged by reciprocal rank fusion;
 hits found only by meaning are labelled.
