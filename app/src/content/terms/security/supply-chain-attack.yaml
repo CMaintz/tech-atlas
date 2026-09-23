@@ -1,0 +1,52 @@
+term:
+  en: Supply chain attack
+  da: Forsyningskædeangreb
+aka:
+  en: [supply chain compromise]
+  da: [supply chain-angreb, leverandørangreb]
+domain: [security]
+cluster: fundamentals
+layer: governance
+status: current
+summary:
+  en: Breaking into many targets at once by first taking over a supplier, product or update they all trust.
+  da: At ramme mange mål på én gang ved først at overtage en leverandør, et produkt eller en opdatering, som de alle stoler på.
+body:
+  formal:
+    en: An attack that does not go at the target directly but plants harmful code or access in something the target gets from a third party — software, an update, an open source library, a service provider — so the target installs or lets in the attacker itself.
+    da: Et angreb, der ikke går direkte efter målet, men planter skadelig kode eller adgang i noget, målet får fra en tredjepart — software, en opdatering, et open source-bibliotek, en serviceleverandør — så målet selv installerer eller lukker angriberen ind.
+  plain:
+    en: Like poisoning the flour at the mill instead of breaking into every bakery — each baker uses it in good faith.
+    da: Som at forgifte melet på møllen i stedet for at bryde ind i hvert bageri — hver bager bruger det i god tro.
+  inPractice:
+    en: Attackers break into the build system of a popular network tool and slip a backdoor into its next update; thousands of customers install the signed update as usual and open their own networks.
+    da: Angribere bryder ind i byggesystemet hos et udbredt netværksværktøj og smugler en bagdør ind i den næste opdatering; tusindvis af kunder installerer den signerede opdatering som normalt og åbner deres egne netværk.
+  whyItMatters:
+    en: One successful break-in pays off many times over, and victims who did everything right can still be hit, so the trust we place in suppliers must itself be checked.
+    da: Ét vellykket indbrud giver gevinst mange gange, og ofre, der gjorde alt rigtigt, kan stadig blive ramt; derfor skal den tillid, vi har til leverandører, også selv kontrolleres.
+edges:
+  kind-of: [threat]
+  requires: [malware]
+  exploits:
+    - to: software-supply-chain
+      why:
+        en: Every outside library, build tool and update is a link the attacker can take over to reach everyone further down the chain.
+        da: Hvert eksternt bibliotek, byggeværktøj og hver opdatering er et led, angriberen kan overtage for at nå alle længere nede i kæden.
+      strength: primary
+      confidence: high
+  causes:
+    - to: data-breach
+      why:
+        en: The planted backdoor gives the attacker a trusted way in to read or steal the victims' data.
+        da: Den plantede bagdør giver angriberen en betroet vej ind til at læse eller stjæle ofrenes data.
+      strength: normal
+      confidence: high
+sources:
+  - title: MITRE ATT&CK — T1195 Supply Chain Compromise
+    tier: reference
+    publisher: MITRE
+    url: https://attack.mitre.org/techniques/T1195/
+  - title: CISA & NIST — Defending Against Software Supply Chain Attacks (2021)
+    tier: official-doc
+    publisher: CISA
+draft: true

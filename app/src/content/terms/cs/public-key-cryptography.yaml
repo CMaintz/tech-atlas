@@ -29,6 +29,13 @@ edges:
   kind-of: [encryption]
   requires: [cryptographic-key]
   used-with: [tls]
+  contrasts-with:
+    - to: symmetric-encryption
+      why:
+        en: Symmetric encryption uses one shared key for both locking and unlocking; public-key cryptography uses a linked pair, so no secret has to be shared first.
+        da: Symmetrisk kryptering bruger én fælles nøgle til både at låse og låse op; asymmetrisk kryptografi bruger et nøglepar, så ingen hemmelighed skal deles først.
+      strength: primary
+      confidence: high
 sources:
   - title: Paar & Pelzl, Understanding Cryptography
     tier: textbook

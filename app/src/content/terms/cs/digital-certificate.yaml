@@ -26,7 +26,10 @@ body:
     en: Encryption is useless if you are talking privately to the wrong party; certificates are what prove a website or server is the real one.
     da: Kryptering er værdiløs, hvis man taler fortroligt med den forkerte; certifikater er det, der beviser, at et websted eller en server er den ægte.
 edges:
-  requires: [public-key-cryptography, identity]
+  requires:
+    - public-key-cryptography
+    - identity
+    - digital-signature
   implements: [authentication, non-repudiation]
 sources:
   - title: RFC 5280 — Internet X.509 Public Key Infrastructure Certificate and CRL Profile

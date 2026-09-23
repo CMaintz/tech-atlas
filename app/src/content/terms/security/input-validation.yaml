@@ -1,0 +1,57 @@
+term:
+  en: Input validation
+  da: Inputvalidering
+aka:
+  en: []
+  da: []
+domain: [security]
+cluster: application-security
+layer: application
+status: current
+summary:
+  en: Checking every piece of data a program receives against strict rules before using it, and turning away anything that does not fit.
+  da: At tjekke alle data, et program modtager, mod faste regler, før de bruges, og afvise alt, der ikke passer.
+body:
+  formal:
+    en: A control in which a program checks all data from outside — form fields, file uploads, API calls — for expected type, length, format and range on the server side, and prefers a list of what is allowed over a list of what is forbidden.
+    da: En kontrol, hvor et program på serversiden tjekker alle data udefra — formularfelter, uploadede filer, API-kald — for forventet type, længde, format og interval og foretrækker en liste over det tilladte frem for en liste over det forbudte.
+  plain:
+    en: Like a post office that only accepts parcels of set sizes with a proper address label, and hands everything else straight back at the counter.
+    da: Som et posthus, der kun tager imod pakker i bestemte størrelser med en ordentlig adresselabel og straks giver alt andet tilbage over disken.
+  inPractice:
+    en: A sign-up form accepts a Danish postal code only if it is exactly four digits; a request with letters or symbols in that field is turned away before it ever reaches the database.
+    da: En tilmeldingsformular godtager kun et postnummer, hvis det er præcis fire cifre; en forespørgsel med bogstaver eller tegn i feltet afvises, før den overhovedet når databasen.
+  whyItMatters:
+    en: Most attacks on applications start with input the builder did not expect; checking it at the door closes many of them early, though it must be backed by safe handling further in.
+    da: De fleste angreb på applikationer starter med input, udvikleren ikke havde forventet; at tjekke det ved døren lukker mange af dem tidligt, men det skal bakkes op af sikker håndtering længere inde.
+edges:
+  kind-of: [control]
+  mitigates:
+    - to: sql-injection
+      why:
+        en: Strict rules on what a field may hold stop most crafted commands, though keeping input apart from the command itself remains the main defence.
+        da: Faste regler for, hvad et felt må indeholde, stopper de fleste udformede kommandoer, men at holde input adskilt fra selve kommandoen er stadig det vigtigste forsvar.
+      strength: normal
+      confidence: high
+    - to: cross-site-scripting
+      why:
+        en: Rejecting unexpected characters helps, but the main defence is making data harmless at the moment it is placed in a page.
+        da: At afvise uventede tegn hjælper, men det vigtigste forsvar er at gøre data uskadelige i det øjeblik, de sættes ind på en side.
+      strength: minor
+      confidence: high
+  used-with:
+    - to: web-application-firewall
+      why:
+        en: The WAF filters known attack patterns before they arrive; validation in the code checks what each field should hold.
+        da: WAF'en filtrerer kendte angrebsmønstre, før de når frem; validering i koden tjekker, hvad hvert felt skal indeholde.
+      strength: normal
+      confidence: high
+sources:
+  - title: OWASP Cheat Sheet Series — Input Validation
+    tier: reference
+    publisher: OWASP
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html
+  - title: NIST SP 800-53 Rev. 5 — SI-10 Information Input Validation
+    tier: standard
+    publisher: NIST
+draft: true

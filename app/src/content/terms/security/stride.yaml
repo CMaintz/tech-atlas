@@ -1,0 +1,39 @@
+term:
+  en: STRIDE
+  da: STRIDE
+aka:
+  en: [STRIDE model]
+  da: [STRIDE-modellen]
+domain: [security]
+cluster: application-security
+layer: application
+status: current
+era: 1999
+summary:
+  en: A memory aid that sorts threats into six kinds, so a team checks every part of a design for each kind in turn.
+  da: En huskeregel, der deler trusler op i seks slags, så et team tjekker hver del af et design for hver slags efter tur.
+body:
+  formal:
+    en: A way of listing threats created at Microsoft, whose six letters stand for six kinds — pretending to be someone else, tampering with data, repudiation, information disclosure, denial of service and elevation of privilege — each the reverse of a property a system should keep, such as authentication, integrity or availability.
+    da: En metode til at liste trusler, skabt hos Microsoft og opkaldt efter seks slags — Spoofing, Tampering, Repudiation, Information disclosure, Denial of service og Elevation of privilege — der hver er det modsatte af en egenskab, et system bør bevare, fx autentificering, integritet eller tilgængelighed.
+  plain:
+    en: Like a pilot's pre-flight checklist — rather than trusting memory, you go down the same six questions every time so nothing obvious is skipped.
+    da: Som en pilots tjekliste før afgang — i stedet for at stole på hukommelsen gennemgår man de samme seks spørgsmål hver gang, så intet oplagt bliver sprunget over.
+  inPractice:
+    en: Looking at the login page in their design, a team asks all six questions and realises that nothing records failed logins, so a user could later deny what they did — a repudiation threat they then fix with logging.
+    da: Da et team ser på login-siden i sit design, stiller det alle seks spørgsmål og opdager, at intet registrerer mislykkede login, så en bruger senere kunne benægte, hvad vedkommende gjorde — en repudiation-trussel, som de så løser med logning.
+  whyItMatters:
+    en: Without a fixed list, teams tend to think only of the attacks they have heard about; six plain questions make threat work repeatable even for people new to security.
+    da: Uden en fast liste tænker teams gerne kun på de angreb, de har hørt om; seks enkle spørgsmål gør trusselsarbejdet gentageligt, også for folk, der er nye inden for sikkerhed.
+edges:
+  implements: [threat-modelling]
+  requires: [threat, cia-triad]
+sources:
+  - title: Microsoft Learn — Threat Modeling Tool threats (STRIDE)
+    tier: official-doc
+    publisher: Microsoft
+    url: https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats
+  - title: Adam Shostack — 20 Years of STRIDE
+    tier: reference
+    url: https://shostack.org/blog/20-years-of-stride-looking-back-looking-forward/
+draft: true

@@ -1,0 +1,41 @@
+term:
+  en: Public key infrastructure (PKI)
+  da: Offentlig nøgleinfrastruktur (PKI)
+aka:
+  en: []
+  da: []
+domain: [cs]
+cluster: cryptography
+layer: theory
+status: current
+era: 1988
+summary:
+  en: The system of trusted issuers, rules and records that hands out digital certificates and says which ones to believe.
+  da: Systemet af betroede udstedere, regler og registre, der udsteder digitale certifikater og afgør, hvilke man kan stole på.
+body:
+  formal:
+    en: The set of certificate authorities, policies, software and procedures that issue, sign, store and cancel digital certificates, forming chains of trust from a few root keys down to each website, device or person.
+    da: Samlingen af certifikatudstedere, politikker, software og procedurer, der udsteder, signerer, gemmer og tilbagekalder digitale certifikater og danner tillidskæder fra nogle få rodnøgler ned til hvert websted, hver enhed eller person.
+  plain:
+    en: Like the passport system — a few governments everyone trusts issue passports, border guards know what a real one looks like, and lost ones are reported as no longer valid.
+    da: Som passystemet — nogle få stater, som alle stoler på, udsteder pas, grænsevagter ved, hvordan et ægte pas ser ud, og bortkomne pas meldes ugyldige.
+  inPractice:
+    en: A company runs its own PKI so every work laptop gets a certificate; the office wifi and VPN let in only laptops whose certificate the company issued and has not cancelled.
+    da: En virksomhed driver sin egen PKI, så hver arbejdscomputer får et certifikat; kontorets wifi og VPN lukker kun computere ind, hvis certifikat virksomheden har udstedt og ikke tilbagekaldt.
+  whyItMatters:
+    en: Public keys are only useful if you know whose they are; PKI is what makes that answer trustworthy at the scale of the whole internet.
+    da: Offentlige nøgler er kun nyttige, hvis man ved, hvis de er; PKI er det, der gør det svar troværdigt i hele internettets skala.
+edges:
+  requires: [digital-certificate, digital-signature, public-key-cryptography]
+  implements: [authentication]
+  used-with: [tls]
+sources:
+  - title: RFC 5280 — Internet X.509 Public Key Infrastructure Certificate and CRL Profile
+    url: https://www.rfc-editor.org/rfc/rfc5280
+    tier: standard
+    publisher: IETF
+  - title: NIST SP 800-32 — Introduction to Public Key Technology and the Federal PKI Infrastructure
+    url: https://csrc.nist.gov/pubs/sp/800/32/final
+    tier: standard
+    publisher: NIST
+draft: true

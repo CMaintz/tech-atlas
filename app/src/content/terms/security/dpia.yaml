@@ -1,0 +1,53 @@
+term:
+  en: Data protection impact assessment (DPIA)
+  da: Konsekvensanalyse vedrørende databeskyttelse (DPIA)
+aka:
+  en: [DPIA]
+  da: [konsekvensanalyse, DPIA]
+domain: [security]
+cluster: compliance
+layer: data
+status: current
+era: 2016
+summary:
+  en: A written check, done before starting, of how a planned use of personal data could harm people and how to reduce that harm.
+  da: En skriftlig vurdering, før man går i gang, af hvordan en planlagt brug af personoplysninger kan skade folk, og hvordan det undgås.
+body:
+  formal:
+    en: A focused risk assessment required by GDPR Article 35 before any processing likely to pose a high risk to people's rights, such as large-scale tracking or use of health data. It describes the processing, tests whether it is necessary and in proportion, rates the risks and sets the measures to handle them.
+    da: En målrettet risikovurdering, som GDPR artikel 35 kræver, før enhver behandling, der sandsynligvis indebærer en høj risiko for personers rettigheder, fx overvågning i stor skala eller brug af helbredsoplysninger. Den beskriver behandlingen, vurderer om den er nødvendig og står i rimeligt forhold til formålet, vurderer risiciene og fastlægger tiltag mod dem.
+  plain:
+    en: Like an architect checking how a new building will affect the neighbours' light and noise before building starts, not after.
+    da: Som når en arkitekt undersøger, hvordan et nyt byggeri vil påvirke naboernes lys og støj, før man bygger — ikke bagefter.
+  inPractice:
+    en: A Danish municipality wants to use an app that tracks home-care visits by location; before launch it writes a DPIA, finds the tracking goes further than needed, limits it to working hours and deletes the data after 30 days.
+    da: En dansk kommune vil bruge en app, der registrerer hjemmeplejebesøg via lokation; før lanceringen laver den en konsekvensanalyse, finder ud af, at sporingen går videre end nødvendigt, begrænser den til arbejdstiden og sletter data efter 30 dage.
+  whyItMatters:
+    en: It forces privacy risks to be found while the design can still change cheaply, and if a high risk cannot be reduced, the data protection authority must be asked first.
+    da: Den tvinger privatlivsrisici frem, mens designet stadig kan ændres billigt, og hvis en høj risiko ikke kan nedbringes, skal Datatilsynet høres først.
+edges:
+  kind-of: [risk-assessment]
+  requires: [personal-data, gdpr]
+  used-with:
+    - to: privacy-by-design
+      why:
+        en: The DPIA is where the risks are found; privacy by design is how the answers get built into the system.
+        da: Konsekvensanalysen er dér, risiciene findes; privacy by design er måden, svarene bygges ind i systemet på.
+      strength: primary
+      confidence: high
+    - to: supervisory-authority
+      why:
+        en: Under Article 36, if the DPIA shows a high risk that cannot be reduced, the authority must be consulted before the processing starts.
+        da: Efter artikel 36 skal tilsynsmyndigheden høres, før behandlingen går i gang, hvis konsekvensanalysen viser en høj risiko, der ikke kan nedbringes.
+      strength: normal
+      confidence: high
+sources:
+  - title: Regulation (EU) 2016/679 (GDPR), Articles 35–36
+    tier: standard
+    publisher: European Union
+    url: 'https://eur-lex.europa.eu/eli/reg/2016/679/oj'
+  - title: Konsekvensanalyse
+    tier: official-doc
+    publisher: Datatilsynet
+    url: 'https://www.datatilsynet.dk/regler-og-vejledning/behandlingssikkerhed/konsekvensanalyse'
+draft: true

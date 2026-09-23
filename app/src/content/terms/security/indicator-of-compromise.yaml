@@ -1,0 +1,51 @@
+term:
+  en: Indicator of compromise (IoC)
+  da: Kompromitteringsindikator (IoC)
+aka:
+  en: [IoC, IOC]
+  da: [IoC, IOC]
+domain: [security]
+cluster: security-operations
+layer: data
+status: current
+summary:
+  en: A trace left behind by an attack, such as a known bad web address or file, that shows a system has probably been broken into.
+  da: Et spor efter et angreb, fx en kendt ondsindet webadresse eller fil, der viser, at et system sandsynligvis er kompromitteret.
+body:
+  formal:
+    en: A piece of evidence found on a system or network — an IP address, a domain name, a file's hash value, an odd account — that is known to be linked to a past attack and so suggests a break-in has happened.
+    da: Et stykke bevis fundet på et system eller i et netværk — en IP-adresse, et domænenavn, en fils hashværdi, en mærkelig konto — som man ved hænger sammen med et tidligere angreb, og som derfor tyder på, at der har været indbrud.
+  plain:
+    en: Like the footprints and a known burglar's tools found in a garden; they do not stop the break-in, but they tell you who has been there.
+    da: Som fodspor og en kendt indbrudstyvs værktøj fundet i haven; de stopper ikke indbruddet, men de fortæller, hvem der har været der.
+  inPractice:
+    en: A national warning lists the addresses and file values used by a ransomware group; the SOC searches three months of logs and finds one laptop that contacted one of the addresses.
+    da: En national advarsel nævner de adresser og filværdier, en ransomware-gruppe bruger; SOC'en gennemsøger tre måneders logs og finder én bærbar, der har kontaktet en af adresserne.
+  whyItMatters:
+    en: Shared traces let one victim's bad experience warn everyone else quickly, but attackers change them easily, so they catch yesterday's attacks better than tomorrow's.
+    da: Delte spor gør det muligt for ét offers dårlige erfaring hurtigt at advare alle andre, men angribere skifter dem let, så de fanger gårsdagens angreb bedre end morgendagens.
+edges:
+  part-of: [threat-intelligence]
+  requires: [security-incident]
+  used-with:
+    - to: siem
+      why:
+        en: Lists of traces are loaded into the SIEM so that every new log entry is checked against them.
+        da: Lister over spor lægges ind i SIEM'en, så hver ny logpost holdes op mod dem.
+      strength: primary
+      confidence: high
+  contrasts-with:
+    - to: mitre-attack
+      why:
+        en: A trace is a single thing an attacker left behind and can easily change; MITRE ATT&CK describes how attackers behave, which is much harder for them to change.
+        da: Et spor er en enkelt ting, en angriber har efterladt og let kan skifte; MITRE ATT&CK beskriver, hvordan angribere opfører sig, hvilket er meget sværere for dem at ændre.
+      strength: normal
+      confidence: high
+sources:
+  - title: NIST SP 800-150 — Guide to Cyber Threat Information Sharing
+    url: https://doi.org/10.6028/NIST.SP.800-150
+    tier: standard
+    publisher: NIST
+  - title: Cyber Security Fast Track — SIEM module
+    tier: course-material
+draft: true

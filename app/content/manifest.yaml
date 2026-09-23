@@ -93,6 +93,24 @@ security:
     - id: vulnerability
       en: Vulnerability
       da: Sårbarhed
+    - id: insider-threat
+      en: Insider threat
+      da: Insidertrussel
+    - id: man-in-the-middle
+      en: Man-in-the-middle attack
+      da: Man-in-the-middle-angreb
+    - id: physical-security
+      en: Physical security
+      da: Fysisk sikkerhed
+    - id: privilege-escalation
+      en: Privilege escalation
+      da: Rettighedseskalering (privilege escalation)
+    - id: supply-chain-attack
+      en: Supply chain attack
+      da: Forsyningskædeangreb
+    - id: zero-day
+      en: Zero-day vulnerability
+      da: Zero-day-sårbarhed
   awareness:
     - id: awareness-maturity
       en: Awareness maturity
@@ -300,6 +318,92 @@ security:
     - id: supplier-management
       en: Supplier management
       da: Leverandørstyring
+    - id: cer-directive
+      en: CER Directive
+      da: CER-direktivet
+    - id: cfcs
+      en: Centre for Cyber Security (CFCS)
+      da: Center for Cybersikkerhed (CFCS)
+    - id: cyber-resilience-act
+      en: Cyber Resilience Act (CRA)
+      da: Cyberrobusthedsforordningen (CRA)
+    - id: data-ethics
+      en: Data ethics
+      da: Dataetik
+    - id: dora
+      en: DORA
+      da: DORA-forordningen
+    - id: dpia
+      en: Data protection impact assessment (DPIA)
+      da: Konsekvensanalyse vedrørende databeskyttelse (DPIA)
+    - id: nis2-loven
+      en: Danish NIS2 Act (NIS2-loven)
+      da: NIS2-loven
+    - id: nist-csf
+      en: NIST Cybersecurity Framework (CSF)
+      da: NIST Cybersecurity Framework (CSF)
+    - id: personal-data
+      en: Personal data
+      da: Personoplysninger
+  application-security:
+    - id: api-security
+      en: API security
+      da: API-sikkerhed
+    - id: attack-surface
+      en: Attack surface
+      da: Angrebsflade
+    - id: cross-site-scripting
+      en: Cross-site scripting (XSS)
+      da: Cross-site scripting (XSS)
+    - id: input-validation
+      en: Input validation
+      da: Inputvalidering
+    - id: owasp-top-10
+      en: OWASP Top 10
+      da: OWASP Top 10
+    - id: secure-development-lifecycle
+      en: Secure development lifecycle (SDL)
+      da: Sikker udviklingslivscyklus (SDL)
+    - id: sql-injection
+      en: SQL injection
+      da: SQL injection
+    - id: stride
+      en: STRIDE
+      da: STRIDE
+    - id: threat-modelling
+      en: Threat modelling
+      da: Trusselsmodellering
+    - id: web-application-firewall
+      en: Web application firewall (WAF)
+      da: Web application firewall (WAF)
+      domain: [security, cs]
+  security-operations:
+    - id: alert-triage
+      en: Alert triage
+      da: Triage af alarmer
+    - id: anomaly-detection
+      en: Anomaly detection
+      da: Anomalidetektion
+      domain: [security, ai]
+    - id: detection-rule
+      en: Detection rule
+      da: Detektionsregel
+    - id: false-positive
+      en: False positive
+      da: Falsk positiv
+    - id: indicator-of-compromise
+      en: Indicator of compromise (IoC)
+      da: Kompromitteringsindikator (IoC)
+    - id: log-management
+      en: Log management
+      da: Loghåndtering
+      domain: [security, cs]
+    - id: log-retention
+      en: Log retention
+      da: Logopbevaring
+    - id: mitre-attack
+      en: MITRE ATT&CK
+      da: MITRE ATT&CK
   incident-response:
     - id: business-continuity-plan
       en: Business continuity plan (BCP)
@@ -465,6 +569,26 @@ cs:
     - id: single-sign-on
       en: Single sign-on (SSO)
       da: Single sign-on (SSO)
+    - id: conditional-access
+      en: Conditional access
+      da: Betinget adgang (conditional access)
+      domain: [cs, security]
+    - id: oauth
+      en: OAuth
+      da: OAuth
+    - id: openid-connect
+      en: OpenID Connect (OIDC)
+      da: OpenID Connect (OIDC)
+    - id: passkey
+      en: Passkey
+      da: Passkey
+    - id: privileged-access-management
+      en: Privileged access management (PAM)
+      da: Styring af privilegeret adgang (PAM)
+      domain: [cs, security]
+    - id: saml
+      en: SAML
+      da: SAML
   cryptography:
     - id: cryptographic-key
       en: Cryptographic key
@@ -478,6 +602,34 @@ cs:
     - id: public-key-cryptography
       en: Public-key cryptography
       da: Asymmetrisk kryptografi (public key)
+    - id: digital-signature
+      en: Digital signature
+      da: Digital signatur
+    - id: public-key-infrastructure
+      en: Public key infrastructure (PKI)
+      da: Offentlig nøgleinfrastruktur (PKI)
+    - id: symmetric-encryption
+      en: Symmetric encryption
+      da: Symmetrisk kryptering
+  web:
+    - id: api
+      en: API
+      da: API
+    - id: cookie
+      en: Cookie
+      da: Cookie
+    - id: database
+      en: Database
+      da: Database
+    - id: http
+      en: HTTP
+      da: HTTP
+    - id: web-application
+      en: Web application
+      da: Webapplikation
+    - id: web-browser
+      en: Web browser
+      da: Webbrowser
 
 ai:
   ml-fundamentals:

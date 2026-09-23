@@ -1,0 +1,52 @@
+term:
+  en: API security
+  da: API-sikkerhed
+aka:
+  en: []
+  da: []
+domain: [security]
+cluster: application-security
+layer: application
+status: current
+summary:
+  en: Protecting the doors that programs use to talk to each other, so each caller can only reach and change what it is allowed to.
+  da: At beskytte de døre, som programmer bruger til at tale med hinanden, så hver kalder kun kan nå og ændre det, den har lov til.
+body:
+  formal:
+    en: The practice of securing an API through authentication of every caller, authorization checked for each object and action, limits on how often and how much can be asked for, input validation and a list of every API in use.
+    da: Praksis for at sikre et API gennem autentificering af hver kalder, autorisation tjekket for hvert objekt og hver handling, grænser for, hvor ofte og hvor meget der kan spørges om, inputvalidering og en liste over alle API'er i brug.
+  plain:
+    en: Like a bank counter where the clerk checks not only who you are but also that the account you ask about is really yours — every time you ask.
+    da: Som en bankskranke, hvor kassereren ikke kun tjekker, hvem du er, men også at den konto, du spørger til, faktisk er din — hver eneste gang.
+  inPractice:
+    en: A mobile app asks its API for order 1001 belonging to the logged-in user; an attacker changes the number to 1002 and gets a stranger's order, because the API checked the login but not who owns the order.
+    da: En mobilapp beder sit API om ordre 1001, der tilhører den indloggede bruger; en angriber ændrer tallet til 1002 og får en fremmeds ordre, fordi API'et tjekkede login, men ikke hvem der ejer ordren.
+  whyItMatters:
+    en: Apps, partners and AI agents increasingly reach data through APIs rather than web pages, and one missing ownership check can expose every customer record at once.
+    da: Apps, samarbejdspartnere og AI-agenter tilgår i stigende grad data gennem API'er frem for websider, og ét manglende ejerskabstjek kan udstille alle kundeposter på én gang.
+edges:
+  requires: [api, authentication, authorization]
+  mitigates:
+    - to: data-breach
+      why:
+        en: Checking who may reach each record stops callers from pulling data that belongs to others.
+        da: Når der tjekkes, hvem der må nå hver post, forhindres kaldere i at trække data, der tilhører andre.
+      strength: normal
+      confidence: high
+  used-with:
+    - to: web-application-firewall
+      why:
+        en: A WAF or API gateway in front filters and limits traffic, while the checks on who owns what live in the API itself.
+        da: En WAF eller en API-gateway foran filtrerer og begrænser trafikken, mens tjekket af, hvem der ejer hvad, ligger i selve API'et.
+      strength: normal
+      confidence: medium
+sources:
+  - title: OWASP API Security Top 10 (2023)
+    tier: reference
+    publisher: OWASP
+    url: https://owasp.org/API-Security/editions/2023/en/0x11-t10/
+  - title: NIST SP 800-228 — Guidelines for API Protection for Cloud-Native Systems
+    tier: standard
+    publisher: NIST
+    url: https://csrc.nist.gov/pubs/sp/800/228/upd1/final
+draft: true

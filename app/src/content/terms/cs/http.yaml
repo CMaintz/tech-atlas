@@ -1,0 +1,38 @@
+term:
+  en: HTTP
+  da: HTTP
+aka:
+  en: [Hypertext Transfer Protocol]
+  da: [Hypertext Transfer Protocol]
+domain: [cs]
+cluster: web
+layer: network
+status: current
+era: 1991
+summary:
+  en: The request-and-answer rules a web browser and a server follow to fetch pages, pictures and data across the internet.
+  da: De regler for forespørgsel og svar, som en webbrowser og en server følger for at hente sider, billeder og data over internettet.
+body:
+  formal:
+    en: A protocol, originally text-based, on top of TCP/IP (HTTP/2 sends the same messages in a binary form, and HTTP/3 swaps TCP for a newer, faster transport) in which a client sends a request naming a resource and a method, such as GET or POST, and the server replies with a status code and content. Each request stands alone; the server keeps no memory between them by itself.
+    da: En oprindeligt tekstbaseret protokol oven på TCP/IP (HTTP/2 sender de samme beskeder i binær form, og HTTP/3 kører over QUIC oven på UDP), hvor en klient sender en forespørgsel med en ressource og en metode, fx GET eller POST, og serveren svarer med en statuskode og indhold. Hver forespørgsel står alene; serveren husker ikke selv noget mellem dem.
+  plain:
+    en: Like ordering at a counter by slip of paper — you write what you want, hand it over, and get back either the item or a note saying why not.
+    da: Som at bestille ved en disk med en seddel — du skriver, hvad du vil have, rækker den over og får enten varen eller en besked om, hvorfor ikke.
+  inPractice:
+    en: When someone clicks a link to a news article, the browser sends a GET request for that page, and the server answers with status 200 and the article, or 404 if it no longer exists.
+    da: Når nogen klikker på et link til en nyhedsartikel, sender browseren en GET-forespørgsel efter siden, og serveren svarer med status 200 og artiklen — eller 404, hvis den ikke findes længere.
+  whyItMatters:
+    en: Almost everything on the web, from pages to apps talking to each other, travels over it; on its own it is sent as open text that anyone on the route can read or change.
+    da: Næsten alt på nettet, fra sider til apps, der taler sammen, rejser over den; alene sendes den som åben tekst, som alle på ruten kan læse eller ændre.
+edges:
+  kind-of: [protocol]
+  requires: [tcp-ip, client, server]
+sources:
+  - title: RFC 9110 — HTTP Semantics
+    url: https://www.rfc-editor.org/rfc/rfc9110
+    tier: standard
+    publisher: IETF
+  - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
+    tier: textbook
+draft: true

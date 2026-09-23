@@ -1,0 +1,45 @@
+term:
+  en: Symmetric encryption
+  da: Symmetrisk kryptering
+aka:
+  en: [symmetric cryptography, secret-key encryption, shared-key encryption]
+  da: [symmetrisk kryptografi]
+domain: [cs]
+cluster: cryptography
+layer: theory
+status: current
+summary:
+  en: Encryption where the same secret key both locks and unlocks the data, so sender and receiver must share it in advance.
+  da: Kryptering, hvor den samme hemmelige nøgle både låser og låser data op, så afsender og modtager skal dele den på forhånd.
+body:
+  formal:
+    en: A class of methods, such as the Advanced Encryption Standard, in which one cryptographic key is used both to turn readable data into scrambled data and to turn it back; it is fast enough for large amounts of data but gives no answer to how the key is shared safely.
+    da: En klasse af metoder, fx AES, hvor én kryptografisk nøgle bruges både til at gøre læsbare data ulæselige og til at gøre dem læsbare igen; den er hurtig nok til store datamængder, men løser ikke, hvordan nøglen deles sikkert.
+  plain:
+    en: Like a padlocked box where you and a friend each hold a copy of the same key — easy to use, but you had to hand the copy over in person first.
+    da: Som en kasse med hængelås, hvor du og en ven har hver sin kopi af samme nøgle — let at bruge, men du skulle først give ham kopien personligt.
+  inPractice:
+    en: A laptop's full-disk protection uses symmetric encryption with a key unlocked by the user's password, so a stolen laptop shows only noise.
+    da: En bærbars fuld diskkryptering bruger symmetrisk kryptering med en nøgle, der låses op af brugerens adgangskode, så en stjålen bærbar kun viser støj.
+  whyItMatters:
+    en: It does the heavy lifting of protecting almost all stored and sent data, so the whole protection is only as strong as how well the shared key is kept secret.
+    da: Den står for det tunge arbejde med at beskytte næsten alle gemte og sendte data, så beskyttelsen er kun så stærk, som nøglen holdes hemmelig.
+edges:
+  kind-of: [encryption]
+  requires: [cryptographic-key]
+  used-with:
+    - to: tls
+      why:
+        en: TLS uses public-key cryptography only to agree on a shared key, then protects the rest of the connection with fast symmetric encryption.
+        da: TLS bruger kun asymmetrisk kryptografi til at aftale en fælles nøgle og beskytter derefter resten af forbindelsen med hurtig symmetrisk kryptering.
+      strength: primary
+      confidence: high
+    - vpn
+sources:
+  - title: NIST FIPS 197 — Advanced Encryption Standard (AES)
+    url: https://csrc.nist.gov/pubs/fips/197/final
+    tier: standard
+    publisher: NIST
+  - title: Paar & Pelzl, Understanding Cryptography
+    tier: textbook
+draft: true

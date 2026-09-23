@@ -1,0 +1,42 @@
+term:
+  en: Zero-day vulnerability
+  da: Zero-day-sårbarhed
+aka:
+  en: [zero-day, 0-day]
+  da: [zero-day, 0-day, nuldagssårbarhed]
+domain: [security]
+cluster: fundamentals
+layer: application
+status: current
+summary:
+  en: A flaw that attackers know about before the maker does, so on the day it is used there is no fix to install.
+  da: En fejl, som angribere kender, før producenten gør, så der ikke findes nogen rettelse at installere, den dag den bliver udnyttet.
+body:
+  formal:
+    en: A vulnerability in software or hardware that is unknown to its maker, or known but not yet fixed, at the time it is first exploited — the maker has had "zero days" to release a patch.
+    da: En sårbarhed i software eller hardware, som producenten ikke kender, eller kender men endnu ikke har rettet, på det tidspunkt, den første gang udnyttes — producenten har haft "nul dage" til at udgive en patch.
+  plain:
+    en: Like a burglar who has found a secret gap in the fence that even the owner does not know about — no lock can be fitted to a hole nobody has seen.
+    da: Som en indbrudstyv, der har fundet et hemmeligt hul i hegnet, som selv ejeren ikke kender til — man kan ikke sætte lås på et hul, ingen har set.
+  inPractice:
+    en: Attackers use an unknown flaw in a popular file-transfer product to steal data from hundreds of firms; the maker learns of it from the attacks and ships a patch days later.
+    da: Angribere bruger en ukendt fejl i et udbredt filoverførselsprodukt til at stjæle data fra hundredvis af virksomheder; producenten hører først om den via angrebene og udsender en patch dage senere.
+  whyItMatters:
+    en: Patching, however fast, cannot help before a fix exists, so layers of defence, limited rights and watching for odd behaviour are what catch these attacks.
+    da: Selv hurtig patching hjælper ikke, før der findes en rettelse; derfor er det lag af forsvar, begrænsede rettigheder og overvågning af usædvanlig adfærd, der fanger disse angreb.
+edges:
+  kind-of: [vulnerability]
+  requires: [patch, exploit]
+  causes:
+    - to: security-incident
+      why:
+        en: With no fix and no warning, a working exploit for the flaw can be used freely until defenders notice.
+        da: Uden rettelse og uden varsel kan et virkende exploit mod fejlen bruges frit, indtil forsvarerne opdager det.
+      strength: normal
+      confidence: high
+sources:
+  - title: NIST Glossary — Zero Day Attack
+    tier: standard
+    publisher: NIST
+    url: https://csrc.nist.gov/glossary/term/zero_day_attack
+draft: true

@@ -1,0 +1,52 @@
+term:
+  en: Conditional access
+  da: Betinget adgang (conditional access)
+aka:
+  en: [conditional access policy]
+  da: [conditional access]
+domain: [cs, security]
+cluster: identity
+layer: identity
+status: current
+summary:
+  en: Rules that decide at each login whether to let someone in, ask for more proof or block them, based on who, where and what device.
+  da: Regler, der ved hvert login afgør, om en person lukkes ind, skal bevise mere eller afvises — ud fra hvem, hvor og hvilken enhed.
+body:
+  formal:
+    en: A policy engine, usually part of the identity provider, that checks signals about each sign-in — user and group, device health, location, the app being opened and a risk score — and then allows, blocks or adds a demand such as MFA before a session is issued.
+    da: En regelmotor, som regel en del af identitetsudbyderen, der vurderer signaler ved hvert login — bruger og gruppe, enhedens tilstand, placering, den app, der åbnes, og en risikovurdering — og derefter tillader, blokerer eller stiller et ekstra krav som MFA, før der udstedes en session.
+  plain:
+    en: Like a doorman who knows the regulars — a familiar face at the usual time walks straight in, but the same name turning up at 3 a.m. from abroad has to show ID.
+    da: Som en dørmand, der kender stamgæsterne — et kendt ansigt på det sædvanlige tidspunkt går direkte ind, men det samme navn, der dukker op kl. 3 om natten fra udlandet, skal vise legitimation.
+  inPractice:
+    en: A company lets staff open Microsoft 365 from a managed work laptop with a password alone, asks for MFA on a private phone, and blocks sign-ins from countries where it has no staff.
+    da: En virksomhed lader medarbejderne åbne Microsoft 365 fra en administreret arbejdscomputer med adgangskode alene, kræver MFA på en privat telefon og blokerer login fra lande, hvor den ikke har ansatte.
+  whyItMatters:
+    en: When staff reach cloud apps from anywhere, there is no office wall to hide behind; checking each login in context stops most stolen-password logins without slowing normal work.
+    da: Når medarbejderne når cloudapps fra hvor som helst, er der ingen kontormur at gemme sig bag; at vurdere hvert login i sin sammenhæng stopper de fleste login med stjålne adgangskoder uden at sinke det daglige arbejde.
+edges:
+  implements: [zero-trust]
+  requires: [authentication, identity-provider]
+  used-with:
+    - to: mfa
+      why:
+        en: MFA is the most common extra demand the rules add when a login looks unusual.
+        da: MFA er det mest almindelige ekstra krav, reglerne stiller, når et login ser usædvanligt ud.
+      strength: primary
+      confidence: high
+    - to: saas
+      why:
+        en: Cloud apps are reached from anywhere, so the login check becomes the main gate in front of them.
+        da: Cloudapps kan nås fra hvor som helst, så kontrollen ved login bliver den vigtigste port foran dem.
+      strength: normal
+      confidence: high
+sources:
+  - title: Microsoft Learn — What is Conditional Access in Microsoft Entra ID?
+    tier: official-doc
+    publisher: Microsoft
+    url: https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview
+  - title: NIST SP 800-207 — Zero Trust Architecture
+    tier: standard
+    publisher: NIST
+    url: https://doi.org/10.6028/NIST.SP.800-207
+draft: true

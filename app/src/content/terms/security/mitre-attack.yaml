@@ -1,0 +1,46 @@
+term:
+  en: MITRE ATT&CK
+  da: MITRE ATT&CK
+aka:
+  en: [ATT&CK]
+  da: [ATT&CK]
+domain: [security]
+cluster: security-operations
+layer: governance
+status: current
+era: 2015
+summary:
+  en: A free, public catalogue of the goals and methods real attackers use, giving defenders a shared language for how attacks unfold.
+  da: Et gratis, offentligt katalog over rigtige angriberes mål og metoder, der giver forsvarere et fælles sprog for, hvordan angreb forløber.
+body:
+  formal:
+    en: A knowledge base kept by the not-for-profit MITRE, built from observed attacks, that sorts attacker behaviour into tactics (the goal, such as lateral movement) and techniques (how the goal is reached), each with a number, examples and advice on detection.
+    da: En vidensbase, som den almennyttige organisation MITRE vedligeholder, bygget på observerede angreb, der inddeler angriberes adfærd i taktikker (målet, fx lateral movement) og teknikker (hvordan målet nås), hver med et nummer, eksempler og råd om detektion.
+  plain:
+    en: Like a handbook of every trick known to pickpockets, sorted by stage — picking a victim, distracting them, taking the wallet, getting away — so guards know what to watch for at each step.
+    da: Som en håndbog over alle kendte lommetyvetricks, ordnet efter fase — at vælge et offer, aflede det, tage pungen, slippe væk — så vagter ved, hvad de skal holde øje med i hvert trin.
+  inPractice:
+    en: A SOC lays its detection rules over the ATT&CK table and sees that it has no rule at all for attackers stealing browser cookies, so that is the next one it writes.
+    da: En SOC lægger sine detektionsregler ind over ATT&CK-matricen og ser, at den slet ingen regel har for angribere, der stjæler browsercookies, så det er den, der skrives som den næste.
+  whyItMatters:
+    en: Attackers can swap addresses and files in minutes, but their methods change slowly; watching for methods gives longer-lasting defence and a common way to report it.
+    da: Angribere kan skifte adresser og filer på få minutter, men deres metoder ændrer sig langsomt; at overvåge metoder giver et mere holdbart forsvar og en fælles måde at rapportere det på.
+edges:
+  requires: [threat-actor]
+  used-with:
+    - to: threat-intelligence
+      why:
+        en: Reports about attacker groups use its numbers to say exactly which methods each group uses.
+        da: Rapporter om angrebsgrupper bruger dens numre til at angive præcis, hvilke metoder hver gruppe bruger.
+      strength: primary
+      confidence: high
+    - threat-modelling
+sources:
+  - title: MITRE ATT&CK
+    url: https://attack.mitre.org/
+    tier: official-doc
+    publisher: MITRE
+  - title: 'MITRE ATT&CK: Design and Philosophy'
+    tier: official-doc
+    publisher: MITRE
+draft: true

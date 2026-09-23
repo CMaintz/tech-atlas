@@ -1,0 +1,49 @@
+term:
+  en: Physical security
+  da: Fysisk sikkerhed
+aka:
+  en: [physical controls]
+  da: [fysiske kontroller, fysisk sikring]
+domain: [security]
+cluster: fundamentals
+status: current
+summary:
+  en: Protecting buildings, rooms and equipment so that nobody can simply walk in, take, break or plug into them.
+  da: At beskytte bygninger, rum og udstyr, så ingen bare kan gå ind og tage, ødelægge eller koble sig på dem.
+body:
+  formal:
+    en: The group of security controls that guard the physical world around information — sites, server rooms, devices and paper — using locks, badges, cameras, visitor rules and protection against fire, water and power loss; ISO 27002 sorts its controls into four themes — organisational, people, physical and technological — and this is the physical one.
+    da: Den gruppe sikkerhedskontroller, der beskytter den fysiske verden omkring information — lokaler, serverrum, enheder og papir — med låse, adgangskort, kameraer, regler for gæster og beskyttelse mod brand, vand og strømsvigt; ISO 27002 inddeler sine kontroller i fire temaer — organisatoriske, personmæssige, fysiske og teknologiske — og dette er det fysiske.
+  plain:
+    en: The strongest password in the world does not help if a stranger can carry the computer out of the front door under their arm.
+    da: Verdens stærkeste adgangskode hjælper ikke, hvis en fremmed kan bære computeren ud ad hoveddøren under armen.
+  inPractice:
+    en: A visitor follows an employee through a card-locked door, finds an open meeting room and plugs a small device into a free network socket — a badge rule and a locked socket would have stopped it.
+    da: En gæst går med en medarbejder ind gennem en dør med kortlås, finder et åbent mødelokale og sætter en lille enhed i et ledigt netværksstik — en regel om adgangskort og et låst stik havde stoppet det.
+  whyItMatters:
+    en: Anyone with hands on a machine can often get around its digital protection, and fire or flooding can end availability as surely as any attack.
+    da: Den, der har fysisk adgang til en maskine, kan ofte komme uden om dens digitale beskyttelse, og brand eller oversvømmelse kan fjerne tilgængeligheden lige så sikkert som et angreb.
+edges:
+  kind-of: [control]
+  part-of: [defence-in-depth]
+  requires: [asset]
+  mitigates:
+    - to: data-breach
+      why:
+        en: Locked rooms and guarded devices stop data from walking out on a stolen laptop, disk or printout.
+        da: Låste rum og bevogtede enheder forhindrer, at data forsvinder med en stjålen bærbar, disk eller udskrift.
+      strength: normal
+      confidence: high
+    - to: insider-threat
+      why:
+        en: Keeping staff out of rooms they do not need, such as the server room, limits what a careless or harmful insider can reach.
+        da: At holde medarbejdere ude af rum, de ikke har brug for, fx serverrummet, begrænser, hvad en skødesløs eller ondsindet insider kan nå.
+      strength: minor
+      confidence: medium
+sources:
+  - title: Cyber Security Fast Track — Ordliste
+    tier: course-material
+  - title: ISO/IEC 27002:2022 — clause 7, Physical controls
+    tier: standard
+    publisher: ISO/IEC
+draft: true

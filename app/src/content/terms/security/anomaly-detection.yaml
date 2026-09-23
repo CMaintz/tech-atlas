@@ -1,0 +1,61 @@
+term:
+  en: Anomaly detection
+  da: Anomalidetektion
+aka:
+  en: [behaviour-based detection, outlier detection]
+  da: [adfærdsbaseret detektion]
+domain: [security, ai]
+cluster: security-operations
+layer: application
+status: current
+era: 1987
+summary:
+  en: Learning what normal activity looks like and raising an alarm when something departs from it, even if no rule describes the attack.
+  da: At lære, hvordan normal aktivitet ser ud, og slå alarm, når noget afviger fra den, også selv om ingen regel beskriver angrebet.
+body:
+  formal:
+    en: A way of finding threats by building a model of normal behaviour for users, devices or network traffic — often with machine learning — and flagging events that differ from it by more than a set amount.
+    da: En måde at finde trusler på ved at opbygge en model af normal adfærd for brugere, enheder eller netværkstrafik — ofte med maskinlæring — og markere hændelser, der afviger mere end en fastsat grænse fra den.
+  plain:
+    en: Like a bank teller who knows a regular customer so well that she notices at once when he asks to move all his savings abroad on a Sunday.
+    da: Som en bankassistent, der kender en fast kunde så godt, at hun straks lægger mærke til det, når han en søndag vil flytte hele sin opsparing til udlandet.
+  inPractice:
+    en: A finance clerk's account, which normally reads a few files a day, suddenly copies ten thousand files at night; no rule covers this, but the model flags it and the SOC finds malware.
+    da: En bogholders konto, der normalt læser nogle få filer om dagen, kopierer pludselig ti tusind filer om natten; ingen regel dækker det, men modellen markerer det, og SOC'en finder malware.
+  whyItMatters:
+    en: It can catch new attacks that no one has written a rule for yet, but unusual is not the same as harmful, so it brings many false alarms that people must judge.
+    da: Den kan fange nye angreb, som ingen endnu har skrevet en regel for, men usædvanligt er ikke det samme som skadeligt, så den giver mange falske alarmer, som mennesker må vurdere.
+edges:
+  used-with:
+    - to: unsupervised-learning
+      why:
+        en: Learning normal behaviour from data with no answers attached is the usual way the model of normal is built.
+        da: At lære normal adfærd ud fra data uden svar er den typiske måde, modellen af det normale bygges på.
+      strength: primary
+      confidence: high
+    - machine-learning
+    - siem
+  contrasts-with:
+    - to: detection-rule
+      why:
+        en: A detection rule looks for an attack someone has already described; anomaly detection looks for anything that breaks the usual pattern.
+        da: En detektionsregel leder efter et angreb, nogen allerede har beskrevet; anomalidetektion leder efter alt, der bryder det sædvanlige mønster.
+      strength: primary
+      confidence: high
+  causes:
+    - to: false-positive
+      why:
+        en: Harmless but unusual activity, such as a new staff member or a one-off job, also breaks the pattern and raises an alarm.
+        da: Harmløs, men usædvanlig aktivitet, fx en ny medarbejder eller en engangskørsel, bryder også mønstret og udløser en alarm.
+      strength: normal
+      confidence: high
+sources:
+  - title: Denning, D. E. — An Intrusion-Detection Model (IEEE Transactions on Software Engineering, 1987)
+    url: https://doi.org/10.1109/TSE.1987.232894
+    tier: reference
+    publisher: IEEE
+  - title: NIST SP 800-94 — Guide to Intrusion Detection and Prevention Systems (IDPS)
+    url: https://doi.org/10.6028/NIST.SP.800-94
+    tier: standard
+    publisher: NIST
+draft: true

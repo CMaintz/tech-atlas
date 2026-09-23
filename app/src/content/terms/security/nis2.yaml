@@ -3,7 +3,7 @@ term:
   da: NIS2-direktivet
 aka:
   en: [NIS2, Directive (EU) 2022/2555]
-  da: [NIS2, NIS2-loven]
+  da: [NIS2]
 domain: [security]
 cluster: compliance
 layer: governance
@@ -65,6 +65,12 @@ edges:
       strength: primary
       confidence: high
     - software-supply-chain
+    - to: log-retention
+      why:
+        en: Its implementing rules for digital providers require logs to be kept and backed up for a documented, risk-based period.
+        da: Dens gennemførelsesregler for digitale udbydere kræver, at logs gemmes og sikkerhedskopieres i en dokumenteret, risikobaseret periode.
+      strength: normal
+      confidence: medium
 article:
   en: src/content/articles/security/nis2.en.md
   da: src/content/articles/security/nis2.da.md

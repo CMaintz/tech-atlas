@@ -44,6 +44,8 @@ edges:
     - single-sign-on
     - zero-trust
     - privileged-account
+    - passkey
+    - privileged-access-management
 article:
   en: src/content/articles/security/mfa.en.md
   da: src/content/articles/security/mfa.da.md

@@ -1,0 +1,57 @@
+term:
+  en: Attack surface
+  da: Angrebsflade
+aka:
+  en: []
+  da: []
+domain: [security]
+cluster: application-security
+status: current
+summary:
+  en: The sum of all the places where an outsider could try to get into a system, send data into it or pull data out.
+  da: Summen af alle de steder, hvor en udefrakommende kunne forsøge at komme ind i et system, sende data ind eller trække data ud.
+body:
+  formal:
+    en: The set of all points at which a system can be reached or acted on from outside its trust boundary — open ports, web pages and APIs, user accounts, stored data, the people who run it and the suppliers it depends on.
+    da: Mængden af alle punkter, hvor et system kan nås eller påvirkes uden for dets tillidsgrænse — åbne porte, websider og API'er, brugerkonti, lagrede data, de mennesker, der driver det, og de leverandører, det afhænger af.
+  plain:
+    en: Like counting every door, window, hatch and mail slot in a house — each one is a place a burglar could try, whether or not it is locked.
+    da: Som at tælle alle døre, vinduer, lemme og brevsprækker i et hus — hver enkelt er et sted, en indbrudstyv kunne prøve, uanset om den er låst.
+  inPractice:
+    en: A company finds an old test website, a forgotten file server and three unused admin accounts still reachable from the internet; removing them makes its attack surface noticeably smaller.
+    da: En virksomhed finder et gammelt testwebsite, en glemt filserver og tre ubrugte administratorkonti, der stadig kan nås fra internettet; når de fjernes, bliver angrebsfladen mærkbart mindre.
+  whyItMatters:
+    en: Every extra way in is one more thing to watch and patch, and attackers need to find only one that was missed; a smaller surface leaves fewer places for weaknesses to hide.
+    da: Hver ekstra vej ind er én ting mere at holde øje med og patche, og angribere skal kun finde én, der er overset; en mindre flade giver færre steder, hvor svagheder kan gemme sig.
+edges:
+  requires: [asset, vulnerability]
+  used-with:
+    - to: hardening
+      why:
+        en: Hardening is the main way to shrink the attack surface, by turning off and removing what is not needed.
+        da: Hærdning er den vigtigste måde at gøre angrebsfladen mindre på, ved at slå det unødvendige fra og fjerne det.
+      strength: primary
+      confidence: high
+    - to: threat-modelling
+      why:
+        en: Mapping the attack surface shows where threats can enter, which is where threat modelling looks first.
+        da: En kortlægning af angrebsfladen viser, hvor trusler kan komme ind, og det er dér, trusselsmodellering kigger først.
+      strength: normal
+      confidence: high
+  contrasts-with:
+    - to: threat-landscape
+      why:
+        en: The attack surface is your own ways in; the threat landscape is who and what is out there trying them.
+        da: Angrebsfladen er dine egne veje ind; trusselsbilledet er, hvem og hvad der derude forsøger at bruge dem.
+      strength: normal
+      confidence: high
+sources:
+  - title: NIST Glossary — Attack Surface
+    tier: standard
+    publisher: NIST
+    url: https://csrc.nist.gov/glossary/term/attack_surface
+  - title: OWASP Cheat Sheet Series — Attack Surface Analysis
+    tier: reference
+    publisher: OWASP
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Attack_Surface_Analysis_Cheat_Sheet.html
+draft: true

@@ -34,6 +34,12 @@ edges:
       strength: normal
       confidence: high
     - training-data
+    - to: personal-data
+      why:
+        en: Personal data is a legal category that often decides which classification level and handling rules apply.
+        da: Personoplysninger er en juridisk kategori, der ofte afgør, hvilket klassifikationsniveau og hvilke håndteringsregler der gælder.
+      strength: normal
+      confidence: high
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material
