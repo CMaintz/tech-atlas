@@ -3,6 +3,7 @@
  * build script and the site share one implementation (ADR-0001: derive, don't author).
  */
 import type { EdgeType } from '../schema';
+import { makeLinker } from './autolink';
 
 type RawEdge = string | { to: string; strength?: string; confidence?: string };
 export type ModelTerm = {
@@ -11,6 +12,8 @@ export type ModelTerm = {
   domain: string[];
   cluster: string;
   summary?: { en: string; da: string };
+  aka?: { en: string[]; da: string[] };
+  body?: Record<string, { en: string; da: string }>;
   edges?: Partial<Record<EdgeType, RawEdge[]>>;
 };
 
@@ -45,6 +48,8 @@ export type GraphNode = {
   requires: string[];
   /** True when another domain holds a different term of the same name (ADR-0003). */
   collides: boolean;
+  /** Other terms named in this term's prose — untyped, never authored (SPEC §6). */
+  mentions: string[];
 };
 export type GraphLink = {
   source: string;
@@ -126,6 +131,8 @@ export function buildGraph(terms: ModelTerm[]): Graph {
     nameCount.set(name, (nameCount.get(name) ?? 0) + 1);
   }
 
+  const linker = makeLinker(terms, 'en');
+
   const memo = new Map<string, number>();
   const depthOf = (id: string, stack = new Set<string>()): number => {
     if (memo.has(id)) return memo.get(id)!;
@@ -148,6 +155,10 @@ export function buildGraph(terms: ModelTerm[]): Graph {
     degree: degree.get(t.id) ?? 0,
     requires: requires.get(t.id) ?? [],
     collides: (nameCount.get(t.id.split('/').pop()!) ?? 0) > 1,
+    mentions: linker.mentions(
+      [t.summary?.en ?? '', ...Object.values(t.body ?? {}).map((f) => f.en)],
+      t.id,
+    ),
   }));
   return { nodes, links };
 }
