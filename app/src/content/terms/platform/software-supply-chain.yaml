@@ -27,6 +27,9 @@ body:
 edges:
   used-with:
     - supplier-management
+article:
+  en: src/content/articles/platform/software-supply-chain.en.md
+  da: src/content/articles/platform/software-supply-chain.da.md
 sources:
   - title: NIST SP 800-204D — Strategies for the Integration of Software Supply Chain Security in DevSecOps CI/CD Pipelines
     url: https://csrc.nist.gov/pubs/sp/800/204/d/final

@@ -48,6 +48,9 @@ edges:
         da: Et kapret AI-system med adgang til filer eller mail kan beordres til at udlevere data til angriberen.
       strength: normal
       confidence: medium
+article:
+  en: src/content/articles/ai/prompt-injection.en.md
+  da: src/content/articles/ai/prompt-injection.da.md
 sources:
   - title: OWASP Top 10 for LLM Applications — LLM01 Prompt Injection
     tier: reference
