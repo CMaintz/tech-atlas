@@ -7,6 +7,7 @@ import { existsSync } from 'node:fs';
 import { EDGE_TYPES, LAYERS, type EdgeType } from '../src/schema';
 import { checkClosedVocab } from './closed-vocab';
 import { loadTerms, makeResolver } from './load-terms';
+import { makeLinker } from '../src/lib/autolink';
 
 const { terms, errors } = loadTerms();
 const warnings: string[] = [];
@@ -97,6 +98,23 @@ for (const [id, t] of terms) {
 for (const [id, t] of terms) {
   for (const path of Object.values(t.article ?? {})) {
     if (path && !existsSync(path)) errors.push(`E9 ${id}: article file not found: ${path}`);
+  }
+}
+
+// W6 untouched Mentions: named in the prose of 5+ terms but linked by edges to none of them.
+const linker = makeLinker(
+  [...terms.entries()].map(([id, t]) => ({ ...t, id })),
+  'en',
+);
+const mentionedBy = new Map<string, string[]>();
+for (const [id, t] of terms) {
+  const texts = [t.summary.en, ...Object.values(t.body).map((f) => f.en)];
+  for (const m of linker.mentions(texts, id))
+    mentionedBy.set(m, [...(mentionedBy.get(m) ?? []), id]);
+}
+for (const [id, by] of mentionedBy) {
+  if (by.length >= 5 && !by.some((b) => neighbours.get(id)!.has(b))) {
+    warnings.push(`W6 untouched mentions: ${id} is named by ${by.length} terms but linked to none`);
   }
 }
 

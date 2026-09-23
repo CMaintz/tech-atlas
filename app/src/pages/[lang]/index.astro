@@ -32,9 +32,10 @@ const byName = (a: (typeof terms)[number], b: (typeof terms)[number]) =>
       client:load
       lang={lang}
       indexUrl={url('search-index.json')}
-      termBase={url(`${lang}/terms/`)}
+      langBase={url(`${lang}/`)}
       placeholder={ui.search}
       noResults={ui.noResults}
+      intentLabels={{ compare: ui.intentCompare, route: ui.intentRoute, before: ui.intentBefore }}
     />
   </div>
 

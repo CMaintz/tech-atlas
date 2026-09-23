@@ -1,6 +1,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { EDGE_TYPES, type EdgeType, type Localized } from '../schema';
 import type { Lang } from './site';
+import { pairSlugFromIds } from './slug';
 
 export type TermEntry = CollectionEntry<'terms'>;
 type RawEdge = string | { to: string; why?: Localized; strength?: string; confidence?: string };
@@ -92,12 +93,7 @@ export function contrastPairs(all: TermEntry[]): ContrastPair[] {
 }
 
 /** Canonical slug for a pair — order-independent, so both sides link to the same page. */
-export const pairSlug = (x: TermEntry, y: TermEntry) => {
-  const [a, b] = [x, y].sort((p, q) => p.id.localeCompare(q.id));
-  return nameOf(a.id) !== nameOf(b.id)
-    ? `${nameOf(a.id)}-vs-${nameOf(b.id)}`
-    : `${a.id.replace('/', '.')}-vs-${b.id.replace('/', '.')}`;
-};
+export const pairSlug = (x: TermEntry, y: TermEntry) => pairSlugFromIds(x.id, y.id);
 
 /** Display order for relationship groups on a term page. */
 export const RELATION_ORDER = [

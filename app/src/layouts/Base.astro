@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { UI, swapLang, url, type Lang } from '../lib/site';
+import { REPO, UI, swapLang, url, type Lang } from '../lib/site';
 
 interface Props {
   lang?: Lang;
@@ -46,5 +46,17 @@ const pageTitle = title === 'Atlas' ? 'Atlas' : `${title} — Atlas`;
     <main class={wide ? '' : 'mx-auto max-w-5xl px-6 py-10'}>
       <slot />
     </main>
+    {
+      !wide && (
+        <footer class="mx-auto flex max-w-5xl gap-5 px-6 pb-10 text-xs text-neutral-500">
+          <a class="hover:text-neutral-300" href={url(`${lang}/review/`)}>
+            {ui.review}
+          </a>
+          <a class="hover:text-neutral-300" href={REPO}>
+            {ui.sourceCode}
+          </a>
+        </footer>
+      )
+    }
   </body>
 </html>
