@@ -33,9 +33,10 @@ const pageTitle = title === 'Atlas' ? 'Atlas' : `${title} — Atlas`;
   <body class="min-h-screen bg-neutral-950 font-sans text-neutral-100 antialiased">
     <header class="flex items-center justify-between border-b border-neutral-800 px-6 py-4">
       <a href={url(`${lang}/`)} class="font-mono text-lg tracking-tight">atlas</a>
-      <nav class="flex gap-5 text-sm text-neutral-400">
+      <nav class="flex flex-wrap justify-end gap-x-5 gap-y-1 text-sm text-neutral-400">
         <a class="hover:text-neutral-100" href={url(`${lang}/`)}>{ui.index}</a>
         <a class="hover:text-neutral-100" href={url(`${lang}/explorer/`)}>{ui.explorer}</a>
+        <a class="hover:text-neutral-100" href={url(`${lang}/timeline/`)}>{ui.timeline}</a>
         <a class="hover:text-neutral-100" href={url(`${lang}/compare/`)}>{ui.compare}</a>
         <a class="hover:text-neutral-100" href={url(`${lang}/study/`)}>{ui.study}</a>
         <a class="hover:text-neutral-100" href={swapLang(path, other)} hreflang={other}>

@@ -12,6 +12,8 @@ export type ModelTerm = {
   domain: string[];
   cluster: string;
   summary?: { en: string; da: string };
+  /** Year the idea entered use (SPEC §4), when authored. */
+  era?: number;
   aka?: { en: string[]; da: string[] };
   body?: Record<string, { en: string; da: string }>;
   edges?: Partial<Record<EdgeType, RawEdge[]>>;
@@ -41,6 +43,8 @@ export type GraphNode = {
   domain: string[];
   cluster: string;
   summary?: { en: string; da: string };
+  /** Year the idea entered use; absent when not authored. Drives the Time layout. */
+  era?: number;
   /** Longest path to this term through `requires` (ADR-0001). */
   depth: number;
   degree: number;
@@ -151,6 +155,7 @@ export function buildGraph(terms: ModelTerm[]): Graph {
     domain: t.domain,
     cluster: t.cluster,
     summary: t.summary,
+    era: t.era,
     depth: depthOf(t.id),
     degree: degree.get(t.id) ?? 0,
     requires: requires.get(t.id) ?? [],

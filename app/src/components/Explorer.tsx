@@ -7,6 +7,7 @@ import {
   type GraphLink,
   type GraphNode,
 } from '../lib/graph-model';
+import { timePositions } from '../lib/era';
 import { loadLearner, type Learner } from '../lib/learner';
 
 type Lang = 'en' | 'da';
@@ -25,7 +26,7 @@ interface Props {
 }
 
 type Mode = '2d' | '3d';
-type Layout = 'force' | 'depth';
+type Layout = 'force' | 'depth' | 'time';
 type ColourMode = 'cluster' | 'knowledge';
 
 /** Personal knowledge map colours (SPEC §9): what you know, and what you don't. */
@@ -155,7 +156,8 @@ export default function Explorer(props: Props) {
   useEffect(() => {
     if (mode !== '2d' || !visible || !container.current) return;
     const maxDegree = Math.max(1, ...visible.nodes.map((n) => n.degree));
-    const positions: Record<string, { x: number; y: number }> = {};
+    let positions: Record<string, { x: number; y: number }> = {};
+    if (layout === 'time') positions = timePositions(visible.nodes);
     if (layout === 'depth') {
       const rows = new Map<number, GraphNode[]>();
       for (const n of visible.nodes) rows.set(n.depth, [...(rows.get(n.depth) ?? []), n]);
@@ -172,7 +174,7 @@ export default function Explorer(props: Props) {
         ...visible.nodes.map((n) => ({
           data: {
             id: n.id,
-            label: n.term[lang],
+            label: layout === 'time' && n.era ? `${n.term[lang]} (${n.era})` : n.term[lang],
             colour: colourOf(n),
             size: 12 + (n.degree / maxDegree) * 30,
           },
@@ -220,7 +222,7 @@ export default function Explorer(props: Props) {
         { selector: 'node.sel', style: { 'border-width': 4, 'border-color': '#ffffff' } },
       ] as cytoscape.StylesheetJson,
       layout:
-        layout === 'depth'
+        layout !== 'force'
           ? { name: 'preset', positions: (n: cytoscape.NodeSingular) => positions[n.id()] }
           : ({
               name: 'cose',
@@ -356,11 +358,17 @@ export default function Explorer(props: Props) {
               <button class={button(layout === 'depth')} onClick={() => setLayout('depth')}>
                 {ui.layoutDepth}
               </button>
+              <button class={button(layout === 'time')} onClick={() => setLayout('time')}>
+                {ui.layoutTime}
+              </button>
             </>
           )}
         </div>
         {(mode === '3d' || layout === 'depth') && (
           <p class="text-xs text-neutral-500">{ui.depthNote}</p>
+        )}
+        {mode === '2d' && layout === 'time' && (
+          <p class="text-xs text-neutral-500">{ui.timeNote}</p>
         )}
 
         <div class="flex flex-wrap items-center gap-2">

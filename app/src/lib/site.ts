@@ -100,6 +100,15 @@ export const UI = {
     plain: 'In plain English',
     inPractice: 'In practice',
     whyItMatters: 'Why it matters',
+    timeline: 'Timeline',
+    timelineIntro:
+      'Terms by the decade they entered use. Colour = cluster; click a term to open it.',
+    undatedNote: '{n} terms have no year yet and are not shown.',
+    noDated: 'No terms have a year yet.',
+    allDomains: 'All',
+    decade: '{d}s',
+    layoutTime: 'By time',
+    timeNote: 'Left to right = the year a term entered use. Terms without a year sit on the left.',
   },
   da: {
     tagline: 'En tosproget teknisk ordbog, der læses som en vidensgraf.',
@@ -185,6 +194,16 @@ export const UI = {
     plain: 'Forklaret enkelt',
     inPractice: 'I praksis',
     whyItMatters: 'Hvorfor det betyder noget',
+    timeline: 'Tidslinje',
+    timelineIntro:
+      'Begreber efter det årti, de kom i brug. Farve = klynge; klik på et begreb for at åbne det.',
+    undatedNote: '{n} begreber har endnu intet årstal og vises ikke.',
+    noDated: 'Ingen begreber har et årstal endnu.',
+    allDomains: 'Alle',
+    decade: "{d}'erne",
+    layoutTime: 'Efter tid',
+    timeNote:
+      'Fra venstre mod højre = året, et begreb kom i brug. Begreber uden årstal står til venstre.',
   },
 } as const;
 

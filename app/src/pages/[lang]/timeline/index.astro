@@ -1,0 +1,96 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import { groupByDecade } from '../../../lib/era';
+import {
+  CLUSTER_COLOURS,
+  CLUSTER_LABELS,
+  DOMAIN_LABELS,
+  LANGS,
+  UI,
+  termUrl,
+  type Lang,
+} from '../../../lib/site';
+import type { TermEntry } from '../../../lib/terms';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const ui = UI[lang];
+const entries: TermEntry[] = await getCollection('terms');
+const terms = entries.map((t) => ({ id: t.id, ...t.data }));
+const { decades, undated } = groupByDecade(terms, (t) => t.term[lang]);
+const domains = [...new Set(decades.flatMap((d) => d.items.flatMap((t) => t.domain)))].sort();
+
+// Domain filter without JavaScript: a checked radio hides every term (and every decade
+// left empty) outside its domain. Generated because the domain list comes from content.
+const filterCss = domains
+  .map(
+    (d) =>
+      `.tl:has(#tl-${d}:checked) li[data-domain]:not([data-domain~="${d}"]),` +
+      `.tl:has(#tl-${d}:checked) li.decade:not(:has(li[data-domain~="${d}"])){display:none}`,
+  )
+  .join('\n');
+const chip =
+  'cursor-pointer rounded border border-neutral-700 px-2 py-1 text-xs text-neutral-400 hover:border-neutral-500 has-checked:border-neutral-300 has-checked:text-neutral-100 has-focus-visible:outline';
+---
+
+<Base lang={lang} title={ui.timeline}>
+  <style is:inline set:html={filterCss}></style>
+  <h1 class="mb-2 text-3xl font-semibold">{ui.timeline}</h1>
+  <p class="mb-2 text-neutral-400">{ui.timelineIntro}</p>
+  {
+    undated > 0 && (
+      <p class="mb-8 text-sm text-neutral-500">{ui.undatedNote.replace('{n}', String(undated))}</p>
+    )
+  }
+  {decades.length === 0 && <p class="text-neutral-400">{ui.noDated}</p>}
+  {
+    decades.length > 0 && (
+      <div class="tl">
+        {domains.length > 1 && (
+          <fieldset class="mb-8 flex flex-wrap items-center gap-2">
+            <legend class="sr-only">{ui.domains}</legend>
+            <label class={chip}>
+              <input class="sr-only" type="radio" name="tl-domain" checked />
+              {ui.allDomains}
+            </label>
+            {domains.map((d) => (
+              <label class={chip}>
+                <input class="sr-only" type="radio" name="tl-domain" id={`tl-${d}`} />
+                {DOMAIN_LABELS[d]?.[lang] ?? d}
+              </label>
+            ))}
+          </fieldset>
+        )}
+        <ol class="space-y-10 border-l border-neutral-800 pl-6">
+          {decades.map(({ decade, items }) => (
+            <li class="decade list-none">
+              <h2 class="relative mb-3 font-mono text-lg text-neutral-200">
+                <span class="absolute top-2.5 -left-[1.85rem] h-2 w-2 rounded-full bg-neutral-500" />
+                {ui.decade.replace('{d}', String(decade))}
+              </h2>
+              <ul class="grid gap-x-6 gap-y-1.5 sm:grid-cols-2">
+                {items.map((t) => (
+                  <li data-domain={t.domain.join(' ')} class="flex items-baseline gap-2">
+                    <span class="w-10 shrink-0 font-mono text-xs text-neutral-500">{t.era}</span>
+                    <span
+                      class="inline-block h-2.5 w-2.5 shrink-0 translate-y-[-1px] rounded-full"
+                      style={{ background: CLUSTER_COLOURS[t.cluster] ?? '#a3a3a3' }}
+                      title={CLUSTER_LABELS[t.cluster]?.[lang] ?? t.cluster}
+                    />
+                    <a class="text-neutral-100 hover:underline" href={termUrl(lang, t.id)}>
+                      {t.term[lang]}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ol>
+      </div>
+    )
+  }
+</Base>
