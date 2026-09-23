@@ -8,6 +8,7 @@ domain: [security]
 cluster: awareness
 layer: people
 status: current
+era: 1995
 summary:
   en: Fake emails or messages sent in bulk to trick people into handing over information or clicking something harmful.
   da: Falske mails eller beskeder sendt i stor mængde for at narre folk til at udlevere oplysninger eller klikke på noget skadeligt.

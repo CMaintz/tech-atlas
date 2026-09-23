@@ -8,6 +8,7 @@ domain: [security]
 cluster: awareness
 layer: data
 status: current
+era: 1989
 summary:
   en: Harmful software that locks an organisation's data and demands payment to unlock it.
   da: Skadelig software, der låser en organisations data og kræver løsepenge for at låse dem op igen.

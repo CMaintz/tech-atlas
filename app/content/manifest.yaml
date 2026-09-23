@@ -478,3 +478,185 @@ cs:
     - id: public-key-cryptography
       en: Public-key cryptography
       da: Asymmetrisk kryptografi (public key)
+
+ai:
+  ml-fundamentals:
+    - id: artificial-intelligence
+      en: Artificial intelligence (AI)
+      da: Kunstig intelligens (AI)
+    - id: machine-learning
+      en: Machine learning
+      da: Maskinlæring
+    - id: deep-learning
+      en: Deep learning
+      da: Deep learning
+    - id: neural-network
+      en: Neural network
+      da: Neuralt netværk
+    - id: training-data
+      en: Training data
+      da: Træningsdata
+    - id: model-training
+      en: Model training
+      da: Modeltræning
+    - id: inference
+      en: Inference
+      da: Inferens
+    - id: overfitting
+      en: Overfitting
+      da: Overtilpasning (overfitting)
+    - id: supervised-learning
+      en: Supervised learning
+      da: Superviseret læring
+    - id: unsupervised-learning
+      en: Unsupervised learning
+      da: Ikke-superviseret læring
+  llm:
+    - id: large-language-model
+      en: Large language model (LLM)
+      da: Stor sprogmodel (LLM)
+    - id: transformer
+      en: Transformer
+      da: Transformer
+    - id: token
+      en: Token
+      da: Token
+    - id: prompt
+      en: Prompt
+      da: Prompt
+    - id: context-window
+      en: Context window
+      da: Kontekstvindue
+    - id: embedding
+      en: Embedding
+      da: Embedding
+    - id: retrieval-augmented-generation
+      en: Retrieval-augmented generation (RAG)
+      da: Retrieval-augmented generation (RAG)
+    - id: fine-tuning
+      en: Fine-tuning
+      da: Finjustering (fine-tuning)
+    - id: hallucination
+      en: Hallucination
+      da: Hallucination
+    - id: ai-agent
+      en: AI agent
+      da: AI-agent
+  ai-risk:
+    - id: prompt-injection
+      en: Prompt injection
+      da: Prompt injection
+    - id: data-poisoning
+      en: Data poisoning
+      da: Dataforgiftning (data poisoning)
+    - id: ai-bias
+      en: AI bias
+      da: Bias i AI
+    - id: explainability
+      en: Explainability
+      da: Forklarlighed
+    - id: eu-ai-act
+      en: EU AI Act
+      da: EU's AI-forordning
+    - id: ai-governance
+      en: AI governance
+      da: AI-governance
+    - id: deepfake
+      en: Deepfake
+      da: Deepfake
+    - id: shadow-ai
+      en: Shadow AI
+      da: Skygge-AI (shadow AI)
+
+platform:
+  cloud:
+    - id: cloud-computing
+      en: Cloud computing
+      da: Cloud computing
+    - id: iaas
+      en: Infrastructure as a service (IaaS)
+      da: Infrastructure as a service (IaaS)
+    - id: paas
+      en: Platform as a service (PaaS)
+      da: Platform as a service (PaaS)
+    - id: saas
+      en: Software as a service (SaaS)
+      da: Software as a service (SaaS)
+    - id: shared-responsibility-model
+      en: Shared responsibility model
+      da: Model for delt ansvar
+    - id: cloud-misconfiguration
+      en: Cloud misconfiguration
+      da: Fejlkonfiguration i skyen
+    - id: secrets-management
+      en: Secrets management
+      da: Håndtering af hemmeligheder (secrets management)
+    - id: virtual-machine
+      en: Virtual machine
+      da: Virtuel maskine
+    - id: hypervisor
+      en: Hypervisor
+      da: Hypervisor
+  containers:
+    - id: container
+      en: Container
+      da: Container
+    - id: container-image
+      en: Container image
+      da: Container-image
+    - id: docker
+      en: Docker
+      da: Docker
+    - id: kubernetes
+      en: Kubernetes
+      da: Kubernetes
+    - id: pod
+      en: Pod
+      da: Pod
+    - id: container-orchestration
+      en: Container orchestration
+      da: Container-orkestrering
+  delivery:
+    - id: version-control
+      en: Version control
+      da: Versionsstyring
+    - id: ci-cd
+      en: CI/CD
+      da: CI/CD
+    - id: pipeline
+      en: Pipeline
+      da: Pipeline
+    - id: infrastructure-as-code
+      en: Infrastructure as code (IaC)
+      da: Infrastructure as code (IaC)
+    - id: gitops
+      en: GitOps
+      da: GitOps
+    - id: software-supply-chain
+      en: Software supply chain
+      da: Softwareforsyningskæde
+    - id: sbom
+      en: Software bill of materials (SBOM)
+      da: Softwarestykliste (SBOM)
+    - id: devsecops
+      en: DevSecOps
+      da: DevSecOps
+  observability:
+    - id: observability
+      en: Observability
+      da: Observerbarhed
+    - id: monitoring
+      en: Monitoring
+      da: Overvågning (monitoring)
+    - id: metrics
+      en: Metrics
+      da: Metrikker
+    - id: distributed-tracing
+      en: Distributed tracing
+      da: Distribueret sporing (tracing)
+    - id: alerting
+      en: Alerting
+      da: Alarmering
+    - id: service-level-objective
+      en: Service level objective (SLO)
+      da: Serviceniveaumål (SLO)

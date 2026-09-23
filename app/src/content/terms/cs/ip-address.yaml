@@ -8,6 +8,7 @@ domain: [cs]
 cluster: networking
 layer: network
 status: current
+era: 1981
 summary:
   en: A number that identifies a device on a network so that data can be delivered to it.
   da: Et nummer, der identificerer en enhed på et netværk, så data kan leveres til den.

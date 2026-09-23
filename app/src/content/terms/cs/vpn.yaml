@@ -8,6 +8,7 @@ domain: [cs]
 cluster: networking
 layer: network
 status: current
+era: 1996
 summary:
   en: An encrypted tunnel across a public network that makes a distant device act as if it were inside a private one.
   da: En krypteret tunnel over et offentligt netværk, der får en fjern enhed til at opføre sig, som om den var på et privat netværk.

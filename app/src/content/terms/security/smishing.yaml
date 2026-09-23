@@ -8,6 +8,7 @@ domain: [security]
 cluster: awareness
 layer: people
 status: current
+era: 2006
 summary:
   en: Phishing sent as a text message, usually a short, urgent note with a link or a number to call.
   da: Phishing sendt som sms, typisk en kort, hastende besked med et link eller et nummer, man skal ringe til.

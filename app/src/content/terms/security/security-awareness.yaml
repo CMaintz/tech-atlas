@@ -49,6 +49,7 @@ edges:
     - pretexting
     - vishing
     - smishing
+    - deepfake
   contrasts-with:
     - to: security-culture
       why:

@@ -8,6 +8,7 @@ domain: [security]
 cluster: compliance
 layer: data
 status: current
+era: 2016
 summary:
   en: A written contract that sets how a supplier may handle personal data on your behalf.
   da: En skriftlig aftale, der fastlægger, hvordan en leverandør må håndtere persondata på ens vegne.

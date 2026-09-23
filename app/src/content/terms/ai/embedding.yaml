@@ -1,0 +1,46 @@
+term:
+  en: Embedding
+  da: Embedding
+aka:
+  en: [vector embedding]
+  da: [vektorrepræsentation]
+domain: [ai]
+cluster: llm
+layer: model
+era: 2013
+status: current
+summary:
+  en: A list of numbers that stands for the meaning of a piece of text, so that texts with similar meaning end up with similar numbers.
+  da: En liste af tal, der står for betydningen af et stykke tekst, så tekster med lignende betydning ender med lignende tal.
+body:
+  formal:
+    en: A fixed-length vector produced by a neural network to represent a token, sentence or document, placed so that items close in meaning lie close together and can be compared by distance.
+    da: En vektor af fast længde, som et neuralt netværk laver for at repræsentere et token, en sætning eller et dokument, placeret så ting med nær betydning ligger tæt og kan sammenlignes ud fra afstand.
+  plain:
+    en: Like giving every text coordinates on a map of meaning — "car" and "vehicle" land near each other, "car" and "banana" far apart.
+    da: Som at give hver tekst koordinater på et kort over betydning — "bil" og "køretøj" lander tæt på hinanden, "bil" og "banan" langt fra hinanden.
+  inPractice:
+    en: A company stores embeddings of all its policy documents so that a search for "working from home" also finds the policy titled "remote work".
+    da: En virksomhed gemmer embeddings af alle sine politikdokumenter, så en søgning på "arbejde hjemmefra" også finder politikken med titlen "fjernarbejde".
+  whyItMatters:
+    en: Embeddings look like meaningless numbers but can be turned back into much of the original text, so they need the same protection as the source data.
+    da: Embeddings ligner meningsløse tal, men kan i høj grad omsættes tilbage til den oprindelige tekst, så de kræver samme beskyttelse som kildedata.
+edges:
+  requires: [neural-network, token]
+  used-with:
+    - transformer
+    - to: retrieval-augmented-generation
+      why:
+        en: RAG turns the question and the documents into embeddings to find the passages closest in meaning.
+        da: RAG laver spørgsmålet og dokumenterne om til embeddings for at finde de tekststykker, der ligger tættest i betydning.
+      strength: primary
+      confidence: high
+sources:
+  - title: Mikolov et al. (2013), Efficient Estimation of Word Representations in Vector Space
+    tier: reference
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning'
+    tier: textbook
+    publisher: MIT Press
+  - title: Morris et al. (2023), Text Embeddings Reveal (Almost) As Much As Text
+    tier: reference
+draft: true

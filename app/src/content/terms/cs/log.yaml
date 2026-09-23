@@ -32,6 +32,7 @@ edges:
         da: Et SIEM samler logs fra mange systemer og gennemsøger dem samlet for tegn på angreb.
       strength: primary
     - non-repudiation
+  part-of: [observability]
 sources:
   - title: NIST SP 800-92, Guide to Computer Security Log Management
     url: https://doi.org/10.6028/NIST.SP.800-92

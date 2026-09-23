@@ -8,6 +8,7 @@ domain: [security]
 cluster: fundamentals
 layer: identity
 status: current
+era: 1995
 summary:
   en: Taking over someone's session after they have logged in, so the attacker is treated as that user without knowing the password.
   da: Overtagelse af en brugers session efter login, så angriberen behandles som brugeren uden at kende adgangskoden.

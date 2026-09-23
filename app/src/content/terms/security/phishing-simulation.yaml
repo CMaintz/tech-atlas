@@ -8,6 +8,7 @@ domain: [security]
 cluster: awareness
 layer: people
 status: current
+era: 2008
 summary:
   en: Sending staff harmless fake phishing mails to see who clicks and to teach them to spot the real thing.
   da: Man sender medarbejderne harmløse falske phishingmails for at se, hvem der klikker, og lære dem at genkende de ægte.

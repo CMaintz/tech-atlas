@@ -1,0 +1,55 @@
+term:
+  en: Artificial intelligence (AI)
+  da: Kunstig intelligens (AI)
+aka:
+  en: [AI]
+  da: [AI]
+domain: [ai]
+cluster: ml-fundamentals
+layer: theory
+era: 1956
+status: current
+summary:
+  en: Computer systems that do tasks we normally link to human thinking, such as spotting patterns, answering questions or making choices.
+  da: Computersystemer, der løser opgaver, vi forbinder med menneskelig tænkning, fx at genkende mønstre, svare på spørgsmål eller træffe valg.
+body:
+  formal:
+    en: A broad field and a label for systems that, for a set of goals chosen by people, produce outputs such as predictions, content, advice or decisions that affect the world around them, with some level of independence.
+    da: Et bredt fagområde og en betegnelse for systemer, der ud fra mål sat af mennesker frembringer resultater som forudsigelser, indhold, anbefalinger eller beslutninger, der påvirker omgivelserne, med en vis grad af selvstændighed.
+  plain:
+    en: An umbrella word, like "vehicle" — it covers everything from a simple rule-following spam filter to a chat assistant that writes whole reports.
+    da: Et paraplyord ligesom "køretøj" — det dækker alt fra et simpelt spamfilter, der følger faste regler, til en chatassistent, der skriver hele rapporter.
+  inPractice:
+    en: A supplier says its new HR tool "uses AI"; the risk team asks what it actually does — sorts job applications, writes text, or makes decisions about people.
+    da: En leverandør siger, at dens nye HR-værktøj "bruger AI"; risikoteamet spørger, hvad det faktisk gør — sorterer ansøgninger, skriver tekst eller træffer beslutninger om mennesker.
+  whyItMatters:
+    en: The label alone says little about risk; laws like the EU AI Act judge a system by what it is used for, so you must ask what the system really does.
+    da: Betegnelsen alene siger ikke meget om risikoen; love som EU's AI-forordning vurderer et system efter, hvad det bruges til, så man må spørge, hvad systemet reelt gør.
+edges:
+  contrasts-with:
+    - to: machine-learning
+      why:
+        en: AI is the whole goal of making computers act smart; machine learning is one way to get there, by learning from examples instead of written rules.
+        da: AI er hele målet om at få computere til at handle klogt; maskinlæring er én vej dertil, hvor systemet lærer af eksempler i stedet for skrevne regler.
+      strength: primary
+      confidence: high
+    - to: large-language-model
+      why:
+        en: Many people now say "AI" and mean a chat assistant, but a large language model is only one kind of AI among many.
+        da: Mange siger i dag "AI" og mener en chatassistent, men en stor sprogmodel er kun én slags AI blandt mange.
+      strength: normal
+      confidence: high
+sources:
+  - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    tier: textbook
+    publisher: Pearson
+  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    tier: standard
+    publisher: ISO/IEC
+  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 3
+    tier: standard
+    publisher: European Union
+  - title: NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+    tier: standard
+    publisher: NIST
+draft: true

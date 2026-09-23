@@ -8,6 +8,7 @@ domain: [security]
 cluster: compliance
 layer: data
 status: current
+era: 1995
 summary:
   en: An outside party that handles personal data on behalf of another organisation and only as that organisation instructs.
   da: En ekstern part, der håndterer personoplysninger på vegne af en anden organisation og kun efter dennes instruks.

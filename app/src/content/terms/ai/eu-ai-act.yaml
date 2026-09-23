@@ -1,0 +1,70 @@
+term:
+  en: EU AI Act
+  da: EU's AI-forordning
+aka:
+  en: [AI Act, Artificial Intelligence Act, Regulation (EU) 2024/1689]
+  da: [AI-forordningen, AI Act, forordning (EU) 2024/1689]
+domain: [ai]
+cluster: ai-risk
+era: 2024
+status: current
+summary:
+  en: The EU law that sorts AI systems by how much harm they could cause and sets stricter rules the higher the risk.
+  da: EU-loven, der inddeler AI-systemer efter, hvor stor skade de kan gøre, og stiller skrappere krav, jo højere risikoen er.
+body:
+  formal:
+    en: An EU regulation, in force from 1 August 2024 and applying directly in every member state, that bans some uses of AI, sets duties for high-risk systems, requires openness about chat assistants and deepfakes, and places duties on makers of general-purpose AI models.
+    da: En EU-forordning, i kraft fra 1. august 2024 og direkte gældende i alle medlemslande, der forbyder visse brug af AI, stiller krav til højrisikosystemer, kræver åbenhed om chatbots og deepfakes og pålægger udbydere af AI-modeller til almen brug forpligtelser.
+  plain:
+    en: Like food safety rules that barely touch a bakery selling bread but put a baby-food factory under close inspection — the rules grow with what could go wrong.
+    da: Som fødevareregler, der næsten ikke rører et bageri, men sætter en babymadsfabrik under skarpt tilsyn — kravene vokser med det, der kan gå galt.
+  inPractice:
+    en: A Danish recruitment firm finds its CV-screening tool counts as high-risk, so before 2 December 2027 it must document the system, keep logs, test for unfairness and make sure a person can override it.
+    da: Et dansk rekrutteringsfirma finder ud af, at dets værktøj til at sortere CV'er er et højrisikosystem, så det inden 2. december 2027 skal dokumentere systemet, føre log, teste for skævheder og sikre, at et menneske kan underkende det.
+  whyItMatters:
+    en: It is the first broad AI law and applies in stages — bans from February 2025, general-purpose model rules from August 2025, openness duties from August 2026 — while a 2026 change moved most high-risk rules to December 2027 (August 2028 for AI built into products). Fines reach 7% of global turnover.
+    da: Det er den første brede AI-lov og træder i kraft i etaper — forbud fra februar 2025, regler for AI-modeller til almen brug fra august 2025, krav om åbenhed fra august 2026 — mens en ændring i 2026 udskød de fleste højrisikokrav til december 2027 (august 2028 for AI indbygget i produkter). Bøderne når 7 % af den globale omsætning.
+edges:
+  requires: [risk, artificial-intelligence]
+  mandates:
+    - to: risk-management
+      why:
+        en: Providers of high-risk systems must run a documented risk management process across the system's whole life.
+        da: Udbydere af højrisikosystemer skal have en dokumenteret risikostyringsproces gennem hele systemets levetid.
+      strength: primary
+      confidence: high
+    - to: ai-governance
+      why:
+        en: The Act requires quality management, human oversight, record keeping and AI literacy among staff, which together form AI governance.
+        da: Forordningen kræver kvalitetsstyring, menneskeligt tilsyn, dokumentation og AI-kompetencer hos medarbejderne, som tilsammen udgør AI-governance.
+      strength: primary
+      confidence: high
+    - to: explainability
+      why:
+        en: High-risk systems must come with enough information for users to read and use their output correctly, and affected people can ask for an explanation of decisions.
+        da: Højrisikosystemer skal leveres med oplysninger nok til, at brugerne kan forstå og bruge deres resultater korrekt, og berørte personer kan kræve en forklaring på afgørelser.
+      strength: normal
+      confidence: medium
+    - to: incident-reporting
+      why:
+        en: Providers must report serious incidents involving high-risk systems to the market authorities.
+        da: Udbydere skal indberette alvorlige hændelser med højrisikosystemer til markedsovervågningsmyndighederne.
+      strength: normal
+      confidence: high
+  contrasts-with:
+    - to: gdpr
+      why:
+        en: GDPR protects personal data wherever it is used; the AI Act governs AI systems as products, whether or not they touch personal data. Both often apply at once.
+        da: GDPR beskytter personoplysninger, uanset hvor de bruges; AI-forordningen regulerer AI-systemer som produkter, uanset om de rører personoplysninger. Ofte gælder begge på én gang.
+      strength: normal
+      confidence: high
+sources:
+  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act)
+    tier: standard
+    publisher: European Union
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+  - title: Regulation (EU) 2026/1744 (Digital Omnibus on AI), amending the AI Act's application dates
+    tier: standard
+    publisher: European Union
+    url: https://eur-lex.europa.eu/eli/reg/2026/1744/oj
+draft: true

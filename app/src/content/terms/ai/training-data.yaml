@@ -1,0 +1,52 @@
+term:
+  en: Training data
+  da: Træningsdata
+aka:
+  en: [training set]
+  da: [træningssæt]
+domain: [ai]
+cluster: ml-fundamentals
+layer: training
+status: current
+summary:
+  en: The examples a model learns from — its behaviour, its blind spots and its mistakes all come from what is in them.
+  da: De eksempler, en model lærer af — dens adfærd, dens blinde vinkler og dens fejl kommer alle fra det, der er i dem.
+body:
+  formal:
+    en: The collection of examples, often with the correct answers attached, used during model training to set a model's internal numbers; kept apart from the data later used to test it.
+    da: Samlingen af eksempler, ofte med de rigtige svar tilknyttet, som bruges under modeltræning til at fastsætte modellens interne tal; holdes adskilt fra de data, der senere bruges til at teste den.
+  plain:
+    en: Like the textbooks and past exams a student studies from — if they are wrong, one-sided or out of date, so is what the student learns.
+    da: Som de lærebøger og gamle eksamenssæt, en studerende læser på — er de forkerte, ensidige eller forældede, bliver det, den studerende lærer, det også.
+  inPractice:
+    en: A company wants to train a model on ten years of customer service emails and must first check which of them hold personal data and who allowed that use.
+    da: En virksomhed vil træne en model på ti års kundeservicemails og skal først undersøge, hvilke af dem der indeholder persondata, og hvem der har givet lov til den brug.
+  whyItMatters:
+    en: Training data is an asset to protect and a source of risk — it can leak personal data, carry unfair patterns, or be quietly changed by an attacker.
+    da: Træningsdata er et aktiv, der skal beskyttes, og en kilde til risiko — de kan lække persondata, bære uretfærdige mønstre eller i det skjulte blive ændret af en angriber.
+edges:
+  kind-of:
+    - to: asset
+      why:
+        en: Training data is valuable, often sensitive information, so it needs an owner, a classification and protection like any other asset.
+        da: Træningsdata er værdifuld, ofte følsom information, så de skal have en ejer, en klassifikation og beskyttelse som ethvert andet aktiv.
+      strength: normal
+      confidence: high
+  causes:
+    - to: ai-bias
+      why:
+        en: If the examples are one-sided, the model learns and repeats that unfairness.
+        da: Hvis eksemplerne er ensidige, lærer modellen den skævhed og gentager den.
+      strength: primary
+      confidence: high
+sources:
+  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    tier: standard
+    publisher: ISO/IEC
+  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 10 — Data and data governance
+    tier: standard
+    publisher: European Union
+  - title: NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+    tier: standard
+    publisher: NIST
+draft: true

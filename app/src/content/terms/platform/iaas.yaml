@@ -1,0 +1,47 @@
+term:
+  en: Infrastructure as a service (IaaS)
+  da: Infrastructure as a service (IaaS)
+aka:
+  en: []
+  da: []
+domain: [platform]
+cluster: cloud
+layer: infrastructure
+status: current
+summary:
+  en: The cloud model where you rent bare building blocks — machines, storage and network — and run everything on top yourself.
+  da: Cloud-modellen, hvor du lejer de rå byggeklodser — maskiner, lager og netværk — og selv driver alt ovenpå.
+body:
+  formal:
+    en: A cloud service model in which the provider supplies processing, storage and network resources, while the customer installs and manages the operating system, programs and data, and some network settings.
+    da: En cloud-servicemodel, hvor udbyderen leverer regnekraft, lager og netværk, mens kunden selv installerer og driver styresystem, programmer og data samt dele af netværksopsætningen.
+  plain:
+    en: Like renting an empty warehouse — the landlord keeps the walls and roof sound, but the shelves, locks and stock inside are up to you.
+    da: Som at leje en tom lagerhal — udlejeren holder vægge og tag i orden, men reoler, låse og varer indenfor er dit ansvar.
+  inPractice:
+    en: An IT operations team rents a virtual machine from a cloud provider and must itself install updates, set up the firewall and create user accounts on it.
+    da: Et driftsteam lejer en virtuel maskine hos en cloududbyder og skal selv installere opdateringer, sætte firewallen op og oprette brugerkonti på den.
+  whyItMatters:
+    en: It gives the most freedom but leaves the most security work with the customer; teams that assume the provider patches their machines leave gaps open.
+    da: Den giver mest frihed, men efterlader mest sikkerhedsarbejde hos kunden; teams, der tror, at udbyderen patcher deres maskiner, efterlader huller åbne.
+edges:
+  kind-of: [cloud-computing]
+  used-with: [virtual-machine]
+  contrasts-with:
+    - to: paas
+      why:
+        en: With IaaS you look after the operating system yourself; with PaaS the provider does, and you bring only your program and data.
+        da: Med IaaS passer du selv styresystemet; med PaaS gør udbyderen det, og du leverer kun dit program og dine data.
+      strength: primary
+      confidence: high
+    - to: saas
+      why:
+        en: IaaS hands you raw machines to build on; SaaS hands you a finished program to use.
+        da: IaaS giver dig rå maskiner at bygge på; SaaS giver dig et færdigt program at bruge.
+      strength: normal
+      confidence: high
+sources:
+  - title: NIST SP 800-145 — The NIST Definition of Cloud Computing
+    tier: standard
+    publisher: NIST
+draft: true

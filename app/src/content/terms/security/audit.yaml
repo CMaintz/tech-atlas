@@ -46,6 +46,7 @@ edges:
         da: Virksomheder auditerer vigtige leverandører eller læser deres auditrapporter for at tjekke, at de holder det, de lover.
       strength: normal
       confidence: high
+    - explainability
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

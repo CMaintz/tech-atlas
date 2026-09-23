@@ -8,6 +8,7 @@ domain: [cs]
 cluster: cryptography
 layer: theory
 status: current
+era: 1979
 summary:
   en: Turning any amount of data into a short, fixed-length fingerprint that changes completely if even one character changes.
   da: At lave en vilkårlig mængde data om til et kort fingeraftryk af fast længde, der ændrer sig helt, hvis blot ét tegn ændres.

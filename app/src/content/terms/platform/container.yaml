@@ -1,0 +1,44 @@
+term:
+  en: Container
+  da: Container
+aka:
+  en: []
+  da: []
+domain: [platform]
+cluster: containers
+layer: infrastructure
+status: current
+summary:
+  en: A sealed-off box for one program and everything it needs, sharing the host computer's kernel instead of carrying its own.
+  da: En afskærmet kasse til ét program og alt, hvad det skal bruge, som deler værtscomputerens kerne i stedet for at have sin egen.
+body:
+  formal:
+    en: One or more processes that the kernel keeps apart from the rest of the system — with their own view of files, network and running programs, and limits on memory and processor use — started from a container image and sharing the host's kernel.
+    da: En eller flere processer, som kernen holder adskilt fra resten af systemet — med deres eget syn på filer, netværk og kørende programmer og grænser for hukommelse og processorforbrug — startet fra et container-image og med værtens kerne til fælles.
+  plain:
+    en: Like shipping containers on one cargo ship — each holds its own goods in a standard box, but they all ride on the same hull and engine.
+    da: Som skibscontainere på ét fragtskib — hver rummer sine egne varer i en standardkasse, men de sejler alle på det samme skrog og den samme motor.
+  inPractice:
+    en: A team packs its web shop into a container, so the exact same box runs on a developer's laptop, in testing and in production without "it worked on my machine" surprises.
+    da: Et team pakker sin webshop i en container, så præcis den samme kasse kører på en udviklers bærbare, i test og i drift uden "det virkede på min maskine"-overraskelser.
+  whyItMatters:
+    en: Containers start in seconds and use little memory, but because they share one kernel, a flaw there can let one container break out and reach the others on the host.
+    da: Containere starter på sekunder og bruger lidt hukommelse, men fordi de deler én kerne, kan en fejl dér lade én container bryde ud og nå de andre på værten.
+edges:
+  requires: [cs/process, cs/kernel]
+  contrasts-with:
+    - to: virtual-machine
+      why:
+        en: A virtual machine carries its own full operating system; a container shares the host's kernel, which makes it lighter but less strongly separated.
+        da: En virtuel maskine har sit eget fulde styresystem; en container deler værtens kerne, hvilket gør den lettere, men mindre stærkt adskilt.
+      strength: primary
+      confidence: high
+sources:
+  - title: NIST SP 800-190 — Application Container Security Guide
+    tier: standard
+    publisher: NIST
+  - title: CNCF Cloud Native Glossary — Container
+    url: https://glossary.cncf.io/container/
+    tier: reference
+    publisher: CNCF
+draft: true

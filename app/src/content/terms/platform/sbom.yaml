@@ -1,0 +1,46 @@
+term:
+  en: Software bill of materials (SBOM)
+  da: Softwarestykliste (SBOM)
+aka:
+  en: [SBOM]
+  da: [SBOM]
+domain: [platform, security]
+cluster: delivery
+layer: delivery
+era: 2018
+status: current
+summary:
+  en: A list of every part and outside library that goes into a piece of software, like the ingredients label on food.
+  da: En liste over alle dele og udefrakommende biblioteker, som et stykke software består af, ligesom varedeklarationen på fødevarer.
+body:
+  formal:
+    en: A machine-readable record of the parts in a software product, giving at least each part's supplier, name, version, a unique identifier, how the parts depend on each other, who wrote the record and when, as set out in a US government list of minimum elements.
+    da: En maskinlæsbar fortegnelse over delene i et softwareprodukt, der mindst angiver hver dels leverandør, navn, version, en entydig identifikator, hvordan delene afhænger af hinanden, samt hvem der lavede fortegnelsen og hvornår, som fastlagt i en amerikansk myndigheds liste over minimumselementer.
+  plain:
+    en: Like the parts list that comes with a car; when a maker recalls a faulty brake part, every owner can quickly check whether their car has it.
+    da: Som reservedelslisten til en bil; når en producent tilbagekalder en defekt bremsedel, kan alle ejere hurtigt tjekke, om deres bil har den.
+  inPractice:
+    en: When a serious flaw in a popular logging library is announced, a security team searches its SBOMs and finds within an hour the eleven systems that use the affected version.
+    da: Da en alvorlig fejl i et udbredt logningsbibliotek offentliggøres, søger et sikkerhedsteam i sine SBOM'er og finder inden for en time de elleve systemer, der bruger den ramte version.
+  whyItMatters:
+    en: You cannot fix what you do not know you have; SBOMs are asked for by US government rules since 2021 and by a new EU law for software products sold in the EU.
+    da: Man kan ikke rette det, man ikke ved, man har; SBOM'er kræves af amerikanske regeringsregler siden 2021 og af en ny EU-lov for softwareprodukter, der sælges i EU.
+edges:
+  requires: [software-supply-chain]
+  used-with:
+    - supplier-management
+    - vulnerability-scanning
+sources:
+  - title: The Minimum Elements For a Software Bill of Materials (SBOM)
+    url: https://www.ntia.gov/report/2021/minimum-elements-software-bill-materials-sbom
+    tier: standard
+    publisher: NTIA, US Department of Commerce
+  - title: Regulation (EU) 2024/2847 — Cyber Resilience Act, Annex I
+    url: https://eur-lex.europa.eu/eli/reg/2024/2847/oj
+    tier: standard
+    publisher: European Union
+  - title: NIST SP 800-218 — Secure Software Development Framework (SSDF)
+    url: https://csrc.nist.gov/pubs/sp/800/218/final
+    tier: standard
+    publisher: NIST
+draft: true

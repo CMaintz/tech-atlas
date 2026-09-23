@@ -1,0 +1,51 @@
+term:
+  en: AI governance
+  da: AI-governance
+aka:
+  en: [AI management system, responsible AI]
+  da: [ledelsessystem for AI, ansvarlig AI]
+domain: [ai]
+cluster: ai-risk
+status: current
+summary:
+  en: The rules, roles and checks an organisation uses to decide which AI it uses and to keep that use safe, lawful and fair.
+  da: De regler, roller og kontroller, en organisation bruger til at vælge sin AI og holde brugen sikker, lovlig og fair.
+body:
+  formal:
+    en: The part of governance that sets policy, ownership and oversight for AI across its life, from approval to retirement, usually built on the US government AI risk framework (govern, map, measure, manage) or an ISO/IEC 42001 management system.
+    da: Den del af governance, der fastlægger politik, ejerskab og tilsyn for AI gennem hele levetiden, fra godkendelse til udfasning, typisk bygget på et rammeværk som NIST AI RMF (govern, map, measure, manage) eller et ledelsessystem efter ISO/IEC 42001.
+  plain:
+    en: Like the house rules for a shared workshop — who may use which machines, who trains newcomers, who checks the safety guards, and who answers when something goes wrong.
+    da: Som husreglerne for et fælles værksted — hvem må bruge hvilke maskiner, hvem oplærer nye, hvem tjekker sikkerhedsskærmene, og hvem står til ansvar, når noget går galt.
+  inPractice:
+    en: A hospital sets up an AI board that keeps a list of every AI tool in use, gives each one an owner, requires a risk assessment before launch and reviews results for unfairness every quarter.
+    da: Et hospital nedsætter et AI-udvalg, der fører en liste over alle AI-værktøjer i brug, giver hvert værktøj en ejer, kræver en risikovurdering før idriftsættelse og gennemgår resultaterne for skævheder hvert kvartal.
+  whyItMatters:
+    en: AI spreads fast and brings new kinds of risk, and the EU AI Act makes leaders answerable for it, so without clear rules the organisation cannot show it is in control.
+    da: AI breder sig hurtigt og bringer nye slags risici, og EU's AI-forordning gør ledelsen ansvarlig for dem, så uden klare regler kan organisationen ikke vise, at den har styr på det.
+edges:
+  part-of: [governance]
+  requires: [artificial-intelligence, risk-management]
+  mitigates:
+    - to: shadow-ai
+      why:
+        en: Clear rules and approved tools give staff a safe way to use AI, so fewer turn to unapproved services.
+        da: Klare regler og godkendte værktøjer giver medarbejderne en sikker måde at bruge AI på, så færre tyr til ikke-godkendte tjenester.
+      strength: primary
+      confidence: high
+    - to: ai-bias
+      why:
+        en: Required testing and regular review catch unfair results before and after launch.
+        da: Krav om test og løbende gennemgang fanger uretfærdige resultater før og efter idriftsættelse.
+      strength: normal
+      confidence: medium
+sources:
+  - title: ISO/IEC 42001:2023 — Artificial intelligence — Management system
+    tier: standard
+    publisher: ISO/IEC
+    url: https://www.iso.org/standard/81230.html
+  - title: NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+    tier: standard
+    publisher: NIST
+    url: https://doi.org/10.6028/NIST.AI.100-1
+draft: true

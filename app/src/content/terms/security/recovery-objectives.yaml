@@ -27,6 +27,7 @@ body:
 edges:
   part-of: [business-continuity-plan]
   requires: [business-impact-analysis, availability]
+  contrasts-with: [service-level-objective]
 sources:
   - title: NIST SP 800-34 Rev. 1 — Contingency Planning Guide for Federal Information Systems
     tier: standard

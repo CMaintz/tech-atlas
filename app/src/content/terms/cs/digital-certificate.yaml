@@ -8,6 +8,7 @@ domain: [cs]
 cluster: cryptography
 layer: theory
 status: current
+era: 1988
 summary:
   en: A signed digital document that ties a public key to a name, such as a website address, so others can trust whose key it is.
   da: Et signeret digitalt dokument, der knytter en offentlig nøgle til et navn, fx en webadresse, så andre kan stole på, hvis nøgle det er.

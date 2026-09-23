@@ -8,6 +8,7 @@ domain: [cs]
 cluster: networking
 layer: network
 status: current
+era: 1999
 summary:
   en: The protocol that puts a protected, encrypted channel around data sent over TCP/IP, as in the padlock on web pages.
   da: Protokollen, der lægger en beskyttet, krypteret kanal om data sendt over TCP/IP, som hængelåsen på websider.

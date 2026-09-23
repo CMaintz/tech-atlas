@@ -33,6 +33,7 @@ edges:
         da: Når man fjerner det, der ikke er brug for, forsvinder de svagheder, der følger med.
       strength: primary
       confidence: high
+    - cloud-misconfiguration
   used-with:
     - to: patch-management
       why:
@@ -40,6 +41,7 @@ edges:
         da: Hærdning lukker døre, der ikke er brug for; patching retter fejl i dem, der skal forblive åbne.
       strength: normal
       confidence: high
+    - infrastructure-as-code
 sources:
   - title: CIS Controls v8 — Control 4 (Secure Configuration of Enterprise Assets and Software)
     tier: standard

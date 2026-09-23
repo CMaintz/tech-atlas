@@ -1,0 +1,54 @@
+term:
+  en: AI agent
+  da: AI-agent
+aka:
+  en: [agentic AI]
+  da: [agentisk AI]
+domain: [ai]
+cluster: llm
+layer: agent
+status: emerging
+summary:
+  en: An AI system that does not just answer but acts — it plans steps and uses tools such as email, files or web search to reach a goal.
+  da: Et AI-system, der ikke bare svarer, men handler — det planlægger trin og bruger værktøjer som mail, filer eller websøgning for at nå et mål.
+body:
+  formal:
+    en: A system, usually built around a large language model, that is given a goal and tool access, then chooses and carries out actions in a loop — calling tools, reading results, deciding the next step — with little human input.
+    da: Et system, typisk bygget op om en stor sprogmodel, der får et mål og adgang til værktøjer og derefter vælger og udfører handlinger i en løkke — kalder værktøjer, læser resultater, beslutter næste trin — med lidt menneskelig indblanding.
+  plain:
+    en: Like an assistant given your keys and a to-do list rather than a chat window — useful, but only as safe as the keys you hand over.
+    da: Som en assistent, der får dine nøgler og en huskeliste i stedet for et chatvindue — nyttig, men kun så sikker som de nøgler, du giver fra dig.
+  inPractice:
+    en: An agent is told to "book travel for the sales trip"; it reads the calendar, searches flights, and pays with the company card, logging each step.
+    da: En agent får besked på at "booke rejse til salgsturen"; den læser kalenderen, søger fly og betaler med firmakortet og logger hvert trin.
+  whyItMatters:
+    en: An agent that reads untrusted text can be tricked into acting against you, so what it may reach and do matters far more than for a plain chat assistant.
+    da: En agent, der læser tekst, man ikke kan stole på, kan narres til at handle imod en, så det, den har adgang til og lov til, betyder langt mere end for en almindelig chatassistent.
+edges:
+  requires: [large-language-model, prompt]
+  used-with:
+    - to: least-privilege
+      why:
+        en: Give an agent only the tools and rights its task needs, so a tricked or faulty agent can do little harm.
+        da: Giv en agent kun de værktøjer og rettigheder, opgaven kræver, så en narret eller fejlende agent kan gøre lidt skade.
+      strength: primary
+      confidence: high
+    - to: service-account
+      why:
+        en: An agent should act through its own account, not a person's, so its rights can be limited and its actions traced.
+        da: En agent bør handle gennem sin egen konto, ikke en persons, så dens rettigheder kan begrænses og dens handlinger spores.
+      strength: normal
+      confidence: medium
+    - log
+    - prompt-injection
+sources:
+  - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    tier: textbook
+    publisher: Pearson
+  - title: OWASP Top 10 for Large Language Model Applications (Excessive Agency)
+    tier: reference
+    publisher: OWASP
+  - title: NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+    tier: standard
+    publisher: NIST
+draft: true

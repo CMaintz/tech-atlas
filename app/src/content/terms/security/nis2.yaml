@@ -8,6 +8,7 @@ domain: [security]
 cluster: compliance
 layer: governance
 status: current
+era: 2022
 summary:
   en: The EU cybersecurity law that sets shared security duties for organisations in important and critical sectors.
   da: EU's cybersikkerhedslov, der pålægger organisationer i vigtige og kritiske sektorer fælles sikkerhedskrav.
@@ -63,6 +64,7 @@ edges:
         da: Væsentlige hændelser skal indberettes til myndighederne i trin, begyndende med en tidlig varsling inden for 24 timer.
       strength: primary
       confidence: high
+    - software-supply-chain
 article:
   en: src/content/articles/security/nis2.en.md
   da: src/content/articles/security/nis2.da.md

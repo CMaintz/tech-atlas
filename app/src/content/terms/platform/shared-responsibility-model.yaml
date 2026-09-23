@@ -1,0 +1,44 @@
+term:
+  en: Shared responsibility model
+  da: Model for delt ansvar
+aka:
+  en: []
+  da: [delt ansvar]
+domain: [platform, security]
+cluster: cloud
+layer: governance
+status: current
+summary:
+  en: The split of security duties between a cloud provider and its customer, which shifts with the kind of service bought.
+  da: Fordelingen af sikkerhedsopgaver mellem en cloududbyder og kunden, som flytter sig alt efter, hvilken slags tjeneste man køber.
+body:
+  formal:
+    en: A division of security and operating duties in which the provider is responsible for the security of the cloud itself — buildings, hardware and the layers it runs — and the customer for what it puts in and sets up, with the line moving between IaaS, PaaS and SaaS.
+    da: En fordeling af sikkerheds- og driftsopgaver, hvor udbyderen har ansvaret for sikkerheden i selve skyen — bygninger, hardware og de lag, den driver — og kunden for det, den lægger ind og sætter op, med en grænse, der flytter sig mellem IaaS, PaaS og SaaS.
+  plain:
+    en: Like renting a flat — the landlord must keep the front door lock and the wiring safe, but locking your own door and not handing out spare keys is up to you.
+    da: Som at leje en lejlighed — udlejeren skal holde opgangens lås og el-installationen sikre, men at låse din egen dør og ikke dele ekstranøgler ud er op til dig.
+  inPractice:
+    en: During a supplier review, a compliance team maps each ISO 27001 control to provider, customer or both, and finds nobody had taken charge of backups for their SaaS data.
+    da: Ved en leverandørgennemgang fordeler et compliance-team hver ISO 27001-kontrol på udbyder, kunde eller begge og opdager, at ingen havde taget ansvar for backup af deres SaaS-data.
+  whyItMatters:
+    en: Many cloud incidents happen in the gap where each side assumed the other was responsible; writing the split down is what closes it.
+    da: Mange cloudhændelser sker i hullet, hvor hver part troede, at den anden havde ansvaret; det er ved at skrive fordelingen ned, at hullet lukkes.
+edges:
+  requires: [cloud-computing]
+  used-with:
+    - to: supplier-management
+      why:
+        en: Supplier management is where the split of duties is checked, written into contracts and followed up.
+        da: Leverandørstyring er dér, hvor fordelingen af opgaver bliver kontrolleret, skrevet ind i kontrakter og fulgt op.
+      strength: primary
+      confidence: high
+  mitigates: [cloud-misconfiguration]
+sources:
+  - title: NIST SP 800-145 — The NIST Definition of Cloud Computing
+    tier: standard
+    publisher: NIST
+  - title: CSA Cloud Controls Matrix (CCM)
+    tier: reference
+    publisher: Cloud Security Alliance
+draft: true

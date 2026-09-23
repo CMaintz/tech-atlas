@@ -8,6 +8,7 @@ domain: [cs]
 cluster: networking
 layer: network
 status: current
+era: 1994
 summary:
   en: The way web browsers and websites exchange pages with TLS protecting every message, shown by the padlock in the address bar.
   da: Måden, browsere og websteder udveksler sider på, hvor TLS beskytter hver besked — vist med hængelåsen i adresselinjen.

@@ -1,0 +1,35 @@
+term:
+  en: Cloud computing
+  da: Cloud computing
+aka:
+  en: [the cloud]
+  da: [skyen]
+domain: [platform]
+cluster: cloud
+layer: infrastructure
+era: 2006
+status: current
+summary:
+  en: Renting computing power, storage and software over the internet from a provider, paying for what you use instead of owning it.
+  da: At leje regnekraft, lager og software over internettet fra en udbyder og betale for forbruget i stedet for at eje det.
+body:
+  formal:
+    en: A model for on-demand network access to a shared pool of computing resources that can be taken into use and released quickly with little effort from the provider; the US federal standard for it names five essential features and three service models.
+    da: En model for adgang efter behov via netværket til en fælles pulje af it-ressourcer, som hurtigt kan tages i brug og frigives med minimal indsats fra udbyderen, som NIST definerer det med fem kendetegn og tre servicemodeller.
+  plain:
+    en: Like getting electricity from the grid instead of running your own generator — you plug in, use what you need and pay the bill.
+    da: Som at få strøm fra elnettet i stedet for at have sin egen generator — man sætter stikket i, bruger det, man har brug for, og betaler regningen.
+  inPractice:
+    en: A Danish municipality moves its case-handling system out of its own server room and into a provider's data centre, reaching it through the internet.
+    da: En dansk kommune flytter sit sagsbehandlingssystem ud af sit eget serverrum og ind i en udbyders datacenter og tilgår det via internettet.
+  whyItMatters:
+    en: Your data now lives on machines you do not own or see, so security depends on contracts, settings and trust in a supplier as much as on your own staff.
+    da: Dine data ligger nu på maskiner, du hverken ejer eller ser, så sikkerheden afhænger lige så meget af kontrakter, indstillinger og tillid til en leverandør som af dine egne folk.
+edges:
+  requires: [internet, server]
+  used-with: [data-processing-agreement, inference]
+sources:
+  - title: NIST SP 800-145 — The NIST Definition of Cloud Computing
+    tier: standard
+    publisher: NIST
+draft: true

@@ -1,0 +1,63 @@
+term:
+  en: Data poisoning
+  da: Dataforgiftning (data poisoning)
+aka:
+  en: [training data poisoning, model poisoning]
+  da: [forgiftning af træningsdata]
+domain: [ai, security]
+cluster: ai-risk
+layer: training
+status: current
+summary:
+  en: Slipping false or harmful examples into the data an AI learns from so that it later behaves the way an attacker wants.
+  da: At smugle falske eller skadelige eksempler ind i de data, en AI lærer af, så den senere opfører sig, som en angriber ønsker.
+body:
+  formal:
+    en: An attack on the integrity of machine learning in which an attacker adds, changes or wrongly labels examples in the training data so that the finished model makes chosen mistakes, often only when a secret trigger appears.
+    da: Et angreb på integriteten i maskinlæring, hvor en angriber tilføjer, ændrer eller mærker eksempler i træningsdataene forkert, så den færdige model begår bestemte fejl, ofte kun når en hemmelig udløser dukker op.
+  plain:
+    en: Like secretly swapping a few pages in a student's textbook — they study hard, pass most tests, but give the wrong answer exactly where the pages were changed.
+    da: Som i al hemmelighed at bytte nogle sider i en elevs lærebog — eleven læser flittigt og klarer de fleste prøver, men svarer forkert præcis der, hvor siderne blev byttet.
+  inPractice:
+    en: An attacker uploads hundreds of harmless-looking files marked "safe" to a public collection a security vendor trains on, so its malware filter later lets a matching strain through.
+    da: En angriber lægger hundredvis af uskyldige filer mærket "sikker" op i en offentlig samling, som en sikkerhedsleverandør træner på, så dens malware-filter senere lukker en tilsvarende variant igennem.
+  whyItMatters:
+    en: The damage is baked into the model itself and hard to spot by testing, so organisations must know and control where their training data comes from.
+    da: Skaden er bagt ind i selve modellen og svær at opdage ved test, så organisationer skal kende og styre, hvor deres træningsdata kommer fra.
+edges:
+  requires: [model-training]
+  exploits:
+    - to: training-data
+      why:
+        en: A model trusts whatever it learns from, so tampered examples become part of its behaviour.
+        da: En model stoler på det, den lærer af, så manipulerede eksempler bliver en del af dens adfærd.
+      strength: primary
+      confidence: high
+  contrasts-with:
+    - to: prompt-injection
+      why:
+        en: Poisoning corrupts the model while it learns; prompt injection misleads a finished model while it is in use.
+        da: Forgiftning ødelægger modellen, mens den lærer; prompt injection vildleder en færdig model, mens den bruges.
+      strength: normal
+      confidence: high
+  causes:
+    - to: ai-bias
+      why:
+        en: Skewed or planted examples can push a model to treat some groups or cases unfairly.
+        da: Skæve eller plantede eksempler kan få en model til at behandle visse grupper eller sager uretfærdigt.
+      strength: minor
+      confidence: medium
+sources:
+  - title: NIST AI 100-2 — Adversarial Machine Learning, A Taxonomy and Terminology of Attacks and Mitigations
+    tier: standard
+    publisher: NIST
+    url: https://doi.org/10.6028/NIST.AI.100-2e2025
+  - title: OWASP Top 10 for LLM Applications — LLM04 Data and Model Poisoning
+    tier: reference
+    publisher: OWASP
+    url: https://genai.owasp.org/llmrisk/llm042025-data-and-model-poisoning/
+  - title: ENISA — Multilayer Framework for Good Cybersecurity Practices for AI
+    tier: reference
+    publisher: ENISA
+    url: https://www.enisa.europa.eu/publications/multilayer-framework-for-good-cybersecurity-practices-for-ai
+draft: true

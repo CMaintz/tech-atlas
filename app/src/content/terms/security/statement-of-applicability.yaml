@@ -8,6 +8,7 @@ domain: [security]
 cluster: compliance
 layer: governance
 status: current
+era: 2005
 summary:
   en: A document listing every control in the ISO 27001 annex, saying whether each is used, and giving the reason.
   da: Et dokument, der gennemgår hver kontrol i ISO 27001's bilag og angiver, om den anvendes, og begrundelsen.

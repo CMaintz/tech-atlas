@@ -1,0 +1,47 @@
+term:
+  en: Large language model (LLM)
+  da: Stor sprogmodel (LLM)
+aka:
+  en: [LLM, language model]
+  da: [LLM, sprogmodel]
+domain: [ai]
+cluster: llm
+layer: model
+era: 2020
+status: current
+summary:
+  en: A very large model trained on huge amounts of text to predict the next word, which lets it write, sum up and answer in fluent language.
+  da: En meget stor model, trænet på enorme mængder tekst til at forudsige det næste ord, så den kan skrive, opsummere og svare i flydende sprog.
+body:
+  formal:
+    en: A deep learning model, usually a transformer with billions of weights, trained on vast text collections to predict the next token; the same skill, repeated, lets it produce long answers to a prompt.
+    da: En deep learning-model, typisk en transformer med milliarder af vægte, trænet på enorme tekstsamlinger til at forudsige det næste token; den samme evne, gentaget, lader den skrive lange svar på en prompt.
+  plain:
+    en: Like the next-word suggestions on a phone keyboard, but trained on a large part of the internet — it knows how answers usually sound, not whether they are true.
+    da: Som ordforslagene på en mobiltelefons tastatur, bare trænet på en stor del af internettet — den ved, hvordan svar plejer at lyde, ikke om de er sande.
+  inPractice:
+    en: Staff use a chat assistant built on an LLM to draft emails and sum up meeting notes, and the company must decide which data they may paste into it.
+    da: Medarbejdere bruger en chatassistent bygget på en LLM til at skrive udkast til mails og opsummere mødenoter, og virksomheden må beslutte, hvilke data de må indsætte.
+  whyItMatters:
+    en: LLMs sound confident even when wrong, can be steered by hidden text, and send your input to whoever runs them — all real risks to weigh before use.
+    da: LLM'er lyder sikre, selv når de tager fejl, kan styres af skjult tekst og sender dit input til den, der driver dem — alt sammen reelle risici, der skal vejes før brug.
+edges:
+  kind-of: [deep-learning]
+  requires: [transformer, token]
+  causes:
+    - to: hallucination
+      why:
+        en: The model is built to produce likely-sounding text, not checked facts, so it sometimes invents answers.
+        da: Modellen er bygget til at skrive tekst, der lyder sandsynlig, ikke tjekkede fakta, så den finder nogle gange på svar.
+      strength: primary
+      confidence: high
+sources:
+  - title: Brown et al. (2020), Language Models are Few-Shot Learners
+    tier: reference
+  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile
+    tier: standard
+    publisher: NIST
+  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), general-purpose AI models
+    tier: standard
+    publisher: European Union
+draft: true

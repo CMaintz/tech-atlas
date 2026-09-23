@@ -8,6 +8,7 @@ domain: [cs, security]
 cluster: networking
 layer: network
 status: current
+era: 1988
 summary:
   en: A gatekeeper that checks network traffic against rules and lets through only what is allowed.
   da: En portvagt, der tjekker netværkstrafik mod regler og kun lukker det igennem, der er tilladt.

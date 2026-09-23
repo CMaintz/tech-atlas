@@ -1,0 +1,47 @@
+term:
+  en: Shadow AI
+  da: Skygge-AI (shadow AI)
+aka:
+  en: [unsanctioned AI]
+  da: [uautoriseret AI]
+domain: [ai, security]
+cluster: ai-risk
+layer: people
+era: 2023
+status: emerging
+summary:
+  en: Staff using AI tools at work without the organisation knowing about them or having approved them.
+  da: Medarbejdere, der bruger AI-værktøjer i arbejdet, uden at organisationen kender til dem eller har godkendt dem.
+body:
+  formal:
+    en: Any use of AI services, models or extensions inside an organisation that has not been through its approval, risk assessment and supplier checks, so data sent to them is outside its control and oversight.
+    da: Enhver brug af AI-tjenester, -modeller eller -udvidelser i en organisation, som ikke har været igennem dens godkendelse, risikovurdering og leverandørkontrol, så data, der sendes til dem, er uden for dens kontrol og tilsyn.
+  plain:
+    en: Like an employee who takes work papers home to a friend for help — well meant, but the company has no idea who has read them or where copies ended up.
+    da: Som en medarbejder, der tager arbejdspapirer med hjem til en ven for at få hjælp — velment, men virksomheden aner ikke, hvem der har læst dem, eller hvor kopierne er endt.
+  inPractice:
+    en: A lawyer copies a confidential contract into a free online AI chat to shorten it, not knowing the provider may store the text and use it to train future models.
+    da: En advokat kopierer en fortrolig kontrakt ind i en gratis AI-chat på nettet for at forkorte den uden at vide, at udbyderen måske gemmer teksten og bruger den til at træne fremtidige modeller.
+  whyItMatters:
+    en: Useful AI tools are free and one click away, so bans alone rarely work; without approved options and clear rules, personal and secret data quietly leaves the organisation.
+    da: Nyttige AI-værktøjer er gratis og kun et klik væk, så forbud alene virker sjældent; uden godkendte alternativer og klare regler forlader person- og forretningsdata stille og roligt organisationen.
+edges:
+  kind-of: [shadow-it]
+  requires: [artificial-intelligence]
+  causes:
+    - to: data-breach
+      why:
+        en: Confidential or personal data typed into an outside AI service may be stored, reused or exposed.
+        da: Fortrolige data eller personoplysninger, der tastes ind i en ekstern AI-tjeneste, kan blive gemt, genbrugt eller lækket.
+      strength: normal
+      confidence: medium
+sources:
+  - title: NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+    tier: standard
+    publisher: NIST
+    url: https://doi.org/10.6028/NIST.AI.100-1
+  - title: ENISA — Multilayer Framework for Good Cybersecurity Practices for AI
+    tier: reference
+    publisher: ENISA
+    url: https://www.enisa.europa.eu/publications/multilayer-framework-for-good-cybersecurity-practices-for-ai
+draft: true

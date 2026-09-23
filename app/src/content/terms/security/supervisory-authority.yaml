@@ -8,6 +8,7 @@ domain: [security]
 cluster: compliance
 layer: governance
 status: current
+era: 1995
 summary:
   en: The public body in each EU country that checks how GDPR is followed, handles complaints and can hand out fines; in Denmark, Datatilsynet.
   da: Den offentlige myndighed i hvert EU-land, der fører tilsyn med GDPR, behandler klager og kan udstede bøder; i Danmark Datatilsynet.

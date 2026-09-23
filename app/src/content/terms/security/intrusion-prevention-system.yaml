@@ -8,6 +8,7 @@ domain: [security]
 cluster: controls
 layer: network
 status: current
+era: 2003
 summary:
   en: A guard placed in the path of network traffic that recognises signs of an attack and blocks them as they happen.
   da: En vagt placeret i netværkstrafikkens vej, som genkender tegn på angreb og blokerer dem, mens de sker.
