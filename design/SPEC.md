@@ -408,7 +408,8 @@ Built after v1.0 (A34–A37) exactly as the data model intended: nothing is hand
 **Built after v1.0:** Articles, the Explorer (2D/3D, routes, progressive neighbourhoods),
 "What to learn first" paths, the learning system (§9), and the era view (Timeline +
 the Explorer's Time layout), semantic search (§7), and optional accounts with synced
-progress (§9) — see `AUTONOMOUS_DECISIONS.md`.
+progress (§9), the Disambiguation page (§5, ADR-0003), lint rules E5, W2 and W3, and the
+depth-histogram and collision-list reports (§5, A56–A60) — see `AUTONOMOUS_DECISIONS.md`.
 
 **Still deferred:** AI tutor; a database for content; the `ai` and `platform`
 domains; centrality/community features. Each is enabled by, not blocked on, the data model.

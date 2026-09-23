@@ -19,6 +19,7 @@ import { loadGraph } from '../../../lib/graph';
 import { prerequisitesOf } from '../../../lib/graph-model';
 import { makeLinker } from '../../../lib/autolink';
 import Prose from '../../../components/Prose.astro';
+import { bareName, collisionsOf } from '../../../lib/collisions';
 
 export async function getStaticPaths() {
   const terms = await getCollection('terms');
@@ -82,6 +83,10 @@ const mentionedIn = graph.nodes.filter(
   (n) => n.id !== term.id && n.mentions.includes(term.id) && !related.has(n.id),
 );
 const aka = d.aka[lang];
+
+// A Collision (ADR-0003): other terms share this bare name — link the Disambiguation page.
+const name = bareName(term.id);
+const collides = collisionsOf(all.map((t) => t.id)).has(name);
 ---
 
 <Base lang={lang} title={d.term[lang]} description={d.summary[lang]}>
@@ -101,6 +106,19 @@ const aka = d.aka[lang];
         )
       }
       <p class="mt-3 text-lg text-neutral-300">{d.summary[lang]}</p>
+
+      {
+        collides && (
+          <p class="mt-3 text-sm">
+            <a
+              class="text-neutral-400 underline hover:text-neutral-100"
+              href={url(`${lang}/terms/${name}/`)}
+            >
+              {ui.otherMeanings.replace('{name}', name.replace(/-/g, ' '))}
+            </a>
+          </p>
+        )
+      }
 
       {
         d.draft && (
