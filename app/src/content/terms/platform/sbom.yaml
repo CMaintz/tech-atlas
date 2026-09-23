@@ -28,6 +28,7 @@ body:
 edges:
   requires: [software-supply-chain]
   used-with:
+    - software-composition-analysis
     - supplier-management
     - vulnerability-scanning
   mitigates:

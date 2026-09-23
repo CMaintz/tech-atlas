@@ -300,6 +300,9 @@ security:
     - id: nis2
       en: NIS2 Directive
       da: NIS2-direktivet
+    - id: nis1
+      en: NIS1 Directive
+      da: NIS1-direktivet
     - id: pdca
       en: Continuous improvement (PDCA)
       da: Kontinuerlig forbedring (PDCA)
@@ -377,6 +380,9 @@ security:
       en: Web application firewall (WAF)
       da: Web application firewall (WAF)
       domain: [security, cs]
+    - id: cross-site-request-forgery
+      en: Cross-site request forgery (CSRF)
+      da: Cross-site request forgery (CSRF)
   security-operations:
     - id: alert-triage
       en: Alert triage
@@ -404,6 +410,12 @@ security:
     - id: mitre-attack
       en: MITRE ATT&CK
       da: MITRE ATT&CK
+    - id: threat-hunting
+      en: Threat hunting
+      da: Trusselsjagt (threat hunting)
+    - id: soar
+      en: SOAR
+      da: SOAR
   incident-response:
     - id: business-continuity-plan
       en: Business continuity plan (BCP)
@@ -520,6 +532,10 @@ cs:
     - id: service
       en: Service
       da: Tjeneste (service)
+    - id: secure-boot
+      en: Secure boot
+      da: Sikker opstart (secure boot)
+      domain: [cs, security]
   identity:
     - id: access-control
       en: Access control
@@ -611,6 +627,16 @@ cs:
     - id: symmetric-encryption
       en: Symmetric encryption
       da: Symmetrisk kryptering
+    - id: certificate-authority
+      en: Certificate authority (CA)
+      da: Certifikatudsteder (CA)
+    - id: key-management
+      en: Key management
+      da: Nøglehåndtering
+    - id: end-to-end-encryption
+      en: End-to-end encryption
+      da: End-to-end-kryptering
+      domain: [cs, security]
   web:
     - id: api
       en: API
@@ -630,6 +656,19 @@ cs:
     - id: web-browser
       en: Web browser
       da: Webbrowser
+    - id: url
+      en: URL
+      da: URL
+    - id: json
+      en: JSON
+      da: JSON
+    - id: same-origin-policy
+      en: Same-origin policy
+      da: Same-origin policy
+      domain: [cs, security]
+    - id: rest-api
+      en: REST API
+      da: REST API
 
 ai:
   ml-fundamentals:
@@ -719,6 +758,13 @@ ai:
     - id: shadow-ai
       en: Shadow AI
       da: Skygge-AI (shadow AI)
+    - id: adversarial-example
+      en: Adversarial example
+      da: Adversarielt eksempel
+    - id: ai-red-teaming
+      en: AI red teaming
+      da: AI red teaming
+      domain: [ai, security]
 
 platform:
   cloud:
@@ -749,6 +795,10 @@ platform:
     - id: hypervisor
       en: Hypervisor
       da: Hypervisor
+    - id: cloud-iam
+      en: Cloud IAM
+      da: Cloud IAM
+      domain: [platform, security]
   containers:
     - id: container
       en: Container
@@ -768,6 +818,20 @@ platform:
     - id: container-orchestration
       en: Container orchestration
       da: Container-orkestrering
+    - id: container-registry
+      en: Container registry
+      da: Container-register (registry)
+    - id: container-runtime
+      en: Container runtime
+      da: Container-runtime
+    - id: container-escape
+      en: Container escape
+      da: Container escape
+      domain: [platform, security]
+    - id: microservices
+      en: Microservices
+      da: Microservices
+      domain: [platform, cs]
   delivery:
     - id: version-control
       en: Version control
@@ -793,6 +857,14 @@ platform:
     - id: devsecops
       en: DevSecOps
       da: DevSecOps
+    - id: code-signing
+      en: Code signing
+      da: Kodesignering
+      domain: [platform, security]
+    - id: software-composition-analysis
+      en: Software composition analysis (SCA)
+      da: Software composition analysis (SCA)
+      domain: [platform, security]
   observability:
     - id: observability
       en: Observability
@@ -812,3 +884,15 @@ platform:
     - id: service-level-objective
       en: Service level objective (SLO)
       da: Serviceniveaumål (SLO)
+    - id: service-level-agreement
+      en: Service level agreement (SLA)
+      da: Serviceniveauaftale (SLA)
+    - id: telemetry
+      en: Telemetry
+      da: Telemetri
+    - id: health-check
+      en: Health check
+      da: Sundhedstjek (health check)
+    - id: runbook
+      en: Runbook
+      da: Runbook

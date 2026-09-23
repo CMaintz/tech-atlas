@@ -1,0 +1,53 @@
+term:
+  en: Threat hunting
+  da: Trusselsjagt (threat hunting)
+aka:
+  en: [cyber threat hunting]
+  da: [threat hunting]
+domain: [security]
+cluster: security-operations
+layer: people
+status: current
+summary:
+  en: Searching on purpose for attackers who may already be inside the network, without waiting for an alarm to go off.
+  da: Målrettet søgning efter angribere, der måske allerede er inde i netværket, uden at vente på, at en alarm går i gang.
+body:
+  formal:
+    en: A repeated, human-led search through logs and endpoint data that starts from a guess about how an attacker could act, often taken from MITRE ATT&CK, to find activity that detection rules missed, and ends by closing the guess or opening an incident.
+    da: En gentaget, menneskeledet søgning gennem logs og data fra endpoints, der tager udgangspunkt i et gæt om, hvordan en angriber kunne handle, ofte hentet fra MITRE ATT&CK, for at finde aktivitet, som detektionsreglerne overså, og som ender med at afvise gættet eller åbne en hændelse.
+  plain:
+    en: Like a store detective who walks the floor looking for known tricks, instead of only waiting for the alarm at the door to beep.
+    da: Som en butiksdetektiv, der går rundt i butikken og kigger efter kendte kneb, i stedet for kun at vente på, at alarmen ved døren bipper.
+  inPractice:
+    en: After reading that a gang steals passwords with a certain admin tool, a hunter searches three months of endpoint data for that tool, finds it on one server, and hands the case to incident response.
+    da: Efter at have læst, at en bande stjæler adgangskoder med et bestemt administratorværktøj, søger en trusselsjæger tre måneders data fra endpoints igennem efter værktøjet, finder det på én server og sender sagen videre til hændelseshåndteringen.
+  whyItMatters:
+    en: Skilled attackers avoid setting off alarms and can stay hidden for months; hunting cuts that time short, and each hunt that works can become a new detection rule.
+    da: Dygtige angribere undgår at udløse alarmer og kan holde sig skjult i månedsvis; trusselsjagt forkorter den tid, og hver jagt, der lykkes, kan blive til en ny detektionsregel.
+edges:
+  requires:
+    - detection-rule
+    - indicator-of-compromise
+  used-with:
+    - to: threat-intelligence
+      why:
+        en: Knowledge of how current attackers work gives hunters the guesses worth checking.
+        da: Viden om, hvordan aktuelle angribere arbejder, giver trusselsjægerne de gæt, der er værd at efterprøve.
+      strength: primary
+      confidence: high
+  mitigates:
+    - to: lateral-movement
+      why:
+        en: Hunting looks for attackers already inside, often while they move from machine to machine, and stops them before they reach their goal.
+        da: Trusselsjagt leder efter angribere, der allerede er inde, ofte mens de bevæger sig fra maskine til maskine, og stopper dem, før de når deres mål.
+      strength: normal
+      confidence: medium
+sources:
+  - title: MITRE ATT&CK
+    url: https://attack.mitre.org/
+    tier: reference
+    publisher: The MITRE Corporation
+  - title: Wikipedia — Cyber threat hunting
+    url: https://en.wikipedia.org/wiki/Cyber_threat_hunting
+    tier: reference
+draft: true

@@ -34,6 +34,12 @@ edges:
       strength: primary
       confidence: high
     - web-application
+    - to: json
+      why:
+        en: APIs commonly send and receive their data as JSON.
+        da: API'er sender og modtager typisk deres data som JSON.
+      strength: normal
+      confidence: high
 sources:
   - title: MDN Web Docs — Glossary, API
     url: https://developer.mozilla.org/en-US/docs/Glossary/API

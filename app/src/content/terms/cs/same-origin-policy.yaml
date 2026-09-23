@@ -1,0 +1,46 @@
+term:
+  en: Same-origin policy
+  da: Same-origin policy
+aka:
+  en: [SOP]
+  da: [SOP]
+domain: [cs, security]
+cluster: web
+layer: application
+status: current
+era: 1995
+summary:
+  en: A browser rule that stops a page from one site reading data that belongs to another site open in the same browser.
+  da: En browserregel, der forhindrer en side fra ét site i at læse data, som tilhører et andet site åbent i samme browser.
+body:
+  formal:
+    en: A rule built into every web browser that lets a script read content only from its own origin — the same method, host name and port in the URL; it may still send requests to other origins, but cannot read their replies unless they allow it.
+    da: En regel, der er bygget ind i alle webbrowsere, og som kun lader et script læse indhold fra sin egen oprindelse — samme metode, værtsnavn og port i URL'en; det må stadig sende forespørgsler til andre oprindelser, men kan ikke læse svarene, medmindre de tillader det.
+  plain:
+    en: Like hotel rooms on one key card system — your card works for your own room, and you can knock on any door, but you cannot walk in and read what lies on the next guest's desk.
+    da: Som hotelværelser med nøglekort — dit kort virker til dit eget værelse, og du kan banke på alle døre, men du kan ikke gå ind og læse, hvad der ligger på næste gæsts skrivebord.
+  inPractice:
+    en: A user has their email site open in one tab and a shady game site in another; the game's script can send a request to the email site, but the browser will not let it read the inbox that comes back.
+    da: En bruger har sin webmail åben i én fane og et lyssky spilsite i en anden; spillets script kan sende en forespørgsel til webmailen, men browseren lader det ikke læse den indbakke, der kommer tilbage.
+  whyItMatters:
+    en: Without it any page could read everything you see on every other site; but it does not stop requests from being sent, which is why cross-site request forgery still works, and XSS gets around it by running inside the trusted site itself.
+    da: Uden den kunne enhver side læse alt, hvad du ser på alle andre sites; men den stopper ikke, at forespørgsler bliver sendt, og derfor virker CSRF stadig, og XSS kommer uden om den ved at køre inde på selve det betroede site.
+edges:
+  requires: [web-browser, url]
+  mitigates:
+    - to: cross-site-request-forgery
+      why:
+        en: It does not block the forged request itself, but it keeps the attacker's page from reading a secret value from the target site, which is what makes token-based defences work.
+        da: Den blokerer ikke selve den forfalskede forespørgsel, men forhindrer angriberens side i at læse en hemmelig værdi fra målsitet, og det er det, der får token-baserede forsvar til at virke.
+      strength: minor
+      confidence: high
+sources:
+  - title: MDN Web Docs — Same-origin policy
+    tier: official-doc
+    publisher: Mozilla
+    url: https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy
+  - title: RFC 6454 — The Web Origin Concept
+    tier: standard
+    publisher: IETF
+    url: https://www.rfc-editor.org/rfc/rfc6454
+draft: true

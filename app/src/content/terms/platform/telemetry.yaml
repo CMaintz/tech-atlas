@@ -1,0 +1,49 @@
+term:
+  en: Telemetry
+  da: Telemetri
+aka:
+  en: []
+  da: []
+domain: [platform]
+cluster: observability
+layer: observability
+status: current
+summary:
+  en: The data a running system sends out about itself, mainly logs, metrics and traces, so people can see how it is doing.
+  da: De data, et kørende system sender ud om sig selv, især logs, metrikker og sporinger, så man kan se, hvordan det har det.
+body:
+  formal:
+    en: Signals produced by software and machines while they run and sent to a separate place to be stored and studied, most often as metrics, log entries and traces of single requests, each marked with where and when it came from.
+    da: Signaler, som software og maskiner danner, mens de kører, og som sendes til et andet sted for at blive gemt og studeret, oftest som metrikker, logposter og sporinger af enkelte forespørgsler, hver mærket med hvor og hvornår de opstod.
+  plain:
+    en: Like the readings a hospital monitor sends to the nurses' desk, such as heart rate and oxygen, so nobody has to stand by the bed to know how the patient is.
+    da: Som målingerne, en hospitalsmonitor sender til sygeplejerskernes kontor, fx puls og ilt, så ingen behøver stå ved sengen for at vide, hvordan patienten har det.
+  inPractice:
+    en: Every service in a web shop sends its telemetry through one shared collector, which passes metrics on to the dashboards, logs to the log store and traces to the tracing tool.
+    da: Hver tjeneste i en webshop sender sin telemetri gennem ét fælles samlepunkt, der sender metrikker videre til dashboards, logs til loglageret og sporinger til sporingsværktøjet.
+  whyItMatters:
+    en: You can only understand, watch or defend a system through the data it gives out; missing or poor telemetry leaves both operators and security teams blind.
+    da: Man kan kun forstå, overvåge eller forsvare et system gennem de data, det giver fra sig; manglende eller dårlig telemetri efterlader både driften og sikkerhedsteamet i blinde.
+edges:
+  part-of: [observability]
+  requires:
+    - log
+    - metrics
+    - distributed-tracing
+  used-with:
+    - to: threat-hunting
+      why:
+        en: Hunters search stored logs and endpoint data for signs the alarms missed; without rich telemetry there is nothing to search.
+        da: Trusselsjægere gennemsøger gemte logs og data fra endpoints efter spor, som alarmerne overså; uden fyldig telemetri er der intet at søge i.
+      strength: normal
+      confidence: high
+sources:
+  - title: OpenTelemetry — What is OpenTelemetry?
+    url: https://opentelemetry.io/docs/what-is-opentelemetry/
+    tier: official-doc
+    publisher: OpenTelemetry (CNCF)
+  - title: OpenTelemetry — Signals
+    url: https://opentelemetry.io/docs/concepts/signals/
+    tier: official-doc
+    publisher: OpenTelemetry (CNCF)
+draft: true

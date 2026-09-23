@@ -28,10 +28,18 @@ edges:
   requires: [version-control]
   part-of: [software-supply-chain]
   used-with:
+    - software-composition-analysis
     - pipeline
     - infrastructure-as-code
     - gitops
     - secrets-management
+    - container-registry
+    - to: code-signing
+      why:
+        en: The pipeline's last step signs each release so the servers can check it came from the pipeline unchanged.
+        da: Pipelinens sidste trin signerer hver udgivelse, så serverne kan tjekke, at den kom uændret fra pipelinen.
+      strength: normal
+      confidence: high
 sources:
   - title: NIST SP 800-204D — Strategies for the Integration of Software Supply Chain Security in DevSecOps CI/CD Pipelines
     url: https://csrc.nist.gov/pubs/sp/800/204/d/final

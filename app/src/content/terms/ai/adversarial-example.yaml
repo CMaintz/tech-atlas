@@ -1,0 +1,53 @@
+term:
+  en: Adversarial example
+  da: Adversarielt eksempel
+aka:
+  en: [adversarial input]
+  da: [adversarielt input]
+domain: [ai]
+cluster: ai-risk
+layer: inference
+era: 2014
+status: current
+summary:
+  en: An input changed on purpose, often in ways people cannot even see, so that a finished AI model gives a confidently wrong answer.
+  da: Et input, der med vilje er ændret, ofte helt usynligt for mennesker, så en færdig AI-model svarer forkert med stor sikkerhed.
+body:
+  formal:
+    en: An input to a trained machine learning model, usually a neural network, that an attacker has altered by a tiny, carefully chosen amount so the model's output flips to a wrong or chosen answer at inference time, while the model itself is left untouched.
+    da: Et input til en trænet maskinlæringsmodel, typisk et neuralt netværk, som en angriber har ændret en lille, nøje udvalgt smule, så modellens svar skifter til et forkert eller bestemt svar under inference, uden at selve modellen røres.
+  plain:
+    en: Like an optical illusion made for a machine — a few dots a person would never notice make the computer see a cat as a toaster.
+    da: Som en optisk illusion lavet til en maskine — nogle få prikker, et menneske aldrig ville lægge mærke til, får computeren til at se en kat som en brødrister.
+  inPractice:
+    en: Researchers put a few small black and white stickers on a stop sign; drivers still read it as a stop sign, but the car's camera system reads it as a speed limit sign.
+    da: Forskere sætter nogle få små sorte og hvide klistermærker på et stopskilt; bilister ser stadig et stopskilt, men bilens kamerasystem læser det som et fartgrænseskilt.
+  whyItMatters:
+    en: A model can score well on every normal test and still be easy to fool on purpose, which matters wherever AI makes safety or security decisions, such as cars, face checks or malware filters.
+    da: En model kan klare alle almindelige test flot og alligevel være let at narre med vilje, og det betyder noget overalt, hvor AI træffer beslutninger om sikkerhed, som i biler, ansigtsgenkendelse eller malware-filtre.
+edges:
+  requires: [machine-learning, inference]
+  exploits:
+    - to: neural-network
+      why:
+        en: A network's answer can swing sharply after small, well-aimed changes to its input that a person would ignore.
+        da: Et netværks svar kan slå kraftigt om efter små, velrettede ændringer af input, som et menneske ville overse.
+      strength: primary
+      confidence: high
+  contrasts-with:
+    - to: data-poisoning
+      why:
+        en: An adversarial example fools a finished model while it is in use; data poisoning corrupts the model while it learns.
+        da: Et adversarielt eksempel narrer en færdig model, mens den bruges; dataforgiftning ødelægger modellen, mens den lærer.
+      strength: primary
+      confidence: high
+sources:
+  - title: Explaining and Harnessing Adversarial Examples (Goodfellow, Shlens, Szegedy, 2014)
+    tier: reference
+    publisher: arXiv
+    url: https://arxiv.org/abs/1412.6572
+  - title: NIST AI 100-2 — Adversarial Machine Learning, A Taxonomy and Terminology of Attacks and Mitigations
+    tier: standard
+    publisher: NIST
+    url: https://doi.org/10.6028/NIST.AI.100-2e2025
+draft: true

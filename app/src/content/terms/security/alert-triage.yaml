@@ -36,6 +36,13 @@ edges:
       confidence: high
     - soc
     - incident-reporting
+  contrasts-with:
+    - to: threat-hunting
+      why:
+        en: Triage reacts to alarms that tools have already raised; hunting starts from a guess and searches for what raised no alarm.
+        da: Triage reagerer på alarmer, værktøjerne allerede har rejst; trusselsjagt starter fra et gæt og leder efter det, der ikke gav alarm.
+      strength: primary
+      confidence: high
 sources:
   - title: NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management
     url: https://doi.org/10.6028/NIST.SP.800-61r3

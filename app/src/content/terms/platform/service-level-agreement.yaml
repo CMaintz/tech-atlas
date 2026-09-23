@@ -1,0 +1,48 @@
+term:
+  en: Service level agreement (SLA)
+  da: Serviceniveauaftale (SLA)
+aka:
+  en: [SLA]
+  da: [SLA]
+domain: [platform]
+cluster: observability
+layer: process
+status: current
+summary:
+  en: A written promise in a contract about how well a service will work, with a price to pay, such as money back, if it is broken.
+  da: Et skriftligt løfte i en kontrakt om, hvor godt en tjeneste skal fungere, med en pris at betale, fx penge tilbage, hvis det brydes.
+body:
+  formal:
+    en: The part of a contract between a supplier and a customer that states measured levels of service, such as the share of time a service is in use or how fast a fault must be answered, and what the supplier owes when they are not met.
+    da: Den del af en kontrakt mellem leverandør og kunde, der fastsætter målbare serviceniveauer, fx hvor stor en del af tiden tjenesten er i drift, eller hvor hurtigt en fejl skal besvares, og hvad leverandøren skylder, når de ikke overholdes.
+  plain:
+    en: Like a pizza place that promises delivery in thirty minutes or the pizza is free; the promise only means something because breaking it costs them.
+    da: Som et pizzeria, der lover levering inden for 30 minutter, ellers er pizzaen gratis; løftet betyder kun noget, fordi det koster dem at bryde det.
+  inPractice:
+    en: A hosting company promises 99.9% availability each month; after a four-hour stop, the customer gets a tenth of the monthly bill back as agreed.
+    da: Et hostingfirma lover 99,9 % tilgængelighed hver måned; efter et nedbrud på fire timer får kunden en tiendedel af månedsregningen tilbage, som aftalt.
+  whyItMatters:
+    en: When you depend on a supplier, the SLA is what you can actually hold them to, so it must match what your own business and your own promises to others need.
+    da: Når man er afhængig af en leverandør, er SLA'en det, man reelt kan holde dem op på, så den skal passe til det, ens egen forretning og egne løfter over for andre kræver.
+edges:
+  requires: [availability]
+  contrasts-with:
+    - to: service-level-objective
+      why:
+        en: An SLA is a contract promise to customers with a price for breaking it; an SLO is the stricter internal target that keeps the promise safe.
+        da: En SLA er et kontraktligt løfte til kunder med en pris for at bryde det; en SLO er det strengere interne mål, der sikrer, at løftet holdes.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: supplier-management
+      why:
+        en: Choosing and following up on suppliers means setting and checking the service levels written into their contracts.
+        da: At vælge og følge op på leverandører betyder at fastsætte og kontrollere de serviceniveauer, der står i deres kontrakter.
+      strength: normal
+      confidence: high
+sources:
+  - title: Google SRE book — Chapter 4, Service Level Objectives
+    url: https://sre.google/sre-book/service-level-objectives/
+    tier: reference
+    publisher: Google
+draft: true

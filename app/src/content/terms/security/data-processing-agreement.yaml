@@ -28,6 +28,7 @@ body:
 edges:
   requires: [gdpr]
   used-with:
+    - service-level-agreement
     - to: supplier-management
       why:
         en: The DPA is the contract tool supplier management uses whenever personal data is involved.

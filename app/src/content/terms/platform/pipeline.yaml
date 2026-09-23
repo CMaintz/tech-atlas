@@ -29,6 +29,7 @@ edges:
   used-with:
     - secrets-management
     - vulnerability-scanning
+    - software-composition-analysis
 sources:
   - title: NIST SP 800-204D — Strategies for the Integration of Software Supply Chain Security in DevSecOps CI/CD Pipelines
     url: https://csrc.nist.gov/pubs/sp/800/204/d/final

@@ -1,0 +1,46 @@
+term:
+  en: JSON
+  da: JSON
+aka:
+  en: [JavaScript Object Notation]
+  da: [JavaScript Object Notation]
+domain: [cs]
+cluster: web
+layer: application
+status: current
+era: 2001
+summary:
+  en: A simple text format for writing down data as named values and lists, easy for both people and programs to read.
+  da: Et enkelt tekstformat til at skrive data ned som navngivne værdier og lister, let at læse for både mennesker og programmer.
+body:
+  formal:
+    en: A text format built from just a few pieces — objects of name and value pairs in curly brackets, lists in square brackets, and values that are text, numbers, true, false or null — that can be nested inside each other.
+    da: Et tekstformat bygget af ganske få dele — objekter med par af navn og værdi i krøllede parenteser, lister i firkantede parenteser og værdier, der er tekst, tal, true, false eller null — som kan lægges inden i hinanden.
+  plain:
+    en: Like a neatly filled-in form where every box has a label, so anyone picking it up knows which answer belongs to which question.
+    da: Som en pænt udfyldt blanket, hvor hvert felt har en overskrift, så enhver, der samler den op, ved, hvilket svar der hører til hvilket spørgsmål.
+  inPractice:
+    en: A weather app asks a server for today's forecast and gets back a short JSON text with the city, the temperature and a list of hourly values, which it turns into a chart.
+    da: En vejr-app beder en server om dagens udsigt og får en kort JSON-tekst tilbage med byen, temperaturen og en liste over timeværdier, som den gør til en graf.
+  whyItMatters:
+    en: Because almost every language can read and write it, it has become the common way programs swap data over the web; reading untrusted JSON carelessly is also a known source of flaws.
+    da: Fordi næsten alle sprog kan læse og skrive det, er det blevet den almindelige måde, programmer udveksler data på over nettet; at læse JSON fra ukendte kilder uden omtanke er også en kendt kilde til fejl.
+edges:
+  used-with:
+    - to: rest-api
+      why:
+        en: Most REST APIs send and receive their data as JSON.
+        da: De fleste REST API'er sender og modtager deres data som JSON.
+      strength: primary
+      confidence: high
+    - web-application
+sources:
+  - title: RFC 8259 — The JavaScript Object Notation (JSON) Data Interchange Format
+    tier: standard
+    publisher: IETF
+    url: https://www.rfc-editor.org/rfc/rfc8259
+  - title: ECMA-404 — The JSON Data Interchange Syntax
+    tier: standard
+    publisher: Ecma International
+    url: https://ecma-international.org/publications-and-standards/standards/ecma-404/
+draft: true

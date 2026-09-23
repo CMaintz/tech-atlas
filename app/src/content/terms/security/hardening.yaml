@@ -34,7 +34,19 @@ edges:
       strength: primary
       confidence: high
     - cloud-misconfiguration
+    - to: container-escape
+      why:
+        en: Running containers without admin rights, without the host's disks and with a patched kernel removes most of the ways out.
+        da: At køre containere uden administratorrettigheder, uden værtens diske og med en opdateret kerne fjerner de fleste veje ud.
+      strength: primary
+      confidence: high
   used-with:
+    - to: secure-boot
+      why:
+        en: Hardening removes needless ways into a running system; secure boot makes sure the system that starts is the untouched one.
+        da: Hærdning fjerner unødvendige veje ind i et kørende system; secure boot sikrer, at det system, der starter, er det uberørte.
+      strength: normal
+      confidence: high
     - to: patch-management
       why:
         en: Hardening closes doors that are not needed; patching fixes flaws in the ones that must stay open.

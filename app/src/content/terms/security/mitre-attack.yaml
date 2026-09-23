@@ -28,6 +28,7 @@ body:
 edges:
   requires: [threat-actor]
   used-with:
+    - threat-hunting
     - to: threat-intelligence
       why:
         en: Reports about attacker groups use its numbers to say exactly which methods each group uses.

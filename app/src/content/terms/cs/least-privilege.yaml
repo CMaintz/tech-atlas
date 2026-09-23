@@ -48,6 +48,12 @@ edges:
         da: Færre faste rettigheder på hver konto betyder færre trædesten, en angriber kan klatre op ad.
       strength: normal
       confidence: high
+    - to: container-escape
+      why:
+        en: A container given only the rights it needs has far fewer tools to break out with, and gains little if it does.
+        da: En container, der kun har de rettigheder, den har brug for, har langt færre redskaber at bryde ud med og vinder ikke meget, hvis den gør.
+      strength: normal
+      confidence: high
 sources:
   - title: NIST SP 800-207, Zero Trust Architecture
     url: https://doi.org/10.6028/NIST.SP.800-207
