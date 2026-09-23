@@ -3,10 +3,7 @@
   "revision": "761b726dd34fb83930e26aab4e9ac3899aa1fa78",
   "dtype": "q8",
   "dim": 384,
-  "langs": [
-    "en",
-    "da"
-  ],
+  "langs": ["en", "da"],
   "settingsHash": "d11448f9294df2a722621942de64d226975613ae5801146682bfd1045f6ca7df",
   "passageHashes": {
     "ai/adversarial-example": "8c5c408efa798f4a",
