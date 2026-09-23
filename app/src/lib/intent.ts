@@ -20,7 +20,10 @@ const PATTERNS: { kind: Intent['kind']; re: RegExp }[] = [
   { kind: 'route', re: /^hvordan (?:hænger|er)\s+(.+?)\s+og\s+(.+?)\s+(?:sammen|forbundet)\??$/i },
   { kind: 'route', re: /^(?:from|fra)\s+(.+?)\s+(?:to|til)\s+(.+?)\??$/i },
   { kind: 'route', re: /^(.+?)\s*(?:→|->)\s*(.+?)$/ },
-  { kind: 'compare', re: /^(?:compare\s+|sammenlign\s+)?(.+?)\s+(?:vs\.?|versus|mod)\s+(.+?)\??$/i },
+  {
+    kind: 'compare',
+    re: /^(?:compare\s+|sammenlign\s+)?(.+?)\s+(?:vs\.?|versus|mod)\s+(.+?)\??$/i,
+  },
   { kind: 'compare', re: /^(?:compare|sammenlign)\s+(.+?)\s+(?:and|with|og|med)\s+(.+?)\??$/i },
 ];
 

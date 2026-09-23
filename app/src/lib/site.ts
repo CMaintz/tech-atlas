@@ -49,6 +49,15 @@ export const UI = {
     colourBy: 'Colour by',
     byCluster: 'Cluster',
     byKnowledge: 'My knowledge',
+    intentCompare: 'Compare {a} and {b}',
+    intentRoute: 'Show the route from {a} to {b}',
+    intentBefore: 'What to learn before {a}',
+    review: 'Review queue',
+    reviewIntro:
+      'Every entry was drafted by an AI and stays marked as a draft until a person has checked it. To approve one, open it on GitHub and change draft: true to draft: false.',
+    reviewed: 'reviewed',
+    editOnGitHub: 'Edit on GitHub',
+    sourceCode: 'Source',
     explorer: 'Explorer',
     neighbourhood: 'Neighbourhood',
     expand: 'Expand +1',
@@ -124,6 +133,15 @@ export const UI = {
     colourBy: 'Farv efter',
     byCluster: 'Klynge',
     byKnowledge: 'Min viden',
+    intentCompare: 'Sammenlign {a} og {b}',
+    intentRoute: 'Vis vejen fra {a} til {b}',
+    intentBefore: 'Hvad du bør lære før {a}',
+    review: 'Gennemgangskø',
+    reviewIntro:
+      'Alle opslag er udkast skrevet af en AI og forbliver markeret som kladde, indtil et menneske har tjekket dem. Godkend et opslag ved at åbne det på GitHub og ændre draft: true til draft: false.',
+    reviewed: 'gennemgået',
+    editOnGitHub: 'Redigér på GitHub',
+    sourceCode: 'Kildekode',
     explorer: 'Udforsk',
     neighbourhood: 'Nabolag',
     expand: 'Udvid +1',
@@ -222,3 +240,6 @@ export const FAMILY_LABELS: Record<string, Record<Lang, string>> = {
   lineage: { en: 'Lineage', da: 'Afstamning' },
   association: { en: 'Used together', da: 'Bruges sammen' },
 };
+
+/** Where the source lives — used for 'Edit on GitHub' links in the review queue. */
+export const REPO = 'https://github.com/CMaintz/tech-atlas';

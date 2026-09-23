@@ -25,11 +25,18 @@ describe('parseIntent', () => {
       a: 'NIS2',
       b: 'backup',
     });
-    expect(parseIntent('network -> firewall')).toEqual({ kind: 'route', a: 'network', b: 'firewall' });
+    expect(parseIntent('network -> firewall')).toEqual({
+      kind: 'route',
+      a: 'network',
+      b: 'firewall',
+    });
   });
 
   it('reads prerequisite questions', () => {
-    expect(parseIntent('what do I need before zero trust?')).toEqual({ kind: 'before', a: 'zero trust' });
+    expect(parseIntent('what do I need before zero trust?')).toEqual({
+      kind: 'before',
+      a: 'zero trust',
+    });
     expect(parseIntent('før risikostyring')).toEqual({ kind: 'before', a: 'risikostyring' });
   });
 

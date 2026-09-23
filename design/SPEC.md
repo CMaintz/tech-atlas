@@ -293,10 +293,17 @@ Driven by `contrasts-with`. Side-by-side for the pairs learners mix up
 (`authentication` vs `authorization`, `ids` vs `ips`, `vm` vs `container`,
 `confidentiality` vs `integrity`), on the axes that separate them.
 
-### Index & search (v1: static)
+### Index & search (static)
 An A–Z / by-cluster index, and client-side search over terms, **aliases (both
-languages)**, and summaries, with typo tolerance. Semantic (vector) search is
-deferred (§11) — it needs a backend and is not a v1 requirement.
+languages)**, and summaries, with typo tolerance. Search also understands intents
+(A39): "X vs Y" opens the comparison, "how are X and Y related" / "from X to Y" opens
+the route in the Explorer, "before X" opens what to learn first. Semantic (vector)
+search is deferred — it needs a backend or an in-browser model.
+
+### Linked prose and Mentions
+Body facets link every other term at its first mention on the page (A38). Terms whose
+prose names this term, but that have no typed edge to it, are listed as "Mentioned in"
+— the weaker, derived relation of §6.
 
 ---
 
