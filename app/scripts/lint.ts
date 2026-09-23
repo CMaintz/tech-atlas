@@ -3,11 +3,13 @@
  * Errors fail the build; warnings are reported. Closed Vocabulary (E1) is blocking
  * for English and advisory for Danish (ADR-0009).
  */
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { EDGE_TYPES, LAYERS, type EdgeType } from '../src/schema';
 import { checkClosedVocab } from './closed-vocab';
 import { loadTerms, makeResolver } from './load-terms';
 import { makeLinker } from '../src/lib/autolink';
+import { VECTORS_PATH, semanticInputs } from './semantic-inputs';
+import { compareVectors, type VectorFile } from '../src/lib/semantic';
 
 const { terms, errors } = loadTerms();
 const warnings: string[] = [];
@@ -124,6 +126,21 @@ for (const r of vocab) {
   const line = `${r.id} (${r.lang}): ${r.unknown.join(', ')}`;
   if (r.lang === 'en') errors.push(`E1 unknown words ${line}`);
   else warnings.push(`E1 advisory ${line}`);
+}
+
+// E11 / W8 semantic vectors out of sync with the content they embed (A52)
+if (!existsSync(VECTORS_PATH)) {
+  errors.push(`E11 missing ${VECTORS_PATH} — run \`npm run embed\``);
+} else {
+  const file = JSON.parse(readFileSync(VECTORS_PATH, 'utf8')) as VectorFile;
+  const { errors: stale, changed } = compareVectors(file, semanticInputs(terms));
+  for (const e of stale)
+    errors.push(`E11 semantic vectors out of date (${e}) — run \`npm run embed\``);
+  if (changed.length) {
+    warnings.push(
+      `W8 semantic vectors embed older text for: ${changed.join(', ')} — run \`npm run embed\``,
+    );
+  }
 }
 
 // Reports
