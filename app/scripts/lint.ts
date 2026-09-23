@@ -127,7 +127,7 @@ for (const r of vocab) {
   else warnings.push(`E1 advisory ${line}`);
 }
 
-// E11 semantic vectors out of sync with the content they embed (A44)
+// E11 semantic vectors out of sync with the content they embed (A51)
 if (!existsSync(VECTORS_PATH)) {
   errors.push(`E11 missing ${VECTORS_PATH} — run \`npm run embed\``);
 } else {

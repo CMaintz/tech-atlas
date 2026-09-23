@@ -1,6 +1,6 @@
 /// <reference lib="webworker" />
 /**
- * Semantic search worker (A44). Loaded only when the Search island needs it: it
+ * Semantic search worker (A51). Loaded only when the Search island needs it: it
  * downloads the quantised multilingual e5 model once (the browser's Cache API keeps
  * it), embeds each query with the e5 "query:" prefix, and ranks the committed term
  * vectors by cosine similarity. Runs off the main thread so typing never stutters.

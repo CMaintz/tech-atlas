@@ -1,7 +1,7 @@
 /**
  * `npm run embed` — embed every Term (name + aliases + summary + plain facet, per
  * language) with the multilingual e5 model and write the committed vector file that
- * the browser searches (A44). Also embeds FIXTURE_QUERIES for the offline ranking test.
+ * the browser searches (A51). Also embeds FIXTURE_QUERIES for the offline ranking test.
  *
  * Run it after changing any term's name, aliases, summary or plain facet; the content
  * lint (E11) fails until you do. The model (~118 MB) is downloaded once and cached.

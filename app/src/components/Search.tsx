@@ -42,7 +42,7 @@ const MAX = 8;
  * Client-side bilingual search: typo-tolerant over names and aliases in both
  * languages, plus intents — "X vs Y" (compare), "from X to Y" (route) and
  * "before X" (prerequisites) — and, for questions and descriptions, semantic search
- * (A44): a multilingual model in a worker, fused with the lexical ranking by RRF.
+ * (A51): a multilingual model in a worker, fused with the lexical ranking by RRF.
  */
 export default function Search({
   lang,

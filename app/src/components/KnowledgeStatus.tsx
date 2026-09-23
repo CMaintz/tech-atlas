@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'preact/hooks';
-import { loadLearner, saveLearner, setStatus, type Status } from '../lib/learner';
+import { STATUSES, loadLearner, saveLearner, setStatus, type Status } from '../lib/learner';
 
 interface Props {
   termId: string;
   ui: Record<string, string>;
 }
 
-const STATUSES: Status[] = ['know', 'familiar', 'learning', 'unknown'];
 const ACTIVE: Record<Status, string> = {
   know: 'border-green-500 text-green-300',
   familiar: 'border-lime-500 text-lime-300',
@@ -17,7 +16,13 @@ const ACTIVE: Record<Status, string> = {
 /** Self-assessment for one term — feeds the personal knowledge map and recommendations. */
 export default function KnowledgeStatus({ termId, ui }: Props) {
   const [status, setLocal] = useState<Status | undefined>(undefined);
-  useEffect(() => setLocal(loadLearner().terms[termId]?.status), [termId]);
+  useEffect(() => {
+    // Also refresh when progress changes elsewhere (e.g. merged in from another device).
+    const refresh = () => setLocal(loadLearner().terms[termId]?.status);
+    refresh();
+    window.addEventListener('atlas:learner', refresh);
+    return () => window.removeEventListener('atlas:learner', refresh);
+  }, [termId]);
 
   const choose = (s: Status) => {
     const next = status === s ? undefined : s;

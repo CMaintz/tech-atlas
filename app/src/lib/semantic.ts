@@ -1,5 +1,5 @@
 /**
- * Semantic (vector) search — the pure half (A44). Terms are embedded at author time
+ * Semantic (vector) search — the pure half (A51). Terms are embedded at author time
  * by `npm run embed` (scripts/embed.ts) with a small multilingual model; the browser
  * embeds the query with the same model in a worker (src/components/semantic.worker.ts)
  * and ranks terms by cosine similarity. Lexical (MiniSearch) and semantic rankings are

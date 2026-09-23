@@ -63,7 +63,12 @@ export default function Explorer(props: Props) {
   const [hops, setHops] = useState<number | null>(null);
   const [colourMode, setColourMode] = useState<ColourMode>('cluster');
   const [learner, setLearner] = useState<Learner>({ terms: {} });
-  useEffect(() => setLearner(loadLearner()), []);
+  useEffect(() => {
+    const refresh = () => setLearner(loadLearner());
+    refresh();
+    window.addEventListener('atlas:learner', refresh);
+    return () => window.removeEventListener('atlas:learner', refresh);
+  }, []);
   const container = useRef<HTMLDivElement>(null);
   const cyRef = useRef<cytoscape.Core | null>(null);
   const fgRef = useRef<ForceGraphInstance | null>(null);
