@@ -35,6 +35,9 @@ edges:
         da: Modellen er bygget til at skrive tekst, der lyder sandsynlig, ikke tjekkede fakta, så den finder nogle gange på svar.
       strength: primary
       confidence: high
+article:
+  en: src/content/articles/ai/large-language-model.en.md
+  da: src/content/articles/ai/large-language-model.da.md
 sources:
   - title: Brown et al. (2020), Language Models are Few-Shot Learners
     tier: reference

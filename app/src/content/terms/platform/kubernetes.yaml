@@ -29,6 +29,9 @@ edges:
   implements: [container-orchestration]
   requires: [container]
   used-with: [role-based-access-control]
+article:
+  en: src/content/articles/platform/kubernetes.en.md
+  da: src/content/articles/platform/kubernetes.da.md
 sources:
   - title: Kubernetes Documentation — Overview
     url: https://kubernetes.io/docs/concepts/overview/

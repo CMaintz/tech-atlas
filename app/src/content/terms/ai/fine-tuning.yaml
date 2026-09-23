@@ -26,7 +26,6 @@ body:
     da: Data brugt her bliver bygget ind i modellen og er svære at fjerne igen, så persondata i dem kan lække og ikke bare kan slettes efter anmodning.
 edges:
   kind-of: [model-training]
-  requires: [model-training]
   alternative-to:
     - to: retrieval-augmented-generation
       why:

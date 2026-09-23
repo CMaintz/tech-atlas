@@ -34,6 +34,9 @@ edges:
         da: At svare ud fra fundne kilder med links gør opdigtede svar sjældnere og lettere at opdage, men fjerner dem ikke.
       strength: primary
       confidence: medium
+article:
+  en: src/content/articles/ai/retrieval-augmented-generation.en.md
+  da: src/content/articles/ai/retrieval-augmented-generation.da.md
 sources:
   - title: Lewis et al. (2020), Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
     tier: reference

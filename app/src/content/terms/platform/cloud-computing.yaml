@@ -28,6 +28,9 @@ body:
 edges:
   requires: [internet, server]
   used-with: [data-processing-agreement, inference]
+article:
+  en: src/content/articles/platform/cloud-computing.en.md
+  da: src/content/articles/platform/cloud-computing.da.md
 sources:
   - title: NIST SP 800-145 — The NIST Definition of Cloud Computing
     tier: standard

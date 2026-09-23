@@ -58,6 +58,9 @@ edges:
         da: GDPR beskytter personoplysninger, uanset hvor de bruges; AI-forordningen regulerer AI-systemer som produkter, uanset om de rører personoplysninger. Ofte gælder begge på én gang.
       strength: normal
       confidence: high
+article:
+  en: src/content/articles/ai/eu-ai-act.en.md
+  da: src/content/articles/ai/eu-ai-act.da.md
 sources:
   - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act)
     tier: standard
