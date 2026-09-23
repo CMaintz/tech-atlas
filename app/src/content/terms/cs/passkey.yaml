@@ -17,8 +17,8 @@ body:
     en: A credential built on public-key cryptography under the FIDO web login standards, where the device keeps a private key for each site and signs a fresh challenge from it after the user unlocks with a fingerprint, face or PIN; the site stores only the public key.
     da: En loginoplysning bygget på asymmetrisk kryptografi efter FIDO- og WebAuthn-standarderne, hvor enheden har en privat nøgle for hvert website og signerer en ny udfordring fra det, når brugeren låser op med fingeraftryk, ansigt eller PIN; websitet gemmer kun den offentlige nøgle.
   plain:
-    en: Like a wax seal only you own — the bank can check the stamp is yours, but seeing the stamp never lets anyone make a copy of your seal.
-    da: Som et lakseglet, som kun du ejer — banken kan se, at aftrykket er dit, men ingen kan lave en kopi af seglet ved at se aftrykket.
+    en: Like a house key that stays on your key ring and only turns in your own front door — there is nothing to say out loud, so no one can trick you into telling it to a fake door.
+    da: Som en husnøgle, der bliver på dit nøglebundt og kun passer i din egen hoveddør — der er intet at sige højt, så ingen kan narre dig til at fortælle det til en falsk dør.
   inPractice:
     en: At login, the phone shows "Use your passkey for example.com?"; the user touches the fingerprint reader and is in — nothing to type, nothing a fake site could capture.
     da: Ved login viser telefonen "Brug din passkey til example.com?"; brugeren rører fingeraftrykslæseren og er inde — intet at taste, intet en falsk side kan opsnappe.

@@ -14,8 +14,8 @@ summary:
   da: De regler for forespørgsel og svar, som en webbrowser og en server følger for at hente sider, billeder og data over internettet.
 body:
   formal:
-    en: A text-based protocol on top of TCP/IP in which a client sends a request naming a resource and a method, such as GET or POST, and the server replies with a status code and content. Each request stands alone; the server keeps no memory between them by itself.
-    da: En tekstbaseret protokol oven på TCP/IP, hvor en klient sender en forespørgsel med en ressource og en metode, fx GET eller POST, og serveren svarer med en statuskode og indhold. Hver forespørgsel står alene; serveren husker ikke selv noget mellem dem.
+    en: A protocol, originally text-based, on top of TCP/IP (HTTP/2 sends the same messages in a binary form, and HTTP/3 swaps TCP for a newer, faster transport) in which a client sends a request naming a resource and a method, such as GET or POST, and the server replies with a status code and content. Each request stands alone; the server keeps no memory between them by itself.
+    da: En oprindeligt tekstbaseret protokol oven på TCP/IP (HTTP/2 sender de samme beskeder i binær form, og HTTP/3 kører over QUIC oven på UDP), hvor en klient sender en forespørgsel med en ressource og en metode, fx GET eller POST, og serveren svarer med en statuskode og indhold. Hver forespørgsel står alene; serveren husker ikke selv noget mellem dem.
   plain:
     en: Like ordering at a counter by slip of paper — you write what you want, hand it over, and get back either the item or a note saying why not.
     da: Som at bestille ved en disk med en seddel — du skriver, hvad du vil have, rækker den over og får enten varen eller en besked om, hvorfor ikke.

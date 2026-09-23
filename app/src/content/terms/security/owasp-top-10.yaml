@@ -28,6 +28,12 @@ body:
 edges:
   requires: [vulnerability, web-application]
   used-with:
+    - to: sql-injection
+      why:
+        en: SQL injection sits in the list's Injection category, which in the 2025 edition is A05.
+        da: SQL injection hører under listens kategori Injection, som i 2025-udgaven er A05.
+      strength: normal
+      confidence: high
     - to: penetration-test
       why:
         en: Testers often use the list to plan and report what they checked in a web application.

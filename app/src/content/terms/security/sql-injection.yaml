@@ -41,13 +41,6 @@ edges:
         da: Et vellykket angreb lader den udefrakommende læse, kopiere eller ændre de data, databasen rummer.
       strength: primary
       confidence: high
-  part-of:
-    - to: owasp-top-10
-      why:
-        en: It sits in the list's Injection category, which in the 2025 edition is A05.
-        da: Det hører under listens kategori Injection, som i 2025-udgaven er A05.
-      strength: normal
-      confidence: high
 sources:
   - title: OWASP — SQL Injection
     tier: reference

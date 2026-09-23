@@ -3,7 +3,7 @@ term:
   da: Betinget adgang (conditional access)
 aka:
   en: [conditional access policy]
-  da: [conditional access, adgangspolitik]
+  da: [conditional access]
 domain: [cs, security]
 cluster: identity
 layer: identity

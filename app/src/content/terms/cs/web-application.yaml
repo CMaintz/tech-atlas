@@ -16,8 +16,8 @@ body:
     en: Software split between code running in the browser and code running on one or more servers, which talk over HTTP; the server side usually handles the rules, the stored data and the check of who the user is.
     da: Software delt mellem kode, der kører i browseren, og kode, der kører på en eller flere servere, som taler sammen over HTTP; serversiden står typisk for reglerne, de gemte data og kontrollen af, hvem brugeren er.
   plain:
-    en: Like a restaurant — you sit at the table and order from the menu, while the kitchen, the stock and the recipes stay out of sight in the back.
-    da: Som en restaurant — du sidder ved bordet og bestiller fra menukortet, mens køkkenet, lageret og opskrifterne bliver ude bagved, hvor du ikke ser dem.
+    en: Like a bank counter seen through a window — you fill in slips and get answers at the glass, while the safe, the ledgers and the staff doing the work stay out of sight behind it.
+    da: Som en bankskranke bag en glasrude — du udfylder blanketter og får svar ved ruden, mens boksen, regnskabsbøgerne og de ansatte, der gør arbejdet, er skjult bag den.
   inPractice:
     en: A team writes shared documents in an online office suite; nothing is installed on their laptops, and every change is saved on the provider's servers as they type.
     da: Et team skriver fælles dokumenter i en online kontorpakke; intet er installeret på deres bærbare, og hver ændring gemmes på udbyderens servere, mens de skriver.

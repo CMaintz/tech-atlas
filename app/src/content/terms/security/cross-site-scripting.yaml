@@ -41,7 +41,7 @@ edges:
         da: Begge misbruger input, som sitet stoler for meget på, men SQL injection angriber databasen på serveren, mens XSS angriber den besøgendes browser.
       strength: primary
       confidence: high
-  part-of:
+  used-with:
     - to: owasp-top-10
       why:
         en: Since the 2021 edition it is counted under the list's Injection category, which in the 2025 edition is A05.

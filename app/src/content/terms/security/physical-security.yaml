@@ -12,8 +12,8 @@ summary:
   da: At beskytte bygninger, rum og udstyr, så ingen bare kan gå ind og tage, ødelægge eller koble sig på dem.
 body:
   formal:
-    en: The group of security controls that guard the physical world around information — sites, server rooms, devices and paper — using locks, badges, cameras, visitor rules and protection against fire, water and power loss; alongside technical and organisational controls it forms one of three kinds of control.
-    da: Den gruppe sikkerhedskontroller, der beskytter den fysiske verden omkring information — lokaler, serverrum, enheder og papir — med låse, adgangskort, kameraer, regler for gæster og beskyttelse mod brand, vand og strømsvigt; sammen med tekniske og organisatoriske kontroller udgør den én af tre slags kontroller.
+    en: The group of security controls that guard the physical world around information — sites, server rooms, devices and paper — using locks, badges, cameras, visitor rules and protection against fire, water and power loss; ISO 27002 sorts its controls into four themes — organisational, people, physical and technological — and this is the physical one.
+    da: Den gruppe sikkerhedskontroller, der beskytter den fysiske verden omkring information — lokaler, serverrum, enheder og papir — med låse, adgangskort, kameraer, regler for gæster og beskyttelse mod brand, vand og strømsvigt; ISO 27002 inddeler sine kontroller i fire temaer — organisatoriske, personmæssige, fysiske og teknologiske — og dette er det fysiske.
   plain:
     en: The strongest password in the world does not help if a stranger can carry the computer out of the front door under their arm.
     da: Verdens stærkeste adgangskode hjælper ikke, hvis en fremmed kan bære computeren ud ad hoveddøren under armen.

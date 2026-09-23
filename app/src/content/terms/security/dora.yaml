@@ -53,9 +53,9 @@ edges:
       confidence: high
     - to: log-retention
       why:
-        en: Financial entities must set and document how long logs are kept, based on their risk assessment.
-        da: Finansielle enheder skal fastsætte og dokumentere, hvor længe logs gemmes, ud fra deres risikovurdering.
-      strength: primary
+        en: Under the RTS on ICT risk management (Delegated Regulation (EU) 2024/1774, Art. 12), financial entities must set and document how long logs are kept, based on their risk assessment.
+        da: Efter RTS'en om IKT-risikostyring (delegeret forordning (EU) 2024/1774, art. 12) skal finansielle enheder fastsætte og dokumentere, hvor længe logs gemmes, ud fra deres risikovurdering.
+      strength: normal
       confidence: high
   contrasts-with:
     - to: nis2
