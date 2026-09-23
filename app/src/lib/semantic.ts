@@ -6,13 +6,30 @@
  * merged by reciprocal rank fusion. Everything here is pure and unit-tested.
  */
 
-/** The model, its quantisation and the e5 prefixes. Changing any of these re-embeds. */
+/**
+ * The model — pinned to a Hugging Face commit so the browser's query vectors always come
+ * from the exact weights the terms were embedded with — its quantisation and the e5
+ * prefixes. Changing any of these (or EMBED_OPTIONS / QUANTIZE_VERSION) re-embeds.
+ */
 export const MODEL = {
   id: 'Xenova/multilingual-e5-small',
+  revision: '761b726dd34fb83930e26aab4e9ac3899aa1fa78',
   dtype: 'q8',
   passagePrefix: 'passage: ',
   queryPrefix: 'query: ',
 } as const;
+
+/** Options for the feature-extraction pipeline, identical at embed time and query time. */
+export const EMBED_OPTIONS = { pooling: 'mean', normalize: true } as const;
+
+/** Bump when the vector encoding (quantize/toBase64) changes. */
+export const QUANTIZE_VERSION = 1;
+
+/** The q8 weights file, as transformers.js requests it (and keys it in the Cache API). */
+export const MODEL_FILE_URL = `https://huggingface.co/${MODEL.id}/resolve/${MODEL.revision}/onnx/model_quantized.onnx`;
+
+/** The Cache API store transformers.js keeps model files in (its `env.cacheKey` default). */
+export const MODEL_CACHE = 'transformers-cache';
 
 export type Lang = 'en' | 'da';
 export const EMBED_LANGS: readonly Lang[] = ['en', 'da'];
@@ -36,15 +53,49 @@ export const queryText = (q: string) => MODEL.queryPrefix + q.trim();
 /** The committed vector file (public/semantic/vectors.json). */
 export interface VectorFile {
   model: string;
+  revision: string;
   dtype: string;
   dim: number;
   langs: Lang[];
-  /** sha256 of the model settings and every passage — the lint's staleness check (E11). */
-  inputHash: string;
+  /** Hash of MODEL, EMBED_OPTIONS, QUANTIZE_VERSION and the languages (lint E11). */
+  settingsHash: string;
+  /** Per term, a hash of its embedded passages (lint W8 when one changes). */
+  passageHashes: Record<string, string>;
   /** Term ids; vector i*langs.length + j is term i in language j. */
   ids: string[];
   /** Int8 components, base64; each vector scaled so its largest component is ±127. */
   data: string;
+}
+
+/** What the content expects of the vector file (computed by scripts/semantic-inputs.ts). */
+export interface ExpectedVectors {
+  settingsHash: string;
+  passageHashes: Record<string, string>;
+}
+
+/**
+ * Compare a committed vector file with the content. Errors (lint E11) make search wrong
+ * — other model settings, or a term added or removed; `changed` (lint W8) lists terms
+ * whose text changed since they were embedded, which only makes their vector a bit stale.
+ */
+export function compareVectors(
+  file: Pick<VectorFile, 'settingsHash' | 'passageHashes'>,
+  expected: ExpectedVectors,
+): { errors: string[]; changed: string[] } {
+  if (file.settingsHash !== expected.settingsHash) {
+    return { errors: ['model or embedding settings changed'], changed: [] };
+  }
+  const have = file.passageHashes ?? {};
+  const missing = Object.keys(expected.passageHashes).filter((id) => !(id in have));
+  const removed = Object.keys(have).filter((id) => !(id in expected.passageHashes));
+  const errors = [
+    ...(missing.length ? [`terms without vectors: ${missing.join(', ')}`] : []),
+    ...(removed.length ? [`vectors for removed terms: ${removed.join(', ')}`] : []),
+  ];
+  const changed = Object.keys(expected.passageHashes).filter(
+    (id) => id in have && have[id] !== expected.passageHashes[id],
+  );
+  return { errors, changed };
 }
 
 /** Quantise vectors to Int8, one scale per vector (direction is all cosine needs). */
@@ -190,7 +241,7 @@ const STOPWORDS = new Set(
     'to us was we were what when where which who why will with would you your ' +
     'af at bliver da de dem den der det din dine dit du efter eller en er et for fra før gør ' +
     'har hvad hvem hvilke hvilken hvis hvor hvordan hvorfor i ikke jeg kan man med mig min mine ' +
-    'mit mod når og om os på sig skal som til ud var vi vil være'
+    'mit mod når og om os på sig skal som til ud var vi vil være så men også noget nogen alle'
   ).split(' '),
 );
 

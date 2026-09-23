@@ -3,6 +3,8 @@ import MiniSearch from 'minisearch';
 import { parseIntent } from '../lib/intent';
 import { pairSlugFromIds } from '../lib/slug';
 import {
+  MODEL_CACHE,
+  MODEL_FILE_URL,
   dropStopwords,
   looksNaturalLanguage,
   reciprocalRankFusion,
@@ -31,11 +33,31 @@ interface Props {
   /** Templates with {a} / {b} placeholders. */
   intentLabels: { compare: string; route: string; before: string };
   /** `loading` has a {p} placeholder for the download progress. */
-  semanticLabels: { enable: string; loading: string; byMeaning: string; failed: string };
+  semanticLabels: {
+    enable: string;
+    /** Tooltip on the opt-in: where the model comes from. */
+    source: string;
+    loading: string;
+    byMeaning: string;
+    failed: string;
+    retry: string;
+    off: string;
+  };
 }
 
-/** Set once the model has loaded, so it is in the browser cache and costs nothing to reuse. */
+/** Set once the model has loaded and while the user keeps search by meaning on. */
 const SEMANTIC_KEY = 'atlas.semantic';
+
+/** Whether the model weights are still in the browser's Cache API (they can be evicted). */
+async function modelCached(): Promise<boolean> {
+  try {
+    return Boolean(await (await caches.open(MODEL_CACHE)).match(MODEL_FILE_URL));
+  } catch {
+    return false;
+  }
+}
+
+type Status = 'idle' | 'loading' | 'ready' | 'error';
 const MAX = 8;
 
 /**
@@ -56,9 +78,15 @@ export default function Search({
 }: Props) {
   const [docs, setDocs] = useState<Doc[] | null>(null);
   const [query, setQuery] = useState('');
-  // Semantic search: opted in (or the model is already cached), load state, last result.
+  // Semantic search: opted in (and the model still cached), load state, last result.
   const [semanticOn, setSemanticOn] = useState(false);
-  const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>('idle');
+  const [status, setStatusState] = useState<Status>('idle');
+  const statusRef = useRef<Status>('idle');
+  const setStatus = (st: Status) => {
+    statusRef.current = st;
+    setStatusState(st);
+  };
+  const [retries, setRetries] = useState(0);
   const [progress, setProgress] = useState<number | null>(null);
   const [semantic, setSemantic] = useState<{ query: string; hits: Scored[] } | null>(null);
   const worker = useRef<Worker | null>(null);
@@ -69,13 +97,41 @@ export default function Search({
       .then((r) => r.json())
       .then(setDocs)
       .catch(() => setDocs([]));
+    let remembered = false;
     try {
-      if (localStorage.getItem(SEMANTIC_KEY)) setSemanticOn(true);
+      remembered = Boolean(localStorage.getItem(SEMANTIC_KEY));
     } catch {
       /* storage unavailable: semantic search stays opt-in */
     }
+    // Auto-run only if the download really is behind us; otherwise ask again.
+    if (remembered) void modelCached().then((cached) => cached && setSemanticOn(true));
     return () => worker.current?.terminate();
   }, [indexUrl]);
+
+  const stopWorker = () => {
+    worker.current?.terminate();
+    worker.current = null;
+  };
+  const enable = () => {
+    setSemanticOn(true);
+    // Ask the browser not to evict ~135 MB we would otherwise have to fetch again.
+    void navigator.storage?.persist?.().catch(() => false);
+  };
+  const disable = () => {
+    setSemanticOn(false);
+    setSemantic(null);
+    setStatus('idle');
+    stopWorker();
+    try {
+      localStorage.removeItem(SEMANTIC_KEY);
+    } catch {
+      /* nothing remembered */
+    }
+  };
+  const retry = () => {
+    setStatus('idle');
+    setRetries((n) => n + 1);
+  };
 
   const engine = useMemo(() => {
     if (!docs) return null;
@@ -106,7 +162,7 @@ export default function Search({
   const intent = engine ? parseIntent(query) : null;
   const plain = engine && q ? engine.search(q) : [];
   // A question or description: drop function words lexically, and ask the model.
-  const natural = !intent && looksNaturalLanguage(q, plain.length);
+  const natural = Boolean(engine) && !intent && looksNaturalLanguage(q, plain.length);
   const lexical = natural && engine ? engine.search(q, { processTerm: dropStopwords }) : plain;
   const lexicalIds = lexical.slice(0, MAX).map((r) => r.id as string);
   // In fusion the lexical side is names and aliases only: for a question, a word from the
@@ -120,13 +176,20 @@ export default function Search({
       : [];
 
   useEffect(() => {
-    if (!natural || !semanticOn) return;
+    // After a failure nothing runs until the user asks to retry.
+    if (!natural || !semanticOn || statusRef.current === 'error') return;
     const timer = setTimeout(() => {
       if (!worker.current) {
-        worker.current = new Worker(new URL('./semantic.worker.ts', import.meta.url), {
+        const w = new Worker(new URL('./semantic.worker.ts', import.meta.url), {
           type: 'module',
         });
-        worker.current.onmessage = (e: MessageEvent<WorkerResponse>) => {
+        const fail = () => {
+          setStatus('error');
+          stopWorker();
+        };
+        w.onerror = fail;
+        w.onmessageerror = fail;
+        w.onmessage = (e: MessageEvent<WorkerResponse>) => {
           const m = e.data;
           if (m.type === 'progress') {
             setProgress(m.total ? m.loaded / m.total : null);
@@ -143,14 +206,15 @@ export default function Search({
             setStatus('error');
           }
         };
+        worker.current = w;
       }
-      setStatus((s) => (s === 'ready' ? s : 'loading'));
+      if (statusRef.current !== 'ready') setStatus('loading');
       lastRequest.current += 1;
       const req: WorkerRequest = { id: lastRequest.current, query: q, vectorsUrl };
       worker.current.postMessage(req);
     }, 300);
     return () => clearTimeout(timer);
-  }, [q, natural, semanticOn, vectorsUrl]);
+  }, [q, natural, semanticOn, vectorsUrl, retries]);
 
   // Semantic first, so a tie between the two rankings goes to meaning for a question.
   const fresh = natural && semantic?.query === q ? semantic.hits : null;
@@ -214,9 +278,21 @@ export default function Search({
               <button
                 type="button"
                 class="block w-full border-b border-neutral-800 px-3 py-2 text-left text-sm text-sky-300 hover:bg-neutral-800"
-                onClick={() => setSemanticOn(true)}
+                title={semanticLabels.source}
+                onClick={enable}
               >
                 ✦ {semanticLabels.enable}
+              </button>
+            </li>
+          )}
+          {natural && semanticOn && status !== 'error' && (
+            <li class="flex justify-end border-b border-neutral-800 px-3 py-1">
+              <button
+                type="button"
+                class="text-xs text-neutral-500 hover:text-neutral-300"
+                onClick={disable}
+              >
+                {semanticLabels.off}
               </button>
             </li>
           )}
@@ -229,7 +305,17 @@ export default function Search({
             </li>
           )}
           {natural && semanticOn && status === 'error' && (
-            <li class={note}>{semanticLabels.failed}</li>
+            <li class={`${note} flex items-center justify-between gap-3`}>
+              <span>{semanticLabels.failed}</span>
+              <span class="flex gap-3">
+                <button type="button" class="text-sky-300 hover:underline" onClick={retry}>
+                  {semanticLabels.retry}
+                </button>
+                <button type="button" class="hover:underline" onClick={disable}>
+                  {semanticLabels.off}
+                </button>
+              </span>
+            </li>
           )}
           {results.length === 0 && !action && !waiting ? (
             <li class="px-3 py-2 text-neutral-500">{noResults}</li>

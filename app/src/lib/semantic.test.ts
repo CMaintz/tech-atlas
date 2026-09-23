@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
+  compareVectors,
   cosine,
   dequantize,
   dropStopwords,
@@ -90,6 +91,28 @@ describe('dropStopwords', () => {
     expect(dropStopwords('hvordan')).toBeNull();
     expect(dropStopwords('Passwords')).toBe('passwords');
     expect(dropStopwords('adgangskoder')).toBe('adgangskoder');
+  });
+});
+
+describe('compareVectors', () => {
+  const expected = { settingsHash: 's1', passageHashes: { a: 'h1', b: 'h2' } };
+  it('accepts vectors that match', () => {
+    expect(compareVectors(expected, expected)).toEqual({ errors: [], changed: [] });
+  });
+  it('only warns about a term whose text changed', () => {
+    const file = { settingsHash: 's1', passageHashes: { a: 'old', b: 'h2' } };
+    expect(compareVectors(file, expected)).toEqual({ errors: [], changed: ['a'] });
+  });
+  it('errors on added or removed terms', () => {
+    const file = { settingsHash: 's1', passageHashes: { a: 'h1', gone: 'x' } };
+    expect(compareVectors(file, expected).errors).toEqual([
+      'terms without vectors: b',
+      'vectors for removed terms: gone',
+    ]);
+  });
+  it('errors when the model settings changed', () => {
+    const file = { settingsHash: 's0', passageHashes: expected.passageHashes };
+    expect(compareVectors(file, expected).errors).toHaveLength(1);
   });
 });
 

@@ -1,9 +1,16 @@
 /**
  * The exact inputs of the semantic vectors (A51), shared by `npm run embed` (which
- * writes them) and the content lint (which checks they are still in sync — E11).
+ * writes them) and the content lint (which checks they are still in sync — E11/W8).
  */
 import { createHash } from 'node:crypto';
-import { EMBED_LANGS, MODEL, passageText } from '../src/lib/semantic';
+import {
+  EMBED_LANGS,
+  EMBED_OPTIONS,
+  MODEL,
+  QUANTIZE_VERSION,
+  passageText,
+  type ExpectedVectors,
+} from '../src/lib/semantic';
 import type { Term } from './load-terms';
 
 export const VECTORS_PATH = 'public/semantic/vectors.json';
@@ -25,11 +32,20 @@ export const FIXTURE_QUERIES = [
   'giving users only the access they need',
 ];
 
+const sha = (x: unknown, len = 64) =>
+  createHash('sha256').update(JSON.stringify(x)).digest('hex').slice(0, len);
+
 export function semanticInputs(terms: Map<string, Term>) {
   const ids = [...terms.keys()].sort();
-  const passages = ids.flatMap((id) => EMBED_LANGS.map((l) => passageText(terms.get(id)!, l)));
-  const inputHash = createHash('sha256')
-    .update(JSON.stringify({ model: MODEL, langs: EMBED_LANGS, ids, passages }))
-    .digest('hex');
-  return { ids, passages, inputHash };
+  const perTerm = ids.map((id) => EMBED_LANGS.map((l) => passageText(terms.get(id)!, l)));
+  const expected: ExpectedVectors = {
+    settingsHash: sha({
+      model: MODEL,
+      embed: EMBED_OPTIONS,
+      quantize: QUANTIZE_VERSION,
+      langs: EMBED_LANGS,
+    }),
+    passageHashes: Object.fromEntries(ids.map((id, i) => [id, sha(perTerm[i], 16)])),
+  };
+  return { ids, passages: perTerm.flat(), ...expected };
 }

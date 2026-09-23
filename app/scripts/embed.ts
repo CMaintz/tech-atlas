@@ -11,6 +11,7 @@ import { dirname } from 'node:path';
 import { pipeline } from '@huggingface/transformers';
 import {
   EMBED_LANGS,
+  EMBED_OPTIONS,
   MODEL,
   queryText,
   quantize,
@@ -25,13 +26,16 @@ if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
 }
-const { ids, passages, inputHash } = semanticInputs(terms);
+const { ids, passages, settingsHash, passageHashes } = semanticInputs(terms);
 
-const extract = await pipeline('feature-extraction', MODEL.id, { dtype: MODEL.dtype });
+const extract = await pipeline('feature-extraction', MODEL.id, {
+  dtype: MODEL.dtype,
+  revision: MODEL.revision,
+});
 async function embed(texts: string[]): Promise<number[][]> {
   const out: number[][] = [];
   for (let i = 0; i < texts.length; i += 32) {
-    const t = await extract(texts.slice(i, i + 32), { pooling: 'mean', normalize: true });
+    const t = await extract(texts.slice(i, i + 32), EMBED_OPTIONS);
     out.push(...(t.tolist() as number[][]));
   }
   return out;
@@ -41,10 +45,12 @@ const vectors = await embed(passages);
 const dim = vectors[0].length;
 const file: VectorFile = {
   model: MODEL.id,
+  revision: MODEL.revision,
   dtype: MODEL.dtype,
   dim,
   langs: [...EMBED_LANGS],
-  inputHash,
+  settingsHash,
+  passageHashes,
   ids,
   data: toBase64(quantize(vectors)),
 };

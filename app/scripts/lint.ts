@@ -9,6 +9,7 @@ import { checkClosedVocab } from './closed-vocab';
 import { loadTerms, makeResolver } from './load-terms';
 import { makeLinker } from '../src/lib/autolink';
 import { VECTORS_PATH, semanticInputs } from './semantic-inputs';
+import { compareVectors, type VectorFile } from '../src/lib/semantic';
 
 const { terms, errors } = loadTerms();
 const warnings: string[] = [];
@@ -127,14 +128,17 @@ for (const r of vocab) {
   else warnings.push(`E1 advisory ${line}`);
 }
 
-// E11 semantic vectors out of sync with the content they embed (A51)
+// E11 / W8 semantic vectors out of sync with the content they embed (A52)
 if (!existsSync(VECTORS_PATH)) {
   errors.push(`E11 missing ${VECTORS_PATH} — run \`npm run embed\``);
 } else {
-  const { inputHash } = JSON.parse(readFileSync(VECTORS_PATH, 'utf8')) as { inputHash?: string };
-  if (inputHash !== semanticInputs(terms).inputHash) {
-    errors.push(
-      `E11 semantic vectors are stale (a name, alias, summary or plain facet changed) — run \`npm run embed\``,
+  const file = JSON.parse(readFileSync(VECTORS_PATH, 'utf8')) as VectorFile;
+  const { errors: stale, changed } = compareVectors(file, semanticInputs(terms));
+  for (const e of stale)
+    errors.push(`E11 semantic vectors out of date (${e}) — run \`npm run embed\``);
+  if (changed.length) {
+    warnings.push(
+      `W8 semantic vectors embed older text for: ${changed.join(', ')} — run \`npm run embed\``,
     );
   }
 }
