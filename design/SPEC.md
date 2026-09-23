@@ -169,7 +169,8 @@ other defined Terms (or their Aliases), or (c) words in the per-language
 E1 unknown jargon (Closed Vocabulary, both languages) · E2 dangling edge · E3
 ambiguous cross-domain edge (must be namespaced) · E4 `requires` cycle · E5 circular
 definition · E6 tautological summary · E7 duplicate identity · E8 layer out of domain
-· E9 missing article file · E10 schema violation.
+· E9 missing article file · E10 schema violation · E11 stale semantic vectors (run
+`npm run embed`).
 
 ### Warnings (visible, non-blocking)
 W1 orphan (no edges) · W2 redundant child · W3 no prerequisites · W4 thin
@@ -303,8 +304,19 @@ Driven by `contrasts-with`. Side-by-side for the pairs learners mix up
 An A–Z / by-cluster index, and client-side search over terms, **aliases (both
 languages)**, and summaries, with typo tolerance. Search also understands intents
 (A39): "X vs Y" opens the comparison, "how are X and Y related" / "from X to Y" opens
-the route in the Explorer, "before X" opens what to learn first. Semantic (vector)
-search is deferred — it needs a backend or an in-browser model.
+the route in the Explorer, "before X" opens what to learn first.
+
+**Semantic search (A44–A48)** answers questions and descriptions ("how do I stop people
+reusing leaked passwords" → Credential stuffing), in Danish or English and across the two.
+It stays static: every Term (name + aliases + summary + plain facet, per language) is
+embedded at author time by `npm run embed` with a small multilingual model
+(`Xenova/multilingual-e5-small`, 8-bit) into a committed ~218 KB vector file; the lint
+fails (E11) when the vectors no longer match the content. In the browser the same model
+embeds the query in a web worker, loaded lazily — the first time behind an explicit
+"Search by meaning" choice (it is a ~118 MB one-off download, cached by the browser),
+automatically afterwards for queries of three or more words or with no name match.
+Lexical (names and aliases) and semantic rankings are merged by reciprocal rank fusion;
+hits found only by meaning are labelled.
 
 ### Linked prose and Mentions
 Body facets link every other term at its first mention on the page (A38). Terms whose
@@ -354,7 +366,8 @@ Built after v1.0 (A34–A37) exactly as the data model intended: nothing is hand
 - The whole ~105-term graph fits in memory; progressive loading and server-side graph
   queries are large-scale concerns for later.
 - A database (Postgres + pgvector, or a graph DB) is **deferred** to the phase where
-  learning, personalization, or semantic search actually need it.
+  learning or personalization actually need it. Semantic search did not: at ~200 terms
+  the vectors are a static file and the query is embedded in the browser (A44).
 
 ---
 
@@ -372,9 +385,9 @@ Built after v1.0 (A34–A37) exactly as the data model intended: nothing is hand
 
 **Built after v1.0:** Articles, the Explorer (2D/3D, routes, progressive neighbourhoods),
 "What to learn first" paths, the learning system (§9), and the era view (Timeline +
-the Explorer's Time layout) — see `AUTONOMOUS_DECISIONS.md`.
+the Explorer's Time layout), and semantic search (§7) — see `AUTONOMOUS_DECISIONS.md`.
 
-**Still deferred:** AI tutor; semantic/vector search; a database; user accounts &
+**Still deferred:** AI tutor; a database; user accounts &
 cross-device progress; the `ai` and `platform` domains;
 centrality/community features. Each is enabled by, not blocked on, the data model.
 

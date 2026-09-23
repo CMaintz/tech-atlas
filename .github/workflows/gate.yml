@@ -18,6 +18,9 @@ jobs:
           version: 2026.8.5
       - name: Install dependencies
         working-directory: app
+        # onnxruntime-node (used only by `npm run embed`) otherwise downloads CUDA binaries (A48).
+        env:
+          ONNXRUNTIME_NODE_INSTALL: skip
         run: npm ci
       - name: Gate
         run: mise run gate

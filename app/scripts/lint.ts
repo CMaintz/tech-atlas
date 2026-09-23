@@ -3,11 +3,12 @@
  * Errors fail the build; warnings are reported. Closed Vocabulary (E1) is blocking
  * for English and advisory for Danish (ADR-0009).
  */
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { EDGE_TYPES, LAYERS, type EdgeType } from '../src/schema';
 import { checkClosedVocab } from './closed-vocab';
 import { loadTerms, makeResolver } from './load-terms';
 import { makeLinker } from '../src/lib/autolink';
+import { VECTORS_PATH, semanticInputs } from './semantic-inputs';
 
 const { terms, errors } = loadTerms();
 const warnings: string[] = [];
@@ -124,6 +125,18 @@ for (const r of vocab) {
   const line = `${r.id} (${r.lang}): ${r.unknown.join(', ')}`;
   if (r.lang === 'en') errors.push(`E1 unknown words ${line}`);
   else warnings.push(`E1 advisory ${line}`);
+}
+
+// E11 semantic vectors out of sync with the content they embed (A44)
+if (!existsSync(VECTORS_PATH)) {
+  errors.push(`E11 missing ${VECTORS_PATH} — run \`npm run embed\``);
+} else {
+  const { inputHash } = JSON.parse(readFileSync(VECTORS_PATH, 'utf8')) as { inputHash?: string };
+  if (inputHash !== semanticInputs(terms).inputHash) {
+    errors.push(
+      `E11 semantic vectors are stale (a name, alias, summary or plain facet changed) — run \`npm run embed\``,
+    );
+  }
 }
 
 // Reports

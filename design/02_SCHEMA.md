@@ -514,6 +514,7 @@ than good intentions. Runs in CI on every content change." Reproduced in full.
 | E8 | **Layer out of Domain.** `layer` must belong to one of the Term's own Domains. | |
 | E9 | **Missing article file.** `article:` points at a file that exists. | |
 | E10 | **Schema violation.** Frontmatter parses against `schema.ts`. | |
+| E11 | **Stale semantic vectors.** The hash in `public/semantic/vectors.json` matches the embedded fields (name, aliases, summary, plain facet) and model settings; re-run `npm run embed` (A45). | |
 
 ### Warnings — visible, not blocking
 | # | Rule | Why |

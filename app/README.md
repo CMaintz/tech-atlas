@@ -35,9 +35,10 @@ content/wordlists/              plain-language base for Closed Vocabulary (CC BY
 
 ```
 npm run dev            # astro dev server
-npm run lint:content   # the content lint (E1–E10, W1–W7)
+npm run lint:content   # the content lint (E1–E11, W1–W7)
 npx tsx scripts/vocab-report.ts   # which unknown words recur (Closed Vocabulary triage)
 npm run build:graph    # regenerate src/generated/graph.json
+npm run embed          # re-embed terms for semantic search (after editing a name, alias, summary or plain facet; lint E11)
 npm run check          # astro check (typecheck)
 npm run build          # lint -> build:graph -> astro build
 ```
