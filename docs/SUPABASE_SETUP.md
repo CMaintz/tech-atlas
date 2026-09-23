@@ -2,7 +2,7 @@
 
 Atlas works fully without this: learner progress lives in the browser. These steps add
 optional sign-in (email magic link + GitHub) so a learner's progress follows them across
-devices (decisions A44–A47 in `design/AUTONOMOUS_DECISIONS.md`). Until both repository
+devices (decisions A44–A50 in `design/AUTONOMOUS_DECISIONS.md`). Until both repository
 variables in step 5 are set, the deployed site has no account UI at all.
 
 Everything below is on free tiers. Roughly 15 minutes.
@@ -25,8 +25,9 @@ Either:
 - **CLI:** from the repo root, `npx supabase login`, `npx supabase link --project-ref <ref>`,
   then `npx supabase db push`.
 
-Check: **Table Editor → learner_state** exists and shows **RLS enabled** with four
-policies (read / insert / update / delete own).
+Check: **Table Editor → learner_state** exists (columns `user_id`, `state`, `version`,
+`updated_at`, `deleted_at`) and shows **RLS enabled** with four policies
+(read / insert / update / delete own).
 
 ## 3. Auth URLs
 
@@ -102,8 +103,10 @@ Copy `app/.env.example` to `app/.env` (git-ignored) and fill in the same two val
 - **Free-tier pause:** Supabase pauses free projects after a week without traffic. The
   site keeps working (progress stays local; sync shows "could not sync"); restore the
   project from the dashboard.
-- **Deleting data:** the account page's "Delete my synced data" deletes the learner's row
-  and signs them out. The sign-in identity itself (email / GitHub id in
-  **Authentication → Users**) remains until you delete it there; deleting a user also
-  deletes their row (`on delete cascade`).
+- **Deleting data:** the account page's "Delete my synced data" empties the learner's row
+  and marks it deleted (a tombstone, so another signed-in device can't write progress
+  back), then revokes their sessions; other devices sign out at their next sync. The
+  sign-in identity itself (email / GitHub id in **Authentication → Users**) remains
+  until you delete it there; deleting a user also deletes their row
+  (`on delete cascade`).
 - **Turning it off:** delete the two repository variables and redeploy.

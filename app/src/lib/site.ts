@@ -140,10 +140,17 @@ export const UI = {
     lastSynced: 'Progress synced at {time}.',
     deleteData: 'Delete my synced data',
     deleteNote:
-      'Deletes your synced progress from the server and signs you out. Progress in this browser is kept.',
+      'Deletes your synced progress from the server and signs you out; other devices are signed out at their next sync. Progress in this browser is kept.',
     deleteConfirm: 'Delete your synced progress from the server and sign out?',
     deleted: 'Your synced data has been deleted.',
     syncNote: 'Your progress is stored in this browser — sign in to sync it across devices.',
+    stoppedNote:
+      'Your synced data was deleted, so syncing is paused. Start again to upload the progress in this browser.',
+    startAgain: 'Start syncing again',
+    remoteDeleted:
+      'You were signed out because your synced data was deleted on another device. Progress in this browser is kept.',
+    dismiss: 'Dismiss',
+    signOutFailed: 'Your data was deleted, but signing out other devices failed: {msg}',
   },
   da: {
     tagline: 'En tosproget teknisk ordbog, der læses som en vidensgraf.',
@@ -261,11 +268,18 @@ export const UI = {
     lastSynced: 'Fremskridt synkroniseret kl. {time}.',
     deleteData: 'Slet mine synkroniserede data',
     deleteNote:
-      'Sletter dine synkroniserede fremskridt fra serveren og logger dig ud. Fremskridt i denne browser bevares.',
+      'Sletter dine synkroniserede fremskridt fra serveren og logger dig ud; andre enheder logges ud ved deres næste synkronisering. Fremskridt i denne browser bevares.',
     deleteConfirm: 'Slet dine synkroniserede fremskridt fra serveren og log ud?',
     deleted: 'Dine synkroniserede data er slettet.',
     syncNote:
       'Dine fremskridt gemmes i denne browser — log ind for at synkronisere dem på tværs af enheder.',
+    stoppedNote:
+      'Dine synkroniserede data er slettet, så synkroniseringen er sat på pause. Start igen for at uploade fremskridtene i denne browser.',
+    startAgain: 'Start synkronisering igen',
+    remoteDeleted:
+      'Du blev logget ud, fordi dine synkroniserede data blev slettet på en anden enhed. Fremskridt i denne browser bevares.',
+    dismiss: 'Luk',
+    signOutFailed: 'Dine data er slettet, men det lykkedes ikke at logge andre enheder ud: {msg}',
   },
 } as const;
 

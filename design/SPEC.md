@@ -348,7 +348,13 @@ Built after v1.0 (A34–A37) exactly as the data model intended: nothing is hand
   back online, and pushes a moment after each change. The merge is per term, pure and
   order-independent: the schedule (box, due) from the most recent answer, the status
   from the most recent change (clearing counts), right/wrong counts = the larger side.
-  The account page (`/[lang]/account/`) shows sync status and can delete the synced row.
+  Change timestamps are monotonic per term and far-future ones are pulled back, so a
+  fast clock can't win; writes are versioned (optimistic concurrency), so no device's
+  write is silently lost. The account page (`/[lang]/account/`) shows sync status and
+  can delete the synced data: the row becomes an empty tombstone that no device can
+  write progress back to; other devices signed in before the delete sign themselves
+  out at their next sync, and syncing resumes only when the learner chooses "Start
+  syncing again".
   Accounts exist only when the build is given `PUBLIC_SUPABASE_URL` and
   `PUBLIC_SUPABASE_ANON_KEY`; setup is in `docs/SUPABASE_SETUP.md`.
 

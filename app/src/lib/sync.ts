@@ -16,7 +16,7 @@ const rank = (s?: Status) => (s ? STATUSES.length - STATUSES.indexOf(s) : 0);
  * wrong answer on one device must be able to demote a term — with the higher box
  * winning a tie; the status from the most recent change, so clearing one sticks.
  * Right/wrong counts take the larger side: summing would double-count answers
- * both copies already share. v1 data has no timestamps and counts as oldest.
+ * both copies already share. A missing timestamp counts as oldest.
  */
 export function mergeTerm(a: TermState, b: TermState): TermState {
   const ra = a.reviewed ?? 0;

@@ -5,14 +5,7 @@ import { mergeLearner, sameLearner } from './sync';
 const DAY = 24 * 60 * 60 * 1000;
 const empty: Learner = { terms: {} };
 
-describe('parseLearner (v1 → v2 migration)', () => {
-  it('keeps v1 data and leaves timestamps absent', () => {
-    const v1 = { terms: { t: { box: 2, due: 5, right: 3, wrong: 1, status: 'know' } } };
-    expect(parseLearner(v1)).toEqual({
-      terms: { t: { box: 2, due: 5, right: 3, wrong: 1, status: 'know' } },
-    });
-  });
-
+describe('parseLearner', () => {
   it('drops malformed input instead of trusting it', () => {
     expect(parseLearner(null)).toEqual(empty);
     expect(parseLearner({ terms: 'x' })).toEqual(empty);
@@ -54,7 +47,7 @@ describe('mergeLearner', () => {
     expect(m.terms.a.wrong).toBe(1);
   });
 
-  it('prefers the higher box when answers carry no timestamps (v1 data)', () => {
+  it('prefers the higher box when answers carry no timestamps', () => {
     const a = parseLearner({ terms: { t: { box: 3, due: 9, right: 3, wrong: 0 } } });
     const b = parseLearner({ terms: { t: { box: 1, due: 1, right: 1, wrong: 2 } } });
     expect(mergeLearner(a, b).terms.t).toEqual({ box: 3, due: 9, right: 3, wrong: 2 });
@@ -68,12 +61,12 @@ describe('mergeLearner', () => {
     expect(mergeLearner(cleared, relearn).terms.t.status).toBe('learning');
   });
 
-  it('lets any timestamped status change beat an untimestamped (v1) one', () => {
-    const v1 = parseLearner({
+  it('lets any timestamped status change beat an untimestamped one', () => {
+    const old = parseLearner({
       terms: { t: { box: 0, due: 0, right: 0, wrong: 0, status: 'know' } },
     });
     const now = setStatus(empty, 't', 'unknown', 1);
-    expect(mergeLearner(v1, now).terms.t.status).toBe('unknown');
+    expect(mergeLearner(old, now).terms.t.status).toBe('unknown');
   });
 
   it('is commutative and idempotent', () => {
@@ -89,6 +82,33 @@ describe('mergeLearner', () => {
       expect(mergeLearner(m, m)).toEqual(m);
       expect(mergeLearner(m, x)).toEqual(m);
     }
+  });
+
+  it('lets a local change after merging a future-stamped remote win', () => {
+    const now = 1_000_000;
+    // The other device's clock runs an hour fast.
+    const remote = parseLearner(setStatus(empty, 't', 'know', now + 3_600_000), now);
+    const local = setStatus(mergeLearner(empty, remote), 't', 'learning', now);
+    expect(mergeLearner(local, remote).terms.t.status).toBe('learning');
+    const answeredAhead = parseLearner(recordAnswer(empty, 't', false, now + 3_600_000), now);
+    const answered = recordAnswer(mergeLearner(empty, answeredAhead), 't', true, now);
+    expect(mergeLearner(answered, answeredAhead).terms.t.right).toBe(1);
+    expect(mergeLearner(answered, answeredAhead).terms.t.reviewed).toBe(now + 3_600_001);
+  });
+
+  it('pulls timestamps more than a day ahead back to now', () => {
+    const now = 1_000_000;
+    const broken = setStatus(
+      recordAnswer(empty, 't', true, now + 10 * DAY),
+      't',
+      'know',
+      now + 10 * DAY,
+    );
+    const parsed = parseLearner(broken, now);
+    expect(parsed.terms.t.reviewed).toBe(now);
+    expect(parsed.terms.t.statusAt).toBe(now);
+    const later = setStatus(mergeLearner(empty, parsed), 't', 'unknown', now + 1);
+    expect(mergeLearner(later, parsed).terms.t.status).toBe('unknown');
   });
 
   it('compares states regardless of key order', () => {
