@@ -30,6 +30,10 @@ export const FIXTURE_QUERIES = [
   'hvem har ansvaret for persondata',
   'tricking someone on the phone into giving information',
   'giving users only the access they need',
+  'logging in with your fingerprint instead of a password',
+  'a flaw attackers use before the vendor knows about it',
+  'sneaking database commands into a login form',
+  'nogen sidder skjult mellem to parter og læser med',
 ];
 
 const sha = (x: unknown, len = 64) =>

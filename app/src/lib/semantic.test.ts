@@ -153,6 +153,10 @@ describe('semantic ranking (committed vectors)', () => {
     ['a list of all the software components in a product', 'platform/sbom'],
     ['tricking someone on the phone into giving information', 'security/vishing'],
     ['giving users only the access they need', 'cs/least-privilege'],
+    ['logging in with your fingerprint instead of a password', 'cs/passkey'],
+    ['a flaw attackers use before the vendor knows about it', 'security/zero-day'],
+    ['sneaking database commands into a login form', 'security/sql-injection'],
+    ['nogen sidder skjult mellem to parter og læser med', 'security/man-in-the-middle'],
     // Danish queries, including ones whose answer is an English-named term.
     [
       'hvordan forhindrer jeg at folk genbruger lækkede adgangskoder',

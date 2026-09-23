@@ -514,7 +514,7 @@ than good intentions. Runs in CI on every content change." Reproduced in full.
 | E8 | **Layer out of Domain.** `layer` must belong to one of the Term's own Domains. | |
 | E9 | **Missing article file.** `article:` points at a file that exists. | |
 | E10 | **Schema violation.** Frontmatter parses against `schema.ts`. | |
-| E11 | **Stale semantic vectors.** The hash in `public/semantic/vectors.json` matches the embedded fields (name, aliases, summary, plain facet) and model settings; re-run `npm run embed` (A52). | |
+| E11 | **Semantic vectors out of date.** `public/semantic/vectors.json` has a vector for every Term (and none for removed ones) and was built with the current model settings; re-run `npm run embed` (A52). | |
 
 ### Warnings — visible, not blocking
 | # | Rule | Why |
@@ -525,6 +525,7 @@ than good intentions. Runs in CI on every content change." Reproduced in full.
 | W4 | **Thin neighbourhood.** Fewer than three authored Edges. | |
 | W5 | **Still a draft.** `draft: true`. | LLM-drafted content that hasn't been edited is the single biggest quality risk. |
 | W6 | **Untouched Mentions.** Mentioned in prose by five or more others but with no authored Edge to any of them. | A relationship the author keeps implying but never typed. |
+| W8 | **Semantic vector embeds older text.** A Term's name, aliases, summary or plain facet changed since `npm run embed` (A52). | Its search-by-meaning match is slightly stale until re-embedded. |
 
 ### Reports — produced every build, block nothing
 - **Coverage map**: Terms per Cluster, and Clusters with fewer than ten Terms.

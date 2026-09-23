@@ -169,12 +169,13 @@ other defined Terms (or their Aliases), or (c) words in the per-language
 E1 unknown jargon (Closed Vocabulary, both languages) · E2 dangling edge · E3
 ambiguous cross-domain edge (must be namespaced) · E4 `requires` cycle · E5 circular
 definition · E6 tautological summary · E7 duplicate identity · E8 layer out of domain
-· E9 missing article file · E10 schema violation · E11 stale semantic vectors (run
-`npm run embed`).
+· E9 missing article file · E10 schema violation · E11 semantic vectors missing a term or
+built with other model settings (run `npm run embed`).
 
 ### Warnings (visible, non-blocking)
 W1 orphan (no edges) · W2 redundant child · W3 no prerequisites · W4 thin
-neighbourhood (<3 edges) · W5 still a draft · W6 untouched Mentions.
+neighbourhood (<3 edges) · W5 still a draft · W6 untouched Mentions · W8 a term's
+semantic vector embeds older text (run `npm run embed`).
 
 ### Reports (every build)
 Coverage map (terms per cluster; clusters under ten) · Depth histogram · Collision
@@ -310,11 +311,14 @@ the route in the Explorer, "before X" opens what to learn first.
 reusing leaked passwords" → Credential stuffing), in Danish or English and across the two.
 It stays static: every Term (name + aliases + summary + plain facet, per language) is
 embedded at author time by `npm run embed` with a small multilingual model
-(`Xenova/multilingual-e5-small`, 8-bit) into a committed ~218 KB vector file; the lint
-fails (E11) when the vectors no longer match the content. In the browser the same model
-embeds the query in a web worker, loaded lazily — the first time behind an explicit
-"Search by meaning" choice (it is a ~135 MB one-off download (model + tokenizer), cached by the browser),
-automatically afterwards for queries of three or more words or with no name match.
+(`Xenova/multilingual-e5-small`, 8-bit, pinned revision) into a committed ~280 KB vector
+file; the lint errors (E11) when a term is missing from the vectors or the model settings
+changed, and warns (W8) when a term's text changed since it was embedded. In the browser
+the same model embeds the query in a web worker (the ONNX runtime is self-hosted; the model
+comes from Hugging Face), loaded lazily — the first time behind an explicit "Search by
+meaning" choice (a ~135 MB one-off download, model + tokenizer, cached by the browser),
+automatically afterwards for queries of three or more words or with no name match, as long
+as the model is still cached. It can be turned off; a failure waits for "Try again".
 Lexical (names and aliases) and semantic rankings are merged by reciprocal rank fusion;
 hits found only by meaning are labelled.
 
