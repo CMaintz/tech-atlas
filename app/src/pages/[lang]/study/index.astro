@@ -1,7 +1,7 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import StudyHub from '../../../components/StudyHub';
-import { CLUSTER_LABELS, LANGS, UI, url, type Lang } from '../../../lib/site';
+import { ACCOUNTS, CLUSTER_LABELS, LANGS, UI, url, type Lang } from '../../../lib/site';
 
 export function getStaticPaths() {
   return LANGS.map((lang) => ({ params: { lang } }));
@@ -22,7 +22,7 @@ const clusterLabels = Object.fromEntries(
     lang={lang}
     graphUrl={url('graph.json')}
     termBase={url(`${lang}/terms/`)}
-    ui={{ ...ui }}
+    ui={{ ...ui, localNote: ACCOUNTS ? ui.syncNote : ui.localNote }}
     clusterLabels={clusterLabels}
   />
 </Base>
