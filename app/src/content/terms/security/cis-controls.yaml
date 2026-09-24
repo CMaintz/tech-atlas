@@ -42,6 +42,11 @@ edges:
     - backup
     - vulnerability-scanning
     - hardening
+    - security-awareness
+    - incident-response
+    - penetration-test
+    - log-management
+  used-with: [d-maerket, nis2, risk-profile]
 article:
   en: src/content/articles/security/cis-controls.en.md
   da: src/content/articles/security/cis-controls.da.md

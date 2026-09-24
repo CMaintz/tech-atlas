@@ -63,6 +63,7 @@ edges:
       strength: primary
       confidence: high
   used-with: [training-data]
+  kind-of: [eu-regulation]
 article:
   en: src/content/articles/security/gdpr.en.md
   da: src/content/articles/security/gdpr.da.md

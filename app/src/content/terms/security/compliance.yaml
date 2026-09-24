@@ -35,6 +35,9 @@ edges:
   used-with:
     - governance
     - gap-analysis
+    - nis2
+    - gdpr
+    - iso-27001
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

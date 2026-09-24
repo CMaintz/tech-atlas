@@ -1,0 +1,41 @@
+term:
+  en: IT operations
+  da: IT-drift
+aka:
+  en: [IT ops, IT department]
+  da: [it-drift, IT-afdeling]
+domain: [security]
+cluster: fundamentals
+layer: host
+status: current
+summary:
+  en: The team and daily work that keep an organisation's computers, systems and networks running.
+  da: Det team og det daglige arbejde, der holder en organisations computere, systemer og netværk kørende.
+body:
+  formal:
+    en: The function that installs, runs, updates and supports an organisation's IT systems day to day — the people who in practice carry out most security controls, such as patches, backups and account changes.
+    da: Den funktion, der installerer, driver, opdaterer og supporterer organisationens IT-systemer i hverdagen — de folk, der i praksis udfører de fleste sikkerhedskontroller, fx patches, backup og ændringer af brugerkonti.
+  plain:
+    en: Like the caretakers of a large building — they fix the lights, change the locks and keep the heating on so everyone else can work.
+    da: Som viceværterne i en stor bygning — de skifter pærer, udskifter låse og holder varmen tændt, så alle andre kan arbejde.
+  inPractice:
+    en: The security coordinator agrees with IT operations that critical updates go out within 14 days, and IT reports each month how many machines are still behind.
+    da: Sikkerhedskoordinatoren aftaler med IT-driften, at kritiske opdateringer rulles ud inden for 14 dage, og IT melder hver måned, hvor mange maskiner der stadig mangler.
+  whyItMatters:
+    en: A security plan only works if the people who run the systems can carry it out, so security roles must speak their language and fit their workload.
+    da: En sikkerhedsplan virker kun, hvis de folk, der driver systemerne, kan føre den ud i livet, så sikkerhedsroller skal tale deres sprog og passe til deres arbejdsbyrde.
+edges:
+  requires: [asset]
+  used-with: [monitoring, patch-management]
+  contrasts-with:
+    - to: soc
+      why:
+        en: IT operations keeps systems running; a SOC watches the same systems for attacks.
+        da: IT-driften holder systemerne kørende; et SOC holder øje med de samme systemer for angreb.
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 1, 4 og 7
+    tier: course-material
+  - title: CIS Critical Security Controls v8.1
+    tier: standard
+draft: true

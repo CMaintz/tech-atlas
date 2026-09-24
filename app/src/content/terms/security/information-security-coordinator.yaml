@@ -1,0 +1,36 @@
+term:
+  en: Information security coordinator
+  da: Informationssikkerhedskoordinator
+aka:
+  en: [security coordinator]
+  da: [sikkerhedskoordinator]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: The person who keeps an organisation's day-to-day security work organised, tracked and reported to management.
+  da: Den person, der holder organisationens daglige sikkerhedsarbejde organiseret, fulgt op og rapporteret til ledelsen.
+body:
+  formal:
+    en: A role that runs the security programme in practice — keeping policies and the risk picture up to date, following up on controls and incidents, and linking IT, suppliers and management — often as the owner of the ISMS.
+    da: En rolle, der driver sikkerhedsarbejdet i praksis — holder politikker og risikobilledet opdateret, følger op på kontroller og hændelser og forbinder IT, leverandører og ledelse — ofte som ejer af ISMS'et.
+  plain:
+    en: Like a wedding planner — they do not cook, play music or take photos, but they make sure everyone who does shows up on time and knows the plan.
+    da: Som en bryllupsplanlægger — de laver ikke maden, spiller ikke musik og tager ikke billeder, men sørger for, at alle der gør, møder op til tiden og kender planen.
+  inPractice:
+    en: Every quarter the coordinator collects status from IT and HR, updates the risk list and presents three decisions the management team needs to make.
+    da: Hvert kvartal samler koordinatoren status ind fra IT og HR, opdaterer risikolisten og fremlægger tre beslutninger, som ledelsen skal træffe.
+  whyItMatters:
+    en: Without one person holding the threads, security tasks get dropped between departments and management loses sight of where the organisation stands.
+    da: Uden én person, der holder i trådene, falder sikkerhedsopgaver mellem afdelingerne, og ledelsen mister overblikket over, hvor organisationen står.
+edges:
+  kind-of: [grey-roles]
+  requires: [isms]
+  used-with: [risk-management, security-policy]
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Kursistens udbytte
+    tier: course-material
+  - title: ISO/IEC 27001:2022 (clause 5.3 — Organizational roles, responsibilities and authorities)
+    tier: standard
+draft: true

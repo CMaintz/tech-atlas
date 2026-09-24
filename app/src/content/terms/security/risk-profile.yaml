@@ -1,0 +1,35 @@
+term:
+  en: Risk profile
+  da: Risikoprofil
+aka:
+  en: []
+  da: []
+domain: [security]
+cluster: risk-management
+layer: governance
+status: current
+summary:
+  en: The overall picture of which dangers an organisation faces and how serious they are, given its size, sector, data and systems.
+  da: Det samlede billede af de farer, en organisation står over for, og hvor alvorlige de er ud fra størrelse, branche, data og systemer.
+body:
+  formal:
+    en: A description of the full set of risks an organisation carries at a point in time — shaped by its sector, size, critical assets, the outside services it relies on and its threat landscape — used to decide which controls come first.
+    da: En beskrivelse af alle de risici, en organisation bærer på et givet tidspunkt — formet af dens branche, størrelse, kritiske aktiver, afhængigheder og trusselsbillede — som bruges til at afgøre, hvilke kontroller der skal prioriteres.
+  plain:
+    en: Like a health check that sums up your age, job, habits and family history — two people can need very different advice.
+    da: Som et helbredstjek, der opsummerer alder, job, vaner og familiehistorie — to mennesker kan have brug for helt forskellige råd.
+  inPractice:
+    en: A dental clinic with patient records and one server has a different profile from a shipping firm with ships and suppliers worldwide, so they start with different CIS Controls.
+    da: En tandklinik med patientjournaler og én server har en anden profil end et rederi med skibe og leverandører i hele verden, så de starter med forskellige CIS-kontroller.
+  whyItMatters:
+    en: Copying another organisation's plan wastes money; knowing your own profile lets limited resources go where they matter most.
+    da: At kopiere en anden organisations plan spilder penge; at kende sin egen profil lader begrænsede ressourcer gå derhen, hvor de betyder mest.
+edges:
+  requires: [risk-assessment]
+  used-with: [threat-landscape]
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 4
+    tier: course-material
+  - title: NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments
+    tier: standard
+draft: true
