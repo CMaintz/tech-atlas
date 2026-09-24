@@ -23,7 +23,7 @@ Faserne er en cirkel og ikke en lige linje. Analysen fortsætter ofte, mens man 
 
 ### Forberedelse
 
-Det er her, langt størstedelen af værdien skabes. En beredskabsplan bør som minimum beskrive: hvad der tæller som en hændelse, og hvordan alvorligheden vurderes; roller og stedfortrædere; kontaktoplysninger (interne, it-leverandør, forsikringsselskab, advokat, myndigheder), som kan findes, selv når netværket er nede; drejebøger for de mest sandsynlige scenarier som ransomware, phishing med overtagne konti og data sendt til den forkerte modtager; og det tekniske fundament – logning, testet offline-backup og et opdateret overblik over systemer og data.
+Det er her, langt størstedelen af værdien skabes. En beredskabsplan bør som minimum beskrive: hvad der tæller som en hændelse, og hvordan alvorligheden vurderes; roller og stedfortrædere; kontaktoplysninger (interne, IT-leverandør, forsikringsselskab, advokat, myndigheder), som kan findes, selv når netværket er nede; drejebøger for de mest sandsynlige scenarier som ransomware, phishing med overtagne konti og data sendt til den forkerte modtager; og det tekniske fundament – logning, testet offline-backup og et opdateret overblik over systemer og data.
 
 ### Opdagelse og analyse
 
@@ -42,7 +42,7 @@ Hold inden for få uger et evalueringsmøde uden syndebukke: Hvad skete der? Hva
 Titlerne varierer, men et holdbart beredskab rummer typisk:
 
 - **Hændelsesansvarlig (incident manager)** – koordinerer, prioriterer, holder styr på loggen og træffer beslutninger inden for sit mandat.
-- **Teknikere** – den interne it-afdeling eller en ekstern leverandør, der undersøger og udbedrer.
+- **Teknikere** – den interne IT-afdeling eller en ekstern leverandør, der undersøger og udbedrer.
 - **Ledelse/krisestab** – træffer forretningsbeslutninger: lukning af produktion, køb af ekstern bistand, udtalelser til offentligheden.
 - **Kommunikation** – interne beskeder, kunder, presse.
 - **Jura og databeskyttelse (DPO)** – vurderer pligten til at indberette og forpligtelser i kontrakter.

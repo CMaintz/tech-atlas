@@ -14,16 +14,16 @@ summary:
 body:
   formal:
     en: A long-running process that the operating system starts and keeps going on its own, usually under a dedicated account, to provide a function such as printing, updates or answering requests over the network.
-    da: En langvarig proces, som styresystemet selv starter og holder kørende, som regel under en særlig konto, for at levere en funktion som udskrivning, opdateringer eller svar på forespørgsler over netværket.
+    da: En langvarig proces, som styresystemet selv starter og holder kørende, som regel under en særlig konto, for at levere en funktion som print, opdateringer eller svar på forespørgsler over netværket.
   plain:
     en: Like a night porter — nobody sees them working, but they are always on duty and ready when someone rings the bell.
     da: Som en natportier — ingen ser vedkommende arbejde, men portieren er altid på vagt og klar, når nogen ringer på klokken.
   inPractice:
-    en: A company web server runs a web service that starts when the machine is switched on and listens on a port for visitors, even when no one is logged in.
-    da: En virksomheds webserver kører en webtjeneste, der starter, når maskinen tændes, og lytter på en port efter besøgende, selv når ingen er logget ind.
+    en: During a review, the IT lead at a small business finds a remote-support service on a server that starts with the machine and listens on a port open to the internet, although nobody has used it for two years; it is switched off.
+    da: Under en gennemgang finder den IT-ansvarlige i en mindre virksomhed en fjernsupport-tjeneste på en server, som starter med maskinen og lytter på en port åben mod internettet, selv om ingen har brugt den i to år; den bliver slået fra.
   whyItMatters:
-    en: Services run all the time, often with wide rights and open to the network, so a forgotten one, or one not kept up to date, is a favourite way in for attackers.
-    da: Tjenester kører hele tiden, ofte med vide rettigheder og åbne mod netværket, så en glemt eller ikke-opdateret tjeneste er en af angribernes foretrukne veje ind.
+    en: Services run all the time, often with wide rights and open to the network, so a flaw in one gives an attacker a way in without any user having to click anything.
+    da: Tjenester kører hele tiden, ofte med vide rettigheder og åbne mod netværket, så en fejl i én giver en angriber en vej ind, uden at nogen bruger behøver at klikke på noget.
 edges:
   kind-of: [process]
 sources:

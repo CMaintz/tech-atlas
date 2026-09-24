@@ -12,14 +12,14 @@ summary:
   da: At beskytte bygninger, rum og udstyr, så ingen bare kan gå ind og tage, ødelægge eller koble sig på dem.
 body:
   formal:
-    en: The group of security controls that guard the physical world around information — sites, server rooms, devices and paper — using locks, badges, cameras, visitor rules and protection against fire, water and power loss; ISO 27002 sorts its controls into four themes — organisational, people, physical and technological — and this is the physical one.
-    da: Den gruppe sikkerhedskontroller, der beskytter den fysiske verden omkring information — lokaler, serverrum, enheder og papir — med låse, adgangskort, kameraer, regler for gæster og beskyttelse mod brand, vand og strømsvigt; ISO 27002 inddeler sine kontroller i fire temaer — organisatoriske, personmæssige, fysiske og teknologiske — og dette er det fysiske.
+    en: The controls that protect the physical surroundings of information — sites, server rooms, devices and paper — against entry by outsiders, theft, damage and dangers such as fire, water and power loss. ISO 27002 groups them as its physical controls.
+    da: De kontroller, der beskytter informationens fysiske omgivelser — lokaler, serverrum, enheder og papir — mod uvedkommende adgang, tyveri, skade og farer som brand, vand og strømsvigt. ISO 27002 samler dem som sine fysiske kontroller.
   plain:
-    en: The strongest password in the world does not help if a stranger can carry the computer out of the front door under their arm.
-    da: Verdens stærkeste adgangskode hjælper ikke, hvis en fremmed kan bære computeren ud ad hoveddøren under armen.
+    en: The best lock on a diary is no help if someone can simply pick up the whole diary and walk off with it.
+    da: Den bedste lås på en dagbog hjælper ikke, hvis nogen bare kan tage hele dagbogen under armen og gå.
   inPractice:
-    en: A visitor follows an employee through a card-locked door, finds an open meeting room and plugs a small device into a free network socket — a badge rule and a locked socket would have stopped it.
-    da: En gæst går med en medarbejder ind gennem en dør med kortlås, finder et åbent mødelokale og sætter en lille enhed i et ledigt netværksstik — en regel om adgangskort og et låst stik havde stoppet det.
+    en: At a regional hospital, a visitor follows a porter through a card-locked door, finds an empty meeting room and plugs a small device into a free network socket; a no-following rule and switched-off sockets would have stopped it.
+    da: På et regionshospital går en besøgende med en portør ind gennem en dør med kortlås, finder et tomt mødelokale og sætter en lille enhed i et ledigt netværksstik; en regel om ikke at lukke andre ind og slukkede stik havde stoppet det.
   whyItMatters:
     en: Anyone with hands on a machine can often get around its digital protection, and fire or flooding can end availability as surely as any attack.
     da: Den, der har fysisk adgang til en maskine, kan ofte komme uden om dens digitale beskyttelse, og brand eller oversvømmelse kan fjerne tilgængeligheden lige så sikkert som et angreb.

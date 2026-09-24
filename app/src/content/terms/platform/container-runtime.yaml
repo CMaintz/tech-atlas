@@ -9,8 +9,8 @@ cluster: containers
 layer: infrastructure
 status: current
 summary:
-  en: The low-level software on each host that actually starts, stops and fences off containers — containerd is a well-known example.
-  da: Den maskinnære software på hver vært, der rent faktisk starter, stopper og afskærmer containere — containerd er et kendt eksempel.
+  en: The software on each host that actually starts, stops and walls off containers — containerd is a well-known example.
+  da: Softwaren på hver vært, der rent faktisk starter, stopper og adskiller containere — containerd er et kendt eksempel.
 body:
   formal:
     en: The program that takes a container image, unpacks it and asks the kernel to start a process with its own view of files, network and other processes plus limits on memory and processor use; higher-level tools such as Docker and Kubernetes hand this work to it.
@@ -19,8 +19,8 @@ body:
     en: Like the engine room of a ship — the captain gives the orders, but this is where the machinery actually turns them into movement.
     da: Som maskinrummet på et skib — kaptajnen giver ordrerne, men det er her, maskineriet faktisk gør dem til bevægelse.
   inPractice:
-    en: When Kubernetes decides a pod should run on a machine, the agent there asks containerd to fetch the image and start it, and containerd calls a smaller helper tool that sets up the fences in the kernel.
-    da: Når Kubernetes beslutter, at en pod skal køre på en maskine, beder agenten dér containerd om at hente imaget og starte det, og containerd kalder et mindre hjælpeværktøj, der sætter afskærmningen op i kernen.
+    en: When Kubernetes places a pod on a machine in a hospital region's data centre, the agent there asks containerd to fetch the image and start it, and containerd calls a smaller helper tool that sets up the walls in the kernel.
+    da: Når Kubernetes placerer en pod på en maskine i en regions datacenter, beder agenten dér containerd om at hente imaget og starte det, og containerd kalder et mindre hjælpeværktøj, der sætter skillevæggene op i kernen.
   whyItMatters:
     en: The runtime is the part that holds each container apart from the host, so a flaw in it can let code break out of every container on that machine at once.
     da: Det er runtimen, der holder hver container adskilt fra værten, så en fejl i den kan lade kode bryde ud af alle containere på maskinen på én gang.

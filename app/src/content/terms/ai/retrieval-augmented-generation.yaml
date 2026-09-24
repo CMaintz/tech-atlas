@@ -20,8 +20,8 @@ body:
     en: Like an open-book exam — instead of answering from memory, the student first finds the right pages and then writes the answer.
     da: Som en eksamen med alle hjælpemidler — i stedet for at svare fra hukommelsen finder den studerende først de rigtige sider og skriver så svaret.
   inPractice:
-    en: An internal help bot answers "how many days of leave do I get?" by finding the current HR policy, quoting it, and linking to the source.
-    da: En intern hjælpebot svarer på "hvor mange feriedage har jeg?" ved at finde den gældende HR-politik, citere den og linke til kilden.
+    en: A municipality's internal help bot answers “how many days of holiday do I get?” by finding the current HR policy, quoting the relevant section and linking to it.
+    da: En kommunes interne hjælpebot svarer på “hvor mange feriedage har jeg?” ved at finde den gældende personalepolitik, citere det relevante afsnit og linke til det.
   whyItMatters:
     en: It keeps answers current and checkable without retraining, but the bot can now reach your documents — and must not show a user files they are not allowed to see.
     da: Det holder svar opdaterede og efterprøvelige uden gentræning, men botten kan nu nå jeres dokumenter — og må ikke vise en bruger filer, vedkommende ikke har adgang til.

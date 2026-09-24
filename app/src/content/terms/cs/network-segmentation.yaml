@@ -10,11 +10,11 @@ layer: network
 status: current
 summary:
   en: Splitting one network into separate zones, so a problem in one zone cannot easily spread to the others.
-  da: Opdeling af ét netværk i adskilte zoner, så et problem i én zone ikke let kan sprede sig til de andre.
+  da: At dele ét netværk op i adskilte zoner, så et problem i én zone ikke let kan sprede sig til de andre.
 body:
   formal:
     en: The practice of dividing a network into smaller parts, with routers or firewalls between them enforcing which traffic may cross from one part to another.
-    da: Praksis med at opdele et netværk i mindre dele, hvor routere eller firewalls imellem dem håndhæver, hvilken trafik der må krydse fra én del til en anden.
+    da: Praksis med at dele et netværk op i mindre zoner, hvor routere eller firewalls imellem dem håndhæver, hvilken trafik der må krydse fra én del til en anden.
   plain:
     en: Like the watertight compartments in a ship — if one fills with water, the doors between them keep the whole ship from sinking.
     da: Som de vandtætte rum i et skib — hvis ét fyldes med vand, forhindrer dørene imellem dem, at hele skibet synker.

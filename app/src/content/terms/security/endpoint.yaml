@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: A device at the end of a network connection that people or machines use directly, such as a laptop, phone, tablet, printer or smart sensor, as opposed to equipment that only passes traffic along.
-    da: En enhed for enden af en netværksforbindelse, som mennesker eller maskiner bruger direkte, fx en stationær, bærbar, mobil, tablet, printer eller smart sensor, i modsætning til udstyr, der blot sender trafikken videre.
+    da: En enhed for enden af en netværksforbindelse, som mennesker eller maskiner bruger direkte, fx en bærbar, mobil, tablet, printer eller smart sensor, i modsætning til udstyr, der blot sender trafikken videre.
   plain:
-    en: If the network is a road system, the endpoints are the houses — the places where the roads actually lead and where people live and work.
-    da: Hvis netværket er et vejnet, er endpoints husene — de steder, vejene faktisk fører hen, og hvor folk bor og arbejder.
+    en: Like the houses along a road system — the places the roads actually lead to, where people live and work, rather than the junctions in between.
+    da: Som husene langs et vejnet — de steder, vejene faktisk fører hen, og hvor folk bor og arbejder, i modsætning til vejkrydsene imellem.
   inPractice:
-    en: A sales rep's laptop that travels between home, coffee shops and the office is one endpoint; the meeting-room screen and the reception printer are two more.
-    da: En sælgers bærbare, der flytter mellem hjemmet, caféer og kontoret, er ét endpoint; skærmen i mødelokalet og printeren i receptionen er to mere.
+    en: At a school, a teacher's laptop that travels between home, classroom and staff room is one endpoint; the screen in the classroom and the printer in the office are two more the school's IT lead must track.
+    da: På en skole er en lærers bærbare, der flytter mellem hjemmet, klasselokalet og lærerværelset, ét endpoint; skærmen i klassen og printeren på kontoret er to mere, som skolens IT-ansvarlige skal holde styr på.
   whyItMatters:
     en: Endpoints are where people click, plug in and log in, so they are where most attacks start — and every one needs to be known, updated and watched.
     da: Endpoints er dér, folk klikker, sætter ting i og logger ind, så det er dér, de fleste angreb begynder — og hvert eneste skal kendes, opdateres og overvåges.

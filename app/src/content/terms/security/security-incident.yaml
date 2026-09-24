@@ -16,14 +16,14 @@ body:
     en: An actual or likely breach of the CIA triad, or of the organisation's security policy, that calls for a response. Unlike a threat, which is only a possibility, an incident is something that is happening or has happened.
     da: Et faktisk eller sandsynligt brud på CIA-triaden eller organisationens sikkerhedspolitik, som kræver en reaktion. Til forskel fra en trussel, som blot er en mulighed, er en hændelse noget, der sker eller er sket.
   plain:
-    en: A threat is the storm on the weather forecast; the incident is the water now coming through the roof.
-    da: En trussel er stormen i vejrudsigten; hændelsen er vandet, der nu drypper ind gennem taget.
+    en: Not the storm warning on the radio, but the water now dripping through the ceiling — something is already wrong, and someone has to act.
+    da: Ikke stormvarslet i radioen, men vandet, der nu drypper ned fra loftet — noget er allerede galt, og nogen må handle.
   inPractice:
-    en: On Monday morning the help desk sees that several laptops have files that will not open, and the security team opens an incident case and starts following its contingency plan.
-    da: Mandag morgen opdager supporten, at flere bærbare har filer, der ikke kan åbnes, og sikkerhedsteamet opretter en hændelsessag og begynder at følge beredskabsplanen.
+    en: On Monday morning the IT support desk at a Danish upper-secondary school finds that files on several laptops will not open, and the IT lead opens an incident case and starts the incident response plan.
+    da: Mandag morgen opdager IT-supporten på et gymnasium, at filer på flere bærbare ikke kan åbnes, og IT-chefen opretter en hændelsessag og sætter planen for hændelseshåndtering i gang.
   whyItMatters:
-    en: Calling something an incident starts the clock on the response and, under laws such as NIS2 and GDPR, often on a duty to report it to the authorities.
-    da: Når noget kaldes en hændelse, starter uret for håndteringen og, efter regler som NIS2 og GDPR, ofte også for pligten til at rapportere den til myndighederne.
+    en: Calling something an incident starts the clock — NIS2 asks for an early warning within 24 hours of a significant incident, and GDPR gives 72 hours to report a personal data breach.
+    da: Når noget kaldes en hændelse, starter uret — NIS2 kræver en tidlig varsling inden for 24 timer ved en væsentlig hændelse, og GDPR giver 72 timer til at anmelde et brud på persondatasikkerheden.
 edges:
   requires: [cia-triad]
   contrasts-with:

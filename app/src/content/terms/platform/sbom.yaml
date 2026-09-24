@@ -10,21 +10,21 @@ layer: delivery
 era: 2018
 status: current
 summary:
-  en: A list of every part and outside library that goes into a piece of software, like the ingredients label on food.
-  da: En liste over alle dele og udefrakommende biblioteker, som et stykke software består af, ligesom varedeklarationen på fødevarer.
+  en: A list of every component and outside library a piece of software contains, so its owners know exactly what is inside it.
+  da: En liste over alle komponenter og eksterne biblioteker, et stykke software indeholder, så man ved præcis, hvad det består af.
 body:
   formal:
-    en: A machine-readable record of the parts in a software product, giving at least each part's supplier, name, version, a unique identifier, how the parts depend on each other, who wrote the record and when, as set out in a US government list of minimum elements.
-    da: En maskinlæsbar fortegnelse over delene i et softwareprodukt, der mindst angiver hver dels leverandør, navn, version, en entydig identifikator, hvordan delene afhænger af hinanden, samt hvem der lavede fortegnelsen og hvornår, som fastlagt i en amerikansk myndigheds liste over minimumselementer.
+    en: A record in a format machines can read that lists the parts of a software product, giving at least each part's supplier, name, version and unique ID, how the parts depend on each other, and who made the record and when.
+    da: En liste i et format, som maskiner kan læse, over delene i et softwareprodukt med mindst hver dels leverandør, navn, version og et unikt ID, hvordan delene afhænger af hinanden, og hvem der lavede listen og hvornår.
   plain:
     en: Like the parts list that comes with a car; when a maker recalls a faulty brake part, every owner can quickly check whether their car has it.
     da: Som reservedelslisten til en bil; når en producent tilbagekalder en defekt bremsedel, kan alle ejere hurtigt tjekke, om deres bil har den.
   inPractice:
-    en: When a serious flaw in a popular logging library is announced, a security team searches its SBOMs and finds within an hour the eleven systems that use the affected version.
-    da: Da en alvorlig fejl i et udbredt logningsbibliotek offentliggøres, søger et sikkerhedsteam i sine SBOM'er og finder inden for en time de elleve systemer, der bruger den ramte version.
+    en: When CFCS warns of a serious flaw in a widely used logging library, a region's security team searches its SBOMs and within an hour finds the eleven hospital systems that use the affected version.
+    da: Da CFCS advarer om en alvorlig sårbarhed i et udbredt bibliotek til logs, søger regionens sikkerhedsteam i sine SBOM'er og finder inden for en time de elleve hospitalssystemer, der bruger den ramte version.
   whyItMatters:
-    en: You cannot fix what you do not know you have; SBOMs are asked for by US government rules since 2021 and by a new EU law for software products sold in the EU.
-    da: Man kan ikke rette det, man ikke ved, man har; SBOM'er kræves af amerikanske regeringsregler siden 2021 og af en ny EU-lov for softwareprodukter, der sælges i EU.
+    en: Nobody can fix what they do not know they have; US federal rules have asked software suppliers for SBOMs since 2021, and the Cyber Resilience Act requires makers of products sold in the EU to draw one up.
+    da: Man kan ikke rette det, man ikke ved, man har; amerikanske statslige regler har siden 2021 bedt softwareleverandører om SBOM'er, og Cyberrobusthedsforordningen kræver, at producenter af produkter, der sælges i EU, udarbejder en.
 edges:
   requires: [software-supply-chain]
   used-with:

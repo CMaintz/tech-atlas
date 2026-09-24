@@ -9,21 +9,21 @@ cluster: compliance
 layer: governance
 status: current
 summary:
-  en: An independent check of whether an organisation actually follows its own policies and requirements.
-  da: En uafhængig gennemgang af, om en virksomhed faktisk følger sine egne politikker og krav.
+  en: An independent check of whether an organisation actually follows its own policies and the requirements it has signed up to.
+  da: En uafhængig gennemgang af, om en organisation faktisk følger sine egne politikker og de krav, den har forpligtet sig til.
 body:
   formal:
-    en: A planned, documented and impartial examination that gathers evidence to judge whether practice matches set criteria — policies, contracts, laws or a standard — and reports findings for correction.
-    da: En planlagt, dokumenteret og upartisk undersøgelse, der indsamler beviser for at vurdere, om praksis stemmer med fastsatte kriterier — politikker, aftaler, love eller en standard — og rapporterer fund til udbedring.
+    en: A planned, documented and impartial examination that gathers evidence — samples, records, interviews — to judge whether practice matches set criteria such as policies, contracts, laws or a standard, and reports each deviation as a finding.
+    da: En planlagt, dokumenteret og upartisk undersøgelse, der indsamler beviser — stikprøver, dokumenter, interview — for at vurdere, om praksis svarer til fastsatte kriterier som politikker, aftaler, love eller en standard, og som rapporterer hver afvigelse som et fund.
   plain:
-    en: A driving test for the organisation — someone watches what you really do, not what you say you do.
-    da: En køreprøve for virksomheden — nogen ser på, hvad man reelt gør, ikke på hvad man siger, man gør.
+    en: Like the regular car inspection — the owner may say the brakes are fine, but the inspector puts the car on the test bench and checks for real.
+    da: Som når bilen skal til syn — ejeren kan godt sige, at bremserne er i orden, men synsmanden kører bilen op på rullefeltet og tjekker det selv.
   inPractice:
-    en: An internal auditor checks ten former staff and finds that three still have active accounts, which goes into the report as a finding to fix.
-    da: En intern auditor tjekker ti fratrådte medarbejdere og finder, at tre stadig har aktive konti, hvilket kommer med i rapporten som et fund, der skal rettes.
+    en: An internal auditor at a Danish region picks twenty staff who left last year and finds that four still have active accounts in the patient system; the report lists it as a finding with a deadline.
+    da: En intern auditor i en region vælger tyve medarbejdere ud,, der stoppede sidste år, og finder, at fire stadig har aktive konti i patientsystemet; rapporten angiver det som et fund med en frist.
   whyItMatters:
-    en: Written rules drift away from real behaviour over time; audits catch that drift and give leaders and customers evidence to trust.
-    da: Skrevne regler glider med tiden væk fra den virkelige adfærd; audits fanger den glidning og giver ledelse og kunder et bevis at stole på.
+    en: Written rules slowly drift away from what people actually do; without a regular, independent check, nobody notices until an incident or a customer exposes the gap.
+    da: Skrevne regler og den daglige praksis glider langsomt fra hinanden; uden en fast, uafhængig kontrol opdager ingen det, før en hændelse eller en kunde afslører hullet.
 edges:
   requires: [security-policy, compliance]
   contrasts-with:

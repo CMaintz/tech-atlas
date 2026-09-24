@@ -19,8 +19,8 @@ body:
     en: Like a car passing its road-worthiness check — it proves the car meets the rules, but not that it is driven safely.
     da: Som en bil, der består synet — det beviser, at bilen overholder reglerne, men ikke at den bliver kørt sikkert.
   inPractice:
-    en: Before an audit, a coordinator collects proof that backups are tested and that all staff have finished their NIS2 awareness training.
-    da: Før en audit samler en koordinator dokumentation for, at backups bliver testet, og at alle medarbejdere har gennemført deres NIS2-awareness-træning.
+    en: Before the yearly audit, the compliance officer at a Danish pension fund gathers proof that backups have been test-restored and that every employee has completed the required security training.
+    da: Før den årlige audit samler den complianceansvarlige i en pensionskasse dokumentation for, at backupper er blevet prøvegendannet, og at alle medarbejdere har gennemført den obligatoriske sikkerhedstræning.
   whyItMatters:
     en: Failing to comply can mean fines, lost customers and personal liability for managers — and requirements often force needed work that would otherwise be put off.
     da: Manglende compliance kan betyde bøder, tabte kunder og personligt ansvar for ledelsen — og kravene tvinger ofte nødvendigt arbejde igennem, som ellers ville blive udskudt.

@@ -10,21 +10,21 @@ layer: governance
 status: current
 era: 1995
 summary:
-  en: The public body in each EU country that checks how GDPR is followed, handles complaints and can hand out fines; in Denmark, Datatilsynet.
-  da: Den offentlige myndighed i hvert EU-land, der fører tilsyn med GDPR, behandler klager og kan udstede bøder; i Danmark Datatilsynet.
+  en: The public body in each EU country that oversees GDPR, handles complaints and can seek fines; in Denmark, Datatilsynet.
+  da: Den offentlige myndighed i hvert EU-land, der fører tilsyn med GDPR, behandler klager og kan kræve bøder; i Danmark Datatilsynet.
 body:
   formal:
-    en: An independent public authority that each member state must set up under GDPR Article 51 to watch over the rules, look into complaints and breaches, give orders and propose or impose fines.
-    da: En uafhængig offentlig myndighed, som hvert medlemsland skal oprette efter GDPR artikel 51 for at føre tilsyn med reglerne, undersøge klager og brud, give påbud og foreslå eller pålægge bøder.
+    en: An independent public authority that each member state must set up under GDPR Article 51 to monitor the rules, investigate complaints and breaches, issue orders and bans, and impose fines — or, as in Denmark, report cases to the police so that the courts set the fine.
+    da: En uafhængig offentlig myndighed, som hvert medlemsland skal oprette efter GDPR artikel 51 for at føre tilsyn med reglerne, undersøge klager og brud, give påbud og forbud og udstede bøder — eller, som i Danmark, melde sager til politiet, så domstolene fastsætter bøden.
   plain:
-    en: Like a food safety inspector for personal data — it can visit, ask questions, demand changes and punish those who ignore the rules.
-    da: Som en fødevarekontrollant for personoplysninger — den kan komme på besøg, stille spørgsmål, kræve ændringer og straffe dem, der ignorerer reglerne.
+    en: Like the food inspector who can turn up at any restaurant, ask to see the fridge, order a clean-up and, if nothing changes, take the owner to court.
+    da: Som fødevarekontrollen, der kan dukke op på enhver restaurant, bede om at se køleskabet, kræve oprydning og, hvis intet ændrer sig, trække ejeren i retten.
   inPractice:
-    en: After a stolen laptop exposes customer records, a Danish firm reports the breach to Datatilsynet within 72 hours; the authority later asks for its risk assessment and issues a warning.
-    da: Efter at en stjålen bærbar har lækket kundeoplysninger, anmelder en dansk virksomhed bruddet til Datatilsynet inden for 72 timer; myndigheden beder senere om risikovurderingen og udsteder en advarsel.
+    en: A citizen complains that a Danish municipality will not delete old case notes about her; Datatilsynet asks the municipality to explain, finds no legal ground for keeping them and orders them deleted.
+    da: En borger klager over, at en dansk kommune ikke vil slette gamle sagsnotater om hende; Datatilsynet beder kommunen redegøre for sagen, finder intet lovligt grundlag for at gemme dem og giver påbud om, at de slettes.
   whyItMatters:
-    en: Rules without someone to enforce them are easy to ignore; the authority gives people a place to complain and gives firms a real reason to comply.
-    da: Regler uden nogen til at håndhæve dem er lette at ignorere; myndigheden giver borgerne et sted at klage og virksomhederne en reel grund til at overholde reglerne.
+    en: Rights on paper mean little if nobody enforces them; the authority gives people somewhere to turn without hiring a lawyer and gives organisations a real reason to comply.
+    da: Rettigheder på papiret betyder ikke meget, hvis ingen håndhæver dem; myndigheden giver borgerne et sted at gå hen uden at skulle hyre en advokat og giver organisationer en reel grund til at overholde reglerne.
 edges:
   requires: [gdpr, data-controller]
 sources:

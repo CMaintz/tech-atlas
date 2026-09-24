@@ -9,18 +9,18 @@ cluster: risk-management
 layer: governance
 status: current
 summary:
-  en: Choosing what to do about each risk — accept it, reduce it, hand it to someone else, or remove it.
-  da: Valget af, hvad man gør ved hver risiko — accepterer den, reducerer den, overfører den eller fjerner den.
+  en: Choosing what to do about each risk — accept it, reduce it, share it with someone else, or avoid it altogether.
+  da: Valget af, hvad man gør ved hver risiko — accepterer den, mindsker den, deler den med andre eller undgår den helt.
 body:
   formal:
-    en: The step in risk management where each assessed risk gets one of four responses — accept, reduce with a control, transfer to another party, or eliminate by stopping the activity.
-    da: Trinnet i risikostyringen, hvor hver vurderet risiko får én af fire håndteringer — accept, reduktion med en kontrol, overførsel til en anden part eller eliminering ved at stoppe aktiviteten.
+    en: The step in risk management where each assessed risk gets one of four responses — retained as it is, reduced with controls, shared with or transferred to another party, or avoided by stopping the activity — each with an owner and a plan.
+    da: Trinnet i risikostyringen, hvor hver vurderet risiko får én af fire håndteringer — den accepteres, mindskes med kontroller, deles med eller overføres til en anden part eller undgås ved at stoppe aktiviteten — hver med en ejer og en plan.
   plain:
     en: Like facing a leaky roof — you can live with it, patch it, buy insurance, or move out.
     da: Ligesom med et utæt tag — man kan leve med det, lappe det, tegne en forsikring eller flytte.
   inPractice:
-    en: The board buys cyber insurance to transfer ransom costs, adds MFA to reduce the risk of stolen passwords, and accepts the small risk of a printer failing.
-    da: Bestyrelsen tegner en cyberforsikring for at overføre udgifter til løsesum, indfører MFA for at reducere login-risikoen og accepterer den lille risiko for, at en printer fejler.
+    en: A shipping company's board buys cyber insurance to share the cost of a ransomware attack, adds MFA to reduce the risk from stolen passwords, and accepts the small risk of an office printer failing.
+    da: Bestyrelsen i et rederi tegner en cyberforsikring for at dele udgifterne ved et ransomware-angreb, indfører MFA for at mindske risikoen ved stjålne adgangskoder og accepterer den lille risiko for, at en kontorprinter svigter.
   whyItMatters:
     en: Finding risks is pointless without a decision about each one, and that decision shows who owns it and what it costs.
     da: Det nytter ikke at finde risici uden en beslutning om hver enkelt, og den beslutning viser, hvem der ejer risikoen, og hvad den koster.

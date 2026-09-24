@@ -14,16 +14,16 @@ summary:
 body:
   formal:
     en: A structured review of each business activity that estimates the harm of its disruption over time and sets how quickly it and the systems it depends on must be restored.
-    da: En struktureret gennemgang af hver forretningsaktivitet, der vurderer skaden ved en afbrydelse over tid og fastlægger, hvor hurtigt den og de systemer, den bygger på, skal genskabes.
+    da: En struktureret gennemgang af hver forretningsaktivitet, der vurderer skaden ved en afbrydelse over tid og fastlægger, hvor hurtigt den og de systemer, den bygger på, skal genoprettes.
   plain:
     en: Like a restaurant asking which hurts more if it breaks, the oven or the coffee machine, and how many hours it could cope without each.
     da: Ligesom en restaurant, der spørger, hvad der gør mest ondt, hvis det går i stykker, ovnen eller kaffemaskinen, og hvor mange timer den kan klare sig uden hver.
   inPractice:
-    en: Interviews with each department show that payroll can wait three days, but the booking system loses customers after one hour.
-    da: Interviews med hver afdeling viser, at lønkørslen kan vente tre dage, men at bookingsystemet mister kunder efter en time.
+    en: At a shipping company, the risk manager interviews each department and learns that payroll can wait three days, but the freight booking system starts losing customers after one hour.
+    da: I et rederi interviewer risikochefen hver afdeling og finder ud af, at lønkørslen kan vente tre dage, men at bookingsystemet til fragt begynder at miste kunder efter en time.
   whyItMatters:
-    en: It turns vague worry into clear recovery priorities, which every continuity and recovery plan is built on.
-    da: Den gør vag bekymring til klare prioriteter for genopretning, som alle beredskabs- og genopretningsplaner bygger på.
+    en: Without it, recovery plans guess at what to restore first; with it, money and effort go to the activities whose loss hurts most, and every continuity plan has a clear basis.
+    da: Uden den gætter genopretningsplanerne på, hvad der skal op først; med den går penge og kræfter til de aktiviteter, hvis tab gør mest ondt, og alle beredskabsplaner får et klart grundlag.
 edges:
   requires: [critical-assets]
   part-of: [risk-management]

@@ -10,17 +10,17 @@ layer: identity
 status: current
 summary:
   en: An account with power beyond normal use, such as installing software, changing settings or managing other users.
-  da: En konto med mere magt end almindelig brug, fx til at installere software, ændre indstillinger eller styre andre brugere.
+  da: En konto med mere magt end almindelig brug, fx til at installere software, ændre indstillinger eller administrere andre brugere.
 body:
   formal:
     en: A user account granted permissions that can change the system itself or reach other users' data — for example a domain admin, root on a server or a cloud owner role — and which therefore needs tighter control than an ordinary account.
     da: En brugerkonto med rettigheder, der kan ændre selve systemet eller nå andre brugeres data — fx en domæneadministrator, root på en server eller en ejerrolle i skyen — og som derfor kræver strammere kontrol end en almindelig konto.
   plain:
     en: Like the master key in a hotel that opens every room — handy for the manager, but a disaster if it is lost or copied.
-    da: Som hovednøglen på et hotel, der åbner alle værelser — praktisk for direktøren, men en katastrofe, hvis den bliver væk eller kopieret.
+    da: Som hovednøglen på et hotel, der åbner alle værelser — praktisk for hotellets leder, men en katastrofe, hvis den bliver væk eller kopieret.
   inPractice:
-    en: An IT worker has one normal account for email and web, and a separate admin account used only when installing updates, protected by MFA and logged each time it is used.
-    da: En IT-medarbejder har én almindelig konto til mail og web og en separat administratorkonto, der kun bruges til at installere opdateringer, beskyttes med MFA og logges, hver gang den bruges.
+    en: An IT technician at a water utility has one normal account for email and web, and a separate admin account used only for installing updates, protected by MFA and logged each time it is used.
+    da: En IT-tekniker på et vandværk har én almindelig konto til mail og web og en separat administratorkonto, der kun bruges til at installere opdateringer, er beskyttet med MFA og bliver logget, hver gang den bruges.
   whyItMatters:
     en: Attackers hunt for these accounts first, because taking one over lets them turn off defences and reach everything; fewer and better-guarded admin accounts shrink the damage.
     da: Angribere går først efter disse konti, fordi en overtaget konto lader dem slå forsvaret fra og nå alt; færre og bedre beskyttede administratorkonti mindsker skaden.

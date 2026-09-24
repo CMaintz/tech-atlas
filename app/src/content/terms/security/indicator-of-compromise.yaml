@@ -19,8 +19,8 @@ body:
     en: Like the footprints and a known burglar's tools found in a garden; they do not stop the break-in, but they tell you who has been there.
     da: Som fodspor og en kendt indbrudstyvs værktøj fundet i haven; de stopper ikke indbruddet, men de fortæller, hvem der har været der.
   inPractice:
-    en: A national warning lists the addresses and file values used by a ransomware group; the SOC searches three months of logs and finds one laptop that contacted one of the addresses.
-    da: En national advarsel nævner de adresser og filværdier, en ransomware-gruppe bruger; SOC'en gennemsøger tre måneders logs og finder én bærbar, der har kontaktet en af adresserne.
+    en: A CFCS warning lists the IP addresses and file hashes a ransomware group uses; a shipping company's SOC searches three months of logs and finds one laptop that contacted one of the addresses.
+    da: En advarsel fra CFCS nævner de IP-adresser og filhashes, en ransomware-gruppe bruger; et rederis SOC gennemsøger tre måneders logs og finder én bærbar, der har kontaktet en af adresserne.
   whyItMatters:
     en: Shared traces let one victim's bad experience warn everyone else quickly, but attackers change them easily, so they catch yesterday's attacks better than tomorrow's.
     da: Delte spor gør det muligt for ét offers dårlige erfaring hurtigt at advare alle andre, men angribere skifter dem let, så de fanger gårsdagens angreb bedre end morgendagens.

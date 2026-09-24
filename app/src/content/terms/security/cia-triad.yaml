@@ -13,14 +13,14 @@ summary:
   da: Informationssikkerhedens tre søjler — fortrolighed, integritet og tilgængelighed.
 body:
   formal:
-    en: A model that states the goals of information security as three properties — confidentiality, integrity and availability — which every protective measure should serve.
-    da: En model, der beskriver målene for informationssikkerhed som tre egenskaber — fortrolighed, integritet og tilgængelighed — som ethvert beskyttende tiltag bør tjene.
+    en: A model that states the goals of information security as three properties — confidentiality, integrity and availability — which every protective measure should serve. Standards such as ISO 27000 add further properties, for example authenticity and non-repudiation.
+    da: En model, der beskriver målene for informationssikkerhed som tre egenskaber — fortrolighed, integritet og tilgængelighed — som ethvert beskyttende tiltag bør tjene. Standarder som ISO 27000 tilføjer flere egenskaber, fx ægthed og uafviselighed.
   plain:
     en: Like a three-legged stool — if any one leg is missing, the whole thing falls over.
     da: Som en skammel med tre ben — mangler blot ét af dem, vælter det hele.
   inPractice:
-    en: When a team rates a new customer database, it asks three questions — who may see it, what if it is wrong, and what if it is down for a day?
-    da: Når et team vurderer en ny kundedatabase, stiller det tre spørgsmål — hvem må se den, hvad hvis den er forkert, og hvad hvis den er nede en hel dag?
+    en: Before a Danish municipality takes a new case system into use, its information security coordinator asks three questions — who may see the cases, what if the data is wrong, and what if the system is down for a day?
+    da: Før en kommune tager et nyt sagssystem i brug, stiller den informationssikkerhedsansvarlige tre spørgsmål — hvem må se sagerne, hvad hvis data er forkerte, og hvad hvis systemet er nede en hel dag?
   whyItMatters:
     en: It gives everyone, from engineers to the board, a shared way to say what is at stake, so no side of protection is forgotten.
     da: Den giver alle, fra teknikere til bestyrelse, et fælles sprog for, hvad der står på spil, så ingen side af beskyttelsen bliver glemt.

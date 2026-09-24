@@ -14,17 +14,17 @@ summary:
   da: Enhver oplysning om en levende person, der kan identificeres, enten direkte eller ved at sætte flere oplysninger sammen.
 body:
   formal:
-    en: Under GDPR Article 4(1), any information relating to a person who can be named or traced, directly or indirectly, for example by name, ID number, location, online identifier or features of their body, mind, money, culture or social life. Some types, such as health, religion and union membership, are special categories with stricter rules.
-    da: Efter GDPR artikel 4, nr. 1, enhver oplysning om en fysisk person, der kan identificeres direkte eller indirekte, fx ved navn, CPR-nummer, lokation, onlineidentifikator eller forhold vedrørende personens fysiske, psykiske, økonomiske, kulturelle eller sociale identitet. Nogle typer, fx helbred, religion og fagforeningsmedlemskab, er særlige kategorier med skrappere regler.
+    en: Under GDPR Article 4(1), any information relating to an identified or identifiable living person, directly or by combining details such as a name, ID number, location or IP address; Article 9 sets stricter rules for special categories like health, religion and union membership.
+    da: Efter GDPR artikel 4, nr. 1, enhver oplysning om en identificeret eller identificerbar fysisk person, direkte eller ved at kombinere fx navn, CPR-nummer, lokation eller IP-adresse; artikel 9 giver skrappere regler for særlige kategorier som helbred, religion og fagforeningsmedlemskab.
   plain:
-    en: Anything that points to you — not just your name, but also your number plate, your face on a camera or the fact that "the only redhead on floor 3" called in sick.
+    en: Anything that points to you — not just your name, but your number plate, your face on a camera or the fact that "the only redhead on the third floor" called in sick.
     da: Alt, der peger på dig — ikke kun dit navn, men også din nummerplade, dit ansigt på et kamera eller at "den eneste rødhårede på 3. sal" har meldt sig syg.
   inPractice:
-    en: A web shop thinks its order logs are harmless, but they hold IP addresses, delivery addresses and buying habits — all personal data, so the logs fall under GDPR and need access control and a delete date.
-    da: En webshop tror, at dens ordrelogs er harmløse, men de indeholder IP-adresser, leveringsadresser og købsvaner — alt sammen personoplysninger, så logs er omfattet af GDPR og kræver adgangskontrol og en slettefrist.
+    en: The developer at a Danish web shop assumes the order logs are harmless, but they hold IP addresses, delivery addresses and buying habits, so the logs fall under GDPR and need access limits and a date by which they are deleted.
+    da: Udvikleren i en dansk webshop går ud fra, at ordrelogs er harmløse, men de indeholder IP-adresser, leveringsadresser og købsvaner, så de falder ind under GDPR og kræver begrænset adgang og en slettefrist.
   whyItMatters:
-    en: Whether data counts as personal decides whether GDPR applies at all; people often miss indirect cases, and that is where fines and breaches come from.
-    da: Om data tæller som personoplysninger, afgør, om GDPR overhovedet gælder; folk overser ofte de indirekte tilfælde, og det er dér, bøder og brud kommer fra.
+    en: Whether information counts as personal decides whether GDPR applies at all; indirect cases like logs and IDs from devices are easy to overlook, and that is where many breaches and fines start.
+    da: Om oplysninger tæller som personoplysninger, afgør, om GDPR overhovedet gælder; indirekte tilfælde som logs og id'er fra enheder er lette at overse, og det er dér, mange brud og bøder begynder.
 edges:
   kind-of:
     - to: asset

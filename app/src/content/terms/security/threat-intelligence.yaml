@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: Collected, checked and shared information about active threats — who is attacking, how, and with what signs — turned into advice an organisation can act on.
-    da: Indsamlet, kontrolleret og delt information om aktive trusler — hvem der angriber, hvordan og med hvilke kendetegn — omsat til råd, en organisation kan handle på.
+    da: Indsamlet, kontrolleret og delt information om aktive trusler — hvem der angriber, hvordan og med hvilke kendetegn — gjort til konkrete råd, som en organisation kan handle på.
   plain:
     en: Like neighbours warning each other that burglars are trying car doors on the street tonight.
     da: Ligesom naboer, der advarer hinanden om, at der er tyve, som prøver bildøre på vejen i aften.
   inPractice:
-    en: A sector warning lists web addresses used in a new phishing wave, and the IT team blocks them and adds them to the SIEM before any staff click.
-    da: En advarsel fra branchen lister webadresser brugt i en ny phishing-bølge, og IT-teamet blokerer dem og lægger dem ind i SIEM, før nogen medarbejder klikker.
+    en: A warning from CFCS names web addresses used in a new phishing wave against municipalities; a municipality's IT security team blocks them and adds them to the SIEM before any staff click.
+    da: En varsling fra CFCS nævner webadresser, der bruges i en ny phishing-bølge mod kommuner; IT-sikkerhedsteamet i en kommune blokerer dem og lægger dem ind i SIEM'en, før nogen medarbejder klikker.
   whyItMatters:
     en: It lets defenders act on what attackers are doing today instead of learning only after being hit.
     da: Den gør det muligt at handle på det, angriberne gør i dag, i stedet for først at lære det efter at være blevet ramt.

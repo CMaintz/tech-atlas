@@ -10,20 +10,20 @@ layer: governance
 status: current
 summary:
   en: A technical plan for bringing data and systems back after a breakdown or attack, in a set order and time.
-  da: En teknisk plan for at genskabe data og systemer efter et nedbrud eller angreb i en fastlagt rækkefølge og tid.
+  da: En teknisk plan for at få data og systemer tilbage efter et nedbrud eller angreb i en fastlagt rækkefølge og tid.
 body:
   formal:
-    en: Step-by-step technical instructions for restoring systems and data from backup, with a restore order and target times taken from the business impact analysis.
-    da: Trinvise tekniske instruktioner for at genskabe systemer og data fra backup med en genopretningsrækkefølge og måltider hentet fra konsekvensanalysen.
+    en: Step-by-step technical instructions for rebuilding systems and restoring data from backup, with a fixed order and target times taken from the recovery objectives and the business impact analysis.
+    da: Trinvise tekniske instruktioner for at genopbygge systemer og gendanne data fra backup i en fast rækkefølge og med måltider hentet fra genopretningsmålene og konsekvensanalysen.
   plain:
     en: Like a rebuild guide for a house after a flood — which walls go up first, where the spare parts are, and how long each step takes.
     da: Ligesom en genopbygningsvejledning for et hus efter en oversvømmelse — hvilke vægge der sættes op først, hvor reservedelene er, og hvor lang tid hvert trin tager.
   inPractice:
-    en: After ransomware locks the servers, the IT team wipes them and restores the order system from last night's backup first, then email, then the rest.
-    da: Efter at ransomware har låst serverne, sletter IT-teamet dem og genskaber først ordresystemet fra nattens backup, derefter mail og så resten.
+    en: After ransomware locks a shipping company's servers, the IT department wipes them and restores the booking system from last night's backup first, then email, then the rest.
+    da: Efter at ransomware har låst et rederis servere, sletter IT-afdelingen dem og gendanner først bookingsystemet fra nattens backup, derefter mail og så resten.
   whyItMatters:
     en: A backup nobody knows how to restore is worthless, and guessing under pressure can turn a one-day outage into weeks.
-    da: En backup, som ingen ved, hvordan man genskaber, er værdiløs, og gætteri under pres kan gøre et nedbrud på én dag til flere uger.
+    da: En backup, som ingen ved, hvordan man gendanner, er værdiløs, og gætteri under pres kan gøre et nedbrud på én dag til flere uger.
 edges:
   requires: [backup, recovery-objectives]
   part-of: [contingency-plan]

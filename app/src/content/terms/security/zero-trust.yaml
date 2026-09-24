@@ -20,8 +20,8 @@ body:
     en: Like a hospital where your badge is checked at every ward door, not just at the main entrance — getting inside the building does not get you everywhere.
     da: Som et hospital, hvor dit adgangskort tjekkes ved hver afdelingsdør, ikke kun ved hovedindgangen — at være kommet ind i bygningen giver ikke adgang overalt.
   inPractice:
-    en: An employee at her desk in the office opens the payroll system and is still asked to prove who she is, and her laptop is checked for current updates before the page loads.
-    da: En medarbejder ved sit skrivebord på kontoret åbner lønsystemet og bliver stadig bedt om at bevise, hvem hun er, og hendes bærbare tjekkes for opdateringer, før siden indlæses.
+    en: An employee at her desk inside a ministry opens the payroll system and is still asked to prove who she is, while her laptop is checked for current updates before the page loads.
+    da: En medarbejder ved sit skrivebord i et ministerium åbner lønsystemet og skal stadig bevise, hvem hun er, mens hendes bærbare tjekkes for opdateringer, før siden indlæses.
   whyItMatters:
     en: Once one machine inside is taken over, a network that trusts its insiders lets the attacker roam freely; checking every request limits how far one break-in spreads.
     da: Når én maskine indenfor er overtaget, lader et netværk, der stoler på sine egne, angriberen bevæge sig frit; at tjekke hver anmodning begrænser, hvor langt ét indbrud spreder sig.

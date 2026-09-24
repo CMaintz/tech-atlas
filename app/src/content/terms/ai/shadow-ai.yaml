@@ -20,8 +20,8 @@ body:
     en: Like an employee who takes work papers home to a friend for help — well meant, but the company has no idea who has read them or where copies ended up.
     da: Som en medarbejder, der tager arbejdspapirer med hjem til en ven for at få hjælp — velment, men virksomheden aner ikke, hvem der har læst dem, eller hvor kopierne er endt.
   inPractice:
-    en: A lawyer copies a confidential contract into a free online AI chat to shorten it, not knowing the provider may store the text and use it to train future models.
-    da: En advokat kopierer en fortrolig kontrakt ind i en gratis AI-chat på nettet for at forkorte den uden at vide, at udbyderen måske gemmer teksten og bruger den til at træne fremtidige modeller.
+    en: An auditor at an accounting firm pastes a client's confidential annual accounts into a free online AI chat to get a summary, not knowing the provider may keep the text and use it to train future models.
+    da: En revisor i et revisionsfirma kopierer en kundes fortrolige årsregnskab ind i en gratis AI-chat på nettet for at få det opsummeret, uden at vide, at udbyderen måske gemmer teksten og bruger den til at træne fremtidige modeller.
   whyItMatters:
     en: Useful AI tools are free and one click away, so bans alone rarely work; without approved options and clear rules, personal and secret data quietly leaves the organisation.
     da: Nyttige AI-værktøjer er gratis og kun et klik væk, så forbud alene virker sjældent; uden godkendte alternativer og klare regler forlader person- og forretningsdata stille og roligt organisationen.

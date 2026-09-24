@@ -33,7 +33,7 @@ This matters because every phase is a chance to detect and stop the attack. An o
 
 Because well-prepared victims could simply restore from backup, criminal groups added a second lever: they steal data _before_ encrypting it and threaten to publish it on a "leak site" unless the ransom is paid. This is **double extortion**. Some groups go further — sometimes called triple extortion — by contacting the victim's customers or partners directly, or by launching denial-of-service attacks to increase the pressure.
 
-The consequence is important: **a ransomware attack is very often also a data breach**, with the reporting duties that follow, for example under the GDPR if personal data is involved.
+The consequence is important: **a ransomware attack is very often also a data breach**, with the reporting duties that follow, for example to Datatilsynet under the GDPR if personal data is involved.
 
 ### Why offline and immutable backups matter
 
@@ -49,9 +49,9 @@ Backups are the single most important safeguard against the encryption part of a
 - **Risk assessment.** Ransomware should appear as a scenario in the risk register, with an honest estimate of how long the organisation can operate without its key systems.
 - **Preventive controls.** MFA on remote access and email, prompt patching of internet-facing systems, limited administrator rights, network segmentation and endpoint protection all target specific phases of the lifecycle.
 - **Awareness.** Phishing remains a common entry point. Staff should know how to report a suspicious email and that reporting quickly — even after clicking — is always the right move.
-- **Preparedness.** The incident response and business continuity plans should include a ransomware playbook: who decides what, how to isolate systems, how to communicate when email and the intranet are down, and who can be reached outside office hours. Tabletop exercises reveal the gaps.
-- **The ransom decision.** Whether to pay is a management decision that must be considered in advance, not improvised under pressure. Paying gives no guarantee of working decryption keys or that stolen data will be deleted, may fund further crime and can raise legal issues. Law enforcement and national security agencies generally advise against paying.
-- **NIS2.** Article 21(2) requires measures for incident handling (point b) and business continuity, "such as backup management and disaster recovery, and crisis management" (point c). Article 23 sets out reporting to the CSIRT or competent authority: an early warning within 24 hours of becoming aware of a significant incident, an incident notification within 72 hours, and a final report within one month.
+- **Preparedness.** The incident response and business continuity plans should include a ransomware playbook: who decides what, how to isolate systems, how to communicate when email and the intranet are down, and who can be reached outside office hours. Table-top exercises reveal the gaps.
+- **The ransom decision.** Whether to pay is a management decision that must be considered in advance, not improvised under pressure. Paying gives no guarantee of working decryption keys or that stolen data will be deleted, may fund further crime and can raise legal issues. The police and national cyber security agencies – in Denmark Center for Cybersikkerhed (CFCS) – generally advise against paying, and attacks should be reported to the police.
+- **NIS2.** Article 21(2) requires measures for incident handling (point b) and business continuity, "such as backup management and disaster recovery, and crisis management" (point c). Article 23 sets out reporting to the CSIRT or competent authority: an early warning within 24 hours of becoming aware of a significant incident, an incident notification within 72 hours, and a final report within one month of the notification.
 
 ## Common misunderstandings
 

@@ -11,20 +11,20 @@ status: current
 era: 1983
 summary:
   en: The lookup system that turns names people can read, like example.com, into IP addresses.
-  da: Det opslagssystem, der omsætter navne, mennesker kan læse, som example.com, til IP-adresser.
+  da: Det opslagssystem, der oversætter navne, som mennesker kan læse, fx example.com, til IP-adresser.
 body:
   formal:
-    en: A distributed, hierarchical naming protocol in which devices ask a chain of name services to translate a domain name into the IP address it currently points to.
-    da: En fordelt, hierarkisk navneprotokol, hvor enheder spørger en kæde af navnetjenester om at oversætte et domænenavn til den IP-adresse, det aktuelt peger på.
+    en: A distributed naming protocol, organised in levels from the root down to each individual domain, in which a device's query is passed between name servers until one returns the IP address a domain name currently points to.
+    da: En fordelt navneprotokol, opbygget i niveauer fra roden og ned til det enkelte domæne, hvor en enheds forespørgsel sendes videre mellem navneservere, indtil én svarer med den IP-adresse, domænenavnet aktuelt peger på.
   plain:
     en: Like the contacts list on your phone — you tap a name, and the phone looks up the number for you.
     da: Som kontaktlisten på din telefon — du trykker på et navn, og telefonen slår nummeret op for dig.
   inPractice:
-    en: An attacker changes a company's DNS record, so staff typing the usual address are silently sent to a fake login page.
-    da: En angriber ændrer en virksomheds DNS-opslag, så medarbejdere, der skriver den sædvanlige adresse, uden at vide det sendes til en falsk login-side.
+    en: An attacker gets into the account a pension fund uses to manage its domain and changes the DNS records, so members typing the usual address land on a fake login page without noticing.
+    da: En angriber får adgang til den konto, en pensionskasse bruger til at styre sit domæne, og ændrer DNS-oplysningerne, så medlemmer, der skriver den sædvanlige adresse, uden at opdage det havner på en falsk login-side.
   whyItMatters:
-    en: Nearly every connection starts with a DNS lookup, so whoever controls the answers controls where people end up.
-    da: Næsten hver forbindelse starter med et DNS-opslag, så den, der styrer svarene, styrer, hvor folk ender.
+    en: Nearly every connection starts with a DNS lookup, so whoever controls the answers decides where people end up — and DNS logs show which sites each device has tried to reach.
+    da: Næsten hver forbindelse begynder med et DNS-opslag, så den, der styrer svarene, bestemmer, hvor folk havner — og DNS-logs viser, hvilke steder hver enhed har forsøgt at nå.
 edges:
   kind-of: [protocol]
   part-of: [tcp-ip]

@@ -3,11 +3,22 @@
 # list: one per line, alphabetical, each justified. Danish security vocabulary is
 # largely English loanwords, so this list is expected to stay short.
 browser      # dagligdags låneord
+cpr          # egennavn (det danske personnummer, CPR-nummer)
 e-mail       # dagligdags ord, aldrig en node
 entra        # egennavn (Microsoft Entra)
+faktura      # dagligdags ord, mangler i frekvenslisten
+genopretning # dagligdags ord (genoprette driften), mangler i frekvenslisten
 linux        # egennavn (styresystem)
 macos        # egennavn (styresystem)
 microsoft    # egennavn (virksomhed)
+ministerium  # dagligdags ord, mangler i frekvenslisten
 mitid        # egennavn (dansk nationalt login)
+organisatorisk # dagligdags ord (svarer til "organisational" på den engelske liste)
+påbud        # dagligdags ord; Datatilsynets egen betegnelse
+rederi       # dagligdags ord, mangler i frekvenslisten
+samsik       # egennavn (Styrelsen for Samfundssikkerhed)
+script       # dagligdags låneord
+skattestyrelsen # egennavn (dansk myndighed)
+udbyder      # dagligdags ord (cloududbyder, tjenesteudbyder), mangler i frekvenslisten
 wifi         # dagligdags låneord
 windows      # egennavn (styresystem)

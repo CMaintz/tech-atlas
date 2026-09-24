@@ -48,22 +48,22 @@ Artikel 6 angiver de seks behandlingsgrundlag (samtykke, kontrakt, retlig forpli
 | Dataansvarlig → de berørte (art. 34)            | Uden unødig forsinkelse                                                                          | Når bruddet sandsynligvis indebærer en _høj_ risiko                                  |
 | Dataansvarlig (art. 33, stk. 5)                 | Altid                                                                                            | Dokumentér alle brud internt, også dem der ikke anmeldes                             |
 
-Artikel 35 kræver en **konsekvensanalyse** (DPIA) ved behandling med høj risiko, og artikel 37 kræver en databeskyttelsesrådgiver i visse tilfælde, bl.a. hos offentlige myndigheder. Artikel 83 har to bødeniveauer: op til 10 mio. euro eller 2 % af den globale omsætning og op til 20 mio. euro eller 4 % for overtrædelse af principperne og de registreredes rettigheder. I Danmark fastsættes bøder som hovedregel af domstolene, efter at Datatilsynet har politianmeldt sagen.
+Artikel 35 kræver en **konsekvensanalyse** (DPIA) ved behandling med høj risiko, og artikel 37 kræver en databeskyttelsesrådgiver i visse tilfælde, bl.a. hos offentlige myndigheder. Artikel 83 har to bødeniveauer: op til 10 mio. euro eller 2 % af den globale årsomsætning og op til 20 mio. euro eller 4 % for overtrædelse af principperne og de registreredes rettigheder – i begge tilfælde det højeste beløb. I Danmark fastsættes bøder som hovedregel af domstolene, efter at Datatilsynet har politianmeldt sagen.
 
 ## Sammenhængen med de andre rammeværker
 
 - **NIS2** beskytter de tjenester, samfundet er afhængigt af; GDPR beskytter menneskers oplysninger. De overlapper på sikkerhed og hændelsesindberetning. Ét ransomwareangreb hos en NIS2-omfattet virksomhed kan kræve både en tidlig varsling efter NIS2 inden for 24 timer og en anmeldelse til Datatilsynet inden for 72 timer.
 - **ISO 27001** giver et ledelsessystem, der gør artikel 32 og ansvarlighedsprincippet dokumenterbare. Anneks A har en særskilt kontrol om privatliv og beskyttelse af personoplysninger, og ISO/IEC 27701 udvider standarden med egentlige privatlivskrav.
 - **CIS-kontrollerne** giver de konkrete tiltag bag "passende sikkerhed" – især databeskyttelse (kontrol 3), adgangsstyring (kontrol 5 og 6) og genopretning af data (kontrol 11).
-- **D-mærket** kombinerer IT-sikkerhed med ansvarlig dataanvendelse og er derfor en naturlig selvevaluering for mindre virksomheder med mange persondata.
+- **D-mærket** kombinerer IT-sikkerhed med ansvarlig dataanvendelse og er derfor en naturlig ramme for mindre virksomheder, der behandler mange personoplysninger.
 
 ## Hvad gør koordinatoren i praksis?
 
 - Holder **fortegnelsen efter artikel 30** levende – opdaterer den, hver gang et nyt system eller en ny leverandør kommer til.
 - Vedligeholder **oversigten over databehandlere** og deres aftaler og fører tilsyn med dem mindst én gang om året.
-- Driver **procedure for brud**: hvem vurderer risikoen, hvem anmelder til Datatilsynet, hvem kommunikerer med de berørte? Øv den sammen med NIS2-proceduren, hvis begge gælder.
+- Driver **proceduren for brud**: hvem vurderer risikoen, hvem anmelder til Datatilsynet, hvem kommunikerer med de berørte? Øv den sammen med NIS2-proceduren, hvis begge gælder.
 - Bringer **privacy by design** ind i projekter og indkøb og sætter en konsekvensanalyse i gang, når behandlingen indebærer høj risiko.
-- Tager GDPR med i **awareness**: Fejlsendte mails er blandt de hyppigste brud, og medarbejderne skal vide, at de skal melde dem.
+- Tager GDPR med i **awareness**: Fejlsendte e-mails er blandt de hyppigste brud, og medarbejderne skal vide, at de skal melde dem.
 
 ## Typiske misforståelser
 

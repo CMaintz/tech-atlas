@@ -14,6 +14,7 @@ microsoft    # proper noun (company)
 mitid        # proper noun (Danish national login)
 numeric      # everyday English, missing from the frequency list
 organisational # British spelling of an everyday word
+repeal       # everyday legal English (a law is repealed), missing from the frequency list
 specification  # everyday English, missing from the frequency list
 watertight   # everyday English, missing from the frequency list
 wifi         # everyday word for wireless networking

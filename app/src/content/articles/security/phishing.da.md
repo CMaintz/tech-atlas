@@ -23,7 +23,7 @@ Grundtricket er altid det samme, men det findes i mange udgaver:
 | **Whaling**                                             | Spear phishing rettet mod topledere, hvis adgang og beføjelser er særligt værdifulde                                                                                                     |
 | **Direktørsvindel / BEC** (_Business Email Compromise_) | Angriberen udgiver sig for – eller har overtaget mailen hos – en leder eller leverandør og beder om en hasteoverførsel eller nye kontooplysninger. Ofte helt uden link eller vedhæftning |
 | **Smishing**                                            | Phishing via SMS eller beskedapps                                                                                                                                                        |
-| **Vishing**                                             | Phishing via telefonopkald – fx en falsk "it-support" eller "bank", der beder offeret læse en kode op eller godkende et login, også med MitID                                            |
+| **Vishing**                                             | Phishing via telefonopkald – fx en falsk "IT-support" eller "bank", der beder offeret læse en kode op eller godkende et login, også med MitID                                            |
 | **Quishing**                                            | En QR-kode i en mail eller på en plakat, der fører til en falsk side; offeret flyttes over på mobilen, ofte uden for virksomhedens beskyttelse                                           |
 | **Klon-phishing**                                       | En kopi af en ægte mail, som offeret tidligere har fået, hvor linket eller vedhæftningen er byttet ud med noget skadeligt                                                                |
 
@@ -46,7 +46,7 @@ Intet enkelt tegn er afgørende, men disse bør få alle til at stoppe op:
 - Linkteksten siger én ting, men holder man musen over, peger den et andet sted hen.
 - En uventet anmodning om at logge ind, betale, ændre kontonummer eller oplyse en kode.
 - Pres for at handle hurtigt eller holde det hemmeligt ("sig det ikke til nogen endnu").
-- En uventet vedhæftning, især komprimerede filer eller dokumenter, der beder dig "aktivere indhold".
+- En uventet vedhæftning, især komprimerede filer, makroer eller dokumenter, der beder dig "aktivere indhold".
 - En besked, der bryder den normale proces – fx en leverandørs nye kontonummer, der kun meldes via mail.
 - En tone eller tiltaleform, der ikke passer til den formodede afsender.
 
@@ -62,7 +62,7 @@ Phishing ligger lige i krydsfeltet mellem teknik, mennesker og processer – pr�
 - **Gør det nemt at melde.** En "Rapportér phishing"-knap og en hurtig, venlig respons er afgørende. Medarbejdere, der melder et klik inden for få minutter, giver sikkerhedsfolkene en chance for at nulstille adgangskoder og blokere siden, før skaden breder sig. Skyld og skam lærer folk at tie.
 - **Meningsfulde KPI'er.** Andelen, der melder, og hvor hurtigt de gør det, siger ofte mere om sikkerhedskulturen end klikraten alene.
 - **Hændelseshåndtering.** Drejebogen for en indrapporteret phishing-mail bør dække: Har andre fået den? Fjern den fra indbakkerne, bloker links og afsender, nulstil eventuelt kompromitterede loginoplysninger, og gennemgå logins.
-- **NIS2.** Artikel 21, stk. 2, litra g, kræver grundlæggende cyberhygiejne og uddannelse i cybersikkerhed, og artikel 20 kræver, at også medlemmerne af ledelsen deltager i uddannelse. Et dokumenteret awareness-program med phishing som centralt tema er en naturlig måde at leve op til det på. Center for Cybersikkerhed (CFCS) udgiver trusselsvurderinger og vejledninger, der kan bruges som afsæt.
+- **NIS2.** Artikel 21, stk. 2, litra g, kræver grundlæggende cyberhygiejne og uddannelse i cybersikkerhed, og artikel 20 kræver, at også medlemmerne af ledelsen deltager i uddannelse. Et dokumenteret awareness-program med phishing som centralt tema er en naturlig måde at leve op til det på. Center for Cybersikkerhed (CFCS), der nu er en del af Styrelsen for Samfundssikkerhed, udgiver trusselsvurderinger og vejledninger, der kan bruges som afsæt.
 
 ## Typiske misforståelser
 

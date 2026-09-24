@@ -20,8 +20,8 @@ body:
     en: IP is the post office that moves envelopes; TCP is the careful clerk who numbers them, checks every one arrived, and asks again for any that went missing.
     da: IP er postvæsenet, der flytter kuverterne; TCP er den omhyggelige ekspedient, der nummererer dem, tjekker at alle er kommet frem, og beder om dem, der mangler.
   inPractice:
-    en: Sending an email, loading a web page and syncing a file to the cloud all ride on TCP/IP underneath, whatever program you use.
-    da: At sende en e-mail, åbne en webside og synkronisere en fil til skyen kører alle oven på TCP/IP, uanset hvilket program du bruger.
+    en: When the online exam system at an upper-secondary school keeps freezing, the school's IT manager records the network traffic and sees TCP resending many lost packets between the students' laptops and the server — pointing to a faulty wireless access point.
+    da: Da eksamenssystemet på et gymnasium bliver ved med at fryse, optager skolens IT-ansvarlige netværkstrafikken og ser TCP sende mange tabte pakker igen mellem elevernes bærbare og serveren — et tegn på et defekt trådløst adgangspunkt.
   whyItMatters:
     en: It is the shared language of nearly every network, so firewall rules, logs and many attacks are all described in its terms.
     da: Det er det fælles sprog for næsten alle netværk, så firewallregler, logs og mange angreb beskrives alle i dets begreber.

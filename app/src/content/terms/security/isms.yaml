@@ -14,17 +14,17 @@ summary:
   da: De politikker, roller, processer og dokumenter, en organisation bruger til at styre sin informationssikkerhed planlagt og ensartet.
 body:
   formal:
-    en: A management system, as laid down in ISO 27001, that sets the scope of protection, assigns roles, bases the choice of controls on a risk assessment, measures how well they work and improves them in a steady cycle.
-    da: Et ledelsessystem, som beskrevet i ISO 27001, der fastlægger, hvad der skal beskyttes, fordeler roller, vælger kontroller ud fra en risikovurdering, måler, hvor godt de virker, og forbedrer dem i en fast cyklus.
+    en: A management system, as specified in ISO 27001, that defines its scope, assigns roles and ownership, chooses controls from a risk assessment, measures how well they work and improves them through internal audit and management review.
+    da: Et ledelsessystem, som fastlagt i ISO 27001, der fastlægger sit omfang, fordeler roller og ejerskab, vælger kontroller ud fra en risikoanalyse, måler, hvor godt de virker, og forbedrer dem gennem intern audit og ledelsens evaluering.
   plain:
-    en: Like the way a well-run kitchen works — not one recipe, but the routines for buying, storing, cooking, cleaning and checking that keep every meal safe day after day.
-    da: Som måden et velfungerende køkken arbejder på — ikke én opskrift, men rutinerne for indkøb, opbevaring, madlavning, rengøring og kontrol, der holder hvert måltid sikkert dag efter dag.
+    en: Like the way a well-run restaurant kitchen works — not one recipe, but the routines for buying, storing, cooking, cleaning and checking that keep every meal safe, whoever is on shift.
+    da: Som et velfungerende restaurantkøkken — ikke én opskrift, men rutinerne for indkøb, opbevaring, madlavning, rengøring og kontrol, der holder hvert måltid sikkert, uanset hvem der har vagten.
   inPractice:
-    en: A software firm names a security lead, writes down which systems are in scope, runs a yearly risk assessment, keeps a list of chosen controls and holds a management review each quarter.
-    da: Et softwarefirma udpeger en sikkerhedsansvarlig, skriver ned, hvilke systemer der er omfattet, laver en årlig risikovurdering, fører en liste over valgte kontroller og holder ledelsens evaluering hvert kvartal.
+    en: A Danish software company with 80 staff names a security lead, writes down which systems the work covers, repeats its risk assessment every year, keeps a list of chosen controls and has management review the status each quarter.
+    da: En dansk softwarevirksomhed med 80 ansatte udpeger en sikkerhedsansvarlig, skriver ned, hvilke systemer arbejdet dækker, gentager risikoanalysen hvert år, fører en liste over valgte kontroller og lader ledelsen gennemgå status hvert kvartal.
   whyItMatters:
-    en: Single security fixes fade or get forgotten; a lasting system of owners, reviews and records keeps the work going when people and threats change.
-    da: Enkeltstående sikkerhedstiltag forsvinder eller glemmes; et varigt system med ejere, evalueringer og dokumentation holder arbejdet i gang, når mennesker og trusler skifter.
+    en: One-off security fixes fade or are forgotten when the person behind them leaves; a standing system of owners, reviews and records keeps the work going as people and threats change.
+    da: Enkeltstående sikkerhedstiltag forsvinder eller glemmes, når den, der stod bag dem, rejser; et varigt system med ejere, evalueringer og dokumentation holder arbejdet i gang, når mennesker og trusler skifter.
 edges:
   requires: [risk-management, security-policy]
   used-with:

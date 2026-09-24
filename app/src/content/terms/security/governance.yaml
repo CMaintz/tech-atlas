@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: The system by which an organisation's leadership sets security goals, assigns roles and responsibility, decides how much risk is acceptable, and follows up on results.
-    da: Den måde, hvorpå organisationens ledelse fastsætter mål for sikkerheden, fordeler roller og ansvar, beslutter hvor meget risiko der kan accepteres, og følger op på resultaterne.
+    da: Den måde, hvorpå organisationens ledelse fastsætter mål for sikkerheden, fordeler roller og ansvar, beslutter, hvor meget risiko der kan accepteres, og følger op på resultaterne.
   plain:
     en: Like the captain of a ship — the crew does the rowing, but someone must choose the course and answer for where the ship ends up.
     da: Som kaptajnen på et skib — besætningen ror, men nogen skal vælge kursen og stå til ansvar for, hvor skibet ender.
   inPractice:
-    en: The board names a security lead, approves the security policy, and asks for a risk report every quarter.
-    da: Bestyrelsen udpeger en sikkerhedsansvarlig, godkender sikkerhedspolitikken og beder om en risikorapport hvert kvartal.
+    en: The board of a Danish pension fund names a security lead, approves the security policy and asks for a risk report every quarter — and under NIS2 its members must also take security training themselves.
+    da: Bestyrelsen i en pensionskasse udpeger en sikkerhedsansvarlig, godkender sikkerhedspolitikken og beder om en risikorapport hvert kvartal — og efter NIS2 skal ledelsen også selv gennemgå et kursus i sikkerhed.
   whyItMatters:
     en: Without clear steering from the top, security stays a scattered IT task with no budget, no owner and no one to answer when things go wrong.
     da: Uden klar styring fra toppen forbliver sikkerhed en spredt IT-opgave uden budget, uden ejer og uden nogen, der står til ansvar, når det går galt.

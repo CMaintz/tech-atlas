@@ -6,11 +6,11 @@ lang: da
 
 ## Hvad er NIS2, og hvem er omfattet?
 
-NIS2 er direktiv (EU) 2022/2555 om foranstaltninger til sikring af et højt fælles cybersikkerhedsniveau i hele EU. Det afløser det første NIS-direktiv fra 2016, som kun omfattede en snæver kreds af "operatører af væsentlige tjenester" og blev gennemført meget forskelligt fra land til land. Et direktiv gælder ikke direkte – det skal skrives ind i national lovgivning. I Danmark er det sket med NIS2-loven, der trådte i kraft 1. juli 2025. Styrelsen for Samfundssikkerhed er koordinerende myndighed, mens en række sektormyndigheder fører tilsyn på deres egne områder. Den finansielle sektor er i vid udstrækning reguleret af DORA i stedet.
+NIS2 er direktiv (EU) 2022/2555 om foranstaltninger til sikring af et højt fælles cybersikkerhedsniveau i hele EU. Det afløser det første NIS-direktiv fra 2016, som kun omfattede en snæver kreds af "operatører af væsentlige tjenester" og blev gennemført meget forskelligt fra land til land. Et direktiv gælder ikke direkte – det skal skrives ind i national lovgivning. I Danmark er det sket med NIS2-loven, der trådte i kraft 1. juli 2025. Styrelsen for Samfundssikkerhed er koordinerende myndighed, mens en række sektormyndigheder fører tilsyn på deres egne områder. Hændelser indberettes via Virk.dk og håndteres af Forsvarets Efterretningstjeneste som nationalt CSIRT, mens Center for Cybersikkerhed (CFCS), hvis rådgivning siden januar 2025 har ligget i styrelsen, udgiver trusselsvurderinger og vejledninger. Den finansielle sektor er i vid udstrækning reguleret af DORA i stedet.
 
 Om en virksomhed er omfattet, afhænger af **sektor** og **størrelse**:
 
-- **Bilag I – sektorer med høj kritikalitet**: energi, transport, bankvirksomhed, finansielle markedsinfrastrukturer, sundhed, drikkevand, spildevand, digital infrastruktur, administration af IKT-tjenester (B2B), offentlig forvaltning og rummet.
+- **Bilag I – sektorer med høj kritikalitet**: energi, transport, bankvirksomhed, finansielle markedsinfrastrukturer, sundhed, drikkevand, spildevand, digital infrastruktur, forvaltning af IKT-tjenester (B2B), offentlig forvaltning og rummet.
 - **Bilag II – andre kritiske sektorer**: post- og kurertjenester, affaldshåndtering, kemikalier, fødevarer, fremstilling (fx medicinsk udstyr, elektronik, maskiner og køretøjer), digitale udbydere (onlinemarkedspladser, søgemaskiner og sociale netværk) samt forskning.
 - **Størrelse**: Som hovedregel er kun _mellemstore_ (mindst 50 ansatte eller omsætning og balance over 10 mio. euro) og _store_ virksomheder omfattet. Visse enheder er dog omfattet uanset størrelse – fx DNS-udbydere, topdomæneregistre, tillidstjenesteudbydere og virksomheder, der er eneste udbyder af en kritisk tjeneste.
 
@@ -35,7 +35,7 @@ Omfattede virksomheder er enten **væsentlige** eller **vigtige** enheder. Krave
 | i   | Personalesikkerhed, adgangsstyring og styring af aktiver                                                     |
 | j   | Multifaktorautentificering, sikret tale-, video- og tekstkommunikation samt sikret nødkommunikation          |
 
-**Artikel 23 – indberetning.** En _væsentlig hændelse_ – en hændelse, der kan give alvorlige driftsforstyrrelser eller økonomiske tab eller skade andre betydeligt – skal indberettes til CSIRT'en eller den kompetente myndighed i flere trin:
+**Artikel 23 – indberetning.** En _væsentlig hændelse_ – en hændelse, der har givet eller kan give alvorlige driftsforstyrrelser eller økonomiske tab eller skade andre betydeligt – skal indberettes til CSIRT'en eller den kompetente myndighed i flere trin:
 
 | Frist                                 | Indberetning                                                                                                                 |
 | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
@@ -59,7 +59,7 @@ NIS2 beskriver, _hvad_ der skal opnås – ikke _hvordan_. Det er her, de frivil
 
 1. **Afklar omfanget.** Er virksomheden omfattet – som væsentlig eller vigtig enhed? Skal den registreres hos myndigheden?
 2. **Gap-analyse.** Sammenlign den nuværende praksis med de ti områder i artikel 21. Et regneark med "krav – status – ejer – næste skridt" er ofte nok til at komme i gang.
-3. **Roadmap.** Prioritér hullerne efter risiko og indsats, og få ledelsen til at godkende planen og budgettet. Efter artikel 20 er den godkendelse en lovpligt, ikke en høflighed.
+3. **Køreplan.** Prioritér hullerne efter risiko og indsats, og få ledelsen til at godkende planen og budgettet. Efter artikel 20 er den godkendelse en lovpligt, ikke en høflighed.
 4. **Indberetningsprocedure.** Beskriv, hvem der afgør, om en hændelse er "væsentlig", hvem der sender den tidlige varsling, og hvordan GDPR-sporet håndteres parallelt. Afprøv det i en table-top-øvelse.
 5. **Leverandører.** Kortlæg de kritiske leverandører, indarbejd sikkerhedskrav i kontrakterne, og følg op.
 6. **Uddannelse og dokumentation.** Arrangér ledelsestræning, kør awareness for medarbejderne, og gem dokumentationen – referater, godkendelser, deltagerlister – for tilsynet vil bede om den.

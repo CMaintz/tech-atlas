@@ -14,16 +14,16 @@ summary:
   da: Et login uden adgangskode, hvor din enhed beviser, hvem du er, med en hemmelig nøgle, der aldrig forlader den.
 body:
   formal:
-    en: A credential built on public-key cryptography under the FIDO web login standards, where the device keeps a private key for each site and signs a fresh challenge from it after the user unlocks with a fingerprint, face or PIN; the site stores only the public key.
-    da: En loginoplysning bygget på asymmetrisk kryptografi efter FIDO- og WebAuthn-standarderne, hvor enheden har en privat nøgle for hvert website og signerer en ny udfordring fra det, når brugeren låser op med fingeraftryk, ansigt eller PIN; websitet gemmer kun den offentlige nøgle.
+    en: A credential built on public-key cryptography under the FIDO standards, where the device keeps a private key for each site and signs a fresh challenge with it after the user unlocks with a fingerprint, face or PIN; the site stores only the public key.
+    da: En loginoplysning bygget på asymmetrisk kryptografi efter FIDO-standarderne, hvor enheden har en privat nøgle for hvert website og signerer en ny udfordring med den, når brugeren låser op med fingeraftryk, ansigt eller PIN; websitet gemmer kun den offentlige nøgle.
   plain:
-    en: Like a house key that stays on your key ring and only turns in your own front door — there is nothing to say out loud, so no one can trick you into telling it to a fake door.
-    da: Som en husnøgle, der bliver på dit nøglebundt og kun passer i din egen hoveddør — der er intet at sige højt, så ingen kan narre dig til at fortælle det til en falsk dør.
+    en: Like a key that never leaves your key ring and turns only in your own front door — there is no code to say out loud, so a fake door gets nothing from you.
+    da: Som en nøgle, der aldrig forlader dit nøglebundt og kun passer i din egen hoveddør — der er ingen kode at sige højt, så en falsk dør får intet ud af dig.
   inPractice:
-    en: At login, the phone shows "Use your passkey for example.com?"; the user touches the fingerprint reader and is in — nothing to type, nothing a fake site could capture.
-    da: Ved login viser telefonen "Brug din passkey til example.com?"; brugeren rører fingeraftrykslæseren og er inde — intet at taste, intet en falsk side kan opsnappe.
+    en: A case officer at a Danish region opens the staff portal on her work laptop and touches the fingerprint reader when asked to use her passkey; she is in with nothing typed and nothing a fake site could capture.
+    da: En sagsbehandler i en region åbner medarbejderportalen på sin arbejdscomputer og rører fingeraftrykslæseren, da hun bliver bedt om at bruge sin passkey; hun er inde uden at taste noget, og en falsk side har intet at opsnappe.
   whyItMatters:
-    en: Passwords get guessed, used again and typed into fake pages; a passkey works only on the real site and holds no shared secret worth stealing from the server.
+    en: Passwords get guessed, used again and typed into fake pages; a passkey works only on the real site, and the server holds no shared secret worth stealing.
     da: Adgangskoder bliver gættet, genbrugt og tastet ind på falske sider; en passkey virker kun på det rigtige website, og serveren gemmer ingen fælles hemmelighed, der er værd at stjæle.
 edges:
   kind-of: [credential]

@@ -14,17 +14,17 @@ summary:
   da: Phishing sendt som sms, typisk en kort, hastende besked med et link eller et nummer, man skal ringe til.
 body:
   formal:
-    en: A form of phishing delivered by text message or chat app instead of email. The short format hides the real sender and link address, and phones rarely have the filters that catch fake email.
-    da: En form for phishing, der sendes som sms eller i en chat-app i stedet for mail. Det korte format skjuler den rigtige afsender og linkadresse, og telefoner har sjældent de filtre, der fanger falske mails.
+    en: A form of phishing delivered by text message or chat app instead of email; the short format hides the real sender and the full link address, and texts usually pass through fewer filters than work email.
+    da: En form for phishing, der sendes som sms eller i en chat-app i stedet for mail; det korte format skjuler den rigtige afsender og den fulde linkadresse, og sms'er passerer som regel færre filtre end arbejdsmailen.
   plain:
-    en: A fake parking ticket tucked under your wiper — it looks official enough that you pay before you check.
-    da: En falsk parkeringsbøde under viskeren — den ser officiel nok ud til, at du betaler, før du tjekker.
+    en: Like a fake parking ticket tucked under your wiper — it looks official enough that you pay before you check.
+    da: Som en falsk parkeringsbøde under viskeren — den ser officiel nok ud til, at du betaler, før du tjekker.
   inPractice:
-    en: A text claiming to be from a delivery company says a parcel is held until a small fee is paid, and the link leads to a copy of a payment page that captures card details.
-    da: En sms, der udgiver sig for at komme fra et fragtfirma, siger, at en pakke tilbageholdes, indtil et lille gebyr er betalt, og linket fører til en kopi af en betalingsside, der opsnapper kortoplysninger.
+    en: The secretary at a school gets a text, apparently from the municipality's IT department, saying her account closes today unless she confirms her login; the link leads to a copy of the municipality's login page.
+    da: Sekretæren på en skole får en sms, der ser ud til at komme fra kommunens IT-afdeling, om at hendes konto lukkes i dag, medmindre hun bekræfter sit login; linket fører til en kopi af kommunens login-side.
   whyItMatters:
-    en: People read texts within minutes and trust their phone more than their inbox, while work phones often sit outside the company's usual protection.
-    da: Folk læser sms'er inden for få minutter og stoler mere på telefonen end på indbakken, mens arbejdstelefoner ofte står uden for virksomhedens sædvanlige beskyttelse.
+    en: People read texts within minutes and trust their phone more than their inbox, while work phones often sit outside the organisation's usual protection.
+    da: Folk læser sms'er inden for få minutter og stoler mere på telefonen end på indbakken, mens arbejdstelefoner ofte står uden for organisationens sædvanlige beskyttelse.
 edges:
   kind-of: [phishing]
   contrasts-with:

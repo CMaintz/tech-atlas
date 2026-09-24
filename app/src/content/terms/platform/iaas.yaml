@@ -10,17 +10,17 @@ layer: infrastructure
 status: current
 summary:
   en: The cloud model where you rent bare building blocks — machines, storage and network — and run everything on top yourself.
-  da: Cloud-modellen, hvor du lejer de rå byggeklodser — maskiner, lager og netværk — og selv driver alt ovenpå.
+  da: Cloudmodellen, hvor du lejer de rå byggeklodser — maskiner, lager og netværk — og selv driver alt ovenpå.
 body:
   formal:
     en: A cloud service model in which the provider supplies processing, storage and network resources, while the customer installs and manages the operating system, programs and data, and some network settings.
     da: En cloud-servicemodel, hvor udbyderen leverer regnekraft, lager og netværk, mens kunden selv installerer og driver styresystem, programmer og data samt dele af netværksopsætningen.
   plain:
     en: Like renting an empty warehouse — the landlord keeps the walls and roof sound, but the shelves, locks and stock inside are up to you.
-    da: Som at leje en tom lagerhal — udlejeren holder vægge og tag i orden, men reoler, låse og varer indenfor er dit ansvar.
+    da: Som at leje en tom lagerhal — udlejeren holder vægge og tag i orden, men hylder, låse og varer indenfor er dit ansvar.
   inPractice:
-    en: An IT operations team rents a virtual machine from a cloud provider and must itself install updates, set up the firewall and create user accounts on it.
-    da: Et driftsteam lejer en virtuel maskine hos en cloududbyder og skal selv installere opdateringer, sætte firewallen op og oprette brugerkonti på den.
+    en: The IT operations manager at an accounting firm rents a virtual machine from a cloud provider for the firm's finance system and must personally install updates, set up the firewall and create user accounts on it.
+    da: Den IT-driftsansvarlige i et revisionsfirma lejer en virtuel maskine hos en cloududbyder til firmaets økonomisystem og skal selv installere opdateringer, sætte firewallen op og oprette brugerkonti på den.
   whyItMatters:
     en: It gives the most freedom but leaves the most security work with the customer; teams that assume the provider patches their machines leave gaps open.
     da: Den giver mest frihed, men efterlader mest sikkerhedsarbejde hos kunden; teams, der tror, at udbyderen patcher deres maskiner, efterlader huller åbne.

@@ -13,17 +13,17 @@ summary:
   da: Manipulation af mennesker, så de udleverer oplysninger eller adgang, i stedet for at bryde direkte ind i systemer.
 body:
   formal:
-    en: A family of attacks that play on human trust, respect for authority, helpfulness or time pressure to make a person reveal information or grant access, getting around technical controls entirely.
-    da: En gruppe af angreb, der udnytter menneskers tillid, respekt for autoritet, hjælpsomhed eller tidspres til at få en person til at afsløre oplysninger eller give adgang — helt uden om de tekniske kontroller.
+    en: A family of attacks that play on human trust, respect for authority, helpfulness, curiosity or time pressure to make a person reveal information or grant access, getting around technical controls entirely.
+    da: En gruppe af angreb, der udnytter menneskers tillid, respekt for autoritet, hjælpsomhed, nysgerrighed eller tidspres til at få en person til at afsløre oplysninger eller give adgang — helt uden om de tekniske kontroller.
   plain:
-    en: A con artist who does not pick the lock but simply talks the doorman into holding the door open.
-    da: En svindler, der ikke dirker låsen op, men blot snakker dørmanden til at holde døren åben.
+    en: Like a con artist who does not pick the lock but simply talks the doorman into holding the door open.
+    da: Som en svindler, der ikke dirker låsen op, men blot snakker dørmanden til at holde døren åben.
   inPractice:
-    en: A caller claiming to be from IT support tells a receptionist there is an urgent problem and gets her to read out the code she just received by text.
-    da: En opringer, der påstår at være fra IT-support, fortæller en receptionist, at der er et akut problem, og får hende til at læse den kode op, hun lige har fået på sms.
+    en: A few USB sticks labelled “Salaries 2026” are left in the car park outside a town hall; an employee plugs one into a work PC to find out whose it is.
+    da: Et par USB-stik mærket “Lønninger 2026” bliver efterladt på parkeringspladsen ved et rådhus; en medarbejder sætter et af dem i sin arbejds-pc for at finde ud af, hvem den tilhører.
   whyItMatters:
-    en: The strongest locks and walls do not help if a person can be talked into opening them, so people are a target in their own right.
-    da: De stærkeste låse og mure hjælper ikke, hvis en person kan snakkes til at åbne dem, så mennesker er et mål i sig selv.
+    en: The strongest locks and walls do not help if a person can be talked into opening them, so people are a target in their own right and need defending as such.
+    da: De stærkeste låse og mure hjælper ikke, hvis en person kan snakkes til at åbne dem, så mennesker er et mål i sig selv og skal beskyttes som sådan.
 edges:
   kind-of: [threat]
   exploits:

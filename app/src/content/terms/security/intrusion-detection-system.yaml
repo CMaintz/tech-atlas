@@ -20,8 +20,8 @@ body:
     en: Like a burglar alarm — it rings when someone breaks in, but it does not lock the door.
     da: Som en tyverialarm — den hyler, når nogen bryder ind, men den låser ikke døren.
   inPractice:
-    en: The IDS sees a laptop in accounting trying to reach hundreds of other machines in a few seconds and sends an alert to the SIEM, where an analyst decides what to do.
-    da: IDS'en ser en bærbar i bogholderiet forsøge at kontakte hundredvis af andre maskiner på få sekunder og sender en alarm til SIEM'en, hvor en analytiker beslutter, hvad der skal ske.
+    en: At a regional hospital, the IDS sees a PC in the finance office trying to reach hundreds of other machines within seconds and sends an alert to the SIEM, where the on-duty analyst decides what to do.
+    da: På et regionshospital ser IDS'en en pc i økonomiafdelingen forsøge at kontakte hundredvis af andre maskiner på få sekunder og sender en alarm til SIEM'en, hvor den vagthavende analytiker beslutter, hvad der skal ske.
   whyItMatters:
     en: Because it only watches, it can be placed almost anywhere without risk of blocking real work — but someone must act on its warnings, or they are worth nothing.
     da: Fordi den kun ser på, kan den placeres næsten overalt uden risiko for at blokere rigtigt arbejde — men nogen skal handle på advarslerne, ellers er de intet værd.

@@ -17,10 +17,10 @@ body:
     da: En kørende forekomst af et program, som styresystemet giver sin egen private hukommelse, en andel af maskinens tid samt identitet og rettigheder fra den konto, det kører som.
   plain:
     en: A recipe is the program; actually cooking it in a kitchen, with your own pots and ingredients, is the process. Two cooks can follow the same recipe at the same time.
-    da: En opskrift er programmet; selve madlavningen i et køkken med egne gryder og råvarer er processen. To kokke kan følge den samme opskrift på samme tid.
+    da: En opskrift er programmet; selve madlavningen i et køkken med egne gryder og ingredienser er processen. To kokke kan følge den samme opskrift på samme tid.
   inPractice:
-    en: Opening two browser windows can start several processes. Task Manager on Windows lists each one, which user it belongs to and how much of the machine it is using.
-    da: Åbner man to browservinduer, kan det starte flere processer. Jobliste i Windows viser hver af dem, hvilken bruger de tilhører, og hvor meget af maskinen de bruger.
+    en: An IT supporter at a school opens Task Manager on a slow teacher's PC and finds an unknown process running under the teacher's account and using most of the machine; she stops it and has the PC checked for malware.
+    da: En IT-supporter på en skole åbner Jobliste på en lærers langsomme computer og finder en ukendt proces, der kører under lærerens konto og bruger det meste af maskinen; hun stopper den og får computeren undersøgt for malware.
   whyItMatters:
     en: Harmful software runs as a process too, and it inherits the rights of whoever started it — which is why limiting what an account may do limits the damage an attack can cause.
     da: Skadelig software kører også som en proces og arver rettighederne fra den, der startede den — derfor begrænser man skaden fra et angreb ved at begrænse, hvad en konto må.

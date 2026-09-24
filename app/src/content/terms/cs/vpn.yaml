@@ -20,8 +20,8 @@ body:
     en: Like a private, sealed tunnel from your home straight into the office building, so the walk through the busy public street no longer matters.
     da: Som en privat, lukket tunnel fra dit hjem direkte ind i kontorbygningen, så turen gennem den travle offentlige gade ikke længere betyder noget.
   inPractice:
-    en: An employee working from a café connects to the company VPN before opening the internal finance system.
-    da: En medarbejder, der arbejder fra en café, forbinder sig til firmaets VPN, før hun åbner det interne økonomisystem.
+    en: A civil servant at a ministry, working from home, connects to the ministry's VPN and confirms with MFA before she opens the internal case system.
+    da: En fuldmægtig i et ministerium, der arbejder hjemmefra, forbinder sig til ministeriets VPN og bekræfter med MFA, før hun åbner det interne sagssystem.
   whyItMatters:
     en: It lets staff use internal systems safely from anywhere, but once inside, a user often reaches far more than they need — a weakness Zero Trust aims to fix.
     da: Den lader medarbejdere bruge interne systemer sikkert hvor som helst, men når man først er inde, kan man ofte nå langt mere end nødvendigt — en svaghed, Zero Trust vil løse.

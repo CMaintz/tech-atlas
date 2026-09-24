@@ -13,17 +13,17 @@ summary:
   da: Et organiseret lager af data, som mange programmer og brugere kan søge i, tilføje til og ændre på samme tid, uden at det bliver rodet.
 body:
   formal:
-    en: A structured collection of data run by a database management system, which lets programs look up, insert, update and delete records through a query language such as SQL while keeping the data consistent when many changes happen at once.
-    da: En struktureret samling af data, som styres af et databasesystem, der lader programmer slå op, indsætte, opdatere og slette poster gennem et forespørgselssprog som SQL, mens data holdes konsistente, når mange ændringer sker på én gang.
+    en: A structured collection of data run by a database management system, which lets programs look up, insert, update and delete records through a query language such as SQL while keeping the data correct when many changes happen at once.
+    da: En struktureret samling af data, som styres af et databasesystem, der lader programmer slå op, indsætte, opdatere og slette poster gennem et forespørgselssprog som SQL, mens data holdes korrekte, når mange ændringer sker på én gang.
   plain:
-    en: Like a well-run library catalogue — every book has a card in a fixed place, so a librarian can find, add or move one in seconds without losing the rest.
-    da: Som kartoteket på et velordnet bibliotek — hver bog har et kort på en fast plads, så bibliotekaren kan finde, tilføje eller flytte én på få sekunder uden at miste resten.
+    en: Like a well-run warehouse with a stock list — every item has a fixed place and a line in the list, so staff can find, add or move goods in seconds, and two clerks never undo each other's changes.
+    da: Som et velordnet lager med en vareliste — hver vare har en fast plads og en linje på listen, så personalet kan finde, tilføje eller flytte varer på få sekunder, og to ekspedienter aldrig overskriver hinandens rettelser.
   inPractice:
-    en: When a customer places an order in a web shop, the web application writes the order, the address and the new stock count to the shop's database in one step.
-    da: Når en kunde afgiver en ordre i en webshop, skriver webapplikationen ordren, adressen og det nye lagertal til butikkens database i ét hug.
+    en: When a customer orders from a Danish web shop, the web application writes the order, the address and the new stock count to the database as one step, so a crash halfway never leaves half an order.
+    da: Når en kunde bestiller i en dansk webshop, skriver webapplikationen ordren, adressen og det nye lagertal til databasen i ét samlet trin, så et nedbrud midt i processen aldrig efterlader en halv ordre.
   whyItMatters:
-    en: The database is often where a company's most valuable data lives, so who can reach it and what they may ask of it decides how bad a breach can be.
-    da: Databasen er ofte der, hvor en virksomheds mest værdifulde data ligger, så hvem der kan nå den, og hvad de må spørge den om, afgør, hvor slemt et brud kan blive.
+    en: The database is often where an organisation's most valuable data lives, so who can reach it and what they may ask of it decides how bad a breach can be.
+    da: Databasen er ofte der, hvor en organisations mest værdifulde data ligger, så hvem der kan nå den, og hvad de må spørge den om, afgør, hvor slemt et brud kan blive.
 edges:
   contrasts-with:
     - to: file-system

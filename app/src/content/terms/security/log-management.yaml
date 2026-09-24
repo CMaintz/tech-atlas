@@ -16,11 +16,11 @@ body:
     en: The planned handling of logs through their whole life — deciding what to record, sending it to a central store, putting it in a common format with correct times, protecting it against change, keeping it for a set period and then deleting it.
     da: Den planlagte håndtering af logs gennem hele deres levetid — at beslutte, hvad der skal registreres, sende det til et centralt lager, bringe det på et fælles format med korrekte tidsstempler, beskytte det mod ændringer, gemme det i en fastsat periode og derefter slette det.
   plain:
-    en: Like a town archive that gathers the papers from every office, files them the same way, locks them up and throws them out on a fixed date.
-    da: Som et kommunalt arkiv, der samler papirerne fra alle kontorer, arkiverer dem på samme måde, låser dem inde og kasserer dem på en fast dato.
+    en: Like the archive at the town hall, which gathers the papers from every office, files them the same way, locks them up and throws them out on a fixed date.
+    da: Som arkivet på rådhuset, der samler papirerne fra alle kontorer, ordner dem på samme måde, låser dem inde og kasserer dem på en fast dato.
   inPractice:
-    en: A company finds that its firewall, email and cloud servers each keep logs for only a week, each on its own clock, so it sends all of them to one central store with the same time source.
-    da: En virksomhed opdager, at dens firewall, mail og cloudservere kun gemmer logs i en uge og hver med sit eget ur, så den sender dem alle til ét centralt lager med samme tidskilde.
+    en: An IT manager at a small engineering firm finds that the firewall, email and cloud servers each keep logs for only a week, each on its own clock, so she sends them all to one central store with one time source.
+    da: IT-chefen i en mindre ingeniørvirksomhed opdager, at firewall, mail og cloudservere kun gemmer logs i en uge og hver med sit eget ur, så hun sender dem alle til ét centralt lager med én fælles tidskilde.
   whyItMatters:
     en: Logs scattered across machines, with clocks that disagree, cannot be searched or trusted when an incident happens; good handling is what makes them useful as evidence.
     da: Logs spredt ud over mange maskiner, med ure der ikke stemmer overens, kan hverken gennemsøges eller stoles på, når en hændelse sker; god håndtering er det, der gør dem brugbare som bevis.

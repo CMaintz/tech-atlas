@@ -13,14 +13,14 @@ summary:
   da: Hvor sandsynligt det er, at en given trussel faktisk udnytter en svaghed og gør skade inden for en bestemt periode.
 body:
   formal:
-    en: An estimate of how often, or how probably, a threat will exploit a vulnerability, rated from rare to almost certain and combined with impact to score a risk.
-    da: Et skøn over, hvor ofte eller hvor sandsynligt en trussel udnytter en sårbarhed, vurderet fra sjælden til næsten sikker og kombineret med konsekvens til en risikoscore.
+    en: An estimate of how often, or how probably, a threat will exploit a vulnerability, rated from rare to almost certain and combined with impact to score a risk. It draws on past events, known attacks and existing controls.
+    da: Et skøn over, hvor ofte eller hvor sandsynligt en trussel udnytter en sårbarhed, vurderet fra sjælden til næsten sikker og kombineret med konsekvens til en risikoscore. Skønnet bygger på tidligere hændelser, kendte angreb og eksisterende kontroller.
   plain:
-    en: Like a weather forecast for trouble — rain is likely in November, snow in July is not.
-    da: Som en vejrudsigt for problemer — regn er sandsynlig i november, sne i juli er ikke.
+    en: Like a pot on the stove — if you walk away it will almost surely boil over; if you stand and watch, it hardly ever does.
+    da: Som en gryde på komfuret — går du fra den, koger den næsten sikkert over; står du og holder øje, sker det næsten aldrig.
   inPractice:
-    en: A team rates phishing mails as almost certain to arrive each month, but a flood in its top-floor office as rare.
-    da: Et team vurderer, at phishingmails næsten sikkert kommer hver måned, mens en oversvømmelse på kontoret på øverste etage er sjælden.
+    en: The IT security team in a Danish region rates phishing mails as almost certain to arrive every month, but flooding of its top-floor server room as rare.
+    da: IT-sikkerhedsteamet i en region vurderer, at phishingmails næsten sikkert kommer hver måned, mens en oversvømmelse af serverrummet på øverste etage er sjælden.
   whyItMatters:
     en: Without a sense of how probable each threat is, an organisation spends as much on unlikely events as on the ones that happen every week.
     da: Uden en fornemmelse af, hvor sandsynlig hver trussel er, bruger man lige så meget på usandsynlige hændelser som på dem, der sker hver uge.

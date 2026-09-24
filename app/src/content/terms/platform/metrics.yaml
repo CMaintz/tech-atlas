@@ -17,10 +17,10 @@ body:
     da: Målinger gemt som et navn, et tal og et tidspunkt, ofte med etiketter som server eller region, der er billige at gemme længe og kan lægges sammen, gennemsnitsberegnes og sammenlignes på tværs af mange systemer.
   plain:
     en: Like the readings on your electricity meter taken every hour; one number on its own says little, but the curve over a week shows when something unusual happened.
-    da: Som aflæsninger af elmåleren hver time; ét tal alene siger ikke meget, men kurven over en uge viser, hvornår der skete noget usædvanligt.
+    da: Som at skrive tallet på elmåleren ned hver time; ét tal alene siger ikke meget, men kurven over en uge viser, hvornår der skete noget usædvanligt.
   inPractice:
-    en: A chart of failed login attempts per minute usually shows about twenty, and one night it jumps to four thousand, pointing to a password guessing attack.
-    da: En graf over mislykkede login pr. minut viser normalt omkring tyve, og en nat springer den til fire tusind, hvilket peger på et angreb, hvor nogen gætter adgangskoder.
+    en: At a municipality, a chart of failed logins to the staff portal usually shows about twenty a minute; one night it jumps to four thousand, pointing to someone guessing passwords.
+    da: I en kommune viser en kurve over mislykkede login på medarbejderportalen normalt omkring tyve i minuttet; en nat springer den til fire tusind, hvilket tyder på, at nogen gætter adgangskoder.
   whyItMatters:
     en: Because they are small and fast to search, metrics are what most alarms and service targets are built on; they show that something changed, while logs and traces help show why.
     da: Fordi de er små og hurtige at søge i, er metrikker grundlaget for de fleste alarmer og servicemål; de viser, at noget har ændret sig, mens logs og sporinger hjælper med at vise hvorfor.

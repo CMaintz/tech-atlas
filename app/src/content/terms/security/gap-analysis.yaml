@@ -10,20 +10,20 @@ layer: governance
 status: current
 summary:
   en: A comparison of what an organisation does today with the requirements it wants to meet.
-  da: En sammenligning af, hvad en virksomhed gør i dag, og de krav, den ønsker at leve op til.
+  da: En sammenligning af, hvad en organisation gør i dag, og de krav, den ønsker at leve op til.
 body:
   formal:
-    en: A structured review that checks current practice against each requirement of a chosen law or standard, records what is missing, and ranks the gaps to form a plan.
-    da: En struktureret gennemgang, der holder den nuværende praksis op mod hvert krav i en valgt lov eller standard, noterer, hvad der mangler, og rangordner hullerne til en plan.
+    en: A structured review that holds current practice against each requirement of a chosen law, standard or framework, records each requirement as met, partly met or missing, and ranks the gaps by risk and effort into an action plan.
+    da: En struktureret gennemgang, der holder den nuværende praksis op mod hvert krav i en valgt lov, standard eller et rammeværk, noterer hvert krav som opfyldt, delvist opfyldt eller manglende og prioriterer hullerne efter risiko og indsats i en handlingsplan.
   plain:
-    en: Holding your packed suitcase against the packing list to see what you still need to buy before the trip.
-    da: At holde den pakkede kuffert op mod pakkelisten for at se, hvad man stadig skal købe inden rejsen.
+    en: Holding your half-packed suitcase against the packing list to see what you still need to buy before the trip.
+    da: At holde den halvt pakkede kuffert op mod pakkelisten for at se, hvad man stadig mangler at købe inden rejsen.
   inPractice:
-    en: A consultant walks through the NIS2 minimum requirements with an IT manager, marks each as met, partly met or missing, and turns the result into a 12-month plan.
-    da: En konsulent gennemgår NIS2-minimumskravene med en IT-chef, markerer hvert krav som opfyldt, delvist opfyldt eller manglende og gør resultatet til en 12-måneders plan.
+    en: A consultant sits down with the operations manager of a Danish water utility, goes through the NIS2 minimum requirements one by one and finds that no logs are kept and suppliers face no security terms; the result becomes a 12-month plan for the board.
+    da: En konsulent sætter sig med driftslederen på et dansk vandværk, gennemgår NIS2-minimumskravene ét for ét og finder, at der ikke gemmes logs, og at leverandørerne ikke er underlagt sikkerhedskrav; resultatet bliver en 12-måneders plan til bestyrelsen.
   whyItMatters:
-    en: It is usually the first step towards compliance, showing where limited time and money will close the biggest holes.
-    da: Det er typisk første skridt mod compliance og viser, hvor begrænset tid og penge lukker de største huller.
+    en: Without it, time and money go to whatever feels urgent rather than the biggest holes, and there is no baseline to show progress to management or an authority later.
+    da: Uden den går tid og penge til det, der føles mest presserende, frem for de største huller, og der er intet udgangspunkt at vise fremskridt ud fra over for ledelsen eller en myndighed.
 edges:
   requires: [compliance]
   used-with:

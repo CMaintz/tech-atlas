@@ -10,21 +10,21 @@ layer: governance
 status: legacy
 era: 2012
 summary:
-  en: Denmark's national cyber security body from 2012, merged in January 2025 into a new Danish agency for public safety.
-  da: Danmarks nationale it-sikkerhedsmyndighed fra 2012, som i januar 2025 blev lagt ind i Styrelsen for Samfundssikkerhed.
+  en: Denmark's national cyber security body from 2012, which in January 2025 became part of the Danish agency for public safety.
+  da: Danmarks nationale myndighed for cybersikkerhed fra 2012, som i januar 2025 blev en del af Styrelsen for Samfundssikkerhed.
 body:
   formal:
-    en: A Danish public body set up in 2012 under the Defence Intelligence Service to warn, advise and help with serious cyber attacks. From January 2025 its advice and threat work moved to a new Danish agency for public safety and emergency planning, while the national incident response team stayed with the Defence Intelligence Service.
-    da: En dansk myndighed oprettet i 2012 under Forsvarets Efterretningstjeneste til at varsle, rådgive og hjælpe ved alvorlige cyberangreb. Fra januar 2025 flyttede rådgivningen og trusselsarbejdet til den nye Styrelsen for Samfundssikkerhed (SAMSIK), mens det nationale CSIRT blev hos Forsvarets Efterretningstjeneste.
+    en: A Danish public body set up in 2012 under the Defence Intelligence Service to warn, advise and assist against serious cyber attacks. Since January 2025 its advice and threat work sits in the agency for public safety, while incident reports go to the Defence Intelligence Service as national response team.
+    da: En dansk myndighed oprettet i 2012 under Forsvarets Efterretningstjeneste for at advare, rådgive og hjælpe ved alvorlige cyberangreb. Siden januar 2025 ligger rådgivningen og trusselsarbejdet i Styrelsen for Samfundssikkerhed (SAMSIK), mens indberetninger om hændelser går til Forsvarets Efterretningstjeneste som nationalt CSIRT.
   plain:
-    en: Like a national weather service for cyber storms — it watched for danger, sent out warnings and told people how to prepare, before being folded into a larger agency.
-    da: Som en national vejrtjeneste for cyberstorme — den holdt øje med farer, sendte varsler og fortalte, hvordan man forbereder sig, før den blev lagt ind i en større styrelse.
+    en: Like a national weather service for storms on the internet — it watched the sky, sent out warnings and told people how to prepare, and was later folded into a larger agency.
+    da: Som en national vejrtjeneste for storme på nettet — den holdt øje med himlen, sendte advarsler ud og fortalte folk, hvordan de skulle forberede sig, og blev siden lagt ind i en større styrelse.
   inPractice:
-    en: A Danish IT manager still finds CFCS guides and yearly threat reports when searching online; the newer versions are now published by the agency that took over, and the old CFCS web address now sends visitors there.
-    da: En dansk it-chef finder stadig CFCS-vejledninger og årlige trusselsvurderinger, når hun søger på nettet; de nyere udgaver udgives nu af SAMSIK, og cfcs.dk sender besøgende videre dertil.
+    en: An IT manager in a Danish municipality still finds CFCS guides and threat assessments when she searches online; for current advice she now uses the versions the agency for public safety publishes.
+    da: En IT-chef i en dansk kommune finder stadig CFCS-vejledninger og trusselsvurderinger, når hun søger på nettet; til den nyeste rådgivning bruger hun nu de udgaver, SAMSIK udgiver.
   whyItMatters:
-    en: Much Danish guidance and course material still names CFCS, so knowing where its tasks went tells you who to turn to today for advice and who takes serious incident reports.
-    da: Meget dansk vejledning og undervisningsmateriale nævner stadig CFCS, så når man ved, hvor opgaverne er flyttet hen, ved man også, hvem man i dag skal gå til for rådgivning, og hvem der modtager indberetninger om alvorlige hændelser.
+    en: Much Danish guidance and course material still names CFCS; without knowing where its tasks went, a firm may look for advice in the wrong place or be unsure where to report a serious incident.
+    da: Meget dansk vejledning og undervisningsmateriale nævner stadig CFCS; uden at vide, hvor opgaverne er flyttet hen, kan en virksomhed lede efter rådgivning det forkerte sted eller være i tvivl om, hvor en alvorlig hændelse skal indberettes.
 edges:
   requires: [cyber-and-information-security]
   used-with:

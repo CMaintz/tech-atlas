@@ -19,8 +19,8 @@ body:
     en: Like calling the fire brigade and your neighbours as soon as you see smoke, rather than after the fire is out.
     da: Som at ringe til brandvæsenet og naboerne, så snart man ser røg — ikke først når branden er slukket.
   inPractice:
-    en: After spotting an attack on its systems, a hospital sends an early warning to the national authority within 24 hours and a fuller report within 72.
-    da: Efter at have opdaget et angreb på sine systemer sender et hospital en tidlig varsling til den nationale myndighed inden for 24 timer og en fyldigere rapport inden for 72.
+    en: After spotting an attack on its systems, a regional hospital sends the authorities an early warning within 24 hours, a full notification within 72 hours and a final report within a month.
+    da: Efter at have opdaget et angreb på sine systemer sender et af regionens hospitaler en tidlig varsling til myndighederne inden for 24 timer, en egentlig anmeldelse inden for 72 timer og en endelig rapport inden for en måned.
   whyItMatters:
     en: Quick reports let others warn and protect themselves, and missing a legal deadline can bring fines on top of the attack itself.
     da: Hurtige rapporter gør det muligt for andre at advare og beskytte sig, og overskredne frister kan give bøder oveni selve angrebet.

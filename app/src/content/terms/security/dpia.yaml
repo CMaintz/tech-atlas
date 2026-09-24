@@ -14,17 +14,17 @@ summary:
   da: En skriftlig vurdering, før man går i gang, af hvordan en planlagt brug af personoplysninger kan skade folk, og hvordan det undgås.
 body:
   formal:
-    en: A focused risk assessment required by GDPR Article 35 before any processing likely to pose a high risk to people's rights, such as large-scale tracking or use of health data. It describes the processing, tests whether it is necessary and in proportion, rates the risks and sets the measures to handle them.
-    da: En målrettet risikovurdering, som GDPR artikel 35 kræver, før enhver behandling, der sandsynligvis indebærer en høj risiko for personers rettigheder, fx overvågning i stor skala eller brug af helbredsoplysninger. Den beskriver behandlingen, vurderer om den er nødvendig og står i rimeligt forhold til formålet, vurderer risiciene og fastlægger tiltag mod dem.
+    en: A risk assessment required by GDPR Article 35 before processing likely to pose a high risk to people's rights, such as large-scale tracking or health data; it describes the processing, tests its necessity and proportion, rates the risks and sets measures against them.
+    da: En risikoanalyse, som GDPR artikel 35 kræver før behandling, der sandsynligvis giver en høj risiko for personers rettigheder, fx overvågning i stor skala eller helbredsoplysninger; den beskriver behandlingen, prøver, om den er nødvendig og rimelig, vurderer risiciene og fastlægger tiltag mod dem.
   plain:
     en: Like an architect checking how a new building will affect the neighbours' light and noise before building starts, not after.
     da: Som når en arkitekt undersøger, hvordan et nyt byggeri vil påvirke naboernes lys og støj, før man bygger — ikke bagefter.
   inPractice:
-    en: A Danish municipality wants to use an app that tracks home-care visits by location; before launch it writes a DPIA, finds the tracking goes further than needed, limits it to working hours and deletes the data after 30 days.
-    da: En dansk kommune vil bruge en app, der registrerer hjemmeplejebesøg via lokation; før lanceringen laver den en konsekvensanalyse, finder ud af, at sporingen går videre end nødvendigt, begrænser den til arbejdstiden og sletter data efter 30 dage.
+    en: A Danish municipality plans an app that logs home-care visits by location; the data protection officer writes a DPIA, finds the tracking goes further than needed, and the app is limited to working hours with data deleted after 30 days.
+    da: En dansk kommune vil bruge en app, der registrerer hjemmeplejebesøg via lokation; databeskyttelsesrådgiveren laver en konsekvensanalyse, finder, at sporingen går videre end nødvendigt, og appen begrænses til arbejdstiden, mens data slettes efter 30 dage.
   whyItMatters:
-    en: It forces privacy risks to be found while the design can still change cheaply, and if a high risk cannot be reduced, the data protection authority must be asked first.
-    da: Den tvinger privatlivsrisici frem, mens designet stadig kan ændres billigt, og hvis en høj risiko ikke kan nedbringes, skal Datatilsynet høres først.
+    en: Privacy harm is cheapest to prevent while the design can still change; if a high risk cannot be reduced, Datatilsynet must be consulted before the processing starts.
+    da: Skader på privatlivet er billigst at forebygge, mens designet stadig kan ændres; kan en høj risiko ikke nedbringes, skal Datatilsynet høres, før behandlingen går i gang.
 edges:
   kind-of: [risk-assessment]
   requires: [personal-data, gdpr]

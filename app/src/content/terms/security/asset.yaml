@@ -13,17 +13,17 @@ summary:
   da: Alt af værdi for organisationen, som skal beskyttes — data, systemer, enheder, medarbejdere eller viden.
 body:
   formal:
-    en: Any resource the organisation depends on to do its work, whose loss, misuse or disruption would cause harm, and which is therefore in scope for protection.
-    da: Enhver ressource, som organisationen er afhængig af i sit arbejde, og hvis tab, misbrug eller nedbrud vil gøre skade — og som derfor skal beskyttes.
+    en: Any resource the organisation depends on to do its work and whose loss, misuse or disruption would cause harm. Each asset is given an owner and a value, so that risks can be tied to something concrete.
+    da: Enhver ressource, som organisationen er afhængig af i sit arbejde, og hvis tab, misbrug eller nedbrud vil gøre skade. Hvert aktiv får en ejer og en værdi, så risici kan knyttes til noget konkret.
   plain:
-    en: Everything you would list if you asked "what would hurt to lose?" in your home — the laptop, the photos, the house keys.
-    da: Alt det, du ville nævne, hvis du spurgte dig selv derhjemme, "hvad ville gøre ondt at miste?" — computeren, billederne, husnøglerne.
+    en: Everything you would worry about if your home caught fire — the laptop, the family photos, the house keys, and the one person who knows where everything is kept.
+    da: Alt det, du ville bekymre dig om, hvis dit hjem brændte — den bærbare, familiebillederne, husnøglerne og den ene person, der ved, hvor alting ligger.
   inPractice:
-    en: When starting a risk review, a small firm writes down its customer database, its accounting system, its staff laptops and the one employee who knows how payroll works.
-    da: Da en lille virksomhed starter en risikogennemgang, skriver den kundedatabasen, økonomisystemet, medarbejdernes bærbare og den ene medarbejder, der kan lønkørslen, ned.
+    en: Before its first risk review, a small accounting firm in Copenhagen lists its client files, its bookkeeping system and the staff laptops — and the one bookkeeper who is the only person who knows how to run payroll.
+    da: Før sin første risikogennemgang skriver et lille revisionsfirma i København kundemapperne, bogføringssystemet og medarbejdernes bærbare op — og den ene bogholder, som er den eneste, der kan køre lønnen.
   whyItMatters:
-    en: You cannot protect what you do not know you have, and every risk is a risk to some asset.
-    da: Man kan ikke beskytte det, man ikke ved, man har — og enhver risiko er en risiko for et bestemt aktiv.
+    en: Protection can only be planned for what the organisation knows it has; a forgotten server gets no updates, no backup and no owner, and every risk in the end harms some asset.
+    da: Man kan kun planlægge beskyttelse af det, man ved, man har; en glemt server får hverken opdateringer, backup eller en ejer — og enhver risiko ender med at ramme et bestemt aktiv.
 edges:
   part-of:
     - to: risk

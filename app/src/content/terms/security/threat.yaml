@@ -10,17 +10,17 @@ layer: governance
 status: current
 summary:
   en: Anything that could harm the organisation — an attacker, a careless mistake, a fire or a power cut.
-  da: Alt, der kan skade virksomheden — en angriber, en skødesløs fejl, en brand eller et strømsvigt.
+  da: Alt, der kan skade organisationen — en angriber, en skødesløs fejl, en brand eller et strømsvigt.
 body:
   formal:
-    en: Any person, event or circumstance with the potential to cause harm to information or systems by damaging their confidentiality, integrity or availability.
-    da: Enhver person, hændelse eller omstændighed, der kan forvolde skade på information eller systemer ved at ramme deres fortrolighed, integritet eller tilgængelighed.
+    en: Any person, event or circumstance with the potential to cause harm to information or systems by damaging their confidentiality, integrity or availability. A threat does harm only when it meets a weakness it can use.
+    da: Enhver person, hændelse eller ethvert forhold, der kan forvolde skade på information eller systemer ved at ramme deres fortrolighed, integritet eller tilgængelighed. En trussel gør først skade, når den møder en svaghed, den kan udnytte.
   plain:
     en: Like a burglar in the neighbourhood or a storm in the forecast — it has not hurt you yet, but it could.
     da: Som en indbrudstyv i kvarteret eller en storm i vejrudsigten — den har ikke ramt dig endnu, men den kunne.
   inPractice:
-    en: A company lists its threats — criminal groups sending phishing mails, staff mistakes, and flooding of the basement server room.
-    da: En virksomhed opstiller sine trusler — kriminelle grupper, der sender phishing-mails, fejl begået af medarbejdere og oversvømmelse af serverrummet i kælderen.
+    en: A Danish shipping company lists its threats — criminal groups sending phishing mails, staff mistakes, a supplier's remote access and flooding of the basement server room.
+    da: Et rederi opstiller sine trusler — kriminelle grupper, der sender phishingmails, fejl begået af medarbejdere, en leverandørs fjernadgang og oversvømmelse af serverrummet i kælderen.
   whyItMatters:
     en: You cannot guard against what you have not named; knowing the threats tells you what to prepare for and what to ignore.
     da: Man kan ikke beskytte sig mod det, man ikke har sat navn på; kender man truslerne, ved man, hvad man skal forberede sig på, og hvad man kan se bort fra.

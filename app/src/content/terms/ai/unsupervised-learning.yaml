@@ -19,10 +19,10 @@ body:
     en: Like sorting a box of mixed buttons into piles by colour and size without anyone telling you what the piles should be.
     da: Som at sortere en kasse blandede knapper i bunker efter farve og størrelse, uden at nogen har fortalt dig, hvilke bunker der skal være.
   inPractice:
-    en: A monitoring tool learns what normal logins look like in a company and raises an alert when an account suddenly logs in at 3 a.m. from another country.
-    da: Et overvågningsværktøj lærer, hvordan normale logins ser ud i en virksomhed, og slår alarm, når en konto pludselig logger ind kl. 3 om natten fra et andet land.
+    en: A monitoring tool at a hospital learns what normal logins look like and raises an alert when a nurse's account suddenly logs in at 3 a.m. from another country.
+    da: Et overvågningsværktøj på et hospital lærer, hvordan normale logins ser ud, og slår alarm, når en sygeplejerskes konto pludselig logger ind kl. 3 om natten fra et andet land.
   whyItMatters:
-    en: It can spot new, unknown threats nobody has labeled yet, but it also flags harmless unusual behaviour, so people must still judge the alerts.
+    en: It can spot new, unknown threats nobody has labelled yet, but it also flags harmless unusual behaviour, so people must still judge the alerts.
     da: Den kan opdage nye, ukendte trusler, som ingen har mærket endnu, men markerer også harmløs usædvanlig adfærd, så mennesker stadig skal vurdere alarmerne.
 edges:
   kind-of: [machine-learning]

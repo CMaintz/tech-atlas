@@ -10,17 +10,17 @@ layer: data
 status: current
 summary:
   en: A separate copy of data kept so it can be restored after a breakdown, a mistake or an attack.
-  da: En separat kopi af data, som gemmes, så de kan genskabes efter nedbrud, fejl eller angreb.
+  da: En separat kopi af data, som gemmes, så de kan gendannes efter nedbrud, fejl eller angreb.
 body:
   formal:
     en: A copy of data and system settings taken on a schedule and stored apart from the original — ideally with at least one copy offline — and regularly tested by actually restoring from it.
-    da: En kopi af data og systemindstillinger, der tages efter en fast plan og opbevares adskilt fra originalen — helst med mindst én kopi offline — og som jævnligt testes ved faktisk at genskabe fra den.
+    da: En kopi af data og systemindstillinger, der tages efter en fast plan og opbevares adskilt fra originalen — helst med mindst én kopi offline — og som jævnligt testes ved faktisk at gendanne fra den.
   plain:
     en: Like keeping paper copies of your passport and deeds at a relative's house — if your home burns down, the papers are not lost.
     da: Som at have kopier af pas og skøde liggende hos et familiemedlem — hvis dit hus brænder, er papirerne ikke tabt.
   inPractice:
-    en: Ransomware locks the file server on a Monday; because last night's copy sat on a disk that was not connected, IT wipes the server and restores the files by lunchtime.
-    da: Ransomware låser filserveren en mandag; fordi nattens kopi lå på en disk, der ikke var tilsluttet, sletter IT serveren og har genskabt filerne ved frokosttid.
+    en: Ransomware locks a municipality's file server on a Monday; because last night's copy sat on a disk that was not connected, the IT operations team wipes the server and restores the files by lunchtime.
+    da: Ransomware låser en kommunes filserver en mandag; fordi nattens kopi lå på en disk, der ikke var tilsluttet, sletter IT-driften serveren og har gendannet filerne ved frokosttid.
   whyItMatters:
     en: It is the last line of defence for availability — when everything else fails, a tested copy decides whether the business loses hours or loses everything.
     da: Det er sidste forsvarslinje for tilgængeligheden — når alt andet svigter, afgør en testet kopi, om virksomheden mister timer eller mister alt.
@@ -30,7 +30,7 @@ edges:
     - to: ransomware
       why:
         en: With a clean copy stored apart, locked data can be restored without paying.
-        da: Med en ren kopi opbevaret separat kan låste data genskabes uden at betale.
+        da: Med en ren kopi opbevaret separat kan låste data gendannes uden at betale.
       strength: primary
       confidence: high
   used-with:

@@ -10,21 +10,21 @@ layer: inference
 era: 2014
 status: current
 summary:
-  en: An input changed on purpose, often in ways people cannot even see, so that a finished AI model gives a confidently wrong answer.
-  da: Et input, der med vilje er ændret, ofte helt usynligt for mennesker, så en færdig AI-model svarer forkert med stor sikkerhed.
+  en: An input altered on purpose, often in ways people cannot see, so that a trained AI model gives a confident but wrong answer.
+  da: Et input, der er ændret med vilje, ofte usynligt for mennesker, så en færdigtrænet AI-model svarer forkert med stor sikkerhed.
 body:
   formal:
-    en: An input to a trained machine learning model, usually a neural network, that an attacker has altered by a tiny, carefully chosen amount so the model's output flips to a wrong or chosen answer at inference time, while the model itself is left untouched.
-    da: Et input til en trænet maskinlæringsmodel, typisk et neuralt netværk, som en angriber har ændret en lille, nøje udvalgt smule, så modellens svar skifter til et forkert eller bestemt svar under inference, uden at selve modellen røres.
+    en: An input to a trained machine learning model, usually a neural network, that an attacker has shifted by a small, calculated amount so that the output changes to a wrong or chosen answer at inference time; the model itself is not modified.
+    da: Et input til en trænet maskinlæringsmodel, typisk et neuralt netværk, som en angriber har forskudt en lille, beregnet smule, så resultatet under inferens skifter til et forkert eller bestemt svar; selve modellen ændres ikke.
   plain:
     en: Like an optical illusion made for a machine — a few dots a person would never notice make the computer see a cat as a toaster.
     da: Som en optisk illusion lavet til en maskine — nogle få prikker, et menneske aldrig ville lægge mærke til, får computeren til at se en kat som en brødrister.
   inPractice:
-    en: Researchers put a few small black and white stickers on a stop sign; drivers still read it as a stop sign, but the car's camera system reads it as a speed limit sign.
-    da: Forskere sætter nogle få små sorte og hvide klistermærker på et stopskilt; bilister ser stadig et stopskilt, men bilens kamerasystem læser det som et fartgrænseskilt.
+    en: A municipality's IT operations manager finds that its AI-based malware filter can be fooled — changing a few unused parts of a harmful file, without touching what it does, makes the filter mark it as safe.
+    da: En kommunes IT-driftsansvarlige opdager, at det AI-baserede malware-filter kan narres — ændrer man nogle få dele af en skadelig fil, som filen ikke selv bruger, markerer filteret den som sikker, selvom den virker præcis som før.
   whyItMatters:
-    en: A model can score well on every normal test and still be easy to fool on purpose, which matters wherever AI makes safety or security decisions, such as cars, face checks or malware filters.
-    da: En model kan klare alle almindelige test flot og alligevel være let at narre med vilje, og det betyder noget overalt, hvor AI træffer beslutninger om sikkerhed, som i biler, ansigtsgenkendelse eller malware-filtre.
+    en: A model can pass every ordinary test and still fail against an opponent who shapes the input, so high accuracy says little about safety where AI filters malware, checks faces or steers vehicles.
+    da: En model kan bestå alle almindelige test og alligevel fejle over for en modstander, der former inputtet, så høj træfsikkerhed siger lidt om sikkerheden, når AI filtrerer malware, genkender ansigter eller styrer køretøjer.
 edges:
   requires: [machine-learning, inference]
   exploits:

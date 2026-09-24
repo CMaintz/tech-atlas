@@ -10,20 +10,20 @@ layer: application
 status: current
 summary:
   en: Sitting down with a drawing of a system to work out what could go wrong, who might cause it and what to do about it.
-  da: At sætte sig ned med en tegning af et system og finde ud af, hvad der kan gå galt, hvem der kan forårsage det, og hvad man vil gøre ved det.
+  da: At sætte sig ned med en tegning af et system og finde ud af, hvad der kan gå galt, hvem der kan stå bag, og hvad man vil gøre ved det.
 body:
   formal:
-    en: A structured way of finding threats against a planned or existing system by drawing its parts, data flows and trust boundaries, listing what could go wrong at each point, and deciding which controls to add; it is best done while the design can still change.
-    da: En struktureret metode til at finde trusler mod et planlagt eller eksisterende system ved at tegne dets dele, datastrømme og tillidsgrænser, liste, hvad der kan gå galt i hvert punkt, og beslutte, hvilke kontroller der skal tilføjes; den gør mest gavn, mens designet stadig kan ændres.
+    en: A structured method for finding threats against a planned or existing system by mapping its parts, data flows and trust boundaries, listing what could go wrong at each point, and deciding which controls to add; it does most good while the design can still change.
+    da: En struktureret metode til at finde trusler mod et planlagt eller eksisterende system ved at kortlægge dets dele, datastrømme og tillidsgrænser, gennemgå, hvad der kan gå galt i hvert punkt, og beslutte, hvilke kontroller der skal tilføjes; den gør mest gavn, mens designet stadig kan ændres.
   plain:
     en: Like walking through the plans for a new house and asking at every door and window how someone could get in there, and what would stop them.
     da: Som at gennemgå tegningerne til et nyt hus og ved hver dør og hvert vindue spørge, hvordan nogen kunne komme ind her, og hvad der ville stoppe dem.
   inPractice:
-    en: Before building a payment feature, the team draws how card data moves between the app, their server and the bank, and finds that one internal service accepts requests from anyone — so they add a check before writing any code.
-    da: Før teamet bygger en betalingsfunktion, tegner det, hvordan kortdata bevæger sig mellem appen, deres server og banken, og opdager, at en intern tjeneste tager imod forespørgsler fra alle — så det tilføjer et tjek, før der skrives nogen kode.
+    en: Before adding online payment of nursery fees to a municipality's self-service site, the team draws how card data moves between the site, its server and the payment provider, and finds an internal service that accepts requests from anyone — so they add a check before writing any code.
+    da: Før teamet bygger betaling for daginstitutionspladser ind i en kommunes selvbetjening, tegner det, hvordan kortdata bevæger sig mellem siden, serveren og betalingsudbyderen, og opdager en intern tjeneste, der tager imod forespørgsler fra alle — så det tilføjer et tjek, før der skrives en linje kode.
   whyItMatters:
-    en: Flaws in the design itself cannot be fixed by a patch later; finding them on paper is the cheapest point to fix them.
-    da: Fejl i selve designet kan ikke rettes med en patch senere; at finde dem på tegnebrættet er det billigste tidspunkt at rette dem.
+    en: A flaw in the design itself cannot be patched away later and may force a costly rebuild after launch; found on paper, it is cheap to fix.
+    da: En fejl i selve designet kan ikke fjernes med en patch bagefter og kan kræve en dyr ombygning efter lancering; findes den på tegnebrættet, er den billig at rette.
 edges:
   requires: [threat, asset]
   part-of: [secure-development-lifecycle]

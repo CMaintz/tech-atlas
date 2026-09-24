@@ -19,11 +19,11 @@ body:
     en: Like hiring clever troublemakers to spend a week trying to talk a new shop assistant into breaking every rule, so you learn where the training falls short before real customers do.
     da: Som at hyre snedige ballademagere til at bruge en uge på at få en ny ekspedient til at bryde alle regler, så du opdager hullerne i oplæringen, før rigtige kunder gør.
   inPractice:
-    en: Before launching a customer chat bot, a bank's team spends two weeks trying to make it reveal other customers' details, give risky money advice or ignore its rules, and blocks each trick they find.
-    da: Før en bank lancerer en chatbot til kunderne, bruger et team to uger på at få den til at afsløre andre kunders oplysninger, give risikable økonomiske råd eller ignorere sine regler, og hvert trick, de finder, bliver lukket.
+    en: Before a municipality opens a chat assistant for citizens, a team spends two weeks trying to make it reveal other citizens' case details, give wrong advice about benefits or ignore its rules, and each trick found is blocked.
+    da: Før en kommune åbner en chatassistent for borgerne, bruger et team to uger på at få den til at afsløre andre borgeres sagsoplysninger, give forkerte råd om ydelser eller ignorere sine regler, og hvert trick, de finder, bliver lukket.
   whyItMatters:
-    en: AI systems can fail in ways ordinary tests never try, and the EU AI Act now requires this kind of attack testing for the most powerful general-purpose models.
-    da: AI-systemer kan fejle på måder, almindelige test aldrig afprøver, og EU's AI-forordning kræver nu den slags angrebstest af de mest kraftfulde modeller til generelle formål.
+    en: AI systems fail in ways ordinary functional tests never try, and the EU AI Act requires this kind of attack testing for the largest general-purpose models, whose failures could cause harm across society.
+    da: AI-systemer fejler på måder, almindelige funktionstest aldrig afprøver, og EU's AI-forordning kræver den slags angrebstest af de største AI-modeller til almen brug, hvis fejl kan skade hele samfundet.
 edges:
   requires: [artificial-intelligence]
   part-of: [ai-governance]

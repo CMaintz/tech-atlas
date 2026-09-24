@@ -11,32 +11,32 @@ status: current
 era: 2022
 summary:
   en: The EU law that makes banks, insurers and other financial firms able to keep running through IT failures and cyber attacks.
-  da: EU-forordningen, der skal sikre, at banker, forsikringsselskaber og andre finansielle virksomheder kan klare it-nedbrud og cyberangreb.
+  da: EU-forordningen, der skal sikre, at banker, forsikringsselskaber og andre finansielle virksomheder kan klare IT-nedbrud og cyberangreb.
 body:
   formal:
     en: An EU regulation of 14 December 2022, applying directly in every member state from 17 January 2025, that sets one set of rules for the financial sector on IT risk management, incident reporting, testing, and control of IT suppliers such as cloud providers.
-    da: En EU-forordning af 14. december 2022, der gælder direkte i alle medlemslande fra 17. januar 2025, og som giver finanssektoren ét regelsæt for styring af it-risici, indberetning af hændelser, test og kontrol med it-leverandører som fx cloududbydere.
+    da: En EU-forordning af 14. december 2022, der gælder direkte i alle medlemslande fra 17. januar 2025, og som giver finanssektoren ét regelsæt for styring af IT-risici, indberetning af hændelser, test og kontrol med IT-leverandører som fx cloududbydere.
   plain:
-    en: Like a fire drill law for banks — not just "have smoke alarms", but prove you can get everyone out, keep the doors open, and tell the fire service what happened.
-    da: Som en brandøvelseslov for banker — ikke bare "hav røgalarmer", men bevis, at I kan få alle ud, holde åbent og fortælle brandvæsenet, hvad der skete.
+    en: Like fire rules that ask a bank not just to hang smoke alarms, but to prove in a drill that it can get everyone out, keep serving customers and tell the fire service what happened.
+    da: Som brandregler, der ikke bare kræver røgalarmer i banken, men at den ved en øvelse beviser, at den kan få alle ud, blive ved med at betjene kunderne og fortælle brandvæsenet, hvad der skete.
   inPractice:
-    en: A Danish pension fund keeps a register of all its IT suppliers, tests its backup site every year, reports a major outage to the Danish financial supervisory authority within hours, and, because it is large, runs a test where hired attackers copy real threat actors against its live systems every three years.
-    da: En dansk pensionskasse fører et register over alle sine it-leverandører, tester sit backup-site hvert år, indberetter et større nedbrud til Finanstilsynet inden for få timer og får, fordi den er stor, hvert tredje år lavet en trusselsbaseret penetrationstest af sine produktionssystemer.
+    en: The IT risk manager at a Danish pension fund keeps a register of every IT supplier contract, tests switching over to the backup site each year and, after a major outage, sends the first report to the Danish financial supervisor within hours.
+    da: Den IT-risikoansvarlige i en dansk pensionskasse fører et register over alle aftaler med IT-leverandører, tester hvert år skiftet til backup-sitet og sender efter et større nedbrud den første indberetning til Finanstilsynet inden for få timer.
   whyItMatters:
     en: Payments, savings and trading now depend almost wholly on IT and a few shared cloud providers, so one failure can spread across the whole financial system; DORA makes firms plan for that and lets supervisors check.
-    da: Betalinger, opsparing og handel afhænger nu næsten helt af it og nogle få fælles cloududbydere, så ét nedbrud kan sprede sig i hele det finansielle system; DORA tvinger virksomhederne til at planlægge for det og giver tilsynet mulighed for at kontrollere.
+    da: Betalinger, opsparing og handel afhænger nu næsten helt af IT og nogle få fælles cloududbydere, så ét nedbrud kan sprede sig i hele det finansielle system; DORA tvinger virksomhederne til at planlægge for det og giver tilsynet mulighed for at kontrollere.
 edges:
   mandates:
     - to: incident-reporting
       why:
         en: Article 19 requires major IT incidents to be reported to the financial supervisor in stages — first notice, update and final report.
-        da: Artikel 19 kræver, at større it-hændelser indberettes til finanstilsynet i trin — første underretning, opdatering og endelig rapport.
+        da: Artikel 19 kræver, at større IT-hændelser indberettes til finanstilsynet i trin — første underretning, opdatering og endelig rapport.
       strength: primary
       confidence: high
     - to: supplier-management
       why:
         en: Articles 28–30 require firms to manage the risk from IT suppliers, keep a register of contracts and put set terms into them.
-        da: Artikel 28–30 kræver, at virksomhederne styrer risikoen fra it-leverandører, fører et register over aftaler og indsætter faste vilkår i dem.
+        da: Artikel 28–30 kræver, at virksomhederne styrer risikoen fra IT-leverandører, fører et register over aftaler og indsætter faste vilkår i dem.
       strength: primary
       confidence: high
     - to: penetration-test
@@ -48,7 +48,7 @@ edges:
     - to: business-continuity-plan
       why:
         en: Article 11 requires an IT business continuity policy with plans that are tested regularly.
-        da: Artikel 11 kræver en politik for it-forretningskontinuitet med planer, der testes regelmæssigt.
+        da: Artikel 11 kræver en politik for IT-forretningskontinuitet med planer, der testes regelmæssigt.
       strength: normal
       confidence: high
     - to: log-retention

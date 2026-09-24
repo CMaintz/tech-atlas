@@ -19,8 +19,8 @@ body:
     en: Like shipping containers on one cargo ship — each holds its own goods in a standard box, but they all ride on the same hull and engine.
     da: Som skibscontainere på ét fragtskib — hver rummer sine egne varer i en standardkasse, men de sejler alle på det samme skrog og den samme motor.
   inPractice:
-    en: A team packs its web shop into a container, so the exact same box runs on a developer's laptop, in testing and in production without "it worked on my machine" surprises.
-    da: Et team pakker sin webshop i en container, så præcis den samme kasse kører på en udviklers bærbare, i test og i drift uden "det virkede på min maskine"-overraskelser.
+    en: A developer at a municipality packs the citizen booking site into a container, so the exact same box runs on a laptop, in testing and in production, ending “it worked on my machine” surprises.
+    da: En udvikler i en kommune pakker borgernes bookingside i en container, så præcis den samme kasse kører på en bærbar, i test og i drift, og “det virkede på min maskine”-overraskelserne forsvinder.
   whyItMatters:
     en: Containers start in seconds and use little memory, but because they share one kernel, a flaw there can let one container break out and reach the others on the host.
     da: Containere starter på sekunder og bruger lidt hukommelse, men fordi de deler én kerne, kan en fejl dér lade én container bryde ud og nå de andre på værten.

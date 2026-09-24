@@ -11,27 +11,27 @@ status: current
 era: 2022
 summary:
   en: The two groups of organisations NIS2 covers, sorted by sector and size, with stricter oversight for the essential group.
-  da: De to grupper af organisationer, NIS2 omfatter, opdelt efter sektor og størrelse, med strengere tilsyn for de væsentlige.
+  da: De to grupper af organisationer, NIS2 gælder for, opdelt efter sektor og størrelse, med strengere tilsyn for de væsentlige.
 body:
   formal:
-    en: NIS2 lists sectors of high importance in Annex I and other critical sectors in Annex II; as a rule, large firms in Annex I sectors are essential, while medium firms there and medium or large firms in Annex II are important. Both groups face the same duties, but essential ones are checked in advance and face higher fines.
-    da: NIS2 opregner højkritiske sektorer i bilag I og andre kritiske sektorer i bilag II; som hovedregel er store virksomheder i bilag I-sektorer væsentlige, mens mellemstore virksomheder dér og mellemstore eller store virksomheder i bilag II er vigtige. Begge grupper har de samme pligter, men de væsentlige kontrolleres på forhånd og risikerer højere bøder.
+    en: The two classes of NIS2 Article 3 — as a rule, large organisations in the Annex I sectors are essential, while medium ones there and medium or large ones in Annex II are important. Duties are the same; essential entities face checks in advance and higher fines.
+    da: De to klasser i NIS2 artikel 3 — som hovedregel er store organisationer i sektorerne i bilag I væsentlige, mens mellemstore dér og mellemstore eller store i bilag II er vigtige. Pligterne er de samme; væsentlige enheder kontrolleres på forhånd og risikerer højere bøder.
   plain:
-    en: Like road rules for heavy trucks versus vans — both must drive safely, but the trucks are stopped for checks more often because a crash does more harm.
-    da: Som færdselsregler for lastbiler og varevogne — begge skal køre sikkert, men lastbilerne bliver standset til kontrol oftere, fordi et uheld gør mere skade.
+    en: Like road rules for lorries and vans — both must drive safely, but lorries are pulled over for checks more often because a crash does more harm.
+    da: Som færdselsregler for lastbiler og varevogne — begge skal køre sikkert, men lastbilerne bliver oftere stoppet til kontrol, fordi et uheld gør mere skade.
   inPractice:
-    en: A large power company falls under Annex I and is essential, so it expects planned inspections; a medium-sized food maker falls under Annex II and is important, so it is checked mainly after an incident or tip-off.
-    da: Et stort energiselskab hører under bilag I og er væsentligt, så det kan forvente planlagte inspektioner; en mellemstor fødevareproducent hører under bilag II og er vigtig, så den kontrolleres primært efter en hændelse eller et tip.
+    en: A large Danish energy company sits in Annex I and is essential, so it expects planned inspections; a medium-sized food producer sits in Annex II and is important, so it is checked mainly after an incident or a tip-off.
+    da: Et stort dansk energiselskab hører under bilag I og er væsentligt, så det kan forvente planlagte inspektioner; en mellemstor fødevareproducent hører under bilag II og er vigtig, så den primært kontrolleres efter en hændelse eller et tip.
   whyItMatters:
-    en: An organisation must first know whether, and in which group, it falls under NIS2 before it can know which duties, checks and fines apply to it.
-    da: En organisation skal først vide, om og i hvilken gruppe den er omfattet af NIS2, før den kan vide, hvilke pligter, kontroller og bøder der gælder.
+    en: Getting the class wrong means preparing for the wrong level of oversight — too little, and the first inspection or fine comes as a surprise; too much, and money goes where it is not needed.
+    da: Placerer man sig i den forkerte gruppe, forbereder man sig på det forkerte niveau af tilsyn — for lidt, og den første inspektion eller bøde kommer bag på en; for meget, og pengene bruges, hvor der ikke er brug for dem.
 edges:
   part-of: [nis2]
   used-with:
     - to: nis2-minimum-requirements
       why:
         en: Once an organisation knows it is covered, the minimum requirements say what it must do.
-        da: Når en organisation ved, at den er omfattet, fortæller minimumskravene, hvad den skal gøre.
+        da: Når en organisation ved, at loven gælder for den, fortæller minimumskravene, hvad den skal gøre.
       strength: primary
       confidence: high
 sources:

@@ -10,17 +10,17 @@ layer: application
 status: current
 summary:
   en: A way of building an application as many small, separate services that each do one job and talk to each other over an API.
-  da: En måde at bygge en applikation på som mange små, selvstændige tjenester, der hver løser én opgave og taler sammen via et API.
+  da: En måde at bygge et system på som mange små, selvstændige tjenester, der hver løser én opgave og taler sammen via et API.
 body:
   formal:
     en: A design style in which an application is split into small services, each with its own code, data and release cycle, that run as separate processes and work together only through calls over the network.
-    da: En designstil, hvor en applikation deles op i små tjenester med hver deres kode, data og udgivelsesrytme, som kører som separate processer og kun arbejder sammen via kald over netværket.
+    da: En designstil, hvor et system deles op i små tjenester med hver deres kode, data og egen takt for nye versioner, som kører som separate processer og kun arbejder sammen via kald over netværket.
   plain:
     en: Like a food court instead of one big kitchen — each stall cooks one thing, can close for repairs on its own, and customers order from several at once.
     da: Som en food court i stedet for ét stort køkken — hver bod laver én ting, kan lukke for reparation uden de andre, og kunderne bestiller fra flere på én gang.
   inPractice:
-    en: A web shop splits into separate services for the product list, the basket and payment; the payment team can ship a fix on Tuesday without touching or restarting the rest.
-    da: En webshop deles op i separate tjenester til varekatalog, kurv og betaling; betalingsteamet kan sende en rettelse ud om tirsdagen uden at røre ved eller genstarte resten.
+    en: A municipality's citizen portal is split into separate services for bookings, payments and messages; the payments team can ship a fix on Tuesday without touching or restarting the rest.
+    da: En kommunes borgerportal er delt op i separate tjenester til bookinger, betalinger og beskeder; betalingsteamet kan sende en rettelse ud om tirsdagen uden at røre ved eller genstarte resten.
   whyItMatters:
     en: Small services let teams move and grow parts on their own, but every service and every call between them is one more door to lock, so the attack surface grows.
     da: Små tjenester lader teams udvikle og skalere dele hver for sig, men hver tjeneste og hvert kald imellem dem er endnu en dør, der skal låses, så angrebsfladen vokser.

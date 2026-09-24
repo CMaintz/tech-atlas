@@ -14,17 +14,17 @@ summary:
   da: Et nummer, der udpeger, hvilket program på en enhed der skal modtage indgående netværksdata.
 body:
   formal:
-    en: A 16-bit number used by TCP/IP alongside an IP address, so that data reaching a device is handed to the right service running on it.
-    da: Et 16-bit tal, som TCP/IP bruger sammen med en IP-adresse, så data, der når en enhed, overgives til den rette tjeneste, der kører på den.
+    en: A 16-bit number used by TCP/IP alongside an IP address, so that data reaching a device is handed to the right service running on it. Common services use fixed numbers, such as 25 for email and 443 for HTTPS.
+    da: Et 16-bit tal, som TCP/IP bruger sammen med en IP-adresse, så data, der når en enhed, overgives til den rette tjeneste på den. Almindelige tjenester bruger faste numre, fx 25 til e-mail og 443 til HTTPS.
   plain:
-    en: If the IP address is the building, the port is the apartment number — it says which door inside the building the letter goes to.
-    da: Hvis IP-adressen er opgangen, er porten lejlighedsnummeret — den fortæller, hvilken dør i bygningen brevet skal til.
+    en: If the street address gets a letter to the right building, this number is the flat number — it says which door inside the building the letter goes to.
+    da: Hvis gadeadressen får brevet frem til den rigtige bygning, er dette nummer lejlighedsnummeret — det fortæller, hvilken dør i bygningen brevet skal til.
   inPractice:
-    en: A company's web service listens on port 443, so the firewall lets traffic to that port in and keeps every other port closed.
-    da: En virksomheds webtjeneste lytter på port 443, så firewallen lukker trafik til den port ind og holder alle andre porte lukkede.
+    en: During a yearly check, a municipality's IT operations manager scans its servers and finds port 3389, used for remote login, open to the internet on an old server; she closes it the same day.
+    da: Ved et årligt tjek scanner en kommunes IT-driftsansvarlige kommunens servere og finder port 3389, der bruges til fjernskrivebord, åben mod internettet på en gammel server; hun lukker den samme dag.
   whyItMatters:
-    en: Every open port is a door an attacker can knock on, which is why scans look for open ports and good practice closes the ones not needed.
-    da: Hver åben port er en dør, en angriber kan banke på, og derfor leder scanninger efter åbne porte, og god praksis lukker dem, der ikke bruges.
+    en: Every open port is a door an attacker can knock on, and a forgotten one often leads to an unpatched service; closing ports that are not needed is one of the cheapest ways to shrink the attack surface.
+    da: Hver åben port er en dør, en angriber kan banke på, og en glemt port fører ofte til en tjeneste, der ikke er patchet; at lukke unødvendige porte er en af de billigste måder at mindske angrebsfladen på.
 edges:
   requires: [ip-address, protocol]
 sources:

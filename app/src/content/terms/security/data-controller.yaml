@@ -14,24 +14,24 @@ summary:
   da: Den organisation, der bestemmer, hvorfor og hvordan personoplysninger bruges, og derfor bærer hovedansvaret efter GDPR.
 body:
   formal:
-    en: Under GDPR Article 4(7), the person or body that, alone or with others, decides the purposes and means of handling personal data; it must be able to show that every use of that data follows the law.
-    da: Efter GDPR artikel 4, nr. 7, den fysiske eller juridiske person, der alene eller sammen med andre fastlægger formål og midler for behandlingen af personoplysninger; den skal kunne påvise, at al brug af oplysningerne overholder loven.
+    en: Under GDPR Article 4(7), the person or body that, alone or jointly with others, decides the purposes and means of processing personal data; under Article 24 it must be able to show that the processing complies with the regulation.
+    da: Efter GDPR artikel 4, nr. 7, den fysiske eller juridiske person, der alene eller sammen med andre fastlægger formål og midler for behandlingen af personoplysninger; efter artikel 24 skal den kunne dokumentere, at behandlingen overholder forordningen.
   plain:
-    en: Like the person who hires a moving company — the movers carry the boxes, but it was your choice what to move and where, so it is your job to make sure it is done right.
-    da: Som den, der hyrer et flyttefirma — flyttefolkene bærer kasserne, men det var dit valg, hvad der skulle flyttes og hvorhen, så det er dit ansvar, at det sker ordentligt.
+    en: Like someone who hires a moving firm — the movers carry the boxes, but you chose what to move and where, so it is on you if the wrong things end up in the wrong place.
+    da: Som den, der hyrer et flyttefirma — flyttefolkene bærer kasserne, men du har valgt, hvad der skal flyttes og hvorhen, så det er dit ansvar, hvis de forkerte ting havner det forkerte sted.
   inPractice:
-    en: A dental clinic decides to keep patient records in an online booking system; the clinic is the controller and must tell patients how their data is used and answer their requests.
-    da: En tandlægeklinik vælger at gemme patientjournaler i et online bookingsystem; klinikken er dataansvarlig og skal fortælle patienterne, hvordan deres oplysninger bruges, og svare på deres henvendelser.
+    en: A Danish municipality picks a learning platform for its schools; the municipality, not the platform supplier, is the controller, so it must tell parents what is collected and answer their requests for access.
+    da: En dansk kommune vælger en læringsplatform til sine skoler; det er kommunen og ikke leverandøren af platformen, der er dataansvarlig, så kommunen skal fortælle forældrene, hvad der indsamles, og svare, når de beder om indsigt.
   whyItMatters:
-    en: Someone must answer to people and to the authorities for their data; naming the controller makes clear who is liable when it is misused or lost.
-    da: Nogen skal stå til ansvar over for borgerne og myndighederne for deres oplysninger; når den dataansvarlige er udpeget, er det klart, hvem der hæfter, hvis de misbruges eller mistes.
+    en: Data often passes through many hands; fixing one party as answerable means people know whom to ask, and the authority knows whom to hold liable when data is misused or lost.
+    da: Oplysninger passerer ofte gennem mange hænder; når én part står til ansvar, ved borgerne, hvem de skal henvende sig til, og myndigheden, hvem der hæfter, hvis oplysningerne misbruges eller mistes.
 edges:
   requires: [gdpr]
   contrasts-with:
     - to: data-processor
       why:
         en: The controller decides why and how data is used; the processor only handles it on the controller's written instructions.
-        da: Den dataansvarlige bestemmer, hvorfor og hvordan oplysningerne bruges; databehandleren håndterer dem kun efter den dataansvarliges skriftlige instruks.
+        da: Den dataansvarlige bestemmer, hvorfor og hvordan oplysningerne bruges; databehandleren håndterer dem kun efter den dataansvarliges skriftlige anvisninger.
       strength: primary
       confidence: high
       sources:

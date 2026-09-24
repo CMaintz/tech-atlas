@@ -19,11 +19,11 @@ body:
     en: Like a lost folder of patient records turning up on a train seat — whoever finds it can read it.
     da: Ligesom en mistet mappe med patientjournaler, der dukker op på et togsæde — den, der finder den, kan læse den.
   inPractice:
-    en: An employee emails a file with 2,000 customer addresses to the wrong outside recipient, and the company must decide within 72 hours whether to report it.
-    da: En medarbejder mailer en fil med 2.000 kundeadresser til den forkerte eksterne modtager, og virksomheden skal inden for 72 timer afgøre, om det skal anmeldes.
+    en: A clerk at a municipal job centre emails a file with 2,000 citizens' CPR numbers to the wrong outside recipient; the municipality has 72 hours to decide whether to notify Datatilsynet.
+    da: En sagsbehandler i en kommunes jobcenter mailer et regneark med 2.000 borgeres CPR-numre til en forkert ekstern modtager; kommunen har 72 timer til at afgøre, om bruddet skal anmeldes til Datatilsynet.
   whyItMatters:
-    en: Breaches of personal data carry legal duties, fines and lost customer trust, so they must be spotted and handled fast.
-    da: Brud på persondata medfører lovpligtige indberetninger, bøder og tabt kundetillid, så de skal opdages og håndteres hurtigt.
+    en: The people whose data escapes can face fraud or worse, and the organisation faces a duty to report, possible fines and lost trust.
+    da: De personer, hvis data slipper ud, kan blive udsat for svindel eller værre, og organisationen står over for pligt til at anmelde, mulige bøder og tabt tillid.
 edges:
   requires: [confidentiality]
   used-with: [gdpr, supervisory-authority]

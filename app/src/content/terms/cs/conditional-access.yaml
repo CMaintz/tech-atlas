@@ -13,17 +13,17 @@ summary:
   da: Regler, der ved hvert login afgør, om en person lukkes ind, skal bevise mere eller afvises — ud fra hvem, hvor og hvilken enhed.
 body:
   formal:
-    en: A policy engine, usually part of the identity provider, that checks signals about each sign-in — user and group, device health, location, the app being opened and a risk score — and then allows, blocks or adds a demand such as MFA before a session is issued.
+    en: A policy engine, usually part of the identity provider, that weighs signals about each sign-in — user and group, device health, location, the app being opened and a risk score — and then allows, blocks or adds a demand such as MFA before a session is issued.
     da: En regelmotor, som regel en del af identitetsudbyderen, der vurderer signaler ved hvert login — bruger og gruppe, enhedens tilstand, placering, den app, der åbnes, og en risikovurdering — og derefter tillader, blokerer eller stiller et ekstra krav som MFA, før der udstedes en session.
   plain:
     en: Like a doorman who knows the regulars — a familiar face at the usual time walks straight in, but the same name turning up at 3 a.m. from abroad has to show ID.
-    da: Som en dørmand, der kender stamgæsterne — et kendt ansigt på det sædvanlige tidspunkt går direkte ind, men det samme navn, der dukker op kl. 3 om natten fra udlandet, skal vise legitimation.
+    da: Som en dørmand, der kender sine faste gæster — et kendt ansigt på det sædvanlige tidspunkt går direkte ind, men det samme navn, der dukker op kl. 3 om natten fra udlandet, skal vise legitimation.
   inPractice:
-    en: A company lets staff open Microsoft 365 from a managed work laptop with a password alone, asks for MFA on a private phone, and blocks sign-ins from countries where it has no staff.
-    da: En virksomhed lader medarbejderne åbne Microsoft 365 fra en administreret arbejdscomputer med adgangskode alene, kræver MFA på en privat telefon og blokerer login fra lande, hvor den ikke har ansatte.
+    en: A municipality's IT operations manager sets rules so staff can open Microsoft 365 from a managed work laptop with a password alone, must pass MFA on a private phone, and are blocked when signing in from abroad.
+    da: En kommunes IT-driftsansvarlige sætter regler op, så medarbejderne kan åbne Microsoft 365 fra en administreret arbejdscomputer med adgangskode alene, skal igennem MFA på en privat telefon og afvises ved login fra udlandet.
   whyItMatters:
-    en: When staff reach cloud apps from anywhere, there is no office wall to hide behind; checking each login in context stops most stolen-password logins without slowing normal work.
-    da: Når medarbejderne når cloudapps fra hvor som helst, er der ingen kontormur at gemme sig bag; at vurdere hvert login i sin sammenhæng stopper de fleste login med stjålne adgangskoder uden at sinke det daglige arbejde.
+    en: When staff reach cloud apps from anywhere, there is no office wall to hide behind; judging each login in context turns many stolen-password logins away without slowing normal work.
+    da: Når medarbejderne bruger cloudapps hvor som helst fra, er der ingen kontormur at gemme sig bag; ved at vurdere hvert login i sin sammenhæng afvises mange login med stjålne adgangskoder, uden at det daglige arbejde sinkes.
 edges:
   implements: [zero-trust]
   requires: [authentication, identity-provider]

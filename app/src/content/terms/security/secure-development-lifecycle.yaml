@@ -11,27 +11,27 @@ status: current
 era: 2004
 summary:
   en: A fixed set of security steps built into every stage of making software, from planning and design through testing to release.
-  da: Et fast sæt sikkerhedstrin bygget ind i alle faser af at lave software, fra planlægning og design over test til udgivelse.
+  da: Et fast sæt sikkerhedstrin bygget ind i alle faser af softwareudvikling, fra planlægning og design over test til frigivelse.
 body:
   formal:
-    en: A development process that adds set security activities to each phase — security needs at planning, threat modelling at design, safe coding rules and code review while building, security testing before release, and a plan for handling flaws found after release.
-    da: En udviklingsproces, der tilføjer faste sikkerhedsaktiviteter til hver fase — sikkerhedskrav ved planlægning, trusselsmodellering ved design, regler for sikker kode og kodegennemgang under udvikling, sikkerhedstest før udgivelse og en plan for at håndtere fejl, der findes efter udgivelse.
+    en: A development process that adds set security activities to each phase — security requirements at planning, threat modelling at design, secure coding rules and code review while building, security testing before release, and a plan for handling flaws found afterwards.
+    da: En udviklingsproces, der tilføjer faste sikkerhedsaktiviteter til hver fase — sikkerhedskrav ved planlægning, trusselsmodellering ved design, regler for sikker kode og kodegennemgang under udviklingen, sikkerhedstest før frigivelse og en plan for at håndtere fejl, der findes bagefter.
   plain:
     en: Like the checks a new building must pass at each stage — drawings approved, foundation inspected, wiring tested — instead of one inspection when it is already finished.
-    da: Som de tjek, en ny bygning skal bestå i hver fase — tegninger godkendt, fundament inspiceret, el-installation testet — i stedet for én inspektion, når den allerede står færdig.
+    da: Som de tjek, en ny bygning skal igennem undervejs — tegninger godkendt, fundament inspiceret, de elektriske ledninger testet — i stedet for én inspektion, når huset står færdigt.
   inPractice:
-    en: A software company will not ship a release until the design has a threat model, the code has passed review and automatic scans, and a tester has signed off; any flaw found later goes through a set fix-and-notify routine.
-    da: Et softwarefirma udgiver ikke en version, før designet har en trusselsmodel, koden har bestået gennemgang og automatiske scanninger, og en tester har godkendt; en fejl, der findes senere, går gennem en fast rutine for rettelse og besked.
+    en: A software house building a case system for a ministry will not hand over a new version until the design has a threat model, the code has passed review and automatic scans, and a tester has signed off; flaws found later follow a set fix-and-notify routine.
+    da: Et softwarehus, der udvikler et sagssystem til et ministerium, afleverer ikke en ny version, før designet har en trusselsmodel, koden har bestået gennemgang og automatiske scanninger, og en tester har godkendt; fejl, der findes senere, følger en fast rutine for rettelse og besked til kunden.
   whyItMatters:
-    en: Security that depends on each developer remembering it is uneven; building fixed steps into the process makes fewer flaws reach customers and gives buyers something to check against.
-    da: Sikkerhed, der afhænger af, at hver enkelt udvikler husker den, bliver ujævn; faste trin i processen betyder, at færre fejl når kunderne, og giver indkøbere noget at tjekke op imod.
+    en: Security that depends on each developer remembering it is uneven; fixed steps in the process mean fewer flaws reach customers, and give buyers something concrete to check against.
+    da: Sikkerhed, der afhænger af, at hver enkelt udvikler husker den, bliver ujævn; faste trin i processen betyder, at færre fejl når kunderne, og giver indkøbere noget konkret at tjekke op imod.
 edges:
   implements: [security-by-design]
   mitigates:
     - to: vulnerability
       why:
         en: Checks at every stage catch flaws before release, when they are cheapest to fix.
-        da: Tjek i hver fase fanger fejl før udgivelse, hvor de er billigst at rette.
+        da: Tjek i hver fase fanger fejl før frigivelse, hvor de er billigst at rette.
       strength: primary
       confidence: high
   used-with:

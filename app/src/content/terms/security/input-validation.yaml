@@ -13,17 +13,17 @@ summary:
   da: At tjekke alle data, et program modtager, mod faste regler, før de bruges, og afvise alt, der ikke passer.
 body:
   formal:
-    en: A control in which a program checks all data from outside — form fields, file uploads, API calls — for expected type, length, format and range on the server side, and prefers a list of what is allowed over a list of what is forbidden.
-    da: En kontrol, hvor et program på serversiden tjekker alle data udefra — formularfelter, uploadede filer, API-kald — for forventet type, længde, format og interval og foretrækker en liste over det tilladte frem for en liste over det forbudte.
+    en: A control in which a program checks all data from outside — form fields, uploaded files, API calls — for expected type, length, format and range on the server side, preferring a list of what is allowed over a list of what is forbidden.
+    da: En kontrol, hvor et program på serversiden tjekker alle data udefra — formularfelter, indsendte filer, API-kald — for forventet type, længde, format og værdiområde og hellere bruger en liste over det tilladte end en liste over det forbudte.
   plain:
-    en: Like a post office that only accepts parcels of set sizes with a proper address label, and hands everything else straight back at the counter.
-    da: Som et posthus, der kun tager imod pakker i bestemte størrelser med en ordentlig adresselabel og straks giver alt andet tilbage over disken.
+    en: Like a post office that only accepts parcels of set sizes with a proper address on them, and hands everything else straight back across the counter.
+    da: Som et posthus, der kun tager imod pakker i bestemte størrelser med en ordentlig adresse på og straks giver alt andet tilbage over disken.
   inPractice:
-    en: A sign-up form accepts a Danish postal code only if it is exactly four digits; a request with letters or symbols in that field is turned away before it ever reaches the database.
-    da: En tilmeldingsformular godtager kun et postnummer, hvis det er præcis fire cifre; en forespørgsel med bogstaver eller tegn i feltet afvises, før den overhovedet når databasen.
+    en: A municipality's online form for parking permits accepts a postal code only if it is exactly four digits; a request with letters or symbols in that field is turned away before it reaches the database.
+    da: En kommunes selvbetjeningsformular til parkeringstilladelser godtager kun et postnummer, hvis det er præcis fire cifre; en forespørgsel med bogstaver eller tegn i feltet afvises, før den når databasen.
   whyItMatters:
-    en: Most attacks on applications start with input the builder did not expect; checking it at the door closes many of them early, though it must be backed by safe handling further in.
-    da: De fleste angreb på applikationer starter med input, udvikleren ikke havde forventet; at tjekke det ved døren lukker mange af dem tidligt, men det skal bakkes op af sikker håndtering længere inde.
+    en: Most attacks on software start with input the developer did not expect; checking it at the door stops many of them early, though it must be backed by safe handling further in.
+    da: De fleste angreb på software begynder med input, udvikleren ikke havde regnet med; et tjek ved døren stopper mange af dem tidligt, men det skal bakkes op af sikker håndtering længere inde.
 edges:
   kind-of: [control]
   mitigates:
@@ -36,7 +36,7 @@ edges:
     - to: cross-site-scripting
       why:
         en: Rejecting unexpected characters helps, but the main defence is making data harmless at the moment it is placed in a page.
-        da: At afvise uventede tegn hjælper, men det vigtigste forsvar er at gøre data uskadelige i det øjeblik, de sættes ind på en side.
+        da: At afvise uventede tegn hjælper, men det vigtigste forsvar er at gøre data ufarlige i det øjeblik, de sættes ind på en side.
       strength: minor
       confidence: high
   used-with:

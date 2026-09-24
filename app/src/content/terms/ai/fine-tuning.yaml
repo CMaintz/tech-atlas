@@ -17,13 +17,13 @@ body:
     da: En anden, mindre runde modeltræning, der starter fra en færdig generel model og justerer nogle eller alle dens vægte på opgavespecifikke data, fx en virksomheds egne tekster.
   plain:
     en: Like a trained nurse doing a short course to focus on children's care — the broad skills stay, a narrow set is sharpened.
-    da: Som en uddannet sygeplejerske, der tager et kort kursus for at fokusere på børn — de brede evner bliver, et snævert område skærpes.
+    da: Som en uddannet sygeplejerske, der tager et kort kursus i pleje af børn — de brede evner bliver, mens et snævert område bliver styrket.
   inPractice:
-    en: An insurer fine-tunes a language model on thousands of past claim letters so it writes replies in the company's tone and format.
-    da: Et forsikringsselskab finjusterer en sprogmodel på tusindvis af tidligere skadebreve, så den skriver svar i virksomhedens tone og form.
+    en: A pension fund fine-tunes a language model on thousands of past replies to members, so that it drafts answers in the fund's own tone and format.
+    da: En pensionskasse finjusterer en sprogmodel på tusindvis af tidligere svar til medlemmerne, så den skriver udkast i kassens egen tone og form.
   whyItMatters:
-    en: Data used here is built into the model and hard to remove later, so personal data in it may leak and cannot simply be deleted on request.
-    da: Data brugt her bliver bygget ind i modellen og er svære at fjerne igen, så persondata i dem kan lække og ikke bare kan slettes efter anmodning.
+    en: Data used here becomes part of the model and is hard to take out again, so personal data in it may leak and cannot simply be deleted when someone asks.
+    da: Data, der bruges her, bliver en del af modellen og er svære at fjerne igen, så personoplysninger i dem kan lække og ikke bare kan slettes, når nogen beder om det.
 edges:
   kind-of: [model-training]
   alternative-to:

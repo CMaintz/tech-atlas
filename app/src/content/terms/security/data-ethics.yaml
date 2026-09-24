@@ -13,17 +13,17 @@ summary:
   da: At spørge ikke kun, om en brug af data er lovlig, men om den er fair, åben og i tråd med, hvad folk kan forvente.
 body:
   formal:
-    en: The values and choices that guide how an organisation collects, combines and uses data, including by AI, beyond what the law demands — such as fairness, openness, respect for people's choices and avoiding harm. Large Danish companies must state their data ethics policy in their annual report, or explain why they have none.
-    da: De værdier og valg, der styrer, hvordan en organisation indsamler, sammenstiller og bruger data, også via AI, ud over hvad loven kræver — fx retfærdighed, åbenhed, respekt for folks valg og at undgå skade. Store danske virksomheder skal redegøre for deres dataetiske politik i årsrapporten eller forklare, hvorfor de ikke har en.
+    en: The values that guide how an organisation collects, combines and uses data, including through AI, beyond what the law demands — fairness, openness, respect for people's choices and avoiding harm. Large Danish companies must report on their data ethics policy in the annual report, or explain why they have none.
+    da: De værdier, der styrer, hvordan en organisation indsamler, sammenstiller og bruger data, også via AI, ud over hvad loven kræver — retfærdighed, åbenhed, respekt for folks valg og at undgå skade. Store danske virksomheder skal redegøre for deres dataetiske politik i årsrapporten eller forklare, hvorfor de ikke har en.
   plain:
-    en: The law is the speed limit; ethics is not driving fast past a school just because the sign allows it.
-    da: Loven er fartgrænsen; etik er ikke at køre stærkt forbi en skole, bare fordi skiltet tillader det.
+    en: The law is the speed limit; ethics is slowing down outside a school at home time even though the sign still says 50.
+    da: Loven er fartgrænsen; etik er at sætte farten ned ud for en skole, når børnene får fri, selv om skiltet stadig siger 50.
   inPractice:
-    en: A bank could legally use shopping data to spot customers in money trouble and sell them costly loans; its data ethics board says no and uses the signal to offer free advice instead.
-    da: En bank kunne lovligt bruge indkøbsdata til at finde kunder i økonomiske vanskeligheder og sælge dem dyre lån; dens dataetiske råd siger nej og bruger i stedet signalet til at tilbyde gratis rådgivning.
+    en: A Danish bank could legally use card data to spot customers in money trouble and offer them costly loans; its data ethics committee says no and uses the signal to offer free budget advice instead.
+    da: En dansk bank kunne lovligt bruge kortdata til at finde kunder i økonomiske vanskeligheder og tilbyde dem dyre lån; dens dataetiske udvalg siger nej og bruger i stedet signalet til at tilbyde gratis budgetrådgivning.
   whyItMatters:
-    en: Trust breaks faster than laws change — a use of data that is legal but feels creepy can cost customers, and in Denmark it is part of what D-mærket checks.
-    da: Tillid brydes hurtigere, end love ændres — en brug af data, der er lovlig, men føles grænseoverskridende, kan koste kunder, og i Danmark er det en del af det, D-mærket vurderer.
+    en: Trust breaks faster than laws change — a use of data that is legal but feels creepy can drive customers away and draw public criticism long before any rule is broken.
+    da: Tillid brydes hurtigere, end love ændres — en brug af data, der er lovlig, men føles grænseoverskridende, kan jage kunder væk og give offentlig kritik, længe før nogen regel er brudt.
 edges:
   requires: [personal-data]
   contrasts-with:

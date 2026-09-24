@@ -19,8 +19,8 @@ body:
     en: Like the readings a hospital monitor sends to the nurses' desk, such as heart rate and oxygen, so nobody has to stand by the bed to know how the patient is.
     da: Som målingerne, en hospitalsmonitor sender til sygeplejerskernes kontor, fx puls og ilt, så ingen behøver stå ved sengen for at vide, hvordan patienten har det.
   inPractice:
-    en: Every service in a web shop sends its telemetry through one shared collector, which passes metrics on to the dashboards, logs to the log store and traces to the tracing tool.
-    da: Hver tjeneste i en webshop sender sin telemetri gennem ét fælles samlepunkt, der sender metrikker videre til dashboards, logs til loglageret og sporinger til sporingsværktøjet.
+    en: Every service behind a ministry's online self-service sends its telemetry through one shared collector, which passes metrics on to the dashboards, logs to the log store and traces to the tracing tool.
+    da: Hver tjeneste bag ministeriets selvbetjeningsløsning sender sin telemetri gennem ét fælles samlepunkt, der sender metrikker videre til dashboards, logs til loglageret og sporinger til sporingsværktøjet.
   whyItMatters:
     en: You can only understand, watch or defend a system through the data it gives out; missing or poor telemetry leaves both operators and security teams blind.
     da: Man kan kun forstå, overvåge eller forsvare et system gennem de data, det giver fra sig; manglende eller dårlig telemetri efterlader både driften og sikkerhedsteamet i blinde.
@@ -34,7 +34,7 @@ edges:
     - to: threat-hunting
       why:
         en: Hunters search stored logs and endpoint data for signs the alarms missed; without rich telemetry there is nothing to search.
-        da: Trusselsjægere gennemsøger gemte logs og data fra endpoints efter spor, som alarmerne overså; uden fyldig telemetri er der intet at søge i.
+        da: Trusselsjægere gennemsøger gemte logs og data fra endpoints efter spor, som alarmerne overså; uden detaljeret telemetri er der intet at søge i.
       strength: normal
       confidence: high
 sources:

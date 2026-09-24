@@ -17,14 +17,14 @@ body:
     en: Phishing aimed at a chosen person or small group, where the attacker first gathers details about the target — names, roles, current projects — to make the message look like it comes from a known contact.
     da: Phishing rettet mod en udvalgt person eller lille gruppe, hvor angriberen først samler oplysninger om målet — navne, roller, aktuelle projekter — så beskeden ligner noget fra en kendt kontakt.
   plain:
-    en: Where ordinary phishing is a fishing net, spear phishing is a harpoon aimed at one particular fish.
-    da: Hvor almindelig phishing er et fiskenet, er spear phishing en harpun rettet mod én bestemt fisk.
+    en: Like a fisher who ignores the shoal and aims a spear at one particular fish, after watching where it likes to swim.
+    da: Som en fisker, der er ligeglad med stimen og sigter med et spyd efter én bestemt fisk efter at have set, hvor den plejer at svømme.
   inPractice:
-    en: An accountant gets an email that seems to be from her own director, mentions a real supplier by name, and asks her to pay an "urgent" invoice today.
-    da: En bogholder får en mail, der ser ud til at komme fra hendes egen direktør, nævner en rigtig leverandør ved navn og beder hende betale en "hastende" faktura i dag.
+    en: The IT administrator at a regional hospital gets a mail that names a real system upgrade and the supplier's project manager, with a link to “the updated plan” that leads to a fake login page.
+    da: IT-administratoren på et regionshospital får en mail, der nævner en rigtig systemopgradering og leverandørens projektleder ved navn, med et link til “den opdaterede plan”, som fører til en falsk login-side.
   whyItMatters:
-    en: Because it uses real names and real context, the usual warning signs are missing, so even careful staff can be fooled.
-    da: Fordi den bruger rigtige navne og rigtig sammenhæng, mangler de sædvanlige advarselstegn, så selv forsigtige medarbejdere kan blive narret.
+    en: Because it uses real names and real context, the usual warning signs are missing, so even careful staff can be fooled — and the targets are often the people with the most access.
+    da: Fordi den bruger rigtige navne og rigtig sammenhæng, mangler de sædvanlige advarselstegn, så selv forsigtige medarbejdere kan blive narret — og målene er ofte dem med den bredeste adgang.
 edges:
   kind-of: [phishing]
   causes:

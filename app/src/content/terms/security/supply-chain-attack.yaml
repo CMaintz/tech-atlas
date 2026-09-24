@@ -19,8 +19,8 @@ body:
     en: Like poisoning the flour at the mill instead of breaking into every bakery — each baker uses it in good faith.
     da: Som at forgifte melet på møllen i stedet for at bryde ind i hvert bageri — hver bager bruger det i god tro.
   inPractice:
-    en: Attackers break into the build system of a popular network tool and slip a backdoor into its next update; thousands of customers install the signed update as usual and open their own networks.
-    da: Angribere bryder ind i byggesystemet hos et udbredt netværksværktøj og smugler en bagdør ind i den næste opdatering; tusindvis af kunder installerer den signerede opdatering som normalt og åbner deres egne netværk.
+    en: Attackers break into the build system of a widely used network monitoring tool and hide a backdoor in its next update; IT staff at Danish municipalities and firms install the signed update as usual and let the attackers in.
+    da: Angribere bryder ind i byggesystemet hos et udbredt værktøj til netværksovervågning og gemmer en bagdør i den næste opdatering; IT-folk i danske kommuner og virksomheder installerer den signerede opdatering som normalt og lukker angriberne ind.
   whyItMatters:
     en: One successful break-in pays off many times over, and victims who did everything right can still be hit, so the trust we place in suppliers must itself be checked.
     da: Ét vellykket indbrud giver gevinst mange gange, og ofre, der gjorde alt rigtigt, kan stadig blive ramt; derfor skal den tillid, vi har til leverandører, også selv kontrolleres.

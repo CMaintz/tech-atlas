@@ -10,7 +10,7 @@ layer: delivery
 status: current
 summary:
   en: Everything and everyone that goes into making software you run, from outside code parts to the tools that build and ship it.
-  da: Alt og alle, der indgår i at lave den software, du kører, fra udefrakommende kodedele til værktøjerne, der bygger og leverer den.
+  da: Alt og alle, der indgår i at lave den software, man kører, fra eksterne kodedele til de værktøjer, der bygger og leverer den.
 body:
   formal:
     en: The chain of people, code parts from others, build tools, pipelines and delivery routes through which software is written, put together and handed to its users; an attack on any link can reach everyone further down the chain.
@@ -19,11 +19,11 @@ body:
     en: Like a food chain from farm to table; if one supplier's flour is poisoned, every bakery that bought it, and every customer, is affected, however clean their own kitchen is.
     da: Som fødevarekæden fra mark til bord; hvis én leverandørs mel er forgiftet, rammes alle bagerier, der har købt det, og alle deres kunder, uanset hvor rent deres eget køkken er.
   inPractice:
-    en: Attackers break into a software maker's build system and hide malware inside a normal update, which thousands of customers then install because it comes from a trusted supplier.
-    da: Angribere bryder ind i en softwareproducents byggesystem og gemmer malware i en almindelig opdatering, som tusindvis af kunder derefter installerer, fordi den kommer fra en betroet leverandør.
+    en: Attackers break into the build system of a supplier whose case-handling software is used by many Danish municipalities and hide malware in a normal update, which the municipalities install because it comes from a trusted source.
+    da: Angribere bryder ind i byggesystemet hos en leverandør, hvis sagsbehandlingssystem bruges af mange danske kommuner, og gemmer malware i en almindelig opdatering, som kommunerne installerer, fordi den kommer fra en betroet kilde.
   whyItMatters:
-    en: Most software is built mainly from parts written by others, so one weak supplier can open doors into many organisations at once, which is why NIS2 and a new EU law for software products ask firms to manage this risk.
-    da: Det meste software bygges hovedsageligt af dele skrevet af andre, så én svag leverandør kan åbne døre ind til mange organisationer på én gang, og derfor kræver NIS2 og en ny EU-lov om softwareprodukter, at virksomheder styrer denne risiko.
+    en: Most software is built largely from parts written by others, so one weak supplier can open doors into many organisations at once; NIS2 and the Cyber Resilience Act therefore require organisations and software makers to manage this risk.
+    da: Det meste software består i høj grad af dele skrevet af andre, så én svag leverandør kan åbne døre ind til mange organisationer på én gang; derfor kræver NIS2 og Cyberrobusthedsforordningen, at organisationer og softwareproducenter styrer denne risiko.
 edges:
   used-with:
     - supplier-management

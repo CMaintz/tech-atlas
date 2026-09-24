@@ -11,20 +11,20 @@ status: current
 era: 2005
 summary:
   en: A document listing every control in the ISO 27001 annex, saying whether each is used, and giving the reason.
-  da: Et dokument, der gennemgår hver kontrol i ISO 27001's bilag og angiver, om den anvendes, og begrundelsen.
+  da: Et dokument, der gennemgår hver kontrol i ISO 27001's anneks og angiver, om den anvendes, og hvorfor.
 body:
   formal:
-    en: A record required by ISO 27001 clause 6.1.3(d) that names the controls needed to treat the assessed risks, states for each Annex A control whether it is included or left out, gives the reason and says whether it is in place.
-    da: Et dokument, som ISO 27001 punkt 6.1.3(d) kræver, og som angiver de kontroller, der er nødvendige for at håndtere de vurderede risici, og for hver kontrol i bilag A oplyser, om den er med eller udeladt, begrundelsen og om den er gennemført.
+    en: The document required by ISO 27001 clause 6.1.3(d) that lists the controls needed to treat the assessed risks and, for each Annex A control, states whether it is included or excluded, why, and whether it is in place.
+    da: Det dokument, som ISO 27001 punkt 6.1.3(d) kræver, og som angiver de kontroller, der er nødvendige for at håndtere de vurderede risici, og for hver kontrol i anneks A oplyser, om den er med eller udeladt, hvorfor, og om den er gennemført.
   plain:
-    en: Like a checklist for a house inspection where you tick each item as done or not needed, and write a line on why.
-    da: Som en tjekliste ved et husesyn, hvor man markerer hvert punkt som klaret eller ikke relevant og skriver en linje om hvorfor.
+    en: Like a builder answering the fire officer's checklist item by item — installed, or not needed and why, such as “no sprinklers — one floor only, with two exits”.
+    da: Som en bygherre, der besvarer brandmyndighedens tjekliste punkt for punkt — installeret, eller ikke nødvendigt og hvorfor, fx “ingen sprinklere — kun ét plan og to udgange”.
   inPractice:
-    en: A cloud start-up marks the control on physical office security as not needed because it has no office and all servers sit with a certified provider; the auditor reads the reason and agrees.
-    da: En cloud-startup markerer kontrollen for fysisk sikring af kontorer som ikke relevant, fordi den ikke har noget kontor og alle servere står hos en certificeret udbyder; auditoren læser begrundelsen og er enig.
+    en: A small Danish software company with no office of its own marks the control on securing office premises as not relevant, since all its servers sit with a hosting supplier holding ISO 27001 certification; the auditor reads the reason and accepts it.
+    da: En lille dansk softwarevirksomhed uden eget kontor markerer kontrollen for sikring af kontorlokaler som ikke relevant, fordi alle dens servere står hos en hostingleverandør med ISO 27001-certificering; auditoren læser grunden og godtager den.
   whyItMatters:
-    en: It links risk decisions to actual controls in one place, so auditors and leaders can see at a glance that nothing was skipped without a reason.
-    da: Den kobler risikobeslutninger til faktiske kontroller ét sted, så auditorer og ledelse hurtigt kan se, at intet er udeladt uden grund.
+    en: Without it, a control can quietly be dropped with no one noticing; the statement ties every risk decision to a control in one place, so gaps and weak excuses are easy to spot.
+    da: Uden den kan en kontrol stille og roligt blive droppet, uden at nogen opdager det; erklæringen knytter hver risikobeslutning til en kontrol ét sted, så huller og svage undskyldninger er lette at få øje på.
 edges:
   part-of: [iso-27001]
   requires: [risk-treatment]

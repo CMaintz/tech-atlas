@@ -54,7 +54,7 @@ Zero Trust is a journey, not a switch. Most organisations move towards it gradua
 - **Prioritise.** Start with the crown jewels — the systems whose loss or leak would hurt most, as identified in the risk assessment.
 - **Communicate.** Users will notice more prompts and checks. Awareness work should explain why the "hospital badge at every door" is a feature, not a nuisance.
 
-For entities covered by **NIS2**, Zero Trust is not named as a requirement, but it maps directly onto several of the measures in **Article 21(2)**: human resources security, access control policies and asset management (point i), the use of multi-factor or continuous authentication (point j), and cyber hygiene (point g). A Zero Trust roadmap can therefore be a practical way to structure and document compliance work.
+For entities covered by **NIS2** (implemented in Denmark by the NIS2 law), Zero Trust is not named as a requirement, but it maps directly onto several of the measures in **Article 21(2)**: human resources security, access control policies and asset management (point i), the use of multi-factor or continuous authentication (point j), and cyber hygiene (point g). A Zero Trust roadmap can therefore be a practical way to structure and document compliance work.
 
 ## Common misunderstandings
 

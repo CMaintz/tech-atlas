@@ -14,17 +14,17 @@ summary:
   da: En gentagen firetrins-cyklus — Plan, Do, Check, Act — for at blive lidt bedre for hver runde.
 body:
   formal:
-    en: An improvement method in which you plan changes from goals and risks, carry them out, measure the results against the goals, and act on what you learn before starting the next round.
-    da: En forbedringsmetode, hvor man planlægger ændringer ud fra mål og risici, gennemfører dem, måler resultaterne mod målene og handler på det, man har lært, før næste runde begynder.
+    en: A repeating management method, made widely known by W. Edwards Deming, in which changes are planned from goals and risks, carried out, measured against those goals, and the lessons acted on before the next round begins.
+    da: En gentagen ledelsesmetode, gjort kendt af W. Edwards Deming, hvor ændringer planlægges ud fra mål og risici, gennemføres og måles mod målene, hvorefter man handler på erfaringerne, før næste runde begynder.
   plain:
-    en: Like a cook adjusting a recipe — try it, taste it, tweak it, and cook it again next week.
-    da: Som en kok, der justerer en opskrift — lav den, smag på den, ret den til og lav den igen i næste uge.
+    en: Like a cook perfecting a dish — make it, taste it, adjust the seasoning, and cook it again next week a little better.
+    da: Som en kok, der finpudser en ret — lav den, smag på den, juster krydderierne og lav den lidt bedre igen i næste uge.
   inPractice:
-    en: A firm plans a phishing course, runs it, sees click rates fall only in one department, and changes the format there for the next quarter.
-    da: En virksomhed planlægger et phishing-kursus, gennemfører det, ser at klikraten kun falder i én afdeling, og ændrer formatet dér til næste kvartal.
+    en: The IT lead at a Danish upper-secondary school plans a phishing course for teachers, runs it, sees the click rate fall in every subject group but one, and changes the format for that group next term.
+    da: Den IT-ansvarlige på et dansk gymnasium planlægger et phishing-kursus for lærerne, gennemfører det, ser klikraten falde i alle faggrupper undtagen én og ændrer formen for den gruppe næste semester.
   whyItMatters:
-    en: Threats and businesses keep changing, so security is never finished; the loop keeps it from going stale after the first effort.
-    da: Trusler og virksomheder ændrer sig hele tiden, så sikkerhed bliver aldrig færdig; cyklussen forhindrer, at den går i stå efter første indsats.
+    en: Threats and organisations keep changing, so security work is never finished; without a built-in loop, measures that fitted last year quietly stop fitting.
+    da: Trusler og organisationer ændrer sig hele tiden, så sikkerhedsarbejdet bliver aldrig færdigt; uden en fast cyklus holder tiltag, der passede sidste år, stille og roligt op med at passe.
 edges:
   used-with:
     - to: risk-management

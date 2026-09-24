@@ -19,8 +19,8 @@ body:
     en: Like the control room of a fire service — people who never sleep, watch every call that comes in, and decide which ones need a truck right now.
     da: Som alarmcentralen hos brandvæsenet — folk, der aldrig sover, ser hvert opkald, der kommer ind, og afgør, hvilke der kræver en brandbil lige nu.
   inPractice:
-    en: At 3 a.m. an analyst at the company's outside SOC sees an admin login from an unknown country, checks with the on-call IT lead that it was not him, and locks the account.
-    da: Klokken 3 om natten ser en analytiker hos virksomhedens eksterne SOC et administratorlogin fra et ukendt land, bekræfter med den vagthavende IT-ansvarlige, at det ikke var ham, og spærrer kontoen.
+    en: At 3 a.m., at a SOC that a Danish region buys as a service, an analyst sees an admin login from an unknown country, checks with the region's on-call IT lead that it was not him, and locks the account.
+    da: Klokken 3 om natten ser en analytiker i den SOC, en region køber som tjeneste, et administratorlogin fra et ukendt land, bekræfter med regionens vagthavende IT-ansvarlige, at det ikke var ham, og spærrer kontoen.
   whyItMatters:
     en: Tools raise alarms, but only people decide what they mean; without someone watching, a warning at night can sit unread until the damage is done.
     da: Værktøjer slår alarm, men kun mennesker afgør, hvad alarmen betyder; uden nogen til at holde øje kan en advarsel om natten ligge uden at blive læst, til skaden er sket.

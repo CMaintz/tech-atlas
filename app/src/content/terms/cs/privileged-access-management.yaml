@@ -14,16 +14,16 @@ summary:
 body:
   formal:
     en: The controls and tooling that keep privileged account passwords in a guarded store, grant admin rights only for a set task and time after approval, and record each privileged session for later review.
-    da: De kontroller og værktøjer, der holder privilegerede kontis adgangskoder i et bevogtet lager, kun giver administratorrettigheder til en bestemt opgave og tid efter godkendelse og optager hver privilegeret session til senere gennemgang.
+    da: De kontroller og værktøjer, der opbevarer adgangskoder til privilegerede konti i et beskyttet lager, kun giver administratorrettigheder til en bestemt opgave og i en bestemt tid efter godkendelse, og optager hver privilegeret session til senere gennemgang.
   plain:
     en: Like the key cabinet in a bank — the vault key is signed out for one job, the time is written down, a camera watches, and the key goes back afterwards.
     da: Som nøgleskabet i en bank — nøglen til boksen kvitteres ud til én opgave, tidspunktet noteres, et kamera ser med, og nøglen afleveres bagefter.
   inPractice:
-    en: A database admin asks for server rights to install an update; a manager approves, the tool opens a recorded session for two hours with a one-time password, and closes it afterwards.
-    da: En databaseadministrator beder om serverrettigheder for at installere en opdatering; en leder godkender, værktøjet åbner en optaget session i to timer med en engangsadgangskode og lukker den bagefter.
+    en: A database administrator at a pension fund asks for server rights to install an update; her manager approves, and the tool opens a recorded two-hour session with a one-time password, then closes it.
+    da: En databaseadministrator i en pensionskasse beder om serverrettigheder for at installere en opdatering; hendes leder godkender, og værktøjet åbner en optaget session på to timer med en engangsadgangskode og lukker den bagefter.
   whyItMatters:
     en: Admin accounts are what attackers want most; if nobody holds standing admin rights, a stolen login or an unhappy employee has far less to use.
-    da: Administratorkonti er det, angribere helst vil have; hvis ingen har faste administratorrettigheder, har en stjålen konto eller en utilfreds medarbejder langt mindre at bruge.
+    da: Administratorkonti er det, angribere helst vil have; når ingen har faste administratorrettigheder, har et stjålet login eller en utilfreds medarbejder langt mindre at gøre skade med.
 edges:
   part-of: [access-management]
   implements: [least-privilege]
@@ -37,8 +37,8 @@ edges:
       confidence: medium
     - to: insider-threat
       why:
-        en: Time-limited, recorded admin sessions make it hard for a trusted insider to misuse powerful rights unseen.
-        da: Tidsbegrænsede, optagede administratorsessioner gør det svært for en betroet insider at misbruge stærke rettigheder ubemærket.
+        en: Time-limited, recorded admin sessions make it hard for a trusted insider to misuse far-reaching rights unseen.
+        da: Tidsbegrænsede, optagede administratorsessioner gør det svært for en betroet insider at misbruge vidtgående rettigheder ubemærket.
       strength: normal
       confidence: high
 sources:

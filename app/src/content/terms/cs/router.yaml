@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: A device that connects two or more networks and, for each arriving packet, reads the destination IP address and forwards the packet along the best known path.
-    da: En enhed, der forbinder to eller flere netværk, og som for hver ankommende pakke læser destinationens IP-adresse og sender pakken videre ad den bedste kendte vej.
+    da: En enhed, der forbinder to eller flere netværk, og som for hver pakke, den modtager, læser destinationens IP-adresse og sender pakken videre ad den bedste kendte vej.
   plain:
     en: Like a sorting office at the post — it does not open letters, it just reads the address and sends each one down the right road.
     da: Som en postterminal — den åbner ikke brevene, men læser adressen og sender hvert brev ud ad den rigtige vej.
   inPractice:
-    en: The small box a home internet provider installs is a router, passing traffic between the laptops at home and the outside world.
-    da: Den lille boks, som internetudbyderen sætter op derhjemme, er en router, der sender trafik mellem hjemmets bærbare og omverdenen.
+    en: A shipping company's IT operations manager finds that the router at a small branch office still has its factory password and an admin page open to the internet; she changes the password and closes the page to outside access.
+    da: Hos et rederi opdager den IT-driftsansvarlige, at routeren på et lille lokalkontor stadig har fabrikkens adgangskode og en administrationsside, der kan nås fra internettet; hun skifter adgangskoden og lukker siden for adgang udefra.
   whyItMatters:
     en: Routers sit at the borders between networks, so they are natural places to enforce rules about what may pass — and valuable targets for attackers.
     da: Routere sidder på grænserne mellem netværk, så de er oplagte steder at håndhæve regler for, hvad der må passere — og værdifulde mål for angribere.

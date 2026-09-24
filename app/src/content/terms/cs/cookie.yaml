@@ -20,11 +20,11 @@ body:
     en: Like the coat check ticket you get at a theatre — you hand it back each time, and the staff know which coat is yours without asking your name.
     da: Som garderobesedlen i teatret — du rækker den frem hver gang, og personalet ved, hvilken frakke der er din, uden at spørge om dit navn.
   inPractice:
-    en: After a customer logs in to a web shop, the shop sets a cookie holding a session number, so the basket and login survive as she moves from page to page.
-    da: Når en kunde logger ind i en webshop, sætter butikken en cookie med et sessionsnummer, så kurven og login følger med, mens hun går fra side til side.
+    en: After a customer logs in to a Danish web shop, the shop sets a cookie holding a session number, so the basket and login survive as she moves from page to page.
+    da: Når en kunde logger ind i en dansk webshop, sætter butikken en cookie med et sessionsnummer, så kurven og login følger med, mens hun går fra side til side.
   whyItMatters:
-    en: Whoever holds a login cookie is treated as its owner, so cookies must be kept from scripts and plain HTTP, and those used to track people fall under GDPR consent rules.
-    da: Den, der har en login-cookie, behandles som dens ejer, så cookies skal holdes væk fra scripts og ren HTTP, og cookies til sporing af personer kræver samtykke efter GDPR-reglerne.
+    en: Whoever holds a login cookie is treated as its owner, so it must be hidden from code on the page and never sent over plain HTTP; cookies that track people need consent under EU cookie rules.
+    da: Den, der har en login-cookie, behandles som dens ejer, så den skal skjules for kode på siden og aldrig sendes over ren HTTP; cookies, der sporer personer, kræver samtykke efter cookiereglerne.
 edges:
   requires: [http, web-browser]
   used-with:

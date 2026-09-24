@@ -10,17 +10,17 @@ layer: theory
 status: current
 summary:
   en: A trusted body that checks who someone is and then signs digital certificates vouching that a public key belongs to them.
-  da: En betroet instans, der tjekker, hvem nogen er, og derefter signerer digitale certifikater, der bekræfter, at en offentlig nøgle er deres.
+  da: En betroet instans, der kontrollerer identiteten på en ansøger og signerer digitale certifikater om, hvem en offentlig nøgle tilhører.
 body:
   formal:
-    en: An organisation or system that confirms an applicant's identity, issues digital certificates signed with its own private key, and publishes which certificates it has cancelled; devices trust it because its root certificate is already stored in them.
-    da: En organisation eller et system, der bekræfter en ansøgers identitet, udsteder digitale certifikater signeret med sin egen private nøgle og offentliggør, hvilke certifikater den har tilbagekaldt; enheder stoler på den, fordi dens rodcertifikat allerede ligger i dem.
+    en: The issuing party in a public key infrastructure. It signs each certificate with its own private key, keeps public lists of certificates it has cancelled before they expire, and is trusted because its root certificate is already stored in browsers and operating systems.
+    da: Den udstedende part i en offentlig nøgleinfrastruktur. Den signerer hvert certifikat med sin egen private nøgle, offentliggør lister over certifikater, den har tilbagekaldt før udløb, og nyder tillid, fordi dens rodcertifikat allerede ligger i browsere og styresystemer.
   plain:
     en: Like the passport office — it checks your papers before issuing a passport, and border guards accept the passport because they trust the office, not because they know you.
     da: Som paskontoret — det tjekker dine papirer, før det udsteder et pas, og grænsevagter godtager passet, fordi de stoler på kontoret, ikke fordi de kender dig.
   inPractice:
-    en: A web shop proves to a CA that it controls its web address; the CA signs a certificate, and every visitor's browser then shows the padlock without asking.
-    da: En webshop beviser over for en CA, at den råder over sin webadresse; CA'en signerer et certifikat, og alle besøgendes browsere viser derefter hængelåsen uden at spørge.
+    en: A regional hospital needs a new certificate for its patient portal. The CA checks that the region really controls the web address and signs the certificate, and patients' browsers then open the site without a warning.
+    da: Et regionshospital skal have et nyt certifikat til sin patientportal. Udstederen kontrollerer, at regionen faktisk råder over webadressen, og signerer certifikatet, hvorefter patienternes browsere åbner siden uden advarsel.
   whyItMatters:
     en: The whole chain of trust rests on a small number of issuers; if one is broken into or careless, attackers can get real-looking certificates for sites that are not theirs.
     da: Hele tillidskæden hviler på et lille antal udstedere; bliver der brudt ind hos én af dem, eller er den uforsigtig, kan angribere få ægte udseende certifikater til websteder, der ikke er deres.

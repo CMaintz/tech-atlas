@@ -14,14 +14,14 @@ summary:
   da: Et mærke lavet med en privat nøgle, der beviser, hvem der sendte en besked, og at ingen har ændret den siden.
 body:
   formal:
-    en: A method from public-key cryptography in which the sender hashes a message and transforms the hash with their private key; anyone holding the matching public key can check that the result fits the message exactly.
-    da: En metode fra asymmetrisk kryptografi, hvor afsenderen hasher en besked og omdanner hashen med sin private nøgle; alle med den tilsvarende offentlige nøgle kan tjekke, at resultatet passer præcist til beskeden.
+    en: A method from public-key cryptography in which the signer hashes a message and transforms the hash with their private key; anyone holding the matching public key can check that the result fits the message exactly.
+    da: En metode fra asymmetrisk kryptografi, hvor underskriveren hasher en besked og omdanner hashen med sin private nøgle; alle med den tilsvarende offentlige nøgle kan tjekke, at resultatet passer præcist til beskeden.
   plain:
     en: Like a wax seal pressed with a ring only you own — anyone can compare the seal with your known pattern, and a broken seal shows the letter was opened.
     da: Som et laksegl presset med en ring, kun du ejer — alle kan sammenligne seglet med dit kendte mønster, og et brudt segl viser, at brevet er blevet åbnet.
   inPractice:
-    en: A software company signs each update it ships; before installing, the computer checks the signature and refuses the update if even one character of the file differs.
-    da: Et softwarefirma signerer hver opdatering, det udsender; før installationen tjekker computeren signaturen og afviser opdateringen, hvis blot ét tegn i filen er anderledes.
+    en: The IT operations lead in a municipality rolls out an update to all school computers; each computer checks the supplier's digital signature first and refuses the file if even one character differs.
+    da: Den IT-driftsansvarlige i en kommune ruller en opdatering ud til alle skolecomputere; hver computer tjekker først leverandørens digitale signatur og afviser filen, hvis blot ét tegn er anderledes.
   whyItMatters:
     en: It lets people trust documents, updates and messages from someone they have never met, and makes it hard for the signer to later deny having sent them.
     da: Den gør det muligt at stole på dokumenter, opdateringer og beskeder fra nogen, man aldrig har mødt, og gør det svært for underskriveren senere at nægte at have sendt dem.

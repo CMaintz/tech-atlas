@@ -16,14 +16,14 @@ body:
     en: A group of one or more containers that Kubernetes always places together on the same machine, where they share one IP address and can share storage; pods are short-lived and are replaced rather than repaired.
     da: En gruppe af en eller flere containere, som Kubernetes altid placerer sammen på den samme maskine, hvor de deler én IP-adresse og kan dele lager; pods er kortlivede og bliver udskiftet frem for repareret.
   plain:
-    en: Like peas in one pod — they grow together, travel together and are thrown out together.
-    da: Som ærter i én bælg — de vokser sammen, rejser sammen og bliver smidt ud sammen.
+    en: Like two people sharing one flat — same address, same fridge, and when they move, they move together.
+    da: Som to, der deler lejlighed — samme adresse, samme køleskab, og når de flytter, flytter de sammen.
   inPractice:
-    en: A pod holds the web shop's container plus a small helper container that ships its logs; when the pod is moved to another machine, both move as one.
-    da: En pod rummer webshoppens container plus en lille hjælpecontainer, der sender dens logs videre; når poden flyttes til en anden maskine, flytter begge som én.
+    en: In a hospital region's setup, a pod holds the lab system's container plus a small helper container that ships its logs; when the pod is moved to another machine, both move as one.
+    da: I en regions opsætning rummer en pod laboratoriesystemets container plus en lille hjælpecontainer, der sender dens logs videre; når poden flyttes til en anden maskine, flytter begge som én.
   whyItMatters:
-    en: Each pod carries its own security settings, such as whether it may run as the admin user, while what it may change in the cluster comes from the service account it runs as; a pod with too many rights can open a way into the whole host.
-    da: Hver pod har sine egne sikkerhedsindstillinger, fx om den må køre som administrator, mens det, den må ændre i Kubernetes, afgøres af den servicekonto, den kører som; en pod med for mange rettigheder kan åbne en vej ind til hele værten.
+    en: Security settings are made pod by pod — such as whether it may run as the admin user or reach the host's disks — so one pod with too many rights can open a way into the whole host.
+    da: Sikkerhedsindstillinger sættes pod for pod — fx om den må køre som administrator eller nå værtens diske — så én pod med for mange rettigheder kan åbne en vej ind til hele værten.
 edges:
   part-of: [kubernetes]
   requires: [container, ip-address]

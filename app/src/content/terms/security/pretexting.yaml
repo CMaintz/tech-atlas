@@ -11,27 +11,27 @@ status: current
 era: 2006
 summary:
   en: Inventing a believable cover story and role, such as a new colleague or an auditor, to get someone to share information.
-  da: At opdigte en troværdig historie og rolle, fx en ny kollega eller en revisor, for at få nogen til at dele oplysninger.
+  da: At finde på en troværdig historie og rolle, fx en ny kollega eller en revisor, for at få nogen til at dele oplysninger.
 body:
   formal:
-    en: A form of social engineering built around a made-up situation and identity, usually prepared with research about the target. The story gives the victim a reason to help, so the request feels normal rather than suspicious.
-    da: En form for social engineering, der er bygget op om en opdigtet situation og identitet, som regel forberedt med research om målet. Historien giver offeret en grund til at hjælpe, så anmodningen virker normal frem for mistænkelig.
+    en: A form of social engineering built around a made-up situation and identity, usually prepared with research about the target; the story gives the victim a reason to help, so the request feels normal rather than suspicious.
+    da: En form for social engineering, der bygger på en falsk situation og identitet, som regel forberedt med research om målet; historien giver offeret en grund til at hjælpe, så anmodningen virker normal frem for mistænkelig.
   plain:
-    en: An actor who turns up in a delivery uniform with a clipboard — nobody asks questions, because the costume and the story fit.
-    da: En skuespiller, der dukker op i budtøj med et clipboard — ingen stiller spørgsmål, fordi kostumet og historien passer.
+    en: Like an actor who turns up in a delivery uniform with a clipboard — nobody asks questions, because the costume and the story fit.
+    da: Som en skuespiller, der dukker op i budtøj med en mappe under armen — ingen stiller spørgsmål, fordi kostumet og historien passer.
   inPractice:
-    en: Someone calls payroll, says she is from the auditors, names the finance manager and asks for a list of staff salaries "for this year's review".
-    da: En person ringer til lønafdelingen, siger, at hun er fra revisionen, nævner økonomichefen ved navn og beder om en liste over medarbejdernes lønninger "til årets gennemgang".
+    en: Someone calls the payroll office of a municipality, says she is from the auditors, names the finance manager and asks for a list of staff salaries “for this year's audit”.
+    da: En person ringer til lønkontoret i en kommune, siger, at hun er fra revisionen, nævner økonomichefen ved navn og beder om en liste over medarbejdernes lønninger “til årets revision”.
   whyItMatters:
-    en: A good story beats most warning signs people are taught to look for, so staff need permission to check who is asking before they help.
-    da: En god historie slår de fleste af de advarselstegn, folk lærer at kigge efter, så medarbejdere skal have lov til at tjekke, hvem der spørger, før de hjælper.
+    en: A good story beats most of the warning signs people are taught to look for, so staff need clear permission to check who is asking before they help.
+    da: En god historie slår de fleste af de advarselstegn, folk lærer at kigge efter, så medarbejdere skal have klar besked om, at de må tjekke, hvem der spørger, før de hjælper.
 edges:
   kind-of: [social-engineering]
   used-with:
     - to: vishing
       why:
         en: A phone call is one of the most common ways to deliver a made-up story, because the caller can adjust it as the talk goes on.
-        da: Et telefonopkald er en af de mest almindelige måder at levere en opdigtet historie på, fordi opringeren kan tilpasse den undervejs.
+        da: Et telefonopkald er en af de mest almindelige måder at levere en falsk historie på, fordi den, der ringer, kan tilpasse den undervejs.
       strength: normal
       confidence: high
   contrasts-with:

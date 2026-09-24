@@ -17,10 +17,10 @@ body:
     da: Samlingen af eksempler, ofte med de rigtige svar tilknyttet, som bruges under modeltræning til at fastsætte modellens interne tal; holdes adskilt fra de data, der senere bruges til at teste den.
   plain:
     en: Like the textbooks and past exams a student studies from — if they are wrong, one-sided or out of date, so is what the student learns.
-    da: Som de lærebøger og gamle eksamenssæt, en studerende læser på — er de forkerte, ensidige eller forældede, bliver det, den studerende lærer, det også.
+    da: Som de lærebøger og gamle eksamenssæt, en studerende læser på — er de forkerte, skæve eller forældede, bliver det, den studerende lærer, det også.
   inPractice:
-    en: A company wants to train a model on ten years of customer service emails and must first check which of them hold personal data and who allowed that use.
-    da: En virksomhed vil træne en model på ti års kundeservicemails og skal først undersøge, hvilke af dem der indeholder persondata, og hvem der har givet lov til den brug.
+    en: A pension fund wants to train a model on ten years of member emails and must first check which of them hold personal data and on what legal basis they may be used.
+    da: En pensionskasse vil træne en model på ti års mails fra medlemmer og skal først undersøge, hvilke af dem der indeholder persondata, og på hvilket retsgrundlag de må bruges.
   whyItMatters:
     en: Training data is an asset to protect and a source of risk — it can leak personal data, carry unfair patterns, or be quietly changed by an attacker.
     da: Træningsdata er et aktiv, der skal beskyttes, og en kilde til risiko — de kan lække persondata, bære uretfærdige mønstre eller i det skjulte blive ændret af en angriber.

@@ -11,20 +11,20 @@ status: current
 era: 1995
 summary:
   en: An outside party that handles personal data on behalf of another organisation and only as that organisation instructs.
-  da: En ekstern part, der håndterer personoplysninger på vegne af en anden organisation og kun efter dennes instruks.
+  da: En ekstern part, der håndterer personoplysninger på vegne af en anden organisation og kun efter dennes anvisninger.
 body:
   formal:
-    en: Under GDPR Article 4(8), a person or body that handles personal data for a controller; Article 28 requires a binding contract that limits it to the controller's written instructions and sets its security duties.
-    da: Efter GDPR artikel 4, nr. 8, en fysisk eller juridisk person, der behandler personoplysninger for en dataansvarlig; artikel 28 kræver en bindende aftale, der begrænser den til den dataansvarliges skriftlige instruks og fastlægger dens sikkerhedsforpligtelser.
+    en: Under GDPR Article 4(8), a person or body that processes personal data on behalf of a controller; it may act only on the controller's documented instructions and has its own duties to keep the data secure.
+    da: Efter GDPR artikel 4, nr. 8, en fysisk eller juridisk person, der behandler personoplysninger på vegne af en dataansvarlig; den må kun handle efter den dataansvarliges dokumenterede anvisninger og har selv pligt til at beskytte oplysningerne.
   plain:
-    en: Like a laundry service that washes a hotel's sheets — it handles them carefully and returns them, but it does not get to decide what the hotel does with them.
-    da: Som et vaskeri, der vasker et hotels sengetøj — det behandler det omhyggeligt og leverer det tilbage, men det bestemmer ikke, hvad hotellet bruger det til.
+    en: Like a laundry that washes a hotel's sheets — it takes good care of them and sends them back, but it has no say in what the hotel uses them for.
+    da: Som et vaskeri, der vasker et hotels sengetøj — det passer godt på det og sender det tilbage, men det har intet at skulle have sagt om, hvad hotellet bruger det til.
   inPractice:
-    en: A payroll company runs salary payments for 200 small firms; for each of them it is a processor, bound by a signed agreement to use the staff data only for payroll.
-    da: Et lønbureau kører lønudbetalinger for 200 små virksomheder; for hver af dem er det databehandler og bundet af en underskrevet aftale om kun at bruge medarbejdernes oplysninger til løn.
+    en: A Danish payroll bureau runs salaries for 200 small firms; for each of them it is a processor, allowed to use staff data only for payroll and not, say, to sell insurance offers to the employees.
+    da: Et dansk lønbureau kører løn for 200 små virksomheder; for hver af dem er det databehandler og må kun bruge medarbejdernes oplysninger til lønnen — ikke fx til at sælge forsikringstilbud til dem.
   whyItMatters:
-    en: Much personal data sits with outside suppliers; the processor role makes sure the rules follow the data wherever it goes.
-    da: Mange personoplysninger ligger hos eksterne leverandører; rollen som databehandler sikrer, at reglerne følger med oplysningerne, uanset hvor de havner.
+    en: If a processor starts using the data for its own ends, it becomes a controller in its own right and answers for that use; the role stops handing work to outsiders from becoming a loophole.
+    da: Begynder en databehandler at bruge oplysningerne til egne formål, bliver den selv dataansvarlig og hæfter for den brug; rollen forhindrer, at det bliver et smuthul at lægge opgaver ud til andre.
 edges:
   requires: [gdpr]
   used-with:

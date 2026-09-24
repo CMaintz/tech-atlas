@@ -20,8 +20,8 @@ body:
     en: Like the tracking page for a parcel, showing each depot it passed and how long it sat there, so you can see it was stuck three days in one place.
     da: Som sporingssiden for en pakke, der viser hver terminal, den har været igennem, og hvor længe den lå der, så man kan se, at den sad fast tre dage ét sted.
   inPractice:
-    en: A trace of a slow page load shows the web service answered almost at once but waited four seconds for the stock service, so the team knows where to look.
-    da: En sporing af en langsom sideindlæsning viser, at webtjenesten svarede næsten med det samme, men ventede fire sekunder på lagertjenesten, så teamet ved, hvor de skal kigge.
+    en: A trace of a slow page in a region's patient portal shows the web service answered almost at once but waited four seconds for the appointment booking service, so the team knows where to look.
+    da: En sporing af en langsom side i regionens patientportal viser, at webtjenesten svarede næsten med det samme, men ventede fire sekunder på tidsbestillingstjenesten, så teamet ved, hvor det skal lede.
   whyItMatters:
     en: When one click touches dozens of services, logs from each one alone cannot show the chain of cause; traces link them into one story, which also helps follow an attacker's steps.
     da: Når ét klik berører snesevis af tjenester, kan logs fra hver enkelt ikke vise årsagskæden; sporinger binder dem sammen til én historie, hvilket også hjælper med at følge en angribers skridt.

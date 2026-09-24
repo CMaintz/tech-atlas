@@ -4,9 +4,9 @@ term: cs/encryption
 lang: da
 ---
 
-## Grundidéen
+## Grundideen
 
-Kryptering omdanner læsbare data (klartekst) til ulæselige data (kryptotekst) ved hjælp af en algoritme og en **nøgle**. Kun den, der har den rigtige nøgle, kan vende processen om. Selve algoritmerne er offentlige og grundigt afprøvede – AES, RSA, elliptisk kurve-kryptografi – og hele sikkerheden hviler på, at nøglerne holdes hemmelige. Det ene forhold forklarer det meste af, hvad der går godt og skidt med kryptering i praksis: Stærke algoritmer er den nemme del. Det svære er at styre nøglerne.
+Kryptering omdanner læsbare data (klartekst) til ulæselige data (kryptotekst) ved hjælp af en algoritme og en **nøgle**. Kun den, der har den rigtige nøgle, kan vende processen om. Selve algoritmerne er offentlige og grundigt afprøvede – AES, RSA, elliptisk kurvekryptografi – og hele sikkerheden hviler på, at nøglerne holdes hemmelige. Det ene forhold forklarer det meste af, hvad der går godt og skidt med kryptering i praksis: Stærke algoritmer er den nemme del. Det svære er at styre nøglerne.
 
 ## Symmetrisk og asymmetrisk kryptering
 
@@ -41,7 +41,7 @@ Hashing forveksles ofte med kryptering, men det er et andet værktøj:
 - Den er **envejs**: Der er ingen nøgle, og det oprindelige input kan ikke genskabes ud fra hashværdien.
 - Det samme input giver altid den samme hashværdi, og en ganske lille ændring giver en helt anden.
 
-Derfor er hashing nyttig til **integritet** (er filen blevet ændret?) og til **opbevaring af adgangskoder**. Systemet gemmer en hashværdi i stedet for selve adgangskoden og sammenligner hashværdier, når brugeren logger ind. Til adgangskoder skal man bruge algoritmer, der er bevidst langsomme, bruger salt og er lavet til formålet – fx Argon2, bcrypt eller scrypt – så en stjålen database med adgangskoder er dyr at knække.
+Derfor er hashing nyttig til **integritet** (er filen blevet ændret?) og til **opbevaring af adgangskoder**. Systemet gemmer en hashværdi i stedet for selve adgangskoden og sammenligner hashværdier, når brugeren logger ind. Til adgangskoder skal man bruge algoritmer, der er bevidst langsomme, bruger salt og er lavet til formålet – fx Argon2, bcrypt eller scrypt – så en stjålet database med adgangskoder er dyr at knække.
 
 Pointen for den, der stiller krav: Hvis en leverandør siger, at adgangskoderne er "krypteret", så spørg, hvad de mener. Krypterede adgangskoder kan dekrypteres af enhver, der får fat i nøglen. Korrekt hashede adgangskoder kan slet ikke genskabes.
 

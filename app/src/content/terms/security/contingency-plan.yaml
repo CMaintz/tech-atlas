@@ -9,18 +9,18 @@ cluster: incident-response
 layer: governance
 status: current
 summary:
-  en: A written, agreed plan for how the company reacts when something goes wrong — who does what, and in which order.
-  da: En nedskrevet og godkendt plan for, hvordan virksomheden reagerer, når noget går galt — hvem gør hvad og i hvilken rækkefølge.
+  en: A written, approved plan for how the organisation reacts when something goes wrong — who does what, and in which order.
+  da: En nedskrevet og godkendt plan for, hvordan organisationen reagerer, når noget går galt — hvem gør hvad og i hvilken rækkefølge.
 body:
   formal:
-    en: The umbrella document that sets roles, decision powers, escalation routes and first actions for incidents, and ties together the continuity, recovery and communication plans.
-    da: Det overordnede dokument, der fastlægger roller, beslutningskompetence, eskaleringsveje og første handlinger ved hændelser og samler kontinuitets-, genopretnings- og kommunikationsplanerne.
+    en: The umbrella document that sets roles, decision powers, escalation routes and first actions for incidents, and ties together the BCP, the DRP and the communication plan.
+    da: Det overordnede dokument, der fastlægger roller, beslutningskompetence, hvem der skal inddrages hvornår, og de første handlinger ved hændelser, og som samler BCP, DRP og kommunikationsplan.
   plain:
-    en: Like the emergency card on the back of a hotel door, but for the whole company.
-    da: Ligesom nødinstruksen bag på en hoteldør, bare for hele virksomheden.
+    en: Like the fire instructions on the back of a hotel room door, but written for the whole organisation.
+    da: Ligesom skiltet bag på en hoteldør, der viser, hvad man gør ved brand — bare for hele organisationen.
   inPractice:
-    en: When the file server goes dark, the IT manager opens the plan, calls the three people on the list and follows the first checklist page.
-    da: Da filserveren går ned, åbner IT-chefen planen, ringer til de tre personer på listen og følger første side af tjeklisten.
+    en: When the control system for a town's drinking water goes dark on a Sunday, the operations manager opens the plan, calls the three people on the list and works through the first page of the checklist.
+    da: Da styringssystemet på et vandværk går ned en søndag, åbner driftslederen planen, ringer til de tre personer på listen og følger første side af tjeklisten.
   whyItMatters:
     en: In a crisis people panic and forget, so decisions made calmly in advance are what keep the response orderly.
     da: I en krise går folk i panik og glemmer ting, så beslutninger truffet i ro og mag på forhånd er det, der holder reaktionen ordnet.

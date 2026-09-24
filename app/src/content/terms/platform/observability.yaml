@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: A property of a system, reached by having it send out rich logs, metrics and traces, that lets people answer new questions about its inner state, including ones nobody thought of in advance, without changing the system.
-    da: En egenskab ved et system, opnået ved at lade det udsende fyldige logs, metrikker og sporinger, som gør det muligt at besvare nye spørgsmål om dets indre tilstand, også dem ingen havde tænkt på på forhånd, uden at ændre systemet.
+    da: En egenskab ved et system, opnået ved at lade det udsende detaljerede logs, metrikker og sporinger, som gør det muligt at besvare nye spørgsmål om dets indre tilstand, også dem ingen havde tænkt på på forhånd, uden at ændre systemet.
   plain:
     en: Like a doctor who can find out why you are ill from blood tests, scans and your own story, not just from whether you have a fever.
     da: Som en læge, der kan finde ud af, hvorfor du er syg, ud fra blodprøver, scanninger og din egen forklaring, ikke kun ud fra om du har feber.
   inPractice:
-    en: Checkout is slow for some customers only; by linking the traces and logs of those orders, an engineer sees they all use one payment partner whose service answers slowly.
-    da: Betalingen er kun langsom for nogle kunder; ved at koble sporingerne og logsene for de ordrer ser en tekniker, at de alle bruger én betalingspartner, hvis tjeneste svarer langsomt.
+    en: Checkout in a Danish web shop is slow for some customers only; by linking the traces and logs of those orders, a developer sees they all use one payment provider whose service answers slowly.
+    da: I en dansk webshop er betalingen kun langsom for nogle kunder; ved at koble sporinger og logs for netop de ordrer ser en udvikler, at de alle bruger samme betalingsudbyder, hvis tjeneste svarer langsomt.
   whyItMatters:
     en: Modern systems fail in new and strange ways, and during an incident you need to find the cause quickly without waiting to add new checks.
     da: Moderne systemer fejler på nye og mærkelige måder, og under en hændelse skal man hurtigt finde årsagen uden at vente på at tilføje nye målinger.

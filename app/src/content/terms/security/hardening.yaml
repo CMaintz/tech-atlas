@@ -14,16 +14,16 @@ summary:
 body:
   formal:
     en: The practice of reducing the ways into a system by removing unused software and services, closing unused ports, changing default passwords and applying a written safe setup, often taken from a published guide.
-    da: Praksis, hvor man mindsker antallet af veje ind i et system ved at fjerne ubrugt software og tjenester, lukke ubrugte porte, skifte standardadgangskoder og anvende en nedskrevet sikker opsætning, ofte hentet fra en offentlig vejledning.
+    da: Praksis, hvor man mindsker antallet af veje ind i et system ved at fjerne overflødig software og tjenester, lukke unødvendige porte, skifte standardadgangskoder og anvende en nedskrevet sikker opsætning, ofte hentet fra en offentlig vejledning.
   plain:
     en: Like moving into a new house and changing the locks, bricking up a door you never use and taking the spare key out from under the mat.
     da: Som at flytte ind i et nyt hus og skifte låsene, mure en dør til, man aldrig bruger, og fjerne reservenøglen under måtten.
   inPractice:
-    en: Before a new web server goes live, IT removes the sample pages, turns off file sharing from outside, changes the default admin password and checks the setup against a CIS guide.
-    da: Før en ny webserver går i drift, fjerner IT eksempelsiderne, slår fildeling udefra fra, skifter standardadgangskoden til administratoren og tjekker opsætningen mod en CIS-vejledning.
+    en: Before a ministry's new web server goes live, the IT operations team removes the sample pages, turns off file sharing from outside, changes the default admin password and checks the setup against a CIS guide.
+    da: Før et ministeriums nye webserver går i drift, fjerner IT-driften eksempelsiderne, slår fildeling udefra fra, skifter administratorens standardadgangskode og tjekker opsætningen mod en CIS-vejledning.
   whyItMatters:
-    en: Systems often ship set up for ease rather than safety, and attackers know the default settings well; every unused door left open is one more way in.
-    da: Systemer leveres ofte sat op til at være nemme frem for sikre, og angribere kender standardindstillingerne godt; hver ubrugt dør, der står åben, er endnu en vej ind.
+    en: Systems often ship set up for ease rather than safety, and attackers know the default settings well; every unneeded service left running is one more way in.
+    da: Systemer leveres ofte sat op til at være nemme frem for sikre, og angribere kender standardindstillingerne godt; hver unødvendig tjeneste, der kører, er endnu en vej ind.
 edges:
   kind-of: [control]
   mitigates:

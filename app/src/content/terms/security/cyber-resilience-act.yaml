@@ -11,20 +11,20 @@ status: current
 era: 2024
 summary:
   en: The EU law that makes makers of connected products and software build them secure and keep fixing their flaws.
-  da: EU-forordningen, der pålægger producenter af tilsluttede produkter og software at gøre dem sikre og blive ved med at rette fejl.
+  da: EU-forordningen, der kræver, at producenter af tilsluttede produkter og software gør dem sikre og bliver ved med at rette fejl.
 body:
   formal:
-    en: An EU regulation, in force since 10 December 2024, that sets basic security requirements for products with digital parts sold in the EU. Makers must report actively exploited flaws and severe incidents from 11 September 2026, and all other duties, including the CE mark for security, apply from 11 December 2027.
-    da: En EU-forordning, i kraft siden 10. december 2024, der stiller grundlæggende sikkerhedskrav til produkter med digitale elementer, som sælges i EU. Producenter skal indberette aktivt udnyttede sårbarheder og alvorlige hændelser fra 11. september 2026, og alle øvrige krav, herunder CE-mærkning for sikkerhed, gælder fra 11. december 2027.
+    en: Regulation (EU) 2024/2847, in force since 10 December 2024, setting basic security requirements for products with digital elements sold in the EU. Reporting of actively exploited flaws and severe incidents applies from 11 September 2026; all other duties, including the CE mark, from 11 December 2027.
+    da: Forordning (EU) 2024/2847, i kraft siden 10. december 2024, som stiller grundlæggende sikkerhedskrav til produkter med digitale elementer, der sælges i EU. Pligten til at indberette aktivt udnyttede sårbarheder og alvorlige hændelser gælder fra 11. september 2026, alle øvrige krav, herunder CE-mærkningen, fra 11. december 2027.
   plain:
-    en: Like safety rules for toys or electrical goods, but for the software inside things — a product that is easy to hack is treated as unsafe to sell.
-    da: Som sikkerhedsregler for legetøj eller elektriske apparater, men for softwaren i tingene — et produkt, der er let at hacke, betragtes som usikkert at sælge.
+    en: Like the safety rules for toys or kettles, but for the software inside things — a gadget that is easy to break into counts as unsafe to sell.
+    da: Som sikkerhedsreglerne for legetøj og elektriske apparater, men for softwaren inde i tingene — en dims, der er let at bryde ind i, regnes som usikker at sælge.
   inPractice:
-    en: A Danish maker of smart door locks ships them without a default password, lists every software part it uses, offers free security updates for five years, and, when it learns a flaw is being used by attackers, warns the authorities within 24 hours.
-    da: En dansk producent af smarte dørlåse leverer dem uden standardadgangskode, fører en liste over alle de softwarekomponenter, den bruger, tilbyder gratis sikkerhedsopdateringer i fem år og varsler myndighederne inden for 24 timer, når den opdager, at en sårbarhed bliver udnyttet af angribere.
+    en: A Danish maker of smart door locks ships them without a default password, keeps a list of every software part inside, promises five years of free security updates and, on learning a flaw is being exploited, warns the authorities within 24 hours.
+    da: En dansk producent af smarte dørlåse leverer dem uden standardadgangskode, fører en liste over alle softwarekomponenter i låsen, lover fem års gratis sikkerhedsopdateringer og advarer myndighederne inden for 24 timer, når en sårbarhed bliver udnyttet.
   whyItMatters:
-    en: Until now buyers had no way to judge the security of a camera, router or app, and makers bore little cost when it failed; the CRA moves that burden to the maker, with fines up to 15 million euro or 2.5% of global turnover.
-    da: Hidtil havde køberne ingen mulighed for at vurdere sikkerheden i et kamera, en router eller en app, og producenterne betalte kun lidt, når den svigtede; CRA flytter byrden over på producenten med bøder på op til 15 mio. euro eller 2,5 % af den globale omsætning.
+    en: Buyers cannot judge the security of a camera, router or app, and makers used to pay little when it failed; the CRA shifts that cost to the maker, with fines of up to 15 million euro or 2.5% of global turnover.
+    da: Køberne kan ikke vurdere sikkerheden i et kamera, en router eller en app, og producenterne betalte før kun lidt, når den svigtede; CRA flytter regningen over på producenten med bøder på op til 15 mio. euro eller 2,5 % af den globale omsætning.
 edges:
   mandates:
     - to: security-by-design

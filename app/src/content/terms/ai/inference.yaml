@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: The stage where a trained model, with its weights fixed, is run on new input to produce an output such as a label, a score or generated text; the model does not learn from the input by doing so.
-    da: Fasen, hvor en trænet model med faste vægte køres på nyt input for at frembringe et resultat som en kategori, en score eller genereret tekst; modellen lærer ikke af inputtet ved det.
+    da: Det trin, hvor en trænet model med faste vægte køres på nyt input for at give et resultat som en kategori, en score eller genereret tekst; modellen lærer ikke noget af inputtet undervejs.
   plain:
     en: Like a trained doctor looking at a new patient — the years of study are over, now the knowledge is simply being used.
     da: Som en uddannet læge, der ser på en ny patient — årene med studier er forbi, nu bliver viden bare brugt.
   inPractice:
-    en: When a clerk pastes a contract into an online AI tool and asks for a summary, the text is sent to the supplier's servers where inference runs.
-    da: Når en medarbejder indsætter en kontrakt i et online AI-værktøj og beder om et resumé, sendes teksten til leverandørens servere, hvor inferensen kører.
+    en: When a clerk in a municipality pastes a contract into an online AI tool and asks for a summary, the text is sent to the provider's servers abroad, where inference runs.
+    da: Når en medarbejder i en kommune indsætter en kontrakt i et online AI-værktøj og beder det opsummere den, sendes teksten til udbyderens servere i udlandet, hvor inferensen kører.
   whyItMatters:
     en: Where inference runs decides where your data travels and who can see it — a local model and a foreign cloud service carry very different risks.
     da: Hvor inferensen kører, afgør, hvor dine data rejser hen, og hvem der kan se dem — en lokal model og en udenlandsk cloudtjeneste har vidt forskellige risici.

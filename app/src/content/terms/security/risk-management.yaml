@@ -13,17 +13,17 @@ summary:
   da: Det løbende arbejde med at finde, vurdere og håndtere risici, så tid og penge bruges der, hvor de beskytter mest.
 body:
   formal:
-    en: A repeating cycle of spotting what could go wrong, judging how likely and how harmful each risk is, choosing a response, and checking the result over time.
-    da: En gentagen cyklus, hvor man finder ud af, hvad der kan gå galt, vurderer hvor sandsynlig og skadelig hver risiko er, vælger en håndtering og følger op over tid.
+    en: The repeating cycle in which an organisation sets its criteria for acceptable risk, identifies and assesses risks, chooses how to treat each one, and monitors and reviews the result, with leadership accountable for the decisions.
+    da: Den gentagne cyklus, hvor en organisation fastlægger sine kriterier for acceptabel risiko, identificerer og vurderer risici, vælger, hvordan hver enkelt skal håndteres, og følger op på resultatet, med ledelsen som ansvarlig for beslutningerne.
   plain:
     en: Like a household deciding which locks, insurance and smoke alarms are worth paying for, instead of buying everything or nothing.
     da: Ligesom en familie, der beslutter, hvilke låse, forsikringer og røgalarmer der er værd at betale for, i stedet for at købe alt eller intet.
   inPractice:
-    en: Once a year the security coordinator lists the company's main risks, scores them with the managers, and agrees which ones get a budget first.
-    da: En gang om året lister sikkerhedskoordinatoren virksomhedens vigtigste risici, scorer dem sammen med lederne og aftaler, hvilke der får budget først.
+    en: Each spring the IT security manager at a small Danish manufacturer goes through the main risks with the managers, updates last year's scores, and the board agrees which ones get a budget first.
+    da: Hvert forår gennemgår IT-sikkerhedschefen i en mindre dansk produktionsvirksomhed de vigtigste risici med lederne, opdaterer sidste års vurderinger, og bestyrelsen aftaler, hvilke der får budget først.
   whyItMatters:
-    en: No company can protect everything equally, so without it money is spent on the loudest fears rather than the real dangers.
-    da: Ingen virksomhed kan beskytte alt lige meget, så uden risikostyring bruges pengene på den største frygt i stedet for de reelle farer.
+    en: No company can protect everything equally, so without it money is spent on the loudest fears rather than the real dangers — and rules such as NIS2 expect leadership to show it is done.
+    da: Ingen virksomhed kan beskytte alt lige meget, så uden risikostyring bruges pengene på den største frygt i stedet for de reelle farer — og regler som NIS2 kræver, at ledelsen kan vise, at det sker.
 edges:
   requires: [risk, threat, vulnerability]
   part-of: [governance]

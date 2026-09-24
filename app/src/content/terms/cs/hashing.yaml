@@ -10,18 +10,18 @@ layer: theory
 status: current
 era: 1979
 summary:
-  en: Turning any amount of data into a short, fixed-length fingerprint that changes completely if even one character changes.
-  da: At lave en vilkårlig mængde data om til et kort fingeraftryk af fast længde, der ændrer sig helt, hvis blot ét tegn ændres.
+  en: Turning any amount of data into a short, fixed-length value that changes completely if even one character changes.
+  da: At lave en vilkårlig mængde data om til en kort værdi af fast længde, der ændrer sig helt, hvis blot ét tegn ændres.
 body:
   formal:
-    en: A one-way calculation that maps input of any size to a fixed-size value; it cannot be reversed, and it is practically impossible to find two different inputs with the same result.
-    da: En envejsberegning, der omsætter data af enhver størrelse til en værdi af fast størrelse; den kan ikke vendes om, og det er praktisk talt umuligt at finde to forskellige input med samme resultat.
+    en: A one-way calculation that maps input of any size to a value of fixed size. The same input always gives the same result, the result cannot be turned back into the input, and finding two inputs with the same result is practically impossible.
+    da: En beregning, der kun går én vej, og som laver input af enhver størrelse om til en værdi af fast størrelse. Samme input giver altid samme resultat, resultatet kan ikke regnes tilbage til input, og det er praktisk talt umuligt at finde to input med samme resultat.
   plain:
-    en: Like a fingerprint — it identifies a person without containing the person, and you cannot rebuild someone from their fingerprint.
-    da: Som et fingeraftryk — det identificerer en person uden at indeholde personen, og man kan ikke genskabe nogen ud fra deres fingeraftryk.
+    en: Like a fingerprint — it identifies a person without containing the person, and nobody can rebuild someone from their fingerprint.
+    da: Som et fingeraftryk — det identificerer en person uden at indeholde personen, og ingen kan genskabe et menneske ud fra et fingeraftryk.
   inPractice:
-    en: A website stores only the hash of each password; at login it hashes what the user typed and compares, so a stolen database holds no passwords anyone can read.
-    da: Et websted gemmer kun hashen af hver adgangskode; ved login hasher det det indtastede og sammenligner, så en stjålen database ikke rummer læsbare adgangskoder.
+    en: A Danish web shop stores only a slow, deliberately costly hash of each customer's password. When its database is stolen, the attackers get hashes they must guess their way through one by one, not passwords.
+    da: En dansk webshop gemmer kun en langsom, bevidst tung hash af hver kundes adgangskode. Da databasen bliver stjålet, får angriberne hashes, de skal gætte sig igennem én ad gangen, ikke adgangskoder.
   whyItMatters:
     en: It is how systems spot tampering with files and messages, and how they check passwords without having to keep them.
     da: Det er sådan, systemer opdager manipulation af filer og beskeder, og sådan de tjekker adgangskoder uden at skulle gemme dem.

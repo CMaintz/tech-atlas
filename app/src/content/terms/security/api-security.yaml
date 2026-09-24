@@ -9,28 +9,28 @@ cluster: application-security
 layer: application
 status: current
 summary:
-  en: Protecting the doors that programs use to talk to each other, so each caller can only reach and change what it is allowed to.
-  da: At beskytte de døre, som programmer bruger til at tale med hinanden, så hver kalder kun kan nå og ændre det, den har lov til.
+  en: Protecting the APIs that programs use to talk to each other, so each caller can reach and change only what it is allowed to.
+  da: Beskyttelse af de API'er, som programmer taler sammen igennem, så hver kalder kun kan se og ændre det, den har lov til.
 body:
   formal:
-    en: The practice of securing an API through authentication of every caller, authorization checked for each object and action, limits on how often and how much can be asked for, input validation and a list of every API in use.
-    da: Praksis for at sikre et API gennem autentificering af hver kalder, autorisation tjekket for hvert objekt og hver handling, grænser for, hvor ofte og hvor meget der kan spørges om, inputvalidering og en liste over alle API'er i brug.
+    en: The set of controls that guard an API — authentication of every caller, authorization checked per object and per action, limits on how often and how much can be requested, input validation and an up-to-date list of every API in use.
+    da: De kontroller, der beskytter et API — autentificering af hver kalder, autorisation tjekket for hvert objekt og hver handling, grænser for, hvor ofte og hvor meget der kan hentes, inputvalidering og en opdateret liste over alle API'er i brug.
   plain:
-    en: Like a bank counter where the clerk checks not only who you are but also that the account you ask about is really yours — every time you ask.
-    da: Som en bankskranke, hvor kassereren ikke kun tjekker, hvem du er, men også at den konto, du spørger til, faktisk er din — hver eneste gang.
+    en: Like a bank cashier who checks not only who you are but also that the account you ask about is really yours — every single time.
+    da: Som en kasserer i banken, der ikke kun tjekker, hvem du er, men også at den konto, du spørger til, faktisk er din — hver eneste gang.
   inPractice:
-    en: A mobile app asks its API for order 1001 belonging to the logged-in user; an attacker changes the number to 1002 and gets a stranger's order, because the API checked the login but not who owns the order.
-    da: En mobilapp beder sit API om ordre 1001, der tilhører den indloggede bruger; en angriber ændrer tallet til 1002 og får en fremmeds ordre, fordi API'et tjekkede login, men ikke hvem der ejer ordren.
+    en: A municipality's citizen app asks its API for case 1001, which belongs to the logged-in citizen; a curious user changes the number to 1002 and sees a neighbour's case, because the API checked the MitID login but not who owns the case.
+    da: En kommunes borgerapp beder sit API om sag 1001, der tilhører den indloggede borger; en nysgerrig bruger ændrer tallet til 1002 og ser naboens sag, fordi API'et tjekkede MitID-login, men ikke hvem sagen tilhører.
   whyItMatters:
-    en: Apps, partners and AI agents increasingly reach data through APIs rather than web pages, and one missing ownership check can expose every customer record at once.
-    da: Apps, samarbejdspartnere og AI-agenter tilgår i stigende grad data gennem API'er frem for websider, og ét manglende ejerskabstjek kan udstille alle kundeposter på én gang.
+    en: Apps, partners and AI agents increasingly reach data through APIs rather than web pages, so one missing ownership check can expose every record in a system at once.
+    da: Apps, samarbejdspartnere og AI-agenter henter i stigende grad data gennem API'er frem for websider, så ét manglende ejerskabstjek kan udstille alle poster i et system på én gang.
 edges:
   requires: [api, authentication, authorization]
   mitigates:
     - to: data-breach
       why:
         en: Checking who may reach each record stops callers from pulling data that belongs to others.
-        da: Når der tjekkes, hvem der må nå hver post, forhindres kaldere i at trække data, der tilhører andre.
+        da: Når der tjekkes, hvem der må se hver post, kan kaldere ikke hente data, der tilhører andre.
       strength: normal
       confidence: high
   used-with:

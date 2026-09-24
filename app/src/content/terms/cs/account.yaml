@@ -19,11 +19,11 @@ body:
     en: Like a membership card at a gym — the card is not you, but it is how the gym knows you, what you have paid for and which classes you may join.
     da: Som et medlemskort i et fitnesscenter — kortet er ikke dig, men det er sådan, centret kender dig og ved, hvad du har betalt for, og hvilke hold du må deltage i.
   inPractice:
-    en: An IT administrator has two accounts — an everyday one for email and a separate admin account used only for making changes to servers.
-    da: En it-administrator har to konti — en almindelig til mail og en separat administratorkonto, der kun bruges til at ændre på servere.
+    en: Before the yearly audit, the IT manager at a small Danish company compares the list of active user accounts with HR's staff list and finds six accounts still open for people who left last year.
+    da: Før den årlige revision sammenligner IT-chefen i en mindre dansk virksomhed listen over aktive brugerkonti med HR's medarbejderliste og finder seks konti, der stadig er åbne for folk, som stoppede sidste år.
   whyItMatters:
-    en: Forgotten accounts of former staff and shared accounts that no one owns are a classic way in; reviewing and closing accounts is a core control.
-    da: Glemte konti fra tidligere medarbejdere og delte konti, som ingen ejer, er en klassisk vej ind; at gennemgå og lukke konti er en central kontrol.
+    en: Every action is recorded against an account, so accounts are the basis for both access and accountability; shared or forgotten accounts break both and give attackers an unnoticed way in.
+    da: Alle handlinger registreres på en konto, så konti er grundlaget for både adgang og ansvar; delte eller glemte konti undergraver begge dele og giver angribere en ubemærket vej ind.
 edges:
   contrasts-with:
     - to: identity

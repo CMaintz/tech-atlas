@@ -10,21 +10,21 @@ layer: governance
 status: current
 era: 2022
 summary:
-  en: The EU law that makes firms behind vital services like power and water able to withstand floods, sabotage and other physical threats.
-  da: EU-direktivet, der skal ruste udbydere af vitale tjenester som strøm og vand mod sabotage, oversvømmelser og andre fysiske trusler.
+  en: The EU law that makes the operators of vital services like power and water able to withstand floods, sabotage and other physical threats.
+  da: EU-direktivet, der skal gøre dem, der driver vitale tjenester som strøm og vand, modstandsdygtige over for sabotage, storm og oversvømmelse.
 body:
   formal:
-    en: An EU directive of 14 December 2022, due in national law by October 2024, under which each country names the critical entities in 11 sectors by 17 July 2026; those entities must assess their risks, take physical and organisational measures and report serious disruptions within 24 hours.
-    da: Et EU-direktiv af 14. december 2022, som skulle være gennemført i national ret senest oktober 2024, og hvorefter hvert land senest 17. juli 2026 udpeger de kritiske enheder i 11 sektorer; enhederne skal vurdere deres risici, træffe fysiske og organisatoriske foranstaltninger og indberette alvorlige forstyrrelser inden for 24 timer.
+    en: Directive (EU) 2022/2557, under which each member state names the critical entities in 11 sectors by 17 July 2026; those entities must assess their risks, take physical and organisational measures and report serious disruptions within 24 hours. Denmark applied it by law from 1 July 2025.
+    da: Direktiv (EU) 2022/2557, hvorefter hvert medlemsland senest 17. juli 2026 udpeger de kritiske enheder i 11 sektorer; enhederne skal vurdere deres risici, træffe fysiske og organisatoriske tiltag og indberette alvorlige forstyrrelser inden for 24 timer. I Danmark gælder det via lov fra 1. juli 2025.
   plain:
-    en: If NIS2 is about locking the digital doors of a water plant, CER is about the fence, the backup power and what to do when the river floods.
-    da: Hvis NIS2 handler om at låse de digitale døre på et vandværk, handler CER om hegnet, nødstrømmen og hvad man gør, når åen går over sine bredder.
+    en: Protecting a dam is not only about who knows the control-room code — it is also the fence, the spare generator and the plan for the day the river rises.
+    da: At beskytte en dæmning handler ikke kun om, hvem der kender koden til kontrolrummet — det handler også om hegnet, nødgeneratoren og planen for den dag, åen stiger.
   inPractice:
-    en: A Danish power grid company named as critical maps risks like storms and sabotage, adds fences, cameras and backup power at key sites, checks staff in sensitive roles, and plans how to get power back fast after an attack on one of its sites.
-    da: Et dansk elnetselskab, der er udpeget som kritisk enhed, kortlægger risici som storme og sabotage, sætter hegn, kameraer og nødstrøm op på vigtige anlæg, baggrundstjekker medarbejdere i følsomme funktioner og planlægger, hvordan strømmen hurtigt kommer tilbage efter et angreb på en transformerstation.
+    en: A Danish energy company named as a critical entity maps risks such as storms and sabotage, adds fences, cameras and backup power at its key sites, screens staff in sensitive roles and rehearses restoring supply after a site is hit.
+    da: Et dansk energiselskab, der er udpeget som kritisk enhed, kortlægger risici som storm og sabotage, sætter hegn, kameraer og nødstrøm op ved sine transformerstationer, baggrundstjekker medarbejdere i følsomme stillinger og øver, hvordan strømmen kommer tilbage, hvis et anlæg rammes.
   whyItMatters:
-    en: Society stops if power, water, transport or hospitals fail, and the threats are not only digital — the directive closes the gap that cyber rules alone leave open. In Denmark it took effect through its own law from 1 July 2025.
-    da: Samfundet går i stå, hvis strøm, vand, transport eller hospitaler svigter, og truslerne er ikke kun digitale — direktivet lukker det hul, som cyberreglerne alene efterlader. I Danmark trådte det i kraft gennem sin egen lov fra 1. juli 2025.
+    en: Society grinds to a halt when power, water, transport or hospitals fail, and a cut cable or a flooded pumping station does as much damage as a hacker; cyber rules alone leave that side uncovered.
+    da: Samfundet går i stå, når strøm, vand, transport eller hospitaler svigter, og et overskåret kabel eller en oversvømmet pumpestation gør lige så stor skade som en hacker; cyberregler alene dækker ikke den side.
 edges:
   requires: [critical-assets]
   mandates:

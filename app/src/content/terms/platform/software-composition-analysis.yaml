@@ -19,8 +19,8 @@ body:
     en: Like a food inspector who reads the label of every ingredient a bakery buys in and checks each against the list of recalled products.
     da: Som en fødevarekontrollant, der læser etiketten på hver ingrediens, et bageri køber ind, og tjekker den mod listen over tilbagekaldte varer.
   inPractice:
-    en: A code change adds a new library to an app; the CI/CD pipeline runs SCA, finds that the chosen version has a known serious flaw, and blocks the change until the developer picks a fixed version.
-    da: En kodeændring tilføjer et nyt bibliotek til en app; CI/CD-pipelinen kører SCA, opdager, at den valgte version har en kendt alvorlig fejl, og blokerer ændringen, indtil udvikleren vælger en rettet version.
+    en: A developer at an accounting firm adds a new library to the firm's client portal; the CI/CD pipeline runs SCA, finds a known serious flaw in that version and blocks the change until she picks a fixed one.
+    da: En udvikler i et revisionsfirma tilføjer et nyt bibliotek til firmaets kundeportal; CI/CD-pipelinen kører SCA, finder en kendt alvorlig sårbarhed i netop den version og blokerer ændringen, indtil hun vælger en rettet version.
   whyItMatters:
     en: Most of the code in a modern app was written by strangers; without this check, one old library can quietly open a hole that attackers already know how to use.
     da: Det meste af koden i en moderne app er skrevet af fremmede; uden dette tjek kan ét gammelt bibliotek stille åbne et hul, som angribere allerede ved, hvordan de udnytter.

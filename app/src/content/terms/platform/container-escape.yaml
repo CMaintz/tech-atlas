@@ -9,21 +9,21 @@ cluster: containers
 layer: host
 status: current
 summary:
-  en: An attack where code running inside a container breaks through its fences and gains control of the host machine beneath it.
-  da: Et angreb, hvor kode, der kører i en container, bryder gennem afskærmningen og får kontrol over værtsmaskinen nedenunder.
+  en: An attack where code running inside a container breaks out of it and gains control of the host machine beneath it.
+  da: Et angreb, hvor kode, der kører i en container, bryder ud af den og får kontrol over værtsmaskinen nedenunder.
 body:
   formal:
-    en: A kind of privilege escalation in which a process inside a container uses a flaw in the kernel or container runtime, or a too generous setting, to act outside its container with the host's rights.
-    da: En form for rettighedseskalering, hvor en proces i en container udnytter en fejl i kernen eller container-runtimen, eller en for gavmild indstilling, til at handle uden for sin container med værtens rettigheder.
+    en: A kind of privilege escalation in which a process inside a container uses a flaw in the kernel or container runtime, or a too loose setting, to act outside its container with the host's rights.
+    da: En form for rettighedseskalering, hvor en proces i en container udnytter en fejl i kernen eller container-runtimen, eller en for løs indstilling, til at handle uden for sin container med værtens rettigheder.
   plain:
     en: Like a guest in one hotel room who finds a loose wall panel and suddenly walks into the hotel's back office.
     da: Som en hotelgæst, der finder en løs vægplade på sit værelse og pludselig står på hotellets kontor.
   inPractice:
-    en: An attacker takes over a web app that runs in a container with full admin rights and the host's disks attached, writes a file onto the host itself, and now runs code on the whole machine.
-    da: En angriber overtager en webapplikation, der kører i en container med fulde administratorrettigheder og værtens diske tilkoblet, skriver en fil direkte på værten og kører nu kode på hele maskinen.
+    en: An attacker takes over a municipality's booking app, which runs in a container with full admin rights and the host's disks attached; one file written to the host lets them run code on the whole machine.
+    da: En angriber overtager en kommunes bookingapp, der kører i en container med fulde administratorrettigheder og værtens diske tilkoblet; én fil skrevet direkte på værten lader angriberen køre kode på hele maskinen.
   whyItMatters:
-    en: Many teams treat containers as walls between customers or apps; one escape turns a single weak app into control of every container on the host.
-    da: Mange teams bruger containere som skillevægge mellem kunder eller applikationer; ét udbrud gør en enkelt svag applikation til kontrol over alle containere på værten.
+    en: Many teams treat containers as walls between customers or programs; one escape turns a single weak program into control of every container on the host.
+    da: Mange teams bruger containere som skillevægge mellem kunder eller programmer; ét udbrud gør et enkelt svagt program til kontrol over alle containere på værten.
 edges:
   kind-of: [privilege-escalation]
   requires: [container, container-runtime]

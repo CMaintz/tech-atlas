@@ -19,8 +19,8 @@ body:
     en: Like teaching everyone in a building where the fire exits are and why the fire doors must stay shut — knowing is only half of it; doing it every day is the point.
     da: Som at lære alle i en bygning, hvor nødudgangene er, og hvorfor branddørene skal holdes lukkede — det er ikke nok at vide det; pointen er, at man gør det hver dag.
   inPractice:
-    en: A company runs short monthly lessons, a fake phishing email every quarter, and tracks how many staff report it instead of clicking.
-    da: En virksomhed afholder korte månedlige lektioner, sender en falsk phishing-mail hvert kvartal og følger med i, hvor mange der melder den i stedet for at klikke.
+    en: A school gives security ten minutes at every staff meeting — this month, how to spot a fake MitID login page — and teachers now forward doubtful mails to IT instead of just deleting them.
+    da: En skole giver sikkerhed ti minutter på hvert personalemøde — denne måned, hvordan man kender en falsk MitID-loginside — og lærerne sender nu tvivlsomme mails videre til IT i stedet for bare at slette dem.
   whyItMatters:
     en: Many attacks aim at people rather than machines, and NIS2 lists training among its minimum requirements, so awareness is both a defence and a legal duty.
     da: Mange angreb retter sig mod mennesker frem for maskiner, og NIS2 nævner træning blandt minimumskravene, så awareness er både et forsvar og en lovpligt.

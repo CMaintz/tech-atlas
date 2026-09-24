@@ -14,16 +14,16 @@ summary:
 body:
   formal:
     en: A weakness created not by a flaw in the provider's software but by the customer's own choice of settings, such as public access to storage, too broad permissions, disabled logging or open network ports.
-    da: En sårbarhed, der ikke skyldes en fejl i udbyderens software, men kundens egne valg af indstillinger, fx offentlig adgang til lager, for brede rettigheder, slået logning fra eller åbne netværksporte.
+    da: En sårbarhed, der ikke skyldes en fejl i udbyderens software, men kundens egne valg af indstillinger, fx offentlig adgang til lager, for brede rettigheder, manglende logs eller åbne netværksporte.
   plain:
     en: Like a sturdy safe bought for the office but left with its door standing open — the safe works fine; the way it was set up does not.
-    da: Som et solidt pengeskab, der er købt til kontoret, men står med døren på klem — skabet virker fint; det er måden, det er sat op på, der ikke gør.
+    da: Som et solidt pengeskab, der er købt til kontoret, men står med døren åben — skabet virker fint; det er måden, det er sat op på, der ikke gør.
   inPractice:
-    en: A developer makes a storage bucket public to share a test file, forgets to change it back, and months later customer records in it are found by strangers searching the internet.
-    da: En udvikler gør en lagerbeholder offentlig for at dele en testfil, glemmer at lave det om, og måneder senere finder fremmede kundedata i den ved at søge på internettet.
+    en: A developer at a hospital region makes a storage bucket public to share a test file and forgets to close it; months later strangers find patient records in it, and the region must report a personal data breach.
+    da: En udvikler i en region gør en bucket offentlig for at dele en testfil og glemmer at lukke den; måneder senere finder fremmede patientdata i den, og regionen må anmelde brud på persondatasikkerheden til Datatilsynet.
   whyItMatters:
-    en: Cloud settings can be changed in seconds by many people, so one slip can expose large amounts of data — and it is the customer's side of the shared responsibility.
-    da: Cloudindstillinger kan ændres på sekunder af mange personer, så én fejl kan blotlægge store mængder data — og det ligger på kundens side af det delte ansvar.
+    en: Settings can be changed in seconds by many people, and one slip can put large amounts of data on the open internet; the provider will not step in, because settings are the customer's side.
+    da: Indstillinger kan ændres på sekunder af mange personer, og én fejl kan lægge store mængder data åbent på internettet; udbyderen griber ikke ind, for indstillingerne er kundens ansvar.
 edges:
   kind-of: [vulnerability]
   requires: [cloud-computing, permission]
@@ -31,7 +31,7 @@ edges:
     - to: data-breach
       why:
         en: Storage or services left open by mistake are a common way personal data ends up in the wrong hands.
-        da: Lager eller tjenester, der ved en fejl står åbne, er en almindelig måde, hvorpå persondata havner i de forkerte hænder.
+        da: Lager eller tjenester, der ved en fejl står åbne, er en almindelig måde, hvorpå personoplysninger havner i de forkerte hænder.
       strength: primary
       confidence: high
 sources:

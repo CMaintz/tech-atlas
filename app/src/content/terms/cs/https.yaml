@@ -20,8 +20,8 @@ body:
     en: Like ordering from a shop by sealed, tamper-proof envelope instead of shouting your order and card number across the street.
     da: Som at bestille fra en butik i en forseglet konvolut, der ikke kan pilles ved, i stedet for at råbe sin bestilling og sit kortnummer over gaden.
   inPractice:
-    en: When a customer types a card number into a web shop whose address starts with https://, the number travels encrypted from the browser to the shop.
-    da: Når en kunde taster sit kortnummer ind i en webshop, hvis adresse starter med https://, rejser nummeret krypteret fra browseren til butikken.
+    en: When a customer pays at a small Danish web shop whose address starts with https://, the card number travels encrypted from the browser to the shop's payment page, and anyone on the café wifi sees only scrambled data.
+    da: Når en kunde betaler i en lille dansk webshop, hvis adresse starter med https://, rejser kortnummeret krypteret fra browseren til butikkens betalingsside, og andre på caféens wifi ser kun uforståelige data.
   whyItMatters:
     en: Plain, unprotected web traffic can be read and changed by anyone along the route, so HTTPS is now the expected minimum for any website handling logins or personal data.
     da: Almindelig, ubeskyttet webtrafik kan læses og ændres af alle langs ruten, så HTTPS er i dag det forventede minimum for ethvert websted med login eller persondata.

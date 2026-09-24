@@ -13,17 +13,17 @@ summary:
   da: Cloududbyderens indbyggede system af politikker, der afgør, hvilke brugere, roller og servicekonti der må gøre hvad ved hver ressource.
 body:
   formal:
-    en: A cloud service, such as those from Amazon, Microsoft and Google, where the customer writes policies that link an identity to the actions it may take on named resources, and that the provider checks on every single call.
-    da: En cloudtjeneste, fx fra Amazon, Microsoft eller Google, hvor kunden skriver politikker, der kobler en identitet til de handlinger, den må udføre på navngivne ressourcer, og som udbyderen tjekker ved hvert eneste kald.
+    en: A service run by the cloud provider in which the customer writes policies binding an identity to the actions it may take on named resources; the provider checks them on every request and refuses anything not granted.
+    da: En tjeneste, som cloududbyderen driver, hvor kunden skriver politikker, der kobler en identitet til de handlinger, den må udføre på navngivne ressourcer; udbyderen tjekker dem ved hver forespørgsel og afviser alt, der ikke er givet lov til.
   plain:
     en: Like the key card system in an office building — one central list says whose card opens which doors, and every door checks that list each time.
     da: Som adgangskortsystemet i en kontorbygning — én central liste siger, hvis kort åbner hvilke døre, og hver dør tjekker listen hver gang.
   inPractice:
-    en: A team gives its backup job a service account that may only write to one storage bucket, and gives developers a role that may read logs but not delete databases.
-    da: Et team giver sit backupjob en servicekonto, der kun må skrive til én lagerbeholder, og giver udviklerne en rolle, der må læse logs, men ikke slette databaser.
+    en: At a pension fund, the cloud architect gives the nightly backup job a service account that may only write to one storage bucket, and gives developers a role that can read logs but not delete databases.
+    da: I en pensionskasse giver cloudarkitekten det natlige backupjob en servicekonto, der kun må skrive til én bestemt bucket, og udviklerne en rolle, der kan læse logs, men ikke slette databaser.
   whyItMatters:
-    en: Setting these rights is the customer's side of the shared responsibility, and too broad a policy is one of the most common cloud misconfigurations behind data breaches.
-    da: At sætte disse rettigheder ligger på kundens side af det delte ansvar, og en for bred politik er en af de hyppigste fejlkonfigurationer i skyen bag databrud.
+    en: The rights are the customer's job, not the provider's, and one policy that grants too much can open every resource in an account to whoever gets hold of it.
+    da: Rettighederne er kundens ansvar, ikke udbyderens, og én politik, der giver for meget, kan åbne alle ressourcer på en konto for den, der får fat i den.
 edges:
   implements: [access-management]
   requires: [cloud-computing, authorization]

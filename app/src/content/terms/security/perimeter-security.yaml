@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: A security model that places its main controls, such as a firewall and VPN, at the border of the internal network. Traffic is checked on the way in or out, while users and machines inside the border are largely trusted by default.
-    da: En sikkerhedsmodel, der placerer de vigtigste kontroller, fx firewall og VPN, ved grænsen til det interne netværk. Trafik kontrolleres på vej ind og ud, mens brugere og maskiner inden for grænsen som udgangspunkt i vid udstrækning er betroede.
+    da: En sikkerhedsmodel, der placerer de vigtigste kontroller, fx firewall og VPN, ved grænsen til det interne netværk. Trafik kontrolleres på vej ind og ud, mens brugere og maskiner inden for grænsen som udgangspunkt i høj grad er betroede.
   plain:
     en: A castle with thick walls and one guarded gate — once you are past the gate, you can walk into almost any room.
     da: En borg med tykke mure og én bevogtet port — når du først er inden for porten, kan du gå ind i næsten alle rum.
   inPractice:
-    en: A company lets every office PC reach every server freely because they all sit behind the firewall, so one infected laptop carried in by an employee can reach the finance system.
-    da: En virksomhed lader alle kontorets pc'er tilgå alle servere frit, fordi de står bag firewallen, så en enkelt inficeret bærbar, som en medarbejder tager med ind, kan nå økonomisystemet.
+    en: A municipality lets every office PC reach every server freely because they all sit behind the firewall, so one infected laptop brought in by an employee can reach the payroll system.
+    da: En kommune lader alle kontorets computere nå alle servere frit, fordi de står bag firewallen, så en enkelt inficeret bærbar, som en medarbejder tager med ind, kan nå lønsystemet.
   whyItMatters:
     en: With cloud services and remote work there is no longer one clear edge to guard, and an attacker who gets inside meets little resistance.
     da: Med cloudtjenester og hjemmearbejde er der ikke længere én klar grænse at bevogte, og en angriber, der først er kommet ind, møder kun lidt modstand.

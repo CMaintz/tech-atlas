@@ -19,8 +19,8 @@ body:
     en: Like the nurse at a hospital's emergency desk who looks at everyone coming in and decides who sees a doctor now, who can wait, and who can go home.
     da: Som sygeplejersken i skadestuens modtagelse, der ser på alle, der kommer ind, og afgør, hvem der skal til lægen nu, hvem der kan vente, og hvem der kan gå hjem.
   inPractice:
-    en: Of forty alarms overnight, the analyst closes thirty-five as a known backup job, groups four into one case about a single laptop, and raises the last — an admin login from abroad — to the on-call lead at once.
-    da: Ud af fyrre alarmer i løbet af natten lukker analytikeren 35 som et kendt backupjob, samler fire i én sag om en enkelt bærbar og sender den sidste — et admin-login fra udlandet — straks videre til den vagthavende leder.
+    en: Of forty overnight alarms in a region's SOC, the analyst closes thirty-five as a known backup job, groups four into one case about a single laptop, and sends the last — an admin login from abroad — straight to the on-call lead.
+    da: Af fyrre alarmer i en regions SOC i løbet af natten lukker analytikeren 35 som et kendt backupjob, samler fire i én sag om en enkelt bærbar og sender den sidste — et admin-login fra udlandet — straks videre til den vagthavende leder.
   whyItMatters:
     en: A team cannot look deeply at every alarm, so the quality of this first sort decides whether a real attack is caught in minutes or lost among hundreds of harmless ones.
     da: Et team kan ikke gå i dybden med hver alarm, så kvaliteten af den første sortering afgør, om et reelt angreb fanges på minutter eller drukner blandt hundredvis af harmløse.

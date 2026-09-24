@@ -15,16 +15,16 @@ summary:
 body:
   formal:
     en: An open standard for delegated authorization in which the owner of an account approves a limited request, and a trusted server then hands the requesting app a short-lived access token that its API accepts in place of the owner's credential.
-    da: En åben standard for delegeret autorisation, hvor ejeren af en konto godkender en begrænset forespørgsel, og en betroet server derefter giver den anmodende app et kortlivet adgangstoken, som API'et accepterer i stedet for ejerens loginoplysninger.
+    da: En åben standard for delegeret autorisation, hvor ejeren af en konto godkender en begrænset forespørgsel, hvorefter en betroet server giver den app, der beder om adgang, et kortlivet adgangstoken, som API'et godtager i stedet for ejerens loginoplysninger.
   plain:
     en: Like a valet key for a car — it lets the attendant drive and park, but not open the boot or the glove box, and you never hand over your own key.
     da: Som en parkeringsnøgle til en bil — den lader betjenten køre og parkere, men ikke åbne bagagerummet eller handskerummet, og du afleverer aldrig din egen nøgle.
   inPractice:
-    en: A calendar app asks for "read access to your Google Calendar"; you approve on Google's own page, and the app gets a token that can read events but not your email.
-    da: En kalenderapp beder om "læseadgang til din Google-kalender"; du godkender på Googles egen side, og appen får et token, der kan læse aftaler, men ikke dine mails.
+    en: A teacher at a Danish school connects a lesson-planning app to her Google calendar; she approves “read your calendar” on Google's own page, and the app gets a token that can read events but not her email.
+    da: En lærer på en dansk skole kobler en app til lektionsplanlægning til sin Google-kalender; hun godkender “læs din kalender” på Googles egen side, og appen får et token, der kan læse aftaler, men ikke hendes mails.
   whyItMatters:
     en: Before it, people typed their real password into third-party apps; now access can be narrow, time-limited and taken back without changing the password.
-    da: Før det tastede folk deres rigtige adgangskode ind i fremmede apps; nu kan adgangen være snæver, tidsbegrænset og trækkes tilbage uden at skifte adgangskode.
+    da: Før det tastede folk deres rigtige adgangskode ind i fremmede apps; nu kan adgangen begrænses i både omfang og tid og trækkes tilbage, uden at adgangskoden skal skiftes.
 edges:
   implements: [authorization]
   requires: [api, account]
@@ -32,7 +32,7 @@ edges:
     - to: saas
       why:
         en: Cloud services use it to let one online app reach data in another without sharing passwords.
-        da: Cloudtjenester bruger det til at lade én onlineapp tilgå data i en anden uden at dele adgangskoder.
+        da: Cloudtjenester bruger det til at give én onlineapp adgang til data i en anden uden at dele adgangskoder.
       strength: normal
       confidence: high
 sources:

@@ -18,10 +18,10 @@ body:
     da: Medier skabt eller ændret med deep learning, så en virkelig persons ansigt, krop eller stemme optræder i indhold, personen ikke har lavet, og realistisk nok til at gå for en ægte optagelse.
   plain:
     en: Like a perfect mask and a perfect voice impression in one — except anyone with a laptop and a few minutes of someone's voice can now make one.
-    da: Som en perfekt maske og en perfekt stemmeimitation på én gang — bare at alle med en bærbar og et par minutters optagelse af en stemme nu kan lave den.
+    da: Som en perfekt maske og en perfekt efterligning af en stemme på én gang — bortset fra, at alle med en bærbar og få minutters optagelse af nogens stemme nu kan lave den.
   inPractice:
-    en: A finance employee joins a video call where the "finance director" and several colleagues are all fakes, and on their orders transfers millions to the attacker's accounts.
-    da: En medarbejder i økonomi deltager i et videomøde, hvor "økonomidirektøren" og flere kolleger alle er falske, og overfører på deres ordre millioner til angriberens konti.
+    en: A payroll clerk at a Danish shipping company joins a video call where the “finance director” and several colleagues are all fakes, and on their orders transfers several million kroner to foreign accounts.
+    da: En lønbogholder i et dansk rederi deltager i et videomøde, hvor “økonomidirektøren” og flere kolleger alle er falske, og overfører på deres ordre flere millioner kroner til udenlandske konti.
   whyItMatters:
     en: Seeing and hearing someone is no longer proof it is them, so payment and approval steps must be checked another way; the EU AI Act also requires deepfakes to be labelled.
     da: At se og høre en person er ikke længere bevis for, at det er dem, så betalinger og godkendelser skal bekræftes ad en anden vej; EU's AI-forordning kræver også, at deepfakes mærkes.
@@ -42,8 +42,8 @@ edges:
       confidence: medium
     - to: social-engineering
       why:
-        en: A deepfake is a powerful new prop for pretending to be someone the victim trusts.
-        da: En deepfake er et stærkt nyt redskab til at udgive sig for at være en, offeret stoler på.
+        en: A deepfake is a convincing new prop for pretending to be someone the victim trusts.
+        da: En deepfake er et nyt og overbevisende redskab til at udgive sig for at være en, offeret stoler på.
       strength: normal
       confidence: high
 sources:

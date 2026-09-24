@@ -20,8 +20,8 @@ body:
     en: Like casting a net with bait into the sea — the sender does not care which fish bites, only that some do.
     da: Som at kaste et net med madding i havet — afsenderen er ligeglad med, hvilken fisk der bider, bare nogle gør.
   inPractice:
-    en: Thousands of staff get a "your parcel is delayed" message; a few follow the link to a copy of the login page and type their password into it.
-    da: Tusindvis af medarbejdere får en besked om, at "din pakke er forsinket"; nogle få følger linket til en kopi af login-siden og taster deres adgangskode ind.
+    en: Hundreds of employees in a region receive a mail “from MitID” saying their login is about to expire; a few follow the link to a copy of the login page and type in their details.
+    da: Hundredvis af medarbejdere i en region får en mail “fra MitID” om, at deres login snart udløber; nogle få følger linket til en kopi af login-siden og indtaster deres oplysninger.
   whyItMatters:
     en: It is cheap to send and needs only one person to fall for it, which makes it one of the most common first steps in an attack.
     da: Det er billigt at sende og kræver kun, at én person hopper på det, hvilket gør det til et af de mest almindelige første skridt i et angreb.
@@ -38,7 +38,7 @@ edges:
     - to: data-breach
       why:
         en: A captured password lets the attacker log in and reach data as if they were the victim.
-        da: En opsnappet adgangskode lader angriberen logge ind og tilgå data, som om de var offeret.
+        da: En opsnappet adgangskode lader angriberen logge ind og få adgang til data, som om vedkommende var offeret.
       strength: normal
       confidence: high
   contrasts-with: [pretexting]

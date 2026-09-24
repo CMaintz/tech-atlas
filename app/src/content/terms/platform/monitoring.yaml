@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: The ongoing collection and display of known measures of a system's health, such as whether it answers, how busy it is and how often it fails, checked against set limits so that known kinds of trouble raise an alarm.
-    da: Løbende indsamling og visning af kendte mål for et systems sundhed, fx om det svarer, hvor travlt det har, og hvor ofte det fejler, holdt op mod faste grænser, så kendte typer af problemer udløser en alarm.
+    da: Løbende indsamling af kendte mål for et systems sundhed, fx om det svarer, hvor meget det har at lave, og hvor ofte det fejler, som vises og holdes op mod faste grænser, så kendte typer af problemer udløser en alarm.
   plain:
     en: Like the warning lights on a car's dashboard; they tell you quickly that the oil is low, but not why the engine is making a strange noise.
     da: Som advarselslamperne på en bils instrumentbræt; de fortæller hurtigt, at olien er lav, men ikke hvorfor motoren laver en underlig lyd.
   inPractice:
-    en: A dashboard on the operations team's wall shows disk space, memory use and error counts for every server, and turns red when a disk passes ninety percent full.
-    da: En skærm på driftsteamets væg viser diskplads, hukommelsesforbrug og antal fejl for hver server og bliver rød, når en disk er mere end halvfems procent fuld.
+    en: A screen in a water utility's control room shows memory use, response times and error counts for the servers that run its pumping stations, and turns red when one of them stops answering.
+    da: En skærm i vandværkets kontrolrum viser hukommelsesforbrug, svartider og antal fejl for de servere, der styrer pumpestationerne, og bliver rød, når en af dem holder op med at svare.
   whyItMatters:
     en: It keeps services available by catching known problems before users notice, and it is often the first place an attack shows up as odd load or failures.
     da: Den holder tjenester tilgængelige ved at fange kendte problemer, før brugerne mærker dem, og det er ofte her, et angreb først viser sig som usædvanlig belastning eller fejl.

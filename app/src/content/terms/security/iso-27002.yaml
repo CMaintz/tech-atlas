@@ -14,17 +14,17 @@ summary:
   da: En vejledende standard, der beskriver hver sikkerhedskontrol i detaljer — hvad den skal og hvordan den indføres.
 body:
   formal:
-    en: A companion standard to ISO 27001 (current edition 2022) giving purpose and guidance for 93 controls grouped as organisation, people, physical and technology controls; it cannot be certified against.
-    da: En følgestandard til ISO 27001 (nuværende udgave fra 2022), der giver formål og vejledning for 93 kontroller, grupperet som organisatoriske, menneskelige, fysiske og teknologiske; man kan ikke certificeres efter den.
+    en: A companion standard to ISO 27001, current edition 2022, that gives the purpose of the same 93 controls and guidance on putting them in place, grouped into four themes — organisational, people, physical and technological; it contains no requirements and cannot be certified against.
+    da: En følgestandard til ISO 27001, nuværende udgave fra 2022, der giver formål og vejledning for de samme 93 kontroller, fordelt på fire temaer — organisatoriske, menneskelige, fysiske og teknologiske; den stiller ingen krav og kan ikke bruges til certificering.
   plain:
-    en: If ISO 27001 says "keep the house safe", ISO 27002 is the handbook explaining how to fit locks, alarms and smoke detectors.
-    da: Hvis ISO 27001 siger "hold huset sikkert", er ISO 27002 håndbogen, der forklarer, hvordan man sætter låse, alarmer og røgalarmer op.
+    en: If the house rules say "keep the house safe", this is the handyman's manual explaining which locks, alarms and smoke detectors to fit and where.
+    da: Hvis husordenen siger "hold huset sikkert", er det her håndværkerens manual, der forklarer, hvilke låse, alarmer og røgalarmer der skal sættes op, og hvor.
   inPractice:
-    en: A security coordinator writes the company's access rules by following the ISO 27002 guidance for the access control topic.
-    da: En sikkerhedskoordinator skriver virksomhedens adgangsregler ved at følge ISO 27002's vejledning om adgangskontrol.
+    en: The IT security lead at a Danish hospital drafts the rules for who may open patient records by working through the ISO 27002 guidance on access control and adapting each point to the hospital's systems.
+    da: Den IT-sikkerhedsansvarlige på et dansk hospital skriver reglerne for, hvem der må åbne patientjournaler, ved at gå ISO 27002's vejledning om adgangskontrol igennem og tilpasse hvert punkt til hospitalets systemer.
   whyItMatters:
-    en: It turns short control titles into practical steps, so organisations do not have to invent each control from scratch.
-    da: Den gør korte kontroloverskrifter til praktiske skridt, så virksomheder ikke selv skal opfinde hver kontrol fra bunden.
+    en: A one-line control title says what to achieve but not how; without the guidance each organisation would have to work out every control from scratch and would often miss key parts.
+    da: En kontroloverskrift på én linje siger, hvad man skal opnå, men ikke hvordan; uden vejledningen skulle hver organisation selv udtænke hver kontrol fra bunden og ville ofte overse vigtige dele.
 edges:
   kind-of: [security-framework]
   requires: [control]
@@ -41,7 +41,7 @@ edges:
     - to: statement-of-applicability
       why:
         en: The SoA lists the Annex A controls that ISO 27002 explains in detail.
-        da: SoA'en opregner de bilag A-kontroller, som ISO 27002 forklarer i detaljer.
+        da: SoA'en gennemgår de kontroller i anneks A, som ISO 27002 forklarer i detaljer.
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

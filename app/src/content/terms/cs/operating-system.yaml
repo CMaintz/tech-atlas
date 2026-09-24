@@ -17,10 +17,10 @@ body:
     da: Det lag af software, der ligger mellem selve maskinen og de programmer, en bruger kører. Det fordeler tid, lagerplads og udstyr mellem programmerne og giver dem én fælles, kontrolleret måde at bruge maskinen på.
   plain:
     en: Like the management of an apartment building — tenants share the water, heat and stairs, and the management makes sure no one takes everything or walks into someone else's flat.
-    da: Som administrationen i en boligforening — beboerne deler vand, varme og trappeopgang, og administrationen sørger for, at ingen tager det hele eller går ind i andres lejlighed.
+    da: Som administrationen i en boligforening — beboerne deler vand, varme og trappe, og administrationen sørger for, at ingen tager det hele eller går ind i andres lejlighed.
   inPractice:
-    en: An office laptop runs Windows. When a staff member has email and a budget sheet open at once, the operating system decides which one gets the machine at each moment and stops either from reading the other's data.
-    da: En kontorcomputer kører Windows, macOS eller Linux. Når en medarbejder har mail og et regneark åbent samtidig, bestemmer styresystemet, hvem der får maskinen hvornår, og forhindrer dem i at læse hinandens data.
+    en: A case officer in a municipality has email and a budget sheet open at once on a Windows laptop; the operating system decides which one gets the machine at each moment and stops either from reading the other's data.
+    da: En sagsbehandler i en kommune har mail og et budgetark åbent samtidig på en Windows-bærbar; styresystemet bestemmer, hvilket program der får maskinen hvornår, og forhindrer dem i at læse hinandens data.
   whyItMatters:
     en: Almost every security control on a computer — logins, permissions, logs — is enforced by the operating system, so a weakness in it undermines everything built on top.
     da: Næsten alle sikkerhedskontroller på en computer — login, rettigheder, logs — håndhæves af styresystemet, så en svaghed i det undergraver alt, der bygger ovenpå.

@@ -9,27 +9,27 @@ cluster: application-security
 status: current
 summary:
   en: The sum of all the places where an outsider could try to get into a system, send data into it or pull data out.
-  da: Summen af alle de steder, hvor en udefrakommende kunne forsøge at komme ind i et system, sende data ind eller trække data ud.
+  da: Summen af alle de steder, hvor en udefrakommende kan forsøge at komme ind i et system, sende data ind eller hente data ud.
 body:
   formal:
     en: The set of all points at which a system can be reached or acted on from outside its trust boundary — open ports, web pages and APIs, user accounts, stored data, the people who run it and the suppliers it depends on.
-    da: Mængden af alle punkter, hvor et system kan nås eller påvirkes uden for dets tillidsgrænse — åbne porte, websider og API'er, brugerkonti, lagrede data, de mennesker, der driver det, og de leverandører, det afhænger af.
+    da: Alle de punkter, hvor et system kan nås eller påvirkes fra den anden side af dets tillidsgrænse — åbne porte, websider og API'er, brugerkonti, lagrede data, de mennesker, der driver det, og de leverandører, det afhænger af.
   plain:
     en: Like counting every door, window, hatch and mail slot in a house — each one is a place a burglar could try, whether or not it is locked.
-    da: Som at tælle alle døre, vinduer, lemme og brevsprækker i et hus — hver enkelt er et sted, en indbrudstyv kunne prøve, uanset om den er låst.
+    da: Som at tælle hver dør, hvert vindue, hver luge og hver brevsprække i et hus — alle er steder, en indbrudstyv kan prøve, uanset om de er låst.
   inPractice:
-    en: A company finds an old test website, a forgotten file server and three unused admin accounts still reachable from the internet; removing them makes its attack surface noticeably smaller.
-    da: En virksomhed finder et gammelt testwebsite, en glemt filserver og tre ubrugte administratorkonti, der stadig kan nås fra internettet; når de fjernes, bliver angrebsfladen mærkbart mindre.
+    en: An IT operations manager at a water utility checks what it exposes to the internet and finds an old test website, a forgotten file server and three admin accounts nobody uses; shutting them down shrinks the attack surface.
+    da: En IT-driftsansvarlig på et vandværk gennemgår, hvad værket har liggende ud mod internettet, og finder et gammelt testwebsite, en glemt filserver og tre administratorkonti, som ingen bruger; når de lukkes, bliver angrebsfladen mindre.
   whyItMatters:
-    en: Every extra way in is one more thing to watch and patch, and attackers need to find only one that was missed; a smaller surface leaves fewer places for weaknesses to hide.
-    da: Hver ekstra vej ind er én ting mere at holde øje med og patche, og angribere skal kun finde én, der er overset; en mindre flade giver færre steder, hvor svagheder kan gemme sig.
+    en: Every extra way in is one more thing to watch and patch, and attackers need to find only the one that was missed; a smaller surface leaves fewer places for weaknesses to hide.
+    da: Hver ekstra vej ind er én ting mere at holde øje med og patche, og en angriber skal kun finde den ene, der blev overset; en mindre flade giver færre steder, hvor svagheder kan gemme sig.
 edges:
   requires: [asset, vulnerability]
   used-with:
     - to: hardening
       why:
         en: Hardening is the main way to shrink the attack surface, by turning off and removing what is not needed.
-        da: Hærdning er den vigtigste måde at gøre angrebsfladen mindre på, ved at slå det unødvendige fra og fjerne det.
+        da: Hærdning er den vigtigste måde at gøre angrebsfladen mindre på — man slår det unødvendige fra og fjerner det.
       strength: primary
       confidence: high
     - to: threat-modelling
@@ -42,7 +42,7 @@ edges:
     - to: threat-landscape
       why:
         en: The attack surface is your own ways in; the threat landscape is who and what is out there trying them.
-        da: Angrebsfladen er dine egne veje ind; trusselsbilledet er, hvem og hvad der derude forsøger at bruge dem.
+        da: Angrebsfladen er ens egne veje ind; trusselsbilledet er, hvem og hvad der derude forsøger at bruge dem.
       strength: normal
       confidence: high
 sources:

@@ -17,13 +17,13 @@ body:
     da: Hele det input, der sendes til en sprogmodel for ét svar, ofte sammensat af skjulte instruktioner fra tjenestens ejer (en "systemprompt") plus brugerens tekst og eventuelle tilføjede dokumenter.
   plain:
     en: Like the brief you hand a new temp — the clearer and fuller it is, the better the work, but they will follow whatever the note says.
-    da: Som den opgavebeskrivelse, du giver en ny vikar — jo klarere og fyldigere, jo bedre arbejde, men vikaren følger, hvad der end står på sedlen.
+    da: Som den opgavebeskrivelse, du giver en ny vikar — jo klarere og mere udførlig, jo bedre arbejde, men vikaren følger, hvad der end står på sedlen.
   inPractice:
-    en: A lawyer pastes a client contract into a chat assistant and writes "list the risky clauses" — the contract and the request together form the prompt.
-    da: En advokat indsætter en klientkontrakt i en chatassistent og skriver "list de risikable klausuler" — kontrakten og anmodningen udgør tilsammen prompten.
+    en: A buyer in a region pastes a supplier contract into an approved chat assistant and writes “list the risky clauses” — the contract and the request together form the prompt.
+    da: En indkøber i en region indsætter en leverandørkontrakt i en godkendt chatassistent og skriver “nævn de risikable klausuler” — kontrakten og anmodningen udgør tilsammen prompten.
   whyItMatters:
-    en: Whatever goes into a prompt leaves your control and may be stored by the supplier; and because the model cannot tell data from orders, text inside a prompt can steer it.
-    da: Alt, hvad der kommer i en prompt, forlader din kontrol og kan blive gemt af leverandøren; og da modellen ikke kan skelne data fra ordrer, kan tekst i en prompt styre den.
+    en: Whatever goes into a prompt leaves the organisation's control and may be stored by the provider; and because the model cannot tell data from orders, text inside a prompt can steer it.
+    da: Alt, hvad der kommer i en prompt, forlader organisationens kontrol og kan blive gemt af udbyderen; og da modellen ikke kan skelne data fra ordrer, kan tekst i en prompt styre den.
 edges:
   requires: [large-language-model]
   part-of: [context-window]

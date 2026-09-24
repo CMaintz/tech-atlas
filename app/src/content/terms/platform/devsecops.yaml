@@ -20,8 +20,8 @@ body:
     en: Like building a house with the fire inspector on site from day one, instead of calling them in when the keys are about to be handed over.
     da: Som at bygge et hus med brandinspektøren på pladsen fra første dag i stedet for at kalde vedkommende ind, når nøglerne skal overdrages.
   inPractice:
-    en: A developer gets a note in her change request that she has left a password in the code; she removes it before review, and the security team never has to chase it in production.
-    da: En udvikler får en besked i sin ændringsanmodning om, at hun har efterladt en adgangskode i koden; hun fjerner den før gennemgangen, og sikkerhedsteamet skal aldrig jagte den i driften.
+    en: A developer on a ministry's digital team opens a change request; an automatic check flags a password left in the code, and she removes it before review, so it never reaches production.
+    da: En udvikler i ministeriets digitale team opretter en ændringsanmodning; et automatisk tjek finder en adgangskode, der er efterladt i koden, og hun fjerner den før gennemgangen, så den aldrig når driften.
   whyItMatters:
     en: Flaws found while code is being written cost far less to fix than flaws found by attackers, and automatic checks keep pace with teams that release many times a day.
     da: Fejl, der findes, mens koden skrives, er langt billigere at rette end fejl, som angribere finder, og automatiske tjek kan følge med teams, der frigiver mange gange om dagen.

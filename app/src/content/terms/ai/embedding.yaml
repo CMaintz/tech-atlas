@@ -20,11 +20,11 @@ body:
     en: Like giving every text coordinates on a map of meaning — "car" and "vehicle" land near each other, "car" and "banana" far apart.
     da: Som at give hver tekst koordinater på et kort over betydning — "bil" og "køretøj" lander tæt på hinanden, "bil" og "banan" langt fra hinanden.
   inPractice:
-    en: A company stores embeddings of all its policy documents so that a search for "working from home" also finds the policy titled "remote work".
-    da: En virksomhed gemmer embeddings af alle sine politikdokumenter, så en søgning på "arbejde hjemmefra" også finder politikken med titlen "fjernarbejde".
+    en: A municipality stores embeddings of all its internal policies, so that a staff member's search for “working from home” also finds the policy titled “remote work”.
+    da: En kommune gemmer embeddings af alle sine interne retningslinjer, så en sagsbehandlers søgning på “arbejde hjemmefra” også finder retningslinjen med titlen “hjemmearbejde”.
   whyItMatters:
-    en: Embeddings look like meaningless numbers but can be turned back into much of the original text, so they need the same protection as the source data.
-    da: Embeddings ligner meningsløse tal, men kan i høj grad omsættes tilbage til den oprindelige tekst, så de kræver samme beskyttelse som kildedata.
+    en: Embeddings look like meaningless numbers, but much of the original text can be rebuilt from them, so they need the same protection as the source data.
+    da: Embeddings ligner meningsløse tal, men store dele af den oprindelige tekst kan genskabes ud fra dem, så de skal beskyttes lige så godt som kildedataene.
 edges:
   requires: [neural-network, token]
   used-with:
