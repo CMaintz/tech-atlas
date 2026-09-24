@@ -43,6 +43,7 @@ edges:
         da: Simuleringer er et af de vigtigste værktøjer og målepunkter i et awareness-program.
       strength: primary
       confidence: high
+  part-of: [awareness-programme]
 sources:
   - title: Cyber Security Fast Track — Kursuskompendium, Modul 2
     tier: course-material

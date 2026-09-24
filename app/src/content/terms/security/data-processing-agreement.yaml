@@ -26,7 +26,7 @@ body:
     en: Handing personal data to a supplier without one is itself a GDPR breach, and without the agreed terms there is no way to demand audits, the removal of data or a warning after a leak.
     da: At give personoplysninger til en leverandør uden en sådan aftale er i sig selv en overtrædelse af GDPR, og uden aftalte vilkår kan man hverken kræve kontrol, at data bliver slettet, eller besked efter et læk.
 edges:
-  requires: [gdpr]
+  requires: [gdpr, personal-data]
   used-with:
     - service-level-agreement
     - to: supplier-management

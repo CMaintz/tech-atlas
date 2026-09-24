@@ -2,8 +2,8 @@ term:
   en: Threat actor
   da: Trusselsaktør
 aka:
-  en: [attacker, adversary]
-  da: [angriber, aktør]
+  en: [attacker, adversary, hacker]
+  da: [angriber, aktør, hacker]
 domain: [security]
 cluster: fundamentals
 layer: people

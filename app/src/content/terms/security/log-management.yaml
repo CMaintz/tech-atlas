@@ -2,8 +2,8 @@ term:
   en: Log management
   da: Loghåndtering
 aka:
-  en: []
-  da: []
+  en: [log analysis, log collection]
+  da: [loganalyse, logindsamling]
 domain: [security, cs]
 cluster: security-operations
 layer: data

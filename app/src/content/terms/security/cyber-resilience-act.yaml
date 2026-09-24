@@ -58,6 +58,7 @@ edges:
         da: NIS2 stiller krav til de organisationer, der driver vitale tjenester; CRA stiller krav til de produkter og den software, som de — og alle andre — køber.
       strength: primary
       confidence: high
+  kind-of: [eu-regulation]
 sources:
   - title: Regulation (EU) 2024/2847 (Cyber Resilience Act)
     tier: standard

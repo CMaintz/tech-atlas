@@ -25,7 +25,7 @@ body:
     en: Without it, recovery plans guess at what to restore first; with it, money and effort go to the activities whose loss hurts most, and every continuity plan has a clear basis.
     da: Uden den gætter genopretningsplanerne på, hvad der skal op først; med den går penge og kræfter til de aktiviteter, hvis tab gør mest ondt, og alle beredskabsplaner får et klart grundlag.
 edges:
-  requires: [critical-assets]
+  requires: [critical-assets, impact]
   part-of: [risk-management]
   used-with: [risk-assessment]
 sources:

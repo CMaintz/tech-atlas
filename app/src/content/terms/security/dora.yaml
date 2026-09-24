@@ -64,6 +64,7 @@ edges:
         da: NIS2 dækker mange sektorer; DORA er det skrappere og mere detaljerede regelsæt for finanssektoren, og hvor begge gælder for en finansiel virksomhed, går DORA forud.
       strength: primary
       confidence: high
+  kind-of: [eu-regulation]
 sources:
   - title: Regulation (EU) 2022/2554 (Digital Operational Resilience Act)
     tier: standard

@@ -25,6 +25,7 @@ body:
     en: As the first broad AI law, it reaches organisations that build, sell or use AI in the EU, in stages — bans from February 2025, general-purpose model rules from August 2025, openness duties from August 2026, most high-risk rules from December 2027 (August 2028 for AI in products). Fines reach 7% of global turnover.
     da: Som den første brede AI-lov rammer den organisationer, der udvikler, sælger eller bruger AI i EU, i etaper — forbud fra februar 2025, regler for AI-modeller til almen brug fra august 2025, krav om åbenhed fra august 2026 og de fleste højrisikokrav fra december 2027 (august 2028 for AI i produkter). Bøderne når 7 % af den globale omsætning.
 edges:
+  kind-of: [eu-regulation]
   requires: [risk, artificial-intelligence]
   mandates:
     - to: ai-red-teaming

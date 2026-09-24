@@ -1,0 +1,42 @@
+term:
+  en: Qualitative risk analysis
+  da: Kvalitativ risikoanalyse
+aka:
+  en: [qualitative risk assessment]
+  da: [kvalitativ risikovurdering]
+domain: [security]
+cluster: risk-management
+layer: governance
+status: current
+summary:
+  en: Rating risks with words or simple scales, such as low, medium and high, based on judgement rather than exact figures.
+  da: At vurdere risici med ord eller enkle skalaer, fx lav, mellem og høj, ud fra skøn frem for præcise tal.
+body:
+  formal:
+    en: A risk assessment method that scores likelihood and impact on ordered scales (for example 1–5 or low–high), usually by expert judgement in workshops, and often shows the result in a heat map.
+    da: En metode til risikoanalyse, der vurderer sandsynlighed og konsekvens på ordnede skalaer (fx 1–5 eller lav–høj), typisk ud fra eksperters skøn på workshops, og ofte viser resultatet i et heat-map.
+  plain:
+    en: Like a doctor saying "a small chance, but serious if it happens" — useful and quick, even without an exact percentage.
+    da: Som når en læge siger "en lille risiko, men alvorlig hvis det sker" — brugbart og hurtigt, selv uden en præcis procentsats.
+  inPractice:
+    en: A team rates "ransomware on the file server" as likely 4 and impact 5, puts it in the red corner of the chart, and moves it to the top of the list.
+    da: Et team vurderer "ransomware på filserveren" til sandsynlighed 4 og konsekvens 5, placerer den i det røde hjørne af skemaet og flytter den øverst på listen.
+  whyItMatters:
+    en: It is fast, cheap and easy for leaders to read, but scores can hide guessing, so the reasons behind each rating should be written down.
+    da: Den er hurtig, billig og let for ledelsen at læse, men tallene kan skjule gætværk, så begrundelsen for hver vurdering bør skrives ned.
+edges:
+  kind-of: [risk-assessment]
+  requires: [likelihood, impact]
+  contrasts-with:
+    - to: quantitative-risk-analysis
+      why:
+        en: The qualitative method uses scales and judgement; the quantitative one puts money and probabilities on each risk.
+        da: Den kvalitative metode bruger skalaer og skøn; den kvantitative sætter kroner og sandsynligheder på hver risiko.
+      strength: primary
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 5
+    tier: course-material
+  - title: NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments
+    tier: standard
+draft: true

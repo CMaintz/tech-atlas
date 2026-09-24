@@ -1,0 +1,36 @@
+term:
+  en: Quantitative risk analysis
+  da: Kvantitativ risikoanalyse
+aka:
+  en: [quantitative risk assessment]
+  da: [kvantitativ risikovurdering]
+domain: [security]
+cluster: risk-management
+layer: governance
+status: current
+summary:
+  en: Putting numbers on risks — how often a loss may happen and how much it would cost — to compare them in money.
+  da: At sætte tal på risici — hvor ofte et tab kan ske, og hvad det vil koste — så de kan sammenlignes i kroner.
+body:
+  formal:
+    en: A risk assessment method that estimates likelihood as a rate or probability and impact as a money amount, giving an expected yearly loss that can be weighed directly against the cost of a control or of insurance.
+    da: En metode til risikoanalyse, der skønner sandsynlighed som en hyppighed eller sandsynlighed og konsekvens som et beløb, hvilket giver et forventet årligt tab, der direkte kan vejes op mod prisen på en kontrol eller en forsikring.
+  plain:
+    en: Like working out whether a car alarm is worth buying — if a break-in costs 20,000 and happens once in ten years, paying 5,000 a year for the alarm is a bad deal.
+    da: Som at regne ud, om en bilalarm kan betale sig — hvis et indbrud koster 20.000 og sker én gang på ti år, er 5.000 om året for alarmen en dårlig handel.
+  inPractice:
+    en: The finance team estimates that a day with systems down costs 400,000 kroner and happens about once every four years, so a 60,000-a-year backup service pays for itself.
+    da: Økonomiafdelingen skønner, at en dags nedetid koster 400.000 kroner og sker cirka hvert fjerde år, så en backupløsning til 60.000 om året betaler sig selv.
+  whyItMatters:
+    en: Leaders understand money, and figures make it possible to compare security spending with other investments, though good data is often hard to find.
+    da: Ledelsen forstår penge, og tal gør det muligt at sammenligne sikkerhedsudgifter med andre investeringer, selv om gode data ofte er svære at finde.
+edges:
+  kind-of: [risk-assessment]
+  requires: [likelihood, impact]
+  used-with: [risk-transfer]
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 5
+    tier: course-material
+  - title: NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments
+    tier: standard
+draft: true

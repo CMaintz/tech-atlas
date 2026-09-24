@@ -53,6 +53,7 @@ edges:
         da: Vedtaget samme dag som tvillinger — NIS2 beskytter net- og informationssystemer, CER beskytter kritiske enheders fysiske evne til at holde driften i gang. Enheder udpeget efter CER regnes som væsentlige efter NIS2.
       strength: primary
       confidence: high
+  kind-of: [eu-directive]
 sources:
   - title: Directive (EU) 2022/2557 on the resilience of critical entities
     tier: standard

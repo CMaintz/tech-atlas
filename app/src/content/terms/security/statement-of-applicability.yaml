@@ -27,7 +27,7 @@ body:
     da: Uden den kan en kontrol stille og roligt blive droppet, uden at nogen opdager det; erklæringen knytter hver risikobeslutning til en kontrol ét sted, så huller og svage undskyldninger er lette at få øje på.
 edges:
   part-of: [iso-27001]
-  requires: [risk-treatment]
+  requires: [risk-treatment, annex-a]
 sources:
   - title: ISO/IEC 27001:2022 — Information security management systems — Requirements, clause 6.1.3(d)
     tier: standard

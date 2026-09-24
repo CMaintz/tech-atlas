@@ -32,6 +32,7 @@ edges:
     - devsecops
     - gitops
     - version-control
+    - it-operations
   mitigates: [cloud-misconfiguration]
 sources:
   - title: Cyber Security Fast Track — Ordliste

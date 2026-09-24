@@ -46,6 +46,8 @@ edges:
         da: D-mærkets kriterier omfatter ansvarlig dataanvendelse, så dataetik er en del af det, mærket vurderer.
       strength: normal
       confidence: high
+    - self-assessment
+    - security-maturity
   contrasts-with:
     - to: iso-27001
       why:
