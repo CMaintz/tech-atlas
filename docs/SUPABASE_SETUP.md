@@ -181,6 +181,12 @@ requests a minute per IP, and answers CORS only for `https://cmaintz.github.io` 
 few seconds); otherwise it runs the same model locally (~2.3 GB download once, then a few
 minutes). The next push to `main` loads the vectors.
 
+**Recommended once, after 7a:** run `npm run embed` with the two `CLOUDFLARE_*` values set
+and commit the result. The vectors in the repository were computed locally from the same
+bge-m3 weights; re-embedding on Workers AI makes terms and queries come from the identical
+backend. If the curl in 7d.3 returns `{"error":"semantic search failed"}`, the function's
+logs name the cause (e.g. a bad token, or an unexpected pooling from Workers AI).
+
 ## Local development
 
 Copy `app/.env.example` to `app/.env` (git-ignored) and fill in the same two values;
