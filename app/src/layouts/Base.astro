@@ -63,7 +63,14 @@ const desc = description ?? ui.tagline;
     {!noindex && <meta property="og:url" content={canonical} />}
     <meta property="og:locale" content={lang === 'da' ? 'da_DK' : 'en_GB'} />
     <meta name="twitter:card" content="summary" />
-    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    {
+      jsonLd && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')}
+        />
+      )
+    }
   </head>
   <body class="min-h-screen bg-neutral-950 font-sans text-neutral-100 antialiased">
     <header class="flex items-center justify-between border-b border-neutral-800 px-6 py-4">
@@ -98,7 +105,7 @@ const desc = description ?? ui.tagline;
     </main>
     {
       !wide && (
-        <footer class="mx-auto flex max-w-5xl gap-5 px-6 pb-10 text-xs text-neutral-500">
+        <footer class="mx-auto flex max-w-5xl flex-wrap gap-x-5 gap-y-2 px-6 pb-10 text-xs text-neutral-500">
           <a class="hover:text-neutral-300" href={url(`${lang}/review/`)}>
             {ui.review}
           </a>

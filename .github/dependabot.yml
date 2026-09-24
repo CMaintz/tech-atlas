@@ -12,9 +12,11 @@ updates:
       npm-minor-and-patch:
         update-types: [minor, patch]
     ignore:
-      # Pinned to exactly the dev prerelease @huggingface/transformers requires (A55);
-      # it moves only together with transformers.js, by hand.
+      # A pair that moves together, by hand (A55): onnxruntime-web is pinned to exactly
+      # the dev prerelease @huggingface/transformers requires, and the self-hosted
+      # runtime must match it. A bump of either alone can't be caught by the gate.
       - dependency-name: onnxruntime-web
+      - dependency-name: '@huggingface/transformers'
     commit-message:
       prefix: chore(deps)
   - package-ecosystem: github-actions
