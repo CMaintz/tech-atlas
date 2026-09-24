@@ -24,16 +24,18 @@ const localise = (m: Record<string, Record<Lang, string>>) =>
 ---
 
 <Base lang={lang} title={ui.explorer} wide>
-  <Explorer
-    client:only="preact"
-    lang={lang}
-    graphUrl={url('graph.json')}
-    termBase={url(`${lang}/terms/`)}
-    ui={{ ...ui }}
-    clusterLabels={localise(CLUSTER_LABELS)}
-    clusterColours={CLUSTER_COLOURS}
-    familyLabels={localise(FAMILY_LABELS)}
-    familyColours={FAMILY_COLOURS}
-    domainLabels={localise(DOMAIN_LABELS)}
-  />
+  <div id="explorer">
+    <Explorer
+      client:only="preact"
+      lang={lang}
+      graphUrl={url('graph.json')}
+      termBase={url(`${lang}/terms/`)}
+      ui={{ ...ui }}
+      clusterLabels={localise(CLUSTER_LABELS)}
+      clusterColours={CLUSTER_COLOURS}
+      familyLabels={localise(FAMILY_LABELS)}
+      familyColours={FAMILY_COLOURS}
+      domainLabels={localise(DOMAIN_LABELS)}
+    />
+  </div>
 </Base>
