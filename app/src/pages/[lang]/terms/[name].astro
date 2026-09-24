@@ -2,51 +2,66 @@
 /**
  * Disambiguation (ADR-0003): the bare name of a Collision — `/[lang]/terms/audit/` —
  * lists every Term that answers to it. Generated from the folder namespaces, never
- * authored.
+ * authored. Every other short name (a bare id, display name or alias) redirects to
+ * its one Term (A68).
  */
 import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import { collisionsOf } from '../../../lib/collisions';
+import { shortNames } from '../../../lib/redirects';
+import Redirect from '../../../components/Redirect.astro';
 import { CLUSTER_LABELS, DOMAIN_LABELS, LANGS, UI, termUrl, type Lang } from '../../../lib/site';
 
 export async function getStaticPaths() {
   const terms = await getCollection('terms');
   const collisions = collisionsOf(terms.map((t) => t.id));
-  return LANGS.flatMap((lang) =>
-    [...collisions.entries()].map(([name, ids]) => ({
+  return LANGS.flatMap((lang) => [
+    ...[...collisions.entries()].map(([name, ids]) => ({
       params: { lang, name },
-      props: { ids },
+      props: { ids, target: undefined },
     })),
-  );
+    ...[...shortNames(terms.map((t) => ({ id: t.id, ...t.data })))].map(([name, target]) => ({
+      params: { lang, name },
+      props: { ids: [] as string[], target },
+    })),
+  ]);
 }
 
 const lang = Astro.params.lang as Lang;
 const name = Astro.params.name as string;
 const ui = UI[lang];
-const { ids } = Astro.props;
+const { ids, target } = Astro.props;
 const all = await getCollection('terms');
 const meanings = ids.map((id) => all.find((t) => t.id === id)!);
 const label = name.replace(/-/g, ' ');
 const title = ui.disambiguationTitle.replace('{name}', label);
 ---
 
-<Base lang={lang} title={title} description={ui.disambiguationIntro.replace('{name}', label)}>
-  <h1 class="mb-2 text-3xl font-semibold">{title}</h1>
-  <p class="mb-8 text-neutral-400">{ui.disambiguationIntro.replace('{name}', label)}</p>
-  <ul class="space-y-4">
-    {
-      meanings.map((t) => (
-        <li class="rounded border border-neutral-800 p-4">
-          <div class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">
-            {t.data.domain.map((x) => DOMAIN_LABELS[x]?.[lang] ?? x).join(' · ')} ·{' '}
-            {CLUSTER_LABELS[t.data.cluster]?.[lang] ?? t.data.cluster}
-          </div>
-          <a class="text-lg text-neutral-100 hover:underline" href={termUrl(lang, t.id)}>
-            {t.data.term[lang]}
-          </a>
-          <p class="mt-1 text-neutral-400">{t.data.summary[lang]}</p>
-        </li>
-      ))
-    }
-  </ul>
-</Base>
+{
+  target ? (
+    <Redirect
+      lang={lang}
+      to={termUrl(lang, target)}
+      title={all.find((t) => t.id === target)!.data.term[lang]}
+    />
+  ) : (
+    <Base lang={lang} title={title} description={ui.disambiguationIntro.replace('{name}', label)}>
+      <h1 class="mb-2 text-3xl font-semibold">{title}</h1>
+      <p class="mb-8 text-neutral-400">{ui.disambiguationIntro.replace('{name}', label)}</p>
+      <ul class="space-y-4">
+        {meanings.map((t) => (
+          <li class="rounded border border-neutral-800 p-4">
+            <div class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">
+              {t.data.domain.map((x) => DOMAIN_LABELS[x]?.[lang] ?? x).join(' · ')} ·{' '}
+              {CLUSTER_LABELS[t.data.cluster]?.[lang] ?? t.data.cluster}
+            </div>
+            <a class="text-lg text-neutral-100 hover:underline" href={termUrl(lang, t.id)}>
+              {t.data.term[lang]}
+            </a>
+            <p class="mt-1 text-neutral-400">{t.data.summary[lang]}</p>
+          </li>
+        ))}
+      </ul>
+    </Base>
+  )
+}

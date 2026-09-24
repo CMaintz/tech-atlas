@@ -1,0 +1,31 @@
+---
+/**
+ * A static redirect page (GitHub Pages has no server redirects): meta refresh plus a
+ * canonical link, so search engines index the target, never this URL (A68). `to` is a
+ * base-path-aware URL (from `url()` / `termUrl()`).
+ */
+import { url } from '../lib/site';
+
+interface Props {
+  lang: string;
+  to: string;
+  title: string;
+}
+const { lang, to, title } = Astro.props;
+const canonical = new URL(to, Astro.site).href;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
+    <meta http-equiv="refresh" content={`0; url=${to}`} />
+    <link rel="canonical" href={canonical} />
+    <title>{title === 'Atlas' ? title : `${title} — Atlas`}</title>
+  </head>
+  <body>
+    <a href={to}>{title}</a>
+  </body>
+</html>

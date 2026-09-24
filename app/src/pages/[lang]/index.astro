@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Search from '../../components/Search';
 import { CLUSTER_LABELS, DOMAIN_LABELS, LANGS, UI, termUrl, url, type Lang } from '../../lib/site';
+import { UI_EXTRA } from '../../lib/ui-extra';
 
 export function getStaticPaths() {
   return LANGS.map((lang) => ({ params: { lang } }));
@@ -26,7 +27,12 @@ const byName = (a: (typeof terms)[number], b: (typeof terms)[number]) =>
 
 <Base lang={lang}>
   <h1 class="mb-2 text-3xl font-semibold">Atlas</h1>
-  <p class="mb-6 text-neutral-400">{ui.tagline}</p>
+  <p class="mb-6 text-neutral-400">
+    {ui.tagline}
+    <a class="ml-1 text-neutral-300 underline hover:text-white" href={url(`${lang}/terms/`)}>
+      {UI_EXTRA[lang].azTitle}
+    </a>
+  </p>
   <div class="mb-12">
     <Search
       client:load

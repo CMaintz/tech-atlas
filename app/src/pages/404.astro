@@ -1,0 +1,31 @@
+---
+/**
+ * GitHub Pages serves this for any unknown URL under the site (A68). It can't know the
+ * reader's language, so it speaks both; every link is absolute under the base path.
+ */
+import Base from '../layouts/Base.astro';
+import { LANGS, url } from '../lib/site';
+import { UI_EXTRA } from '../lib/ui-extra';
+---
+
+<Base lang="en" title={UI_EXTRA.en.notFoundTitle} noindex>
+  {
+    LANGS.map((lang) => {
+      const x = UI_EXTRA[lang];
+      return (
+        <section lang={lang} class="mb-10">
+          <h1 class="mb-2 text-3xl font-semibold">{x.notFoundTitle}</h1>
+          <p class="mb-4 text-neutral-400">{x.notFoundText}</p>
+          <p class="flex flex-wrap gap-4">
+            <a class="text-neutral-100 underline hover:text-white" href={url(`${lang}/`)}>
+              {x.notFoundHome}
+            </a>
+            <a class="text-neutral-100 underline hover:text-white" href={url(`${lang}/terms/`)}>
+              {x.notFoundAz}
+            </a>
+          </p>
+        </section>
+      );
+    })
+  }
+</Base>

@@ -12,3 +12,33 @@ html {
     'Segoe UI',
     sans-serif;
 }
+
+/* Print (A69): a term page prints as a clean definition sheet with no navigation,
+   graph, quiz or footer; black on white; external links show their URL. */
+@media print {
+  :root {
+    color-scheme: light;
+  }
+  body > header,
+  body > footer,
+  aside,
+  .no-print,
+  astro-island {
+    display: none !important;
+  }
+  body,
+  body * {
+    background: transparent !important;
+    color: #000 !important;
+    border-color: #999 !important;
+  }
+  main {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+  main a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    word-break: break-all;
+  }
+}

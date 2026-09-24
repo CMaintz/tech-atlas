@@ -1,0 +1,71 @@
+---
+/**
+ * The A–Z index (SPEC §7: "An A–Z / by-cluster index"; the home page is the
+ * by-cluster half). Letters follow the page language's alphabet, so Danish ends
+ * Æ Ø Å (A68).
+ */
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import { CLUSTER_LABELS, LANGS, termUrl, type Lang } from '../../../lib/site';
+import { UI_EXTRA } from '../../../lib/ui-extra';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const x = UI_EXTRA[lang];
+const locale = lang === 'da' ? 'da' : 'en';
+const terms = (await getCollection('terms')).sort((a, b) =>
+  a.data.term[lang].localeCompare(b.data.term[lang], locale),
+);
+const letterOf = (s: string) => {
+  const c = s.charAt(0).toLocaleUpperCase(locale);
+  // A letter has distinct cases; digits and symbols share one group.
+  return c.toLowerCase() !== c.toUpperCase() ? c : '#';
+};
+const groups = new Map<string, typeof terms>();
+for (const t of terms) {
+  const l = letterOf(t.data.term[lang]);
+  groups.set(l, [...(groups.get(l) ?? []), t]);
+}
+const anchor = (l: string) => `letter-${l === '#' ? 'other' : encodeURIComponent(l)}`;
+---
+
+<Base lang={lang} title={x.azTitle} description={x.azIntro.replace('{n}', String(terms.length))}>
+  <h1 class="mb-2 text-3xl font-semibold">{x.azTitle}</h1>
+  <p class="mb-6 text-neutral-400">{x.azIntro.replace('{n}', String(terms.length))}</p>
+  <nav class="mb-10 flex flex-wrap gap-2 text-sm" aria-label={x.azTitle}>
+    {
+      [...groups.keys()].map((l) => (
+        <a
+          class="rounded border border-neutral-800 px-2 py-1 text-neutral-300 hover:border-neutral-400"
+          href={`#${anchor(l)}`}
+        >
+          {l}
+        </a>
+      ))
+    }
+  </nav>
+  {
+    [...groups.entries()].map(([l, items]) => (
+      <section class="mb-8" id={anchor(l)}>
+        <h2 class="mb-3 text-xl font-semibold">{l}</h2>
+        <ul class="space-y-2">
+          {items.map((t) => (
+            <li>
+              <a class="text-neutral-100 hover:underline" href={termUrl(lang, t.id)}>
+                {t.data.term[lang]}
+              </a>
+              <span class="text-xs text-neutral-500">
+                {' '}
+                · {CLUSTER_LABELS[t.data.cluster]?.[lang] ?? t.data.cluster}
+              </span>
+              <span class="text-neutral-500"> — {t.data.summary[lang]}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</Base>

@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import AccountMenu from '../components/AccountMenu';
 import { ACCOUNTS, REPO, UI, swapLang, url, type Lang } from '../lib/site';
+import { UI_EXTRA } from '../lib/ui-extra';
 
 interface Props {
   lang?: Lang;
@@ -9,8 +10,20 @@ interface Props {
   description?: string;
   /** Full-width main area (the Explorer). */
   wide?: boolean;
+  /** Keep out of search engines (the 404 page); also drops the canonical link. */
+  noindex?: boolean;
+  /** Structured data for this page (schema.org JSON-LD), e.g. a DefinedTerm. */
+  jsonLd?: Record<string, unknown>;
 }
-const { lang = 'en', title = 'Atlas', description, wide = false } = Astro.props;
+const {
+  lang = 'en',
+  title = 'Atlas',
+  description,
+  wide = false,
+  noindex = false,
+  jsonLd,
+} = Astro.props;
+const extra = UI_EXTRA[lang];
 const ui = UI[lang];
 const other: Lang = lang === 'en' ? 'da' : 'en';
 const path = Astro.url.pathname;
@@ -19,6 +32,9 @@ const alternates = (['en', 'da'] as const).map((l) => ({
   href: new URL(swapLang(path, l), Astro.site).href,
 }));
 const pageTitle = title === 'Atlas' ? 'Atlas' : `${title} — Atlas`;
+// SEO (A64): canonical, x-default and Open Graph, every URL absolute and under the base.
+const canonical = new URL(path, Astro.site).href;
+const desc = description ?? ui.tagline;
 ---
 
 <!doctype html>
@@ -28,8 +44,26 @@ const pageTitle = title === 'Atlas' ? 'Atlas' : `${title} — Atlas`;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
-    <meta name="description" content={description ?? ui.tagline} />
+    <meta name="description" content={desc} />
+    {noindex && <meta name="robots" content="noindex" />}
+    {!noindex && <link rel="canonical" href={canonical} />}
     {alternates.map((a) => <link rel="alternate" hreflang={a.lang} href={a.href} />)}
+    <link rel="alternate" hreflang="x-default" href={alternates[0].href} />
+    <link rel="sitemap" href={url('sitemap-index.xml')} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={extra.feedTitle}
+      href={url(`${lang}/feed.xml`)}
+    />
+    <meta property="og:site_name" content="Atlas" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={desc} />
+    {!noindex && <meta property="og:url" content={canonical} />}
+    <meta property="og:locale" content={lang === 'da' ? 'da_DK' : 'en_GB'} />
+    <meta name="twitter:card" content="summary" />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body class="min-h-screen bg-neutral-950 font-sans text-neutral-100 antialiased">
     <header class="flex items-center justify-between border-b border-neutral-800 px-6 py-4">
@@ -68,8 +102,18 @@ const pageTitle = title === 'Atlas' ? 'Atlas' : `${title} — Atlas`;
           <a class="hover:text-neutral-300" href={url(`${lang}/review/`)}>
             {ui.review}
           </a>
+          <a class="hover:text-neutral-300" href={url(`${lang}/data/`)}>
+            {extra.data}
+          </a>
           <a class="hover:text-neutral-300" href={REPO}>
             {ui.sourceCode}
+          </a>
+          <a
+            class="hover:text-neutral-300"
+            href={`${REPO}/blob/main/CONTENT-LICENSE.md`}
+            rel="license"
+          >
+            {extra.licenceFooter}
           </a>
         </footer>
       )
