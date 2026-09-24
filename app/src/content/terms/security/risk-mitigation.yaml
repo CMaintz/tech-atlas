@@ -1,0 +1,42 @@
+term:
+  en: Risk mitigation
+  da: Risikoreduktion
+aka:
+  en: [risk reduction, risk modification]
+  da: [reduktion af risiko, risikominimering]
+domain: [security]
+cluster: risk-management
+layer: governance
+status: current
+summary:
+  en: Lowering a risk by adding controls that make it less likely to happen or less harmful if it does.
+  da: At sænke en risiko ved at indføre kontroller, der gør den mindre sandsynlig eller mindre skadelig, hvis den sker.
+body:
+  formal:
+    en: The risk treatment option in which controls are chosen and put in place to reduce the likelihood, the impact, or both, until the remaining risk falls within the risk appetite.
+    da: Den håndteringsmulighed, hvor der vælges og indføres kontroller, som reducerer sandsynligheden, konsekvensen eller begge dele, indtil den tilbageværende risiko ligger inden for risikoappetitten.
+  plain:
+    en: Like fitting a smoke alarm and keeping a fire blanket in the kitchen — you still cook, but a fire is less likely to start and less likely to spread.
+    da: Som at sætte en røgalarm op og have et brandtæppe i køkkenet — man laver stadig mad, men en brand opstår sjældnere og breder sig mindre.
+  inPractice:
+    en: To cut the risk of stolen logins, a firm turns on MFA for email and trains staff to spot fake login pages, and the risk moves from high to medium.
+    da: For at mindske risikoen for stjålne logins slår et firma MFA til på mail og træner medarbejderne i at genkende falske login-sider, og risikoen flytter fra høj til mellem.
+  whyItMatters:
+    en: It is by far the most used option and the one most security work is about, but a risk is never removed this way — some always remains.
+    da: Det er langt den mest brugte mulighed og den, det meste sikkerhedsarbejde handler om, men en risiko fjernes aldrig helt på denne måde — noget er altid tilbage.
+edges:
+  kind-of: [risk-treatment]
+  requires: [control]
+  contrasts-with:
+    - to: risk-transfer
+      why:
+        en: Mitigation lowers the risk itself; transfer leaves the risk unchanged but moves its cost to another party.
+        da: Reduktion sænker selve risikoen; overførsel lader risikoen være uændret, men flytter udgiften til en anden part.
+      confidence: high
+  used-with: [statement-of-applicability]
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 5 og Ordliste (Risikohåndtering — reducere)
+    tier: course-material
+  - title: ISO/IEC 27005:2022 (8.2 — Risk treatment options)
+    tier: standard
+draft: true

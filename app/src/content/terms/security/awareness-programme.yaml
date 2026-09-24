@@ -1,0 +1,41 @@
+term:
+  en: Awareness programme
+  da: Awareness-program
+aka:
+  en: [awareness program, awareness campaign, awareness plan]
+  da: [awareness-kampagne, awarenessplan]
+domain: [security]
+cluster: awareness
+layer: people
+status: current
+summary:
+  en: A planned, ongoing effort to change how staff behave around security — with target groups, messages, methods and measurable goals.
+  da: En planlagt og løbende indsats for at ændre medarbejdernes adfærd omkring sikkerhed — med målgrupper, budskaber, metoder og målbare mål.
+body:
+  formal:
+    en: A structured plan for building security awareness across an organisation — defining the people involved, target groups and messages, choosing methods such as online courses, workshops, phishing simulations and nudges, and tracking results with agreed measures.
+    da: En struktureret plan for at opbygge awareness i hele organisationen — med interessenter, målgrupper og budskaber, valg af metoder som e-læring, workshops, phishing-simuleringer og nudges, og opfølgning på resultater med aftalte mål.
+  plain:
+    en: Like a fitness plan rather than a single gym visit — small, regular sessions matched to each person, with progress checked along the way.
+    da: Som en træningsplan frem for et enkelt besøg i fitnesscentret — små, faste pas tilpasset den enkelte, hvor fremskridtet tjekkes undervejs.
+  inPractice:
+    en: A municipality plans a year of short monthly topics, a phishing test each quarter and a separate session for managers, and reports how many staff report suspicious emails.
+    da: En kommune planlægger et år med korte månedlige temaer, en phishing-test hvert kvartal og en særskilt session for ledere og rapporterer, hvor mange medarbejdere der melder mistænkelige mails.
+  whyItMatters:
+    en: One yearly talk changes little; lasting behaviour change needs repetition, relevance and measurement, and NIS2 expects training to be part of the security work.
+    da: Én årlig præsentation ændrer ikke meget; varig adfærdsændring kræver gentagelse, relevans og måling, og NIS2 forventer, at træning er en del af sikkerhedsarbejdet.
+edges:
+  requires: [security-awareness]
+  used-with: [nudging, security-metrics]
+  mitigates:
+    - to: human-error
+      why:
+        en: Regular, practical training makes common mistakes less likely and faster to report.
+        da: Løbende, praktisk træning gør almindelige fejl mindre sandsynlige og hurtigere at melde.
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 2
+    tier: course-material
+  - title: NIST SP 800-50 Rev. 1 — Building a Cybersecurity and Privacy Learning Program
+    tier: standard
+draft: true

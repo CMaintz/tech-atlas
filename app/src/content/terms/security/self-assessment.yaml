@@ -1,0 +1,34 @@
+term:
+  en: Self-assessment
+  da: Selvevaluering
+aka:
+  en: [self-evaluation]
+  da: [selvvurdering]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: An organisation checking its own security against a set list of questions or criteria, without an outside inspector.
+  da: At en organisation selv tjekker sin sikkerhed mod en fast liste af spørgsmål eller kriterier uden en ekstern kontrollant.
+body:
+  formal:
+    en: A structured review the organisation carries out on itself, using a questionnaire or criteria from a standard, label or law — such as the D-mærket tool — to map its practice, find gaps and pick improvements.
+    da: En struktureret gennemgang, som organisationen foretager af sig selv ud fra et spørgeskema eller kriterier fra en standard, et mærke eller en lov — fx D-mærkets værktøj — for at kortlægge sin praksis, finde huller og vælge forbedringer.
+  plain:
+    en: Like doing a practice exam at home before the real one — you mark your own answers so you know what to study, not to get a grade.
+    da: Som at tage en prøveeksamen derhjemme før den rigtige — man retter selv sine svar for at vide, hvad man skal læse op på, ikke for at få en karakter.
+  inPractice:
+    en: A small accounting firm answers the D-mærket questions over two afternoons and finds it has no written plan for what to do if its systems go down.
+    da: Et lille revisionsfirma besvarer D-mærkets spørgsmål over to eftermiddage og opdager, at det ikke har nogen skriftlig plan for, hvad det gør, hvis systemerne går ned.
+  whyItMatters:
+    en: It is a cheap first step for smaller organisations to see where they stand against NIS2 and similar demands before spending money on outside help.
+    da: Det er et billigt første skridt for mindre organisationer til at se, hvor de står i forhold til NIS2 og lignende krav, før de bruger penge på ekstern hjælp.
+edges:
+  requires: [compliance]
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 8
+    tier: course-material
+  - title: D-mærket — Kriterier og selvevalueringsværktøj
+    tier: official-doc
+draft: true

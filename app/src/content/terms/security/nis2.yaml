@@ -78,6 +78,7 @@ edges:
         da: Dens gennemførelsesregler for digitale udbydere kræver, at logs gemmes og sikkerhedskopieres i en dokumenteret, risikobaseret periode.
       strength: normal
       confidence: medium
+  kind-of: [eu-directive]
 article:
   en: src/content/articles/security/nis2.en.md
   da: src/content/articles/security/nis2.da.md

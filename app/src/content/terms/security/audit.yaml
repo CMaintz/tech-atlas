@@ -33,6 +33,7 @@ edges:
         da: En gap-analyse finder, hvad der mangler, før man går i gang; en audit kontrollerer, om det, man siger, man gør, faktisk bliver gjort.
       strength: primary
       confidence: high
+    - self-assessment
   used-with:
     - to: pdca
       why:

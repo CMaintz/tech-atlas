@@ -40,6 +40,7 @@ edges:
         da: Hændelser med betydelig indvirkning på tjenesten skulle indberettes til den nationale myndighed uden unødig forsinkelse.
       strength: primary
       confidence: high
+  kind-of: [eu-directive]
 sources:
   - title: Directive (EU) 2016/1148 (NIS Directive)
     tier: standard
