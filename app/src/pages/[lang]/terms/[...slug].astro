@@ -5,9 +5,10 @@ import Graph from '../../../components/Graph';
 import KnowledgeStatus from '../../../components/KnowledgeStatus';
 import Quiz from '../../../components/Quiz';
 import {
-  CLUSTER_COLOURS,
   CLUSTER_LABELS,
   DOMAIN_LABELS,
+  FAMILY_LABELS,
+  GRAPH_UI,
   LANGS,
   UI,
   termUrl,
@@ -16,7 +17,8 @@ import {
 } from '../../../lib/site';
 import { EDGE_LABELS, RELATION_ORDER, pairSlug, relationsOf } from '../../../lib/terms';
 import { loadGraph } from '../../../lib/graph';
-import { prerequisitesOf } from '../../../lib/graph-model';
+import { FAMILY, prerequisitesOf } from '../../../lib/graph-model';
+import { EDGE_TYPES, type EdgeType } from '../../../schema';
 import { makeLinker } from '../../../lib/autolink';
 import Prose from '../../../components/Prose.astro';
 import { bareName, collisionsOf } from '../../../lib/collisions';
@@ -43,25 +45,38 @@ const groups = RELATION_ORDER.map((type) => ({
 })).filter((g) => g.items.length > 0);
 
 // Neighbourhood graph: this term + every directly related term.
-const colour = (c: string) => CLUSTER_COLOURS[c] ?? '#a3a3a3';
 const nodes = new Map([
-  [term.id, { id: term.id, label: d.term[lang], focus: true, colour: colour(d.cluster) }],
+  [
+    term.id,
+    { id: term.id, label: d.term[lang], focus: true, domain: d.domain, cluster: d.cluster },
+  ],
 ]);
 for (const r of relations) {
   nodes.set(r.target.id, {
     id: r.target.id,
     label: r.target.data.term[lang],
     focus: false,
-    colour: colour(r.target.data.cluster),
+    domain: r.target.data.domain,
+    cluster: r.target.data.cluster,
   });
 }
-// Every relation is phrased from this term's point of view (inverses already applied),
-// so every edge points outward from it.
-const edges = relations.map((r) => ({
-  source: term.id,
-  target: r.target.id,
-  type: EDGE_LABELS[r.type]?.[lang] ?? r.type,
-}));
+// Edges are drawn in their authored direction (A61): a generated inverse ("unlocks")
+// is turned back into the authored edge ("requires") pointing at this term.
+const authoredType = (r: (typeof relations)[number]): EdgeType =>
+  r.generated
+    ? ((Object.entries(EDGE_TYPES).find(([, m]) => m.inverse === r.type)?.[0] ??
+        r.type) as EdgeType)
+    : (r.type as EdgeType);
+const edges = relations.map((r) => {
+  const type = authoredType(r);
+  return {
+    source: r.generated ? r.target.id : term.id,
+    target: r.generated ? term.id : r.target.id,
+    type,
+    family: FAMILY[type],
+    label: EDGE_LABELS[type]?.[lang] ?? type,
+  };
+});
 
 const facets = ['formal', 'plain', 'inPractice', 'whyItMatters'] as const;
 const graph = await loadGraph();
@@ -278,6 +293,16 @@ const collides = collisionsOf(all.map((t) => t.id)).has(name);
         nodes={[...nodes.values()]}
         edges={edges}
         termBase={url(`${lang}/terms/`)}
+        familyLabels={Object.fromEntries(
+          Object.entries(FAMILY_LABELS).map(([k, v]) => [k, v[lang]]),
+        )}
+        domainLabels={Object.fromEntries(
+          Object.entries(DOMAIN_LABELS).map(([k, v]) => [k, v[lang]]),
+        )}
+        clusterLabels={Object.fromEntries(
+          Object.entries(CLUSTER_LABELS).map(([k, v]) => [k, v[lang]]),
+        )}
+        text={{ ...GRAPH_UI[lang] }}
       />
 
       <a

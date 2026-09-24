@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import cytoscape from 'cytoscape';
+import fcose from 'cytoscape-fcose';
 import {
   prerequisitesOf,
   shortestPath,
@@ -9,6 +10,30 @@ import {
 } from '../lib/graph-model';
 import { timePositions } from '../lib/era';
 import { loadLearner, type Learner } from '../lib/learner';
+import {
+  LAYOUT_SEED,
+  clusterColour,
+  clusterForce,
+  curveOffsets,
+  domainColour,
+  homeDomain,
+  idealEdgeLength,
+  isDirected,
+  nodePaint,
+  withSeededRandom,
+  clusterSeedPositions,
+} from '../lib/graph-style';
+import {
+  GRAPH_STYLE,
+  attachHover,
+  edgeData,
+  reducedMotion,
+  smoothFit,
+  startFlow,
+} from '../lib/graph-cytoscape';
+import GraphLegend from './GraphLegend';
+
+cytoscape.use(fcose);
 
 type Lang = 'en' | 'da';
 type Dict = Record<string, string>;
@@ -19,7 +44,8 @@ interface Props {
   termBase: string;
   ui: Dict;
   clusterLabels: Dict;
-  clusterColours: Dict;
+  /** Legend and canvas-control strings (site.ts GRAPH_UI). */
+  graphUi: Dict;
   familyLabels: Dict;
   familyColours: Dict;
   domainLabels: Dict;
@@ -37,10 +63,23 @@ const KNOWLEDGE_COLOURS: Record<string, string> = {
   unknown: '#ef4444',
 };
 
+/** The legend starts open on wide screens, where it sits beside the map. */
+const legendOpenAtStart = () => window.innerWidth >= 1024;
+/** Pixels the map keeps clear on the right for the open legend. */
+const legendReserve = () => (legendOpenAtStart() ? 310 : 0);
+
+/** Below this many terms the map is a neighbourhood: no seeded systems, no region names. */
+const SYSTEMS_MIN = 60;
+
+/** Above this many one-way edges the whole map stops flowing; only highlights flow. */
+const FLOW_ALL_LIMIT = 120;
+
 // 3d-force-graph is large; load it only when 3D is switched on.
 type ForceGraphInstance = {
   _destructor: () => void;
   nodeColor: (fn: (n: GraphNode) => string) => ForceGraphInstance;
+  linkColor: (fn: (l: GraphLink) => string) => ForceGraphInstance;
+  linkDirectionalParticles: (fn: (l: GraphLink) => number) => ForceGraphInstance;
 };
 
 /**
@@ -140,7 +179,7 @@ export default function Explorer(props: Props) {
     [graph, lang],
   );
   const colourOf = (n: GraphNode) => {
-    if (colourMode === 'cluster') return props.clusterColours[n.cluster] ?? '#a3a3a3';
+    if (colourMode === 'cluster') return nodePaint(n).fill;
     const s = learner.terms[n.id];
     const status = s?.status ?? ((s?.box ?? 0) >= 3 ? 'know' : s?.box ? 'learning' : undefined);
     return status ? KNOWLEDGE_COLOURS[status] : '#404040';
@@ -150,12 +189,22 @@ export default function Explorer(props: Props) {
   selRef.current = selected;
   const hlRef = useRef(hl);
   hlRef.current = hl;
+  /** Hovered node's closed neighbourhood in 3D (ids), or null when nothing is hovered. */
+  const hover3d = useRef<Set<string> | null>(null);
+  const faded3d = (id: string) =>
+    (hover3d.current && !hover3d.current.has(id)) ||
+    (!hover3d.current && hlRef.current.size > 0 && !hlRef.current.has(id));
   const colour3d = (n: GraphNode) =>
-    n.id === selRef.current
-      ? '#ffffff'
-      : hlRef.current.size && !hlRef.current.has(n.id)
-        ? '#262626'
-        : colourOf(n);
+    n.id === selRef.current ? '#ffffff' : faded3d(n.id) ? 'rgba(64,64,64,0.35)' : colourOf(n);
+  // 3d-force-graph replaces link endpoints with node objects once it has run.
+  const endId = (x: unknown) => (typeof x === 'string' ? x : (x as { id: string }).id);
+  const linkFaded3d = (l: GraphLink) => faded3d(endId(l.source)) || faded3d(endId(l.target));
+  const linkColour3d = (l: GraphLink) =>
+    linkFaded3d(l) ? 'rgba(82,82,82,0.08)' : props.familyColours[l.family];
+  /** The live 3D node-colour accessor (it also fades each node's glow), while 3D is on. */
+  const nodeColour3d = useRef<((n: GraphNode) => string) | null>(null);
+  const particles3d = (l: GraphLink) =>
+    reducedMotion() || !isDirected(l.type) || linkFaded3d(l) ? 0 : 2;
 
   // ---- 2D (Cytoscape) --------------------------------------------------
   useEffect(() => {
@@ -173,81 +222,159 @@ export default function Explorer(props: Props) {
         });
       }
     }
+    const force = layout === 'force';
+    // The whole map starts from a cluster-aware seed (domains → clusters → terms) and
+    // names its systems; a small neighbourhood just gets a clean force layout.
+    const systems = force && visible.nodes.length >= SYSTEMS_MIN;
+    if (systems) positions = clusterSeedPositions(visible.nodes);
+    const nodeOf = (id: string) => byId.get(id);
+    const flowAll = visible.links.filter((l) => isDirected(l.type)).length <= FLOW_ALL_LIMIT;
     const cy = cytoscape({
       container: container.current,
       elements: [
-        ...visible.nodes.map((n) => ({
-          data: {
-            id: n.id,
-            label: layout === 'time' && n.era ? `${n.term[lang]} (${n.era})` : n.term[lang],
-            colour: colourOf(n),
-            size: 12 + (n.degree / maxDegree) * 30,
-          },
-        })),
-        ...visible.links.map((l: GraphLink, i) => ({
-          data: {
-            id: `e${i}`,
-            source: l.source,
-            target: l.target,
-            colour: props.familyColours[l.family],
-            width: 0.6 + l.weight * 0.5,
-          },
-        })),
+        ...visible.nodes.map((n) => {
+          const paint = nodePaint(n);
+          const share = n.degree / maxDegree;
+          return {
+            data: {
+              id: n.id,
+              label: layout === 'time' && n.era ? `${n.term[lang]} (${n.era})` : n.term[lang],
+              colour: colourOf(n),
+              ring: colourMode === 'cluster' && paint.ring ? paint.ring : undefined,
+              size: 12 + share * 30,
+              font: 8 + Math.round(share * 6),
+              // Zoomed out, only hubs keep a (larger) label, so labels overlap less.
+              farFont: share >= 0.4 ? Math.round(14 + share * 12) : 0,
+            },
+          };
+        }),
+        ...edgeData(visible.links, nodeOf, (l) => 0.6 + l.weight * 0.45, flowAll ? 0.5 : 0.3).map(
+          (data) => ({
+            data,
+            classes: flowAll && data.directed ? 'flow' : '',
+          }),
+        ),
       ],
       style: [
+        ...(GRAPH_STYLE as unknown[]),
+        { selector: 'node.far', style: { 'font-size': 'data(farFont)' } },
+        { selector: 'node.far[farFont = 0]', style: { 'text-opacity': 0 } },
         {
-          selector: 'node',
+          selector: 'node.far.lit, node.far.sel, node.far.hl',
+          style: { 'text-opacity': 1, 'font-size': 15 },
+        },
+        {
+          selector: 'node.tag',
           style: {
-            'background-color': 'data(colour)',
-            width: 'data(size)',
-            height: 'data(size)',
+            'background-opacity': 0,
+            'border-width': 0,
+            width: 1,
+            height: 1,
             label: 'data(label)',
-            color: '#d4d4d4',
-            'font-size': 9,
-            'text-valign': 'bottom',
-            'text-margin-y': 3,
-            'min-zoomed-font-size': 7,
+            color: 'data(colour)',
+            'font-size': 'data(font)',
+            'font-weight': 600,
+            'text-valign': 'center',
+            'text-halign': 'center',
+            'text-opacity': 0.55,
+            'text-outline-width': 0,
+            'min-zoomed-font-size': 6,
+            'z-index': 0,
+            events: 'no',
           },
         },
-        {
-          selector: 'edge',
-          style: {
-            width: 'data(width)',
-            'line-color': 'data(colour)',
-            'target-arrow-color': 'data(colour)',
-            'target-arrow-shape': 'triangle',
-            'arrow-scale': 0.6,
-            'curve-style': 'bezier',
-            opacity: 0.5,
-          },
-        },
-        { selector: '.dim', style: { opacity: 0.1 } },
-        { selector: 'node.hl', style: { 'border-width': 2, 'border-color': '#ffffff' } },
-        { selector: 'edge.hl', style: { opacity: 1, width: 3 } },
-        { selector: 'node.sel', style: { 'border-width': 4, 'border-color': '#ffffff' } },
+        { selector: 'node.tag.domain', style: { 'text-opacity': 0.12, 'z-index': -1 } },
       ] as cytoscape.StylesheetJson,
-      layout:
-        layout !== 'force'
-          ? { name: 'preset', positions: (n: cytoscape.NodeSingular) => positions[n.id()] }
-          : ({
-              name: 'cose',
-              animate: false,
-              nodeRepulsion: () => 9000,
-              idealEdgeLength: () => 110,
-            } as cytoscape.LayoutOptions),
+      layout: { name: 'preset', positions: (n: cytoscape.NodeSingular) => positions[n.id()] },
       minZoom: 0.1,
       maxZoom: 3,
     });
-    // Small neighbourhoods fit too tightly; keep labels readable.
-    if (cy.zoom() > 1.1) {
-      cy.zoom(1.1);
-      cy.center();
+    if (force) {
+      const node = (id: string) => byId.get(id)!;
+      withSeededRandom(LAYOUT_SEED, () =>
+        cy
+          .layout({
+            name: 'fcose',
+            quality: 'default',
+            randomize: !systems,
+            animate: false,
+            fit: false,
+            nodeRepulsion: () => 12000,
+            idealEdgeLength: (e: cytoscape.EdgeSingular) =>
+              idealEdgeLength(node(e.source().id()), node(e.target().id())),
+            edgeElasticity: (e: cytoscape.EdgeSingular) =>
+              node(e.source().id()).cluster === node(e.target().id()).cluster ? 0.45 : 0.05,
+            gravity: 0.2,
+            numIter: 2500,
+            tile: true,
+            packComponents: true,
+            nodeSeparation: 90,
+          } as cytoscape.LayoutOptions)
+          .run(),
+      );
     }
-    cy.on('tap', 'node', (e) => setSelected(e.target.id()));
+    if (systems) {
+      // Name each system at its centre; each domain is a faint watermark over its region.
+      const tags: cytoscape.ElementDefinition[] = [];
+      const group = (key: (n: GraphNode) => string) => {
+        const m = new Map<string, cytoscape.NodeCollection>();
+        for (const n of visible.nodes) {
+          const k = key(n);
+          m.set(k, (m.get(k) ?? cy.collection()).union(cy.getElementById(n.id)));
+        }
+        return m;
+      };
+      for (const [c, members] of group((n) => n.cluster)) {
+        if (members.length < 3) continue;
+        const bb = members.boundingBox();
+        const home = homeDomain(byId.get(members[0].id())!);
+        tags.push({
+          group: 'nodes',
+          data: {
+            id: `tag:c:${c}`,
+            label: props.clusterLabels[c] ?? c,
+            colour: clusterColour(c, home),
+            font: 22,
+          },
+          position: { x: (bb.x1 + bb.x2) / 2, y: (bb.y1 + bb.y2) / 2 },
+          classes: 'tag',
+        });
+      }
+      for (const [d, members] of group(homeDomain)) {
+        const bb = members.boundingBox();
+        tags.push({
+          group: 'nodes',
+          data: {
+            id: `tag:d:${d}`,
+            label: props.domainLabels[d] ?? d,
+            colour: domainColour(d),
+            font: 110,
+          },
+          position: { x: (bb.x1 + bb.x2) / 2, y: (bb.y1 + bb.y2) / 2 },
+          classes: 'tag domain',
+        });
+      }
+      cy.add(tags);
+    }
+    const setFar = () => {
+      const far = cy.zoom() < 0.9;
+      const nodes = cy.nodes('[size]');
+      if (nodes.nonempty() && far !== nodes.first().hasClass('far')) nodes.toggleClass('far', far);
+    };
+    cy.on('zoom', setFar);
+    smoothFit(cy, 40, 1.1, legendReserve());
+    cy.on('tap', 'node:childless', (e) => setSelected(e.target.id()));
     cy.on('tap', (e) => e.target === cy && setSelected(null));
-    cy.on('dbltap', 'node', (e) => (window.location.href = `${termBase}${e.target.id()}/`));
+    cy.on(
+      'dbltap',
+      'node:childless',
+      (e) => (window.location.href = `${termBase}${e.target.id()}/`),
+    );
+    attachHover(cy);
+    const stopFlow = startFlow(cy);
     cyRef.current = cy;
     return () => {
+      stopFlow();
       cy.destroy();
       cyRef.current = null;
     };
@@ -257,25 +384,32 @@ export default function Explorer(props: Props) {
   useEffect(() => {
     const cy = cyRef.current;
     if (!cy) return;
-    cy.elements().removeClass('dim hl sel');
-    if (hl.size) {
-      cy.elements().addClass('dim');
-      cy.nodes()
-        .filter((n) => hl.has(n.id()))
-        .removeClass('dim')
-        .addClass('hl');
-      cy.edges()
-        .filter((e) => hl.has(e.source().id()) && hl.has(e.target().id()))
-        .removeClass('dim')
-        .addClass('hl');
-    }
-    if (selected) {
-      const node = cy.getElementById(selected);
-      if (node.nonempty()) {
-        node.removeClass('dim').addClass('sel');
-        cy.animate({ center: { eles: node } }, { duration: 300 });
+    const flowAll = cy.edges('[?directed]').length <= FLOW_ALL_LIMIT;
+    const node = selected ? cy.getElementById(selected) : cy.collection();
+    cy.batch(() => {
+      cy.elements().removeClass('dim hl sel');
+      if (!flowAll) cy.edges().removeClass('flow');
+      if (hl.size) {
+        cy.elements().not(':parent').addClass('dim');
+        cy.nodes()
+          .filter((n) => hl.has(n.id()))
+          .removeClass('dim')
+          .addClass('hl');
+        cy.edges()
+          .filter((e) => hl.has(e.source().id()) && hl.has(e.target().id()))
+          .removeClass('dim')
+          .addClass('hl flow');
       }
-    }
+      // The selected term's one-way relationships flow, even on the whole map.
+      node.removeClass('dim').addClass('sel');
+      node.connectedEdges('[?directed]').addClass('flow');
+      cy.edges('[!directed]').removeClass('flow');
+    });
+    if (node.nonempty())
+      cy.animate(
+        { center: { eles: node } },
+        { duration: reducedMotion() ? 0 : 400, easing: 'ease-in-out-cubic' },
+      );
   }, [selected, hl, visible, mode, layout]);
 
   // ---- 3D (3d-force-graph) — height is Depth (ADR-0001) ----------------
@@ -283,27 +417,110 @@ export default function Explorer(props: Props) {
     if (mode !== '3d' || !visible || !container.current) return;
     let cancelled = false;
     const el = container.current;
-    import('3d-force-graph').then(({ default: ForceGraph3D }) => {
-      if (cancelled) return;
-      const nodes = visible.nodes.map((n) => ({ ...n, fy: n.depth * 45 }));
-      const links = visible.links.map((l) => ({ ...l }));
-      const fg = new ForceGraph3D(el)
-        .width(el.clientWidth)
-        .height(el.clientHeight)
-        .backgroundColor('#0a0a0a')
-        .graphData({ nodes, links })
-        .nodeLabel((n: GraphNode) => n.term[lang])
-        .nodeVal((n: GraphNode) => 1 + n.degree)
-        .nodeColor(colour3d)
-        .linkColor((l: GraphLink) => props.familyColours[l.family])
-        .linkOpacity(0.45)
-        .linkDirectionalArrowLength(3)
-        .linkDirectionalArrowRelPos(1)
-        .onNodeClick((n: GraphNode) => setSelected(n.id));
-      fgRef.current = fg as unknown as ForceGraphInstance;
-    });
+    Promise.all([import('3d-force-graph'), import('three')]).then(
+      ([{ default: ForceGraph3D }, THREE]) => {
+        if (cancelled) return;
+        const nodes = visible.nodes.map((n) => ({ ...n, fy: n.depth * 45 }));
+        const links = visible.links.map((l) => ({ ...l }));
+        const curves = curveOffsets(links);
+        const curveOf = new Map(links.map((l, i) => [l, curves[i]]));
+        const neighbours = new Map<string, Set<string>>();
+        for (const l of links) {
+          for (const [a, b] of [
+            [l.source, l.target],
+            [l.target, l.source],
+          ]) {
+            if (!neighbours.has(a)) neighbours.set(a, new Set([a]));
+            neighbours.get(a)!.add(b);
+          }
+        }
+        // Dark-theme glow: one soft radial sprite per node, blended additively.
+        const glowMap = (() => {
+          const c = document.createElement('canvas');
+          c.width = c.height = 64;
+          const g = c.getContext('2d')!;
+          const grad = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+          grad.addColorStop(0, 'rgba(255,255,255,0.9)');
+          grad.addColorStop(0.35, 'rgba(255,255,255,0.28)');
+          grad.addColorStop(1, 'rgba(255,255,255,0)');
+          g.fillStyle = grad;
+          g.fillRect(0, 0, 64, 64);
+          return new THREE.CanvasTexture(c);
+        })();
+        const glows = new Map<string, { material: { opacity: number } }>();
+        const nodeColour = (n: GraphNode) => {
+          const glow = glows.get(n.id);
+          if (glow) glow.material.opacity = faded3d(n.id) ? 0.04 : 0.55;
+          return colour3d(n);
+        };
+        nodeColour3d.current = nodeColour;
+        const fg = new ForceGraph3D(el)
+          .width(el.clientWidth)
+          .height(el.clientHeight)
+          .backgroundColor('#07080d')
+          .graphData({ nodes, links })
+          .nodeLabel((n: GraphNode) => n.term[lang])
+          .nodeVal((n: GraphNode) => 1 + n.degree)
+          .nodeColor(nodeColour)
+          .nodeOpacity(0.95)
+          .nodeResolution(16)
+          .nodeThreeObjectExtend(true)
+          .nodeThreeObject((n: GraphNode) => {
+            const r = Math.cbrt(1 + n.degree) * 4;
+            const group = new THREE.Group();
+            const glow = new THREE.Sprite(
+              new THREE.SpriteMaterial({
+                map: glowMap,
+                color: colourOf(n),
+                blending: THREE.AdditiveBlending,
+                transparent: true,
+                opacity: 0.55,
+                depthWrite: false,
+              }),
+            );
+            glow.scale.set(r * 5, r * 5, 1);
+            glows.set(n.id, glow);
+            group.add(glow);
+            // A term in two domains carries a translucent shell in the other domain's colour.
+            const ring = colourMode === 'cluster' ? nodePaint(n).ring : null;
+            if (ring)
+              group.add(
+                new THREE.Mesh(
+                  new THREE.SphereGeometry(r * 1.45, 16, 12),
+                  new THREE.MeshBasicMaterial({
+                    color: ring,
+                    transparent: true,
+                    opacity: 0.25,
+                    depthWrite: false,
+                  }),
+                ),
+              );
+            return group;
+          })
+          .linkColor(linkColour3d)
+          .linkOpacity(0.5)
+          .linkWidth(0.6)
+          .linkCurvature((l: GraphLink) => (curveOf.get(l) ?? 16) / 90)
+          .linkDirectionalArrowLength((l: GraphLink) => (isDirected(l.type) ? 3.5 : 0))
+          .linkDirectionalArrowRelPos(1)
+          .linkDirectionalParticles(particles3d)
+          .linkDirectionalParticleSpeed(0.006)
+          .linkDirectionalParticleWidth(1.4)
+          .linkDirectionalParticleColor((l: GraphLink) => props.familyColours[l.family])
+          .onNodeHover((n: GraphNode | null) => {
+            hover3d.current = n ? (neighbours.get(n.id) ?? new Set([n.id])) : null;
+            el.style.cursor = n ? 'pointer' : 'default';
+            fg.nodeColor(nodeColour).linkColor(linkColour3d).linkDirectionalParticles(particles3d);
+          })
+          .onNodeClick((n: GraphNode) => setSelected(n.id));
+        // Clusters gather into systems in the horizontal plane; height stays Depth.
+        fg.d3Force('cluster', clusterForce(0.12) as never);
+        fgRef.current = fg as unknown as ForceGraphInstance;
+      },
+    );
     return () => {
       cancelled = true;
+      nodeColour3d.current = null;
       fgRef.current?._destructor();
       fgRef.current = null;
       el.innerHTML = '';
@@ -311,7 +528,10 @@ export default function Explorer(props: Props) {
   }, [mode, visible, lang, colourMode, learner]);
 
   useEffect(() => {
-    fgRef.current?.nodeColor(colour3d);
+    fgRef.current
+      ?.nodeColor(nodeColour3d.current ?? colour3d)
+      .linkColor(linkColour3d)
+      .linkDirectionalParticles(particles3d);
   }, [selected, hl]);
 
   // ---- Tools -----------------------------------------------------------
@@ -399,6 +619,10 @@ export default function Explorer(props: Props) {
                 type="checkbox"
                 checked={domains.has(d)}
                 onChange={() => toggle(domains, d, setDomains)}
+              />
+              <span
+                class="inline-block h-2.5 w-2.5 rounded-full"
+                style={{ background: domainColour(d) }}
               />
               {props.domainLabels[d] ?? d}
             </label>
@@ -492,21 +716,40 @@ export default function Explorer(props: Props) {
             </div>
           </div>
         )}
-
-        <div>
-          {Object.entries(props.clusterLabels).map(([c, label]) => (
-            <div class="flex items-center gap-2 text-xs text-neutral-400">
-              <span
-                class="inline-block h-2.5 w-2.5 rounded-full"
-                style={{ background: props.clusterColours[c] }}
-              />
-              {label}
-            </div>
-          ))}
-        </div>
       </aside>
-      <div ref={container} class="relative min-h-[60vh] flex-1 bg-neutral-950">
-        {!graph && <p class="p-6 text-neutral-500">{ui.loading}</p>}
+      <div class="relative min-h-[60vh] flex-1 overflow-hidden bg-[radial-gradient(ellipse_at_center,#11131c_0%,#0a0a0a_75%)]">
+        {/* Cytoscape forces its container to position: relative, so it fills a wrapper. */}
+        <div class="absolute inset-0">
+          <div ref={container} class="h-full w-full">
+            {!graph && <p class="p-6 text-neutral-500">{ui.loading}</p>}
+          </div>
+        </div>
+        {visible && (
+          <div class="pointer-events-none absolute top-3 right-3 flex flex-col items-end gap-2">
+            {mode === '2d' && (
+              <button
+                class="pointer-events-auto rounded border border-neutral-700 bg-neutral-950/85 px-2 py-1 text-xs text-neutral-300 hover:border-neutral-500"
+                onClick={() => {
+                  if (cyRef.current) smoothFit(cyRef.current, 40, 1.1, legendReserve());
+                }}
+              >
+                {props.graphUi.fit}
+              </button>
+            )}
+            <div class="pointer-events-auto">
+              <GraphLegend
+                nodes={visible.nodes}
+                families={Object.keys(props.familyColours).filter((f) => families.has(f))}
+                familyColours={props.familyColours}
+                familyLabels={props.familyLabels}
+                domainLabels={props.domainLabels}
+                clusterLabels={props.clusterLabels}
+                text={props.graphUi}
+                open={legendOpenAtStart()}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
