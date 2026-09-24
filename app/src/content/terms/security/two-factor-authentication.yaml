@@ -27,7 +27,7 @@ body:
     da: Det er det trin, de fleste tjenester faktisk tilbyder, så det er her, de fleste først får beskyttelse ud over en adgangskode — men to beviser af samme slags, fx to adgangskoder, tæller ikke.
 edges:
   kind-of: [mfa]
-  requires: [password]
+  requires: [password, authentication-factor]
   mitigates:
     - to: phishing
       why:

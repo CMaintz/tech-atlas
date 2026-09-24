@@ -1,0 +1,36 @@
+term:
+  en: Risk transfer
+  da: Risikooverførsel
+aka:
+  en: [risk sharing]
+  da: [risikodeling, overførsel af risiko]
+domain: [security]
+cluster: risk-management
+layer: governance
+status: current
+summary:
+  en: Moving the financial cost of a risk to another party, usually through insurance or a contract with a supplier.
+  da: At flytte den økonomiske udgift ved en risiko over på en anden part, typisk via en forsikring eller en kontrakt med en leverandør.
+body:
+  formal:
+    en: The risk treatment option in which some or all of the consequences of a risk are shared with or passed to a third party — for example through cyber insurance or contract terms with a supplier — while accountability for the risk stays with the organisation.
+    da: Den håndteringsmulighed, hvor en del af eller alle konsekvenserne af en risiko deles med eller overføres til en tredjepart — fx via en cyberforsikring eller kontraktvilkår med en leverandør — mens ansvaret for risikoen bliver i organisationen.
+  plain:
+    en: Like home insurance — if the house floods, someone else pays for the repair, but you still have to live through the flood.
+    da: Som en husforsikring — hvis huset bliver oversvømmet, betaler en anden for reparationen, men man skal stadig selv igennem oversvømmelsen.
+  inPractice:
+    en: A shop buys cyber insurance that pays for outside experts and lost income after an attack, and its contract makes the hosting provider cover losses from their own outages.
+    da: En butik tegner en cyberforsikring, der betaler for eksterne eksperter og tabt indtjening efter et angreb, og dens kontrakt gør hostingudbyderen ansvarlig for tab ved udbyderens egne nedbrud.
+  whyItMatters:
+    en: Money can be moved, but damage to trust, data and legal duties cannot — an insured organisation must still report breaches and answer to customers.
+    da: Penge kan flyttes, men skade på tillid, data og juridiske pligter kan ikke — en forsikret organisation skal stadig anmelde brud og stå til ansvar over for kunderne.
+edges:
+  kind-of: [risk-treatment]
+  requires: [impact]
+  used-with: [supplier-management]
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 5 og Ordliste (Risikohåndtering — overføre)
+    tier: course-material
+  - title: ISO/IEC 27005:2022 (8.2 — Risk treatment options)
+    tier: standard
+draft: true

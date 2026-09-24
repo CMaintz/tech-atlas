@@ -1,0 +1,36 @@
+term:
+  en: Risk identification
+  da: Risikoidentifikation
+aka:
+  en: []
+  da: []
+domain: [security]
+cluster: risk-management
+layer: governance
+status: current
+summary:
+  en: The first step of a risk assessment — finding and writing down what could go wrong, to what, and why.
+  da: Første trin i en risikoanalyse — at finde og skrive ned, hvad der kan gå galt, med hvad, og hvorfor.
+body:
+  formal:
+    en: The part of risk assessment that finds, recognises and describes risks by listing the assets that matter, the threats that could harm them and the vulnerabilities those threats could use, before any rating is done.
+    da: Den del af risikoanalysen, der finder, genkender og beskriver risici ved at opliste de aktiver, der betyder noget, de trusler, der kan skade dem, og de sårbarheder, truslerne kan udnytte, før der foretages nogen vurdering.
+  plain:
+    en: Like walking through a new flat before moving in and noting every loose wire, wobbly step and window that does not close — fixing comes later.
+    da: Som at gå en ny lejlighed igennem, før man flytter ind, og notere hver løs ledning, vaklende trappetrin og vindue, der ikke lukker — reparationerne kommer bagefter.
+  inPractice:
+    en: In a two-hour workshop, staff from finance, IT and sales list their key systems and data and what could hit each one, from ransomware to a fire in the server room.
+    da: På en workshop på to timer oplister medarbejdere fra økonomi, IT og salg deres vigtigste systemer og data og det, der kan ramme hver af dem, fra ransomware til brand i serverrummet.
+  whyItMatters:
+    en: A risk that is never named is never handled, so the quality of the whole risk process depends on how wide this first search is.
+    da: En risiko, der aldrig bliver nævnt, bliver aldrig håndteret, så kvaliteten af hele risikoprocessen afhænger af, hvor bredt denne første søgning favner.
+edges:
+  part-of: [risk-assessment]
+  requires: [asset, threat, vulnerability]
+  used-with: [threat-landscape]
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 5
+    tier: course-material
+  - title: ISO 31000:2018 (6.4.2 — Risk identification)
+    tier: standard
+draft: true

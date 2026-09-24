@@ -2,8 +2,8 @@ term:
   en: Security framework
   da: Rammeværk
 aka:
-  en: [cybersecurity framework]
-  da: [sikkerhedsrammeværk, framework]
+  en: [cybersecurity framework, control framework]
+  da: [sikkerhedsrammeværk, framework, kontrolrammeværk]
 domain: [security]
 cluster: compliance
 layer: governance

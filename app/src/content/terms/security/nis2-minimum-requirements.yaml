@@ -52,6 +52,11 @@ edges:
         da: Styring af aktiver er nævnt sammen med adgangsstyring og personalesikkerhed.
       strength: minor
       confidence: medium
+    - risk-management
+    - incident-response
+    - security-awareness
+    - supplier-management
+    - management-responsibility
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

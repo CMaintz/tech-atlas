@@ -25,7 +25,7 @@ body:
     en: It turns vague worry into clear recovery priorities, which every continuity and recovery plan is built on.
     da: Den gør vag bekymring til klare prioriteter for genopretning, som alle beredskabs- og genopretningsplaner bygger på.
 edges:
-  requires: [critical-assets]
+  requires: [critical-assets, impact]
   part-of: [risk-management]
   used-with: [risk-assessment]
 sources:

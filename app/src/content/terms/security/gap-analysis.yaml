@@ -45,6 +45,8 @@ edges:
         da: At sammenligne en nuværende profil med en målprofil er en gap-analyse.
       strength: normal
       confidence: high
+    - iso-27001
+    - self-assessment
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

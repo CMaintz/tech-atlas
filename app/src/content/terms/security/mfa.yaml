@@ -28,7 +28,7 @@ body:
 edges:
   kind-of: [control]
   implements: [authentication]
-  requires: [credential]
+  requires: [credential, authentication-factor]
   mitigates:
     - to: phishing
       why:
@@ -46,6 +46,7 @@ edges:
     - privileged-account
     - passkey
     - privileged-access-management
+    - one-time-password
 article:
   en: src/content/articles/security/mfa.en.md
   da: src/content/articles/security/mfa.da.md

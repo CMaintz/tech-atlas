@@ -1,0 +1,37 @@
+term:
+  en: Organisational control
+  da: Organisatorisk kontrol
+aka:
+  en: [organizational control, administrative control]
+  da: [organisatorisk foranstaltning, administrativ kontrol]
+domain: [security]
+cluster: controls
+layer: governance
+status: current
+summary:
+  en: A safeguard made of rules, roles and routines — who decides, who does what, and how work must be done.
+  da: En beskyttelse, der består af regler, roller og rutiner — hvem der beslutter, hvem der gør hvad, og hvordan arbejdet skal udføres.
+body:
+  formal:
+    en: A security control carried out through policies, processes, responsibilities and agreements — such as a security policy, supplier management, access approval or an incident process — one of the four control themes in ISO 27002.
+    da: En sikkerhedskontrol, der udføres gennem politikker, processer, ansvar og aftaler — fx en sikkerhedspolitik, leverandørstyring, godkendelse af adgang eller en hændelsesproces — et af de fire kontroltemaer i ISO 27002.
+  plain:
+    en: Like the house rules in a shared kitchen — who cleans on which day, what goes in the fridge — which keep order without any lock.
+    da: Som husreglerne i et fælleskøkken — hvem der gør rent hvilken dag, og hvad der må stå i køleskabet — som holder orden uden nogen lås.
+  inPractice:
+    en: A company writes down that new user accounts need a manager's approval and that HR tells IT the same day someone leaves.
+    da: En virksomhed skriver ned, at nye brugerkonti kræver godkendelse fra en leder, og at HR giver IT besked samme dag, som nogen stopper.
+  whyItMatters:
+    en: Most controls in ISO 27002 are of this kind, and without clear rules and owners even good technology is set up and used in random ways.
+    da: De fleste kontroller i ISO 27002 er af denne slags, og uden klare regler og ejere bliver selv god teknologi sat op og brugt tilfældigt.
+edges:
+  kind-of: [control]
+  requires: [governance]
+  contrasts-with: [people-control, physical-security, technical-control]
+  used-with: [security-policy]
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 1 og Ordliste (Kontrol)
+    tier: course-material
+  - title: ISO/IEC 27002:2022 (clause 5 — Organizational controls)
+    tier: standard
+draft: true

@@ -1,0 +1,36 @@
+term:
+  en: Risk monitoring
+  da: Risikoovervågning
+aka:
+  en: [risk review, continuous risk monitoring]
+  da: [løbende risikoovervågning, risikoopfølgning]
+domain: [security]
+cluster: risk-management
+layer: governance
+status: current
+summary:
+  en: Keeping an eye on known risks over time, so changes are caught and decisions are revisited before they go stale.
+  da: At holde øje med kendte risici over tid, så ændringer opdages, og beslutninger tages op igen, før de bliver forældede.
+body:
+  formal:
+    en: The ongoing part of risk management that tracks risks, controls and the world around them — new threats, changed systems, failed controls — and triggers a new assessment or treatment when something moves.
+    da: Den løbende del af risikostyringen, der følger risici, kontroller og omverdenen — nye trusler, ændrede systemer, kontroller der svigter — og udløser en ny analyse eller håndtering, når noget flytter sig.
+  plain:
+    en: Like checking the weather forecast every morning during a sailing trip — the route was planned once, but the sea keeps changing.
+    da: Som at tjekke vejrudsigten hver morgen på en sejltur — ruten blev planlagt én gang, men havet ændrer sig hele tiden.
+  inPractice:
+    en: Each month the risk owners get a short review; when a supplier is hacked, the coordinator moves that supply risk from medium to high and calls a meeting.
+    da: Hver måned får risikoejerne en kort gennemgang; da en leverandør bliver hacket, flytter koordinatoren den leverandørrisiko fra mellem til høj og indkalder til møde.
+  whyItMatters:
+    en: A risk list is only true on the day it is written, and NIS2 and ISO 27001 both expect it to be kept up to date.
+    da: En risikoliste er kun sand den dag, den bliver skrevet, og både NIS2 og ISO 27001 forventer, at den holdes opdateret.
+edges:
+  part-of: [risk-management]
+  requires: [risk-assessment]
+  used-with: [security-monitoring, threat-intelligence]
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 5
+    tier: course-material
+  - title: ISO 31000:2018 (6.6 — Monitoring and review)
+    tier: standard
+draft: true

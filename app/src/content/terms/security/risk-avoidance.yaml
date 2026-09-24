@@ -1,0 +1,47 @@
+term:
+  en: Risk avoidance
+  da: Risikoundgåelse
+aka:
+  en: [risk elimination, risk termination]
+  da: [risikoeliminering, afvisning af risiko]
+domain: [security]
+cluster: risk-management
+layer: governance
+status: current
+summary:
+  en: Removing a risk entirely by not doing, or no longer doing, the activity that creates it.
+  da: At fjerne en risiko helt ved ikke at udføre, eller holde op med at udføre, den aktivitet, der skaber den.
+body:
+  formal:
+    en: The risk treatment option in which the organisation decides not to start, or to stop, the activity, system or data handling that gives rise to the risk, so the risk no longer exists.
+    da: Den håndteringsmulighed, hvor organisationen beslutter ikke at starte, eller at stoppe, den aktivitet, det system eller den databehandling, der giver anledning til risikoen, så risikoen ikke længere findes.
+  plain:
+    en: Like selling the trampoline because the children keep getting hurt — no more jumping, but also no more broken arms.
+    da: Som at sælge trampolinen, fordi børnene bliver ved med at slå sig — ikke flere hop, men heller ikke flere brækkede arme.
+  inPractice:
+    en: Rather than protect an old customer database nobody uses, the company deletes it — data it no longer holds cannot leak.
+    da: I stedet for at beskytte en gammel kundedatabase, som ingen bruger, sletter virksomheden den — data, den ikke længere har, kan ikke lække.
+  whyItMatters:
+    en: It is the only option that brings a risk to zero, but it gives up whatever value the activity had, so it suits risks with little business gain.
+    da: Det er den eneste mulighed, der bringer en risiko ned på nul, men den opgiver den værdi, aktiviteten havde, så den passer til risici med lille forretningsmæssig gevinst.
+edges:
+  kind-of: [risk-treatment]
+  requires: [risk-assessment]
+  mitigates:
+    - to: shadow-it
+      why:
+        en: Banning an unsafe tool outright, instead of trying to secure it, is avoidance.
+        da: At forbyde et usikkert værktøj helt, i stedet for at forsøge at sikre det, er undgåelse.
+      confidence: medium
+  contrasts-with:
+    - to: risk-mitigation
+      why:
+        en: Avoidance stops the activity; mitigation keeps it and adds controls to make it safer.
+        da: Undgåelse stopper aktiviteten; reduktion beholder den og tilføjer kontroller for at gøre den sikrere.
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 5 og Ordliste (Risikohåndtering — eliminere)
+    tier: course-material
+  - title: ISO/IEC 27005:2022 (8.2 — Risk treatment options)
+    tier: standard
+draft: true

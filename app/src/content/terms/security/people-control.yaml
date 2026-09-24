@@ -1,0 +1,37 @@
+term:
+  en: People control
+  da: Menneskelig kontrol
+aka:
+  en: [human control, people measure]
+  da: [menneskelig foranstaltning, personrelateret kontrol]
+domain: [security]
+cluster: controls
+layer: people
+status: current
+summary:
+  en: A safeguard aimed at staff themselves — screening, training, clear duties and what happens when someone joins or leaves.
+  da: En beskyttelse rettet mod medarbejderne selv — baggrundstjek, træning, klare pligter og det, der sker, når nogen starter eller stopper.
+body:
+  formal:
+    en: A security control that works through the people in the organisation — background checks, terms of employment and confidentiality, awareness and training, reporting duties and the process when staff join, move or leave — one of the four control themes in ISO 27002.
+    da: En sikkerhedskontrol, der virker gennem organisationens mennesker — baggrundstjek, ansættelses- og fortrolighedsvilkår, awareness og træning, pligt til at melde hændelser og processen, når medarbejdere starter, skifter eller stopper — et af de fire kontroltemaer i ISO 27002.
+  plain:
+    en: Like teaching every lifeguard first aid and checking their papers before they start — the safety comes from who they are and what they know.
+    da: Som at lære alle livreddere førstehjælp og tjekke deres papirer, før de starter — sikkerheden kommer fra, hvem de er, og hvad de kan.
+  inPractice:
+    en: New hires sign a confidentiality agreement, take a short training in their first week, and lose all access on their last day.
+    da: Nyansatte underskriver en fortrolighedsaftale, tager en kort træning i første uge og mister al adgang på deres sidste dag.
+  whyItMatters:
+    en: Many attacks and mistakes go through people, so controls aimed only at machines leave the most used way in wide open.
+    da: Mange angreb og fejl går gennem mennesker, så kontroller rettet kun mod maskiner efterlader den mest brugte vej ind helt åben.
+edges:
+  kind-of: [control]
+  requires: [human-factor]
+  contrasts-with: [physical-security, technical-control]
+  mitigates: [human-error, insider-threat]
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Ordliste (Kontrol — menneskelig foranstaltning)
+    tier: course-material
+  - title: ISO/IEC 27002:2022 (clause 6 — People controls)
+    tier: standard
+draft: true

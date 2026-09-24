@@ -1,0 +1,42 @@
+term:
+  en: Crisis management
+  da: Krisestyring
+aka:
+  en: [crisis response]
+  da: [krisehåndtering, kriseledelse]
+domain: [security]
+cluster: incident-response
+layer: governance
+status: current
+summary:
+  en: How top management leads the whole organisation through a serious event — decisions, priorities, staff, customers and press.
+  da: Hvordan topledelsen leder hele organisationen gennem en alvorlig begivenhed — beslutninger, prioriteter, medarbejdere, kunder og presse.
+body:
+  formal:
+    en: The leadership level of the response to a severe disruption, in which a crisis team makes business decisions, sets priorities, handles communication with staff, customers, media and authorities and starts continuity plans, while technical teams handle the incident itself.
+    da: Ledelsesniveauet i reaktionen på en alvorlig forstyrrelse, hvor en krisestab træffer forretningsbeslutninger, sætter prioriteter, håndterer kommunikation med medarbejdere, kunder, medier og myndigheder og sætter kontinuitetsplaner i gang, mens de tekniske teams tager sig af selve hændelsen.
+  plain:
+    en: Like the captain during a storm — the crew fixes the sails, but the captain decides whether to turn back and what to tell the passengers.
+    da: Som kaptajnen under en storm — besætningen ordner sejlene, men kaptajnen beslutter, om skibet skal vende om, og hvad passagererne skal have at vide.
+  inPractice:
+    en: During a ransomware attack, the crisis team meets every three hours, decides to take orders by phone, approves a press statement and chooses not to pay the ransom.
+    da: Under et ransomware-angreb mødes krisestaben hver tredje time, beslutter at tage imod ordrer pr. telefon, godkender en pressemeddelelse og vælger ikke at betale løsesummen.
+  whyItMatters:
+    en: A serious attack is a business crisis, not only an IT problem, and slow or muddled leadership can cost more in trust than the attack itself.
+    da: Et alvorligt angreb er en forretningskrise og ikke kun et IT-problem, og langsom eller rodet ledelse kan koste mere i tillid end selve angrebet.
+edges:
+  requires: [business-continuity-plan]
+  contrasts-with:
+    - to: incident-response
+      why:
+        en: Incident response is the technical work to stop and fix an attack; crisis management is leadership steering the business around it.
+        da: Hændelseshåndtering er det tekniske arbejde med at stoppe og udbedre et angreb; krisestyring er ledelsens styring af forretningen omkring det.
+      strength: primary
+      confidence: high
+  used-with: [management-responsibility]
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 7 og Ordliste (BCP, Kommunikationsplan)
+    tier: course-material
+  - title: ISO 22361:2022 — Security and resilience — Crisis management
+    tier: standard
+draft: true

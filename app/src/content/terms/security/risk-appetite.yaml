@@ -27,6 +27,7 @@ body:
 edges:
   requires: [risk, governance]
   part-of: [risk-management]
+  contrasts-with: [risk-profile]
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

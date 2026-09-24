@@ -33,6 +33,7 @@ edges:
         da: Kursets ordliste regner menneskelige foranstaltninger med som kontroller på linje med tekniske og organisatoriske.
       strength: normal
       confidence: high
+    - people-control
   mitigates:
     - to: social-engineering
       why:
@@ -57,6 +58,7 @@ edges:
         da: Awareness er, hvad den enkelte ved og gør; kultur er gruppens fælles vaner og holdninger.
       strength: normal
       confidence: high
+  used-with: [security-policy]
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

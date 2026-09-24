@@ -111,6 +111,19 @@ security:
     - id: zero-day
       en: Zero-day vulnerability
       da: Zero-day-sårbarhed
+    - id: human-error
+      en: Human error
+      da: Menneskelig fejl
+    - id: human-factor
+      en: Human factor
+      da: Den menneskelige faktor
+    - id: it-operations
+      en: IT operations
+      da: IT-drift
+    - id: legacy-system
+      en: Legacy system
+      da: Legacy-system
+      domain: [security, cs]
   awareness:
     - id: awareness-maturity
       en: Awareness maturity
@@ -157,6 +170,12 @@ security:
     - id: vishing
       en: Vishing
       da: Vishing (telefonsvindel)
+    - id: awareness-officer
+      en: Awareness officer
+      da: Awareness- og træningsansvarlig
+    - id: awareness-programme
+      en: Awareness programme
+      da: Awareness-program
   controls:
     - id: access-management
       en: Access management
@@ -220,6 +239,23 @@ security:
     - id: zero-trust
       en: Zero Trust
       da: Zero Trust
+    - id: authentication-factor
+      en: Authentication factor
+      da: Autentificeringsfaktor
+      domain: [security, cs]
+    - id: one-time-password
+      en: One-time password (OTP)
+      da: Engangskode (OTP)
+      domain: [security, cs]
+    - id: organisational-control
+      en: Organisational control
+      da: Organisatorisk kontrol
+    - id: people-control
+      en: People control
+      da: Menneskelig kontrol
+    - id: technical-control
+      en: Technical control
+      da: Teknisk kontrol
   risk-management:
     - id: business-impact-analysis
       en: Business impact analysis (BIA)
@@ -254,6 +290,33 @@ security:
     - id: threat-landscape
       en: Threat landscape
       da: Trusselsbillede
+    - id: qualitative-risk-analysis
+      en: Qualitative risk analysis
+      da: Kvalitativ risikoanalyse
+    - id: quantitative-risk-analysis
+      en: Quantitative risk analysis
+      da: Kvantitativ risikoanalyse
+    - id: risk-acceptance
+      en: Risk acceptance
+      da: Risikoaccept
+    - id: risk-avoidance
+      en: Risk avoidance
+      da: Risikoundgåelse
+    - id: risk-identification
+      en: Risk identification
+      da: Risikoidentifikation
+    - id: risk-mitigation
+      en: Risk mitigation
+      da: Risikoreduktion
+    - id: risk-monitoring
+      en: Risk monitoring
+      da: Risikoovervågning
+    - id: risk-profile
+      en: Risk profile
+      da: Risikoprofil
+    - id: risk-transfer
+      en: Risk transfer
+      da: Risikooverførsel
   compliance:
     - id: audit
       en: Audit
@@ -348,6 +411,42 @@ security:
     - id: personal-data
       en: Personal data
       da: Personoplysninger
+    - id: annex-a
+      en: ISO 27001 Annex A
+      da: ISO 27001 Annex A (bilag A)
+    - id: compliance-and-risk-coordinator
+      en: Compliance and risk coordinator
+      da: Compliance- og risikokoordinator
+    - id: compliance-roadmap
+      en: Compliance roadmap
+      da: Compliance-køreplan (roadmap)
+    - id: eu-directive
+      en: EU directive
+      da: EU-direktiv
+    - id: eu-regulation
+      en: EU regulation
+      da: EU-forordning
+    - id: grc
+      en: Governance, risk and compliance (GRC)
+      da: Governance, risk og compliance (GRC)
+    - id: grey-roles
+      en: Grey roles
+      da: Grå roller
+    - id: information-security-coordinator
+      en: Information security coordinator
+      da: Informationssikkerhedskoordinator
+    - id: iso-27000-series
+      en: ISO 27000 series
+      da: ISO 27000-serien
+    - id: security-maturity
+      en: Security maturity
+      da: Sikkerhedsmodenhed
+    - id: security-metrics
+      en: Security metrics (KPIs)
+      da: "Sikkerhedsmåling (KPI'er)"
+    - id: self-assessment
+      en: Self-assessment
+      da: Selvevaluering
   application-security:
     - id: api-security
       en: API security
@@ -450,6 +549,12 @@ security:
     - id: table-top-exercise
       en: Table-top exercise
       da: Table-top-øvelse
+    - id: crisis-management
+      en: Crisis management
+      da: Krisestyring
+    - id: escalation-procedure
+      en: Escalation procedure
+      da: Eskaleringsprocedure
 
 cs:
   networking:
