@@ -1,0 +1,50 @@
+term:
+  en: AI pair programming
+  da: AI-parprogrammering
+aka:
+  en: [pair programming with AI]
+  da: [parprogrammering med AI]
+domain: [ai]
+cluster: ai-coding
+layer: application
+era: 2021
+status: current
+summary:
+  en: Writing code together with an AI tool in a running back-and-forth, where the human stays in charge and checks every change.
+  da: At skrive kode sammen med et AI-værktøj i en løbende dialog, hvor mennesket bevarer styringen og tjekker hver ændring.
+body:
+  formal:
+    en: A way of working, named after the practice of two programmers sharing one screen, in which a developer and an AI coding assistant take turns proposing, questioning and refining code, with the developer reading and approving each change before it is kept.
+    da: En arbejdsform, opkaldt efter praksissen med to programmører ved én skærm, hvor en udvikler og en AI-kodeassistent skiftes til at foreslå, udfordre og forbedre kode, og udvikleren læser og godkender hver ændring, før den beholdes.
+  plain:
+    en: Like driving with a quick-thinking friend reading the map — they suggest turns and spot signs, but your hands stay on the wheel and you decide where to go.
+    da: Som at køre bil med en kvik ven, der læser kortet — vennen foreslår sving og ser skilte, men dine hænder bliver på rattet, og du bestemmer, hvor turen går hen.
+  inPractice:
+    en: A developer describes a bug to the assistant, asks it to suggest two ways to fix it, picks one, then asks it to explain a line she does not trust before keeping the change.
+    da: En udvikler beskriver en fejl for assistenten, beder den foreslå to måder at rette den på, vælger den ene og beder den så forklare en linje, hun ikke stoler på, før hun beholder ændringen.
+  whyItMatters:
+    en: Keeping a person reading along is what separates helpful speed from blind trust — the human catches the confident mistakes before they reach real users.
+    da: At et menneske læser med, er det, der skiller nyttig fart fra blind tillid — mennesket fanger de selvsikre fejl, før de når rigtige brugere.
+edges:
+  requires: [ai-coding-assistant]
+  contrasts-with:
+    - to: vibe-coding
+      why:
+        en: Both hand the typing to AI, but in pair programming the developer reads and understands every change, while vibe coding skips that reading on purpose.
+        da: Begge overlader skrivningen til AI, men ved parprogrammering læser og forstår udvikleren hver ændring, mens vibe coding bevidst springer den læsning over.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: human-in-the-loop
+      why:
+        en: The developer approving each change is a human-in-the-loop check applied to everyday programming.
+        da: At udvikleren godkender hver ændring, er en menneske i løkken-kontrol anvendt på daglig programmering.
+      strength: normal
+      confidence: high
+    - version-control
+sources:
+  - title: Chen et al. (2021), Evaluating Large Language Models Trained on Code
+    tier: reference
+  - title: 'Perry et al. (2023), Do Users Write More Insecure Code with AI Assistants? (ACM CCS)'
+    tier: reference
+draft: true

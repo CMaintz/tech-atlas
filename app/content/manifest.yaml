@@ -705,6 +705,27 @@ ai:
     - id: unsupervised-learning
       en: Unsupervised learning
       da: Ikke-superviseret læring
+    - id: classification
+      en: Classification
+      da: Klassifikation
+    - id: regression
+      en: Regression
+      da: Regression
+    - id: clustering
+      en: Clustering
+      da: Klyngeanalyse (clustering)
+    - id: reinforcement-learning
+      en: Reinforcement learning
+      da: Forstærkningslæring (reinforcement learning)
+    - id: self-supervised-learning
+      en: Self-supervised learning
+      da: Selvsuperviseret læring
+    - id: generative-ai
+      en: Generative AI
+      da: Generativ AI
+    - id: transfer-learning
+      en: Transfer learning
+      da: Overførselslæring (transfer learning)
   llm:
     - id: large-language-model
       en: Large language model (LLM)
@@ -736,6 +757,18 @@ ai:
     - id: ai-agent
       en: AI agent
       da: AI-agent
+    - id: tokenizer
+      en: Tokenizer
+      da: Tokenizer
+    - id: next-token-prediction
+      en: Next-token prediction
+      da: Forudsigelse af næste token
+    - id: knowledge-cutoff
+      en: Knowledge cutoff
+      da: Vidensgrænse (knowledge cutoff)
+    - id: reasoning-model
+      en: Reasoning model
+      da: Ræsonnementsmodel (reasoning model)
   ai-risk:
     - id: prompt-injection
       en: Prompt injection
@@ -768,6 +801,301 @@ ai:
       en: AI red teaming
       da: AI red teaming
       domain: [ai, security]
+    - id: alignment
+      en: AI alignment
+      da: AI-alignment
+    - id: guardrails
+      en: Guardrails
+      da: Guardrails (sikkerhedsværn)
+    - id: jailbreak
+      en: Jailbreak
+      da: Jailbreak
+      domain: [ai, security]
+    - id: model-card
+      en: Model card
+      da: Modelkort (model card)
+    - id: general-purpose-ai-model
+      en: General-purpose AI model (GPAI)
+      da: AI-model til almen brug (GPAI)
+    - id: sensitive-information-disclosure
+      en: Sensitive information disclosure
+      da: Afsløring af følsomme oplysninger
+      domain: [ai, security]
+    - id: excessive-agency
+      en: Excessive agency
+      da: Overdreven handlefrihed (excessive agency)
+      domain: [ai, security]
+    - id: ai-supply-chain-attack
+      en: AI supply chain attack
+      da: Angreb på AI-forsyningskæden
+      domain: [ai, security]
+  training:
+    - id: gradient-descent
+      en: Gradient descent
+      da: Gradientnedstigning (gradient descent)
+    - id: backpropagation
+      en: Backpropagation
+      da: Backpropagation
+    - id: loss-function
+      en: Loss function
+      da: Tabsfunktion (loss function)
+    - id: epoch
+      en: Epoch
+      da: Epoke (epoch)
+    - id: batch-size
+      en: Batch size
+      da: Batchstørrelse
+    - id: hyperparameter
+      en: Hyperparameter
+      da: Hyperparameter
+    - id: model-parameter
+      en: Model parameter
+      da: Modelparameter
+    - id: model-weights
+      en: Model weights
+      da: Modelvægte (weights)
+    - id: underfitting
+      en: Underfitting
+      da: Undertilpasning (underfitting)
+    - id: synthetic-data
+      en: Synthetic data
+      da: Syntetiske data
+    - id: data-labeling
+      en: Data labeling
+      da: Datamærkning (data labeling)
+    - id: pretraining
+      en: Pretraining
+      da: Fortræning (pretraining)
+    - id: instruction-tuning
+      en: Instruction tuning
+      da: Instruktionstilpasning (instruction tuning)
+    - id: rlhf
+      en: Reinforcement learning from human feedback (RLHF)
+      da: Forstærkningslæring fra menneskelig feedback (RLHF)
+    - id: lora
+      en: Low-rank adaptation (LoRA)
+      da: Low-rank adaptation (LoRA)
+  evaluation:
+    - id: accuracy
+      en: Accuracy
+      da: Nøjagtighed (accuracy)
+    - id: precision
+      en: Precision
+      da: Præcision (precision)
+    - id: recall
+      en: Recall
+      da: Genkaldelse (recall)
+    - id: f1-score
+      en: F1 score
+      da: F1-score
+    - id: confusion-matrix
+      en: Confusion matrix
+      da: Forvekslingsmatrix (confusion matrix)
+    - id: validation-set
+      en: Validation set
+      da: Valideringssæt
+    - id: test-set
+      en: Test set
+      da: Testsæt
+    - id: benchmark
+      en: Benchmark
+      da: Benchmark
+    - id: model-evaluation
+      en: Model evaluation (evals)
+      da: Modelevaluering (evals)
+    - id: llm-as-a-judge
+      en: LLM-as-a-judge
+      da: LLM som dommer (LLM-as-a-judge)
+  model-architecture:
+    - id: attention-mechanism
+      en: Attention mechanism
+      da: Attention-mekanisme
+    - id: encoder
+      en: Encoder
+      da: Encoder
+    - id: decoder
+      en: Decoder
+      da: Decoder
+    - id: foundation-model
+      en: Foundation model
+      da: Grundmodel (foundation model)
+    - id: open-weight-model
+      en: Open-weight model
+      da: Model med åbne vægte (open-weight)
+    - id: multimodal-model
+      en: Multimodal model
+      da: Multimodal model
+    - id: diffusion-model
+      en: Diffusion model
+      da: Diffusionsmodel
+    - id: small-language-model
+      en: Small language model (SLM)
+      da: Lille sprogmodel (SLM)
+    - id: mixture-of-experts
+      en: Mixture of experts (MoE)
+      da: Mixture of experts (MoE)
+    - id: convolutional-neural-network
+      en: Convolutional neural network (CNN)
+      da: Foldningsnetværk (CNN)
+  prompting:
+    - id: system-prompt
+      en: System prompt
+      da: Systemprompt
+    - id: prompt-engineering
+      en: Prompt engineering
+      da: Prompt engineering
+    - id: context-engineering
+      en: Context engineering
+      da: Context engineering
+    - id: few-shot-prompting
+      en: Few-shot prompting
+      da: Few-shot prompting
+    - id: zero-shot-prompting
+      en: Zero-shot prompting
+      da: Zero-shot prompting
+    - id: chain-of-thought
+      en: Chain-of-thought (CoT)
+      da: Tankekæde (chain-of-thought)
+    - id: structured-output
+      en: Structured output
+      da: Struktureret output
+    - id: sampling
+      en: Sampling
+      da: Sampling (udtrækning af tokens)
+    - id: temperature
+      en: Temperature
+      da: Temperatur
+    - id: top-p-sampling
+      en: Top-p sampling
+      da: Top-p-sampling
+  ai-infrastructure:
+    - id: gpu
+      en: Graphics processing unit (GPU)
+      da: Grafikprocessor (GPU)
+    - id: tpu
+      en: Tensor processing unit (TPU)
+      da: Tensor processing unit (TPU)
+    - id: model-serving
+      en: Model serving
+      da: Modeldrift (model serving)
+    - id: latency
+      en: Latency
+      da: Latens
+      domain: [ai, cs]
+    - id: throughput
+      en: Throughput
+      da: Gennemløb (throughput)
+      domain: [ai, cs]
+    - id: time-to-first-token
+      en: Time to first token (TTFT)
+      da: Tid til første token (TTFT)
+    - id: kv-cache
+      en: KV cache
+      da: KV-cache
+    - id: prompt-caching
+      en: Prompt caching
+      da: Prompt caching
+    - id: quantization
+      en: Quantization
+      da: Kvantisering
+    - id: knowledge-distillation
+      en: Knowledge distillation
+      da: Vidensdestillation (distillation)
+  retrieval:
+    - id: vector-database
+      en: Vector database
+      da: Vektordatabase
+    - id: semantic-search
+      en: Semantic search
+      da: Semantisk søgning
+    - id: keyword-search
+      en: Keyword search
+      da: Nøgleordssøgning
+    - id: hybrid-search
+      en: Hybrid search
+      da: Hybrid søgning
+    - id: chunking
+      en: Chunking
+      da: Opdeling i bidder (chunking)
+    - id: reranking
+      en: Reranking
+      da: Genrangering (reranking)
+    - id: cosine-similarity
+      en: Cosine similarity
+      da: Cosinuslighed
+    - id: nearest-neighbour-search
+      en: Nearest-neighbour search
+      da: Nærmeste-nabo-søgning
+    - id: embedding-model
+      en: Embedding model
+      da: Embedding-model
+    - id: grounding
+      en: Grounding
+      da: Forankring (grounding)
+  agents:
+    - id: tool-calling
+      en: Tool calling
+      da: Værktøjskald (tool calling)
+    - id: model-context-protocol
+      en: Model Context Protocol (MCP)
+      da: Model Context Protocol (MCP)
+    - id: mcp-server
+      en: MCP server
+      da: MCP-server
+    - id: agentic-workflow
+      en: Agentic workflow
+      da: Agentisk arbejdsgang
+    - id: multi-agent-system
+      en: Multi-agent system
+      da: Multiagentsystem
+    - id: agent-memory
+      en: Agent memory
+      da: Agenthukommelse
+    - id: human-in-the-loop
+      en: Human-in-the-loop (HITL)
+      da: Menneske i løkken (HITL)
+    - id: computer-use
+      en: Computer use
+      da: Computerbrug (computer use)
+    - id: agent-sandbox
+      en: Agent sandbox
+      da: Agent-sandkasse
+      domain: [ai, security]
+    - id: agent-to-agent-protocol
+      en: Agent2Agent protocol (A2A)
+      da: Agent2Agent-protokol (A2A)
+  ai-coding:
+    - id: ai-coding-assistant
+      en: AI coding assistant
+      da: AI-kodeassistent
+    - id: code-completion
+      en: Code completion
+      da: Kodefuldførelse (code completion)
+    - id: ai-pair-programming
+      en: AI pair programming
+      da: AI-parprogrammering
+    - id: vibe-coding
+      en: Vibe coding
+      da: Vibe coding
+    - id: coding-agent
+      en: Coding agent
+      da: Kodeagent
+    - id: agent-instructions-file
+      en: Agent instructions file
+      da: Instruktionsfil til agenter
+    - id: slopsquatting
+      en: Slopsquatting
+      da: Slopsquatting
+      domain: [ai, security]
+    - id: ai-code-review
+      en: AI code review
+      da: AI-kodegennemgang
+    - id: spec-driven-development
+      en: Spec-driven development
+      da: Specifikationsdrevet udvikling
+    - id: fill-in-the-middle
+      en: Fill-in-the-middle (FIM)
+      da: Fill-in-the-middle (FIM)
 
 platform:
   cloud:

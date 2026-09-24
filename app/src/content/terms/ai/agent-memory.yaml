@@ -1,0 +1,65 @@
+term:
+  en: Agent memory
+  da: Agenthukommelse
+aka:
+  en: [long-term memory]
+  da: [langtidshukommelse]
+domain: [ai]
+cluster: agents
+layer: agent
+status: emerging
+summary:
+  en: Notes an AI agent saves outside the model and reads back later, so it can recall facts and past work between separate chats.
+  da: Noter, en AI-agent gemmer uden for modellen og læser igen senere, så den kan huske fakta og tidligere arbejde mellem adskilte samtaler.
+body:
+  formal:
+    en: Storage outside the model — plain files, a database or a vector database — into which an agent writes facts, choices and summaries, and from which the most useful items are fetched back into the context window at the start of later tasks.
+    da: Lager uden for modellen — almindelige filer, en database eller en vektordatabase — som en agent skriver fakta, valg og resuméer ind i, og hvorfra de mest nyttige dele hentes tilbage i kontekstvinduet, når senere opgaver starter.
+  plain:
+    en: Like a nurse's notebook passed between shifts — whoever starts work reads the notes first, because nobody remembers yesterday on their own.
+    da: Som en sygeplejerskes notesbog, der går videre mellem vagterne — den, der møder ind, læser først noterne, for ingen husker selv i går.
+  inPractice:
+    en: A coding assistant writes "this project uses tabs, tests live in the test folder" to a notes file, and next week, in a fresh chat, reads it back before touching any code.
+    da: En kodeassistent skriver "dette projekt bruger tabulatorer, testene ligger i test-mappen" i en notefil og læser den igen næste uge i en ny samtale, før den rører koden.
+  whyItMatters:
+    en: It makes agents more useful over time, but whatever is saved is trusted later — a planted false note or a stored secret can outlive the chat that caused it.
+    da: Det gør agenter mere nyttige over tid, men det, der gemmes, stoles på senere — en plantet falsk note eller en gemt hemmelighed kan overleve den samtale, der skabte den.
+edges:
+  requires: [ai-agent]
+  part-of: [ai-agent]
+  contrasts-with:
+    - to: context-window
+      why:
+        en: The context window is what the model sees right now and is lost when the chat ends; agent memory is stored outside and survives to be read in again.
+        da: Kontekstvinduet er det, modellen ser lige nu, og forsvinder, når samtalen slutter; agenthukommelse gemmes udenfor og overlever, så den kan læses ind igen.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: prompt-injection
+      why:
+        en: Hidden orders read once can be saved as a "memory" and then act again in every later chat — a lasting form of prompt injection.
+        da: Skjulte ordrer, der læses én gang, kan gemmes som en "hukommelse" og så virke igen i hver senere samtale — en varig form for prompt injection.
+      strength: primary
+      confidence: medium
+    - to: vector-database
+      why:
+        en: Memories are often stored as embeddings so the agent can find the ones that match the task in hand by meaning.
+        da: Hukommelser gemmes ofte som embeddings, så agenten kan finde dem, der passer til den aktuelle opgave, efter betydning.
+      strength: normal
+      confidence: high
+    - personal-data
+    - to: context-engineering
+      why:
+        en: Deciding which saved notes to bring back into view at each step is a core context-engineering choice.
+        da: At beslutte, hvilke gemte noter der skal hentes frem i hvert trin, er et centralt context engineering-valg.
+      strength: normal
+      confidence: medium
+sources:
+  - title: 'Park et al. (2023), Generative Agents: Interactive Simulacra of Human Behavior'
+    tier: reference
+  - title: 'Packer et al. (2023), MemGPT: Towards LLMs as Operating Systems'
+    tier: reference
+  - title: OWASP Top 10 for LLM Applications 2025 (LLM01 Prompt Injection)
+    tier: reference
+    publisher: OWASP
+draft: true

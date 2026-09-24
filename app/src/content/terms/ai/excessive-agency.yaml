@@ -1,0 +1,55 @@
+term:
+  en: Excessive agency
+  da: Overdreven handlefrihed (excessive agency)
+aka:
+  en: []
+  da: []
+domain: [ai, security]
+cluster: ai-risk
+layer: agent
+status: current
+summary:
+  en: Giving an AI system more tools, rights or freedom to act than its job needs, so one wrong or tricked step can do real damage.
+  da: At give et AI-system flere værktøjer, rettigheder eller mere frihed, end opgaven kræver, så ét forkert skridt kan gøre reel skade.
+body:
+  formal:
+    en: A weakness, listed as LLM06 in the OWASP Top 10 for LLM Applications 2025, in which an application built on a large language model has too many functions, too many permissions or too much independence, letting unexpected, manipulated or made-up model output trigger harmful actions.
+    da: En svaghed, opført som LLM06 i OWASP Top 10 for LLM Applications 2025, hvor en applikation bygget på en stor sprogmodel har for mange funktioner, for mange tilladelser eller for stor selvstændighed, så uventet, manipuleret eller opdigtet output fra modellen kan udløse skadelige handlinger.
+  plain:
+    en: Like giving a new intern the master key, the company card and the power to sign contracts on day one, when all they were hired to do is sort the post.
+    da: Som at give en ny praktikant hovednøglen, firmakortet og ret til at skrive under på kontrakter den første dag, selv om vedkommende kun er ansat til at sortere posten.
+  inPractice:
+    en: An email AI agent only needs to read and sum up messages, but it was connected with full mailbox rights; a planted email tells it to delete the inbox and it does.
+    da: En AI-agent til mail skal kun læse og opsummere beskeder, men den er koblet på med fulde rettigheder til postkassen; en plantet mail beder den slette indbakken, og det gør den.
+  whyItMatters:
+    en: No model can be made fully trustworthy, so limiting what it is allowed to do caps the damage when it is wrong or hijacked; the risk grows with every tool an agent gets.
+    da: Ingen model kan gøres helt pålidelig, så det at begrænse, hvad den må, sætter et loft over skaden, når den tager fejl eller bliver kapret; risikoen vokser med hvert værktøj, en agent får.
+edges:
+  requires: [ai-agent, tool-calling]
+  used-with:
+    - to: prompt-injection
+      why:
+        en: Prompt injection is the usual trigger, and excessive agency decides how much harm the hijacked agent can then do.
+        da: Prompt injection er den typiske udløser, og overdreven handlefrihed afgør, hvor meget skade den kaprede agent derefter kan gøre.
+      strength: primary
+      confidence: high
+  causes:
+    - to: data-breach
+      why:
+        en: An agent with wide access to files or email can be steered into sending data outside the organisation.
+        da: En agent med bred adgang til filer eller mail kan styres til at sende data ud af organisationen.
+      strength: normal
+      confidence: medium
+  contrasts-with:
+    - to: privilege-escalation
+      why:
+        en: In privilege escalation an attacker gains rights they were never given; with excessive agency the rights were handed over from the start.
+        da: Ved rettighedseskalering tilegner en angriber sig rettigheder, der aldrig blev givet; ved overdreven handlefrihed blev rettighederne givet fra starten.
+      strength: normal
+      confidence: medium
+sources:
+  - title: OWASP Top 10 for LLM Applications 2025 — LLM06 Excessive Agency
+    tier: reference
+    publisher: OWASP
+    url: https://genai.owasp.org/llmrisk/llm062025-excessive-agency/
+draft: true

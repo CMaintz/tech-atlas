@@ -1,0 +1,58 @@
+term:
+  en: Attention mechanism
+  da: Attention-mekanisme
+aka:
+  en: [attention, self-attention]
+  da: [attention, self-attention]
+domain: [ai]
+cluster: model-architecture
+layer: model
+era: 2014
+status: current
+summary:
+  en: The step inside a model that decides, for each token, which other tokens in the input matter most right now.
+  da: Det trin i en model, der for hvert token afgør, hvilke andre tokens i inputtet der betyder mest lige nu.
+body:
+  formal:
+    en: A method in a neural network where each token's embedding is compared with every other token's, the match scores are turned into shares that add up to one, and the token takes on a mix of the others weighted by those shares.
+    da: En metode i et neuralt netværk, hvor hvert tokens embedding sammenlignes med alle andre tokens, matchscorerne laves om til andele, der tilsammen giver én, og tokenet optager en blanding af de andre vægtet efter de andele.
+  plain:
+    en: Like reading "she put the cup on the table and it broke" and looking back to work out whether "it" means the cup or the table before you go on.
+    da: Som når du læser "hun satte koppen på bordet, og den gik i stykker" og kigger tilbage for at finde ud af, om "den" er koppen eller bordet, før du læser videre.
+  inPractice:
+    en: When a chat assistant answers a question about a long contract, attention lets the words of the question pull directly on the one clause, many pages back, that holds the answer.
+    da: Når en chatassistent besvarer et spørgsmål om en lang kontrakt, lader attention spørgsmålets ord trække direkte på den ene klausul mange sider tilbage, der rummer svaret.
+  whyItMatters:
+    en: Every token is compared with every other, so the work grows much faster than the length of the input — the main reason a longer context window costs more time and money.
+    da: Hvert token sammenlignes med alle de andre, så arbejdet vokser langt hurtigere end inputtets længde — hovedårsagen til, at et længere kontekstvindue koster mere tid og flere penge.
+edges:
+  requires: [embedding]
+  part-of:
+    - to: transformer
+      why:
+        en: Attention is the core building block that a transformer repeats layer after layer.
+        da: Attention er den centrale byggesten, som en transformer gentager lag efter lag.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: context-window
+      why:
+        en: Attention compares every token with every other, so its cost sets how large a context window can practically be.
+        da: Attention sammenligner hvert token med alle andre, så dens pris bestemmer, hvor stort et kontekstvindue reelt kan være.
+      strength: primary
+      confidence: high
+    - to: kv-cache
+      why:
+        en: A KV cache stores attention results for earlier tokens so they are not worked out again for each new token.
+        da: En KV-cache gemmer attention-resultater for tidligere tokens, så de ikke skal regnes ud igen for hvert nyt token.
+      strength: normal
+      confidence: high
+sources:
+  - title: Bahdanau, Cho & Bengio (2014), Neural Machine Translation by Jointly Learning to Align and Translate
+    tier: reference
+  - title: Vaswani et al. (2017), Attention Is All You Need
+    tier: reference
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 12.4)'
+    tier: textbook
+    publisher: MIT Press
+draft: true

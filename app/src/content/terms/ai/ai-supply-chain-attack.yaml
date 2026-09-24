@@ -1,0 +1,66 @@
+term:
+  en: AI supply chain attack
+  da: Angreb på AI-forsyningskæden
+aka:
+  en: [ML supply chain attack, model supply chain attack]
+  da: [angreb på ML-forsyningskæden]
+domain: [ai, security]
+cluster: ai-risk
+layer: model
+status: current
+summary:
+  en: Attacking the ready-made parts an AI system is built from — shared models, datasets or plug-in parts — instead of the system itself.
+  da: At angribe de færdige dele, et AI-system er bygget af — delte modeller, datasæt eller tilføjelser — i stedet for selve systemet.
+body:
+  formal:
+    en: An attack, covered by LLM03 Supply Chain in the OWASP Top 10 for LLM Applications 2025, that tampers with third-party components of an AI system, such as model weights, LoRA files, training data or model files that run hidden code when loaded, or copycat model pages on public hubs.
+    da: Et angreb, dækket af LLM03 Supply Chain i OWASP Top 10 for LLM Applications 2025, der manipulerer tredjepartskomponenter i et AI-system, såsom modelvægte, LoRA-tilføjelser, træningsdata, modelfiler, der kører skjult kode, når de indlæses, eller efterligninger af modelsider på offentlige hubs.
+  plain:
+    en: Like a kitchen that buys a ready-made sauce base from a stall with a nearly identical name to its usual supplier — the dishes look fine, but something harmful was mixed in before the jar arrived.
+    da: Som et køkken, der køber en færdig saucebase hos en bod med næsten samme navn som den faste leverandør — retterne ser fine ud, men der var blandet noget skadeligt i, før glasset ankom.
+  inPractice:
+    en: A developer downloads a popular open-weight model from a copycat page whose name differs by one letter; loading the old-style file format quietly runs code that opens a back door on the build server.
+    da: En udvikler henter en populær model med åbne vægte fra en efterlignet side, hvis navn afviger med ét bogstav; når den gamle filtype indlæses, kører der stille kode, der åbner en bagdør på byggeserveren.
+  whyItMatters:
+    en: Most teams build on models and data they did not make and cannot fully inspect, so one poisoned download can reach every product that uses it.
+    da: De fleste teams bygger på modeller og data, de ikke selv har lavet og ikke fuldt kan efterprøve, så én forgiftet download kan nå ud til alle produkter, der bruger den.
+edges:
+  requires: [software-supply-chain, model-weights]
+  kind-of:
+    - to: supply-chain-attack
+      why:
+        en: It is the same trick of striking through a trusted supplier, aimed at models and data instead of ordinary software.
+        da: Det er det samme greb — at ramme gennem en betroet leverandør — rettet mod modeller og data i stedet for almindelig software.
+      strength: primary
+      confidence: high
+  exploits:
+    - to: open-weight-model
+      why:
+        en: Freely shared model files are downloaded and loaded widely with little checking, making them an easy carrier for tampered weights or hidden code.
+        da: Frit delte modelfiler hentes og indlæses bredt uden megen kontrol, hvilket gør dem til en let bærer af manipulerede vægte eller skjult kode.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: data-poisoning
+      why:
+        en: Poisoned datasets or fine-tuned weights shared publicly are one of the main ways an AI supply chain attack is delivered.
+        da: Forgiftede datasæt eller finjusterede vægte, der deles offentligt, er en af de vigtigste måder, et angreb på AI-forsyningskæden leveres på.
+      strength: normal
+      confidence: high
+  contrasts-with:
+    - to: slopsquatting
+      why:
+        en: Both abuse trust in downloads, but slopsquatting plants code packages under names an AI invents, while an AI supply chain attack tampers with the AI's own parts.
+        da: Begge misbruger tillid til downloads, men slopsquatting planter kodepakker under navne, en AI finder på, mens et angreb på AI-forsyningskæden manipulerer AI'ens egne dele.
+      strength: normal
+      confidence: medium
+sources:
+  - title: OWASP Top 10 for LLM Applications 2025 — LLM03 Supply Chain
+    tier: reference
+    publisher: OWASP
+    url: https://genai.owasp.org/llmrisk/llm032025-supply-chain/
+  - title: NIST AI 100-2 — Adversarial Machine Learning, A Taxonomy and Terminology of Attacks and Mitigations
+    tier: standard
+    publisher: NIST
+    url: https://doi.org/10.6028/NIST.AI.100-2e2025
+draft: true

@@ -1,0 +1,43 @@
+term:
+  en: Model parameter
+  da: Modelparameter
+aka:
+  en: [learned parameter]
+  da: [lært parameter]
+domain: [ai]
+cluster: training
+layer: model
+status: current
+summary:
+  en: One of the numbers inside a model that is set by learning from data; their count is how model size is usually stated.
+  da: Et af de tal inde i en model, der fastsættes ved at lære af data; antallet af dem er den måde, modelstørrelse normalt opgives på.
+body:
+  formal:
+    en: An internal value of a model — mostly the model weights plus small offset values — that model training adjusts to reduce the loss; a large language model can have billions of them.
+    da: En intern værdi i en model — mest modelvægtene plus små forskydningsværdier — som modeltræning justerer for at mindske tabet; en stor sprogmodel kan have milliarder af dem.
+  plain:
+    en: Like the thousands of tiny screws on a huge sound desk — nobody sets them by hand; they are turned bit by bit until the sound comes out right.
+    da: Som de tusindvis af små skruer på et kæmpe mixerbord — ingen sætter dem i hånden; de drejes lidt ad gangen, til lyden bliver rigtig.
+  inPractice:
+    en: A buyer compares a "7B" and a "70B" model; the numbers are billions of model parameters, which roughly predict memory needs, running cost and ability.
+    da: En indkøber sammenligner en "7B"- og en "70B"-model; tallene er milliarder af modelparametre, som groft forudsiger hukommelsesbehov, driftspris og evner.
+  whyItMatters:
+    en: Parameter count drives how much hardware and energy a model needs, and the learned values are the model itself — whoever holds them holds the model.
+    da: Antallet af parametre styrer, hvor meget hardware og energi en model kræver, og de lærte værdier er selve modellen — den, der har dem, har modellen.
+edges:
+  requires: [machine-learning]
+  part-of:
+    - to: neural-network
+      why:
+        en: A neural network's behaviour is entirely set by the values of its parameters.
+        da: Et neuralt netværks opførsel er helt bestemt af værdierne af dets parametre.
+      strength: primary
+      confidence: high
+  used-with: [model-training]
+sources:
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning'
+    tier: textbook
+    publisher: MIT Press
+  - title: Kaplan et al. (2020), Scaling Laws for Neural Language Models
+    tier: reference
+draft: true

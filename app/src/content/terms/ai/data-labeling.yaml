@@ -1,0 +1,50 @@
+term:
+  en: Data labeling
+  da: Datamærkning (data labeling)
+aka:
+  en: [data annotation, data labelling]
+  da: [data labeling, annotering]
+domain: [ai]
+cluster: training
+layer: training
+status: current
+summary:
+  en: Having people (or tools) attach the right answer to each example — "cat", "spam", "angry" — so a model can learn from it.
+  da: At lade mennesker (eller værktøjer) sætte det rigtige svar på hvert eksempel — "kat", "spam", "vred" — så en model kan lære af det.
+body:
+  formal:
+    en: The work of adding the correct output to each input in a data set, producing the answered examples that supervised learning needs as training data and that evaluation needs as a reference.
+    da: Arbejdet med at tilføje det korrekte output til hvert input i et datasæt, så man får de besvarede eksempler, som superviseret læring kræver som træningsdata, og som evaluering kræver som facit.
+  plain:
+    en: Like writing the answer on the back of every flash card before a pupil starts practising with the deck.
+    da: Som at skrive svaret på bagsiden af hvert kort, før en elev begynder at øve sig med bunken.
+  inPractice:
+    en: A hospital pays two doctors to mark tumours on 10,000 scans; where they disagree, a third decides, and the marked scans become the teaching set.
+    da: Et hospital betaler to læger for at markere svulster på 10.000 scanninger; hvor de er uenige, afgør en tredje, og de markerede scanninger bliver undervisningssættet.
+  whyItMatters:
+    en: A model can only be as good as its answers key; rushed, poorly paid or one-sided labeling passes straight into the model's errors and bias.
+    da: En model kan kun blive så god som sit facit; forhastet, underbetalt eller ensidig mærkning går direkte videre i modellens fejl og bias.
+edges:
+  part-of:
+    - to: supervised-learning
+      why:
+        en: Supervised learning cannot start until each example carries its correct answer.
+        da: Superviseret læring kan ikke begynde, før hvert eksempel har sit korrekte svar.
+      strength: primary
+      confidence: high
+  requires: [training-data]
+  causes:
+    - to: ai-bias
+      why:
+        en: The labelers' own views and shortcuts become the model's idea of the truth.
+        da: Mærkernes egne holdninger og genveje bliver modellens opfattelse af sandheden.
+      strength: normal
+      confidence: high
+sources:
+  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    tier: standard
+    publisher: ISO/IEC
+  - title: NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+    tier: standard
+    publisher: NIST
+draft: true

@@ -1,0 +1,43 @@
+term:
+  en: Structured output
+  da: Struktureret output
+aka:
+  en: [JSON mode]
+  da: [JSON-tilstand]
+domain: [ai]
+cluster: prompting
+layer: inference
+status: current
+summary:
+  en: Making a language model answer in a fixed, machine-readable shape — set fields in JSON — so other software can use the reply directly.
+  da: At få en sprogmodel til at svare i en fast, maskinlæsbar form — faste felter i JSON — så anden software kan bruge svaret direkte.
+body:
+  formal:
+    en: A feature of a model service that forces generated text to match a given JSON layout, usually by only letting sampling pick tokens that keep the output valid against that layout, so the result can be read by code without guessing.
+    da: En funktion i en modeltjeneste, der tvinger genereret tekst til at følge en given JSON-opbygning, typisk ved kun at lade sampling vælge tokens, der holder outputtet gyldigt i forhold til opbygningen, så resultatet kan læses af kode uden gætteri.
+  plain:
+    en: Like handing someone a paper form with labelled boxes instead of a blank sheet — whatever they write, it lands in the right box.
+    da: Som at give nogen en papirblanket med mærkede felter i stedet for et blankt ark — hvad de end skriver, havner det i det rigtige felt.
+  inPractice:
+    en: An invoice app sends each scanned bill to a language model and demands a reply with the fields supplier, date, total and currency, which it then saves straight into its records.
+    da: En fakturaapp sender hver scannet regning til en sprogmodel og kræver et svar med felterne leverandør, dato, total og valuta, som den derefter gemmer direkte i sine poster.
+  whyItMatters:
+    en: It removes a common cause of broken AI features — replies that code cannot read — but a correctly shaped answer can still hold wrong or harmful values, so the content must still be checked.
+    da: Det fjerner en almindelig årsag til AI-funktioner, der bryder sammen — svar, som kode ikke kan læse — men et korrekt formet svar kan stadig indeholde forkerte eller skadelige værdier, så indholdet skal stadig tjekkes.
+edges:
+  requires: [sampling]
+  used-with:
+    - to: tool-calling
+      why:
+        en: A tool call is itself structured output — the model fills in the tool's named inputs in a fixed shape that code then runs.
+        da: Et værktøjskald er i sig selv struktureret output — modellen udfylder værktøjets navngivne input i en fast form, som kode derefter kører.
+      strength: primary
+      confidence: high
+sources:
+  - title: OpenAI documentation — Structured Outputs
+    tier: official-doc
+    publisher: OpenAI
+  - title: OWASP Top 10 for LLM Applications 2025 — LLM05 Improper Output Handling
+    tier: reference
+    publisher: OWASP
+draft: true

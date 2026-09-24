@@ -1,0 +1,48 @@
+term:
+  en: Semantic search
+  da: Semantisk søgning
+aka:
+  en: [vector search]
+  da: [vektorsøgning]
+domain: [ai]
+cluster: retrieval
+layer: application
+status: current
+summary:
+  en: Finding text by what it means rather than by the exact words it uses, so a question can match a passage phrased differently.
+  da: At finde tekst ud fra dens betydning frem for dens præcise ord, så et spørgsmål kan ramme et anderledes formuleret afsnit.
+body:
+  formal:
+    en: A way of searching in which the question and the stored texts are turned into embeddings and the texts whose embeddings score highest on a closeness measure, most often cosine similarity, are returned.
+    da: En søgemetode, hvor spørgsmålet og de gemte tekster laves om til embeddings, og de tekster, hvis embeddings scorer højest på et nærhedsmål, oftest cosinuslighed, returneres.
+  plain:
+    en: Like asking a well-read friend for "that film where the boat sinks" — they know what you mean even though you never said its name.
+    da: Som at spørge en belæst ven om "den film, hvor skibet synker" — vedkommende ved, hvad du mener, selvom du aldrig sagde titlen.
+  inPractice:
+    en: An employee types "can I bring my dog to the office?" and semantic search returns the section of the building rules headed "animals on the premises".
+    da: En medarbejder skriver "må jeg tage min hund med på kontoret?", og semantisk søgning finder afsnittet i husreglerne med overskriften "dyr på området".
+  whyItMatters:
+    en: It finds answers that word matching misses, but it can also return passages that feel related yet say something different, and it is weak on exact names and codes.
+    da: Den finder svar, som ordmatch overser, men kan også returnere afsnit, der føles beslægtede, men siger noget andet, og den er svag til præcise navne og koder.
+edges:
+  requires:
+    - embedding
+    - to: cosine-similarity
+      why:
+        en: Search results are ranked by how close each text's embedding is to the question's, and cosine similarity is the usual score for that.
+        da: Resultaterne rangeres efter, hvor tæt hver teksts embedding er på spørgsmålets, og cosinuslighed er det sædvanlige mål for det.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: vector-database
+      why:
+        en: Comparing a question with millions of stored embeddings is only fast enough when they sit in a store built for that job.
+        da: At sammenligne et spørgsmål med millioner af gemte embeddings er kun hurtigt nok, når de ligger i et lager bygget til netop det.
+      strength: normal
+      confidence: high
+sources:
+  - title: Reimers & Gurevych (2019), Sentence-BERT — Sentence Embeddings using Siamese BERT-Networks
+    tier: reference
+  - title: Karpukhin et al. (2020), Dense Passage Retrieval for Open-Domain Question Answering
+    tier: reference
+draft: true

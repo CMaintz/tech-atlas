@@ -1,0 +1,58 @@
+term:
+  en: General-purpose AI model (GPAI)
+  da: AI-model til almen brug (GPAI)
+aka:
+  en: [GPAI, GPAI model]
+  da: [GPAI, GPAI-model]
+domain: [ai]
+cluster: ai-risk
+layer: model
+era: 2024
+status: current
+summary:
+  en: The EU AI Act's name for a broad model that can handle many different tasks and be built into many other AI products.
+  da: EU's AI-forordnings betegnelse for en bred model, der kan klare mange forskellige opgaver og bygges ind i mange andre AI-produkter.
+body:
+  formal:
+    en: Under Article 3(63) of the EU AI Act, an AI model trained on large amounts of data that can competently perform a wide range of distinct tasks; its providers must keep technical documentation, inform downstream builders and respect copyright (Art. 53), with extra duties for the most powerful models that could cause harm across society (Art. 55).
+    da: Efter artikel 3, nr. 63, i EU's AI-forordning en AI-model, trænet på store mængder data, der kompetent kan udføre en bred vifte af forskellige opgaver; udbyderne skal føre teknisk dokumentation, informere dem, der bygger videre, og respektere ophavsret (art. 53), med ekstra pligter for modeller med systemisk risiko (art. 55).
+  plain:
+    en: Like a company whose engine ends up in cars, boats and generators — the law asks the engine's maker for proper paperwork so every builder further down the line knows what they are fitting.
+    da: Som en fabrik, hvis motor ender i biler, både og generatorer — loven kræver ordentlige papirer fra fabrikken, så alle, der bygger videre, ved, hvad de sætter i.
+  inPractice:
+    en: A lab releasing a new large language model in the EU writes technical documentation for the authorities, a summary of its training data and usage guidance for app makers; because it was trained with very large computing power, it also runs attack testing and reports serious incidents.
+    da: Et laboratorium, der lancerer en ny stor sprogmodel i EU, skriver teknisk dokumentation til myndighederne, en sammenfatning af træningsdataene og vejledning til app-udviklere; fordi den er trænet med meget stor regnekraft, skal det også udføre angrebstest og indberette alvorlige hændelser.
+  whyItMatters:
+    en: One model can sit under thousands of products, so the EU put duties on its maker directly since August 2025 instead of leaving every product builder to guess at the model's risks.
+    da: Én model kan ligge under tusindvis af produkter, så EU har siden august 2025 lagt pligter direkte på den, der laver modellen, i stedet for at lade hver produktbygger gætte på modellens risici.
+edges:
+  requires: [eu-ai-act]
+  kind-of:
+    - to: foundation-model
+      why:
+        en: It is the legal name the AI Act gives to what the field calls a foundation model, tied to specific duties.
+        da: Det er det juridiske navn, AI-forordningen giver det, fagfeltet kalder en grundmodel, knyttet til konkrete pligter.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: model-card
+      why:
+        en: Providers must hand documentation about the model to those who build on it, and a model card is a common format for that.
+        da: Udbydere skal give dokumentation om modellen til dem, der bygger videre på den, og et modelkort er et udbredt format til det.
+      strength: normal
+      confidence: medium
+    - to: open-weight-model
+      why:
+        en: Models released under a free and open licence with public weights are spared some documentation duties, unless they are among the most powerful models.
+        da: Modeller udgivet under en fri og åben licens med offentlige vægte er fritaget for visse dokumentationspligter, medmindre de udgør en systemisk risiko.
+      strength: normal
+      confidence: high
+sources:
+  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), Art. 3(63), Art. 51–55, Annex XI–XIII
+    tier: standard
+    publisher: European Union
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+  - title: European Commission — General-Purpose AI Code of Practice (2025)
+    tier: official-doc
+    publisher: European Commission
+draft: true

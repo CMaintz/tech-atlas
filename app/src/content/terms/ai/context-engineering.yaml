@@ -1,0 +1,54 @@
+term:
+  en: Context engineering
+  da: Context engineering
+aka:
+  en: []
+  da: []
+domain: [ai]
+cluster: prompting
+layer: application
+status: emerging
+era: 2025
+summary:
+  en: Choosing all a language model gets to see for a task — instructions, fetched documents, tool results, notes — not just the wording.
+  da: At vælge alt, en sprogmodel ser til en opgave — instruktioner, hentede dokumenter, værktøjsresultater, noter — ikke kun ordlyden.
+body:
+  formal:
+    en: The practice of deciding, for each step of an AI system, what goes into the context window and in what order — system prompt, retrieved documents, tool results, saved memory and chat history — within the limit on tokens.
+    da: Praksissen at beslutte for hvert trin i et AI-system, hvad der kommer ind i kontekstvinduet og i hvilken rækkefølge — systemprompt, hentede dokumenter, værktøjsresultater, gemt hukommelse og samtalehistorik — inden for grænsen for tokens.
+  plain:
+    en: Like packing a small suitcase for a trip — what you leave out matters as much as what you put in, and what sits on top gets used first.
+    da: Som at pakke en lille kuffert til en rejse — det, man lader blive hjemme, betyder lige så meget som det, man tager med, og det, der ligger øverst, bliver brugt først.
+  inPractice:
+    en: A coding agent working in a large code project keeps the task notes and the three most relevant files in view, and replaces long tool output with a short summary before its next step.
+    da: En kodeagent, der arbejder i en stor kodebase, holder opgavenoterne og de tre mest relevante filer synlige og erstatter langt værktøjsoutput med et kort resumé før næste trin.
+  whyItMatters:
+    en: In long agent tasks, answers go wrong less from badly worded requests than from missing, stale or cluttered material in view, and untrusted material in view can also steer the agent.
+    da: I lange agentopgaver går svar sjældnere galt på grund af dårligt formulerede ønsker end på grund af manglende, forældet eller rodet materiale i synsfeltet, og materiale, man ikke kan stole på, kan også styre agenten.
+edges:
+  requires: [context-window]
+  contrasts-with:
+    - to: prompt-engineering
+      why:
+        en: Prompt engineering polishes the wording of one request; context engineering manages everything placed in view across many steps, much of it gathered automatically.
+        da: Prompt engineering finpudser ordlyden af én forespørgsel; context engineering styrer alt, der lægges frem over mange trin, og meget af det samles automatisk.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: retrieval-augmented-generation
+      why:
+        en: Fetching documents is one of the main ways material gets into view, and deciding which pieces to fetch is a context engineering choice.
+        da: At hente dokumenter er en af de vigtigste måder, materiale kommer i synsfeltet på, og valget af, hvilke stykker der hentes, er et context engineering-valg.
+      strength: normal
+      confidence: high
+    - to: tool-calling
+      why:
+        en: Tool results pile up quickly, so deciding which to keep, shorten or drop is a large part of the work.
+        da: Værktøjsresultater hober sig hurtigt op, så det er en stor del af arbejdet at beslutte, hvilke der skal beholdes, forkortes eller smides ud.
+      strength: normal
+      confidence: high
+sources:
+  - title: Anthropic Engineering — Effective context engineering for AI agents (2025)
+    tier: official-doc
+    publisher: Anthropic
+draft: true

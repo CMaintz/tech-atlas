@@ -1,0 +1,51 @@
+term:
+  en: Model serving
+  da: Modeldrift (model serving)
+aka:
+  en: [inference serving, model hosting]
+  da: [inference serving, modelhosting]
+domain: [ai]
+cluster: ai-infrastructure
+layer: inference
+status: current
+summary:
+  en: Keeping a trained model running on machines so other programs can send it questions over an API and get answers back.
+  da: At holde en trænet model kørende på maskiner, så andre programmer kan sende den spørgsmål via et API og få svar tilbage.
+body:
+  formal:
+    en: The work of loading model weights onto suitable hardware and exposing the model through an API that accepts requests, runs inference, and returns results, while handling many users at once, spreading load, and keeping the service up.
+    da: Arbejdet med at indlæse modelvægte på egnet hardware og gøre modellen tilgængelig gennem et API, der tager imod forespørgsler, kører inferens og returnerer resultater, mens det håndterer mange brugere på én gang, fordeler belastningen og holder tjenesten oppe.
+  plain:
+    en: Like a restaurant kitchen — the chef already knows the recipes; the hard part is taking a hundred orders at once and getting each plate out hot and on time.
+    da: Som et restaurantkøkken — kokken kan allerede opskrifterne; det svære er at tage imod hundrede bestillinger på én gang og få hver tallerken ud varm og til tiden.
+  inPractice:
+    en: A bank runs an open model on its own GPUs inside a container; its internal chat tool calls the model over an API, so customer data never leaves the bank's network.
+    da: En bank kører en åben model på sine egne GPU'er i en container; bankens interne chatværktøj kalder modellen via et API, så kundedata aldrig forlader bankens netværk.
+  whyItMatters:
+    en: Most of what an AI service costs to run, how fast it feels, and where its data goes is decided here, not during training.
+    da: Det meste af, hvad en AI-tjeneste koster at køre, hvor hurtig den føles, og hvor dens data havner, afgøres her — ikke under træningen.
+edges:
+  requires:
+    - to: inference
+      why:
+        en: Serving is inference made into a lasting service — the same step of running the model, repeated for many users around the clock.
+        da: Serving er inferens gjort til en varig tjeneste — det samme trin, hvor modellen køres, gentaget for mange brugere døgnet rundt.
+      strength: primary
+      confidence: high
+    - api
+  used-with:
+    - to: throughput
+      why:
+        en: A serving setup is judged on how many requests and tokens it can handle each second, since that decides how many machines, and how much money, it needs.
+        da: En serving-opsætning bedømmes på, hvor mange forespørgsler og tokens den kan klare i sekundet, fordi det afgør, hvor mange maskiner — og hvor mange penge — den kræver.
+      strength: primary
+      confidence: high
+    - monitoring
+    - quantization
+sources:
+  - title: Kwon et al. (2023), Efficient Memory Management for Large Language Model Serving with PagedAttention
+    tier: reference
+  - title: NVIDIA Triton Inference Server documentation
+    tier: official-doc
+    publisher: NVIDIA
+draft: true

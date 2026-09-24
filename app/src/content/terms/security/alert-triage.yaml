@@ -36,6 +36,12 @@ edges:
       confidence: high
     - soc
     - incident-reporting
+    - to: precision
+      why:
+        en: Precision measures how many alerts sent to triage were real, so low precision is felt directly as wasted triage time.
+        da: Præcision måler, hvor mange af de alarmer, der sendes til triage, der var ægte, så lav præcision mærkes direkte som spildt tid i triagen.
+      strength: normal
+      confidence: medium
   contrasts-with:
     - to: threat-hunting
       why:

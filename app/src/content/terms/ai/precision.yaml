@@ -1,0 +1,46 @@
+term:
+  en: Precision
+  da: Præcision (precision)
+aka:
+  en: [positive predictive value]
+  da: [positiv prædiktiv værdi]
+domain: [ai]
+cluster: evaluation
+layer: theory
+status: current
+summary:
+  en: Of all the cases a model flags as positive, the share that really are — in security terms, how many alerts were real.
+  da: Af alle de tilfælde, en model markerer som positive, andelen der virkelig er det — i sikkerhedssprog, hvor mange alarmer der var ægte.
+body:
+  formal:
+    en: The number of true positives divided by all cases the model marked positive (true positives plus false positives), taken from a confusion matrix for one class.
+    da: Antallet af sande positive divideret med alle tilfælde, modellen markerede som positive (sande positive plus falske positive), hentet fra en forvekslingsmatrix for én klasse.
+  plain:
+    en: Like a mushroom picker whose basket holds only good mushrooms — every one they chose was safe, even if they walked past plenty of others.
+    da: Som en svampeplukker, hvis kurv kun rummer gode svampe — hver eneste, de valgte, var spiselig, selv om de gik forbi masser af andre.
+  inPractice:
+    en: A phishing filter sends 200 emails to quarantine and 180 of them are truly phishing, so its precision is 90%; the other 20 are false positives someone has to release by hand.
+    da: Et phishingfilter sender 200 mails i karantæne, og 180 af dem er reelt phishing, så præcisionen er 90 %; de øvrige 20 er falske positive, som nogen skal frigive manuelt.
+  whyItMatters:
+    en: Low precision buries staff in wrong alerts and teaches them to ignore the tool, so it is the number to raise when the cost of a wrong flag is high.
+    da: Lav præcision begraver medarbejderne i forkerte alarmer og lærer dem at ignorere værktøjet, så det er tallet, man skal hæve, når en forkert markering koster meget.
+edges:
+  requires: [confusion-matrix, classification, false-positive]
+  part-of: [model-evaluation]
+  contrasts-with:
+    - to: recall
+      why:
+        en: Precision asks how many of the flagged cases were right; recall asks how many of the real cases were found. Raising one usually lowers the other.
+        da: Præcision spørger, hvor mange af de markerede tilfælde der var rigtige; genkaldelse spørger, hvor mange af de ægte tilfælde der blev fundet. Hæver man den ene, falder den anden som regel.
+      strength: primary
+      confidence: high
+sources:
+  - title: 'Jurafsky & Martin, Speech and Language Processing (ch. 4, Evaluation: precision, recall, F-measure)'
+    tier: textbook
+  - title: 'Fawcett (2006), An introduction to ROC analysis'
+    tier: reference
+    publisher: Pattern Recognition Letters
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 11.1)'
+    tier: textbook
+    publisher: MIT Press
+draft: true

@@ -1,0 +1,43 @@
+term:
+  en: Top-p sampling
+  da: Top-p-sampling
+aka:
+  en: [nucleus sampling]
+  da: [nucleus sampling]
+domain: [ai]
+cluster: prompting
+layer: inference
+status: current
+era: 2019
+summary:
+  en: A rule letting a language model pick only among its most likely next options, until their chances add up to a set share like 90%.
+  da: En regel, hvor en sprogmodel kun vælger blandt sine mest sandsynlige næste muligheder, til deres chancer tilsammen når fx 90 %.
+body:
+  formal:
+    en: A form of sampling that sorts candidate tokens by chance, keeps the smallest group whose chances add up to at least p, and draws the next token from that group only, so the number of options grows or shrinks with how sure the model is.
+    da: En form for sampling, der sorterer kandidat-tokens efter chance, beholder den mindste gruppe, hvis chancer tilsammen når mindst p, og kun trækker næste token fra den gruppe, så antallet af muligheder vokser eller skrumper med, hvor sikker modellen er.
+  plain:
+    en: Like a panel that draws up a short list of the top applicants until they cover most of the votes, then draws the winner only from that list — long-shot names never get in.
+    da: Som et udvalg, der sætter de bedste ansøgere på en kortliste, til de dækker de fleste stemmer, og kun trækker vinderen fra listen — outsidere kommer aldrig med.
+  inPractice:
+    en: With p set to 0.9, when the model is sure the next word is "Paris" the choice has one or two options, but in an open-ended story it may have hundreds to choose from.
+    da: Med p sat til 0,9 har valget én eller to muligheder, når modellen er sikker på, at næste ord er "Paris", men i en åben historie kan der være hundredvis at vælge imellem.
+  whyItMatters:
+    en: It cuts off the long tail of unlikely tokens that makes text drift into nonsense, while still leaving room for variety, which is why it is a default setting in many services.
+    da: Det skærer den lange hale af usandsynlige tokens væk, som får tekst til at glide ud i vrøvl, men giver stadig plads til variation, hvilket er grunden til, at det er standard i mange tjenester.
+edges:
+  requires: [token]
+  kind-of:
+    - to: sampling
+      why:
+        en: It is one particular rule for the sampling step, limiting the draw to the most likely group of tokens.
+        da: Det er én bestemt regel for sampling-trinnet, der begrænser trækningen til den mest sandsynlige gruppe af tokens.
+      strength: primary
+      confidence: high
+sources:
+  - title: Holtzman et al. (2020), The Curious Case of Neural Text Degeneration
+    tier: reference
+    url: https://arxiv.org/abs/1904.09751
+  - title: 'Jurafsky & Martin, Speech and Language Processing (3rd ed. draft), chapter on large language models'
+    tier: textbook
+draft: true

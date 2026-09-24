@@ -1,0 +1,50 @@
+term:
+  en: Slopsquatting
+  da: Slopsquatting
+aka:
+  en: [package hallucination attack]
+  da: [pakkehallucinationsangreb]
+domain: [ai, security]
+cluster: ai-coding
+layer: application
+era: 2025
+status: emerging
+summary:
+  en: An attack where criminals publish harmful packages under the made-up names that AI tools keep inventing for code.
+  da: Et angreb, hvor kriminelle udgiver skadelige pakker under de opdigtede navne, som AI-værktøjer bliver ved med at finde på til kode.
+body:
+  formal:
+    en: A supply-chain attack in which an attacker collects package names that large language models make up through hallucination while writing code, registers those unclaimed names in a public package registry, and fills them with harmful code that runs when a developer or coding agent installs the suggested package.
+    da: Et supply chain-angreb, hvor en angriber samler pakkenavne, som store sprogmodeller hallucinerer, når de skriver kode, registrerer de ledige navne i et offentligt pakkeregister og fylder dem med skadelig kode, der kører, når en udvikler eller en kodeagent installerer den foreslåede pakke.
+  plain:
+    en: Like a shop assistant who keeps recommending a brand that does not exist — until a crook notices, starts selling fakes under that exact name, and waits for customers to ask for it.
+    da: Som en ekspedient, der bliver ved med at anbefale et mærke, der ikke findes — indtil en svindler opdager det, begynder at sælge forfalskninger under netop det navn og venter på, at kunderne spørger efter det.
+  inPractice:
+    en: An assistant tells a developer to install a helper library with a believable but invented name; an attacker registered that name last month, and installing it quietly copies the developer's cloud keys.
+    da: En assistent beder en udvikler installere et hjælpebibliotek med et troværdigt, men opdigtet navn; en angriber registrerede navnet sidste måned, og når det installeres, kopierer det stille udviklerens cloud-nøgler.
+  whyItMatters:
+    en: Research found models repeat the same invented names across many questions, so attackers can predict them in advance, and a single careless install hands them the build machine.
+    da: Forskning viste, at modeller gentager de samme opdigtede navne på tværs af mange spørgsmål, så angribere kan forudsige dem på forhånd, og én uforsigtig installation giver dem byggemaskinen.
+edges:
+  kind-of: [supply-chain-attack]
+  exploits:
+    - to: hallucination
+      why:
+        en: The whole attack rests on models confidently naming packages that were never published, and naming the same ones again and again.
+        da: Hele angrebet bygger på, at modeller selvsikkert nævner pakker, der aldrig er udgivet, og nævner de samme igen og igen.
+      strength: primary
+      confidence: high
+    - to: vibe-coding
+      why:
+        en: It pays off only when people or agents install whatever the AI suggests without checking that the package is real and trusted.
+        da: Det lønner sig kun, når mennesker eller agenter installerer det, AI'en foreslår, uden at tjekke, at pakken er ægte og til at stole på.
+      strength: normal
+      confidence: medium
+  requires: [software-supply-chain]
+sources:
+  - title: 'Spracklen et al. (2025), We Have a Package for You! A Comprehensive Analysis of Package Hallucinations by Code Generating LLMs (USENIX Security)'
+    tier: reference
+  - title: OWASP Top 10 for Large Language Model Applications 2025 (LLM03 Supply Chain, LLM09 Misinformation)
+    tier: reference
+    publisher: OWASP
+draft: true

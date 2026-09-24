@@ -1,0 +1,50 @@
+term:
+  en: Instruction tuning
+  da: Instruktionstilpasning (instruction tuning)
+aka:
+  en: [supervised fine-tuning, SFT]
+  da: [instruction tuning, SFT]
+domain: [ai]
+cluster: training
+layer: training
+era: 2021
+status: current
+summary:
+  en: Extra training on many written requests paired with good answers, which turns a text-continuing base model into one that follows orders.
+  da: Ekstra træning på skrevne forespørgsler med gode svar, som gør en basismodel, der blot fortsætter tekst, til en, der følger ordrer.
+body:
+  formal:
+    en: A form of fine-tuning in which a language model that has finished pretraining is trained on sets of instructions and example responses, so that it answers a request instead of merely continuing the text it was given.
+    da: En form for finjustering, hvor en fortrænet sprogmodel trænes på sæt af instruktioner og eksempelsvar, så den besvarer en forespørgsel i stedet for blot at fortsætte den tekst, den fik.
+  plain:
+    en: Like a well-read new hire who knows a lot but must be shown, through many worked examples, how the office expects a request to be handled.
+    da: Som en belæst nyansat, der ved meget, men må have vist gennem mange gennemgåede eksempler, hvordan kontoret forventer, at en opgave løses.
+  inPractice:
+    en: Given "Write a polite reply refusing the refund", a base model just carries on with more customer complaints; after instruction tuning it writes the reply.
+    da: Givet "Skriv et høfligt svar, der afviser refusionen" fortsætter en basismodel med flere kundeklager; efter instruktionstilpasning skriver den svaret.
+  whyItMatters:
+    en: It is what makes a raw model usable as an assistant, and the example answers chosen here shape its tone, its refusals and much of its safety.
+    da: Det er det, der gør en rå model brugbar som assistent, og de eksempelsvar, der vælges her, former dens tone, dens afvisninger og meget af dens sikkerhed.
+edges:
+  kind-of: [fine-tuning]
+  requires: [pretraining, large-language-model]
+  contrasts-with:
+    - to: pretraining
+      why:
+        en: Pretraining gives broad knowledge from raw text; instruction tuning afterwards teaches the model to act on requests.
+        da: Fortræning giver bred viden fra rå tekst; instruktionstilpasning lærer bagefter modellen at handle på forespørgsler.
+      strength: normal
+      confidence: high
+  used-with:
+    - to: rlhf
+      why:
+        en: Instruction tuning usually comes first; RLHF then refines the answers using human preferences.
+        da: Instruktionstilpasning kommer som regel først; RLHF finpudser derefter svarene ud fra menneskelige præferencer.
+      strength: primary
+      confidence: high
+sources:
+  - title: Wei et al. (2021), Finetuned Language Models Are Zero-Shot Learners
+    tier: reference
+  - title: Ouyang et al. (2022), Training language models to follow instructions with human feedback
+    tier: reference
+draft: true

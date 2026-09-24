@@ -1,0 +1,52 @@
+term:
+  en: Confusion matrix
+  da: Forvekslingsmatrix (confusion matrix)
+aka:
+  en: [error matrix]
+  da: [confusion matrix, fejlmatrix]
+domain: [ai]
+cluster: evaluation
+layer: theory
+status: current
+summary:
+  en: A small table that counts, for every true class, how often a model gave each answer — showing exactly which mistakes it makes.
+  da: En lille tabel, der for hver sand klasse tæller, hvor ofte en model gav hvert svar — og viser præcis, hvilke fejl den begår.
+body:
+  formal:
+    en: A grid of counts for a classification task with one row per true class and one column per predicted class; with two classes its four cells are true positives, false positives, false negatives and true negatives.
+    da: Et gitter af optællinger for en klassifikationsopgave med én række pr. sand klasse og én kolonne pr. forudsagt klasse; med to klasser er de fire felter sande positive, falske positive, falske negative og sande negative.
+  plain:
+    en: Like a sorting office's end-of-day sheet showing how many letters for each town ended up in each town's bag, so you can see which towns keep getting mixed up.
+    da: Som postcentralens opgørelse ved dagens slut, der viser, hvor mange breve til hver by der endte i hver bys sæk, så man kan se, hvilke byer der bliver forvekslet.
+  inPractice:
+    en: A security team lays a month of alerts from its anomaly detection tool into four boxes — real attacks caught, false positives, attacks missed and quiet days — and sees misses cluster in one office.
+    da: Et sikkerhedsteam fordeler en måneds alarmer fra anomalidetektionen i fire felter — fangede angreb, falske positive, oversete angreb og rolige dage — og ser, at de oversete samler sig på ét kontor.
+  whyItMatters:
+    en: One overall number hides which errors a model makes; this table shows them, and accuracy, precision and recall are all worked out from its cells.
+    da: Ét samlet tal skjuler, hvilke fejl en model laver; denne tabel viser dem, og nøjagtighed, præcision og genkaldelse regnes alle ud fra dens felter.
+edges:
+  requires: [classification, supervised-learning]
+  part-of: [model-evaluation]
+  used-with:
+    - to: false-positive
+      why:
+        en: False positives are one of its four cells, so the table shows how many wrong alarms sit next to the real catches.
+        da: Falske positive er et af dens fire felter, så tabellen viser, hvor mange forkerte alarmer der står ved siden af de ægte fangster.
+      strength: primary
+      confidence: high
+    - to: test-set
+      why:
+        en: Its counts are normally made on the test set, so the mistakes it shows are ones the model was not trained to avoid.
+        da: Optællingerne laves normalt på testsættet, så de viste fejl er nogle, modellen ikke er trænet til at undgå.
+      strength: normal
+      confidence: high
+sources:
+  - title: 'Fawcett (2006), An introduction to ROC analysis'
+    tier: reference
+    publisher: Pattern Recognition Letters
+  - title: 'Jurafsky & Martin, Speech and Language Processing (ch. 4, Evaluation: precision, recall, F-measure)'
+    tier: textbook
+  - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    tier: textbook
+    publisher: Pearson
+draft: true

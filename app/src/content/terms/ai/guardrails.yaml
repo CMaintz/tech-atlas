@@ -1,0 +1,69 @@
+term:
+  en: Guardrails
+  da: Guardrails (sikkerhedsværn)
+aka:
+  en: [AI guardrails, safety filters]
+  da: [AI-guardrails, sikkerhedsfiltre]
+domain: [ai]
+cluster: ai-risk
+layer: application
+status: current
+summary:
+  en: Checks placed around an AI system that block unsafe requests going in and harmful or leaking answers coming out.
+  da: Kontroller rundt om et AI-system, der stopper usikre forespørgsler på vej ind og skadelige eller lækkende svar på vej ud.
+body:
+  formal:
+    en: Rules, classifiers and filters that run before and after a large language model, screening its input and output against a policy — for example blocking jailbreak attempts, removing personal data or forcing answers into an allowed shape — independently of how the model itself was trained.
+    da: Regler, klassificeringsmodeller og filtre, der kører før og efter en stor sprogmodel og tjekker input og output mod en politik — for eksempel ved at blokere jailbreak-forsøg, fjerne personoplysninger eller tvinge svar ind i en tilladt form — uafhængigt af, hvordan selve modellen er trænet.
+  plain:
+    en: Like the barriers along a mountain road — they do not steer the car, but they stop it from going over the edge when the driver makes a mistake.
+    da: Som autoværnet langs en bjergvej — det styrer ikke bilen, men det forhindrer den i at køre ud over kanten, når føreren laver en fejl.
+  inPractice:
+    en: A bank's AI support assistant passes every customer message through a filter that flags jailbreak phrasing, and every reply through a second one that masks account numbers before the answer is shown.
+    da: En banks support-chatbot sender hver kundebesked gennem et filter, der markerer jailbreak-formuleringer, og hvert svar gennem et andet, der skjuler kontonumre, før svaret vises.
+  whyItMatters:
+    en: No model is perfectly aligned, so outside checks give a second, testable line of defence that the owner can change quickly without training the model again.
+    da: Ingen model er perfekt tilpasset, så eksterne kontroller giver en ekstra forsvarslinje, der kan testes, og som ejeren hurtigt kan ændre uden at træne modellen igen.
+edges:
+  requires: [large-language-model]
+  mitigates:
+    - to: prompt-injection
+      why:
+        en: Input checks can catch many known injection patterns and output checks can stop the harmful action, though none are watertight.
+        da: Input-kontroller kan fange mange kendte injection-mønstre, og output-kontroller kan stoppe den skadelige handling, selv om ingen er vandtætte.
+      strength: normal
+      confidence: high
+    - to: jailbreak
+      why:
+        en: Separate screens flag requests that try to talk the model out of its rules, and block harmful answers that slip through.
+        da: Separate filtre markerer forespørgsler, der prøver at tale modellen fra sine regler, og blokerer skadelige svar, der slipper igennem.
+      strength: primary
+      confidence: high
+    - to: sensitive-information-disclosure
+      why:
+        en: Output filters can find and hide personal data, secrets and other confidential details before a reply leaves the system.
+        da: Output-filtre kan finde og skjule personoplysninger, hemmeligheder og andre fortrolige detaljer, før et svar forlader systemet.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: input-validation
+      why:
+        en: Guardrails carry the old habit of checking untrusted input over to free text sent to a language model.
+        da: Guardrails fører den gamle vane med at tjekke upålideligt input over på fritekst, der sendes til en sprogmodel.
+      strength: normal
+      confidence: high
+    - to: human-in-the-loop
+      why:
+        en: When a guardrail is unsure, it can hand the request to a person to approve instead of simply blocking it.
+        da: Når et guardrail er i tvivl, kan det sende forespørgslen videre til et menneske til godkendelse i stedet for blot at blokere den.
+      strength: minor
+      confidence: medium
+sources:
+  - title: OWASP Top 10 for LLM Applications 2025
+    tier: reference
+    publisher: OWASP
+    url: https://genai.owasp.org/llm-top-10/
+  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile
+    tier: standard
+    publisher: NIST
+draft: true
