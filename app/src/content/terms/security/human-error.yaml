@@ -25,14 +25,8 @@ body:
     en: Many incidents start with a mistake, not an attacker, so good design, training and simple routines prevent a large share of harm.
     da: Mange hændelser starter med en fejl og ikke en angriber, så godt design, træning og enkle rutiner forhindrer en stor del af skaderne.
 edges:
-  kind-of: [threat]
+  kind-of: [insider-threat]
   requires: [human-factor]
-  contrasts-with:
-    - to: insider-threat
-      why:
-        en: Human error has no intent to harm, while an insider threat often does; both come from people who already have access.
-        da: En menneskelig fejl har ingen hensigt om at skade, mens en insidertrussel ofte har; begge kommer fra folk, der allerede har adgang.
-      confidence: medium
   causes: [security-incident, data-breach]
 sources:
   - title: Cyber Security Fast Track — Ordliste (Trussel — insiderfejl)

@@ -21,12 +21,13 @@ Ids without a prefix are `security/`.
 | Added as new terms (`NEW`)                 |  34 |
 | Added as aliases on existing terms         |   4 |
 | Considered, no term (reason given)         |   9 |
-| Edges added on existing terms (`edges:` only) | 48 |
+| Edges added on existing terms (`edges:` only) | 47 |
 
 Every entry in the Ordliste resolves to a term, and every relationship the Ordliste states
 is now an edge. For example, "Kontrol: tiltag, der reducerer risiko" is now `control mitigates risk`.
 The "Minimumskrav (NIS2)" list is now `nis2-minimum-requirements mandates` risk-management,
-incident-response, security-awareness, supplier-management and management-responsibility.
+incident-response, security-awareness and supplier-management. Management responsibility
+is mandated by `nis2` itself (Article 20), not by the Article 21 list.
 
 ## 1. Fundamentals (Modul 1, Ordliste "Grundlæggende begreber")
 
@@ -39,7 +40,7 @@ incident-response, security-awareness, supplier-management and management-respon
 | CIA-triaden                                    | Modul 1 LM1; Ordliste                          | cia-triad                                              | present                                 |
 | Trussel                                        | Modul 1 LM1; Ordliste                          | threat                                                 | present                                 |
 | Hacking (threat example)                       | Ordliste (Trussel)                             | threat-actor (aka "hacker")                            | alias                                   |
-| Insiderfejl (threat example)                   | Ordliste (Trussel)                             | human-error                                            | NEW                                     |
+| Insiderfejl (threat example)                   | Ordliste (Trussel)                             | human-error (kind-of insider-threat)                   | NEW                                     |
 | Strømudfald (threat example)                   | Ordliste (Trussel)                             | —                                                      | no term: an everyday example of an availability threat, covered by `threat` and `availability` |
 | Sårbarhed                                      | Modul 1 LM1; Ordliste                          | vulnerability                                          | present                                 |
 | Risiko                                         | Modul 1 LM1; Ordliste                          | risk                                                   | present                                 |
@@ -212,8 +213,8 @@ incident-response, security-awareness, supplier-management and management-respon
 These are relationships the compendium states or implies:
 
 - `control` mitigates `risk` (Ordliste: "Tiltag, der reducerer risiko").
-- `nis2-minimum-requirements` mandates `risk-management`, `incident-response`, `security-awareness`,
-  `supplier-management` and `management-responsibility` (Ordliste: Minimumskrav).
+- `nis2-minimum-requirements` mandates `risk-management`, `incident-response`, `security-awareness`
+  and `supplier-management` (Ordliste: Minimumskrav). `management-responsibility` stays on `nis2`, because it is Article 20.
 - `compliance` used-with `nis2`, `gdpr` and `iso-27001` (Ordliste: "fx NIS2, GDPR, ISO 27001").
 - `cis-controls` used-with `d-maerket` and `nis2`. `gap-analysis` used-with `iso-27001`
   (Modul 1 and Modul 8: the link between regulation, ISO 27001, CIS and D-mærket).
@@ -221,7 +222,7 @@ These are relationships the compendium states or implies:
   `log-management` (Modul 4: "de forskellige CIS-kontroller", CIS v8.1 Controls 8, 14, 17 and 18). `cis-controls` used-with `risk-profile`.
 - `iso-27001` and `iso-27002` part-of `iso-27000-series`. `statement-of-applicability` requires `annex-a`.
 - `nis1`, `nis2` and `cer-directive` kind-of `eu-directive`. `gdpr`, `dora` and `cyber-resilience-act` kind-of `eu-regulation`.
-- `security-policy` kind-of `organisational-control`. `security-awareness` implements `people-control` and is
+- `security-awareness` implements `people-control` and is
   used-with `security-policy` (Modul 2 LM5: "integrere awareness med politikker").
 - `mfa` and `two-factor-authentication` require `authentication-factor`. `mfa` used-with `one-time-password`.
 - `social-engineering` exploits `human-factor`. `awareness-maturity` kind-of `security-maturity` and used-with `security-metrics`.
@@ -231,5 +232,4 @@ These are relationships the compendium states or implies:
 - `alert-triage` used-with `escalation-procedure`. `communication-plan` and `business-continuity-plan` used-with `crisis-management`.
 - `business-impact-analysis` requires `impact` (Ordliste: "konsekvenser for forretningen"). `data-processing-agreement` requires `personal-data`.
 
-Not changed, on purpose: `ai/eu-ai-act` could also be kind-of `eu-regulation`. It was left alone
-because another agent is working on the AI domain. It is a one-line follow-up.
+- `ai/eu-ai-act` kind-of `eu-regulation`.

@@ -25,8 +25,7 @@ body:
     en: Technology can be perfect and still fail if people cannot use it, so security that ignores human limits invites both mistakes and manipulation.
     da: Teknologien kan være perfekt og alligevel fejle, hvis folk ikke kan bruge den, så sikkerhed der ignorerer menneskelige grænser inviterer til både fejl og manipulation.
 edges:
-  kind-of: [vulnerability]
-  used-with: [human-firewall, nudging, security-culture]
+  used-with: [human-firewall, nudging, security-culture, vulnerability]
 sources:
   - title: Cyber Security Fast Track — Kursuskompendium, Modul 2 (Teori om menneskelige faktorer)
     tier: course-material

@@ -13,8 +13,8 @@ summary:
   da: En beskyttelse, der består af regler, roller og rutiner — hvem der beslutter, hvem der gør hvad, og hvordan arbejdet skal udføres.
 body:
   formal:
-    en: A security control carried out through policies, processes, responsibilities and agreements — such as a security policy, supplier management, access approval or an incident process — one of the four control themes in ISO 27002.
-    da: En sikkerhedskontrol, der udføres gennem politikker, processer, ansvar og aftaler — fx en sikkerhedspolitik, leverandørstyring, godkendelse af adgang eller en hændelsesproces — et af de fire kontroltemaer i ISO 27002.
+    en: A security control carried out through policies, processes, responsibilities and agreements — such as supplier management, access approval or an incident process — one of the four control themes in ISO 27002.
+    da: En sikkerhedskontrol, der udføres gennem politikker, processer, ansvar og aftaler — fx leverandørstyring, godkendelse af adgang eller en hændelsesproces — et af de fire kontroltemaer i ISO 27002.
   plain:
     en: Like the house rules in a shared kitchen — who cleans on which day, what goes in the fridge — which keep order without any lock.
     da: Som husreglerne i et fælleskøkken — hvem der gør rent hvilken dag, og hvad der må stå i køleskabet — som holder orden uden nogen lås.

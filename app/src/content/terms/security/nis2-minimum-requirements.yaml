@@ -56,7 +56,6 @@ edges:
     - incident-response
     - security-awareness
     - supplier-management
-    - management-responsibility
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

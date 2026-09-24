@@ -1,9 +1,9 @@
 term:
   en: People control
-  da: Menneskelig kontrol
+  da: Menneskelig foranstaltning (kontrol)
 aka:
   en: [human control, people measure]
-  da: [menneskelig foranstaltning, personrelateret kontrol]
+  da: [menneskelig kontrol, personrelateret kontrol]
 domain: [security]
 cluster: controls
 layer: people

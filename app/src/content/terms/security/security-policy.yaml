@@ -34,7 +34,6 @@ edges:
       strength: normal
       confidence: medium
   mitigates: [shadow-ai]
-  kind-of: [organisational-control]
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

@@ -252,7 +252,7 @@ security:
       da: Organisatorisk kontrol
     - id: people-control
       en: People control
-      da: Menneskelig kontrol
+      da: Menneskelig foranstaltning (kontrol)
     - id: technical-control
       en: Technical control
       da: Teknisk kontrol

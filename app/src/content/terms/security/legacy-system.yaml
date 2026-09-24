@@ -25,7 +25,6 @@ body:
     en: Such systems often run the most important processes, so they cannot simply be switched off, yet every year they grow easier to attack.
     da: Den slags systemer driver ofte de vigtigste processer, så de kan ikke bare slukkes, men hvert år bliver de lettere at angribe.
 edges:
-  requires: [patch]
   causes:
     - to: vulnerability
       why:
