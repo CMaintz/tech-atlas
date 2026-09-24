@@ -13,9 +13,95 @@ import {
   quantize,
   rankBySimilarity,
   reciprocalRankFusion,
+  semanticEndpoint,
+  fetchSemantic,
   toBase64,
+  vectorRows,
   type VectorFile,
 } from './semantic';
+import { VECTORS_PATH } from '../../scripts/semantic-inputs';
+
+describe('semanticEndpoint', () => {
+  it('is the function URL of a configured project, else empty', () => {
+    expect(semanticEndpoint('https://abc.supabase.co/')).toBe(
+      'https://abc.supabase.co/functions/v1/semantic-search',
+    );
+    expect(semanticEndpoint('')).toBe('');
+  });
+});
+
+describe('fetchSemantic', () => {
+  const ok = (body: unknown) => async () => new Response(JSON.stringify(body), { status: 200 });
+
+  it('posts {q, lang, k} and returns the hits', async () => {
+    let sent: RequestInit | undefined;
+    const hits = await fetchSemantic('https://x/fn', 'hvem ejer data', 'da', {
+      fetch: async (_url, init) => {
+        sent = init;
+        return new Response(JSON.stringify({ hits: [{ id: 'a/b', score: 0.7 }] }));
+      },
+    });
+    expect(hits).toEqual([{ id: 'a/b', score: 0.7 }]);
+    expect(JSON.parse(sent!.body as string)).toEqual({ q: 'hvem ejer data', lang: 'da', k: 8 });
+    expect(sent!.method).toBe('POST');
+  });
+
+  it('rejects an HTTP error or a malformed body', async () => {
+    const err = async () => new Response('{}', { status: 503 });
+    await expect(fetchSemantic('u', 'q', 'en', { fetch: err })).rejects.toThrow('503');
+    await expect(fetchSemantic('u', 'q', 'en', { fetch: ok({ nope: 1 }) })).rejects.toThrow();
+    await expect(
+      fetchSemantic('u', 'q', 'en', { fetch: ok({ hits: [{ id: 1, score: 'x' }] }) }),
+    ).rejects.toThrow();
+  });
+
+  const hanging = (_url: string, init: RequestInit) =>
+    new Promise<Response>((_, reject) =>
+      init.signal!.addEventListener('abort', () => reject(new Error('aborted'))),
+    );
+
+  it('gives up after the timeout', async () => {
+    await expect(fetchSemantic('u', 'q', 'en', { fetch: hanging, timeoutMs: 20 })).rejects.toThrow(
+      'aborted',
+    );
+  });
+
+  it('stops when the caller aborts (a newer keystroke)', async () => {
+    const ctrl = new AbortController();
+    const pending = fetchSemantic('u', 'q', 'en', { fetch: hanging, signal: ctrl.signal });
+    ctrl.abort();
+    await expect(pending).rejects.toThrow('aborted');
+  });
+});
+
+describe('vectorRows', () => {
+  it('emits one unit-length row per term and language in pgvector text form', () => {
+    const file = {
+      model: 'm',
+      backend: 'b',
+      dim: 2,
+      langs: ['en', 'da'],
+      settingsHash: 's',
+      passageHashes: { t: 'h' },
+      ids: ['t'],
+      data: toBase64(
+        quantize([
+          [3, 4],
+          [0, -2],
+        ]),
+      ),
+    } as VectorFile;
+    const rows = vectorRows(file);
+    expect(rows.map((r) => [r.id, r.lang, r.passage_hash])).toEqual([
+      ['t', 'en', 'h'],
+      ['t', 'da', 'h'],
+    ]);
+    const en = JSON.parse(rows[0].embedding) as number[];
+    expect(cosine(en, [3, 4])).toBeCloseTo(1, 3);
+    expect(Math.hypot(...en)).toBeCloseTo(1, 5);
+    expect(JSON.parse(rows[1].embedding)).toEqual([0, -1]);
+  });
+});
 
 describe('cosine', () => {
   it('is 1 for parallel, 0 for orthogonal, -1 for opposite vectors', () => {
@@ -117,7 +203,7 @@ describe('compareVectors', () => {
 });
 
 describe('passageText', () => {
-  it('embeds the name, aliases, summary and plain facet with the e5 passage prefix', () => {
+  it('embeds the name, aliases, summary and plain facet, with no prefix', () => {
     const t = {
       term: { en: 'MFA', da: 'MFA' },
       aka: { en: ['multi-factor authentication'], da: [] },
@@ -125,16 +211,16 @@ describe('passageText', () => {
       body: { plain: { en: 'A key and a code.', da: 'En nøgle og en kode.' } },
     };
     expect(passageText(t, 'en')).toBe(
-      'passage: MFA (multi-factor authentication). More than one proof. A key and a code.',
+      'MFA (multi-factor authentication). More than one proof. A key and a code.',
     );
-    expect(passageText(t, 'da')).toBe('passage: MFA. Mere end ét bevis. En nøgle og en kode.');
+    expect(passageText(t, 'da')).toBe('MFA. Mere end ét bevis. En nøgle og en kode.');
   });
 });
 
 // Real rankings, offline: the committed term vectors against query vectors that
 // `npm run embed` produced with the same model (scripts/semantic-inputs.ts).
 describe('semantic ranking (committed vectors)', () => {
-  const file = JSON.parse(readFileSync('public/semantic/vectors.json', 'utf8')) as VectorFile;
+  const file = JSON.parse(readFileSync(VECTORS_PATH, 'utf8')) as VectorFile;
   const fixture = JSON.parse(readFileSync('src/lib/semantic.fixture.json', 'utf8')) as {
     queries: string[];
     dim: number;
@@ -174,6 +260,11 @@ describe('semantic ranking (committed vectors)', () => {
 
   it.each(expectations)('"%s" ranks %s in the top 3', (q, id) => {
     expect(top(q)).toContain(id);
+  });
+
+  it.each(expectations)('"%s" keeps %s after the nearBest cut', (q, id) => {
+    const hits = rankBySimilarity(index, queries[fixture.queries.indexOf(q)], 8);
+    expect(nearBest(hits).map((s) => s.id)).toContain(id);
   });
 
   it('finds the answer to a question with no shared name at the very top', () => {

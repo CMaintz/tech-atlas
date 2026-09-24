@@ -2,7 +2,17 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Search from '../../components/Search';
-import { CLUSTER_LABELS, DOMAIN_LABELS, LANGS, UI, termUrl, url, type Lang } from '../../lib/site';
+import {
+  CLUSTER_LABELS,
+  DOMAIN_LABELS,
+  LANGS,
+  SUPABASE_URL,
+  UI,
+  termUrl,
+  url,
+  type Lang,
+} from '../../lib/site';
+import { semanticEndpoint } from '../../lib/semantic';
 
 export function getStaticPaths() {
   return LANGS.map((lang) => ({ params: { lang } }));
@@ -32,21 +42,13 @@ const byName = (a: (typeof terms)[number], b: (typeof terms)[number]) =>
       client:load
       lang={lang}
       indexUrl={url('search-index.json')}
-      vectorsUrl={url('semantic/vectors.json')}
+      semanticUrl={semanticEndpoint(SUPABASE_URL)}
       langBase={url(`${lang}/`)}
       placeholder={ui.search}
       noResults={ui.noResults}
       intentLabels={{ compare: ui.intentCompare, route: ui.intentRoute, before: ui.intentBefore }}
       disambiguationLabel={ui.searchDisambiguation}
-      semanticLabels={{
-        enable: ui.semanticEnable,
-        source: ui.semanticSource,
-        retry: ui.semanticRetry,
-        off: ui.semanticOff,
-        loading: ui.semanticLoading,
-        byMeaning: ui.semanticByMeaning,
-        failed: ui.semanticFailed,
-      }}
+      byMeaningLabel={ui.semanticByMeaning}
     />
   </div>
 

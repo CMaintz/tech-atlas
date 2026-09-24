@@ -307,20 +307,22 @@ languages)**, and summaries, with typo tolerance. Search also understands intent
 (A39): "X vs Y" opens the comparison, "how are X and Y related" / "from X to Y" opens
 the route in the Explorer, "before X" opens what to learn first.
 
-**Semantic search (A51–A55)** answers questions and descriptions ("how do I stop people
-reusing leaked passwords" → Credential stuffing), in Danish or English and across the two.
-It stays static: every Term (name + aliases + summary + plain facet, per language) is
-embedded at author time by `npm run embed` with a small multilingual model
-(`Xenova/multilingual-e5-small`, 8-bit, pinned revision) into a committed ~280 KB vector
-file; the lint errors (E11) when a term is missing from the vectors or the model settings
-changed, and warns (W8) when a term's text changed since it was embedded. In the browser
-the same model embeds the query in a web worker (the ONNX runtime is self-hosted; the model
-comes from Hugging Face), loaded lazily — the first time behind an explicit "Search by
-meaning" choice (a ~135 MB one-off download, model + tokenizer, cached by the browser),
-automatically afterwards for queries of three or more words or with no name match, as long
-as the model is still cached. It can be turned off; a failure waits for "Try again".
-Lexical (names and aliases) and semantic rankings are merged by reciprocal rank fusion;
-hits found only by meaning are labelled.
+**Semantic search (A61–A64, superseding A51–A55)** answers questions and descriptions
+("how do I stop people reusing leaked passwords" → Credential stuffing), in Danish or
+English and across the two. **The model runs on the backend, never in the browser.**
+Every Term (name + aliases + summary + plain facet, per language) is embedded at author
+time by `npm run embed` with **bge-m3** (`BAAI/bge-m3`, multilingual, 1024 dimensions) into
+a committed vector file (`supabase/seed/term-vectors.json`); CI seeds it into Postgres
+(pgvector, `public.term_vectors`, public read-only) next to the learner data. The lint
+errors (E11) when a term is missing from the vectors or the model settings changed, and
+warns (W8) when a term's text changed since it was embedded. A Supabase Edge Function,
+`semantic-search` (`POST { q, lang, k }` → `{ hits: [{ id, score }] }`), embeds the query
+with the same model on Cloudflare Workers AI and ranks terms by cosine in the database,
+each term scoring its better language. The search box calls it — debounced, abortable —
+for queries of three or more words or with no name match; lexical (names and aliases) and
+semantic rankings are merged by reciprocal rank fusion, and hits found only by meaning are
+labelled. There is no opt-in and no download: when the backend is not configured, errors,
+or takes over 2 s, the lexical results simply stand.
 
 ### Linked prose and Mentions
 Body facets link every other term at its first mention on the page (A38). Terms whose
@@ -386,10 +388,11 @@ Built after v1.0 (A34–A37) exactly as the data model intended: nothing is hand
 - The whole ~105-term graph fits in memory; progressive loading and server-side graph
   queries are large-scale concerns for later.
 - A database (Postgres + pgvector, or a graph DB) is **deferred** to the phase where
-  learning or personalization actually need it. Semantic search did not: at ~200 terms
-  the vectors are a static file and the query is embedded in the browser (A51). *Post-v1:*
-  learner progress sync uses Supabase (hosted Postgres + Auth) straight from the browser
-  (A44); content, pages and the graph stay static and never touch it.
+  learning or personalization actually need it. *Post-v1:* learner progress sync uses
+  Supabase (hosted Postgres + Auth) straight from the browser (A44), and semantic search
+  keeps its term vectors in the same Postgres (pgvector) behind an Edge Function (A61);
+  content, pages and the graph stay static and never touch it. Both are optional: an
+  unconfigured build is the fully static site, with name search only.
 
 ---
 
