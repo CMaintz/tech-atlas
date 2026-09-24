@@ -16,7 +16,7 @@ Invoke verbs, never tools. `mise run gate` is the only authority for "done".
 | `mise run fix` | Apply mechanically-safe fixes (format). |
 | `mise run lint` | Report style + content-model violations. |
 | `mise run typecheck` | Static type analysis (`astro check`). |
-| `mise run test` | Tests + coverage floor (none yet). |
+| `mise run test` | Unit tests (Vitest) + the production build as a smoke test. No coverage floor yet. |
 | `mise run audit` | Dependency vulnerabilities. |
 | `mise run gate` | lint -> typecheck -> test -> audit. **Green gate from a clean tree, or it is not done.** |
 

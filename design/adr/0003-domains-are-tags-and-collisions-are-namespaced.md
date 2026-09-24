@@ -34,3 +34,10 @@ Collision is resolved by namespacing, not by merging.
   pilot clusters that touch prove the model; two that don't prove nothing.
 - Folders carry namespace meaning only. A Term tagged `[cs, security]` lives in one
   folder and is reachable from both Domains; the folder is not a claim of ownership.
+
+## Implementation note (2026-09-25)
+
+As built, Terms are YAML, not Markdown: `app/src/content/terms/cs/audit.yaml` and
+`app/src/content/terms/security/audit.yaml`. The folder is still the namespace, and the
+bare name is served at `/[lang]/terms/audit/` (A56). A bare name that is *not* a
+Collision redirects to its one Term (A68).

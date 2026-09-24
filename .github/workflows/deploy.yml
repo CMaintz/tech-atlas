@@ -1,6 +1,11 @@
 name: deploy
+# Deploys only what passed the gate (A61): runs after a `gate` run on a push to main
+# succeeds, and builds exactly the commit that run checked. A gate run cancelled by a
+# newer push (gate.yml cancel-in-progress) deploys nothing; the newer run deploys.
 on:
-  push:
+  workflow_run:
+    workflows: [gate]
+    types: [completed]
     branches: [main]
   workflow_dispatch:
 permissions:
@@ -12,9 +17,17 @@ concurrency:
   cancel-in-progress: false
 jobs:
   build:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          # Full history: the RSS feeds date each term by the commit that added it (A67).
+          fetch-depth: 0
       - uses: jdx/mise-action@c37c93293d6b742fc901e1406b8f764f6fb19dac # v2.4.4
         with:
           version: 2026.8.5
