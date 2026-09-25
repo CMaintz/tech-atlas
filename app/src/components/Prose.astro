@@ -9,16 +9,14 @@ interface Props {
 const { segments, lang } = Astro.props;
 ---
 
-{
-  segments.map((s) =>
-    s.id ? (
-      <a
-        class="underline decoration-neutral-600 underline-offset-2 hover:decoration-neutral-300"
-        href={termUrl(lang, s.id)}
-        set:text={s.text}
-      />
-    ) : (
-      s.text
-    ),
-  )
-}
+{segments.map((s) =>
+  s.id ? (
+    <a
+      class="underline decoration-neutral-600 underline-offset-2 hover:decoration-neutral-300"
+      href={termUrl(lang, s.id)}
+      set:text={s.text}
+    />
+  ) : (
+    s.text
+  ),
+)}

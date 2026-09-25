@@ -19,19 +19,17 @@ const pairs = contrastPairs(await getCollection('terms')).sort((x, y) =>
   <h1 class="mb-2 text-3xl font-semibold">{ui.compareTitle}</h1>
   <p class="mb-8 text-neutral-400">{ui.compareIntro}</p>
   <ul class="space-y-3">
-    {
-      pairs.map((p) => (
-        <li>
-          <a
-            class="text-neutral-100 hover:underline"
-            href={url(`${lang}/compare/${pairSlug(p.a, p.b)}/`)}
-          >
-            {p.a.data.term[lang]} <span class="text-neutral-500">{ui.versus}</span>{' '}
-            {p.b.data.term[lang]}
-          </a>
-          {p.why && <p class="text-sm text-neutral-500">{p.why[lang]}</p>}
-        </li>
-      ))
-    }
+    {pairs.map((p) => (
+      <li>
+        <a
+          class="text-neutral-100 hover:underline"
+          href={url(`${lang}/compare/${pairSlug(p.a, p.b)}/`)}
+        >
+          {p.a.data.term[lang]} <span class="text-neutral-500">{ui.versus}</span>{' '}
+          {p.b.data.term[lang]}
+        </a>
+        {p.why && <p class="text-sm text-neutral-500">{p.why[lang]}</p>}
+      </li>
+    ))}
   </ul>
 </Base>

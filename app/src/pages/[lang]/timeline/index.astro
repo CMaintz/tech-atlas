@@ -41,58 +41,54 @@ const chip =
   <style is:inline set:html={filterCss}></style>
   <h1 class="mb-2 text-3xl font-semibold">{ui.timeline}</h1>
   <p class="mb-2 text-neutral-400">{ui.timelineIntro}</p>
-  {
-    undated > 0 && (
-      <p class="mb-8 text-sm text-neutral-500">
-        {undated === 1 ? ui.undatedNoteOne : ui.undatedNote.replace('{n}', String(undated))}
-      </p>
-    )
-  }
+  {undated > 0 && (
+    <p class="mb-8 text-sm text-neutral-500">
+      {undated === 1 ? ui.undatedNoteOne : ui.undatedNote.replace('{n}', String(undated))}
+    </p>
+  )}
   {decades.length === 0 && <p class="text-neutral-400">{ui.noDated}</p>}
-  {
-    decades.length > 0 && (
-      <div class="tl" id="timeline">
-        {domains.length > 1 && (
-          <fieldset class="mb-8 flex flex-wrap items-center gap-2">
-            <legend class="sr-only">{ui.domains}</legend>
+  {decades.length > 0 && (
+    <div class="tl" id="timeline">
+      {domains.length > 1 && (
+        <fieldset class="mb-8 flex flex-wrap items-center gap-2">
+          <legend class="sr-only">{ui.domains}</legend>
+          <label class={chip}>
+            <input class="sr-only" type="radio" name="tl-domain" checked />
+            {ui.allDomains}
+          </label>
+          {domains.map((d) => (
             <label class={chip}>
-              <input class="sr-only" type="radio" name="tl-domain" checked />
-              {ui.allDomains}
+              <input class="sr-only" type="radio" name="tl-domain" id={`tl-${d}`} />
+              {DOMAIN_LABELS[d]?.[lang] ?? d}
             </label>
-            {domains.map((d) => (
-              <label class={chip}>
-                <input class="sr-only" type="radio" name="tl-domain" id={`tl-${d}`} />
-                {DOMAIN_LABELS[d]?.[lang] ?? d}
-              </label>
-            ))}
-          </fieldset>
-        )}
-        <ol class="space-y-10 border-l border-neutral-800 pl-6">
-          {decades.map(({ decade, items }) => (
-            <li class="decade list-none">
-              <h2 class="relative mb-3 font-mono text-lg text-neutral-200">
-                <span class="absolute top-2.5 -left-[1.85rem] h-2 w-2 rounded-full bg-neutral-500" />
-                {ui.decade.replace('{d}', String(decade))}
-              </h2>
-              <ul class="grid gap-x-6 gap-y-1.5 sm:grid-cols-2">
-                {items.map((t) => (
-                  <li data-domain={t.domain.join(' ')} class="flex items-baseline gap-2">
-                    <span class="w-10 shrink-0 font-mono text-xs text-neutral-500">{t.era}</span>
-                    <span
-                      class="inline-block h-2.5 w-2.5 shrink-0 translate-y-[-1px] rounded-full"
-                      style={{ background: CLUSTER_COLOURS[t.cluster] ?? '#a3a3a3' }}
-                      title={CLUSTER_LABELS[t.cluster]?.[lang] ?? t.cluster}
-                    />
-                    <a class="text-neutral-100 hover:underline" href={termUrl(lang, t.id)}>
-                      {t.term[lang]}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </li>
           ))}
-        </ol>
-      </div>
-    )
-  }
+        </fieldset>
+      )}
+      <ol class="space-y-10 border-l border-neutral-800 pl-6">
+        {decades.map(({ decade, items }) => (
+          <li class="decade list-none">
+            <h2 class="relative mb-3 font-mono text-lg text-neutral-200">
+              <span class="absolute top-2.5 -left-[1.85rem] h-2 w-2 rounded-full bg-neutral-500" />
+              {ui.decade.replace('{d}', String(decade))}
+            </h2>
+            <ul class="grid gap-x-6 gap-y-1.5 sm:grid-cols-2">
+              {items.map((t) => (
+                <li data-domain={t.domain.join(' ')} class="flex items-baseline gap-2">
+                  <span class="w-10 shrink-0 font-mono text-xs text-neutral-500">{t.era}</span>
+                  <span
+                    class="inline-block h-2.5 w-2.5 shrink-0 translate-y-[-1px] rounded-full"
+                    style={{ background: CLUSTER_COLOURS[t.cluster] ?? '#a3a3a3' }}
+                    title={CLUSTER_LABELS[t.cluster]?.[lang] ?? t.cluster}
+                  />
+                  <a class="text-neutral-100 hover:underline" href={termUrl(lang, t.id)}>
+                    {t.term[lang]}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ol>
+    </div>
+  )}
 </Base>

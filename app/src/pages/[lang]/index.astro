@@ -65,24 +65,22 @@ const ids = terms.map((t) => t.id);
   <section id="browse" class="mb-14">
     <h2 class="mb-4 text-xs tracking-widest text-neutral-500 uppercase">{ui.browseDomains}</h2>
     <ul class="grid grid-cols-2 gap-3 lg:grid-cols-4">
-      {
-        [...domains.entries()].map(([domain, clusters]) => (
-          <li>
-            <a
-              href={`#domain-${domain}`}
-              class="block h-full rounded border border-neutral-800 p-4 hover:border-neutral-500"
-            >
-              <span class="block text-lg font-medium text-neutral-100">
-                {DOMAIN_LABELS[domain]?.[lang] ?? domain}
-              </span>
-              <span class="mt-1 block text-sm text-neutral-500">
-                {ui.termCount.replace('{n}', String(count(clusters)))} ·{' '}
-                {ui.clusterCount.replace('{n}', String(clusters.size))}
-              </span>
-            </a>
-          </li>
-        ))
-      }
+      {[...domains.entries()].map(([domain, clusters]) => (
+        <li>
+          <a
+            href={`#domain-${domain}`}
+            class="block h-full rounded border border-neutral-800 p-4 hover:border-neutral-500"
+          >
+            <span class="block text-lg font-medium text-neutral-100">
+              {DOMAIN_LABELS[domain]?.[lang] ?? domain}
+            </span>
+            <span class="mt-1 block text-sm text-neutral-500">
+              {ui.termCount.replace('{n}', String(count(clusters)))} ·{' '}
+              {ui.clusterCount.replace('{n}', String(clusters.size))}
+            </span>
+          </a>
+        </li>
+      ))}
     </ul>
     <div class="mt-4 flex flex-wrap gap-2 text-sm">
       <a
@@ -121,30 +119,28 @@ const ids = terms.map((t) => t.id);
   </section>
 
   <h2 class="mb-8 border-t border-neutral-800 pt-10 text-2xl font-semibold">{ui.indexTitle}</h2>
-  {
-    [...domains.entries()].map(([domain, clusters]) => (
-      <section class="mb-12 scroll-mt-6" id={`domain-${domain}`}>
-        <h3 class="mb-6 text-xl font-semibold">{DOMAIN_LABELS[domain]?.[lang] ?? domain}</h3>
-        {[...clusters.entries()].map(([cluster, items]) => (
-          <div class="mb-8 scroll-mt-6" id={`cluster-${domain}-${cluster}`}>
-            <h4 class="mb-3 text-xs tracking-widest text-neutral-500 uppercase">
-              {CLUSTER_LABELS[cluster]?.[lang] ?? cluster} · {items.length}
-            </h4>
-            <ul class="space-y-2">
-              {items.sort(byName).map((t) => (
-                <li>
-                  <a class="text-neutral-100 hover:underline" href={termUrl(lang, t.id)}>
-                    {t.data.term[lang]}
-                  </a>
-                  <span class="text-neutral-500"> — {t.data.summary[lang]}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </section>
-    ))
-  }
+  {[...domains.entries()].map(([domain, clusters]) => (
+    <section class="mb-12 scroll-mt-6" id={`domain-${domain}`}>
+      <h3 class="mb-6 text-xl font-semibold">{DOMAIN_LABELS[domain]?.[lang] ?? domain}</h3>
+      {[...clusters.entries()].map(([cluster, items]) => (
+        <div class="mb-8 scroll-mt-6" id={`cluster-${domain}-${cluster}`}>
+          <h4 class="mb-3 text-xs tracking-widest text-neutral-500 uppercase">
+            {CLUSTER_LABELS[cluster]?.[lang] ?? cluster} · {items.length}
+          </h4>
+          <ul class="space-y-2">
+            {items.sort(byName).map((t) => (
+              <li>
+                <a class="text-neutral-100 hover:underline" href={termUrl(lang, t.id)}>
+                  {t.data.term[lang]}
+                </a>
+                <span class="text-neutral-500"> — {t.data.summary[lang]}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+  ))}
 </Base>
 
 <script>
