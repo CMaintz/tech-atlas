@@ -8,6 +8,7 @@ domain: [platform]
 cluster: cloud
 layer: infrastructure
 status: current
+era: 2006
 summary:
   en: The cloud model where you rent bare building blocks — machines, storage and network — and run everything on top yourself.
   da: Cloudmodellen, hvor du lejer de rå byggeklodser — maskiner, lager og netværk — og selv driver alt ovenpå.

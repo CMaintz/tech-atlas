@@ -8,6 +8,7 @@ domain: [cs]
 cluster: web
 layer: application
 status: current
+era: 1968
 summary:
   en: A fixed set of requests one program offers so other programs can use its data or features without seeing its insides.
   da: Et fast sæt forespørgsler, som et program tilbyder, så andre programmer kan bruge dets data og funktioner uden at se indmaden.

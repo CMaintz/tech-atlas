@@ -8,6 +8,7 @@ domain: [security]
 cluster: compliance
 layer: governance
 status: current
+era: 2005
 summary:
   en: The family of international standards for information security, with ISO 27001 at its centre and guides built around it.
   da: Familien af internationale standarder for informationssikkerhed med ISO 27001 i centrum og vejledninger bygget omkring den.

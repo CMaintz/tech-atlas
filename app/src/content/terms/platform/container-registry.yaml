@@ -8,6 +8,7 @@ domain: [platform]
 cluster: containers
 layer: delivery
 status: current
+era: 2014
 summary:
   en: A shared online store where container images are uploaded, given names and versions, and fetched by the machines that run them.
   da: Et fælles onlinelager, hvor container-images lægges op, får navne og versioner og hentes af de maskiner, der kører dem.

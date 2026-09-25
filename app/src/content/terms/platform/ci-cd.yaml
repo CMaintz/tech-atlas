@@ -8,6 +8,7 @@ domain: [platform]
 cluster: delivery
 layer: delivery
 status: current
+era: 2010
 summary:
   en: Merging, testing and releasing small software changes automatically and often, instead of in rare, large batches.
   da: At samle, teste og frigive små ændringer i software automatisk og ofte i stedet for i få, store leverancer.

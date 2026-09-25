@@ -8,6 +8,7 @@ domain: [cs]
 cluster: networking
 layer: network
 status: current
+era: 1969
 summary:
   en: A set of connected devices that can send data to each other over cables or radio signals.
   da: En samling forbundne enheder, der kan sende data til hinanden via kabler eller radiosignaler.

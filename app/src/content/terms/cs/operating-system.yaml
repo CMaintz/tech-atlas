@@ -8,6 +8,7 @@ domain: [cs]
 cluster: os
 layer: os
 status: current
+era: 1964
 summary:
   en: The base software that runs a computer, shares it between programs and keeps them from interfering with each other.
   da: Den grundlæggende software, der styrer en computer, deler den mellem programmer og holder dem adskilt fra hinanden.

@@ -8,6 +8,7 @@ domain: [cs]
 cluster: os
 layer: os
 status: current
+era: 1965
 summary:
   en: A program while it is running, with its own space in memory and the rights of the account that started it.
   da: Et program, mens det kører, med sin egen plads i hukommelsen og de rettigheder, som kontoen, der startede det, har.

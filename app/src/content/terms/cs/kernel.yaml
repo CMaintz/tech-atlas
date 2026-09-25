@@ -8,6 +8,7 @@ domain: [cs]
 cluster: os
 layer: os
 status: current
+era: 1969
 summary:
   en: The core of the operating system, which has full control of the machine and decides what every program may do.
   da: Kernen i styresystemet, som har fuld kontrol over maskinen og bestemmer, hvad hvert program må.
