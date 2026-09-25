@@ -10,17 +10,17 @@ layer: governance
 status: legacy
 era: 2012
 summary:
-  en: Denmark's national cyber security body from 2012, which in January 2025 became part of the Danish agency for public safety.
+  en: Denmark's national cyber security body from 2012, which in January 2025 became part of the Danish Resilience Agency (SAMSIK).
   da: Danmarks nationale myndighed for cybersikkerhed fra 2012, som i januar 2025 blev en del af Styrelsen for Samfundssikkerhed.
 body:
   formal:
-    en: A Danish public body set up in 2012 under the Defence Intelligence Service to warn, advise and assist against serious cyber attacks. Since January 2025 its advice and threat work sits in the agency for public safety, while incident reports go to the Defence Intelligence Service as national response team.
+    en: A Danish public body set up in 2012 under the Defence Intelligence Service to warn, advise and assist against serious cyber attacks. Since January 2025 its advice and threat work sits in the Danish Resilience Agency, while incident reports go to the Defence Intelligence Service as national response team.
     da: En dansk myndighed oprettet i 2012 under Forsvarets Efterretningstjeneste for at advare, rådgive og hjælpe ved alvorlige cyberangreb. Siden januar 2025 ligger rådgivningen og trusselsarbejdet i Styrelsen for Samfundssikkerhed (SAMSIK), mens indberetninger om hændelser går til Forsvarets Efterretningstjeneste som nationalt CSIRT.
   plain:
     en: Like a national weather service for storms on the internet — it watched the sky, sent out warnings and told people how to prepare, and was later folded into a larger agency.
     da: Som en national vejrtjeneste for storme på nettet — den holdt øje med himlen, sendte advarsler ud og fortalte folk, hvordan de skulle forberede sig, og blev siden lagt ind i en større styrelse.
   inPractice:
-    en: An IT manager in a Danish municipality still finds CFCS guides and threat assessments when she searches online; for current advice she now uses the versions the agency for public safety publishes.
+    en: An IT manager in a Danish municipality still finds CFCS guides and threat assessments when she searches online; for current advice she now uses the versions the Danish Resilience Agency publishes.
     da: En IT-chef i en dansk kommune finder stadig CFCS-vejledninger og trusselsvurderinger, når hun søger på nettet; til den nyeste rådgivning bruger hun nu de udgaver, SAMSIK udgiver.
   whyItMatters:
     en: Much Danish guidance and course material still names CFCS; without knowing where its tasks went, a firm may look for advice in the wrong place or be unsure where to report a serious incident.

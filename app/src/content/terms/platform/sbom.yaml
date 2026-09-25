@@ -20,8 +20,8 @@ body:
     en: Like the parts list that comes with a car; when a maker recalls a faulty brake part, every owner can quickly check whether their car has it.
     da: Som reservedelslisten til en bil; når en producent tilbagekalder en defekt bremsedel, kan alle ejere hurtigt tjekke, om deres bil har den.
   inPractice:
-    en: When CFCS warns of a serious flaw in a widely used logging library, a region's security team searches its SBOMs and within an hour finds the eleven hospital systems that use the affected version.
-    da: Da CFCS advarer om en alvorlig sårbarhed i et udbredt bibliotek til logs, søger regionens sikkerhedsteam i sine SBOM'er og finder inden for en time de elleve hospitalssystemer, der bruger den ramte version.
+    en: When the Danish Resilience Agency warns of a serious flaw in a widely used logging library, a region's security team searches its SBOMs and within an hour finds the eleven hospital systems that use the affected version.
+    da: Da SAMSIK advarer om en alvorlig sårbarhed i et udbredt bibliotek til logs, søger regionens sikkerhedsteam i sine SBOM'er og finder inden for en time de elleve hospitalssystemer, der bruger den ramte version.
   whyItMatters:
     en: Nobody can fix what they do not know they have; US federal rules have asked software suppliers for SBOMs since 2021, and the Cyber Resilience Act requires makers of products sold in the EU to draw one up.
     da: Man kan ikke rette det, man ikke ved, man har; amerikanske statslige regler har siden 2021 bedt softwareleverandører om SBOM'er, og Cyberrobusthedsforordningen kræver, at producenter af produkter, der sælges i EU, udarbejder en.

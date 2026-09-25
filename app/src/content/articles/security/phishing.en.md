@@ -62,7 +62,7 @@ Phishing sits right at the intersection of technology, people and process — th
 - **Make reporting easy.** A "report phishing" button and a quick, friendly response are essential. Staff who report a click within minutes give the security team a chance to reset passwords and block the site before damage spreads. Blaming people teaches them to stay quiet.
 - **Meaningful KPIs.** The reporting rate and time-to-report often say more about the security culture than the click rate alone.
 - **Incident handling.** The playbook for a reported phishing email should cover: check whether others received it, remove it from inboxes, block links and senders, reset any exposed credentials and review sign-ins.
-- **NIS2.** Article 21(2)(g) requires "basic cyber hygiene practices and cybersecurity training", and Article 20 requires members of management bodies to follow training too. A documented awareness programme with phishing as a central theme is a natural way to meet this. In Denmark, Center for Cybersikkerhed (CFCS), now part of Styrelsen for Samfundssikkerhed, publishes threat assessments and guidance that can serve as a starting point.
+- **NIS2.** Article 21(2)(g) requires "basic cyber hygiene practices and cybersecurity training", and Article 20 requires members of management bodies to follow training too. A documented awareness programme with phishing as a central theme is a natural way to meet this. In Denmark, Center for Cybersikkerhed (CFCS), now part of Styrelsen for Samfundssikkerhed (the Danish Resilience Agency), publishes threat assessments and guidance that can serve as a starting point.
 
 ## Common misunderstandings
 

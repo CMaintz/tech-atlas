@@ -20,8 +20,8 @@ body:
     en: Like ordering at a counter by slip of paper — you write what you want, hand it over, and get back either the item or a note saying why not.
     da: Som at bestille ved en disk med en seddel — du skriver, hvad du vil have, rækker den over og får enten varen eller en besked om, hvorfor ikke.
   inPractice:
-    en: A citizen clicks an old link to a page on the municipality's website. The browser sends a GET request, and because the page has moved, the server answers with status 404 instead of the page.
-    da: En borger klikker på et gammelt link til en side på kommunens hjemmeside. Browseren sender en GET-forespørgsel, og fordi siden er flyttet, svarer serveren med status 404 i stedet for siden.
+    en: A citizen clicks an old link to a page on the municipality’s website. The browser sends a GET request, and because the page has since been deleted, the server answers with status 404 instead of the page.
+    da: En borger klikker på et gammelt link til en side på kommunens hjemmeside. Browseren sender en GET-forespørgsel, og fordi siden er blevet slettet, svarer serveren med status 404 i stedet for siden.
   whyItMatters:
     en: Almost everything on the web, from pages to apps talking to each other, travels over it; on its own it is sent as open text that anyone on the route can read or change, which is why HTTPS exists.
     da: Næsten alt på nettet, fra sider til apps, der taler sammen, sendes med protokollen; alene går den som åben tekst, som alle på ruten kan læse eller ændre, og derfor findes HTTPS.
