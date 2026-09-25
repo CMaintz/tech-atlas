@@ -19,8 +19,8 @@ body:
     en: Like a weather forecast for danger, telling you whether to expect rain, storms or a heat wave in the weeks ahead.
     da: Ligesom en vejrudsigt for farer, der fortæller, om man skal forvente regn, storm eller hedebølge i de kommende uger.
   inPractice:
-    en: Before the yearly risk review, the IT lead at a small manufacturer reads the latest CFCS threat assessment and brings the threats it rates highest into the review.
-    da: Før den årlige risikogennemgang læser den IT-ansvarlige i en mindre produktionsvirksomhed CFCS' seneste trusselsvurdering og tager de trusler, den vurderer som størst, med i gennemgangen.
+    en: Before the yearly risk review, the IT lead at a small manufacturer reads the latest threat assessment from the Danish Resilience Agency (SAMSIK) and brings the threats it rates highest into the review.
+    da: Før den årlige risikogennemgang læser den IT-ansvarlige i en mindre produktionsvirksomhed den seneste trusselsvurdering fra Styrelsen for Samfundssikkerhed (SAMSIK) og tager de trusler, den vurderer som størst, med i gennemgangen.
   whyItMatters:
     en: Risks can only be judged against the threats that actually exist, so an outdated picture leads to protecting against yesterday's attacks.
     da: Risici kan kun vurderes ud fra de trusler, der faktisk findes, så et forældet billede fører til beskyttelse mod gårsdagens angreb.

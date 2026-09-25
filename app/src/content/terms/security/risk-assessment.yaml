@@ -1,9 +1,9 @@
 term:
   en: Risk assessment
-  da: Risikoanalyse
+  da: Risikovurdering
 aka:
   en: [risk analysis]
-  da: [risikovurdering]
+  da: [risikoanalyse]
 domain: [security]
 cluster: risk-management
 layer: governance
@@ -23,7 +23,7 @@ body:
     da: Ejeren af en lille dansk webshop skriver betalingssystemet, kundedata og lageret op, giver hver trussel point fra 1 til 5 for sandsynlighed og konsekvens og samler resultatet i et heat-map til bestyrelsen.
   whyItMatters:
     en: Without it, decisions rest on gut feeling and the latest headline; a written assessment also shows auditors and authorities that the choices were made on purpose.
-    da: Uden den bygger beslutninger på mavefornemmelse og den seneste overskrift; en skriftlig analyse viser også revisorer og myndigheder, at valgene er truffet bevidst.
+    da: Uden den bygger beslutninger på mavefornemmelse og den seneste overskrift; en skriftlig vurdering viser også revisorer og myndigheder, at valgene er truffet bevidst.
 deepDive:
   en: |-
     In ISO terminology risk assessment is the umbrella for three sub-steps: risk identification, risk analysis and risk evaluation (ISO 31000:2018 clauses 6.4.2 to 6.4.4; ISO/IEC 27005:2022 clauses 7.2 to 7.4). Analysis determines likelihood and consequence and thereby the level of risk; evaluation compares that level with the risk criteria to decide which risks need treatment and in what order. Using "risk analysis" as a synonym for the whole activity, as is common in everyday usage, blurs the distinction, and in Danish practice risikovurdering and risikoanalyse are likewise used loosely.
@@ -50,7 +50,7 @@ edges:
     - to: threat-modelling
       why:
         en: A threat model lists what could go wrong in a design; a risk assessment weighs how likely and how costly each of those things is.
-        da: En trusselsmodel viser, hvad der kan gå galt i et design; en risikoanalyse vurderer, hvor sandsynligt og hvor dyrt hver af de ting er.
+        da: En trusselsmodel viser, hvad der kan gå galt i et design; en risikovurdering vejer, hvor sandsynligt og hvor dyrt hver af de ting er.
       strength: normal
       confidence: high
 sources:
