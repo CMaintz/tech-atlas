@@ -17,7 +17,7 @@ interface Props {
   compact?: boolean;
 }
 
-/** The graph legend (A61): domains and their cluster shades, edge families, arrow meaning. */
+/** The graph legend (A74): domains and their cluster shades, edge families, arrow meaning. */
 export default function GraphLegend(props: Props) {
   const { text } = props;
   const domains = legendDomains(props.nodes);

@@ -1,0 +1,50 @@
+term:
+  en: Vector database
+  da: Vektordatabase
+aka:
+  en: [vector store]
+  da: [vektorlager]
+domain: [ai]
+cluster: retrieval
+layer: application
+status: current
+summary:
+  en: A store built to keep huge numbers of embeddings and quickly return the ones closest in meaning to a question.
+  da: Et lager bygget til at gemme enorme mængder embeddings og hurtigt finde dem, der ligger tættest i betydning på et spørgsmål.
+body:
+  formal:
+    en: A database that saves embeddings next to the text or files they came from, and answers lookups by nearest-neighbour search instead of exact matches, usually with filters on extra fields such as owner or date.
+    da: En database, der gemmer embeddings sammen med den tekst eller de filer, de kom fra, og besvarer opslag med nærmeste-nabo-søgning i stedet for præcise match, typisk med filtre på ekstra felter som ejer eller dato.
+  plain:
+    en: Like a library where books are placed by what they are about rather than by title — ask for "sad stories about the sea" and the librarian walks you to the right corner.
+    da: Som et bibliotek, der er sat op efter, hvad bøgerne handler om, frem for efter titel — spørg efter "triste historier om havet", og bibliotekaren fører dig hen til det rigtige hjørne.
+  inPractice:
+    en: A support team loads every help article into a vector database; when a customer writes in, the bot pulls the five closest articles and hands them to the language model.
+    da: Et supportteam lægger alle hjælpeartikler i en vektordatabase; når en kunde skriver, henter botten de fem nærmeste artikler og giver dem til sprogmodellen.
+  whyItMatters:
+    en: It often ends up holding copies of a company's most private documents in one place, so who may read what has to be enforced there too, not only in the original systems.
+    da: Den ender ofte med at rumme kopier af virksomhedens mest fortrolige dokumenter samlet ét sted, så hvem der må læse hvad, skal håndhæves dér også, ikke kun i de oprindelige systemer.
+edges:
+  kind-of:
+    - to: database
+      why:
+        en: It stores and finds records like any database, but looks them up by closeness in meaning rather than by exact values.
+        da: Den gemmer og finder poster som enhver database, men slår dem op efter nærhed i betydning i stedet for præcise værdier.
+      strength: primary
+      confidence: high
+  requires: [embedding]
+  part-of:
+    - to: retrieval-augmented-generation
+      why:
+        en: In most RAG setups it is the store the search step reads from before the model answers.
+        da: I de fleste RAG-opsætninger er den det lager, søgetrinnet læser fra, før modellen svarer.
+      strength: normal
+      confidence: high
+sources:
+  - title: Pan, Wang & Li (2024), Survey of Vector Database Management Systems
+    tier: reference
+    publisher: The VLDB Journal
+  - title: OWASP Top 10 for Large Language Model Applications 2025 (LLM08 Vector and Embedding Weaknesses)
+    tier: reference
+    publisher: OWASP
+draft: true

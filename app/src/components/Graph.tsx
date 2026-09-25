@@ -25,7 +25,7 @@ interface Props {
 
 /**
  * The term page's neighbourhood graph (2D, Cytoscape), in the Explorer's visual
- * language (A61): the focal term at the centre, its neighbours on a ring grouped by
+ * language (A74): the focal term at the centre, its neighbours on a ring grouped by
  * relationship family, one-way edges flowing towards what they point at.
  */
 export default function Graph({ nodes, edges, termBase, ...props }: Props) {

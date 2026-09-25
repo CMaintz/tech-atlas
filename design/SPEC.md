@@ -5,7 +5,7 @@
 > remains). This is the single source of truth for v1. It supersedes the
 > exploratory `00`–`09` documents (kept as the *ingestion archive*) and is built on
 > the decisions recorded in [`UNIFIED_VISION.md`](./UNIFIED_VISION.md) (D1–D12) and
-> the schema in [`schema.ts`](./schema.ts). Where this document and the archive
+> the schema in [`app/src/schema.ts`](../app/src/schema.ts) (`design/schema.ts` re-exports it). Where this document and the archive
 > disagree, **this document wins.**
 
 ---
@@ -83,15 +83,19 @@ collisions and bridges:
 | `os` | process, kernel, file system, permission, service, log, patch, backup |
 | `identity` | authentication, authorization, credential, password, session, access control, SSO, RBAC, least privilege |
 
-**Collisions** (same name, different meaning → namespaced Terms, ADR-0003):
-`endpoint`, `policy`, `control`, `audit`, `patch`, `backup`, `port`.
+**Collisions** (same name, different meaning → namespaced Terms, ADR-0003): the
+candidates were `endpoint`, `policy`, `control`, `audit`, `patch`, `backup`, `port`;
+once written, only `audit` turned out to be two concepts (`cs/audit`,
+`security/audit`). The others are one shared Term each (A10).
 **Bridges** (one concept across both domains, or a control targeting a CS concept):
 `mfa` implements `authentication`; `zero-trust` builds on `identity`; `siem`
 `used-with` `log`; `ids`/`ips` guard the `network`; `access-management` realises
 `access-control`.
 
 Both clusters ship **bilingual** (EN + DA). `ai` and `platform` are modelled in the
-schema from day one (ADR-0003) but written later.
+schema from day one (ADR-0003). They were written after v1.0 (PR #7, decision P1 in
+`AUTONOMOUS_DECISIONS.md`); whether they stay in scope is on the owner's review agenda
+(`DECISIONS_REVIEW.md` §7, item 1).
 
 **v1 content target:** ~105 terms across the two domains, every one bilingual.
 
@@ -99,8 +103,8 @@ schema from day one (ADR-0003) but written later.
 
 ## 4. The Term (entry model)
 
-Authored as one content file per Term (`content/<domain>/<id>.yaml`). Full schema in
-[`schema.ts`](./schema.ts); shape:
+Authored as one content file per Term (`app/src/content/terms/<domain>/<id>.yaml`). Full
+schema in [`app/src/schema.ts`](../app/src/schema.ts); shape:
 
 | Field | Notes |
 |---|---|
@@ -150,10 +154,11 @@ A `summary` or `body` facet may use **only** (a) plain everyday language, or (b)
 other defined Terms (or their Aliases), or (c) words in the per-language
 `allowed-words` list. Any other jargon must become its own Term or be rephrased away.
 
-- **Enforced by lint, build-blocking, in both languages.** The course student reads
-  Danish, so Danish is not second-class. (Sequencing mitigates cost: draft a cluster
-  in English first to stabilise the term set + allowed-words, then bring Danish to
-  the same blocking bar before v1 ships.)
+- **Enforced by lint in both languages: English build-blocking, Danish advisory**
+  (ADR-0009, D7). The course student reads Danish, so Danish is not second-class:
+  Danish violations are reported as warnings on every build (a visible to-fix list,
+  not silent debt), and the rule flips to blocking once the evidence says Danish is
+  clean enough. That reassessment is still open (`DECISIONS_REVIEW.md` U15).
 - **Scoped:** binds `summary` + `body` only. **Articles are exempt** (ADR-0004) —
   long-form writing quotes specs and uses any jargon freely; auto-linking still
   harvests Mentions from it.
@@ -166,7 +171,7 @@ other defined Terms (or their Aliases), or (c) words in the per-language
   rubber stamp.
 
 ### Lint rules (build-blocking errors)
-E1 unknown jargon (Closed Vocabulary, both languages) · E2 dangling edge · E3
+E1 unknown jargon (Closed Vocabulary; blocking in English, a warning in Danish, ADR-0009) · E2 dangling edge · E3
 ambiguous cross-domain edge (must be namespaced) · E4 `requires` cycle · E5 circular
 definition · E6 tautological summary · E7 duplicate identity · E8 layer out of domain
 · E9 missing article file · E10 schema violation · E11 semantic vectors missing a term or
@@ -266,7 +271,8 @@ Adding a 13th edge type is a deliberate schema change. Deferred candidates:
 The default surface and the primary learning experience. Structure: title + domain
 tags + status; `summary`; the four Body facets; then generated relationship sections
 (*contrasts with · requires · unlocks · mitigates/mitigated-by · mandates* …, from
-edges); *Continue learning* (external resources by type); an **Explore connections**
+edges); *Continue learning* (the Term's sources grouped by source tier, standards
+first, A73); an **Explore connections**
 action that opens the graph centred on this Term; "Read the full entry" for Terms
 with an Article. Statically rendered, SEO-friendly, fast on a phone, bilingual with a
 language toggle.
@@ -284,7 +290,7 @@ real, statically rendered page ("the canvas is an index, not a container").
   prerequisites, contrasts, attacks & defences, regulation, lineage, used together)
   instead of twelve raw types (A29); the exact type is shown in edge labels. *Domain*
   owns a colour family and *cluster* is a shade within it; a term in two domains wears
-  a ring in the other domain's colour; *domain* drives filtering (A61). One-way
+  a ring in the other domain's colour; *domain* drives filtering (A74). One-way
   relationships carry an arrow and a gentle animated flow towards their target
   (still under `prefers-reduced-motion`); symmetric ones (contrasts, alternatives,
   used-with) have neither; an edge crossing domains fades between the two domain
@@ -296,7 +302,7 @@ real, statically rendered page ("the canvas is an index, not a container").
   Depth, or laid out by Time — x = `era`, undated terms in a side lane) and 3D
   (height = Depth), a route finder between any two terms, and prerequisite
   highlighting. The 2D force layout is deterministic and cluster-aware: clusters
-  settle into named systems, domains into loose regions (A61). 3D uses the same
+  settle into named systems, domains into loose regions (A74). 3D uses the same
   colours, curved links, flowing particles on one-way links and a pull towards
   each cluster.
 
@@ -330,6 +336,17 @@ automatically afterwards for queries of three or more words or with no name matc
 as the model is still cached. It can be turned off; a failure waits for "Try again".
 Lexical (names and aliases) and semantic rankings are merged by reciprocal rank fusion;
 hits found only by meaning are labelled.
+
+### Open data, feeds and SEO
+Every Term is published as data under the content licence (CC BY-SA 4.0, A66):
+`/api/terms.json`, one file per Term at `/api/terms/<folder>/<id>.json`, a CSV, an
+Anki import file per language, the derived `/graph.json`, and an RSS feed of new Terms
+per language (`/[lang]/feed.xml`); `/[lang]/data/` lists them (A69, A71). Each page
+carries a canonical URL, `hreflang` alternates (with `x-default`) and Open Graph tags;
+Term pages also carry a `DefinedTerm` description; `/sitemap-index.xml` lists every
+page (A68). `/[lang]/terms/` is the A–Z index, and a bare `/[lang]/terms/<id>/`
+redirects to the Term when the name is not a Collision (A72). Unknown URLs get a
+bilingual 404 page.
 
 ### Linked prose and Mentions
 Body facets link every other term at its first mention on the page (A38). Terms whose
@@ -420,8 +437,10 @@ the Explorer's Time layout), semantic search (§7), and optional accounts with s
 progress (§9), the Disambiguation page (§5, ADR-0003), lint rules E5, W2 and W3, and the
 depth-histogram and collision-list reports (§5, A56–A60) — see `AUTONOMOUS_DECISIONS.md`.
 
-**Still deferred:** AI tutor; a database for content; the `ai` and `platform`
-domains; centrality/community features. Each is enabled by, not blocked on, the data model.
+Since then: the `ai` and `platform` domains were written (P1; scope pending the owner's
+review), and the open data, feeds, SEO, A–Z index and 404 page (§7, A68–A73).
+
+**Still deferred:** AI tutor; a database for content; centrality/community features. Each is enabled by, not blocked on, the data model.
 
 ---
 
@@ -438,11 +457,11 @@ domains; centrality/community features. Each is enabled by, not blocked on, the 
 
 ## 13. Open questions
 
-- **Working name** — `Lexicon` is a placeholder. Candidates: Atlas · Leksikon ·
-  **Ordkort** · Meridian · Consilience (see the accompanying discussion).
-- **Danish drafting order** — *resolved (D7):* English blocking from term one; Danish
-  **advisory** (non-blocking warnings) from day one, reassessed on evidence after the
-  pilot. Not ignored — warnings accumulate so we can tell if hardening is needed.
+- **Working name** — *resolved (A1):* **Atlas** (repo `tech-atlas`). Chosen
+  autonomously; the owner may still rename it (`DECISIONS_REVIEW.md` A1).
+- **Danish drafting order** — *resolved (D7, ADR-0009):* English blocking from term
+  one; Danish **advisory** (non-blocking warnings) from day one, reassessed on
+  evidence after the pilot (§5). The reassessment itself is still open (U15).
 - **CS term list** — the ~40 CS terms are sketched (§3); finalise which earn a Term
   vs a paragraph via the granularity test, using textbook indexes as the CS oracle.
 - **Body facet optionality** — keep four mandatory, or make `inPractice` /
@@ -455,7 +474,11 @@ domains; centrality/community features. Each is enabled by, not blocked on, the 
 This spec consolidates and *decides* what the exploratory documents held as competing
 options. Those documents remain, unchanged, as the ingestion archive:
 - `00_README`–`09_VISUAL_DIRECTION` — the three source conceptions, preserved.
-- `UNIFIED_VISION.md` — the dated decision log (D1–D12) this spec is built from.
-- `schema.ts` — the machine-readable schema this spec describes.
-- `adr/0001`–`0004` — the architecture decision records still in force.
+- `UNIFIED_VISION.md` — the dated decision log (D1–D13) this spec is built from.
+- `app/src/schema.ts` — the machine-readable schema this spec describes
+  (`design/schema.ts` re-exports it).
+- `adr/0001`–`0009` — the architecture decision records still in force.
+- `AUTONOMOUS_DECISIONS.md` — decisions taken without the owner (A-numbers, plus the
+  P-numbers first stated only in PR bodies); `DECISIONS_REVIEW.md` — the owner's
+  review agenda for them.
 Where any of them disagrees with this document, **this document wins.**

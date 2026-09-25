@@ -22,6 +22,7 @@ import { EDGE_TYPES, type EdgeType } from '../../../schema';
 import { makeLinker } from '../../../lib/autolink';
 import Prose from '../../../components/Prose.astro';
 import { bareName, collisionsOf } from '../../../lib/collisions';
+import { TIER_ORDER, UI_EXTRA } from '../../../lib/ui-extra';
 
 export async function getStaticPaths() {
   const terms = await getCollection('terms');
@@ -60,7 +61,7 @@ for (const r of relations) {
     cluster: r.target.data.cluster,
   });
 }
-// Edges are drawn in their authored direction (A61): a generated inverse ("unlocks")
+// Edges are drawn in their authored direction (A74): a generated inverse ("unlocks")
 // is turned back into the authored edge ("requires") pointing at this term.
 const authoredType = (r: (typeof relations)[number]): EdgeType =>
   r.generated
@@ -102,17 +103,81 @@ const aka = d.aka[lang];
 // A Collision (ADR-0003): other terms share this bare name — link the Disambiguation page.
 const name = bareName(term.id);
 const collides = collisionsOf(all.map((t) => t.id)).has(name);
+
+// Continue learning (SPEC §7, A73): sources grouped by tier, best tier first.
+const extra = UI_EXTRA[lang];
+const sourceGroups = TIER_ORDER.map((tier) => ({
+  tier,
+  items: d.sources.filter((s) => s.tier === tier),
+})).filter((g) => g.items.length > 0);
+
+// Structured data (A68): schema.org DefinedTerm in the Atlas DefinedTermSet.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTerm',
+  '@id': new URL(termUrl(lang, term.id), Astro.site).href,
+  name: d.term[lang],
+  ...(aka.length ? { alternateName: aka } : {}),
+  description: d.summary[lang],
+  inLanguage: lang,
+  url: new URL(termUrl(lang, term.id), Astro.site).href,
+  inDefinedTermSet: {
+    '@type': 'DefinedTermSet',
+    name: 'Atlas',
+    url: new URL(url(`${lang}/`), Astro.site).href,
+  },
+  license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+};
+
+// Breadcrumb: Index › primary domain (the folder) › cluster — anchors on the home index.
+const primary = term.id.split('/')[0];
+const crumbs = [
+  { href: url(`${lang}/`), label: ui.index },
+  { href: url(`${lang}/#domain-${primary}`), label: DOMAIN_LABELS[primary]?.[lang] ?? primary },
+  {
+    href: url(`${lang}/#cluster-${primary}-${d.cluster}`),
+    label: CLUSTER_LABELS[d.cluster]?.[lang] ?? d.cluster,
+  },
+];
 ---
 
-<Base lang={lang} title={d.term[lang]} description={d.summary[lang]}>
-  <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-10">
+<Base
+  lang={lang}
+  title={d.term[lang]}
+  description={d.summary[lang]}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-10" data-term-id={term.id}>
     <div>
-      <div class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">
-        {d.domain.map((x) => DOMAIN_LABELS[x]?.[lang] ?? x).join(' · ')} · {
-          CLUSTER_LABELS[d.cluster]?.[lang] ?? d.cluster
-        }
+      <nav
+        aria-label={ui.breadcrumb}
+        class="mb-2 text-xs tracking-widest text-neutral-500 uppercase"
+      >
+        <ol class="flex flex-wrap items-center gap-x-1.5">
+          {
+            crumbs.map((c, i) => (
+              <li class="flex items-center gap-x-1.5">
+                {i > 0 && <span aria-hidden="true">›</span>}
+                <a class="hover:text-neutral-200" href={c.href}>
+                  {c.label}
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+      <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+        <h1 class="text-3xl font-semibold">{d.term[lang]}</h1>
+        <button
+          type="button"
+          data-copy-link
+          data-copied={ui.linkCopied}
+          class="mt-1.5 rounded border border-neutral-800 px-2 py-1 text-xs text-neutral-400 hover:border-neutral-500 hover:text-neutral-100 print:hidden"
+        >
+          <span data-label>{ui.copyLink}</span>
+        </button>
       </div>
-      <h1 class="text-3xl font-semibold">{d.term[lang]}</h1>
       {
         aka.length > 0 && (
           <p class="mt-1 text-sm text-neutral-500">
@@ -156,7 +221,7 @@ const collides = collisionsOf(all.map((t) => t.id)).has(name);
         )
       }
 
-      <div class="mt-8 space-y-5">
+      <div class="mt-8 space-y-5" id="facets">
         {
           facets.map((f) => (
             <div>
@@ -199,7 +264,7 @@ const collides = collisionsOf(all.map((t) => t.id)).has(name);
 
       {
         groups.length > 0 && (
-          <section class="mt-10">
+          <section class="mt-10" id="relationships">
             <h2 class="mb-3 text-xs tracking-widest text-neutral-500 uppercase">
               {ui.relationships}
             </h2>
@@ -234,27 +299,40 @@ const collides = collisionsOf(all.map((t) => t.id)).has(name);
         )
       }
 
-      <div class="mt-8 text-sm text-neutral-500">
-        <span class="text-xs tracking-widest uppercase">{ui.sources}</span>
-        <ul class="mt-1 list-inside list-disc">
-          {
-            d.sources.map((s) => (
-              <li>
-                {s.url ? (
-                  <a class="hover:text-neutral-300 hover:underline" href={s.url}>
-                    {s.title}
-                  </a>
-                ) : (
-                  s.title
-                )}
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+      <section class="mt-8 text-sm text-neutral-500" id="continue-learning">
+        <h2 class="text-xs tracking-widest uppercase">
+          {ui.sources} · {extra.continueLearning}
+        </h2>
+        {
+          sourceGroups.map((g) => (
+            <div class="mt-2">
+              <h3 class="text-xs text-neutral-600">{extra.tiers[g.tier]}</h3>
+              <ul class="mt-1 list-inside list-disc">
+                {g.items.map((s) => (
+                  <li>
+                    {s.url ? (
+                      <a class="hover:text-neutral-300 hover:underline" href={s.url}>
+                        {s.title}
+                      </a>
+                    ) : (
+                      s.title
+                    )}
+                    {s.publisher && <span class="text-neutral-600"> · {s.publisher}</span>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+        <p class="mt-3 print:hidden">
+          <a class="hover:text-neutral-300 hover:underline" href={url(`api/terms/${term.id}.json`)}>
+            {extra.dataThisTerm}
+          </a>
+        </p>
+      </section>
       {
         mentionedIn.length > 0 && (
-          <section class="mt-8">
+          <section class="mt-8" id="mentions">
             <h2 class="mb-2 text-xs tracking-widest text-neutral-500 uppercase">
               {ui.mentionedIn}
             </h2>
@@ -272,7 +350,10 @@ const collides = collisionsOf(all.map((t) => t.id)).has(name);
         )
       }
 
-      <section class="mt-10 space-y-5 rounded border border-neutral-800 p-4">
+      <section
+        class="mt-10 space-y-5 rounded border border-neutral-800 p-4 print:hidden"
+        id="check-yourself"
+      >
         <h2 class="text-xs tracking-widest text-neutral-500 uppercase">{ui.checkYourself}</h2>
         <KnowledgeStatus client:only="preact" termId={term.id} ui={{ ...ui }} />
         <Quiz
@@ -286,7 +367,7 @@ const collides = collisionsOf(all.map((t) => t.id)).has(name);
         />
       </section>
     </div>
-    <aside class="mt-10 lg:sticky lg:top-6 lg:mt-0 lg:self-start">
+    <aside class="mt-10 lg:sticky lg:top-6 lg:mt-0 lg:self-start print:hidden" id="connections">
       <h2 class="mb-2 text-xs tracking-widest text-neutral-500 uppercase">{ui.connections}</h2>
       <Graph
         client:only="preact"
@@ -314,3 +395,18 @@ const collides = collisionsOf(all.map((t) => t.id)).has(name);
     </aside>
   </div>
 </Base>
+
+<script>
+  import { RECENT_KEY, parseRecent, pushRecent } from '../../../lib/prefs';
+
+  // Recently viewed (A62) — shown on the home page.
+  const id = document.querySelector<HTMLElement>('[data-term-id]')?.dataset.termId;
+  try {
+    if (id) {
+      const list = pushRecent(parseRecent(localStorage.getItem(RECENT_KEY)), id);
+      localStorage.setItem(RECENT_KEY, JSON.stringify(list));
+    }
+  } catch {
+    /* storage unavailable: nothing remembered */
+  }
+</script>

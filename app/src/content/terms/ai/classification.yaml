@@ -1,0 +1,69 @@
+term:
+  en: Classification
+  da: Klassifikation
+aka:
+  en: []
+  da: [klassificering, classification]
+domain: [ai]
+cluster: ml-fundamentals
+layer: training
+status: current
+summary:
+  en: Teaching a computer to sort each new case into one of a fixed set of groups, such as spam or not spam, or real attack or false alarm.
+  da: At lære en computer at sortere hvert nyt tilfælde i én af nogle faste grupper, fx spam eller ikke spam, ægte angreb eller falsk alarm.
+body:
+  formal:
+    en: A task in machine learning where the model learns from labeled examples to give each new input one label from a known, fixed list, often together with a score for how sure it is.
+    da: En opgave i maskinlæring, hvor modellen lærer af mærkede eksempler at give hvert nyt input én mærkat fra en kendt, fast liste, ofte sammen med en score for, hvor sikker den er.
+  plain:
+    en: Like a post office worker who drops each letter into the right box — there are only so many boxes, and every letter must go in one of them.
+    da: Som en postmedarbejder, der lægger hvert brev i den rigtige kasse — der er kun et bestemt antal kasser, og hvert brev skal i én af dem.
+  inPractice:
+    en: A mail filter looks at each incoming email and marks it as phishing, spam or normal, based on thousands of earlier emails that people had already sorted.
+    da: Et mailfilter ser på hver indkommende mail og markerer den som phishing, spam eller normal ud fra tusindvis af tidligere mails, som mennesker allerede havde sorteret.
+  whyItMatters:
+    en: Much of AI in security is this kind of sorting, and every wrong call is either a missed attack or a false alarm, so someone has to choose which mistake is cheaper.
+    da: Meget af AI i sikkerhed er denne slags sortering, og hver forkert afgørelse er enten et overset angreb eller en falsk alarm, så nogen må vælge, hvilken fejl der er billigst.
+edges:
+  kind-of: [supervised-learning]
+  contrasts-with:
+    - to: regression
+      why:
+        en: Classification picks one group from a fixed list; regression gives a number on a scale, such as a price or a time.
+        da: Klassifikation vælger én gruppe fra en fast liste; regression giver et tal på en skala, fx en pris eller en tid.
+      strength: primary
+      confidence: high
+    - to: clustering
+      why:
+        en: Classification sorts into groups that people named in advance and taught with examples; clustering finds its own groups with no names given.
+        da: Klassifikation sorterer i grupper, som mennesker har navngivet på forhånd og vist eksempler på; klyngeanalyse finder selv grupper uden givne navne.
+      strength: primary
+      confidence: high
+    - to: generative-ai
+      why:
+        en: Classification only decides which group an input belongs to; generative AI makes new text, images or sound.
+        da: Klassifikation afgør kun, hvilken gruppe et input hører til; generativ AI skaber ny tekst, nye billeder eller ny lyd.
+      strength: normal
+      confidence: high
+    - to: data-classification
+      why:
+        en: Same word, different job — data classification is people labeling files by how secret they are, not a machine sorting inputs.
+        da: Samme ord, forskelligt arbejde — dataklassifikation er, at mennesker mærker filer efter, hvor fortrolige de er, ikke at en maskine sorterer input.
+      strength: normal
+      confidence: high
+  used-with:
+    - false-positive
+    - to: convolutional-neural-network
+      why:
+        en: CNNs are the classic tool for sorting images into categories.
+        da: CNN'er er det klassiske værktøj til at sortere billeder i kategorier.
+      strength: normal
+      confidence: medium
+sources:
+  - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    tier: textbook
+    publisher: Pearson
+  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    tier: standard
+    publisher: ISO/IEC
+draft: true

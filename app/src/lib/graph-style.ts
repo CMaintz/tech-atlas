@@ -1,5 +1,5 @@
 /**
- * The graph's visual language, in one place (A61): domain colour families, cluster
+ * The graph's visual language, in one place (A74): domain colour families, cluster
  * shades, relationship-family edge colours, which edges are directed, edge curvature,
  * layout distances and the 3D cluster force. Pure — no DOM, no Cytoscape — so the
  * Explorer, the term-page neighbourhood graph, the Timeline and the tests share it.
@@ -67,6 +67,14 @@ export const CLUSTER_DOMAIN: Record<string, string> = {
   'ml-fundamentals': 'ai',
   llm: 'ai',
   'ai-risk': 'ai',
+  training: 'ai',
+  evaluation: 'ai',
+  'model-architecture': 'ai',
+  prompting: 'ai',
+  'ai-infrastructure': 'ai',
+  retrieval: 'ai',
+  agents: 'ai',
+  'ai-coding': 'ai',
   cloud: 'platform',
   containers: 'platform',
   delivery: 'platform',
@@ -372,7 +380,7 @@ function canonicalLinks(links: IslandLink[]): IslandLink[] {
 }
 
 /**
- * Where each cluster island goes (A65), in two levels: each domain's islands are
+ * Where each cluster island goes (A74), in two levels: each domain's islands are
  * packed into a region (ISLAND_GAP apart, related islands drawn together), then the
  * regions are packed as discs (DOMAIN_GAP apart, drawn together by the links between
  * domains). Clusters read as separate islands, domains as separate, coherent regions.

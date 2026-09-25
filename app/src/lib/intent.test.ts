@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parseIntent } from './intent';
+import { exactName, parseIntent } from './intent';
 import { pairSlugFromIds } from './slug';
 
 describe('parseIntent', () => {
@@ -57,5 +57,27 @@ describe('pairSlugFromIds', () => {
       'authentication-vs-authorization',
     );
     expect(pairSlugFromIds('security/audit', 'cs/audit')).toBe('cs.audit-vs-security.audit');
+  });
+});
+
+describe('exactName', () => {
+  const none = { en: [], da: [] };
+  const docs = [
+    { id: 'threat-hunting', term: { en: 'Threat hunting', da: 'Trusselsjagt' }, aka: none },
+    { id: 'threat', term: { en: 'Threat', da: 'Trussel' }, aka: none },
+    {
+      id: 'mfa',
+      term: { en: 'Multi-factor authentication', da: 'Multifaktorgodkendelse' },
+      aka: { en: ['MFA'], da: ['MFA'] },
+    },
+  ];
+  it('finds a name or alias exactly, in either language, ignoring case', () => {
+    expect(exactName(docs, 'threat')?.id).toBe('threat');
+    expect(exactName(docs, ' TRUSSEL ')?.id).toBe('threat');
+    expect(exactName(docs, 'mfa')?.id).toBe('mfa');
+  });
+  it('is undefined for partial or empty phrases', () => {
+    expect(exactName(docs, 'threa')).toBeUndefined();
+    expect(exactName(docs, '  ')).toBeUndefined();
   });
 });

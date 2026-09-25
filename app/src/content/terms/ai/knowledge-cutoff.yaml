@@ -1,0 +1,43 @@
+term:
+  en: Knowledge cutoff
+  da: Vidensgrænse (knowledge cutoff)
+aka:
+  en: [training cutoff, cutoff date]
+  da: [knowledge cutoff, skæringsdato]
+domain: [ai]
+cluster: llm
+layer: training
+status: current
+summary:
+  en: The date after which a language model saw no new text, so on its own it knows nothing about events that came later.
+  da: Datoen, hvorefter en sprogmodel ikke har set ny tekst, så den af sig selv intet ved om begivenheder, der kom senere.
+body:
+  formal:
+    en: The last date covered by the training data of a large language model; the model's built-in knowledge stops there, even though it may be released and used for months or years after.
+    da: Den sidste dato, som træningsdataene for en stor sprogmodel dækker; modellens indbyggede viden stopper der, selvom den kan blive udgivet og brugt i måneder eller år efter.
+  plain:
+    en: Like a printed travel guide — everything in it was true when it went to print, but it cannot tell you about the restaurant that opened last month.
+    da: Som en trykt rejseguide — alt i den passede, da den gik i trykken, men den kan ikke fortælle om restauranten, der åbnede i sidste måned.
+  inPractice:
+    en: Asked about a new version of a library, a chat assistant describes an old version as the newest one, because the new release came out after its cutoff date.
+    da: Spurgt om en ny version af et bibliotek beskriver en chatassistent en gammel version som den nyeste, fordi den nye udgivelse kom efter dens skæringsdato.
+  whyItMatters:
+    en: Security advice goes stale fast — new weak spots, new attacks, new versions — so answers about recent events must be checked against current sources.
+    da: Sikkerhedsråd forælder hurtigt — nye svagheder, nye angreb, nye versioner — så svar om nylige begivenheder skal tjekkes mod aktuelle kilder.
+edges:
+  requires: [training-data, model-training]
+  part-of: [large-language-model]
+  causes:
+    - to: hallucination
+      why:
+        en: Asked about something after its cutoff, a model often does not say it does not know; it fills the gap with an old or made-up answer.
+        da: Spurgt om noget efter sin vidensgrænse siger en model ofte ikke, at den ikke ved det; den fylder hullet med et gammelt eller opdigtet svar.
+      strength: normal
+      confidence: medium
+sources:
+  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile
+    tier: standard
+    publisher: NIST
+  - title: 'Jurafsky & Martin, Speech and Language Processing'
+    tier: textbook
+draft: true

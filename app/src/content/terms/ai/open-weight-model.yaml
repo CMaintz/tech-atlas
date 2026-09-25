@@ -1,0 +1,55 @@
+term:
+  en: Open-weight model
+  da: Model med åbne vægte (open-weight)
+aka:
+  en: [open model]
+  da: [åben model]
+domain: [ai]
+cluster: model-architecture
+layer: model
+status: current
+summary:
+  en: A model whose learned numbers are published for anyone to download and run themselves, instead of only being reachable through an API.
+  da: En model, hvis lærte tal er offentliggjort, så alle kan hente og køre den selv, i stedet for kun at kunne nås gennem et API.
+body:
+  formal:
+    en: A foundation model whose model weights are released publicly, often under a licence with use limits, so it can be run, inspected and fine-tuned on one's own hardware; the training data and code are usually not released.
+    da: En grundmodel, hvis modelvægte offentliggøres, ofte under en licens med begrænsninger, så den kan køres, undersøges og finjusteres på egen hardware; træningsdata og kode frigives som regel ikke.
+  plain:
+    en: Like buying a finished cake with the exact recipe card inside — you can bake it yourself and change it, but you still do not know how the recipe was worked out.
+    da: Som at købe en færdig kage med det nøjagtige opskriftskort indeni — du kan selv bage og ændre den, men du ved stadig ikke, hvordan opskriften blev fundet frem til.
+  inPractice:
+    en: A hospital downloads an open-weight model and runs it on its own servers, so patient notes never leave the building.
+    da: Et hospital henter en model med åbne vægte og kører den på sine egne servere, så patientnotater aldrig forlader huset.
+  whyItMatters:
+    en: Running it yourself keeps data in-house and removes vendor lock-in, but a downloaded file can be tampered with, and safety limits removed by one user cannot be taken back.
+    da: At køre den selv holder data internt og fjerner leverandørbinding, men en hentet fil kan være manipuleret, og sikkerhedsgrænser, én bruger har fjernet, kan ikke trækkes tilbage.
+edges:
+  kind-of: [foundation-model]
+  requires:
+    - to: model-weights
+      why:
+        en: What makes a model "open" here is that its weights file is published, not its code or training data.
+        da: Det, der gør en model "åben" her, er, at vægtfilen offentliggøres — ikke koden eller træningsdata.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: quantization
+      why:
+        en: People often shrink downloaded weights with quantization so the model runs on a laptop or a single GPU.
+        da: Hentede vægte bliver ofte gjort mindre med kvantisering, så modellen kan køre på en bærbar eller en enkelt GPU.
+      strength: normal
+      confidence: high
+    - to: small-language-model
+      why:
+        en: Many small language models are released with open weights so they can run on the user's own devices.
+        da: Mange små sprogmodeller udgives med åbne vægte, så de kan køre på brugerens egne enheder.
+      strength: normal
+      confidence: medium
+sources:
+  - title: NTIA (2024), Dual-Use Foundation Models with Widely Available Model Weights
+    tier: official-doc
+    publisher: U.S. Department of Commerce, NTIA
+  - title: Kapoor et al. (2024), On the Societal Impact of Open Foundation Models
+    tier: reference
+draft: true

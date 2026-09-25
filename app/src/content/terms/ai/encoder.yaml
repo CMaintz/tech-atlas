@@ -1,0 +1,43 @@
+term:
+  en: Encoder
+  da: Encoder
+aka:
+  en: []
+  da: []
+domain: [ai]
+cluster: model-architecture
+layer: model
+status: current
+summary:
+  en: The half of a model that reads the whole input at once and turns it into embeddings that capture its meaning.
+  da: Den halvdel af en model, der læser hele inputtet på én gang og gør det til embeddings, som fanger betydningen.
+body:
+  formal:
+    en: A stack of neural network layers that takes a full sequence of tokens and, letting every token look both forwards and backwards, produces one embedding per token for later steps to use.
+    da: En stak af lag i et neuralt netværk, der tager en hel række tokens og, ved at lade hvert token kigge både frem og tilbage, laver én embedding pr. token til brug i de næste trin.
+  plain:
+    en: Like a reader who takes in the whole letter first and jots down what each sentence really means before anyone writes a reply.
+    da: Som en læser, der først læser hele brevet og noterer, hvad hver sætning egentlig betyder, før nogen skriver et svar.
+  inPractice:
+    en: A support team sorts incoming emails with an encoder-only model such as BERT, which reads each message whole and labels it "billing", "bug" or "sales".
+    da: Et supportteam sorterer indgående mails med en ren encoder-model som BERT, der læser hver besked i sin helhed og mærker den "regning", "fejl" eller "salg".
+  whyItMatters:
+    en: Encoders power search, sorting and embedding tasks cheaply, yet they cannot write new text — knowing the difference helps you pick a smaller, faster tool when you only need to understand text.
+    da: Encodere driver søgning, sortering og embeddings billigt, men kan ikke skrive ny tekst — kender man forskellen, kan man vælge et mindre og hurtigere værktøj, når man kun skal forstå tekst.
+edges:
+  requires: [token, embedding, attention-mechanism]
+  part-of:
+    - to: transformer
+      why:
+        en: The original transformer paired an encoder that reads the input with a decoder that writes the output.
+        da: Den oprindelige transformer parrede en encoder, der læser inputtet, med en decoder, der skriver outputtet.
+      strength: primary
+      confidence: high
+sources:
+  - title: Vaswani et al. (2017), Attention Is All You Need
+    tier: reference
+  - title: Devlin et al. (2019), BERT — Pre-training of Deep Bidirectional Transformers for Language Understanding
+    tier: reference
+  - title: 'Jurafsky & Martin, Speech and Language Processing (3rd ed. draft)'
+    tier: textbook
+draft: true

@@ -1,0 +1,43 @@
+term:
+  en: Prompt engineering
+  da: Prompt engineering
+aka:
+  en: [prompt design]
+  da: [promptdesign]
+domain: [ai]
+cluster: prompting
+layer: application
+status: current
+summary:
+  en: The craft of wording, ordering and testing the text you send a language model so that it gives useful answers more often.
+  da: Håndværket at formulere, ordne og afprøve den tekst, man sender en sprogmodel, så den oftere giver brugbare svar.
+body:
+  formal:
+    en: The practice of designing a prompt — its instructions, examples, layout and requested answer format — and changing it step by step against test cases, to steer a large language model without changing its weights.
+    da: Praksissen at udforme en prompt — dens instruktioner, eksempler, opbygning og ønskede svarformat — og ændre den trin for trin mod testtilfælde for at styre en stor sprogmodel uden at ændre dens vægte.
+  plain:
+    en: Like learning how to brief a very literal new colleague — the same job goes much better once you know which details to spell out and in what order.
+    da: Som at lære at instruere en meget bogstavelig ny kollega — samme opgave går meget bedre, når man ved, hvilke detaljer der skal siges højt og i hvilken rækkefølge.
+  inPractice:
+    en: A support team rewrites its assistant's instructions three times, adding two sample replies and "answer in under 80 words", then re-runs fifty saved customer questions to check each version.
+    da: Et supportteam omskriver sin assistents instruktioner tre gange, tilføjer to eksempelsvar og "svar med under 80 ord" og kører derefter halvtreds gemte kundespørgsmål igen for at tjekke hver version.
+  whyItMatters:
+    en: It is the cheapest and fastest way to change how an AI feature behaves, but a small change in wording can quietly break cases that used to work, so changes need testing.
+    da: Det er den billigste og hurtigste måde at ændre, hvordan en AI-funktion opfører sig, men en lille ændring i ordlyden kan stille og roligt ødelægge tilfælde, der plejede at virke, så ændringer skal testes.
+edges:
+  requires: [prompt]
+  used-with:
+    - to: system-prompt
+      why:
+        en: Much of the work goes into the system prompt, since it shapes every conversation an application has.
+        da: Meget af arbejdet lægges i systemprompten, fordi den former hver samtale, en applikation fører.
+      strength: primary
+      confidence: high
+sources:
+  - title: Anthropic documentation — Prompt engineering overview
+    tier: official-doc
+    publisher: Anthropic
+  - title: OpenAI documentation — Prompt engineering guide
+    tier: official-doc
+    publisher: OpenAI
+draft: true

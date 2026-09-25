@@ -1,0 +1,56 @@
+---
+/**
+ * GitHub Pages serves dist/404.html for any missing path under the site (A64).
+ * One bilingual page: the path doesn't say which language the reader wanted.
+ * Kept out of search engines; also links the A–Z index (A72).
+ */
+import Base from '../layouts/Base.astro';
+import { UI, url } from '../lib/site';
+import { UI_EXTRA } from '../lib/ui-extra';
+---
+
+<Base lang="en" title={UI.en.notFoundTitle} tourAutoStart={false} noindex>
+  <div class="py-10">
+    <p class="font-mono text-sm text-neutral-500">404</p>
+    <h1 class="mt-2 text-3xl font-semibold">{UI.en.notFoundTitle}</h1>
+    <p class="mt-2 text-neutral-400">{UI.en.notFoundBody}</p>
+    <p lang="da" class="mt-6 text-xl font-semibold text-neutral-300">{UI.da.notFoundTitle}</p>
+    <p lang="da" class="mt-1 text-neutral-400">{UI.da.notFoundBody}</p>
+    <ul class="mt-8 flex flex-wrap gap-3 text-sm">
+      <li>
+        <a
+          class="rounded border border-neutral-700 px-3 py-1.5 hover:border-neutral-400"
+          href={url('en/')}
+        >
+          {UI.en.notFoundHome}
+        </a>
+      </li>
+      <li>
+        <a
+          lang="da"
+          class="rounded border border-neutral-700 px-3 py-1.5 hover:border-neutral-400"
+          href={url('da/')}
+        >
+          {UI.da.notFoundHome}
+        </a>
+      </li>
+      <li>
+        <a
+          class="rounded border border-neutral-700 px-3 py-1.5 hover:border-neutral-400"
+          href={url('en/terms/')}
+        >
+          {UI_EXTRA.en.notFoundAz}
+        </a>
+      </li>
+      <li>
+        <a
+          lang="da"
+          class="rounded border border-neutral-700 px-3 py-1.5 hover:border-neutral-400"
+          href={url('da/terms/')}
+        >
+          {UI_EXTRA.da.notFoundAz}
+        </a>
+      </li>
+    </ul>
+  </div>
+</Base>

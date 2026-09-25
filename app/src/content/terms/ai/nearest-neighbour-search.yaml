@@ -1,0 +1,49 @@
+term:
+  en: Nearest-neighbour search
+  da: Nærmeste-nabo-søgning
+aka:
+  en: [approximate nearest neighbour search, vector search]
+  da: [approksimativ nærmeste-nabo-søgning, vektorsøgning]
+domain: [ai]
+cluster: retrieval
+layer: application
+status: current
+summary:
+  en: Finding the few stored items that sit closest to a given one, usually trading a little exactness for a lot of speed.
+  da: At finde de få gemte elementer, der ligger tættest på et givet element, som regel ved at bytte lidt præcision for meget fart.
+body:
+  formal:
+    en: The task of returning the k stored embeddings closest to a query embedding under a chosen distance or cosine similarity; approximate methods group or link the stored items in advance so only a small share must be checked.
+    da: Opgaven at returnere de k gemte embeddings, der ligger tættest på en forespørgsels embedding målt med en valgt afstand eller cosinuslighed; approksimative metoder grupperer eller forbinder de gemte elementer på forhånd, så kun en lille del skal tjekkes.
+  plain:
+    en: Like finding the closest cafés on a map — you do not measure the distance to every café in the country, you look in the neighbourhood you are standing in.
+    da: Som at finde de nærmeste caféer på et kort — man måler ikke afstanden til hver café i landet, man kigger i det kvarter, man står i.
+  inPractice:
+    en: A shop with ten million product embeddings answers "similar items" in a twentieth of a second by checking only a few thousand likely candidates instead of all of them.
+    da: En webbutik med ti millioner produkt-embeddings svarer på "lignende varer" på en tyvendedel af et sekund ved kun at tjekke nogle få tusinde sandsynlige kandidater i stedet for dem alle.
+  whyItMatters:
+    en: Without the shortcut, meaning-based search over large collections would be far too slow; with it, the true best match is sometimes silently missed.
+    da: Uden genvejen ville betydningsbaseret søgning i store samlinger være alt for langsom; med den bliver det bedste match af og til overset uden varsel.
+edges:
+  part-of:
+    - to: vector-database
+      why:
+        en: Fast lookup of the closest embeddings is the core job a vector database is built around.
+        da: Hurtigt opslag af de nærmeste embeddings er kerneopgaven, som en vektordatabase er bygget op omkring.
+      strength: primary
+      confidence: high
+  requires: [embedding]
+  used-with:
+    - to: semantic-search
+      why:
+        en: Semantic search depends on it to pick the closest texts out of millions in time to answer.
+        da: Semantisk søgning er afhængig af den for at udvælge de nærmeste tekster blandt millioner, hurtigt nok til at svare.
+      strength: normal
+      confidence: high
+sources:
+  - title: Malkov & Yashunin (2018), Efficient and Robust Approximate Nearest Neighbor Search Using Hierarchical Navigable Small World Graphs
+    tier: reference
+    publisher: IEEE TPAMI
+  - title: Johnson, Douze & Jégou (2017), Billion-scale similarity search with GPUs
+    tier: reference
+draft: true

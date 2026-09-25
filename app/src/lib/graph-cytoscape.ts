@@ -1,5 +1,5 @@
 /**
- * Cytoscape glue shared by the Explorer and the term-page graph (A61): the stylesheet,
+ * Cytoscape glue shared by the Explorer and the term-page graph (A74): the stylesheet,
  * element data built from graph-style, hover highlighting and the animated flow along
  * one-way edges. Browser-only; the pure mapping it relies on lives in graph-style.ts.
  */

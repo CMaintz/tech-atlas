@@ -1,0 +1,45 @@
+term:
+  en: Clustering
+  da: Klyngeanalyse (clustering)
+aka:
+  en: []
+  da: [clustering, klyngedannelse]
+domain: [ai]
+cluster: ml-fundamentals
+layer: training
+status: current
+summary:
+  en: Letting a computer put similar items into groups by itself, with no names or right answers given in advance.
+  da: At lade en computer selv samle ens ting i grupper, uden at navne eller rigtige svar er givet på forhånd.
+body:
+  formal:
+    en: A task in machine learning that splits unlabeled items into groups so that items in the same group are more alike than items in different groups; the number and meaning of the groups are not given.
+    da: En opgave i maskinlæring, der deler umærkede ting op i grupper, så ting i samme gruppe ligner hinanden mere end ting i forskellige grupper; antallet af grupper og deres betydning er ikke givet.
+  plain:
+    en: Like tipping out a bag of mixed sweets and pushing the ones that look alike into piles — you decide afterwards what each pile is.
+    da: Som at hælde en pose blandede slik ud og skubbe dem, der ligner hinanden, sammen i bunker — bagefter beslutter du, hvad hver bunke er.
+  inPractice:
+    en: A security team groups thousands of alerts by how alike they are and finds that most belong to five known causes, plus one small odd group worth a closer look.
+    da: Et sikkerhedsteam grupperer tusindvis af alarmer efter, hvor meget de ligner hinanden, og finder, at de fleste hører til fem kendte årsager plus én lille, mærkelig gruppe, der er værd at se nærmere på.
+  whyItMatters:
+    en: It finds order in piles of data nobody has time to label, but the groups carry no meaning until a person looks at them and names them.
+    da: Den finder orden i bunker af data, som ingen har tid til at mærke, men grupperne betyder intet, før et menneske har set på dem og navngivet dem.
+edges:
+  requires: [training-data]
+  kind-of: [unsupervised-learning]
+  used-with:
+    - to: embedding
+      why:
+        en: Texts or images are first turned into embeddings, so that "alike" becomes "close together", and then grouped.
+        da: Tekster eller billeder laves først om til embeddings, så "ens" bliver til "tæt på hinanden", og grupperes derefter.
+      strength: primary
+      confidence: high
+    - cosine-similarity
+sources:
+  - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    tier: textbook
+    publisher: Pearson
+  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    tier: standard
+    publisher: ISO/IEC
+draft: true

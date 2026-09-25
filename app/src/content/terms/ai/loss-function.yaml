@@ -1,0 +1,47 @@
+term:
+  en: Loss function
+  da: Tabsfunktion (loss function)
+aka:
+  en: [cost function, objective function]
+  da: [loss function, omkostningsfunktion]
+domain: [ai]
+cluster: training
+layer: training
+status: current
+summary:
+  en: The scoring rule that turns how wrong a model's answer is into a single number, which model training then tries to push down.
+  da: Den pointregel, der gør, hvor forkert en models svar er, til ét tal, som modeltræningen så forsøger at presse ned.
+body:
+  formal:
+    en: A formula that compares a model's output with the correct answer and returns a number that is larger the worse the output is; model training adjusts model parameters to make its average over the training data as small as possible.
+    da: En formel, der sammenligner en models output med det rigtige svar og giver et tal, der er større, jo dårligere outputtet er; modeltræning justerer modelparametre, så gennemsnittet over træningsdata bliver så lille som muligt.
+  plain:
+    en: Like the penalty points in a driving test — each mistake adds points, and the learner practises until the total is as low as it can get.
+    da: Som strafpoint til en køreprøve — hver fejl giver point, og eleven øver, til summen er så lav som muligt.
+  inPractice:
+    en: A team building a spam filter picks a loss function that punishes letting spam through less than it punishes blocking a customer's real invoice.
+    da: Et team, der bygger et spamfilter, vælger en tabsfunktion, der straffer det at lukke spam igennem mindre end det at blokere en kundes rigtige faktura.
+  whyItMatters:
+    en: A model learns exactly what its loss function rewards and nothing else, so a badly chosen score quietly trains it to chase the wrong goal.
+    da: En model lærer præcis det, tabsfunktionen belønner, og intet andet, så en dårligt valgt score stille og roligt træner den til at jagte det forkerte mål.
+edges:
+  requires: [machine-learning]
+  part-of:
+    - to: model-training
+      why:
+        en: Every round of model training starts by measuring the loss on a batch of examples.
+        da: Hver runde modeltræning starter med at måle tabet på et parti eksempler.
+      strength: primary
+      confidence: high
+  causes:
+    - to: ai-bias
+      why:
+        en: A loss that only rewards being right on average lets a model do badly on small groups without being penalised.
+        da: Et tab, der kun belønner at have ret i gennemsnit, lader en model klare sig dårligt for små grupper uden at blive straffet.
+      strength: minor
+      confidence: medium
+sources:
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 5)'
+    tier: textbook
+    publisher: MIT Press
+draft: true

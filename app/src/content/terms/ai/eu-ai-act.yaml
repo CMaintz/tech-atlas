@@ -58,6 +58,24 @@ edges:
         da: Udbydere skal indberette alvorlige hændelser med højrisikosystemer til markedsovervågningsmyndighederne.
       strength: normal
       confidence: high
+    - to: model-card
+      why:
+        en: Providers of general-purpose AI models must keep technical documentation and give information to those who build on the model (Art. 53, Annex XI/XII); the Act does not name model cards, but a model card is a common way to meet part of that duty.
+        da: Udbydere af AI-modeller til almen brug skal føre teknisk dokumentation og give oplysninger til dem, der bygger videre på modellen (art. 53, bilag XI/XII); forordningen nævner ikke modelkort, men et modelkort er en udbredt måde at opfylde en del af pligten på.
+      strength: normal
+      confidence: medium
+    - to: model-evaluation
+      why:
+        en: The Act requires high-risk AI systems to be tested for accuracy, robustness and security before and during use (Art. 9, 15).
+        da: Forordningen kræver, at højrisiko-AI-systemer testes for nøjagtighed, robusthed og sikkerhed før og under brug (art. 9, 15).
+      strength: normal
+      confidence: medium
+    - to: human-in-the-loop
+      why:
+        en: Article 14 requires high-risk AI systems to be built so people can oversee them effectively.
+        da: Artikel 14 kræver, at højrisiko-AI-systemer indrettes til effektivt menneskeligt tilsyn.
+      strength: normal
+      confidence: medium
   contrasts-with:
     - to: gdpr
       why:

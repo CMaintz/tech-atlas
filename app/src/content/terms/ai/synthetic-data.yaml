@@ -1,0 +1,51 @@
+term:
+  en: Synthetic data
+  da: Syntetiske data
+aka:
+  en: [artificial data, generated data]
+  da: [kunstige data, genererede data]
+domain: [ai]
+cluster: training
+layer: training
+status: current
+summary:
+  en: Made-up examples produced by a program or another AI model to look like real records, used where real examples are scarce or private.
+  da: Opdigtede eksempler, lavet af et program eller en AI-model, så de ligner rigtige data — brugt, hvor ægte eksempler er få eller private.
+body:
+  formal:
+    en: Data generated rather than collected, designed to keep the useful patterns of real data; used as training data, for testing, or to share data sets without exposing personal data.
+    da: Data, der er skabt i stedet for indsamlet, og som er designet til at bevare de nyttige mønstre fra rigtige data; bruges som træningsdata, til test eller til at dele datasæt uden at afsløre persondata.
+  plain:
+    en: Like a flight simulator — the storms and engine failures are not real, but a pilot can practise them safely and as often as needed.
+    da: Som en flysimulator — stormene og motorsvigtene er ikke ægte, men en pilot kan øve dem sikkert og så tit, det er nødvendigt.
+  inPractice:
+    en: A bank lacks enough fraud cases to teach a detector, so it generates thousands of realistic fake fraud transactions and mixes them with its real history.
+    da: En bank har for få svindelsager til at lære en detektor op, så den genererer tusindvis af realistiske falske svindeltransaktioner og blander dem med sin rigtige historik.
+  whyItMatters:
+    en: It can ease privacy and data shortages, but badly made synthetic data can still leak real people's details or bake in the mistakes of the model that produced it.
+    da: Det kan lette privatlivs- og datamangelproblemer, men dårligt lavede syntetiske data kan stadig lække rigtige personers oplysninger eller bage fejlene fra den model, der lavede dem, ind.
+edges:
+  requires: [generative-ai]
+  kind-of: [training-data]
+  mitigates:
+    - to: data-breach
+      why:
+        en: Working on made-up records instead of real personal data means a leak exposes less — but only if individuals cannot be traced back from it.
+        da: At arbejde på opdigtede poster i stedet for rigtige persondata betyder, at et læk afslører mindre — men kun hvis enkeltpersoner ikke kan spores tilbage.
+      strength: minor
+      confidence: medium
+  causes:
+    - to: ai-bias
+      why:
+        en: Data produced by a model copies that model's blind spots into the next one.
+        da: Data lavet af en model kopierer den models blinde vinkler over i den næste.
+      strength: minor
+      confidence: medium
+sources:
+  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    tier: standard
+    publisher: ISO/IEC
+  - title: Shumailov et al. (2024), AI models collapse when trained on recursively generated data
+    tier: reference
+    publisher: Nature
+draft: true

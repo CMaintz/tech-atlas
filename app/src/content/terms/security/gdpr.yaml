@@ -62,7 +62,14 @@ edges:
         da: GDPR beskytter menneskers persondata; NIS2 beskytter de tjenester, samfundet er afhængigt af.
       strength: primary
       confidence: high
-  used-with: [training-data]
+  used-with:
+    - training-data
+    - to: sensitive-information-disclosure
+      why:
+        en: Personal data leaked through an AI answer is a personal data breach that may have to be reported under GDPR.
+        da: Personoplysninger, der lækkes via et AI-svar, er et brud på persondatasikkerheden, der kan skulle anmeldes efter GDPR.
+      strength: normal
+      confidence: medium
   kind-of: [eu-regulation]
 article:
   en: src/content/articles/security/gdpr.en.md
