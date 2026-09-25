@@ -11,6 +11,7 @@ import { EXPLORER } from './explorer-config';
 import {
   MAP_INK,
   clusterColour,
+  domainColour,
   familyColours,
   homeDomain,
   isDirected,
@@ -54,6 +55,8 @@ export async function createMap3D(opts: {
   onPoint?: (hit: { id: string; x: number; y: number } | null) => void;
   /** The scene's palette (A92); change it later with `retheme`. */
   theme?: MapTheme;
+  /** Each domain's name, written large and faint across its galaxy (A93b). */
+  domainLabels?: Record<string, string>;
 }) {
   const [{ default: ForceGraph3D }, THREE] = await Promise.all([
     import('3d-force-graph'),
@@ -278,6 +281,49 @@ export async function createMap3D(opts: {
     scene.add(sprite);
   }
 
+  // ---- Domain names: large, faint text across each galaxy, like the 2D map (A93b) -----
+  // Sprites always face the camera; they are not 3d-force-graph objects, so they never
+  // take a click or a hover.
+  const domainArt: {
+    domain: string;
+    ids: string[];
+    c: HTMLCanvasElement;
+    tex: { needsUpdate: boolean };
+    sprite: InstanceType<typeof THREE.Sprite>;
+  }[] = [];
+  const dpx = 120;
+  const drawDomain = (d: string, c: HTMLCanvasElement) => {
+    const g = c.getContext('2d')!;
+    g.clearRect(0, 0, c.width, c.height);
+    g.font = `700 ${dpx}px system-ui, sans-serif`;
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    g.fillStyle = domainColour(d, theme);
+    g.fillText(opts.domainLabels?.[d] ?? d, c.width / 2, c.height / 2);
+  };
+  for (const d of [...new Set(nodes.map(homeDomain))]) {
+    const own = nodes.filter((n) => homeDomain(n) === d);
+    const mid = (k: 'x' | 'y' | 'z') => own.reduce((s, n) => s + n[k], 0) / own.length;
+    const c = document.createElement('canvas');
+    const g = c.getContext('2d')!;
+    g.font = `700 ${dpx}px system-ui, sans-serif`;
+    c.width = Math.ceil(g.measureText(opts.domainLabels?.[d] ?? d).width) + 40;
+    c.height = dpx + 40;
+    drawDomain(d, c);
+    const tex = new THREE.CanvasTexture(c);
+    const sprite = new THREE.Sprite(
+      new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false, fog: false }),
+    );
+    const h = cfg.domainLabelHeight;
+    sprite.scale.set((h * c.width) / c.height, h, 1);
+    // Above the galaxy's middle, so the name reads over its terms, not through them.
+    const top = Math.max(...own.map((n) => n.y));
+    sprite.position.set(mid('x'), (mid('y') + top) / 2 + h * 0.6, mid('z'));
+    sprite.renderOrder = -1;
+    domainArt.push({ domain: d, ids: own.map((n) => n.id), c, tex, sprite });
+    scene.add(sprite);
+  }
+
   // ---- The resting web: every link as a gently curved polyline in one geometry --------
   const SEG = 8;
   /** Each link's curve (start, bend, end), shared with the flow particles. */
@@ -340,24 +386,44 @@ export async function createMap3D(opts: {
    * Night map (additive): a colour's brightness is its opacity; black is invisible.
    * Cream map (multiply): a colour mixed towards white by its opacity; white is invisible.
    */
-  const paintWeb = () => {
+  /** Each link's drawn strength (0 = hidden), and links still waiting to appear. */
+  const webK = new Float32Array(links.length);
+  let waiting: { i: number; k: number }[] = [];
+  let revealRaf = 0;
+  const writeWeb = (i: number, k: number) => {
+    webK[i] = k;
+    const c = tints[i];
+    const kk = light() ? Math.min(1, k * 1.5) : k;
+    for (let j = 0; j < SEG * 2; j++)
+      webCol.set(
+        light()
+          ? [1 - (1 - c.r) * kk, 1 - (1 - c.g) * kk, 1 - (1 - c.b) * kk]
+          : [c.r * kk, c.g * kk, c.b * kk],
+        (i * SEG * 2 + j) * 3,
+      );
+  };
+  /** Links a toggle switched on arrive a batch per frame (A93b); instant otherwise. */
+  const revealTick = () => {
+    for (const { i, k } of waiting.splice(0, EXPLORER.motion.revealBatch)) writeWeb(i, k);
+    webColours.needsUpdate = true;
+    revealRaf = waiting.length ? requestAnimationFrame(revealTick) : 0;
+  };
+  const paintWeb = (stagger = false) => {
+    cancelAnimationFrame(revealRaf);
+    revealRaf = 0;
+    const next: { i: number; k: number }[] = [];
     links.forEach((l, i) => {
       let k = 0;
       if (view && endsShown(l) && (view.showAll || l.bb) && !focusOf(l)) {
         const dim = faded(endId(l.source)) || faded(endId(l.target));
         k = dim ? 0.02 : view.showAll && !l.bb ? cfg.linkAlpha * 0.6 : cfg.linkAlpha;
       }
-      const c = tints[i];
-      if (light()) k = Math.min(1, k * 1.5);
-      for (let j = 0; j < SEG * 2; j++)
-        webCol.set(
-          light()
-            ? [1 - (1 - c.r) * k, 1 - (1 - c.g) * k, 1 - (1 - c.b) * k]
-            : [c.r * k, c.g * k, c.b * k],
-          (i * SEG * 2 + j) * 3,
-        );
+      if (stagger && motion && k > 0 && webK[i] === 0) next.push({ i, k });
+      else writeWeb(i, k);
     });
+    waiting = next;
     webColours.needsUpdate = true;
+    if (waiting.length) revealRaf = requestAnimationFrame(revealTick);
   };
 
   // ---- Flow: a small comet drifting along every visible one-way link (A86) -----------
@@ -516,8 +582,8 @@ export async function createMap3D(opts: {
   };
   setBlend();
 
-  const paintGlow = () => {
-    paintWeb();
+  const paintGlow = (stagger = false) => {
+    paintWeb(stagger);
     paintFlow();
     const col = new THREE.Color();
     nodes.forEach((n, i) => {
@@ -536,6 +602,12 @@ export async function createMap3D(opts: {
     for (const [id, s] of labels) {
       s.visible = !!view?.nodes.has(id);
       s.material.opacity = faded(id) ? 0.12 : 1;
+    }
+    // A domain's name shows while any of its own terms does; it recedes with a selection.
+    const quiet = !!(hover || view?.selected || view?.highlight.size);
+    for (const a of domainArt) {
+      a.sprite.visible = a.ids.some((id) => view?.nodes.has(id));
+      a.sprite.material.opacity = cfg.domainLabelAlpha[theme] * (quiet ? 0.35 : 1);
     }
   };
 
@@ -655,7 +727,20 @@ export async function createMap3D(opts: {
       }
       const nodesChanged = !prev || prev.nodes !== next.nodes;
       if (nodesChanged) fg.nodeVisibility(fg.nodeVisibility());
-      refresh();
+      // Only the relationship types or "show all" changed, with nothing focused: no
+      // 3d-force-graph object can change, so skip re-evaluating its accessors and
+      // reveal the web a batch per frame (A93b).
+      const toggleOnly =
+        !!prev &&
+        !nodesChanged &&
+        !hover &&
+        prev.selected === next.selected &&
+        prev.highlight === next.highlight &&
+        !next.highlight.size &&
+        prev.colour === next.colour &&
+        prev.bands === next.bands;
+      if (toggleOnly) paintGlow(true);
+      else refresh();
       // Opening or closing the term panel changes the part of the canvas left clear.
       if (!!next.selected !== !!prev?.selected) resize();
       if (next.selected && next.selected !== prev?.selected) flyTo(next.selected);
@@ -686,6 +771,10 @@ export async function createMap3D(opts: {
         drawLabel(a.text, a.c);
         a.tex.needsUpdate = true;
       }
+      for (const a of domainArt) {
+        drawDomain(a.domain, a.c);
+        a.tex.needsUpdate = true;
+      }
       refresh();
     },
     /** Re-frame after the clear part of the canvas changed (e.g. the legend toggled). */
@@ -701,6 +790,7 @@ export async function createMap3D(opts: {
     },
     destroy() {
       runFlow(false);
+      cancelAnimationFrame(revealRaf);
       window.clearTimeout(hoverTimer);
       window.removeEventListener('resize', resize);
       window.removeEventListener('pointerup', onRelease);

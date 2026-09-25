@@ -618,8 +618,9 @@ export function createMap2D(opts: Map2DOptions) {
    * Which edges are drawn, and how (backbone / all / focus). The families filter the
    * overview only: a selected term shows every one of its relationships.
    */
-  const refreshEdges = () => {
-    if (!view) return;
+  const refreshEdges = (defer = false): EdgeChange[] => {
+    const changes: EdgeChange[] = [];
+    if (!view) return changes;
     const v = view;
     const sel = v.selected;
     const hl = v.highlight;
@@ -629,17 +630,22 @@ export function createMap2D(opts: Map2DOptions) {
         : backboneOf(graph.nodes, graph.links, v.families, v.nodes);
     spineFor = [v.families, v.nodes];
     cy.batch(() => {
-      links.forEach((e) => {
-        const s = e.data('source');
-        const t = e.data('target');
-        if (spine) e.toggleClass('bb', spine.has(Number(e.id().slice(1))));
+      // Worked out in plain data; only edges whose classes change are touched (A93b):
+      // a toggle then restyles the edges it changes, not every edge. `defer` hands the
+      // changes back to be applied a batch per frame.
+      edgeMeta.forEach((m, i) => {
+        const { s, t, e } = m;
+        if (spine) m.bb = spine.has(i);
         const shown = v.nodes.has(s) && v.nodes.has(t);
-        const ends = shown && v.families.has(graphFamily(e));
+        const ends = shown && v.families.has(m.family);
         const focus = (shown && (s === sel || t === sel)) || (ends && hl.has(s) && hl.has(t));
-        const on = focus || (ends && (v.showAll || e.hasClass('bb')));
-        e.toggleClass('off', !on);
-        e.toggleClass('all', on && v.showAll);
-        e.toggleClass('focus', focus);
+        const on = focus || (ends && (v.showAll || m.bb));
+        const bits = (m.bb ? 1 : 0) | (on ? 0 : 2) | (on && v.showAll ? 4 : 0) | (focus ? 8 : 0);
+        if (bits === m.bits && e.hasClass('off') === !on) return;
+        m.bits = bits;
+        const c = { e, bb: m.bb, on, all: on && v.showAll, focus };
+        if (defer) changes.push(c);
+        else applyEdge(c);
       });
       // Bundles summarise the visible cross-cluster relationships in the force overview.
       const counts = new Map<string, number>();
@@ -669,17 +675,45 @@ export function createMap2D(opts: Map2DOptions) {
       });
     });
     shown = cy.elements().not('.gone, .off, .anchor');
+    return changes;
   };
   const graphFamily = (e: cytoscape.EdgeSingular) => graph.links[Number(e.id().slice(1))].family;
+  type EdgeChange = {
+    e: cytoscape.EdgeSingular;
+    bb: boolean;
+    on: boolean;
+    all: boolean;
+    focus: boolean;
+  };
+  const applyEdge = (c: EdgeChange) =>
+    c.e
+      .toggleClass('bb', c.bb)
+      .toggleClass('off', !c.on)
+      .toggleClass('all', c.all)
+      .toggleClass('focus', c.focus);
+  /** Each relationship's edge, ends and family by index, and its last class bits. */
+  const edgeMeta = graph.links.map((l, i) => ({
+    e: cy.getElementById(`e${i}`) as cytoscape.EdgeSingular,
+    s: l.source,
+    t: l.target,
+    family: l.family,
+    bb: false,
+    bits: -1,
+  }));
 
   /** Bundled routes for cross-cluster edges drawn in full ("show all", force layout). */
   let bundled = false;
-  const setBundledRoutes = (on: boolean, centre?: Record<string, Point>) => {
+  /** `only`: just these edges (a batch of a staggered reveal), the rest already done. */
+  const setBundledRoutes = (
+    on: boolean,
+    centre?: Record<string, Point>,
+    only?: cytoscape.EdgeCollection,
+  ) => {
     // Clearing routes that were never set restyles every cross-cluster edge for nothing.
-    if (!on && !bundled) return;
+    if (!on && !bundled && !only) return;
     bundled = on && !!centre;
     cy.batch(() => {
-      links.filter('.xc').forEach((e) => {
+      (only ?? links).filter('.xc').forEach((e) => {
         if (!on || !centre) {
           e.removeStyle('curve-style control-point-distances control-point-weights');
           return;
@@ -898,6 +932,43 @@ export function createMap2D(opts: Map2DOptions) {
   };
 
   // ---- 7. Applying a view ------------------------------------------------------------
+  /** A staggered edge change in flight: its remaining batches, and what ends it. */
+  let pending: { rest: () => void; raf: number } | null = null;
+  /** Finish a staggered change at once (a new view is about to be applied). */
+  const flushStagger = () => {
+    if (!pending) return;
+    cancelAnimationFrame(pending.raf);
+    const p = pending;
+    pending = null;
+    p.rest();
+  };
+  /**
+   * Run `step` over `edges` a batch per frame (`EXPLORER.motion.revealBatch`) inside a
+   * Cytoscape batch (no per-edge fade: a style bypass per edge costs more than the batch).
+   */
+  const inBatches = <T>(all: T[], step: (chunk: T[]) => void, end: () => void) => {
+    const n = EXPLORER.motion.revealBatch;
+    let i = 0;
+    const run = (count: number) => {
+      const chunk = all.slice(i, (i += count));
+      cy.batch(() => step(chunk));
+    };
+    const tick = () => {
+      run(n);
+      if (i < all.length) pending!.raf = requestAnimationFrame(tick);
+      else {
+        pending = null;
+        end();
+      }
+    };
+    pending = {
+      raf: requestAnimationFrame(tick),
+      rest: () => {
+        run(all.length - i);
+        end();
+      },
+    };
+  };
   let familiesNow: ReadonlySet<string> | null = null;
   const apply = (next: View) => {
     const prev = view;
@@ -941,30 +1012,64 @@ export function createMap2D(opts: Map2DOptions) {
             return familiesNow!.has(f) && !next.families.has(f) && !e.hasClass('off') && !mine;
           })
         : cy.collection();
-    const familiesOn =
-      prev && familiesNow && familiesNow !== next.families && !reducedMotion()
-        ? new Set([...next.families].filter((f) => !familiesNow!.has(f)))
-        : null;
     familiesNow = next.families;
+    flushStagger();
+    const fadeIn = (edges: cytoscape.EdgeCollection) =>
+      edges.forEach((e) => {
+        const target = Number(e.style('opacity'));
+        e.style('opacity', 0).animate(
+          { style: { opacity: target } },
+          { duration: EXPLORER.motion.fadeMs, complete: () => void e.removeStyle('opacity') },
+        );
+      });
     const finish = () => {
-      const wasOff = familiesOn?.size ? links.filter('.off') : null;
-      refreshEdges();
-      // …and fade in when switched back on.
-      if (wasOff)
-        wasOff
-          .filter((e) => !e.hasClass('off') && familiesOn!.has(graphFamily(e)))
-          .forEach((e) => {
-            const target = Number(e.style('opacity'));
-            e.style('opacity', 0).animate(
-              { style: { opacity: target } },
-              {
-                duration: EXPLORER.motion.fadeMs,
-                complete: () => void e.removeStyle('opacity'),
-              },
-            );
-          });
-      if (prev?.showAll !== next.showAll || layoutChanged)
-        setBundledRoutes(next.layout === 'force' && next.showAll, centreNow);
+      // Many edges switched on or off by a toggle (types, "show all") change a batch per
+      // frame (A93b); a few fade in at once. Instant under reduced motion.
+      const toggled = prev && (prev.families !== next.families || prev.showAll !== next.showAll);
+      const stagger = !!toggled && !layoutChanged && !reducedMotion();
+      const routes = prev?.showAll !== next.showAll || layoutChanged;
+      const bundle = next.layout === 'force' && next.showAll;
+      const changes = refreshEdges(stagger);
+      const edgesOf = (cs: EdgeChange[]) =>
+        cy.collection(cs.map((c) => c.e)) as cytoscape.EdgeCollection;
+      /** Apply changes; the edges they switch on get bundled routes when those are on. */
+      const land = (cs: EdgeChange[]) => {
+        const arriving = edgesOf(cs.filter((c) => c.on && c.e.hasClass('off')));
+        cs.forEach(applyEdge);
+        if (bundle && !routes) setBundledRoutes(true, centreNow, arriving);
+        return arriving;
+      };
+      if (changes.length > EXPLORER.motion.revealBatch) {
+        // Routes now for the edges that stay shown; the rest get theirs with their batch.
+        const changing = edgesOf(changes);
+        if (routes)
+          setBundledRoutes(bundle, centreNow, (bundle ? links.not('.off') : links).not(changing));
+        inBatches(
+          changes,
+          (chunk) => {
+            land(chunk);
+            if (routes) setBundledRoutes(bundle, centreNow, edgesOf(chunk));
+          },
+          () => {
+            shown = cy.elements().not('.gone, .off, .anchor');
+            paintFocus();
+          },
+        );
+      } else {
+        // A small change (or reduced motion): at once, new edges fading in.
+        let arriving = cy.collection() as cytoscape.EdgeCollection;
+        cy.batch(() => void (arriving = land(changes)));
+        shown = cy.elements().not('.gone, .off, .anchor');
+        if (routes) setBundledRoutes(bundle, centreNow);
+        if (stagger) fadeIn(arriving);
+      }
+      paintFocus();
+      if (nodesChanged && !layoutChanged) {
+        recull(true);
+        frame();
+      }
+    };
+    const paintFocus = () =>
       cy.batch(() => {
         cy.elements('.sel, .hl, .dim, .nb').removeClass('sel hl dim nb');
         const tags = cy.nodes('.tag');
@@ -989,11 +1094,6 @@ export function createMap2D(opts: Map2DOptions) {
         }
         if (next.selected) cy.getElementById(next.selected).removeClass('dim').addClass('sel');
       });
-      if (nodesChanged && !layoutChanged) {
-        recull(true);
-        frame();
-      }
-    };
     if (fading.nonempty())
       fading.animate(
         { style: { opacity: 0 } },
@@ -1066,6 +1166,8 @@ export function createMap2D(opts: Map2DOptions) {
     },
     destroy() {
       dots.stop();
+      if (pending) cancelAnimationFrame(pending.raf);
+      pending = null;
       window.clearTimeout(cullTimer);
       window.clearTimeout(hoverTimer);
       drag.destroy();
