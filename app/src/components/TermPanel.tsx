@@ -2,6 +2,7 @@ import type { ComponentChildren } from 'preact';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { prerequisitesOf, type Graph } from '../lib/graph-model';
 import { domainColour, nodePaint } from '../lib/graph-style';
+import { useTheme } from '../lib/use-theme';
 import {
   connectionCycle,
   makeTermCache,
@@ -98,6 +99,7 @@ const btn =
  */
 export default function TermPanel(props: Props) {
   const { lang, id, graph, ui, text, onSelect, onClose } = props;
+  const theme = useTheme();
   const cache = termCache(props.apiBase);
   const [loaded, setLoaded] = useState<TermRecord | undefined>(() => cache.peek(id));
   /** The id whose record failed to load — never shown next to another term. */
@@ -288,7 +290,7 @@ export default function TermPanel(props: Props) {
   const why = new Map(
     (record?.edges ?? []).filter((e) => e.why).map((e) => [`${e.type}|${e.to}`, e.why!]),
   );
-  const colour = nodePaint(node).fill;
+  const colour = nodePaint(node, theme).fill;
   const name = node.term[textLang];
   const aka = record?.aka[textLang] ?? [];
   const summary = record?.summary[textLang] ?? node.summary?.[textLang];
@@ -497,7 +499,7 @@ export default function TermPanel(props: Props) {
                 {node.domain.map((d) => (
                   <span
                     class="rounded-full border px-2 py-0.5 text-fg-soft"
-                    style={{ borderColor: domainColour(d) }}
+                    style={{ borderColor: domainColour(d, theme) }}
                   >
                     {props.domainLabels[d] ?? d}
                   </span>

@@ -4,8 +4,9 @@
  * Themes (A92). Semantic colour tokens, one set per theme. The resolved theme is a
  * `data-theme` attribute on <html>, set before first paint by public/theme-init.js
  * (the reader's choice, else the OS preference). Tokens hang off the attribute
- * *selector*, so a nested `data-theme="dark"` re-scopes a subtree: the Explorer map
- * and the timeline chart stay a dark "night map" in the light theme.
+ * *selector*, so a nested `data-theme` would re-scope a subtree. The maps (Explorer,
+ * canvas lab, timeline chart, term-page graph) follow the page theme: a night map in the
+ * dark theme, a cream paper map in the light one (`--map-*`, `.map-surface`, `.map-ink`).
  * Without JavaScript there is no attribute and the OS preference decides.
  * Every text token meets WCAG AA (4.5:1) on bg, surface and surface-2 in its theme.
  */
@@ -24,6 +25,8 @@
   --subtle: #909090;
   --accent: #fcd34d;
   --focus: #f59e0b;
+  --map-bg: #0a0a0a;
+  --map-glow: #11131c;
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]) {
@@ -40,6 +43,8 @@
     --subtle: #616161;
     --accent: #92400e;
     --focus: #b45309;
+    --map-bg: #f6f1e7;
+    --map-glow: #faf6ee;
   }
 }
 [data-theme='light'] {
@@ -56,6 +61,8 @@
   --subtle: #616161;
   --accent: #92400e;
   --focus: #b45309;
+  --map-bg: #f6f1e7;
+  --map-glow: #faf6ee;
 }
 
 /* `inline`: utilities read the variable where they are used, so nesting re-scopes them. */
@@ -74,19 +81,35 @@
   --color-on-accent: #0a0a0a;
 }
 
-/* A night-map panel (the term page's graph, the timeline chart) set into a light page. */
-:root[data-theme='light'] .night-map {
-  padding: 0.75rem;
-  border-radius: 0.75rem;
+/*
+ * A map's ground (A92): a soft vignette, lit at the centre. Night map: near-black round
+ * a blue-black glow; cream map: warm paper, paler at the centre.
+ */
+.map-surface {
+  background: radial-gradient(ellipse at center, var(--map-glow) 0%, var(--map-bg) 75%);
+}
+
+/*
+ * Colours that differ per map theme but are rendered on the server (the timeline): an
+ * element carries both, as `--ink-d`/`--ink-l` (and `--ink2-*`), and paints with
+ * `var(--ink)`, so the right one shows before any script runs.
+ */
+.map-ink {
+  --ink: var(--ink-d);
+  --ink2: var(--ink2-d);
+}
+:root[data-theme='light'] .map-ink {
+  --ink: var(--ink-l);
+  --ink2: var(--ink2-l);
 }
 @media (prefers-color-scheme: light) {
-  :root:not([data-theme]) .night-map {
-    padding: 0.75rem;
-    border-radius: 0.75rem;
+  :root:not([data-theme]) .map-ink {
+    --ink: var(--ink-l);
+    --ink2: var(--ink2-l);
   }
 }
 
-/* `dark:` = the dark theme (or a night-map subtree); with no JavaScript, the OS preference. */
+/* `dark:` = the dark theme; with no JavaScript, the OS preference. */
 @custom-variant dark {
   &:where([data-theme='dark'], [data-theme='dark'] *) {
     @slot;

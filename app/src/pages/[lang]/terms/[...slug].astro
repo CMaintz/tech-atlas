@@ -364,7 +364,7 @@ const crumbs = [
     </div>
     <aside class="mt-10 lg:sticky lg:top-6 lg:mt-0 lg:self-start print:hidden" id="connections">
       <h2 class="mb-2 text-xs tracking-widest text-subtle uppercase">{ui.connections}</h2>
-      <div data-theme="dark" class="night-map bg-bg text-fg">
+      <div class="text-fg">
         <Graph
           client:only="preact"
           nodes={[...nodes.values()]}
