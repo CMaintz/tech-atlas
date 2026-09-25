@@ -507,7 +507,7 @@ export const DEEP_UI: Record<Lang, Record<keyof typeof DEEP_EN, string>> = {
   da: {
     deepDive: 'Teknisk uddybning',
     sourcesFurther: 'Kilder og videre læsning',
-    provenanceTitle: 'Hvor data kommer fra',
+    provenanceTitle: 'Hvor dataene kommer fra',
     provenanceDraft:
       'Dette opslag er skrevet af en AI ud fra kilderne ovenfor og er endnu ikke gennemgået af et menneske. Brug det som udgangspunkt, og tjek alt vigtigt mod kilderne.',
     provenanceReviewed:

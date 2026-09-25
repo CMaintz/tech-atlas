@@ -84,8 +84,9 @@ const btn =
 export default function TermPanel(props: Props) {
   const { lang, id, graph, ui, text, onSelect, onClose } = props;
   const cache = termCache(props.apiBase);
-  const [record, setRecord] = useState<TermRecord | undefined>(() => cache.peek(id));
-  const [failed, setFailed] = useState(false);
+  const [loaded, setLoaded] = useState<TermRecord | undefined>(() => cache.peek(id));
+  /** The id whose record failed to load — never shown next to another term. */
+  const [failedId, setFailedId] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
   const [textLang, setTextLang] = useState<Lang>(lang);
   const [facet, setFacet] = useState<Facet>('formal');
@@ -101,12 +102,10 @@ export default function TermPanel(props: Props) {
   // Load the record (instant when cached) and warm the neighbours' records.
   useEffect(() => {
     let live = true;
-    setFailed(false);
     setQuiz(false);
-    setRecord(cache.peek(id));
     cache.load(id).then(
-      (r) => live && setRecord(r),
-      () => live && setFailed(true),
+      (r) => live && setLoaded(r),
+      () => live && setFailedId(id),
     );
     const warm = window.setTimeout(
       () => neighbourIds(graph, id).slice(0, PREFETCH_NEIGHBOURS).forEach(cache.prefetch),
@@ -134,9 +133,14 @@ export default function TermPanel(props: Props) {
   }, [id]);
 
   // Esc: expanded → docked → closed. Typing in a field elsewhere is left alone.
+  // Listened for in the capture phase, so it runs before the tour's document-level
+  // handler: while a tour card is open, Esc belongs to the tour alone. (Expectation for
+  // Tour.tsx: it should call e.preventDefault() when it consumes Escape, so other
+  // handlers that check `defaultPrevented` stand down.)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Escape' || e.defaultPrevented) return;
+      if (document.querySelector('[data-tour-overlay]')) return;
       const t = e.target as HTMLElement | null;
       const inPanel = !!t && !!root.current?.contains(t);
       if (!inPanel && t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
@@ -146,8 +150,8 @@ export default function TermPanel(props: Props) {
         expandBtn.current?.focus();
       } else onClose();
     };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    window.addEventListener('keydown', onKey, true);
+    return () => window.removeEventListener('keydown', onKey, true);
   }, [expanded, onClose]);
 
   // Expanded, the panel is a modal dialog: Tab cycles inside it.
@@ -171,6 +175,11 @@ export default function TermPanel(props: Props) {
   };
 
   if (!node) return null;
+
+  // Derived at render time, so a previous term's facets, aliases or error never paint
+  // beside the new term while its record loads.
+  const record = loaded?.id === id ? loaded : cache.peek(id);
+  const failed = failedId === id && !record;
 
   const groups = relationGroups(graph, id, props.edgeInverse, props.relationOrder);
   const learnFirst = prerequisitesOf(graph, id);
