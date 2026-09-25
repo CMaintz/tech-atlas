@@ -119,11 +119,17 @@ export default function Account({ lang, ui }: Props) {
     </div>
   );
 
+  const heading = (text: string) => <h1 class="mb-2 text-3xl font-semibold">{text}</h1>;
+
   if (s.status === 'loading') return <p class="text-subtle">{ui.loading}</p>;
 
   if (s.status === 'signed-out' || s.status === 'off') {
     return (
       <div class="max-w-md space-y-6">
+        <div>
+          {heading(ui.signInTitle)}
+          <p class="text-muted">{ui.signInWhy}</p>
+        </div>
         {feedback}
         {options.email && (
           <form
@@ -153,11 +159,12 @@ export default function Account({ lang, ui }: Props) {
           </form>
         )}
         {options.divider && <p class="text-xs text-subtle uppercase">{ui.or}</p>}
-        <div class="flex flex-wrap gap-2">
+        <div class="flex flex-col gap-3">
           {options.providers.map((p) => (
             <button
               key={p}
-              class={button}
+              type="button"
+              class="w-full rounded-md border border-border-strong bg-surface px-4 py-2.5 font-medium hover:border-border-hover disabled:opacity-50"
               disabled={busy}
               onClick={() => void run(() => signInWith(p, lang))}
             >
@@ -183,6 +190,7 @@ export default function Account({ lang, ui }: Props) {
   return (
     <div class="max-w-md space-y-6">
       <div>
+        {heading(ui.account)}
         <p>{ui.signedInAs.replace('{email}', s.email || '—')}</p>
         <p class="mt-1 text-sm text-muted" role="status">
           {statusText}
