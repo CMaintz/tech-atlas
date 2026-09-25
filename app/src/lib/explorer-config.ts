@@ -144,11 +144,11 @@ export const EXPLORER = {
      */
     flow: {
       speed: 34,
-      size: 9,
-      minPx: 3,
-      maxPx: 16,
+      size: 14,
+      minPx: 4,
+      maxPx: 18,
       trail: [1, 0.55, 0.3, 0.14] as readonly number[],
-      tailGap: 5,
+      tailGap: 10,
       alpha: 0.95,
       litAlpha: 1.4,
       dimAlpha: 0.08,

@@ -335,7 +335,6 @@ export async function createMap3D(opts: {
   // Sized in scene units (so nearer comets are bigger), clamped to a legible pixel range.
   const flowMat = new THREE.ShaderMaterial({
     uniforms: {
-      map: { value: glowTexture },
       scale: { value: el.clientHeight / 2 },
       minPx: { value: fl.minPx },
       maxPx: { value: fl.maxPx },
@@ -357,14 +356,15 @@ export async function createMap3D(opts: {
         gl_Position = projectionMatrix * mv;
       }`,
     fragmentShader: `
-      uniform sampler2D map;
       uniform float fogDensity;
       varying vec3 vColor;
       varying float vDepth;
       void main() {
         float fog = max(exp(-fogDensity * fogDensity * vDepth * vDepth), 0.35);
-        vec4 t = texture2D(map, gl_PointCoord);
-        gl_FragColor = vec4(vColor * t.a * fog, 1.0);
+        // A bright core with a soft edge, legible even a few pixels wide.
+        float d = length(gl_PointCoord - 0.5) * 2.0;
+        float a = smoothstep(1.0, 0.45, d) + 0.6 * smoothstep(0.5, 0.0, d);
+        gl_FragColor = vec4(vColor * a * fog, 1.0);
       }`,
     blending: THREE.AdditiveBlending,
     depthWrite: false,
