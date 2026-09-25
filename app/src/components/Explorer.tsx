@@ -33,7 +33,7 @@ interface Props {
 type Mode = '2d' | '3d';
 type ColourMode = 'cluster' | 'knowledge';
 /** The control bar's popovers; only one is open at a time ('sheet' = phones' Controls). */
-type Pop = 'links' | 'colour' | 'route' | 'sheet';
+type Pop = 'links' | 'route' | 'sheet';
 /** A term under a resting pointer, in map pixels (the hover card's anchor). */
 type Point = { id: string; x: number; y: number };
 
@@ -78,7 +78,10 @@ export default function Explorer(props: Props) {
   const [mode, setMode] = useState<Mode>('2d');
   const [layout, setLayout] = useState<Layout>('force');
   const [domains, setDomains] = useState<Set<string>>(new Set());
-  const [families, setFamilies] = useState<Set<string>>(new Set(Object.keys(props.familyColours)));
+  // Every relationship type starts on except "used with", the densest and least telling.
+  const [families, setFamilies] = useState<Set<string>>(
+    new Set(Object.keys(props.familyColours).filter((f) => f !== 'association')),
+  );
   const [showAll, setShowAll] = useState(false);
   /** The selected term: a single callback sets it (a side panel may read it later). */
   const [selected, setSelected] = useState<string | null>(null);
@@ -219,7 +222,8 @@ export default function Explorer(props: Props) {
     for (let h = 0; h < hops; h++) {
       const next = new Set<string>();
       for (const l of graph.links) {
-        if (!families.has(l.family) || !ids.has(l.source) || !ids.has(l.target)) continue;
+        // A selected term shows all its relationships, so its neighbourhood ignores the types.
+        if (!ids.has(l.source) || !ids.has(l.target)) continue;
         if (frontier.has(l.source) && !near.has(l.target)) next.add(l.target);
         if (frontier.has(l.target) && !near.has(l.source)) next.add(l.source);
       }
@@ -227,7 +231,7 @@ export default function Explorer(props: Props) {
       frontier = next;
     }
     return near;
-  }, [graph, domains, families, mode, layout, hops, hops === null ? null : selected]);
+  }, [graph, domains, mode, layout, hops, hops === null ? null : selected]);
 
   const visible = useMemo<Graph | null>(() => {
     if (!graph) return null;
@@ -550,6 +554,7 @@ export default function Explorer(props: Props) {
         {props.graphUi.showAll}
       </label>
       {!showAll && <p class="text-neutral-500">{props.graphUi.overview}</p>}
+      <p class="text-neutral-500">{props.graphUi.typesNote}</p>
       <fieldset class="space-y-1 border-t border-neutral-800 pt-1.5">
         <legend class="sr-only">{ui.relationshipTypes}</legend>
         {allFamilies.map((f) => (
@@ -645,7 +650,6 @@ export default function Explorer(props: Props) {
       )}
     </div>
   );
-  const colourLabel = `${ui.colourBy}: ${colourMode === 'cluster' ? ui.byCluster : ui.byKnowledge}`;
 
   // ---- Hover card ------------------------------------------------------------------
   const cardNode = card ? byId.get(card.id) : undefined;
@@ -711,13 +715,12 @@ export default function Explorer(props: Props) {
       </datalist>
 
       {/*
-        The control bar floats centred over the top of the map, clear of the About "i" in
-        the top-right corner (and left of the docked term panel). On phones it condenses to
-        2D/3D and a "Controls" sheet.
+        The control bar floats centred over the top of the map. Equal insets keep it clear
+        of the collapsed legend (top-left, also in Danish) and the About "i" (top-right); on
+        phones it drops below the legend. It never moves when the term panel opens, which
+        simply sits above it. On phones it condenses to 2D/3D and a "Controls" sheet.
       */}
-      <div
-        class={`pointer-events-none absolute top-3 right-14 left-14 z-10 flex flex-col items-center gap-1.5 ${sel ? 'lg:right-[calc(26rem+3.5rem)]' : ''}`}
-      >
+      <div class="pointer-events-none absolute top-14 right-14 left-14 z-10 flex flex-col items-center gap-1.5 md:top-3 md:right-36 md:left-36">
         <div
           ref={bar}
           role="group"
@@ -769,10 +772,7 @@ export default function Explorer(props: Props) {
                 {popButton('links', ui.relationshipTypes, showAll)}
                 {popover('links', ui.relationshipTypes, linksBody)}
               </div>
-              <div class="relative">
-                {popButton('colour', colourLabel)}
-                {popover('colour', ui.colourBy, colourBody)}
-              </div>
+              {colourBody}
               {search}
               <div class="relative" data-tour="explorer-route">
                 {popButton('route', ui.routeShort, highlight.length > 0 && !!routeMsg)}
@@ -788,9 +788,9 @@ export default function Explorer(props: Props) {
         )}
       </div>
 
-      {/* The legend: its own collapsible box, bottom-left of the map (clear of the beta ribbon). */}
+      {/* The legend: its own collapsible box in the map's top-left corner, dropping down when open. */}
       {visible && (
-        <div class="absolute bottom-3 left-28 z-10" data-explorer-legend>
+        <div class="absolute top-3 left-3 z-20" data-explorer-legend>
           <GraphLegend
             nodes={legendNodes}
             families={allFamilies.filter((f) => families.has(f))}
