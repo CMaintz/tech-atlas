@@ -52,11 +52,11 @@ edges:
       confidence: high
     - monitoring
 sources:
-  - title: Kubernetes Documentation — Configure Liveness, Readiness and Startup Probes
+  - title: Kubernetes Documentation - Configure Liveness, Readiness and Startup Probes
     url: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
     tier: official-doc
     publisher: The Kubernetes Authors
-  - title: Google SRE book — Chapter 20, Load Balancing in the Datacenter
+  - title: Google SRE book - Chapter 20, Load Balancing in the Datacenter
     url: https://sre.google/sre-book/load-balancing-datacenter/
     tier: reference
     publisher: Google

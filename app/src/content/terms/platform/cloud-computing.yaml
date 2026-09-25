@@ -17,8 +17,8 @@ body:
     en: A model for on-demand network access to a shared pool of computing resources that can be taken into use and released quickly with minimal effort or contact with the provider; NIST defines it by five essential characteristics and three service models.
     da: En model for netværksadgang efter behov til en fælles pulje af IT-ressourcer, der hurtigt kan tages i brug og frigives med minimal indsats og kontakt med udbyderen; NIST definerer den ud fra fem kendetegn og tre servicemodeller.
   plain:
-    en: Like getting electricity from the grid instead of running your own generator — you plug in, use what you need and pay the bill.
-    da: Som at få strøm fra elnettet i stedet for at have sin egen generator — man sætter stikket i, bruger det, man har brug for, og betaler regningen.
+    en: Like getting electricity from the grid instead of running your own generator - you plug in, use what you need and pay the bill.
+    da: Som at få strøm fra elnettet i stedet for at have sin egen generator - man sætter stikket i, bruger det, man har brug for, og betaler regningen.
   inPractice:
     en: A Danish municipality moves its case-handling system from its own server room into a provider's data centre; staff reach it over the internet, and the IT manager now looks after a contract instead of hardware.
     da: En dansk kommune flytter sit sagsbehandlingssystem fra eget serverrum til en udbyders datacenter; medarbejderne får adgang til det via internettet, og IT-chefen passer nu en kontrakt i stedet for hardware.
@@ -57,7 +57,7 @@ article:
   en: src/content/articles/platform/cloud-computing.en.md
   da: src/content/articles/platform/cloud-computing.da.md
 sources:
-  - title: NIST SP 800-145 — The NIST Definition of Cloud Computing
+  - title: NIST SP 800-145 - The NIST Definition of Cloud Computing
     tier: standard
     publisher: NIST
 draft: true

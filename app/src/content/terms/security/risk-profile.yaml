@@ -13,11 +13,11 @@ summary:
   da: Det samlede billede af de farer, en organisation står over for, og hvor alvorlige de er ud fra størrelse, branche, data og systemer.
 body:
   formal:
-    en: A description of the full set of risks an organisation carries at a point in time — shaped by its sector, size, critical assets, the outside services it relies on and its threat landscape — used to decide which controls come first.
-    da: En beskrivelse af alle de risici, en organisation bærer på et givet tidspunkt — formet af dens branche, størrelse, kritiske aktiver, de eksterne tjenester, den er afhængig af, og dens trusselsbillede — som bruges til at afgøre, hvilke kontroller der skal prioriteres.
+    en: A description of the full set of risks an organisation carries at a point in time - shaped by its sector, size, critical assets, the outside services it relies on and its threat landscape - used to decide which controls come first.
+    da: En beskrivelse af alle de risici, en organisation bærer på et givet tidspunkt - formet af dens branche, størrelse, kritiske aktiver, de eksterne tjenester, den er afhængig af, og dens trusselsbillede - som bruges til at afgøre, hvilke kontroller der skal prioriteres.
   plain:
-    en: Like packing for a trip — a week of camping by the sea and a weekend in a city hotel call for very different bags, even for the same traveller.
-    da: Som at pakke til en rejse — en uges camping ved havet og en weekend på hotel i en storby kræver vidt forskellig bagage, selv for den samme rejsende.
+    en: Like packing for a trip - a week of camping by the sea and a weekend in a city hotel call for very different bags, even for the same traveller.
+    da: Som at pakke til en rejse - en uges camping ved havet og en weekend på hotel i en storby kræver vidt forskellig bagage, selv for den samme rejsende.
   inPractice:
     en: A small dental clinic with patient records and one server has a very different profile from a wind turbine maker with factories and suppliers worldwide, so the two start with different CIS Controls.
     da: En lille tandklinik med patientjournaler og én server har en helt anden profil end en vindmølleproducent med fabrikker og leverandører i hele verden, så de to starter med forskellige CIS-kontroller.
@@ -45,8 +45,8 @@ edges:
   requires: [risk-assessment]
   used-with: [threat-landscape]
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 4
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 4
     tier: course-material
-  - title: NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments
+  - title: NIST SP 800-30 Rev. 1 - Guide for Conducting Risk Assessments
     tier: standard
 draft: true

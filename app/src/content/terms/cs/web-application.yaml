@@ -16,8 +16,8 @@ body:
     en: Software split between code running in the browser and code running on one or more servers, which talk over HTTP; the server side usually handles the rules, the stored data and the check of who the user is.
     da: Software delt mellem kode, der kører i browseren, og kode, der kører på en eller flere servere, som taler sammen over HTTP; serversiden står typisk for reglerne, de gemte data og kontrollen af, hvem brugeren er.
   plain:
-    en: Like a bank counter seen through a window — you fill in slips and get answers at the glass, while the safe, the ledgers and the staff doing the work stay out of sight behind it.
-    da: Som skranken i en bank bag en glasrude — du udfylder blanketter og får svar ved ruden, mens boksen, regnskabsbøgerne og de ansatte, der gør arbejdet, er skjult bag den.
+    en: Like a bank counter seen through a window - you fill in slips and get answers at the glass, while the safe, the ledgers and the staff doing the work stay out of sight behind it.
+    da: Som skranken i en bank bag en glasrude - du udfylder blanketter og får svar ved ruden, mens boksen, regnskabsbøgerne og de ansatte, der gør arbejdet, er skjult bag den.
   inPractice:
     en: Citizens apply for a parking permit in their municipality's web application; they install nothing, and the forms, the rules and the case handling all live on the municipality's servers.
     da: Borgerne søger om parkeringstilladelse i kommunens webapplikation; de installerer intet, og blanketter, regler og sagsbehandling ligger alt sammen på kommunens servere.
@@ -55,7 +55,7 @@ sources:
     url: https://owasp.org/www-project-web-security-testing-guide/
     tier: reference
     publisher: OWASP
-  - title: MDN Web Docs — Web technology for developers
+  - title: MDN Web Docs - Web technology for developers
     url: https://developer.mozilla.org/en-US/docs/Web
     tier: official-doc
     publisher: Mozilla

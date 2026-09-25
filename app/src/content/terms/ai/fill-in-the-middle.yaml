@@ -17,8 +17,8 @@ body:
     en: During pretraining, a document is cut into a start, a middle and an end, and the pieces are reordered with special marker tokens as start, end, then middle; ordinary next-token prediction on that order teaches the model to produce a middle that fits both sides.
     da: Under fortræningen skæres et dokument i en start, en midte og en slutning, og stykkerne stilles om med særlige markør-tokens som start, slutning og så midte; almindelig forudsigelse af næste token på den rækkefølge lærer modellen at lave en midte, der passer til begge sider.
   plain:
-    en: Like fitting the last piece of a jigsaw — the pieces on every side of the hole show its shape far better than looking at one side alone.
-    da: Som at finde den sidste brik i et puslespil — brikkerne på alle sider af hullet viser formen langt bedre end én side alene.
+    en: Like fitting the last piece of a jigsaw - the pieces on every side of the hole show its shape far better than looking at one side alone.
+    da: Som at finde den sidste brik i et puslespil - brikkerne på alle sider af hullet viser formen langt bedre end én side alene.
   inPractice:
     en: At a Danish university, a developer clicks into the middle of a half-written function in the exam booking app; the editor sends the lines above and below, and the model returns only the few lines that belong in the gap.
     da: På et dansk universitet sætter en udvikler markøren midt i en halvskrevet funktion i appen til eksamensbooking; editoren sender linjerne over og under, og modellen returnerer kun de få linjer, der hører til i hullet.
@@ -62,6 +62,6 @@ edges:
 sources:
   - title: Bavarian et al. (2022), Efficient Training of Language Models to Fill in the Middle
     tier: reference
-  - title: Fried et al. (2022), InCoder — A Generative Model for Code Infilling and Synthesis
+  - title: Fried et al. (2022), InCoder - A Generative Model for Code Infilling and Synthesis
     tier: reference
 draft: true

@@ -16,8 +16,8 @@ body:
     en: The repeated process of finding out which patches exist for the organisation's software, ranking them by risk, testing them, installing them within a set time and confirming they took effect.
     da: Den gentagne proces med at finde ud af, hvilke patches der findes til virksomhedens software, prioritere dem efter risiko, teste dem, installere dem inden for en fast frist og bekræfte, at de virker.
   plain:
-    en: Like a car recall — the fault is known and a fix exists, but it only helps once each car is actually brought in.
-    da: Som når en bilfabrik kalder biler tilbage — fejlen er kendt, og der findes en løsning, men den hjælper først, når hver bil faktisk kommer ind.
+    en: Like a car recall - the fault is known and a fix exists, but it only helps once each car is actually brought in.
+    da: Som når en bilfabrik kalder biler tilbage - fejlen er kendt, og der findes en løsning, men den hjælper først, når hver bil faktisk kommer ind.
   inPractice:
     en: A serious weakness in the VPN used by a pension fund is announced on Tuesday; the IT operations manager tests the fix that night and has every VPN device updated by Thursday, as the fund's 72-hour rule demands.
     da: En alvorlig svaghed i den VPN, en pensionskasse bruger, offentliggøres tirsdag; den IT-driftsansvarlige tester rettelsen samme aften og har opdateret alle VPN-enheder torsdag, som pensionskassens 72-timersregel kræver.
@@ -28,7 +28,7 @@ deepDive:
   en: |-
     NIST SP 800-40 Rev. 4 (2022) reframes patching as preventive maintenance and recommends that organisations define a small number of maintenance plans by asset type and risk rather than treat each patch as a project. It distinguishes routine patching on a regular cadence from emergency patching for vulnerabilities that are actively exploited or critical on exposed systems, and adds two alternatives when no patch can be applied: mitigation (configuration changes, virtual patching at an IPS or WAF, isolation) and risk acceptance with a documented owner and expiry. A patch cycle typically runs: intake from vendor advisories and vulnerability feeds, applicability matching against the asset and software inventory, prioritisation, testing, staged deployment in rings (a pilot group, then broad deployment), verification, and exception handling.
 
-    Prioritisation has moved beyond CVSS base scores, which describe technical severity but not likelihood. Common inputs now include CISA's Known Exploited Vulnerabilities (KEV) catalogue, which under Binding Operational Directive 22-01 obliges US federal agencies to remediate listed CVEs within set deadlines (two weeks for recent CVEs by default); the Exploit Prediction Scoring System (EPSS) from FIRST, which estimates the probability of exploitation in the next 30 days; internet exposure; and asset criticality. Time-to-exploit for publicised vulnerabilities has fallen to days in many cases, so edge devices — VPN concentrators, firewalls, file-transfer appliances — are generally treated as emergency-class regardless of internal SLAs.
+    Prioritisation has moved beyond CVSS base scores, which describe technical severity but not likelihood. Common inputs now include CISA's Known Exploited Vulnerabilities (KEV) catalogue, which under Binding Operational Directive 22-01 obliges US federal agencies to remediate listed CVEs within set deadlines (two weeks for recent CVEs by default); the Exploit Prediction Scoring System (EPSS) from FIRST, which estimates the probability of exploitation in the next 30 days; internet exposure; and asset criticality. Time-to-exploit for publicised vulnerabilities has fallen to days in many cases, so edge devices - VPN concentrators, firewalls, file-transfer appliances - are generally treated as emergency-class regardless of internal SLAs.
 
     Operational realities complicate the cycle. Microsoft releases security updates on the second Tuesday of each month (Patch Tuesday), but third-party applications, browsers, firmware (BIOS/UEFI, BMC, network devices) and container base images follow their own rhythms. Reboots, maintenance windows and application compatibility create lag; medical and OT systems may be certified only for specific versions and require vendor approval. End-of-life software receives no patches at all and must be isolated or replaced. Tooling is shifting toward cloud-managed services, and Microsoft announced in 2024 that WSUS is deprecated, with no new feature development. In containerised environments the unit of patching is the image: fixes are applied by rebuilding from an updated base and redeploying, not by patching running containers.
 
@@ -36,7 +36,7 @@ deepDive:
   da: |-
     NIST SP 800-40 Rev. 4 (2022) omformulerer patching til forebyggende vedligeholdelse og anbefaler, at organisationer definerer et lille antal vedligeholdelsesplaner efter aktivtype og risiko i stedet for at behandle hver patch som et projekt. Den skelner mellem rutinemæssig patching i en fast kadence og nødpatching af sårbarheder, der aktivt udnyttes eller er kritiske på eksponerede systemer, og tilføjer to alternativer, når der ikke kan patches: afbødning (konfigurationsændringer, virtuel patching i en IPS eller WAF, isolering) og risikoaccept med en dokumenteret ejer og udløbsdato. En patchcyklus forløber typisk sådan: indsamling fra leverandørernes sikkerhedsmeddelelser og sårbarhedsfeeds, afstemning af relevans mod aktiv- og softwarefortegnelsen, prioritering, test, trinvis udrulning i ringe (en pilotgruppe, derefter bred udrulning), verifikation og håndtering af undtagelser.
 
-    Prioriteringen er rykket ud over CVSS-basisscoren, der beskriver teknisk alvor, men ikke sandsynlighed. Typiske input er nu CISA's katalog over Known Exploited Vulnerabilities (KEV), som under Binding Operational Directive 22-01 forpligter amerikanske føderale myndigheder til at udbedre listede CVE'er inden for faste frister (som udgangspunkt to uger for nyere CVE'er); Exploit Prediction Scoring System (EPSS) fra FIRST, der estimerer sandsynligheden for udnyttelse inden for de næste 30 dage; eksponering mod internettet; og aktivets kritikalitet. Tiden fra offentliggørelse til udnyttelse er i mange tilfælde faldet til dage, så kantudstyr — VPN-koncentratorer, firewalls, filoverførselsappliances — behandles generelt som nødpatching uanset interne frister.
+    Prioriteringen er rykket ud over CVSS-basisscoren, der beskriver teknisk alvor, men ikke sandsynlighed. Typiske input er nu CISA's katalog over Known Exploited Vulnerabilities (KEV), som under Binding Operational Directive 22-01 forpligter amerikanske føderale myndigheder til at udbedre listede CVE'er inden for faste frister (som udgangspunkt to uger for nyere CVE'er); Exploit Prediction Scoring System (EPSS) fra FIRST, der estimerer sandsynligheden for udnyttelse inden for de næste 30 dage; eksponering mod internettet; og aktivets kritikalitet. Tiden fra offentliggørelse til udnyttelse er i mange tilfælde faldet til dage, så kantudstyr - VPN-koncentratorer, firewalls, filoverførselsappliances - behandles generelt som nødpatching uanset interne frister.
 
     Driftsvirkeligheden komplicerer cyklussen. Microsoft udsender sikkerhedsopdateringer den anden tirsdag i hver måned (Patch Tuesday), men tredjepartsapplikationer, browsere, firmware (BIOS/UEFI, BMC, netværksudstyr) og container-baseimages følger deres egne rytmer. Genstarter, servicevinduer og applikationskompatibilitet skaber forsinkelse; medicoudstyr og OT-systemer er ofte kun certificeret til bestemte versioner og kræver leverandørens godkendelse. End-of-life-software får slet ingen patches og skal isoleres eller udskiftes. Værktøjerne flytter mod cloudstyrede tjenester, og Microsoft meddelte i 2024, at WSUS er udfaset uden ny funktionsudvikling. I containeriserede miljøer er imaget patchenheden: rettelser indføres ved at genbygge fra en opdateret base og udrulle igen, ikke ved at patche kørende containere.
 
@@ -58,12 +58,12 @@ edges:
   used-with:
     - vulnerability-scanning
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
-  - title: NIST SP 800-40 Rev. 4 — Guide to Enterprise Patch Management Planning
+  - title: NIST SP 800-40 Rev. 4 - Guide to Enterprise Patch Management Planning
     tier: standard
     publisher: NIST
-  - title: CIS Critical Security Controls v8 — Control 7
+  - title: CIS Critical Security Controls v8 - Control 7
     tier: standard
     publisher: Center for Internet Security
 draft: true

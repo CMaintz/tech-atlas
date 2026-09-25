@@ -9,18 +9,18 @@ cluster: risk-management
 layer: governance
 status: current
 summary:
-  en: Putting numbers on risks — how often a loss may happen and how much it would cost — to compare them in money.
-  da: At sætte tal på risici — hvor ofte et tab kan ske, og hvad det vil koste — så de kan sammenlignes i kroner.
+  en: Putting numbers on risks - how often a loss may happen and how much it would cost - to compare them in money.
+  da: At sætte tal på risici - hvor ofte et tab kan ske, og hvad det vil koste - så de kan sammenlignes i kroner.
 body:
   formal:
     en: A risk assessment method that estimates likelihood as a rate or probability and impact as a money amount, giving an expected yearly loss that can be weighed directly against the cost of a control or of insurance.
     da: En metode til risikoanalyse, der skønner sandsynligheden som et antal gange om året eller en procentsats og konsekvensen som et beløb, hvilket giver et forventet årligt tab, der direkte kan vejes op mod prisen på en kontrol eller en forsikring.
   plain:
-    en: Like deciding on an extended warranty for a washing machine — if a repair costs 2,000 and is needed once in five years, paying 800 a year for the warranty is a bad deal.
-    da: Som at overveje en udvidet garanti på en vaskemaskine — hvis en reparation koster 2.000 og er nødvendig én gang på fem år, er 800 om året for garantien en dårlig handel.
+    en: Like deciding on an extended warranty for a washing machine - if a repair costs 2,000 and is needed once in five years, paying 800 a year for the warranty is a bad deal.
+    da: Som at overveje en udvidet garanti på en vaskemaskine - hvis en reparation koster 2.000 og er nødvendig én gang på fem år, er 800 om året for garantien en dårlig handel.
   inPractice:
-    en: The finance team at a trucking company works out that a day without its planning system costs 400,000 kroner and happens about once every four years — an expected 100,000 a year — so a 60,000-a-year backup service that cuts such a day to an hour is worth buying.
-    da: Økonomiafdelingen i et vognmandsfirma regner ud, at en dag uden planlægningssystemet koster 400.000 kroner og sker cirka hvert fjerde år — forventet 100.000 om året — så en backupløsning til 60.000 om året, der gør sådan en dag til en time, er pengene værd.
+    en: The finance team at a trucking company works out that a day without its planning system costs 400,000 kroner and happens about once every four years - an expected 100,000 a year - so a 60,000-a-year backup service that cuts such a day to an hour is worth buying.
+    da: Økonomiafdelingen i et vognmandsfirma regner ud, at en dag uden planlægningssystemet koster 400.000 kroner og sker cirka hvert fjerde år - forventet 100.000 om året - så en backupløsning til 60.000 om året, der gør sådan en dag til en time, er pengene værd.
   whyItMatters:
     en: Leaders understand money, and figures make it possible to compare security spending with other investments, though good data is often hard to find.
     da: Ledelsen forstår penge, og tal gør det muligt at sammenligne sikkerhedsudgifter med andre investeringer, selv om gode data ofte er svære at finde.
@@ -46,8 +46,8 @@ edges:
   requires: [risk, likelihood, impact]
   used-with: [risk-transfer]
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 5
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 5
     tier: course-material
-  - title: NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments
+  - title: NIST SP 800-30 Rev. 1 - Guide for Conducting Risk Assessments
     tier: standard
 draft: true

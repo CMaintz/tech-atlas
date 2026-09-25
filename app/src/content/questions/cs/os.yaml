@@ -35,7 +35,7 @@ questions:
         would instead have to type an administrator's credentials. That is why the
         principle of least privilege says to work day to day as a standard user.
         Email filtering and antivirus apply regardless of the account's role, and
-        macros run perfectly well for standard users too — they just get fewer
+        macros run perfectly well for standard users too - they just get fewer
         rights.
       da: >-
         Alle processer, der startes på hendes vegne, får en kopi af hendes
@@ -46,7 +46,7 @@ questions:
         administrators loginoplysninger. Derfor siger princippet om mindste privilegium,
         at man til daglig skal arbejde som almindelig bruger. Mailfiltrering og
         antivirus gælder uanset kontoens rolle, og makroer kører fint for almindelige
-        brugere også — de får bare færre rettigheder.
+        brugere også - de får bare færre rettigheder.
     difficulty: 2
     sources:
       - title: Access Tokens (Microsoft Learn)
@@ -91,7 +91,7 @@ questions:
         operating system are unaffected. Many drivers instead run in kernel mode,
         where all code shares one address space; a bug there can damage the
         operating system's data, and a crashing kernel-mode driver brings down the
-        whole system. The user's rights do not decide this — kernel code is beyond
+        whole system. The user's rights do not decide this - kernel code is beyond
         such account rights, and the spreadsheet did not run as administrator.
         Running out of memory would slow the PC or stop a program, not explain the
         difference, and when a component starts says nothing about how far its crash
@@ -102,7 +102,7 @@ questions:
         programmer eller styresystemet. Mange drivere kører derimod i kernetilstand,
         hvor al kode deler ét adresserum; en fejl dér kan ødelægge styresystemets
         data, og når en driver i kernetilstand går ned, tager den hele systemet med
-        sig. Brugerens rettigheder afgør det ikke — kernekode står over den slags
+        sig. Brugerens rettigheder afgør det ikke - kernekode står over den slags
         kontorettigheder, og regnearket kørte ikke som administrator. Mangel på
         hukommelse ville gøre pc'en langsom eller stoppe et program, ikke forklare
         forskellen, og hvornår en komponent starter, siger intet om, hvor langt dens
@@ -145,7 +145,7 @@ questions:
         Event 1102, "The audit log was cleared", is generated every time the Windows
         Security audit log is cleared, and it records which account did it. Microsoft
         notes that you should normally not see it and recommends monitoring and
-        investigating it — clearing the log at night with an admin account is a
+        investigating it - clearing the log at night with an admin account is a
         classic way for an attacker to hide their tracks, which is why logs should
         also be forwarded to a central system. It is not the event for a size limit
         or a backup, and a successful logon is a different event (4624), not 1102.
@@ -153,7 +153,7 @@ questions:
         Hændelse 1102, "The audit log was cleared", skrives hver gang Windows'
         sikkerhedslog bliver ryddet, og den registrerer, hvilken konto der gjorde det.
         Microsoft skriver, at man normalt ikke bør se den, og anbefaler at overvåge og
-        undersøge den — at rydde loggen om natten med en administratorkonto er en
+        undersøge den - at rydde loggen om natten med en administratorkonto er en
         klassisk måde for en angriber at skjule sine spor på, og derfor bør logs også
         sendes videre til et centralt system. Det er ikke hændelsen for en
         størrelsesgrænse eller en backup, og et vellykket login er en anden hændelse
@@ -196,7 +196,7 @@ questions:
     explanation:
       en: >-
         The mode rw-r--r-- has three parts: the owner (root) may read and write, the
-        group (appgrp) may read, and the last r-- means everyone else — "others" —
+        group (appgrp) may read, and the last r-- means everyone else - "others" -
         may read too. So all 15 developers and the web server's account can read the
         password, not just root or the group. The execute bit decides whether a file
         can be run as a program; it is not needed to read it. A mode such as
@@ -204,7 +204,7 @@ questions:
         others out.
       da: >-
         Tilstanden rw-r--r-- har tre dele: ejeren (root) må læse og skrive, gruppen
-        (appgrp) må læse, og det sidste r-- betyder, at alle andre — "others" — også
+        (appgrp) må læse, og det sidste r-- betyder, at alle andre - "others" - også
         må læse. Derfor kan alle 15 udviklere og webserverens konto læse
         adgangskoden, ikke kun root eller gruppen. Execute-bitten afgør, om en fil kan
         køres som et program; den skal ikke til for at læse den. En tilstand som
@@ -212,7 +212,7 @@ questions:
         andre ude.
     difficulty: 2
     sources:
-      - title: inode(7) — Linux manual page
+      - title: inode(7) - Linux manual page
         url: https://man7.org/linux/man-pages/man7/inode.7.html
         tier: official-doc
     draft: true
@@ -298,7 +298,7 @@ questions:
         before starting it; with Trusted Boot, the bootloader verifies the Windows
         kernel's signature before loading it, and the kernel then verifies the rest
         of start-up, including the boot drivers. The other orders put a component in
-        charge of checking something that has already run before it — a kernel cannot
+        charge of checking something that has already run before it - a kernel cannot
         vouch for the bootloader that loaded it, and a bootloader cannot vouch for
         the firmware that started it.
       da: >-
@@ -307,7 +307,7 @@ questions:
         digitale signatur, før den starter den; med Trusted Boot verificerer
         bootloaderen Windows-kernens signatur, før den indlæses, og kernen verificerer
         derefter resten af opstarten, herunder boot-driverne. De andre rækkefølger
-        lader en komponent kontrollere noget, der allerede har kørt før den — en kerne
+        lader en komponent kontrollere noget, der allerede har kørt før den - en kerne
         kan ikke stå inde for den bootloader, der indlæste den, og en bootloader kan
         ikke stå inde for den firmware, der startede den.
     difficulty: 3

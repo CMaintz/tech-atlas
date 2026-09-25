@@ -52,7 +52,7 @@ edges:
       strength: primary
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: ISO/IEC 27005:2022
     tier: standard

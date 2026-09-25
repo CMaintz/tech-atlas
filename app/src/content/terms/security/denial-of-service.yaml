@@ -15,7 +15,7 @@ summary:
 body:
   formal:
     en: An attack that aims to make a system unavailable by using up its capacity, often by sending huge numbers of requests from many machines at once (a distributed attack, DDoS).
-    da: Et angreb, der skal sætte et system ud af drift ved at bruge al dets kapacitet — ofte ved at sende enorme mængder forespørgsler fra mange maskiner på én gang (et distribueret angreb, DDoS).
+    da: Et angreb, der skal sætte et system ud af drift ved at bruge al dets kapacitet - ofte ved at sende enorme mængder forespørgsler fra mange maskiner på én gang (et distribueret angreb, DDoS).
   plain:
     en: Thousands of fake customers crowding a shop's doorway so the real ones cannot get in.
     da: Tusindvis af falske kunder, der fylder hele butiksdøren, så de rigtige ikke kan komme ind.
@@ -23,8 +23,8 @@ body:
     en: On election day, a municipality's website is hit by traffic from thousands of hacked devices and stays down for hours, until its hosting provider turns on filtering that drops the fake requests.
     da: På valgdagen bliver en kommunes hjemmeside ramt af trafik fra tusindvis af hackede enheder og er nede i flere timer, indtil hostingudbyderen slår en filtrering til, der sorterer de falske forespørgsler fra.
   whyItMatters:
-    en: No data needs to be stolen for the damage to be real — a business that cannot serve its customers loses money and trust.
-    da: Der behøver ikke blive stjålet data, før skaden er reel — en virksomhed, der ikke kan betjene sine kunder, mister penge og tillid.
+    en: No data needs to be stolen for the damage to be real - a business that cannot serve its customers loses money and trust.
+    da: Der behøver ikke blive stjålet data, før skaden er reel - en virksomhed, der ikke kan betjene sine kunder, mister penge og tillid.
 deepDive:
   en: |-
     Denial-of-service attacks are usually sorted by the resource they exhaust. Volumetric attacks saturate link bandwidth and are measured in bits per second; protocol or state-exhaustion attacks fill connection tables in servers, firewalls and load balancers and are measured in packets per second; application-layer (layer 7) attacks send valid-looking requests that are expensive to serve, such as uncached search queries or login attempts, and are measured in requests per second. A DDoS spreads the source across many machines, today typically botnets of compromised IoT devices, routers and rented cloud servers, as with Mirai, whose 2016 attack on the DNS provider Dyn disrupted many large sites.
@@ -64,9 +64,9 @@ edges:
       strength: minor
       confidence: medium
 sources:
-  - title: Cyber Security Fast Track — Ordliste (Tilgængelighed)
+  - title: Cyber Security Fast Track - Ordliste (Tilgængelighed)
     tier: course-material
-  - title: NIST Glossary — Denial of Service
+  - title: NIST Glossary - Denial of Service
     tier: standard
     publisher: NIST
     url: https://csrc.nist.gov/glossary/term/denial_of_service

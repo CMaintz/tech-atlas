@@ -55,11 +55,11 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: OpenTelemetry — What is OpenTelemetry?
+  - title: OpenTelemetry - What is OpenTelemetry?
     url: https://opentelemetry.io/docs/what-is-opentelemetry/
     tier: official-doc
     publisher: OpenTelemetry (CNCF)
-  - title: OpenTelemetry — Signals
+  - title: OpenTelemetry - Signals
     url: https://opentelemetry.io/docs/concepts/signals/
     tier: official-doc
     publisher: OpenTelemetry (CNCF)

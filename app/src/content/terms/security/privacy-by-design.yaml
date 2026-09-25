@@ -14,8 +14,8 @@ summary:
   da: GDPR-princippet om, at beskyttelse af personoplysninger skal bygges ind i systemer fra starten.
 body:
   formal:
-    en: The duty in GDPR Article 25 to build data protection into systems and processes from the design stage — for example by collecting less and hiding identities — and to make the most privacy-friendly setting the default.
-    da: Pligten i GDPR artikel 25 til at bygge databeskyttelse ind i systemer og processer, allerede mens de designes — fx ved at indsamle mindre og skjule identiteter — og til at gøre den mest privatlivsvenlige indstilling til standard.
+    en: The duty in GDPR Article 25 to build data protection into systems and processes from the design stage - for example by collecting less and hiding identities - and to make the most privacy-friendly setting the default.
+    da: Pligten i GDPR artikel 25 til at bygge databeskyttelse ind i systemer og processer, allerede mens de designes - fx ved at indsamle mindre og skjule identiteter - og til at gøre den mest privatlivsvenlige indstilling til standard.
   plain:
     en: Drawing curtains into the plans for a new house, rather than taping newspaper over the windows after moving in.
     da: At tegne gardiner ind i planerne til et nyt hus i stedet for at tape aviser for vinduerne, når man er flyttet ind.
@@ -59,7 +59,7 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: Regulation (EU) 2016/679 (GDPR), Article 25
     tier: standard

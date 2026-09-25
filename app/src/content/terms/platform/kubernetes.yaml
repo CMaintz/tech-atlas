@@ -17,8 +17,8 @@ body:
     en: An open-source system that runs containers across a group of machines; users describe the wanted state in files, a control layer keeps working to make the real state match, and pods are the smallest unit it places and runs.
     da: Et open source-system, der kører containere på tværs af en gruppe maskiner; brugerne beskriver den ønskede tilstand i filer, et styringslag arbejder hele tiden på at få den faktiske tilstand til at passe, og pods er den mindste enhed, det placerer og kører.
   plain:
-    en: Like a thermostat for software — you set how many copies should be running, and it keeps adding or removing them until reality matches.
-    da: Som en termostat for software — du indstiller, hvor mange kopier der skal køre, og den bliver ved med at tilføje eller fjerne dem, til virkeligheden passer.
+    en: Like a thermostat for software - you set how many copies should be running, and it keeps adding or removing them until reality matches.
+    da: Som en termostat for software - du indstiller, hvor mange kopier der skal køre, og den bliver ved med at tilføje eller fjerne dem, til virkeligheden passer.
   inPractice:
     en: The operations team at a hospital region asks for three copies of the appointment booking service; when one machine dies at night, Kubernetes restarts the lost copy on another machine before anyone on call wakes up.
     da: Driftsteamet i en region beder om tre kopier af tidsbestillingen; når én maskine dør om natten, genstarter Kubernetes den tabte kopi på en anden maskine, før nogen på vagt er vågnet.
@@ -27,7 +27,7 @@ body:
     da: Mange cloudplatforme kører nu på det, og dets mange indstillinger for adgang og netværk er en almindelig kilde til fejlkonfiguration i skyen.
 deepDive:
   en: |-
-    Kubernetes is built around a single REST API. Every object has apiVersion, kind, metadata (name, namespace, labels, annotations, a resourceVersion used for optimistic concurrency), a spec written by the user and a status written by controllers. The kube-apiserver is the only component that talks to etcd; every other component — scheduler, kube-controller-manager, cloud-controller-manager, kubelet on each node — is a client that uses list-and-watch streams (wrapped in "informers" with local caches) to react to changes. A request passes through authentication (client certificates, bearer tokens, OIDC), authorization (usually RBAC plus the Node authorizer), mutating admission, schema validation and validating admission before it is persisted. Admission is where most policy lives: Pod Security Admission, ValidatingAdmissionPolicy written in CEL, and webhooks such as Kyverno or OPA Gatekeeper.
+    Kubernetes is built around a single REST API. Every object has apiVersion, kind, metadata (name, namespace, labels, annotations, a resourceVersion used for optimistic concurrency), a spec written by the user and a status written by controllers. The kube-apiserver is the only component that talks to etcd; every other component - scheduler, kube-controller-manager, cloud-controller-manager, kubelet on each node - is a client that uses list-and-watch streams (wrapped in "informers" with local caches) to react to changes. A request passes through authentication (client certificates, bearer tokens, OIDC), authorization (usually RBAC plus the Node authorizer), mutating admission, schema validation and validating admission before it is persisted. Admission is where most policy lives: Pod Security Admission, ValidatingAdmissionPolicy written in CEL, and webhooks such as Kyverno or OPA Gatekeeper.
 
     Scheduling happens in two phases: filtering removes nodes that cannot host the pod (insufficient requested CPU or memory, taints, node affinity, volume topology), and scoring ranks the rest before the scheduler writes a binding. The kubelet then asks the container runtime over CRI to create the pod sandbox and containers, while CNI plugins (Calico, Cilium and others) give each pod a routable IP in a flat network. Services provide stable virtual IPs implemented by kube-proxy with iptables, IPVS or nftables rules, or by eBPF in some CNIs; Ingress and the newer Gateway API handle L7 routing. Custom Resource Definitions let anyone add new kinds, and the operator pattern pairs a CRD with a controller that encodes operational knowledge, for example for databases.
 
@@ -35,7 +35,7 @@ deepDive:
 
     Default settings are permissive in ways that surprise newcomers. Secrets are stored base64-encoded, not encrypted, unless an EncryptionConfiguration (ideally with a KMS provider) is set on the API server; any identity allowed to create pods in a namespace can read every Secret there by mounting it; service-account tokens are mounted into pods unless automountServiceAccountToken is disabled; all pods can reach all pods until a NetworkPolicy selects them; and audit logging is off until an audit policy is supplied. The CIS Kubernetes Benchmark, NSA/CISA Kubernetes Hardening Guidance and NIST SP 800-190 are the usual audit baselines. Kubernetes implements container orchestration but deliberately leaves build, image supply chain, CI and application-level concerns to other tools.
   da: |-
-    Kubernetes er bygget op om ét REST-API. Hvert objekt har apiVersion, kind, metadata (navn, namespace, labels, annotations og en resourceVersion til optimistisk samtidighedskontrol), en spec skrevet af brugeren og en status skrevet af controllere. kube-apiserver er den eneste komponent, der taler med etcd; alle andre komponenter — planlæggeren, kube-controller-manager, cloud-controller-manager og kubelet på hver node — er klienter, der bruger list-and-watch-strømme (pakket ind i "informers" med lokale caches) til at reagere på ændringer. En forespørgsel går gennem autentificering (klientcertifikater, bearer tokens, OIDC), autorisation (normalt RBAC plus Node-autorisatoren), muterende admission, skemavalidering og validerende admission, før den gemmes. Admission er stedet, hvor det meste politik bor: Pod Security Admission, ValidatingAdmissionPolicy skrevet i CEL og webhooks som Kyverno eller OPA Gatekeeper.
+    Kubernetes er bygget op om ét REST-API. Hvert objekt har apiVersion, kind, metadata (navn, namespace, labels, annotations og en resourceVersion til optimistisk samtidighedskontrol), en spec skrevet af brugeren og en status skrevet af controllere. kube-apiserver er den eneste komponent, der taler med etcd; alle andre komponenter - planlæggeren, kube-controller-manager, cloud-controller-manager og kubelet på hver node - er klienter, der bruger list-and-watch-strømme (pakket ind i "informers" med lokale caches) til at reagere på ændringer. En forespørgsel går gennem autentificering (klientcertifikater, bearer tokens, OIDC), autorisation (normalt RBAC plus Node-autorisatoren), muterende admission, skemavalidering og validerende admission, før den gemmes. Admission er stedet, hvor det meste politik bor: Pod Security Admission, ValidatingAdmissionPolicy skrevet i CEL og webhooks som Kyverno eller OPA Gatekeeper.
 
     Planlægningen sker i to faser: filtrering fjerner noder, der ikke kan rumme poden (for lidt forespurgt CPU eller hukommelse, taints, node affinity, volumentopologi), og scoring rangerer resten, før planlæggeren skriver en binding. kubelet beder derefter container-runtimen via CRI om at oprette pod-sandkassen og containerne, mens CNI-plugins (Calico, Cilium m.fl.) giver hver pod en routbar IP i et fladt netværk. Services giver stabile virtuelle IP'er, som kube-proxy implementerer med iptables-, IPVS- eller nftables-regler, eller som visse CNI'er løser med eBPF; Ingress og det nyere Gateway API håndterer routing på lag 7. Custom Resource Definitions lader enhver tilføje nye objekttyper, og operator-mønstret kobler en CRD med en controller, der indkoder driftsviden, fx om databaser.
 
@@ -58,11 +58,11 @@ article:
   en: src/content/articles/platform/kubernetes.en.md
   da: src/content/articles/platform/kubernetes.da.md
 sources:
-  - title: Kubernetes Documentation — Overview
+  - title: Kubernetes Documentation - Overview
     url: https://kubernetes.io/docs/concepts/overview/
     tier: official-doc
     publisher: The Kubernetes Authors
-  - title: NIST SP 800-190 — Application Container Security Guide
+  - title: NIST SP 800-190 - Application Container Security Guide
     tier: standard
     publisher: NIST
 draft: true

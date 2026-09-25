@@ -16,19 +16,19 @@ body:
     en: The step that splits source documents into pieces of a chosen size, counted in tokens and often overlapping a little, each of which gets its own embedding and is stored and found on its own.
     da: Det trin, der deler kildedokumenter op i stykker af en valgt størrelse, målt i tokens og ofte med lidt overlap, hvor hvert stykke får sin egen embedding og gemmes og findes for sig.
   plain:
-    en: Like cutting a long newspaper story into clippings for a folder — each clipping is quick to find, but cut in the wrong place and one clipping loses the ending.
-    da: Som at klippe en lang avisartikel i stykker til en mappe — hvert stykke er hurtigt at finde, men klip det forkerte sted, og ét stykke mister slutningen.
+    en: Like cutting a long newspaper story into clippings for a folder - each clipping is quick to find, but cut in the wrong place and one clipping loses the ending.
+    da: Som at klippe en lang avisartikel i stykker til en mappe - hvert stykke er hurtigt at finde, men klip det forkerte sted, og ét stykke mister slutningen.
   inPractice:
     en: An IT employee in a municipality splits the 200-page staff handbook along its headings into pieces of about 500 tokens, so a question about holiday brings up the holiday rules, not the whole book.
     da: En IT-medarbejder i en kommune deler den 200 sider lange personalehåndbog op langs overskrifterne i stykker på cirka 500 tokens, så et spørgsmål om ferie henter feriereglerne og ikke hele bogen.
   whyItMatters:
-    en: Bad cuts are a quiet, common reason for poor answers — a rule split from its exceptions reads as the full truth, and pieces that are too big waste the context window.
-    da: Dårlige snit er en stille og almindelig årsag til dårlige svar — en regel, der er skilt fra sine undtagelser, læses som hele sandheden, og for store stykker spilder kontekstvinduet.
+    en: Bad cuts are a quiet, common reason for poor answers - a rule split from its exceptions reads as the full truth, and pieces that are too big waste the context window.
+    da: Dårlige snit er en stille og almindelig årsag til dårlige svar - en regel, der er skilt fra sine undtagelser, læses som hele sandheden, og for store stykker spilder kontekstvinduet.
 deepDive:
   en: |-
     The simplest strategy is a fixed-size sliding window: split the token stream every N tokens with an overlap of M tokens so that a sentence cut at a boundary appears whole in at least one chunk. Recursive splitting, the default in several RAG frameworks, tries a hierarchy of separators (section breaks, blank lines, sentence ends, then spaces) and only falls back to a finer separator when a piece is still too large. Structure-aware chunking uses the document's own markup: Markdown or HTML headings, the DOM, PDF layout analysis, and rules such as never splitting a table, a numbered list or a code block. Semantic chunking embeds consecutive sentences and starts a new chunk where the similarity between neighbours drops below a threshold. None of these is universally best; the right choice depends on document type and must be measured.
 
-    Hard constraints come from the embedding model and the context window. Many BERT-derived embedding models accept at most 512 tokens and silently truncate anything longer, so a chunk that looks fine in characters may lose its second half at embedding time; token counts must be computed with the embedding model's own tokenizer, not the generator's. Very small chunks embed precisely but lose surrounding context, while large chunks dilute the embedding with several topics and consume context budget. Parent–child or "small-to-big" retrieval resolves part of this tension by indexing small chunks for matching but passing the enclosing section to the model.
+    Hard constraints come from the embedding model and the context window. Many BERT-derived embedding models accept at most 512 tokens and silently truncate anything longer, so a chunk that looks fine in characters may lose its second half at embedding time; token counts must be computed with the embedding model's own tokenizer, not the generator's. Very small chunks embed precisely but lose surrounding context, while large chunks dilute the embedding with several topics and consume context budget. Parent-child or "small-to-big" retrieval resolves part of this tension by indexing small chunks for matching but passing the enclosing section to the model.
 
     Two techniques address lost context directly. Late chunking (Günther et al., 2024) runs a long-context embedding model over the whole document first and then pools token embeddings per chunk, so each chunk vector is conditioned on the text around it. Contextual retrieval, published by Anthropic in September 2024, uses a language model to prepend a short, document-aware description to every chunk before embedding and BM25 indexing; in Anthropic's evaluation this reduced the top-20 retrieval failure rate by 49 %, and by 67 % when combined with reranking.
 
@@ -59,7 +59,7 @@ edges:
       confidence: high
   used-with: [embedding-model]
 sources:
-  - title: Gao et al. (2023), Retrieval-Augmented Generation for Large Language Models — A Survey
+  - title: Gao et al. (2023), Retrieval-Augmented Generation for Large Language Models - A Survey
     tier: reference
   - title: Lewis et al. (2020), Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
     tier: reference

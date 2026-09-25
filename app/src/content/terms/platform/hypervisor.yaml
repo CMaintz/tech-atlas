@@ -45,7 +45,7 @@ deepDive:
 edges:
   used-with: [iaas, operating-system]
 sources:
-  - title: NIST SP 800-125 — Guide to Security for Full Virtualization Technologies
+  - title: NIST SP 800-125 - Guide to Security for Full Virtualization Technologies
     tier: standard
     publisher: NIST
 draft: true

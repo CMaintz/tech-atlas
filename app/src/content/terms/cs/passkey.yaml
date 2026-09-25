@@ -17,8 +17,8 @@ body:
     en: A credential built on public-key cryptography under the FIDO standards, where the device keeps a private key for each site and signs a fresh challenge with it after the user unlocks with a fingerprint, face or PIN; the site stores only the public key.
     da: En loginoplysning bygget på asymmetrisk kryptografi efter FIDO-standarderne, hvor enheden har en privat nøgle for hvert website og signerer en ny udfordring med den, når brugeren låser op med fingeraftryk, ansigt eller PIN; websitet gemmer kun den offentlige nøgle.
   plain:
-    en: Like a key that never leaves your key ring and turns only in your own front door — there is no code to say out loud, so a fake door gets nothing from you.
-    da: Som en nøgle, der aldrig forlader dit nøglebundt og kun passer i din egen hoveddør — der er ingen kode at sige højt, så en falsk dør får intet ud af dig.
+    en: Like a key that never leaves your key ring and turns only in your own front door - there is no code to say out loud, so a fake door gets nothing from you.
+    da: Som en nøgle, der aldrig forlader dit nøglebundt og kun passer i din egen hoveddør - der er ingen kode at sige højt, så en falsk dør får intet ud af dig.
   inPractice:
     en: A case officer at a Danish region opens the staff portal on her work laptop and touches the fingerprint reader when asked to use her passkey; she is in with nothing typed and nothing a fake site could capture.
     da: En sagsbehandler i en region åbner medarbejderportalen på sin arbejdscomputer og rører fingeraftrykslæseren, da hun bliver bedt om at bruge sin passkey; hun er inde uden at taste noget, og en falsk side har intet at opsnappe.
@@ -66,7 +66,7 @@ edges:
       strength: primary
       confidence: high
 sources:
-  - title: FIDO Alliance — Passkeys
+  - title: FIDO Alliance - Passkeys
     tier: official-doc
     publisher: FIDO Alliance
     url: https://fidoalliance.org/passkeys/
@@ -78,11 +78,11 @@ sources:
     tier: official-doc
     publisher: FIDO Alliance
     url: https://fidoalliance.org/apple-google-and-microsoft-commit-to-expanded-support-for-fido-standard-to-accelerate-availability-of-passwordless-sign-ins/
-  - title: W3C Web Authentication — An API for accessing Public Key Credentials, Level 3
+  - title: W3C Web Authentication - An API for accessing Public Key Credentials, Level 3
     tier: standard
     publisher: W3C
     url: https://www.w3.org/TR/webauthn-3/
-  - title: NIST SP 800-63B-4 — Authentication and Authenticator Management
+  - title: NIST SP 800-63B-4 - Authentication and Authenticator Management
     tier: standard
     publisher: NIST
     url: https://pages.nist.gov/800-63-4/sp800-63b.html

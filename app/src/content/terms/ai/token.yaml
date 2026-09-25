@@ -9,15 +9,15 @@ cluster: llm
 layer: model
 status: current
 summary:
-  en: A small piece of text — a whole word, part of a word or a symbol — that a language model reads and writes in; also how use is priced.
-  da: Et lille stykke tekst — et ord, en del af et ord eller et tegn — som en sprogmodel læser og skriver i; også enheden, brug prissættes efter.
+  en: A small piece of text - a whole word, part of a word or a symbol - that a language model reads and writes in; also how use is priced.
+  da: Et lille stykke tekst - et ord, en del af et ord eller et tegn - som en sprogmodel læser og skriver i; også enheden, brug prissættes efter.
 body:
   formal:
     en: The unit a language model works in; text is cut into tokens from a fixed list, each token is turned into a number, and the model reads and produces text one token at a time.
     da: Den enhed, en sprogmodel arbejder i; tekst deles op i tokens fra en fast liste, hvert token laves om til et tal, og modellen læser og skriver tekst ét token ad gangen.
   plain:
-    en: Like Lego bricks for text — common words are one brick, rare or long words are built from several smaller bricks.
-    da: Som legoklodser til tekst — almindelige ord er én klods, sjældne eller lange ord bygges af flere mindre klodser.
+    en: Like Lego bricks for text - common words are one brick, rare or long words are built from several smaller bricks.
+    da: Som legoklodser til tekst - almindelige ord er én klods, sjældne eller lange ord bygges af flere mindre klodser.
   inPractice:
     en: An online shop paying per token for its customer-service chat assistant finds Danish replies cost more than English ones, because a word like “sikkerhedshændelse” may be split into four or five tokens while “the” is one.
     da: En webshop, der betaler per token for sin chatassistent til kundeservice, opdager, at danske svar koster mere end engelske, fordi et ord som “sikkerhedshændelse” kan blive delt i fire-fem tokens, mens “the” er ét.
@@ -51,7 +51,7 @@ sources:
   - title: Petrov et al. (2023), Language Model Tokenizers Introduce Unfairness Between Languages
     tier: reference
     url: https://arxiv.org/abs/2305.15425
-  - title: Anthropic documentation — Models overview (context window in words per tokenizer)
+  - title: Anthropic documentation - Models overview (context window in words per tokenizer)
     tier: official-doc
     publisher: Anthropic
     url: https://platform.claude.com/docs/en/about-claude/models/overview

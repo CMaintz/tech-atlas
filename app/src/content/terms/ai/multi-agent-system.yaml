@@ -9,15 +9,15 @@ cluster: agents
 layer: agent
 status: emerging
 summary:
-  en: A setup where several AI agents share a job — often a lead agent splits the work and hands parts to helper agents.
-  da: En opsætning, hvor flere AI-agenter deler en opgave — ofte deler en ledende agent arbejdet op og giver dele til hjælpeagenter.
+  en: A setup where several AI agents share a job - often a lead agent splits the work and hands parts to helper agents.
+  da: En opsætning, hvor flere AI-agenter deler en opgave - ofte deler en ledende agent arbejdet op og giver dele til hjælpeagenter.
 body:
   formal:
     en: A system of two or more AI agents, each with its own instructions, tools and context window, that pass tasks and results between them; a common shape has a lead agent that plans, starts helper agents in parallel and joins their findings.
     da: Et system af to eller flere AI-agenter, hver med egne instruktioner, værktøjer og kontekstvindue, der sender opgaver og resultater imellem sig; en udbredt form har en ledende agent, der planlægger, starter hjælpeagenter side om side og sætter deres fund sammen.
   plain:
-    en: Like a newsroom — an editor hands stories to several reporters at once, each digs into one angle, and the editor stitches their notes into one article.
-    da: Som en redaktion — en redaktør giver historier til flere journalister på én gang, hver graver i én vinkel, og redaktøren syr deres noter sammen til én artikel.
+    en: Like a newsroom - an editor hands stories to several reporters at once, each digs into one angle, and the editor stitches their notes into one article.
+    da: Som en redaktion - en redaktør giver historier til flere journalister på én gang, hver graver i én vinkel, og redaktøren syr deres noter sammen til én artikel.
   inPractice:
     en: A policy officer in a ministry asks how five other countries tax company cars; a lead agent starts one helper agent per country, then reads their short reports and writes one joint answer.
     da: En fuldmægtig i et ministerium spørger, hvordan fem andre lande beskatter firmabiler; en ledende agent starter én hjælpeagent pr. land og læser derefter deres korte rapporter og skriver ét fælles svar.

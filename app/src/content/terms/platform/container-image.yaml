@@ -14,22 +14,22 @@ summary:
   da: Den frosne, skrivebeskyttede pakke med et program og dets filer, som ens containere startes ud fra.
 body:
   formal:
-    en: A read-only bundle of stacked file layers plus settings — which program to start, which ports it listens on — that is usually kept in a container registry and used as the pattern for starting containers.
-    da: En skrivebeskyttet pakke af lag med filer oven på hinanden plus indstillinger — hvilket program der skal startes, og hvilke porte det lytter på — som typisk ligger i et container-register og bruges som skabelon til at starte containere.
+    en: A read-only bundle of stacked file layers plus settings - which program to start, which ports it listens on - that is usually kept in a container registry and used as the pattern for starting containers.
+    da: En skrivebeskyttet pakke af lag med filer oven på hinanden plus indstillinger - hvilket program der skal startes, og hvilke porte det lytter på - som typisk ligger i et container-register og bruges som skabelon til at starte containere.
   plain:
-    en: Like a cake recipe with the ingredients already measured out — every cake baked from it comes out the same, and the recipe itself is never eaten.
-    da: Som en kageopskrift med ingredienserne allerede afvejet — hver kage bagt ud fra den bliver ens, og selve opskriften bliver aldrig spist.
+    en: Like a cake recipe with the ingredients already measured out - every cake baked from it comes out the same, and the recipe itself is never eaten.
+    da: Som en kageopskrift med ingredienserne allerede afvejet - hver kage bagt ud fra den bliver ens, og selve opskriften bliver aldrig spist.
   inPractice:
     en: Before a new image of a hospital region's patient portal may go into production, the pipeline scans it for known vulnerabilities and rejects it because it is built on an old base with an unpatched library.
     da: Før et nyt image af en regions patientportal må komme i drift, scanner pipelinen det for kendte sårbarheder og afviser det, fordi det er bygget på en gammel base med et bibliotek, der mangler sikkerhedsopdateringer.
   whyItMatters:
-    en: Every container inherits whatever is inside its image — including old flaws, hidden malware or forgotten passwords — so trusting the source of images is a supply chain question.
-    da: Hver container arver alt, hvad der ligger i dens image — også gamle fejl, skjult malware eller glemte adgangskoder — så tillid til, hvor images kommer fra, er et spørgsmål om forsyningskæden.
+    en: Every container inherits whatever is inside its image - including old flaws, hidden malware or forgotten passwords - so trusting the source of images is a supply chain question.
+    da: Hver container arver alt, hvad der ligger i dens image - også gamle fejl, skjult malware eller glemte adgangskoder - så tillid til, hvor images kommer fra, er et spørgsmål om forsyningskæden.
 deepDive:
   en: |-
     An OCI image is a small graph of content-addressed blobs. At the top sits an image index (a "fat manifest" listing one manifest per platform, e.g. linux/amd64 and linux/arm64); each manifest points to one config blob and an ordered list of layer blobs; every reference is a descriptor holding the media type, size and digest (usually sha256) of the target. Because the manifest's own digest is a hash over those descriptors, a reference such as name@sha256:… pins the exact bytes of every layer, whereas a tag such as :2.4 or :latest is just a mutable pointer that the registry can move.
 
-    Each layer is a tar archive (typically gzip- or zstd-compressed) describing a filesystem changeset; deletions are recorded as whiteout files (.wh.name), so a file "removed" in a later layer is still present in the earlier one. This is why a secret copied into one Dockerfile step and deleted in the next remains extractable from the image. The config blob carries the runtime defaults — Entrypoint, Cmd, Env, User, WorkingDir, ExposedPorts, labels — plus the ordered list of uncompressed layer digests (diff_ids) and a history. At run time the layers are stacked with overlayfs and a writable layer is added on top; the image itself never changes.
+    Each layer is a tar archive (typically gzip- or zstd-compressed) describing a filesystem changeset; deletions are recorded as whiteout files (.wh.name), so a file "removed" in a later layer is still present in the earlier one. This is why a secret copied into one Dockerfile step and deleted in the next remains extractable from the image. The config blob carries the runtime defaults - Entrypoint, Cmd, Env, User, WorkingDir, ExposedPorts, labels - plus the ordered list of uncompressed layer digests (diff_ids) and a history. At run time the layers are stacked with overlayfs and a writable layer is added on top; the image itself never changes.
 
     Images are built from a Dockerfile/Containerfile with BuildKit or Buildah, or without a daemon by tools such as ko, Jib or Bazel rules. Good practice is multi-stage builds so compilers stay out of the final image, a minimal base (distroless, Alpine, Chainguard-style or scratch), a non-root USER, and pinning the base by digest. Reproducible builds (fixed timestamps via SOURCE_DATE_EPOCH, sorted file order) let independent parties rebuild and compare digests. The OCI image and distribution specifications in version 1.1 added artifactType and a subject field, so signatures, SBOMs and attestations can be stored in the registry as separate artifacts that refer to an image digest.
 
@@ -37,7 +37,7 @@ deepDive:
   da: |-
     Et OCI-image er en lille graf af indholdsadresserede blobs. Øverst ligger et image index (et "fat manifest" med ét manifest per platform, fx linux/amd64 og linux/arm64); hvert manifest peger på én config-blob og en ordnet liste af lag-blobs; hver reference er en deskriptor med medietype, størrelse og digest (normalt sha256) for målet. Fordi manifestets egen digest er en hash over deskriptorerne, låser en reference som navn@sha256:… de præcise bytes i hvert lag, mens et tag som :2.4 eller :latest blot er en foranderlig peger, som registryet kan flytte.
 
-    Hvert lag er et tar-arkiv (typisk komprimeret med gzip eller zstd), der beskriver et sæt ændringer i filsystemet; sletninger registreres som whiteout-filer (.wh.navn), så en fil, der "fjernes" i et senere lag, stadig findes i det tidligere. Derfor kan en hemmelighed, der kopieres ind i ét Dockerfile-trin og slettes i det næste, stadig trækkes ud af imaget. Config-blobben indeholder runtime-standarderne — Entrypoint, Cmd, Env, User, WorkingDir, ExposedPorts, labels — plus den ordnede liste over ukomprimerede lag-digests (diff_ids) og en historik. Ved kørsel stables lagene med overlayfs, og et skrivbart lag lægges ovenpå; selve imaget ændres aldrig.
+    Hvert lag er et tar-arkiv (typisk komprimeret med gzip eller zstd), der beskriver et sæt ændringer i filsystemet; sletninger registreres som whiteout-filer (.wh.navn), så en fil, der "fjernes" i et senere lag, stadig findes i det tidligere. Derfor kan en hemmelighed, der kopieres ind i ét Dockerfile-trin og slettes i det næste, stadig trækkes ud af imaget. Config-blobben indeholder runtime-standarderne - Entrypoint, Cmd, Env, User, WorkingDir, ExposedPorts, labels - plus den ordnede liste over ukomprimerede lag-digests (diff_ids) og en historik. Ved kørsel stables lagene med overlayfs, og et skrivbart lag lægges ovenpå; selve imaget ændres aldrig.
 
     Images bygges fra en Dockerfile/Containerfile med BuildKit eller Buildah eller uden dæmon med værktøjer som ko, Jib eller Bazel-regler. God praksis er multi-stage builds, så compilere ikke kommer med i det endelige image, et minimalt base-image (distroless, Alpine, Chainguard-lignende eller scratch), en USER, der ikke er root, og at base-imaget låses via digest. Reproducerbare builds (faste tidsstempler via SOURCE_DATE_EPOCH, sorteret filrækkefølge) lader uafhængige parter genbygge og sammenligne digests. OCI's image- og distributionsspecifikationer i version 1.1 tilføjede artifactType og et subject-felt, så signaturer, SBOM'er og attestationer kan gemmes i registryet som selvstændige artefakter, der henviser til et images digest.
 
@@ -47,10 +47,10 @@ edges:
   part-of: [software-supply-chain]
   used-with: [sbom]
 sources:
-  - title: NIST SP 800-190 — Application Container Security Guide
+  - title: NIST SP 800-190 - Application Container Security Guide
     tier: standard
     publisher: NIST
-  - title: Docker Docs — What is an image?
+  - title: Docker Docs - What is an image?
     url: https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-an-image/
     tier: official-doc
     publisher: Docker

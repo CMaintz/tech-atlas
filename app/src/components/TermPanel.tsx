@@ -156,7 +156,7 @@ export default function TermPanel(props: Props) {
     focusName.current =
       arrival.via === 'other' || (arrival.via === 'step' && arrival.index === null);
     const where = next.anchor === id ? '' : positionOf(next.index);
-    setAnnounce(focusName.current ? '' : where ? `${nameOf(id)} — ${where}` : nameOf(id));
+    setAnnounce(focusName.current ? '' : where ? `${nameOf(id)} - ${where}` : nameOf(id));
   }, [id]);
 
   /** Show `target` via a panel control: Explorer (or Timeline) selects it on the map. */
@@ -172,7 +172,7 @@ export default function TermPanel(props: Props) {
     if (target !== id) return go(target, { via: 'step', index: i });
     // The same term listed under another relationship: only the position moves.
     setWalk({ anchor: walk.anchor, index: i });
-    setAnnounce(`${nameOf(id)} — ${positionOf(i)}`);
+    setAnnounce(`${nameOf(id)} - ${positionOf(i)}`);
   };
 
   const move = (dir: 1 | -1) => {

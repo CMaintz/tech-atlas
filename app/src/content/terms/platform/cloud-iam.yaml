@@ -17,8 +17,8 @@ body:
     en: A service run by the cloud provider in which the customer writes policies binding an identity to the actions it may take on named resources; the provider checks them on every request and refuses anything not granted.
     da: En tjeneste, som cloududbyderen driver, hvor kunden skriver politikker, der kobler en identitet til de handlinger, den må udføre på navngivne ressourcer; udbyderen tjekker dem ved hver forespørgsel og afviser alt, der ikke er givet lov til.
   plain:
-    en: Like the key card system in an office building — one central list says whose card opens which doors, and every door checks that list each time.
-    da: Som adgangskortsystemet i en kontorbygning — én central liste siger, hvis kort åbner hvilke døre, og hver dør tjekker listen hver gang.
+    en: Like the key card system in an office building - one central list says whose card opens which doors, and every door checks that list each time.
+    da: Som adgangskortsystemet i en kontorbygning - én central liste siger, hvis kort åbner hvilke døre, og hver dør tjekker listen hver gang.
   inPractice:
     en: At a pension fund, the cloud architect gives the nightly backup job a service account that may only write to one storage bucket, and gives developers a role that can read logs but not delete databases.
     da: I en pensionskasse giver cloudarkitekten det natlige backupjob en servicekonto, der kun må skrive til én bestemt bucket, og udviklerne en rolle, der kan læse logs, men ikke slette databaser.
@@ -54,15 +54,15 @@ edges:
       confidence: high
     - service-account
 sources:
-  - title: AWS Identity and Access Management — User Guide
+  - title: AWS Identity and Access Management - User Guide
     url: https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html
     tier: official-doc
     publisher: Amazon Web Services
-  - title: Google Cloud — IAM overview
+  - title: Google Cloud - IAM overview
     url: https://cloud.google.com/iam/docs/overview
     tier: official-doc
     publisher: Google
-  - title: Azure role-based access control (Azure RBAC) — Overview
+  - title: Azure role-based access control (Azure RBAC) - Overview
     url: https://learn.microsoft.com/en-us/azure/role-based-access-control/overview
     tier: official-doc
     publisher: Microsoft

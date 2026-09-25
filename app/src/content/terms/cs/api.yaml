@@ -17,8 +17,8 @@ body:
     en: A published contract that names the operations a piece of software accepts, the input each one expects and the output it returns; on the web this usually means a server answering HTTP requests with structured data rather than pages.
     da: En offentliggjort kontrakt, der angiver, hvilke operationer et stykke software tager imod, hvilket input hver forventer, og hvilket output den returnerer; på nettet betyder det typisk en server, der svarer på HTTP-forespørgsler med strukturerede data frem for sider.
   plain:
-    en: Like the menu and the waiter in a restaurant — you order from a fixed list, the kitchen does the work, and you never need to know how it is cooked.
-    da: Som menukortet og tjeneren på en restaurant — du bestiller fra en fast liste, køkkenet gør arbejdet, og du behøver aldrig vide, hvordan maden laves.
+    en: Like the menu and the waiter in a restaurant - you order from a fixed list, the kitchen does the work, and you never need to know how it is cooked.
+    da: Som menukortet og tjeneren på en restaurant - du bestiller fra en fast liste, køkkenet gør arbejdet, og du behøver aldrig vide, hvordan maden laves.
   inPractice:
     en: Every night a municipality's payroll system asks the HR system's API for new and departing staff, and gets back names, start dates and pay grades, so nobody has to type them in twice.
     da: Hver nat spørger kommunens lønsystem HR-systemets API om nye og fratrådte medarbejdere og får navne, startdatoer og løntrin tilbage, så ingen skal taste dem ind to gange.
@@ -59,11 +59,11 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: MDN Web Docs — Glossary, API
+  - title: MDN Web Docs - Glossary, API
     url: https://developer.mozilla.org/en-US/docs/Glossary/API
     tier: official-doc
     publisher: Mozilla
-  - title: RFC 9110 — HTTP Semantics
+  - title: RFC 9110 - HTTP Semantics
     url: https://www.rfc-editor.org/rfc/rfc9110
     tier: standard
     publisher: IETF

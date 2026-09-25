@@ -16,14 +16,14 @@ body:
     en: A neural network, usually a transformer, trained so that texts close in meaning come out as embeddings that score high on cosine similarity; it turns both stored documents and incoming questions into embeddings.
     da: Et neuralt netværk, som regel en transformer, der er trænet, så tekster med nær betydning kommer ud som embeddings, der scorer højt på cosinuslighed; det laver både gemte dokumenter og indkommende spørgsmål om til embeddings.
   plain:
-    en: Like a wine taster who marks every wine on the same flavour chart — light to heavy, sweet to dry — without ever telling you what the label says.
-    da: Som en vinsmager, der sætter et kryds for hver vin på det samme smagsskema — let til tung, sød til tør — uden nogensinde at fortælle, hvad der står på etiketten.
+    en: Like a wine taster who marks every wine on the same flavour chart - light to heavy, sweet to dry - without ever telling you what the label says.
+    da: Som en vinsmager, der sætter et kryds for hver vin på det samme smagsskema - let til tung, sød til tør - uden nogensinde at fortælle, hvad der står på etiketten.
   inPractice:
     en: A developer at a Danish software house runs a pension fund's 3,000 help pages through an embedding model once, stores the results, and runs each member's question through the same model when they search.
     da: En udvikler i et dansk softwarehus kører en pensionskasses 3.000 hjælpesider gennem en embedding-model én gang, gemmer resultaterne og kører hvert medlems spørgsmål gennem samme model, når der søges.
   whyItMatters:
-    en: Switching to a new one means redoing every stored embedding, since the numbers from two different models cannot be compared — and a model weak in Danish gives weak Danish search.
-    da: Skifter man til en ny, skal alle gemte embeddings laves om, da tallene fra to forskellige modeller ikke kan sammenlignes — og en model, der er svag i dansk, giver svag dansk søgning.
+    en: Switching to a new one means redoing every stored embedding, since the numbers from two different models cannot be compared - and a model weak in Danish gives weak Danish search.
+    da: Skifter man til en ny, skal alle gemte embeddings laves om, da tallene fra to forskellige modeller ikke kan sammenlignes - og en model, der er svag i dansk, giver svag dansk søgning.
 deepDive:
   en: |-
     Most retrieval embedding models are bi-encoders: the same transformer (or two towers) encodes query and document independently, and the per-token hidden states are pooled into one fixed-length vector, by mean pooling, the [CLS] token, or for decoder-based models the final token. Independence is the point, because document vectors can be computed once at indexing time and only the query needs encoding at search time. Output dimensions typically range from 384 to over 4,000. Models trained with Matryoshka representation learning (Kusupati et al., 2022) can be truncated to a prefix of their dimensions, trading accuracy for storage, provided the truncated vectors are renormalised.
@@ -66,11 +66,11 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: Reimers & Gurevych (2019), Sentence-BERT — Sentence Embeddings using Siamese BERT-Networks
+  - title: Reimers & Gurevych (2019), Sentence-BERT - Sentence Embeddings using Siamese BERT-Networks
     tier: reference
-  - title: Muennighoff et al. (2023), MTEB — Massive Text Embedding Benchmark
+  - title: Muennighoff et al. (2023), MTEB - Massive Text Embedding Benchmark
     tier: reference
-  - title: Enevoldsen, Kardos, Muennighoff & Nielbo (2024), The Scandinavian Embedding Benchmarks — Comprehensive Assessment of Multilingual and Monolingual Text Embedding
+  - title: Enevoldsen, Kardos, Muennighoff & Nielbo (2024), The Scandinavian Embedding Benchmarks - Comprehensive Assessment of Multilingual and Monolingual Text Embedding
     tier: reference
     url: https://arxiv.org/abs/2406.02396
   - title: Morris et al. (2023), Text Embeddings Reveal (Almost) As Much As Text

@@ -8,12 +8,12 @@ questions:
     stem:
       en: >-
         A new IT risk officer at a Danish bank is asked by the board which set of rules
-        governs the bank's digital resilience — security measures, incident reporting and
-        testing — now that the Danish NIS2 Act has come into force. What is the best answer?
+        governs the bank's digital resilience - security measures, incident reporting and
+        testing - now that the Danish NIS2 Act has come into force. What is the best answer?
       da: >-
         En nyansat IT-risikomedarbejder i en dansk bank bliver spurgt af bestyrelsen, hvilke
-        regler der styrer bankens digitale modstandsdygtighed — sikkerhedstiltag,
-        hændelsesrapportering og test — nu hvor NIS2-loven er trådt i kraft. Hvad er det
+        regler der styrer bankens digitale modstandsdygtighed - sikkerhedstiltag,
+        hændelsesrapportering og test - nu hvor NIS2-loven er trådt i kraft. Hvad er det
         bedste svar?
     options:
       - en: The Danish NIS2 Act, in the same way as for the other critical sectors
@@ -33,7 +33,7 @@ questions:
         DORA and supervised by Finanstilsynet. The Danish NIS2 Act itself carves out the
         financial, energy and telecom sectors, so it is not the bank's rulebook. The GDPR
         still applies to customer data but does not cover operational IT resilience. Waiting
-        for a Danish law misreads what a regulation is — no transposition is needed.
+        for a Danish law misreads what a regulation is - no transposition is needed.
       da: >-
         DORA (forordning (EU) 2022/2554) har gældet siden 17. januar 2025 og er som
         forordning bindende og direkte gældende i alle medlemslande; for finanssektoren har
@@ -41,7 +41,7 @@ questions:
         Finanstilsynet som tilsyn. NIS2-loven undtager selv finans-, energi- og
         telesektoren, så den er ikke bankens regelsæt. GDPR gælder stadig for kundedata, men
         dækker ikke den operationelle IT-modstandsdygtighed. At vente på en dansk lov er en
-        misforståelse af, hvad en forordning er — den skal ikke gennemføres i national ret.
+        misforståelse af, hvad en forordning er - den skal ikke gennemføres i national ret.
     difficulty: 2
     sources:
       - title: Regulation (EU) 2022/2554 (DORA), Article 64
@@ -50,7 +50,7 @@ questions:
       - title: Lov nr. 434 af 6. maj 2025 (NIS 2-loven), § 1, stk. 2
         url: https://www.retsinformation.dk/eli/lta/2025/434
         tier: standard
-      - title: Styrelsen for Samfundssikkerhed — NIS 2 spørgsmål og svar
+      - title: Styrelsen for Samfundssikkerhed - NIS 2 spørgsmål og svar
         url: https://samsik.dk/nis2/faq/
         tier: official-doc
     draft: true
@@ -63,25 +63,25 @@ questions:
     stem:
       en: >-
         On Monday 1 September 2025 at 10:00 a Danish drinking-water utility realises that
-        ransomware has halted its pumping stations — a significant incident under the NIS2
+        ransomware has halted its pumping stations - a significant incident under the NIS2
         Act. It sends its early warning the same day and its incident notification on
         Wednesday 3 September. By when must the final report be submitted at the latest,
         assuming the incident is over by then?
       da: >-
         Mandag den 1. september 2025 kl. 10 står det klart for et dansk vandforsyningsselskab,
-        at ransomware har lammet dets pumpestationer — en væsentlig hændelse efter
+        at ransomware har lammet dets pumpestationer - en væsentlig hændelse efter
         NIS2-loven. Selskabet sender sin tidlige varsling samme dag og sin
         hændelsesunderretning onsdag den 3. september. Hvornår skal den endelige rapport
         senest være indsendt, hvis hændelsen er afsluttet til den tid?
     options:
-      - en: 1 October 2025 — one month after the utility became aware of the incident
-        da: 1. oktober 2025 — en måned efter, at selskabet fik kendskab til hændelsen
-      - en: 6 September 2025 — 72 hours after the incident notification was sent
-        da: 6. september 2025 — 72 timer efter, at hændelsesunderretningen blev sendt
-      - en: 3 October 2025 — one month after the incident notification was sent
-        da: 3. oktober 2025 — en måned efter, at hændelsesunderretningen blev sendt
-      - en: 1 December 2025 — three months after the incident was discovered
-        da: 1. december 2025 — tre måneder efter, at hændelsen blev opdaget
+      - en: 1 October 2025 - one month after the utility became aware of the incident
+        da: 1. oktober 2025 - en måned efter, at selskabet fik kendskab til hændelsen
+      - en: 6 September 2025 - 72 hours after the incident notification was sent
+        da: 6. september 2025 - 72 timer efter, at hændelsesunderretningen blev sendt
+      - en: 3 October 2025 - one month after the incident notification was sent
+        da: 3. oktober 2025 - en måned efter, at hændelsesunderretningen blev sendt
+      - en: 1 December 2025 - three months after the incident was discovered
+        da: 1. december 2025 - tre måneder efter, at hændelsen blev opdaget
     answer: 2
     explanation:
       en: >-
@@ -90,14 +90,14 @@ questions:
         clock for this stage starts on 3 September, not on the day of discovery. Counting
         from awareness (1 October) mixes up this stage with the 24-hour and 72-hour
         deadlines, which do run from awareness. There is no 72-hour step after the
-        notification — an intermediate report is sent only if the CSIRT asks. Three months
+        notification - an intermediate report is sent only if the CSIRT asks. Three months
         is not a NIS2 deadline at all.
       da: >-
         NIS2 artikel 23, stk. 4, litra d, og § 13 i NIS2-loven fastsætter, at den endelige
         rapport skal sendes senest en måned efter hændelsesunderretningen (72-timers-trinnet),
         så fristen for dette trin løber fra 3. september og ikke fra opdagelsen. At regne fra
         kendskabet (1. oktober) blander trinnet sammen med fristerne på 24 og 72 timer, som
-        netop løber fra kendskabet. Der er intet 72-timers-trin efter underretningen — en
+        netop løber fra kendskabet. Der er intet 72-timers-trin efter underretningen - en
         foreløbig rapport sendes kun, hvis CSIRT'en beder om den. Tre måneder er slet ikke en
         NIS2-frist.
     difficulty: 3
@@ -105,7 +105,7 @@ questions:
       - title: Directive (EU) 2022/2555 (NIS2), Article 23(4)
         url: https://eur-lex.europa.eu/eli/dir/2022/2555/oj
         tier: standard
-      - title: Lov nr. 434 af 6. maj 2025 (NIS 2-loven), §§ 12–13
+      - title: Lov nr. 434 af 6. maj 2025 (NIS 2-loven), §§ 12-13
         url: https://www.retsinformation.dk/eli/lta/2025/434
         tier: standard
     draft: true
@@ -161,7 +161,7 @@ questions:
       - title: Directive (EU) 2022/2555 (NIS2), Article 20
         url: https://eur-lex.europa.eu/eli/dir/2022/2555/oj
         tier: standard
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -210,10 +210,10 @@ questions:
         årsagen, og registreringspligten gælder kun omfattede enheder.
     difficulty: 2
     sources:
-      - title: Directive (EU) 2022/2555 (NIS2), Article 21(2)–(3)
+      - title: Directive (EU) 2022/2555 (NIS2), Article 21(2)-(3)
         url: https://eur-lex.europa.eu/eli/dir/2022/2555/oj
         tier: standard
-      - title: Styrelsen for Samfundssikkerhed — NIS 2 spørgsmål og svar
+      - title: Styrelsen for Samfundssikkerhed - NIS 2 spørgsmål og svar
         url: https://samsik.dk/nis2/faq/
         tier: official-doc
     draft: true
@@ -269,7 +269,7 @@ questions:
       - title: GDPR (Regulation (EU) 2016/679), Article 28
         url: https://eur-lex.europa.eu/eli/reg/2016/679/oj
         tier: standard
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -307,7 +307,7 @@ questions:
         processing of special categories such as health data as a case where a DPIA is
         required. A pilot on real patient records is already processing, so assessing
         afterwards is too late. The 72-hour rule belongs to breach notification (Article 33),
-        not to new systems. Consent does not remove the duty — the assessment covers the
+        not to new systems. Consent does not remove the duty - the assessment covers the
         processing as a whole.
       da: >-
         GDPR artikel 35, stk. 1, kræver, at den dataansvarlige vurderer konsekvenserne, før
@@ -316,7 +316,7 @@ questions:
         helbredsoplysninger som et tilfælde, hvor en DPIA er påkrævet. En pilot på rigtige
         journaler er allerede behandling, så en vurdering bagefter kommer for sent.
         72-timers-reglen hører til anmeldelse af brud (artikel 33), ikke til nye systemer.
-        Samtykke fjerner ikke pligten — analysen dækker behandlingen som helhed.
+        Samtykke fjerner ikke pligten - analysen dækker behandlingen som helhed.
     difficulty: 2
     sources:
       - title: GDPR (Regulation (EU) 2016/679), Article 35
@@ -333,12 +333,12 @@ questions:
     stem:
       en: >-
         A Danish software company with 40 staff is preparing for ISO 27001 certification.
-        It has no server room of its own — all its systems run with a cloud provider — so
+        It has no server room of its own - all its systems run with a cloud provider - so
         the Annex A controls on protecting its own server room do not fit. What should it do
         with those controls?
       da: >-
         En dansk softwarevirksomhed med 40 ansatte forbereder sig på ISO 27001-certificering.
-        Den har intet serverrum selv — alle systemer kører hos en cloududbyder — så kontrollerne
+        Den har intet serverrum selv - alle systemer kører hos en cloududbyder - så kontrollerne
         i Annex A om beskyttelse af eget serverrum passer ikke. Hvad skal den gøre med de
         kontroller?
     options:
@@ -354,26 +354,26 @@ questions:
     explanation:
       en: >-
         ISO 27001 asks the organisation to compare its risk treatment with Annex A and to
-        produce a Statement of Applicability that takes a stand on every control — included
-        or excluded — with the reason, which the auditor then checks. Annex A is a reference
+        produce a Statement of Applicability that takes a stand on every control - included
+        or excluded - with the reason, which the auditor then checks. Annex A is a reference
         list, so it is neither edited nor implemented wholesale; certification does not
         demand controls that the risks do not call for. That ISO 27002 is guidance does not
         make silent omission acceptable: the unexplained gap is exactly what the auditor
         will flag.
       da: >-
         ISO 27001 kræver, at organisationen holder sin risikohåndtering op mod Annex A og
-        udarbejder en Statement of Applicability, der tager stilling til hver kontrol — til-
-        eller fravalgt — med begrundelse, som auditoren derefter efterprøver. Annex A er en
+        udarbejder en Statement of Applicability, der tager stilling til hver kontrol - til-
+        eller fravalgt - med begrundelse, som auditoren derefter efterprøver. Annex A er en
         referenceliste, så den hverken redigeres eller indføres i sin helhed; certificering
         kræver ikke kontroller, som risiciene ikke begrunder. At ISO 27002 er vejledning gør
         ikke en tavs udeladelse acceptabel: det uforklarede hul er netop det, auditoren vil
         påpege.
     difficulty: 2
     sources:
-      - title: Dansk Standard — ISO/IEC 27001 Informationssikkerhed
+      - title: Dansk Standard - ISO/IEC 27001 Informationssikkerhed
         url: https://www.ds.dk/da/om-standarder/ledelsesstandarder/iso-27001-informationssikkerhed
         tier: official-doc
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -418,10 +418,10 @@ questions:
         organisationer.
     difficulty: 1
     sources:
-      - title: Dansk Standard — ISO/IEC 27001 Informationssikkerhed
+      - title: Dansk Standard - ISO/IEC 27001 Informationssikkerhed
         url: https://www.ds.dk/da/om-standarder/ledelsesstandarder/iso-27001-informationssikkerhed
         tier: official-doc
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -457,20 +457,20 @@ questions:
         meet, so it belongs at the start and feeds the roadmap of what to fix first. An
         audit later checks whether the firm actually follows the policies and requirements
         it has committed to. Swapping them reverses their purpose. Neither is by definition
-        carried out by the authority — a gap analysis is often internal or done with a
-        consultant — and the two answer different questions, so they are not
+        carried out by the authority - a gap analysis is often internal or done with a
+        consultant - and the two answer different questions, so they are not
         interchangeable.
       da: >-
         En gap-analyse sammenligner, hvad virksomheden gør i dag, med de krav, den vil leve
         op til, så den hører til i starten og giver input til roadmappen over, hvad der skal
         rettes først. En audit tjekker senere, om virksomheden faktisk efterlever de politikker
         og krav, den har forpligtet sig til. Bytter man om, vender formålet på hovedet. Ingen
-        af dem foretages pr. definition af myndigheden — en gap-analyse laves ofte internt
-        eller med en konsulent — og de besvarer forskellige spørgsmål, så de kan ikke
+        af dem foretages pr. definition af myndigheden - en gap-analyse laves ofte internt
+        eller med en konsulent - og de besvarer forskellige spørgsmål, så de kan ikke
         erstatte hinanden.
     difficulty: 1
     sources:
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -500,7 +500,7 @@ questions:
         entities alike, scaled in proportion to size and risk, and Styrelsen for
         Samfundssikkerhed stresses that the requirements for the two groups are in principle
         the same. What differs is supervision and sanctions: important entities are
-        supervised after the fact (Article 33), and the maximum fines are lower — at least
+        supervised after the fact (Article 33), and the maximum fines are lower - at least
         EUR 7 million or 1.4 % of turnover against EUR 10 million or 2 % for essential
         entities (Article 34).
       da: >-
@@ -508,14 +508,14 @@ questions:
         enheder, tilpasset størrelse og risiko, og Styrelsen for Samfundssikkerhed
         understreger, at kravene til de to grupper i udgangspunktet er ens. Forskellen ligger
         i tilsyn og sanktioner: vigtige enheder får efterfølgende tilsyn (artikel 33), og
-        bødeloftet er lavere — mindst 7 mio. euro eller 1,4 % af omsætningen mod 10 mio.
+        bødeloftet er lavere - mindst 7 mio. euro eller 1,4 % af omsætningen mod 10 mio.
         euro eller 2 % for væsentlige enheder (artikel 34).
     difficulty: 1
     sources:
       - title: Directive (EU) 2022/2555 (NIS2), Articles 21, 33 and 34
         url: https://eur-lex.europa.eu/eli/dir/2022/2555/oj
         tier: standard
-      - title: Styrelsen for Samfundssikkerhed — NIS 2 spørgsmål og svar
+      - title: Styrelsen for Samfundssikkerhed - NIS 2 spørgsmål og svar
         url: https://samsik.dk/nis2/faq/
         tier: official-doc
     draft: true

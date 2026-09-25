@@ -21,8 +21,8 @@ body:
     en: At a pension fund, an alarm reports “possible data theft” from the finance drive; the analyst sees it is the report job that runs on the last day of every month, and closes it.
     da: I en pensionskasse melder en alarm “muligt datatyveri” fra økonomiafdelingens drev; analytikeren ser, at det er rapportkørslen, der kører den sidste dag i hver måned, og lukker den.
   whyItMatters:
-    en: Each one wastes a little time, but many of them teach staff to ignore alarms — and then the one real attack is waved through with the rest.
-    da: Hver enkelt spilder lidt tid, men mange af dem lærer medarbejderne at ignorere alarmer — og så bliver det ene reelle angreb vinket igennem sammen med resten.
+    en: Each one wastes a little time, but many of them teach staff to ignore alarms - and then the one real attack is waved through with the rest.
+    da: Hver enkelt spilder lidt tid, men mange af dem lærer medarbejderne at ignorere alarmer - og så bliver det ene reelle angreb vinket igennem sammen med resten.
 deepDive:
   en: |-
     Formally, a false positive is the FP cell of the confusion matrix: a detector predicts the positive class (malicious, vulnerable, spam) for an instance that is actually negative. Three derived rates are routinely confused. The false-positive rate, FP / (FP + TN), is the share of benign events that trigger an alert. Precision, TP / (TP + FP), is the share of alerts that are real. The false discovery rate, 1 − precision, is what analysts actually experience as noise. A detector can have an excellent false-positive rate and still terrible precision, and in statistics a false positive corresponds to a Type I error.
@@ -51,10 +51,10 @@ edges:
       confidence: high
   used-with: [soc]
 sources:
-  - title: NIST SP 800-94 — Guide to Intrusion Detection and Prevention Systems (IDPS)
+  - title: NIST SP 800-94 - Guide to Intrusion Detection and Prevention Systems (IDPS)
     url: https://doi.org/10.6028/NIST.SP.800-94
     tier: standard
     publisher: NIST
-  - title: Cyber Security Fast Track — SIEM module
+  - title: Cyber Security Fast Track - SIEM module
     tier: course-material
 draft: true

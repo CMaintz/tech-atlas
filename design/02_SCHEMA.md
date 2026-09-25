@@ -515,6 +515,7 @@ than good intentions. Runs in CI on every content change." Reproduced in full.
 | E9 | **Missing article file.** `article:` points at a file that exists. | |
 | E10 | **Schema violation.** Frontmatter parses against `schema.ts`. | |
 | E11 | **Semantic vectors out of date.** `supabase/seed/term-vectors.json` has a vector for every Term (and none for removed ones) and was built with the current model settings; re-run `npm run embed` (A52, A76). | |
+| E12 | **Forbidden dash.** No en dash (U+2013), em dash (U+2014) or horizontal bar (U+2015) anywhere in a term, article or question file; write hyphen-minus `-` (A94). | The owner's house style: readers only ever see normal dashes. |
 
 ### Warnings — visible, not blocking
 | # | Rule | Why |

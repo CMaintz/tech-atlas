@@ -13,11 +13,11 @@ summary:
   da: En færdig, fælles struktur af mål og kontroller, som en organisation følger for at opbygge og tjekke sit sikkerhedsarbejde.
 body:
   formal:
-    en: A published, structured set of principles, processes and controls — such as ISO 27001, the NIST CSF or the CIS Controls — that an organisation adopts to decide what to protect, in which order, and how to measure progress.
-    da: Et offentliggjort, struktureret sæt af principper, processer og kontroller — fx ISO 27001, NIST CSF eller CIS Controls — som en organisation tager i brug for at afgøre, hvad der skal beskyttes, i hvilken rækkefølge, og hvordan fremskridt måles.
+    en: A published, structured set of principles, processes and controls - such as ISO 27001, the NIST CSF or the CIS Controls - that an organisation adopts to decide what to protect, in which order, and how to measure progress.
+    da: Et offentliggjort, struktureret sæt af principper, processer og kontroller - fx ISO 27001, NIST CSF eller CIS Controls - som en organisation tager i brug for at afgøre, hvad der skal beskyttes, i hvilken rækkefølge, og hvordan fremskridt måles.
   plain:
-    en: A well-tested cookbook — you do not invent the dish from scratch, you follow proven steps and adjust to taste.
-    da: En gennemprøvet kogebog — man opfinder ikke retten fra bunden, men følger afprøvede trin og tilpasser efter smag.
+    en: A well-tested cookbook - you do not invent the dish from scratch, you follow proven steps and adjust to taste.
+    da: En gennemprøvet kogebog - man opfinder ikke retten fra bunden, men følger afprøvede trin og tilpasser efter smag.
   inPractice:
     en: The newly hired IT manager at a Danish housing association uses the CIS Controls as a checklist to see which basic protections are already in place and which to add first.
     da: Den nye IT-chef i en dansk boligforening bruger CIS Controls som tjekliste for at se, hvilke grundlæggende beskyttelser der allerede er på plads, og hvilke der skal tilføjes først.
@@ -58,7 +58,7 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 1 og 4
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 1 og 4
     tier: course-material
   - title: NIST Cybersecurity Framework 2.0
     tier: standard

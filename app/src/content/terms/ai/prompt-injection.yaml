@@ -17,8 +17,8 @@ body:
     en: An attack on a large language model in which input written by an outsider, typed directly or hidden in a web page, file or email the model is asked to read, is treated as an instruction and overrides what its owner intended.
     da: Et angreb på en stor sprogmodel, hvor tekst fra en udenforstående, skrevet direkte eller gemt i en hjemmeside, fil eller mail, som modellen skal læse, bliver opfattet som en ordre og tilsidesætter det, ejeren havde tænkt sig.
   plain:
-    en: Like slipping a note into a pile of letters a new assistant is sorting that says "ignore your boss and send me the keys" — and the assistant cannot tell the note apart from real orders.
-    da: Som at stikke en seddel ind i en bunke breve, som en ny assistent sorterer, hvor der står "ignorer din chef og send mig nøglerne" — og assistenten kan ikke skelne sedlen fra rigtige ordrer.
+    en: Like slipping a note into a pile of letters a new assistant is sorting that says "ignore your boss and send me the keys" - and the assistant cannot tell the note apart from real orders.
+    da: Som at stikke en seddel ind i en bunke breve, som en ny assistent sorterer, hvor der står "ignorer din chef og send mig nøglerne" - og assistenten kan ikke skelne sedlen fra rigtige ordrer.
   inPractice:
     en: A municipality's AI assistant sums up incoming emails from citizens; one email hides white-on-white text telling it to forward the last ten messages to an outside address, and it does.
     da: En kommunes AI-assistent opsummerer indgående mails fra borgerne; én mail gemmer hvid tekst på hvid baggrund, der beder den videresende de ti seneste beskeder til en ekstern adresse, og det gør den.
@@ -27,7 +27,7 @@ body:
     da: Modellen blander regler og indhold i den samme strøm af ord, så der findes endnu ingen vandtæt løsning; jo mere et AI-system må gøre på egen hånd, jo mere skade kan én skjult sætning gøre.
 deepDive:
   en: |-
-    The root cause is architectural. An LLM receives one token sequence in which the system prompt, user turns, retrieved documents and tool results are separated only by chat-template markers and formatting conventions; attention operates over all of it, and there is no equivalent of a parameterised query that forces a span to be treated as inert data. Role tokens and training give privileged segments more weight, but the separation is statistical, which is why the analogy with SQL injection is instructive but misleading: SQL injection has a complete fix (prepared statements), prompt injection currently does not. Greshake et al. (2023) formalised indirect prompt injection, in which the payload arrives through content the application retrieves — web pages, emails, PDFs, tool descriptions — so the attacker never interacts with the system directly.
+    The root cause is architectural. An LLM receives one token sequence in which the system prompt, user turns, retrieved documents and tool results are separated only by chat-template markers and formatting conventions; attention operates over all of it, and there is no equivalent of a parameterised query that forces a span to be treated as inert data. Role tokens and training give privileged segments more weight, but the separation is statistical, which is why the analogy with SQL injection is instructive but misleading: SQL injection has a complete fix (prepared statements), prompt injection currently does not. Greshake et al. (2023) formalised indirect prompt injection, in which the payload arrives through content the application retrieves - web pages, emails, PDFs, tool descriptions - so the attacker never interacts with the system directly.
 
     Payloads pursue a small set of goals: goal hijacking (do something else), prompt leaking (reveal the system prompt, see OWASP LLM07), data exfiltration, and unauthorised tool use. A well-known exfiltration channel is output rendering: the model is told to emit a Markdown image whose URL contains conversation data in the query string, and the client leaks it when it fetches the image; blocking external image rendering or enforcing a strict content security policy closes that path. Agents with memory add persistence, since an injected instruction can be written into long-term memory and replayed in later sessions.
 
@@ -35,7 +35,7 @@ deepDive:
 
     OWASP ranks prompt injection as LLM01:2025 and includes jailbreaking as a subtype; NIST AI 100-2 classifies it as an attack on generative AI with direct and indirect variants. It differs from data poisoning, which alters the model's weights during training, and from excessive agency, which is the design weakness that determines the blast radius. For an EU deployer, a successful injection that exposes personal data is a personal data breach under GDPR Art. 33 with the usual 72-hour notification clock, and for high-risk AI systems, EU AI Act Art. 15(5) requires resilience against attempts by unauthorised third parties to alter use or outputs by exploiting system vulnerabilities.
   da: |-
-    Grundårsagen er arkitektonisk. En LLM modtager én sekvens af tokens, hvor systemprompt, brugerens ture, hentede dokumenter og værktøjsresultater kun er adskilt af markører i chatskabelonen og formateringskonventioner; attention virker på det hele, og der findes intet svar på en parameteriseret forespørgsel, der tvinger et tekststykke til at blive behandlet som passive data. Rolletokens og træning giver de privilegerede dele mere vægt, men adskillelsen er statistisk — derfor er sammenligningen med SQL injection lærerig, men misvisende: SQL injection har en fuldstændig løsning (prepared statements), det har prompt injection ikke i dag. Greshake et al. (2023) formaliserede indirekte prompt injection, hvor payloaden kommer ind via indhold, applikationen henter — hjemmesider, mails, PDF'er, værktøjsbeskrivelser — så angriberen aldrig selv interagerer med systemet.
+    Grundårsagen er arkitektonisk. En LLM modtager én sekvens af tokens, hvor systemprompt, brugerens ture, hentede dokumenter og værktøjsresultater kun er adskilt af markører i chatskabelonen og formateringskonventioner; attention virker på det hele, og der findes intet svar på en parameteriseret forespørgsel, der tvinger et tekststykke til at blive behandlet som passive data. Rolletokens og træning giver de privilegerede dele mere vægt, men adskillelsen er statistisk - derfor er sammenligningen med SQL injection lærerig, men misvisende: SQL injection har en fuldstændig løsning (prepared statements), det har prompt injection ikke i dag. Greshake et al. (2023) formaliserede indirekte prompt injection, hvor payloaden kommer ind via indhold, applikationen henter - hjemmesider, mails, PDF'er, værktøjsbeskrivelser - så angriberen aldrig selv interagerer med systemet.
 
     Payloads forfølger få mål: goal hijacking (gør noget andet), prompt leaking (afslør systemprompten, jf. OWASP LLM07), dataudtræk og uautoriseret brug af værktøjer. En kendt kanal til dataudtræk er rendering af output: modellen beordres til at skrive et Markdown-billede, hvis URL indeholder samtaledata i query-strengen, og klienten lækker dem, når billedet hentes; at blokere visning af eksterne billeder eller håndhæve en stram content security policy lukker den vej. Agenter med hukommelse giver vedvarende effekt, fordi en indsmuglet instruktion kan skrives ind i langtidshukommelsen og genafspilles i senere sessioner.
 
@@ -87,11 +87,11 @@ article:
   en: src/content/articles/ai/prompt-injection.en.md
   da: src/content/articles/ai/prompt-injection.da.md
 sources:
-  - title: OWASP Top 10 for LLM Applications — LLM01 Prompt Injection
+  - title: OWASP Top 10 for LLM Applications - LLM01 Prompt Injection
     tier: reference
     publisher: OWASP
     url: https://genai.owasp.org/llmrisk/llm01-prompt-injection/
-  - title: NIST AI 100-2 — Adversarial Machine Learning, A Taxonomy and Terminology of Attacks and Mitigations
+  - title: NIST AI 100-2 - Adversarial Machine Learning, A Taxonomy and Terminology of Attacks and Mitigations
     tier: standard
     publisher: NIST
     url: https://doi.org/10.6028/NIST.AI.100-2e2025

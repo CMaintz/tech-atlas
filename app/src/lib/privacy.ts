@@ -163,8 +163,8 @@ export const DATA: DataItem[] = [
       da: 'Legitim interesse (GDPR art. 6, stk. 1, litra f): at drive et sikkert website.',
     },
     retention: {
-      en: "Decided by GitHub — see GitHub's privacy statement.",
-      da: 'Bestemmes af GitHub — se GitHubs privatlivserklæring.',
+      en: "Decided by GitHub - see GitHub's privacy statement.",
+      da: 'Bestemmes af GitHub - se GitHubs privatlivserklæring.',
     },
   },
   {
@@ -178,8 +178,8 @@ export const DATA: DataItem[] = [
       da: 'For at finde begreber, der passer til det, du mener.',
     },
     where: {
-      en: 'Our search function at Supabase (Frankfurt, EU) turns the text into numbers using Cloudflare Workers AI. Cloudflare receives only the text — no IP address, account or other identifier — and may process it outside the EU. Please do not type personal information into the search box.',
-      da: 'Vores søgefunktion hos Supabase (Frankfurt, EU) omsætter teksten til tal via Cloudflare Workers AI. Cloudflare modtager kun teksten — ingen IP-adresse, konto eller anden identifikation — og kan behandle den uden for EU. Skriv venligst ikke personoplysninger i søgefeltet.',
+      en: 'Our search function at Supabase (Frankfurt, EU) turns the text into numbers using Cloudflare Workers AI. Cloudflare receives only the text - no IP address, account or other identifier - and may process it outside the EU. Please do not type personal information into the search box.',
+      da: 'Vores søgefunktion hos Supabase (Frankfurt, EU) omsætter teksten til tal via Cloudflare Workers AI. Cloudflare modtager kun teksten - ingen IP-adresse, konto eller anden identifikation - og kan behandle den uden for EU. Skriv venligst ikke personoplysninger i søgefeltet.',
     },
     basis: {
       en: 'Legitimate interest (Art. 6(1)(f)): answering the search you asked for.',
@@ -346,15 +346,15 @@ export const PRIVACY_UI = {
     storageWhere: 'Kept in',
     storagePurpose: 'Purpose',
     consent:
-      'Every item is either strictly necessary for something you asked for or remembers a choice you made, so under the ePrivacy rules (in Denmark, the cookie order — cookiebekendtgørelsen) no consent is needed and there is no cookie banner. Atlas uses no analytics, advertising or tracking. If that ever changes, we will ask for your consent first.',
+      'Every item is either strictly necessary for something you asked for or remembers a choice you made, so under the ePrivacy rules (in Denmark, the cookie order - cookiebekendtgørelsen) no consent is needed and there is no cookie banner. Atlas uses no analytics, advertising or tracking. If that ever changes, we will ask for your consent first.',
     processorsTitle: 'Who else is involved',
     rightsTitle: 'Your rights',
     rights: [
       'Access: email us and we send you everything we hold about you.',
-      'Rectification: your progress is yours to change on the site; your name and email come from your sign-in provider, so change them there — or email us.',
+      'Rectification: your progress is yours to change on the site; your name and email come from your sign-in provider, so change them there - or email us.',
       'Erasure: "Delete my synced data" on the account page removes your progress from the server at once. To delete your account itself (email address and sign-in records), email us.',
       'Portability: "Download my progress" on the account page saves your progress as a JSON file.',
-      'Objection and restriction: you may object to processing based on legitimate interest, or ask us to restrict it — email us.',
+      'Objection and restriction: you may object to processing based on legitimate interest, or ask us to restrict it - email us.',
     ],
     rightsReply: 'We answer within one month.',
     complaintTitle: 'Complaints',
@@ -396,10 +396,10 @@ export const PRIVACY_UI = {
     rightsTitle: 'Dine rettigheder',
     rights: [
       'Indsigt: skriv til os, så sender vi dig alt, hvad vi har om dig.',
-      'Berigtigelse: dine fremskridt kan du selv ændre på sitet; dit navn og din e-mail kommer fra din login-udbyder, så ret dem dér — eller skriv til os.',
+      'Berigtigelse: dine fremskridt kan du selv ændre på sitet; dit navn og din e-mail kommer fra din login-udbyder, så ret dem dér - eller skriv til os.',
       'Sletning: "Slet mine synkroniserede data" på kontosiden fjerner straks dine fremskridt fra serveren. Skriv til os for at slette selve kontoen (e-mailadresse og login-oplysninger).',
       'Dataportabilitet: "Download mine fremskridt" på kontosiden gemmer dine fremskridt som en JSON-fil.',
-      'Indsigelse og begrænsning: du kan gøre indsigelse mod behandling, der bygger på legitim interesse, eller bede os begrænse den — skriv til os.',
+      'Indsigelse og begrænsning: du kan gøre indsigelse mod behandling, der bygger på legitim interesse, eller bede os begrænse den - skriv til os.',
     ],
     rightsReply: 'Vi svarer inden for en måned.',
     complaintTitle: 'Klage',

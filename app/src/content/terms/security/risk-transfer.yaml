@@ -13,17 +13,17 @@ summary:
   da: At flytte regningen for en risiko over på en anden part, typisk via en forsikring eller en kontrakt med en leverandør.
 body:
   formal:
-    en: The risk treatment option in which some or all of the consequences of a risk are shared with or passed to a third party — for example through cyber insurance or contract terms with a supplier — while accountability for the risk stays with the organisation.
-    da: Den håndteringsmulighed, hvor en del af eller alle konsekvenserne af en risiko deles med eller overføres til en tredjepart — fx via en cyberforsikring eller kontraktvilkår med en leverandør — mens ansvaret for risikoen bliver i organisationen.
+    en: The risk treatment option in which some or all of the consequences of a risk are shared with or passed to a third party - for example through cyber insurance or contract terms with a supplier - while accountability for the risk stays with the organisation.
+    da: Den håndteringsmulighed, hvor en del af eller alle konsekvenserne af en risiko deles med eller overføres til en tredjepart - fx via en cyberforsikring eller kontraktvilkår med en leverandør - mens ansvaret for risikoen bliver i organisationen.
   plain:
-    en: Like hiring a removal firm that pays if it drops your piano — you get the money back, but you still have no piano for the party on Saturday.
-    da: Som at hyre et flyttefirma, der betaler, hvis det taber ens klaver — man får pengene tilbage, men står stadig uden klaver til festen på lørdag.
+    en: Like hiring a removal firm that pays if it drops your piano - you get the money back, but you still have no piano for the party on Saturday.
+    da: Som at hyre et flyttefirma, der betaler, hvis det taber ens klaver - man får pengene tilbage, men står stadig uden klaver til festen på lørdag.
   inPractice:
     en: A Danish online furniture shop takes out cyber insurance that pays for outside experts and lost income after an attack, and its contract makes the hosting provider cover losses from the provider's own outages.
     da: En dansk netbutik med møbler tegner en cyberforsikring, der betaler for eksterne eksperter og tabt indtjening efter et angreb, og dens kontrakt gør hostingudbyderen ansvarlig for tab ved udbyderens egne nedbrud.
   whyItMatters:
-    en: Money can be moved, but the lost trust, the lost data and the legal duties cannot — an insured organisation must still report breaches and answer to its customers.
-    da: Penge kan flyttes, men den tabte tillid, de tabte data og de juridiske pligter kan ikke — en forsikret organisation skal stadig anmelde brud og stå til ansvar over for sine kunder.
+    en: Money can be moved, but the lost trust, the lost data and the legal duties cannot - an insured organisation must still report breaches and answer to its customers.
+    da: Penge kan flyttes, men den tabte tillid, de tabte data og de juridiske pligter kan ikke - en forsikret organisation skal stadig anmelde brud og stå til ansvar over for sine kunder.
 deepDive:
   en: |-
     ISO 31000:2018 and ISO/IEC 27005 call this option risk sharing, and the choice of word is deliberate: what moves is part of the financial consequence, while the likelihood of the event and the accountability for it stay where they were. The two main instruments are insurance and contract. Neither changes the probability of a breach; both change who pays for some of its consequences, and only up to the limits written into the policy or agreement.
@@ -46,8 +46,8 @@ edges:
   requires: [risk, impact]
   used-with: [supplier-management]
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 5 og Ordliste (Risikohåndtering — overføre)
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 5 og Ordliste (Risikohåndtering - overføre)
     tier: course-material
-  - title: ISO/IEC 27005:2022 (8.2 — Risk treatment options)
+  - title: ISO/IEC 27005:2022 (8.2 - Risk treatment options)
     tier: standard
 draft: true

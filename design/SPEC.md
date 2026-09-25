@@ -175,7 +175,8 @@ E1 unknown jargon (Closed Vocabulary; blocking in English, a warning in Danish, 
 ambiguous cross-domain edge (must be namespaced) · E4 `requires` cycle · E5 circular
 definition · E6 tautological summary · E7 duplicate identity · E8 layer out of domain
 · E9 missing article file · E10 schema violation · E11 semantic vectors missing a term or
-built with other model settings (run `npm run embed`).
+built with other model settings (run `npm run embed`) · E12 an en/em dash in a term,
+article or question file (A94).
 
 ### Warnings (visible, non-blocking)
 W1 orphan (no edges) · W2 redundant child · W3 no prerequisites · W4 thin

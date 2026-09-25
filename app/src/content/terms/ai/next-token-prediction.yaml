@@ -9,21 +9,21 @@ cluster: llm
 layer: model
 status: current
 summary:
-  en: How a language model writes — it guesses the single most fitting next piece of text, adds it, and repeats until the answer is done.
-  da: Sådan skriver en sprogmodel — den gætter det bedst passende næste stykke tekst, tilføjer det og gentager, til svaret er færdigt.
+  en: How a language model writes - it guesses the single most fitting next piece of text, adds it, and repeats until the answer is done.
+  da: Sådan skriver en sprogmodel - den gætter det bedst passende næste stykke tekst, tilføjer det og gentager, til svaret er færdigt.
 body:
   formal:
-    en: The task at the heart of a large language model — from all tokens so far, work out how likely each possible next token is; during inference one is picked, added to the text, and the step repeats.
-    da: Kerneopgaven i en stor sprogmodel — ud fra alle tokens indtil nu at regne ud, hvor sandsynligt hvert muligt næste token er; under inferens vælges ét, føjes til teksten, og trinnet gentages.
+    en: The task at the heart of a large language model - from all tokens so far, work out how likely each possible next token is; during inference one is picked, added to the text, and the step repeats.
+    da: Kerneopgaven i en stor sprogmodel - ud fra alle tokens indtil nu at regne ud, hvor sandsynligt hvert muligt næste token er; under inferens vælges ét, føjes til teksten, og trinnet gentages.
   plain:
-    en: Like finishing a well-known saying — hear “the early bird…” and “catches the worm” comes to mind — done over and over, one word at a time, until a whole answer stands.
-    da: Som at gøre et kendt ordsprog færdigt — hør “hvad man ikke har i hovedet…”, og “må man have i benene” melder sig — gjort igen og igen, ét ord ad gangen, til et helt svar står der.
+    en: Like finishing a well-known saying - hear “the early bird…” and “catches the worm” comes to mind - done over and over, one word at a time, until a whole answer stands.
+    da: Som at gøre et kendt ordsprog færdigt - hør “hvad man ikke har i hovedet…”, og “må man have i benene” melder sig - gjort igen og igen, ét ord ad gangen, til et helt svar står der.
   inPractice:
     en: A medical secretary at a hospital watches a chat assistant's draft letter appear word by word; when she stops it halfway, half a sentence is left, because each token is chosen only after all the ones before it.
     da: En lægesekretær på et hospital ser en chatassistents udkast til et brev dukke op ord for ord; stopper hun den halvvejs, står der en halv sætning, fordi hvert token først vælges, når alle dem før det er skrevet.
   whyItMatters:
-    en: The model aims for text that fits, not text that is checked, and each answer takes one step per token — which explains both how smooth it sounds and what it costs in money and time.
-    da: Modellen sigter mod tekst, der passer, ikke tekst, der er tjekket, og hvert svar tager ét trin per token — hvilket forklarer både, hvor glat den lyder, og hvad den koster i penge og tid.
+    en: The model aims for text that fits, not text that is checked, and each answer takes one step per token - which explains both how smooth it sounds and what it costs in money and time.
+    da: Modellen sigter mod tekst, der passer, ikke tekst, der er tjekket, og hvert svar tager ét trin per token - hvilket forklarer både, hvor glat den lyder, og hvad den koster i penge og tid.
 deepDive:
   en: |-
     Formally, an autoregressive language model factorises the probability of a sequence as a product of conditionals, p(x1, ..., xn) = p(x1) · p(x2 | x1) · ... · p(xn | x1, ..., xn−1). At each position the network outputs a vector of logits, one per vocabulary entry (tens to hundreds of thousands of them), and a softmax turns these into a probability distribution over the next token. Training minimises the average negative log-likelihood of the actual next token, the cross-entropy loss; perplexity, the exponential of that loss, is the standard intrinsic metric.
@@ -54,8 +54,8 @@ edges:
   used-with:
     - to: self-supervised-learning
       why:
-        en: Guessing the next token and checking it against the real text is also how the model learns — the text supplies its own right answers.
-        da: At gætte næste token og tjekke det mod den rigtige tekst er også sådan, modellen lærer — teksten leverer selv de rigtige svar.
+        en: Guessing the next token and checking it against the real text is also how the model learns - the text supplies its own right answers.
+        da: At gætte næste token og tjekke det mod den rigtige tekst er også sådan, modellen lærer - teksten leverer selv de rigtige svar.
       strength: primary
       confidence: high
     - sampling

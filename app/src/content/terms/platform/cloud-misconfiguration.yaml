@@ -9,15 +9,15 @@ cluster: cloud
 layer: infrastructure
 status: current
 summary:
-  en: A wrong or careless setting in a cloud service — like storage left open to everyone — that exposes data or systems.
-  da: En forkert eller skødesløs indstilling i en cloudtjeneste — fx lager, der står åbent for alle — som blotlægger data eller systemer.
+  en: A wrong or careless setting in a cloud service - like storage left open to everyone - that exposes data or systems.
+  da: En forkert eller skødesløs indstilling i en cloudtjeneste - fx lager, der står åbent for alle - som blotlægger data eller systemer.
 body:
   formal:
     en: A weakness created not by a flaw in the provider's software but by the customer's own choice of settings, such as public access to storage, too broad permissions, disabled logging or open network ports.
     da: En sårbarhed, der ikke skyldes en fejl i udbyderens software, men kundens egne valg af indstillinger, fx offentlig adgang til lager, for brede rettigheder, manglende logs eller åbne netværksporte.
   plain:
-    en: Like a sturdy safe bought for the office but left with its door standing open — the safe works fine; the way it was set up does not.
-    da: Som et solidt pengeskab, der er købt til kontoret, men står med døren åben — skabet virker fint; det er måden, det er sat op på, der ikke gør.
+    en: Like a sturdy safe bought for the office but left with its door standing open - the safe works fine; the way it was set up does not.
+    da: Som et solidt pengeskab, der er købt til kontoret, men står med døren åben - skabet virker fint; det er måden, det er sat op på, der ikke gør.
   inPractice:
     en: A developer at a hospital region makes a storage bucket public to share a test file and forgets to close it; months later strangers find patient records in it, and the region must report a personal data breach.
     da: En udvikler i en region gør en bucket offentlig for at dele en testfil og glemmer at lukke den; måneder senere finder fremmede patientdata i den, og regionen må anmelde brud på persondatasikkerheden til Datatilsynet.
@@ -55,7 +55,7 @@ sources:
   - title: CSA Cloud Controls Matrix (CCM)
     tier: reference
     publisher: Cloud Security Alliance
-  - title: NIST SP 800-145 — The NIST Definition of Cloud Computing
+  - title: NIST SP 800-145 - The NIST Definition of Cloud Computing
     tier: standard
     publisher: NIST
 draft: true

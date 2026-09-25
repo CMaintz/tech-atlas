@@ -46,7 +46,7 @@ questions:
         at tjekke den DNS-server, pc'erne bruger.
     difficulty: 1
     sources:
-      - title: RFC 1034 — Domain Names, Concepts and Facilities
+      - title: RFC 1034 - Domain Names, Concepts and Facilities
         url: https://www.rfc-editor.org/rfc/rfc1034
         tier: standard
       - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
@@ -144,7 +144,7 @@ questions:
         The router performs network address and port translation (NAPT): it swaps
         each PC's private address and port for the shared public address and a port
         of its own, and keeps that mapping to route replies back. Only the router's
-        record of those mappings — if it logs them — can tie the public address, time
+        record of those mappings - if it logs them - can tie the public address, time
         and source port to one internal PC. The provider only sees the router's public
         address, not what sits behind it. A reverse DNS lookup of the public address
         at best names the firm's line or router, and no PC has the public address in
@@ -153,7 +153,7 @@ questions:
         Routeren laver adresse- og portoversættelse (NAPT): den bytter hver pc's
         private adresse og port ud med den fælles offentlige adresse og sin egen port
         og husker koblingen, så svarene kan sendes tilbage. Kun routerens registrering
-        af disse koblinger — hvis den logger dem — kan knytte den offentlige adresse,
+        af disse koblinger - hvis den logger dem - kan knytte den offentlige adresse,
         tidspunktet og kildeporten til én bestemt pc. Udbyderen ser kun routerens
         offentlige adresse, ikke hvad der gemmer sig bag den. Et omvendt DNS-opslag på
         den offentlige adresse giver i bedste fald navnet på firmaets forbindelse
@@ -161,7 +161,7 @@ questions:
         fordi hver har sin egen private.
     difficulty: 3
     sources:
-      - title: RFC 3022 — Traditional IP Network Address Translator (Traditional NAT)
+      - title: RFC 3022 - Traditional IP Network Address Translator (Traditional NAT)
         url: https://www.rfc-editor.org/rfc/rfc3022
         tier: standard
     draft: true
@@ -214,10 +214,10 @@ questions:
         at læse selve domænenavnet.
     difficulty: 2
     sources:
-      - title: RFC 2818 — HTTP Over TLS
+      - title: RFC 2818 - HTTP Over TLS
         url: https://www.rfc-editor.org/rfc/rfc2818
         tier: standard
-      - title: Let's Encrypt — Challenge Types
+      - title: Let's Encrypt - Challenge Types
         url: https://letsencrypt.org/docs/challenge-types/
         tier: official-doc
       - title: HTTPS (Wikipedia)
@@ -255,8 +255,8 @@ questions:
     answer: 2
     explanation:
       en: >-
-        Network segmentation — typically a separate VLAN with firewall rules between
-        the segments — lets only the traffic the analysers need (for example from the
+        Network segmentation - typically a separate VLAN with firewall rules between
+        the segments - lets only the traffic the analysers need (for example from the
         lab system) reach them, so an infected staff PC cannot move sideways to
         them. A stronger firewall at the internet connection does not see traffic
         that stays inside the flat internal network, which is exactly where
@@ -265,8 +265,8 @@ questions:
         addresses would expose the unpatched devices to the whole internet, making
         things worse.
       da: >-
-        Netværkssegmentering — typisk et separat VLAN med firewallregler mellem
-        segmenterne — lukker kun den trafik ind, apparaterne har brug for (fx fra
+        Netværkssegmentering - typisk et separat VLAN med firewallregler mellem
+        segmenterne - lukker kun den trafik ind, apparaterne har brug for (fx fra
         laboratoriesystemet), så en inficeret medarbejder-pc ikke kan bevæge sig
         videre til dem. En kraftigere firewall ved internetforbindelsen ser ikke
         trafik, der bliver inde på det flade interne netværk, og det er netop dér,
@@ -313,7 +313,7 @@ questions:
         Internal systems are not reachable from the internet at large. A remote-access
         VPN builds an encrypted tunnel across the internet, so her PC behaves as if it
         were on the municipality's own network and can reach the case system. It does
-        not make the connection faster — the extra encryption and detour, if
+        not make the connection faster - the extra encryption and detour, if
         anything, add overhead. It does not replace her login: she still signs in to
         the case system. And webmail works without it, so securing webmail is not a
         condition for reaching other systems.
@@ -321,7 +321,7 @@ questions:
         Interne systemer kan ikke nås fra internettet i almindelighed. En VPN til
         fjernadgang bygger en krypteret tunnel hen over internettet, så hendes pc
         opfører sig, som om den sad på kommunens eget netværk, og kan nå sagssystemet.
-        Den gør ikke forbindelsen hurtigere — den ekstra kryptering og omvej giver
+        Den gør ikke forbindelsen hurtigere - den ekstra kryptering og omvej giver
         snarere lidt ekstra belastning. Den erstatter ikke hendes login: hun skal
         stadig logge ind i sagssystemet. Og webmailen virker uden VPN, så det er ikke
         en betingelse for at nå andre systemer, at den er sikret først.
@@ -377,7 +377,7 @@ questions:
         ukrypteret, og port 80 er porten til almindelig, ukrypteret HTTP.
     difficulty: 2
     sources:
-      - title: RFC 2818 — HTTP Over TLS
+      - title: RFC 2818 - HTTP Over TLS
         url: https://www.rfc-editor.org/rfc/rfc2818
         tier: standard
     draft: true

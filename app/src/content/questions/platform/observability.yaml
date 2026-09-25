@@ -33,7 +33,7 @@ questions:
       en: >-
         OpenTelemetry describes a distributed trace as the record of the path a single
         request takes as it moves through multiple services, made of spans that each
-        time one step — so a trace of a slow checkout shows which of the eight
+        time one step - so a trace of a slow checkout shows which of the eight
         services used the seconds. The dashboards' averages are exactly what hides the
         few slow requests among many fast ones. The front-end access log confirms
         that a request took eight seconds, but not which service behind it was slow.
@@ -42,7 +42,7 @@ questions:
       da: >-
         OpenTelemetry beskriver en distribueret trace som registreringen af den vej,
         én forespørgsel tager gennem flere tjenester, opbygget af spans, der hver
-        tager tid på ét trin — så en trace af en langsom betaling viser, hvilken af de
+        tager tid på ét trin - så en trace af en langsom betaling viser, hvilken af de
         otte tjenester der brugte sekunderne. Dashboardenes gennemsnit er netop det,
         der skjuler de få langsomme forespørgsler blandt mange hurtige.
         Frontendens adgangslog bekræfter, at en forespørgsel tog otte sekunder, men
@@ -50,10 +50,10 @@ questions:
         tjeneste lever og svarer, og det gør de alle.
     difficulty: 1
     sources:
-      - title: OpenTelemetry — Observability primer
+      - title: OpenTelemetry - Observability primer
         url: https://opentelemetry.io/docs/concepts/observability-primer/
         tier: official-doc
-      - title: OpenTelemetry — Traces
+      - title: OpenTelemetry - Traces
         url: https://opentelemetry.io/docs/concepts/signals/traces/
         tier: official-doc
     draft: true
@@ -104,10 +104,10 @@ questions:
         til en SLA, en kontrakt med kunderne.
     difficulty: 3
     sources:
-      - title: Google SRE book — Embracing Risk (error budgets)
+      - title: Google SRE book - Embracing Risk (error budgets)
         url: https://sre.google/sre-book/embracing-risk/
         tier: reference
-      - title: Google SRE book — Service Level Objectives
+      - title: Google SRE book - Service Level Objectives
         url: https://sre.google/sre-book/service-level-objectives/
         tier: reference
     draft: true
@@ -146,7 +146,7 @@ questions:
         they become visible to customers. Swapping the two gets the roles backwards.
         The price reduction follows only from the contract's figure, not from missing
         the internal goal, and the internal target is not what is reported to
-        customers — the SLA is.
+        customers - the SLA is.
       da: >-
         De 99,9 % i kontrakten er en SLA: et løfte med en konsekvens, her et
         prisnedslag. Teamets 99,95 % er et SLO, et internt mål uden
@@ -154,11 +154,11 @@ questions:
         internt SLO end det, man lover udadtil, så teamet har plads til at reagere på
         problemer, før kunderne mærker dem. At bytte om på de to vender rollerne på
         hovedet. Prisnedslaget følger kun af kontraktens tal, ikke af at det interne
-        mål ikke nås, og det interne mål er ikke det, der rapporteres til kunderne —
+        mål ikke nås, og det interne mål er ikke det, der rapporteres til kunderne -
         det er SLA'en.
     difficulty: 2
     sources:
-      - title: Google SRE book — Service Level Objectives
+      - title: Google SRE book - Service Level Objectives
         url: https://sre.google/sre-book/service-level-objectives/
         tier: reference
     draft: true
@@ -193,7 +193,7 @@ questions:
     explanation:
       en: >-
         Google's SRE book warns that when pages come too often, people skim or ignore
-        them — even a real one hidden in the noise — and says every page should be
+        them - even a real one hidden in the noise - and says every page should be
         urgent and actionable, with more effort spent on catching symptoms users feel
         than on causes. A portal that is down is such a symptom; a CPU spike that
         passes is not, so it belongs in a ticket or on a dashboard. A lower threshold
@@ -201,7 +201,7 @@ questions:
         tired people. Copying every alert to email adds another channel nobody reads.
       da: >-
         Googles SRE-bog advarer om, at når der kaldes op for tit, begynder folk at
-        skimme eller ignorere alarmerne — også en ægte alarm, der drukner i støjen — og
+        skimme eller ignorere alarmerne - også en ægte alarm, der drukner i støjen - og
         siger, at hvert opkald skal være akut og kræve handling, og at man hellere skal
         fange de symptomer, brugerne mærker, end årsagerne. En portal, der er nede, er
         sådan et symptom; en CPU-top, der går over, er ikke, så den hører hjemme i en
@@ -210,7 +210,7 @@ questions:
         mail tilføjer endnu en kanal, som ingen læser.
     difficulty: 2
     sources:
-      - title: Google SRE book — Monitoring Distributed Systems
+      - title: Google SRE book - Monitoring Distributed Systems
         url: https://sre.google/sre-book/monitoring-distributed-systems/
         tier: reference
     draft: true
@@ -245,7 +245,7 @@ questions:
       en: >-
         The Kubernetes documentation describes exactly this case: an application that
         must load large data during startup should not be killed, just kept from
-        traffic — and a Pod whose containers report not ready receives no traffic
+        traffic - and a Pod whose containers report not ready receives no traffic
         through Kubernetes Services. A liveness probe does the opposite: when it
         fails, the kubelet kills and restarts the container, which could restart the
         loading over and over. More replicas still receive requests before they are
@@ -254,7 +254,7 @@ questions:
       da: >-
         Kubernetes' dokumentation beskriver netop dette tilfælde: En applikation, der
         skal indlæse store datamængder ved opstart, skal ikke slås ihjel, bare holdes
-        væk fra trafikken — og en Pod, hvis containere melder ikke klar, får ingen
+        væk fra trafikken - og en Pod, hvis containere melder ikke klar, får ingen
         trafik gennem Kubernetes Services. En liveness probe gør det modsatte: Når den
         fejler, slår kubelet containeren ned og genstarter den, hvilket kan starte
         indlæsningen forfra igen og igen. Flere replikaer får stadig forespørgsler, før
@@ -262,7 +262,7 @@ questions:
         ville stadig nå frem, før indlæsningen er færdig.
     difficulty: 3
     sources:
-      - title: Kubernetes documentation — Configure Liveness, Readiness and Startup Probes
+      - title: Kubernetes documentation - Configure Liveness, Readiness and Startup Probes
         url: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
         tier: official-doc
     draft: true

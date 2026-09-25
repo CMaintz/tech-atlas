@@ -51,7 +51,7 @@ const alternates = (['en', 'da'] as const).map((l) => ({
   lang: l,
   href: new URL(swapLang(path, l), Astro.site).href,
 }));
-const pageTitle = title === 'Atlas' ? 'Atlas' : `${title} — Atlas`;
+const pageTitle = title === 'Atlas' ? 'Atlas' : `${title} - Atlas`;
 const canonical = new URL(path, Astro.site).href;
 const desc = description ?? ui.tagline;
 const langBase = url(`${lang}/`);

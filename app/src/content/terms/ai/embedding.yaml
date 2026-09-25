@@ -17,8 +17,8 @@ body:
     en: A fixed-length vector produced by a neural network to represent a token, sentence or document, placed so that items close in meaning lie close together and can be compared by distance.
     da: En vektor af fast længde, som et neuralt netværk laver for at repræsentere et token, en sætning eller et dokument, placeret så ting med nær betydning ligger tæt og kan sammenlignes ud fra afstand.
   plain:
-    en: Like giving every text coordinates on a map of meaning — "car" and "vehicle" land near each other, "car" and "banana" far apart.
-    da: Som at give hver tekst koordinater på et kort over betydning — "bil" og "køretøj" lander tæt på hinanden, "bil" og "banan" langt fra hinanden.
+    en: Like giving every text coordinates on a map of meaning - "car" and "vehicle" land near each other, "car" and "banana" far apart.
+    da: Som at give hver tekst koordinater på et kort over betydning - "bil" og "køretøj" lander tæt på hinanden, "bil" og "banan" langt fra hinanden.
   inPractice:
     en: A municipality stores embeddings of all its internal policies, so that a staff member's search for “working from home” also finds the policy titled “remote work”.
     da: En kommune gemmer embeddings af alle sine interne retningslinjer, så en sagsbehandlers søgning på “arbejde hjemmefra” også finder retningslinjen med titlen “hjemmearbejde”.

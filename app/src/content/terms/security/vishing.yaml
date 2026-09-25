@@ -52,11 +52,11 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: NIST Glossary — Vishing
+  - title: NIST Glossary - Vishing
     tier: standard
     publisher: NIST
     url: https://csrc.nist.gov/glossary/term/vishing
-  - title: MITRE ATT&CK — T1566.004 Phishing, Spearphishing Voice
+  - title: MITRE ATT&CK - T1566.004 Phishing, Spearphishing Voice
     tier: reference
     publisher: MITRE
     url: https://attack.mitre.org/techniques/T1566/004/
