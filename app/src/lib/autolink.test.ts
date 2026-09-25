@@ -114,6 +114,8 @@ describe('makeLinker', () => {
         term: { en: 'Attention mechanism', da: 'Attention-mekanisme' },
         aka: { en: ['attention'], da: [] },
       },
+      { id: 'ai/feature', term: { en: 'Feature', da: 'Feature (inputvariabel)' } },
+      { id: 'ai/label', term: { en: 'Label', da: 'Label (mærkat)' } },
     ];
     const en = makeLinker(t, 'en');
     const da = makeLinker(t, 'da');
@@ -126,9 +128,16 @@ describe('makeLinker', () => {
     expect(ids(en.link('Like a car recall', { self: 'security/patch-management' }))).toEqual([]);
     expect(ids(en.link('limits of attention', { self: 'security/human-factor' }))).toEqual([]);
     expect(ids(en.link('sorted by sensitivity', { self: 'security/security-policy' }))).toEqual([]);
+    // A product feature update, a certification label.
+    expect(ids(en.link('separately from feature updates', { self: 'security/cyber-resilience-act' }))).toEqual([]);
+    expect(ids(en.link('award of the label', { self: 'security/d-maerket' }))).toEqual([]);
     // Same domain: still a link.
     expect(ids(en.link('predict the next token', { self: 'ai/embedding' }))).toEqual(['ai/token']);
     expect(ids(en.link('precision and recall', { self: 'ai/f1-score' }))).toEqual(['ai/recall']);
+    expect(ids(en.link('each feature and its label', { self: 'ai/training-data' }))).toEqual([
+      'ai/feature',
+      'ai/label',
+    ]);
     expect(ids(da.link('tokens i konteksten', { self: 'ai/context-window' }))).toEqual([
       'ai/token',
     ]);
