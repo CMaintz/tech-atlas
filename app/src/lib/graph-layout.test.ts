@@ -8,12 +8,12 @@ import {
   domainBands,
   effectiveHome,
   effectivePaint,
-  facingAngle,
   galaxyLayout,
   levelAngle,
   pageRank,
   relativeControls,
   rotateAbout,
+  separate,
   termVisible,
   timeLanes,
   yearX,
@@ -117,6 +117,29 @@ describe('backbone', () => {
   it('is capped by perNode', () => {
     expect(backbone(nodes, links, 1).size).toBeLessThanOrEqual(nodes.length);
   });
+  it('always keeps requires and primary edges', () => {
+    const extra = [
+      ...links,
+      { ...L('b', 'd', 0.1), type: 'requires' },
+      { ...L('b', 'x', 0.1), primary: true },
+    ];
+    const chosen = backbone(nodes, extra, 1);
+    expect(chosen.has(6)).toBe(true);
+    expect(chosen.has(7)).toBe(true);
+  });
+  it('picks a term’s strongest edges across clusters within its domains', () => {
+    const hub = [
+      { id: 'h', domain: ['platform'], cluster: 'cloud' },
+      { id: 'p', domain: ['platform'], cluster: 'delivery' },
+      { id: 'q', domain: ['platform'], cluster: 'delivery' },
+      { id: 's', domain: ['security'], cluster: 'identity' },
+    ];
+    const edges = [L('p', 'h', 2), L('q', 'h', 1.5), L('h', 's', 9)];
+    const chosen = backbone(hub, edges, 2);
+    expect(chosen.has(0)).toBe(true); // h's links to other clusters of its domain show
+    expect(chosen.has(1)).toBe(true);
+    expect(chosen.has(2)).toBe(true); // s's only edge: the fallback keeps it
+  });
 });
 
 describe('pageRank', () => {
@@ -176,11 +199,9 @@ describe('bundle control points', () => {
   });
 });
 
-describe('facingAngle / rotateAbout', () => {
-  it('finds the rotation that turns points towards their targets', () => {
-    const a = facingAngle([{ p: { x: 1, y: 0 }, t: { x: 0, y: 1 } }]);
-    expect(a).toBeCloseTo(Math.PI / 2);
-    const p = rotateAbout({ x: 2, y: 1 }, { x: 1, y: 1 }, a);
+describe('levelAngle / rotateAbout', () => {
+  it('rotates a point about a centre', () => {
+    const p = rotateAbout({ x: 2, y: 1 }, { x: 1, y: 1 }, Math.PI / 2);
     expect(p.x).toBeCloseTo(1);
     expect(p.y).toBeCloseTo(2);
   });
@@ -196,8 +217,41 @@ describe('facingAngle / rotateAbout', () => {
     const h = Math.max(...turned.map((p) => p.y)) - Math.min(...turned.map((p) => p.y));
     expect(w).toBeGreaterThan(h);
   });
-  it('is 0 with nothing to face', () => {
-    expect(facingAngle([])).toBe(0);
+});
+
+describe('separate', () => {
+  const gap = (p: { x: number; y: number; z?: number }, q: typeof p) =>
+    Math.hypot(p.x - q.x, p.y - q.y, (p.z ?? 0) - (q.z ?? 0));
+  it('pushes every pair at least their minimum distance apart', () => {
+    let seed = 7;
+    const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647) * 60;
+    const pts = Array.from({ length: 60 }, () => ({ x: rnd(), y: rnd() }));
+    const min = (i: number, j: number) => 20 + (i % 3) + (j % 3);
+    separate(pts, min);
+    for (let i = 0; i < pts.length; i++)
+      for (let j = i + 1; j < pts.length; j++)
+        expect(gap(pts[i], pts[j])).toBeGreaterThanOrEqual(min(i, j) - 0.5);
+  });
+  it('works in 3D and splits coincident points deterministically', () => {
+    const pts = [
+      { x: 0, y: 0, z: 0 },
+      { x: 0, y: 0, z: 0 },
+      { x: 1, y: 0, z: 0 },
+    ];
+    separate(pts, () => 10);
+    expect(gap(pts[0], pts[1])).toBeGreaterThanOrEqual(9.5);
+    expect(gap(pts[1], pts[2])).toBeGreaterThanOrEqual(9.5);
+  });
+  it('leaves points that are already apart where they are', () => {
+    const pts = [
+      { x: 0, y: 0 },
+      { x: 100, y: 0 },
+    ];
+    separate(pts, () => 10);
+    expect(pts).toEqual([
+      { x: 0, y: 0 },
+      { x: 100, y: 0 },
+    ]);
   });
 });
 

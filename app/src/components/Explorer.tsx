@@ -456,9 +456,6 @@ export default function Explorer(props: Props) {
             <div class="text-lg font-semibold">{sel.term[lang]}</div>
             {sel.summary && <p class="text-neutral-300">{sel.summary[lang]}</p>}
             <div class="flex flex-wrap gap-2">
-              <a class={button(true)} href={`${termBase}${sel.id}/`}>
-                {ui.openEntry}
-              </a>
               {sel.requires.length > 0 && (
                 <button class={button(false)} onClick={() => showPrerequisites(sel.id)}>
                   {ui.showPrerequisites}

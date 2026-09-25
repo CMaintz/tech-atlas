@@ -31,10 +31,10 @@ import {
   clusterBundles,
   depthLanes,
   effectiveHome,
-  facingAngle,
   levelAngle,
   pageRank,
   rotateAbout,
+  separate,
   sizeForRank,
   timeLanes,
   type LaneLayout,
@@ -231,7 +231,7 @@ export function createMap2D(opts: Map2DOptions) {
   const clusters = new Map<string, GraphNode[]>();
   for (const n of graph.nodes) clusters.set(n.cluster, [...(clusters.get(n.cluster) ?? []), n]);
   const clusterIds = [...clusters.keys()].sort();
-  /** Each term's offset from its island's centre (rotated to face its seams). */
+  /** Each term's offset from its island's centre. */
   const offset = new Map<string, Point>();
   const islandR = new Map<string, number>();
   withSeededRandom(LAYOUT_SEED, () => {
@@ -258,12 +258,16 @@ export function createMap2D(opts: Map2DOptions) {
             nodeSeparation: 60,
           } as cytoscape.LayoutOptions)
           .run();
-      const ps = members.map((m) => m.position());
+      // No two terms closer than a click target and a label apart; the island grows.
+      const ps = members.map((m) => ({ ...m.position() }));
+      const sizes = members.map((m) => m.data('size') as number);
+      const { factor, labelClearance } = EXPLORER.spacing;
+      separate(ps, (i, j) => (factor * (sizes[i] + sizes[j])) / 4 + labelClearance);
       const cx = ps.reduce((a, p) => a + p.x, 0) / ps.length;
       const cyy = ps.reduce((a, p) => a + p.y, 0) / ps.length;
       let r = 0;
-      members.forEach((m) => {
-        const o = { x: m.position('x') - cx, y: m.position('y') - cyy };
+      members.forEach((m, k) => {
+        const o = { x: ps[k].x - cx, y: ps[k].y - cyy };
         offset.set(m.id(), o);
         r = Math.max(r, Math.hypot(o.x, o.y) + m.data('size') / 2);
       });
@@ -271,10 +275,7 @@ export function createMap2D(opts: Map2DOptions) {
     }
   });
 
-  /**
-   * Pack the given islands (only their visible members count) into domain regions, then
-   * turn each region and island so terms shared with another domain face it (A86).
-   */
+  /** Pack the given islands (only their visible members count) into domain regions. */
   const islandMap = (visible: ReadonlySet<string>, enabled?: ReadonlySet<string>) => {
     const members = new Map<string, GraphNode[]>();
     for (const c of clusterIds) {
@@ -302,9 +303,6 @@ export function createMap2D(opts: Map2DOptions) {
           ) + 26;
       return { id: c, domain: domainOfIsland.get(c)!, r };
     });
-    const firstIsland = new Map<string, string>();
-    for (const i of [...islands].sort((a, b) => (a.id < b.id ? -1 : 1)))
-      if (!firstIsland.has(i.domain)) firstIsland.set(i.domain, i.id);
     const between = new Map<string, number>();
     const add = (a: string, b: string, w: number) => {
       const k = a < b ? `${a}\u0000${b}` : `${b}\u0000${a}`;
@@ -316,53 +314,20 @@ export function createMap2D(opts: Map2DOptions) {
       const b = byId.get(l.target)!.cluster;
       if (a !== b) add(a, b, 1);
     }
-    // Shared terms pull their domains' regions together.
-    for (const [c, mine] of members)
-      for (const n of mine)
-        for (const d of n.domain)
-          if (d !== domainOfIsland.get(c) && firstIsland.has(d)) add(c, firstIsland.get(d)!, 8);
     const links: IslandLink[] = [...between.entries()].map(([k, w]) => {
       const [a, b] = k.split('\u0000');
       return { a, b, w };
     });
     const packed = packIslands(islands, links);
     const centre = { ...packed.islands };
-    // Seams, level 1: turn each region so its shared terms' islands face the other domain.
-    for (const [d, region] of Object.entries(packed.regions)) {
-      const pairs: Parameters<typeof facingAngle>[0] = [];
-      for (const [c, mine] of members) {
-        if (domainOfIsland.get(c) !== d) continue;
-        for (const n of mine)
-          for (const o of n.domain)
-            if (o !== d && packed.regions[o])
-              pairs.push({
-                p: { x: centre[c].x - region.x, y: centre[c].y - region.y },
-                t: { x: packed.regions[o].x - region.x, y: packed.regions[o].y - region.y },
-              });
-      }
-      const a = facingAngle(pairs);
-      if (a)
-        for (const c of members.keys())
-          if (domainOfIsland.get(c) === d) centre[c] = rotateAbout(centre[c], region, a);
-    }
-    // Seams, level 2: turn each island so its shared terms sit on the side facing their
-    // other domain — the constellations touch where they share terms.
+    // A term sits in its own cluster's island like any other, whatever other domains it
+    // also belongs to (A86: no seams — hubs that connect everywhere broke them).
     const positions: Record<string, Point> = {};
-    for (const [c, mine] of members) {
-      const pairs: Parameters<typeof facingAngle>[0] = [];
-      for (const n of mine)
-        for (const o of n.domain)
-          if (o !== domainOfIsland.get(c) && packed.regions[o])
-            pairs.push({
-              p: offset.get(n.id)!,
-              t: { x: packed.regions[o].x - centre[c].x, y: packed.regions[o].y - centre[c].y },
-            });
-      const a = facingAngle(pairs);
+    for (const [c, mine] of members)
       for (const n of mine) {
-        const o = a ? rotateAbout(offset.get(n.id)!, { x: 0, y: 0 }, a) : offset.get(n.id)!;
+        const o = offset.get(n.id)!;
         positions[n.id] = { x: centre[c].x + o.x, y: centre[c].y + o.y };
       }
-    }
     // Lay the map's long axis along the screen's (landscape: horizontal), so it fills it.
     const pts = Object.values(positions);
     const wide = opts.container.clientWidth >= opts.container.clientHeight;

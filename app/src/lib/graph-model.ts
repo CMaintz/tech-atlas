@@ -62,6 +62,8 @@ export type GraphLink = {
   type: EdgeType;
   family: Family;
   weight: number;
+  /** Authored `strength: primary` (absent otherwise) — always drawn in the overview (A86). */
+  primary?: true;
 };
 export type Graph = { nodes: GraphNode[]; links: GraphLink[] };
 
@@ -116,6 +118,7 @@ export function buildGraph(terms: ModelTerm[]): Graph {
           family,
           // Endpoint degree is folded in below, once every edge is counted (SPEC §6).
           weight: FAMILY_BASE[family] * STRENGTH[strength] * CONFIDENCE[confidence],
+          ...(strength === 'primary' ? { primary: true as const } : {}),
         });
         degree.set(t.id, (degree.get(t.id) ?? 0) + 1);
         degree.set(target, (degree.get(target) ?? 0) + 1);
