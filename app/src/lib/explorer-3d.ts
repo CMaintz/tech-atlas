@@ -11,6 +11,7 @@ import { EXPLORER } from './explorer-config';
 import { FAMILY_COLOURS, clusterColour, homeDomain, isDirected } from './graph-style';
 import { backboneOf, galaxyLayout, pageRank, separate } from './graph-layout';
 import { reducedMotion } from './graph-cytoscape';
+import { createDragFeedback, orbitDragKind } from './drag-feedback';
 
 export type View3D = {
   nodes: ReadonlySet<string>;
@@ -485,7 +486,7 @@ export async function createMap3D(opts: {
   /** Auto-rotating: terms drift under a still pointer, so no hover card. */
   let spinning = false;
   fg.onNodeHover((n: GraphNode | null) => {
-    el.style.cursor = n ? 'pointer' : 'default';
+    el.style.cursor = n ? 'pointer' : 'grab';
     if (n) opts.onHover?.(n.id);
     const p = n && !spinning ? byId.get(n.id) : undefined;
     if (p) {
@@ -502,13 +503,28 @@ export async function createMap3D(opts: {
     }, EXPLORER.hoverDelayMs);
   });
 
+  el.style.cursor = 'grab';
+  const drag = createDragFeedback(el);
+  let press: PointerEvent | null = null;
+  const onPress = (e: PointerEvent) => void (press = e);
+  const onRelease = () => void (press = null);
+  el.addEventListener('pointerdown', onPress, true);
+  window.addEventListener('pointerup', onRelease);
+
   // Orbiting, zooming or panning the camera hides the hover card.
   const controls = fg.controls() as unknown as {
     autoRotate: boolean;
     autoRotateSpeed: number;
     addEventListener: (type: string, fn: () => void) => void;
   };
-  controls.addEventListener('start', () => opts.onPoint?.(null));
+  controls.addEventListener('start', () => {
+    opts.onPoint?.(null);
+    // A drag (not the wheel): a rotate cursor and a ring while orbiting, a closed hand
+    // while panning (A95). The press is seen first, in the capture phase.
+    const kind = press && orbitDragKind(press);
+    if (press && kind) drag.start(kind, press);
+  });
+  controls.addEventListener('end', () => drag.end());
 
   // ---- Camera: a slow swoop in from far out ------------------------------------------
   const centre = {
@@ -593,6 +609,9 @@ export async function createMap3D(opts: {
       runFlow(false);
       window.clearTimeout(hoverTimer);
       window.removeEventListener('resize', resize);
+      window.removeEventListener('pointerup', onRelease);
+      el.removeEventListener('pointerdown', onPress, true);
+      drag.destroy();
       fg._destructor();
       el.innerHTML = '';
     },

@@ -3,7 +3,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { prerequisitesOf, shortestPath, type Graph, type GraphNode } from '../lib/graph-model';
 import { loadLearner, type Learner } from '../lib/learner';
 import { domainColour, homeDomain } from '../lib/graph-style';
-import { domainBands, effectiveHome, effectivePaint, termVisible } from '../lib/graph-layout';
+import {
+  OVERVIEW_FAMILIES,
+  domainBands,
+  effectiveHome,
+  effectivePaint,
+  termVisible,
+} from '../lib/graph-layout';
 import { createMap2D, type Layout, type Map2D } from '../lib/explorer-2d';
 import type { Map3D } from '../lib/explorer-3d';
 import { EXPLORER } from '../lib/explorer-config';
@@ -78,9 +84,10 @@ export default function Explorer(props: Props) {
   const [mode, setMode] = useState<Mode>('2d');
   const [layout, setLayout] = useState<Layout>('force');
   const [domains, setDomains] = useState<Set<string>>(new Set());
-  // Every relationship type starts on except "used with", the densest and least telling.
+  // The overview starts with the owner's types (A95): contrasts, alternatives and "used
+  // with" are off until ticked; a selected term shows all its relationships regardless.
   const [families, setFamilies] = useState<Set<string>>(
-    new Set(Object.keys(props.familyColours).filter((f) => f !== 'association')),
+    new Set(Object.keys(props.familyColours).filter((f) => OVERVIEW_FAMILIES.has(f))),
   );
   const [showAll, setShowAll] = useState(false);
   /** The selected term: a single callback sets it (a side panel may read it later). */

@@ -41,6 +41,20 @@ export const EXPLORER = {
     bundleBeta: 0.8,
   },
 
+  /**
+   * Drag feedback (A95, drag-feedback.ts): a light ring with a crosshair follows the mouse
+   * while the map is panned or orbited. Light stroke, dark outline: reads on any background.
+   */
+  drag: {
+    ringSize: 30,
+    ringColour: 'rgba(245,245,245,0.9)',
+    ringOutline: 'rgba(0,0,0,0.55)',
+    ringOpacity: 0.85,
+    fadeMs: 120,
+    /** A press that moves less than this (px) is still a click: no ring. */
+    slopPx: 3,
+  },
+
   /** Hover intent: the pointer must rest this long before the map re-styles. */
   hoverDelayMs: 45,
 
