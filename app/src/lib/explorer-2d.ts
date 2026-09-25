@@ -43,7 +43,7 @@ import {
 } from './graph-layout';
 import { edgeData, graphStyle, reducedMotion, smoothFit } from './graph-cytoscape';
 import { createDragFeedback } from './drag-feedback';
-import { startDots } from './explorer-flow';
+import { startDots, type DotsConfig } from './explorer-flow';
 
 cytoscape.use(fcose);
 
@@ -282,6 +282,41 @@ export function createMap2D(opts: Map2DOptions) {
   /** Each term's offset from its island's centre. */
   const offset = new Map<string, Point>();
   const islandR = new Map<string, number>();
+  /** Each island's own layout before spacing (kept so the lab can re-space it, A96). */
+  const raw = new Map<string, Point[]>();
+  /**
+   * Space each island's terms (no two closer than a click target and a label apart; the
+   * island grows) and measure it. The hidden visual lab (A96) re-runs this with a larger
+   * minimum distance (`spacing` ×), tighter islands (`tight` ×) and wider gaps (`gap` px).
+   */
+  const shapeIslands = (tune = { spacing: 1, tight: 1, gap: 0 }) => {
+    for (const c of clusterIds) {
+      const members = clusters.get(c)!;
+      const ps = raw.get(c)!.map((p) => ({ ...p }));
+      const sizes = members.map((n) => cy.getElementById(n.id).data('size') as number);
+      const mx = ps.reduce((a, p) => a + p.x, 0) / ps.length;
+      const my = ps.reduce((a, p) => a + p.y, 0) / ps.length;
+      if (tune.tight !== 1)
+        for (const p of ps) {
+          p.x = mx + (p.x - mx) * tune.tight;
+          p.y = my + (p.y - my) * tune.tight;
+        }
+      const { factor, labelClearance } = EXPLORER.spacing;
+      separate(
+        ps,
+        (i, j) => tune.spacing * ((factor * (sizes[i] + sizes[j])) / 4 + labelClearance),
+      );
+      const cx = ps.reduce((a, p) => a + p.x, 0) / ps.length;
+      const cyy = ps.reduce((a, p) => a + p.y, 0) / ps.length;
+      let r = 0;
+      members.forEach((n, k) => {
+        const o = { x: ps[k].x - cx, y: ps[k].y - cyy };
+        offset.set(n.id, o);
+        r = Math.max(r, Math.hypot(o.x, o.y) + sizes[k] / 2);
+      });
+      islandR.set(c, r + 16 + tune.gap / 2);
+    }
+  };
   withSeededRandom(LAYOUT_SEED, () => {
     for (const c of clusterIds) {
       const members = cy.collection(clusters.get(c)!.map((n) => cy.getElementById(n.id)));
@@ -306,21 +341,12 @@ export function createMap2D(opts: Map2DOptions) {
             nodeSeparation: 60,
           } as cytoscape.LayoutOptions)
           .run();
-      // No two terms closer than a click target and a label apart; the island grows.
-      const ps = members.map((m) => ({ ...m.position() }));
-      const sizes = members.map((m) => m.data('size') as number);
-      const { factor, labelClearance } = EXPLORER.spacing;
-      separate(ps, (i, j) => (factor * (sizes[i] + sizes[j])) / 4 + labelClearance);
-      const cx = ps.reduce((a, p) => a + p.x, 0) / ps.length;
-      const cyy = ps.reduce((a, p) => a + p.y, 0) / ps.length;
-      let r = 0;
-      members.forEach((m, k) => {
-        const o = { x: ps[k].x - cx, y: ps[k].y - cyy };
-        offset.set(m.id(), o);
-        r = Math.max(r, Math.hypot(o.x, o.y) + m.data('size') / 2);
-      });
-      islandR.set(c, r + 16);
+      raw.set(
+        c,
+        members.map((m) => ({ ...m.position() })),
+      );
     }
+    shapeIslands();
   });
 
   /** Pack the given islands (only their visible members count) into domain regions. */
@@ -787,11 +813,15 @@ export function createMap2D(opts: Map2DOptions) {
   cy.on('dbltap', 'node[size]', (e) => opts.onOpen(e.target.id()));
   /** True while nodes glide to a new layout: the flow dots wait for them to land. */
   let moving = false;
+  // The hidden visual lab (A96) tunes a copy of the dot settings live and can pause them.
+  const dotCfg: { -readonly [K in keyof DotsConfig]: number } = { ...EXPLORER.dots };
+  let dotsOn = true;
   const dots = startDots(
     cy,
     links,
-    () => moving,
+    () => moving || !dotsOn,
     () => MAP_INK[theme].dotAlpha,
+    dotCfg,
   );
 
   // ---- 6. Positions ------------------------------------------------------------------
@@ -1057,6 +1087,19 @@ export function createMap2D(opts: Map2DOptions) {
     resize() {
       cy.resize();
       dots.resize();
+    },
+    /** Hooks for the hidden visual lab only (A96); the Explorer never uses them. */
+    lab: {
+      dots: dotCfg,
+      setDots(on: boolean) {
+        dotsOn = on;
+      },
+      /** Re-space the island map (see `shapeIslands`) and glide the terms there. */
+      relayout(tune: { spacing: number; tight: number; gap: number }) {
+        withSeededRandom(LAYOUT_SEED, () => shapeIslands(tune));
+        base.force = islandMap(everyone);
+        if (view) place(view, true);
+      },
     },
     destroy() {
       dots.stop();
