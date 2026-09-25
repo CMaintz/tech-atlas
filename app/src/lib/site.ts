@@ -562,7 +562,7 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
   {
     page: 'explorer/',
     anchors: ['[data-tour="explorer-layouts"]', '#explorer aside', '#explorer'],
-    title: { en: 'The explorer', da: 'Udforskeren' },
+    title: { en: 'The explorer', da: 'Udforsk' },
     body: {
       en: 'The whole map at once. Switch between 2D and a 3D view you can fly around, and lay the map out by force, by depth (foundations at the bottom) or by time. Colour it by cluster or by what you already know.',
       da: 'Hele kortet på én gang. Skift mellem 2D og en 3D-visning, du kan flyve rundt i, og placér kortet efter kraft, efter dybde (grundlaget nederst) eller efter tid. Farv det efter klynge eller efter, hvad du allerede kan.',

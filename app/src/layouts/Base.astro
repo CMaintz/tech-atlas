@@ -3,6 +3,7 @@ import '../styles/global.css';
 import AccountMenu from '../components/AccountMenu';
 import Tour from '../components/Tour';
 import { ACCOUNTS, REPO, TOUR_STEPS, UI, swapLang, url, type Lang } from '../lib/site';
+import { isCurrentNav } from '../lib/prefs';
 
 interface Props {
   lang?: Lang;
@@ -41,8 +42,7 @@ const nav = [
   { href: url(`${lang}/compare/`), label: ui.compare },
   { href: url(`${lang}/study/`), label: ui.study },
 ];
-const current = (href: string) =>
-  href === langBase ? path === href || path === `${href}index.html` : path.startsWith(href);
+const current = (href: string) => isCurrentNav(path, href, langBase);
 const steps = TOUR_STEPS.map((s) => ({ ...s, title: s.title[lang], body: s.body[lang] }));
 const tourUi = {
   tourWelcomeStart: ui.tourWelcomeStart,
@@ -161,7 +161,7 @@ const tourUi = {
       </div>
     </header>
     {
-      lang === 'en' && (
+      lang === 'en' && !wide && (
         <div
           id="lang-suggest"
           lang="da"
@@ -229,6 +229,7 @@ const tourUi = {
       toggle?.addEventListener('click', () => setOpen(!header?.hasAttribute('data-open')));
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && header?.hasAttribute('data-open')) {
+          e.preventDefault(); // handled: the tour leaves this Escape alone
           setOpen(false);
           toggle?.focus();
         }

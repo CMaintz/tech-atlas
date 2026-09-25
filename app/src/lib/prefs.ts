@@ -38,6 +38,21 @@ export function prefersDanish(languages: readonly string[]): boolean {
   return false;
 }
 
+/**
+ * Whether a nav link points at the current page. `home` (the language root) matches
+ * only itself — with or without the trailing slash or `index.html`; any other link
+ * also matches the pages below it.
+ */
+export function isCurrentNav(pathname: string, href: string, home: string): boolean {
+  const norm = (p: string) => {
+    const s = p.replace(/index\.html$/, '');
+    return s.endsWith('/') ? s : `${s}/`;
+  };
+  const path = norm(pathname);
+  const target = norm(href);
+  return target === norm(home) ? path === target : path.startsWith(target);
+}
+
 /** Whether a keypress lands in something the reader is typing into. */
 export function isTypingTarget(el: { tagName?: string; isContentEditable?: boolean } | null) {
   if (!el) return false;

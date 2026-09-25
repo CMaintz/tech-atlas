@@ -3,7 +3,15 @@ import { describe, expect, it } from 'vitest';
 import { parse } from 'yaml';
 import { TOUR_PAIR, TOUR_STEPS, TOUR_TERM, UI } from './site';
 import { pairSlugFromIds } from './slug';
-import { fillCount, moveTo, pageOf, parseTourState, resolveTour, type TourStep } from './tour';
+import {
+  fillCount,
+  moveTo,
+  pageOf,
+  parseTourState,
+  resolveTour,
+  stepFromQuery,
+  type TourStep,
+} from './tour';
 
 const steps: TourStep[] = [
   { page: null, anchors: [], title: 'welcome', body: '' },
@@ -27,6 +35,20 @@ describe('pageOf', () => {
     expect(pageOf('/tech-atlas/en/terms/a%20b/', root)).toBe('terms/a b/');
     expect(pageOf('/tech-atlas/da/study/', root)).toBeNull();
     expect(pageOf('/tech-atlas/404', root)).toBeNull();
+  });
+  it('is null for a malformed escape instead of throwing', () => {
+    expect(pageOf('/tech-atlas/en/terms/100%/', root)).toBeNull();
+  });
+});
+
+describe('stepFromQuery', () => {
+  it('reads a valid step from ?tour=N', () => {
+    expect(stepFromQuery('?tour=3', 4)).toBe(3);
+    expect(stepFromQuery('?x=1&tour=0', 4)).toBe(0);
+  });
+  it('ignores missing, malformed or out-of-range steps', () => {
+    for (const q of ['', '?tour=', '?tour=4', '?tour=-1', '?tour=1.5', '?tour=abc', '?tour=1e2'])
+      expect(stepFromQuery(q, 4)).toBeNull();
   });
 });
 

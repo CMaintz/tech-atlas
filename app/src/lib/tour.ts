@@ -54,7 +54,12 @@ export function parseTourState(raw: string | null, stepCount: number): TourState
  */
 export function pageOf(pathname: string, langRoot: string): string | null {
   const root = langRoot.endsWith('/') ? langRoot : `${langRoot}/`;
-  let path = decodeURIComponent(pathname).replace(/index\.html$/, '');
+  let path: string;
+  try {
+    path = decodeURIComponent(pathname).replace(/index\.html$/, '');
+  } catch {
+    return null; // malformed escape (e.g. a stray '%')
+  }
   if (!path.endsWith('/')) path += '/';
   return path.startsWith(root) ? path.slice(root.length) : null;
 }
@@ -103,6 +108,20 @@ export function moveTo(
   return target === null || target === page
     ? { kind: 'stay', step: to }
     : { kind: 'go', step: to, page: target };
+}
+
+/**
+ * Query parameter that carries the tour's step across a page load when storage is
+ * unavailable (private mode, blocked site data): `?tour=4`.
+ */
+export const TOUR_PARAM = 'tour';
+
+/** The step carried in a URL query string, if valid. */
+export function stepFromQuery(search: string, stepCount: number): number | null {
+  const raw = new URLSearchParams(search).get(TOUR_PARAM);
+  if (raw === null || !/^\d+$/.test(raw)) return null;
+  const n = Number(raw);
+  return n < stepCount ? n : null;
 }
 
 /** "Step {n} of {m}" style templating. */

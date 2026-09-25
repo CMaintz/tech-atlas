@@ -2,15 +2,18 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'preact/hooks';
 import {
   TOUR_DONE_KEY,
   TOUR_KEY,
+  TOUR_PARAM,
   TOUR_SNOOZE_KEY,
   fillCount,
   moveTo,
   pageOf,
   parseTourState,
   resolveTour,
+  stepFromQuery,
   type TourStep,
   type TourView,
 } from '../lib/tour';
+import { isTypingTarget } from '../lib/prefs';
 
 interface Props {
   steps: TourStep[];
@@ -32,8 +35,9 @@ interface Props {
   };
 }
 
-// Storage can be missing or throw (private mode, blocked site data): the tour then
-// still runs on this page, it just can't follow the reader to the next one.
+// Storage can be missing or throw (private mode, blocked site data). The tour then
+// carries its step across page loads in the URL (?tour=N) instead, and never
+// auto-starts — it could not remember being dismissed.
 const read = (store: () => Storage, key: string) => {
   try {
     return store().getItem(key);
@@ -51,6 +55,15 @@ const write = (store: () => Storage, key: string, value: string | null) => {
 };
 const local = () => localStorage;
 const session = () => sessionStorage;
+const storageWorks = () => {
+  try {
+    localStorage.setItem('atlas.probe', '1');
+    localStorage.removeItem('atlas.probe');
+    return true;
+  } catch {
+    return false;
+  }
+};
 
 type Rect = { top: number; left: number; width: number; height: number };
 const PAD = 6;
@@ -76,6 +89,9 @@ export default function Tour({ steps, langBase, autoStart = true, ui }: Props) {
   const [rect, setRect] = useState<Rect | null>(null);
   const [dontShow, setDontShow] = useState(false);
   const card = useRef<HTMLDivElement>(null);
+  const storageOk = useRef(true);
+  /** The "Take the tour" control that opened the tour — focus returns there. */
+  const opener = useRef<HTMLElement | null>(null);
   const page = typeof location === 'undefined' ? null : pageOf(location.pathname, langBase);
 
   const persist = (step: number | null) =>
@@ -86,32 +102,49 @@ export default function Tour({ steps, langBase, autoStart = true, ui }: Props) {
     if (markDone) write(local, TOUR_DONE_KEY, '1');
     else write(session, TOUR_SNOOZE_KEY, '1');
     setView({ kind: 'off' });
+    const back = opener.current?.isConnected ? opener.current : document.getElementById('main');
+    back?.focus({ preventScroll: true });
+    opener.current = null;
   };
 
   const go = (to: number) => {
     const move = moveTo(steps, to, page);
     if (move.kind === 'finish') return finish(true);
     persist(move.step);
-    if (move.kind === 'go') location.href = langBase + move.page;
-    else setView({ kind: 'show', step: move.step });
+    if (move.kind === 'go') {
+      const carry = storageOk.current ? '' : `?${TOUR_PARAM}=${move.step}`;
+      location.href = langBase + move.page + carry;
+    } else setView({ kind: 'show', step: move.step });
   };
 
   // Decide what to show on load; listen for "Take the tour".
   useEffect(() => {
+    storageOk.current = storageWorks();
+    // A step carried in the URL (storage unavailable) wins; then drop it from the URL.
+    const fromUrl = stepFromQuery(location.search, steps.length);
+    if (fromUrl !== null) {
+      const clean = new URL(location.href);
+      clean.searchParams.delete(TOUR_PARAM);
+      history.replaceState(history.state, '', clean);
+    }
     setView(
       resolveTour({
         steps,
-        state: parseTourState(read(local, TOUR_KEY), steps.length),
+        state:
+          fromUrl !== null
+            ? { active: true, step: fromUrl }
+            : parseTourState(read(local, TOUR_KEY), steps.length),
         done: read(local, TOUR_DONE_KEY) === '1',
         snoozed: read(session, TOUR_SNOOZE_KEY) === '1',
         page,
-        autoStart,
+        autoStart: autoStart && storageOk.current,
       }),
     );
     const start = (e: Event) => {
-      const t = (e.target as Element | null)?.closest?.('[data-tour-start]');
+      const t = (e.target as Element | null)?.closest?.<HTMLElement>('[data-tour-start]');
       if (!t) return;
       e.preventDefault();
+      opener.current = t;
       write(local, TOUR_DONE_KEY, null);
       write(session, TOUR_SNOOZE_KEY, null);
       go(0);
@@ -182,7 +215,12 @@ export default function Tour({ steps, langBase, autoStart = true, ui }: Props) {
   useEffect(() => {
     if (view.kind !== 'show') return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') finish(view.step === 0 ? dontShow : false);
+      if (e.key !== 'Escape' || e.defaultPrevented) return;
+      // Let a field (the search box) and an open mobile menu have their Escape first.
+      const target = e.target as HTMLElement | null;
+      if (isTypingTarget(target) && !card.current?.contains(target)) return;
+      if (document.querySelector('[data-site-header][data-open]')) return;
+      finish(view.step === 0 ? dontShow : false);
     };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);

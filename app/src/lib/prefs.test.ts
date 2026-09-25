@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   RECENT_MAX,
+  isCurrentNav,
   isSearchShortcut,
   isTypingTarget,
   parseRecent,
@@ -24,6 +25,22 @@ describe('recently viewed', () => {
     expect(next[0]).toBe('new');
     expect(next).not.toContain(`t${RECENT_MAX - 1}`);
     expect(pushRecent(['a', 'b'], 'c', 2)).toEqual(['c', 'a']);
+  });
+});
+
+describe('isCurrentNav', () => {
+  const home = '/tech-atlas/en/';
+  it('marks home only on the home page, with or without the slash or index.html', () => {
+    for (const p of ['/tech-atlas/en/', '/tech-atlas/en', '/tech-atlas/en/index.html'])
+      expect(isCurrentNav(p, home, home)).toBe(true);
+    expect(isCurrentNav('/tech-atlas/en/study/', home, home)).toBe(false);
+  });
+  it('marks a section on itself and the pages below it', () => {
+    const cmp = '/tech-atlas/en/compare/';
+    expect(isCurrentNav('/tech-atlas/en/compare', cmp, home)).toBe(true);
+    expect(isCurrentNav('/tech-atlas/en/compare/risk-vs-threat/', cmp, home)).toBe(true);
+    expect(isCurrentNav('/tech-atlas/en/', cmp, home)).toBe(false);
+    expect(isCurrentNav('/tech-atlas/en/comparex/', cmp, home)).toBe(false);
   });
 });
 
