@@ -1,6 +1,8 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import Explorer from '../../../components/Explorer';
+import AboutButton from '../../../components/AboutButton';
+import { aboutProps } from '../../../lib/about-assets';
 import {
   CLUSTER_LABELS,
   DOMAIN_LABELS,
@@ -24,6 +26,7 @@ const localise = (m: Record<string, Record<Lang, string>>) => localiseIn(m, lang
 
 // The term panel (A80) gets its tables from here, so the island never bundles the schema.
 const panel = panelConfig(lang);
+const about = aboutProps(lang);
 ---
 
 <Base lang={lang} title={ui.explorer} wide>
@@ -41,5 +44,31 @@ const panel = panelConfig(lang);
       domainLabels={localise(DOMAIN_LABELS)}
       panel={panel}
     />
+    <div class="absolute top-3 right-3 z-10" data-about-corner>
+      <AboutButton client:idle {...about} />
+    </div>
   </div>
 </Base>
+
+<style is:global>
+  /*
+   * The About button (A84) owns the explorer's top-right corner. Until the Explorer
+   * reads --explorer-controls-top itself, its own corner stack (Fit to view + legend)
+   * and the sidebar heading are nudged clear of it from here.
+   */
+  #explorer {
+    position: relative;
+    --explorer-controls-top: 5.25rem;
+  }
+  #explorer aside > div:first-child {
+    padding-right: 2.75rem;
+  }
+  @media (min-width: 1024px) {
+    #explorer aside > div:first-child {
+      padding-right: 0;
+    }
+    #explorer .pointer-events-none.absolute.top-3.right-3 {
+      top: var(--explorer-controls-top);
+    }
+  }
+</style>

@@ -1,9 +1,11 @@
 ---
 import '../styles/global.css';
+import AboutButton from '../components/AboutButton';
 import AccountMenu from '../components/AccountMenu';
 import Tour from '../components/Tour';
 import { ACCOUNTS, REPO, TOUR_STEPS, UI, swapLang, url, type Lang } from '../lib/site';
 import { isCurrentNav } from '../lib/prefs';
+import { aboutProps } from '../lib/about-assets';
 import { UI_EXTRA } from '../lib/ui-extra';
 
 interface Props {
@@ -231,6 +233,7 @@ const tourUi = {
         <button type="button" class="hover:text-neutral-300" data-tour-start>
           {ui.tourStart}
         </button>
+        <AboutButton client:idle variant="link" {...aboutProps(lang)} />
       </footer>
     )}
     {!wide && (

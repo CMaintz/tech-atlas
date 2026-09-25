@@ -764,3 +764,70 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
     },
   },
 ];
+
+/**
+ * The About dialog (A84): owner links and credits. A link whose href is not a real
+ * URL is not rendered, so a placeholder never becomes a broken link.
+ */
+export const ABOUT_LINKS = {
+  github: 'https://github.com/CMaintz',
+  // Empty = the LinkedIn pill is left out.
+  linkedin: 'https://www.linkedin.com/in/christoffer-maintz/',
+};
+
+export interface AboutPerson {
+  section: 'credits' | 'thanks';
+  name: string;
+  role: Bi;
+  /**
+   * File under app/public/about/. Any aspect ratio: it is cropped to a centred circle
+   * (object-fit: cover). Missing at build time = an initials circle instead.
+   */
+  photo: string;
+  /** CSS object-position for the crop, e.g. '50% 30%' to keep a face in frame. */
+  photoPosition?: string;
+}
+
+export const ABOUT_PEOPLE: AboutPerson[] = [
+  {
+    section: 'credits',
+    name: 'Christoffer Maintz',
+    role: { en: 'Author', da: 'Forfatter' },
+    photo: 'christoffer.jpg',
+  },
+  {
+    section: 'thanks',
+    name: 'Christina Jakobsen',
+    role: { en: 'Partner in crime', da: 'Makker i ugerningen' },
+    photo: 'christina.jpg',
+  },
+];
+
+const ABOUT_EN = {
+  about: 'About',
+  aboutTitle: 'The Tech Atlas',
+  aboutBody:
+    'A bilingual (English and Danish) dictionary and knowledge map of security, computer science, AI and platform terms, built for learning: every term links to the ideas it builds on.',
+  aboutBeta:
+    'Atlas is in beta. Much of the content was drafted with AI and is still being reviewed by people.',
+  credits: 'Credits',
+  thanks: 'Thanks',
+  close: 'Close',
+  opensInNewTab: '(opens in a new tab)',
+};
+
+export const ABOUT_UI: Record<Lang, Record<keyof typeof ABOUT_EN, string>> = {
+  en: ABOUT_EN,
+  da: {
+    about: 'Om',
+    aboutTitle: 'Tech Atlas',
+    aboutBody:
+      'En tosproget (dansk og engelsk) ordbog og vidensgraf over begreber inden for sikkerhed, datalogi, AI og platforme, bygget til at lære: hvert begreb linker til de idéer, det bygger på.',
+    aboutBeta:
+      'Atlas er i beta. Meget af indholdet er skrevet med hjælp fra AI og bliver stadig gennemgået af mennesker.',
+    credits: 'Medvirkende',
+    thanks: 'Tak til',
+    close: 'Luk',
+    opensInNewTab: '(åbner i en ny fane)',
+  },
+};
