@@ -388,7 +388,8 @@ export function makeQuizzer(graph: Graph, lang: Lang, rng: Rng = Math.random) {
       kind: 'true-false',
       prompt: T.trueFalse[lang](statement),
       answer: truth ? 'true' : 'false',
-      link: id,
+      // The learner is already on (or quizzing) `id`: explain via the other term.
+      link: e.other,
       options: [
         { id: 'true', label: T.true[lang] },
         { id: 'false', label: T.false[lang] },

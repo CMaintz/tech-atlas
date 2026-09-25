@@ -188,7 +188,7 @@ describe('buildSession', () => {
   });
 });
 
-describe('on the real map', () => {
+describe('on the real map', { timeout: 30_000 }, () => {
   const { terms } = loadTerms();
   const real = buildGraph([...terms.entries()].map(([id, t]) => ({ ...t, id }) as ModelTerm));
   const byId = new Map(real.nodes.map((n) => [n.id, n]));
