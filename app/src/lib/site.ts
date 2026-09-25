@@ -104,6 +104,8 @@ export const UI = {
     autoRotate: 'Auto-rotate',
     findTerm: 'Find a term',
     routeShort: 'Route',
+    /** The bar's Relationships button (the popover keeps the full heading). */
+    linksShort: 'Links',
     explorerIntro:
       'The whole map. Click a term to open it in the side panel; expand the panel to read it in full.',
     layoutForce: 'Force',
@@ -311,6 +313,7 @@ export const UI = {
     autoRotate: 'Roter automatisk',
     findTerm: 'Find et begreb',
     routeShort: 'Rute',
+    linksShort: 'Relationer',
     explorerIntro:
       'Hele kortet. Klik på et begreb for at åbne det i sidepanelet; udvid panelet for at læse det hele.',
     layoutForce: 'Kraft',
