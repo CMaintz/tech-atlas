@@ -1,0 +1,48 @@
+term:
+  en: Self-supervised learning
+  da: Selvsuperviseret læring
+aka:
+  en: []
+  da: [self-supervised learning]
+domain: [ai]
+cluster: ml-fundamentals
+layer: training
+status: current
+summary:
+  en: Machine learning where the right answers come from the data itself — for instance hiding a word in a sentence and guessing it back.
+  da: Maskinlæring, hvor de rigtige svar kommer fra selve dataene — fx ved at skjule et ord i en sætning og gætte det igen.
+body:
+  formal:
+    en: A form of machine learning that makes its own labels from unlabeled training data, by hiding or holding back part of each example and learning to fill it in from the rest.
+    da: En form for maskinlæring, der laver sine egne mærkater ud fra umærkede træningsdata ved at skjule eller holde en del af hvert eksempel tilbage og lære at udfylde den ud fra resten.
+  plain:
+    en: Like doing a crossword made from a book you are reading — cover a word, guess it from the words around it, then lift your hand to check.
+    da: Som at løse en kryds og tværs lavet af en bog, du læser — dæk et ord til, gæt det ud fra ordene omkring det, og løft så hånden for at tjekke.
+  inPractice:
+    en: A large language model learns from billions of web pages by guessing each next word and checking it against the page — no person has to label anything.
+    da: En stor sprogmodel lærer af milliarder af websider ved at gætte hvert næste ord og tjekke det mod siden — intet menneske behøver at mærke noget.
+  whyItMatters:
+    en: Removing the need for human labels is what made training on the whole web possible — and why whatever is on the web, good or bad, ends up in the model.
+    da: At fjerne behovet for menneskelige mærkater er det, der gjorde det muligt at træne på hele nettet — og grunden til, at alt på nettet, godt eller skidt, ender i modellen.
+edges:
+  kind-of: [machine-learning]
+  requires: [training-data]
+  contrasts-with:
+    - to: supervised-learning
+      why:
+        en: Both learn from right answers, but in supervised learning people write the answers; here they are cut out of the data itself.
+        da: Begge lærer af rigtige svar, men i superviseret læring skriver mennesker svarene; her klippes de ud af selve dataene.
+      strength: primary
+      confidence: high
+    - to: unsupervised-learning
+      why:
+        en: Neither needs human labels, but unsupervised learning only looks for groups and patterns, while self-supervised learning sets itself fill-in-the-gap tasks with a right answer.
+        da: Ingen af dem kræver menneskelige mærkater, men ikke-superviseret læring leder kun efter grupper og mønstre, mens selvsuperviseret læring giver sig selv udfyld-hullet-opgaver med et rigtigt svar.
+      strength: normal
+      confidence: medium
+sources:
+  - title: 'Devlin et al. (2019), BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding'
+    tier: reference
+  - title: 'Jurafsky & Martin, Speech and Language Processing'
+    tier: textbook
+draft: true

@@ -1,0 +1,50 @@
+term:
+  en: KV cache
+  da: KV-cache
+aka:
+  en: [key-value cache]
+  da: [key-value-cache]
+domain: [ai]
+cluster: ai-infrastructure
+layer: inference
+status: current
+summary:
+  en: Memory where a language model keeps work it already did on earlier tokens, so each new word does not mean rereading everything.
+  da: Hukommelse, hvor en sprogmodel gemmer arbejdet med tidligere tokens, så hvert nyt ord ikke kræver, at alt læses forfra.
+body:
+  formal:
+    en: During inference in a transformer, the stored per-token numbers that the attention mechanism compares against (called keys and values) for every token read so far; each new token adds its own and reuses the rest, so its size grows with the length of the text.
+    da: Under inferens i en transformer de gemte tal per token, som attention-mekanismen sammenligner med (kaldet keys og values), for hvert token læst indtil nu; hvert nyt token tilføjer sine egne og genbruger resten, så størrelsen vokser med tekstens længde.
+  plain:
+    en: Like keeping notes while reading a long book aloud — to say the next sentence you glance at your notes instead of starting again from page one.
+    da: Som at tage noter, mens man læser en lang bog højt — for at sige næste sætning kigger man i noterne i stedet for at begynde forfra fra side ét.
+  inPractice:
+    en: A service that allows very long chats finds the GPU fills up not with the model weights but with the KV caches of all the users talking at once, which caps how many it can serve.
+    da: En tjeneste, der tillader meget lange samtaler, opdager, at GPU'en ikke fyldes af modelvægtene, men af KV-cachen for alle de brugere, der taler samtidig, hvilket begrænser, hvor mange den kan betjene.
+  whyItMatters:
+    en: It is what makes writing long answers fast enough to use, and its memory cost is often the real limit on context length, speed and price.
+    da: Den er det, der gør det hurtigt nok at skrive lange svar, og dens hukommelsesforbrug er ofte den reelle grænse for kontekstlængde, hastighed og pris.
+edges:
+  part-of:
+    - to: inference
+      why:
+        en: It only exists while a model is producing text, holding work between one token and the next.
+        da: Den findes kun, mens en model frembringer tekst, og holder på arbejdet mellem ét token og det næste.
+      strength: primary
+      confidence: high
+  requires: [attention-mechanism, token]
+  used-with:
+    - to: model-serving
+      why:
+        en: Serving systems spend much of their effort packing and sharing KV cache memory so more users fit on each GPU.
+        da: Serving-systemer bruger en stor del af deres kræfter på at pakke og dele KV-cache-hukommelse, så flere brugere kan være på hver GPU.
+      strength: normal
+      confidence: high
+    - quantization
+    - throughput
+sources:
+  - title: Pope et al. (2022), Efficiently Scaling Transformer Inference
+    tier: reference
+  - title: Kwon et al. (2023), Efficient Memory Management for Large Language Model Serving with PagedAttention
+    tier: reference
+draft: true

@@ -1,0 +1,66 @@
+term:
+  en: Coding agent
+  da: Kodeagent
+aka:
+  en: [agentic coding tool, software engineering agent]
+  da: [agentisk kodeværktøj]
+domain: [ai]
+cluster: ai-coding
+layer: agent
+era: 2024
+status: emerging
+summary:
+  en: An AI that is given a programming task and carries it out itself — reading files, running commands and editing code until done.
+  da: En AI, der får en programmeringsopgave og selv udfører den — læser filer, kører kommandoer og retter kode, til den er færdig.
+body:
+  formal:
+    en: An AI agent whose tools act on a code project — reading and writing files, searching, running shell commands and tests, and using version control — and which loops through plan, act and check steps via tool calling until the task is done or it hands back to a person.
+    da: En AI-agent, hvis værktøjer arbejder på et kodeprojekt — læser og skriver filer, søger, kører kommandoer og tests og bruger versionsstyring — og som gennem værktøjskald gentager trinene planlæg, handl og tjek, indtil opgaven er løst, eller den giver den tilbage til et menneske.
+  plain:
+    en: Like handing a skilled temp the keys to your workshop with a job sheet — they get on with it alone, but they can use every tool and open every drawer you left unlocked.
+    da: Som at give en dygtig vikar nøglerne til dit værksted og en arbejdsseddel — vikaren går selv i gang, men kan bruge alt værktøj og åbne hver skuffe, du lod stå ulåst.
+  inPractice:
+    en: A developer asks the agent to add a date filter to a report page; it finds the right files, makes the change, runs the tests, fixes one failure and opens a change request for review.
+    da: En udvikler beder agenten tilføje et datofilter til en rapportside; den finder de rigtige filer, laver ændringen, kører testene, retter en fejl og åbner en ændringsanmodning til gennemgang.
+  whyItMatters:
+    en: It can do hours of routine work alone, but it runs real commands with the developer's rights, so a mistake or a planted instruction can delete work, leak keys or push harmful code.
+    da: Den kan udføre timers rutinearbejde alene, men den kører rigtige kommandoer med udviklerens rettigheder, så en fejl eller en plantet instruktion kan slette arbejde, lække nøgler eller skubbe skadelig kode ud.
+edges:
+  kind-of: [ai-agent]
+  requires:
+    - to: tool-calling
+      why:
+        en: Every action it takes on the project — reading a file, running a test — is a tool call chosen by the model.
+        da: Hver handling, den foretager i projektet — læse en fil, køre en test — er et værktøjskald valgt af modellen.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: least-privilege
+      why:
+        en: Limit it to the project folder, safe commands and short-lived keys, so a confused or tricked agent cannot reach production or other code.
+        da: Begræns den til projektmappen, sikre kommandoer og kortlivede nøgler, så en forvirret eller narret agent ikke kan nå produktion eller anden kode.
+      strength: primary
+      confidence: high
+    - to: version-control
+      why:
+        en: Working on its own branch means every change it makes can be reviewed, compared and undone before it is merged.
+        da: At arbejde på sin egen gren betyder, at hver ændring, den laver, kan gennemgås, sammenlignes og rulles tilbage, før den flettes ind.
+      strength: primary
+      confidence: high
+    - to: secrets-management
+      why:
+        en: Keys it can read it can also leak, so they should come from a managed store with narrow rights, not sit in files in the project.
+        da: Nøgler, den kan læse, kan den også lække, så de bør komme fra et styret lager med snævre rettigheder og ikke ligge i filer i projektet.
+      strength: normal
+      confidence: medium
+    - human-in-the-loop
+    - vibe-coding
+sources:
+  - title: 'Jimenez et al. (2023), SWE-bench: Can Language Models Resolve Real-World GitHub Issues?'
+    tier: reference
+  - title: 'Yang et al. (2024), SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering'
+    tier: reference
+  - title: OWASP Top 10 for Large Language Model Applications 2025 (LLM06 Excessive Agency)
+    tier: reference
+    publisher: OWASP
+draft: true

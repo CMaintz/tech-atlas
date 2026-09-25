@@ -1,0 +1,59 @@
+term:
+  en: Model card
+  da: Modelkort (model card)
+aka:
+  en: []
+  da: []
+domain: [ai]
+cluster: ai-risk
+layer: model
+era: 2019
+status: current
+summary:
+  en: A short fact sheet that ships with an AI model and says what it is for, how it was tested and where it falls short.
+  da: Et kort faktaark, der følger med en AI-model og fortæller, hvad den er beregnet til, hvordan den er testet, og hvor den kommer til kort.
+body:
+  formal:
+    en: A structured document published with a trained model that records its intended use and out-of-scope uses, training data, model evaluation results broken down by groups of people and conditions, known limits and ethical concerns.
+    da: Et struktureret dokument, der udgives sammen med en trænet model og beskriver den tilsigtede brug og brug uden for rammerne, træningsdata, resultater af modelevaluering opdelt på grupper af mennesker og forhold, kendte begrænsninger og etiske overvejelser.
+  plain:
+    en: Like the paper folded inside a box of medicine — what it treats, who should not take it, the known side effects and how it was tested.
+    da: Som indlægssedlen i en æske medicin — hvad den virker mod, hvem der ikke bør tage den, de kendte bivirkninger, og hvordan den er afprøvet.
+  inPractice:
+    en: Before adopting an open-weight model for Danish customer service, a team reads its model card and sees it was tested mostly on English and scores much worse on other languages.
+    da: Før et team tager en model med åbne vægte i brug til dansk kundeservice, læser det modelkortet og ser, at den mest er testet på engelsk og klarer sig markant dårligere på andre sprog.
+  whyItMatters:
+    en: Without it, people use other people's models blind to their weak spots; a model card makes limits and unfair gaps visible and is a common way to meet documentation duties under AI rules.
+    da: Uden det genbruger folk modeller uden at kende deres svage punkter; et modelkort gør begrænsninger og skævheder synlige og er en udbredt måde at opfylde dokumentationskrav i AI-regler på.
+edges:
+  requires: [model-evaluation, training-data]
+  part-of:
+    - to: ai-governance
+      why:
+        en: Recording what a model is for and how it performs is a basic piece of governing how AI is used.
+        da: At beskrive, hvad en model er til, og hvordan den klarer sig, er en grundlæggende del af at styre brugen af AI.
+      strength: normal
+      confidence: high
+  mitigates:
+    - to: ai-bias
+      why:
+        en: Reporting results separately for different groups makes unfair gaps visible before the model is put to use.
+        da: At rapportere resultater særskilt for forskellige grupper gør skævheder synlige, før modellen tages i brug.
+      strength: minor
+      confidence: medium
+  used-with:
+    - to: open-weight-model
+      why:
+        en: Open-weight models are usually published on model hubs together with a model card describing them.
+        da: Modeller med åbne vægte udgives som regel på model-hubs sammen med et modelkort, der beskriver dem.
+      strength: normal
+      confidence: high
+sources:
+  - title: 'Mitchell et al., Model Cards for Model Reporting (FAT* 2019)'
+    tier: reference
+    publisher: ACM
+    url: https://doi.org/10.1145/3287560.3287596
+  - title: NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+    tier: standard
+    publisher: NIST
+draft: true

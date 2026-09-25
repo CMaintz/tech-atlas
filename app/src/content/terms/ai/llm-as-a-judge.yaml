@@ -1,0 +1,45 @@
+term:
+  en: LLM-as-a-judge
+  da: LLM som dommer (LLM-as-a-judge)
+aka:
+  en: [LLM judge, model-graded evaluation]
+  da: [LLM-dommer]
+domain: [ai]
+cluster: evaluation
+layer: model
+era: 2023
+status: emerging
+summary:
+  en: Using one large language model to grade the answers of another against a written scoring guide, instead of paying people to read them all.
+  da: At lade én stor sprogmodel bedømme en andens svar efter en skriftlig bedømmelsesguide i stedet for at lade mennesker læse dem alle.
+body:
+  formal:
+    en: A form of model evaluation in which a large language model receives a question, one or more answers and grading instructions, and returns a score or a preference; it is checked against human grades for agreement.
+    da: En form for modelevaluering, hvor en stor sprogmodel får et spørgsmål, et eller flere svar og bedømmelsesinstruktioner og returnerer en score eller en foretrukken kandidat; den kontrolleres mod menneskelige bedømmelser for enighed.
+  plain:
+    en: Like asking an experienced teaching assistant to mark a stack of essays with the teacher's guide — fast and mostly fair, but with habits of their own.
+    da: Som at bede en erfaren hjælpelærer rette en bunke stile efter lærerens vejledning — hurtigt og for det meste retfærdigt, men med sine egne vaner.
+  inPractice:
+    en: A team changes its system prompt and has a judge model compare 1,000 old and new answers side by side, sending only the cases where the judge is unsure to a human reviewer.
+    da: Et team ændrer sin systemprompt og lader en dommermodel sammenligne 1.000 gamle og nye svar side om side og sender kun de tilfælde, hvor dommeren er usikker, videre til en menneskelig bedømmer.
+  whyItMatters:
+    en: It makes checking open answers cheap enough to do on every change, but judges favour longer answers, the first answer shown and their own style, and can be fooled by instructions hidden in an answer.
+    da: Det gør det billigt nok at kontrollere åbne svar ved hver ændring, men dommere foretrækker længere svar, det først viste svar og deres egen stil og kan narres af instruktioner skjult i et svar.
+edges:
+  kind-of: [model-evaluation]
+  requires: [large-language-model]
+  causes:
+    - to: ai-bias
+      why:
+        en: The judge's own leanings — favouring long answers, the first position or its own style — tilt the scores and can push a system in the wrong direction.
+        da: Dommerens egne tilbøjeligheder — at foretrække lange svar, første position eller sin egen stil — skævvrider resultaterne og kan skubbe et system i den forkerte retning.
+      strength: normal
+      confidence: medium
+sources:
+  - title: 'Zheng et al. (2023), Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena'
+    tier: reference
+    publisher: NeurIPS 2023 Datasets and Benchmarks
+  - title: 'NIST AI 600-1 — Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile'
+    tier: standard
+    publisher: NIST
+draft: true

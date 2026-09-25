@@ -1,0 +1,60 @@
+term:
+  en: Benchmark
+  da: Benchmark
+aka:
+  en: [benchmark suite, benchmark dataset]
+  da: [benchmark-suite, benchmarkdatasæt]
+domain: [ai]
+cluster: evaluation
+layer: model
+status: current
+summary:
+  en: A shared, public set of tasks with a fixed way of scoring, so that different models can be compared on the same terms.
+  da: Et fælles, offentligt sæt opgaver med en fast måde at give point på, så forskellige modeller kan sammenlignes på lige vilkår.
+body:
+  formal:
+    en: A published collection of tasks with known correct answers and a fixed scoring method, used across labs to rank models; well-known ones test broad school knowledge or the fixing of real faults in code.
+    da: En offentliggjort samling opgaver med kendte rigtige svar og en fast pointmetode, som bruges på tværs af laboratorier til at rangere modeller; kendte eksempler tester bred skoleviden eller evnen til at rette rigtige fejl i kode.
+  plain:
+    en: Like a standard fitness course that every athlete runs, with the same hurdles and the same stopwatch, so their times can be put side by side.
+    da: Som en fast forhindringsbane, som alle atleter løber, med de samme forhindringer og det samme stopur, så deres tider kan stilles op ved siden af hinanden.
+  inPractice:
+    en: A company choosing a large language model for its help desk reads the vendors' benchmark results, then picks two and runs its own checks on real customer questions.
+    da: En virksomhed, der skal vælge en stor sprogmodel til sin helpdesk, læser leverandørernes benchmarkresultater, udvælger to og kører derefter sine egne tjek på rigtige kundespørgsmål.
+  whyItMatters:
+    en: Benchmarks drive how models are sold and ranked, but a model can be tuned to the questions, or have seen them in its training data, so a high score does not prove it will do well on your work.
+    da: Benchmarks styrer, hvordan modeller sælges og rangeres, men en model kan tunes til spørgsmålene eller have set dem i sine træningsdata, så en høj score beviser ikke, at den klarer sig godt i jeres arbejde.
+edges:
+  requires:
+    - to: test-set
+      why:
+        en: A benchmark is a test set made public and shared, which makes scores comparable but lets its questions leak into training data.
+        da: Et benchmark er et testsæt, der er gjort offentligt og fælles, hvilket gør resultaterne sammenlignelige, men lader spørgsmålene sive ind i træningsdata.
+      strength: primary
+      confidence: high
+  part-of: [model-evaluation]
+  contrasts-with:
+    - to: llm-as-a-judge
+      why:
+        en: A benchmark checks answers against fixed correct ones; an LLM judge grades open answers where no single correct one exists.
+        da: Et benchmark tjekker svar mod faste rigtige svar; en LLM-dommer bedømmer åbne svar, hvor der ikke findes ét rigtigt.
+      strength: normal
+      confidence: high
+  used-with:
+    - to: model-card
+      why:
+        en: Model cards usually list a model's benchmark scores so buyers can compare it with others.
+        da: Modelkort lister typisk en models benchmarkresultater, så købere kan sammenligne den med andre.
+      strength: normal
+      confidence: high
+sources:
+  - title: 'Hendrycks et al. (2021), Measuring Massive Multitask Language Understanding'
+    tier: reference
+    publisher: ICLR 2021
+  - title: 'Liang et al. (2022), Holistic Evaluation of Language Models'
+    tier: reference
+    publisher: Stanford CRFM
+  - title: 'NIST AI 600-1 — Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile'
+    tier: standard
+    publisher: NIST
+draft: true

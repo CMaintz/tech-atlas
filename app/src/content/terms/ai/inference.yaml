@@ -33,6 +33,13 @@ edges:
         da: Træning er den langsomme engangsfase, hvor modellen lærer; inferens er al senere brug, hvor den kun anvender det lærte.
       strength: primary
       confidence: high
+  used-with:
+    - to: mixture-of-experts
+      why:
+        en: Only a few experts run for each token, so inference costs far less than the model's total size suggests.
+        da: Kun få eksperter kører for hvert token, så inferens koster langt mindre, end modellens samlede størrelse antyder.
+      strength: normal
+      confidence: medium
 sources:
   - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
     tier: standard

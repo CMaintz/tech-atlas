@@ -1,0 +1,44 @@
+term:
+  en: Cosine similarity
+  da: Cosinuslighed
+aka:
+  en: []
+  da: []
+domain: [ai]
+cluster: retrieval
+layer: theory
+status: current
+summary:
+  en: A score from -1 to 1 for how closely two lists of numbers point the same way, used to tell how alike two embeddings are in meaning.
+  da: En score fra -1 til 1 for, hvor meget to lister af tal peger i samme retning, brugt til at afgøre, hvor ens to embeddings er i betydning.
+body:
+  formal:
+    en: A measure of likeness between two embeddings based on the angle between them, ignoring their length; 1 means the same direction, 0 means unrelated and -1 means opposite.
+    da: Et mål for lighed mellem to embeddings baseret på vinklen mellem dem, uden hensyn til deres længde; 1 betyder samme retning, 0 betyder ingen sammenhæng og -1 betyder modsat.
+  plain:
+    en: Like comparing two arrows by which way they point, not how long they are — two people walking north are going the same way even if one walks much further.
+    da: Som at sammenligne to pile efter, hvilken vej de peger, ikke hvor lange de er — to personer, der går mod nord, går samme vej, selvom den ene går meget længere.
+  inPractice:
+    en: A search tool compares the embedding of "reset my password" with stored help texts; one about "forgot login" scores 0.86 and one about "office parking" scores 0.12.
+    da: Et søgeværktøj sammenligner embeddingen af "nulstil min adgangskode" med gemte hjælpetekster; en om "glemt login" scorer 0,86, og en om "parkering ved kontoret" scorer 0,12.
+  whyItMatters:
+    en: It is the everyday ruler of meaning-based search, but a high score only means "sounds alike", not "is correct" or "answers the question".
+    da: Det er den daglige målestok for betydningsbaseret søgning, men en høj score betyder kun "lyder ens", ikke "er korrekt" eller "besvarer spørgsmålet".
+edges:
+  requires:
+    - to: embedding
+      why:
+        en: It only has meaning when the numbers being compared are embeddings placed so that closeness reflects meaning.
+        da: Den giver kun mening, når de tal, der sammenlignes, er embeddings placeret, så nærhed afspejler betydning.
+      strength: primary
+      confidence: high
+  used-with:
+    - embedding-model
+    - nearest-neighbour-search
+sources:
+  - title: 'Jurafsky & Martin, Speech and Language Processing (ch. 6, Vector Semantics and Embeddings)'
+    tier: textbook
+  - title: 'Manning, Raghavan & Schütze, Introduction to Information Retrieval'
+    tier: textbook
+    publisher: Cambridge University Press
+draft: true

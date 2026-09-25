@@ -1,0 +1,53 @@
+term:
+  en: Decoder
+  da: Decoder
+aka:
+  en: []
+  da: []
+domain: [ai]
+cluster: model-architecture
+layer: model
+status: current
+summary:
+  en: The half of a model that writes output one token at a time, each new token based only on what came before it.
+  da: Den halvdel af en model, der skriver output ét token ad gangen, hvor hvert nyt token kun bygger på det, der kom før.
+body:
+  formal:
+    en: A stack of neural network layers in which each token may look only at earlier tokens, so the stack can guess the next token, add it to the text and repeat; decoder-only designs drop the encoder entirely.
+    da: En stak af lag i et neuralt netværk, hvor hvert token kun må kigge på tidligere tokens, så stakken kan gætte næste token, føje det til teksten og gentage; rene decoder-designs dropper encoderen helt.
+  plain:
+    en: Like a storyteller going round a campfire who can hear everything said so far but never peeks ahead, adding one word, then the next.
+    da: Som en historiefortæller ved lejrbålet, der kan høre alt, hvad der er sagt indtil nu, men aldrig kigger frem, og lægger ét ord til ad gangen.
+  inPractice:
+    en: When a chat assistant streams its reply word by word onto the screen, you are watching a decoder add one token, feed the longer text back in, and add the next.
+    da: Når en chatassistent strømmer sit svar ord for ord ud på skærmen, ser du en decoder tilføje ét token, sende den længere tekst ind igen og tilføje det næste.
+  whyItMatters:
+    en: Almost every large language model is decoder-only, which is why replies arrive gradually and why a long answer takes longer and costs more than a short one.
+    da: Næsten alle store sprogmodeller er rene decodere, og derfor kommer svar gradvist, og et langt svar tager længere tid og koster mere end et kort.
+edges:
+  requires: [token, attention-mechanism]
+  part-of: [transformer]
+  contrasts-with:
+    - to: encoder
+      why:
+        en: An encoder reads the whole input in both directions to understand it; a decoder only looks back and writes new tokens one by one.
+        da: En encoder læser hele inputtet i begge retninger for at forstå det; en decoder kigger kun tilbage og skriver nye tokens ét efter ét.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: large-language-model
+      why:
+        en: Most large language models, such as the GPT family, are built as a stack of decoders with no encoder.
+        da: De fleste store sprogmodeller, som GPT-familien, er bygget som en stak decodere uden encoder.
+      strength: primary
+      confidence: high
+    - next-token-prediction
+    - sampling
+sources:
+  - title: Vaswani et al. (2017), Attention Is All You Need
+    tier: reference
+  - title: Radford et al. (2018), Improving Language Understanding by Generative Pre-Training
+    tier: reference
+  - title: 'Jurafsky & Martin, Speech and Language Processing (3rd ed. draft)'
+    tier: textbook
+draft: true

@@ -28,6 +28,13 @@ body:
 edges:
   kind-of: [machine-learning]
   requires: [neural-network]
+  used-with:
+    - to: gpu
+      why:
+        en: Modern deep learning became practical because GPUs can do the huge amounts of number work it needs side by side.
+        da: Moderne deep learning blev praktisk muligt, fordi GPU'er kan udføre de enorme mængder talarbejde, det kræver, side om side.
+      strength: normal
+      confidence: medium
 sources:
   - title: 'Goodfellow, Bengio & Courville, Deep Learning'
     tier: textbook

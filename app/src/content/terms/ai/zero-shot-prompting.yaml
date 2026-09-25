@@ -1,0 +1,43 @@
+term:
+  en: Zero-shot prompting
+  da: Zero-shot prompting
+aka:
+  en: []
+  da: []
+domain: [ai]
+cluster: prompting
+layer: inference
+status: current
+summary:
+  en: Asking a language model to do a task from a plain instruction alone, with no worked examples to copy.
+  da: At bede en sprogmodel løse en opgave ud fra en ren instruktion alene, uden løste eksempler at efterligne.
+body:
+  formal:
+    en: A way of using a large language model in which the prompt describes the task but contains no input–answer examples, so the model must rely only on what it learned during pretraining and instruction tuning.
+    da: En måde at bruge en stor sprogmodel på, hvor prompten beskriver opgaven, men ikke indeholder eksempler på input og svar, så modellen udelukkende må trække på det, den lærte under fortræning og instruktionstilpasning.
+  plain:
+    en: Like asking a skilled cook to "make something with these leftovers" without showing a recipe — you trust what they already know.
+    da: Som at bede en dygtig kok om at "lave noget af de her rester" uden at vise en opskrift — man stoler på det, de allerede kan.
+  inPractice:
+    en: A user types "Translate this paragraph into Danish and keep the headings" and gets a usable translation without giving any sample translations.
+    da: En bruger skriver "Oversæt dette afsnit til dansk, og behold overskrifterne" og får en brugbar oversættelse uden at give nogen eksempeloversættelser.
+  whyItMatters:
+    en: It is the everyday way people use chat assistants and the cheapest starting point, but when the output format or judgement must be exact, adding examples usually helps.
+    da: Det er den almindelige måde, folk bruger chatassistenter på, og det billigste udgangspunkt, men når svarformatet eller vurderingen skal være præcis, hjælper eksempler som regel.
+edges:
+  requires: [instruction-tuning]
+  kind-of:
+    - to: prompt-engineering
+      why:
+        en: It is the simplest prompting style — instructions only — and the baseline other techniques are compared against.
+        da: Det er den enkleste promptstil — kun instruktioner — og det udgangspunkt, andre teknikker sammenlignes med.
+      strength: normal
+      confidence: medium
+sources:
+  - title: Wei et al. (2021), Finetuned Language Models Are Zero-Shot Learners
+    tier: reference
+    url: https://arxiv.org/abs/2109.01652
+  - title: Brown et al. (2020), Language Models are Few-Shot Learners
+    tier: reference
+    url: https://arxiv.org/abs/2005.14165
+draft: true

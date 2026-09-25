@@ -1,0 +1,52 @@
+term:
+  en: Agent2Agent protocol (A2A)
+  da: Agent2Agent-protokol (A2A)
+aka:
+  en: [A2A, Agent2Agent]
+  da: [A2A, Agent2Agent]
+domain: [ai]
+cluster: agents
+layer: agent
+era: 2025
+status: emerging
+summary:
+  en: An open standard that lets AI agents built by different companies find each other, hand over tasks and share results.
+  da: En åben standard, der lader AI-agenter bygget af forskellige firmaer finde hinanden, give opgaver videre og dele resultater.
+body:
+  formal:
+    en: An open protocol in which each AI agent publishes a card describing what it can do and how to reach it, and other agents send it tasks over the web, follow their progress and receive results, without seeing how the agent works inside.
+    da: En åben protokol, hvor hver AI-agent offentliggør et kort, der beskriver, hvad den kan, og hvordan den nås, og andre agenter sender den opgaver over nettet, følger deres fremgang og modtager resultater uden at se, hvordan agenten virker indvendigt.
+  plain:
+    en: Like a shared job board for freelancers — each posts what they are good at, and others can hire them for a piece of work without caring how they do it.
+    da: Som en fælles opslagstavle for freelancere — hver skriver, hvad de er gode til, og andre kan hyre dem til en opgave uden at bekymre sig om, hvordan de løser den.
+  inPractice:
+    en: A company's travel agent needs a visa check, so it finds a partner's visa agent through its card, sends the trip details over A2A and gets back an answer some minutes later.
+    da: En virksomheds rejseagent har brug for et visumtjek, så den finder en partners visumagent via dens kort, sender rejsedetaljerne over A2A og får et svar nogle minutter senere.
+  whyItMatters:
+    en: It could let agents from different vendors work together, but every agent you accept work from is a stranger whose answers need the same doubt as any outside input.
+    da: Det kan lade agenter fra forskellige leverandører arbejde sammen, men hver agent, man tager imod arbejde fra, er en fremmed, hvis svar kræver samme skepsis som alt andet udefrakommende input.
+edges:
+  kind-of: [protocol]
+  requires: [ai-agent]
+  contrasts-with:
+    - to: model-context-protocol
+      why:
+        en: MCP connects one agent to its tools and data; A2A connects whole agents to other agents as equals that may think and work for a long time.
+        da: MCP forbinder én agent med dens værktøjer og data; A2A forbinder hele agenter med andre agenter som ligemænd, der kan tænke og arbejde i lang tid.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: multi-agent-system
+      why:
+        en: A2A gives a multi-agent system a shared way to talk when its agents come from different teams or vendors.
+        da: A2A giver et multiagentsystem en fælles måde at tale sammen på, når agenterne kommer fra forskellige teams eller leverandører.
+      strength: normal
+      confidence: high
+sources:
+  - title: Agent2Agent (A2A) Protocol Specification
+    tier: official-doc
+    publisher: Linux Foundation (A2A project, introduced by Google)
+  - title: Google (2025), Announcing the Agent2Agent Protocol (A2A)
+    tier: reference
+    publisher: Google
+draft: true

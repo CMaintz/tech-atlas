@@ -1,0 +1,51 @@
+term:
+  en: Reasoning model
+  da: Ræsonnementsmodel (reasoning model)
+aka:
+  en: [thinking model]
+  da: [reasoning model, tænkende model]
+domain: [ai]
+cluster: llm
+layer: model
+status: emerging
+era: 2024
+summary:
+  en: A language model trained to work through a problem step by step in hidden notes before it answers, trading time and cost for better answers.
+  da: En LLM, der er trænet til at regne en opgave igennem trin for trin i skjulte noter, før den svarer — langsommere og dyrere, men bedre.
+body:
+  formal:
+    en: A large language model trained to produce a long run of working-out tokens before its final answer, so that it spends more inference on hard tasks such as math, code and planning.
+    da: En stor sprogmodel, der er trænet til at skrive en lang række mellemregnings-tokens før sit endelige svar, så den bruger mere inferens på svære opgaver som matematik, kode og planlægning.
+  plain:
+    en: Like a student who fills a page with rough work before writing the answer in the box — slower, but they catch more of their own slips.
+    da: Som en elev, der fylder en side med kladde, før svaret skrives i feltet — langsommere, men eleven fanger flere af sine egne fejl.
+  inPractice:
+    en: A developer asks a reasoning model to find a bug across several files; it "thinks" for a minute, tries and drops two ideas, then points to the right line.
+    da: En udvikler beder en ræsonnementsmodel finde en fejl på tværs af flere filer; den "tænker" et minut, prøver og dropper to idéer og peger så på den rigtige linje.
+  whyItMatters:
+    en: Better answers on hard tasks cost more and take longer, and the shown working-out is not a reliable record of how the answer was really reached.
+    da: Bedre svar på svære opgaver koster mere og tager længere tid, og den viste mellemregning er ikke en pålidelig optegnelse af, hvordan svaret reelt blev nået.
+edges:
+  kind-of: [large-language-model]
+  requires:
+    - to: inference
+      why:
+        en: Its gains come from spending more work at answer time, not only from a bigger model, so the idea rests on what happens during inference.
+        da: Dens fremskridt kommer af at bruge mere arbejde, når der svares, ikke kun af en større model, så idéen bygger på, hvad der sker under inferens.
+      strength: primary
+      confidence: high
+    - next-token-prediction
+  causes:
+    - to: latency
+      why:
+        en: Long hidden working-out must be written token by token before the answer starts, so replies can take seconds or minutes.
+        da: Lang skjult mellemregning skal skrives token for token, før svaret begynder, så svar kan tage sekunder eller minutter.
+      strength: normal
+      confidence: high
+sources:
+  - title: OpenAI (2024), Learning to Reason with LLMs
+    tier: official-doc
+    publisher: OpenAI
+  - title: 'DeepSeek-AI (2025), DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning'
+    tier: reference
+draft: true

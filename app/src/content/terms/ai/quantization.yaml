@@ -1,0 +1,47 @@
+term:
+  en: Quantization
+  da: Kvantisering
+aka:
+  en: [model quantization]
+  da: [modelkvantisering]
+domain: [ai]
+cluster: ai-infrastructure
+layer: inference
+status: current
+summary:
+  en: Storing a model's numbers with fewer digits so it takes less memory and runs faster, at the cost of a little quality.
+  da: At gemme en models tal med færre cifre, så den fylder mindre og kører hurtigere, mod at kvaliteten falder en smule.
+body:
+  formal:
+    en: Converting model weights, and sometimes the working values of inference, from high-detail numbers (often 16 bits each) to coarser ones (8, 4 or fewer bits) by mapping them onto a smaller set of allowed values; it shrinks memory use and speeds up the math while adding small rounding errors.
+    da: At lave modelvægte, og nogle gange arbejdsværdierne under inferens, om fra meget detaljerede tal (ofte 16 bit hver) til grovere tal (8, 4 eller færre bit) ved at lægge dem over på et mindre sæt tilladte værdier; det mindsker hukommelsesforbruget og gør regningen hurtigere, men tilføjer små fejl ved afrunding.
+  plain:
+    en: Like saving a photo as a smaller file — it loses a little fine detail you rarely notice, and in return fits on your phone and opens instantly.
+    da: Som at gemme et foto som en mindre fil — det mister lidt fine detaljer, man sjældent bemærker, og til gengæld kan det ligge på telefonen og åbner med det samme.
+  inPractice:
+    en: A developer downloads a 4-bit version of an open model so it fits in a laptop's memory; it answers almost as well as the full-size one but is a little worse at careful arithmetic.
+    da: En udvikler henter en 4-bit-udgave af en åben model, så den kan være i en bærbars hukommelse; den svarer næsten lige så godt som den fulde udgave, men er lidt dårligere til omhyggelig regning.
+  whyItMatters:
+    en: It is what lets large models run on cheaper machines and on-site instead of in someone else's cloud, but the quality loss must be tested for each task rather than assumed away.
+    da: Det er det, der lader store modeller køre på billigere maskiner og lokalt i stedet for i en andens cloud, men kvalitetstabet skal testes for hver opgave i stedet for at blive antaget væk.
+edges:
+  requires:
+    - to: model-weights
+      why:
+        en: What gets shrunk is the stored weights, so it only makes sense once you know they are huge lists of numbers.
+        da: Det, der krympes, er de gemte vægte, så det giver først mening, når man ved, at de er enorme lister af tal.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: small-language-model
+      why:
+        en: Both aim to run language models on phones, laptops and cheap servers, and small models are often quantized as well to shrink them further.
+        da: Begge sigter mod at køre sprogmodeller på telefoner, bærbare og billige servere, og små modeller kvantiseres ofte også for at gøre dem endnu mindre.
+      strength: normal
+      confidence: high
+sources:
+  - title: Jacob et al. (2018), Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference
+    tier: reference
+  - title: Dettmers et al. (2023), QLoRA — Efficient Finetuning of Quantized LLMs
+    tier: reference
+draft: true

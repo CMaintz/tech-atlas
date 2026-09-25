@@ -1,0 +1,52 @@
+term:
+  en: Human-in-the-loop (HITL)
+  da: Menneske i løkken (HITL)
+aka:
+  en: [HITL]
+  da: [HITL, human-in-the-loop]
+domain: [ai]
+cluster: agents
+layer: agent
+status: current
+summary:
+  en: Designing an AI system so a person must check or approve its work at key points before it takes effect.
+  da: At indrette et AI-system, så en person skal tjekke eller godkende dets arbejde på vigtige punkter, før det får virkning.
+body:
+  formal:
+    en: A design in which chosen steps of an automated process pause for a human decision — approving, editing or rejecting a proposed action or output — so that the system cannot finish those steps on its own.
+    da: En indretning, hvor udvalgte trin i en automatisk proces holder pause for en menneskelig beslutning — godkend, ret eller afvis en foreslået handling eller et output — så systemet ikke selv kan fuldføre de trin.
+  plain:
+    en: Like a bank that needs a second signature for large payments — the clerk prepares everything, but the money only moves once a manager signs.
+    da: Som en bank, der kræver en ekstra underskrift på store betalinger — ekspedienten forbereder det hele, men pengene flyttes først, når en chef skriver under.
+  inPractice:
+    en: An AI agent may read and sort a shared inbox freely, but before it sends a reply, deletes anything or pays an invoice, it shows the planned action and waits for a staff member to click "approve".
+    da: En AI-agent må frit læse og sortere en fælles indbakke, men før den sender et svar, sletter noget eller betaler en faktura, viser den den planlagte handling og venter på, at en medarbejder klikker "godkend".
+  whyItMatters:
+    en: It keeps a person responsible for actions that are costly or hard to undo, though if approvals come too often people start clicking yes without reading.
+    da: Det holder en person ansvarlig for handlinger, der er dyre eller svære at gøre om, men hvis godkendelser kommer for tit, begynder folk at klikke ja uden at læse.
+edges:
+  mitigates:
+    - to: excessive-agency
+      why:
+        en: Requiring approval for risky actions means an agent cannot do real damage on its own, even if it has been given too much power.
+        da: Krav om godkendelse af risikable handlinger betyder, at en agent ikke kan gøre reel skade på egen hånd, selv hvis den har fået for meget magt.
+      strength: primary
+      confidence: high
+    - to: prompt-injection
+      why:
+        en: A person who sees the planned action can stop an agent that has been tricked by hidden orders, even though the trick itself still worked.
+        da: En person, der ser den planlagte handling, kan stoppe en agent, der er narret af skjulte ordrer, selv om tricket i sig selv virkede.
+      strength: normal
+      confidence: medium
+  used-with: [multi-agent-system]
+sources:
+  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 14 — Human oversight
+    tier: standard
+    publisher: European Union
+  - title: OWASP Top 10 for LLM Applications 2025 (LLM06 Excessive Agency)
+    tier: reference
+    publisher: OWASP
+  - title: NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+    tier: standard
+    publisher: NIST
+draft: true

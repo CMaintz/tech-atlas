@@ -1,0 +1,42 @@
+term:
+  en: Sampling
+  da: Sampling (udtrækning af tokens)
+aka:
+  en: [decoding]
+  da: [afkodning]
+domain: [ai]
+cluster: prompting
+layer: inference
+status: current
+summary:
+  en: How a language model picks each next piece of text from its list of likely options, by a set rule or with some chance involved.
+  da: Måden, en sprogmodel vælger hvert næste stykke tekst blandt sine sandsynlige muligheder — efter fast regel eller med tilfældighed.
+body:
+  formal:
+    en: The step in inference where, after next-token prediction gives a chance for every possible token, one token is chosen — always the most likely, or drawn at random according to those chances after settings such as temperature and top-p reshape them — and the process repeats.
+    da: Det trin i inferensen, hvor der, efter at forudsigelse af næste token har givet en chance for hvert muligt token, vælges ét token — altid det mest sandsynlige eller trukket tilfældigt efter de chancer, når indstillinger som temperatur og top-p har justeret dem — og processen gentages.
+  plain:
+    en: Like choosing the next word in a story by drawing from a bag where common words have many slips and odd words have few — usually sensible, sometimes surprising.
+    da: Som at vælge næste ord i en historie ved at trække fra en pose, hvor almindelige ord har mange sedler og sjældne ord få — oftest fornuftigt, af og til overraskende.
+  inPractice:
+    en: Two people send the same question to a chat assistant and get differently worded answers, because the reply was built one piece at a time with some chance at each pick.
+    da: To personer sender det samme spørgsmål til en chatassistent og får forskelligt formulerede svar, fordi svaret blev bygget ét stykke ad gangen med en smule tilfældighed i hvert valg.
+  whyItMatters:
+    en: The choice of rule decides whether answers can be repeated exactly, which matters for testing and for tasks like code, and it shapes how varied or dull the text feels.
+    da: Valget af regel afgør, om svar kan gentages nøjagtigt, hvilket betyder noget for test og for opgaver som kode, og det former, hvor varieret eller kedelig teksten føles.
+edges:
+  requires: [next-token-prediction]
+  part-of:
+    - to: inference
+      why:
+        en: Each time a language model writes a reply, sampling runs once for every token it adds.
+        da: Hver gang en sprogmodel skriver et svar, kører sampling én gang for hvert token, den tilføjer.
+      strength: primary
+      confidence: high
+sources:
+  - title: 'Jurafsky & Martin, Speech and Language Processing (3rd ed. draft), chapter on large language models (sampling)'
+    tier: textbook
+  - title: Holtzman et al. (2020), The Curious Case of Neural Text Degeneration
+    tier: reference
+    url: https://arxiv.org/abs/1904.09751
+draft: true

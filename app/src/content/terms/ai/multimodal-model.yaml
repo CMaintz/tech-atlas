@@ -1,0 +1,45 @@
+term:
+  en: Multimodal model
+  da: Multimodal model
+aka:
+  en: [multimodal AI]
+  da: [multimodal AI]
+domain: [ai]
+cluster: model-architecture
+layer: model
+status: current
+summary:
+  en: A model that can take in, and sometimes produce, more than one kind of input — such as text, photos and speech — in the same conversation.
+  da: En model, der kan modtage og nogle gange lave mere end én slags input — fx tekst, fotos og tale — i den samme samtale.
+body:
+  formal:
+    en: A foundation model that turns different kinds of input — text, images, sound — into embeddings in one shared space, usually with a separate encoder for each kind, so a single transformer can reason across them together.
+    da: En grundmodel, der laver forskellige slags input — tekst, billeder, lyd — om til embeddings i ét fælles rum, typisk med en separat encoder for hver slags, så en enkelt transformer kan ræsonnere på tværs af dem samlet.
+  plain:
+    en: Like a friend you can show a photo, play a song to, and talk with — all in one chat — instead of three separate friends who each only read, look or listen.
+    da: Som en ven, du kan vise et foto, spille en sang for og snakke med — alt i én samtale — i stedet for tre forskellige venner, der hver kun læser, ser eller lytter.
+  inPractice:
+    en: A field engineer photographs a warning light on a machine and asks "what does this mean?"; the multimodal model reads the photo and the question together and answers.
+    da: En servicetekniker fotograferer en advarselslampe på en maskine og spørger "hvad betyder det?"; den multimodale model læser foto og spørgsmål samlet og svarer.
+  whyItMatters:
+    en: Every new kind of input is a new way in — text hidden inside a picture can carry instructions the user never sees, so images and audio need the same care as typed text.
+    da: Hver ny slags input er en ny vej ind — tekst gemt i et billede kan bære instruktioner, brugeren aldrig ser, så billeder og lyd kræver samme omhu som indtastet tekst.
+edges:
+  kind-of: [foundation-model]
+  requires: [embedding, encoder]
+  used-with:
+    - to: prompt-injection
+      why:
+        en: Instructions can be hidden in an image or audio clip, giving prompt injection a path that text filters do not see.
+        da: Instruktioner kan gemmes i et billede eller et lydklip, hvilket giver prompt injection en vej, som tekstfiltre ikke ser.
+      strength: primary
+      confidence: high
+    - prompt
+    - transformer
+sources:
+  - title: Radford et al. (2021), Learning Transferable Visual Models From Natural Language Supervision (CLIP)
+    tier: reference
+  - title: OWASP Top 10 for LLM Applications 2025 (LLM01 Prompt Injection — multimodal injection)
+    tier: reference
+    publisher: OWASP
+draft: true

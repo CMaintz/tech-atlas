@@ -1,0 +1,44 @@
+term:
+  en: Hybrid search
+  da: Hybrid søgning
+aka:
+  en: []
+  da: []
+domain: [ai]
+cluster: retrieval
+layer: application
+status: current
+summary:
+  en: Running a word-matching search and a meaning-based search side by side and merging their results into one list.
+  da: At køre en ordbaseret og en betydningsbaseret søgning side om side og flette deres resultater sammen til én liste.
+body:
+  formal:
+    en: A way of searching that sends the same question to keyword search and semantic search and combines the two ranked lists, for example by adding weighted scores or by rewarding texts that rank high in both.
+    da: En søgemetode, der sender det samme spørgsmål til nøgleordssøgning og semantisk søgning og kombinerer de to rangerede lister, fx ved at lægge vægtede point sammen eller belønne tekster, der ligger højt i begge.
+  plain:
+    en: Like asking both a strict clerk who only checks exact labels and a helpful friend who gets the gist — then trusting most what both of them point to.
+    da: Som at spørge både en pertentlig ekspedient, der kun tjekker præcise etiketter, og en hjælpsom ven, der forstår essensen — og så stole mest på det, de begge peger på.
+  inPractice:
+    en: A parts supplier's chat bot finds "gasket for model X-200" by the exact product code and also finds the manual page that only says "rubber seal".
+    da: En reservedelsleverandørs chatbot finder "pakning til model X-200" via den præcise varekode og finder også manualsiden, der kun siger "gummitætning".
+  whyItMatters:
+    en: Neither kind of search is reliable alone on real company documents, and mixing them is a common, cheap way to find the right passage more often.
+    da: Ingen af de to søgetyper er pålidelig alene på rigtige virksomhedsdokumenter, og at blande dem er en udbredt og billig måde at ramme det rigtige afsnit oftere.
+edges:
+  requires:
+    - keyword-search
+    - semantic-search
+  used-with:
+    - to: reranking
+      why:
+        en: Merging two lists gives a rough order, so a reranking step often picks the best few from the combined results.
+        da: At flette to lister giver en grov rækkefølge, så et genrangeringstrin ofte udvælger de bedste få fra de samlede resultater.
+      strength: normal
+      confidence: high
+    - retrieval-augmented-generation
+sources:
+  - title: Cormack, Clarke & Büttcher (2009), Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods
+    tier: reference
+  - title: Gao et al. (2023), Retrieval-Augmented Generation for Large Language Models — A Survey
+    tier: reference
+draft: true

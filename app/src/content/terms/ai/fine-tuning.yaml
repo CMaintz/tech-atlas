@@ -33,7 +33,28 @@ edges:
         da: Begge tilpasser en model til organisationen; finjustering bager viden ind i modellen, mens RAG slår den op, når der svares, og kan opdateres eller begrænses per bruger.
       strength: primary
       confidence: high
-  used-with: [large-language-model, training-data]
+    - to: prompt-engineering
+      why:
+        en: Both change how a model behaves for a task; prompt engineering changes only the words sent, fine-tuning changes the weights.
+        da: Begge ændrer, hvordan en model opfører sig til en opgave; prompt engineering ændrer kun de ord, der sendes, finjustering ændrer vægtene.
+      strength: normal
+      confidence: medium
+  used-with:
+    - large-language-model
+    - training-data
+    - to: foundation-model
+      why:
+        en: A foundation model is usually adapted to a specific task by fine-tuning it on a smaller set of examples.
+        da: En grundmodel tilpasses som regel til en bestemt opgave ved at finjustere den på et mindre sæt eksempler.
+      strength: normal
+      confidence: medium
+  implements:
+    - to: transfer-learning
+      why:
+        en: 'Fine-tuning is the usual way transfer learning is done: take a trained model and keep training it on a smaller, task-specific set.'
+        da: 'Finjustering er den almindelige måde at lave overførselslæring på: tag en trænet model og træn den videre på et mindre, opgavespecifikt sæt.'
+      strength: normal
+      confidence: medium
 sources:
   - title: Howard & Ruder (2018), Universal Language Model Fine-tuning for Text Classification
     tier: reference

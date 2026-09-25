@@ -1,0 +1,51 @@
+term:
+  en: Latency
+  da: Latens
+aka:
+  en: []
+  da: []
+domain: [ai, cs]
+cluster: ai-infrastructure
+layer: inference
+status: current
+summary:
+  en: How long one request has to wait from being sent until its answer arrives — for an AI chat, the pause before and while it replies.
+  da: Hvor længe én forespørgsel skal vente, fra den sendes, til svaret kommer — for en AI-chat pausen før og mens den svarer.
+body:
+  formal:
+    en: The time between a request leaving the sender and the matching response being received, usually reported as a middle value and a slow-end value such as the time 99 in 100 requests beat; for a language model it covers queueing, reading the prompt, and producing each token of the answer.
+    da: Tiden fra en forespørgsel forlader afsenderen, til det tilhørende svar er modtaget, typisk angivet som en middelværdi og en værdi for de langsomme, fx den tid, 99 ud af 100 forespørgsler er hurtigere end; for en sprogmodel dækker den ventetid i kø, læsning af prompten og frembringelse af hvert token i svaret.
+  plain:
+    en: Like the wait between ordering a coffee and holding it in your hand — it says nothing about how many coffees the café makes in an hour.
+    da: Som ventetiden fra man bestiller en kaffe, til man står med den i hånden — den siger intet om, hvor mange kaffer caféen laver i timen.
+  inPractice:
+    en: A support chat assistant switches to a smaller model because users left when answers took eight seconds to start; the smaller model begins replying in under one.
+    da: En supportassistent skifter til en mindre model, fordi brugerne forlod den, når svarene var otte sekunder om at begynde; den mindre model begynder at svare på under ét.
+  whyItMatters:
+    en: People judge a service by how quickly it responds, and tools that call a model many times in a row feel every extra delay add up.
+    da: Folk bedømmer en tjeneste på, hvor hurtigt den svarer, og værktøjer, der kalder en model mange gange i træk, mærker hver ekstra forsinkelse lægge sig oven i hinanden.
+edges:
+  contrasts-with:
+    - to: throughput
+      why:
+        en: Latency is how long one request waits; throughput is how much total work gets done per second. Grouping requests together often raises throughput while making each one wait longer.
+        da: Latens er, hvor længe én forespørgsel venter; gennemløb er, hvor meget arbejde der i alt klares per sekund. At samle forespørgsler i grupper hæver ofte gennemløbet, men får hver enkelt til at vente længere.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: service-level-objective
+      why:
+        en: Speed goals for a service are usually written as a latency limit, such as 95 in 100 answers starting within one second.
+        da: Hastighedsmål for en tjeneste skrives normalt som en latensgrænse, fx at 95 ud af 100 svar begynder inden for ét sekund.
+      strength: normal
+      confidence: high
+    - monitoring
+    - model-serving
+sources:
+  - title: 'Beyer et al. (eds.), Site Reliability Engineering (ch. 4, Service Level Objectives)'
+    tier: textbook
+    publisher: O'Reilly / Google
+  - title: 'Hennessy & Patterson, Computer Architecture: A Quantitative Approach (ch. 1)'
+    tier: textbook
+    publisher: Morgan Kaufmann
+draft: true

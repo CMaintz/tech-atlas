@@ -35,6 +35,12 @@ edges:
         da: Leverandørkontrakter indeholder SLA'er, og interne SLO'er sættes strengere, så løftet holdes.
       strength: normal
       confidence: medium
+    - to: throughput
+      why:
+        en: Capacity goals for a service are often written as a minimum number of requests or tokens it must handle per second.
+        da: Kapacitetsmål for en tjeneste skrives ofte som et minimum af forespørgsler eller tokens, den skal klare per sekund.
+      strength: normal
+      confidence: medium
 sources:
   - title: Google SRE book — Chapter 4, Service Level Objectives
     url: https://sre.google/sre-book/service-level-objectives/
