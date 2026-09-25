@@ -1,0 +1,271 @@
+questions:
+  - id: agent-tool-call-round-trip
+    terms:
+      - ai/tool-calling
+      - ai/ai-agent
+    kind: order
+    stem:
+      en: >-
+        A Danish online shop gives its customer-service chatbot a tool called
+        find_order, which looks up an order in the shop's own order system. A customer
+        asks where parcel 4711 is. In which order do things happen when the chatbot
+        uses the tool?
+      da: >-
+        En dansk webshop giver sin kundeservice-chatbot et værktøj, find_order, der slår
+        en ordre op i webshoppens eget ordresystem. En kunde spørger, hvor pakke 4711
+        er. I hvilken rækkefølge sker tingene, når chatbotten bruger værktøjet?
+    options:
+      - en: Question and tool descriptions sent → model itself runs find_order directly in the shop's order system → model sends the result to the app → app shows the answer
+        da: Spørgsmål og værktøjsbeskrivelser sendes → modellen kører selv find_order direkte i webshoppens ordresystem → modellen sender resultatet til appen → appen viser svaret
+      - en: App runs find_order for every question → result and question sent to the model → model picks the tool → model writes the answer
+        da: Appen kører find_order ved hvert spørgsmål → resultat og spørgsmål sendes til modellen → modellen vælger værktøjet → modellen skriver svaret
+      - en: Question and tool descriptions sent → model replies with a find_order call and arguments → app runs the lookup, returns the result → model answers
+        da: Spørgsmål og værktøjsbeskrivelser sendes → modellen svarer med et find_order-kald og argumenter → appen laver opslaget, sender resultatet tilbage → modellen svarer
+      - en: Question sent without tool descriptions → model writes an answer → app runs find_order to check it → model corrects its answer
+        da: Spørgsmålet sendes uden værktøjsbeskrivelser → modellen skriver et svar → appen kører find_order for at tjekke det → modellen retter sit svar
+    answer: 2
+    explanation:
+      en: >-
+        In tool calling the model never touches the order system itself: it only
+        returns a structured request naming the tool and its arguments. Anthropic's
+        documentation describes the round trip — the model stops with a tool_use block,
+        your code executes the operation and sends back a tool_result, and the model
+        then uses that result to answer. The first sequence is the common misconception
+        that the model runs the function; it only produces text. Running the lookup on
+        every question before asking the model removes the model's choice of tool and
+        wastes calls. Without tool descriptions the model cannot know the tool exists,
+        so it would have to guess the parcel's whereabouts.
+      da: >-
+        Ved værktøjskald rører modellen aldrig selv ordresystemet: Den returnerer kun en
+        struktureret anmodning med værktøjets navn og argumenter. Anthropics
+        dokumentation beskriver rundturen — modellen stopper med en tool_use-blok, din
+        kode udfører handlingen og sender et tool_result tilbage, og modellen bruger
+        derefter resultatet til at svare. Den første rækkefølge er den udbredte
+        misforståelse, at modellen selv kører funktionen; den producerer kun tekst. At
+        lave opslaget ved hvert spørgsmål, før modellen bliver spurgt, fjerner modellens
+        valg af værktøj og spilder kald. Uden værktøjsbeskrivelser kan modellen ikke vide,
+        at værktøjet findes, og må gætte, hvor pakken er.
+    difficulty: 1
+    sources:
+      - title: Anthropic documentation — Tool use with Claude (How tool use works)
+        url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview
+        tier: official-doc
+    draft: true
+  - id: agent-computer-use-supplier-portals
+    terms:
+      - ai/computer-use
+      - ai/agent-sandbox
+      - ai/human-in-the-loop
+      - ai/prompt-injection
+    kind: scenario
+    stem:
+      en: >-
+        A Danish municipality wants to test an AI agent that works a computer by looking
+        at screenshots and moving the mouse, so it can fill in forms on suppliers' web
+        portals for the purchasing department. Which set-up for the pilot is the most
+        sensible?
+      da: >-
+        En dansk kommune vil afprøve en AI-agent, der betjener en computer ved at se på
+        skærmbilleder og flytte musen, så den kan udfylde formularer på leverandørernes
+        webportaler for indkøbsafdelingen. Hvilken opsætning er mest fornuftig til
+        pilotforsøget?
+    options:
+      - en: A separate virtual machine with few rights, approved sites only, a person confirming each binding step
+        da: En separat virtuel maskine med få rettigheder, kun godkendte sider og en person, der bekræfter hvert bindende trin
+      - en: The buyer's own PC, where she is already logged in, so the agent can reuse her saved passwords and sessions
+        da: Indkøberens egen pc, hvor hun allerede er logget ind, så agenten kan genbruge hendes gemte adgangskoder og sessioner
+      - en: Any machine, as long as the system prompt tells the agent to ignore instructions found on web pages
+        da: En hvilken som helst maskine, blot systemprompten beder agenten ignorere instruktioner på websider
+      - en: Full internet access, with an employee going through all of the agent's screenshots once a week afterwards
+        da: Fri adgang til internettet, hvor en medarbejder bagefter gennemgår agentens skærmbilleder en gang om ugen
+    answer: 0
+    explanation:
+      en: >-
+        Anthropic's computer-use documentation recommends a dedicated virtual machine or
+        container with minimal privileges, no access to sensitive data such as login
+        credentials, internet access limited to an allowlist of domains, and human
+        confirmation for decisions with real-world consequences, because instructions on
+        a web page or in an image can override the user's own. The buyer's logged-in PC
+        hands every password and system she can reach to an agent that a malicious page
+        might steer. A system-prompt instruction helps but cannot be relied on against
+        prompt injection. A weekly review of screenshots discovers a wrong order or leak
+        only after the damage is done.
+      da: >-
+        Anthropics dokumentation for computer use anbefaler en dedikeret virtuel maskine
+        eller container med minimale rettigheder, ingen adgang til følsomme data som
+        loginoplysninger, internetadgang begrænset til en liste over godkendte domæner og
+        menneskelig bekræftelse af beslutninger med konsekvenser i den virkelige verden,
+        fordi instruktioner på en webside eller i et billede kan tilsidesætte brugerens
+        egne. Indkøberens pc, hvor hun er logget ind, giver alle hendes adgangskoder og
+        systemer til en agent, som en ondsindet side kan styre. En instruktion i
+        systemprompten hjælper, men kan ikke stå alene mod prompt injection. En ugentlig
+        gennemgang af skærmbilleder opdager en forkert bestilling eller et læk, først når
+        skaden er sket.
+    difficulty: 2
+    sources:
+      - title: Anthropic documentation — Computer use tool (security considerations)
+        url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool
+        tier: official-doc
+      - title: OWASP Top 10 for LLM Applications 2025 — LLM01 Prompt Injection
+        url: https://genai.owasp.org/llmrisk/llm01-prompt-injection/
+        tier: reference
+    draft: true
+  - id: agent-mcp-one-archive-many-apps
+    terms:
+      - ai/model-context-protocol
+      - ai/mcp-server
+      - ai/tool-calling
+    kind: scenario
+    stem:
+      en: >-
+        The employees of a Danish engineering firm use three different AI apps: a chat
+        assistant, an assistant in their code editor and an in-house agent. IT wants all
+        three to be able to search the firm's drawing archive, without building and
+        maintaining a separate integration for each app. What is the best approach?
+      da: >-
+        Medarbejderne i en dansk ingeniørvirksomhed bruger tre forskellige AI-apps: en
+        chatassistent, en assistent i deres kodeeditor og en agent, som firmaet selv har
+        bygget. IT vil have, at alle tre kan søge i firmaets tegningsarkiv, uden at der
+        skal bygges og vedligeholdes en særskilt integration til hver app. Hvad er den
+        bedste tilgang?
+    options:
+      - en: Fine-tune each app's model on the archive, so the drawings become part of the model
+        da: Finjustere hver apps model på arkivet, så tegningerne bliver en del af modellen
+      - en: Paste an export of the whole archive into each app's system prompt every morning
+        da: Indsætte et udtræk af hele arkivet i hver apps systemprompt hver morgen
+      - en: Build a separate search pipeline with its own vector database inside each of the three apps
+        da: Bygge en særskilt søgepipeline med sin egen vektordatabase ind i hver af de tre apps
+      - en: Expose the archive search once via an MCP server that all three apps connect to
+        da: Udstille arkivsøgningen én gang via en MCP-server, som alle tre apps kobler sig på
+    answer: 3
+    explanation:
+      en: >-
+        The Model Context Protocol is an open standard for exactly this: a server exposes
+        tools and data once, and any host application that speaks MCP can connect to it
+        — the specification compares it to the Language Server Protocol, which lets one
+        language integration work across many editors. Fine-tuning does not give reliable
+        look-up of specific drawings, goes stale as the archive changes and would have to
+        be repeated for three models. Pasting the whole archive into the system prompt
+        quickly exceeds the context window and costs tokens on every request. A separate
+        search pipeline per app is precisely the three integrations IT wanted to avoid.
+      da: >-
+        Model Context Protocol er en åben standard til netop dette: En server udstiller
+        værktøjer og data én gang, og enhver værtsapplikation, der taler MCP, kan
+        forbinde sig til den — specifikationen sammenligner den med Language Server
+        Protocol, der lader én sprogintegration virke i mange editorer. Finjustering giver
+        ikke pålidelige opslag i bestemte tegninger, bliver forældet, når arkivet ændrer
+        sig, og skal gentages for tre modeller. At indsætte hele arkivet i systemprompten
+        sprænger hurtigt kontekstvinduet og koster tokens ved hver forespørgsel. En
+        særskilt søgepipeline i hver app er præcis de tre integrationer, IT ville undgå.
+    difficulty: 1
+    sources:
+      - title: Model Context Protocol specification (2025-06-18) — Overview
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        tier: standard
+    draft: true
+  - id: agent-mcp-server-untrusted
+    terms:
+      - ai/mcp-server
+      - ai/model-context-protocol
+      - ai/prompt-injection
+    kind: scenario
+    stem:
+      en: >-
+        A developer at a Danish bank finds a free MCP server on GitHub that promises to
+        let her AI assistant read and send Outlook mail. She wants to install it and
+        connect it to her work account. What should she understand before she does?
+      da: >-
+        En udvikler i en dansk bank finder en gratis MCP-server på GitHub, der lover at
+        lade hendes AI-assistent læse og sende Outlook-mails. Hun vil installere den og
+        koble den på sin arbejdskonto. Hvad bør hun forstå, før hun gør det?
+    options:
+      - en: MCP is an open standard, so a server that follows the protocol is safe by design
+        da: MCP er en åben standard, så en server, der følger protokollen, er sikker af design
+      - en: The server's code acts with her access, and its tool descriptions may hide instructions
+        da: Serverens kode handler med hendes adgang, og værktøjsbeskrivelserne kan skjule instruktioner
+      - en: The only real risk is that the assistant's answers about her mail may become less accurate
+        da: Den eneste reelle risiko er, at assistentens svar om hendes e-mails kan blive mindre præcise
+      - en: It is safe as long as the assistant asks her before each tool is called
+        da: Det er sikkert, så længe assistenten spørger hende, før hvert værktøj bliver kaldt
+    answer: 1
+    explanation:
+      en: >-
+        The MCP specification warns that tools represent arbitrary code execution and
+        that descriptions of tool behaviour should be treated as untrusted unless they
+        come from a trusted server — so an unknown server both runs code with her mail
+        rights and can plant instructions the model reads. It should be vetted like any
+        other third-party software before it touches a bank mailbox. Following an open
+        protocol says nothing about what a server's code does. Inaccurate answers are
+        the smallest worry next to mail being read or sent in her name. Asking before
+        each tool call is required by the specification and helps, but a harmless
+        sounding tool name cannot show her what the code does behind it.
+      da: >-
+        MCP-specifikationen advarer om, at værktøjer svarer til vilkårlig kodekørsel, og
+        at beskrivelser af værktøjers adfærd skal betragtes som upålidelige, medmindre de
+        kommer fra en betroet server — så en ukendt server både kører kode med hendes
+        mailrettigheder og kan plante instruktioner, som modellen læser. Den bør
+        vurderes som al anden tredjepartssoftware, før den får adgang til en
+        bankpostkasse. At følge en åben protokol siger intet om, hvad serverens kode gør.
+        Upræcise svar er den mindste bekymring ved siden af mails, der læses eller sendes
+        i hendes navn. At blive spurgt før hvert værktøjskald kræves af specifikationen og
+        hjælper, men et uskyldigt værktøjsnavn viser hende ikke, hvad koden bag det gør.
+    difficulty: 2
+    sources:
+      - title: Model Context Protocol specification (2025-06-18) — Security and Trust & Safety
+        url: https://modelcontextprotocol.io/specification/2025-06-18
+        tier: standard
+    draft: true
+  - id: agent-workflow-vs-agent-referrals
+    terms:
+      - ai/agentic-workflow
+      - ai/ai-agent
+      - ai/multi-agent-system
+    kind: compare
+    stem:
+      en: >-
+        A Danish region wants AI help with incoming referral letters. Every letter goes
+        through the same steps — extract the patient details, classify the referral,
+        send it to the right department — and the auditors want the process to be
+        predictable and easy to check. Which design fits best?
+      da: >-
+        En dansk region vil have AI-hjælp til indkomne henvisninger. Hver henvisning går
+        gennem de samme trin — træk patientoplysningerne ud, klassificér henvisningen,
+        send den til det rette afsnit — og revisorerne ønsker, at forløbet er
+        forudsigeligt og nemt at kontrollere. Hvilket design passer bedst?
+    options:
+      - en: An autonomous agent that decides for itself which steps each referral letter needs
+        da: En selvstændig agent, der selv beslutter, hvilke trin hver enkelt henvisning har brug for
+      - en: A multi-agent system in which a lead agent hands letters to helper agents
+        da: Et multiagentsystem, hvor en ledende agent giver henvisninger videre til hjælpeagenter
+      - en: An agentic workflow where code fixes the steps and the model does some of them
+        da: En agentisk arbejdsgang, hvor koden fastlægger trinene, og modellen udfører nogle af dem
+      - en: A computer-use agent that clicks through the case system just as a clerk does
+        da: En computer use-agent, der klikker sig gennem sagssystemet, præcis som en sagsbehandler
+    answer: 2
+    explanation:
+      en: >-
+        Anthropic distinguishes workflows, where language models and tools are
+        orchestrated through predefined code paths, from agents, where the model
+        dynamically directs its own process; workflows suit well-defined tasks that need
+        consistency and predictability, agents suit open-ended problems where the steps
+        cannot be known in advance. Here the steps are fixed and auditors want
+        predictability, so a workflow fits. A free-running agent — alone or as a team of
+        agents — adds unpredictability and cost the task does not need. Having an agent
+        click through the screens is the least predictable way to do a job that code can
+        call directly.
+      da: >-
+        Anthropic skelner mellem workflows, hvor sprogmodeller og værktøjer styres gennem
+        foruddefinerede kodestier, og agenter, hvor modellen selv dynamisk styrer
+        forløbet; workflows passer til veldefinerede opgaver, der kræver ensartethed og
+        forudsigelighed, agenter til åbne problemer, hvor trinene ikke kan kendes på
+        forhånd. Her ligger trinene fast, og revisorerne vil have forudsigelighed, så en
+        arbejdsgang passer. En frit arbejdende agent — alene eller som et hold af agenter
+        — tilfører uforudsigelighed og omkostninger, som opgaven ikke har brug for. At lade
+        en agent klikke sig gennem skærmbillederne er den mindst forudsigelige måde at
+        løse en opgave, som kode kan kalde direkte.
+    difficulty: 2
+    sources:
+      - title: Anthropic (2024), Building effective agents
+        url: https://www.anthropic.com/engineering/building-effective-agents
+        tier: other
+    draft: true

@@ -1,0 +1,260 @@
+questions:
+  - id: aiinfra-gpu-not-faster-per-core
+    terms:
+      - ai/gpu
+      - ai/model-training
+    kind: true-false
+    stem:
+      en: >-
+        A research group at a Danish university trains its neural networks on GPUs
+        rather than on the CPUs in its servers. True or false: the main reason is that
+        each GPU core carries out a single calculation faster than a CPU core does.
+      da: >-
+        En forskningsgruppe på et dansk universitet træner sine neurale netværk på
+        GPU'er i stedet for på serverens CPU'er. Sandt eller falsk: Hovedårsagen er, at
+        hver GPU-kerne udfører en enkelt beregning hurtigere, end en CPU-kerne gør.
+    options:
+      - en: 'True'
+        da: Sandt
+      - en: 'False'
+        da: Falsk
+    answer: 1
+    explanation:
+      en: >-
+        False. NVIDIA's CUDA Programming Guide explains that a CPU is designed to run a
+        serial sequence of operations as fast as possible and handles a few tens of
+        threads in parallel, whereas a GPU runs thousands of threads in parallel,
+        trading lower single-thread performance for much greater total throughput. It
+        devotes more of its transistors to data processing and fewer to caching and
+        flow control. Training a neural network is dominated by huge numbers of
+        independent multiplications and additions, which is exactly the kind of work
+        that spreads well across thousands of threads.
+      da: >-
+        Falsk. NVIDIAs CUDA Programming Guide forklarer, at en CPU er bygget til at
+        udføre en række operationer efter hinanden så hurtigt som muligt og kan køre
+        nogle få snese tråde parallelt, mens en GPU kører tusindvis af tråde parallelt
+        og bytter lavere ydelse pr. tråd for en langt større samlet kapacitet. Den
+        bruger flere af sine transistorer på databehandling og færre på cache og
+        styring af programforløbet. Træning af et neuralt netværk består mest af enorme
+        mængder uafhængige multiplikationer og additioner — netop den slags arbejde, der
+        lader sig fordele over tusindvis af tråde.
+    difficulty: 1
+    sources:
+      - title: NVIDIA CUDA Programming Guide — Introduction (the benefits of using GPUs)
+        url: https://docs.nvidia.com/cuda/cuda-programming-guide/01-introduction/introduction.html
+        tier: official-doc
+    draft: true
+  - id: aiinfra-quantize-to-fit-on-premises
+    terms:
+      - ai/quantization
+      - ai/open-weight-model
+      - ai/model-weights
+    kind: scenario
+    stem:
+      en: >-
+        For data-protection reasons a Danish region wants to run an open-weight language
+        model with 32 billion parameters on its own server, so patient notes never leave
+        the region. Stored in 16-bit precision the weights take about 64 GB, but the
+        server's GPU has only 48 GB of memory. What is the most practical way to make the
+        model fit?
+      da: >-
+        Af databeskyttelseshensyn vil en dansk region køre en sprogmodel med åbne vægte
+        og 32 milliarder parametre på sin egen server, så patientnotater aldrig forlader
+        regionen. Gemt med 16-bit præcision fylder vægtene omkring 64 GB, men serverens
+        GPU har kun 48 GB hukommelse. Hvad er den mest praktiske måde at få modellen til
+        at passe på?
+    options:
+      - en: Send the notes to a cloud API instead, since the model is too large to host
+        da: Sende notaterne til en cloud-API i stedet, da modellen er for stor at drive selv
+      - en: Keep the prompts short, so the model needs less memory for each request
+        da: Holde prompterne korte, så modellen skal bruge mindre hukommelse pr. forespørgsel
+      - en: Switch off the KV cache, so memory is freed for the model's weights
+        da: Slå KV-cachen fra, så der bliver frigjort hukommelse til modellens vægte
+      - en: Store the weights with 4 bits each, accepting a small loss of quality
+        da: Gemme vægtene med 4 bit hver og acceptere et lille kvalitetstab
+    answer: 3
+    explanation:
+      en: >-
+        Quantization stores the weights in lower precision, such as int8 or int4, to cut
+        the memory needed to load and run the model while trying to keep as much
+        accuracy as possible. At 4 bits each weight takes a quarter of the space of 16
+        bits, so about 64 GB becomes roughly 16 GB and fits, at the cost of a small drop
+        in quality. Sending patient notes to a cloud API gives up the very reason for
+        hosting the model locally. Shorter prompts and switching off the KV cache only
+        shrink the memory used while answering; the 64 GB of weights still has to be
+        loaded all the same.
+      da: >-
+        Kvantisering gemmer vægtene med lavere præcision, fx int8 eller int4, så det
+        kræver mindre hukommelse at indlæse og køre modellen, mens man forsøger at bevare
+        så meget af nøjagtigheden som muligt. Med 4 bit fylder hver vægt en fjerdedel af
+        pladsen ved 16 bit, så omkring 64 GB bliver til cirka 16 GB og kan så være i hukommelsen, mod
+        et lille fald i kvaliteten. At sende patientnotater til en cloud-API opgiver
+        netop grunden til at køre modellen lokalt. Kortere prompter eller at slå KV-cachen fra sparer kun den hukommelse, der bruges, mens der svares; de 64 GB vægte
+        skal stadig indlæses under alle omstændigheder.
+    difficulty: 2
+    sources:
+      - title: Hugging Face Transformers documentation — Quantization overview
+        url: https://huggingface.co/docs/transformers/main/en/quantization/overview
+        tier: official-doc
+    draft: true
+  - id: aiinfra-pause-before-answer
+    terms:
+      - ai/time-to-first-token
+      - ai/latency
+      - ai/throughput
+    kind: scenario
+    stem:
+      en: >-
+        A Danish municipality runs a citizen chatbot on its own servers. The dashboard
+        shows that the servers produce plenty of tokens per second in total, yet
+        citizens complain about a long pause before anything at all appears on screen,
+        especially when they attach long documents. Which measurement should the team
+        focus on?
+      da: >-
+        En dansk kommune kører en borgerchatbot på sine egne servere. Dashboardet viser,
+        at serverne samlet leverer masser af tokens i sekundet, men borgerne klager over
+        en lang pause, før der overhovedet kommer noget frem på skærmen — især når de
+        vedhæfter lange dokumenter. Hvilken måling bør holdet fokusere på?
+    options:
+      - en: Total throughput, raising it by grouping even more requests into each batch
+        da: Samlet gennemløb, som øges ved at samle endnu flere forespørgsler i hver batch
+      - en: Inter-token latency, the time between each word once the answer has started
+        da: Latens mellem tokens, altså tiden mellem hvert ord, når svaret er gået i gang
+      - en: Time to first token, covering queueing and processing of the whole input
+        da: Tid til første token, som dækker kø og behandling af hele inputtet
+      - en: The model's accuracy score on a benchmark of typical citizen questions
+        da: Modellens nøjagtighed på en benchmark med typiske borgerspørgsmål
+    answer: 2
+    explanation:
+      en: >-
+        NVIDIA defines time to first token as the time from submitting a query to
+        receiving the first token; it includes queueing and the prefill of the full
+        input, so it grows with long prompts such as attached documents — exactly the
+        pause citizens describe. High total throughput can coexist with a poor
+        experience: NVIDIA notes that as more requests are served concurrently, system
+        throughput rises while each user's latency increases, so bigger batches may make
+        the pause worse. Inter-token latency measures how fast the text flows once it
+        has started, which is not the complaint. Accuracy says nothing about waiting
+        time.
+      da: >-
+        NVIDIA definerer tid til første token som tiden fra forespørgslen sendes, til
+        det første token modtages; den omfatter kø og forudfyldning (prefill) af hele
+        inputtet, så den vokser med lange prompter som vedhæftede dokumenter — præcis den
+        pause, borgerne beskriver. Et højt samlet gennemløb kan godt gå hånd i hånd med en
+        dårlig oplevelse: NVIDIA bemærker, at når flere forespørgsler håndteres samtidig,
+        stiger systemets gennemløb, mens hver brugers latens vokser, så større batches kan
+        gøre pausen værre. Latens mellem tokens måler, hvor hurtigt teksten flyder, når
+        den er begyndt, og det er ikke det, der klages over. Nøjagtighed siger intet om
+        ventetid.
+    difficulty: 2
+    sources:
+      - title: NVIDIA NIM for LLMs documentation — Benchmarking metrics
+        url: https://docs.nvidia.com/nim/benchmarking/llm/latest/metrics.html
+        tier: official-doc
+    draft: true
+  - id: aiinfra-cache-miss-case-number-first
+    terms:
+      - ai/prompt-caching
+      - ai/token
+    kind: scenario
+    stem:
+      en: >-
+        A Danish bank sends its 40-page credit policy with every request to a language
+        model API and has switched on prompt caching for it. Each prompt begins with a
+        line such as "Case 2025-1234, 10:32:07", followed by the policy and then the
+        customer's question. The bill shows no cache reads at all. What is the most
+        likely cause?
+      da: >-
+        En dansk bank sender sin 40 sider lange kreditpolitik med i hver forespørgsel
+        til en sprogmodels API og har slået prompt caching til for den. Hver prompt
+        begynder med en linje som "Sag 2025-1234, 10:32:07", derefter politikken og til
+        sidst kundens spørgsmål. Regningen viser slet ingen læsninger fra cachen. Hvad er
+        den mest sandsynlige årsag?
+    options:
+      - en: The changing case line comes first, so no two prompts start the same way
+        da: Den skiftende sagslinje står først, så ingen to prompter begynder ens
+      - en: The cache is emptied after a few seconds, which is too short for any reuse
+        da: Cachen tømmes efter få sekunder, hvilket er for kort til nogen genbrug
+      - en: Prompt caching stores only the model's answers, not the text that is sent in
+        da: Prompt caching gemmer kun modellens svar, ikke den tekst, der sendes ind
+      - en: A 40-page document is too long to be kept in the cache at all
+        da: Et dokument på 40 sider er for langt til overhovedet at blive gemt i cachen
+    answer: 0
+    explanation:
+      en: >-
+        Prompt caching reuses a prompt prefix, and a cache hit requires the prompt to be
+        100 % identical up to the cached point — so if the case number and time come
+        first, every prefix differs and the provider writes a new cache entry each time
+        without ever reading one. The fix is to put the fixed policy first and the
+        changing details after it. Anthropic's default cache lifetime is five minutes,
+        not seconds. The feature saves the work done on the input prefix, which is what
+        makes later requests cheaper and faster, not the answers. Long, repeated
+        documents are the typical use case, not an obstacle.
+      da: >-
+        Prompt caching genbruger begyndelsen af en prompt, og et cachetræf kræver, at
+        prompten er 100 % identisk frem til det cachede punkt — så når sagsnummer og
+        klokkeslæt står først, er hver begyndelse forskellig, og udbyderen skriver en ny
+        post i cachen hver gang uden nogensinde at læse en. Løsningen er at sætte den
+        faste politik først og de skiftende oplysninger bagefter. Hos Anthropic er
+        cachens standardlevetid fem minutter, ikke sekunder. Funktionen gemmer arbejdet
+        med inputtets begyndelse — det er det, der gør senere forespørgsler billigere og
+        hurtigere — ikke svarene. Lange, gentagne dokumenter er det typiske
+        anvendelsestilfælde, ikke en hindring.
+    difficulty: 3
+    sources:
+      - title: Anthropic documentation — Prompt caching
+        url: https://platform.claude.com/docs/en/build-with-claude/prompt-caching
+        tier: official-doc
+    draft: true
+  - id: aiinfra-distillation-vs-quantization
+    terms:
+      - ai/knowledge-distillation
+      - ai/quantization
+    kind: compare
+    stem:
+      en: >-
+        A Danish SMV wants a smaller language model that can run on its consultants'
+        laptops. One consultant suggests quantizing the current model; another suggests
+        distilling it. What is the essential difference between the two?
+      da: >-
+        En dansk SMV vil have en mindre sprogmodel, der kan køre på konsulenternes
+        bærbare. En konsulent foreslår at kvantisere den nuværende model, en anden at
+        destillere den. Hvad er den væsentlige forskel på de to?
+    options:
+      - en: Quantizing trains a new, smaller model; distilling rounds the existing weights
+        da: Kvantisering træner en ny, mindre model; destillation afrunder de eksisterende vægte
+      - en: Quantizing stores the same weights in fewer bits; distilling trains a new, smaller model
+        da: Kvantisering gemmer de samme vægte med færre bit; destillation træner en ny, mindre model
+      - en: They are two names for the same technique of compressing a model's file
+        da: Det er to navne for den samme teknik til at komprimere en models fil
+      - en: Quantizing removes layers from the model; distilling removes rare words from its vocabulary
+        da: Kvantisering fjerner lag fra modellen; destillation fjerner sjældne ord fra dens ordforråd
+    answer: 1
+    explanation:
+      en: >-
+        Quantization keeps the model as it is but stores its weights in lower precision,
+        such as int8 or int4 instead of 16- or 32-bit floating point, to cut memory.
+        Knowledge distillation, introduced by Hinton, Vinyals and Dean, trains a separate,
+        smaller student model to reproduce the predictions of a larger teacher, so it
+        needs a training run but can give a model with far fewer parameters. The swapped
+        option reverses the two. They are different techniques that can even be
+        combined — a distilled model can later be quantized. Neither works by deleting
+        layers or vocabulary words.
+      da: >-
+        Kvantisering beholder modellen, som den er, men gemmer dens vægte med lavere
+        præcision, fx int8 eller int4 i stedet for 16- eller 32-bit kommatal, for at
+        spare hukommelse. Vidensdestillation, som Hinton, Vinyals og Dean introducerede,
+        træner en separat, mindre elevmodel til at gengive en større lærermodels
+        forudsigelser, så det kræver en træningskørsel, men kan give en model med langt
+        færre parametre. Den ombyttede mulighed vender de to om. Det er forskellige
+        teknikker, som endda kan kombineres — en destilleret model kan bagefter
+        kvantiseres. Ingen af dem virker ved at slette lag eller ord i ordforrådet.
+    difficulty: 1
+    sources:
+      - title: Hinton, Vinyals and Dean (2015), Distilling the Knowledge in a Neural Network
+        url: https://arxiv.org/abs/1503.02531
+        tier: reference
+      - title: Hugging Face Transformers documentation — Quantization overview
+        url: https://huggingface.co/docs/transformers/main/en/quantization/overview
+        tier: official-doc
+    draft: true

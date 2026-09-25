@@ -1,0 +1,316 @@
+questions:
+  - id: train-loss-bounces-learning-rate
+    terms:
+      - ai/gradient-descent
+      - ai/hyperparameter
+      - ai/loss-function
+    kind: scenario
+    stem:
+      en: >-
+        A data scientist at a Danish insurance company trains a model to estimate claim
+        amounts. Instead of falling steadily, the loss drops for a moment, then jumps up
+        and down from step to step and never settles. The data and the model look
+        fine. Which change is most likely to fix it?
+      da: >-
+        En data scientist i et dansk forsikringsselskab træner en model, der skal anslå
+        skadesbeløb. I stedet for at falde jævnt falder tabet et øjeblik og hopper
+        derefter op og ned fra skridt til skridt uden at falde til ro. Data og model ser
+        fine ud. Hvilken ændring vil mest sandsynligt løse det?
+    options:
+      - en: Run many more epochs so the loss has time to settle by itself
+        da: At køre mange flere epoker, så tabet får tid til at falde til ro af sig selv
+      - en: Raise the learning rate so each step gets past the bumps faster
+        da: At hæve læringsraten, så hvert skridt kommer hurtigere forbi bumpene
+      - en: Swap the loss function for one that always gives smaller numbers
+        da: At skifte tabsfunktionen ud med en, der altid giver mindre tal
+      - en: Lower the learning rate so each update takes a smaller step
+        da: At sænke læringsraten, så hver opdatering tager et mindre skridt
+    answer: 3
+    explanation:
+      en: >-
+        Gradient descent moves the weights a step against the gradient, and the
+        learning rate — a hyperparameter set before training — decides how big that
+        step is. Google's crash course describes exactly this picture: with a learning
+        rate that is too high the model never converges but bounces around, the loss
+        going down and then up again. A smaller step lets it settle. Raising the rate
+        makes the overshooting worse. More epochs just repeat the same oversized steps.
+        A loss function that returns smaller numbers only changes the scale of the
+        score, not whether training lands on a good solution.
+      da: >-
+        Gradientnedstigning flytter vægtene et skridt modsat gradienten, og
+        læringsraten — en hyperparameter, der fastsættes før træningen — bestemmer, hvor
+        stort skridtet er. Googles crash course beskriver netop dette billede: Er
+        læringsraten for høj, konvergerer modellen aldrig, men hopper rundt, så tabet
+        falder og stiger igen. Et mindre skridt lader den falde til ro. At hæve raten
+        får den til at skyde endnu længere over målet. Flere epoker gentager bare de samme for store skridt.
+        En tabsfunktion, der giver mindre tal, ændrer kun skalaen på scoren, ikke om
+        træningen lander på en god løsning.
+    difficulty: 2
+    sources:
+      - title: Google Machine Learning Crash Course — Linear regression, Hyperparameters
+        url: https://developers.google.com/machine-learning/crash-course/linear-regression/hyperparameters
+        tier: course-material
+    draft: true
+  - id: train-tuned-on-test-set
+    terms:
+      - ai/test-set
+      - ai/validation-set
+      - ai/hyperparameter
+    kind: scenario
+    stem:
+      en: >-
+        A team at a Danish bank builds a model to flag money-laundering cases. They
+        split the data into training and test data only. For three weeks they change
+        settings, retrain and check the score on the test data, keeping whatever scores
+        best. The final test score is 94%. Why should the bank be wary of that figure?
+      da: >-
+        Et team i en dansk bank bygger en model, der skal markere sager om mulig
+        hvidvask. De deler kun data op i trænings- og testdata. I tre uger ændrer de
+        indstillinger, træner igen og tjekker scoren på testdataene, og de beholder det,
+        der scorer bedst. Den endelige testscore er 94 %. Hvorfor bør banken være varsom
+        med det tal?
+    options:
+      - en: Because a test score should always be computed on the training data instead
+        da: Fordi en testscore altid bør beregnes på træningsdataene i stedet
+      - en: Because the choices were tuned to the test data, so it no longer counts as new
+        da: Fordi valgene er tilpasset testdataene, så de ikke længere tæller som nye
+      - en: Because three weeks of training is too short for any model to be reliable
+        da: Fordi tre ugers træning er for kort tid til, at nogen model kan være pålidelig
+      - en: Because 94% is too low for money laundering, where only a perfect 100% is acceptable
+        da: Fordi 94 % er for lidt ved hvidvask, hvor kun fejlfri 100 % kan accepteres
+    answer: 1
+    explanation:
+      en: >-
+        Every time the team picks a setting because it scored better on the test data,
+        information from that data leaks into the model. Google's crash course warns
+        that the more you use the same test set, the more likely the model closely fits
+        it, so the score overstates how the model will do on truly new cases. The fix is
+        a separate validation set for tuning, with the test set used once at the end.
+        Scoring on training data would be even more optimistic. The length of the
+        project is not the issue, and demanding 100% misses the point: the problem is
+        that the 94% itself cannot be trusted.
+      da: >-
+        Hver gang teamet vælger en indstilling, fordi den scorede bedre på testdataene,
+        siver information fra de data ind i modellen. Googles crash course advarer om,
+        at jo mere man bruger det samme testsæt, desto mere sandsynligt tilpasser
+        modellen sig netop det, så scoren overvurderer, hvordan modellen klarer sig på
+        virkelig nye sager. Løsningen er et separat valideringssæt til justeringerne,
+        mens testsættet bruges én gang til sidst. En score på træningsdata ville være
+        endnu mere optimistisk. Projektets længde er ikke problemet, og at kræve 100 %
+        rammer ved siden af: Problemet er, at man ikke kan stole på selve de 94 %.
+    difficulty: 3
+    sources:
+      - title: Google Machine Learning Crash Course — Dividing the original dataset
+        url: https://developers.google.com/machine-learning/crash-course/overfitting/dividing-datasets
+        tier: course-material
+    draft: true
+  - id: train-updates-per-epoch
+    terms:
+      - ai/epoch
+      - ai/batch-size
+    kind: concept
+    stem:
+      en: >-
+        A Danish logistics SMV trains a model on 10,000 historical deliveries. The batch
+        size is 100 and training runs for 5 epochs. How many times are the model's
+        weights updated in total?
+      da: >-
+        En dansk logistik-SMV træner en model på 10.000 historiske leveringer.
+        Batchstørrelsen er 100, og træningen kører i 5 epoker. Hvor mange gange bliver
+        modellens vægte opdateret i alt?
+    options:
+      - en: 500 — one update per batch, 100 batches per pass, over five passes
+        da: 500 — én opdatering pr. batch, 100 batches pr. gennemløb, over fem gennemløb
+      - en: 5 — one update at the end of each full pass through the deliveries
+        da: 5 — én opdatering ved slutningen af hvert fulde gennemløb af leveringerne
+      - en: 100 — one update per batch, since later passes reuse the same batches
+        da: 100 — én opdatering pr. batch, da de senere gennemløb genbruger samme batches
+      - en: 50,000 — one update per delivery in each of the five passes
+        da: 50.000 — én opdatering pr. levering i hvert af de fem gennemløb
+    answer: 0
+    explanation:
+      en: >-
+        An epoch is one full pass through the training data, and the batch size is how
+        many examples the model processes before it updates its weights once. So each
+        epoch has 10,000 / 100 = 100 updates, and five epochs give 500 — the same
+        arithmetic as Google's worked example of 1,000 examples, batch size 100 and 20
+        epochs giving 200 updates. One update per epoch would be full-batch training,
+        which a batch size of 100 rules out. Every epoch updates the weights again, so
+        the passes are not free repeats. 50,000 updates would need a batch size of 1.
+      da: >-
+        En epoke er ét fuldt gennemløb af træningsdataene, og batchstørrelsen er det
+        antal eksempler, modellen behandler, før den opdaterer sine vægte én gang. Hver
+        epoke giver altså 10.000 / 100 = 100 opdateringer, og fem epoker giver 500 —
+        samme regnestykke som Googles eksempel, hvor 1.000 eksempler, batchstørrelse
+        100 og 20 epoker giver 200 opdateringer. Én opdatering pr. epoke ville være
+        træning med hele datasættet som én batch, og det udelukker en batchstørrelse på
+        100. Hver epoke opdaterer vægtene igen, så gennemløbene er ikke gratis
+        gentagelser. 50.000 opdateringer ville kræve en batchstørrelse på 1.
+    difficulty: 2
+    sources:
+      - title: Google Machine Learning Crash Course — Linear regression, Hyperparameters
+        url: https://developers.google.com/machine-learning/crash-course/linear-regression/hyperparameters
+        tier: course-material
+      - title: Google for Developers — Machine Learning Glossary (epoch, batch size, iteration)
+        url: https://developers.google.com/machine-learning/glossary
+        tier: reference
+    draft: true
+  - id: train-chat-assistant-stages
+    terms:
+      - ai/pretraining
+      - ai/instruction-tuning
+      - ai/rlhf
+    kind: order
+    stem:
+      en: >-
+        A Danish region reads up on how the chat assistant it plans to buy was built.
+        Following the InstructGPT recipe described by OpenAI in 2022, in which order
+        were the training stages carried out?
+      da: >-
+        En dansk region sætter sig ind i, hvordan den chatassistent, den vil købe, er
+        bygget. Hvilken rækkefølge blev træningstrinnene udført i efter den
+        InstructGPT-opskrift, OpenAI beskrev i 2022?
+    options:
+      - en: Fine-tuning on human-written answers → pretraining on large text → RL on human rankings
+        da: Finjustering på menneskeskrevne svar → fortræning på store tekstmængder → RL på menneskelige rangordninger
+      - en: Pretraining on large text → RL on human rankings → fine-tuning on human-written answers
+        da: Fortræning på store tekstmængder → RL på menneskelige rangordninger → finjustering på menneskeskrevne svar
+      - en: Pretraining on large text → fine-tuning on human-written answers → RL on human rankings
+        da: Fortræning på store tekstmængder → finjustering på menneskeskrevne svar → RL på menneskelige rangordninger
+      - en: RL on human rankings → pretraining on large text → fine-tuning on human-written answers
+        da: RL på menneskelige rangordninger → fortræning på store tekstmængder → finjustering på menneskeskrevne svar
+    answer: 2
+    explanation:
+      en: >-
+        InstructGPT started from GPT-3, a model already pretrained on a large body of
+        text. It was then fine-tuned with supervised learning on demonstrations that
+        human labellers wrote, and finally further fine-tuned with reinforcement
+        learning from human feedback, using a dataset of labellers' rankings of the
+        model's outputs. Fine-tuning cannot come before pretraining, because it adapts
+        an existing model. RLHF comes last because it needs a model that already
+        answers reasonably, so that people have sensible answers to rank; Hugging
+        Face's RLHF overview likewise starts from a model that responds well to
+        instructions.
+      da: >-
+        InstructGPT tog udgangspunkt i GPT-3, en model, der allerede var fortrænet på en
+        stor mængde tekst. Derefter blev den finjusteret med superviseret læring på
+        eksempelsvar skrevet af menneskelige annotatorer og til sidst finjusteret
+        yderligere med forstærkningslæring fra menneskelig feedback ud fra
+        annotatorernes rangordninger af modellens svar. Finjustering kan ikke komme før
+        fortræning, fordi den tilpasser en model, der allerede findes. RLHF kommer
+        sidst, fordi det kræver en model, der allerede svarer nogenlunde fornuftigt, så
+        folk har brugbare svar at rangordne; Hugging Faces gennemgang af RLHF starter
+        også fra en model, der reagerer godt på instruktioner.
+    difficulty: 2
+    sources:
+      - title: Ouyang et al. (2022), Training language models to follow instructions with human feedback
+        url: https://arxiv.org/abs/2203.02155
+        tier: other
+      - title: Hugging Face — Illustrating Reinforcement Learning from Human Feedback (RLHF)
+        url: https://huggingface.co/blog/rlhf
+        tier: other
+    draft: true
+  - id: train-rlhf-labeller-task
+    terms:
+      - ai/rlhf
+      - ai/data-labeling
+    kind: scenario
+    stem:
+      en: >-
+        A Danish AI start-up hires students to help improve its Danish chat model with
+        RLHF. For each prompt, the model produces several answers. What is the students'
+        main task, and what is their work used for?
+      da: >-
+        En dansk AI-startup ansætter studerende til at hjælpe med at forbedre sin danske
+        chatmodel med RLHF. For hver prompt laver modellen flere svar. Hvad er de
+        studerendes vigtigste opgave, og hvad bruges deres arbejde til?
+    options:
+      - en: Correcting spelling in the answers, which are then added to the pretraining text
+        da: At rette stavefejl i svarene, som så lægges ind i fortræningsteksten
+      - en: Ranking the answers from best to worst, to train a model that scores answers
+        da: At rangordne svarene fra bedst til værst for at træne en model, der giver svar point
+      - en: Giving each answer a mark from 1 to 10, which is copied straight into the weights
+        da: At give hvert svar en karakter fra 1 til 10, som kopieres direkte ind i vægtene
+      - en: Writing new Danish texts from scratch, so the model has more data to read
+        da: At skrive nye danske tekster fra bunden, så modellen får flere data at læse
+    answer: 1
+    explanation:
+      en: >-
+        In RLHF, people compare and rank the model's own answers; those rankings train
+        a reward model that turns an answer into a score, and the chat model is then
+        trained with reinforcement learning to earn high scores. Hugging Face notes that
+        rankings are used because people's absolute scores are uncalibrated and noisy —
+        which is also why a 1–10 mark is the weaker design, and no score is ever copied
+        straight into the weights. Correcting spelling for the pretraining text and
+        writing new texts from scratch feed other stages, pretraining and supervised
+        fine-tuning, not the feedback step.
+      da: >-
+        I RLHF sammenligner og rangordner folk modellens egne svar; rangordningerne
+        træner en belønningsmodel, der omsætter et svar til en score, og chatmodellen
+        trænes derefter med forstærkningslæring til at opnå høje scorer. Hugging Face
+        påpeger, at man bruger rangordninger, fordi folks absolutte karakterer er
+        ukalibrerede og støjfyldte — og derfor er karakterer fra 1 til 10 det svageste
+        valg, ligesom ingen score nogensinde kopieres direkte ind i vægtene. At rette
+        stavefejl til fortræningsteksten og skrive nye tekster fra bunden hører til
+        andre trin, fortræning og superviseret finjustering, ikke feedbacktrinnet.
+    difficulty: 2
+    sources:
+      - title: Hugging Face — Illustrating Reinforcement Learning from Human Feedback (RLHF)
+        url: https://huggingface.co/blog/rlhf
+        tier: other
+      - title: Ouyang et al. (2022), Training language models to follow instructions with human feedback
+        url: https://arxiv.org/abs/2203.02155
+        tier: other
+    draft: true
+  - id: train-poor-on-training-data
+    terms:
+      - ai/underfitting
+      - ai/overfitting
+      - ai/model-training
+    kind: scenario
+    stem:
+      en: >-
+        A Danish energy company trains a small model to forecast tomorrow's power
+        consumption. Its forecasts are far off on the historical days it was trained on,
+        and just as far off on new days. The data is clean and covers several years. What is the
+        most likely problem?
+      da: >-
+        Et dansk energiselskab træner en lille model til at forudsige morgendagens
+        elforbrug. Den rammer langt ved siden af på de historiske dage, den er trænet på,
+        og lige så meget på nye dage. Data er rene og dækker flere år. Hvad er det mest
+        sandsynlige problem?
+    options:
+      - en: The model has memorised the training days, so it should be made simpler
+        da: Modellen har lært træningsdagene udenad, så den bør gøres enklere
+      - en: The test data leaked into training, so the new days look easier than they are
+        da: Testdata er sivet ind i træningen, så de nye dage ser lettere ud, end de er
+      - en: The data is too large, so the model should be trained on fewer days
+        da: Der er for mange data, så modellen bør trænes på færre dage
+      - en: The model is too simple or undertrained to capture the pattern
+        da: Modellen er for simpel eller for lidt trænet til at fange mønsteret
+    answer: 3
+    explanation:
+      en: >-
+        Poor results even on the data the model learned from point to underfitting:
+        Google's crash course describes an underfit model as one that does badly on the
+        training data because it is not complex enough to capture the pattern. The cure
+        is a more capable model, better features or more training. Memorisation is
+        overfitting, which shows as good training results and poor results on new data
+        — the opposite picture — so simplifying would make things worse. Leakage would
+        make new data look deceptively good, not equally bad. And fewer days of data
+        gives the model less to learn from.
+      da: >-
+        Dårlige resultater allerede på de data, modellen har lært af, peger på
+        undertilpasning: Googles crash course beskriver en undertilpasset model som en,
+        der klarer sig dårligt på træningsdataene, fordi den ikke er kompleks nok til at
+        fange mønsteret. Kuren er en model med mere kapacitet, bedre features eller mere
+        træning. Udenadslære er overtilpasning, som viser sig ved gode resultater på
+        træningsdata og dårlige på nye data — det modsatte billede — så en enklere model
+        ville gøre det værre. Datalæk ville få nye data til at se vildledende gode ud,
+        ikke lige så dårlige. Og færre dages data giver modellen mindre at lære af.
+    difficulty: 1
+    sources:
+      - title: Google Machine Learning Crash Course — Overfitting
+        url: https://developers.google.com/machine-learning/crash-course/overfitting/overfitting
+        tier: course-material
+    draft: true

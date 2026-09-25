@@ -1,7 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
-import { TermData } from './schema';
+import { QuestionFile, TermData } from './schema';
 
 // Terms are authored as bilingual YAML data files under src/content/terms/<domain>/.
 // The glob loader derives each entry's `id` from its path (e.g. "security/phishing").
@@ -21,4 +21,11 @@ const articles = defineCollection({
   }),
 });
 
-export const collections = { terms, articles };
+// The hand-written question bank (A90): src/content/questions/<domain>/<cluster>.yaml,
+// each file a `questions:` list. Entry id = "<domain>/<cluster>".
+const questions = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/questions' }),
+  schema: QuestionFile,
+});
+
+export const collections = { terms, articles, questions };

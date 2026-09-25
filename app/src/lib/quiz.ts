@@ -12,13 +12,21 @@
  */
 import { prerequisitesOf, type Graph, type GraphNode } from './graph-model';
 import { isDue, isWeak, type Learner } from './learner';
+import type { ClientQuestion } from './question-rules';
 import type { EdgeType } from '../schema';
 
 export type Lang = 'en' | 'da';
-export type QuestionKind = 'definition' | 'meaning' | 'relation' | 'odd-one-out' | 'true-false';
+export type QuestionKind =
+  'definition' | 'meaning' | 'relation' | 'odd-one-out' | 'true-false' | ClientQuestion['kind'];
 export type Question = {
   /** The term whose spaced-repetition record this answer updates. */
   termId: string;
+  /** Every term the answer updates, when a hand-written question tests several (A90). */
+  termIds?: string[];
+  /** Id of a hand-written question: it keeps its own repetition record (A90). */
+  bankId?: string;
+  /** Why the answer is right and the others are not (hand-written questions). */
+  explanation?: string;
   kind: QuestionKind;
   prompt: string;
   options: { id: string; label: string }[];
@@ -190,7 +198,16 @@ function varied(qs: Question[], n: number, rng: Rng): Question[] {
   return out;
 }
 
-export function makeQuizzer(graph: Graph, lang: Lang, rng: Rng = Math.random) {
+/**
+ * `bank` is the hand-written question bank for `lang` (A90, `/questions-<lang>.json`);
+ * without it every question is generated from the graph.
+ */
+export function makeQuizzer(
+  graph: Graph,
+  lang: Lang,
+  rng: Rng = Math.random,
+  bank: ClientQuestion[] = [],
+) {
   const byId = new Map(graph.nodes.map((n) => [n.id, n]));
   const edges = new Map<string, { type: EdgeType; dir: Dir; other: string }[]>();
   const add = (id: string, e: { type: EdgeType; dir: Dir; other: string }) =>
@@ -413,14 +430,49 @@ export function makeQuizzer(graph: Graph, lang: Lang, rng: Rng = Math.random) {
     );
   };
 
+  // ---- Hand-written questions (A90) ------------------------------------------------
+
+  const bankByTerm = new Map<string, ClientQuestion[]>();
+  for (const q of bank)
+    for (const t of q.terms) bankByTerm.set(t, [...(bankByTerm.get(t) ?? []), q]);
+
   /**
-   * "Check yourself" on the page of `id`: questions about it, plus definition
+   * A bank question as a quiz question. Options are shuffled (true/false keeps its
+   * order); a wrong answer links to the term the answer names, else to a tested
+   * term other than the one being practised.
+   */
+  const fromBank = (q: ClientQuestion, practised = q.terms[0]): Question => {
+    const options = q.options.map((label, i) => ({ id: String(i), label }));
+    return {
+      termId: q.terms[0],
+      termIds: q.terms,
+      bankId: q.id,
+      kind: q.kind,
+      prompt: q.stem,
+      options: q.kind === 'true-false' ? options : shuffle(options, rng),
+      answer: String(q.answer),
+      explanation: q.explanation,
+      link: q.answeredBy[0] ?? q.terms.find((t) => t !== practised) ?? q.terms[0],
+    };
+  };
+
+  /** Hand-written questions that test `id`. `onPage`: not those `id` itself answers (A79). */
+  const bankFor = (id: string, onPage = false): ClientQuestion[] =>
+    (bankByTerm.get(id) ?? []).filter((q) => !onPage || !q.answeredBy.includes(id));
+
+  /**
+   * "Check yourself" on the page of `id`: hand-written questions that test it first
+   * (never one whose answer is `id` itself, A79), then generated questions about it, plus definition
    * questions whose answers are its neighbours. Never one answered by `id` itself,
    * never `id` among the options, and never its own summary as a stem or option.
    */
   const pageQuestions = (id: string, count = 3): Question[] => {
     const t = byId.get(id);
     if (!t) return [];
+    const hand = shuffle(bankFor(id, true), rng)
+      .slice(0, count)
+      .map((q) => fromBank(q, id));
+    if (hand.length >= count) return hand;
     const self = new Set([id]);
     const near = shuffle([...neighbours(id)], rng).slice(0, 6);
     const theirs = near.flatMap((n) => [definitionOf(n, self), meaningOf(n, self)]);
@@ -431,13 +483,15 @@ export function makeQuizzer(graph: Graph, lang: Lang, rng: Rng = Math.random) {
         q.options.every((o) => o.id !== id && (!t.summary || o.label !== t.summary[lang])) &&
         (!t.summary || !q.prompt.includes(t.summary[lang])),
     );
-    return varied(all, count, rng);
+    return [...hand, ...varied(all, count - hand.length, rng)];
   };
 
   return {
     questionsAbout,
     questionsFor,
     pageQuestions,
+    bankFor,
+    fromBank,
     shuffle: <T>(xs: T[]) => shuffle(xs, rng),
     pick: <T>(xs: T[]) => pick(xs, rng),
   };
@@ -458,7 +512,9 @@ export function inScope(n: GraphNode, scope: Scope, learner: Learner): boolean {
 
 /**
  * A study session: due reviews first, then terms never practised, then the rest;
- * one question per term, rotating question kinds so the session mixes
+ * one question per term. A term with a hand-written question that is new or due
+ * (by the question's own record, A90) gets that — never the same one twice in a
+ * session; otherwise a generated one, rotating question kinds so the session mixes
  * definition → term, term → definition, relationships, odd-one-out and true/false.
  */
 export function buildSession(
@@ -475,8 +531,23 @@ export function buildSession(
   const rest = pool.filter((n) => !due.includes(n) && !fresh.includes(n));
   const order = [...quizzer.shuffle(due), ...quizzer.shuffle(fresh), ...quizzer.shuffle(rest)];
   const used = new Map<QuestionKind, number>();
+  const asked = new Set<string>();
   const qs: Question[] = [];
   for (const n of order) {
+    const hand = quizzer
+      .bankFor(n.id)
+      .filter((q) => !asked.has(q.id))
+      .filter((q) => {
+        const s = learner.questions?.[q.id];
+        return !s?.box || isDue(s, now);
+      });
+    if (hand.length) {
+      const q = quizzer.pick(hand);
+      asked.add(q.id);
+      qs.push(quizzer.fromBank(q, n.id));
+      if (qs.length >= count) break;
+      continue;
+    }
     const options = quizzer.questionsFor(n.id);
     if (!options.length) continue;
     const least = Math.min(...options.map((q) => used.get(q.kind) ?? 0));

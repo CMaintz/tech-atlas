@@ -20,7 +20,12 @@ export type TermState = {
   /** Epoch ms the status was last set or cleared (drives the status merge). Absent until set. */
   statusAt?: number;
 };
-export type Learner = { terms: Record<string, TermState> };
+/**
+ * `terms` is keyed by term id. `questions`, keyed by hand-written question id (A90),
+ * schedules each bank question on its own, so a question answered right recently
+ * is not asked again before it is due; absent until one is answered.
+ */
+export type Learner = { terms: Record<string, TermState>; questions?: Record<string, TermState> };
 
 export const STATUSES: readonly Status[] = ['know', 'familiar', 'learning', 'unknown'];
 
@@ -48,10 +53,16 @@ const stamp = (prev: number | undefined, now: number) =>
  * a wrong clock can't make its changes unbeatable.
  */
 export function parseLearner(value: unknown, now = Date.now()): Learner {
-  const terms: Record<string, TermState> = {};
-  const raw = (value as Learner | null)?.terms;
-  if (!raw || typeof raw !== 'object') return { terms };
-  for (const [id, t] of Object.entries(raw)) {
+  const raw = value as Learner | null;
+  const terms = parseStates(raw?.terms, now);
+  if (!raw?.questions || typeof raw.questions !== 'object') return { terms };
+  return { terms, questions: parseStates(raw.questions, now) };
+}
+
+function parseStates(raw: unknown, now: number): Record<string, TermState> {
+  const out: Record<string, TermState> = {};
+  if (!raw || typeof raw !== 'object') return out;
+  for (const [id, t] of Object.entries(raw as Record<string, TermState>)) {
     if (!t || typeof t !== 'object') continue;
     const num = (v: unknown) => (typeof v === 'number' && Number.isFinite(v) ? v : 0);
     const s: TermState = {
@@ -64,9 +75,9 @@ export function parseLearner(value: unknown, now = Date.now()): Learner {
     const at = (v: number) => (v > now + DAY ? now : v);
     if (typeof t.reviewed === 'number' && Number.isFinite(t.reviewed)) s.reviewed = at(t.reviewed);
     if (typeof t.statusAt === 'number' && Number.isFinite(t.statusAt)) s.statusAt = at(t.statusAt);
-    terms[id] = s;
+    out[id] = s;
   }
-  return { terms };
+  return out;
 }
 
 export function loadLearner(): Learner {
@@ -93,7 +104,21 @@ export function saveLearner(l: Learner) {
  * row (the spacing is the point). A wrong answer always sends it back to box 1.
  */
 export function recordAnswer(l: Learner, id: string, correct: boolean, now = Date.now()): Learner {
-  const prev = l.terms[id];
+  return { ...l, terms: { ...l.terms, [id]: step(l.terms[id], correct, now) } };
+}
+
+/** The same schedule for one hand-written question, keyed by its id (A90). */
+export function recordQuestion(
+  l: Learner,
+  id: string,
+  correct: boolean,
+  now = Date.now(),
+): Learner {
+  const questions = l.questions ?? {};
+  return { ...l, questions: { ...questions, [id]: step(questions[id], correct, now) } };
+}
+
+function step(prev: TermState | undefined, correct: boolean, now: number): TermState {
   const s = { ...blank(), ...prev, reviewed: stamp(prev?.reviewed, now) };
   if (!correct) {
     s.box = 1;
@@ -106,7 +131,7 @@ export function recordAnswer(l: Learner, id: string, correct: boolean, now = Dat
     }
     s.right++;
   }
-  return { terms: { ...l.terms, [id]: s } };
+  return s;
 }
 
 /** Clearing a status (undefined) is recorded too, so the clear wins a later merge. */
@@ -120,7 +145,7 @@ export function setStatus(
   const s: TermState = { ...blank(), ...prev, statusAt: stamp(prev?.statusAt, now) };
   if (status) s.status = status;
   else delete s.status;
-  return { terms: { ...l.terms, [id]: s } };
+  return { ...l, terms: { ...l.terms, [id]: s } };
 }
 
 export const isDue = (s: TermState | undefined, now = Date.now()) =>

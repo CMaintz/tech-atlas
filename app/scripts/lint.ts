@@ -7,6 +7,8 @@ import { existsSync, readFileSync } from 'node:fs';
 import { EDGE_TYPES, LAYERS, type EdgeType } from '../src/schema';
 import { checkClosedVocab } from './closed-vocab';
 import { loadTerms, makeResolver } from './load-terms';
+import { loadQuestions } from './load-questions';
+import { checkQuestions } from '../src/lib/question-rules';
 import { makeLinker } from '../src/lib/autolink';
 import { VECTORS_PATH, semanticInputs } from './semantic-inputs';
 import { compareVectors, type VectorFile } from '../src/lib/semantic';
@@ -180,6 +182,24 @@ if (!existsSync(VECTORS_PATH)) {
   }
 }
 
+// Q1–Q9 / W9–W10 the hand-written question bank (A90)
+const bank = loadQuestions();
+errors.push(...bank.errors);
+const questionCheck = checkQuestions(
+  bank.questions,
+  new Map(
+    [...terms.entries()].map(([id, t]) => [
+      id,
+      { id, term: t.term, aka: t.aka, cluster: t.cluster },
+    ]),
+  ),
+);
+errors.push(...questionCheck.errors);
+warnings.push(...questionCheck.warnings);
+const questionsByFile = new Map<string, number>();
+for (const q of bank.questions)
+  questionsByFile.set(q.file!, (questionsByFile.get(q.file!) ?? 0) + 1);
+
 // Reports
 const drafts = [...terms.values()].filter((t) => t.draft).length;
 const pct = terms.size ? Math.round((drafts / terms.size) * 100) : 0;
@@ -198,6 +218,12 @@ console.log(
     .join(' · ')}`,
 );
 console.log(`  coverage: ${[...byCluster.entries()].map(([c, n]) => `${c} ${n}`).join(' · ')}`);
+console.log(
+  `  questions: ${bank.questions.length} (${[...questionsByFile.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([f, n]) => `${f} ${n}`)
+    .join(' · ')})`,
+);
 console.log(`  clusters under ten: ${underTen.join(', ') || 'none'}`);
 console.log(
   `  depth histogram: ${depthHistogram(depths)

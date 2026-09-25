@@ -1,0 +1,321 @@
+questions:
+  - id: appsec-sqli-root-fix
+    terms:
+      - security/sql-injection
+      - security/input-validation
+      - security/web-application-firewall
+    kind: scenario
+    stem:
+      en: >-
+        The order search in a Danish web shop builds its SQL query by gluing the
+        customer's search text straight into the query string. A log shows that
+        someone searched for ' OR '1'='1 and got every customer's orders back. Which
+        change fixes the root cause?
+      da: >-
+        Ordresøgningen i en dansk webshop bygger sin SQL-forespørgsel ved at sætte
+        kundens søgetekst direkte ind i forespørgselsteksten. En log viser, at nogen
+        har søgt på ' OR '1'='1 og fået alle kunders ordrer tilbage. Hvilken ændring
+        retter den egentlige årsag?
+    options:
+      - en: Block quote marks and words such as OR and SELECT in the search field
+        da: Bloker anførselstegn og ord som OR og SELECT i søgefeltet
+      - en: Pass the search text as a parameter in a prepared statement
+        da: Send søgeteksten som parameter i en prepared statement
+      - en: Put a web application firewall in front of the web shop
+        da: Sæt en web application firewall foran webshoppen
+      - en: Hide the database's error messages from visitors to the site
+        da: Skjul databasens fejlmeddelelser for de besøgende på sitet
+    answer: 1
+    explanation:
+      en: >-
+        With a prepared statement the query and the data travel separately, so the
+        database always treats the search text as a value and never as SQL — OWASP
+        lists parameterised queries as the first-choice defence. A blocklist of
+        quotes and keywords is fragile: attackers find encodings and syntax it
+        misses, and it breaks legitimate searches such as names with an apostrophe.
+        A WAF can catch known patterns, but it sits outside the code and can be
+        bypassed, so the flaw remains. Hiding error messages only makes the attack
+        harder to see; this one returned data without any error at all.
+      da: >-
+        Med en prepared statement sendes forespørgslen og data hver for sig, så
+        databasen altid behandler søgeteksten som en værdi og aldrig som SQL — OWASP
+        nævner parametriserede forespørgsler som det foretrukne forsvar. En sortliste
+        over anførselstegn og nøgleord er skrøbelig: angribere finder kodninger og
+        syntaks, den ikke fanger, og den ødelægger lovlige søgninger som navne med
+        apostrof. En WAF kan fange kendte mønstre, men den sidder uden for koden og
+        kan omgås, så fejlen er der stadig. At skjule fejlmeddelelser gør kun
+        angrebet sværere at se; dette angreb gav data tilbage uden nogen fejl.
+    difficulty: 2
+    sources:
+      - title: OWASP Cheat Sheet Series — SQL Injection Prevention
+        url: https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html
+        tier: reference
+    draft: true
+
+  - id: appsec-stored-xss-fix
+    terms:
+      - security/cross-site-scripting
+      - security/web-application-firewall
+      - security/csrf-token
+    kind: scenario
+    stem:
+      en: >-
+        In a municipality's citizen portal, citizens can send messages to their
+        caseworker. A tester sends a message containing a small script; when the
+        caseworker opens it, the script runs in the caseworker's browser and can
+        act in the case system in the caseworker's name. Which measure fixes the
+        root cause?
+      da: >-
+        I en kommunes borgerportal kan borgerne sende beskeder til deres
+        sagsbehandler. En tester sender en besked med et lille script; når
+        sagsbehandleren åbner den, kører scriptet i sagsbehandlerens browser og kan
+        handle i sagssystemet i sagsbehandlerens navn. Hvilket tiltag retter den
+        egentlige årsag?
+    options:
+      - en: Set the HttpOnly flag on the session cookie so scripts cannot read it
+        da: Sæt HttpOnly-flaget på sessionscookien, så scripts ikke kan læse den
+      - en: Add an anti-CSRF token to the form citizens use to send messages
+        da: Tilføj et CSRF-token til den formular, borgerne sender beskeder med
+      - en: Put the portal behind a WAF with rules for known script patterns
+        da: Placer portalen bag en WAF med regler for kendte scriptmønstre
+      - en: Encode the message for its HTML context every time it is displayed
+        da: Kod beskeden til dens HTML-kontekst, hver gang den bliver vist
+    answer: 3
+    explanation:
+      en: >-
+        This is stored XSS: the message is inserted into the caseworker's page as
+        code instead of text. Encoding it for the context where it is shown makes the
+        browser display the script as harmless characters; a Content Security Policy
+        is a good extra layer, not a replacement. HttpOnly only stops scripts from
+        reading the cookie — OWASP stresses that it does not stop the script from
+        running, so it can still act as the caseworker. A CSRF token guards against
+        requests forged from other sites, not against a script inside the page. A
+        WAF is unreliable against XSS and does not remove the flaw.
+      da: >-
+        Det er stored XSS: beskeden sættes ind i sagsbehandlerens side som kode i
+        stedet for tekst. Når den kodes til den kontekst, den vises i, viser browseren
+        scriptet som harmløse tegn; en Content Security Policy er et godt ekstra lag,
+        ikke en erstatning. HttpOnly forhindrer kun scripts i at læse cookien — OWASP
+        understreger, at det ikke stopper scriptet i at køre, så det kan stadig
+        handle som sagsbehandleren. Et CSRF-token beskytter mod forespørgsler, der er
+        forfalsket fra andre sites, ikke mod et script inde på siden. En WAF er
+        upålidelig mod XSS og fjerner ikke fejlen.
+    difficulty: 2
+    sources:
+      - title: OWASP Cheat Sheet Series — Cross Site Scripting Prevention
+        url: https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
+        tier: reference
+      - title: OWASP — HttpOnly
+        url: https://community.owasp.org/HttpOnly
+        tier: reference
+    draft: true
+
+  - id: appsec-recognise-csrf
+    terms:
+      - security/cross-site-request-forgery
+      - security/csrf-token
+      - security/session-hijacking
+    kind: scenario
+    stem:
+      en: >-
+        A customer of a Danish web shop is logged in and reads a hobby forum in
+        another tab. Later she finds that her delivery address in the shop has
+        changed. The shop's log shows that the change came from her own browser and
+        IP address with her valid login cookie, right after she loaded a page on the
+        forum, and no foreign script ran on the shop's own pages. Which attack fits
+        best?
+      da: >-
+        En kunde i en dansk webshop er logget ind og læser et hobbyforum i en anden
+        fane. Senere opdager hun, at hendes leveringsadresse i shoppen er ændret.
+        Shoppens log viser, at ændringen kom fra hendes egen browser og IP-adresse med
+        hendes gyldige login-cookie, lige efter at hun åbnede en side på forummet, og
+        at der ikke kørte noget fremmed script på shoppens egne sider. Hvilket angreb
+        passer bedst?
+    options:
+      - en: Cross-site scripting (XSS)
+        da: Cross-site scripting (XSS)
+      - en: Session hijacking (taking over the session)
+        da: Session hijacking (kapring af session)
+      - en: Cross-site request forgery (CSRF)
+        da: Cross-site request forgery (CSRF)
+      - en: SQL injection
+        da: SQL injection
+    answer: 2
+    explanation:
+      en: >-
+        A page on another site made her browser send a state-changing request to the
+        shop, and the browser attached her login cookie by itself, so the shop took
+        it for her own action — the classic pattern of CSRF, stopped by an anti-CSRF
+        token on the form. XSS would need a script running on the shop's own pages,
+        which the log rules out. In session hijacking the attacker reuses a stolen
+        session from their own machine, so the request would not come from her
+        browser and IP. SQL injection attacks the database through input and does
+        not need her login at all.
+      da: >-
+        En side på et andet site fik hendes browser til at sende en ændrende
+        forespørgsel til shoppen, og browseren sendte selv hendes login-cookie med,
+        så shoppen troede, det var hende selv — det klassiske mønster for CSRF, som
+        stoppes med et CSRF-token i formularen. XSS ville kræve, at et script kørte
+        på shoppens egne sider, og det udelukker loggen. Ved session hijacking
+        genbruger angriberen en stjålet session fra sin egen maskine, så
+        forespørgslen ville ikke komme fra hendes browser og IP-adresse. SQL
+        injection angriber databasen via input og kræver slet ikke hendes login.
+    difficulty: 2
+    sources:
+      - title: OWASP Cheat Sheet Series — Cross-Site Request Forgery Prevention
+        url: https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html
+        tier: reference
+    draft: true
+
+  - id: appsec-xss-defeats-csrf-token
+    terms:
+      - security/csrf-token
+      - security/cross-site-scripting
+      - security/cross-site-request-forgery
+    kind: true-false
+    stem:
+      en: >-
+        A Danish bank protects the transfer form in its online banking with a
+        correctly built anti-CSRF token, but another page on the same site has an XSS
+        flaw. Statement: the token still stops an attacker from making transfers in
+        the customer's name.
+      da: >-
+        En dansk bank beskytter overførselsformularen i sin netbank med et korrekt
+        opbygget CSRF-token, men en anden side på samme site har en XSS-fejl.
+        Påstand: tokenet forhindrer stadig en angriber i at lave overførsler i
+        kundens navn.
+    options:
+      - en: 'True'
+        da: Sandt
+      - en: 'False'
+        da: Falsk
+    answer: 1
+    explanation:
+      en: >-
+        False. A CSRF token works because a page on another site cannot read it. An
+        XSS flaw puts the attacker's script inside the bank's own site, where it can
+        read the token from the form and send a valid transfer request with it —
+        OWASP warns that XSS can defeat all CSRF mitigation techniques. The token is
+        still right for stopping requests forged from outside, but the XSS flaw must
+        be fixed as well.
+      da: >-
+        Falsk. Et CSRF-token virker, fordi en side på et andet site ikke kan læse
+        det. En XSS-fejl placerer angriberens script inde på bankens eget site, hvor
+        det kan læse tokenet fra formularen og sende en gyldig overførsel med det —
+        OWASP advarer om, at XSS kan sætte alle CSRF-forsvar ud af spil. Tokenet er
+        stadig det rigtige mod forespørgsler forfalsket udefra, men XSS-fejlen skal
+        også rettes.
+    difficulty: 3
+    sources:
+      - title: OWASP Cheat Sheet Series — Cross-Site Request Forgery Prevention
+        url: https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html
+        tier: reference
+    draft: true
+
+  - id: appsec-owasp-idor-category
+    terms:
+      - security/owasp-top-10
+      - cs/access-control
+      - cs/authorization
+    kind: scenario
+    stem:
+      en: >-
+        A patient logs in to a region's patient portal and sees the address
+        …/journal?id=48213 in her browser. When she changes the number to 48214, she
+        sees another patient's record. Which category of the OWASP Top 10:2025 does
+        this flaw belong to?
+      da: >-
+        En patient logger ind på en regions patientportal og ser adressen
+        …/journal?id=48213 i sin browser. Da hun ændrer tallet til 48214, ser hun en
+        anden patients journal. Hvilken kategori i OWASP Top 10:2025 hører fejlen
+        til?
+    options:
+      - en: A01 Broken Access Control
+        da: A01 Broken Access Control (brudt adgangskontrol)
+      - en: A05 Injection
+        da: A05 Injection (indsprøjtning af kode)
+      - en: A07 Authentication Failures
+        da: A07 Authentication Failures (fejl i autentificering)
+      - en: A02 Security Misconfiguration
+        da: A02 Security Misconfiguration (fejlkonfiguration)
+    answer: 0
+    explanation:
+      en: >-
+        The portal never checks whether the logged-in patient may see the record she
+        asks for; OWASP lists viewing someone else's account by changing its
+        identifier (an insecure direct object reference) under A01 Broken Access
+        Control. Her login worked as intended, so it is not an authentication
+        failure: the system knew who she was but did not check what she may do. No
+        code was smuggled into a query, so it is not injection, and the flaw is in
+        the application's own logic rather than in a setting or default.
+      da: >-
+        Portalen tjekker aldrig, om den indloggede patient må se den journal, hun
+        beder om; OWASP placerer det at se en andens konto ved at ændre dens id (en
+        insecure direct object reference) under A01 Broken Access Control. Hendes
+        login virkede som tilsigtet, så det er ikke en autentificeringsfejl: systemet
+        vidste, hvem hun var, men tjekkede ikke, hvad hun måtte. Der blev ikke
+        smuglet kode ind i en forespørgsel, så det er ikke injection, og fejlen
+        ligger i applikationens egen logik og ikke i en indstilling eller en
+        standardværdi.
+    difficulty: 2
+    sources:
+      - title: OWASP Top 10:2025
+        url: https://top10.owasp.org/2025
+        tier: reference
+      - title: OWASP Top 10:2025 — A01 Broken Access Control
+        url: https://top10.owasp.org/2025/A01_2025-Broken_Access_Control/
+        tier: reference
+    draft: true
+
+  - id: appsec-sdl-order
+    terms:
+      - security/secure-development-lifecycle
+      - security/threat-modelling
+    kind: order
+    stem:
+      en: >-
+        A Danish software house introduces a secure development lifecycle for a new
+        case system it is building for a municipality. In which order do these
+        security activities belong?
+      da: >-
+        Et dansk softwarehus indfører en sikker udviklingslivscyklus for et nyt
+        sagssystem, det udvikler til en kommune. I hvilken rækkefølge hører disse
+        sikkerhedsaktiviteter til?
+    options:
+      - en: Threat modelling → Security requirements → Code review and static analysis → Monitoring and response
+        da: Trusselsmodellering → Sikkerhedskrav → Kodegennemgang og statisk analyse → Overvågning og respons
+      - en: Security requirements → Code review and static analysis → Threat modelling → Monitoring and response
+        da: Sikkerhedskrav → Kodegennemgang og statisk analyse → Trusselsmodellering → Overvågning og respons
+      - en: Security requirements → Threat modelling → Code review and static analysis → Monitoring and response
+        da: Sikkerhedskrav → Trusselsmodellering → Kodegennemgang og statisk analyse → Overvågning og respons
+      - en: Code review and static analysis → Security requirements → Threat modelling → Monitoring and response
+        da: Kodegennemgang og statisk analyse → Sikkerhedskrav → Trusselsmodellering → Overvågning og respons
+    answer: 2
+    explanation:
+      en: >-
+        In Microsoft's SDL, security requirements come first and inform the design;
+        threat models are made during design; code review and static analysis verify
+        the written code before release; and monitoring and response follow once the
+        system is live. Threat modelling before the requirements has nothing to
+        measure the design against. Moving it after the code review is the classic
+        "bolt-on" mistake: design flaws are found only when the code is written and
+        fixing them is most expensive. Reviewing code before there are requirements
+        or a design means there is nothing yet to check it against.
+      da: >-
+        I Microsofts SDL kommer sikkerhedskravene først og former designet;
+        trusselsmodeller laves under designet; kodegennemgang og statisk analyse
+        efterprøver den skrevne kode før frigivelse; og overvågning og respons følger,
+        når systemet er i drift. Trusselsmodellering før kravene har intet at måle
+        designet op imod. At lægge den efter kodegennemgangen er den klassiske fejl
+        med at skrue sikkerheden på bagefter: designfejl findes først, når koden er
+        skrevet, og de er dyrest at rette. Gennemgang af kode, før der er krav eller
+        design, betyder, at der endnu ikke er noget at holde den op imod.
+    difficulty: 1
+    sources:
+      - title: Microsoft Learn — Microsoft Security Development Lifecycle (SDL)
+        url: https://learn.microsoft.com/en-us/compliance/assurance/assurance-microsoft-security-development-lifecycle
+        tier: official-doc
+      - title: NIST SP 800-218 — Secure Software Development Framework (SSDF)
+        url: https://csrc.nist.gov/pubs/sp/800/218/final
+        tier: standard
+    draft: true

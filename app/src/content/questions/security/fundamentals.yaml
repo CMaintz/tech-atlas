@@ -1,0 +1,443 @@
+questions:
+  - id: fund-ddos-selfservice-availability
+    terms:
+      - security/availability
+      - security/cia-triad
+      - security/denial-of-service
+    kind: scenario
+    stem:
+      en: >-
+        On the first day for applying for a place in after-school care, a Danish
+        municipality's self-service site is flooded with traffic from thousands of
+        hijacked devices. For six hours parents only get time-out errors. The
+        investigation later shows that no data was read, copied or changed. Which
+        property of the CIA triad did the attack hit?
+      da: >-
+        På den første dag, hvor man kan søge plads i SFO, bliver en kommunes
+        selvbetjeningsløsning oversvømmet med trafik fra tusindvis af kaprede enheder.
+        I seks timer får forældrene kun fejlbeskeder om time-out. Undersøgelsen viser
+        bagefter, at ingen data blev læst, kopieret eller ændret. Hvilken egenskab i
+        CIA-triaden ramte angrebet?
+    options:
+      - en: Confidentiality
+        da: Fortrolighed
+      - en: Integrity
+        da: Integritet
+      - en: Availability
+        da: Tilgængelighed
+      - en: Non-repudiation
+        da: Uafviselighed
+    answer: 2
+    explanation:
+      en: >-
+        A DDoS attack stops legitimate users from getting timely and reliable access
+        to a service, which is exactly what availability protects — the parents could
+        not use the site when they needed it. Confidentiality would be hit if someone
+        had read or leaked the applications, and integrity if data had been altered,
+        but the investigation ruled both out. Non-repudiation is about proving who did
+        something, and it is not one of the three CIA properties.
+      da: >-
+        Et DDoS-angreb forhindrer legitime brugere i at få rettidig og pålidelig
+        adgang til en tjeneste, og det er netop det, tilgængelighed beskytter —
+        forældrene kunne ikke bruge løsningen, da de havde brug for den. Fortroligheden
+        ville være ramt, hvis nogen havde læst eller lækket ansøgningerne, og
+        integriteten, hvis data var blevet ændret, men begge dele blev udelukket.
+        Uafviselighed handler om at kunne bevise, hvem der gjorde noget, og er ikke en
+        af de tre egenskaber i CIA-triaden.
+    difficulty: 1
+    sources:
+      - title: NIST CSRC Glossary — Availability
+        url: https://csrc.nist.gov/glossary/term/availability
+        tier: standard
+      - title: Cyber Security Fast Track — kursuskompendium
+        tier: course-material
+    draft: true
+
+  - id: fund-payroll-account-numbers-integrity
+    terms:
+      - security/integrity
+      - security/cia-triad
+      - security/security-incident
+    kind: scenario
+    stem:
+      en: >-
+        At a Danish region, someone changes the bank account numbers of twelve
+        employees in the payroll file just before it is sent to the bank, so their
+        salaries go to accounts controlled by criminals. No outsider ever read the
+        file's contents, and the payroll system stayed up the whole time. Which
+        property of the CIA triad was mainly broken?
+      da: >-
+        I en region ændrer nogen kontonumrene for tolv medarbejdere i lønfilen, lige
+        før den sendes til banken, så deres løn ender på konti, som kriminelle styrer.
+        Ingen uvedkommende fik nogensinde læst filens indhold, og lønsystemet kørte
+        hele tiden. Hvilken
+        egenskab i CIA-triaden blev først og fremmest brudt?
+    options:
+      - en: Integrity
+        da: Integritet
+      - en: Confidentiality
+        da: Fortrolighed
+      - en: Availability
+        da: Tilgængelighed
+      - en: Authentication
+        da: Autentifikation
+    answer: 0
+    explanation:
+      en: >-
+        Integrity means information stays correct and is protected against improper
+        change; here the account numbers were altered without permission, so the file
+        was no longer correct. Confidentiality is not the main issue, because nothing
+        was disclosed — no outsider read the file. Availability was not hit
+        either, as the system kept running. Authentication (checking who a user is)
+        may be the weakness that let the change happen, but it is not a CIA property
+        and not what the incident broke.
+      da: >-
+        Integritet betyder, at information forbliver korrekt og er beskyttet mod
+        uautoriserede ændringer; her blev kontonumrene ændret uden tilladelse, så
+        filen var ikke længere korrekt. Fortroligheden er ikke hovedproblemet, for
+        intet blev videregivet — ingen uvedkommende læste filen. Tilgængeligheden blev
+        heller ikke ramt, for systemet kørte videre. Autentifikation (at kontrollere,
+        hvem en bruger er) kan være den svaghed, der gjorde ændringen mulig, men det er
+        ikke en egenskab i CIA-triaden og ikke det, hændelsen brød.
+    difficulty: 2
+    sources:
+      - title: NIST CSRC Glossary — Integrity
+        url: https://csrc.nist.gov/glossary/term/integrity
+        tier: standard
+      - title: NIST CSRC Glossary — Confidentiality
+        url: https://csrc.nist.gov/glossary/term/confidentiality
+        tier: standard
+      - title: Cyber Security Fast Track — kursuskompendium
+        tier: course-material
+    draft: true
+
+  - id: fund-unpatched-vpn-risk-terms
+    terms:
+      - security/vulnerability
+      - security/threat
+      - security/exploit
+      - security/risk
+      - cs/patch
+    kind: scenario
+    stem:
+      en: >-
+        A Danish SME's remote-access VPN gateway is still missing a security update
+        for a known flaw. Ransomware groups are scanning the internet for exactly this
+        flaw, and ready-made attack code for it is published online. The CFO
+        estimates a successful attack is fairly likely and would halt production for
+        a week. In a risk assessment, which element of the situation is the
+        vulnerability?
+      da: >-
+        En dansk SMV's VPN-gateway til fjernadgang mangler stadig en
+        sikkerhedsopdatering for en kendt fejl. Ransomwaregrupper scanner internettet
+        efter netop den fejl, og færdig angrebskode til den ligger offentligt på
+        nettet. Økonomichefen vurderer, at et vellykket angreb er ret sandsynligt og
+        vil stoppe produktionen i en uge. Hvilket element i situationen er sårbarheden
+        i en risikovurdering?
+    options:
+      - en: The ransomware groups scanning the internet for the flaw
+        da: Ransomwaregrupperne, der scanner internettet efter fejlen
+      - en: The published attack code that makes use of the flaw
+        da: Den offentliggjorte angrebskode, der udnytter fejlen
+      - en: The fairly high chance of a week-long production stop
+        da: Den ret store chance for et produktionsstop på en uge
+      - en: The unpatched flaw in the company's VPN gateway
+        da: Den ikke-rettede fejl i virksomhedens VPN-gateway
+    answer: 3
+    explanation:
+      en: >-
+        A vulnerability is a weakness in a system that a threat source can exploit —
+        here the missing update on the VPN gateway. The ransomware groups are the
+        threat (or threat actor): the source of potential harm, not the weakness. The
+        published code is an exploit, the tool that turns the weakness into access.
+        The combination of how likely an attack is and how much a week-long stop
+        would hurt is the risk, which is built from threat, vulnerability, likelihood
+        and impact together.
+      da: >-
+        En sårbarhed er en svaghed i et system, som en trussel kan udnytte — her den
+        manglende opdatering på VPN-gatewayen. Ransomwaregrupperne er truslen (eller
+        trusselsaktøren): kilden til mulig skade, ikke selve svagheden. Den
+        offentliggjorte kode er et exploit, værktøjet der gør svagheden til adgang.
+        Kombinationen af, hvor sandsynligt et angreb er, og hvor ondt et ugelangt stop
+        vil gøre, er risikoen, som bygges op af trussel, sårbarhed, sandsynlighed og
+        konsekvens tilsammen.
+    difficulty: 2
+    sources:
+      - title: NIST CSRC Glossary — Vulnerability
+        url: https://csrc.nist.gov/glossary/term/vulnerability
+        tier: standard
+      - title: NIST CSRC Glossary — Threat
+        url: https://csrc.nist.gov/glossary/term/threat
+        tier: standard
+      - title: NIST CSRC Glossary — Risk
+        url: https://csrc.nist.gov/glossary/term/risk
+        tier: standard
+      - title: Exploit Database
+        url: https://www.exploit-db.com/
+        tier: reference
+      - title: Cyber Security Fast Track — kursuskompendium
+        tier: course-material
+    draft: true
+
+  - id: fund-credential-stuffing-webshop-mfa
+    terms:
+      - security/credential-stuffing
+      - security/mfa
+      - cs/password
+    kind: scenario
+    stem:
+      en: >-
+        A week after a foreign fitness app leaked its users' e-mail addresses and
+        passwords, a Danish webshop sees tens of thousands of logins from many
+        different IP addresses. Each account is tried only once, and a few hundred
+        logins succeed at the first attempt. Which measure would best stop these
+        account takeovers?
+      da: >-
+        En uge efter at en udenlandsk fitness-app har lækket brugernes mailadresser og
+        adgangskoder, ser en dansk webshop titusindvis af loginforsøg fra mange
+        forskellige IP-adresser. Hver konto prøves kun én gang, og et par hundrede
+        logins lykkes i første forsøg. Hvilket tiltag vil bedst stoppe disse
+        kontoovertagelser?
+    options:
+      - en: Lock each account after five failed login attempts
+        da: Spær hver konto efter fem mislykkede loginforsøg
+      - en: Require multi-factor authentication when customers log in
+        da: Kræv multifaktorgodkendelse, når kunderne logger ind
+      - en: Require new passwords to be at least 16 characters long
+        da: Kræv, at nye adgangskoder er mindst 16 tegn lange
+      - en: Block the IP address ranges of the country the leak came from
+        da: Bloker IP-adresserne i det land, lækket kom fra
+    answer: 1
+    explanation:
+      en: >-
+        This is credential stuffing: username and password pairs leaked from another
+        service are replayed, and they work because customers reused their password.
+        OWASP calls multi-factor authentication by far the best defence, because a
+        correct stolen password is no longer enough on its own. Locking accounts after
+        failed attempts does not help when each account is tried once with the right
+        password. Longer passwords do not matter when the attacker already knows the
+        password, and blocking one country fails because the attempts come from many
+        different IP addresses.
+      da: >-
+        Det er credential stuffing: par af brugernavne og adgangskoder, der er lækket
+        fra en anden tjeneste, bliver afprøvet igen, og de virker, fordi kunderne har
+        genbrugt deres adgangskode. OWASP kalder multifaktorgodkendelse langt det bedste
+        forsvar, fordi en korrekt stjålet adgangskode ikke længere er nok alene. At
+        spærre konti efter mislykkede forsøg hjælper ikke, når hver konto kun prøves
+        én gang med den rigtige adgangskode. Længere adgangskoder er ligegyldige, når
+        angriberen allerede kender adgangskoden, og at blokere ét land virker ikke,
+        fordi forsøgene kommer fra mange forskellige IP-adresser.
+    difficulty: 2
+    sources:
+      - title: OWASP Cheat Sheet Series — Credential Stuffing Prevention
+        url: https://cheatsheetseries.owasp.org/cheatsheets/Credential_Stuffing_Prevention_Cheat_Sheet.html
+        tier: reference
+    draft: true
+
+  - id: fund-hospital-lateral-movement-segmentation
+    terms:
+      - security/lateral-movement
+      - cs/network-segmentation
+      - security/perimeter-security
+    kind: scenario
+    stem:
+      en: >-
+        An attacker has taken over a receptionist's PC at a Danish regional hospital
+        through a malicious attachment. The hospital network is flat, so from that PC
+        the attacker can connect directly to file servers, other staff PCs and the
+        servers behind the patient systems. Which measure most directly limits how
+        far the attacker can spread from this first PC?
+      da: >-
+        En angriber har overtaget en receptionists pc på et regionshospital via en
+        ondsindet vedhæftet fil. Hospitalets netværk er fladt, så fra pc'en kan
+        angriberen forbinde sig direkte til filservere, andre medarbejderes pc'er og de
+        servere, der ligger bag patientsystemerne. Hvilket tiltag begrænser mest
+        direkte, hvor langt angriberen kan sprede sig fra den første pc?
+    options:
+      - en: A stronger firewall between the hospital network and the internet
+        da: En stærkere firewall mellem hospitalets netværk og internettet
+      - en: More frequent backups of the file servers and patient systems
+        da: Hyppigere backup af filserverne og patientsystemerne
+      - en: Segmentation of the hospital network into separate zones
+        da: Opdeling af hospitalets netværk i adskilte zoner
+      - en: Phishing awareness training for all staff at the front desk
+        da: Awareness-træning i phishing for alt personale i receptionen
+    answer: 2
+    explanation:
+      en: >-
+        Spreading from the first compromised machine to others is lateral movement,
+        and MITRE ATT&CK lists network segmentation as a mitigation because it
+        restricts which systems can talk to each other once an attacker is inside. A
+        stronger edge firewall is perimeter security: it guards the way in, but the
+        attacker is already past it. Backups help the hospital recover afterwards but
+        do not stop the spread. Awareness training may prevent the next infected
+        attachment, but it does nothing about an attacker who already controls a PC.
+      da: >-
+        At sprede sig fra den første kompromitterede maskine til andre er lateral
+        bevægelse, og MITRE ATT&CK nævner netværkssegmentering som modtiltag, fordi det
+        begrænser, hvilke systemer der kan tale sammen, når en angriber først er
+        inde. En stærkere firewall ud mod internettet er perimetersikkerhed: den
+        vogter indgangen, men angriberen er allerede forbi den. Backup hjælper
+        hospitalet med at komme sig bagefter, men stopper ikke spredningen.
+        Awareness-træning kan forhindre den næste inficerede vedhæftning, men gør intet
+        ved en angriber, der allerede styrer en pc.
+    difficulty: 2
+    sources:
+      - title: MITRE ATT&CK — Lateral Movement (TA0008)
+        url: https://attack.mitre.org/tactics/TA0008/
+        tier: reference
+      - title: MITRE ATT&CK — Network Segmentation (M1030)
+        url: https://attack.mitre.org/mitigations/M1030/
+        tier: reference
+    draft: true
+
+  - id: fund-governance-vs-operations-utility
+    terms:
+      - security/governance
+      - security/it-operations
+      - security/security-policy
+    kind: compare
+    stem:
+      en: >-
+        At a Danish utility company, four security activities take place in the same
+        month. Which of them is governance rather than day-to-day management and
+        operation of security?
+      da: >-
+        I et dansk forsyningsselskab foregår der fire sikkerhedsaktiviteter i samme
+        måned. Hvilken af dem er governance frem for daglig ledelse og drift af
+        sikkerheden?
+    options:
+      - en: IT operations installs this month's security patches on the servers
+        da: IT-driften installerer månedens sikkerhedsopdateringer på serverne
+      - en: The security coordinator runs a phishing test and reports the click rate
+        da: Sikkerhedskoordinatoren kører en phishingtest og rapporterer klikraten
+      - en: The IT manager picks a new firewall product within the approved budget
+        da: IT-chefen vælger et nyt firewallprodukt inden for det godkendte budget
+      - en: The board approves the security policy and the acceptable risk level
+        da: Bestyrelsen godkender sikkerhedspolitikken og den acceptable risiko
+    answer: 3
+    explanation:
+      en: >-
+        Governance is how leadership steers security: setting strategy and policy,
+        deciding how much risk is acceptable, assigning responsibility and overseeing
+        the result — which is what the NIST CSF 2.0 Govern function describes and
+        what the board does here. Installing patches is IT operations carrying out
+        the work. The phishing test is the coordinator managing and measuring a
+        security activity. Choosing a firewall within an approved budget is a
+        management decision that works inside the direction governance has already
+        set.
+      da: >-
+        Governance er den måde, ledelsen styrer sikkerheden på: fastlægger strategi og
+        politik, beslutter, hvor meget risiko der kan accepteres, fordeler ansvar og
+        fører tilsyn med resultatet — det er det, Govern-funktionen i NIST CSF 2.0
+        beskriver, og det, bestyrelsen gør her. At installere opdateringer er IT-drift,
+        der udfører arbejdet. Phishingtesten er koordinatoren, der styrer og måler en
+        sikkerhedsaktivitet. At vælge en firewall inden for et godkendt budget er en
+        ledelsesbeslutning, der arbejder inden for den retning, governance allerede har
+        sat.
+    difficulty: 2
+    sources:
+      - title: NIST Cybersecurity Framework (CSF) 2.0 (NIST CSWP 29)
+        url: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf
+        tier: standard
+      - title: Cyber Security Fast Track — kursuskompendium
+        tier: course-material
+    draft: true
+
+  - id: fund-server-room-flood-heat-map
+    terms:
+      - security/likelihood
+      - security/impact
+      - security/risk
+    kind: scenario
+    stem:
+      en: >-
+        A Danish water utility runs its control systems from a basement server room.
+        In 30 years it has flooded only once, but a new flood would stop the water
+        treatment control for about a week. Where does this risk belong on the
+        utility's likelihood-and-impact heat map?
+      da: >-
+        Et dansk vandværk kører sine styresystemer fra et serverrum i kælderen. På 30
+        år er det kun blevet oversvømmet én gang, men en ny oversvømmelse vil stoppe
+        styringen af vandbehandlingen i omkring en uge. Hvor hører denne risiko hjemme
+        på vandværkets heat map over sandsynlighed og konsekvens?
+    options:
+      - en: High likelihood and low impact
+        da: Høj sandsynlighed og lav konsekvens
+      - en: Low likelihood and high impact
+        da: Lav sandsynlighed og høj konsekvens
+      - en: High likelihood and high impact
+        da: Høj sandsynlighed og høj konsekvens
+      - en: Low likelihood and low impact
+        da: Lav sandsynlighed og lav konsekvens
+    answer: 1
+    explanation:
+      en: >-
+        Risk combines two separate questions: how likely the event is and how much
+        harm it would do if it happened. Once in 30 years is a low likelihood, while a
+        week without control of water treatment is a severe impact on a critical
+        service, so the risk sits in the low-likelihood, high-impact corner. Rating it
+        low on both mixes up rare with harmless, and rating likelihood high confuses
+        the size of the damage with how often it happens. A risk like this is often
+        still treated, for example by moving the equipment or transferring the risk,
+        because the impact is so large.
+      da: >-
+        Risiko kombinerer to forskellige spørgsmål: hvor sandsynlig hændelsen er, og
+        hvor stor skade den vil gøre, hvis den sker. Én gang på 30 år er en lav
+        sandsynlighed, mens en uge uden styring af vandbehandlingen er en alvorlig
+        konsekvens for en kritisk tjeneste, så risikoen ligger i hjørnet med lav
+        sandsynlighed og høj konsekvens. At vurdere begge som lave blander sjælden
+        sammen med harmløs, og at vurdere sandsynligheden som høj forveksler
+        skadens størrelse med, hvor tit den sker. En sådan risiko bliver ofte alligevel
+        håndteret, fx ved at flytte udstyret eller overføre risikoen, fordi
+        konsekvensen er så stor.
+    difficulty: 1
+    sources:
+      - title: NIST CSRC Glossary — Risk
+        url: https://csrc.nist.gov/glossary/term/risk
+        tier: standard
+      - title: Cyber Security Fast Track — kursuskompendium
+        tier: course-material
+    draft: true
+
+  - id: fund-defence-in-depth-one-strong-firewall
+    terms:
+      - security/defence-in-depth
+      - security/perimeter-security
+    kind: true-false
+    stem:
+      en: >-
+        A Danish municipality follows the principle of defence in
+        depth if it buys the strongest firewall on the market for its internet
+        connection and therefore needs no other security layers inside the network.
+      da: >-
+        En kommune følger princippet om lagdelt sikkerhed, hvis den
+        køber markedets stærkeste firewall til sin internetforbindelse og derfor ikke
+        har brug for andre sikkerhedslag inde i netværket.
+    options:
+      - en: 'True'
+        da: Sandt
+      - en: 'False'
+        da: Falsk
+    answer: 1
+    explanation:
+      en: >-
+        False. Defence in depth means stacking several different, independent layers
+        — people, technology and processes — so that an attack one layer misses is
+        caught by another, as NIST describes it. Relying on a single strong barrier at
+        the edge is perimeter security: once an attacker gets past the firewall, for
+        example through a phishing e-mail, nothing else stops them. Layers such as MFA,
+        network segmentation, patching and logging are what give depth.
+      da: >-
+        Falsk. Lagdelt sikkerhed betyder at stable flere forskellige, uafhængige lag —
+        mennesker, teknologi og processer — så et angreb, som ét lag overser, bliver
+        fanget af et andet, som NIST beskriver det. At stole på én stærk barriere ved
+        kanten er perimetersikkerhed: kommer en angriber forbi firewallen, fx via en
+        phishingmail, er der intet andet, der stopper vedkommende. Lag som MFA,
+        netværkssegmentering, opdateringer og logning er det, der giver dybde.
+    difficulty: 1
+    sources:
+      - title: NIST CSRC Glossary — Defense-in-Depth
+        url: https://csrc.nist.gov/glossary/term/defense_in_depth
+        tier: standard
+    draft: true

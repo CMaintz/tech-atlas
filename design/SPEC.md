@@ -391,9 +391,25 @@ language**.
 
 ---
 
-## 9. Learning (built — generated from the data)
+## 9. Learning (built — generated from the data, plus a hand-written bank)
 
-Built after v1.0 (A34–A37) exactly as the data model intended: nothing is hand-authored.
+Built after v1.0 (A34–A37) exactly as the data model intended: the quizzes fall out of
+the graph. Beside them sits one hand-authored layer, the **question bank** (A90).
+
+- **Hand-written question bank** (A90) — researched questions in
+  `src/content/questions/<folder>/<cluster>.yaml` (schema `Question`, rules in
+  `content/AUTHORING.md`): `terms` (what it tests), `kind` (scenario / concept /
+  compare / order / true-false), bilingual stem, four options (two for true/false),
+  `answer`, an explanation of why the answer is right and the tempting ones wrong,
+  `difficulty`, sources, `draft`. Mostly scenarios in Danish workplaces. Served as
+  `/questions-<lang>.json` (no sources; `answeredBy` = tested terms the correct option
+  names, derived). A term page's and the Explorer panel's *Check yourself* show the
+  term's hand-written questions first, never one whose answer is the term itself (the
+  A79 rule), then generated ones; study sessions give a term its hand-written question
+  when that question is new or due (each question has its own Leitner record, keyed by
+  id, beside the term's), else a generated one, never the same question twice. A
+  hand-written answer updates every term it tests. The explanation shows after
+  answering. Lint Q1–Q9 / W9–W10 check it.
 
 - **Quizzes generated from edges** (A79) — two families of question. *About* a term
   X, where the answer is always another term: its relationships in both directions

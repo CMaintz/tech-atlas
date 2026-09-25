@@ -1,0 +1,397 @@
+questions:
+  - id: airisk-webcam-emotion-workplace
+    terms:
+      - ai/eu-ai-act
+      - ai/ai-governance
+    kind: scenario
+    stem:
+      en: >-
+        A Danish SMV running a customer-service centre wants to buy an AI tool that
+        uses the agents' webcams to read their facial expressions during calls and
+        infer whether they are stressed, bored or irritated. Team leaders would see a
+        mood score for each employee. How does the EU AI Act treat this use?
+      da: >-
+        En dansk SMV med et kundecenter vil købe et AI-værktøj, der via medarbejdernes
+        webcams aflæser deres ansigtsudtryk under opkald og vurderer, om de er
+        stressede, keder sig eller er irriterede. Teamlederne vil kunne se en
+        humørscore for hver medarbejder. Hvordan behandler EU's AI-forordning denne
+        brug?
+    options:
+      - en: High-risk, because it is used to monitor and evaluate workers
+        da: Højrisiko, fordi det bruges til at overvåge og vurdere medarbejdere
+      - en: Allowed, as long as employees are told the system is running
+        da: Tilladt, så længe medarbejderne får at vide, at systemet kører
+      - en: Prohibited, because it infers emotions of people at work
+        da: Forbudt, fordi det udleder følelser hos mennesker på arbejdspladsen
+      - en: Minimal risk, because a person still decides what happens next
+        da: Minimal risiko, fordi et menneske stadig beslutter, hvad der skal ske
+    answer: 2
+    explanation:
+      en: >-
+        Article 5(1)(f) bans AI systems that infer the emotions of people in the
+        workplace or in education, except for medical or safety reasons — a mood score
+        for call-centre agents is exactly that, and the ban has applied since 2
+        February 2025. Worker monitoring in general is high-risk under Annex III
+        point 4, but a prohibited practice is not rescued by meeting high-risk
+        duties. Telling people about emotion recognition is the Article 50(3) duty
+        for uses outside work and school; here information is not enough. Human
+        decision-making does not lower the tier either.
+      da: >-
+        Artikel 5, stk. 1, litra f, forbyder AI-systemer, der udleder følelser hos
+        personer på arbejdspladsen eller i uddannelsesinstitutioner, medmindre det
+        sker af medicinske eller sikkerhedsmæssige grunde — en humørscore for
+        kundecentermedarbejdere er netop det, og forbuddet har gældet siden 2.
+        februar 2025. Overvågning af medarbejdere er generelt højrisiko efter bilag
+        III, punkt 4, men en forbudt praksis bliver ikke lovlig af at opfylde
+        højrisikokravene. Pligten til at oplyse om følelsesgenkendelse i artikel 50,
+        stk. 3, gælder brug uden for arbejde og uddannelse; her er oplysning ikke
+        nok. At et menneske træffer beslutningen, sænker heller ikke risikoniveauet.
+    difficulty: 2
+    sources:
+      - title: AI Act, Article 5 — Prohibited AI practices
+        url: https://artificialintelligenceact.eu/article/5/
+        tier: reference
+      - title: AI Act, Article 50 — Transparency obligations
+        url: https://artificialintelligenceact.eu/article/50/
+        tier: reference
+      - title: AI Act, Article 113 — Entry into force and application
+        url: https://artificialintelligenceact.eu/article/113/
+        tier: reference
+    draft: true
+
+  - id: airisk-cv-ranking-profiling
+    terms:
+      - ai/eu-ai-act
+      - ai/ai-bias
+    kind: scenario
+    stem:
+      en: >-
+        A Danish municipality's HR department considers a tool that reads every
+        application for caseworker jobs, builds a profile of each applicant and
+        ranks them, so that only the top 20 reach a human. The vendor argues it is
+        not high-risk under the AI Act because it only does a "preparatory task" and
+        a person makes the final choice. Who is right?
+      da: >-
+        En kommunes HR-afdeling overvejer et værktøj, der læser alle ansøgninger til
+        sagsbehandlerstillinger, laver en profil af hver ansøger og rangerer dem, så
+        kun de 20 bedste når frem til et menneske. Leverandøren mener, at det ikke er
+        højrisiko efter AI-forordningen, fordi det kun udfører en "forberedende
+        opgave", og et menneske træffer det endelige valg. Hvem har ret?
+    options:
+      - en: The vendor — a preparatory task always falls outside high-risk
+        da: Leverandøren — en forberedende opgave falder altid uden for højrisiko
+      - en: Not the vendor — it is high-risk as it profiles applicants
+        da: Ikke leverandøren — det er højrisiko, fordi det profilerer ansøgere
+      - en: Neither — ranking job applicants is a prohibited practice
+        da: Ingen af dem — at rangere jobansøgere er en forbudt praksis
+      - en: Neither — the AI Act does not cover public-sector recruitment
+        da: Ingen af dem — AI-forordningen dækker ikke offentlig rekruttering
+    answer: 1
+    explanation:
+      en: >-
+        Annex III point 4 lists AI used to analyse and filter job applications and
+        evaluate candidates, and Article 6(2) makes Annex III systems high-risk.
+        Article 6(3) lets some Annex III systems escape, for example a narrow
+        procedural task or a preparatory task, but it also says a system that profiles natural persons is
+        always high-risk — and ranking applicants on a built profile is profiling.
+        Recruitment tools are regulated, not banned; the Article 5 bans cover things
+        like social scoring and emotion recognition at work. The Act applies to
+        public bodies as well as companies.
+      da: >-
+        Bilag III, punkt 4, omfatter AI, der analyserer og filtrerer jobansøgninger
+        og vurderer kandidater, og artikel 6, stk. 2, gør systemer i bilag III til
+        højrisiko. Artikel 6, stk. 3, lader visse bilag III-systemer slippe, fx ved
+        en snæver proceduremæssig opgave eller en forberedende opgave, men fastslår også, at et system, der
+        profilerer fysiske personer, altid er højrisiko — og at rangere ansøgere ud
+        fra en opbygget profil er profilering. Rekrutteringsværktøjer er reguleret,
+        ikke forbudt; forbuddene i artikel 5 gælder fx social scoring og
+        følelsesgenkendelse på arbejdspladsen. Forordningen gælder både for
+        myndigheder og virksomheder.
+    difficulty: 3
+    sources:
+      - title: AI Act, Article 6 — Classification rules for high-risk AI systems
+        url: https://artificialintelligenceact.eu/article/6/
+        tier: reference
+      - title: AI Act, Annex III — High-risk AI systems referred to in Article 6(2)
+        url: https://artificialintelligenceact.eu/annex/3/
+        tier: reference
+      - title: AI Act, Article 5 — Prohibited AI practices
+        url: https://artificialintelligenceact.eu/article/5/
+        tier: reference
+    draft: true
+
+  - id: airisk-waste-chatbot-obligation
+    terms:
+      - ai/eu-ai-act
+    kind: scenario
+    stem:
+      en: >-
+        A Danish municipality builds its own AI chatbot that answers citizens'
+        questions about waste collection and recycling on the municipal website.
+        Which AI Act rule applies to this chatbot?
+      da: >-
+        En kommune udvikler selv en AI-chatbot, der besvarer borgernes spørgsmål om
+        affaldsindsamling og genbrug på kommunens hjemmeside. Hvilken regel i
+        AI-forordningen gælder for chatbotten?
+    options:
+      - en: Citizens must be told that they are talking to an AI system
+        da: Borgerne skal have at vide, at de taler med et AI-system
+      - en: It is a high-risk system because it talks directly to citizens
+        da: Den er et højrisikosystem, fordi den taler direkte med borgerne
+      - en: It is prohibited because it is used by a public authority
+        da: Den er forbudt, fordi den bruges af en offentlig myndighed
+      - en: None, because the chatbot makes no decisions about citizens
+        da: Ingen, fordi chatbotten ikke træffer afgørelser om borgerne
+    answer: 0
+    explanation:
+      en: >-
+        Article 50(1) requires AI systems that interact directly with people to be
+        designed so that those people are told they are dealing with an AI system,
+        unless that is obvious from the context. Talking to people does not make a
+        system high-risk: high-risk status comes from the use areas listed in Annex
+        III, such as recruitment or credit scoring, and bin collection is not one of
+        them. The Article 5 bans target specific practices such as social scoring,
+        not public-sector use as such. And the transparency duty applies even though
+        the chatbot decides nothing.
+      da: >-
+        Artikel 50, stk. 1, kræver, at AI-systemer, der interagerer direkte med
+        mennesker, indrettes, så de pågældende får at vide, at de har med et
+        AI-system at gøre, medmindre det er åbenlyst ud fra sammenhængen. At et
+        system taler med mennesker, gør det ikke til højrisiko: højrisiko følger af
+        anvendelsesområderne i bilag III, fx rekruttering eller kreditvurdering, og
+        affaldstømning er ikke et af dem. Forbuddene i artikel 5 rammer bestemte
+        former for praksis som social scoring, ikke offentlig brug som sådan. Og
+        kravet om åbenhed gælder, selv om chatbotten ikke træffer afgørelser.
+    difficulty: 1
+    sources:
+      - title: AI Act, Article 50 — Transparency obligations
+        url: https://artificialintelligenceact.eu/article/50/
+        tier: reference
+      - title: AI Act, Article 6 — Classification rules for high-risk AI systems
+        url: https://artificialintelligenceact.eu/article/6/
+        tier: reference
+      - title: AI Act, Annex III — High-risk AI systems referred to in Article 6(2)
+        url: https://artificialintelligenceact.eu/annex/3/
+        tier: reference
+    draft: true
+
+  - id: airisk-email-agent-least-privilege
+    terms:
+      - ai/excessive-agency
+      - ai/prompt-injection
+      - cs/least-privilege
+      - ai/human-in-the-loop
+    kind: scenario
+    stem:
+      en: >-
+        A Danish accounting firm gives an AI assistant full access to a shared
+        mailbox so it can summarise incoming mail. One morning it forwards a batch of
+        client invoices to an outside address: a received email contained hidden
+        text telling the assistant to do exactly that. The assistant only needs to
+        summarise. Which change best stops this from happening again?
+      da: >-
+        Et dansk revisionsfirma giver en AI-assistent fuld adgang til en fælles
+        postkasse, så den kan opsummere indgående mails. En morgen videresender den
+        en række kundefakturaer til en ekstern adresse: en modtaget mail indeholdt
+        skjult tekst, der bad assistenten om netop det. Assistenten skal kun
+        opsummere. Hvilken ændring forhindrer bedst, at det sker igen?
+    options:
+      - en: Give it read-only access and have a person approve any sending
+        da: Giv den kun læseadgang, og lad et menneske godkende al afsendelse
+      - en: Add a system-prompt rule never to follow instructions found in emails
+        da: Tilføj en regel i systemprompten om aldrig at følge instruktioner i mails
+      - en: Replace the model with a larger one that is better at spotting tricks
+        da: Skift modellen ud med en større, der er bedre til at gennemskue tricks
+      - en: Log every action the assistant takes so staff can review it weekly
+        da: Log alle assistentens handlinger, så medarbejderne kan gennemgå dem ugentligt
+    answer: 0
+    explanation:
+      en: >-
+        The attack is an indirect prompt injection, but the damage came from
+        excessive agency: an assistant that only summarises was able to send mail.
+        OWASP's advice for exactly this case is a read-only scope, plus human
+        approval for high-impact actions — then an injected instruction has nothing
+        to act with. A system-prompt rule helps but is not reliable, because
+        injected text can still override it. A bigger model is no guarantee against
+        manipulation, and a weekly log review only finds the leak after the invoices
+        are gone.
+      da: >-
+        Angrebet er en indirekte prompt injection, men skaden skyldtes overdreven
+        handlefrihed: en assistent, der kun skal opsummere, kunne sende mails. OWASP
+        anbefaler netop i dette tilfælde kun læseadgang og menneskelig godkendelse
+        af handlinger med stor konsekvens — så har en indsmuglet instruks intet at
+        handle med. En regel i systemprompten hjælper, men er ikke pålidelig, fordi
+        indsmuglet tekst stadig kan tilsidesætte den. En større model er ingen
+        garanti mod manipulation, og en ugentlig loggennemgang opdager først lækket,
+        når fakturaerne allerede er væk.
+    difficulty: 2
+    sources:
+      - title: OWASP Top 10 for LLM Applications 2025 — LLM06 Excessive Agency
+        url: https://genai.owasp.org/llmrisk/llm062025-excessive-agency/
+        tier: reference
+      - title: OWASP Top 10 for LLM Applications 2025 — LLM01 Prompt Injection
+        url: https://genai.owasp.org/llmrisk/llm01-prompt-injection/
+        tier: reference
+    draft: true
+
+  - id: airisk-postcode-proxy-bias
+    terms:
+      - ai/ai-bias
+      - ai/training-data
+      - ai/ai-governance
+    kind: scenario
+    stem:
+      en: >-
+        A Danish bank trains a model on ten years of past loan decisions. An audit
+        finds it approves fewer applicants of non-Western origin, so the team deletes
+        the nationality and country-of-birth columns and retrains. The gap barely
+        shrinks. The data still contains postcode, income and length of residence.
+        What is the most likely explanation?
+      da: >-
+        En dansk bank træner en model på ti års tidligere lånebeslutninger. En audit
+        viser, at den godkender færre ansøgere med ikke-vestlig baggrund, så teamet
+        sletter kolonnerne for statsborgerskab og fødeland og træner igen. Forskellen
+        bliver næsten ikke mindre. Dataene indeholder stadig postnummer, indkomst og
+        bopælstid i Danmark. Hvad er den mest sandsynlige forklaring?
+    options:
+      - en: The model needs more training rounds to forget the deleted columns
+        da: Modellen skal trænes flere runder for at glemme de slettede kolonner
+      - en: The audit's test set was too small to measure the change reliably
+        da: Auditens testsæt var for lille til at måle ændringen pålideligt
+      - en: The remaining columns act as stand-ins for the deleted ones
+        da: De resterende kolonner fungerer som stedfortrædere for de slettede
+      - en: The bias lies in the algorithm, so the data was never the cause
+        da: Skævheden ligger i algoritmen, så dataene var aldrig årsagen
+    answer: 2
+    explanation:
+      en: >-
+        NIST SP 1270 notes that dropping protected attributes does not remedy bias,
+        because the information can be inferred through proxy variables — its example
+        is race inferred from a zip code. Postcode and length of residence correlate
+        strongly with origin, and the historical decisions the model learns from
+        carry the old pattern. A retrained model starts from scratch, so there is
+        nothing left to forget. A small test set could blur the numbers, but it would
+        not explain a gap that persists. And the data is a central source of bias,
+        not an innocent bystander.
+      da: >-
+        NIST SP 1270 påpeger, at det ikke fjerner skævheden at udelade beskyttede
+        oplysninger, fordi de kan udledes gennem stedfortrædende variable (proxies)
+        — eksemplet er etnicitet udledt af et postnummer. Postnummer og bopælstid
+        hænger stærkt sammen med oprindelse, og de historiske beslutninger, modellen
+        lærer af, bærer det gamle mønster med sig. En gentrænet model starter forfra,
+        så der er intet at glemme. Et lille testsæt kan gøre tallene usikre, men
+        forklarer ikke en forskel, der består. Og dataene er en central kilde til
+        skævhed, ikke en uskyldig tilskuer.
+    difficulty: 2
+    sources:
+      - title: NIST SP 1270 — Towards a Standard for Identifying and Managing Bias in Artificial Intelligence
+        url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.1270.pdf
+        tier: standard
+    draft: true
+
+  - id: airisk-poisoning-vs-adversarial
+    terms:
+      - ai/data-poisoning
+      - ai/adversarial-example
+    kind: compare
+    stem:
+      en: >-
+        A security team at a Danish region is sorting threats to its AI-based
+        malware detector. What is the key difference between data poisoning and an
+        adversarial example?
+      da: >-
+        Et sikkerhedsteam i en region gennemgår truslerne mod regionens AI-baserede
+        malwaredetektor. Hvad er den afgørende forskel på dataforgiftning og et
+        adversarielt eksempel?
+    options:
+      - en: Poisoning targets language models; adversarial examples target images
+        da: Forgiftning rammer sprogmodeller; adversarielle eksempler rammer billeder
+      - en: Poisoning corrupts what the model learns; adversarial examples fool a finished model
+        da: Forgiftning ødelægger det, modellen lærer; adversarielle eksempler narrer en færdig model
+      - en: Poisoning requires direct access to the trained model's weights; adversarial examples never do
+        da: Forgiftning kræver direkte adgang til den trænede models vægte; adversarielle eksempler gør aldrig
+      - en: Poisoning is detected at once in testing; adversarial examples go unnoticed
+        da: Forgiftning opdages straks ved test; adversarielle eksempler går ubemærket hen
+    answer: 1
+    explanation:
+      en: >-
+        Data poisoning manipulates pre-training, fine-tuning or embedding data so the
+        model learns backdoors or biases; an adversarial example is a crafted input,
+        given to a model that is already trained, to make it answer wrongly. Both
+        attacks work on text, images and other data, so the type of model is not the
+        difference. Data poisoning needs only a way into the training data, not the
+        weights — slipping examples into a shared dataset is enough, and many
+        evasion attacks are black-box. And poisoning is often hard to
+        catch in testing, because a backdoor only fires on the attacker's trigger.
+      da: >-
+        Dataforgiftning manipulerer data til fortræning, finjustering eller
+        embeddings, så modellen lærer bagdøre eller skævheder; et adversarielt
+        eksempel er et tilrettelagt input til en færdigtrænet model, der får den til
+        at svare forkert. Begge angreb virker på tekst, billeder og andre data, så
+        modeltypen er ikke forskellen. Dataforgiftning kræver kun en vej ind i træningsdataene, ikke
+        vægtene — det er nok at smugle eksempler ind i et delt datasæt, og mange
+        undvigelsesangreb er black-box. Og
+        forgiftning er ofte svær at fange ved test, fordi en bagdør kun aktiveres af
+        angriberens udløser.
+    difficulty: 2
+    sources:
+      - title: OWASP Top 10 for LLM Applications 2025 — LLM04 Data and Model Poisoning
+        url: https://genai.owasp.org/llmrisk/llm042025-data-and-model-poisoning/
+        tier: reference
+      - title: NIST AI 100-2 E2025 — Adversarial Machine Learning, A Taxonomy and Terminology of Attacks and Mitigations
+        url: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-2e2025.pdf
+        tier: standard
+    draft: true
+
+  - id: airisk-nist-rmf-policy-first
+    terms:
+      - ai/ai-governance
+      - security/risk-management
+    kind: concept
+    stem:
+      en: >-
+        Before looking at any specific AI system, a Danish region's IT board adopts
+        an AI policy, decides who is accountable for each system and sets how much
+        AI risk the region will accept. Which NIST AI RMF function are they carrying
+        out?
+      da: >-
+        Før den ser på et bestemt AI-system, vedtager en regions it-bestyrelse en
+        AI-politik, beslutter, hvem der har ansvaret for hvert system, og fastlægger,
+        hvor meget AI-risiko regionen vil acceptere. Hvilken funktion i NIST AI RMF
+        udfører de?
+    options:
+      - en: Map
+        da: Map
+      - en: Measure
+        da: Measure
+      - en: Manage
+        da: Manage
+      - en: Govern
+        da: Govern
+    answer: 3
+    explanation:
+      en: >-
+        Govern builds the policies, accountability and risk tolerance that the rest
+        of AI risk management rests on, and NIST calls it a cross-cutting function
+        infused throughout the other three. Map comes later, per system: it
+        establishes the context of use and identifies risks. Measure assesses,
+        analyses or tracks the risks that Map found, and Manage prioritises and acts
+        on them. None of the work in the scenario concerns a specific system yet,
+        which points to Govern.
+      da: >-
+        Govern skaber de politikker, det ansvar og den risikotolerance, som resten af
+        AI-risikostyringen bygger på, og NIST kalder den en tværgående funktion, der
+        gennemsyrer de tre andre. Map kommer senere og for hvert system: den
+        fastlægger brugssammenhængen og identificerer risici. Measure vurderer,
+        analyserer eller følger de risici, Map har fundet, og Manage prioriterer dem
+        og handler på dem. Intet af arbejdet i scenariet handler endnu om et bestemt
+        system, og det peger på Govern.
+    difficulty: 1
+    sources:
+      - title: NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+        url: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf
+        tier: standard
+      - title: NIST — AI Risk Management Framework
+        url: https://www.nist.gov/itl/ai-risk-management-framework
+        tier: official-doc
+    draft: true

@@ -1,0 +1,312 @@
+questions:
+  - id: web-https-on-cafe-wifi
+    terms:
+      - cs/https
+      - cs/tls
+      - cs/url
+    kind: scenario
+    stem:
+      en: >-
+        A case officer at a Danish municipality sits in a café and logs in to the
+        municipality's web-based case system over HTTPS, using the café's open Wi-Fi.
+        Another guest records all the Wi-Fi traffic. What can that guest learn?
+      da: >-
+        En sagsbehandler i en dansk kommune sidder på en café og logger ind i
+        kommunens webbaserede sagssystem over HTTPS via caféens åbne wi-fi. En anden
+        gæst optager al trafikken på netværket. Hvad kan gæsten få at vide?
+    options:
+      - en: Everything she does, since an open Wi-Fi without a password is not encrypted
+        da: Alt, hvad hun laver, fordi et åbent wi-fi uden adgangskode ikke er krypteret
+      - en: The server she talks to and roughly how much data flows, not the pages
+        da: Serveren hun taler med og cirka hvor meget data der sendes, ikke siderne
+      - en: The full addresses of every page she opens, but not her password itself
+        da: De fulde adresser på hver side, hun åbner, men ikke selve hendes adgangskode
+      - en: Nothing at all, since HTTPS also hides which website she is using
+        da: Slet intet, for HTTPS skjuler også, hvilket website hun bruger
+    answer: 1
+    explanation:
+      en: >-
+        HTTPS runs all of HTTP inside TLS between her browser and the server, so the
+        request URL including path and query, headers, cookies, form fields and
+        page content are encrypted — whether or not the Wi-Fi itself is. What TLS
+        cannot hide is the lower-level addressing: the server's IP address and port,
+        often the domain name (sent in the TLS handshake as SNI), and the amount and
+        timing of traffic. So the open Wi-Fi does not expose everything, only the
+        host name rather than the full page addresses leaks, and HTTPS does not make
+        the destination invisible.
+      da: >-
+        HTTPS kører hele HTTP inde i TLS mellem hendes browser og serveren, så
+        forespørgslens URL med sti og parametre, headere, cookies, formularfelter og
+        sidernes indhold er krypteret — uanset om selve wi-fi'et er det. Hvad TLS ikke
+        kan skjule, er adresseringen på de lavere lag: serverens IP-adresse og port,
+        ofte domænenavnet (som sendes i TLS-handshaket som SNI) og mængden og
+        tidspunkterne af trafikken. Det åbne wi-fi afslører altså ikke alt, kun
+        værtsnavnet og ikke de fulde sideadresser slipper ud, og HTTPS gør ikke
+        destinationen usynlig.
+    difficulty: 2
+    sources:
+      - title: Wikipedia — HTTPS
+        url: https://en.wikipedia.org/wiki/HTTPS
+        tier: reference
+      - title: RFC 8446 — The Transport Layer Security (TLS) Protocol Version 1.3
+        url: https://www.rfc-editor.org/rfc/rfc8446
+        tier: standard
+    draft: true
+
+  - id: web-session-cookie-httponly
+    terms:
+      - cs/cookie
+      - cs/session
+      - security/session-hijacking
+    kind: scenario
+    stem:
+      en: >-
+        A penetration test of a Danish web shop finds an XSS flaw: injected
+        JavaScript can read document.cookie and send the customer's session cookie to
+        the attacker, who is then logged in as that customer. Besides fixing the XSS,
+        which cookie attribute would stop scripts from reading the session cookie?
+      da: >-
+        En penetrationstest af en dansk webshop finder en XSS-sårbarhed: Indsprøjtet
+        JavaScript kan læse document.cookie og sende kundens sessionscookie til
+        angriberen, som så er logget ind som kunden. Hvilken cookie-attribut ville,
+        ud over at rette XSS-fejlen, forhindre scripts i at læse sessionscookien?
+    options:
+      - en: Secure
+        da: Secure
+      - en: SameSite=Strict
+        da: SameSite=Strict
+      - en: Max-Age=900
+        da: Max-Age=900
+      - en: HttpOnly
+        da: HttpOnly
+    answer: 3
+    explanation:
+      en: >-
+        A cookie marked HttpOnly cannot be read through document.cookie or other
+        JavaScript APIs; the browser still sends it to the server, so the session keeps
+        working, and MDN recommends it for exactly this kind of session cookie. Secure
+        only makes the browser send the cookie over HTTPS, protecting it from
+        eavesdroppers, not from a script on the page. SameSite controls whether the
+        cookie is sent with cross-site requests, which helps against CSRF, not against
+        script on the shop's own page. Max-Age merely shortens the cookie's lifetime;
+        a stolen cookie still works until it expires.
+      da: >-
+        En cookie markeret HttpOnly kan ikke læses via document.cookie eller andre
+        JavaScript-API'er; browseren sender den stadig til serveren, så sessionen
+        virker, og MDN anbefaler den netop til sessionscookies. Secure får kun
+        browseren til at sende cookien over HTTPS og beskytter mod aflytning, ikke mod
+        et script på siden. SameSite styrer, om cookien sendes med forespørgsler på
+        tværs af sites, hvilket hjælper mod CSRF, ikke mod script på webshoppens egen
+        side. Max-Age forkorter blot cookiens levetid; en stjålet cookie virker stadig,
+        indtil den udløber.
+    difficulty: 2
+    sources:
+      - title: MDN Web Docs — Using HTTP cookies
+        url: https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
+        tier: official-doc
+    draft: true
+
+  - id: web-cors-error-on-own-api
+    terms:
+      - cs/same-origin-policy
+      - cs/rest-api
+      - cs/web-browser
+    kind: scenario
+    stem:
+      en: >-
+        A developer in a Danish region builds a booking app served from
+        https://booking.region.example that calls the region's REST API at
+        https://api.region.example with fetch(). The browser console shows a CORS
+        error and the script never gets the data, yet the very same request works in
+        Postman. What is the right fix?
+      da: >-
+        En udvikler i en dansk region bygger en bookingapp, der hentes fra
+        https://booking.region.example og kalder regionens REST API på
+        https://api.region.example med fetch(). Browserkonsollen viser en CORS-fejl,
+        og scriptet får aldrig data, men præcis samme forespørgsel virker i Postman.
+        Hvad er den rigtige løsning?
+    options:
+      - en: Let the API send Access-Control-Allow-Origin with the app's origin
+        da: Lade API'et sende Access-Control-Allow-Origin med appens oprindelse
+      - en: Restart the API server, since it is down and Postman simply fails to detect it
+        da: Genstarte API-serveren, for den er nede, og Postman opdager det bare ikke
+      - en: Ask users to switch off the same-origin policy in their browsers
+        da: Bede brugerne slå same-origin policy fra i deres browsere
+      - en: Move the API to plain http:// so the browser stops checking the origin
+        da: Flytte API'et til almindelig http://, så browseren holder op med at tjekke oprindelsen
+    answer: 0
+    explanation:
+      en: >-
+        An origin is scheme plus host plus port, so booking.region.example and
+        api.region.example are different origins even under the same parent domain.
+        The browser's same-origin policy blocks the script from reading a
+        cross-origin response unless the server allows it with CORS headers such as
+        Access-Control-Allow-Origin. Postman is not a browser and does not enforce
+        CORS, which is why the request works there — and also proves the API is up.
+        Asking users to weaken their browser is not a fix, and switching to http://
+        only changes the scheme: the origins still differ, and the traffic loses TLS.
+      da: >-
+        En oprindelse (origin) er protokol plus vært plus port, så
+        booking.region.example og api.region.example er forskellige oprindelser, selv
+        under samme overordnede domæne. Browserens same-origin policy forhindrer
+        scriptet i at læse et svar fra en anden oprindelse, medmindre serveren tillader
+        det med CORS-headere som Access-Control-Allow-Origin. Postman er ikke en
+        browser og håndhæver ikke CORS, og derfor virker forespørgslen dér — hvilket
+        også viser, at API'et kører. At bede brugerne svække deres browser er ingen
+        løsning, og http:// ændrer kun protokollen: Oprindelserne er stadig
+        forskellige, og trafikken mister TLS.
+    difficulty: 3
+    sources:
+      - title: MDN Web Docs — Cross-Origin Resource Sharing (CORS)
+        url: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+        tier: official-doc
+      - title: MDN Web Docs — Same-origin policy
+        url: https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy
+        tier: official-doc
+    draft: true
+
+  - id: web-403-on-colleagues-case
+    terms:
+      - cs/http
+      - cs/authorization
+      - cs/web-application
+    kind: scenario
+    stem:
+      en: >-
+        A caseworker at a Danish municipality opens a citizen's case in the web-based
+        case system and gets "HTTP 403 Forbidden". A colleague on another team opens
+        the same case without trouble. Both are logged in. What does the status code
+        point to?
+      da: >-
+        En sagsbehandler i en dansk kommune åbner en borgers sag i det webbaserede
+        sagssystem og får "HTTP 403 Forbidden". En kollega i et andet team åbner samme
+        sag uden problemer. Begge er logget ind. Hvad peger statuskoden på?
+    options:
+      - en: The case has been deleted, so the server can no longer find it anywhere
+        da: Sagen er blevet slettet, så serveren kan ikke længere finde den nogen steder
+      - en: The server crashed while it was handling her request
+        da: Serveren gik ned, mens den behandlede hendes forespørgsel
+      - en: The server understood the request but refuses — she lacks rights
+        da: Serveren forstod forespørgslen, men afviser den — hun mangler rettigheder
+      - en: Her login has expired, so she must sign in again to continue
+        da: Hendes login er udløbet, så hun skal logge ind igen for at fortsætte
+    answer: 2
+    explanation:
+      en: >-
+        RFC 9110 defines 403 Forbidden as the server understanding the request but
+        refusing to fulfil it; with a valid login and a colleague who can open the
+        case, the likely cause is that her role does not give access to it — an
+        authorization question for the system owner, not a technical fault. A missing
+        resource gives 404 Not Found, and an unexpected failure on the server gives
+        500 Internal Server Error. A request without valid authentication credentials
+        gives 401 Unauthorized, the code that would suggest logging in again.
+      da: >-
+        RFC 9110 definerer 403 Forbidden som, at serveren forstod forespørgslen, men
+        nægter at udføre den; når hun er logget ind, og en kollega kan åbne sagen, er
+        den sandsynlige årsag, at hendes rolle ikke giver adgang til den — et
+        autorisationsspørgsmål til systemejeren, ikke en teknisk fejl. En ressource,
+        der ikke findes, giver 404 Not Found, og en uventet fejl på serveren giver 500
+        Internal Server Error. En forespørgsel uden gyldige loginoplysninger giver 401
+        Unauthorized, som er koden, der ville pege på at logge ind igen.
+    difficulty: 1
+    sources:
+      - title: RFC 9110 — HTTP Semantics
+        url: https://www.rfc-editor.org/rfc/rfc9110
+        tier: standard
+    draft: true
+
+  - id: web-rest-change-delivery-address
+    terms:
+      - cs/rest-api
+      - cs/http
+      - cs/json
+    kind: concept
+    stem:
+      en: >-
+        A Danish web shop's REST API has one URL per order. A customer wants to
+        change only the delivery address on existing order 1234. Which request fits
+        REST conventions best?
+      da: >-
+        En dansk webshops REST API har én URL pr. ordre. En kunde vil kun ændre
+        leveringsadressen på den eksisterende ordre 1234. Hvilken forespørgsel passer
+        bedst til REST-konventionerne?
+    options:
+      - en: GET /orders/1234 with the new address added as a query parameter
+        da: GET /orders/1234 med den nye adresse tilføjet som query-parameter
+      - en: PATCH /orders/1234 with the new address as JSON in the body
+        da: PATCH /orders/1234 med den nye adresse som JSON i body
+      - en: POST /orders with the whole order and the new address as JSON
+        da: POST /orders med hele ordren og den nye adresse som JSON
+      - en: DELETE /orders/1234, then send the order again with the new address
+        da: DELETE /orders/1234 og derefter sende ordren igen med den nye adresse
+    answer: 1
+    explanation:
+      en: >-
+        In REST the order is a resource at its own URL, and the HTTP method says what
+        to do with it; PATCH (RFC 5789) asks the server to apply a set of changes to
+        that resource, which is exactly a partial update. GET is defined as a safe,
+        essentially read-only method in RFC 9110, so it must not change the order.
+        POST to the /orders collection would normally create a new order rather than
+        change 1234. Deleting and recreating the order loses its identity and history
+        and leaves a gap where the order does not exist at all.
+      da: >-
+        I REST er ordren en ressource med sin egen URL, og HTTP-metoden siger, hvad
+        der skal ske med den; PATCH (RFC 5789) beder serveren om at anvende en række
+        ændringer på ressourcen, hvilket netop er en delvis opdatering. GET er i RFC
+        9110 defineret som en sikker metode, der i det væsentlige kun læser, så den må
+        ikke ændre ordren. POST til samlingen /orders ville normalt oprette en ny
+        ordre frem for at ændre 1234. At slette og genoprette ordren mister dens
+        identitet og historik og efterlader et hul, hvor ordren slet ikke findes.
+    difficulty: 2
+    sources:
+      - title: RFC 5789 — PATCH Method for HTTP
+        url: https://www.rfc-editor.org/rfc/rfc5789
+        tier: standard
+      - title: RFC 9110 — HTTP Semantics
+        url: https://www.rfc-editor.org/rfc/rfc9110
+        tier: standard
+    draft: true
+
+  - id: web-sop-does-not-block-sending
+    terms:
+      - cs/same-origin-policy
+      - cs/web-browser
+    kind: true-false
+    stem:
+      en: >-
+        A caseworker has the municipality's webmail open in one browser tab and a
+        dubious website in another. True or false: the same-origin policy prevents
+        the dubious site's page from sending any request at all to the webmail
+        server.
+      da: >-
+        En sagsbehandler har kommunens webmail åben i én browserfane og et tvivlsomt
+        website i en anden. Sandt eller falsk: Same-origin policy forhindrer det
+        tvivlsomme sites side i overhovedet at sende forespørgsler til webmailserveren.
+    options:
+      - en: 'True'
+        da: Sandt
+      - en: 'False'
+        da: Falsk
+    answer: 1
+    explanation:
+      en: >-
+        False. The same-origin policy mainly restricts reading: the dubious page
+        cannot read the webmail's responses unless the server allows it. Cross-origin
+        writes such as links, redirects and form submissions are typically allowed,
+        so the page can still make the browser send requests to the webmail server —
+        it just cannot see what comes back. That gap is why sites need their own
+        protection against forged requests, such as anti-CSRF tokens.
+      da: >-
+        Falsk. Same-origin policy begrænser først og fremmest læsning: Den tvivlsomme
+        side kan ikke læse webmailens svar, medmindre serveren tillader det. Skrivning
+        på tværs af oprindelser som links, omdirigeringer og formularindsendelser er
+        typisk tilladt, så siden kan stadig få browseren til at sende forespørgsler
+        til webmailserveren — den kan bare ikke se, hvad der kommer tilbage. Det hul
+        er grunden til, at sites har brug for deres egen beskyttelse mod forfalskede
+        forespørgsler, fx CSRF-tokens.
+    difficulty: 2
+    sources:
+      - title: MDN Web Docs — Same-origin policy
+        url: https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy
+        tier: official-doc
+    draft: true

@@ -1,0 +1,268 @@
+questions:
+  - id: obs-trace-slow-checkout
+    terms:
+      - platform/distributed-tracing
+      - platform/telemetry
+      - platform/microservices
+      - platform/metrics
+    kind: scenario
+    stem:
+      en: >-
+        Some customers of a Danish web shop wait eight seconds at checkout, while most
+        are served in under one. Each checkout request passes through eight
+        microservices, and every team's dashboard shows normal average CPU load and
+        response times. What would best show where the time goes in the slow
+        requests?
+      da: >-
+        Nogle kunder i en dansk webshop venter otte sekunder ved betalingen, mens de
+        fleste bliver betjent på under ét. Hver betaling går gennem otte
+        microservices, og alle teams' dashboards viser normal gennemsnitlig CPU-belastning
+        og svartid. Hvad ville bedst vise, hvor tiden bliver brugt i de langsomme
+        forespørgsler?
+    options:
+      - en: Each service's own dashboard of average CPU load and average response time
+        da: Hver tjenestes eget dashboard med gennemsnitlig CPU-belastning og gennemsnitlig svartid
+      - en: The front-end web server's access log for the slow period
+        da: Frontend-webserverens adgangslog for den langsomme periode
+      - en: Traces of the slow requests, showing each service's share of the time
+        da: Traces af de langsomme forespørgsler med hver tjenestes andel af tiden
+      - en: Health checks asking every service each ten seconds whether it is up
+        da: Sundhedstjek, der hvert tiende sekund spørger hver tjeneste, om den kører
+    answer: 2
+    explanation:
+      en: >-
+        OpenTelemetry describes a distributed trace as the record of the path a single
+        request takes as it moves through multiple services, made of spans that each
+        time one step — so a trace of a slow checkout shows which of the eight
+        services used the seconds. The dashboards' averages are exactly what hides the
+        few slow requests among many fast ones. The front-end access log confirms
+        that a request took eight seconds, but not which service behind it was slow.
+        A health check only says whether a service is alive and answering, and all of
+        them are.
+      da: >-
+        OpenTelemetry beskriver en distribueret trace som registreringen af den vej,
+        én forespørgsel tager gennem flere tjenester, opbygget af spans, der hver
+        tager tid på ét trin — så en trace af en langsom betaling viser, hvilken af de
+        otte tjenester der brugte sekunderne. Dashboardenes gennemsnit er netop det,
+        der skjuler de få langsomme forespørgsler blandt mange hurtige.
+        Frontendens adgangslog bekræfter, at en forespørgsel tog otte sekunder, men
+        ikke hvilken tjeneste bagved der var langsom. Et sundhedstjek siger kun, om en
+        tjeneste lever og svarer, og det gør de alle.
+    difficulty: 1
+    sources:
+      - title: OpenTelemetry — Observability primer
+        url: https://opentelemetry.io/docs/concepts/observability-primer/
+        tier: official-doc
+      - title: OpenTelemetry — Traces
+        url: https://opentelemetry.io/docs/concepts/signals/traces/
+        tier: official-doc
+    draft: true
+  - id: obs-error-budget-spent
+    terms:
+      - platform/service-level-objective
+      - platform/service-level-agreement
+    kind: scenario
+    stem:
+      en: >-
+        A Danish web shop's internal target is that the shop is available 99.9 % of
+        the time over a rolling 30-day window. Two incidents have caused 45 minutes of
+        downtime in the current window, and the team plans a large feature release on
+        Friday. What does error-budget practice suggest?
+      da: >-
+        En dansk webshops interne mål er, at butikken er tilgængelig 99,9 % af tiden
+        over en løbende periode på 30 dage. To hændelser har givet 45 minutters nedetid
+        i den nuværende periode, og teamet planlægger en stor udgivelse af ny
+        funktionalitet på fredag. Hvad tilsiger princippet om et fejlbudget?
+    options:
+      - en: Pause risky releases and work on stability, as the 43-minute budget is spent
+        da: Stoppe risikable udgivelser og arbejde på stabilitet, da budgettet på 43 minutter er brugt
+      - en: Carry on, since 0.1 % of 30 days is about seven hours, so 45 minutes is well within it
+        da: Fortsætte, for 0,1 % af 30 dage er omkring syv timer, så 45 minutter er langt inden for
+      - en: Raise the target to 99.99 %, so the team is pushed to be more careful
+        da: Hæve målet til 99,99 %, så teamet bliver presset til at være mere forsigtigt
+      - en: Pay compensation to affected customers, since missing the target breaches a contract
+        da: Betale kompensation til de berørte kunder, fordi et overskredet mål er et kontraktbrud
+    answer: 0
+    explanation:
+      en: >-
+        The error budget is what the objective allows to fail: 0.1 % of 30 × 24 × 60 =
+        43,200 minutes is 43.2 minutes, and 45 minutes of downtime has used it up.
+        Google's SRE book describes the practice: while budget remains, releases go
+        ahead; when it is spent, releases are halted or slowed and effort goes into
+        making the system more resilient. Seven hours would be 1 %, not 0.1 %. A
+        stricter target shrinks the budget further and fixes nothing. The target is
+        internal with no stated consequence, which makes it an SLO; compensation
+        belongs to an SLA, a contract with customers.
+      da: >-
+        Fejlbudgettet er det, målet tillader at fejle: 0,1 % af 30 × 24 × 60 = 43.200
+        minutter er 43,2 minutter, og 45 minutters nedetid har brugt det op. Googles
+        SRE-bog beskriver praksissen: Så længe der er budget tilbage, kan udgivelser
+        fortsætte; når det er brugt, stoppes eller bremses udgivelserne, og kræfterne
+        går til at gøre systemet mere robust. Syv timer ville være 1 %, ikke 0,1 %. Et
+        strammere mål gør budgettet endnu mindre og løser ingenting. Målet er internt
+        og uden nogen aftalt konsekvens, og det gør det til et SLO; kompensation hører
+        til en SLA, en kontrakt med kunderne.
+    difficulty: 3
+    sources:
+      - title: Google SRE book — Embracing Risk (error budgets)
+        url: https://sre.google/sre-book/embracing-risk/
+        tier: reference
+      - title: Google SRE book — Service Level Objectives
+        url: https://sre.google/sre-book/service-level-objectives/
+        tier: reference
+    draft: true
+  - id: obs-slo-tighter-than-sla
+    terms:
+      - platform/service-level-objective
+      - platform/service-level-agreement
+    kind: compare
+    stem:
+      en: >-
+        A Danish bank's contract with its business customers promises that the
+        corporate online bank is available 99.9 % of each month, with a price
+        reduction if that is missed. The operations team itself aims for 99.95 %. Why
+        does it set its own target higher than the contract?
+      da: >-
+        En dansk banks kontrakt med erhvervskunderne lover, at erhvervsnetbanken er
+        tilgængelig 99,9 % af hver måned, med et prisnedslag hvis det ikke holder.
+        Driftsteamet sigter selv efter 99,95 %. Hvorfor sætter det sit eget mål højere
+        end kontrakten?
+    options:
+      - en: Because the contract figure is the internal goal and 99.95 % is the customer promise
+        da: Fordi kontraktens tal er det interne mål, og 99,95 % er løftet til kunderne
+      - en: Because missing the internal target also triggers the price reduction in the contract
+        da: Fordi det også udløser kontraktens prisnedslag, hvis det interne mål ikke nås
+      - en: Because the higher figure is what gets reported to customers each month
+        da: Fordi det højere tal er det, der rapporteres til kunderne hver måned
+      - en: To keep a safety margin, reacting to problems before the contract is broken
+        da: For at have en sikkerhedsmargin og reagere på problemer, før kontrakten brydes
+    answer: 3
+    explanation:
+      en: >-
+        The 99.9 % in the contract is an SLA: a promise with a consequence, here a
+        price reduction. The team's 99.95 % is an SLO, an internal objective with no
+        contractual consequence. Google's SRE book advises keeping a tighter internal
+        SLO than the one promised, so the team has room to respond to problems before
+        they become visible to customers. Swapping the two gets the roles backwards.
+        The price reduction follows only from the contract's figure, not from missing
+        the internal goal, and the internal target is not what is reported to
+        customers — the SLA is.
+      da: >-
+        De 99,9 % i kontrakten er en SLA: et løfte med en konsekvens, her et
+        prisnedslag. Teamets 99,95 % er et SLO, et internt mål uden
+        kontraktmæssig konsekvens. Googles SRE-bog anbefaler at have et strammere
+        internt SLO end det, man lover udadtil, så teamet har plads til at reagere på
+        problemer, før kunderne mærker dem. At bytte om på de to vender rollerne på
+        hovedet. Prisnedslaget følger kun af kontraktens tal, ikke af at det interne
+        mål ikke nås, og det interne mål er ikke det, der rapporteres til kunderne —
+        det er SLA'en.
+    difficulty: 2
+    sources:
+      - title: Google SRE book — Service Level Objectives
+        url: https://sre.google/sre-book/service-level-objectives/
+        tier: reference
+    draft: true
+  - id: obs-alert-fatigue-symptoms
+    terms:
+      - platform/alerting
+      - platform/monitoring
+    kind: scenario
+    stem:
+      en: >-
+        The on-call technician in a Danish municipality's IT department is paged about
+        60 times a night, mostly for "CPU above 80 %" on servers that settle down by
+        themselves. Staff have started muting their phones, and last week an outage of
+        the citizens' self-service portal went unnoticed for hours. What is the best
+        fix?
+      da: >-
+        Den vagthavende tekniker i en dansk kommunes it-afdeling bliver kaldt op omkring
+        60 gange i løbet af en nat, mest for "CPU over 80 %" på servere, der falder til
+        ro af sig selv. Medarbejderne er begyndt at slå lyden fra på telefonen, og i
+        sidste uge gik der timer, før nogen opdagede, at borgernes selvbetjeningsportal
+        var nede. Hvad er den bedste løsning?
+    options:
+      - en: Lower the CPU threshold to 70 %, so problems are caught earlier
+        da: Sænke CPU-tærsklen til 70 %, så problemerne fanges tidligere
+      - en: Page only for urgent symptoms citizens feel; send the rest to a ticket queue
+        da: Kun kalde op ved akutte symptomer, borgerne mærker; resten går i en sagskø
+      - en: Add a second person on call each night, so the pages are shared between two people
+        da: Sætte en ekstra person på vagt hver nat, så opkaldene deles mellem to personer
+      - en: Also send every alert by email, so that nothing can be missed
+        da: Også sende hver alarm på mail, så intet kan blive overset
+    answer: 1
+    explanation:
+      en: >-
+        Google's SRE book warns that when pages come too often, people skim or ignore
+        them — even a real one hidden in the noise — and says every page should be
+        urgent and actionable, with more effort spent on catching symptoms users feel
+        than on causes. A portal that is down is such a symptom; a CPU spike that
+        passes is not, so it belongs in a ticket or on a dashboard. A lower threshold
+        produces even more noise. A second person only splits the noise between two
+        tired people. Copying every alert to email adds another channel nobody reads.
+      da: >-
+        Googles SRE-bog advarer om, at når der kaldes op for tit, begynder folk at
+        skimme eller ignorere alarmerne — også en ægte alarm, der drukner i støjen — og
+        siger, at hvert opkald skal være akut og kræve handling, og at man hellere skal
+        fange de symptomer, brugerne mærker, end årsagerne. En portal, der er nede, er
+        sådan et symptom; en CPU-top, der går over, er ikke, så den hører hjemme i en
+        sag eller på et dashboard. En lavere tærskel giver endnu mere støj. En ekstra
+        person deler bare støjen mellem to trætte mennesker. At kopiere hver alarm til
+        mail tilføjer endnu en kanal, som ingen læser.
+    difficulty: 2
+    sources:
+      - title: Google SRE book — Monitoring Distributed Systems
+        url: https://sre.google/sre-book/monitoring-distributed-systems/
+        tier: reference
+    draft: true
+  - id: obs-readiness-probe-loading
+    terms:
+      - platform/health-check
+      - platform/kubernetes
+      - platform/pod
+    kind: scenario
+    stem:
+      en: >-
+        A Danish hospital's application runs on Kubernetes. After starting, each Pod
+        spends about two minutes loading large reference tables into memory. During
+        every rollout, new Pods receive requests straight away and return errors to
+        clinicians until the loading is finished. What should the team add?
+      da: >-
+        Et dansk hospitals applikation kører på Kubernetes. Efter opstart bruger hver
+        Pod omkring to minutter på at indlæse store referencetabeller i hukommelsen.
+        Ved hver udrulning får nye Pods forespørgsler med det samme og giver fejl til
+        klinikerne, indtil indlæsningen er færdig. Hvad bør teamet tilføje?
+    options:
+      - en: A readiness probe that only reports ready once the tables are loaded
+        da: En readiness probe, der først melder klar, når tabellerne er indlæst
+      - en: A liveness probe that restarts the container whenever it stops answering requests
+        da: En liveness probe, der genstarter containeren, når den holder op med at svare
+      - en: More replicas, so the requests are spread across more Pods
+        da: Flere replikaer, så forespørgslerne fordeles på flere Pods
+      - en: Higher CPU and memory limits, so each Pod finishes loading sooner
+        da: Højere grænser for CPU og hukommelse, så hver Pod bliver hurtigere færdig
+    answer: 0
+    explanation:
+      en: >-
+        The Kubernetes documentation describes exactly this case: an application that
+        must load large data during startup should not be killed, just kept from
+        traffic — and a Pod whose containers report not ready receives no traffic
+        through Kubernetes Services. A liveness probe does the opposite: when it
+        fails, the kubelet kills and restarts the container, which could restart the
+        loading over and over. More replicas still receive requests before they are
+        ready. More resources may shorten the two minutes, but traffic would still
+        arrive before loading ends.
+      da: >-
+        Kubernetes' dokumentation beskriver netop dette tilfælde: En applikation, der
+        skal indlæse store datamængder ved opstart, skal ikke slås ihjel, bare holdes
+        væk fra trafikken — og en Pod, hvis containere melder ikke klar, får ingen
+        trafik gennem Kubernetes Services. En liveness probe gør det modsatte: Når den
+        fejler, slår kubelet containeren ned og genstarter den, hvilket kan starte
+        indlæsningen forfra igen og igen. Flere replikaer får stadig forespørgsler, før
+        de er klar. Flere ressourcer kan måske forkorte de to minutter, men trafikken
+        ville stadig nå frem, før indlæsningen er færdig.
+    difficulty: 3
+    sources:
+      - title: Kubernetes documentation — Configure Liveness, Readiness and Startup Probes
+        url: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+        tier: official-doc
+    draft: true

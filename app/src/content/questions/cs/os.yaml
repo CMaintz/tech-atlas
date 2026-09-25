@@ -1,0 +1,318 @@
+questions:
+  - id: os-macro-with-admin-account
+    terms:
+      - cs/process
+      - cs/permission
+      - cs/least-privilege
+    kind: scenario
+    stem:
+      en: >-
+        A bookkeeper at a Danish SMV opens an invoice attachment and enables macros,
+        and the macro starts a hidden program. Her account is a member of the local
+        Administrators group on the PC "so she can install the bank's software
+        herself". Why does that make the infection much worse?
+      da: >-
+        En bogholder i en dansk SMV åbner en vedhæftet faktura og slår makroer til, og
+        makroen starter et skjult program. Hendes konto er medlem af den lokale
+        Administratorer-gruppe på pc'en, "så hun selv kan installere bankens
+        program". Hvorfor gør det infektionen meget værre?
+    options:
+      - en: Administrator accounts bypass the email filter, so more attachments arrive
+        da: Administratorkonti går uden om mailfilteret, så flere vedhæftninger når frem
+      - en: Macros can only run at all when the user is an administrator
+        da: Makroer kan kun køre overhovedet, når brugeren er administrator
+      - en: The antivirus program is switched off for administrator accounts
+        da: Antivirusprogrammet er slået fra for administratorkonti
+      - en: One click on "Yes" is enough to give the program full control of the PC
+        da: Ét klik på "Ja" er nok til at give programmet fuld kontrol over pc'en
+    answer: 3
+    explanation:
+      en: >-
+        Every process started on her behalf gets a copy of her access token, so the
+        hidden program has exactly her rights. With User Account Control, an
+        administrator's programs start with a standard token, but a single click on
+        the consent prompt hands them the full administrator token; a standard user
+        would instead have to type an administrator's credentials. That is why the
+        principle of least privilege says to work day to day as a standard user.
+        Email filtering and antivirus apply regardless of the account's role, and
+        macros run perfectly well for standard users too — they just get fewer
+        rights.
+      da: >-
+        Alle processer, der startes på hendes vegne, får en kopi af hendes
+        adgangstoken, så det skjulte program har præcis hendes rettigheder. Med User
+        Account Control starter en administrators programmer med et almindeligt
+        token, men ét klik i samtykkedialogen giver dem det fulde
+        administratortoken; en almindelig bruger skulle i stedet indtaste en
+        administrators loginoplysninger. Derfor siger princippet om mindste privilegium,
+        at man til daglig skal arbejde som almindelig bruger. Mailfiltrering og
+        antivirus gælder uanset kontoens rolle, og makroer kører fint for almindelige
+        brugere også — de får bare færre rettigheder.
+    difficulty: 2
+    sources:
+      - title: Access Tokens (Microsoft Learn)
+        url: https://learn.microsoft.com/en-us/windows/win32/secauthz/access-tokens
+        tier: official-doc
+      - title: How User Account Control works (Microsoft Learn)
+        url: https://learn.microsoft.com/en-us/windows/security/application-security/application-control/user-account-control/how-it-works
+        tier: official-doc
+    draft: true
+
+  - id: os-driver-crash-vs-app-crash
+    terms:
+      - cs/kernel
+      - cs/process
+      - cs/operating-system
+    kind: scenario
+    stem:
+      en: >-
+        At a hospital in a Danish region, PCs crash with a blue screen whenever a newly
+        installed label-printer driver hits a bug, whereas when the spreadsheet
+        program crashed last week, only that program closed. Why does the driver's
+        fault take down the whole PC while the program's fault did not?
+      da: >-
+        På et hospital i en dansk region går pc'erne ned med blå skærm, hver gang en
+        nyinstalleret driver til labelprinteren rammer en fejl, mens det kun var selve
+        programmet, der lukkede, da regnearksprogrammet gik ned i sidste uge. Hvorfor
+        tager driverens fejl hele pc'en med sig, når programmets fejl ikke gjorde?
+    options:
+      - en: The driver runs in kernel mode with the OS; the program runs isolated in user mode
+        da: Driveren kører i kernetilstand sammen med styresystemet; programmet kører isoleret i brugertilstand
+      - en: The driver runs with the logged-in user's rights; the program runs as administrator
+        da: Driveren kører med den indloggede brugers rettigheder; programmet kører som administrator
+      - en: The driver uses more memory than the PC has; the program uses much less
+        da: Driveren bruger mere hukommelse, end pc'en har; programmet bruger langt mindre
+      - en: The driver is started before anyone logs in; the program is started afterwards
+        da: Driveren startes, før nogen logger ind; programmet startes bagefter
+    answer: 0
+    explanation:
+      en: >-
+        Windows gives each user-mode application its own process with a private
+        virtual address space, so when it crashes, other applications and the
+        operating system are unaffected. Many drivers instead run in kernel mode,
+        where all code shares one address space; a bug there can damage the
+        operating system's data, and a crashing kernel-mode driver brings down the
+        whole system. The user's rights do not decide this — kernel code is beyond
+        such account rights, and the spreadsheet did not run as administrator.
+        Running out of memory would slow the PC or stop a program, not explain the
+        difference, and when a component starts says nothing about how far its crash
+        reaches.
+      da: >-
+        Windows giver hvert program i brugertilstand sin egen proces med et privat
+        virtuelt adresserum, så når programmet går ned, påvirker det hverken andre
+        programmer eller styresystemet. Mange drivere kører derimod i kernetilstand,
+        hvor al kode deler ét adresserum; en fejl dér kan ødelægge styresystemets
+        data, og når en driver i kernetilstand går ned, tager den hele systemet med
+        sig. Brugerens rettigheder afgør det ikke — kernekode står over den slags
+        kontorettigheder, og regnearket kørte ikke som administrator. Mangel på
+        hukommelse ville gøre pc'en langsom eller stoppe et program, ikke forklare
+        forskellen, og hvornår en komponent starter, siger intet om, hvor langt dens
+        nedbrud rækker.
+    difficulty: 2
+    sources:
+      - title: User Mode and Kernel Mode (Microsoft Learn)
+        url: https://learn.microsoft.com/en-us/windows-hardware/drivers/gettingstarted/user-mode-and-kernel-mode
+        tier: official-doc
+    draft: true
+
+  - id: os-security-log-cleared-at-night
+    terms:
+      - cs/log
+      - cs/audit
+      - cs/privileged-account
+    kind: scenario
+    stem:
+      en: >-
+        The SOC of a Danish municipality gets an alert: on a file server, Windows
+        event ID 1102 was written at 03:14 under an administrator account that is
+        normally only used during office hours. What has happened, and how should the
+        SOC treat it?
+      da: >-
+        SOC'en i en dansk kommune får en alarm: på en filserver er Windows-hændelse
+        1102 skrevet kl. 3.14 under en administratorkonto, der normalt kun bruges i
+        arbejdstiden. Hvad er der sket, og hvordan skal SOC'en behandle det?
+    options:
+      - en: The log reached its size limit and was archived; no action is needed
+        da: Loggen nåede sin maksimale størrelse og blev arkiveret; intet skal gøres
+      - en: The Security log was cleared by that account; investigate as suspicious
+        da: Sikkerhedsloggen blev ryddet af den konto; undersøg det som mistænkeligt
+      - en: The account logged on successfully at night; check whether its password is weak
+        da: Kontoen loggede ind med succes om natten; tjek, om dens adgangskode er svag
+      - en: A scheduled backup of the Security event log ran; confirm the backup finished
+        da: En planlagt backup af sikkerhedshændelsesloggen kørte; bekræft, at den blev færdig
+    answer: 1
+    explanation:
+      en: >-
+        Event 1102, "The audit log was cleared", is generated every time the Windows
+        Security audit log is cleared, and it records which account did it. Microsoft
+        notes that you should normally not see it and recommends monitoring and
+        investigating it — clearing the log at night with an admin account is a
+        classic way for an attacker to hide their tracks, which is why logs should
+        also be forwarded to a central system. It is not the event for a size limit
+        or a backup, and a successful logon is a different event (4624), not 1102.
+      da: >-
+        Hændelse 1102, "The audit log was cleared", skrives hver gang Windows'
+        sikkerhedslog bliver ryddet, og den registrerer, hvilken konto der gjorde det.
+        Microsoft skriver, at man normalt ikke bør se den, og anbefaler at overvåge og
+        undersøge den — at rydde loggen om natten med en administratorkonto er en
+        klassisk måde for en angriber at skjule sine spor på, og derfor bør logs også
+        sendes videre til et centralt system. Det er ikke hændelsen for en
+        størrelsesgrænse eller en backup, og et vellykket login er en anden hændelse
+        (4624), ikke 1102.
+    difficulty: 3
+    sources:
+      - title: 1102(S) The audit log was cleared (Microsoft Learn)
+        url: https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-1102
+        tier: official-doc
+    draft: true
+
+  - id: os-linux-config-world-readable
+    terms:
+      - cs/permission
+      - cs/file-system
+    kind: scenario
+    stem:
+      en: >-
+        On a Linux server at a Danish pension fund, the command ls -l shows the file holding the
+        database password as "-rw-r--r-- 1 root appgrp db.conf", and every directory
+        on its path is open to all users. The server also has personal accounts for
+        15 developers and an account the web server runs as. Who can read the
+        password?
+      da: >-
+        På en Linux-server i en dansk pensionskasse viser kommandoen ls -l filen med
+        databasens adgangskode som "-rw-r--r-- 1 root appgrp db.conf", og alle mapper
+        på vejen til den er åbne for alle brugere. Serveren har også personlige konti
+        til 15 udviklere og en konto, webserveren kører som. Hvem kan læse
+        adgangskoden?
+    options:
+      - en: Only root, because root is the owner of the file
+        da: Kun root, fordi det er root, der ejer filen
+      - en: Root and the members of the group appgrp
+        da: Root og medlemmerne af gruppen appgrp
+      - en: Every account on the server, the web server's included
+        da: Alle konti på serveren, også webserverens
+      - en: Nobody, because none of the three parts has the execute bit
+        da: Ingen, fordi ingen af de tre dele har execute-bitten
+    answer: 2
+    explanation:
+      en: >-
+        The mode rw-r--r-- has three parts: the owner (root) may read and write, the
+        group (appgrp) may read, and the last r-- means everyone else — "others" —
+        may read too. So all 15 developers and the web server's account can read the
+        password, not just root or the group. The execute bit decides whether a file
+        can be run as a program; it is not needed to read it. A mode such as
+        rw-r----- (640), with only the application's account in the group, would keep
+        others out.
+      da: >-
+        Tilstanden rw-r--r-- har tre dele: ejeren (root) må læse og skrive, gruppen
+        (appgrp) må læse, og det sidste r-- betyder, at alle andre — "others" — også
+        må læse. Derfor kan alle 15 udviklere og webserverens konto læse
+        adgangskoden, ikke kun root eller gruppen. Execute-bitten afgør, om en fil kan
+        køres som et program; den skal ikke til for at læse den. En tilstand som
+        rw-r----- (640), hvor kun applikationens konto er med i gruppen, ville holde
+        andre ude.
+    difficulty: 2
+    sources:
+      - title: inode(7) — Linux manual page
+        url: https://man7.org/linux/man-pages/man7/inode.7.html
+        tier: official-doc
+    draft: true
+
+  - id: os-update-pending-restart
+    terms:
+      - cs/patch
+      - cs/operating-system
+    kind: true-false
+    stem:
+      en: >-
+        At a Danish bank, an employee's laptop has shown "Restart required" for three
+        weeks after Windows Update installed a security update, because the employee
+        keeps postponing the restart. True or false: the update is already fully in
+        effect, because Windows Update has installed it.
+      da: >-
+        I en dansk bank har en medarbejders bærbare vist "Genstart påkrævet" i tre
+        uger, efter at Windows Update installerede en sikkerhedsopdatering, fordi
+        medarbejderen bliver ved med at udskyde genstarten. Sandt eller falsk:
+        opdateringen virker allerede fuldt ud, fordi Windows Update har installeret
+        den.
+    options:
+      - en: 'True'
+        da: Sandt
+      - en: 'False'
+        da: Falsk
+    answer: 1
+    explanation:
+      en: >-
+        False. Microsoft states that a device must restart to finish installing an
+        update: parts of the change are only applied during the restart, so until then
+        the laptop may still be running the old, vulnerable code. That is why
+        organisations set deadlines after which Windows restarts automatically,
+        instead of relying on users to do it. When checking patch status, "installed,
+        restart pending" should count as not yet patched.
+      da: >-
+        Falsk. Microsoft skriver, at en enhed skal genstarte for at gøre
+        installationen af en opdatering færdig: dele af ændringen tages først i brug
+        under genstarten, så indtil da kan den bærbare stadig køre den gamle, sårbare
+        kode. Derfor sætter organisationer frister, hvorefter Windows genstarter
+        automatisk, i stedet for at stole på, at brugerne gør det. Når man tjekker
+        patchstatus, bør "installeret, afventer genstart" tælle som endnu ikke
+        patchet.
+    difficulty: 1
+    sources:
+      - title: Windows Update FAQ (Microsoft Support)
+        url: https://support.microsoft.com/windows/windows-update-faq-8a903416-6f45-0718-f5c7-375e92dddeb2
+        tier: official-doc
+      - title: Manage device restarts after updates (Microsoft Learn)
+        url: https://learn.microsoft.com/en-us/windows/deployment/update/waas-restart
+        tier: official-doc
+    draft: true
+
+  - id: os-secure-boot-chain-order
+    terms:
+      - cs/secure-boot
+      - cs/kernel
+      - cs/digital-signature
+    kind: order
+    stem:
+      en: >-
+        A Danish municipality turns on UEFI Secure Boot and Windows' Trusted Boot on
+        its laptops to stop bootkits and rootkits. In which order are the start-up
+        components checked before they are allowed to run?
+      da: >-
+        En dansk kommune slår UEFI Secure Boot og Windows' Trusted Boot til på sine
+        bærbare for at stoppe bootkits og rootkits. I hvilken rækkefølge bliver
+        opstartens komponenter kontrolleret, før de må køre?
+    options:
+      - en: Kernel checks bootloader → bootloader checks firmware → firmware checks drivers
+        da: Kernen tjekker bootloaderen → bootloaderen tjekker firmwaren → firmwaren tjekker driverne
+      - en: Bootloader checks firmware → firmware checks kernel → kernel checks drivers
+        da: Bootloaderen tjekker firmwaren → firmwaren tjekker kernen → kernen tjekker driverne
+      - en: Firmware checks kernel → kernel checks bootloader → bootloader checks drivers
+        da: Firmwaren tjekker kernen → kernen tjekker bootloaderen → bootloaderen tjekker driverne
+      - en: Firmware checks bootloader → bootloader checks kernel → kernel checks drivers
+        da: Firmwaren tjekker bootloaderen → bootloaderen tjekker kernen → kernen tjekker driverne
+    answer: 3
+    explanation:
+      en: >-
+        It is a chain of trust, where each stage checks the next before handing over.
+        With Secure Boot, the UEFI firmware checks the bootloader's digital signature
+        before starting it; with Trusted Boot, the bootloader verifies the Windows
+        kernel's signature before loading it, and the kernel then verifies the rest
+        of start-up, including the boot drivers. The other orders put a component in
+        charge of checking something that has already run before it — a kernel cannot
+        vouch for the bootloader that loaded it, and a bootloader cannot vouch for
+        the firmware that started it.
+      da: >-
+        Det er en tillidskæde, hvor hvert trin tjekker det næste, før det giver
+        stafetten videre. Med Secure Boot tjekker UEFI-firmwaren bootloaderens
+        digitale signatur, før den starter den; med Trusted Boot verificerer
+        bootloaderen Windows-kernens signatur, før den indlæses, og kernen verificerer
+        derefter resten af opstarten, herunder boot-driverne. De andre rækkefølger
+        lader en komponent kontrollere noget, der allerede har kørt før den — en kerne
+        kan ikke stå inde for den bootloader, der indlæste den, og en bootloader kan
+        ikke stå inde for den firmware, der startede den.
+    difficulty: 3
+    sources:
+      - title: Secure the Windows boot process (Microsoft Learn)
+        url: https://learn.microsoft.com/en-us/windows/security/operating-system-security/system-security/secure-the-windows-10-boot-process
+        tier: official-doc
+    draft: true

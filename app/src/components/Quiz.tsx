@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'preact/hooks';
 import type { Graph } from '../lib/graph-model';
 import { buildSession, makeQuizzer, type Question, type Scope } from '../lib/quiz';
-import { loadLearner, recordAnswer, saveLearner } from '../lib/learner';
+import { loadLearner, recordAnswer, recordQuestion, saveLearner } from '../lib/learner';
+import type { ClientQuestion } from '../lib/question-rules';
 
 type Lang = 'en' | 'da';
 type Dict = Record<string, string>;
@@ -18,7 +19,17 @@ interface Props {
   count?: number;
 }
 
-/** A short quiz session, generated from the graph; every answer feeds spaced repetition. */
+/**
+ * The hand-written question bank sits next to graph.json (A90), so every caller
+ * that already passes `graphUrl` (term page, Explorer panel, study hub) gets it.
+ */
+const bankUrl = (graphUrl: string, lang: Lang) =>
+  graphUrl.replace(/graph\.json(\?.*)?$/, `questions-${lang}.json`);
+
+/**
+ * A short quiz session: hand-written questions first where a term has them, the rest
+ * generated from the graph; every answer feeds spaced repetition.
+ */
 export default function Quiz({
   lang,
   graphUrl,
@@ -29,6 +40,7 @@ export default function Quiz({
   count = 10,
 }: Props) {
   const [graph, setGraph] = useState<Graph | null>(null);
+  const [bank, setBank] = useState<ClientQuestion[] | null>(null);
   const [session, setSession] = useState<Question[] | null>(null);
   const [index, setIndex] = useState(0);
   const [chosen, setChosen] = useState<string | null>(null);
@@ -38,9 +50,17 @@ export default function Quiz({
     fetch(graphUrl)
       .then((r) => r.json())
       .then(setGraph);
-  }, [graphUrl]);
+    // No bank (missing file, offline) just means generated questions only.
+    const url = bankUrl(graphUrl, lang);
+    (url === graphUrl ? Promise.resolve([]) : fetch(url).then((r) => (r.ok ? r.json() : [])))
+      .catch(() => [])
+      .then(setBank);
+  }, [graphUrl, lang]);
 
-  const quizzer = useMemo(() => (graph ? makeQuizzer(graph, lang) : null), [graph, lang]);
+  const quizzer = useMemo(
+    () => (graph && bank ? makeQuizzer(graph, lang, Math.random, bank) : null),
+    [graph, bank, lang],
+  );
 
   const start = () => {
     if (!graph || !quizzer) return;
@@ -60,7 +80,7 @@ export default function Quiz({
     if (termId && quizzer) start();
   }, [quizzer]);
 
-  if (!graph) return <p class="text-sm text-neutral-500">{ui.loading}</p>;
+  if (!quizzer) return <p class="text-sm text-neutral-500">{ui.loading}</p>;
 
   if (!session) {
     return (
@@ -101,8 +121,12 @@ export default function Quiz({
     setChosen(id);
     const correct = id === q.answer;
     if (correct) setScore((s) => s + 1);
-    saveLearner(recordAnswer(loadLearner(), q.termId, correct));
+    let learner = loadLearner();
+    for (const t of q.termIds ?? [q.termId]) learner = recordAnswer(learner, t, correct);
+    if (q.bankId) learner = recordQuestion(learner, q.bankId, correct);
+    saveLearner(learner);
   };
+  const linkName = graph?.nodes.find((n) => n.id === q.link)?.term[lang];
   const answerLabel = q.options.find((o) => o.id === q.answer)!.label;
   // Term → definition options are whole sentences: one per row reads better.
   const long = q.options.some((o) => o.label.length > 60);
@@ -136,6 +160,10 @@ export default function Quiz({
         <div class="flex flex-wrap items-center gap-3 text-sm">
           {chosen === q.answer ? (
             <span class="text-green-400">{ui.correct}</span>
+          ) : q.explanation ? (
+            <span class="text-red-400">
+              {ui.incorrect} {answerLabel}
+            </span>
           ) : (
             <span class="text-red-400">
               {ui.incorrect}{' '}
@@ -143,6 +171,16 @@ export default function Quiz({
                 {answerLabel}
               </a>
             </span>
+          )}
+          {q.explanation && (
+            <p class="basis-full text-neutral-300">
+              {q.explanation}{' '}
+              {linkName && (
+                <a class="underline" href={`${termBase}${q.link}/`}>
+                  {ui.readAbout ?? '→'} {linkName}
+                </a>
+              )}
+            </p>
           )}
           <button
             class="rounded border border-neutral-400 px-3 py-1 hover:bg-neutral-900"
