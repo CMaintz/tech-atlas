@@ -21,9 +21,9 @@ export type QuestionKind =
 export type Question = {
   /** The term whose spaced-repetition record this answer updates. */
   termId: string;
-  /** Every term the answer updates, when a hand-written question tests several (A83). */
+  /** Every term the answer updates, when a hand-written question tests several (A90). */
   termIds?: string[];
-  /** Id of a hand-written question: it keeps its own repetition record (A83). */
+  /** Id of a hand-written question: it keeps its own repetition record (A90). */
   bankId?: string;
   /** Why the answer is right and the others are not (hand-written questions). */
   explanation?: string;
@@ -199,7 +199,7 @@ function varied(qs: Question[], n: number, rng: Rng): Question[] {
 }
 
 /**
- * `bank` is the hand-written question bank for `lang` (A83, `/questions-<lang>.json`);
+ * `bank` is the hand-written question bank for `lang` (A90, `/questions-<lang>.json`);
  * without it every question is generated from the graph.
  */
 export function makeQuizzer(
@@ -430,7 +430,7 @@ export function makeQuizzer(
     );
   };
 
-  // ---- Hand-written questions (A83) ------------------------------------------------
+  // ---- Hand-written questions (A90) ------------------------------------------------
 
   const bankByTerm = new Map<string, ClientQuestion[]>();
   for (const q of bank)
@@ -513,7 +513,7 @@ export function inScope(n: GraphNode, scope: Scope, learner: Learner): boolean {
 /**
  * A study session: due reviews first, then terms never practised, then the rest;
  * one question per term. A term with a hand-written question that is new or due
- * (by the question's own record, A83) gets that — never the same one twice in a
+ * (by the question's own record, A90) gets that — never the same one twice in a
  * session; otherwise a generated one, rotating question kinds so the session mixes
  * definition → term, term → definition, relationships, odd-one-out and true/false.
  */

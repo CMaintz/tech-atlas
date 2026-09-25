@@ -21,7 +21,7 @@ export type TermState = {
   statusAt?: number;
 };
 /**
- * `terms` is keyed by term id. `questions`, keyed by hand-written question id (A83),
+ * `terms` is keyed by term id. `questions`, keyed by hand-written question id (A90),
  * schedules each bank question on its own, so a question answered right recently
  * is not asked again before it is due; absent until one is answered.
  */
@@ -107,7 +107,7 @@ export function recordAnswer(l: Learner, id: string, correct: boolean, now = Dat
   return { ...l, terms: { ...l.terms, [id]: step(l.terms[id], correct, now) } };
 }
 
-/** The same schedule for one hand-written question, keyed by its id (A83). */
+/** The same schedule for one hand-written question, keyed by its id (A90). */
 export function recordQuestion(
   l: Learner,
   id: string,

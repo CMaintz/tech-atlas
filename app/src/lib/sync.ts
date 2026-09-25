@@ -63,7 +63,7 @@ function mergeStates(
   return out;
 }
 
-/** Union of both copies' terms (and hand-written questions, A83), merged per key. */
+/** Union of both copies' terms (and hand-written questions, A90), merged per key. */
 export function mergeLearner(a: Learner, b: Learner): Learner {
   const terms = mergeStates(a.terms, b.terms);
   if (!a.questions && !b.questions) return { terms };

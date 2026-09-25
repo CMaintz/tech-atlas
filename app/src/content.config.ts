@@ -21,7 +21,7 @@ const articles = defineCollection({
   }),
 });
 
-// The hand-written question bank (A83): src/content/questions/<domain>/<cluster>.yaml,
+// The hand-written question bank (A90): src/content/questions/<domain>/<cluster>.yaml,
 // each file a `questions:` list. Entry id = "<domain>/<cluster>".
 const questions = defineCollection({
   loader: glob({ pattern: '**/*.yaml', base: './src/content/questions' }),

@@ -182,7 +182,7 @@ if (!existsSync(VECTORS_PATH)) {
   }
 }
 
-// Q1–Q9 / W9–W10 the hand-written question bank (A83)
+// Q1–Q9 / W9–W10 the hand-written question bank (A90)
 const bank = loadQuestions();
 errors.push(...bank.errors);
 const questionCheck = checkQuestions(

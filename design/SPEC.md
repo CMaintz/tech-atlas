@@ -394,9 +394,9 @@ language**.
 ## 9. Learning (built — generated from the data, plus a hand-written bank)
 
 Built after v1.0 (A34–A37) exactly as the data model intended: the quizzes fall out of
-the graph. Beside them sits one hand-authored layer, the **question bank** (A83).
+the graph. Beside them sits one hand-authored layer, the **question bank** (A90).
 
-- **Hand-written question bank** (A83) — researched questions in
+- **Hand-written question bank** (A90) — researched questions in
   `src/content/questions/<folder>/<cluster>.yaml` (schema `Question`, rules in
   `content/AUTHORING.md`): `terms` (what it tests), `kind` (scenario / concept /
   compare / order / true-false), bilingual stem, four options (two for true/false),

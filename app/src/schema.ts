@@ -175,7 +175,7 @@ export type TermFrontmatter = z.infer<typeof TermFrontmatter>;
 export const TermData = TermFrontmatter.omit({ id: true });
 export type TermData = z.infer<typeof TermData>;
 
-/* ---- Hand-written questions (the question bank, A83) --------------- */
+/* ---- Hand-written questions (the question bank, A90) --------------- */
 
 /** A namespaced term id, as the graph, the learner and the collections key terms. */
 export const TermKey = z

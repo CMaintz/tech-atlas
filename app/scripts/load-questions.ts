@@ -1,4 +1,4 @@
-/** Load and validate every hand-written question file (A83). Shared by lint and tests. */
+/** Load and validate every hand-written question file (A90). Shared by lint and tests. */
 import fg from 'fast-glob';
 import { parse } from 'yaml';
 import { readFileSync } from 'node:fs';

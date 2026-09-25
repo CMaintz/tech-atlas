@@ -142,7 +142,7 @@ Lint E9 fails the build if a referenced article file does not exist.
 
 # Authoring questions (the question bank)
 
-Hand-written questions sit beside the quizzes generated from the graph (A83). Schema:
+Hand-written questions sit beside the quizzes generated from the graph (A90). Schema:
 `Question` / `QuestionFile` in `src/schema.ts`; rules: `src/lib/question-rules.ts`.
 
 ## File

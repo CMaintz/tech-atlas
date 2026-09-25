@@ -20,7 +20,7 @@ interface Props {
 }
 
 /**
- * The hand-written question bank sits next to graph.json (A83), so every caller
+ * The hand-written question bank sits next to graph.json (A90), so every caller
  * that already passes `graphUrl` (term page, Explorer panel, study hub) gets it.
  */
 const bankUrl = (graphUrl: string, lang: Lang) =>

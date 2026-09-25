@@ -1,5 +1,5 @@
 /**
- * The hand-written question bank (A83): content rules and the client payload.
+ * The hand-written question bank (A90): content rules and the client payload.
  * Pure — no file system, no Astro, no zod — so lint.ts, the questions.json
  * endpoint and vitest share one implementation.
  */

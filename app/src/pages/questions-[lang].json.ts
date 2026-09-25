@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import { clientQuestions, type NamedTerm } from '../lib/question-rules';
 import { LANGS, type Lang } from '../lib/site';
 
-/** The hand-written question bank for the Quiz island, per language (A83): /questions-en.json. */
+/** The hand-written question bank for the Quiz island, per language (A90): /questions-en.json. */
 export const getStaticPaths = (() =>
   LANGS.map((lang) => ({ params: { lang } }))) satisfies GetStaticPaths;
 
