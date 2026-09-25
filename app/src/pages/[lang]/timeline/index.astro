@@ -82,21 +82,23 @@ const panel = {
 };
 ---
 
-<Base lang={lang} title={ui.timeline}>
-  <div>
-    <h1 class="mb-2 text-3xl font-semibold">{ui.timeline}</h1>
-    <p class="mb-2 max-w-3xl text-neutral-400">{ui.timelineIntro}</p>
-    {undated > 0 && (
-      <p class="mb-6 text-sm text-neutral-500">
-        {undated === 1 ? ui.undatedNoteOne : ui.undatedNote.replace('{n}', String(undated))}
+<Base lang={lang} title={ui.timeline} wide>
+  <div class="px-4 py-4 sm:px-6">
+    <div class="mb-3 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+      <h1 class="text-2xl font-semibold">{ui.timeline}</h1>
+      <p class="max-w-3xl text-sm text-neutral-400">
+        {ui.timelineIntro}
+        {undated > 0 && (
+          <span class="text-neutral-500">
+            {' '}
+            {undated === 1 ? ui.undatedNoteOne : ui.undatedNote.replace('{n}', String(undated))}
+          </span>
+        )}
       </p>
-    )}
+    </div>
     {items.length === 0 && <p class="text-neutral-400">{ui.noDated}</p>}
     {items.length > 0 && (
-      <div
-        id="timeline"
-        class="sm:ml-[calc(50%-min(800px,50vw-1rem))] sm:w-[min(1600px,calc(100vw-2rem))]"
-      >
+      <div id="timeline">
         <Timeline
           client:idle
           items={items}

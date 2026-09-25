@@ -117,6 +117,61 @@ export function packTracks(spans: Span[], gap = 0): { track: Map<string, number>
   return { track, tracks: ends.length };
 }
 
+/**
+ * Stacking under a row budget (A81, fit zoom): spans are placed in priority order
+ * (lower `rank` first, e.g. hubs before the rest) on the first of `maxTracks` tracks
+ * where they overlap nothing; a span that fits nowhere is returned in `overflow`
+ * instead, for the caller to fold into a "+N" chip.
+ */
+export function packCapped(
+  spans: (Span & { rank: number })[],
+  maxTracks: number,
+  gap = 0,
+): { track: Map<string, number>; tracks: number; overflow: string[] } {
+  const sorted = [...spans].sort(
+    (a, b) => a.rank - b.rank || a.start - b.start || a.id.localeCompare(b.id),
+  );
+  const rows: Span[][] = [];
+  const track = new Map<string, number>();
+  const overflow: string[] = [];
+  for (const s of sorted) {
+    const free = (row: Span[]) =>
+      row.every((o) => s.end + gap <= o.start || o.end + gap <= s.start);
+    let t = rows.findIndex(free);
+    if (t < 0 && rows.length < maxTracks) t = rows.push([]) - 1;
+    if (t < 0) {
+      overflow.push(s.id);
+      continue;
+    }
+    rows[t].push(s);
+    track.set(s.id, t);
+  }
+  return { track, tracks: rows.length, overflow };
+}
+
+/**
+ * Shares `total` rows between lanes that need `need[i]` rows each: a lane that needs
+ * less than an equal share keeps only what it needs, and the rest is split among the
+ * others (water-filling), so a sparse lane doesn't waste the screen a busy one could use.
+ */
+export function shareRows(need: number[], total: number): number[] {
+  const out = need.map(() => 0);
+  let left = Math.max(0, total);
+  const order = need.map((n, i) => ({ n, i })).sort((a, b) => a.n - b.n);
+  order.forEach(({ n, i }, k) => {
+    out[i] = Math.min(n, Math.floor(left / (order.length - k)));
+    left -= out[i];
+  });
+  return out;
+}
+
+/**
+ * The per-year width that fits the whole axis into `avail` px. `densityScale` is linear
+ * in its per-year unit, so one unit-scale measurement gives the answer.
+ */
+export const fitPerYear = (start: number, end: number, avail: number, load: Map<number, number>) =>
+  Math.max(1, avail / Math.max(1, densityScale(start, end, 1, load).length));
+
 // ---- Lanes and milestones ------------------------------------------------------------
 
 /**

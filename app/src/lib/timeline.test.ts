@@ -8,6 +8,9 @@ import {
   densityScale,
   milestones,
   packTracks,
+  packCapped,
+  shareRows,
+  fitPerYear,
   stretchScale,
   type Span,
   yearLoad,
@@ -174,5 +177,55 @@ describe('bandsWithin', () => {
     expect(b[0]).toMatchObject({ id: 'mainframe', from: 1960, to: 1975 });
     expect(b.at(-1)).toMatchObject({ id: 'ai', from: 2017, to: 2030 });
     expect(bandsWithin(1995, 2000).map((x) => x.id)).toEqual(['web']);
+  });
+});
+
+describe('packCapped', () => {
+  it('places high-priority spans first and overflows what does not fit', () => {
+    const spans = [
+      { id: 'a', start: 0, end: 10, rank: 1 },
+      { id: 'b', start: 2, end: 12, rank: 1 },
+      { id: 'hub', start: 4, end: 14, rank: 0 },
+    ];
+    const { track, tracks, overflow } = packCapped(spans, 2);
+    expect(tracks).toBe(2);
+    expect(track.get('hub')).toBe(0);
+    expect(overflow).toEqual(['b']);
+  });
+
+  it('reuses gaps on earlier tracks', () => {
+    const { track, overflow } = packCapped(
+      [
+        { id: 'x', start: 0, end: 5, rank: 0 },
+        { id: 'y', start: 20, end: 30, rank: 0 },
+        { id: 'z', start: 8, end: 15, rank: 1 },
+      ],
+      1,
+      2,
+    );
+    expect(overflow).toEqual([]);
+    expect(track.get('z')).toBe(0);
+  });
+});
+
+describe('fitPerYear', () => {
+  it('makes the density axis exactly the available width', () => {
+    const load = new Map([
+      [2000, 3],
+      [2010, 1],
+    ]);
+    const p = fitPerYear(1990, 2020, 900, load);
+    expect(densityScale(1990, 2020, p, load).length).toBeCloseTo(900);
+  });
+});
+
+describe('shareRows', () => {
+  it('gives sparse lanes what they need and the rest to busy ones', () => {
+    expect(shareRows([2, 20, 3, 20], 24)).toEqual([2, 9, 3, 10]);
+  });
+
+  it('never hands out more than the total', () => {
+    const out = shareRows([5, 5, 5], 7);
+    expect(out.reduce((a, b) => a + b, 0)).toBeLessThanOrEqual(7);
   });
 });
