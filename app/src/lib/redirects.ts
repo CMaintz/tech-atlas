@@ -1,5 +1,5 @@
 /**
- * Short URLs (A68): `/[lang]/terms/<name>/` for any name a reader might type —
+ * Short URLs (A72): `/[lang]/terms/<name>/` for any name a reader might type —
  * a Term's bare id, its display name or an alias (SPEC §4: aliases "redirect here").
  * Each short name that points at exactly one Term becomes a redirect page; a bare id
  * held by two folders is a Collision and keeps its Disambiguation page (ADR-0003).

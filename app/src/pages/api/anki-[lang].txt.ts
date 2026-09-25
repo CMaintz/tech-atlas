@@ -3,7 +3,7 @@ import { toAnki } from '../../lib/export';
 import { loadExport } from '../../lib/export-data';
 import { LANGS, type Lang } from '../../lib/site';
 
-/** Anki import file per language (A65): /api/anki-en.txt and /api/anki-da.txt. */
+/** Anki import file per language (A69): /api/anki-en.txt and /api/anki-da.txt. */
 export const getStaticPaths = (() =>
   LANGS.map((lang) => ({ params: { lang } }))) satisfies GetStaticPaths;
 

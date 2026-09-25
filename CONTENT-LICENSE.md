@@ -21,7 +21,7 @@ If you adapt it, share your adaptation under CC BY-SA 4.0 or a
 
 ## Why CC BY-SA 4.0
 
-Decision A62 in [`design/AUTONOMOUS_DECISIONS.md`](design/AUTONOMOUS_DECISIONS.md):
+Decision A66 in [`design/AUTONOMOUS_DECISIONS.md`](design/AUTONOMOUS_DECISIONS.md):
 
 - The Closed Vocabulary lint is built on CC BY-SA 4.0 wordlists, so ShareAlike keeps
   the whole content side under one licence that is compatible with them.

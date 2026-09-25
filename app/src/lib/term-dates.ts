@@ -1,9 +1,11 @@
 /**
- * When each Term was added, from git history (A67). Build-time only (Node).
+ * When each Term was added, from git history (A71). Build-time only (Node).
  *
  * Needs full history: in a shallow clone every file would date to the clone's
  * boundary commit, so a shallow repo (or no git at all) yields no dates, a warning,
  * and a feed without items rather than a wrong one. CI checks out with fetch-depth 0.
+ * `--no-renames` keeps the log to real adds: a moved file shows as delete + add, and
+ * the oldest add of the current path wins.
  */
 import { execFileSync } from 'node:child_process';
 import { parseAddLog } from './feed';
@@ -21,7 +23,15 @@ export function termAddedDates(): Map<string, string> {
       return (cache = new Map());
     }
     cache = parseAddLog(
-      git(['log', '--diff-filter=A', '--name-only', '--format=@%aI', '--', 'src/content/terms']),
+      git([
+        'log',
+        '--no-renames',
+        '--diff-filter=A',
+        '--name-only',
+        '--format=@%aI',
+        '--',
+        'src/content/terms',
+      ]),
     );
   } catch {
     console.warn('[feed] git history unavailable: feeds left empty');

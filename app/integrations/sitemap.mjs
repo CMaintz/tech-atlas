@@ -1,6 +1,6 @@
 // @ts-check
 /**
- * Sitemap (A64), written after the build from the pages actually emitted, so it can
+ * Sitemap (A68), written after the build from the pages actually emitted, so it can
  * never disagree with the routes. Every indexable HTML page is listed with its
  * `hreflang` alternates; pages that ask not to be indexed (redirects, the 404) are
  * left out, as is the review queue (a work list, not content).

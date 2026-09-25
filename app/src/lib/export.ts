@@ -1,5 +1,5 @@
 /**
- * Open-data exports (A65): every Term as JSON, CSV and Anki import text. Pure — no
+ * Open-data exports (A69): every Term as JSON, CSV and Anki import text. Pure — no
  * Astro imports — so the endpoints stay thin and this is unit-tested.
  */
 import type { EdgeType, TermData } from '../schema';
@@ -8,7 +8,7 @@ import { makeRefResolver } from './graph-model';
 type Lang = 'en' | 'da';
 const LANGS: Lang[] = ['en', 'da'];
 
-/** The content licence (CONTENT-LICENSE.md, A62). Carried inside every data file. */
+/** The content licence (CONTENT-LICENSE.md, A66). Carried inside every data file. */
 export const LICENCE = {
   name: 'CC BY-SA 4.0',
   spdx: 'CC-BY-SA-4.0',
@@ -100,9 +100,14 @@ export function exportTerms(terms: ExportInput[], siteUrl: string): ExportTerm[]
     });
 }
 
-/** RFC 4180 field: quoted when it holds a comma, quote or line break. */
+/**
+ * RFC 4180 field: quoted when it holds a comma, quote or line break. A text cell that
+ * starts with = + - @, a tab or a carriage return gets a leading ' so spreadsheets
+ * read it as text, never as a formula (CSV injection). Numbers are left alone.
+ */
 export const csvField = (v: string | number | boolean | undefined) => {
-  const s = v === undefined ? '' : String(v);
+  let s = v === undefined ? '' : String(v);
+  if (typeof v === 'string' && /^[=+\-@\t\r]/.test(s)) s = `'${s}`;
   return /[",\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 };
 
@@ -156,6 +161,8 @@ const escapeHtml = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 /** A tab or line break would split an Anki field or note. */
 const oneLine = (s: string) => s.replace(/[\t\r\n]+/g, ' ');
+/** Anki reads a line starting with # as a header or comment, so escape a leading #. */
+const noHash = (s: string) => s.replace(/^#/, '&#35;');
 
 /**
  * Anki's plain-text import (File → Import), one note per Term: front = the name,
@@ -174,7 +181,7 @@ export function toAnki(terms: ExportTerm[], lang: Lang, deck: string): string {
     '#guid column:4',
   ];
   for (const t of terms) {
-    const front = escapeHtml(oneLine(t.term[lang]));
+    const front = noHash(escapeHtml(oneLine(t.term[lang])));
     const back = [
       `<b>${escapeHtml(oneLine(t.summary[lang]))}</b>`,
       escapeHtml(oneLine(t.body.plain[lang])),

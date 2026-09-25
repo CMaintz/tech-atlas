@@ -89,14 +89,14 @@ const aka = d.aka[lang];
 const name = bareName(term.id);
 const collides = collisionsOf(all.map((t) => t.id)).has(name);
 
-// Continue learning (SPEC §7, A69): sources grouped by tier, best tier first.
+// Continue learning (SPEC §7, A73): sources grouped by tier, best tier first.
 const extra = UI_EXTRA[lang];
 const sourceGroups = TIER_ORDER.map((tier) => ({
   tier,
   items: d.sources.filter((s) => s.tier === tier),
 })).filter((g) => g.items.length > 0);
 
-// Structured data (A64): schema.org DefinedTerm in the Atlas DefinedTermSet.
+// Structured data (A68): schema.org DefinedTerm in the Atlas DefinedTermSet.
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'DefinedTerm',
@@ -113,17 +113,56 @@ const jsonLd = {
   },
   license: 'https://creativecommons.org/licenses/by-sa/4.0/',
 };
+
+// Breadcrumb: Index › primary domain (the folder) › cluster — anchors on the home index.
+const primary = term.id.split('/')[0];
+const crumbs = [
+  { href: url(`${lang}/`), label: ui.index },
+  { href: url(`${lang}/#domain-${primary}`), label: DOMAIN_LABELS[primary]?.[lang] ?? primary },
+  {
+    href: url(`${lang}/#cluster-${primary}-${d.cluster}`),
+    label: CLUSTER_LABELS[d.cluster]?.[lang] ?? d.cluster,
+  },
+];
 ---
 
-<Base lang={lang} title={d.term[lang]} description={d.summary[lang]} jsonLd={jsonLd}>
-  <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-10">
+<Base
+  lang={lang}
+  title={d.term[lang]}
+  description={d.summary[lang]}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-10" data-term-id={term.id}>
     <div>
-      <div class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">
-        {d.domain.map((x) => DOMAIN_LABELS[x]?.[lang] ?? x).join(' · ')} · {
-          CLUSTER_LABELS[d.cluster]?.[lang] ?? d.cluster
-        }
+      <nav
+        aria-label={ui.breadcrumb}
+        class="mb-2 text-xs tracking-widest text-neutral-500 uppercase"
+      >
+        <ol class="flex flex-wrap items-center gap-x-1.5">
+          {
+            crumbs.map((c, i) => (
+              <li class="flex items-center gap-x-1.5">
+                {i > 0 && <span aria-hidden="true">›</span>}
+                <a class="hover:text-neutral-200" href={c.href}>
+                  {c.label}
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+      <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+        <h1 class="text-3xl font-semibold">{d.term[lang]}</h1>
+        <button
+          type="button"
+          data-copy-link
+          data-copied={ui.linkCopied}
+          class="mt-1.5 rounded border border-neutral-800 px-2 py-1 text-xs text-neutral-400 hover:border-neutral-500 hover:text-neutral-100 print:hidden"
+        >
+          <span data-label>{ui.copyLink}</span>
+        </button>
       </div>
-      <h1 class="text-3xl font-semibold">{d.term[lang]}</h1>
       {
         aka.length > 0 && (
           <p class="mt-1 text-sm text-neutral-500">
@@ -167,7 +206,7 @@ const jsonLd = {
         )
       }
 
-      <div class="mt-8 space-y-5">
+      <div class="mt-8 space-y-5" id="facets">
         {
           facets.map((f) => (
             <div>
@@ -210,7 +249,7 @@ const jsonLd = {
 
       {
         groups.length > 0 && (
-          <section class="mt-10">
+          <section class="mt-10" id="relationships">
             <h2 class="mb-3 text-xs tracking-widest text-neutral-500 uppercase">
               {ui.relationships}
             </h2>
@@ -270,7 +309,7 @@ const jsonLd = {
             </div>
           ))
         }
-        <p class="no-print mt-3">
+        <p class="mt-3 print:hidden">
           <a class="hover:text-neutral-300 hover:underline" href={url(`api/terms/${term.id}.json`)}>
             {extra.dataThisTerm}
           </a>
@@ -278,7 +317,7 @@ const jsonLd = {
       </section>
       {
         mentionedIn.length > 0 && (
-          <section class="mt-8">
+          <section class="mt-8" id="mentions">
             <h2 class="mb-2 text-xs tracking-widest text-neutral-500 uppercase">
               {ui.mentionedIn}
             </h2>
@@ -296,7 +335,10 @@ const jsonLd = {
         )
       }
 
-      <section class="no-print mt-10 space-y-5 rounded border border-neutral-800 p-4">
+      <section
+        class="mt-10 space-y-5 rounded border border-neutral-800 p-4 print:hidden"
+        id="check-yourself"
+      >
         <h2 class="text-xs tracking-widest text-neutral-500 uppercase">{ui.checkYourself}</h2>
         <KnowledgeStatus client:only="preact" termId={term.id} ui={{ ...ui }} />
         <Quiz
@@ -310,7 +352,7 @@ const jsonLd = {
         />
       </section>
     </div>
-    <aside class="mt-10 lg:sticky lg:top-6 lg:mt-0 lg:self-start">
+    <aside class="mt-10 lg:sticky lg:top-6 lg:mt-0 lg:self-start print:hidden" id="connections">
       <h2 class="mb-2 text-xs tracking-widest text-neutral-500 uppercase">{ui.connections}</h2>
       <Graph
         client:only="preact"
@@ -328,3 +370,18 @@ const jsonLd = {
     </aside>
   </div>
 </Base>
+
+<script>
+  import { RECENT_KEY, parseRecent, pushRecent } from '../../../lib/prefs';
+
+  // Recently viewed (A62) — shown on the home page.
+  const id = document.querySelector<HTMLElement>('[data-term-id]')?.dataset.termId;
+  try {
+    if (id) {
+      const list = pushRecent(parseRecent(localStorage.getItem(RECENT_KEY)), id);
+      localStorage.setItem(RECENT_KEY, JSON.stringify(list));
+    }
+  } catch {
+    /* storage unavailable: nothing remembered */
+  }
+</script>

@@ -1,7 +1,9 @@
 ---
 import '../styles/global.css';
 import AccountMenu from '../components/AccountMenu';
-import { ACCOUNTS, REPO, UI, swapLang, url, type Lang } from '../lib/site';
+import Tour from '../components/Tour';
+import { ACCOUNTS, REPO, TOUR_STEPS, UI, swapLang, url, type Lang } from '../lib/site';
+import { isCurrentNav } from '../lib/prefs';
 import { UI_EXTRA } from '../lib/ui-extra';
 
 interface Props {
@@ -10,9 +12,13 @@ interface Props {
   description?: string;
   /** Full-width main area (the Explorer). */
   wide?: boolean;
-  /** Keep out of search engines (the 404 page); also drops the canonical link. */
+  /** Greet first-time visitors with the tour (off on e.g. the 404 page). */
+  tourAutoStart?: boolean;
+  /** og:type — 'article' for entries. */
+  ogType?: 'website' | 'article';
+  /** Keep out of search engines (the 404 page); also drops canonical + og:url. */
   noindex?: boolean;
-  /** Structured data for this page (schema.org JSON-LD), e.g. a DefinedTerm. */
+  /** Structured data for this page (schema.org JSON-LD), e.g. a DefinedTerm (A68). */
   jsonLd?: Record<string, unknown>;
 }
 const {
@@ -20,6 +26,8 @@ const {
   title = 'Atlas',
   description,
   wide = false,
+  tourAutoStart = true,
+  ogType = 'website',
   noindex = false,
   jsonLd,
 } = Astro.props;
@@ -32,19 +40,41 @@ const alternates = (['en', 'da'] as const).map((l) => ({
   href: new URL(swapLang(path, l), Astro.site).href,
 }));
 const pageTitle = title === 'Atlas' ? 'Atlas' : `${title} — Atlas`;
-// SEO (A64): canonical, x-default and Open Graph, every URL absolute and under the base.
 const canonical = new URL(path, Astro.site).href;
 const desc = description ?? ui.tagline;
+const langBase = url(`${lang}/`);
+const nav = [
+  { href: langBase, label: ui.index },
+  { href: url(`${lang}/explorer/`), label: ui.explorer },
+  { href: url(`${lang}/timeline/`), label: ui.timeline },
+  { href: url(`${lang}/compare/`), label: ui.compare },
+  { href: url(`${lang}/study/`), label: ui.study },
+];
+const current = (href: string) => isCurrentNav(path, href, langBase);
+const steps = TOUR_STEPS.map((s) => ({ ...s, title: s.title[lang], body: s.body[lang] }));
+const tourUi = {
+  tourWelcomeStart: ui.tourWelcomeStart,
+  tourNotNow: ui.tourNotNow,
+  tourDontShow: ui.tourDontShow,
+  tourNext: ui.tourNext,
+  tourBack: ui.tourBack,
+  tourFinish: ui.tourFinish,
+  tourClose: ui.tourClose,
+  tourStepOf: ui.tourStepOf,
+  tourContinue: ui.tourContinue,
+  tourEnd: ui.tourEnd,
+};
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} data-lang-base={langBase}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
     <meta name="description" content={desc} />
+    <meta name="theme-color" content="#0a0a0a" />
     {noindex && <meta name="robots" content="noindex" />}
     {!noindex && <link rel="canonical" href={canonical} />}
     {alternates.map((a) => <link rel="alternate" hreflang={a.lang} href={a.href} />)}
@@ -57,11 +87,12 @@ const desc = description ?? ui.tagline;
       href={url(`${lang}/feed.xml`)}
     />
     <meta property="og:site_name" content="Atlas" />
-    <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={desc} />
+    <meta property="og:type" content={ogType} />
     {!noindex && <meta property="og:url" content={canonical} />}
     <meta property="og:locale" content={lang === 'da' ? 'da_DK' : 'en_GB'} />
+    <meta property="og:locale:alternate" content={lang === 'da' ? 'en_GB' : 'da_DK'} />
     <meta name="twitter:card" content="summary" />
     {
       jsonLd && (
@@ -71,41 +102,115 @@ const desc = description ?? ui.tagline;
         />
       )
     }
+    <noscript
+      ><style>
+        #site-nav {
+          display: flex;
+        }
+      </style></noscript
+    >
   </head>
   <body class="min-h-screen bg-neutral-950 font-sans text-neutral-100 antialiased">
-    <header class="flex items-center justify-between border-b border-neutral-800 px-6 py-4">
-      <a href={url(`${lang}/`)} class="font-mono text-lg tracking-tight">atlas</a>
-      <nav class="flex flex-wrap justify-end gap-x-5 gap-y-1 text-sm text-neutral-400">
-        <a class="hover:text-neutral-100" href={url(`${lang}/`)}>{ui.index}</a>
-        <a class="hover:text-neutral-100" href={url(`${lang}/explorer/`)}>{ui.explorer}</a>
-        <a class="hover:text-neutral-100" href={url(`${lang}/timeline/`)}>{ui.timeline}</a>
-        <a class="hover:text-neutral-100" href={url(`${lang}/compare/`)}>{ui.compare}</a>
-        <a class="hover:text-neutral-100" href={url(`${lang}/study/`)}>{ui.study}</a>
-        {
-          ACCOUNTS && (
-            <AccountMenu
-              client:only="preact"
-              href={url(`${lang}/account/`)}
-              ui={{
-                signIn: ui.signIn,
-                account: ui.account,
-                sync_error: ui.sync_error,
-                sync_offline: ui.sync_offline,
-              }}
-            />
-          )
-        }
-        <a class="hover:text-neutral-100" href={swapLang(path, other)} hreflang={other}>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-amber-400 focus:px-3 focus:py-2 focus:text-neutral-950"
+    >
+      {ui.skipToContent}
+    </a>
+    <header
+      class="group relative flex items-center justify-between gap-4 border-b border-neutral-800 px-4 py-4 sm:px-6 print:hidden"
+      data-site-header
+    >
+      <a href={langBase} class="font-mono text-lg tracking-tight">atlas</a>
+      <div class="flex items-center gap-4 text-sm text-neutral-400">
+        <nav
+          id="site-nav"
+          aria-label={ui.menu}
+          class="absolute inset-x-0 top-full z-30 hidden flex-col gap-1 border-b border-neutral-800 bg-neutral-950 px-4 py-3 group-data-[open]:flex md:static md:flex md:flex-row md:flex-wrap md:justify-end md:gap-x-5 md:gap-y-1 md:border-0 md:bg-transparent md:p-0"
+        >
+          {
+            nav.map((n) => (
+              <a
+                class="py-1.5 hover:text-neutral-100 aria-[current=page]:text-neutral-100 md:py-0"
+                href={n.href}
+                aria-current={current(n.href) ? 'page' : undefined}
+              >
+                {n.label}
+              </a>
+            ))
+          }
+          <button
+            type="button"
+            class="py-1.5 text-left hover:text-neutral-100 md:py-0"
+            data-tour-start
+          >
+            {ui.tourStart}
+          </button>
+          {
+            ACCOUNTS && (
+              <AccountMenu
+                client:only="preact"
+                href={url(`${lang}/account/`)}
+                ui={{
+                  signIn: ui.signIn,
+                  account: ui.account,
+                  sync_error: ui.sync_error,
+                  sync_offline: ui.sync_offline,
+                }}
+              />
+            )
+          }
+        </nav>
+        <a
+          id="lang-switch"
+          class="hover:text-neutral-100"
+          href={swapLang(path, other)}
+          hreflang={other}
+          lang={other}
+          title={other === 'da' ? 'Dansk' : 'English'}
+        >
           {other.toUpperCase()}
         </a>
-      </nav>
+        <button
+          type="button"
+          class="-mr-1 rounded p-1 text-neutral-300 hover:text-neutral-100 md:hidden"
+          aria-controls="site-nav"
+          aria-expanded="false"
+          aria-label={ui.menu}
+          data-menu-toggle
+        >
+          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2"></path>
+          </svg>
+        </button>
+      </div>
     </header>
-    <main class={wide ? '' : 'mx-auto max-w-5xl px-6 py-10'}>
+    {
+      lang === 'en' && !wide && (
+        <div
+          id="lang-suggest"
+          lang="da"
+          hidden
+          class="border-b border-neutral-800 bg-neutral-900 px-4 py-2 text-sm text-neutral-300 sm:px-6 print:hidden"
+        >
+          <div class="mx-auto flex max-w-5xl flex-wrap items-center gap-x-4 gap-y-1">
+            <span>{UI.da.langSuggest}</span>
+            <a class="text-amber-300 hover:underline" href={swapLang(path, 'da')} hreflang="da">
+              {UI.da.langSwitch}
+            </a>
+            <button type="button" class="text-neutral-500 hover:text-neutral-200" data-lang-keep>
+              {UI.da.langKeep}
+            </button>
+          </div>
+        </div>
+      )
+    }
+    <main id="main" tabindex="-1" class={wide ? '' : 'mx-auto max-w-5xl px-4 py-10 sm:px-6'}>
       <slot />
     </main>
     {
       !wide && (
-        <footer class="mx-auto flex max-w-5xl flex-wrap gap-x-5 gap-y-2 px-6 pb-10 text-xs text-neutral-500">
+        <footer class="mx-auto flex max-w-5xl flex-wrap gap-5 px-4 pb-10 text-xs text-neutral-500 sm:px-6 print:hidden">
           <a class="hover:text-neutral-300" href={url(`${lang}/review/`)}>
             {ui.review}
           </a>
@@ -122,8 +227,105 @@ const desc = description ?? ui.tagline;
           >
             {extra.licenceFooter}
           </a>
+          <button type="button" class="hover:text-neutral-300" data-tour-start>
+            {ui.tourStart}
+          </button>
         </footer>
       )
     }
+    {
+      !wide && (
+        <a
+          href="#main"
+          data-back-to-top
+          hidden
+          class="fixed right-4 bottom-4 z-30 rounded-full border border-neutral-700 bg-neutral-900/90 px-3 py-2 text-xs text-neutral-300 shadow hover:text-neutral-100 print:hidden"
+        >
+          ↑ {ui.backToTop}
+        </a>
+      )
+    }
+    <Tour client:load steps={steps} langBase={langBase} autoStart={tourAutoStart} ui={tourUi} />
+    <script>
+      import {
+        LANG_SUGGEST_KEY,
+        isSearchShortcut,
+        isTypingTarget,
+        prefersDanish,
+      } from '../lib/prefs';
+
+      // Mobile menu.
+      const header = document.querySelector<HTMLElement>('[data-site-header]');
+      const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+      const setOpen = (open: boolean) => {
+        header?.toggleAttribute('data-open', open);
+        toggle?.setAttribute('aria-expanded', String(open));
+      };
+      toggle?.addEventListener('click', () => setOpen(!header?.hasAttribute('data-open')));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && header?.hasAttribute('data-open')) {
+          e.preventDefault(); // handled: the tour leaves this Escape alone
+          setOpen(false);
+          toggle?.focus();
+        }
+      });
+      document.addEventListener('click', (e) => {
+        if (header && !header.contains(e.target as Node)) setOpen(false);
+      });
+
+      // "/" focuses the search box — or goes to the home page's.
+      document.addEventListener('keydown', (e) => {
+        if (!isSearchShortcut(e) || isTypingTarget(document.activeElement as HTMLElement)) return;
+        e.preventDefault();
+        const box = document.querySelector<HTMLInputElement>('#search');
+        if (box) box.focus();
+        else location.href = `${document.documentElement.dataset.langBase ?? ''}#search`;
+      });
+
+      // Danish readers on an English page: suggest the Danish one (A63).
+      const suggest = document.getElementById('lang-suggest');
+      if (suggest) {
+        let dismissed = false;
+        try {
+          dismissed = localStorage.getItem(LANG_SUGGEST_KEY) === '1';
+        } catch {
+          /* storage unavailable: show it */
+        }
+        if (!dismissed && prefersDanish(navigator.languages ?? [navigator.language])) {
+          suggest.hidden = false;
+        }
+        suggest.querySelector('[data-lang-keep]')?.addEventListener('click', () => {
+          suggest.hidden = true;
+          try {
+            localStorage.setItem(LANG_SUGGEST_KEY, '1');
+          } catch {
+            /* hidden for this page only */
+          }
+        });
+      }
+
+      // Back to top, once the reader has scrolled a screen or so.
+      const top = document.querySelector<HTMLElement>('[data-back-to-top]');
+      if (top) {
+        const update = () => (top.hidden = window.scrollY < window.innerHeight * 1.2);
+        window.addEventListener('scroll', update, { passive: true });
+        update();
+      }
+
+      // Copy-link buttons: <button data-copy-link data-copied="…">.
+      document.addEventListener('click', async (e) => {
+        const b = (e.target as Element | null)?.closest<HTMLElement>('[data-copy-link]');
+        if (!b) return;
+        const label = b.querySelector('[data-label]') ?? b;
+        const before = label.textContent;
+        try {
+          await navigator.clipboard.writeText(location.href.split('#')[0]);
+          label.textContent = b.dataset.copied ?? before;
+          setTimeout(() => (label.textContent = before), 2000);
+        } catch {
+          /* clipboard blocked: nothing to do */
+        }
+      });
+    </script>
   </body>
 </html>

@@ -272,7 +272,7 @@ The default surface and the primary learning experience. Structure: title + doma
 tags + status; `summary`; the four Body facets; then generated relationship sections
 (*contrasts with · requires · unlocks · mitigates/mitigated-by · mandates* …, from
 edges); *Continue learning* (the Term's sources grouped by source tier, standards
-first, A69); an **Explore connections**
+first, A73); an **Explore connections**
 action that opens the graph centred on this Term; "Read the full entry" for Terms
 with an Article. Statically rendered, SEO-friendly, fast on a phone, bilingual with a
 language toggle.
@@ -329,14 +329,14 @@ Lexical (names and aliases) and semantic rankings are merged by reciprocal rank 
 hits found only by meaning are labelled.
 
 ### Open data, feeds and SEO
-Every Term is published as data under the content licence (CC BY-SA 4.0, A62):
+Every Term is published as data under the content licence (CC BY-SA 4.0, A66):
 `/api/terms.json`, one file per Term at `/api/terms/<folder>/<id>.json`, a CSV, an
 Anki import file per language, the derived `/graph.json`, and an RSS feed of new Terms
-per language (`/[lang]/feed.xml`); `/[lang]/data/` lists them (A65, A67). Each page
+per language (`/[lang]/feed.xml`); `/[lang]/data/` lists them (A69, A71). Each page
 carries a canonical URL, `hreflang` alternates (with `x-default`) and Open Graph tags;
 Term pages also carry a `DefinedTerm` description; `/sitemap-index.xml` lists every
-page (A64). `/[lang]/terms/` is the A–Z index, and a bare `/[lang]/terms/<id>/`
-redirects to the Term when the name is not a Collision (A68). Unknown URLs get a
+page (A68). `/[lang]/terms/` is the A–Z index, and a bare `/[lang]/terms/<id>/`
+redirects to the Term when the name is not a Collision (A72). Unknown URLs get a
 bilingual 404 page.
 
 ### Linked prose and Mentions
@@ -429,7 +429,7 @@ progress (§9), the Disambiguation page (§5, ADR-0003), lint rules E5, W2 and W
 depth-histogram and collision-list reports (§5, A56–A60) — see `AUTONOMOUS_DECISIONS.md`.
 
 Since then: the `ai` and `platform` domains were written (P1; scope pending the owner's
-review), and the open data, feeds, SEO, A–Z index and 404 page (§7, A64–A69).
+review), and the open data, feeds, SEO, A–Z index and 404 page (§7, A68–A73).
 
 **Still deferred:** AI tutor; a database for content; centrality/community features. Each is enabled by, not blocked on, the data model.
 

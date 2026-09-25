@@ -1,5 +1,5 @@
 /**
- * RSS feed of new Terms (A67). A Term's date is the commit that added its file — the
+ * RSS feed of new Terms (A71). A Term's date is the commit that added its file — the
  * only honest date the repo has; no authored field. Pure: parsing `git log` output and
  * writing RSS 2.0 are unit-tested; running git lives in term-dates.ts.
  */

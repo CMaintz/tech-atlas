@@ -81,6 +81,16 @@ describe('toCsv', () => {
     expect(csvField(undefined)).toBe('');
   });
 
+  it('defuses cells a spreadsheet would run as a formula', () => {
+    expect(csvField('=HYPERLINK("x")')).toBe(`"'=HYPERLINK(""x"")"`);
+    expect(csvField('+1')).toBe("'+1");
+    expect(csvField('-x')).toBe("'-x");
+    expect(csvField('@SUM(A1)')).toBe("'@SUM(A1)");
+    expect(csvField('\tx')).toBe("'\tx");
+    expect(csvField('\rx')).toBe(`"'\rx"`);
+    expect(csvField(-3)).toBe('-3'); // numbers are data, not formulas
+  });
+
   it('writes a header and one CRLF row per term', () => {
     const csv = toCsv(records);
     const lines = csv.split('\r\n');
@@ -116,5 +126,14 @@ describe('toAnki', () => {
     expect(note[1]).toContain('href="https://x.test/tech-atlas/en/terms/security/phishing/"');
     expect(note[2]).toBe('atlas security awareness');
     expect(note[3]).toBe('atlas-en-security/phishing');
+  });
+
+  it('escapes a leading # so Anki does not read the note as a header', () => {
+    const [hashed] = exportTerms(
+      [{ id: 'cs/c-sharp', depth: 0, data: term({ term: facet('#C', '#C') }) }],
+      SITE,
+    );
+    const line = toAnki([hashed], 'en', 'd').trimEnd().split('\n').pop()!;
+    expect(line.startsWith('&#35;C\t')).toBe(true);
   });
 });

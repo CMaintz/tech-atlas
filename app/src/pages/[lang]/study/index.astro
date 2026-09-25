@@ -17,12 +17,14 @@ const clusterLabels = Object.fromEntries(
 <Base lang={lang} title={ui.study}>
   <h1 class="mb-2 text-3xl font-semibold">{ui.study}</h1>
   <p class="mb-10 text-neutral-400">{ui.studyIntro}</p>
-  <StudyHub
-    client:only="preact"
-    lang={lang}
-    graphUrl={url('graph.json')}
-    termBase={url(`${lang}/terms/`)}
-    ui={{ ...ui, localNote: ACCOUNTS ? ui.syncNote : ui.localNote }}
-    clusterLabels={clusterLabels}
-  />
+  <div id="study">
+    <StudyHub
+      client:only="preact"
+      lang={lang}
+      graphUrl={url('graph.json')}
+      termBase={url(`${lang}/terms/`)}
+      ui={{ ...ui, localNote: ACCOUNTS ? ui.syncNote : ui.localNote }}
+      clusterLabels={clusterLabels}
+    />
+  </div>
 </Base>

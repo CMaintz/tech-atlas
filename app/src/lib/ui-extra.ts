@@ -1,6 +1,6 @@
 /**
  * UI strings for the open-data, feed, A–Z, 404 and "Continue learning" surfaces
- * (A64–A69). Kept apart from `UI` in site.ts so those pages don't churn the main
+ * (A68–A73). Kept apart from `UI` in site.ts so those pages don't churn the main
  * string table.
  */
 import type { Lang } from './site';
@@ -28,10 +28,6 @@ export const UI_EXTRA = {
     feedDescription: 'Terms newly added to Atlas, the bilingual technical dictionary.',
     azTitle: 'All terms A–Z',
     azIntro: '{n} terms, alphabetically.',
-    notFoundTitle: 'Page not found',
-    notFoundText:
-      'There is no page at this address. It may have moved, or the link may be mistyped.',
-    notFoundHome: 'Go to the dictionary',
     notFoundAz: 'Browse all terms A–Z',
     continueLearning: 'Continue learning',
     licenceFooter: 'Content CC BY-SA 4.0',
@@ -66,10 +62,6 @@ export const UI_EXTRA = {
     feedDescription: 'Begreber, der er føjet til Atlas, den tosprogede tekniske ordbog.',
     azTitle: 'Alle begreber A–Å',
     azIntro: '{n} begreber i alfabetisk rækkefølge.',
-    notFoundTitle: 'Siden findes ikke',
-    notFoundText:
-      'Der er ingen side på denne adresse. Den kan være flyttet, eller linket kan være stavet forkert.',
-    notFoundHome: 'Gå til ordbogen',
     notFoundAz: 'Se alle begreber A–Å',
     continueLearning: 'Lær mere',
     licenceFooter: 'Indhold CC BY-SA 4.0',

@@ -1,4 +1,4 @@
-# Weekly, grouped dependency updates (A63). Each PR runs the gate like any other.
+# Weekly, grouped dependency updates (A67). Each PR runs the gate like any other.
 version: 2
 updates:
   - package-ecosystem: npm
