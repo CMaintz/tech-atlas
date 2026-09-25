@@ -26,9 +26,9 @@ export const UI_EXTRA = {
     dataThisTerm: 'This term as JSON',
     feedTitle: 'Atlas: new terms',
     feedDescription: 'Terms newly added to Atlas, the bilingual technical dictionary.',
-    azTitle: 'All terms A–Z',
+    azTitle: 'All terms A-Z',
     azIntro: '{n} terms, alphabetically.',
-    notFoundAz: 'Browse all terms A–Z',
+    notFoundAz: 'Browse all terms A-Z',
     licenceFooter: 'Content CC BY-SA 4.0',
     tiers: {
       standard: 'Standards & official texts',
@@ -59,9 +59,9 @@ export const UI_EXTRA = {
     dataThisTerm: 'Dette begreb som JSON',
     feedTitle: 'Atlas: nye begreber',
     feedDescription: 'Begreber, der er føjet til Atlas, den tosprogede tekniske ordbog.',
-    azTitle: 'Alle begreber A–Å',
+    azTitle: 'Alle begreber A-Å',
     azIntro: '{n} begreber i alfabetisk rækkefølge.',
-    notFoundAz: 'Se alle begreber A–Å',
+    notFoundAz: 'Se alle begreber A-Å',
     licenceFooter: 'Indhold CC BY-SA 4.0',
     tiers: {
       standard: 'Standarder og officielle tekster',
