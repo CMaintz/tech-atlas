@@ -227,6 +227,7 @@ export const UI = {
     breadcrumb: 'Breadcrumb',
     heroLead:
       'Look up a technical term and see where it sits: what it builds on, what it is easily confused with, and what it leads to. Every entry is written in plain language, in English and Danish.',
+    freeForever: 'Free forever. No ads, no paywall, no tracking. Just a passion project.',
     searchHint: 'Tip: press / anywhere to search.',
     browseDomains: 'Browse by domain',
     termCount: '{n} terms',
@@ -436,6 +437,8 @@ export const UI = {
     breadcrumb: 'Brødkrummesti',
     heroLead:
       'Slå et teknisk begreb op, og se hvor det hører hjemme: hvad det bygger på, hvad det let forveksles med, og hvad det fører videre til. Alle opslag er skrevet i et enkelt sprog, på dansk og engelsk.',
+    freeForever:
+      'Gratis for altid. Ingen reklamer, ingen betalingsmur, ingen sporing. Bare et hjerteprojekt.',
     searchHint: 'Tip: tryk / hvor som helst for at søge.',
     browseDomains: 'Gå på opdagelse efter domæne',
     termCount: '{n} begreber',
@@ -868,7 +871,7 @@ const ABOUT_EN = {
   aboutBody:
     'Tech jargon is everywhere: NIS2, zero trust, embeddings, Kubernetes, prompt injection. Everyone uses the words, and half the time nobody agrees on what they mean. So here is an atlas.',
   aboutBeta:
-    'A bilingual (English and Danish) dictionary of security, computer science, AI and platform terms, built for learning, and wired into a map of how the ideas connect: what you need to know first, what protects against what, and what is easily confused. Click a term and follow the threads.',
+    'A bilingual (English and Danish) dictionary of security, computer science, AI and platform terms, built for learning, and wired into a map of how the ideas connect: what you need to know first, what protects against what, and what is easily confused. Click a term and follow the threads. Atlas is a passion project and free forever: no ads, no paywall, no tracking.',
   credits: 'Credits',
   thanks: 'Thanks',
   close: 'Close',
@@ -883,7 +886,7 @@ export const ABOUT_UI: Record<Lang, Record<keyof typeof ABOUT_EN, string>> = {
     aboutBody:
       'Tech-jargon er overalt: NIS2, zero trust, embeddings, Kubernetes, prompt injection. Alle bruger ordene, og halvdelen af tiden er ingen enige om, hvad de betyder. Så her er et atlas.',
     aboutBeta:
-      'En tosproget (dansk og engelsk) ordbog over begreber inden for sikkerhed, datalogi, AI og platforme, bygget til at lære og koblet ind i et kort over, hvordan idéerne hænger sammen: hvad du skal kende først, hvad der beskytter mod hvad, og hvad der let forveksles. Klik på et begreb, og følg trådene.',
+      'En tosproget (dansk og engelsk) ordbog over begreber inden for sikkerhed, datalogi, AI og platforme, bygget til at lære og koblet ind i et kort over, hvordan idéerne hænger sammen: hvad du skal kende først, hvad der beskytter mod hvad, og hvad der let forveksles. Klik på et begreb, og følg trådene. Atlas er et hjerteprojekt og gratis for altid: ingen reklamer, ingen betalingsmur, ingen sporing.',
     credits: 'Medvirkende',
     thanks: 'Tak til',
     close: 'Luk',
