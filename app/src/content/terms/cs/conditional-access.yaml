@@ -26,7 +26,7 @@ body:
     da: Når medarbejderne bruger cloudapps hvor som helst fra, er der ingen kontormur at gemme sig bag; ved at vurdere hvert login i sin sammenhæng afvises mange login med stjålne adgangskoder, uden at det daglige arbejde sinkes.
 edges:
   implements: [zero-trust]
-  requires: [authentication, identity-provider]
+  requires: [access-control, authentication, identity-provider]
   used-with:
     - to: mfa
       why:

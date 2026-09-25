@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'preact/hooks';
 import type { Graph } from '../lib/graph-model';
-import { makeQuizzer, type Question } from '../lib/quiz';
-import { isDue, loadLearner, recordAnswer, saveLearner } from '../lib/learner';
+import { buildSession, makeQuizzer, type Question, type Scope } from '../lib/quiz';
+import { loadLearner, recordAnswer, saveLearner } from '../lib/learner';
 
 type Lang = 'en' | 'da';
 type Dict = Record<string, string>;
@@ -13,8 +13,8 @@ interface Props {
   ui: Dict;
   /** Quiz a single term (the term page's "Check yourself"); otherwise a session over `scope`. */
   termId?: string;
-  /** Cluster to draw from, or 'all'. */
-  scope?: string;
+  /** What a session draws from: 'all', 'weak', 'domain:<id>' or 'cluster:<id>'. */
+  scope?: Scope;
   count?: number;
 }
 
@@ -44,24 +44,11 @@ export default function Quiz({
 
   const start = () => {
     if (!graph || !quizzer) return;
-    let qs: Question[];
-    if (termId) {
-      qs = quizzer.shuffle(quizzer.questionsFor(termId)).slice(0, count);
-    } else {
-      // Due reviews first, then terms never practised, then the rest.
-      const learner = loadLearner();
-      const pool = graph.nodes.filter((n) => scope === 'all' || n.cluster === scope);
-      const due = pool.filter((n) => isDue(learner.terms[n.id]));
-      const fresh = pool.filter((n) => !learner.terms[n.id]?.box);
-      const rest = pool.filter((n) => !due.includes(n) && !fresh.includes(n));
-      const order = [...quizzer.shuffle(due), ...quizzer.shuffle(fresh), ...quizzer.shuffle(rest)];
-      qs = [];
-      for (const n of order) {
-        const options = quizzer.questionsFor(n.id);
-        if (options.length) qs.push(quizzer.pick(options));
-        if (qs.length >= count) break;
-      }
-    }
+    // A term page asks about the term, never questions the page itself answers (A79);
+    // a session puts due reviews first and mixes question kinds.
+    const qs = termId
+      ? quizzer.pageQuestions(termId, count)
+      : buildSession(graph, loadLearner(), scope, quizzer, count);
     setSession(qs);
     setIndex(0);
     setChosen(null);
@@ -85,7 +72,12 @@ export default function Quiz({
       </button>
     );
   }
-  if (session.length === 0) return <p class="text-sm text-neutral-500">{ui.noQuestions}</p>;
+  if (session.length === 0)
+    return (
+      <p class="text-sm text-neutral-500">
+        {scope === 'weak' && !termId ? ui.noWeakTerms : ui.noQuestions}
+      </p>
+    );
 
   if (index >= session.length) {
     return (
@@ -112,6 +104,8 @@ export default function Quiz({
     saveLearner(recordAnswer(loadLearner(), q.termId, correct));
   };
   const answerLabel = q.options.find((o) => o.id === q.answer)!.label;
+  // Term → definition options are whole sentences: one per row reads better.
+  const long = q.options.some((o) => o.label.length > 60);
 
   return (
     <div class="space-y-3">
@@ -119,7 +113,7 @@ export default function Quiz({
         {index + 1} / {session.length}
       </p>
       <p class="text-neutral-100">{q.prompt}</p>
-      <div class="grid gap-2 sm:grid-cols-2">
+      <div class={`grid gap-2 ${long ? '' : 'sm:grid-cols-2'}`}>
         {q.options.map((o) => {
           const state = !chosen
             ? 'border-neutral-700 hover:border-neutral-400'
@@ -145,7 +139,7 @@ export default function Quiz({
           ) : (
             <span class="text-red-400">
               {ui.incorrect}{' '}
-              <a class="underline" href={`${termBase}${q.answer}/`}>
+              <a class="underline" href={`${termBase}${q.link}/`}>
                 {answerLabel}
               </a>
             </span>

@@ -76,7 +76,7 @@ const btn =
   'rounded border border-neutral-700 px-2 py-1 text-xs text-neutral-300 hover:border-neutral-400 hover:text-neutral-100 focus-visible:outline-2 focus-visible:outline-amber-400';
 
 /**
- * The Explorer's term panel (A79): a term's essentials beside the map — facets in both
+ * The Explorer's term panel (A80): a term's essentials beside the map — facets in both
  * languages, what to learn first, relationships (which re-focus the map, never navigate),
  * self-assessment and a quick quiz. Expand fills the page below the header, with the
  * term's neighbourhood graph; "Read more" opens the full entry page.

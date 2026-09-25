@@ -270,10 +270,10 @@ Adding a 13th edge type is a deliberate schema change. Deferred candidates:
 ### The Term page (primary)
 The default surface and the primary learning experience. Structure: title + domain
 tags + status; `summary`; the four Body facets; the optional *Technical deep dive*
-(`deepDive`, exempt from Closed Vocabulary, A79); then generated relationship sections
+(`deepDive`, exempt from Closed Vocabulary, A80); then generated relationship sections
 (*contrasts with · requires · unlocks · mitigates/mitigated-by · mandates* …, from
 edges); *Sources & further reading* (the Term's sources grouped by source tier,
-standards first, A73) with a *Where this data comes from* note (A79); an **Explore connections**
+standards first, A73) with a *Where this data comes from* note (A80); an **Explore connections**
 action that opens the graph centred on this Term; "Read the full entry" for Terms
 with an Article. Statically rendered, SEO-friendly, fast on a phone, bilingual with a
 language toggle.
@@ -305,7 +305,7 @@ real, statically rendered page ("the canvas is an index, not a container").
   highlighting. Clicking a term opens its **term panel** on the right (facets in both
   languages, what to learn first, relationships that re-focus the map); the panel
   expands in place to fill the page below the header, and "Read more" opens the Term
-  page; `?term=<id>` deep-links it (A79). The 2D force layout is deterministic and cluster-aware: clusters
+  page; `?term=<id>` deep-links it (A80). The 2D force layout is deterministic and cluster-aware: clusters
   settle into named systems, domains into loose regions (A74). 3D uses the same
   colours, curved links, flowing particles on one-way links and a pull towards
   each cluster.
@@ -378,12 +378,25 @@ language**.
 
 Built after v1.0 (A34–A37) exactly as the data model intended: nothing is hand-authored.
 
-- **Quizzes generated from edges** — on every term page ("Check yourself") and in
-  study sessions (`/[lang]/study/`) scoped by cluster: definition → term, "easily
-  confused with" (`contrasts-with`), "what comes before" (`requires`), and "what does
-  X protect against / require / take advantage of" (`mitigates` / `mandates` /
-  `exploits`). Wrong options come from the same cluster or domain and never include
-  the question term, any valid answer, or their structural relatives and alternatives.
+- **Quizzes generated from edges** (A79) — two families of question. *About* a term
+  X, where the answer is always another term: its relationships in both directions
+  ("what should you understand before X", "which of these builds on X", "what is X a
+  kind of", "what does X protect against", "what protects against X", "which is
+  easily confused with X", …), "which of these is NOT related to X" (three neighbours
+  and one unconnected term) and true/false on a relationship statement (false only by
+  reversing a `requires` / `kind-of` / `part-of` / `implements` / `supersedes` edge,
+  so it is never true by accident). *Answered by* X: definition → term and
+  term → definition. A term page ("Check yourself") never asks a question its own
+  term answers: it asks about X, plus definition questions whose answers are X's
+  neighbours — so OAuth's definition is asked on the access-control page, never on
+  OAuth's. Study sessions (`/[lang]/study/`) mix both families over everything, one
+  domain, one cluster or the learner's weak terms (answered wrongly last, or marked
+  Learning / Don't understand). Wrong options are the most plausible first — terms
+  playing the same role elsewhere in the map, then the answer's cluster, then its
+  domain — and never the question term, any valid answer or a structural relative or
+  alternative of it; a relationship question also never offers one further along a
+  `requires` / `kind-of` / `part-of` chain, any neighbour of X or that neighbour's
+  relatives, alternatives and contrasts, or a term named in X's prose.
 - **Spaced repetition** — Leitner boxes (review after 0/1/3/7/16/35 days). A right
   answer promotes a term only when it is new or due; a wrong answer resets it.
   Sessions put due reviews first.
@@ -396,8 +409,10 @@ Built after v1.0 (A34–A37) exactly as the data model intended: nothing is hand
   or GitHub (Supabase Auth, called from the browser; the site stays static). A signed-in
   learner's state is one row in `learner_state` (Postgres, Row Level Security: own row
   only). Sync pulls and merges on sign-in, page load, returning to the tab and coming
-  back online, and pushes a moment after each change. The merge is per term, pure and
-  order-independent: the schedule (box, due) from the most recent answer, the status
+  back online, and pushes a moment after each change; a failed sync retries by itself
+  with a growing delay. There is no "Sync now" button: the header shows a small status
+  (✓ synced / syncing… / offline / not synced with "Try again", A79). The merge is per
+  term, pure and order-independent: the schedule (box, due) from the most recent answer, the status
   from the most recent change (clearing counts), right/wrong counts = the larger side.
   Change timestamps are monotonic per term and far-future ones are pulled back, so a
   fast clock can't win; writes are versioned (optimistic concurrency), so no device's

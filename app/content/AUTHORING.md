@@ -101,7 +101,7 @@ edges:
 ## Technical deep dive (optional)
 
 `deepDive: { en, da }` is the expert-level explanation shown as **Technical deep
-dive** on the term page, after the four facets (A79). Both languages are required
+dive** on the term page, after the four facets (A80). Both languages are required
 when the field is present.
 
 - **Plain text**, no Markdown or HTML. Separate paragraphs with a blank line (use a

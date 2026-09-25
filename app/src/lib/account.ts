@@ -33,6 +33,8 @@ const TABLE = 'learner_state';
 const PUSH_DELAY = 1500;
 const ATTEMPTS = 4;
 const NOTICE_KEY = 'atlas:account:notice';
+/** After a failed sync, try again by itself after these delays (the last one repeats). */
+const RETRY_DELAYS = [5_000, 15_000, 60_000, 300_000];
 
 let client: SupabaseClient | null = null;
 let user: Me | null = null;
@@ -46,6 +48,8 @@ let deleting = false;
 let timer: ReturnType<typeof setTimeout> | undefined;
 let running: Promise<void> | null = null;
 let again = false;
+let retryTimer: ReturnType<typeof setTimeout> | undefined;
+let failures = 0;
 
 function readNotice(): SyncNotice | undefined {
   try {
@@ -176,10 +180,31 @@ async function syncOnce() {
   }
 }
 
-/** Pull, merge and push now. Calls made while one is running coalesce into one more pass. */
+/**
+ * A failed sync retries by itself with a growing delay, so a passing network or
+ * server hiccup heals without the learner doing anything; success resets it.
+ */
+function afterSync() {
+  clearTimeout(retryTimer);
+  retryTimer = undefined;
+  if (state.status !== 'error') {
+    failures = 0;
+    return;
+  }
+  const delay = RETRY_DELAYS[Math.min(failures, RETRY_DELAYS.length - 1)];
+  failures++;
+  retryTimer = setTimeout(() => user && void syncNow(), delay);
+}
+
+/**
+ * Pull, merge and push now. Runs by itself (A44); called directly only by "Try
+ * again" after an error. Calls made while one is running coalesce into one more pass.
+ */
 export function syncNow(): Promise<void> {
   clearTimeout(timer);
   timer = undefined;
+  clearTimeout(retryTimer);
+  retryTimer = undefined;
   if (running) {
     again = true;
     return running;
@@ -189,6 +214,7 @@ export function syncNow(): Promise<void> {
       again = false;
       await syncOnce();
     } while (again);
+    afterSync();
   })().finally(() => (running = null));
   return running;
 }
@@ -213,6 +239,8 @@ export function startSync() {
     user = next;
     if (!user) {
       clearTimeout(timer);
+      clearTimeout(retryTimer);
+      failures = 0;
       return set({ status: 'signed-out', email: undefined, at: undefined });
     }
     if (event === 'SIGNED_IN' && state.notice) writeNotice(undefined);

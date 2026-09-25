@@ -56,7 +56,7 @@ interface Props {
   familyLabels: Dict;
   familyColours: Dict;
   domainLabels: Dict;
-  /** The term panel's strings and data locations (A79). */
+  /** The term panel's strings and data locations (A80). */
   panel: PanelConfig;
 }
 
@@ -154,13 +154,13 @@ export default function Explorer(props: Props) {
           setSelected(focus);
           setHops(1);
         }
-        // A deep link (`?term=`) opens that term's panel (A79).
+        // A deep link (`?term=`) opens that term's panel (A80).
         const deep = termFromSearch(window.location.search);
         if (deep && g.nodes.some((n) => n.id === deep)) setSelected(deep);
       });
   }, [graphUrl]);
 
-  // The open term is kept in the address (`?term=`), so the view can be shared (A79).
+  // The open term is kept in the address (`?term=`), so the view can be shared (A80).
   useEffect(() => {
     if (graph)
       history.replaceState(history.state, '', withTermParam(window.location.href, selected));
@@ -572,7 +572,7 @@ export default function Explorer(props: Props) {
     cull();
     cy.on('tap', 'node:childless', (e) => setSelected(e.target.id()));
     cy.on('tap', (e) => e.target === cy && setSelected(null));
-    // A double click opens the panel too — never a page load (A79).
+    // A double click opens the panel too — never a page load (A80).
     cy.on('dbltap', 'node:childless', (e) => setSelected(e.target.id()));
     attachHover(cy);
     // A hovered neighbourhood is labelled too — hovered term first, then by size — and
@@ -642,7 +642,7 @@ export default function Explorer(props: Props) {
       cy.edges('[!directed]').removeClass('flow');
     });
     if (node.nonempty()) {
-      // Centre the term in the part of the map the docked panel leaves visible (A79).
+      // Centre the term in the part of the map the docked panel leaves visible (A80).
       const p = node.position();
       const clear = cy.width() - panelReserve();
       cy.animate(

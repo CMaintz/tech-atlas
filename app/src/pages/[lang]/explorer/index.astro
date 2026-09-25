@@ -25,7 +25,7 @@ const ui = UI[lang];
 const localise = (m: Record<string, Record<Lang, string>>) =>
   Object.fromEntries(Object.entries(m).map(([k, v]) => [k, v[lang]]));
 
-// The term panel (A79) gets its tables from here, so the island never bundles the schema.
+// The term panel (A80) gets its tables from here, so the island never bundles the schema.
 const panel = {
   apiBase: url('api/terms/'),
   graphUrl: url('graph.json'),

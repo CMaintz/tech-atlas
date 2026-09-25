@@ -1,5 +1,5 @@
 /**
- * Pure logic behind the Explorer's term panel (A79): relationships derived from the
+ * Pure logic behind the Explorer's term panel (A80): relationships derived from the
  * graph artefact, the per-term record cache, the `?term=` deep link and deep-dive
  * paragraphs. No Astro or zod imports — this runs in the browser island.
  */

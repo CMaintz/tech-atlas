@@ -28,6 +28,7 @@ body:
 edges:
   kind-of: [tool-calling]
   requires:
+    - ai-agent
     - to: multimodal-model
       why:
         en: The model must read pictures of the screen to know where things are before it can decide what to click.

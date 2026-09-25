@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'preact/hooks';
 import type { Graph } from '../lib/graph-model';
-import { isDue, isKnown, loadLearner, recommendNext, type Learner } from '../lib/learner';
+import { isDue, isKnown, isWeak, loadLearner, recommendNext, type Learner } from '../lib/learner';
+import type { Scope } from '../lib/quiz';
 import Quiz from './Quiz';
 
 type Lang = 'en' | 'da';
@@ -12,13 +13,21 @@ interface Props {
   termBase: string;
   ui: Dict;
   clusterLabels: Dict;
+  domainLabels: Dict;
 }
 
 /** Progress, what to learn next, and a quiz session — all from local learner state. */
-export default function StudyHub({ lang, graphUrl, termBase, ui, clusterLabels }: Props) {
+export default function StudyHub({
+  lang,
+  graphUrl,
+  termBase,
+  ui,
+  clusterLabels,
+  domainLabels,
+}: Props) {
   const [graph, setGraph] = useState<Graph | null>(null);
   const [learner, setLearner] = useState<Learner>({ terms: {} });
-  const [scope, setScope] = useState('all');
+  const [scope, setScope] = useState<Scope>('all');
   const [round, setRound] = useState(0);
 
   useEffect(() => {
@@ -35,6 +44,7 @@ export default function StudyHub({ lang, graphUrl, termBase, ui, clusterLabels }
   const practised = states.filter((s) => s.right + s.wrong > 0).length;
   const known = states.filter(isKnown).length;
   const due = states.filter((s) => isDue(s)).length;
+  const weak = states.filter(isWeak).length;
   const next = graph ? recommendNext(graph, learner) : [];
   const total = graph?.nodes.length ?? 0;
 
@@ -81,19 +91,30 @@ export default function StudyHub({ lang, graphUrl, termBase, ui, clusterLabels }
 
       <section>
         <h2 class="mb-3 text-xs tracking-widest text-neutral-500 uppercase">{ui.practise}</h2>
-        <select
-          class="mb-4 rounded border border-neutral-700 bg-neutral-900 px-2 py-1 text-sm"
-          value={scope}
-          onChange={(e) => {
-            setScope((e.target as HTMLSelectElement).value);
-            setRound(round + 1);
-          }}
-        >
-          <option value="all">{ui.allTerms}</option>
-          {Object.entries(clusterLabels).map(([c, label]) => (
-            <option value={c}>{label}</option>
-          ))}
-        </select>
+        <label class="mb-4 flex flex-wrap items-center gap-2 text-sm text-neutral-400">
+          {ui.quizMeOn}
+          <select
+            class="rounded border border-neutral-700 bg-neutral-900 px-2 py-1 text-sm text-neutral-100"
+            value={scope}
+            onChange={(e) => {
+              setScope((e.target as HTMLSelectElement).value as Scope);
+              setRound(round + 1);
+            }}
+          >
+            <option value="all">{ui.everything}</option>
+            <option value="weak">{ui.weakTerms.replace('{n}', String(weak))}</option>
+            <optgroup label={ui.domains}>
+              {Object.entries(domainLabels).map(([d, label]) => (
+                <option value={`domain:${d}`}>{label}</option>
+              ))}
+            </optgroup>
+            <optgroup label={ui.clusters}>
+              {Object.entries(clusterLabels).map(([c, label]) => (
+                <option value={`cluster:${c}`}>{label}</option>
+              ))}
+            </optgroup>
+          </select>
+        </label>
         <Quiz
           key={`${scope}-${round}`}
           lang={lang}

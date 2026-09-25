@@ -95,7 +95,7 @@ const seen = new Set<string>();
 const linked = Object.fromEntries(
   facets.map((f) => [f, linker.link(d.body[f][lang], { self: term.id, seen })]),
 );
-// Technical deep dive (A79): optional plain text, one paragraph per blank-line block.
+// Technical deep dive (A80): optional plain text, one paragraph per blank-line block.
 const deepDive = paragraphs(d.deepDive?.[lang]).map((p) => linker.link(p, { self: term.id, seen }));
 const deep = DEEP_UI[lang];
 const editUrl = `${REPO}/edit/main/app/src/content/terms/${term.id}.yaml`;

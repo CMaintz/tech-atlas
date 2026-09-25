@@ -53,7 +53,12 @@ export const UI = {
     score: 'You got {n} of {m} right.',
     noQuestions: 'No questions for this term yet.',
     practise: 'Practise',
-    allTerms: 'All terms',
+    quizMeOn: 'Quiz me on:',
+    everything: 'Everything',
+    weakTerms: 'My weak terms ({n})',
+    clusters: 'Clusters',
+    noWeakTerms:
+      'No weak terms yet — terms you answer wrongly or mark as “Learning it” or “Don’t understand” gather here.',
     progress: 'Your progress',
     practised: 'Practised',
     known: 'Known',
@@ -150,7 +155,12 @@ export const UI = {
     withGitHub: 'Sign in with GitHub',
     authError: 'Something went wrong: {msg}',
     signedInAs: 'Signed in as {email}',
-    syncNow: 'Sync now',
+    syncRetry: 'Try again',
+    syncAuto: 'Your progress syncs automatically whenever it changes.',
+    syncShort_syncing: 'Syncing…',
+    syncShort_synced: 'Synced',
+    syncShort_offline: 'Offline',
+    syncShort_error: 'Not synced',
     sync_syncing: 'Syncing…',
     sync_synced: 'Progress synced.',
     sync_offline: 'Offline — changes are kept here and sync when you are back online.',
@@ -220,7 +230,12 @@ export const UI = {
     score: 'Du fik {n} af {m} rigtige.',
     noQuestions: 'Ingen spørgsmål til dette begreb endnu.',
     practise: 'Øv',
-    allTerms: 'Alle begreber',
+    quizMeOn: 'Quiz mig i:',
+    everything: 'Det hele',
+    weakTerms: 'Mine svage begreber ({n})',
+    clusters: 'Klynger',
+    noWeakTerms:
+      'Ingen svage begreber endnu — begreber, du svarer forkert på eller markerer som “Lærer det” eller “Forstår det ikke”, samles her.',
     progress: 'Dine fremskridt',
     practised: 'Øvet',
     known: 'Kendt',
@@ -319,7 +334,12 @@ export const UI = {
     withGitHub: 'Log ind med GitHub',
     authError: 'Noget gik galt: {msg}',
     signedInAs: 'Logget ind som {email}',
-    syncNow: 'Synkronisér nu',
+    syncRetry: 'Prøv igen',
+    syncAuto: 'Dine fremskridt synkroniseres automatisk, hver gang de ændres.',
+    syncShort_syncing: 'Synkroniserer …',
+    syncShort_synced: 'Synkroniseret',
+    syncShort_offline: 'Offline',
+    syncShort_error: 'Ikke synkroniseret',
     sync_syncing: 'Synkroniserer …',
     sync_synced: 'Fremskridt synkroniseret.',
     sync_offline: 'Offline — ændringer gemmes her og synkroniseres, når du er online igen.',
@@ -453,7 +473,7 @@ export const GRAPH_UI = {
   },
 } as const;
 
-/** The Explorer's term panel (A79). `da` must carry every key `en` has. */
+/** The Explorer's term panel (A80). `da` must carry every key `en` has. */
 const PANEL_EN = {
   panelLabel: 'Term details: {name}',
   panelExpand: 'Expand',
@@ -489,7 +509,7 @@ export const PANEL_UI: Record<Lang, Record<keyof typeof PANEL_EN, string>> = {
   },
 };
 
-/** The term page's deep dive and provenance note (A79). `da` must carry every key `en` has. */
+/** The term page's deep dive and provenance note (A80). `da` must carry every key `en` has. */
 const DEEP_EN = {
   deepDive: 'Technical deep dive',
   sourcesFurther: 'Sources & further reading',

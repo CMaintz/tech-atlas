@@ -147,7 +147,7 @@ export const TermFrontmatter = z
     summary: LocalizedMax(140),
     body: Body,
     /**
-     * Optional technical deep dive for the term page (A79): plain text, paragraphs
+     * Optional technical deep dive for the term page (A80): plain text, paragraphs
      * separated by a blank line. Exempt from Closed Vocabulary, like an Article.
      */
     deepDive: z

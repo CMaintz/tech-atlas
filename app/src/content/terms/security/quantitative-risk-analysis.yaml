@@ -26,7 +26,7 @@ body:
     da: Ledelsen forstår penge, og tal gør det muligt at sammenligne sikkerhedsudgifter med andre investeringer, selv om gode data ofte er svære at finde.
 edges:
   kind-of: [risk-assessment]
-  requires: [likelihood, impact]
+  requires: [risk, likelihood, impact]
   used-with: [risk-transfer]
 sources:
   - title: Cyber Security Fast Track — Kursuskompendium, Modul 5
