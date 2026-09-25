@@ -25,7 +25,8 @@ export type Learner = { terms: Record<string, TermState> };
 export const STATUSES: readonly Status[] = ['know', 'familiar', 'learning', 'unknown'];
 
 /** One key, one format; no migration from the pre-sync shape (A50: no users yet). */
-const KEY = 'atlas:learner:v2';
+export const LEARNER_KEY = 'atlas:learner:v2';
+const KEY = LEARNER_KEY;
 const DAY = 24 * 60 * 60 * 1000;
 /** Days until the next review, per Leitner box. */
 const INTERVALS = [0, 1, 3, 7, 16, 35];
@@ -148,4 +149,16 @@ export function recommendNext(graph: Graph, l: Learner, limit = 8): GraphNode[] 
     .filter((n) => (anyKnown ? n.requires.every(known) : n.requires.length === 0))
     .sort((a, b) => b.degree - a.degree || a.id.localeCompare(b.id))
     .slice(0, limit);
+}
+
+/**
+ * The learner's progress as a downloadable JSON document (data portability, A88):
+ * exactly what this browser stores and, when signed in, what is synced.
+ */
+export function learnerExport(l: Learner, now = Date.now()): string {
+  return JSON.stringify(
+    { format: LEARNER_KEY, exportedAt: new Date(now).toISOString(), ...l },
+    null,
+    2,
+  );
 }
