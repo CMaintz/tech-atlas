@@ -1,7 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
-import { LANGS, UI, url, type Lang } from '../../../lib/site';
+import { domainColour, homeDomain } from '../../../lib/graph-style';
+import { CLUSTER_LABELS, DOMAIN_LABELS, LANGS, UI, url, type Lang } from '../../../lib/site';
 import { contrastPairs, pairSlug } from '../../../lib/terms';
 
 export function getStaticPaths() {
@@ -13,23 +14,144 @@ const ui = UI[lang];
 const pairs = contrastPairs(await getCollection('terms')).sort((x, y) =>
   x.a.data.term[lang].localeCompare(y.a.data.term[lang], lang),
 );
+
+// Grouped by domain: a pair whose terms share a home domain sits under it (sub-grouped
+// by cluster when both share one), any other pair under "Across domains".
+const CROSS = 'cross';
+const MIXED = '';
+const ORDER = ['security', 'cs', 'ai', 'platform'];
+type Pair = (typeof pairs)[number];
+const groups = new Map<string, Map<string, Pair[]>>();
+for (const p of pairs) {
+  const ha = homeDomain(p.a.data);
+  const hb = homeDomain(p.b.data);
+  const domain = ha === hb ? ha : CROSS;
+  const cluster =
+    domain !== CROSS && p.a.data.cluster === p.b.data.cluster ? p.a.data.cluster : MIXED;
+  const byCluster = groups.get(domain) ?? groups.set(domain, new Map()).get(domain)!;
+  byCluster.set(cluster, [...(byCluster.get(cluster) ?? []), p]);
+}
+const rank = (d: string) => (d === CROSS ? 98 : ORDER.indexOf(d) + 1 || 97);
+const sections = [...groups]
+  .sort(([a], [b]) => rank(a) - rank(b) || a.localeCompare(b))
+  .map(([domain, byCluster]) => ({
+    domain,
+    id: `compare-${domain}`,
+    label: domain === CROSS ? ui.compareAcross : (DOMAIN_LABELS[domain]?.[lang] ?? domain),
+    colour: domain === CROSS ? '#a3a3a3' : domainColour(domain),
+    count: [...byCluster.values()].reduce((n, l) => n + l.length, 0),
+    clusters: [...byCluster]
+      .map(([cluster, list]) => ({
+        cluster,
+        label: cluster === MIXED ? '' : (CLUSTER_LABELS[cluster]?.[lang] ?? cluster),
+        list,
+      }))
+      // Named clusters alphabetically, the mixed bucket last.
+      .sort(
+        (a, b) =>
+          (a.cluster === MIXED ? 1 : 0) - (b.cluster === MIXED ? 1 : 0) ||
+          a.label.localeCompare(b.label, lang),
+      ),
+  }));
+const multi = (s: (typeof sections)[number]) => s.clusters.length > 1;
 ---
 
 <Base lang={lang} title={ui.compareTitle}>
   <h1 class="mb-2 text-3xl font-semibold">{ui.compareTitle}</h1>
-  <p class="mb-8 text-neutral-400">{ui.compareIntro}</p>
-  <ul class="space-y-3">
-    {pairs.map((p) => (
-      <li>
+  <p class="mb-6 text-neutral-400">{ui.compareIntro}</p>
+  <div class="sticky top-0 z-20 -mx-4 mb-6 border-b border-neutral-800 bg-neutral-950/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6">
+    <nav class="mb-3 flex flex-wrap gap-2 text-sm" aria-label={ui.compareTitle}>
+      {sections.map((s) => (
         <a
-          class="text-neutral-100 hover:underline"
-          href={url(`${lang}/compare/${pairSlug(p.a, p.b)}/`)}
+          href={`#${s.id}`}
+          class="flex items-center gap-2 rounded-full border border-neutral-700 px-3 py-1 text-neutral-200 hover:border-neutral-400"
         >
-          {p.a.data.term[lang]} <span class="text-neutral-500">{ui.versus}</span>{' '}
-          {p.b.data.term[lang]}
+          <span
+            aria-hidden="true"
+            class="inline-block h-2 w-2 rounded-full"
+            style={{ background: s.colour }}
+          />
+          {s.label}
+          <span class="text-xs text-neutral-500">{s.count}</span>
         </a>
-        {p.why && <p class="text-sm text-neutral-500">{p.why[lang]}</p>}
-      </li>
-    ))}
-  </ul>
+      ))}
+    </nav>
+    <label class="block">
+      <span class="sr-only">{ui.compareFilter}</span>
+      <input
+        type="search"
+        data-compare-filter
+        placeholder={ui.compareFilter}
+        autocomplete="off"
+        class="w-full max-w-md rounded-md border border-neutral-700 bg-neutral-900 px-3 py-1.5 text-sm text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-400 focus:outline-none"
+      />
+    </label>
+  </div>
+  <p data-compare-none hidden class="text-neutral-400">
+    {ui.compareNone}
+  </p>
+  {sections.map((s) => (
+    <section id={s.id} data-compare-group class="mb-10 scroll-mt-32">
+      <h2
+        class="mb-4 flex items-center gap-2 border-l-4 pl-3 text-xl font-semibold"
+        style={{ borderColor: s.colour, color: s.colour }}
+      >
+        {s.label}
+        <span class="text-sm font-normal text-neutral-500">{s.count}</span>
+      </h2>
+      {s.clusters.map((c) => (
+        <div data-compare-group class="mb-6">
+          {multi(s) && (
+            <h3 class="mb-2 text-xs font-medium tracking-widest text-neutral-400 uppercase">
+              {c.label || ui.compareAcrossClusters}
+            </h3>
+          )}
+          <ul class="grid gap-x-8 gap-y-3 md:grid-cols-2">
+            {c.list.map((p) => (
+              <li
+                data-q={[
+                  p.a.data.term.en,
+                  p.a.data.term.da,
+                  p.b.data.term.en,
+                  p.b.data.term.da,
+                  p.why?.[lang] ?? '',
+                ]
+                  .join(' ')
+                  .toLowerCase()}
+              >
+                <a
+                  class="text-neutral-100 hover:underline"
+                  href={url(`${lang}/compare/${pairSlug(p.a, p.b)}/`)}
+                >
+                  {p.a.data.term[lang]} <span class="text-neutral-500">{ui.versus}</span>{' '}
+                  {p.b.data.term[lang]}
+                </a>
+                {p.why && <p class="text-sm text-neutral-500">{p.why[lang]}</p>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+  ))}
 </Base>
+
+<script>
+  // Filter: hide pairs that don't match, then any group left empty. No storage.
+  const input = document.querySelector<HTMLInputElement>('[data-compare-filter]');
+  const none = document.querySelector<HTMLElement>('[data-compare-none]');
+  const apply = () => {
+    const q = (input?.value ?? '').trim().toLowerCase();
+    for (const li of document.querySelectorAll<HTMLElement>('li[data-q]'))
+      li.hidden = q !== '' && !(li.dataset.q ?? '').includes(q);
+    let any = false;
+    for (const g of document.querySelectorAll<HTMLElement>('[data-compare-group]')) {
+      const visible = g.querySelector('li[data-q]:not([hidden])') !== null;
+      g.hidden = !visible;
+      any ||= visible;
+    }
+    if (none) none.hidden = any;
+  };
+  input?.addEventListener('input', apply);
+  apply();
+</script>

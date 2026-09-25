@@ -1,13 +1,15 @@
 import type { ComponentType } from 'preact';
-import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks';
 import type { Graph } from '../lib/graph-model';
 import {
   bandsWithin,
   decadeTicks,
+  fitPerYear,
   labelWidth,
   lanesOf,
   densityScale,
-  packTracks,
+  packCapped,
+  shareRows,
   stretchScale,
   yearLoad,
   type TimelineItem,
@@ -45,17 +47,25 @@ export type TimelinePanel = PanelConfig & {
 /** TermPanel's props, loosely: it is imported on demand, so only its type is known here. */
 type PanelView = ComponentType<Record<string, unknown>>;
 
-// Horizontal (desktop) geometry, px.
-const H_ZOOM = [8, 12, 18, 26, 38];
-const ROW = 24;
-const LANE_PAD = 10;
-const LABEL_COL = 132;
-const H_PAD = 24;
+// Horizontal (desktop) geometry, px. Zoom 0 fits the whole axis into the chart's width;
+// each step in multiplies the fitted px/year.
+const H_ZOOM = [1, 1.5, 2.2, 3.2, 4.6];
+const ROW_FIT = 17;
+const ROW = 22;
+const LANE_PAD = 6;
+const LABEL_COL = 116;
+const H_PAD = 16;
+const TOP_AXIS = 44;
+const BOTTOM_AXIS = 26;
+const CHIP_W = 34;
+// Before the island measures: a typical desktop chart width and lane budget.
+const SSR_WIDTH = 1280;
+const SSR_BUDGET = 560;
 // Vertical (small screens) geometry, px.
-const V_ZOOM = [2, 4, 6, 10, 16];
+const V_ZOOM = [4, 6, 10, 16, 22];
 const V_ITEM = 20;
 const AXIS_COL = 44;
-const DEFAULT_ZOOM = 1;
+const DEFAULT_ZOOM = 0;
 
 /** The dot for one term: domain colour, larger for hubs, ringed when in a second domain. */
 function Dot({ colour, ring, hub }: { colour: string; ring: string | null; hub: boolean }) {
@@ -68,7 +78,10 @@ function Dot({ colour, ring, hub }: { colour: string; ring: string | null; hub: 
         width: size,
         height: size,
         background: colour,
-        boxShadow: [ring ? `0 0 0 2px ${ring}` : '', hub ? `0 0 10px ${colour}` : '']
+        boxShadow: [
+          ring ? `0 0 0 1.5px #0a0a0a, 0 0 0 3.5px ${ring}` : '',
+          hub ? `0 0 10px ${colour}` : '',
+        ]
           .filter(Boolean)
           .join(', '),
       }}
@@ -126,23 +139,97 @@ export default function Timeline(props: Props) {
     return other ? (domainColours[other] ?? null) : null;
   };
 
-  // ---- horizontal layout: linear axis, labels stacked into rows without overlap ----
+  // ---- horizontal layout: the axis fits the chart's width at zoom 0; each lane gets a
+  // share of the viewport's height, and labels that don't fit fold into "+N" chips ----
+  const chartRef = useRef<HTMLElement>(null);
+  const [avail, setAvail] = useState(SSR_WIDTH);
+  const [budget, setBudget] = useState(SSR_BUDGET);
+  useLayoutEffect(() => {
+    const el = chartRef.current;
+    if (!el) return;
+    const measure = () => {
+      if (!el.clientWidth) return; // hidden (phone layout)
+      setAvail(el.clientWidth);
+      const top = el.getBoundingClientRect().top + window.scrollY;
+      setBudget(Math.max(240, window.innerHeight - top - TOP_AXIS - BOTTOM_AXIS - 12));
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    window.addEventListener('resize', measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', measure);
+    };
+  }, []);
   const load = useMemo(() => yearLoad(lanes.values()), [lanes]);
   const h = useMemo(() => {
-    const scale = densityScale(start, end, H_ZOOM[zoom], load);
-    // Labels may run past the last year; the canvas grows to hold the longest one.
-    let reach = scale.length;
-    const out = [...lanes].map(([lane, list]) => {
+    const axis = avail - LABEL_COL - H_PAD * 2 - 2;
+    const scale = densityScale(start, end, fitPerYear(start, end, axis, load) * H_ZOOM[zoom], load);
+    const row = zoom === 0 ? ROW_FIT : ROW;
+    const font = zoom === 0 ? 11 : 12;
+    const laneSpans = [...lanes].map(([lane, list]) => {
+      const flip = new Set<string>();
       const spans = list.map((it) => {
         const x = scale.at(it.year + 0.5);
-        return { id: it.id, start: x - 7, end: x + 16 + labelWidth(it.name, it.hub ? 13 : 12) };
+        const w = labelWidth(it.name, it.hub ? font + 1 : font);
+        const rank = it.hub ? -1e6 : -it.degree;
+        // Near the right edge the label goes left of its dot, so nothing runs off the axis.
+        if (x + 16 + w > scale.length + H_PAD) {
+          flip.add(it.id);
+          return { id: it.id, start: x - 12 - w, end: x + 7, rank };
+        }
+        return { id: it.id, start: x - 7, end: x + 16 + w, rank };
       });
-      const { track, tracks } = packTracks(spans, 6);
-      reach = Math.max(reach, ...spans.map((sp) => sp.end));
-      return { lane, list, track, height: Math.max(1, tracks) * ROW + LANE_PAD * 2, scale };
+      return { lane, list, flip, spans, need: packCapped(spans, Infinity, 6).tracks };
     });
-    return { scale, lanes: out, width: reach + H_PAD * 2 };
-  }, [lanes, load, zoom, start, end]);
+    const rowsOf = shareRows(
+      laneSpans.map((l) => l.need),
+      Math.floor((budget - lanes.size * LANE_PAD * 2) / row),
+    );
+    const out = laneSpans.map(({ lane, list, flip, spans }, i) => {
+      const rows = Math.max(2, rowsOf[i]);
+      let packed = packCapped(spans, rows, 6);
+      // A lane that overflows gives its last row to the chips.
+      if (packed.overflow.length) packed = packCapped(spans, rows - 1, 6);
+      const byX = packed.overflow
+        .map((id) => ({ id, x: scale.at(byId.get(id)!.year + 0.5) }))
+        .sort((a, b) => a.x - b.x);
+      const chips: { key: string; x: number; ids: string[] }[] = [];
+      for (const o of byX) {
+        const last = chips.at(-1);
+        if (last && o.x - last.x < CHIP_W) last.ids.push(o.id);
+        else chips.push({ key: `${lane}:${o.id}`, x: o.x, ids: [o.id] });
+      }
+      const tracks = Math.max(1, packed.tracks) + (chips.length ? 1 : 0);
+      return {
+        lane,
+        list: list.filter((it) => packed.track.has(it.id)),
+        count: list.length,
+        track: packed.track,
+        flip,
+        chips,
+        chipRow: tracks - 1,
+        height: tracks * row + LANE_PAD * 2,
+      };
+    });
+    return { scale, lanes: out, width: scale.length + H_PAD * 2, row, font };
+  }, [lanes, load, zoom, start, end, avail, budget, byId]);
+
+  // The "+N" chip list: a preview on hover, pinned on click.
+  type More = { key: string; ids: string[]; pinned: boolean; x: number; y: number };
+  const [more, setMore] = useState<More | null>(null);
+  const moreTimer = useRef<number>();
+  const openMore = (chip: { key: string; ids: string[] }, el: HTMLElement, pinned: boolean) => {
+    clearTimeout(moreTimer.current);
+    const r = el.getBoundingClientRect();
+    setMore({ key: chip.key, ids: chip.ids, pinned, x: r.left, y: r.bottom });
+  };
+  const leaveMore = () => {
+    clearTimeout(moreTimer.current);
+    moreTimer.current = window.setTimeout(() => setMore((m) => (m?.pinned ? m : null)), 180);
+  };
+  useEffect(() => setMore(null), [zoom, shown]);
 
   // ---- vertical layout: stretch axis so each lane's entries for a year stack cleanly ----
   const v = useMemo(() => {
@@ -213,6 +300,20 @@ export default function Timeline(props: Props) {
     };
   }, [sel?.pinned]);
 
+  useEffect(() => {
+    if (!more?.pinned) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setMore(null);
+    const onDown = (e: PointerEvent) => {
+      if (!(e.target as HTMLElement).closest('[data-tl-more]')) setMore(null);
+    };
+    document.addEventListener('keydown', onKey);
+    document.addEventListener('pointerdown', onDown);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('pointerdown', onDown);
+    };
+  }, [more?.pinned]);
+
   const chip =
     'rounded-full border px-3 py-1 text-xs transition-colors hover:border-neutral-400 aria-pressed:text-neutral-100';
   const selItem = sel ? byId.get(sel.id) : undefined;
@@ -273,98 +374,163 @@ export default function Timeline(props: Props) {
           </button>
         </span>
       </div>
-      <p class="mb-4 flex flex-wrap items-center gap-x-5 gap-y-1 text-xs text-neutral-500">
+      <p class="mb-3 flex flex-wrap items-center gap-x-6 gap-y-1 text-xs text-neutral-400">
         <span class="flex items-center gap-2">
-          <Dot colour="#d4d4d4" ring={null} hub /> {text.milestone}
+          <Dot colour={domainColours[domains[0]] ?? '#d4d4d4'} ring={null} hub /> {text.milestone}
         </span>
-        <span class="flex items-center gap-2">
-          <Dot colour="#d4d4d4" ring="#737373" hub={false} /> {text.otherDomain}
+        <span class="flex items-center gap-2.5">
+          <span class="px-1">
+            <Dot
+              colour={domainColours[domains[0]] ?? '#d4d4d4'}
+              ring={domainColours[domains[2] ?? domains[1]] ?? '#a3a3a3'}
+              hub={false}
+            />
+          </span>
+          {text.otherDomain}
+        </span>
+        <span class="hidden items-center gap-2 sm:flex">
+          <span class="rounded-full border border-neutral-600 bg-neutral-800 px-1.5 text-[10px] leading-4 text-neutral-200">
+            +3
+          </span>
+          {text.moreHint}
         </span>
       </p>
 
       {/* ---- horizontal chart (sm and up) ---- */}
       <section
+        ref={chartRef}
         aria-label={text.chart}
         class="relative hidden overflow-x-auto rounded-lg border border-neutral-800 bg-neutral-950 sm:block"
       >
-        <div class="relative" style={{ width: LABEL_COL + h.width }}>
-          {/* era bands + decade grid, behind everything */}
+        <div class="relative" style={{ width: LABEL_COL + h.width, minWidth: '100%' }}>
+          {/* decade bands + gridlines, behind everything */}
           <div aria-hidden="true" class="pointer-events-none absolute inset-0">
-            {bands.map((b, i) => (
+            {ticks.slice(0, -1).map((t, i) => (
               <div
-                class="absolute top-0 bottom-0 border-l border-neutral-800/60"
+                class="absolute top-0 bottom-0"
+                style={{
+                  left: LABEL_COL + H_PAD + h.scale.at(t),
+                  width: h.scale.at(ticks[i + 1]) - h.scale.at(t),
+                  background: i % 2 ? 'rgba(255,255,255,0.045)' : 'transparent',
+                }}
+              />
+            ))}
+            {ticks.map((t) => (
+              <div
+                class="absolute bottom-0 border-l border-neutral-600/80"
+                style={{ left: LABEL_COL + H_PAD + h.scale.at(t), top: 22 }}
+              />
+            ))}
+          </div>
+          {/* top axis: era strip, then decade labels */}
+          <div aria-hidden="true" class="relative" style={{ height: TOP_AXIS }}>
+            {bands.map((b) => (
+              <div
+                class="absolute top-0 h-5 overflow-hidden border-l-2 border-neutral-500 bg-neutral-900"
                 style={{
                   left: LABEL_COL + H_PAD + h.scale.at(b.from),
                   width: h.scale.at(b.to) - h.scale.at(b.from),
-                  background: i % 2 ? 'rgba(255,255,255,0.025)' : 'transparent',
                 }}
               >
-                <span class="absolute top-1.5 left-2 text-[10px] tracking-widest whitespace-nowrap text-neutral-500 uppercase">
+                <span class="absolute top-0.5 left-1.5 text-[10px] tracking-widest whitespace-nowrap text-neutral-400 uppercase">
                   {eraLabels[b.id]}
                 </span>
               </div>
             ))}
             {ticks.map((t) => (
-              <div
-                class="absolute top-6 bottom-0 border-l border-dashed border-neutral-800"
-                style={{ left: LABEL_COL + H_PAD + h.scale.at(t) }}
-              />
-            ))}
-          </div>
-          {/* top axis */}
-          <div aria-hidden="true" class="relative h-12">
-            {ticks.map((t) => (
               <span
-                class="absolute bottom-1 -translate-x-1/2 font-mono text-xs text-neutral-400"
+                class="absolute bottom-1 -translate-x-1/2 rounded bg-neutral-950 px-1 font-mono text-xs font-medium text-neutral-200"
                 style={{ left: LABEL_COL + H_PAD + h.scale.at(t) }}
               >
                 {t}
               </span>
             ))}
           </div>
-          {h.lanes.map(({ lane, list, track, height, scale }) => (
+          {h.lanes.map(({ lane, list, count, track, flip, chips, chipRow, height }) => (
             <div class="relative flex border-t border-neutral-800" style={{ height }}>
               <h2
-                class="sticky left-0 z-10 flex shrink-0 items-start gap-2 border-r border-neutral-800 bg-neutral-950 px-3 pt-3 text-sm font-medium"
+                class="sticky left-0 z-10 flex shrink-0 items-start gap-2 border-r border-neutral-800 bg-neutral-950 px-3 pt-2 text-sm font-medium"
                 style={{ width: LABEL_COL, color: domainColours[lane] }}
               >
                 <span
                   aria-hidden="true"
-                  class="mt-1.5 inline-block h-2 w-2 rounded-full"
+                  class="mt-1.5 inline-block h-2 w-2 shrink-0 rounded-full"
                   style={{ background: domainColours[lane] }}
                 />
                 {domainLabels[lane] ?? lane}
-                <span class="sr-only">({list.length})</span>
+                <span class="sr-only">({count})</span>
               </h2>
               <ul class="relative" style={{ width: h.width }}>
-                {list.map((it) => (
+                {list.map((it) => {
+                  const x = h.scale.at(it.year + 0.5);
+                  const left = flip.has(it.id);
+                  return (
+                    <li
+                      class="absolute flex items-center"
+                      style={{
+                        height: h.row,
+                        top: LANE_PAD + track.get(it.id)! * h.row,
+                        ...(left
+                          ? { right: h.width - H_PAD - x - (it.hub ? 6 : 4) }
+                          : { left: H_PAD + x - (it.hub ? 6 : 4) }),
+                      }}
+                    >
+                      <a
+                        href={it.href}
+                        data-tl-item
+                        class={`flex items-center gap-1.5 rounded px-0.5 whitespace-nowrap hover:text-white ${left ? 'flex-row-reverse' : ''} ${it.hub ? 'font-semibold text-neutral-50' : 'text-neutral-300'} ${sel?.id === it.id ? 'bg-neutral-800 text-white' : ''}`}
+                        style={{ fontSize: it.hub ? h.font + 1 : h.font }}
+                        aria-label={`${it.name}, ${it.year}`}
+                        {...handlers(it)}
+                      >
+                        <Dot colour={domainColours[lane]} ring={ringOf(it, lane)} hub={it.hub} />
+                        {it.name}
+                      </a>
+                    </li>
+                  );
+                })}
+                {chips.map((c) => (
                   <li
-                    class="absolute flex h-6 items-center"
+                    class="absolute flex items-center"
                     style={{
-                      left: H_PAD + scale.at(it.year + 0.5) - (it.hub ? 6 : 4),
-                      top: LANE_PAD + track.get(it.id)! * ROW,
+                      height: h.row,
+                      top: LANE_PAD + chipRow * h.row,
+                      left: H_PAD + c.x - 6,
                     }}
                   >
-                    <a
-                      href={it.href}
-                      data-tl-item
-                      class={`flex items-center gap-1.5 rounded px-0.5 whitespace-nowrap hover:text-white ${it.hub ? 'text-[13px] font-semibold text-neutral-50' : 'text-xs text-neutral-300'} ${sel?.id === it.id ? 'bg-neutral-800 text-white' : ''}`}
-                      aria-label={`${it.name}, ${it.year}`}
-                      {...handlers(it)}
+                    <button
+                      type="button"
+                      data-tl-more
+                      class={`rounded-full border px-1.5 text-[10px] leading-4 hover:border-neutral-300 hover:text-white ${more?.key === c.key ? 'border-neutral-300 bg-neutral-700 text-white' : 'border-neutral-600 bg-neutral-800 text-neutral-200'}`}
+                      aria-expanded={more?.key === c.key && more.pinned}
+                      aria-label={text.moreLabel.replace('{n}', String(c.ids.length))}
+                      onClick={(e) =>
+                        more?.key === c.key && more.pinned
+                          ? setMore(null)
+                          : openMore(c, e.currentTarget as HTMLElement, true)
+                      }
+                      onMouseEnter={(e) => {
+                        if (!more?.pinned && matchMedia('(hover: hover)').matches)
+                          openMore(c, e.currentTarget as HTMLElement, false);
+                      }}
+                      onMouseLeave={leaveMore}
                     >
-                      <Dot colour={domainColours[lane]} ring={ringOf(it, lane)} hub={it.hub} />
-                      {it.name}
-                    </a>
+                      +{c.ids.length}
+                    </button>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
           {/* bottom axis */}
-          <div aria-hidden="true" class="relative h-8 border-t border-neutral-800">
+          <div
+            aria-hidden="true"
+            class="relative border-t border-neutral-700"
+            style={{ height: BOTTOM_AXIS }}
+          >
             {ticks.map((t) => (
               <span
-                class="absolute top-1.5 -translate-x-1/2 font-mono text-xs text-neutral-500"
+                class="absolute top-1 -translate-x-1/2 rounded bg-neutral-950 px-1 font-mono text-xs font-medium text-neutral-200"
                 style={{ left: LABEL_COL + H_PAD + h.scale.at(t) }}
               >
                 {t}
@@ -373,6 +539,39 @@ export default function Timeline(props: Props) {
           </div>
         </div>
       </section>
+
+      {/* ---- "+N" chip list ---- */}
+      {more && (
+        <div
+          data-tl-more
+          role={more.pinned ? 'dialog' : 'tooltip'}
+          class="fixed z-50 max-h-80 w-64 overflow-y-auto rounded-lg border border-neutral-700 bg-neutral-900/95 p-2 text-xs shadow-xl shadow-black/50 backdrop-blur"
+          style={popStyle(more.x, more.y)}
+          onMouseEnter={() => clearTimeout(moreTimer.current)}
+          onMouseLeave={leaveMore}
+        >
+          <ul class="space-y-0.5">
+            {more.ids
+              .map((id) => byId.get(id)!)
+              .sort((a, b) => a.year - b.year || a.name.localeCompare(b.name))
+              .map((it) => (
+                <li>
+                  <a
+                    href={it.href}
+                    class="flex items-baseline gap-2 rounded px-1.5 py-1 text-neutral-200 hover:bg-neutral-800 hover:text-white"
+                    onClick={(e) => {
+                      handlers(it).onClick(e);
+                      setMore(null);
+                    }}
+                  >
+                    <span class="font-mono text-[10px] text-neutral-500">{it.year}</span>
+                    <span class={it.hub ? 'font-semibold' : ''}>{it.name}</span>
+                  </a>
+                </li>
+              ))}
+          </ul>
+        </div>
+      )}
 
       {/* ---- vertical chart (phones) ---- */}
       <section
@@ -393,13 +592,23 @@ export default function Timeline(props: Props) {
         </div>
         <div class="relative mt-3 flex" style={{ height: v.scale.length + 16 }}>
           <div aria-hidden="true" class="pointer-events-none absolute inset-0">
-            {bands.map((b, i) => (
+            {ticks.slice(0, -1).map((t, i) => (
               <div
-                class="absolute right-0 left-0 border-t border-neutral-800/60"
+                class="absolute right-0"
+                style={{
+                  left: AXIS_COL,
+                  top: v.scale.at(t),
+                  height: v.scale.at(ticks[i + 1]) - v.scale.at(t),
+                  background: i % 2 ? 'rgba(255,255,255,0.045)' : 'transparent',
+                }}
+              />
+            ))}
+            {bands.map((b) => (
+              <div
+                class="absolute right-0 left-0 border-t border-neutral-500/70"
                 style={{
                   top: v.scale.at(b.from),
                   height: v.scale.at(b.to) - v.scale.at(b.from),
-                  background: i % 2 ? 'rgba(255,255,255,0.025)' : 'transparent',
                 }}
               >
                 <span
@@ -412,11 +621,11 @@ export default function Timeline(props: Props) {
             ))}
             {ticks.map((t) => (
               <div
-                class="absolute right-0 border-t border-dashed border-neutral-800"
+                class="absolute right-0 border-t border-neutral-600/80"
                 style={{ top: v.scale.at(t), left: AXIS_COL }}
               >
                 <span
-                  class="absolute -top-2 font-mono text-[11px] text-neutral-400"
+                  class="absolute -top-2 font-mono text-[11px] font-medium text-neutral-200"
                   style={{ left: -AXIS_COL + 14 }}
                 >
                   {t}
