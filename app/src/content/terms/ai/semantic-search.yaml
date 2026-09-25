@@ -2,8 +2,8 @@ term:
   en: Semantic search
   da: Semantisk søgning
 aka:
-  en: [vector search]
-  da: [vektorsøgning]
+  en: []
+  da: []
 domain: [ai]
 cluster: retrieval
 layer: application

@@ -25,7 +25,6 @@ body:
     en: It keeps a person responsible for actions that are costly or hard to undo, though if approvals come too often people start clicking yes without reading.
     da: Det holder en person ansvarlig for handlinger, der er dyre eller svære at gøre om, men hvis godkendelser kommer for tit, begynder folk at klikke ja uden at læse.
 edges:
-  requires: [ai-agent]
   mitigates:
     - to: excessive-agency
       why:

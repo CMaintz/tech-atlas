@@ -1082,7 +1082,7 @@ ai:
       da: Tensor processing unit (TPU)
     - id: model-serving
       en: Model serving
-      da: Modeldrift (model serving)
+      da: Modelservering (model serving)
     - id: latency
       en: Latency
       da: Latens

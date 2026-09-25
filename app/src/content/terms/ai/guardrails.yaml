@@ -23,7 +23,7 @@ body:
     da: En banks support-chatbot sender hver kundebesked gennem et filter, der markerer jailbreak-formuleringer, og hvert svar gennem et andet, der skjuler kontonumre, før svaret vises.
   whyItMatters:
     en: No model is perfectly aligned, so outside checks give a second, testable line of defence that the owner can change quickly without training the model again.
-    da: Ingen model er perfekt tilpasset, så eksterne kontroller giver en ekstra forsvarslinje, der kan testes, og som ejeren hurtigt kan ændre uden at træne modellen igen.
+    da: Ingen model er perfekt afstemt, så eksterne kontroller giver en ekstra forsvarslinje, der kan testes, og som ejeren hurtigt kan ændre uden at træne modellen igen.
 edges:
   requires: [large-language-model]
   mitigates:

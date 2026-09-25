@@ -25,15 +25,15 @@ body:
     en: Benchmarks drive how models are sold and ranked, but a model can be tuned to the questions, or have seen them in its training data, so a high score does not prove it will do well on your work.
     da: Benchmarks styrer, hvordan modeller sælges og rangeres, men en model kan tunes til spørgsmålene eller have set dem i sine træningsdata, så en høj score beviser ikke, at den klarer sig godt i jeres arbejde.
 edges:
-  requires: [test-set]
-  part-of: [model-evaluation]
-  contrasts-with:
+  requires:
     - to: test-set
       why:
-        en: A test set is a team's own private held-back examples; a benchmark is public and shared, which makes scores comparable but lets its questions leak into training data.
-        da: Et testsæt er et teams egne, private tilbageholdte eksempler; et benchmark er offentligt og fælles, hvilket gør resultaterne sammenlignelige, men lader spørgsmålene sive ind i træningsdata.
+        en: A benchmark is a test set made public and shared, which makes scores comparable but lets its questions leak into training data.
+        da: Et benchmark er et testsæt, der er gjort offentligt og fælles, hvilket gør resultaterne sammenlignelige, men lader spørgsmålene sive ind i træningsdata.
       strength: primary
       confidence: high
+  part-of: [model-evaluation]
+  contrasts-with:
     - to: llm-as-a-judge
       why:
         en: A benchmark checks answers against fixed correct ones; an LLM judge grades open answers where no single correct one exists.

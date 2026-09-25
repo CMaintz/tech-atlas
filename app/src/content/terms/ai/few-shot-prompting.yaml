@@ -2,8 +2,8 @@ term:
   en: Few-shot prompting
   da: Few-shot prompting
 aka:
-  en: [in-context learning]
-  da: [in-context learning]
+  en: []
+  da: []
 domain: [ai]
 cluster: prompting
 layer: inference

@@ -25,7 +25,6 @@ body:
     en: It makes agents more useful over time, but whatever is saved is trusted later — a planted false note or a stored secret can outlive the chat that caused it.
     da: Det gør agenter mere nyttige over tid, men det, der gemmes, stoles på senere — en plantet falsk note eller en gemt hemmelighed kan overleve den samtale, der skabte den.
 edges:
-  requires: [ai-agent]
   part-of: [ai-agent]
   contrasts-with:
     - to: context-window

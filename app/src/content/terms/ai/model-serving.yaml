@@ -1,6 +1,6 @@
 term:
   en: Model serving
-  da: Modeldrift (model serving)
+  da: Modelservering (model serving)
 aka:
   en: [inference serving, model hosting]
   da: [inference serving, modelhosting]

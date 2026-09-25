@@ -2,8 +2,8 @@ term:
   en: Nearest-neighbour search
   da: Nærmeste-nabo-søgning
 aka:
-  en: [approximate nearest neighbour search, k-nearest neighbours]
-  da: [approksimativ nærmeste-nabo-søgning, k-nærmeste naboer]
+  en: [approximate nearest neighbour search, vector search]
+  da: [approksimativ nærmeste-nabo-søgning, vektorsøgning]
 domain: [ai]
 cluster: retrieval
 layer: application

@@ -28,12 +28,6 @@ body:
 edges:
   requires: [large-language-model, context-window]
   used-with:
-    - to: ai-pair-programming
-      why:
-        en: The assistant is the tool; pair programming is the way of working where the developer stays in charge and checks each suggestion.
-        da: Assistenten er værktøjet; parprogrammering er arbejdsformen, hvor udvikleren bevarer styringen og tjekker hvert forslag.
-      strength: primary
-      confidence: high
     - to: secrets-management
       why:
         en: Keys written into code can be sent to the assistant's service or suggested back to others, so secrets belong in a proper store, never in the files it reads.

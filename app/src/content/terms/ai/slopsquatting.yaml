@@ -34,13 +34,14 @@ edges:
         da: Hele angrebet bygger på, at modeller selvsikkert nævner pakker, der aldrig er udgivet, og nævner de samme igen og igen.
       strength: primary
       confidence: high
+  requires: [software-supply-chain]
+  used-with:
     - to: vibe-coding
       why:
         en: It pays off only when people or agents install whatever the AI suggests without checking that the package is real and trusted.
         da: Det lønner sig kun, når mennesker eller agenter installerer det, AI'en foreslår, uden at tjekke, at pakken er ægte og til at stole på.
       strength: normal
       confidence: medium
-  requires: [software-supply-chain]
 sources:
   - title: 'Spracklen et al. (2025), We Have a Package for You! A Comprehensive Analysis of Package Hallucinations by Code Generating LLMs (USENIX Security)'
     tier: reference

@@ -33,14 +33,13 @@ edges:
         da: Det er det samme greb — at ramme gennem en betroet leverandør — rettet mod modeller og data i stedet for almindelig software.
       strength: primary
       confidence: high
-  exploits:
+  used-with:
     - to: open-weight-model
       why:
         en: Freely shared model files are downloaded and loaded widely with little checking, making them an easy carrier for tampered weights or hidden code.
         da: Frit delte modelfiler hentes og indlæses bredt uden megen kontrol, hvilket gør dem til en let bærer af manipulerede vægte eller skjult kode.
       strength: primary
       confidence: high
-  used-with:
     - to: data-poisoning
       why:
         en: Poisoned datasets or fine-tuned weights shared publicly are one of the main ways an AI supply chain attack is delivered.

@@ -23,8 +23,8 @@ body:
     en: A coding assistant sends the same long system prompt and project files at the start of every request, then adds the new question at the end; the provider reuses the stored start, so replies begin sooner and the bill drops.
     da: En kodeassistent sender den samme lange systemprompt og de samme projektfiler i starten af hver forespørgsel og tilføjer det nye spørgsmål til sidst; udbyderen genbruger den gemte begyndelse, så svarene kommer hurtigere, og regningen falder.
   whyItMatters:
-    en: It can cut cost and waiting sharply for agents and long chats, but only if the fixed part comes first and stays word-for-word the same. Big providers say stored work is kept only minutes and not shared between customer organisations; research has shown that where it is shared, answer speed can hint what others sent.
-    da: Det kan skære kraftigt i pris og ventetid for agenter og lange samtaler, men kun hvis den faste del kommer først og forbliver ord for ord den samme. Store udbydere siger, at det gemte kun holdes i minutter og ikke deles mellem kundeorganisationer; forskning har vist, at hvor det deles, kan svarhastigheden afsløre, hvad andre har sendt.
+    en: It can cut cost and waiting sharply for agents and long chats, but only if the fixed part comes first and stays word-for-word the same. Big providers keep stored work for a set time — from minutes up to an hour or more, depending on the option chosen — and do not share it between customer organisations; research has shown that where it is shared, answer speed can hint what others sent.
+    da: Det kan skære kraftigt i pris og ventetid for agenter og lange samtaler, men kun hvis den faste del kommer først og forbliver ord for ord den samme. Store udbydere gemmer arbejdet i en fastsat tid — fra minutter op til en time eller mere, afhængigt af det valgte niveau — og deler det ikke mellem kundeorganisationer; forskning har vist, at hvor det deles, kan svarhastigheden afsløre, hvad andre har sendt.
 edges:
   requires:
     - to: kv-cache

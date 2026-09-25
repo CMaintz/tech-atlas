@@ -27,13 +27,6 @@ body:
     da: Én model kan ligge under tusindvis af produkter, så EU har siden august 2025 lagt pligter direkte på den, der laver modellen, i stedet for at lade hver produktbygger gætte på modellens risici.
 edges:
   requires: [eu-ai-act]
-  kind-of:
-    - to: foundation-model
-      why:
-        en: It is the legal name the AI Act gives to what the field calls a foundation model, tied to specific duties.
-        da: Det er det juridiske navn, AI-forordningen giver det, fagfeltet kalder en grundmodel, knyttet til konkrete pligter.
-      strength: primary
-      confidence: high
   used-with:
     - to: model-card
       why:

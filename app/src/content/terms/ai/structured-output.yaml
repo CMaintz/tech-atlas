@@ -26,13 +26,6 @@ body:
     da: Det fjerner en almindelig årsag til AI-funktioner, der bryder sammen — svar, som kode ikke kan læse — men et korrekt formet svar kan stadig indeholde forkerte eller skadelige værdier, så indholdet skal stadig tjekkes.
 edges:
   requires: [sampling]
-  used-with:
-    - to: tool-calling
-      why:
-        en: A tool call is itself structured output — the model fills in the tool's named inputs in a fixed shape that code then runs.
-        da: Et værktøjskald er i sig selv struktureret output — modellen udfylder værktøjets navngivne input i en fast form, som kode derefter kører.
-      strength: primary
-      confidence: high
 sources:
   - title: OpenAI documentation — Structured Outputs
     tier: official-doc

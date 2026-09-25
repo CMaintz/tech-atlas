@@ -2,8 +2,8 @@ term:
   en: Gradient descent
   da: Gradientnedstigning (gradient descent)
 aka:
-  en: [stochastic gradient descent, SGD]
-  da: [gradient descent, SGD]
+  en: [stochastic gradient descent]
+  da: [gradient descent]
 domain: [ai]
 cluster: training
 layer: training

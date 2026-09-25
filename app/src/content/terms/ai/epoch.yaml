@@ -26,7 +26,7 @@ body:
     da: For få epoker efterlader en halvlært model; for mange får den til at lære eksemplerne udenad, så antallet er en direkte afvejning mellem undertilpasning og overtilpasning.
 edges:
   requires: [training-data]
-  kind-of: [hyperparameter]
+  used-with: [hyperparameter]
   part-of: [model-training]
   causes:
     - to: overfitting
