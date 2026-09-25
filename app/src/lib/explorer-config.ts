@@ -79,16 +79,16 @@ export const EXPLORER = {
   three: {
     background: '#05060b',
     fogDensity: 0.00032,
-    ringRadius: 720,
-    clusterRadius: 190,
+    ringRadius: 900,
+    clusterRadius: 250,
     /** Soft vertical bias per depth step (not a hard plane). */
     depthSpacing: 42,
     depthStrength: 0.05,
     /** Each term's target height is spread ± half this many depth steps. */
     depthJitter: 1.6,
-    charge: 2600,
-    chargeCutoff: 320,
-    linkInCluster: 38,
+    charge: 4200,
+    chargeCutoff: 360,
+    linkInCluster: 62,
     linkAcross: 260,
     springIn: 0.06,
     springAcross: 0.004,

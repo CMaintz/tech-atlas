@@ -38,6 +38,8 @@ export async function createMap3D(opts: {
   onSelect: (id: string | null) => void;
   /** Pixels on the right covered by an overlay (the open legend). */
   reserveRight?: () => number;
+  /** A term is hovered (e.g. to prefetch its panel data). */
+  onHover?: (id: string) => void;
 }) {
   const [{ default: ForceGraph3D }, THREE] = await Promise.all([
     import('3d-force-graph'),
@@ -262,6 +264,7 @@ export async function createMap3D(opts: {
   let hoverTimer = 0;
   fg.onNodeHover((n: GraphNode | null) => {
     el.style.cursor = n ? 'pointer' : 'default';
+    if (n) opts.onHover?.(n.id);
     window.clearTimeout(hoverTimer);
     hoverTimer = window.setTimeout(() => {
       const next = n ? n.id : null;
@@ -309,6 +312,8 @@ export async function createMap3D(opts: {
       const nodesChanged = !prev || prev.nodes !== next.nodes;
       if (nodesChanged) fg.nodeVisibility(fg.nodeVisibility());
       refresh();
+      // Opening or closing the term panel changes the part of the canvas left clear.
+      if (!!next.selected !== !!prev?.selected) resize();
       if (next.selected && next.selected !== prev?.selected) {
         const n = byId.get(next.selected);
         if (n && motion) {

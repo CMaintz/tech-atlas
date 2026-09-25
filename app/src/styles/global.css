@@ -19,7 +19,9 @@ html {
   outline: 2px solid #f59e0b;
   outline-offset: 2px;
 }
-main:focus {
+main:focus,
+/* The term panel moves focus to its heading to announce a term; it is not a control. */
+[data-term-panel] h2[tabindex='-1']:focus {
   outline: none;
 }
 

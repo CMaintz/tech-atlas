@@ -53,7 +53,12 @@ export const UI = {
     score: 'You got {n} of {m} right.',
     noQuestions: 'No questions for this term yet.',
     practise: 'Practise',
-    allTerms: 'All terms',
+    quizMeOn: 'Quiz me on:',
+    everything: 'Everything',
+    weakTerms: 'My weak terms ({n})',
+    clusters: 'Clusters',
+    noWeakTerms:
+      'No weak terms yet — terms you answer wrongly or mark as “Learning it” or “Don’t understand” gather here.',
     progress: 'Your progress',
     practised: 'Practised',
     known: 'Known',
@@ -82,7 +87,8 @@ export const UI = {
     neighbourhood: 'Neighbourhood',
     expand: 'Expand +1',
     wholeMap: 'Whole map',
-    explorerIntro: 'The whole map. Click a term to see it; double-click to open its entry.',
+    explorerIntro:
+      'The whole map. Click a term to open it in the side panel; expand the panel to read it in full.',
     layoutForce: 'Force',
     layoutDepth: 'By depth',
     depthNote:
@@ -152,7 +158,12 @@ export const UI = {
     withGitHub: 'Sign in with GitHub',
     authError: 'Something went wrong: {msg}',
     signedInAs: 'Signed in as {email}',
-    syncNow: 'Sync now',
+    syncRetry: 'Try again',
+    syncAuto: 'Your progress syncs automatically whenever it changes.',
+    syncShort_syncing: 'Syncing…',
+    syncShort_synced: 'Synced',
+    syncShort_offline: 'Offline',
+    syncShort_error: 'Not synced',
     sync_syncing: 'Syncing…',
     sync_synced: 'Progress synced.',
     sync_offline: 'Offline — changes are kept here and sync when you are back online.',
@@ -222,7 +233,12 @@ export const UI = {
     score: 'Du fik {n} af {m} rigtige.',
     noQuestions: 'Ingen spørgsmål til dette begreb endnu.',
     practise: 'Øv',
-    allTerms: 'Alle begreber',
+    quizMeOn: 'Quiz mig i:',
+    everything: 'Det hele',
+    weakTerms: 'Mine svage begreber ({n})',
+    clusters: 'Klynger',
+    noWeakTerms:
+      'Ingen svage begreber endnu — begreber, du svarer forkert på eller markerer som “Lærer det” eller “Forstår det ikke”, samles her.',
     progress: 'Dine fremskridt',
     practised: 'Øvet',
     known: 'Kendt',
@@ -252,7 +268,7 @@ export const UI = {
     expand: 'Udvid +1',
     wholeMap: 'Hele kortet',
     explorerIntro:
-      'Hele kortet. Klik på et begreb for at se det; dobbeltklik for at åbne opslaget.',
+      'Hele kortet. Klik på et begreb for at åbne det i sidepanelet; udvid panelet for at læse det hele.',
     layoutForce: 'Kraft',
     layoutDepth: 'Efter dybde',
     depthNote: 'Højde = dybde: grundlaget nederst, avancerede begreber øverst. Én bane pr. domæne.',
@@ -322,7 +338,12 @@ export const UI = {
     withGitHub: 'Log ind med GitHub',
     authError: 'Noget gik galt: {msg}',
     signedInAs: 'Logget ind som {email}',
-    syncNow: 'Synkronisér nu',
+    syncRetry: 'Prøv igen',
+    syncAuto: 'Dine fremskridt synkroniseres automatisk, hver gang de ændres.',
+    syncShort_syncing: 'Synkroniserer …',
+    syncShort_synced: 'Synkroniseret',
+    syncShort_offline: 'Offline',
+    syncShort_error: 'Ikke synkroniseret',
     sync_syncing: 'Synkroniserer …',
     sync_synced: 'Fremskridt synkroniseret.',
     sync_offline: 'Offline — ændringer gemmes her og synkroniseres, når du er online igen.',
@@ -463,6 +484,70 @@ export const GRAPH_UI = {
       'Overblikket viser hvert begrebs stærkeste forbindelser; svage bånd samler forbindelserne mellem klynger. Hold musen over eller klik på et begreb for at se alle dets relationer.',
   },
 } as const;
+
+/** The Explorer's term panel (A80). `da` must carry every key `en` has. */
+const PANEL_EN = {
+  panelLabel: 'Term details: {name}',
+  panelExpand: 'Expand',
+  panelExpandLabel: 'Expand the panel to fill the page',
+  panelCollapse: 'Collapse',
+  panelCollapseLabel: 'Return the panel to the side of the map',
+  panelClose: 'Close the panel',
+  readMore: 'Read more →',
+  readMoreLabel: 'Read the full entry, with the technical deep dive and sources',
+  contentLanguage: 'Language of the text',
+  facets: 'Definitions',
+  loadError: 'Could not load the details of this term.',
+  noRelations: 'No relationships yet.',
+  quickQuiz: 'Quick quiz',
+} as const;
+
+export const PANEL_UI: Record<Lang, Record<keyof typeof PANEL_EN, string>> = {
+  en: PANEL_EN,
+  da: {
+    panelLabel: 'Detaljer om begrebet: {name}',
+    panelExpand: 'Udvid',
+    panelExpandLabel: 'Udvid panelet til hele siden',
+    panelCollapse: 'Formindsk',
+    panelCollapseLabel: 'Sæt panelet tilbage ved siden af kortet',
+    panelClose: 'Luk panelet',
+    readMore: 'Læs mere →',
+    readMoreLabel: 'Læs hele opslaget med den tekniske uddybning og kilderne',
+    contentLanguage: 'Tekstens sprog',
+    facets: 'Definitioner',
+    loadError: 'Detaljerne om dette begreb kunne ikke hentes.',
+    noRelations: 'Ingen relationer endnu.',
+    quickQuiz: 'Hurtig quiz',
+  },
+};
+
+/** The term page's deep dive and provenance note (A80). `da` must carry every key `en` has. */
+const DEEP_EN = {
+  deepDive: 'Technical deep dive',
+  sourcesFurther: 'Sources & further reading',
+  provenanceTitle: 'Where this data comes from',
+  provenanceDraft:
+    'This entry was drafted by an AI from the sources above and has not yet been checked by a person. Treat it as a starting point, and check anything important against the sources.',
+  provenanceReviewed:
+    'This entry was drafted by an AI from the sources above and has since been reviewed by a person.',
+  reviewQueue: 'See the review queue',
+  suggestFix: 'Suggest a correction on GitHub',
+} as const;
+
+export const DEEP_UI: Record<Lang, Record<keyof typeof DEEP_EN, string>> = {
+  en: DEEP_EN,
+  da: {
+    deepDive: 'Teknisk uddybning',
+    sourcesFurther: 'Kilder og videre læsning',
+    provenanceTitle: 'Hvor dataene kommer fra',
+    provenanceDraft:
+      'Dette opslag er skrevet af en AI ud fra kilderne ovenfor og er endnu ikke gennemgået af et menneske. Brug det som udgangspunkt, og tjek alt vigtigt mod kilderne.',
+    provenanceReviewed:
+      'Dette opslag er skrevet af en AI ud fra kilderne ovenfor og er siden gennemgået af et menneske.',
+    reviewQueue: 'Se gennemgangskøen',
+    suggestFix: 'Foreslå en rettelse på GitHub',
+  },
+};
 
 /** Where the source lives — used for 'Edit on GitHub' links in the review queue. */
 export const REPO = 'https://github.com/CMaintz/tech-atlas';

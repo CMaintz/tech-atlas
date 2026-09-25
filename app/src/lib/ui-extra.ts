@@ -29,7 +29,6 @@ export const UI_EXTRA = {
     azTitle: 'All terms A–Z',
     azIntro: '{n} terms, alphabetically.',
     notFoundAz: 'Browse all terms A–Z',
-    continueLearning: 'Continue learning',
     licenceFooter: 'Content CC BY-SA 4.0',
     tiers: {
       standard: 'Standards & official texts',
@@ -63,7 +62,6 @@ export const UI_EXTRA = {
     azTitle: 'Alle begreber A–Å',
     azIntro: '{n} begreber i alfabetisk rækkefølge.',
     notFoundAz: 'Se alle begreber A–Å',
-    continueLearning: 'Lær mere',
     licenceFooter: 'Indhold CC BY-SA 4.0',
     tiers: {
       standard: 'Standarder og officielle tekster',

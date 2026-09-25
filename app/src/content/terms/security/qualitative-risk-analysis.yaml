@@ -26,7 +26,7 @@ body:
     da: Den er hurtig, billig og let for ledelsen at læse, men tallene kan skjule gætværk, så det bør skrives ned, hvorfor hver vurdering er givet.
 edges:
   kind-of: [risk-assessment]
-  requires: [likelihood, impact]
+  requires: [risk, likelihood, impact]
   contrasts-with:
     - to: quantitative-risk-analysis
       why:

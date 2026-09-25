@@ -27,7 +27,7 @@ body:
     da: Adgangskoder bliver gættet, genbrugt og tastet ind på falske sider; en passkey virker kun på det rigtige website, og serveren gemmer ingen fælles hemmelighed, der er værd at stjæle.
 edges:
   kind-of: [credential]
-  requires: [public-key-cryptography]
+  requires: [authentication, public-key-cryptography]
   alternative-to:
     - to: password
       why:

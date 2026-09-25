@@ -27,7 +27,7 @@ body:
     da: Før det tastede folk deres rigtige adgangskode ind i fremmede apps; nu kan adgangen begrænses i både omfang og tid og trækkes tilbage, uden at adgangskoden skal skiftes.
 edges:
   implements: [authorization]
-  requires: [api, account]
+  requires: [access-control, api, account]
   used-with:
     - to: saas
       why:

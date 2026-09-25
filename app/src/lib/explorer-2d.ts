@@ -52,8 +52,12 @@ export type Map2DOptions = {
   domainLabels: Record<string, string>;
   /** Pixels kept clear on the right when fitting (the open legend). */
   reserveRight: () => number;
+  /** Pixels on the right covered while a term is selected (the docked term panel). */
+  centreReserve: () => number;
   onSelect: (id: string | null) => void;
   onOpen: (id: string) => void;
+  /** A term is hovered (e.g. to prefetch its panel data). */
+  onHover?: (id: string) => void;
 };
 
 /** What the map shows; every field is applied in place. */
@@ -118,6 +122,7 @@ const EXTRA_STYLE = [
     },
   },
   { selector: 'edge.bundle.faded', style: { opacity: 0.02 } },
+  { selector: 'edge.bundle.near', style: { display: 'none' } },
   {
     selector: 'node.anchor',
     style: { width: 1, height: 1, 'background-opacity': 0, label: '', events: 'no' },
@@ -564,6 +569,8 @@ export function createMap2D(opts: Map2DOptions) {
   const setFar = () => {
     const far = cy.zoom() < FAR_ZOOM;
     if (far !== terms.first().hasClass('far')) terms.toggleClass('far', far);
+    // Bundles are an overview device: zoomed in, the real edges take over.
+    if (far === bundleEdges.first().hasClass('near')) bundleEdges.toggleClass('near', !far);
     const hoverFont = Math.max(9, Math.round(HOVER_LABEL_PX / cy.zoom()));
     if (far && terms.first().data('hoverFont') !== hoverFont) terms.data('hoverFont', hoverFont);
     recull();
@@ -702,6 +709,7 @@ export function createMap2D(opts: Map2DOptions) {
   };
   cy.on('mouseover', 'node[size]', (e) => {
     const n = e.target as cytoscape.NodeSingular;
+    opts.onHover?.(n.id());
     window.clearTimeout(hoverTimer);
     hoverTimer = window.setTimeout(() => {
       if (hovered?.same(n)) return;
@@ -763,7 +771,7 @@ export function createMap2D(opts: Map2DOptions) {
     const done = () => {
       setBundledRoutes(v.layout === 'force' && v.showAll, t.centre);
       recull(true);
-      fit();
+      frame();
     };
     if (!animate || reducedMotion()) {
       cy.batch(() => move.forEach((n) => void n.position(t.positions[n.id()])));
@@ -784,8 +792,35 @@ export function createMap2D(opts: Map2DOptions) {
       .one('layoutstop', done)
       .run();
   };
-  const fit = () =>
+  const fit = () => {
+    cy.stop(true);
     smoothFit(cy, 40, 1.1, opts.reserveRight(), shown.nodes().union(cy.nodes('.tag').not('.gone')));
+  };
+  /** Centre a term in the part of the map the docked panel leaves visible (A80). */
+  const centreOn = (id: string, minZoom = 0) => {
+    const node = cy.getElementById(id);
+    if (node.empty() || node.hasClass('gone')) return false;
+    cy.stop(true);
+    const zoom = Math.max(cy.zoom(), minZoom);
+    const p = node.position();
+    const clear = cy.width() - opts.centreReserve();
+    cy.animate(
+      { zoom, pan: { x: clear / 2 - p.x * zoom, y: cy.height() / 2 - p.y * zoom } },
+      { duration: reducedMotion() ? 0 : 400, easing: 'ease-in-out-cubic' },
+    );
+    return true;
+  };
+  /**
+   * Frame the view after a layout: an explicit selection wins over the fit (a deep link
+   * must land centred on its term); a small neighbourhood is fitted whole.
+   */
+  const frame = () => {
+    const sel = view?.selected;
+    if (sel && shown.nodes('[size]').length > EXPLORER.islands.minTermsForSystems) {
+      if (centreOn(sel, 0.9)) return;
+    }
+    fit();
+  };
 
   // ---- 7. Applying a view ------------------------------------------------------------
   let familiesNow: ReadonlySet<string> | null = null;
@@ -870,7 +905,7 @@ export function createMap2D(opts: Map2DOptions) {
       });
       if (nodesChanged && !layoutChanged) {
         recull(true);
-        fit();
+        frame();
       }
     };
     if (fading.nonempty())
@@ -885,14 +920,9 @@ export function createMap2D(opts: Map2DOptions) {
         },
       );
     else finish();
-    if (next.selected && next.selected !== prev?.selected) {
-      const node = cy.getElementById(next.selected);
-      if (node.nonempty() && !node.hasClass('gone'))
-        cy.animate(
-          { center: { eles: node } },
-          { duration: reducedMotion() ? 0 : 400, easing: 'ease-in-out-cubic' },
-        );
-    }
+    // A new selection glides into view (layout and filter changes frame it themselves).
+    if (next.selected && next.selected !== prev?.selected && !layoutChanged && !nodesChanged)
+      centreOn(next.selected);
   };
 
   return {

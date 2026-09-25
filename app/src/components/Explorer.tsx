@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { prerequisitesOf, shortestPath, type Graph, type GraphNode } from '../lib/graph-model';
 import { loadLearner, type Learner } from '../lib/learner';
 import { domainColour, homeDomain } from '../lib/graph-style';
@@ -6,6 +6,8 @@ import { effectiveHome, effectivePaint, termVisible } from '../lib/graph-layout'
 import { createMap2D, type Layout, type Map2D } from '../lib/explorer-2d';
 import type { Map3D } from '../lib/explorer-3d';
 import GraphLegend from './GraphLegend';
+import TermPanel, { prefetchTerm, type PanelConfig } from './TermPanel';
+import { termFromSearch, withTermParam } from '../lib/term-panel';
 
 type Lang = 'en' | 'da';
 type Dict = Record<string, string>;
@@ -21,6 +23,8 @@ interface Props {
   familyLabels: Dict;
   familyColours: Dict;
   domainLabels: Dict;
+  /** The term panel's strings and data locations (A80). */
+  panel: PanelConfig;
 }
 
 type Mode = '2d' | '3d';
@@ -38,6 +42,8 @@ const KNOWLEDGE_COLOURS: Record<string, string> = {
 const legendOpenAtStart = () => window.innerWidth >= 1024;
 /** Pixels the map keeps clear on the right for the open legend. */
 const legendReserve = () => (legendOpenAtStart() ? 310 : 0);
+/** Pixels the docked term panel covers on the right of the map (lg: 26rem). */
+const panelReserve = () => (window.innerWidth >= 1024 ? 416 : 0);
 
 /**
  * The full-map explorer (SPEC §7, A79). Every node links to a real, statically rendered
@@ -55,6 +61,8 @@ export default function Explorer(props: Props) {
   /** The selected term: a single callback sets it (a side panel may read it later). */
   const [selected, setSelected] = useState<string | null>(null);
   const onSelect = (id: string | null) => setSelected(id);
+  const selRef = useRef(selected);
+  selRef.current = selected;
   const [highlight, setHighlight] = useState<string[]>([]);
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
@@ -98,8 +106,17 @@ export default function Explorer(props: Props) {
           setSelected(focus);
           setHops(1);
         }
+        // A deep link (`?term=`) opens that term's panel (A80).
+        const deep = termFromSearch(window.location.search);
+        if (deep && g.nodes.some((n) => n.id === deep)) setSelected(deep);
       });
   }, [graphUrl]);
+
+  // The open term is kept in the address (`?term=`), so the view can be shared (A80).
+  useEffect(() => {
+    if (graph)
+      history.replaceState(history.state, '', withTermParam(window.location.href, selected));
+  }, [graph, selected]);
 
   const byId = useMemo(() => new Map((graph?.nodes ?? []).map((n) => [n.id, n])), [graph]);
   const nameToId = useMemo(
@@ -171,9 +188,13 @@ export default function Explorer(props: Props) {
       lang,
       clusterLabels: props.clusterLabels,
       domainLabels: props.domainLabels,
-      reserveRight: legendReserve,
+      // With a term open, the docked panel covers the right; otherwise the legend does.
+      reserveRight: () => (selRef.current ? panelReserve() : legendReserve()),
+      centreReserve: panelReserve,
       onSelect,
-      onOpen: (id) => (window.location.href = `${termBase}${id}/`),
+      // A double click opens the panel too — never a page load (A80).
+      onOpen: onSelect,
+      onHover: (id) => prefetchTerm(props.panel.apiBase, id),
     });
     map2d.current = m;
     return () => {
@@ -207,7 +228,8 @@ export default function Explorer(props: Props) {
           graph,
           lang,
           onSelect,
-          reserveRight: legendReserve,
+          reserveRight: () => (selRef.current ? panelReserve() : legendReserve()),
+          onHover: (id) => prefetchTerm(props.panel.apiBase, id),
         }),
       )
       .then((m) => {
@@ -258,6 +280,7 @@ export default function Explorer(props: Props) {
   };
 
   const sel = selected ? byId.get(selected) : undefined;
+  const closePanel = useCallback(() => setSelected(null), []);
   const allDomains = [...new Set((graph?.nodes ?? []).flatMap((n) => n.domain))];
   // The legend lists only enabled domains; re-homed shared terms wear their domain colour.
   const legendNodes = (visible?.nodes ?? [])
@@ -269,7 +292,7 @@ export default function Explorer(props: Props) {
     'pointer-events-auto rounded border border-neutral-700 bg-neutral-950/85 px-2 py-1 text-xs text-neutral-300 hover:border-neutral-500';
 
   return (
-    <div class="flex h-[calc(100vh-4.25rem)] flex-col lg:flex-row">
+    <div class="relative flex h-[calc(100vh-4.25rem)] flex-col lg:flex-row">
       <aside class="w-full shrink-0 space-y-5 overflow-y-auto border-neutral-800 p-4 text-sm lg:w-80 lg:border-r">
         <div>
           <h1 class="text-xl font-semibold">{ui.explorer}</h1>
@@ -440,7 +463,7 @@ export default function Explorer(props: Props) {
         <div class={`absolute inset-0 ${mode === '3d' ? '' : 'invisible'}`}>
           <div ref={box3d} class="h-full w-full" />
         </div>
-        {visible && (
+        {visible && !sel && (
           <div class="pointer-events-none absolute top-3 right-3 flex flex-col items-end gap-2">
             {mode === '2d' && (
               <div class="flex gap-2">
@@ -469,6 +492,21 @@ export default function Explorer(props: Props) {
           </div>
         )}
       </div>
+      {graph && sel && (
+        <TermPanel
+          {...props.panel}
+          lang={lang}
+          id={sel.id}
+          graph={graph}
+          termBase={termBase}
+          clusterLabels={props.clusterLabels}
+          domainLabels={props.domainLabels}
+          familyLabels={props.familyLabels}
+          graphUi={props.graphUi}
+          onSelect={setSelected}
+          onClose={closePanel}
+        />
+      )}
     </div>
   );
 }
