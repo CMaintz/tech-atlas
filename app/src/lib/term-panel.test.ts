@@ -1,7 +1,14 @@
 import { describe, expect, it, vi } from 'vitest';
 import type { Graph, GraphLink, GraphNode } from './graph-model';
 import {
+  connectionCycle,
   makeTermCache,
+  nextCycleState,
+  positionText,
+  startHistory,
+  stepCycle,
+  travel,
+  visit,
   neighbourIds,
   neighbourhoodGraph,
   paragraphs,
@@ -149,5 +156,100 @@ describe('paragraphs', () => {
   it('is empty for missing or blank text', () => {
     expect(paragraphs(undefined)).toEqual([]);
     expect(paragraphs('  \n\n ')).toEqual([]);
+  });
+});
+
+describe('connection cycle (Previous / Next)', () => {
+  const cycle = connectionCycle(relationGroups(graph, 'a', inverse, order));
+
+  it('lists connections in the relationships order, one entry per group membership', () => {
+    expect(cycle).toEqual([
+      { type: 'has-kind', id: 'd' },
+      { type: 'requires', id: 'b' },
+      { type: 'unlocks', id: 'c' },
+      { type: 'contrasts-with', id: 'd' },
+    ]);
+  });
+
+  it('skips ids that are not on the map', () => {
+    const known = (x: string) => x !== 'd';
+    expect(connectionCycle(relationGroups(graph, 'a', inverse, order), known)).toEqual([
+      { type: 'requires', id: 'b' },
+      { type: 'unlocks', id: 'c' },
+    ]);
+  });
+
+  it('steps from the anchor to either end and wraps around', () => {
+    expect(stepCycle(4, null, 1)).toBe(0);
+    expect(stepCycle(4, null, -1)).toBe(3);
+    expect(stepCycle(4, 1, 1)).toBe(2);
+    expect(stepCycle(4, 3, 1)).toBe(0);
+    expect(stepCycle(4, 0, -1)).toBe(3);
+    expect(stepCycle(1, 0, 1)).toBe(0);
+    expect(stepCycle(0, null, 1)).toBeNull();
+  });
+
+  it('keeps the anchor while stepping, and a full lap comes back round', () => {
+    let s = nextCycleState(null, 'a', { via: 'other' }, []);
+    expect(s).toEqual({ anchor: 'a', index: null });
+    const seen: string[] = [];
+    for (let k = 0; k < cycle.length + 1; k++) {
+      const i = stepCycle(cycle.length, s.index, 1)!;
+      s = nextCycleState(s, cycle[i].id, { via: 'step', index: i }, cycle);
+      seen.push(`${cycle[i].type}:${cycle[i].id}`);
+    }
+    expect(s).toEqual({ anchor: 'a', index: 0 });
+    expect(seen).toEqual([
+      'has-kind:d',
+      'requires:b',
+      'unlocks:c',
+      'contrasts-with:d',
+      'has-kind:d',
+    ]);
+  });
+
+  it('re-anchors on any other pick, even of a connection', () => {
+    const s = { anchor: 'a', index: 1 };
+    expect(nextCycleState(s, 'c', { via: 'other' }, cycle)).toEqual({ anchor: 'c', index: null });
+  });
+
+  it('keeps the anchor when Back/Forward land on it or on one of its connections', () => {
+    const s = { anchor: 'a', index: 2 };
+    expect(nextCycleState(s, 'a', { via: 'history' }, cycle)).toEqual({ anchor: 'a', index: null });
+    expect(nextCycleState(s, 'b', { via: 'history' }, cycle)).toEqual({ anchor: 'a', index: 1 });
+    expect(nextCycleState(s, 'd', { via: 'history' }, cycle)).toEqual({ anchor: 'a', index: 0 });
+    expect(nextCycleState(s, 'z', { via: 'history' }, cycle)).toEqual({ anchor: 'z', index: null });
+  });
+
+  it('formats the position text', () => {
+    expect(positionText('{i} of {n} · {type}', 2, 12, 'requires')).toBe('3 of 12 · requires');
+  });
+});
+
+describe('panel history (Back / Forward)', () => {
+  it('visits push, and re-visiting the current term is a no-op', () => {
+    const h = visit(visit(startHistory('a'), 'b'), 'b');
+    expect(h).toEqual({ entries: ['a', 'b'], pos: 1 });
+  });
+
+  it('goes back and forward, and stops at the ends', () => {
+    const h = visit(visit(startHistory('a'), 'b'), 'c');
+    const back = travel(h, -1)!;
+    expect(back.id).toBe('b');
+    expect(travel(travel(back.history, -1)!.history, -1)).toBeNull();
+    expect(travel(back.history, 1)!.id).toBe('c');
+    expect(travel(h, 1)).toBeNull();
+  });
+
+  it('drops the forward trail on a new visit, like a browser', () => {
+    const h = visit(visit(startHistory('a'), 'b'), 'c');
+    const back = travel(travel(h, -1)!.history, -1)!.history;
+    expect(visit(back, 'd')).toEqual({ entries: ['a', 'd'], pos: 1 });
+  });
+
+  it('remembers at most the limit', () => {
+    let h = startHistory('t0');
+    for (let k = 1; k < 10; k++) h = visit(h, `t${k}`, 3);
+    expect(h).toEqual({ entries: ['t7', 't8', 't9'], pos: 2 });
   });
 });
