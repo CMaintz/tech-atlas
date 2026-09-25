@@ -17,8 +17,8 @@ body:
     en: Media created or altered with deep learning so that a real person's face, body or voice appears in content they did not make, realistic enough to pass as a true recording.
     da: Medier skabt eller ændret med deep learning, så en virkelig persons ansigt, krop eller stemme optræder i indhold, personen ikke har lavet, og realistisk nok til at gå for en ægte optagelse.
   plain:
-    en: Like a perfect mask and a perfect voice impression in one — except anyone with a laptop and a few minutes of someone's voice can now make one.
-    da: Som en perfekt maske og en perfekt efterligning af en stemme på én gang — bortset fra, at alle med en bærbar og få minutters optagelse af nogens stemme nu kan lave den.
+    en: Like a perfect mask and a perfect voice impression in one - except anyone with a laptop and a few minutes of someone's voice can now make one.
+    da: Som en perfekt maske og en perfekt efterligning af en stemme på én gang - bortset fra, at alle med en bærbar og få minutters optagelse af nogens stemme nu kan lave den.
   inPractice:
     en: A payroll clerk at a Danish shipping company joins a video call where the “finance director” and several colleagues are all fakes, and on their orders transfers several million kroner to foreign accounts.
     da: En lønbogholder i et dansk rederi deltager i et videomøde, hvor “økonomidirektøren” og flere kolleger alle er falske, og overfører på deres ordre flere millioner kroner til udenlandske konti.
@@ -77,7 +77,7 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: Regulation (EU) 2024/1689 (AI Act), Article 50 — transparency obligations
+  - title: Regulation (EU) 2024/1689 (AI Act), Article 50 - transparency obligations
     tier: standard
     publisher: European Union
     url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj

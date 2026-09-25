@@ -17,8 +17,8 @@ body:
     en: A name and value that a server sets in an HTTP reply; the browser stores it for that website and adds it to later requests to the same site until it runs out, with flags that limit where and how it may be sent.
     da: Et navn og en værdi, som en server sætter i et HTTP-svar; browseren gemmer det for webstedet og lægger det på senere forespørgsler til samme sted, indtil det udløber, med markeringer, der begrænser, hvor og hvordan det må sendes.
   plain:
-    en: Like the coat check ticket you get at a theatre — you hand it back each time, and the staff know which coat is yours without asking your name.
-    da: Som garderobesedlen i teatret — du rækker den frem hver gang, og personalet ved, hvilken frakke der er din, uden at spørge om dit navn.
+    en: Like the coat check ticket you get at a theatre - you hand it back each time, and the staff know which coat is yours without asking your name.
+    da: Som garderobesedlen i teatret - du rækker den frem hver gang, og personalet ved, hvilken frakke der er din, uden at spørge om dit navn.
   inPractice:
     en: After a customer logs in to a Danish web shop, the shop sets a cookie holding a session number, so the basket and login survive as she moves from page to page.
     da: Når en kunde logger ind i en dansk webshop, sætter butikken en cookie med et sessionsnummer, så kurven og login følger med, mens hun går fra side til side.
@@ -53,11 +53,11 @@ edges:
       confidence: high
     - web-application
 sources:
-  - title: RFC 6265 — HTTP State Management Mechanism
+  - title: RFC 6265 - HTTP State Management Mechanism
     url: https://www.rfc-editor.org/rfc/rfc6265
     tier: standard
     publisher: IETF
-  - title: MDN Web Docs — Using HTTP cookies
+  - title: MDN Web Docs - Using HTTP cookies
     url: https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies
     tier: official-doc
     publisher: Mozilla

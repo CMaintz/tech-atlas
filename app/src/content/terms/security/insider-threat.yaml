@@ -10,17 +10,17 @@ layer: people
 status: current
 summary:
   en: Harm that comes from someone already trusted inside the organisation, whether they mean to do damage or simply make a mistake.
-  da: Skade, der kommer fra en person, som allerede er betroet inde i organisationen — enten med vilje eller ved en fejl.
+  da: Skade, der kommer fra en person, som allerede er betroet inde i organisationen - enten med vilje eller ved en fejl.
 body:
   formal:
     en: The risk that an employee, contractor or partner uses the access they were rightly given to harm the organisation's data or systems, either on purpose (theft, sabotage) or through carelessness (a wrong recipient, a lost laptop).
-    da: Risikoen for, at en medarbejder, konsulent eller samarbejdspartner bruger den adgang, de har fået til deres arbejde, til at skade organisationens data eller systemer — enten med vilje (tyveri, sabotage) eller af skødesløshed (forkert modtager, en glemt bærbar).
+    da: Risikoen for, at en medarbejder, konsulent eller samarbejdspartner bruger den adgang, de har fået til deres arbejde, til at skade organisationens data eller systemer - enten med vilje (tyveri, sabotage) eller af skødesløshed (forkert modtager, en glemt bærbar).
   plain:
-    en: Like a shop where the biggest losses come not from burglars but from staff — a few who slip goods into their bag, and many more who simply forget to lock up.
-    da: Som en butik, hvor de største tab ikke skyldes indbrudstyve, men personalet — nogle få, der putter varer i tasken, og mange flere, der bare glemmer at låse af.
+    en: Like a shop where the biggest losses come not from burglars but from staff - a few who slip goods into their bag, and many more who simply forget to lock up.
+    da: Som en butik, hvor de største tab ikke skyldes indbrudstyve, men personalet - nogle få, der putter varer i tasken, og mange flere, der bare glemmer at låse af.
   inPractice:
     en: A sales manager at a Danish engineering firm who has accepted a job with a competitor copies the full customer list to a private cloud folder in his last week, using the same access he had every day.
-    da: En sælger i en dansk ingeniørvirksomhed, der har sagt ja til et job hos en konkurrent, kopierer hele kundelisten til en privat cloudmappe i sin sidste uge — med den samme adgang, han havde hver dag.
+    da: En sælger i en dansk ingeniørvirksomhed, der har sagt ja til et job hos en konkurrent, kopierer hele kundelisten til en privat cloudmappe i sin sidste uge - med den samme adgang, han havde hver dag.
   whyItMatters:
     en: Walls, firewalls and logins do little against someone already let in, so only limited access, watching for unusual use and a healthy culture keep the damage small.
     da: Mure, firewalls og login hjælper kun lidt mod en, der allerede er lukket ind; kun begrænset adgang, overvågning af usædvanlig brug og en sund kultur holder skaden nede.
@@ -59,13 +59,13 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
-  - title: NIST Glossary — Insider Threat
+  - title: NIST Glossary - Insider Threat
     tier: standard
     publisher: NIST
     url: https://csrc.nist.gov/glossary/term/insider_threat
-  - title: Datatilsynet — Kontrol af medarbejdere (vejledning, november 2023)
+  - title: Datatilsynet - Kontrol af medarbejdere (vejledning, november 2023)
     tier: official-doc
     publisher: Datatilsynet
     url: https://www.datatilsynet.dk/Media/638348919997326341/Kontrol%20af%20medarbejdere.pdf

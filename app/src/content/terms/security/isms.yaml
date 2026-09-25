@@ -17,8 +17,8 @@ body:
     en: A management system, as specified in ISO 27001, that defines its scope, assigns roles and ownership, chooses controls from a risk assessment, measures how well they work and improves them through internal audit and management review.
     da: Et ledelsessystem, som fastlagt i ISO 27001, der fastlægger sit omfang, fordeler roller og ejerskab, vælger kontroller ud fra en risikoanalyse, måler, hvor godt de virker, og forbedrer dem gennem intern audit og ledelsens evaluering.
   plain:
-    en: Like the way a well-run restaurant kitchen works — not one recipe, but the routines for buying, storing, cooking, cleaning and checking that keep every meal safe, whoever is on shift.
-    da: Som et velfungerende restaurantkøkken — ikke én opskrift, men rutinerne for indkøb, opbevaring, madlavning, rengøring og kontrol, der holder hvert måltid sikkert, uanset hvem der har vagten.
+    en: Like the way a well-run restaurant kitchen works - not one recipe, but the routines for buying, storing, cooking, cleaning and checking that keep every meal safe, whoever is on shift.
+    da: Som et velfungerende restaurantkøkken - ikke én opskrift, men rutinerne for indkøb, opbevaring, madlavning, rengøring og kontrol, der holder hvert måltid sikkert, uanset hvem der har vagten.
   inPractice:
     en: A Danish software company with 80 staff names a security lead, writes down which systems the work covers, repeats its risk assessment every year, keeps a list of chosen controls and has management review the status each quarter.
     da: En dansk softwarevirksomhed med 80 ansatte udpeger en sikkerhedsansvarlig, skriver ned, hvilke systemer arbejdet dækker, gentager risikoanalysen hvert år, fører en liste over valgte kontroller og lader ledelsen gennemgå status hvert kvartal.
@@ -58,9 +58,9 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
-  - title: ISO/IEC 27001:2022 — Information security management systems — Requirements
+  - title: ISO/IEC 27001:2022 - Information security management systems - Requirements
     tier: standard
     publisher: ISO/IEC
 draft: true

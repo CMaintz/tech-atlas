@@ -9,24 +9,24 @@ cluster: model-architecture
 layer: model
 status: current
 summary:
-  en: A model that can take in, and sometimes produce, more than one kind of content — such as text, photos and speech — in one conversation.
-  da: En model, der kan tage imod — og nogle gange selv skabe — flere slags indhold, fx tekst, fotos og tale, i den samme samtale.
+  en: A model that can take in, and sometimes produce, more than one kind of content - such as text, photos and speech - in one conversation.
+  da: En model, der kan tage imod - og nogle gange selv skabe - flere slags indhold, fx tekst, fotos og tale, i den samme samtale.
 body:
   formal:
-    en: A foundation model that turns different kinds of input — text, images, sound — into embeddings in one shared space, usually with a separate encoder for each kind, so a single transformer can reason across them together.
-    da: En grundmodel, der laver forskellige slags input — tekst, billeder, lyd — om til embeddings i ét fælles rum, typisk med en separat encoder for hver slags, så en enkelt transformer kan ræsonnere på tværs af dem samlet.
+    en: A foundation model that turns different kinds of input - text, images, sound - into embeddings in one shared space, usually with a separate encoder for each kind, so a single transformer can reason across them together.
+    da: En grundmodel, der laver forskellige slags input - tekst, billeder, lyd - om til embeddings i ét fælles rum, typisk med en separat encoder for hver slags, så en enkelt transformer kan ræsonnere på tværs af dem samlet.
   plain:
-    en: Like a colleague you can hand a photo, play a voice message to and write to, all in one conversation — instead of three helpers who can each only read, look or listen.
-    da: Som en kollega, du kan række et foto, afspille en talebesked for og skrive til — alt i én samtale — i stedet for tre hjælpere, der hver kun kan læse, se eller lytte.
+    en: Like a colleague you can hand a photo, play a voice message to and write to, all in one conversation - instead of three helpers who can each only read, look or listen.
+    da: Som en kollega, du kan række et foto, afspille en talebesked for og skrive til - alt i én samtale - i stedet for tre hjælpere, der hver kun kan læse, se eller lytte.
   inPractice:
     en: A building inspector in a municipality photographs a hand-drawn floor plan sent with an application and asks the assistant for the total floor area; the model reads the measurements off the drawing, and she checks the sum.
     da: En byggesagsbehandler i en kommune fotograferer en håndtegnet plantegning, der fulgte med en ansøgning, og beder assistenten om det samlede antal kvadratmeter; modellen aflæser målene på tegningen, og hun tjekker summen.
   whyItMatters:
-    en: Every new kind of input is a new way in — text hidden inside a picture can carry instructions the user never sees, so images and audio need the same care as typed text.
-    da: Hver ny slags input er en ny vej ind — tekst gemt i et billede kan bære instruktioner, brugeren aldrig ser, så billeder og lyd kræver samme omhu som indtastet tekst.
+    en: Every new kind of input is a new way in - text hidden inside a picture can carry instructions the user never sees, so images and audio need the same care as typed text.
+    da: Hver ny slags input er en ny vej ind - tekst gemt i et billede kan bære instruktioner, brugeren aldrig ser, så billeder og lyd kræver samme omhu som indtastet tekst.
 deepDive:
   en: |-
-    Four architectural families are in use. Dual encoders such as CLIP (Radford et al., 2021) train an image encoder and a text encoder with a symmetric contrastive (InfoNCE) loss on about 400 million image–caption pairs, so that matching pairs have high cosine similarity; they do not generate text but enable zero-shot classification and cross-modal search, and SigLIP later replaced the softmax with a pairwise sigmoid loss. Cross-attention models such as Flamingo (2022) keep a frozen language model and insert gated cross-attention layers that read visual features. The now dominant late-fusion or "adapter" design, popularised by LLaVA (2023), takes a pretrained vision encoder, maps its patch embeddings through a small projection into the language model's token-embedding space and feeds them to the decoder as if they were ordinary tokens. Early-fusion models such as Chameleon (2024) tokenise images into discrete codes and train one transformer on interleaved sequences from the start.
+    Four architectural families are in use. Dual encoders such as CLIP (Radford et al., 2021) train an image encoder and a text encoder with a symmetric contrastive (InfoNCE) loss on about 400 million image-caption pairs, so that matching pairs have high cosine similarity; they do not generate text but enable zero-shot classification and cross-modal search, and SigLIP later replaced the softmax with a pairwise sigmoid loss. Cross-attention models such as Flamingo (2022) keep a frozen language model and insert gated cross-attention layers that read visual features. The now dominant late-fusion or "adapter" design, popularised by LLaVA (2023), takes a pretrained vision encoder, maps its patch embeddings through a small projection into the language model's token-embedding space and feeds them to the decoder as if they were ordinary tokens. Early-fusion models such as Chameleon (2024) tokenise images into discrete codes and train one transformer on interleaved sequences from the start.
 
     Images become tokens via a Vision Transformer: a 224 × 224 image cut into 14 × 14-pixel patches yields 16 × 16 = 256 patch embeddings. High-resolution inputs are handled by tiling or dynamic resolution, so one screenshot or scanned page can cost hundreds to thousands of tokens, which dominates latency and price for document workloads. Audio is typically encoded with a Whisper-style encoder over log-mel spectrograms, and video is sampled as frames, which multiplies token counts quickly. On the output side, many systems still route image generation to a separate diffusion model, while "any-to-any" models generate discrete image or audio tokens directly.
 
@@ -56,7 +56,7 @@ edges:
 sources:
   - title: Radford et al. (2021), Learning Transferable Visual Models From Natural Language Supervision (CLIP)
     tier: reference
-  - title: OWASP Top 10 for LLM Applications 2025 (LLM01 Prompt Injection — multimodal injection)
+  - title: OWASP Top 10 for LLM Applications 2025 (LLM01 Prompt Injection - multimodal injection)
     tier: reference
     publisher: OWASP
 draft: true

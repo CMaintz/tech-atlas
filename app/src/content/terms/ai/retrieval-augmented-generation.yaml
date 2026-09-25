@@ -17,14 +17,14 @@ body:
     en: A design in which a search step finds the passages most related to a question, usually by comparing embeddings, and adds them to the prompt so the large language model can base its answer on them.
     da: Et design, hvor et søgetrin finder de afsnit, der passer bedst til et spørgsmål, typisk ved at sammenligne embeddings, og lægger dem ind i prompten, så den store sprogmodel kan bygge sit svar på dem.
   plain:
-    en: Like an open-book exam — instead of answering from memory, the student first finds the right pages and then writes the answer.
-    da: Som en eksamen med alle hjælpemidler — i stedet for at svare fra hukommelsen finder den studerende først de rigtige sider og skriver så svaret.
+    en: Like an open-book exam - instead of answering from memory, the student first finds the right pages and then writes the answer.
+    da: Som en eksamen med alle hjælpemidler - i stedet for at svare fra hukommelsen finder den studerende først de rigtige sider og skriver så svaret.
   inPractice:
     en: A municipality's internal help bot answers “how many days of holiday do I get?” by finding the current HR policy, quoting the relevant section and linking to it.
     da: En kommunes interne hjælpebot svarer på “hvor mange feriedage har jeg?” ved at finde den gældende personalepolitik, citere det relevante afsnit og linke til det.
   whyItMatters:
-    en: It keeps answers current and checkable without retraining, but the bot can now reach your documents — and must not show a user files they are not allowed to see.
-    da: Det holder svar opdaterede og efterprøvelige uden gentræning, men botten kan nu nå jeres dokumenter — og må ikke vise en bruger filer, vedkommende ikke har adgang til.
+    en: It keeps answers current and checkable without retraining, but the bot can now reach your documents - and must not show a user files they are not allowed to see.
+    da: Det holder svar opdaterede og efterprøvelige uden gentræning, men botten kan nu nå jeres dokumenter - og må ikke vise en bruger filer, vedkommende ikke har adgang til.
 deepDive:
   en: |-
     The original RAG model (Lewis et al., 2020) was trained end to end: a Dense Passage Retriever (DPR) bi-encoder selected passages from a Wikipedia index of about 21 million 100-word chunks, and a BART sequence-to-sequence generator conditioned on them, either on the same passages for the whole answer (RAG-Sequence) or marginalising over passages per token (RAG-Token). Today the term almost always means a looser engineering pattern in which an off-the-shelf retriever and an off-the-shelf LLM are joined only through the prompt, with no joint training.
@@ -33,7 +33,7 @@ deepDive:
 
     Quality problems split cleanly into retrieval failures and generation failures, and they must be measured separately. Retrieval is evaluated with recall@k or similar on a labelled question set: if the right chunk is not retrieved, no prompt wording will fix the answer. Typical causes are bad chunk boundaries that separate a rule from its exception, tables flattened into noise, queries using different vocabulary than documents, and stale or duplicate versions outranking the current one. Generation is evaluated for faithfulness (is every claim supported by the retrieved context) and answer relevance; failures include ignoring the context in favour of parametric knowledge, merging two sources incorrectly, and answering confidently when retrieval returned nothing useful.
 
-    Security properties follow from the fact that retrieved text enters the context window with the same standing as any other text. Permission filtering must happen at query time against the user's identity, not at index time with a service account, or the assistant becomes a way to read documents the user cannot open. Any document an outsider can influence — an inbound email, a supplier PDF, a public web page — is a vector for indirect prompt injection, and poisoned documents can be crafted to rank highly for target queries. OWASP's 2025 LLM Top 10 addresses these under LLM01 Prompt Injection and LLM08 Vector and Embedding Weaknesses. Because the index is a copy of the source data, deletion and retention must propagate to it.
+    Security properties follow from the fact that retrieved text enters the context window with the same standing as any other text. Permission filtering must happen at query time against the user's identity, not at index time with a service account, or the assistant becomes a way to read documents the user cannot open. Any document an outsider can influence - an inbound email, a supplier PDF, a public web page - is a vector for indirect prompt injection, and poisoned documents can be crafted to rank highly for target queries. OWASP's 2025 LLM Top 10 addresses these under LLM01 Prompt Injection and LLM08 Vector and Embedding Weaknesses. Because the index is a copy of the source data, deletion and retention must propagate to it.
   da: |-
     Den oprindelige RAG-model (Lewis m.fl., 2020) blev trænet samlet: En Dense Passage Retriever (DPR), en bi-encoder, udvalgte afsnit fra et Wikipedia-indeks med omkring 21 millioner bidder på 100 ord, og en BART-sekvens-til-sekvens-generator betingede på dem, enten på de samme afsnit for hele svaret (RAG-Sequence) eller ved at marginalisere over afsnit for hvert token (RAG-Token). I dag betyder begrebet næsten altid et løsere ingeniørmønster, hvor en færdig søgekomponent og en færdig LLM kun kobles via prompten uden fælles træning.
 
@@ -41,7 +41,7 @@ deepDive:
 
     Kvalitetsproblemer deler sig klart i søgefejl og genereringsfejl, og de skal måles hver for sig. Søgningen evalueres med recall@k eller lignende på et sæt mærkede spørgsmål: Hvis den rigtige bid ikke hentes, kan ingen promptformulering redde svaret. Typiske årsager er dårlige grænser mellem bidder, der skiller en regel fra dens undtagelse, tabeller, der fladgøres til støj, forespørgsler med andet ordforråd end dokumenterne, og forældede eller dublerede versioner, der rangerer over den gældende. Genereringen evalueres for tro gengivelse (har hver påstand støtte i den hentede kontekst) og relevans; fejlene omfatter at ignorere konteksten til fordel for indlært viden, at flette to kilder forkert og at svare selvsikkert, når søgningen intet brugbart fandt.
 
-    Sikkerhedsegenskaberne følger af, at hentet tekst kommer ind i kontekstvinduet på lige fod med al anden tekst. Rettighedsfiltrering skal ske ved forespørgslen ud fra brugerens identitet, ikke ved indeksering med en servicekonto, ellers bliver assistenten en vej til at læse dokumenter, brugeren ikke selv kan åbne. Ethvert dokument, en udenforstående kan påvirke — en indgående mail, en PDF fra en leverandør, en offentlig webside — er en vej ind for indirekte prompt injection, og forgiftede dokumenter kan laves, så de rangerer højt på bestemte forespørgsler. OWASP's LLM Top 10 fra 2025 behandler dette under LLM01 Prompt Injection og LLM08 Vector and Embedding Weaknesses. Da indekset er en kopi af kildedataene, skal sletning og opbevaringsregler også slå igennem dér.
+    Sikkerhedsegenskaberne følger af, at hentet tekst kommer ind i kontekstvinduet på lige fod med al anden tekst. Rettighedsfiltrering skal ske ved forespørgslen ud fra brugerens identitet, ikke ved indeksering med en servicekonto, ellers bliver assistenten en vej til at læse dokumenter, brugeren ikke selv kan åbne. Ethvert dokument, en udenforstående kan påvirke - en indgående mail, en PDF fra en leverandør, en offentlig webside - er en vej ind for indirekte prompt injection, og forgiftede dokumenter kan laves, så de rangerer højt på bestemte forespørgsler. OWASP's LLM Top 10 fra 2025 behandler dette under LLM01 Prompt Injection og LLM08 Vector and Embedding Weaknesses. Da indekset er en kopi af kildedataene, skal sletning og opbevaringsregler også slå igennem dér.
 edges:
   requires: [large-language-model, embedding]
   mitigates:
@@ -66,7 +66,7 @@ sources:
   - title: OWASP Top 10 for Large Language Model Applications
     tier: reference
     publisher: OWASP
-  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile
+  - title: NIST AI 600-1 - Artificial Intelligence Risk Management Framework, Generative AI Profile
     tier: standard
     publisher: NIST
 draft: true

@@ -27,7 +27,7 @@ body:
     da: Uden et pålideligt spor af ændringerne kan ingen bevise, hvad der kørte på et givet tidspunkt, eller hurtigt fortryde en dårlig ændring, og begge dele er grundkrav for sikkerhed og revision.
 deepDive:
   en: |-
-    Version control developed in generations. SCCS (Marc Rochkind, Bell Labs, 1972) and RCS (Walter Tichy, 1982) versioned single files with locking; CVS (from 1986) and Subversion (2000) introduced a central server holding the history of whole projects, with atomic commits arriving in Subversion. Distributed systems — BitKeeper, then Git (created by Linus Torvalds in April 2005 after the Linux kernel lost its free BitKeeper licence) and Mercurial (also 2005) — give every clone the full history, making commits, branches and merges local operations. Git is now the de facto standard, hosted on platforms such as GitHub, GitLab, Bitbucket and Azure DevOps that add pull requests, reviews and access control on top.
+    Version control developed in generations. SCCS (Marc Rochkind, Bell Labs, 1972) and RCS (Walter Tichy, 1982) versioned single files with locking; CVS (from 1986) and Subversion (2000) introduced a central server holding the history of whole projects, with atomic commits arriving in Subversion. Distributed systems - BitKeeper, then Git (created by Linus Torvalds in April 2005 after the Linux kernel lost its free BitKeeper licence) and Mercurial (also 2005) - give every clone the full history, making commits, branches and merges local operations. Git is now the de facto standard, hosted on platforms such as GitHub, GitLab, Bitbucket and Azure DevOps that add pull requests, reviews and access control on top.
 
     Git's core is a content-addressed object store. A blob holds file content, a tree maps names and modes to blobs and subtrees, a commit points to one tree, zero or more parent commits, author and committer identities with timestamps, and a message; an annotated tag points to an object with its own metadata. Each object's ID is the hash of its content, historically SHA-1 (hardened with collision detection after the 2017 SHAttered collision), with a SHA-256 object format available since Git 2.29 but still little used because of interoperability limits. Because every commit hashes its parents, history forms a Merkle DAG: altering an old commit changes every descendant ID, which makes tampering evident to anyone holding the previous IDs. Branches and tags are merely named refs; merging uses a three-way merge against the common ancestor, while rebasing rewrites commits and therefore their IDs.
 
@@ -35,7 +35,7 @@ deepDive:
 
     A frequent failure mode is committed secrets: deleting a file in a new commit leaves the credential in history and in every clone and fork, so the credential must be rotated, and history rewriting (git filter-repo) is only a secondary clean-up. Version control differs from backup, which restores state but carries no reviewed change history, and from GitOps, which uses a repository as the operational source of truth rather than just a record of change.
   da: |-
-    Versionsstyring har udviklet sig i generationer. SCCS (Marc Rochkind, Bell Labs, 1972) og RCS (Walter Tichy, 1982) versionerede enkeltfiler med låsning; CVS (fra 1986) og Subversion (2000) indførte en central server med historikken for hele projekter, og med Subversion kom atomiske commits. Distribuerede systemer — BitKeeper, siden Git (skabt af Linus Torvalds i april 2005, efter at Linux-kernen havde mistet sin gratis BitKeeper-licens) og Mercurial (også 2005) — giver hver klon den fulde historik, så commits, grene og fletninger bliver lokale operationer. Git er i dag de facto-standarden, hostet på platforme som GitHub, GitLab, Bitbucket og Azure DevOps, der lægger pull requests, gennemgange og adgangskontrol ovenpå.
+    Versionsstyring har udviklet sig i generationer. SCCS (Marc Rochkind, Bell Labs, 1972) og RCS (Walter Tichy, 1982) versionerede enkeltfiler med låsning; CVS (fra 1986) og Subversion (2000) indførte en central server med historikken for hele projekter, og med Subversion kom atomiske commits. Distribuerede systemer - BitKeeper, siden Git (skabt af Linus Torvalds i april 2005, efter at Linux-kernen havde mistet sin gratis BitKeeper-licens) og Mercurial (også 2005) - giver hver klon den fulde historik, så commits, grene og fletninger bliver lokale operationer. Git er i dag de facto-standarden, hostet på platforme som GitHub, GitLab, Bitbucket og Azure DevOps, der lægger pull requests, gennemgange og adgangskontrol ovenpå.
 
     Kernen i Git er et indholdsadresseret objektlager. En blob rummer filindhold, et tree kobler navne og tilstande til blobs og undertræer, et commit peger på ét tree, nul eller flere forældre-commits, identiteter for author og committer med tidsstempler samt en besked; et annoteret tag peger på et objekt med egne metadata. Hvert objekts ID er hashen af dets indhold, historisk SHA-1 (hærdet med kollisionsdetektion efter SHAttered-kollisionen i 2017), og et SHA-256-objektformat har været tilgængeligt siden Git 2.29, men bruges stadig kun lidt på grund af begrænset interoperabilitet. Fordi hvert commit hasher sine forældre, danner historikken en Merkle-DAG: ændres et gammelt commit, ændres ID'et for alle efterkommere, så manipulation bliver synlig for alle, der kender de tidligere ID'er. Grene og tags er blot navngivne refs; fletning bruger en trevejsfletning mod den fælles forfader, mens rebase omskriver commits og dermed deres ID'er.
 
@@ -45,11 +45,11 @@ deepDive:
 edges:
   part-of: [software-supply-chain]
 sources:
-  - title: Pro Git — Getting Started, About Version Control
+  - title: Pro Git - Getting Started, About Version Control
     url: https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control
     tier: official-doc
     publisher: Git project
-  - title: NIST SP 800-218 — Secure Software Development Framework (SSDF)
+  - title: NIST SP 800-218 - Secure Software Development Framework (SSDF)
     url: https://csrc.nist.gov/pubs/sp/800/218/final
     tier: standard
     publisher: NIST

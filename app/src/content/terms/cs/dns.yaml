@@ -17,21 +17,21 @@ body:
     en: A distributed naming protocol, organised in levels from the root down to each individual domain, in which a device's query is passed between name servers until one returns the IP address a domain name currently points to.
     da: En fordelt navneprotokol, opbygget i niveauer fra roden og ned til det enkelte domæne, hvor en enheds forespørgsel sendes videre mellem navneservere, indtil én svarer med den IP-adresse, domænenavnet aktuelt peger på.
   plain:
-    en: Like the contacts list on your phone — you tap a name, and the phone looks up the number for you.
-    da: Som kontaktlisten på din telefon — du trykker på et navn, og telefonen slår nummeret op for dig.
+    en: Like the contacts list on your phone - you tap a name, and the phone looks up the number for you.
+    da: Som kontaktlisten på din telefon - du trykker på et navn, og telefonen slår nummeret op for dig.
   inPractice:
     en: An attacker gets into the account a pension fund uses to manage its domain and changes the DNS records, so members typing the usual address land on a fake login page without noticing.
     da: En angriber får adgang til den konto, en pensionskasse bruger til at styre sit domæne, og ændrer DNS-oplysningerne, så medlemmer, der skriver den sædvanlige adresse, uden at opdage det havner på en falsk login-side.
   whyItMatters:
-    en: Nearly every connection starts with a DNS lookup, so whoever controls the answers decides where people end up — and DNS logs show which sites each device has tried to reach.
-    da: Næsten hver forbindelse begynder med et DNS-opslag, så den, der styrer svarene, bestemmer, hvor folk havner — og DNS-logs viser, hvilke steder hver enhed har forsøgt at nå.
+    en: Nearly every connection starts with a DNS lookup, so whoever controls the answers decides where people end up - and DNS logs show which sites each device has tried to reach.
+    da: Næsten hver forbindelse begynder med et DNS-opslag, så den, der styrer svarene, bestemmer, hvor folk havner - og DNS-logs viser, hvilke steder hver enhed har forsøgt at nå.
 deepDive:
   en: |-
     DNS was designed by Paul Mockapetris (RFC 882/883, 1983) to replace the centrally distributed HOSTS.TXT file, and is still specified by RFC 1034 and RFC 1035 (1987) plus a long list of updates. The namespace is a tree of labels; each zone is served by authoritative name servers, and delegation happens through NS records in the parent zone. A lookup normally involves a stub resolver on the device, which sends a recursive query to a recursive resolver (the ISP's, the company's or a public one), which in turn walks the tree iteratively: the root servers (13 named identities, a to m, each operated as many anycast instances) refer it to the TLD servers, which refer it to the domain's authoritative servers, which return the answer.
 
     Answers are resource records such as A and AAAA (IPv4/IPv6 addresses), CNAME (alias), MX (mail exchangers), NS, SOA, PTR (reverse lookups), TXT (used for SPF, DKIM and DMARC) and CAA (which certificate authorities may issue for the domain). Every record carries a TTL that controls how long resolvers may cache it; failed lookups are cached too (negative caching, RFC 2308). TTLs explain why DNS changes "propagate" slowly and why lowering TTLs before a migration matters. Queries go over UDP or TCP port 53; the original 512-byte UDP limit is extended by EDNS(0) (RFC 6891), and truncated answers fall back to TCP.
 
-    Classic DNS has no cryptographic protection. Off-path cache poisoning relies on guessing the 16-bit transaction ID, which is why resolvers randomise source ports as well; Dan Kaminsky's 2008 attack showed how practical poisoning had become. DNSSEC (RFC 4033–4035) adds signatures and a chain of trust from the signed root via DS records, giving origin authentication and integrity but not confidentiality. For privacy, DNS over TLS (RFC 7858, port 853), DNS over HTTPS (RFC 8484) and DNS over QUIC (RFC 9250) encrypt the stub-to-resolver leg, and QNAME minimisation (RFC 9156) limits what each upstream server learns.
+    Classic DNS has no cryptographic protection. Off-path cache poisoning relies on guessing the 16-bit transaction ID, which is why resolvers randomise source ports as well; Dan Kaminsky's 2008 attack showed how practical poisoning had become. DNSSEC (RFC 4033-4035) adds signatures and a chain of trust from the signed root via DS records, giving origin authentication and integrity but not confidentiality. For privacy, DNS over TLS (RFC 7858, port 853), DNS over HTTPS (RFC 8484) and DNS over QUIC (RFC 9250) encrypt the stub-to-resolver leg, and QNAME minimisation (RFC 9156) limits what each upstream server learns.
 
     Many real incidents bypass the protocol entirely. If an attacker takes over the registrar or DNS-hosting account, as in the pension-fund scenario, DNSSEC offers no protection because the attacker can publish legitimately signed records; MFA on those accounts, registry lock and monitoring of NS and A changes are the relevant controls. Other recurring problems are dangling CNAME records that allow subdomain takeover, open resolvers abused for reflection and amplification DDoS, and DNS tunnelling used for command-and-control or data exfiltration. On the defensive side, protective DNS that blocks known-malicious domains and resolver query logs are cheap, high-value sources of detection.
   da: |-
@@ -39,7 +39,7 @@ deepDive:
 
     Svarene er resource records som A og AAAA (IPv4-/IPv6-adresser), CNAME (alias), MX (mailservere), NS, SOA, PTR (omvendte opslag), TXT (bruges til SPF, DKIM og DMARC) og CAA (hvilke certifikatudstedere der må udstede for domænet). Hver post har en TTL, der styrer, hvor længe resolvere må cache den; mislykkede opslag caches også (negativ caching, RFC 2308). TTL forklarer, hvorfor DNS-ændringer "spreder sig" langsomt, og hvorfor man sænker TTL før en migrering. Forespørgsler går over UDP eller TCP port 53; den oprindelige grænse på 512 byte over UDP udvides med EDNS(0) (RFC 6891), og afkortede svar falder tilbage til TCP.
 
-    Klassisk DNS har ingen kryptografisk beskyttelse. Cache poisoning udefra bygger på at gætte det 16-bit transaktions-ID, og derfor randomiserer resolvere også kildeporten; Dan Kaminskys angreb fra 2008 viste, hvor praktisk forgiftning var blevet. DNSSEC (RFC 4033–4035) tilføjer signaturer og en tillidskæde fra den signerede rod via DS-poster og giver dermed ægthed og integritet, men ikke fortrolighed. Af hensyn til privatlivet krypterer DNS over TLS (RFC 7858, port 853), DNS over HTTPS (RFC 8484) og DNS over QUIC (RFC 9250) strækningen fra stub til resolver, og QNAME-minimering (RFC 9156) begrænser, hvad hver server længere oppe får at vide.
+    Klassisk DNS har ingen kryptografisk beskyttelse. Cache poisoning udefra bygger på at gætte det 16-bit transaktions-ID, og derfor randomiserer resolvere også kildeporten; Dan Kaminskys angreb fra 2008 viste, hvor praktisk forgiftning var blevet. DNSSEC (RFC 4033-4035) tilføjer signaturer og en tillidskæde fra den signerede rod via DS-poster og giver dermed ægthed og integritet, men ikke fortrolighed. Af hensyn til privatlivet krypterer DNS over TLS (RFC 7858, port 853), DNS over HTTPS (RFC 8484) og DNS over QUIC (RFC 9250) strækningen fra stub til resolver, og QNAME-minimering (RFC 9156) begrænser, hvad hver server længere oppe får at vide.
 
     Mange reelle hændelser går helt uden om protokollen. Overtager en angriber kontoen hos registratoren eller DNS-udbyderen, som i eksemplet med pensionskassen, hjælper DNSSEC ikke, for angriberen kan udgive korrekt signerede poster; de relevante kontroller er MFA på kontiene, registry lock og overvågning af ændringer i NS- og A-poster. Andre tilbagevendende problemer er hængende CNAME-poster, der muliggør overtagelse af subdomæner, åbne resolvere, der misbruges til reflektions- og forstærkningsangreb (DDoS), og DNS-tunnelering til command-and-control eller dataudtræk. På forsvarssiden er beskyttende DNS, der blokerer kendte ondsindede domæner, og resolverens forespørgselslogs billige og værdifulde kilder til detektion.
 edges:
@@ -50,6 +50,6 @@ edges:
 sources:
   - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
     tier: textbook
-  - title: RFC 1034 — Domain Names, Concepts and Facilities
+  - title: RFC 1034 - Domain Names, Concepts and Facilities
     tier: standard
 draft: true

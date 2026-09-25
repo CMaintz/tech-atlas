@@ -14,8 +14,8 @@ summary:
   da: En portvagt, der tjekker netværkstrafik mod regler og kun lukker det igennem, der er tilladt.
 body:
   formal:
-    en: A device or program placed between networks that inspects each packet — its IP addresses, ports and protocol — and allows or blocks it according to a set of rules. Most firewalls also track open connections, so replies to allowed traffic are let back in.
-    da: En enhed eller et program placeret mellem netværk, som undersøger hver pakke — dens IP-adresser, porte og protokol — og tillader eller blokerer den efter et regelsæt. De fleste firewalls holder også styr på åbne forbindelser, så svar på tilladt trafik lukkes ind igen.
+    en: A device or program placed between networks that inspects each packet - its IP addresses, ports and protocol - and allows or blocks it according to a set of rules. Most firewalls also track open connections, so replies to allowed traffic are let back in.
+    da: En enhed eller et program placeret mellem netværk, som undersøger hver pakke - dens IP-adresser, porte og protokol - og tillader eller blokerer den efter et regelsæt. De fleste firewalls holder også styr på åbne forbindelser, så svar på tilladt trafik lukkes ind igen.
   plain:
     en: Like a guard at the gate of a building with a list of who may come in and which doors they may use; anyone not on the list is turned away.
     da: Som en vagt ved porten til en bygning med en liste over, hvem der må komme ind, og hvilke døre de må bruge; alle andre bliver afvist.
@@ -23,8 +23,8 @@ body:
     en: At a local water utility, the IT operations manager sets the firewall so the system that controls the pumps can be reached only from two computers in the control room; all traffic from the office network is blocked.
     da: På et vandværk sætter den IT-driftsansvarlige firewallen op, så anlægget, der styrer pumperne, kun kan nås fra to computere i kontrolrummet; al trafik fra kontornetværket blokeres.
   whyItMatters:
-    en: It is one of the oldest and most basic network controls, shrinking what an outsider can reach — but it cannot stop threats that come through allowed doors.
-    da: Den er en af de ældste og mest grundlæggende netværkskontroller og mindsker, hvad en udefrakommende kan nå — men den kan ikke stoppe trusler, der kommer gennem tilladte døre.
+    en: It is one of the oldest and most basic network controls, shrinking what an outsider can reach - but it cannot stop threats that come through allowed doors.
+    da: Den er en af de ældste og mest grundlæggende netværkskontroller og mindsker, hvad en udefrakommende kan nå - men den kan ikke stoppe trusler, der kommer gennem tilladte døre.
 deepDive:
   en: |-
     Firewalls evolved in generations. The first were stateless packet filters in the late 1980s, typically access control lists on routers that judge each packet in isolation by its 5-tuple (protocol, source and destination address, source and destination port) and flags. Because they have no memory, letting replies back in requires broad rules such as "allow TCP with ACK set to high ports", which attackers can abuse. Stateful inspection, popularised by Check Point FireWall-1 in the mid-1990s, keeps a connection table: an outbound SYN creates an entry, and only packets matching a tracked flow in a valid TCP state are allowed back, while UDP and ICMP get pseudo-connections with idle timeouts. Linux implements this in netfilter's conntrack, configured through nftables or iptables. Application-level gateways (proxies) go further by terminating the connection and parsing the protocol, and next-generation firewalls (NGFW) add application identification, user identity, TLS inspection and IPS signatures.
@@ -37,7 +37,7 @@ deepDive:
   da: |-
     Firewalls har udviklet sig i generationer. De første var tilstandsløse pakkefiltre i slutningen af 1980'erne, typisk adgangslister (ACL'er) på routere, der vurderer hver pakke isoleret ud fra dens 5-tuple (protokol, kilde- og destinationsadresse, kilde- og destinationsport) og flag. Fordi de ingen hukommelse har, kræver det brede regler at lukke svar ind, fx "tillad TCP med ACK sat til høje porte", som angribere kan misbruge. Stateful inspection, som Check Point FireWall-1 gjorde udbredt i midten af 1990'erne, fører en forbindelsestabel: En udgående SYN opretter en post, og kun pakker, der passer til et kendt flow i en gyldig TCP-tilstand, lukkes tilbage, mens UDP og ICMP får pseudoforbindelser med timeout. Linux implementerer det i netfilters conntrack, der konfigureres via nftables eller iptables. Applikationsgateways (proxyer) går videre ved at afslutte forbindelsen og fortolke protokollen, og next-generation firewalls (NGFW) tilføjer genkendelse af applikationer, brugeridentitet, TLS-inspektion og IPS-signaturer.
 
-    Et regelsæt evalueres normalt oppefra og ned, hvor første match gælder, og der er en implicit afvisning til sidst. God praksis, som også NIST SP 800-41 Rev. 1 afspejler, er default deny med eksplicitte, dokumenterede undtagelser — og det gælder udgående trafik lige så meget som indgående: Ubegrænset udgående trafik er netop det, der lader malware nå command-and-control-servere og sende data ud. Anti-spoofing-filtre afviser pakker, hvis kildeadresse ikke legitimt kan komme ind på en given grænseflade, fx private RFC 1918-adresser, der ankommer fra internettet (jf. BCP 38). Typiske fejl er skyggede regler, der aldrig rammer, fordi en bredere regel ovenover gør det, "midlertidige" any-any-regler, der bliver permanente, regler, ingen kan forklare, og administrationsgrænseflader, der er eksponeret.
+    Et regelsæt evalueres normalt oppefra og ned, hvor første match gælder, og der er en implicit afvisning til sidst. God praksis, som også NIST SP 800-41 Rev. 1 afspejler, er default deny med eksplicitte, dokumenterede undtagelser - og det gælder udgående trafik lige så meget som indgående: Ubegrænset udgående trafik er netop det, der lader malware nå command-and-control-servere og sende data ud. Anti-spoofing-filtre afviser pakker, hvis kildeadresse ikke legitimt kan komme ind på en given grænseflade, fx private RFC 1918-adresser, der ankommer fra internettet (jf. BCP 38). Typiske fejl er skyggede regler, der aldrig rammer, fordi en bredere regel ovenover gør det, "midlertidige" any-any-regler, der bliver permanente, regler, ingen kan forklare, og administrationsgrænseflader, der er eksponeret.
 
     Netværksfirewalls sidder mellem zoner og håndhæver netværkssegmentering, mens værtsbaserede firewalls (Windows Defender Firewall, nftables på en server) beskytter den enkelte maskine og begrænser lateral bevægelse selv på et fladt netværk; CIS Controls v8, safeguard 4.4 og 4.5, kræver firewall på henholdsvis servere og slutbrugerenheder. I skyen dukker de samme idéer op som security groups (stateful, knyttet til instanser) og network ACL'er (tilstandsløse, knyttet til subnet) i AWS.
 
@@ -64,6 +64,6 @@ edges:
 sources:
   - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
     tier: textbook
-  - title: NIST SP 800-41 Rev. 1 — Guidelines on Firewalls and Firewall Policy
+  - title: NIST SP 800-41 Rev. 1 - Guidelines on Firewalls and Firewall Policy
     tier: standard
 draft: true

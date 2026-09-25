@@ -17,8 +17,8 @@ body:
     en: A protocol in which a client sends a request naming a resource and a method, such as GET or POST, and the server replies with a status code and content. Each request stands alone, so the server keeps no memory between them by itself; newer versions carry the same messages in faster forms.
     da: En protokol, hvor en klient sender en forespørgsel med en ressource og en metode, fx GET eller POST, og serveren svarer med en statuskode og indhold. Hver forespørgsel står alene, så serveren husker ikke selv noget mellem dem; nyere versioner bærer de samme beskeder i hurtigere former.
   plain:
-    en: Like ordering at a counter by slip of paper — you write what you want, hand it over, and get back either the item or a note saying why not.
-    da: Som at bestille ved en disk med en seddel — du skriver, hvad du vil have, rækker den over og får enten varen eller en besked om, hvorfor ikke.
+    en: Like ordering at a counter by slip of paper - you write what you want, hand it over, and get back either the item or a note saying why not.
+    da: Som at bestille ved en disk med en seddel - du skriver, hvad du vil have, rækker den over og får enten varen eller en besked om, hvorfor ikke.
   inPractice:
     en: A citizen clicks an old link to a page on the municipality’s website. The browser sends a GET request, and because the page has since been deleted, the server answers with status 404 instead of the page.
     da: En borger klikker på et gammelt link til en side på kommunens hjemmeside. Browseren sender en GET-forespørgsel, og fordi siden er blevet slettet, svarer serveren med status 404 i stedet for siden.
@@ -54,7 +54,7 @@ edges:
       confidence: high
     - json
 sources:
-  - title: RFC 9110 — HTTP Semantics
+  - title: RFC 9110 - HTTP Semantics
     url: https://www.rfc-editor.org/rfc/rfc9110
     tier: standard
     publisher: IETF

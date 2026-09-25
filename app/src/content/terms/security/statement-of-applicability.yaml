@@ -17,8 +17,8 @@ body:
     en: The document required by ISO 27001 clause 6.1.3(d) that lists the controls needed to treat the assessed risks and, for each Annex A control, states whether it is included or excluded, why, and whether it is in place.
     da: Det dokument, som ISO 27001 punkt 6.1.3(d) kræver, og som angiver de kontroller, der er nødvendige for at håndtere de vurderede risici, og for hver kontrol i anneks A oplyser, om den er med eller udeladt, hvorfor, og om den er gennemført.
   plain:
-    en: Like a builder answering the fire officer's checklist item by item — installed, or not needed and why, such as “no sprinklers — one floor only, with two exits”.
-    da: Som en bygherre, der besvarer brandmyndighedens tjekliste punkt for punkt — installeret, eller ikke nødvendigt og hvorfor, fx “ingen sprinklere — kun ét plan og to udgange”.
+    en: Like a builder answering the fire officer's checklist item by item - installed, or not needed and why, such as “no sprinklers - one floor only, with two exits”.
+    da: Som en bygherre, der besvarer brandmyndighedens tjekliste punkt for punkt - installeret, eller ikke nødvendigt og hvorfor, fx “ingen sprinklere - kun ét plan og to udgange”.
   inPractice:
     en: A small Danish software company with no office of its own marks the control on securing office premises as not relevant, since all its servers sit with a hosting supplier holding ISO 27001 certification; the auditor reads the reason and accepts it.
     da: En lille dansk softwarevirksomhed uden eget kontor markerer kontrollen for sikring af kontorlokaler som ikke relevant, fordi alle dens servere står hos en hostingleverandør med ISO 27001-certificering; auditoren læser grunden og godtager den.
@@ -31,7 +31,7 @@ deepDive:
 
     Justifications for inclusion are usually one of three kinds: a treated risk (referenced by risk ID), a legal or regulatory requirement (for example NIS2 Article 21(2) or GDPR Article 32), or a contractual or business requirement. A good SoA keeps these traceable in both directions: from each risk to the controls that treat it, and from each control to the risks, laws or contracts that justify it. Controls from outside Annex A, such as specific CIS safeguards or sector requirements, belong in the SoA as well, because clause 6.1.3(d) speaks of the necessary controls, not only Annex A.
 
-    Exclusions are where auditors probe. "Not applicable" is acceptable only if no risk, legal requirement or contract calls for the control within the scope; excluding secure development (8.25–8.28) while the organisation writes code, or physical controls while it still has staff in an office, will be challenged. Implementation status should be honest: a control can be included but only partially implemented, with the gap tracked in the treatment plan. The 2022 transition forced every certified organisation to rebuild its SoA from 114 to 93 controls, typically using ISO/IEC 27002 Annex B to map old controls to new.
+    Exclusions are where auditors probe. "Not applicable" is acceptable only if no risk, legal requirement or contract calls for the control within the scope; excluding secure development (8.25-8.28) while the organisation writes code, or physical controls while it still has staff in an office, will be challenged. Implementation status should be honest: a control can be included but only partially implemented, with the gap tracked in the treatment plan. The 2022 transition forced every certified organisation to rebuild its SoA from 114 to 93 controls, typically using ISO/IEC 27002 Annex B to map old controls to new.
 
     Practically, the SoA is a controlled, versioned document; certification bodies commonly reference its version on the certificate, so a material change in the SoA can affect what the certificate covers. Many organisations maintain it as a spreadsheet or in a GRC tool with columns for control, applicability, justification, status, owner, evidence location and linked risks, and use ISO/IEC 27002 attributes to produce filtered views. It is also the document customers most often request, sometimes under NDA, when assessing a certified supplier.
   da: |-
@@ -39,14 +39,14 @@ deepDive:
 
     Begrundelser for at medtage en kontrol er som regel af tre slags: en håndteret risiko (med henvisning til risikoens id), et lovkrav (fx NIS2 artikel 21, stk. 2, eller GDPR artikel 32) eller et kontraktligt eller forretningsmæssigt krav. En god SoA bevarer sporbarheden i begge retninger: fra hver risiko til de kontroller, der håndterer den, og fra hver kontrol til de risici, love eller kontrakter, der begrunder den. Kontroller uden for anneks A, fx bestemte CIS-safeguards eller sektorkrav, hører også hjemme i SoA'en, fordi afsnit 6.1.3(d) taler om de nødvendige kontroller og ikke kun om anneks A.
 
-    Det er fravalgene, auditorerne går efter. "Ikke relevant" holder kun, hvis ingen risiko, lovkrav eller kontrakt kræver kontrollen inden for omfanget; at fravælge sikker udvikling (8.25–8.28), mens organisationen skriver kode, eller fysiske kontroller, mens der stadig sidder medarbejdere på et kontor, vil blive udfordret. Implementeringsstatus skal være ærlig: en kontrol kan være medtaget, men kun delvist gennemført, med hullet fulgt op i risikohåndteringsplanen. Overgangen til 2022-udgaven tvang alle certificerede organisationer til at bygge deres SoA om fra 114 til 93 kontroller, typisk med ISO/IEC 27002 anneks B som nøgle mellem gamle og nye kontroller.
+    Det er fravalgene, auditorerne går efter. "Ikke relevant" holder kun, hvis ingen risiko, lovkrav eller kontrakt kræver kontrollen inden for omfanget; at fravælge sikker udvikling (8.25-8.28), mens organisationen skriver kode, eller fysiske kontroller, mens der stadig sidder medarbejdere på et kontor, vil blive udfordret. Implementeringsstatus skal være ærlig: en kontrol kan være medtaget, men kun delvist gennemført, med hullet fulgt op i risikohåndteringsplanen. Overgangen til 2022-udgaven tvang alle certificerede organisationer til at bygge deres SoA om fra 114 til 93 kontroller, typisk med ISO/IEC 27002 anneks B som nøgle mellem gamle og nye kontroller.
 
     I praksis er SoA'en et styret, versioneret dokument; certificeringsorganer henviser ofte til dens version på certifikatet, så en væsentlig ændring i SoA'en kan påvirke, hvad certifikatet dækker. Mange organisationer vedligeholder den i et regneark eller et GRC-værktøj med kolonner for kontrol, anvendelighed, begrundelse, status, ejer, placering af dokumentation og tilknyttede risici og bruger attributterne fra ISO/IEC 27002 til at lave filtrerede visninger. Det er også det dokument, kunder oftest beder om, nogle gange under fortrolighedsaftale, når de vurderer en certificeret leverandør.
 edges:
   part-of: [iso-27001]
   requires: [risk-treatment, annex-a]
 sources:
-  - title: ISO/IEC 27001:2022 — Information security management systems — Requirements, clause 6.1.3(d)
+  - title: ISO/IEC 27001:2022 - Information security management systems - Requirements, clause 6.1.3(d)
     tier: standard
     publisher: ISO/IEC
 draft: true

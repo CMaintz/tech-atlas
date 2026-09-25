@@ -52,7 +52,7 @@ edges:
       strength: primary
       confidence: high
 sources:
-  - title: Google SRE book — Chapter 6, Monitoring Distributed Systems
+  - title: Google SRE book - Chapter 6, Monitoring Distributed Systems
     url: https://sre.google/sre-book/monitoring-distributed-systems/
     tier: reference
     publisher: Google

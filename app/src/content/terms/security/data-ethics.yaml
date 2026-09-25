@@ -13,8 +13,8 @@ summary:
   da: At spørge ikke kun, om en brug af data er lovlig, men om den er fair, åben og i tråd med, hvad folk kan forvente.
 body:
   formal:
-    en: The values that guide how an organisation collects, combines and uses data, including through AI, beyond what the law demands — fairness, openness, respect for people's choices and avoiding harm. Large Danish companies must report on their data ethics policy in the annual report, or explain why they have none.
-    da: De værdier, der styrer, hvordan en organisation indsamler, sammenstiller og bruger data, også via AI, ud over hvad loven kræver — retfærdighed, åbenhed, respekt for folks valg og at undgå skade. Store danske virksomheder skal redegøre for deres dataetiske politik i årsrapporten eller forklare, hvorfor de ikke har en.
+    en: The values that guide how an organisation collects, combines and uses data, including through AI, beyond what the law demands - fairness, openness, respect for people's choices and avoiding harm. Large Danish companies must report on their data ethics policy in the annual report, or explain why they have none.
+    da: De værdier, der styrer, hvordan en organisation indsamler, sammenstiller og bruger data, også via AI, ud over hvad loven kræver - retfærdighed, åbenhed, respekt for folks valg og at undgå skade. Store danske virksomheder skal redegøre for deres dataetiske politik i årsrapporten eller forklare, hvorfor de ikke har en.
   plain:
     en: The law is the speed limit; ethics is slowing down outside a school at home time even though the sign still says 50.
     da: Loven er fartgrænsen; etik er at sætte farten ned ud for en skole, når børnene får fri, selv om skiltet stadig siger 50.
@@ -22,8 +22,8 @@ body:
     en: A Danish bank could legally use card data to spot customers in money trouble and offer them costly loans; its data ethics committee says no and uses the signal to offer free budget advice instead.
     da: En dansk bank kunne lovligt bruge kortdata til at finde kunder i økonomiske vanskeligheder og tilbyde dem dyre lån; dens dataetiske udvalg siger nej og bruger i stedet signalet til at tilbyde gratis budgetrådgivning.
   whyItMatters:
-    en: Trust breaks faster than laws change — a use of data that is legal but feels creepy can drive customers away and draw public criticism long before any rule is broken.
-    da: Tillid brydes hurtigere, end love ændres — en brug af data, der er lovlig, men føles grænseoverskridende, kan jage kunder væk og give offentlig kritik, længe før nogen regel er brudt.
+    en: Trust breaks faster than laws change - a use of data that is legal but feels creepy can drive customers away and draw public criticism long before any rule is broken.
+    da: Tillid brydes hurtigere, end love ændres - en brug af data, der er lovlig, men føles grænseoverskridende, kan jage kunder væk og give offentlig kritik, længe før nogen regel er brudt.
 deepDive:
   en: |-
     Denmark is one of few countries that has made data ethics a reporting item in company law. Section 99 d of the Danish Financial Statements Act (årsregnskabsloven) requires large class C companies and class D companies (listed and state-owned) to include in the management's review a statement on their data ethics policy, for financial years beginning on or after 1 January 2021. It is comply-or-explain: a company without a policy must explain why, and a group can report at consolidated level. The law does not prescribe the policy's content, and Erhvervsstyrelsen's guidance interprets "policy" broadly as internal guidelines, objectives or other descriptions of how the company works with data ethics. The provision grew out of the Danish government's expert group on data ethics, whose 2018 recommendations also led to the Data Ethics Council (Dataetisk Råd) and fed into the D-mærket criteria.
@@ -58,7 +58,7 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 8
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 8
     tier: course-material
   - title: Lovpligtig redegørelse for dataetik (årsregnskabsloven § 99 d)
     tier: official-doc

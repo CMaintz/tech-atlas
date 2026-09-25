@@ -13,14 +13,14 @@ summary:
   da: Beskyttelse af en organisations data, systemer og processer mod tab, misbrug og afbrydelser.
 body:
   formal:
-    en: The discipline of keeping information, and the systems that handle it, confidential, correct and available — whether the information is digital or on paper. It covers technology, processes, people and physical surroundings.
-    da: Fagområdet, der sørger for, at information og de systemer, der håndterer den, forbliver fortrolige, korrekte og tilgængelige — uanset om informationen er digital eller på papir. Det omfatter teknik, processer, mennesker og fysiske rammer.
+    en: The discipline of keeping information, and the systems that handle it, confidential, correct and available - whether the information is digital or on paper. It covers technology, processes, people and physical surroundings.
+    da: Fagområdet, der sørger for, at information og de systemer, der håndterer den, forbliver fortrolige, korrekte og tilgængelige - uanset om informationen er digital eller på papir. Det omfatter teknik, processer, mennesker og fysiske rammer.
   plain:
-    en: Like looking after a house — you lock the doors, check nothing has been tampered with, and make sure the family can still get in when they need to.
-    da: Som at passe på et hus — du låser døren, tjekker, at intet er blevet rodet med, og sørger for, at familien stadig kan komme ind, når de skal.
+    en: Like looking after a house - you lock the doors, check nothing has been tampered with, and make sure the family can still get in when they need to.
+    da: Som at passe på et hus - du låser døren, tjekker, at intet er blevet rodet med, og sørger for, at familien stadig kan komme ind, når de skal.
   inPractice:
-    en: A small Danish accounting firm turns on encryption on its laptops, keeps offline copies of client files and teaches staff to spot fake emails that pretend to come from the tax authorities — all parts of one security effort.
-    da: Et lille revisionsfirma krypterer sine bærbare, gemmer kopier af kundefiler uden for netværket og lærer medarbejderne at genkende falske mails, der udgiver sig for at komme fra Skattestyrelsen — alt sammen dele af én samlet sikkerhedsindsats.
+    en: A small Danish accounting firm turns on encryption on its laptops, keeps offline copies of client files and teaches staff to spot fake emails that pretend to come from the tax authorities - all parts of one security effort.
+    da: Et lille revisionsfirma krypterer sine bærbare, gemmer kopier af kundefiler uden for netværket og lærer medarbejderne at genkende falske mails, der udgiver sig for at komme fra Skattestyrelsen - alt sammen dele af én samlet sikkerhedsindsats.
   whyItMatters:
     en: Nearly every business now depends on its data and systems; losing them, even for a day, can halt work, break the law and cost customers' trust.
     da: Næsten alle virksomheder er i dag afhængige af deres data og systemer; mister de dem, blot for en dag, kan det stoppe driften, bryde loven og koste kundernes tillid.
@@ -51,9 +51,9 @@ edges:
       strength: primary
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
-  - title: ISO/IEC 27000:2018 — Information security management systems — Overview and vocabulary
+  - title: ISO/IEC 27000:2018 - Information security management systems - Overview and vocabulary
     tier: standard
     publisher: ISO/IEC
 draft: true

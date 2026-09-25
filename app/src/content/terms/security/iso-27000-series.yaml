@@ -14,11 +14,11 @@ summary:
   da: Familien af internationale standarder for informationssikkerhed med ISO 27001 i centrum og vejledninger bygget omkring den.
 body:
   formal:
-    en: A set of ISO/IEC standards on information security management — ISO 27000 (shared terms and the big picture), ISO 27001 (requirements for an ISMS, the only one you can be certified against), ISO 27002 (guidance on controls), ISO 27005 (risk management) and many more for specific areas.
-    da: Et sæt ISO/IEC-standarder om styring af informationssikkerhed — ISO 27000 (begreber og overblik), ISO 27001 (krav til et ISMS, den eneste man kan certificeres efter), ISO 27002 (vejledning om kontroller), ISO 27005 (risikostyring) og mange flere for særlige områder.
+    en: A set of ISO/IEC standards on information security management - ISO 27000 (shared terms and the big picture), ISO 27001 (requirements for an ISMS, the only one you can be certified against), ISO 27002 (guidance on controls), ISO 27005 (risk management) and many more for specific areas.
+    da: Et sæt ISO/IEC-standarder om styring af informationssikkerhed - ISO 27000 (begreber og overblik), ISO 27001 (krav til et ISMS, den eneste man kan certificeres efter), ISO 27002 (vejledning om kontroller), ISO 27005 (risikostyring) og mange flere for særlige områder.
   plain:
-    en: Like the booklets that come with a new car — one lists what the car must meet to pass its inspection, and the others explain the brakes, the lights and the engine in detail.
-    da: Som hæfterne, der følger med en ny bil — ét fortæller, hvad bilen skal leve op til for at bestå synet, og de andre forklarer bremser, lys og motor i detaljer.
+    en: Like the booklets that come with a new car - one lists what the car must meet to pass its inspection, and the others explain the brakes, the lights and the engine in detail.
+    da: Som hæfterne, der følger med en ny bil - ét fortæller, hvad bilen skal leve op til for at bestå synet, og de andre forklarer bremser, lys og motor i detaljer.
   inPractice:
     en: A Danish payroll service building its ISMS uses ISO 27001 for what it must do, ISO 27002 for how to carry out each control, and ISO 27005 to shape its method for assessing risk.
     da: En dansk lønservicevirksomhed, der bygger sit ISMS, bruger ISO 27001 til, hvad den skal gøre, ISO 27002 til, hvordan hver kontrol gennemføres, og ISO 27005 til at forme sin metode til risikovurdering.
@@ -52,8 +52,8 @@ edges:
         da: ISO-serien er et sæt standarder, man kan certificeres efter; NIST-rammeværket er en gratis, frivillig vejledning uden certificering.
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 1
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 1
     tier: course-material
-  - title: ISO/IEC 27000:2018 — Overview and vocabulary
+  - title: ISO/IEC 27000:2018 - Overview and vocabulary
     tier: standard
 draft: true

@@ -17,8 +17,8 @@ body:
     en: A set of 18 grouped security controls published by the Center for Internet Security, ordered so that the most effective basic steps come first and split into three levels of ambition.
     da: Et sæt af 18 grupperede sikkerhedskontroller udgivet af Center for Internet Security, ordnet så de mest effektive grundtiltag kommer først, og delt i tre ambitionsniveauer.
   plain:
-    en: Like a checklist from a fire safety expert that says "fit smoke alarms before you buy a sprinkler system" — it tells you which protections give the most for the least.
-    da: Som en tjekliste fra en brandekspert, der siger "sæt røgalarmer op, før du køber et sprinkleranlæg" — den viser, hvilke beskyttelser der giver mest for mindst.
+    en: Like a checklist from a fire safety expert that says "fit smoke alarms before you buy a sprinkler system" - it tells you which protections give the most for the least.
+    da: Som en tjekliste fra en brandekspert, der siger "sæt røgalarmer op, før du køber et sprinkleranlæg" - den viser, hvilke beskyttelser der giver mest for mindst.
   inPractice:
     en: A small accounting firm with a single IT person uses the first level of the list to agree with the partners that knowing its devices, updating software and keeping backups come before anything else.
     da: Et lille revisionsfirma med én IT-medarbejder bruger listens første niveau til at blive enig med partnerne om, at overblik over enheder, opdatering af software og backup kommer før alt andet.
@@ -41,7 +41,7 @@ deepDive:
 
     CIS begrunder prioriteringen med sin Community Defense Model, der kortlægger safeguards mod MITRE ATT&CK-teknikker i udbredte angrebsmønstre som ransomware, angreb på webapplikationer og insidermisbrug, og opgør, hvor stor en del af hvert mønster IG1 alene afbøder. Dette evidensgrundlag er den væsentligste metodiske forskel fra ISO/IEC 27002, hvis 93 kontroller udvælges gennem en risikovurdering og begrundes i en Statement of Applicability (erklæring om anvendelighed) i stedet for at blive anvendt i en fast rækkefølge.
 
-    To nærtstående CIS-produkter forveksles ofte med kontrollerne. CIS Benchmarks er konsensusbaserede hærdningsvejledninger til konkrete platforme (Windows Server, RHEL, Kubernetes, AWS og mange flere) med Level 1- og Level 2-profiler; det er med dem, Control 4 (sikker konfiguration) implementeres i praksis, og CIS-CAT scanner systemer op imod dem. CIS Controls Self Assessment Tool (CSAT) bruges til at følge implementeringen af safeguards. CIS udgiver mappings til NIST CSF 2.0, ISO/IEC 27001:2022, PCI DSS og andre rammer, hvilket gør kontrollerne til et praktisk teknisk lag under en ledelsessystemstandard eller under NIS2 art. 21 — men ikke til en erstatning for de krav om ledelse, risikovurdering og rapportering, som disse stiller.
+    To nærtstående CIS-produkter forveksles ofte med kontrollerne. CIS Benchmarks er konsensusbaserede hærdningsvejledninger til konkrete platforme (Windows Server, RHEL, Kubernetes, AWS og mange flere) med Level 1- og Level 2-profiler; det er med dem, Control 4 (sikker konfiguration) implementeres i praksis, og CIS-CAT scanner systemer op imod dem. CIS Controls Self Assessment Tool (CSAT) bruges til at følge implementeringen af safeguards. CIS udgiver mappings til NIST CSF 2.0, ISO/IEC 27001:2022, PCI DSS og andre rammer, hvilket gør kontrollerne til et praktisk teknisk lag under en ledelsessystemstandard eller under NIS2 art. 21 - men ikke til en erstatning for de krav om ledelse, risikovurdering og rapportering, som disse stiller.
 edges:
   kind-of: [security-framework]
   requires: [control]
@@ -68,7 +68,7 @@ article:
   en: src/content/articles/security/cis-controls.en.md
   da: src/content/articles/security/cis-controls.da.md
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: CIS Critical Security Controls v8
     tier: standard

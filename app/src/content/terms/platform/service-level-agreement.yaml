@@ -58,11 +58,11 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: Google SRE book — Chapter 4, Service Level Objectives
+  - title: Google SRE book - Chapter 4, Service Level Objectives
     url: https://sre.google/sre-book/service-level-objectives/
     tier: reference
     publisher: Google
-  - title: Regulation (EU) 2022/2554 (DORA) — Article 30, Key contractual provisions
+  - title: Regulation (EU) 2022/2554 (DORA) - Article 30, Key contractual provisions
     tier: standard
     publisher: European Union
     url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022R2554

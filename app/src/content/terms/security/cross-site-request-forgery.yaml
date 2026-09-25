@@ -17,8 +17,8 @@ body:
     en: A flaw in a web application that carries out a state-changing request just because it arrives with the user's cookie; since the web browser attaches that cookie by itself, a page on another site can trigger the request without the user knowing.
     da: En fejl i en webapplikation, der udfører en ændring alene fordi forespørgslen kommer med brugerens cookie; da webbrowseren selv sender cookien med, kan en side på et andet site udløse forespørgslen, uden at brugeren opdager det.
   plain:
-    en: Like someone slipping a signed order form into your post — the shop sees your signature and fills the order, never asking whether you meant to send it.
-    da: Som når nogen lægger en underskrevet bestillingsseddel ind mellem dine breve — butikken ser din underskrift og sender varen uden at spørge, om det var dig, der ville bestille.
+    en: Like someone slipping a signed order form into your post - the shop sees your signature and fills the order, never asking whether you meant to send it.
+    da: Som når nogen lægger en underskrevet bestillingsseddel ind mellem dine breve - butikken ser din underskrift og sender varen uden at spørge, om det var dig, der ville bestille.
   inPractice:
     en: A case officer in a municipality is logged in to the case system and opens a link in a mail; the page quietly submits a hidden form that changes the payout account on a citizen's case, and the system accepts it because the login cookie came along.
     da: En sagsbehandler i en kommune er logget ind i sagssystemet og åbner et link i en mail; siden sender i al stilhed en skjult formular, der ændrer udbetalingskontoen på en borgers sag, og systemet godtager den, fordi cookien fra login fulgte med.
@@ -66,11 +66,11 @@ edges:
       strength: minor
       confidence: high
 sources:
-  - title: OWASP — Cross Site Request Forgery (CSRF)
+  - title: OWASP - Cross Site Request Forgery (CSRF)
     tier: reference
     publisher: OWASP
     url: https://owasp.org/www-community/attacks/csrf
-  - title: OWASP Cheat Sheet Series — Cross-Site Request Forgery Prevention
+  - title: OWASP Cheat Sheet Series - Cross-Site Request Forgery Prevention
     tier: reference
     publisher: OWASP
     url: https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html

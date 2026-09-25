@@ -4,6 +4,7 @@
  * for English and advisory for Danish (ADR-0009).
  */
 import { existsSync, readFileSync } from 'node:fs';
+import fg from 'fast-glob';
 import { EDGE_TYPES, LAYERS, type EdgeType } from '../src/schema';
 import { checkClosedVocab } from './closed-vocab';
 import { loadTerms, makeResolver } from './load-terms';
@@ -18,6 +19,7 @@ import {
   circularDefinitions,
   depthHistogram,
   draftRatioByDomain,
+  forbiddenDashes,
   missingPrerequisites,
   redundantChildren,
 } from '../src/lib/lint-rules';
@@ -111,6 +113,14 @@ for (const [id, t] of terms) {
 for (const [id, t] of terms) {
   for (const path of Object.values(t.article ?? {})) {
     if (path && !existsSync(path)) errors.push(`E9 ${id}: article file not found: ${path}`);
+  }
+}
+
+// E12 forbidden dashes (A94): en/em dashes anywhere in a term, article or question file.
+// Raw file text, so every field (names, aka, summary, facets, deep dive, sources) counts.
+for (const path of fg.sync('src/content/**/*.{yaml,md}').sort()) {
+  for (const f of forbiddenDashes(readFileSync(path, 'utf8'))) {
+    errors.push(`E12 ${path}:${f.line}: ${f.char} dash, write "-" instead: "${f.excerpt}"`);
   }
 }
 

@@ -8,21 +8,21 @@ domain: [security]
 cluster: fundamentals
 status: current
 summary:
-  en: A measure that lowers risk — technical, like a lock on a system, or organisational, like a rule or training.
-  da: Et tiltag, der mindsker risikoen — teknisk som en lås på et system, eller organisatorisk som en regel eller træning.
+  en: A measure that lowers risk - technical, like a lock on a system, or organisational, like a rule or training.
+  da: Et tiltag, der mindsker risikoen - teknisk som en lås på et system, eller organisatorisk som en regel eller træning.
 body:
   formal:
-    en: Any technical, organisational, physical or human measure put in place to reduce the likelihood or the impact of a risk. Controls are often sorted by what they do — prevent, detect or correct.
+    en: Any technical, organisational, physical or human measure put in place to reduce the likelihood or the impact of a risk. Controls are often sorted by what they do - prevent, detect or correct.
     da: Ethvert teknisk, organisatorisk, fysisk eller menneskeligt tiltag, der indføres for at mindske sandsynligheden for eller konsekvensen af en risiko. Kontroller inddeles ofte efter, om de forebygger, opdager eller retter op.
   plain:
-    en: Like a smoke alarm, a fire door and a fire drill — three different kinds of measure against the same danger.
-    da: Som en røgalarm, en branddør og en brandøvelse — tre forskellige slags tiltag mod den samme fare.
+    en: Like a smoke alarm, a fire door and a fire drill - three different kinds of measure against the same danger.
+    da: Som en røgalarm, en branddør og en brandøvelse - tre forskellige slags tiltag mod den samme fare.
   inPractice:
     en: To cut the risk of stolen logins, the IT manager at a small Danish manufacturer turns on MFA (technical), writes a password rule (organisational) and gives staff a short course (human).
     da: For at mindske risikoen for stjålne logins slår IT-chefen i en mindre produktionsvirksomhed MFA til (teknisk), skriver en regel for adgangskoder (organisatorisk) og holder et kort kursus for medarbejderne (menneskelig).
   whyItMatters:
     en: Controls are how security decisions become real; each one should answer a named risk, or it only costs money and effort.
-    da: Kontroller er det, der gør sikkerhedsbeslutninger til virkelighed; hver kontrol bør svare på en navngiven risiko — ellers koster den bare penge og besvær.
+    da: Kontroller er det, der gør sikkerhedsbeslutninger til virkelighed; hver kontrol bør svare på en navngiven risiko - ellers koster den bare penge og besvær.
 deepDive:
   en: |-
     ISO/IEC 27002:2022 contains 93 controls in four themes: organisational (37), people (8), physical (14) and technological (34). Each control carries five attributes that let an organisation build its own views: control type (#Preventive, #Detective, #Corrective), information security properties (#Confidentiality, #Integrity, #Availability), cybersecurity concepts aligned with the NIST CSF functions (#Identify, #Protect, #Detect, #Respond, #Recover), operational capabilities and security domains. ISO/IEC 27001:2022 Annex A lists the same 93 controls as a reference set; clause 6.1.3 requires the organisation to determine the controls needed to treat its risks, compare them with Annex A so that nothing necessary is overlooked, and produce a Statement of Applicability justifying every inclusion and exclusion. Annex A is therefore a checklist, not a mandatory catalogue.
@@ -58,9 +58,9 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
-  - title: NIST SP 800-53 Rev. 5 — Security and Privacy Controls for Information Systems and Organizations
+  - title: NIST SP 800-53 Rev. 5 - Security and Privacy Controls for Information Systems and Organizations
     tier: standard
     publisher: NIST
 draft: true

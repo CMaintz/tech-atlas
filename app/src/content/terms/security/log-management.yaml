@@ -13,8 +13,8 @@ summary:
   da: At samle logs fra alle systemer ét sted, i ét format, beskyttet mod ændringer og så længe, der er brug for dem.
 body:
   formal:
-    en: The planned handling of logs through their whole life — deciding what to record, sending it to a central store, putting it in a common format with correct times, protecting it against change, keeping it for a set period and then deleting it.
-    da: Den planlagte håndtering af logs gennem hele deres levetid — at beslutte, hvad der skal registreres, sende det til et centralt lager, bringe det på et fælles format med korrekte tidsstempler, beskytte det mod ændringer, gemme det i en fastsat periode og derefter slette det.
+    en: The planned handling of logs through their whole life - deciding what to record, sending it to a central store, putting it in a common format with correct times, protecting it against change, keeping it for a set period and then deleting it.
+    da: Den planlagte håndtering af logs gennem hele deres levetid - at beslutte, hvad der skal registreres, sende det til et centralt lager, bringe det på et fælles format med korrekte tidsstempler, beskytte det mod ændringer, gemme det i en fastsat periode og derefter slette det.
   plain:
     en: Like the archive at the town hall, which gathers the papers from every office, files them the same way, locks them up and throws them out on a fixed date.
     da: Som arkivet på rådhuset, der samler papirerne fra alle kontorer, ordner dem på samme måde, låser dem inde og kasserer dem på en fast dato.
@@ -53,11 +53,11 @@ edges:
     - observability
     - security-monitoring
 sources:
-  - title: NIST SP 800-92 — Guide to Computer Security Log Management
+  - title: NIST SP 800-92 - Guide to Computer Security Log Management
     url: https://doi.org/10.6028/NIST.SP.800-92
     tier: standard
     publisher: NIST
-  - title: CIS Controls v8 — Control 8 (Audit Log Management)
+  - title: CIS Controls v8 - Control 8 (Audit Log Management)
     tier: standard
     publisher: Center for Internet Security
 draft: true

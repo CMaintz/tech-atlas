@@ -29,20 +29,20 @@ questions:
       en: >-
         The share of real positives that are found is recall, TP / (TP + FN): 40
         caught out of 50 real phishing emails is 80 %. 67 % is precision, TP / (TP +
-        FP) = 40 / 60 — how many flags were right, not how many attacks were caught.
+        FP) = 40 / 60 - how many flags were right, not how many attacks were caught.
         97 % is accuracy: 40 true positives plus 930 correctly passed emails, out of
         1,000; it looks impressive only because most mail is harmless. 20 % is the
         share of phishing the filter missed (10 of 50).
       da: >-
         Andelen af de reelle positive, der bliver fundet, er recall, TP / (TP + FN):
         40 fanget ud af 50 reelle phishingmails giver 80 %. 67 % er præcision, TP /
-        (TP + FP) = 40 / 60 — hvor mange markeringer der var rigtige, ikke hvor mange
+        (TP + FP) = 40 / 60 - hvor mange markeringer der var rigtige, ikke hvor mange
         angreb der blev fanget. 97 % er nøjagtighed: 40 sande positive plus 930
         korrekt godkendte mails ud af 1.000; tallet ser flot ud, fordi de fleste
         mails er harmløse. 20 % er den andel phishing, filteret overså (10 af 50).
     difficulty: 2
     sources:
-      - title: Google Machine Learning Crash Course — Classification, accuracy, precision and recall
+      - title: Google Machine Learning Crash Course - Classification, accuracy, precision and recall
         url: https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall
         tier: course-material
     draft: true
@@ -79,7 +79,7 @@ questions:
     explanation:
       en: >-
         Recall is the share of real sepsis cases the model flags, and it is the
-        metric to favour when a false negative costs far more than a false positive —
+        metric to favour when a false negative costs far more than a false positive -
         here a missed patient against two minutes of a nurse's time. Precision would
         matter most if every false alarm were expensive, for example if it triggered
         treatment without a check. Accuracy is dominated by the many patients without
@@ -89,7 +89,7 @@ questions:
       da: >-
         Recall er andelen af reelle sepsistilfælde, modellen markerer, og det er det
         mål, man skal prioritere, når en falsk negativ koster langt mere end en falsk
-        positiv — her en overset patient over for to minutter af en sygeplejerskes
+        positiv - her en overset patient over for to minutter af en sygeplejerskes
         tid. Præcision ville veje tungest, hvis hver falsk alarm var dyr, fx hvis den
         udløste behandling uden kontrol. Nøjagtighed domineres af de mange patienter
         uden sepsis, så en model, der overser tilfælde, kan stadig score højt.
@@ -97,7 +97,7 @@ questions:
         oversete tilfælde, når de er så meget værre end falske alarmer.
     difficulty: 2
     sources:
-      - title: Google Machine Learning Crash Course — Classification, accuracy, precision and recall
+      - title: Google Machine Learning Crash Course - Classification, accuracy, precision and recall
         url: https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall
         tier: course-material
     draft: true
@@ -127,19 +127,19 @@ questions:
     explanation:
       en: >-
         True. A model that labels everything as legitimate is right on all the 99.5 %
-        of transactions that are legitimate, so its accuracy is 99.5 % — while it
+        of transactions that are legitimate, so its accuracy is 99.5 % - while it
         catches no fraud at all. On such imbalanced data accuracy says almost nothing
         about the rare class. The bank should instead ask for recall and precision on
         the fraud class, or look at the confusion matrix.
       da: >-
         Sandt. En model, der kalder alt legitimt, har ret i alle de 99,5 % af
-        transaktionerne, der er legitime, så dens nøjagtighed er 99,5 % — mens den
+        transaktionerne, der er legitime, så dens nøjagtighed er 99,5 % - mens den
         ikke fanger en eneste svindelsag. På så skævt fordelte data siger
         nøjagtighed næsten intet om den sjældne klasse. Banken bør i stedet bede om
         recall og præcision for svindelklassen eller se på forvekslingsmatricen.
     difficulty: 1
     sources:
-      - title: Google Machine Learning Crash Course — Classification, accuracy, precision and recall
+      - title: Google Machine Learning Crash Course - Classification, accuracy, precision and recall
         url: https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall
         tier: course-material
     draft: true
@@ -191,7 +191,7 @@ questions:
         Og et større testsæt giver en mere pålidelig score, ikke en lavere.
     difficulty: 2
     sources:
-      - title: Google Machine Learning Crash Course — Dividing the original dataset
+      - title: Google Machine Learning Crash Course - Dividing the original dataset
         url: https://developers.google.com/machine-learning/crash-course/overfitting/dividing-datasets
         tier: course-material
     draft: true
@@ -243,7 +243,7 @@ questions:
         sagsbehandlernes spørgsmål.
     difficulty: 2
     sources:
-      - title: 'NIST AI 600-1 — Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile'
+      - title: 'NIST AI 600-1 - Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile'
         url: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf
         tier: standard
     draft: true
@@ -291,7 +291,7 @@ questions:
         slutscoren.
     difficulty: 1
     sources:
-      - title: Google Machine Learning Crash Course — Dividing the original dataset
+      - title: Google Machine Learning Crash Course - Dividing the original dataset
         url: https://developers.google.com/machine-learning/crash-course/overfitting/dividing-datasets
         tier: course-material
     draft: true

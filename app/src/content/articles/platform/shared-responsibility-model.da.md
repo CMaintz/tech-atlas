@@ -1,12 +1,12 @@
 ---
-title: Modellen for delt ansvar — hvem sikrer hvad i skyen
+title: Modellen for delt ansvar - hvem sikrer hvad i skyen
 term: platform/shared-responsibility-model
 lang: da
 ---
 
 ## Hvad er det?
 
-**Modellen for delt ansvar** beskriver, hvordan sikkerheds- og driftsopgaver fordeles mellem en cloududbyder og kunden. Udbyderen har ansvaret for sikkerheden _af_ skyen – datacentre, hardware, netværk og de softwarelag, den driver – mens kunden har ansvaret for sikkerheden _i_ skyen: sine data, sine brugere og adgangsrettigheder og den måde, den konfigurerer de tjenester, den køber.
+**Modellen for delt ansvar** beskriver, hvordan sikkerheds- og driftsopgaver fordeles mellem en cloududbyder og kunden. Udbyderen har ansvaret for sikkerheden _af_ skyen - datacentre, hardware, netværk og de softwarelag, den driver - mens kunden har ansvaret for sikkerheden _i_ skyen: sine data, sine brugere og adgangsrettigheder og den måde, den konfigurerer de tjenester, den køber.
 
 Udtrykket blev udbredt af Amazon Web Services i begyndelsen af 2010'erne, da kunder, der flyttede til skyen, gik ud fra, at "udbyderen tager sig af sikkerheden nu". AWS offentliggjorde diagrammer med en streg mellem udbyder og kunde, og Microsoft, Google og andre fulgte med deres egne versioner. Ideen er siden taget op af Cloud Security Alliance, hvis Cloud Controls Matrix (CCM) for hver kontrol angiver, om den typisk ejes af udbyderen, kunden eller begge. Modellen er ikke i sig selv en lov eller en standard, men det er det sprog, kontrakter, revisioner og tilsynsmyndigheder bruger, når de spørger, hvem der gør hvad.
 
@@ -43,7 +43,7 @@ Backup er det klassiske hul. Mange SaaS-udbydere garanterer tjenestens _tilgæng
 
 Modellen er kun nyttig, når den er skrevet ned for hver enkelt tjeneste. Udbydernes generelle diagrammer er et udgangspunkt; den faktiske fordeling afhænger af kontrakten, abonnementsniveauet og de funktioner, man har slået til.
 
-- **Fordel kontrollerne på ejere.** Gå for hver vigtig cloudtjeneste jeres kontrolsæt igennem – ISO 27001 Anneks A, CSA CCM eller NIS2's minimumskrav – og marker hver kontrol som udbyder, kunde eller delt.
+- **Fordel kontrollerne på ejere.** Gå for hver vigtig cloudtjeneste jeres kontrolsæt igennem - ISO 27001 Anneks A, CSA CCM eller NIS2's minimumskrav - og marker hver kontrol som udbyder, kunde eller delt.
 - **Få dokumentation for udbyderens del.** Certifikater, revisionserklæringer (ISAE 3402, SOC 2) og udbyderens egen beskrivelse af delt ansvar viser, at udbyderens side er dækket. Tjek omfanget.
 - **Udpeg interne ejere for jeres del.** "Kunden" er ikke en ejer. Navngiv det team eller den rolle, der har ansvaret for hver kundekontrol.
 - **Skriv det ind i kontrakter og leverandørstyring.** Fordelingen hører hjemme i leverandørgennemgangen og så vidt muligt i kontrakten og databehandleraftalen.

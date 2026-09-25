@@ -17,8 +17,8 @@ body:
     en: A method from public-key cryptography in which the signer hashes a message and transforms the hash with their private key; anyone holding the matching public key can check that the result fits the message exactly.
     da: En metode fra asymmetrisk kryptografi, hvor underskriveren hasher en besked og omdanner hashen med sin private nøgle; alle med den tilsvarende offentlige nøgle kan tjekke, at resultatet passer præcist til beskeden.
   plain:
-    en: Like a wax seal pressed with a ring only you own — anyone can compare the seal with your known pattern, and a broken seal shows the letter was opened.
-    da: Som et laksegl presset med en ring, kun du ejer — alle kan sammenligne seglet med dit kendte mønster, og et brudt segl viser, at brevet er blevet åbnet.
+    en: Like a wax seal pressed with a ring only you own - anyone can compare the seal with your known pattern, and a broken seal shows the letter was opened.
+    da: Som et laksegl presset med en ring, kun du ejer - alle kan sammenligne seglet med dit kendte mønster, og et brudt segl viser, at brevet er blevet åbnet.
   inPractice:
     en: The IT operations lead in a municipality rolls out an update to all school computers; each computer checks the supplier's digital signature first and refuses the file if even one character differs.
     da: Den IT-driftsansvarlige i en kommune ruller en opdatering ud til alle skolecomputere; hver computer tjekker først leverandørens digitale signatur og afviser filen, hvis blot ét tegn er anderledes.
@@ -58,7 +58,7 @@ edges:
       strength: primary
       confidence: high
 sources:
-  - title: NIST FIPS 186-5 — Digital Signature Standard (DSS)
+  - title: NIST FIPS 186-5 - Digital Signature Standard (DSS)
     url: https://csrc.nist.gov/pubs/fips/186-5/final
     tier: standard
     publisher: NIST

@@ -28,7 +28,7 @@ deepDive:
   en: |-
     Threat hunting rests on the assumption of breach: preventive controls and detection rules will miss some intrusions, so analysts proactively search for evidence of compromise that has not raised an alert. The classic process model is the hunting loop popularised by Sqrrl in the mid-2010s: create a hypothesis, investigate with tools and techniques, uncover new patterns and TTPs, and inform and enrich analytics. The same authors proposed the Hunting Maturity Model, from HMM0 (relies on automated alerting only) to HMM4 (most successful hunts are automated into detections). Splunk's PEAK framework (2023) formalises three hunt types: hypothesis-driven hunts, baseline or exploratory hunts that characterise normal behaviour to find outliers, and model-assisted hunts that use machine learning.
 
-    Hypotheses are specific and testable, and usually derive from threat intelligence or an ATT&CK technique relevant to the organisation, for example: "an attacker with a foothold is dumping credentials from LSASS memory (T1003.001) on servers using a renamed or signed administration tool". The hunter then identifies the data needed, such as process creation with command lines, process access events (Sysmon event ID 10 for access to lsass.exe), EDR telemetry, authentication logs or network metadata from Zeek, and checks whether that data is actually collected and retained long enough. Frequent analytical techniques include stacking or least-frequency-of-occurrence analysis (rare parent–child process pairs, rare autoruns across the fleet), time-series analysis for beaconing, and pivoting from a suspicious artefact to related hosts and identities.
+    Hypotheses are specific and testable, and usually derive from threat intelligence or an ATT&CK technique relevant to the organisation, for example: "an attacker with a foothold is dumping credentials from LSASS memory (T1003.001) on servers using a renamed or signed administration tool". The hunter then identifies the data needed, such as process creation with command lines, process access events (Sysmon event ID 10 for access to lsass.exe), EDR telemetry, authentication logs or network metadata from Zeek, and checks whether that data is actually collected and retained long enough. Frequent analytical techniques include stacking or least-frequency-of-occurrence analysis (rare parent-child process pairs, rare autoruns across the fleet), time-series analysis for beaconing, and pivoting from a suspicious artefact to related hosts and identities.
 
     A hunt has three possible outcomes, and all of them are useful. A confirmed finding becomes an incident and is handed to incident response. A negative result, well documented, gives evidence that the hypothesis was tested against defined data over a defined period. And almost every hunt produces by-products: new or improved detection rules, identified gaps in logging or retention, and a better baseline of normal behaviour. Mature teams track these outputs, rather than the number of incidents found, as the measure of the programme's value.
 
@@ -64,7 +64,7 @@ sources:
     url: https://attack.mitre.org/
     tier: reference
     publisher: The MITRE Corporation
-  - title: Wikipedia — Cyber threat hunting
+  - title: Wikipedia - Cyber threat hunting
     url: https://en.wikipedia.org/wiki/Cyber_threat_hunting
     tier: reference
 draft: true

@@ -14,8 +14,8 @@ summary:
   da: Et enkelt tekstformat til at skrive data ned som navngivne værdier og lister, let at læse for både mennesker og programmer.
 body:
   formal:
-    en: A text format built from just a few pieces — objects of name and value pairs in curly brackets, lists in square brackets, and values that are text, numbers, true, false or null — that can be nested inside each other.
-    da: Et tekstformat bygget af ganske få dele — objekter med par af navn og værdi i { }, lister i [ ] og værdier, der er tekst, tal, true, false eller null — som kan lægges inden i hinanden.
+    en: A text format built from just a few pieces - objects of name and value pairs in curly brackets, lists in square brackets, and values that are text, numbers, true, false or null - that can be nested inside each other.
+    da: Et tekstformat bygget af ganske få dele - objekter med par af navn og værdi i { }, lister i [ ] og værdier, der er tekst, tal, true, false eller null - som kan lægges inden i hinanden.
   plain:
     en: Like a neatly filled-in form where every box has a label, so anyone picking it up knows which answer belongs to which question.
     da: Som en pænt udfyldt blanket, hvor hvert felt har en overskrift, så enhver, der samler den op, ved, hvilket svar der hører til hvilket spørgsmål.
@@ -64,11 +64,11 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: RFC 8259 — The JavaScript Object Notation (JSON) Data Interchange Format
+  - title: RFC 8259 - The JavaScript Object Notation (JSON) Data Interchange Format
     tier: standard
     publisher: IETF
     url: https://www.rfc-editor.org/rfc/rfc8259
-  - title: ECMA-404 — The JSON Data Interchange Syntax
+  - title: ECMA-404 - The JSON Data Interchange Syntax
     tier: standard
     publisher: Ecma International
     url: https://ecma-international.org/publications-and-standards/standards/ecma-404/

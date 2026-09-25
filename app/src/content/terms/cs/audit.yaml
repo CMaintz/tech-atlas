@@ -13,11 +13,11 @@ summary:
   da: Et systems registrering af, hvem der gjorde hvad og hvornår, ved de handlinger, der har betydning for sikkerheden.
 body:
   formal:
-    en: A kind of log in which the operating system or an application records security-relevant actions — logins, changes to permissions, opening protected files — each tied to the account that did it and protected against later change.
-    da: En slags log, hvor styresystemet eller et program registrerer sikkerhedsrelevante handlinger — login, ændrede rettigheder, åbning af beskyttede filer — hver knyttet til den konto, der udførte den, og beskyttet mod senere ændring.
+    en: A kind of log in which the operating system or an application records security-relevant actions - logins, changes to permissions, opening protected files - each tied to the account that did it and protected against later change.
+    da: En slags log, hvor styresystemet eller et program registrerer sikkerhedsrelevante handlinger - login, ændrede rettigheder, åbning af beskyttede filer - hver knyttet til den konto, der udførte den, og beskyttet mod senere ændring.
   plain:
-    en: Like the visitor book and key-card record at a secure building's front desk — not what happened in general, but exactly who went where and when.
-    da: Som gæstebogen og adgangskortregistreringen i receptionen på en sikret bygning — ikke hvad der skete i almindelighed, men præcis hvem der gik hvorhen og hvornår.
+    en: Like the visitor book and key-card record at a secure building's front desk - not what happened in general, but exactly who went where and when.
+    da: Som gæstebogen og adgangskortregistreringen i receptionen på en sikret bygning - ikke hvad der skete i almindelighed, men præcis hvem der gik hvorhen og hvornår.
   inPractice:
     en: After citizens' data leaks from a municipality, the audit log in the case system shows that a former employee's account, which should have been closed, opened the case at 22:14 the evening before.
     da: Efter et læk af borgeroplysninger fra en kommune viser audit-loggen i sagssystemet, at en tidligere medarbejders konto, som burde have været lukket, åbnede sagen kl. 22.14 aftenen før.
@@ -47,8 +47,8 @@ edges:
   contrasts-with:
     - to: security/audit
       why:
-        en: Audit logging is a system's own record of actions; an audit is a person's independent review of whether controls work — which often reads those records.
-        da: Audit-logning er systemets egen registrering af handlinger; en audit er en uafhængig gennemgang af, om kontrollerne virker — og den læser ofte netop de registreringer.
+        en: Audit logging is a system's own record of actions; an audit is a person's independent review of whether controls work - which often reads those records.
+        da: Audit-logning er systemets egen registrering af handlinger; en audit er en uafhængig gennemgang af, om kontrollerne virker - og den læser ofte netop de registreringer.
       strength: primary
       confidence: high
   used-with:

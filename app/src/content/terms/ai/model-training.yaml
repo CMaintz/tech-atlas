@@ -59,7 +59,7 @@ sources:
   - title: 'Goodfellow, Bengio & Courville, Deep Learning'
     tier: textbook
     publisher: MIT Press
-  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+  - title: ISO/IEC 22989:2022 - Artificial intelligence concepts and terminology
     tier: standard
     publisher: ISO/IEC
 draft: true

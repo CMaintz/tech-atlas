@@ -10,15 +10,15 @@ layer: application
 status: current
 era: 2022
 summary:
-  en: AI that creates new content — text, images, sound, code — in the style of the examples it learned from, instead of only sorting or scoring.
-  da: AI, der skaber nyt indhold — tekst, billeder, lyd, kode — i stil med de eksempler, den har lært af, i stedet for kun at sortere eller score.
+  en: AI that creates new content - text, images, sound, code - in the style of the examples it learned from, instead of only sorting or scoring.
+  da: AI, der skaber nyt indhold - tekst, billeder, lyd, kode - i stil med de eksempler, den har lært af, i stedet for kun at sortere eller score.
 body:
   formal:
     en: AI systems, usually built with deep learning, that learn the patterns in large amounts of training data and use them to produce new output of the same kind when asked.
     da: AI-systemer, som regel bygget med deep learning, der lærer mønstrene i store mængder træningsdata og bruger dem til at frembringe nyt output af samme slags, når de bliver bedt om det.
   plain:
-    en: Like a street painter who has studied thousands of paintings and can paint you a new one in any style you name — though never one they saw exactly.
-    da: Som en gademaler, der har studeret tusindvis af malerier og kan male dig et nyt i hvilken som helst stil, du nævner — dog aldrig ét, de har set præcis.
+    en: Like a street painter who has studied thousands of paintings and can paint you a new one in any style you name - though never one they saw exactly.
+    da: Som en gademaler, der har studeret tusindvis af malerier og kan male dig et nyt i hvilken som helst stil, du nævner - dog aldrig ét, de har set præcis.
   inPractice:
     en: A communications officer in a municipality has a chat assistant draft a plain-language version of the new waste-sorting rules and an image tool draw a matching picture, then checks both before publishing.
     da: En kommunikationsmedarbejder i en kommune får en chatassistent til at skrive et udkast til de nye affaldsregler i et enkelt sprog og et billedværktøj til at tegne et billede, og tjekker begge, før de bliver lagt ud.
@@ -54,7 +54,7 @@ edges:
       confidence: high
   used-with: [prompt]
 sources:
-  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile
+  - title: NIST AI 600-1 - Artificial Intelligence Risk Management Framework, Generative AI Profile
     tier: standard
     publisher: NIST
   - title: 'Goodfellow, Bengio & Courville, Deep Learning'

@@ -59,11 +59,11 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: NIST SP 800-190 — Application Container Security Guide
+  - title: NIST SP 800-190 - Application Container Security Guide
     url: https://csrc.nist.gov/pubs/sp/800/190/final
     tier: standard
     publisher: NIST
-  - title: MITRE ATT&CK — Escape to Host (T1611)
+  - title: MITRE ATT&CK - Escape to Host (T1611)
     url: https://attack.mitre.org/techniques/T1611/
     tier: reference
     publisher: MITRE

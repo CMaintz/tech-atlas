@@ -17,14 +17,14 @@ body:
     en: A cloud service model in which the customer uses the provider's programs, usually through a web browser, without managing the servers, operating system or program itself, apart from limited user settings.
     da: En cloud-servicemodel, hvor kunden bruger udbyderens programmer, typisk gennem en webbrowser, uden at drive servere, styresystem eller selve programmet, bortset fra begrænsede brugerindstillinger.
   plain:
-    en: Like taking a taxi instead of owning a car — you say where to go, and someone else handles the engine, the fuel and the repairs.
-    da: Som at tage en taxa i stedet for at eje en bil — du siger, hvor du skal hen, og en anden klarer motor, brændstof og reparationer.
+    en: Like taking a taxi instead of owning a car - you say where to go, and someone else handles the engine, the fuel and the repairs.
+    da: Som at tage en taxa i stedet for at eje en bil - du siger, hvor du skal hen, og en anden klarer motor, brændstof og reparationer.
   inPractice:
     en: A school moves to an online email and document suite; the school's IT lead no longer runs mail servers but still decides who gets accounts, whether MFA is on and who files may be shared with.
     da: En skole går over til en online pakke til mail og dokumenter; skolens IT-ansvarlige driver ikke længere mailservere, men bestemmer stadig, hvem der får konti, om MFA er slået til, og hvem filer må deles med.
   whyItMatters:
-    en: Even when the provider runs everything, the customer still owns its data, its user accounts and its sharing settings — and many breaches in such services start there.
-    da: Selv når udbyderen driver alt, ejer kunden stadig sine data, sine brugerkonti og sine delingsindstillinger — og mange brud i den slags tjenester starter netop der.
+    en: Even when the provider runs everything, the customer still owns its data, its user accounts and its sharing settings - and many breaches in such services start there.
+    da: Selv når udbyderen driver alt, ejer kunden stadig sine data, sine brugerkonti og sine delingsindstillinger - og mange brud i den slags tjenester starter netop der.
 deepDive:
   en: |-
     NIST SP 800-145 defines SaaS as the capability to use the provider's applications running on a cloud infrastructure, accessible through a thin client such as a browser or through a program interface, where the consumer manages neither the infrastructure nor individual application capabilities, apart from limited user-specific configuration. Salesforce, founded in 1999, established the commercial pattern; Microsoft 365, Google Workspace and ServiceNow made it the default for business software. The defining architectural property is multi-tenancy, commonly described as silo (a dedicated stack per tenant), pool (shared compute and database, with every row carrying a tenant identifier enforced by query scoping or database row-level security) or a hybrid bridge model. In the pool model a single scoping bug becomes a cross-tenant data leak, which is why tenant isolation is the first thing to probe in a SaaS security assessment.
@@ -46,7 +46,7 @@ edges:
   kind-of: [cloud-computing]
   requires: [account]
 sources:
-  - title: NIST SP 800-145 — The NIST Definition of Cloud Computing
+  - title: NIST SP 800-145 - The NIST Definition of Cloud Computing
     tier: standard
     publisher: NIST
 draft: true

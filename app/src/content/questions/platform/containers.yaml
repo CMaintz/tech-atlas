@@ -30,7 +30,7 @@ questions:
       en: >-
         NIST SP 800-190 explains that containers share one operating-system kernel,
         whereas a hypervisor gives each VM its own guest OS with hardware-level
-        isolation — so containers do not offer as clear a security boundary, and a
+        isolation - so containers do not offer as clear a security boundary, and a
         flaw in the shared kernel can affect every container on the host. It
         recommends that a host kernel only runs containers of one sensitivity level,
         using separate VMs where needed, so a hacked public website sits further from
@@ -40,7 +40,7 @@ questions:
       da: >-
         NIST SP 800-190 forklarer, at containere deler én styresystemkerne, mens en
         hypervisor giver hver VM sit eget gæstestyresystem med isolation på
-        hardwareniveau — containere giver derfor ikke en lige så klar
+        hardwareniveau - containere giver derfor ikke en lige så klar
         sikkerhedsgrænse, og en fejl i den fælles kerne kan ramme alle containere på
         værten. Standarden anbefaler, at en værtskerne kun kører containere af samme
         følsomhedsniveau, om nødvendigt i separate VM'er, så et hacket offentligt
@@ -50,7 +50,7 @@ questions:
     difficulty: 2
     sources:
       - title: >-
-          NIST SP 800-190 — Application Container Security Guide, sections 2.2, 3.5.2
+          NIST SP 800-190 - Application Container Security Guide, sections 2.2, 3.5.2
           and 4.3.4
         url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf
         tier: standard
@@ -88,7 +88,7 @@ questions:
         replaced. NIST SP 800-190 describes containers as immutable: to update one, you
         destroy it and start a new one from an updated image. A restart does not write
         the change back into the image. OpenSSL here lives inside the image, not on the
-        host — containers share the host's kernel, not its libraries. Deleting the old
+        host - containers share the host's kernel, not its libraries. Deleting the old
         image removes nothing that is fixed and simply leaves Kubernetes unable to
         start the service.
       da: >-
@@ -97,15 +97,15 @@ questions:
         forsvinder, når den bliver erstattet. NIST SP 800-190 beskriver containere som
         uforanderlige: For at opdatere en container fjerner man den og starter en ny
         fra et opdateret image. En genstart skriver ikke ændringen tilbage i imaget.
-        OpenSSL ligger her i imaget, ikke på værten — containere deler værtens kerne,
+        OpenSSL ligger her i imaget, ikke på værten - containere deler værtens kerne,
         ikke dens biblioteker. At slette det gamle image giver ikke noget rettet at
         køre og efterlader bare Kubernetes uden mulighed for at starte tjenesten.
     difficulty: 2
     sources:
-      - title: NIST SP 800-190 — Application Container Security Guide, section 2.1 (immutability)
+      - title: NIST SP 800-190 - Application Container Security Guide, section 2.1 (immutability)
         url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf
         tier: standard
-      - title: Docker Docs — What is an image?
+      - title: Docker Docs - What is an image?
         url: https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-an-image/
         tier: official-doc
     draft: true
@@ -160,16 +160,16 @@ questions:
         påpeger, at sådan en proces kan få netop den ene rettighed.
     difficulty: 2
     sources:
-      - title: Docker Docs — Docker Engine security
+      - title: Docker Docs - Docker Engine security
         url: https://docs.docker.com/engine/security/
         tier: official-doc
-      - title: Docker Docs — Isolate containers with a user namespace
+      - title: Docker Docs - Isolate containers with a user namespace
         url: https://docs.docker.com/engine/security/userns-remap/
         tier: official-doc
-      - title: NIST SP 800-190 — Application Container Security Guide, section 4.1.2
+      - title: NIST SP 800-190 - Application Container Security Guide, section 4.1.2
         url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf
         tier: standard
-      - title: Kubernetes documentation — Pod Security Standards (Restricted)
+      - title: Kubernetes documentation - Pod Security Standards (Restricted)
         url: https://kubernetes.io/docs/concepts/security/pod-security-standards/
         tier: official-doc
     draft: true
@@ -205,7 +205,7 @@ questions:
       en: >-
         A scan only knows the vulnerabilities published by the day it runs. NIST SP
         800-190 therefore asks for vulnerability management across the whole image
-        lifecycle — from build, through the registries, to runtime — and warns that
+        lifecycle - from build, through the registries, to runtime - and warns that
         registries collect stale, vulnerable images over time. Signing proves who built
         the image and that it is unchanged, not that its libraries are free of flaws.
         Fixed version tags make sure a known image is deployed, and here that known
@@ -214,7 +214,7 @@ questions:
       da: >-
         En scanning kender kun de sårbarheder, der er offentliggjort den dag, den
         kører. NIST SP 800-190 kræver derfor sårbarhedsstyring gennem hele imagets
-        livsforløb — fra bygning over registries til drift — og advarer om, at
+        livsforløb - fra bygning over registries til drift - og advarer om, at
         registries med tiden samler forældede, sårbare images. Signering beviser, hvem
         der byggede imaget, og at det er uændret, ikke at bibliotekerne er fri for
         fejl. Faste versionstags sikrer, at et kendt image bliver udrullet, og her er
@@ -223,7 +223,7 @@ questions:
     difficulty: 3
     sources:
       - title: >-
-          NIST SP 800-190 — Application Container Security Guide, sections 3.2.2, 4.1.1
+          NIST SP 800-190 - Application Container Security Guide, sections 3.2.2, 4.1.1
           and 4.2.2
         url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf
         tier: standard
@@ -258,8 +258,8 @@ questions:
     explanation:
       en: >-
         Container orchestration automates the lifecycle of containers across a group
-        of machines; the Kubernetes documentation lists self-healing — restarting and
-        replacing containers that fail — and fitting containers onto the nodes
+        of machines; the Kubernetes documentation lists self-healing - restarting and
+        replacing containers that fail - and fitting containers onto the nodes
         available. A registry only stores and hands out images; it does not decide
         where anything runs. A hypervisor splits a machine into VMs but does not move
         containers when a server dies. A container runtime is needed on each node so
@@ -267,8 +267,8 @@ questions:
         and waits to be told what to start.
       da: >-
         Container-orkestrering automatiserer containernes livsforløb på tværs af en
-        gruppe maskiner; Kubernetes' dokumentation nævner selvheling — at genstarte og
-        erstatte containere, der fejler — og at fordele containere på de tilgængelige
+        gruppe maskiner; Kubernetes' dokumentation nævner selvheling - at genstarte og
+        erstatte containere, der fejler - og at fordele containere på de tilgængelige
         noder. Et registry gemmer og udleverer kun images; det bestemmer ikke, hvor
         noget kører. En hypervisor deler en maskine op i VM'er, men flytter ikke
         containere, når en server går ned. En container-runtime skal være på hver
@@ -276,13 +276,13 @@ questions:
         er installeret på, og venter på at få besked om, hvad den skal starte.
     difficulty: 1
     sources:
-      - title: Kubernetes documentation — Overview
+      - title: Kubernetes documentation - Overview
         url: https://kubernetes.io/docs/concepts/overview/
         tier: official-doc
-      - title: Cloud Native Glossary — Container Orchestration
+      - title: Cloud Native Glossary - Container Orchestration
         url: https://glossary.cncf.io/container-orchestration/
         tier: reference
-      - title: Kubernetes documentation — Container Runtimes
+      - title: Kubernetes documentation - Container Runtimes
         url: https://kubernetes.io/docs/setup/production-environment/container-runtimes/
         tier: official-doc
     draft: true

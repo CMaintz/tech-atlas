@@ -13,11 +13,11 @@ summary:
   da: At holde øje med kendte risici over tid, så ændringer opdages, og beslutninger tages op igen, før de bliver forældede.
 body:
   formal:
-    en: The ongoing part of risk management that tracks risks, controls and the world around them — new threats, changed systems, failed controls — and triggers a new assessment or treatment when something moves.
-    da: Den løbende del af risikostyringen, der følger risici, kontroller og omverdenen — nye trusler, ændrede systemer, kontroller der svigter — og udløser en ny analyse eller håndtering, når noget flytter sig.
+    en: The ongoing part of risk management that tracks risks, controls and the world around them - new threats, changed systems, failed controls - and triggers a new assessment or treatment when something moves.
+    da: Den løbende del af risikostyringen, der følger risici, kontroller og omverdenen - nye trusler, ændrede systemer, kontroller der svigter - og udløser en ny analyse eller håndtering, når noget flytter sig.
   plain:
-    en: Like a gardener walking round the beds every week — the planting was planned in spring, but pests, frost and dry spells keep changing what needs doing.
-    da: Som en gartner, der går bedene igennem hver uge — planterne blev sat i foråret, men skadedyr, frost og tørke ændrer hele tiden, hvad der skal gøres.
+    en: Like a gardener walking round the beds every week - the planting was planned in spring, but pests, frost and dry spells keep changing what needs doing.
+    da: Som en gartner, der går bedene igennem hver uge - planterne blev sat i foråret, men skadedyr, frost og tørke ændrer hele tiden, hvad der skal gøres.
   inPractice:
     en: At an engineering firm the risk owners get a short review each month; last spring, when the firm's cloud storage provider was hacked, the security officer raised that supplier risk from medium to high the same day and called a meeting.
     da: I en rådgivende ingeniørvirksomhed får risikoejerne en kort gennemgang hver måned; da firmaets udbyder af cloudlagring blev hacket i foråret, hævede den sikkerhedsansvarlige samme dag leverandørrisikoen fra middel til høj og indkaldte til møde.
@@ -46,8 +46,8 @@ edges:
   requires: [risk-assessment]
   used-with: [security-monitoring, threat-intelligence]
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 5
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 5
     tier: course-material
-  - title: ISO 31000:2018 (6.6 — Monitoring and review)
+  - title: ISO 31000:2018 (6.6 - Monitoring and review)
     tier: standard
 draft: true

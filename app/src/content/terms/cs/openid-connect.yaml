@@ -17,8 +17,8 @@ body:
     en: An identity layer on OAuth 2.0 in which the identity provider, after the user signs in, returns a signed ID token stating who the user is and when and how they logged in; the app checks it before starting its own session.
     da: Et identitetslag oven på OAuth 2.0, hvor identitetsudbyderen, når brugeren er logget ind, returnerer et signeret ID-token med oplysninger om, hvem brugeren er, og hvornår og hvordan vedkommende loggede ind. Appen kontrollerer tokenet, før den starter sin egen session.
   plain:
-    en: Like a valet key handed over together with a signed name badge — the key says what the holder may do with the car, the badge says who the holder is.
-    da: Som en parkeringsnøgle, der udleveres sammen med et underskrevet navneskilt — nøglen siger, hvad indehaveren må gøre med bilen, skiltet siger, hvem indehaveren er.
+    en: Like a valet key handed over together with a signed name badge - the key says what the holder may do with the car, the badge says who the holder is.
+    da: Som en parkeringsnøgle, der udleveres sammen med et underskrevet navneskilt - nøglen siger, hvad indehaveren må gøre med bilen, skiltet siger, hvem indehaveren er.
   inPractice:
     en: A small Danish web shop offers “Sign in with Google”; the shop receives a signed token with the customer's name and email address and never handles a password at all.
     da: En lille dansk webshop tilbyder “Log ind med Google”; shoppen modtager et signeret token med kundens navn og mailadresse og håndterer aldrig selv en adgangskode.
@@ -57,7 +57,7 @@ sources:
     tier: standard
     publisher: OpenID Foundation
     url: https://openid.net/specs/openid-connect-core-1_0.html
-  - title: ISO/IEC 26131:2024 — OpenID Connect Core 1.0 incorporating errata set 2
+  - title: ISO/IEC 26131:2024 - OpenID Connect Core 1.0 incorporating errata set 2
     tier: standard
     publisher: ISO/IEC
     url: https://www.iso.org/standard/89056.html

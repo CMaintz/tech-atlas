@@ -17,8 +17,8 @@ body:
     en: Regulation (EU) 2024/2847, in force since 10 December 2024, setting basic security requirements for products with digital elements sold in the EU. Reporting of actively exploited flaws and severe incidents applies from 11 September 2026; all other duties, including the CE mark, from 11 December 2027.
     da: Forordning (EU) 2024/2847, i kraft siden 10. december 2024, som stiller grundlæggende sikkerhedskrav til produkter med digitale elementer, der sælges i EU. Pligten til at indberette aktivt udnyttede sårbarheder og alvorlige hændelser gælder fra 11. september 2026, alle øvrige krav, herunder CE-mærkningen, fra 11. december 2027.
   plain:
-    en: Like the safety rules for toys or kettles, but for the software inside things — a gadget that is easy to break into counts as unsafe to sell.
-    da: Som sikkerhedsreglerne for legetøj og elektriske apparater, men for softwaren inde i tingene — en dims, der er let at bryde ind i, regnes som usikker at sælge.
+    en: Like the safety rules for toys or kettles, but for the software inside things - a gadget that is easy to break into counts as unsafe to sell.
+    da: Som sikkerhedsreglerne for legetøj og elektriske apparater, men for softwaren inde i tingene - en dims, der er let at bryde ind i, regnes som usikker at sælge.
   inPractice:
     en: A Danish maker of smart door locks ships them without a default password, keeps a list of every software part inside, promises five years of free security updates and, on learning a flaw is being exploited, warns the authorities within 24 hours.
     da: En dansk producent af smarte dørlåse leverer dem uden standardadgangskode, fører en liste over alle softwarekomponenter i låsen, lover fem års gratis sikkerhedsopdateringer og advarer myndighederne inden for 24 timer, når en sårbarhed bliver udnyttet.
@@ -72,7 +72,7 @@ edges:
     - to: nis2
       why:
         en: NIS2 sets duties for the organisations that run vital services; the CRA sets duties for the products and software they, and everyone else, buy.
-        da: NIS2 stiller krav til de organisationer, der driver vitale tjenester; CRA stiller krav til de produkter og den software, som de — og alle andre — køber.
+        da: NIS2 stiller krav til de organisationer, der driver vitale tjenester; CRA stiller krav til de produkter og den software, som de - og alle andre - køber.
       strength: primary
       confidence: high
   kind-of: [eu-regulation]

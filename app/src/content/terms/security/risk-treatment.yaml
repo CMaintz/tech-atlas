@@ -9,15 +9,15 @@ cluster: risk-management
 layer: governance
 status: current
 summary:
-  en: Choosing what to do about each risk — accept it, reduce it, share it with someone else, or avoid it altogether.
-  da: Valget af, hvad man gør ved hver risiko — accepterer den, mindsker den, deler den med andre eller undgår den helt.
+  en: Choosing what to do about each risk - accept it, reduce it, share it with someone else, or avoid it altogether.
+  da: Valget af, hvad man gør ved hver risiko - accepterer den, mindsker den, deler den med andre eller undgår den helt.
 body:
   formal:
-    en: The step in risk management where each assessed risk gets one of four responses — retained as it is, reduced with controls, shared with or transferred to another party, or avoided by stopping the activity — each with an owner and a plan.
-    da: Trinnet i risikostyringen, hvor hver vurderet risiko får én af fire håndteringer — den accepteres, mindskes med kontroller, deles med eller overføres til en anden part eller undgås ved at stoppe aktiviteten — hver med en ejer og en plan.
+    en: The step in risk management where each assessed risk gets one of four responses - retained as it is, reduced with controls, shared with or transferred to another party, or avoided by stopping the activity - each with an owner and a plan.
+    da: Trinnet i risikostyringen, hvor hver vurderet risiko får én af fire håndteringer - den accepteres, mindskes med kontroller, deles med eller overføres til en anden part eller undgås ved at stoppe aktiviteten - hver med en ejer og en plan.
   plain:
-    en: Like facing a leaky roof — you can live with it, patch it, buy insurance, or move out.
-    da: Ligesom med et utæt tag — man kan leve med det, lappe det, tegne en forsikring eller flytte.
+    en: Like facing a leaky roof - you can live with it, patch it, buy insurance, or move out.
+    da: Ligesom med et utæt tag - man kan leve med det, lappe det, tegne en forsikring eller flytte.
   inPractice:
     en: A shipping company's board buys cyber insurance to share the cost of a ransomware attack, adds MFA to reduce the risk from stolen passwords, and accepts the small risk of an office printer failing.
     da: Bestyrelsen i et rederi tegner en cyberforsikring for at dele udgifterne ved et ransomware-angreb, indfører MFA for at mindske risikoen ved stjålne adgangskoder og accepterer den lille risiko for, at en kontorprinter svigter.
@@ -46,7 +46,7 @@ edges:
   part-of: [risk-management]
   causes: [residual-risk]
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: ISO/IEC 27005:2022
     tier: standard

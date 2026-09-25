@@ -10,15 +10,15 @@ layer: application
 status: current
 era: 1999
 summary:
-  en: A public ID number for each known weakness in software (CVE), plus a 0–10 score for how serious it is (CVSS).
+  en: A public ID number for each known weakness in software (CVE), plus a 0-10 score for how serious it is (CVSS).
   da: Et offentligt ID-nummer for hver kendt svaghed i software (CVE) og en score fra 0 til 10 for, hvor alvorlig den er (CVSS).
 body:
   formal:
     en: CVE is a shared list in which every publicly known vulnerability gets a unique name, such as CVE-2021-44228. CVSS is a separate scoring method that rates a vulnerability from 0.0 to 10.0 based on how easy it is to use and how much harm it can do.
     da: CVE er en fælles liste, hvor hver offentligt kendt sårbarhed får et unikt navn, fx CVE-2021-44228. CVSS er en separat pointmodel, der vurderer en sårbarhed fra 0,0 til 10,0 ud fra, hvor let den er at udnytte, og hvor meget skade den kan gøre.
   plain:
-    en: Like a hurricane that gets a name and, separately, a category from 1 to 5 — the name says which storm is meant, the category how bad it is.
-    da: Som når en orkan får et navn og, for sig, en kategori fra 1 til 5 — navnet siger, hvilken storm der menes, kategorien, hvor slem den er.
+    en: Like a hurricane that gets a name and, separately, a category from 1 to 5 - the name says which storm is meant, the category how bad it is.
+    da: Som når en orkan får et navn og, for sig, en kategori fra 1 til 5 - navnet siger, hvilken storm der menes, kategorien, hvor slem den er.
   inPractice:
     en: A vulnerability scanning report at a municipality shows a file server missing the fix for a CVE scored 9.8, so the IT operations manager patches it the same day and leaves the 4.3 items for next month.
     da: En sårbarhedsscanning i en kommune viser, at en filserver mangler rettelsen til en CVE med score 9,8, så den IT-driftsansvarlige patcher serveren samme dag og lader punkterne med 4,3 vente til næste måned.
@@ -29,7 +29,7 @@ deepDive:
   en: |-
     The CVE Program was launched by MITRE in 1999 and is funded by the US government through CISA. IDs are assigned in a federated way by CVE Numbering Authorities (CNAs), mostly vendors, CERTs and bug-bounty platforms, each with a defined scope and organised under Root CNAs. The ID syntax is CVE-YYYY-NNNN, where the year is the year the ID was assigned or the flaw made public, not the year it was discovered, and since 2014 the sequence part may have any number of digits from four upwards. A record is published in the CVE JSON 5 format and can be RESERVED, PUBLISHED or REJECTED; a CVE says only that a distinct flaw exists, with a description and affected versions, not how dangerous it is.
 
-    CVSS is maintained separately by FIRST. In v3.1 the base score is computed from eight metrics: Attack Vector, Attack Complexity, Privileges Required, User Interaction, Scope, and the Confidentiality, Integrity and Availability impacts; qualitative bands are None 0.0, Low 0.1–3.9, Medium 4.0–6.9, High 7.0–8.9 and Critical 9.0–10.0. CVSS v4.0, published in November 2023, drops Scope in favour of separate impact metrics for the vulnerable system and subsequent systems, adds Attack Requirements, splits User Interaction into Passive and Active, and introduces the nomenclature CVSS-B, CVSS-BT, CVSS-BE or CVSS-BTE depending on which of the Base, Threat and Environmental groups were used. Log4Shell, CVE-2021-44228, scored 10.0 under v3.1.
+    CVSS is maintained separately by FIRST. In v3.1 the base score is computed from eight metrics: Attack Vector, Attack Complexity, Privileges Required, User Interaction, Scope, and the Confidentiality, Integrity and Availability impacts; qualitative bands are None 0.0, Low 0.1-3.9, Medium 4.0-6.9, High 7.0-8.9 and Critical 9.0-10.0. CVSS v4.0, published in November 2023, drops Scope in favour of separate impact metrics for the vulnerable system and subsequent systems, adds Attack Requirements, splits User Interaction into Passive and Active, and introduces the nomenclature CVSS-B, CVSS-BT, CVSS-BE or CVSS-BTE depending on which of the Base, Threat and Environmental groups were used. Log4Shell, CVE-2021-44228, scored 10.0 under v3.1.
 
     The most common misconception is that CVSS measures risk. FIRST itself states it measures technical severity; most published scores are base-only and ignore whether exploitation is happening and how exposed the asset is. That is why prioritisation now combines CVSS with EPSS, FIRST's model estimating the probability of exploitation within the next 30 days, and with CISA's Known Exploited Vulnerabilities catalogue, which has driven binding remediation deadlines for US federal agencies since BOD 22-01 in 2021. Different sources also score the same CVE differently: the vendor CNA, NVD and a scanner may disagree.
 
@@ -37,7 +37,7 @@ deepDive:
   da: |-
     CVE-programmet blev startet af MITRE i 1999 og finansieres af den amerikanske stat via CISA. Numrene tildeles decentralt af CVE Numbering Authorities (CNA'er), for det meste leverandører, CERT'er og bug bounty-platforme, som hver har et afgrænset ansvarsområde og er organiseret under Root CNA'er. Formatet er CVE-ÅÅÅÅ-NNNN, hvor året er det år, nummeret blev tildelt eller fejlen offentliggjort, ikke det år, fejlen blev opdaget, og siden 2014 kan løbenummeret have et vilkårligt antal cifre fra fire og opefter. En post publiceres i formatet CVE JSON 5 og kan have status RESERVED, PUBLISHED eller REJECTED; en CVE fortæller kun, at der findes en bestemt fejl, med en beskrivelse og berørte versioner, ikke hvor farlig den er.
 
-    CVSS vedligeholdes separat af FIRST. I v3.1 beregnes basisscoren ud fra otte metrikker: Attack Vector, Attack Complexity, Privileges Required, User Interaction, Scope samt konsekvensen for fortrolighed, integritet og tilgængelighed; de kvalitative niveauer er None 0,0, Low 0,1–3,9, Medium 4,0–6,9, High 7,0–8,9 og Critical 9,0–10,0. CVSS v4.0 fra november 2023 fjerner Scope til fordel for separate konsekvensmetrikker for det sårbare system og efterfølgende systemer, tilføjer Attack Requirements, deler User Interaction op i Passive og Active og indfører betegnelserne CVSS-B, CVSS-BT, CVSS-BE eller CVSS-BTE efter, hvilke af grupperne Base, Threat og Environmental der er brugt. Log4Shell, CVE-2021-44228, fik 10,0 efter v3.1.
+    CVSS vedligeholdes separat af FIRST. I v3.1 beregnes basisscoren ud fra otte metrikker: Attack Vector, Attack Complexity, Privileges Required, User Interaction, Scope samt konsekvensen for fortrolighed, integritet og tilgængelighed; de kvalitative niveauer er None 0,0, Low 0,1-3,9, Medium 4,0-6,9, High 7,0-8,9 og Critical 9,0-10,0. CVSS v4.0 fra november 2023 fjerner Scope til fordel for separate konsekvensmetrikker for det sårbare system og efterfølgende systemer, tilføjer Attack Requirements, deler User Interaction op i Passive og Active og indfører betegnelserne CVSS-B, CVSS-BT, CVSS-BE eller CVSS-BTE efter, hvilke af grupperne Base, Threat og Environmental der er brugt. Log4Shell, CVE-2021-44228, fik 10,0 efter v3.1.
 
     Den mest udbredte misforståelse er, at CVSS måler risiko. FIRST skriver selv, at den måler teknisk alvor; de fleste offentliggjorte scorer er rene basisscorer og tager ikke højde for, om sårbarheden udnyttes aktivt, eller hvor eksponeret aktivet er. Derfor kombineres CVSS i dag med EPSS, FIRSTs model for sandsynligheden for udnyttelse inden for de næste 30 dage, og med CISAs katalog over Known Exploited Vulnerabilities, som siden BOD 22-01 i 2021 har sat bindende frister for amerikanske føderale myndigheder. Forskellige kilder scorer desuden samme CVE forskelligt: leverandørens CNA, NVD og scanneren kan være uenige.
 
@@ -55,7 +55,7 @@ edges:
     - threat-intelligence
     - sbom
 sources:
-  - title: CVE Program — About
+  - title: CVE Program - About
     tier: official-doc
     publisher: MITRE / CVE Program
     url: https://www.cve.org/About/Overview

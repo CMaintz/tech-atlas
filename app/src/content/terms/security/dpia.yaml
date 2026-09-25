@@ -18,7 +18,7 @@ body:
     da: En risikoanalyse, som GDPR artikel 35 kræver før behandling, der sandsynligvis giver en høj risiko for personers rettigheder, fx overvågning i stor skala eller helbredsoplysninger; den beskriver behandlingen, prøver, om den er nødvendig og rimelig, vurderer risiciene og fastlægger tiltag mod dem.
   plain:
     en: Like an architect checking how a new building will affect the neighbours' light and noise before building starts, not after.
-    da: Som når en arkitekt undersøger, hvordan et nyt byggeri vil påvirke naboernes lys og støj, før man bygger — ikke bagefter.
+    da: Som når en arkitekt undersøger, hvordan et nyt byggeri vil påvirke naboernes lys og støj, før man bygger - ikke bagefter.
   inPractice:
     en: A Danish municipality plans an app that logs home-care visits by location; the data protection officer writes a DPIA, finds the tracking goes further than needed, and the app is limited to working hours with data deleted after 30 days.
     da: En dansk kommune vil bruge en app, der registrerer hjemmeplejebesøg via lokation; databeskyttelsesrådgiveren laver en konsekvensanalyse, finder, at sporingen går videre end nødvendigt, og appen begrænses til arbejdstiden, mens data slettes efter 30 dage.
@@ -59,7 +59,7 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: Regulation (EU) 2016/679 (GDPR), Articles 35–36
+  - title: Regulation (EU) 2016/679 (GDPR), Articles 35-36
     tier: standard
     publisher: European Union
     url: 'https://eur-lex.europa.eu/eli/reg/2016/679/oj'

@@ -28,7 +28,7 @@ questions:
       en: >-
         HTTPS runs all of HTTP inside TLS between her browser and the server, so the
         request URL including path and query, headers, cookies, form fields and
-        page content are encrypted — whether or not the Wi-Fi itself is. What TLS
+        page content are encrypted - whether or not the Wi-Fi itself is. What TLS
         cannot hide is the lower-level addressing: the server's IP address and port,
         often the domain name (sent in the TLS handshake as SNI), and the amount and
         timing of traffic. So the open Wi-Fi does not expose everything, only the
@@ -37,7 +37,7 @@ questions:
       da: >-
         HTTPS kører hele HTTP inde i TLS mellem hendes browser og serveren, så
         forespørgslens URL med sti og parametre, headere, cookies, formularfelter og
-        sidernes indhold er krypteret — uanset om selve wi-fi'et er det. Hvad TLS ikke
+        sidernes indhold er krypteret - uanset om selve wi-fi'et er det. Hvad TLS ikke
         kan skjule, er adresseringen på de lavere lag: serverens IP-adresse og port,
         ofte domænenavnet (som sendes i TLS-handshaket som SNI) og mængden og
         tidspunkterne af trafikken. Det åbne wi-fi afslører altså ikke alt, kun
@@ -45,10 +45,10 @@ questions:
         destinationen usynlig.
     difficulty: 2
     sources:
-      - title: Wikipedia — HTTPS
+      - title: Wikipedia - HTTPS
         url: https://en.wikipedia.org/wiki/HTTPS
         tier: reference
-      - title: RFC 8446 — The Transport Layer Security (TLS) Protocol Version 1.3
+      - title: RFC 8446 - The Transport Layer Security (TLS) Protocol Version 1.3
         url: https://www.rfc-editor.org/rfc/rfc8446
         tier: standard
     draft: true
@@ -101,7 +101,7 @@ questions:
         indtil den udløber.
     difficulty: 2
     sources:
-      - title: MDN Web Docs — Using HTTP cookies
+      - title: MDN Web Docs - Using HTTP cookies
         url: https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
         tier: official-doc
     draft: true
@@ -142,7 +142,7 @@ questions:
         The browser's same-origin policy blocks the script from reading a
         cross-origin response unless the server allows it with CORS headers such as
         Access-Control-Allow-Origin. Postman is not a browser and does not enforce
-        CORS, which is why the request works there — and also proves the API is up.
+        CORS, which is why the request works there - and also proves the API is up.
         Asking users to weaken their browser is not a fix, and switching to http://
         only changes the scheme: the origins still differ, and the traffic loses TLS.
       da: >-
@@ -151,16 +151,16 @@ questions:
         under samme overordnede domæne. Browserens same-origin policy forhindrer
         scriptet i at læse et svar fra en anden oprindelse, medmindre serveren tillader
         det med CORS-headere som Access-Control-Allow-Origin. Postman er ikke en
-        browser og håndhæver ikke CORS, og derfor virker forespørgslen dér — hvilket
+        browser og håndhæver ikke CORS, og derfor virker forespørgslen dér - hvilket
         også viser, at API'et kører. At bede brugerne svække deres browser er ingen
         løsning, og http:// ændrer kun protokollen: Oprindelserne er stadig
         forskellige, og trafikken mister TLS.
     difficulty: 3
     sources:
-      - title: MDN Web Docs — Cross-Origin Resource Sharing (CORS)
+      - title: MDN Web Docs - Cross-Origin Resource Sharing (CORS)
         url: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
         tier: official-doc
-      - title: MDN Web Docs — Same-origin policy
+      - title: MDN Web Docs - Same-origin policy
         url: https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy
         tier: official-doc
     draft: true
@@ -186,8 +186,8 @@ questions:
         da: Sagen er blevet slettet, så serveren kan ikke længere finde den nogen steder
       - en: The server crashed while it was handling her request
         da: Serveren gik ned, mens den behandlede hendes forespørgsel
-      - en: The server understood the request but refuses — she lacks rights
-        da: Serveren forstod forespørgslen, men afviser den — hun mangler rettigheder
+      - en: The server understood the request but refuses - she lacks rights
+        da: Serveren forstod forespørgslen, men afviser den - hun mangler rettigheder
       - en: Her login has expired, so she must sign in again to continue
         da: Hendes login er udløbet, så hun skal logge ind igen for at fortsætte
     answer: 2
@@ -195,7 +195,7 @@ questions:
       en: >-
         RFC 9110 defines 403 Forbidden as the server understanding the request but
         refusing to fulfil it; with a valid login and a colleague who can open the
-        case, the likely cause is that her role does not give access to it — an
+        case, the likely cause is that her role does not give access to it - an
         authorization question for the system owner, not a technical fault. A missing
         resource gives 404 Not Found, and an unexpected failure on the server gives
         500 Internal Server Error. A request without valid authentication credentials
@@ -203,14 +203,14 @@ questions:
       da: >-
         RFC 9110 definerer 403 Forbidden som, at serveren forstod forespørgslen, men
         nægter at udføre den; når hun er logget ind, og en kollega kan åbne sagen, er
-        den sandsynlige årsag, at hendes rolle ikke giver adgang til den — et
+        den sandsynlige årsag, at hendes rolle ikke giver adgang til den - et
         autorisationsspørgsmål til systemejeren, ikke en teknisk fejl. En ressource,
         der ikke findes, giver 404 Not Found, og en uventet fejl på serveren giver 500
         Internal Server Error. En forespørgsel uden gyldige loginoplysninger giver 401
         Unauthorized, som er koden, der ville pege på at logge ind igen.
     difficulty: 1
     sources:
-      - title: RFC 9110 — HTTP Semantics
+      - title: RFC 9110 - HTTP Semantics
         url: https://www.rfc-editor.org/rfc/rfc9110
         tier: standard
     draft: true
@@ -259,10 +259,10 @@ questions:
         identitet og historik og efterlader et hul, hvor ordren slet ikke findes.
     difficulty: 2
     sources:
-      - title: RFC 5789 — PATCH Method for HTTP
+      - title: RFC 5789 - PATCH Method for HTTP
         url: https://www.rfc-editor.org/rfc/rfc5789
         tier: standard
-      - title: RFC 9110 — HTTP Semantics
+      - title: RFC 9110 - HTTP Semantics
         url: https://www.rfc-editor.org/rfc/rfc9110
         tier: standard
     draft: true
@@ -293,7 +293,7 @@ questions:
         False. The same-origin policy mainly restricts reading: the dubious page
         cannot read the webmail's responses unless the server allows it. Cross-origin
         writes such as links, redirects and form submissions are typically allowed,
-        so the page can still make the browser send requests to the webmail server —
+        so the page can still make the browser send requests to the webmail server -
         it just cannot see what comes back. That gap is why sites need their own
         protection against forged requests, such as anti-CSRF tokens.
       da: >-
@@ -301,12 +301,12 @@ questions:
         side kan ikke læse webmailens svar, medmindre serveren tillader det. Skrivning
         på tværs af oprindelser som links, omdirigeringer og formularindsendelser er
         typisk tilladt, så siden kan stadig få browseren til at sende forespørgsler
-        til webmailserveren — den kan bare ikke se, hvad der kommer tilbage. Det hul
+        til webmailserveren - den kan bare ikke se, hvad der kommer tilbage. Det hul
         er grunden til, at sites har brug for deres egen beskyttelse mod forfalskede
         forespørgsler, fx CSRF-tokens.
     difficulty: 2
     sources:
-      - title: MDN Web Docs — Same-origin policy
+      - title: MDN Web Docs - Same-origin policy
         url: https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy
         tier: official-doc
     draft: true
