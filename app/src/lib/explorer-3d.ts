@@ -389,13 +389,17 @@ export async function createMap3D(opts: {
   const resize = () => {
     fg.width(el.clientWidth).height(el.clientHeight);
     glowMat.uniforms.scale.value = el.clientHeight / 2;
-    // Centre the scene in the part of the canvas the legend leaves clear.
+    // Centre the scene in the part of the canvas the legend leaves clear and, in the
+    // overview, widen the lens so the whole scene fits that part (none sits under it).
     const w = el.clientWidth;
     const h = el.clientHeight;
     const r = opts.reserveRight?.() ?? 0;
     const camera = fg.camera() as InstanceType<typeof THREE.PerspectiveCamera>;
-    if (r && r < w / 2) camera.setViewOffset(w, h, r / 2, 0, w, h);
+    const clear = r && r < w / 2 ? w - r : w;
+    camera.zoom = view?.selected ? 1 : clear / w;
+    if (clear < w) camera.setViewOffset(w, h, r / 2, 0, w, h);
     else camera.clearViewOffset();
+    camera.updateProjectionMatrix();
   };
   resize();
   window.addEventListener('resize', resize);
@@ -425,6 +429,10 @@ export async function createMap3D(opts: {
           );
         }
       }
+    },
+    /** Re-frame after the clear part of the canvas changed (e.g. the legend toggled). */
+    reframe() {
+      resize();
     },
     show(on: boolean) {
       if (on) {

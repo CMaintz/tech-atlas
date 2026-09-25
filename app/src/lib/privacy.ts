@@ -60,6 +60,14 @@ export const STORAGE: StorageItem[] = [
     },
   },
   {
+    key: 'atlas.explorer.legend',
+    store: 'localStorage',
+    purpose: {
+      en: 'Whether you left the Explorer legend open or closed.',
+      da: 'Om du lod Explorer-forklaringen stå åben eller lukket.',
+    },
+  },
+  {
     key: 'atlas.tour',
     store: 'localStorage',
     purpose: {

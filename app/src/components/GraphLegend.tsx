@@ -13,6 +13,8 @@ interface Props {
   text: Dict;
   /** Start open (desktop) or closed (small screens). */
   open?: boolean;
+  /** The reader opened or closed the legend. */
+  onToggle?: (open: boolean) => void;
   /** Compact: one domain row each, no cluster list (term-page graph). */
   compact?: boolean;
   /** Explorer only: the overview/all-relationships toggle (A86). */
@@ -28,14 +30,15 @@ export default function GraphLegend(props: Props) {
   return (
     <details
       open={props.open}
-      class={`max-h-[70vh] ${props.compact ? 'w-full' : 'w-72'} max-w-[calc(100vw-2rem)] overflow-y-auto rounded-lg border border-neutral-800 bg-neutral-950/85 p-3 text-xs text-neutral-300 shadow-lg shadow-black/40 backdrop-blur`}
+      onToggle={(e) => props.onToggle?.((e.currentTarget as HTMLDetailsElement).open)}
+      class={`max-h-[60vh] ${props.compact ? 'w-full p-3' : 'w-64 px-3 py-2'} max-w-[calc(100vw-2rem)] overflow-y-auto rounded-lg border border-neutral-800 bg-neutral-950/85 text-xs text-neutral-300 shadow-lg shadow-black/40 backdrop-blur`}
     >
       <summary class="cursor-pointer text-[11px] tracking-widest text-neutral-400 uppercase select-none">
         {text.legend}
       </summary>
 
       <p class="mt-2 mb-1 text-neutral-500">{text.nodes}</p>
-      <ul class="space-y-1.5">
+      <ul class={props.compact ? 'space-y-1.5' : 'space-y-1'}>
         {domains.map((d) => (
           <li>
             <div class="flex items-center gap-2 font-medium" style={{ color: d.colour }}>
