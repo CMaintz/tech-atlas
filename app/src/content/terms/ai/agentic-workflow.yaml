@@ -8,6 +8,7 @@ domain: [ai]
 cluster: agents
 layer: agent
 status: emerging
+era: 2024
 summary:
   en: A fixed chain of steps written in code, where a language model does some of the steps but does not choose the order.
   da: En fast kæde af trin skrevet i kode, hvor en sprogmodel udfører nogle af trinene, men ikke selv vælger rækkefølgen.

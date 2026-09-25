@@ -8,6 +8,7 @@ domain: [security]
 cluster: compliance
 layer: governance
 status: current
+era: 2005
 summary:
   en: The list of 93 reference controls at the back of ISO 27001 that every organisation using the standard must hold its own controls up against.
   da: De 93 referencekontroller bagerst i ISO 27001, som enhver organisation, der følger standarden, skal holde sine kontroller op imod.

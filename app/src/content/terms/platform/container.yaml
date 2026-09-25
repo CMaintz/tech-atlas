@@ -8,6 +8,7 @@ domain: [platform]
 cluster: containers
 layer: infrastructure
 status: current
+era: 2013
 summary:
   en: A sealed-off box for one program and everything it needs, sharing the host computer's kernel instead of carrying its own.
   da: En afskærmet kasse til ét program og alt, hvad det skal bruge, som deler værtscomputerens kerne i stedet for at have sin egen.

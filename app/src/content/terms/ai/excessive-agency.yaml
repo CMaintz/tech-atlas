@@ -8,6 +8,7 @@ domain: [ai, security]
 cluster: ai-risk
 layer: agent
 status: current
+era: 2023
 summary:
   en: Giving an AI system more tools, rights or freedom to act than its job needs, so one wrong or tricked step can do real damage.
   da: At give et AI-system flere værktøjer, rettigheder eller mere frihed, end opgaven kræver, så ét forkert skridt kan gøre reel skade.

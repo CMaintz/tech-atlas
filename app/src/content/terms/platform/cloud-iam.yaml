@@ -8,6 +8,7 @@ domain: [platform, security]
 cluster: cloud
 layer: identity
 status: current
+era: 2011
 summary:
   en: The cloud provider's built-in system of policies that decides which users, roles and service accounts may do what to each resource.
   da: Cloududbyderens indbyggede system af politikker, der afgør, hvilke brugere, roller og servicekonti der må gøre hvad ved hver ressource.

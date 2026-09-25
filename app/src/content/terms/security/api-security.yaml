@@ -8,6 +8,7 @@ domain: [security]
 cluster: application-security
 layer: application
 status: current
+era: 2019
 summary:
   en: Protecting the APIs that programs use to talk to each other, so each caller can reach and change only what it is allowed to.
   da: Beskyttelse af de API'er, som programmer taler sammen igennem, så hver kalder kun kan se og ændre det, den har lov til.

@@ -8,6 +8,7 @@ domain: [cs]
 cluster: networking
 layer: network
 status: current
+era: 1967
 summary:
   en: An agreed set of rules for how devices on a network format, send and answer messages.
   da: Et aftalt sæt regler for, hvordan enheder på et netværk opbygger, sender og besvarer beskeder.

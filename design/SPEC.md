@@ -311,9 +311,11 @@ real, statically rendered page ("the canvas is an index, not a container").
   each cluster.
 
 ### Timeline (era view)
-`/[lang]/timeline/` lists every Term with an `era` by decade, oldest first, coloured
-by cluster, each linking to its page; a CSS-only domain filter narrows it. Terms
-without an `era` are omitted and counted (A41).
+`/[lang]/timeline/` places every Term with an `era` on a year axis in one swim lane
+per domain (domain colours, decade ticks, era bands, hub terms emphasised), horizontal
+on wide screens and vertical on phones, with domain toggles, zoom and a summary
+popover; a list view by decade is the accessible fallback. Terms without an `era` are
+omitted and counted (A41, A81).
 
 ### Compare / "Don't confuse" view
 Driven by `contrasts-with`. Side-by-side for the pairs learners mix up

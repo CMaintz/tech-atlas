@@ -8,6 +8,7 @@ domain: [cs, security]
 cluster: identity
 layer: identity
 status: current
+era: 1971
 summary:
   en: The rules and mechanisms that decide who may use which systems, data or rooms, and in what way.
   da: De regler og mekanismer, der afgør, hvem der må bruge hvilke systemer, data eller lokaler, og på hvilken måde.

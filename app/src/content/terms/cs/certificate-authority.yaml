@@ -8,6 +8,7 @@ domain: [cs]
 cluster: cryptography
 layer: theory
 status: current
+era: 1988
 summary:
   en: A trusted body that checks who someone is and then signs digital certificates vouching that a public key belongs to them.
   da: En betroet instans, der kontrollerer identiteten på en ansøger og signerer digitale certifikater om, hvem en offentlig nøgle tilhører.

@@ -8,6 +8,7 @@ domain: [ai]
 cluster: llm
 layer: agent
 status: emerging
+era: 2023
 summary:
   en: An AI system that does not just answer but acts — it plans steps and uses tools such as email, files or web search to reach a goal.
   da: Et AI-system, der ikke bare svarer, men handler — det planlægger trin og bruger værktøjer som mail, filer eller websøgning for at nå et mål.

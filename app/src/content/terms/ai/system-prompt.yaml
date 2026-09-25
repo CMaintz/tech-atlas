@@ -8,6 +8,7 @@ domain: [ai]
 cluster: prompting
 layer: inference
 status: current
+era: 2023
 summary:
   en: Standing orders the maker of an AI service places ahead of every chat, setting the assistant's role, rules and tone before the user types.
   da: Faste instruktioner fra udbyderen af en AI-tjeneste, lagt foran hver samtale, der sætter assistentens rolle, regler og tone.
