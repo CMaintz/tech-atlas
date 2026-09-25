@@ -44,6 +44,9 @@ export const EXPLORER = {
   /** Hover intent: the pointer must rest this long before the map re-styles. */
   hoverDelayMs: 45,
 
+  /** The pointer must rest on a term this long before its hover card appears (A86). */
+  hoverCardMs: 1200,
+
   /** Marching dashes on the term page's hovered edges (graph-cytoscape `startFlow`). */
   flow: {
     /** Pixels per second the dash pattern moves, source → target. */
@@ -111,6 +114,8 @@ export const EXPLORER = {
   /** 3D "galaxies": one per domain on a ring, clusters as star systems, y ≈ depth. */
   three: {
     background: '#05060b',
+    /** Auto-rotate speed (OrbitControls units: 2 = one turn a minute at 60 fps). */
+    spinSpeed: 0.35,
     fogDensity: 0.00032,
     ringRadius: 900,
     clusterRadius: 250,

@@ -42,6 +42,8 @@ export async function createMap3D(opts: {
   reserveRight?: () => number;
   /** A term is hovered (e.g. to prefetch its panel data). */
   onHover?: (id: string) => void;
+  /** The pointer is over a term (screen position in the container), or left it (null). */
+  onPoint?: (hit: { id: string; x: number; y: number } | null) => void;
 }) {
   const [{ default: ForceGraph3D }, THREE] = await Promise.all([
     import('3d-force-graph'),
@@ -478,9 +480,16 @@ export async function createMap3D(opts: {
   };
 
   let hoverTimer = 0;
+  /** Auto-rotating: terms drift under a still pointer, so no hover card. */
+  let spinning = false;
   fg.onNodeHover((n: GraphNode | null) => {
     el.style.cursor = n ? 'pointer' : 'default';
     if (n) opts.onHover?.(n.id);
+    const p = n && !spinning ? byId.get(n.id) : undefined;
+    if (p) {
+      const at = fg.graph2ScreenCoords(p.x, p.y, p.z);
+      opts.onPoint?.({ id: p.id, x: at.x, y: at.y });
+    } else opts.onPoint?.(null);
     window.clearTimeout(hoverTimer);
     hoverTimer = window.setTimeout(() => {
       const next = n ? n.id : null;
@@ -490,6 +499,14 @@ export async function createMap3D(opts: {
       refresh();
     }, EXPLORER.hoverDelayMs);
   });
+
+  // Orbiting, zooming or panning the camera hides the hover card.
+  const controls = fg.controls() as unknown as {
+    autoRotate: boolean;
+    autoRotateSpeed: number;
+    addEventListener: (type: string, fn: () => void) => void;
+  };
+  controls.addEventListener('start', () => opts.onPoint?.(null));
 
   // ---- Camera: a slow swoop in from far out ------------------------------------------
   const centre = {
@@ -547,6 +564,13 @@ export async function createMap3D(opts: {
           );
         }
       }
+    },
+    /** Slow auto-rotation about the scene centre (off under reduced motion). */
+    spin(on: boolean) {
+      spinning = on && motion;
+      controls.autoRotate = spinning;
+      controls.autoRotateSpeed = cfg.spinSpeed;
+      if (spinning) opts.onPoint?.(null);
     },
     /** Re-frame after the clear part of the canvas changed (e.g. the legend toggled). */
     reframe() {
