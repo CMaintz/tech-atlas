@@ -835,9 +835,9 @@ const ABOUT_EN = {
   about: 'About',
   aboutTitle: 'The Tech Atlas',
   aboutBody:
-    'Tech jargon is everywhere: NIS2, zero trust, embeddings, Kubernetes, prompt injection. Everyone uses the words, and half the time nobody agrees on what they mean.',
+    'Tech jargon is everywhere: NIS2, zero trust, embeddings, Kubernetes, prompt injection. Everyone uses the words, and half the time nobody agrees on what they mean. So here is an atlas.',
   aboutBeta:
-    'So here is an atlas. Every term in plain language, in English and Danish, wired into a map of how the ideas connect: what you need to know first, what protects against what, and what is easily confused. Click a term and follow the threads.',
+    'A bilingual (English and Danish) dictionary and knowledge map of security, computer science, AI and platform terms, built for learning: every term links to the ideas it builds on. Click a term and follow the threads.',
   credits: 'Credits',
   thanks: 'Thanks',
   close: 'Close',
@@ -850,9 +850,9 @@ export const ABOUT_UI: Record<Lang, Record<keyof typeof ABOUT_EN, string>> = {
     about: 'Om',
     aboutTitle: 'Tech Atlas',
     aboutBody:
-      'Tech-jargon er overalt: NIS2, zero trust, embeddings, Kubernetes, prompt injection. Alle bruger ordene, og halvdelen af tiden er ingen enige om, hvad de betyder.',
+      'Tech-jargon er overalt: NIS2, zero trust, embeddings, Kubernetes, prompt injection. Alle bruger ordene, og halvdelen af tiden er ingen enige om, hvad de betyder. Så her er et atlas.',
     aboutBeta:
-      'Så her er et atlas. Hvert begreb forklaret i et klart sprog, på dansk og engelsk, og koblet ind i et kort over, hvordan idéerne hænger sammen: hvad du skal kende først, hvad der beskytter mod hvad, og hvad der let forveksles. Klik på et begreb, og følg trådene.',
+      'En tosproget (dansk og engelsk) ordbog og vidensgraf over begreber inden for sikkerhed, datalogi, AI og platforme, bygget til at lære: hvert begreb linker til de idéer, det bygger på. Klik på et begreb, og følg trådene.',
     credits: 'Medvirkende',
     thanks: 'Tak til',
     close: 'Luk',
