@@ -30,8 +30,7 @@ const localise = (m: Record<string, Record<Lang, string>>) => localiseIn(m, lang
 ---
 
 <Base lang={lang} title="Canvas lab" wide noindex tourAutoStart={false}>
-  {/* The map stays a dark "night map" in the light theme (A92). */}
-  <div data-theme="dark" class="bg-bg text-fg">
+  <div class="bg-bg text-fg">
     <CanvasExplorer
       client:only="preact"
       lang={lang}

@@ -2,6 +2,7 @@ import type { ComponentChildren } from 'preact';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { prerequisitesOf, type Graph } from '../lib/graph-model';
 import { domainColour, nodePaint } from '../lib/graph-style';
+import { useTheme } from '../lib/use-theme';
 import {
   connectionCycle,
   makeTermCache,
@@ -126,6 +127,7 @@ const icon = (d: string) => (
  */
 export default function TermPanel(props: Props) {
   const { lang, id, graph, ui, text, onSelect, onClose } = props;
+  const theme = useTheme();
   const cache = termCache(props.apiBase);
   const [loaded, setLoaded] = useState<TermRecord | undefined>(() => cache.peek(id));
   /** The id whose record failed to load — never shown next to another term. */
@@ -315,7 +317,7 @@ export default function TermPanel(props: Props) {
   const why = new Map(
     (record?.edges ?? []).filter((e) => e.why).map((e) => [`${e.type}|${e.to}`, e.why!]),
   );
-  const colour = nodePaint(node).fill;
+  const colour = nodePaint(node, theme).fill;
   const name = node.term[lang];
   const aka = record?.aka[lang] ?? [];
   const summary = record?.summary[lang] ?? node.summary?.[lang];
@@ -367,7 +369,7 @@ export default function TermPanel(props: Props) {
       data-term-panel={id}
       data-expanded={expanded ? '' : undefined}
       onKeyDown={onPanelKey}
-      class={`absolute top-0 right-0 bottom-0 z-20 flex w-full flex-col border-l border-border bg-bg/97 shadow-2xl shadow-black/60 backdrop-blur transition-[width] duration-300 ease-out motion-reduce:transition-none ${expanded ? '' : 'lg:w-[26rem]'}`}
+      class={`absolute top-0 right-0 bottom-0 z-20 flex w-full flex-col border-l border-border bg-bg/97 shadow-2xl shadow-black/20 dark:shadow-black/60 backdrop-blur transition-[width] duration-300 ease-out motion-reduce:transition-none ${expanded ? '' : 'lg:w-[26rem]'}`}
     >
       <div class="flex shrink-0 items-center gap-1 border-b border-border px-3 py-1.5">
         <button
@@ -520,7 +522,7 @@ export default function TermPanel(props: Props) {
                 {node.domain.map((d) => (
                   <span
                     class="rounded-full border px-2 py-0.5 text-fg-soft"
-                    style={{ borderColor: domainColour(d) }}
+                    style={{ borderColor: domainColour(d, theme) }}
                   >
                     {props.domainLabels[d] ?? d}
                   </span>

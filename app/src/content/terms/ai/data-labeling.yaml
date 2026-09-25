@@ -9,7 +9,7 @@ cluster: training
 layer: training
 status: current
 summary:
-  en: Having people (or tools) attach the right answer to each example - “cat”, “complaint”, “angry” - so a model can learn from it.
+  en: Having people (or tools) attach the right answer to each example, such as “cat”, “complaint” or “angry”, so a model can learn from it.
   da: At lade mennesker (eller værktøjer) sætte det rigtige svar på hvert eksempel - “kat”, “klage”, “vred” - så en model kan lære af det.
 body:
   formal:
@@ -58,12 +58,14 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: ISO/IEC 22989:2022 - Artificial intelligence concepts and terminology
+  - title: ISO/IEC 22989:2022, Artificial intelligence concepts and terminology
     tier: standard
     publisher: ISO/IEC
-  - title: NIST AI 100-1 - Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+    url: https://www.iso.org/standard/74296.html
+  - title: NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0)
     tier: standard
     publisher: NIST
+    url: https://doi.org/10.6028/NIST.AI.100-1
   - title: 'Northcutt, Athalye & Mueller (2021), Pervasive Label Errors in Test Sets Destabilize Machine Learning Benchmarks'
     tier: reference
     publisher: NeurIPS 2021 Datasets and Benchmarks

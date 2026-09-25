@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import type { Graph } from '../lib/graph-model';
-import { domainColour, isDirected } from '../lib/graph-style';
+import { domainColour, familyColours, isDirected, type MapTheme } from '../lib/graph-style';
+import { useTheme } from '../lib/use-theme';
 import { domainBands, effectivePaint, termVisible } from '../lib/graph-layout';
 import {
   HitGrid,
@@ -85,7 +86,42 @@ const TEXT: Record<Lang, Dict> = {
   },
 };
 
-const BG = '#05060b';
+/** What the canvas paints besides term and family colours, per map theme (A92). */
+const LAB_INK: Record<
+  MapTheme,
+  {
+    ring: string;
+    outline: string;
+    sel: string;
+    hover: string;
+    halo: string;
+    big: string;
+    text: string;
+    glow: number;
+  }
+> = {
+  dark: {
+    ring: 'rgba(255,255,255,0.75)',
+    outline: 'rgba(5,6,11,0.55)',
+    sel: '#ffffff',
+    hover: 'rgba(255,255,255,0.7)',
+    halo: 'rgba(5,6,11,0.9)',
+    big: '#ffffff',
+    text: '#d4d4d8',
+    glow: 1,
+  },
+  light: {
+    ring: 'rgba(250,246,238,0.9)',
+    outline: 'rgba(41,37,36,0.35)',
+    sel: '#1c1917',
+    hover: 'rgba(28,25,23,0.6)',
+    halo: 'rgba(250,246,238,0.92)',
+    big: '#1c1917',
+    text: '#292524',
+    // A glow reads as a smudge on paper: a fainter, soft shadow instead.
+    glow: 0.45,
+  },
+};
 /** Room the floating toolbar takes at the top of the map (px); the map centres below it. */
 const TOP = 56;
 const midY = (h: number) => (h + TOP) / 2;
@@ -231,6 +267,11 @@ function buildEngine(graph: Graph): Engine {
 export default function CanvasExplorer(props: Props) {
   const { lang, graphUrl, termBase } = props;
   const t = TEXT[lang];
+  // The palette follows the page theme live (A92); the loop reads it every frame.
+  const theme = useTheme();
+  const themeRef = useRef(theme);
+  themeRef.current = theme;
+  const famColours = familyColours(theme);
   const [graph, setGraph] = useState<Graph | null>(null);
   const [mode, setMode] = useState<Mode>('flat');
   const [domains, setDomains] = useState<Set<string>>(new Set());
@@ -331,12 +372,12 @@ export default function CanvasExplorer(props: Props) {
     if (!e || !graph) return;
     graph.nodes.forEach((nd, i) => {
       e.visible[i] = termVisible(nd, domains) ? 1 : 0;
-      e.fill[i] = effectivePaint(nd, domains).fill;
-      e.bands[i] = domainBands(nd, domains);
+      e.fill[i] = effectivePaint(nd, domains, theme).fill;
+      e.bands[i] = domainBands(nd, domains, theme);
       e.names[i] = nd.term[lang];
     });
     view.current.dirty = true;
-  }, [graph, domains, lang]);
+  }, [graph, domains, lang, theme]);
 
   // ---- The loop ---------------------------------------------------------------------
   useEffect(() => {
@@ -437,6 +478,8 @@ export default function CanvasExplorer(props: Props) {
 
     const draw = (now: number) => {
       const { w, h } = c;
+      const ink = LAB_INK[themeRef.current];
+      const fams = familyColours(themeRef.current) as Record<string, string>;
       const cam3 = { yaw: c.yaw, pitch: c.pitch };
       const scale = c.fit * c.zoom * (v.mode === 'depth' ? 0.9 : 1);
       const ox = c.cx + c.panX;
@@ -509,7 +552,7 @@ export default function CanvasExplorer(props: Props) {
       for (const [key, list] of batches) {
         const [fam, step, hot] = key.split('|');
         ctx.globalAlpha = Number(step) / 12;
-        ctx.strokeStyle = props.familyColours[fam] ?? '#94a3b8';
+        ctx.strokeStyle = fams[fam] ?? '#94a3b8';
         ctx.lineWidth = hot === '1' ? 1.8 : 1;
         ctx.beginPath();
         for (const k of list) {
@@ -533,7 +576,7 @@ export default function CanvasExplorer(props: Props) {
         for (const [key, list] of dots) {
           const [fam, state] = key.split('|');
           ctx.globalAlpha = state === '1' ? 1 : state === 'd' ? 0.18 : 0.75;
-          ctx.fillStyle = props.familyColours[fam] ?? '#94a3b8';
+          ctx.fillStyle = fams[fam] ?? '#94a3b8';
           const rad = state === '1' ? 2.4 : 1.6;
           ctx.beginPath();
           for (const k of list) {
@@ -563,7 +606,7 @@ export default function CanvasExplorer(props: Props) {
         if (x < -r * 3 || x > w + r * 3 || y < -r * 3 || y > h + r * 3) continue;
         const bands = e.bands[i];
         const g = r * 2.6;
-        ctx.globalAlpha = al * (sel >= 0 && lit[i] ? 0.8 : 0.45);
+        ctx.globalAlpha = al * (sel >= 0 && lit[i] ? 0.8 : 0.45) * ink.glow;
         ctx.drawImage(glowSprite(bands.length ? bands[0] : e.fill[i]), x - g, y - g, g * 2, g * 2);
         ctx.globalAlpha = al;
         ctx.beginPath();
@@ -582,12 +625,12 @@ export default function CanvasExplorer(props: Props) {
           ctx.restore();
         }
         ctx.lineWidth = bands.length > 1 ? 1.2 : 0.8;
-        ctx.strokeStyle = bands.length > 1 ? 'rgba(255,255,255,0.75)' : 'rgba(5,6,11,0.55)';
+        ctx.strokeStyle = bands.length > 1 ? ink.ring : ink.outline;
         ctx.stroke();
         if (i === sel || i === v.hover) {
           const pulse = i === sel && !v.reduced ? 1.5 * Math.sin(now / 420) : 0;
           ctx.lineWidth = i === sel ? 2 : 1.4;
-          ctx.strokeStyle = i === sel ? '#ffffff' : 'rgba(255,255,255,0.7)';
+          ctx.strokeStyle = i === sel ? ink.sel : ink.hover;
           ctx.beginPath();
           ctx.arc(x, y, r + 4 + pulse, 0, 6.2832);
           ctx.stroke();
@@ -629,9 +672,9 @@ export default function CanvasExplorer(props: Props) {
         ctx.font = font;
         ctx.globalAlpha = e.fog[i];
         ctx.lineWidth = 3;
-        ctx.strokeStyle = 'rgba(5,6,11,0.9)';
+        ctx.strokeStyle = ink.halo;
         ctx.strokeText(e.names[i], x, top);
-        ctx.fillStyle = big ? '#ffffff' : '#d4d4d8';
+        ctx.fillStyle = big ? ink.big : ink.text;
         ctx.fillText(e.names[i], x, top);
       }
       ctx.globalAlpha = 1;
@@ -830,22 +873,19 @@ export default function CanvasExplorer(props: Props) {
     () => typeof window !== 'undefined' && window.innerWidth >= 1024,
   );
   const pill = (active: boolean) =>
-    `inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs ${active ? 'border-neutral-400 bg-neutral-800/80 text-neutral-100' : 'border-neutral-700 text-neutral-500 hover:border-neutral-500'}`;
+    `inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs ${active ? 'border-border-hover bg-surface-2/80 text-fg' : 'border-border-strong text-subtle hover:border-border-hover'}`;
   const seg = (active: boolean) =>
-    `px-2.5 py-0.5 text-xs ${active ? 'bg-neutral-200 text-neutral-900' : 'text-neutral-400 hover:text-neutral-100'}`;
-  const bar = 'rounded-lg border border-neutral-800 bg-neutral-950/85 shadow-lg backdrop-blur';
+    `px-2.5 py-0.5 text-xs ${active ? 'bg-fg text-bg' : 'text-muted hover:text-fg'}`;
+  const bar = 'rounded-lg border border-border bg-bg/85 shadow-lg backdrop-blur';
   const splitSample = allDomains
     .slice(0, 2)
-    .map((d, i) => `${domainColour(d)} ${i * 50}% ${(i + 1) * 50}%`)
+    .map((d, i) => `${domainColour(d, theme)} ${i * 50}% ${(i + 1) * 50}%`)
     .join(', ');
 
   return (
-    <div
-      class="relative h-[calc(100vh-4.25rem)] overflow-hidden"
-      style={{ background: `radial-gradient(ellipse at center, #11131c 0%, ${BG} 75%)` }}
-    >
+    <div class="map-surface relative h-[calc(100vh-4.25rem)] overflow-hidden">
       <h1 class="sr-only">{t.title}</h1>
-      {!graph && <p class="p-6 pt-20 text-neutral-500">{props.ui.loading}</p>}
+      {!graph && <p class="p-6 pt-20 text-subtle">{props.ui.loading}</p>}
       <canvas
         ref={canvas}
         data-lab-canvas
@@ -859,10 +899,8 @@ export default function CanvasExplorer(props: Props) {
         class={`absolute top-3 right-14 left-3 z-10 ${sel ? 'lg:right-[calc(26rem+3.5rem)]' : ''} flex flex-wrap items-center gap-x-3 gap-y-2 px-3 py-2 text-sm ${bar}`}
         data-lab-toolbar
       >
-        <span class="text-xs font-semibold tracking-widest text-neutral-500 uppercase">
-          {t.title}
-        </span>
-        <div class="flex overflow-hidden rounded-full border border-neutral-700">
+        <span class="text-xs font-semibold tracking-widest text-subtle uppercase">{t.title}</span>
+        <div class="flex overflow-hidden rounded-full border border-border-strong">
           <button
             class={seg(mode === 'flat')}
             aria-pressed={mode === 'flat'}
@@ -879,14 +917,14 @@ export default function CanvasExplorer(props: Props) {
           </button>
         </div>
         {mode === 'depth' && (
-          <label class="flex items-center gap-1.5 text-xs text-neutral-300">
+          <label class="flex items-center gap-1.5 text-xs text-fg-soft">
             <input type="checkbox" checked={spin} onChange={() => setSpin(!spin)} />
             {t.spin}
           </label>
         )}
         <div class="flex items-center gap-1.5">
-          <span class="text-xs text-neutral-500">{t.edges}</span>
-          <div class="flex overflow-hidden rounded-full border border-neutral-700">
+          <span class="text-xs text-subtle">{t.edges}</span>
+          <div class="flex overflow-hidden rounded-full border border-border-strong">
             <button class={seg(!showAll)} aria-pressed={!showAll} onClick={() => setShowAll(false)}>
               {t.backbone}
             </button>
@@ -905,8 +943,8 @@ export default function CanvasExplorer(props: Props) {
               <span
                 class="inline-block h-2 w-2 rounded-full"
                 style={{
-                  background: domains.has(d) ? domainColour(d) : 'transparent',
-                  boxShadow: `inset 0 0 0 1px ${domainColour(d)}`,
+                  background: domains.has(d) ? domainColour(d, theme) : 'transparent',
+                  boxShadow: `inset 0 0 0 1px ${domainColour(d, theme)}`,
                 }}
               />
               {props.domainLabels[d] ?? d}
@@ -927,10 +965,7 @@ export default function CanvasExplorer(props: Props) {
                   checked={families.has(f)}
                   onChange={() => toggle(families, f, setFamilies)}
                 />
-                <span
-                  class="inline-block h-0.5 w-4"
-                  style={{ background: props.familyColours[f] }}
-                />
+                <span class="inline-block h-0.5 w-4" style={{ background: famColours[f] }} />
                 {props.familyLabels[f] ?? f}
               </label>
             ))}
@@ -950,15 +985,15 @@ export default function CanvasExplorer(props: Props) {
               }
               if (ev.key === 'Escape') setQuery('');
             }}
-            class="w-44 rounded-full border border-neutral-700 bg-neutral-900 px-3 py-0.5 text-xs"
+            class="w-44 rounded-full border border-border-strong bg-surface px-3 py-0.5 text-xs"
           />
           {query.trim() && (
             <ul class={`absolute top-full left-0 mt-2 w-60 space-y-0.5 p-2 text-xs ${bar}`}>
-              {matches.length === 0 && <li class="px-1 text-neutral-500">{t.noMatch}</li>}
+              {matches.length === 0 && <li class="px-1 text-subtle">{t.noMatch}</li>}
               {matches.map((m) => (
                 <li>
                   <button
-                    class="w-full rounded px-1 py-0.5 text-left text-neutral-300 hover:bg-neutral-800 hover:text-white"
+                    class="w-full rounded px-1 py-0.5 text-left text-fg-soft hover:bg-surface-2 hover:text-fg"
                     onClick={() => {
                       focusTerm(m.id);
                       setQuery('');
@@ -974,7 +1009,7 @@ export default function CanvasExplorer(props: Props) {
         <button class={pill(false)} onClick={resetView}>
           {t.fit}
         </button>
-        <a class="text-xs text-amber-300 hover:underline" href={props.explorerUrl}>
+        <a class="text-xs text-accent hover:underline" href={props.explorerUrl}>
           {t.compare}
         </a>
       </div>
@@ -985,7 +1020,7 @@ export default function CanvasExplorer(props: Props) {
         data-lab-legend
       >
         <button
-          class="flex w-full items-center justify-between gap-3 px-3 py-1.5 text-neutral-300"
+          class="flex w-full items-center justify-between gap-3 px-3 py-1.5 text-fg-soft"
           aria-expanded={legendOpen}
           onClick={() => setLegendOpen(!legendOpen)}
         >
@@ -993,13 +1028,13 @@ export default function CanvasExplorer(props: Props) {
           <span aria-hidden="true">{legendOpen ? '▾' : '▸'}</span>
         </button>
         {legendOpen && (
-          <div class="space-y-2 border-t border-neutral-800 px-3 py-2 text-neutral-400">
+          <div class="space-y-2 border-t border-border px-3 py-2 text-muted">
             <div class="flex flex-wrap gap-x-3 gap-y-1">
               {allDomains.map((d) => (
                 <span class="inline-flex items-center gap-1">
                   <span
                     class="inline-block h-2.5 w-2.5 rounded-full"
-                    style={{ background: domainColour(d) }}
+                    style={{ background: domainColour(d, theme) }}
                   />
                   {props.domainLabels[d] ?? d}
                 </span>
@@ -1007,7 +1042,7 @@ export default function CanvasExplorer(props: Props) {
             </div>
             <div class="flex items-center gap-2">
               <span
-                class="inline-block h-3.5 w-3.5 shrink-0 rounded-full border border-white/75"
+                class="inline-block h-3.5 w-3.5 shrink-0 rounded-full border border-fg-soft"
                 style={{ background: `linear-gradient(90deg, ${splitSample})` }}
               />
               {props.graphUi.ring}
@@ -1015,16 +1050,13 @@ export default function CanvasExplorer(props: Props) {
             <div class="flex flex-wrap gap-x-3 gap-y-1">
               {Object.keys(props.familyColours).map((f) => (
                 <span class="inline-flex items-center gap-1">
-                  <span
-                    class="inline-block h-0.5 w-3"
-                    style={{ background: props.familyColours[f] }}
-                  />
+                  <span class="inline-block h-0.5 w-3" style={{ background: famColours[f] }} />
                   {props.familyLabels[f] ?? f}
                 </span>
               ))}
             </div>
             <p>{t.pulses}</p>
-            <p class="text-neutral-500">{mode === 'flat' ? t.hintFlat : t.hintDepth}</p>
+            <p class="text-subtle">{mode === 'flat' ? t.hintFlat : t.hintDepth}</p>
           </div>
         )}
       </div>

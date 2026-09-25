@@ -861,7 +861,7 @@ export const ABOUT_PEOPLE: AboutPerson[] = [
   {
     section: 'credits',
     name: 'Christoffer Maintz',
-    role: { en: 'Atlas author · Tech wizard', da: 'Forfatter til Atlas · Tech-troldmand' },
+    role: { en: 'Atlas author · Chief term-wrangler', da: 'Forfatter til Atlas · Chefordkløver' },
     photo: 'christoffer.jpg',
   },
   {

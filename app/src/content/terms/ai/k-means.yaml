@@ -1,0 +1,70 @@
+term:
+  en: k-means clustering
+  da: k-means-klyngeanalyse
+aka:
+  en: [k-means]
+  da: [k-means]
+domain: [ai]
+cluster: ml-fundamentals
+layer: model
+status: current
+summary:
+  en: A method that splits data into a chosen number of groups by moving each group's centre until every point sits with its nearest centre.
+  da: En metode, der deler data i et valgt antal grupper ved at flytte hver gruppes midtpunkt, til hvert punkt hører til det nærmeste midtpunkt.
+body:
+  formal:
+    en: A method for clustering that picks k starting centres, puts each data point with its nearest centre, moves each centre to the average of its points, and repeats until the groups stop changing.
+    da: En metode til klyngeanalyse, der vælger k startmidtpunkter, placerer hvert datapunkt hos det nærmeste midtpunkt, flytter hvert midtpunkt til gennemsnittet af sine punkter og gentager, til grupperne holder op med at ændre sig.
+  plain:
+    en: Like placing three ice cream stands on a beach; each person walks to the closest stand, each stand then moves to the middle of its crowd, and you repeat until no one changes stand.
+    da: Som at stille tre isboder op på en strand. Hver gæst går til den nærmeste bod, hver bod flytter derefter ind midt i sin flok, og sådan gentager man, til ingen skifter bod.
+  inPractice:
+    en: A Danish supermarket chain splits loyalty card customers into five groups by what and when they buy, then names them, for example "weekend family shoppers", and plans offers for each.
+    da: En dansk supermarkedskæde deler kunder med bonuskort i fem grupper efter, hvad og hvornår de køber, giver dem navne som "weekendfamilier" og planlægger tilbud til hver gruppe.
+  whyItMatters:
+    en: It is the simplest and fastest way to find groups in data without answers given in advance, but you must choose the number of groups, and a bad choice gives groups that mean little.
+    da: Det er den enkleste og hurtigste måde at finde grupper i data uden givne svar på, men man skal selv vælge antallet af grupper, og et dårligt valg giver grupper, der betyder lidt.
+deepDive:
+  en: |-
+    k-means minimises the within-cluster sum of squares (inertia), the sum over all points of the squared Euclidean distance to their assigned centroid. The standard procedure, Lloyd's algorithm, alternates an assignment step (each point to its nearest centroid) and an update step (each centroid to the mean of its points). Each step cannot increase inertia, so the algorithm converges, but only to a local minimum; finding the global optimum is NP-hard. Stuart Lloyd described the method in a 1957 Bell Labs report that was published in 1982 (IEEE Transactions on Information Theory); the name k-means comes from MacQueen (1967).
+
+    Results depend heavily on initialisation. k-means++ (Arthur and Vassilvitskii, 2007) picks each new starting centre with probability proportional to its squared distance from the centres already chosen, which spreads them out and gives an O(log k) approximation guarantee in expectation; it is scikit-learn's default, and the algorithm is usually run several times keeping the lowest inertia. Mini-batch k-means updates centroids from small random batches to scale to very large datasets.
+
+    The number of clusters k must be chosen in advance, commonly with the elbow method on the inertia curve, the silhouette score, or the gap statistic, and ideally checked against domain meaning. Because it uses squared Euclidean distance, k-means implicitly assumes convex, roughly spherical clusters of similar size and is sensitive to feature scale and to outliers, so features are normally standardised first. In high dimensions distances become less informative, and reducing dimensionality first, for example with PCA, often helps.
+
+    For clusters of arbitrary shape, density-based methods such as DBSCAN or HDBSCAN are more suitable; Gaussian mixture models are a soft, probabilistic generalisation of k-means; and k-medoids restricts centres to actual data points for robustness. k-means is also used for vector quantisation, for example to build the codebooks in product quantisation for nearest-neighbour search.
+  da: |-
+    k-means minimerer summen af kvadrerede afstande inden for klyngerne (inerti), dvs. summen over alle punkter af den kvadrerede euklidiske afstand til deres tildelte centroide. Standardproceduren, Lloyds algoritme, skifter mellem et tildelingstrin (hvert punkt til den nærmeste centroide) og et opdateringstrin (hver centroide til gennemsnittet af sine punkter). Intet trin kan øge inertien, så algoritmen konvergerer, men kun til et lokalt minimum; at finde det globale optimum er NP-hårdt. Stuart Lloyd beskrev metoden i en rapport fra Bell Labs i 1957, som blev publiceret i 1982 (IEEE Transactions on Information Theory); navnet k-means stammer fra MacQueen (1967).
+
+    Resultatet afhænger meget af startpunkterne. k-means++ (Arthur og Vassilvitskii, 2007) vælger hvert nyt startmidtpunkt med en sandsynlighed proportional med den kvadrerede afstand til de allerede valgte, hvilket spreder dem og giver en forventet O(log k)-approksimationsgaranti; det er standard i scikit-learn, og algoritmen køres som regel flere gange, hvor kørslen med lavest inerti beholdes. Mini-batch k-means opdaterer centroiderne ud fra små tilfældige batches for at kunne håndtere meget store datasæt.
+
+    Antallet af klynger k skal vælges på forhånd, typisk med albuemetoden på inertikurven, silhouetscoren eller gap-statistikken, og helst tjekkes mod den faglige betydning. Fordi metoden bruger kvadreret euklidisk afstand, antager k-means underforstået konvekse, nogenlunde kugleformede klynger af samme størrelse og er følsom over for skalaen af features og over for outliers, så features standardiseres normalt først. I mange dimensioner bliver afstande mindre informative, og det hjælper ofte først at reducere antallet af dimensioner, fx med PCA.
+
+    Til klynger med vilkårlig form egner tæthedsbaserede metoder som DBSCAN eller HDBSCAN sig bedre; gaussiske blandingsmodeller er en blød, probabilistisk generalisering af k-means; og k-medoids begrænser midtpunkterne til faktiske datapunkter for at være mere robust. k-means bruges også til vektorkvantisering, fx til at bygge kodebøgerne i product quantization til nærmeste-nabo-søgning.
+edges:
+  implements:
+    - to: clustering
+      why:
+        en: It is the most widely used way to do clustering, giving each point to the group whose centre is nearest.
+        da: Det er den mest udbredte måde at lave klyngeanalyse på, hvor hvert punkt tildeles den gruppe, hvis midtpunkt er nærmest.
+      strength: primary
+      confidence: high
+  requires: [feature, unsupervised-learning]
+sources:
+  - title: scikit-learn User Guide, 2.3 Clustering (K-means)
+    url: https://scikit-learn.org/stable/modules/clustering.html#k-means
+    tier: official-doc
+    publisher: scikit-learn
+  - title: 'Lloyd (1982), Least Squares Quantization in PCM'
+    url: https://doi.org/10.1109/TIT.1982.1056489
+    tier: reference
+    publisher: IEEE Transactions on Information Theory
+  - title: 'Arthur & Vassilvitskii (2007), k-means++: The Advantages of Careful Seeding'
+    url: http://ilpubs.stanford.edu:8090/778/1/2006-13.pdf
+    tier: reference
+    publisher: ACM-SIAM Symposium on Discrete Algorithms
+  - title: k-means clustering
+    url: https://en.wikipedia.org/wiki/K-means_clustering
+    tier: reference
+    publisher: Wikipedia
+draft: true

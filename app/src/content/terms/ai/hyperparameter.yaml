@@ -9,14 +9,14 @@ cluster: training
 layer: training
 status: current
 summary:
-  en: A setting a person chooses before model training starts - such as step size or number of rounds - that the model does not learn itself.
+  en: A setting a person chooses before model training starts, such as step size or number of rounds, and that the model does not learn itself.
   da: En indstilling, et menneske vælger, før modeltræningen starter - fx skridtstørrelse eller antal runder - som modellen ikke selv lærer.
 body:
   formal:
     en: A value that shapes how model training runs or how large the model is, fixed from outside rather than learned from the training data; it is tuned by trying values and comparing results on a validation set.
     da: En værdi, der former, hvordan modeltræningen kører, eller hvor stor modellen er, og som fastsættes udefra i stedet for at læres fra træningsdata; den justeres ved at prøve værdier og sammenligne resultater på et valideringssæt.
   plain:
-    en: Like the oven heat and baking time you set before the cake goes in - the cake does not choose them, but they decide how it turns out.
+    en: Like the oven heat and baking time you set before the cake goes in; the cake does not choose them, but they decide how it turns out.
     da: Som ovnvarmen og bagetiden, du sætter, før kagen kommer ind - kagen vælger dem ikke, men de afgør, hvordan den bliver.
   inPractice:
     en: A data analyst in a municipality runs twenty short training jobs overnight on a model that forecasts demand for home care, each with a different step size and batch size, and keeps the combination that does best on held-back cases.
@@ -28,7 +28,7 @@ deepDive:
   en: |-
     Hyperparameters fall into several groups. Optimisation hyperparameters include the learning rate and its schedule (warmup length, decay shape), batch size, number of epochs or steps, momentum or Adam's β values, weight decay and gradient-clipping threshold. Architectural ones fix capacity: number of layers, hidden width, attention heads, dropout rate, context length. Data-side choices such as augmentation strength or the mixture weights of pretraining sources behave the same way, as do method-specific settings such as LoRA's rank r and scaling α or the KL coefficient in RLHF. Decoding settings such as temperature and top-p are sometimes also called hyperparameters, although they act at inference, not training. The boundary with learned parameters is a design choice: a temperature or a regularisation weight can be made learnable, at which point it stops being a hyperparameter.
 
-    Not all hyperparameters matter equally, and the learning rate is usually the most sensitive (Goodfellow et al., §11.4). Grid search scales exponentially with the number of dimensions and wastes trials on unimportant ones; Bergstra and Bengio (2012) showed that random search finds equally good or better configurations with far fewer trials for exactly that reason. Scale-type hyperparameters should be searched on a log scale, for example learning rates from 10⁻⁵ to 10⁻¹. Bayesian optimisation fits a surrogate model of validation score against configuration - Gaussian processes (Snoek et al., 2012) or the tree-structured Parzen estimator used by default in Optuna - and chooses the next trial by an acquisition function. Multi-fidelity methods such as successive halving and Hyperband (Li et al., 2018) stop unpromising runs early, and population-based training (Jaderberg et al., 2017) mutates hyperparameters of running jobs.
+    Not all hyperparameters matter equally, and the learning rate is usually the most sensitive (Goodfellow et al., §11.4). Grid search scales exponentially with the number of dimensions and wastes trials on unimportant ones; Bergstra and Bengio (2012) showed that random search finds equally good or better configurations with far fewer trials for exactly that reason. Scale-type hyperparameters should be searched on a log scale, for example learning rates from 10⁻⁵ to 10⁻¹. Bayesian optimisation fits a surrogate model of validation score against configuration (Gaussian processes (Snoek et al., 2012) or the tree-structured Parzen estimator used by default in Optuna) and chooses the next trial by an acquisition function. Multi-fidelity methods such as successive halving and Hyperband (Li et al., 2018) stop unpromising runs early, and population-based training (Jaderberg et al., 2017) mutates hyperparameters of running jobs.
 
     Large models cannot be tuned by brute force, since a single run may cost millions. Practitioners tune small proxy models and extrapolate, either through empirical scaling fits for learning rate and batch size or through parametrisations such as μP (Yang et al., 2022), under which optimal hyperparameters stay approximately stable as width grows, allowing "tune small, transfer large".
 
@@ -43,6 +43,13 @@ deepDive:
     Hyperparametersøgning er også en kilde til urimelige sammenligninger og skjult overtilpasning. Hver afprøvet konfiguration er et kig på valideringssættet, så den valgte score er for optimistisk, og det endelige tal skal komme fra et urørt testsæt eller fra nested krydsvalidering. Sammenligninger mellem metoder er kun fair ved samme tuningbudget; Melis m.fl. (2018) fandt, at omhyggeligt tunede LSTM-sprogmodeller slog flere nyere arkitekturer, der var blevet tilskrevet forbedringer. Tilfældighedsfrøet (seed) opfører sig som en skjult hyperparameter, så resultater bør rapporteres over flere seeds, og hver kørsels konfiguration bør logges af hensyn til reproducerbarhed.
 edges:
   requires: [model-training]
+  used-with:
+    - to: regularization
+      why:
+        en: How strongly regularization holds a model back is itself a hyperparameter, chosen by trying values on a validation set.
+        da: Hvor kraftigt regulariseringen holder en model tilbage, er selv en hyperparameter, der vælges ved at afprøve værdier på et valideringssæt.
+      strength: normal
+      confidence: high
   contrasts-with:
     - to: model-parameter
       why:
@@ -54,7 +61,13 @@ sources:
   - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 5.3 and 11.4)'
     tier: textbook
     publisher: MIT Press
-  - title: ISO/IEC 22989:2022 - Artificial intelligence concepts and terminology
+    url: https://www.deeplearningbook.org/contents/guidelines.html
+  - title: ISO/IEC 22989:2022, Artificial intelligence concepts and terminology
     tier: standard
     publisher: ISO/IEC
+    url: https://www.iso.org/standard/74296.html
+  - title: Bergstra & Bengio (2012), Random Search for Hyper-Parameter Optimization
+    tier: reference
+    publisher: Journal of Machine Learning Research 13
+    url: https://www.jmlr.org/papers/v13/bergstra12a.html
 draft: true

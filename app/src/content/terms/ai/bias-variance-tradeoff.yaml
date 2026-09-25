@@ -1,0 +1,62 @@
+term:
+  en: Bias-variance trade-off
+  da: Bias-varians-afvejning
+aka:
+  en: [bias-variance tradeoff, bias-variance dilemma]
+  da: [bias-variance trade-off, bias-varians-dilemmaet]
+domain: [ai]
+cluster: ml-fundamentals
+layer: theory
+status: current
+summary:
+  en: The tension between a model too simple to catch the real pattern and one so flexible that it chases chance details in its examples.
+  da: Spændingen mellem en model, der er for simpel til at fange det egentlige mønster, og en så fleksibel, at den jagter tilfældige detaljer.
+body:
+  formal:
+    en: The error a model makes on new data splits into a part from wrong fixed assumptions, a part from how much its fit would change with a different sample of training data, and noise nothing can remove; lowering one of the first two usually raises the other.
+    da: Den fejl, en model begår på nye data, kan deles i en del fra forkerte faste antagelser, en del fra hvor meget tilpasningen ville ændre sig med en anden stikprøve af træningsdata, og støj, som intet kan fjerne; sænker man den ene af de to første, stiger den anden som regel.
+  plain:
+    en: Like drawing a line through dots on a page. A ruler misses the curve that is really there, while a hand that passes through every single dot draws a wild shape that says little about where the next dot will land.
+    da: Som at tegne en linje gennem prikker på et papir. En lineal overser den kurve, der faktisk er der, mens en hånd, der rammer hver eneste prik, tegner en vild figur, som siger meget lidt om, hvor den næste prik lander.
+  inPractice:
+    en: A bank's team predicting loan defaults tries models of growing size, checks each against a validation set, and picks the one where the error on held-back cases is lowest, not the one that fits past loans best.
+    da: Et team i en bank, der skal forudsige misligholdte lån, prøver modeller af stigende størrelse, tjekker hver mod et valideringssæt og vælger den, hvor fejlen på de tilbageholdte sager er lavest, ikke den, der passer bedst til de gamle lån.
+  whyItMatters:
+    en: It explains why a model that looks perfect on the cases it learned from can still fail in real use, and why choosing model size and limits is a balance rather than a race to the biggest model.
+    da: Den forklarer, hvorfor en model, der ser perfekt ud på de sager, den har lært af, stadig kan fejle i virkeligheden, og hvorfor valget af modelstørrelse og begrænsninger er en balance og ikke et kapløb om den største model.
+deepDive:
+  en: |-
+    For squared-error loss, the expected error of a learned predictor at a point x, averaged over training sets drawn from the same distribution, decomposes exactly into bias squared (how far the average prediction is from the true function), variance (how much individual predictions scatter around that average), and the irreducible noise variance of the target. Geman, Bienenstock and Doursat (1992) brought this decomposition into neural network research as the bias/variance dilemma: a flexible, nonparametric estimator has low bias but needs very large samples to keep its variance down, while a constrained one has low variance but may be systematically wrong. For other losses, such as 0-1 classification loss, there is no single clean additive decomposition, and several competing definitions exist.
+
+    In classical practice the trade-off is steered through model capacity: polynomial degree, tree depth, number of neighbours in k-nearest neighbours, or the strength of a regularization penalty. Plotting test error against capacity gives the textbook U-shaped curve, with underfitting on the left, overfitting on the right, and the best model at the bottom, found with a validation set or cross-validation. Ensembles act on the variance term directly: bagging and random forests average many high-variance trees, while boosting mainly reduces bias by adding weak learners in sequence.
+
+    Belkin, Hsu, Ma and Mandal (2019) showed that the U-curve is only the first part of a longer picture they called double descent. Test error peaks near the interpolation threshold, where the model has just enough capacity to fit the training data exactly, and then falls again as capacity keeps growing, often below the classical minimum. The effect appears for random-feature models, decision-tree ensembles and neural networks, and helps explain why heavily overparameterised deep networks that reach zero training error can still generalise. The decomposition itself remains true; what changes is the assumption that variance must rise monotonically with parameter count, since implicit regularisation from the training procedure (for example stochastic gradient descent finding minimum-norm solutions) keeps variance in check.
+  da: |-
+    For kvadreret fejl kan den forventede fejl for en lært prædiktor i et punkt x, taget som gennemsnit over træningssæt trukket fra samme fordeling, opdeles præcist i bias i anden (hvor langt den gennemsnitlige forudsigelse ligger fra den sande funktion), varians (hvor meget de enkelte forudsigelser spreder sig omkring gennemsnittet) og målvariablens irreducible støjvarians. Geman, Bienenstock og Doursat (1992) bragte denne dekomposition ind i forskningen i neurale netværk som bias/varians-dilemmaet: En fleksibel, ikke-parametrisk estimator har lav bias, men kræver meget store stikprøver for at holde variansen nede, mens en begrænset estimator har lav varians, men kan tage systematisk fejl. For andre tabsfunktioner, fx 0-1-tab ved klassifikation, findes der ingen enkel additiv dekomposition, men flere konkurrerende definitioner.
+
+    I klassisk praksis styres afvejningen gennem modelkapaciteten: polynomiets grad, træets dybde, antallet af naboer i k-nærmeste-nabo eller styrken af en regulariseringsstraf. Tegner man testfejlen som funktion af kapaciteten, får man lærebogens U-formede kurve med undertilpasning til venstre, overtilpasning til højre og den bedste model i bunden, som findes med et valideringssæt eller krydsvalidering. Ensembler virker direkte på variansleddet: Bagging og random forests tager gennemsnittet af mange træer med høj varians, mens boosting primært mindsker bias ved at tilføje svage modeller efter hinanden.
+
+    Belkin, Hsu, Ma og Mandal (2019) viste, at U-kurven kun er første del af et længere forløb, som de kaldte double descent. Testfejlen topper nær interpolationstærsklen, hvor modellen netop har kapacitet nok til at passe træningsdata præcist, og falder derefter igen, når kapaciteten fortsat vokser, ofte til under det klassiske minimum. Effekten ses for random feature-modeller, ensembler af beslutningstræer og neurale netværk og er med til at forklare, hvorfor stærkt overparametriserede dybe netværk med nul træningsfejl alligevel kan generalisere. Selve dekompositionen gælder stadig; det, der ændrer sig, er antagelsen om, at variansen altid stiger med antallet af parametre, fordi implicit regularisering fra træningsproceduren (fx at stokastisk gradientnedstigning finder løsninger med mindst norm) holder variansen nede.
+edges:
+  requires: [overfitting, underfitting]
+  used-with:
+    - to: regularization
+      why:
+        en: Regularization is the usual dial for moving along the trade-off, giving up a little closeness of fit to make the model steadier on new data.
+        da: Regularisering er det sædvanlige håndtag til at flytte sig langs afvejningen, hvor man ofrer lidt pasform for at gøre modellen mere stabil på nye data.
+      strength: primary
+      confidence: high
+sources:
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning, ch. 5: Machine Learning Basics'
+    url: https://www.deeplearningbook.org/contents/ml.html
+    tier: textbook
+    publisher: MIT Press
+  - title: Geman, Bienenstock & Doursat (1992), Neural Networks and the Bias/Variance Dilemma
+    url: https://doi.org/10.1162/neco.1992.4.1.1
+    tier: reference
+    publisher: Neural Computation
+  - title: Belkin, Hsu, Ma & Mandal (2019), Reconciling modern machine learning practice and the bias-variance trade-off
+    url: https://arxiv.org/abs/1812.11118
+    tier: reference
+    publisher: PNAS
+draft: true

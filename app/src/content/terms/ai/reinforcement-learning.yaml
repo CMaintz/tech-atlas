@@ -16,7 +16,7 @@ body:
     en: A form of machine learning in which an agent acts in a setting, receives a reward signal for the results, and learns a way of choosing actions that brings the most reward over time, without being shown the right action.
     da: En form for maskinlæring, hvor en agent handler i et miljø, modtager et belønningssignal for resultaterne og lærer en måde at vælge handlinger på, der giver mest belønning over tid, uden at få vist den rigtige handling.
   plain:
-    en: Like teaching a dog a trick with treats - nobody explains the trick, the dog just learns which moves earn a treat.
+    en: Like teaching a dog a trick with treats; nobody explains the trick, the dog just learns which moves earn a treat.
     da: Som at lære en hund et trick med godbidder - ingen forklarer tricket, hunden lærer bare, hvilke bevægelser der giver en godbid.
   inPractice:
     en: A region's energy manager tests a system that adjusts the ventilation in a hospital wing; it earns a reward for using less power and a penalty each time a ward gets too warm or too cold.
@@ -28,7 +28,7 @@ deepDive:
   en: |-
     The standard formalism is the Markov decision process (MDP): a set of states S, actions A, transition probabilities P(s′ | s, a), a reward function R and a discount factor γ between 0 and 1. The agent follows a policy π(a | s) and seeks to maximise the expected discounted return, the sum of γᵗ·rₜ over time. Value functions express how good a state, V(s), or a state-action pair, Q(s, a), is under a policy, and the Bellman equations relate each value to the immediate reward plus the discounted value of the successor state. When the true state is only partially observed, the setting becomes a POMDP.
 
-    Algorithms fall into a few families. Value-based methods learn Q and act greedily on it: temporal-difference learning (Sutton, 1988) and Q-learning (Watkins, 1989) update estimates from single transitions, and DQN (Mnih et al., 2015) combined Q-learning with a deep network, experience replay and a target network to reach human-level play on many Atari games. Policy-gradient methods adjust the policy parameters directly along the gradient of expected return, starting with REINFORCE (Williams, 1992); actor-critic methods pair a policy with a learned value baseline, and Proximal Policy Optimization (PPO, 2017) constrains each update with a clipped objective and is widely used, including in RLHF. Model-based methods learn or are given the environment dynamics and plan with them, as in AlphaGo (2016) and AlphaZero, which combined Monte Carlo tree search with networks trained through self-play.
+    Algorithms fall into a few families. Value-based methods learn Q and act greedily on it: temporal-difference learning (Sutton, 1988) and Q-learning (Watkins, 1989) update estimates from single transitions, and DQN (Mnih et al., 2015) combined Q-learning with a deep network, experience replay and a target network to reach human-level play on many Atari games. Policy-gradient methods adjust the policy parameters directly along the gradient of expected return, starting with REINFORCE (Williams, 1992); actor-critic methods pair a policy with a learned value baseline, and Proximal Policy Optimization (PPO, 2017) constrains each update with a clipped objective and is widely used, including in RLHF. Model-based methods learn or are given the environment dynamics and plan with them, as in AlphaGo (Silver et al., 2016) and AlphaZero (2018), which combined Monte Carlo tree search with networks trained through self-play.
 
     The exploration-exploitation trade-off is intrinsic: the agent must try actions with uncertain value to discover better ones. Simple schemes include ε-greedy (a random action with probability ε) and optimism under uncertainty; the multi-armed bandit is the stateless special case used in online experimentation and recommendation. Credit assignment is the second core problem, since rewards may arrive long after the actions that caused them.
 
@@ -38,7 +38,7 @@ deepDive:
   da: |-
     Standardformalismen er Markov-beslutningsprocessen (MDP): en mængde tilstande S, handlinger A, overgangssandsynligheder P(s′ | s, a), en belønningsfunktion R og en diskonteringsfaktor γ mellem 0 og 1. Agenten følger en politik π(a | s) og søger at maksimere det forventede diskonterede afkast, summen af γᵗ·rₜ over tid. Værdifunktioner udtrykker, hvor god en tilstand, V(s), eller et par af tilstand og handling, Q(s, a), er under en given politik, og Bellman-ligningerne forbinder hver værdi med den umiddelbare belønning plus den diskonterede værdi af den efterfølgende tilstand. Når den sande tilstand kun kan observeres delvist, bliver det en POMDP.
 
-    Algoritmerne falder i nogle få familier. Værdibaserede metoder lærer Q og handler grådigt ud fra den: temporal-difference-læring (Sutton, 1988) og Q-learning (Watkins, 1989) opdaterer estimater ud fra enkelte overgange, og DQN (Mnih m.fl., 2015) kombinerede Q-learning med et dybt netværk, experience replay og et target-netværk og nåede menneskeligt niveau i mange Atari-spil. Policy-gradient-metoder justerer politikkens parametre direkte langs gradienten af det forventede afkast, begyndende med REINFORCE (Williams, 1992); actor-critic-metoder parrer en politik med en lært værdibaseline, og Proximal Policy Optimization (PPO, 2017) begrænser hver opdatering med et klippet mål og er meget udbredt, også i RLHF. Modelbaserede metoder lærer eller får miljøets dynamik og planlægger med den, som i AlphaGo (2016) og AlphaZero, der kombinerede Monte Carlo-træsøgning med netværk trænet gennem selvspil.
+    Algoritmerne falder i nogle få familier. Værdibaserede metoder lærer Q og handler grådigt ud fra den: temporal-difference-læring (Sutton, 1988) og Q-learning (Watkins, 1989) opdaterer estimater ud fra enkelte overgange, og DQN (Mnih m.fl., 2015) kombinerede Q-learning med et dybt netværk, experience replay og et target-netværk og nåede menneskeligt niveau i mange Atari-spil. Policy-gradient-metoder justerer politikkens parametre direkte langs gradienten af det forventede afkast, begyndende med REINFORCE (Williams, 1992); actor-critic-metoder parrer en politik med en lært værdibaseline, og Proximal Policy Optimization (PPO, 2017) begrænser hver opdatering med et klippet mål og er meget udbredt, også i RLHF. Modelbaserede metoder lærer eller får miljøets dynamik og planlægger med den, som i AlphaGo (Silver m.fl., 2016) og AlphaZero (2018), der kombinerede Monte Carlo-træsøgning med netværk trænet gennem selvspil.
 
     Afvejningen mellem udforskning og udnyttelse er indbygget: Agenten må prøve handlinger med usikker værdi for at finde bedre. Enkle strategier er ε-greedy (en tilfældig handling med sandsynlighed ε) og optimisme under usikkerhed; multi-armed bandit er specialtilfældet uden tilstand, som bruges i online-eksperimenter og anbefalingssystemer. Kreditfordeling er det andet kerneproblem, fordi belønningen kan komme længe efter de handlinger, der forårsagede den.
 
@@ -57,10 +57,32 @@ edges:
     - unsupervised-learning
   used-with: [rlhf]
 sources:
-  - title: 'Sutton & Barto, Reinforcement Learning: An Introduction (2nd ed.)'
+  - title: 'Sutton & Barto, Reinforcement Learning: An Introduction (2nd ed., 2018)'
+    url: http://incompleteideas.net/book/the-book-2nd.html
     tier: textbook
     publisher: MIT Press
-  - title: ISO/IEC 22989:2022 - Artificial intelligence concepts and terminology
+  - title: Sutton (1988), Learning to Predict by the Methods of Temporal Differences
+    url: https://doi.org/10.1007/BF00115009
+    tier: reference
+    publisher: Machine Learning
+  - title: Williams (1992), Simple Statistical Gradient-Following Algorithms for Connectionist Reinforcement Learning
+    url: https://doi.org/10.1007/BF00992696
+    tier: reference
+    publisher: Machine Learning
+  - title: Mnih et al. (2015), Human-level Control through Deep Reinforcement Learning
+    url: https://doi.org/10.1038/nature14236
+    tier: reference
+    publisher: Nature
+  - title: Schulman et al. (2017), Proximal Policy Optimization Algorithms
+    url: https://arxiv.org/abs/1707.06347
+    tier: reference
+    publisher: arXiv
+  - title: Silver et al. (2016), Mastering the Game of Go with Deep Neural Networks and Tree Search
+    url: https://doi.org/10.1038/nature16961
+    tier: reference
+    publisher: Nature
+  - title: ISO/IEC 22989:2022, Artificial intelligence concepts and terminology
+    url: https://www.iso.org/standard/74296.html
     tier: standard
     publisher: ISO/IEC
 draft: true

@@ -831,6 +831,42 @@ ai:
     - id: transfer-learning
       en: Transfer learning
       da: Overførselslæring (transfer learning)
+    - id: feature
+      en: Feature
+      da: Feature (inputvariabel)
+    - id: label
+      en: Label
+      da: Label (mærkat)
+    - id: feature-engineering
+      en: Feature engineering
+      da: Feature engineering
+    - id: linear-regression
+      en: Linear regression
+      da: Lineær regression
+    - id: logistic-regression
+      en: Logistic regression
+      da: Logistisk regression
+    - id: decision-tree
+      en: Decision tree
+      da: Beslutningstræ
+    - id: random-forest
+      en: Random forest
+      da: Random forest
+    - id: gradient-boosting
+      en: Gradient boosting
+      da: Gradient boosting
+    - id: k-means
+      en: k-means clustering
+      da: k-means-klyngeanalyse
+    - id: dimensionality-reduction
+      en: Dimensionality reduction
+      da: Dimensionsreduktion
+    - id: bias-variance-tradeoff
+      en: Bias-variance trade-off
+      da: Bias-varians-afvejning
+    - id: activation-function
+      en: Activation function
+      da: Aktiveringsfunktion
   llm:
     - id: large-language-model
       en: Large language model (LLM)
@@ -980,6 +1016,12 @@ ai:
     - id: lora
       en: Low-rank adaptation (LoRA)
       da: Low-rank adaptation (LoRA)
+    - id: regularization
+      en: Regularization
+      da: Regularisering
+    - id: learning-rate
+      en: Learning rate
+      da: Læringsrate
   evaluation:
     - id: accuracy
       en: Accuracy
@@ -1011,6 +1053,12 @@ ai:
     - id: llm-as-a-judge
       en: LLM-as-a-judge
       da: LLM som dommer (LLM-as-a-judge)
+    - id: cross-validation
+      en: Cross-validation
+      da: Krydsvalidering
+    - id: data-drift
+      en: Data drift
+      da: Dataskred (data drift)
   model-architecture:
     - id: attention-mechanism
       en: Attention mechanism

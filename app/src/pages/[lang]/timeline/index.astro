@@ -58,9 +58,10 @@ const domains = [...new Set(dated.map((t) => t.home))].sort(
 const domainLabels = Object.fromEntries(
   Object.entries(DOMAIN_LABELS).map(([d, l]) => [d, l[lang]]),
 );
-const domainColours = Object.fromEntries(
-  [...new Set([...domains, ...dated.flatMap((t) => t.domain)])].map((d) => [d, domainColour(d)]),
-);
+const allDomains = [...new Set([...domains, ...dated.flatMap((t) => t.domain)])];
+const domainColours = Object.fromEntries(allDomains.map((d) => [d, domainColour(d)]));
+// The cream map's deeper shades (A92); the page shows whichever matches the theme.
+const domainColoursLight = Object.fromEntries(allDomains.map((d) => [d, domainColour(d, 'light')]));
 const range = axisRange(dated.map((t) => t.year));
 
 // The accessible list view: every dated term by decade (also the no-JavaScript fallback
@@ -99,14 +100,14 @@ const panel = {
     {items.length === 0 && <p class="text-muted">{ui.noDated}</p>}
     {items.length > 0 && (
       <div id="timeline">
-        {/* The chart stays a dark "night map" in the light theme (A92). */}
-        <div data-theme="dark" class="night-map bg-bg text-fg">
+        <div class="text-fg">
           <Timeline
             client:idle
             items={items}
             domains={domains}
             domainLabels={domainLabels}
             domainColours={domainColours}
+            domainColoursLight={domainColoursLight}
             range={range}
             eraLabels={eras}
             text={{ ...tlText, allDomains: ui.allDomains }}
@@ -127,8 +128,12 @@ const panel = {
                       <span class="w-10 shrink-0 font-mono text-xs text-subtle">{t.year}</span>
                       <span
                         aria-hidden="true"
-                        class="inline-block h-2 w-2 shrink-0 rounded-full"
-                        style={{ background: domainColours[t.home] }}
+                        class="map-ink inline-block h-2 w-2 shrink-0 rounded-full"
+                        style={{
+                          '--ink-d': domainColours[t.home],
+                          '--ink-l': domainColoursLight[t.home],
+                          background: 'var(--ink)',
+                        }}
                       />
                       <a class="text-fg hover:underline" href={t.href}>
                         {t.name}

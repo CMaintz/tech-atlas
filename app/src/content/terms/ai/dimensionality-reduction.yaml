@@ -1,0 +1,89 @@
+term:
+  en: Dimensionality reduction
+  da: Dimensionsreduktion
+aka:
+  en: [dimension reduction]
+  da: [reduktion af dimensioner]
+domain: [ai]
+cluster: ml-fundamentals
+layer: model
+status: current
+summary:
+  en: Squeezing many inputs about each example into a few new ones that keep most of what tells the examples apart.
+  da: At presse mange input om hvert eksempel sammen til få nye, der bevarer det meste af det, der adskiller eksemplerne.
+body:
+  formal:
+    en: A method that maps examples described by many features to a much smaller number of new values while keeping as much of their spread or closeness as possible, used to speed up models, cut noise or draw data on a flat map.
+    da: En metode, der afbilder eksempler beskrevet af mange features over i et langt mindre antal nye værdier og samtidig bevarer så meget af deres spredning eller indbyrdes nærhed som muligt; bruges til at gøre modeller hurtigere, fjerne støj eller tegne data på et fladt kort.
+  plain:
+    en: Like the shadow a hand throws on a wall, a flat outline of something solid, yet from the right angle you can still tell a dog from a bird.
+    da: Som den skygge en hånd kaster på en væg, et fladt omrids af noget massivt, men fra den rette vinkel kan man stadig se forskel på en hund og en fugl.
+  inPractice:
+    en: A shop has a survey with eighty questions per customer; an analyst boils them down to three summary scores and draws the customers on a chart, where clear groups appear.
+    da: En butik har et spørgeskema med firs spørgsmål pr. kunde; en analytiker koger dem ned til tre samlede scorer og tegner kunderne i et diagram, hvor tydelige grupper viser sig.
+  whyItMatters:
+    en: With too many inputs, models get slow, need far more examples and find chance patterns; fewer inputs also let people actually look at the data.
+    da: Med for mange input bliver modeller langsomme, kræver langt flere eksempler og finder tilfældige mønstre; færre input lader også mennesker faktisk se på data.
+deepDive:
+  en: |-
+    Principal component analysis (PCA), introduced by Pearson (1901) as fitting lines and planes of closest fit, is the reference linear method. scikit-learn describes it as decomposing a multivariate dataset into a set of successive orthogonal components that explain a maximum amount of the variance. In practice the data is centred (scikit-learn centres but does not scale), the singular value decomposition is computed, and each example is projected onto the top k right singular vectors; the explained variance ratio of each component guides the choice of k. Because PCA is sensitive to feature scale, features are normally standardised first. Variants include incremental and randomised PCA for large data, TruncatedSVD for sparse matrices (latent semantic analysis on text), kernel PCA for non-linear structure, and NMF when components should be non-negative.
+
+    Non-linear manifold learning methods assume the data lies near a lower-dimensional surface inside the high-dimensional space. Isomap, locally linear embedding, t-SNE (van der Maaten and Hinton, 2008) and UMAP are the common ones. t-SNE and UMAP are mainly visualisation tools: scikit-learn warns that t-SNE is stochastic, can land in local minima and does not preserve global structure, so distances between clusters and cluster sizes in a t-SNE plot should not be read literally. Autoencoders learn a non-linear compression with a neural network bottleneck, and learned embeddings from deep models are themselves a form of dimensionality reduction.
+
+    Dimensionality reduction is distinct from feature selection, which keeps a subset of the original columns rather than building new combined ones; selected features stay interpretable, while principal components are mixtures that are harder to explain. The motivation is the curse of dimensionality: as dimensions grow, data becomes sparse, distances concentrate so nearest neighbours become less meaningful, and the number of examples needed to cover the space grows exponentially.
+
+    Reduction is fitted like any other learned transform, on training data only, and then applied to held-out data. Supervised alternatives such as linear discriminant analysis use the labels to choose directions that separate classes, whereas PCA ignores labels and can discard low-variance directions that happen to be the most predictive.
+  da: |-
+    Principal component analysis (PCA, hovedkomponentanalyse), som Pearson (1901) introducerede som tilpasning af linjer og planer, der ligger tættest på data, er den klassiske lineære metode. scikit-learn beskriver den som en opdeling af et flerdimensionalt datasæt i en række på hinanden følgende ortogonale komponenter, der forklarer mest mulig varians. I praksis centreres data (scikit-learn centrerer, men skalerer ikke), singulærværdidekompositionen beregnes, og hvert eksempel projiceres ned på de k øverste højre singulærvektorer; hver komponents andel af den forklarede varians styrer valget af k. Da PCA er følsom over for skalaen, standardiseres features normalt først. Varianter er inkrementel og randomiseret PCA til store datamængder, TruncatedSVD til sparse matricer (latent semantisk analyse af tekst), kernel-PCA til ikke-lineær struktur og NMF, når komponenterne skal være ikke-negative.
+
+    Ikke-lineære manifold learning-metoder antager, at data ligger tæt på en lavdimensional flade inde i det højdimensionale rum. Isomap, locally linear embedding, t-SNE (van der Maaten og Hinton, 2008) og UMAP er de almindelige. t-SNE og UMAP er især visualiseringsværktøjer: scikit-learn advarer om, at t-SNE er stokastisk, kan havne i lokale minima og ikke bevarer den globale struktur, så afstande mellem klynger og klyngestørrelser i et t-SNE-plot ikke skal tages bogstaveligt. Autoencodere lærer en ikke-lineær komprimering med en flaskehals i et neuralt netværk, og lærte embeddings fra dybe modeller er i sig selv en form for dimensionsreduktion.
+
+    Dimensionsreduktion er noget andet end feature-udvælgelse, som beholder en delmængde af de oprindelige kolonner i stedet for at bygge nye sammensatte; udvalgte features forbliver fortolkelige, mens hovedkomponenter er blandinger, der er sværere at forklare. Motivationen er dimensionalitetens forbandelse: Når antallet af dimensioner vokser, bliver data spredte, afstande ligner hinanden mere, så nærmeste naboer betyder mindre, og antallet af eksempler, der skal til for at dække rummet, vokser eksponentielt.
+
+    Reduktionen tilpasses som enhver anden lært transformation på træningsdata alene og anvendes derefter på tilbageholdte data. Superviserede alternativer som lineær diskriminantanalyse bruger labels til at vælge retninger, der adskiller klasserne, mens PCA ignorerer labels og kan kassere retninger med lav varians, som tilfældigvis er de mest forudsigende.
+edges:
+  requires: [feature]
+  part-of:
+    - to: unsupervised-learning
+      why:
+        en: The common methods, such as principal component analysis, find structure in the inputs alone without using any labels.
+        da: De almindelige metoder, fx hovedkomponentanalyse, finder struktur i inputtet alene uden at bruge labels.
+      strength: normal
+      confidence: medium
+  used-with:
+    - to: embedding
+      why:
+        en: Embeddings with hundreds of numbers are often squeezed down to two or three so people can draw and inspect them.
+        da: Embeddings med hundredvis af tal presses ofte ned til to eller tre, så mennesker kan tegne og undersøge dem.
+      strength: normal
+      confidence: high
+    - to: feature-engineering
+      why:
+        en: Squeezing many inputs into fewer is a common step when preparing inputs for a model.
+        da: At presse mange input sammen til færre er et almindeligt trin, når input til en model forberedes.
+      strength: normal
+      confidence: high
+    - to: k-means
+      why:
+        en: Grouping examples works better after reducing the inputs, because distances between points mean more in fewer dimensions.
+        da: Gruppering af eksempler fungerer bedre efter en reduktion af input, fordi afstande mellem punkter betyder mere i færre dimensioner.
+      strength: minor
+      confidence: medium
+sources:
+  - title: scikit-learn User Guide, Decomposing signals in components (matrix factorization problems)
+    url: https://scikit-learn.org/stable/modules/decomposition.html
+    tier: official-doc
+    publisher: scikit-learn
+  - title: scikit-learn User Guide, Manifold learning
+    url: https://scikit-learn.org/stable/modules/manifold.html
+    tier: official-doc
+    publisher: scikit-learn
+  - title: Pearson (1901), On Lines and Planes of Closest Fit to Systems of Points in Space
+    url: https://doi.org/10.1080/14786440109462720
+    tier: reference
+    publisher: Philosophical Magazine
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning, sec. 2.12 Principal Components Analysis'
+    url: https://www.deeplearningbook.org/
+    tier: textbook
+    publisher: MIT Press
+draft: true

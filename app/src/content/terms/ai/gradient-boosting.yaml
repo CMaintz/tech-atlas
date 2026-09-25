@@ -1,0 +1,70 @@
+term:
+  en: Gradient boosting
+  da: Gradient boosting
+aka:
+  en: [gradient boosted trees, GBM, XGBoost]
+  da: [gradient boosted trees, GBM, XGBoost]
+domain: [ai]
+cluster: ml-fundamentals
+layer: model
+status: current
+summary:
+  en: A method that adds small decision trees one after another, each built to fix the mistakes the trees before it still make.
+  da: En metode, der tilføjer små beslutningstræer ét ad gangen, hvor hvert nyt træ bygges til at rette de fejl, de tidligere træer stadig laver.
+body:
+  formal:
+    en: A way of building a strong model from many weak ones, usually small decision tree models, where each new tree is trained on what the current model still gets wrong, as measured by a loss function, and added with a small weight.
+    da: En måde at bygge en stærk model af mange svage på, som regel små beslutningstræer, hvor hvert nyt træ trænes på det, den nuværende model stadig tager fejl af målt med en tabsfunktion, og lægges til med en lille vægt.
+  plain:
+    en: Like a team of editors passing a text along; the first fixes the worst errors, the next fixes what the first missed, and after many rounds very few errors are left.
+    da: Som et hold redaktører, der sender en tekst videre. Den første retter de værste fejl, den næste retter det, den første overså, og efter mange runder er der meget få fejl tilbage.
+  inPractice:
+    en: A Danish online shop predicts which orders will be returned from the product, the price, the customer's history and the time of day, and has found it more accurate than the other methods it tried.
+    da: En dansk netbutik forudsiger, hvilke ordrer der bliver sendt retur, ud fra varen, prisen, kundens historik og tidspunktet, og har fundet det mere præcist end de andre metoder, den har prøvet.
+  whyItMatters:
+    en: It is often the most accurate choice for data in tables, such as bank, sales or health records, and wins many public contests there, often beating deep learning.
+    da: Det er ofte det mest præcise valg til data i tabeller som bank-, salgs- eller sundhedsdata og vinder mange offentlige konkurrencer der, ofte foran deep learning.
+deepDive:
+  en: |-
+    Boosting builds an additive model F(x) = sum of nu * h_m(x) stage by stage. Friedman (2001, Annals of Statistics) framed it as gradient descent in function space: at each stage a new weak learner h_m, typically a small regression tree, is fitted to the negative gradient of the loss with respect to the current predictions (the pseudo-residuals) and added with a shrinkage factor, the learning rate nu. For squared error the pseudo-residuals are simply the residuals; other differentiable losses give log-loss for classification or Huber and quantile losses for robust regression. AdaBoost (Freund and Schapire, 1997) is an earlier boosting method that turns out to be a special case with exponential loss.
+
+    The main hyperparameters interact: a smaller learning rate needs more trees but usually generalises better; tree depth (often 3 to 8 levels) controls how many features can interact; and subsampling rows or columns per tree (stochastic gradient boosting, Friedman 2002) adds regularisation. Because each tree corrects the previous ones, boosting mainly reduces bias and, unlike a random forest, can overfit as trees are added, so the number of rounds is set by early stopping on a validation set.
+
+    Modern libraries made the method fast and dominant on tabular data. XGBoost (Chen and Guestrin, KDD 2016) added a second-order approximation of the loss, explicit L1 and L2 penalties on leaf weights, sparsity-aware split finding and cache-aware parallel construction. LightGBM (Ke et al., 2017) uses histogram-based splits and leaf-wise growth, and CatBoost (Prokhorenkova et al., 2018) uses ordered boosting and native handling of categorical features. scikit-learn provides HistGradientBoostingClassifier and Regressor in the same histogram style.
+
+    Benchmarks such as Grinsztajn et al. (2022) found tree-based ensembles still outperform deep learning on typical medium-sized tabular datasets. The costs are sequential training that parallelises only within a tree, more sensitive tuning than random forests, and predictions that cannot extrapolate beyond the range seen in training.
+  da: |-
+    Boosting bygger en additiv model F(x) = summen af nu * h_m(x) trin for trin. Friedman (2001, Annals of Statistics) formulerede det som gradientnedstigning i funktionsrummet: I hvert trin tilpasses en ny svag model h_m, typisk et lille regressionstræ, til den negative gradient af tabet med hensyn til de nuværende forudsigelser (pseudo-residualerne) og lægges til med en skrumpningsfaktor, læringsraten nu. Ved kvadreret fejl er pseudo-residualerne blot residualerne; andre differentiable tabsfunktioner giver log-loss til klassifikation eller Huber- og kvantiltab til robust regression. AdaBoost (Freund og Schapire, 1997) er en tidligere boostingmetode, der viser sig at være et specialtilfælde med eksponentielt tab.
+
+    De vigtigste hyperparametre påvirker hinanden: En mindre læringsrate kræver flere træer, men generaliserer som regel bedre; træernes dybde (ofte 3 til 8 niveauer) styrer, hvor mange features der kan spille sammen; og udvælgelse af rækker eller kolonner pr. træ (stochastic gradient boosting, Friedman 2002) virker regulariserende. Fordi hvert træ retter de foregående, mindsker boosting især bias og kan, i modsætning til en random forest, overtilpasse, når der tilføjes flere træer, så antallet af runder fastsættes med early stopping på et valideringssæt.
+
+    Moderne biblioteker har gjort metoden hurtig og dominerende på tabeldata. XGBoost (Chen og Guestrin, KDD 2016) tilføjede en andenordens approksimation af tabet, eksplicitte L1- og L2-straffe på bladvægte, sparsity-bevidst søgning efter opdelinger og cachebevidst parallel opbygning. LightGBM (Ke m.fl., 2017) bruger histogrambaserede opdelinger og bladvis vækst, og CatBoost (Prokhorenkova m.fl., 2018) bruger ordered boosting og indbygget håndtering af kategoriske features. scikit-learn tilbyder HistGradientBoostingClassifier og -Regressor i samme histogramstil.
+
+    Benchmarks som Grinsztajn m.fl. (2022) fandt, at træbaserede ensembler stadig slår deep learning på typiske mellemstore tabeldatasæt. Prisen er sekventiel træning, der kun kan paralleliseres inden for et træ, mere følsom tuning end random forests og forudsigelser, der ikke kan ekstrapolere ud over det interval, der blev set under træningen.
+edges:
+  requires: [decision-tree, loss-function]
+  alternative-to:
+    - to: random-forest
+      why:
+        en: Both combine many decision trees for data in tables; a random forest builds them apart and averages, while gradient boosting builds them in turn, each fixing the last.
+        da: Begge kombinerer mange beslutningstræer til data i tabeller; en random forest bygger dem hver for sig og tager gennemsnittet, mens gradient boosting bygger dem efter hinanden, så hvert retter det forrige.
+      strength: primary
+      confidence: high
+sources:
+  - title: 'Friedman (2001), Greedy Function Approximation: A Gradient Boosting Machine'
+    url: https://doi.org/10.1214/aos/1013203451
+    tier: reference
+    publisher: Annals of Statistics
+  - title: 'Chen & Guestrin (2016), XGBoost: A Scalable Tree Boosting System'
+    url: https://arxiv.org/abs/1603.02754
+    tier: reference
+    publisher: ACM SIGKDD
+  - title: 'scikit-learn User Guide, 1.11 Ensembles: gradient boosting'
+    url: https://scikit-learn.org/stable/modules/ensemble.html#gradient-boosted-trees
+    tier: official-doc
+    publisher: scikit-learn
+  - title: 'Grinsztajn, Oyallon & Varoquaux (2022), Why do tree-based models still outperform deep learning on tabular data?'
+    url: https://arxiv.org/abs/2207.08815
+    tier: reference
+    publisher: NeurIPS Datasets and Benchmarks
+draft: true

@@ -30,21 +30,21 @@ deepDive:
 
     Detection requires honest held-out evaluation: a validation set or k-fold cross-validation for model selection, and an untouched test set for the final number. Learning curves showing training loss still falling while validation loss rises are the typical signature, and early stopping halts training at the validation minimum. A related but distinct problem is overfitting to the validation or test set itself, through repeated tuning against it or by picking the best of many runs; public benchmarks suffer from this at community scale.
 
-    Standard countermeasures are more or more diverse data, data augmentation, reducing capacity, and regularisation: L2 penalties (weight decay, ridge) shrink weights, L1 penalties (lasso) drive some to zero, and dropout (Srivastava et al., 2014) randomly disables units during training, with p = 0.5 for hidden units as the original default. Ensembles and bagging reduce variance by averaging models. Starting from a pretrained model through transfer learning also helps when task data is small.
+    Standard countermeasures are more or more diverse data, data augmentation, reducing capacity, and regularisation: L2 penalties (weight decay, ridge) shrink weights, L1 penalties (lasso) drive some to zero, and dropout (Srivastava et al., 2014) randomly disables units during training; the paper keeps each hidden unit with probability 0.5 and each input unit with a higher probability, around 0.8. Ensembles and bagging reduce variance by averaging models. Starting from a pretrained model through transfer learning also helps when task data is small.
 
-    Deep learning complicates the classical story. Zhang et al. (2017) showed that standard image networks can reach zero training error on randomly shuffled labels, so capacity alone cannot explain why they generalise on real labels. Belkin et al. (2019) described double descent: test error can rise near the interpolation threshold, where the model just fits the training set, and then fall again as models grow much larger. Large overparameterised models can therefore generalise well despite fitting the training data perfectly, which is why parameter count is a poor proxy for overfitting risk.
+    Deep learning complicates the classical story. Zhang et al. (2017) showed that standard image networks can reach zero training error on randomly assigned labels, so capacity alone cannot explain why they generalise on real labels. Belkin et al. (2019) described double descent: test error can rise near the interpolation threshold, where the model just fits the training set, and then fall again as models grow much larger. Large overparameterised models can therefore generalise well despite fitting the training data perfectly, which is why parameter count is a poor proxy for overfitting risk.
 
-    Overfitting and memorisation are related but not identical. A model can generalise well on average while still memorising rare or duplicated training sequences verbatim. Carlini et al. (2021) extracted verbatim training examples, including personal contact details, from GPT-2, and membership inference attacks (Shokri et al., 2017) exploit the confidence difference between seen and unseen records to test whether a record was in the training set. Deduplication and differential privacy during training (DP-SGD) are the main technical mitigations.
+    Overfitting and memorisation are related but not identical. A model can generalise well on average while still memorising rare or duplicated training sequences verbatim. Carlini et al. (2021) extracted verbatim training examples, including names, phone numbers and email addresses, from GPT-2, even some that appeared only once in the training data, and membership inference attacks (Shokri et al., 2017) exploit the confidence difference between seen and unseen records to test whether a record was in the training set. Deduplication and differential privacy during training (DP-SGD) are the main technical mitigations.
   da: |-
     Overtilpasning måles med generaliseringsgabet: forskellen mellem fejlen på træningsdata og fejlen på data fra samme fordeling, som modellen aldrig har set. Den klassiske forklaring er bias-varians-dekompositionen af den forventede kvadrerede fejl i bias i anden, varians og irreducibel støj. Simple modeller har høj bias og undertilpasser; meget fleksible modeller har høj varians, dvs. deres tilpasning ændrer sig meget med den konkrete stikprøve, og overtilpasser. Lærebogsbilledet er en U-formet testfejlkurve, når modelkapaciteten vokser, med den bedste model i bunden af U'et.
 
     Opdagelse kræver ærlig evaluering på tilbageholdte data: et valideringssæt eller k-fold-krydsvalidering til modelvalg og et urørt testsæt til det endelige tal. Læringskurver, hvor træningstabet stadig falder, mens valideringstabet stiger, er det typiske kendetegn, og early stopping stopper træningen ved valideringsminimum. Et beslægtet, men særskilt problem er overtilpasning til selve validerings- eller testsættet gennem gentagen tuning mod det eller ved at vælge den bedste af mange kørsler; offentlige benchmarks lider under dette i fællesskabsskala.
 
-    De almindelige modtræk er flere eller mere varierede data, dataaugmentering, mindre kapacitet og regularisering: L2-straf (weight decay, ridge) skrumper vægtene, L1-straf (lasso) sætter nogle af dem til nul, og dropout (Srivastava m.fl., 2014) slår tilfældigt enheder fra under træning med p = 0,5 for skjulte enheder som den oprindelige standardværdi. Ensembler og bagging reducerer variansen ved at tage gennemsnit over modeller. At starte fra en fortrænet model via overførselslæring hjælper også, når der er få opgavedata.
+    De almindelige modtræk er flere eller mere varierede data, dataaugmentering, mindre kapacitet og regularisering: L2-straf (weight decay, ridge) skrumper vægtene, L1-straf (lasso) sætter nogle af dem til nul, og dropout (Srivastava m.fl., 2014) slår tilfældigt enheder fra under træning; artiklen beholder hver skjult enhed med sandsynlighed 0,5 og hver inputenhed med en højere sandsynlighed, omkring 0,8. Ensembler og bagging reducerer variansen ved at tage gennemsnit over modeller. At starte fra en fortrænet model via overførselslæring hjælper også, når der er få opgavedata.
 
-    Deep learning komplicerer den klassiske fortælling. Zhang m.fl. (2017) viste, at almindelige billednetværk kan nå nul træningsfejl på tilfældigt ombyttede mærkater, så kapacitet alene kan ikke forklare, hvorfor de generaliserer på rigtige mærkater. Belkin m.fl. (2019) beskrev double descent: Testfejlen kan stige nær interpolationstærsklen, hvor modellen netop kan passe træningssættet, og derefter falde igen, når modellerne bliver meget større. Store overparametriserede modeller kan altså generalisere godt, selv om de passer træningsdata perfekt, og derfor er antallet af parametre en dårlig indikator for risikoen for overtilpasning.
+    Deep learning komplicerer den klassiske fortælling. Zhang m.fl. (2017) viste, at almindelige billednetværk kan nå nul træningsfejl på tilfældigt tildelte mærkater, så kapacitet alene kan ikke forklare, hvorfor de generaliserer på rigtige mærkater. Belkin m.fl. (2019) beskrev double descent: Testfejlen kan stige nær interpolationstærsklen, hvor modellen netop kan passe træningssættet, og derefter falde igen, når modellerne bliver meget større. Store overparametriserede modeller kan altså generalisere godt, selv om de passer træningsdata perfekt, og derfor er antallet af parametre en dårlig indikator for risikoen for overtilpasning.
 
-    Overtilpasning og udenadslære hænger sammen, men er ikke det samme. En model kan generalisere godt i gennemsnit og alligevel huske sjældne eller gentagne træningssekvenser ordret. Carlini m.fl. (2021) udtrak ordrette træningseksempler, herunder personlige kontaktoplysninger, fra GPT-2, og membership inference-angreb (Shokri m.fl., 2017) udnytter forskellen i sikkerhed mellem sete og usete poster til at teste, om en post var med i træningssættet. Deduplikering og differentiel privatliv under træningen (DP-SGD) er de vigtigste tekniske afhjælpninger.
+    Overtilpasning og udenadslære hænger sammen, men er ikke det samme. En model kan generalisere godt i gennemsnit og alligevel huske sjældne eller gentagne træningssekvenser ordret. Carlini m.fl. (2021) udtrak ordrette træningseksempler, herunder navne, telefonnumre og e-mailadresser, fra GPT-2, også nogle, der kun optrådte én gang i træningsdata, og membership inference-angreb (Shokri m.fl., 2017) udnytter forskellen i sikkerhed mellem sete og usete poster til at teste, om en post var med i træningssættet. Deduplikering og differentiel privatliv under træningen (DP-SGD) er de vigtigste tekniske afhjælpninger.
 edges:
   requires: [model-training, training-data]
   causes:
@@ -62,13 +62,32 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: 'Goodfellow, Bengio & Courville, Deep Learning'
+  - title: 'Goodfellow, Bengio & Courville (2016), Deep Learning'
+    url: https://www.deeplearningbook.org/
     tier: textbook
     publisher: MIT Press
-  - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+  - title: 'Russell & Norvig (2020), Artificial Intelligence: A Modern Approach, 4th edition'
+    url: https://aima.cs.berkeley.edu/
     tier: textbook
     publisher: Pearson
   - title: Carlini et al. (2021), Extracting Training Data from Large Language Models
+    url: https://www.usenix.org/conference/usenixsecurity21/presentation/carlini-extracting
     tier: reference
     publisher: USENIX Security Symposium
+  - title: 'Srivastava et al. (2014), Dropout: A Simple Way to Prevent Neural Networks from Overfitting'
+    url: https://jmlr.org/papers/v15/srivastava14a.html
+    tier: reference
+    publisher: Journal of Machine Learning Research
+  - title: Zhang et al. (2017), Understanding Deep Learning Requires Rethinking Generalization
+    url: https://arxiv.org/abs/1611.03530
+    tier: reference
+    publisher: ICLR 2017
+  - title: Belkin et al. (2019), Reconciling Modern Machine-Learning Practice and the Classical Bias-Variance Trade-off
+    url: https://arxiv.org/abs/1812.11118
+    tier: reference
+    publisher: PNAS
+  - title: Shokri et al. (2017), Membership Inference Attacks Against Machine Learning Models
+    url: https://arxiv.org/abs/1610.05820
+    tier: reference
+    publisher: IEEE Symposium on Security and Privacy
 draft: true

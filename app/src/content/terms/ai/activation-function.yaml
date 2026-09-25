@@ -1,0 +1,66 @@
+term:
+  en: Activation function
+  da: Aktiveringsfunktion
+aka:
+  en: [nonlinearity]
+  da: [activation function]
+domain: [ai]
+cluster: ml-fundamentals
+layer: model
+status: current
+summary:
+  en: The rule each unit in a neural network applies to its summed input, letting the network learn curved rather than straight patterns.
+  da: Reglen, hver enhed i et neuralt netværk bruger på sit samlede input, så netværket kan lære krumme og ikke kun lige mønstre.
+body:
+  formal:
+    en: A fixed function applied to the weighted sum of inputs at each unit of a neural network; because it is not a straight line, stacking layers can represent complex patterns, whereas without it any number of layers would collapse into a single straight-line mapping.
+    da: En fast funktion, der anvendes på den vægtede sum af input i hver enhed i et neuralt netværk; fordi den ikke er en ret linje, kan lag oven på hinanden beskrive komplekse mønstre, hvor et vilkårligt antal lag uden den ville falde sammen til én lineær afbildning.
+  plain:
+    en: Like a dimmer switch that stays fully off until you turn it past a certain point, then lets more light through the further you turn. That bend is what lets many simple switches together make rich patterns of light.
+    da: Som en lysdæmper, der er helt slukket, indtil man drejer den forbi et bestemt punkt, og derefter giver mere lys, jo længere man drejer. Det knæk er det, der lader mange simple kontakter tilsammen skabe rige mønstre af lys.
+  inPractice:
+    en: A student's deep network for sorting plant photos stops learning after a few layers; swapping the old S-shaped function for one that simply passes positive values through and blocks negative ones gets it learning again.
+    da: En studerendes dybe netværk til at sortere plantefotos holder op med at lære efter nogle få lag; ved at skifte den gamle S-formede funktion ud med en, der blot sender positive værdier videre og blokerer negative, begynder det at lære igen.
+  whyItMatters:
+    en: The choice decides whether a deep network can learn at all and how fast, and it shapes what kind of patterns the network is able to express.
+    da: Valget afgør, om et dybt netværk overhovedet kan lære, og hvor hurtigt, og det former, hvilke mønstre netværket kan udtrykke.
+deepDive:
+  en: |-
+    A unit computes a = phi(w . x + b). If phi is linear, a stack of layers is a composition of affine maps and therefore itself affine, so depth adds no expressive power. With a suitable non-polynomial phi, a network with one hidden layer is a universal approximator of continuous functions on compact sets (Cybenko, 1989; Hornik, 1991; Leshno et al., 1993), and depth makes many functions far cheaper to represent. The activation also sets the gradient that backpropagation multiplies through each layer, which is why its derivative matters as much as its shape.
+
+    The logistic sigmoid 1/(1 + e^-x) and tanh dominated early networks. Both saturate: for large positive or negative inputs their derivative is close to zero (the sigmoid's derivative is at most 0.25), so gradients shrink geometrically as they flow back through many layers, the vanishing gradient problem. The rectified linear unit, ReLU(x) = max(0, x), was popularised by Nair and Hinton (2010) and by Glorot, Bordes and Bengio (2011), who showed deep rectifier networks could train well without unsupervised pretraining. ReLU has derivative 1 for positive inputs and gives sparse activations, but units stuck at negative inputs output zero forever (dying ReLU), which led to Leaky ReLU, PReLU and ELU.
+
+    Modern transformers mostly use smooth gated variants. GELU (Hendrycks and Gimpel, 2016) is x times the standard normal CDF of x and is used in BERT and GPT-2; SiLU or Swish is x times sigmoid(x); SwiGLU, a gated linear unit with a Swish gate, is used in the feed-forward blocks of models such as PaLM and LLaMA. Output layers use task-specific functions rather than hidden-layer activations: sigmoid for independent binary outputs, softmax for a probability distribution over classes or tokens, and identity for regression. Activation choice interacts with weight initialisation: Glorot (Xavier) initialisation suits tanh, while He initialisation is derived for ReLU. PyTorch provides these as torch.nn modules such as ReLU, GELU, SiLU, Sigmoid, Tanh and Softmax.
+  da: |-
+    En enhed beregner a = phi(w . x + b). Hvis phi er lineær, er en stak af lag en sammensætning af affine afbildninger og dermed selv affin, så dybde giver ingen ekstra udtrykskraft. Med en passende ikke-polynomiel phi er et netværk med ét skjult lag en universel approksimator af kontinuerte funktioner på kompakte mængder (Cybenko, 1989; Hornik, 1991; Leshno m.fl., 1993), og dybde gør mange funktioner langt billigere at repræsentere. Aktiveringen bestemmer også den gradient, som backpropagation ganger igennem hvert lag, og derfor betyder dens afledte lige så meget som dens form.
+
+    Den logistiske sigmoid 1/(1 + e^-x) og tanh dominerede de tidlige netværk. Begge mættes: For store positive eller negative input er deres afledte tæt på nul (sigmoidens afledte er højst 0,25), så gradienterne skrumper geometrisk, når de løber tilbage gennem mange lag, det såkaldte vanishing gradient-problem. Den ensrettede lineære enhed, ReLU(x) = max(0, x), blev udbredt af Nair og Hinton (2010) og af Glorot, Bordes og Bengio (2011), som viste, at dybe netværk med ensrettere kunne trænes godt uden ikke-superviseret fortræning. ReLU har afledt 1 for positive input og giver sparsomme aktiveringer, men enheder, der sidder fast i negative input, giver nul for evigt (dying ReLU), hvilket førte til Leaky ReLU, PReLU og ELU.
+
+    Moderne transformere bruger mest glatte varianter med gating. GELU (Hendrycks og Gimpel, 2016) er x gange normalfordelingens fordelingsfunktion i x og bruges i BERT og GPT-2; SiLU eller Swish er x gange sigmoid(x); SwiGLU, en gated linear unit med Swish som gate, bruges i feed-forward-blokkene i modeller som PaLM og LLaMA. Outputlag bruger opgavespecifikke funktioner frem for de skjulte lags aktiveringer: sigmoid til uafhængige binære output, softmax til en sandsynlighedsfordeling over klasser eller tokens og identiteten til regression. Valget af aktivering hænger sammen med initialiseringen af vægtene: Glorot-initialisering (Xavier) passer til tanh, mens He-initialisering er udledt til ReLU. PyTorch leverer dem som torch.nn-moduler, fx ReLU, GELU, SiLU, Sigmoid, Tanh og Softmax.
+edges:
+  part-of: [neural-network]
+  used-with:
+    - to: backpropagation
+      why:
+        en: Backpropagation passes the error back through the slope of each unit's rule, so a rule whose slope is almost flat makes the early layers stop learning.
+        da: Backpropagation sender fejlen tilbage gennem hældningen af hver enheds regel, så en regel med næsten flad hældning får de tidlige lag til at holde op med at lære.
+      strength: primary
+      confidence: high
+sources:
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning, ch. 6: Deep Feedforward Networks'
+    url: https://www.deeplearningbook.org/contents/mlp.html
+    tier: textbook
+    publisher: MIT Press
+  - title: PyTorch documentation, torch.nn (non-linear activations)
+    url: https://docs.pytorch.org/docs/stable/nn.html
+    tier: official-doc
+    publisher: PyTorch
+  - title: Glorot, Bordes & Bengio (2011), Deep Sparse Rectifier Neural Networks
+    url: https://proceedings.mlr.press/v15/glorot11a.html
+    tier: reference
+    publisher: AISTATS 2011
+  - title: Hendrycks & Gimpel (2016), Gaussian Error Linear Units (GELUs)
+    url: https://arxiv.org/abs/1606.08415
+    tier: reference
+    publisher: arXiv
+draft: true
