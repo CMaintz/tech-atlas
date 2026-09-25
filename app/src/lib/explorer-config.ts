@@ -150,6 +150,11 @@ export const EXPLORER = {
     nodeRel: 3.2,
     glowScale: 24,
     glowOpacity: 0.5,
+    /**
+     * A sphere at least this opaque hides what is behind it; a receded one (dimmed by a
+     * selection, hover or route) writes no depth, so the lines behind it show (A96).
+     */
+    solidOpacity: 0.5,
     linkAlpha: 0.2,
     hubLabels: 18,
     hubLabelHeight: 24,

@@ -34,6 +34,15 @@ const hexRgb = (hex: string) => {
 };
 const rgba = (hex: string, a: number) => `rgba(${hexRgb(hex).join(',')},${a})`;
 
+/** Transparent draw order (three.js sorts by renderOrder before distance). */
+const DRAW = { glow: -1, solid: 0, links: 1, receded: 2, flow: 3 } as const;
+/** A 3d-force-graph object as the per-frame draw-order pass sees it. */
+type Obj3 = {
+  __graphObjType?: string;
+  renderOrder: number;
+  material?: { opacity: number; depthWrite: boolean };
+};
+
 export async function createMap3D(opts: {
   container: HTMLElement;
   graph: Graph;
@@ -150,6 +159,22 @@ export async function createMap3D(opts: {
   const scene = fg.scene();
   scene.fog = new THREE.FogExp2(cfg.background, cfg.fogDensity);
 
+  // ---- Draw order (A96): every sphere is transparent (nodeOpacity < 1), so three.js
+  // sorted each against the one merged web by distance, and a receded sphere drawn
+  // first wrote depth and erased every line behind it. A fixed order instead: glow, the
+  // solid spheres (they write depth, so they still hide what is behind them), the
+  // lines, the receded spheres (no depth write: the lines show through), the comets.
+  // The sphere materials are 3d-force-graph's, swapped on its schedule: every frame.
+  scene.onBeforeRender = () =>
+    scene.traverse((obj) => {
+      const o = obj as unknown as Obj3;
+      if (o.__graphObjType === 'link') o.renderOrder = DRAW.links;
+      if (o.__graphObjType !== 'node') return;
+      const solid = (o.material?.opacity ?? 1) >= cfg.solidOpacity;
+      if (o.material) o.material.depthWrite = solid;
+      o.renderOrder = solid ? DRAW.solid : DRAW.receded;
+    });
+
   // ---- Glow: one additive point cloud for every term ----------------------------------
   const glowTexture = (() => {
     const c = document.createElement('canvas');
@@ -217,6 +242,7 @@ export async function createMap3D(opts: {
   });
   const glow = new THREE.Points(glowGeo, glowMat);
   glow.frustumCulled = false;
+  glow.renderOrder = DRAW.glow;
   scene.add(glow);
 
   // ---- Hub labels: text sprites for the most central terms ---------------------------
@@ -300,6 +326,7 @@ export async function createMap3D(opts: {
     }),
   );
   web.frustumCulled = false;
+  web.renderOrder = DRAW.links;
   scene.add(web);
   const tints = links.map((l) => {
     const s = byId.get(endId(l.source))!;
@@ -377,6 +404,7 @@ export async function createMap3D(opts: {
   });
   const flow = new THREE.Points(flowGeo, flowMat);
   flow.frustumCulled = false;
+  flow.renderOrder = DRAW.flow;
   flow.visible = motion;
   scene.add(flow);
   const directed = links.map((l) => isDirected(l.type));
