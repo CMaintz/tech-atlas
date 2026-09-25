@@ -19,11 +19,11 @@ body:
     en: Like the sealed envelope of exam questions that stays in the head teacher's safe until exam day, so nobody could have practised on them.
     da: Som den forseglede kuvert med eksamensspørgsmål, der ligger i rektors pengeskab til eksamensdagen, så ingen kan have øvet sig på dem.
   inPractice:
-    en: After weeks of tuning, a team runs its chosen model once on the 10,000 examples it never touched and reports that number to the business — and does not go back to tweak the model afterwards.
-    da: Efter ugers tuning kører et team den valgte model én gang på de 10.000 eksempler, det aldrig har rørt, og rapporterer det tal til forretningen — uden at gå tilbage og justere modellen bagefter.
+    en: After weeks of adjusting a model that predicts which patients will miss hospital appointments, a data analyst in a region runs it once on 5,000 held-back appointments, reports that figure to management and does not tweak the model again.
+    da: Efter ugers justering af en model, der forudsiger, hvilke patienter der udebliver fra deres aftaler på hospitalet, kører en dataanalytiker i en region den én gang på 5.000 tilbageholdte aftaler, rapporterer tallet til ledelsen og justerer ikke modellen igen.
   whyItMatters:
-    en: If its examples leak into the training data, or it is checked again and again, the score makes the model look better than it is and a weak system can be put into use.
-    da: Hvis eksemplerne siver ind i træningsdata, eller det tjekkes igen og igen, overvurderer resultatet modellen, og et svagt system kan blive taget i brug.
+    en: If its examples leak into the training data, or it is checked again and again, the score flatters the model, and a weak system can be put into use on real people.
+    da: Hvis eksemplerne siver ind i træningsdata, eller testsættet tjekkes igen og igen, får modellen et for flot resultat, og et svagt system kan blive taget i brug over for rigtige mennesker.
 edges:
   requires: [model-training]
   part-of: [model-evaluation]

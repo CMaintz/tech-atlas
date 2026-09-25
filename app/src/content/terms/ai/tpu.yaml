@@ -10,21 +10,21 @@ layer: hardware
 era: 2016
 status: current
 summary:
-  en: Google's own chip built only for the number work inside neural networks, rented out through its cloud rather than sold.
-  da: Googles egen chip, bygget udelukkende til talarbejdet i neurale netværk og udlejet gennem Googles cloud frem for at blive solgt.
+  en: Google's own chip made only for the number work inside neural networks, mostly rented out through Google Cloud rather than sold.
+  da: Googles egen chip, bygget kun til talarbejdet i neurale netværk og mest udlejet gennem Google Cloud frem for at blive solgt.
 body:
   formal:
-    en: A custom chip designed by Google for multiplying large grids of numbers, the core work of neural networks; it gives up the general use of a GPU in return for more speed per unit of power on that one job, and is linked in large groups for model training and inference.
-    da: En specialbygget chip designet af Google til at gange store tabeller af tal, som er kernearbejdet i neurale netværk; den opgiver en GPU's brede anvendelse til gengæld for mere fart per strømenhed på netop den opgave og kobles i store grupper til modeltræning og inferens.
+    en: A chip designed by Google to multiply large grids of numbers, the core work of a neural network; it gives up a GPU's broad range of uses for more speed per unit of power on that one job, and is linked in large groups for model training and inference.
+    da: En chip, som Google har designet til at gange store tabeller af tal — kernearbejdet i et neuralt netværk; den opgiver en grafikprocessors brede anvendelse til fordel for mere fart pr. strømenhed på netop den opgave og kobles i store grupper til modeltræning og inferens.
   plain:
-    en: Like a kitchen machine that only makes pasta — useless for anything else, but for pasta it beats a whole team of all-round cooks.
-    da: Som en køkkenmaskine, der kun laver pasta — ubrugelig til alt andet, men til pasta slår den et helt hold af almindelige kokke.
+    en: Like a machine at a brewery that only fills bottles — no use for anything else, but at that one job it beats a whole crew of all-round workers on a fraction of the power.
+    da: Som en maskine på et bryggeri, der kun fylder flasker — ubrugelig til alt andet, men på netop den opgave slår den et helt hold af almindelige medarbejdere og bruger langt mindre strøm.
   inPractice:
-    en: A research team rents a group of TPUs from Google Cloud for a week to train a model, because it cannot buy the chips and install them in its own building.
-    da: Et forskerhold lejer en gruppe TPU'er fra Google Cloud i en uge for at træne en model, fordi det ikke kan købe chippene og sætte dem op i egne lokaler.
+    en: A developer at a Danish software house finds that training the firm's document-sorting model on rented TPUs costs less than on rented GPUs, but adapting the code takes two weeks, and the work can then run only in Google Cloud.
+    da: En udvikler i et dansk softwarehus finder ud af, at det er billigere at træne firmaets model til sortering af dokumenter på lejede TPU'er end på lejede grafikprocessorer, men det tager to uger at tilpasse koden, og arbejdet kan derefter kun køre i Google Cloud.
   whyItMatters:
-    en: It shows that the biggest AI firms are designing their own chips to cut cost and stop needing one supplier, and that using them ties your work to that firm's cloud.
-    da: Den viser, at de største AI-firmaer designer deres egne chips for at sænke omkostninger og afhængighed af én leverandør — og at brugen af dem binder ens arbejde til firmaets cloud.
+    en: Chips built for one job are one of the main ways the largest AI firms cut the cost of training and running models and depend less on a single chip maker, which shapes what AI costs everyone else.
+    da: Chips bygget til én opgave er en af de vigtigste måder, de største AI-firmaer sænker prisen på at træne og køre modeller og bliver mindre afhængige af én chipproducent — og det påvirker, hvad AI koster for alle andre.
 edges:
   requires:
     - to: neural-network

@@ -9,8 +9,8 @@ cluster: identity
 layer: identity
 status: current
 summary:
-  en: Checking that someone really is who they claim to be, usually by asking for a credential such as a password.
-  da: At kontrollere, at nogen virkelig er den, de udgiver sig for, typisk ved at bede om en loginoplysning som en adgangskode.
+  en: Checking that someone who logs in really is who they claim to be, usually by asking for a credential such as a password.
+  da: At kontrollere, at den, der logger ind, virkelig er den, vedkommende udgiver sig for, typisk med en loginoplysning som en adgangskode.
 body:
   formal:
     en: The process of confirming a claimed identity by checking one or more credentials — something the person knows, has or is — against what the system holds on record.

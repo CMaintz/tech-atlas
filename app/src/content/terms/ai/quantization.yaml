@@ -14,16 +14,16 @@ summary:
 body:
   formal:
     en: Converting model weights, and sometimes the working values of inference, from high-detail numbers (often 16 bits each) to coarser ones (8, 4 or fewer bits) by mapping them onto a smaller set of allowed values; it shrinks memory use and speeds up the math while adding small rounding errors.
-    da: At lave modelvægte, og nogle gange arbejdsværdierne under inferens, om fra meget detaljerede tal (ofte 16 bit hver) til grovere tal (8, 4 eller færre bit) ved at lægge dem over på et mindre sæt tilladte værdier; det mindsker hukommelsesforbruget og gør regningen hurtigere, men tilføjer små fejl ved afrunding.
+    da: At lave modelvægte, og nogle gange arbejdsværdierne under inferens, om fra meget detaljerede tal (ofte 16 bit hver) til grovere tal (8, 4 eller færre bit) ved at lægge dem over på et mindre sæt tilladte værdier; det mindsker hukommelsesforbruget og gør regningen hurtigere, men tilføjer små fejl, fordi tallene bliver grovere.
   plain:
     en: Like saving a photo as a smaller file — it loses a little fine detail you rarely notice, and in return fits on your phone and opens instantly.
     da: Som at gemme et foto som en mindre fil — det mister lidt fine detaljer, man sjældent bemærker, og til gengæld kan det ligge på telefonen og åbner med det samme.
   inPractice:
-    en: A developer downloads a 4-bit version of an open model so it fits in a laptop's memory; it answers almost as well as the full-size one but is a little worse at careful arithmetic.
-    da: En udvikler henter en 4-bit-udgave af en åben model, så den kan være i en bærbars hukommelse; den svarer næsten lige så godt som den fulde udgave, men er lidt dårligere til omhyggelig regning.
+    en: A developer in a municipality tests 8-bit and 4-bit versions of the same open model on 200 real questions from case officers; the 8-bit one does as well as the original, the 4-bit one slips on sums, so she picks 8-bit.
+    da: En udvikler i en kommune tester en 8-bit- og en 4-bit-udgave af den samme åbne model på 200 rigtige spørgsmål fra sagsbehandlere; 8-bit-udgaven klarer sig som originalen, 4-bit-udgaven fejler på regnestykker, så hun vælger 8-bit.
   whyItMatters:
-    en: It is what lets large models run on cheaper machines and on-site instead of in someone else's cloud, but the quality loss must be tested for each task rather than assumed away.
-    da: Det er det, der lader store modeller køre på billigere maskiner og lokalt i stedet for i en andens cloud, men kvalitetstabet skal testes for hver opgave i stedet for at blive antaget væk.
+    en: Memory is usually what limits where a model can run, and using half the bits needs roughly half the memory — often the difference between using hardware you already own and renting capacity in someone else's cloud.
+    da: Hukommelsen er som regel det, der begrænser, hvor en model kan køre, og halveres antallet af bit, halveres den omtrent — ofte forskellen på at bruge egen hardware og at leje kapacitet i en andens cloud.
 edges:
   requires:
     - to: model-weights

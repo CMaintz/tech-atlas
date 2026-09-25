@@ -23,7 +23,7 @@ body:
     en: The IT lead at a Danish upper-secondary school connects the support case system and the shared drive to an AI assistant by listing two MCP servers in a settings file; the same two servers then work unchanged in the staff chat app.
     da: Den IT-ansvarlige på et dansk gymnasium kobler skolens sagssystem til supporthenvendelser og det fælles drev til en AI-assistent ved at skrive to MCP-servere i en indstillingsfil; de samme to servere virker så uændret i personalets chatapp.
   whyItMatters:
-    en: It ends the need to build a separate link for every tool and every AI app, but it also makes it very easy to hand an assistant powerful reach you have not checked.
+    en: It ends the need to build a separate link for every tool and every AI app, but it also makes it very easy to hand an assistant wide reach you have not checked.
     da: Det fjerner behovet for at bygge en særskilt forbindelse for hvert værktøj og hver AI-app, men gør det også meget let at give en assistent stor rækkevidde, man ikke har tjekket.
 edges:
   kind-of: [protocol]

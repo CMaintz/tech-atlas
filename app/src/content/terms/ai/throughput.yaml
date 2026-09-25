@@ -19,8 +19,8 @@ body:
     en: Like counting how many cars cross a bridge each hour — a wider bridge lets more through, even if each car drives no faster.
     da: Som at tælle, hvor mange biler der krydser en bro i timen — en bredere bro lukker flere igennem, selv om hver bil ikke kører hurtigere.
   inPractice:
-    en: An AI provider groups many users' requests on each GPU so it can answer thousands of people at once, raising throughput and lowering its cost per answer.
-    da: En udbyder af AI samler mange brugeres forespørgsler på hver GPU, så den kan svare tusindvis af mennesker på én gang, hvilket hæver gennemløbet og sænker prisen per svar.
+    en: An operations engineer at a Danish software house that hosts a chat tool for 30 municipalities measures that its GPU server produces 2,500 tokens a second in total — enough for about 100 users at once — and orders a second server before the Monday-morning peak.
+    da: En driftsingeniør i et dansk softwarehus, der driver et chatværktøj for 30 kommuner, måler, at GPU-serveren i alt producerer 2.500 tokens i sekundet — nok til omkring 100 samtidige brugere — og bestiller en server mere før spidsbelastningen mandag morgen.
   whyItMatters:
     en: It decides how many machines a service needs and what each answer costs, so it drives the price users pay and how a service copes with sudden crowds.
     da: Det afgør, hvor mange maskiner en tjeneste har brug for, og hvad hvert svar koster, så det styrer den pris, brugerne betaler, og hvordan tjenesten klarer pludselige stormløb.
