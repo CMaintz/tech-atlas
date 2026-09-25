@@ -8,7 +8,13 @@ import {
   FAMILY_COLOURS,
   clusterColour,
   clusterForce,
-  clusterSeedPositions,
+  DOMAIN_GAP,
+  ISLAND_GAP,
+  cullLabels,
+  labelAbove,
+  labelBelow,
+  outerSide,
+  packIslands,
   curveOffsets,
   domainColour,
   domainHue,
@@ -218,34 +224,103 @@ describe('flowOffset', () => {
   });
 });
 
-describe('clusterSeedPositions', () => {
-  const make = (prefix: string, ids: string[], domain: string, cluster: string) =>
-    ids.map((id) => ({ id: `${prefix}/${id}`, domain: [domain], cluster }));
-  const nodes = [
-    ...make('s', ['a', 'b', 'c', 'd'], 'security', 'controls'),
-    ...make('s', ['e', 'f', 'g'], 'security', 'compliance'),
-    ...make('c', ['h', 'i', 'j'], 'cs', 'networking'),
+describe('packIslands', () => {
+  const islands = [
+    { id: 'controls', domain: 'security', r: 120 },
+    { id: 'compliance', domain: 'security', r: 150 },
+    { id: 'fundamentals', domain: 'security', r: 160 },
+    { id: 'awareness', domain: 'security', r: 90 },
+    { id: 'networking', domain: 'cs', r: 110 },
+    { id: 'identity', domain: 'cs', r: 130 },
+    { id: 'llm', domain: 'ai', r: 60 },
+    { id: 'cloud', domain: 'platform', r: 70 },
+    { id: 'lonely', domain: 'law', r: 10 },
   ];
-  type P = { x: number; y: number };
-  const centre = (ids: string[], pos: Record<string, P>) => ({
-    x: ids.reduce((s, id) => s + pos[id].x, 0) / ids.length,
-    y: ids.reduce((s, id) => s + pos[id].y, 0) / ids.length,
-  });
-  const dist = (a: P, b: P) => Math.hypot(a.x - b.x, a.y - b.y);
+  const links = [
+    { a: 'controls', b: 'identity', w: 12 },
+    { a: 'controls', b: 'compliance', w: 20 },
+    { a: 'llm', b: 'awareness', w: 3 },
+  ];
+  const packed = packIslands(islands, links);
+  const pos = packed.islands;
+  const d = (a: string, b: string) => Math.hypot(pos[a].x - pos[b].x, pos[a].y - pos[b].y);
 
-  it('places every node, deterministically and regardless of input order', () => {
-    const a = clusterSeedPositions(nodes);
-    expect(Object.keys(a).sort()).toEqual(nodes.map((n) => n.id).sort());
-    expect(clusterSeedPositions([...nodes].reverse())).toEqual(a);
+  it('places every island, whatever the input order', () => {
+    expect(Object.keys(pos).sort()).toEqual(islands.map((i) => i.id).sort());
+    expect(packIslands([...islands].reverse(), [...links].reverse())).toEqual(packed);
   });
-  it('keeps clusters tight and domains further apart than clusters', () => {
-    const pos = clusterSeedPositions(nodes);
-    const members = ['s/a', 's/b', 's/c', 's/d'];
-    const controls = centre(members, pos);
-    const compliance = centre(['s/e', 's/f', 's/g'], pos);
-    const networking = centre(['c/h', 'c/i', 'c/j'], pos);
-    const spread = Math.max(...members.map((id) => dist(pos[id], controls)));
-    expect(spread).toBeLessThan(dist(controls, compliance));
-    expect(dist(controls, compliance)).toBeLessThan(dist(controls, networking));
+  it('keeps each domain inside its own region, and regions apart', () => {
+    for (const i of islands) {
+      const r = packed.regions[i.domain];
+      expect(Math.hypot(pos[i.id].x - r.x, pos[i.id].y - r.y) + i.r).toBeLessThanOrEqual(r.r + 0.5);
+    }
+    const regions = Object.values(packed.regions);
+    for (const a of regions)
+      for (const b of regions)
+        if (a !== b)
+          expect(Math.hypot(a.x - b.x, a.y - b.y)).toBeGreaterThanOrEqual(
+            a.r + b.r + DOMAIN_GAP - 0.5,
+          );
+  });
+  it('keeps every gap: islands never overlap, domains stay further apart', () => {
+    for (const a of islands)
+      for (const b of islands) {
+        if (a.id >= b.id) continue;
+        const gap = a.domain === b.domain ? ISLAND_GAP : DOMAIN_GAP;
+        expect(d(a.id, b.id)).toBeGreaterThanOrEqual(a.r + b.r + gap - 0.5);
+      }
+  });
+  it('keeps a domain together: its islands are nearer each other than other domains', () => {
+    expect(d('controls', 'compliance')).toBeLessThan(d('controls', 'cloud'));
+    expect(d('networking', 'identity')).toBeLessThan(d('networking', 'llm'));
+  });
+});
+
+describe('cullLabels', () => {
+  const box = (id: string, x: number, y: number, w = 40, h = 10) => ({
+    id,
+    x1: x,
+    y1: y,
+    x2: x + w,
+    y2: y + h,
+  });
+  it('keeps higher-priority labels and hides any that would overlap them', () => {
+    const hidden = cullLabels([box('hub', 0, 0), box('leaf', 20, 5), box('far', 100, 0)]);
+    expect([...hidden]).toEqual(['leaf']);
+  });
+  it('treats blockers (cluster names) as already placed', () => {
+    const hidden = cullLabels([box('a', 0, 0)], [{ x1: 10, y1: 0, x2: 30, y2: 10 }]);
+    expect(hidden.has('a')).toBe(true);
+  });
+  it('never leaves two kept labels overlapping', () => {
+    const labels = Array.from({ length: 60 }, (_, i) =>
+      box(`n${i}`, (i * 37) % 200, (i * 13) % 90),
+    );
+    const hidden = cullLabels(labels);
+    const kept = labels.filter((l) => !hidden.has(l.id));
+    for (const a of kept)
+      for (const b of kept)
+        if (a !== b) expect(a.x1 < b.x2 && b.x1 < a.x2 && a.y1 < b.y2 && b.y1 < a.y2).toBe(false);
+  });
+});
+
+describe('outerSide', () => {
+  it('names a region on the side facing away from the map centre', () => {
+    const c = { x: 0, y: 0 };
+    expect(outerSide({ x1: -50, y1: -400, x2: 50, y2: -200 }, c)).toBe('top');
+    expect(outerSide({ x1: -50, y1: 200, x2: 50, y2: 400 }, c)).toBe('bottom');
+    expect(outerSide({ x1: 200, y1: -50, x2: 400, y2: 50 }, c)).toBe('right');
+    expect(outerSide({ x1: -400, y1: -50, x2: -200, y2: 50 }, c)).toBe('left');
+  });
+});
+
+describe('label boxes', () => {
+  it('puts a node label below the node and a region label above its point', () => {
+    const below = labelBelow({ x: 0, y: 0 }, 20, 40, 10);
+    expect(below.y1).toBeGreaterThan(8);
+    expect(below.x2 - below.x1).toBeGreaterThanOrEqual(40);
+    const above = labelAbove({ x: 0, y: 0 }, 40, 10);
+    expect(above.y2).toBeLessThanOrEqual(4);
+    expect(above.y1).toBeLessThan(-10);
   });
 });

@@ -273,54 +273,225 @@ export function idealEdgeLength(a: Paintable, b: Paintable): number {
   return 300;
 }
 
-type Seedable = Paintable & { id: string };
-type Point = { x: number; y: number };
-const GOLDEN_RAD = Math.PI * (3 - Math.sqrt(5));
+export type Point = { x: number; y: number };
+
+/** An island: one cluster's terms, already laid out, seen from outside as a circle. */
+export type Island = { id: string; domain: string; r: number };
+/** How strongly two islands are related (e.g. the number of edges between them). */
+export type IslandLink = { a: string; b: string; w: number };
+
+/** Clear space between two islands of one domain, and between two domains' islands. */
+export const ISLAND_GAP = 45;
+export const DOMAIN_GAP = 150;
+
+const domainRank = (d: string) => {
+  const listed = Object.keys(DOMAIN_HUES);
+  return listed.includes(d) ? listed.indexOf(d) : listed.length;
+};
+
+type Disc = { id: string; r: number };
+type Circle = Point & { r: number };
 
 /**
- * Starting positions for the force layout, so it settles into systems: domains on a
- * wide ring (loose regions), each domain's clusters on a ring around the domain's
- * centre, each cluster's terms on a sunflower spiral around the cluster's centre.
- * Deterministic — no randomness, stable under input order.
+ * Pack discs round the origin with at least `gap` between any two: start on a ring
+ * (in the given order), then a few hundred cheap steps pull linked discs together
+ * (weakly, by weight), draw everything towards the centre, and push overlapping pairs
+ * apart; a final separation-only pass makes every gap hold. Deterministic.
  */
-export function clusterSeedPositions(nodes: Seedable[]): Record<string, Point> {
-  const tree = new Map<string, Map<string, Seedable[]>>();
-  for (const n of nodes) {
-    const d = homeDomain(n);
-    if (!tree.has(d)) tree.set(d, new Map());
-    const clusters = tree.get(d)!;
-    clusters.set(n.cluster, [...(clusters.get(n.cluster) ?? []), n]);
-  }
-  const listed = Object.keys(DOMAIN_HUES);
-  const rank = (d: string) => (listed.includes(d) ? listed.indexOf(d) : listed.length);
-  const domains = [...tree.keys()].sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
-  // Size each ring by what it holds, so big domains and clusters get room.
-  const clusterRadius = (count: number) => 22 * Math.sqrt(count) + 20;
-  const domainRadius = (clusters: Map<string, Seedable[]>) =>
-    [...clusters.values()].reduce((s, c) => s + clusterRadius(c.length), 0) / 1.6 + 60;
-  const radii = domains.map((d) => domainRadius(tree.get(d)!));
-  const ring = domains.length > 1 ? Math.max(...radii) * 1.9 : 0;
-  const out: Record<string, Point> = {};
-  domains.forEach((d, di) => {
-    const a = (2 * Math.PI * di) / domains.length - Math.PI / 2;
-    const centre = { x: ring * Math.cos(a), y: ring * Math.sin(a) };
-    const clusters = [...tree.get(d)!.entries()].sort(([a], [b]) => a.localeCompare(b));
-    clusters.forEach(([, members], ci) => {
-      const b = (2 * Math.PI * ci) / clusters.length;
-      const r = clusters.length > 1 ? radii[di] : 0;
-      const cc = { x: centre.x + r * Math.cos(b), y: centre.y + r * Math.sin(b) };
-      [...members]
-        .sort((p, q) => p.id.localeCompare(q.id))
-        .forEach((n, i) => {
-          const rr = 18 * Math.sqrt(i + 0.5);
-          out[n.id] = {
-            x: cc.x + rr * Math.cos(i * GOLDEN_RAD),
-            y: cc.y + rr * Math.sin(i * GOLDEN_RAD),
-          };
-        });
+function packDiscs(discs: Disc[], links: IslandLink[], gap: number): Map<string, Point> {
+  const pos = new Map<string, Point>();
+  if (discs.length === 1) pos.set(discs[0].id, { x: 0, y: 0 });
+  else {
+    const ring = discs.reduce((s, d) => s + 2 * d.r + gap, 0) / (2 * Math.PI);
+    discs.forEach((d, k) => {
+      const a = (2 * Math.PI * k) / discs.length - Math.PI / 2;
+      pos.set(d.id, { x: ring * Math.cos(a), y: ring * Math.sin(a) });
     });
-  });
-  return out;
+  }
+  const byId = new Map(discs.map((d) => [d.id, d]));
+  const live = links.filter((l) => byId.has(l.a) && byId.has(l.b) && l.a !== l.b);
+  const separate = () => {
+    for (let i = 0; i < discs.length; i++)
+      for (let j = i + 1; j < discs.length; j++) {
+        const pa = pos.get(discs[i].id)!;
+        const pb = pos.get(discs[j].id)!;
+        let dx = pb.x - pa.x;
+        let dy = pb.y - pa.y;
+        let d = Math.hypot(dx, dy);
+        if (d < 1e-6) {
+          // Coincident: split along a fixed, index-derived direction.
+          dx = Math.cos(i + j);
+          dy = Math.sin(i + j);
+          d = 1;
+        }
+        const need = discs[i].r + discs[j].r + gap;
+        if (d >= need) continue;
+        const push = (need - d) / 2 / d;
+        pa.x -= dx * push;
+        pa.y -= dy * push;
+        pb.x += dx * push;
+        pb.y += dy * push;
+      }
+  };
+  const STEPS = 300;
+  for (let step = 0; step < STEPS; step++) {
+    const alpha = 1 - step / STEPS;
+    for (const l of live) {
+      const pa = pos.get(l.a)!;
+      const pb = pos.get(l.b)!;
+      const dx = pb.x - pa.x;
+      const dy = pb.y - pa.y;
+      const d = Math.hypot(dx, dy) || 1;
+      const slack = d - (byId.get(l.a)!.r + byId.get(l.b)!.r + gap);
+      if (slack <= 0) continue;
+      const k = (Math.min(0.02 * l.w, 0.2) * alpha * slack) / d / 2;
+      pa.x += dx * k;
+      pa.y += dy * k;
+      pb.x -= dx * k;
+      pb.y -= dy * k;
+    }
+    for (const p of pos.values()) {
+      p.x -= p.x * 0.05 * alpha;
+      p.y -= p.y * 0.05 * alpha;
+    }
+    separate();
+  }
+  for (let step = 0; step < 200; step++) separate();
+  return pos;
+}
+
+/** Links in one canonical order (a < b, weights of duplicates summed). */
+function canonicalLinks(links: IslandLink[]): IslandLink[] {
+  const merged = new Map<string, IslandLink>();
+  for (const l of links) {
+    const [a, b] = l.a < l.b ? [l.a, l.b] : [l.b, l.a];
+    const key = JSON.stringify([a, b]);
+    merged.set(key, { a, b, w: (merged.get(key)?.w ?? 0) + l.w });
+  }
+  return [...merged.entries()].sort(([x], [y]) => (x < y ? -1 : 1)).map(([, l]) => l);
+}
+
+/**
+ * Where each cluster island goes (A65), in two levels: each domain's islands are
+ * packed into a region (ISLAND_GAP apart, related islands drawn together), then the
+ * regions are packed as discs (DOMAIN_GAP apart, drawn together by the links between
+ * domains). Clusters read as separate islands, domains as separate, coherent regions.
+ * Returns island centres and each region's circle. Deterministic; independent of
+ * input order.
+ */
+export function packIslands(
+  islands: Island[],
+  links: IslandLink[] = [],
+): { islands: Record<string, Point>; regions: Record<string, Circle> } {
+  const list = [...islands].sort(
+    (a, b) =>
+      domainRank(a.domain) - domainRank(b.domain) ||
+      a.domain.localeCompare(b.domain) ||
+      a.id.localeCompare(b.id),
+  );
+  const canonical = canonicalLinks(links);
+  const domainOf = new Map(list.map((i) => [i.id, i.domain]));
+  const domains = [...new Set(list.map((i) => i.domain))];
+  const local = new Map<string, Point>();
+  const regionR = new Map<string, number>();
+  for (const d of domains) {
+    const mine = list.filter((i) => i.domain === d);
+    const inside = canonical.filter((l) => domainOf.get(l.a) === d && domainOf.get(l.b) === d);
+    const pos = packDiscs(mine, inside, ISLAND_GAP);
+    // Centre the region on its own discs, and measure it.
+    const cx = mine.reduce((s, i) => s + pos.get(i.id)!.x, 0) / mine.length;
+    const cy = mine.reduce((s, i) => s + pos.get(i.id)!.y, 0) / mine.length;
+    let r = 0;
+    for (const i of mine) {
+      const p = { x: pos.get(i.id)!.x - cx, y: pos.get(i.id)!.y - cy };
+      local.set(i.id, p);
+      r = Math.max(r, Math.hypot(p.x, p.y) + i.r);
+    }
+    regionR.set(d, r);
+  }
+  const between = canonicalLinks(
+    canonical
+      .filter((l) => domainOf.get(l.a) !== domainOf.get(l.b))
+      .map((l) => ({ a: domainOf.get(l.a)!, b: domainOf.get(l.b)!, w: l.w / 4 })),
+  );
+  const centres = packDiscs(
+    domains.map((d) => ({ id: d, r: regionR.get(d)! })),
+    between,
+    DOMAIN_GAP,
+  );
+  return {
+    islands: Object.fromEntries(
+      list.map((i) => {
+        const c = centres.get(i.domain)!;
+        const p = local.get(i.id)!;
+        return [i.id, { x: c.x + p.x, y: c.y + p.y }];
+      }),
+    ),
+    regions: Object.fromEntries(
+      domains.map((d) => [d, { ...centres.get(d)!, r: regionR.get(d)! }]),
+    ),
+  };
+}
+
+export type Box = { x1: number; y1: number; x2: number; y2: number };
+const overlaps = (a: Box, b: Box, pad: number) =>
+  a.x1 - pad < b.x2 && b.x1 - pad < a.x2 && a.y1 - pad < b.y2 && b.y1 - pad < a.y2;
+
+/**
+ * Which labels to hide so none overlap: walk the labels in priority order (most
+ * important first) and keep each one that clears every label already kept and every
+ * fixed `blocker` (e.g. cluster names). Returns the ids to hide.
+ */
+export function cullLabels(
+  labels: (Box & { id: string })[],
+  blockers: Box[] = [],
+  pad = 2,
+): Set<string> {
+  const kept: Box[] = [...blockers];
+  const hidden = new Set<string>();
+  for (const l of labels) {
+    if (kept.some((k) => overlaps(l, k, pad))) hidden.add(l.id);
+    else kept.push(l);
+  }
+  return hidden;
+}
+
+/** Line height and outline allowance used when estimating a label's box. */
+const LINE = 1.25;
+const OUTLINE = 4;
+/** Gap between a node and its label (Cytoscape `text-margin-y`). */
+export const LABEL_MARGIN = 4;
+
+/** Box of a label drawn centred below a node (`text-valign: bottom`). */
+export function labelBelow(at: Point, nodeSize: number, width: number, font: number): Box {
+  const top = at.y + nodeSize / 2 + LABEL_MARGIN;
+  return {
+    x1: at.x - width / 2 - OUTLINE,
+    x2: at.x + width / 2 + OUTLINE,
+    y1: top - OUTLINE,
+    y2: top + font * LINE + OUTLINE,
+  };
+}
+
+/** Box of a label drawn centred above a point (`text-valign: top`, zero-size node). */
+export function labelAbove(at: Point, width: number, font: number): Box {
+  return {
+    x1: at.x - width / 2 - OUTLINE,
+    x2: at.x + width / 2 + OUTLINE,
+    y1: at.y - font * LINE - OUTLINE,
+    y2: at.y + OUTLINE,
+  };
+}
+
+/**
+ * The side of a region its name goes on: the side facing away from the map's centre,
+ * so the name sits in open space rather than over another region.
+ */
+export function outerSide(region: Box, mapCentre: Point): 'top' | 'bottom' | 'left' | 'right' {
+  const dx = (region.x1 + region.x2) / 2 - mapCentre.x;
+  const dy = (region.y1 + region.y2) / 2 - mapCentre.y;
+  if (Math.abs(dy) >= Math.abs(dx) * 0.6) return dy < 0 ? 'top' : 'bottom';
+  return dx < 0 ? 'left' : 'right';
 }
 
 /** A small, fast, seedable PRNG (mulberry32). */

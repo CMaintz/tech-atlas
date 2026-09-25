@@ -21,7 +21,12 @@ import {
   isDirected,
   nodePaint,
   withSeededRandom,
-  clusterSeedPositions,
+  cullLabels,
+  labelAbove,
+  labelBelow,
+  outerSide,
+  packIslands,
+  type Island,
 } from '../lib/graph-style';
 import {
   GRAPH_STYLE,
@@ -68,6 +73,13 @@ const legendOpenAtStart = () => window.innerWidth >= 1024;
 /** Pixels the map keeps clear on the right for the open legend. */
 const legendReserve = () => (legendOpenAtStart() ? 310 : 0);
 
+/** Below this zoom only hubs keep a (larger) label. */
+const FAR_ZOOM = 0.9;
+/** Cytoscape's `min-zoomed-font-size` for term labels: smaller labels are not drawn. */
+const MIN_LABEL_PX = 8;
+/** On-screen size of hover and selection labels when zoomed out. */
+const HOVER_LABEL_PX = 11;
+
 /** Below this many terms the map is a neighbourhood: no seeded systems, no region names. */
 const SYSTEMS_MIN = 60;
 
@@ -75,12 +87,9 @@ const SYSTEMS_MIN = 60;
 const FLOW_ALL_LIMIT = 120;
 
 // 3d-force-graph is large; load it only when 3D is switched on.
-type ForceGraphInstance = {
-  _destructor: () => void;
-  nodeColor: (fn: (n: GraphNode) => string) => ForceGraphInstance;
-  linkColor: (fn: (l: GraphLink) => string) => ForceGraphInstance;
-  linkDirectionalParticles: (fn: (l: GraphLink) => number) => ForceGraphInstance;
-};
+type ForceGraphInstance = { _destructor: () => void };
+/** The 3D canvas colour; faded particles take it to disappear. */
+const BACKGROUND_3D = '#07080d';
 
 /**
  * The full-map explorer (SPEC §7). Every node links to a real, statically rendered
@@ -201,10 +210,11 @@ export default function Explorer(props: Props) {
   const linkFaded3d = (l: GraphLink) => faded3d(endId(l.source)) || faded3d(endId(l.target));
   const linkColour3d = (l: GraphLink) =>
     linkFaded3d(l) ? 'rgba(82,82,82,0.08)' : props.familyColours[l.family];
-  /** The live 3D node-colour accessor (it also fades each node's glow), while 3D is on. */
-  const nodeColour3d = useRef<((n: GraphNode) => string) | null>(null);
-  const particles3d = (l: GraphLink) =>
-    reducedMotion() || !isDirected(l.type) || linkFaded3d(l) ? 0 : 2;
+  /**
+   * Re-applies the 3D colour accessors (which read the refs above) after a hover or
+   * selection change — the accessors themselves are set once per render of the scene.
+   */
+  const refresh3d = useRef<(() => void) | null>(null);
 
   // ---- 2D (Cytoscape) --------------------------------------------------
   useEffect(() => {
@@ -223,10 +233,9 @@ export default function Explorer(props: Props) {
       }
     }
     const force = layout === 'force';
-    // The whole map starts from a cluster-aware seed (domains → clusters → terms) and
-    // names its systems; a small neighbourhood just gets a clean force layout.
+    // The whole map is laid out as islands (one per cluster) grouped into domain
+    // regions; a small neighbourhood just gets a clean force layout.
     const systems = force && visible.nodes.length >= SYSTEMS_MIN;
-    if (systems) positions = clusterSeedPositions(visible.nodes);
     const nodeOf = (id: string) => byId.get(id);
     const flowAll = visible.links.filter((l) => isDirected(l.type)).length <= FLOW_ALL_LIMIT;
     const cy = cytoscape({
@@ -245,12 +254,17 @@ export default function Explorer(props: Props) {
               font: 8 + Math.round(share * 6),
               // Zoomed out, only hubs keep a (larger) label, so labels overlap less.
               farFont: share >= 0.4 ? Math.round(14 + share * 12) : 0,
+              hoverFont: 15,
             },
           };
         }),
         ...edgeData(visible.links, nodeOf, (l) => 0.6 + l.weight * 0.45, flowAll ? 0.5 : 0.3).map(
           (data) => ({
-            data,
+            // On the island map, edges between islands recede so the islands read.
+            data:
+              systems && nodeOf(data.source)!.cluster !== nodeOf(data.target)!.cluster
+                ? { ...data, alpha: 0.1 }
+                : data,
             classes: flowAll && data.directed ? 'flow' : '',
           }),
         ),
@@ -259,10 +273,20 @@ export default function Explorer(props: Props) {
         ...(GRAPH_STYLE as unknown[]),
         { selector: 'node.far', style: { 'font-size': 'data(farFont)' } },
         { selector: 'node.far[farFont = 0]', style: { 'text-opacity': 0 } },
+        // The label cull decides what is drawn (see `cull`), so no size threshold here.
+        { selector: 'node[size]', style: { 'min-zoomed-font-size': 0 } },
+        { selector: 'node.nolabel', style: { 'text-opacity': 0 } },
         {
           selector: 'node.far.lit, node.far.sel, node.far.hl',
-          style: { 'text-opacity': 1, 'font-size': 15 },
+          // Zoomed out, a hovered or selected neighbourhood is labelled at a readable size.
+          style: { 'text-opacity': 1, 'font-size': 'data(hoverFont)' },
         },
+        // A label hidden to avoid a collision still shows on hover and selection.
+        {
+          selector: 'node.nolabel.lit, node.nolabel.sel, node.nolabel.hl',
+          style: { 'text-opacity': 1 },
+        },
+        { selector: 'node.hoverhide', style: { 'text-opacity': 0 } },
         {
           selector: 'node.tag',
           style: {
@@ -274,29 +298,172 @@ export default function Explorer(props: Props) {
             color: 'data(colour)',
             'font-size': 'data(font)',
             'font-weight': 600,
-            'text-valign': 'center',
-            'text-halign': 'center',
-            'text-opacity': 0.55,
-            'text-outline-width': 0,
+            'text-valign': 'data(valign)',
+            'text-halign': 'data(halign)',
+            'text-opacity': 0.8,
+            // A subtle halo in the canvas colour keeps names legible over edges.
+            'text-outline-color': '#0a0a0a',
+            'text-outline-width': 3,
+            'text-outline-opacity': 0.85,
             'min-zoomed-font-size': 6,
             'z-index': 0,
             events: 'no',
           },
         },
-        { selector: 'node.tag.domain', style: { 'text-opacity': 0.12, 'z-index': -1 } },
+        { selector: 'node.tag.domain', style: { 'text-opacity': 0.45, 'text-outline-width': 0 } },
       ] as cytoscape.StylesheetJson,
       layout: { name: 'preset', positions: (n: cytoscape.NodeSingular) => positions[n.id()] },
       minZoom: 0.1,
       maxZoom: 3,
     });
-    if (force) {
+    if (systems) {
+      // 1. Each cluster is laid out on its own, from its own edges only — an island.
+      const clusters = new Map<string, GraphNode[]>();
+      for (const n of visible.nodes)
+        clusters.set(n.cluster, [...(clusters.get(n.cluster) ?? []), n]);
+      const clusterIds = [...clusters.keys()].sort();
+      const islands: Island[] = [];
+      const centroids = new Map<string, { x: number; y: number }>();
+      withSeededRandom(LAYOUT_SEED, () => {
+        for (const c of clusterIds) {
+          const members = cy.collection(clusters.get(c)!.map((n) => cy.getElementById(n.id)));
+          if (members.length > 1)
+            members
+              .union(members.edgesWith(members))
+              .layout({
+                name: 'fcose',
+                quality: 'default',
+                randomize: true,
+                animate: false,
+                fit: false,
+                nodeRepulsion: () => 5000,
+                idealEdgeLength: () => 60,
+                edgeElasticity: () => 0.45,
+                gravity: 0.6,
+                numIter: 1500,
+                tile: true,
+                tilingPaddingVertical: 24,
+                tilingPaddingHorizontal: 24,
+                packComponents: true,
+                nodeSeparation: 60,
+              } as cytoscape.LayoutOptions)
+              .run();
+          const ps = members.map((m) => m.position());
+          const cx = ps.reduce((a, p) => a + p.x, 0) / ps.length;
+          const cyy = ps.reduce((a, p) => a + p.y, 0) / ps.length;
+          centroids.set(c, { x: cx, y: cyy });
+          const r = Math.max(
+            ...members.map(
+              (m) => Math.hypot(m.position('x') - cx, m.position('y') - cyy) + m.data('size') / 2,
+            ),
+          );
+          islands.push({ id: c, domain: homeDomain(clusters.get(c)![0]), r: r + 16 });
+        }
+      });
+      // 2. Islands are packed into domain regions, drawn weakly together by the
+      //    relationships between them.
+      const between = new Map<string, number>();
+      for (const l of visible.links) {
+        const a = byId.get(l.source)!.cluster;
+        const b = byId.get(l.target)!.cluster;
+        if (a !== b)
+          between.set(
+            JSON.stringify([a, b].sort()),
+            (between.get(JSON.stringify([a, b].sort())) ?? 0) + 1,
+          );
+      }
+      const packed = packIslands(
+        islands,
+        [...between.entries()].map(([k, w]) => {
+          const [a, b] = JSON.parse(k) as [string, string];
+          return { a, b, w };
+        }),
+      );
+      cy.batch(() => {
+        for (const c of clusterIds) {
+          const from = centroids.get(c)!;
+          const to = packed.islands[c];
+          for (const n of clusters.get(c)!) {
+            const el = cy.getElementById(n.id);
+            el.position({
+              x: el.position('x') - from.x + to.x,
+              y: el.position('y') - from.y + to.y,
+            });
+          }
+        }
+      });
+      // 3. Names: each cluster's just above its island; each domain's outside its
+      //    region, on the side facing away from the map's centre.
+      const tags: cytoscape.ElementDefinition[] = [];
+      // Top edge of a cluster's drawn terms (node circles, not labels).
+      const top = (c: string) =>
+        Math.min(
+          ...clusters.get(c)!.map((n) => {
+            const el = cy.getElementById(n.id);
+            return el.position('y') - el.data('size') / 2;
+          }),
+        );
+      for (const isl of islands) {
+        if (clusters.get(isl.id)!.length < 3) continue;
+        tags.push({
+          group: 'nodes',
+          data: {
+            id: `tag:c:${isl.id}`,
+            label: props.clusterLabels[isl.id] ?? isl.id,
+            colour: clusterColour(isl.id, isl.domain),
+            font: 30,
+            valign: 'top',
+            halign: 'center',
+          },
+          position: { x: packed.islands[isl.id].x, y: top(isl.id) - 8 },
+          classes: 'tag',
+        });
+      }
+      const all = Object.values(packed.regions);
+      const mapCentre = {
+        x: all.reduce((a, p) => a + p.x, 0) / all.length,
+        y: all.reduce((a, p) => a + p.y, 0) / all.length,
+      };
+      for (const d of [...new Set(islands.map((i) => i.domain))]) {
+        const mine = islands.filter((i) => i.domain === d);
+        const box = {
+          x1: Math.min(...mine.map((i) => packed.islands[i.id].x - i.r)),
+          y1: Math.min(...mine.map((i) => packed.islands[i.id].y - i.r)),
+          x2: Math.max(...mine.map((i) => packed.islands[i.id].x + i.r)),
+          y2: Math.max(...mine.map((i) => packed.islands[i.id].y + i.r)),
+        };
+        const side = outerSide(box, mapCentre);
+        const midX = (box.x1 + box.x2) / 2;
+        const midY = (box.y1 + box.y2) / 2;
+        const at = {
+          top: { x: midX, y: box.y1 - 30, valign: 'top', halign: 'center' },
+          bottom: { x: midX, y: box.y2 + 30, valign: 'bottom', halign: 'center' },
+          left: { x: box.x1 - 30, y: midY, valign: 'center', halign: 'left' },
+          right: { x: box.x2 + 30, y: midY, valign: 'center', halign: 'right' },
+        }[side];
+        tags.push({
+          group: 'nodes',
+          data: {
+            id: `tag:d:${d}`,
+            label: props.domainLabels[d] ?? d,
+            colour: domainColour(d),
+            font: 96,
+            valign: at.valign,
+            halign: at.halign,
+          },
+          position: { x: at.x, y: at.y },
+          classes: 'tag domain',
+        });
+      }
+      cy.add(tags);
+    } else if (force) {
       const node = (id: string) => byId.get(id)!;
       withSeededRandom(LAYOUT_SEED, () =>
         cy
           .layout({
             name: 'fcose',
             quality: 'default',
-            randomize: !systems,
+            randomize: true,
             animate: false,
             fit: false,
             nodeRepulsion: () => 12000,
@@ -313,58 +480,80 @@ export default function Explorer(props: Props) {
           .run(),
       );
     }
-    if (systems) {
-      // Name each system at its centre; each domain is a faint watermark over its region.
-      const tags: cytoscape.ElementDefinition[] = [];
-      const group = (key: (n: GraphNode) => string) => {
-        const m = new Map<string, cytoscape.NodeCollection>();
-        for (const n of visible.nodes) {
-          const k = key(n);
-          m.set(k, (m.get(k) ?? cy.collection()).union(cy.getElementById(n.id)));
-        }
-        return m;
-      };
-      for (const [c, members] of group((n) => n.cluster)) {
-        if (members.length < 3) continue;
-        const bb = members.boundingBox();
-        const home = homeDomain(byId.get(members[0].id())!);
-        tags.push({
-          group: 'nodes',
-          data: {
-            id: `tag:c:${c}`,
-            label: props.clusterLabels[c] ?? c,
-            colour: clusterColour(c, home),
-            font: 22,
-          },
-          position: { x: (bb.x1 + bb.x2) / 2, y: (bb.y1 + bb.y2) / 2 },
-          classes: 'tag',
-        });
-      }
-      for (const [d, members] of group(homeDomain)) {
-        const bb = members.boundingBox();
-        tags.push({
-          group: 'nodes',
-          data: {
-            id: `tag:d:${d}`,
-            label: props.domainLabels[d] ?? d,
-            colour: domainColour(d),
-            font: 110,
-          },
-          position: { x: (bb.x1 + bb.x2) / 2, y: (bb.y1 + bb.y2) / 2 },
-          classes: 'tag domain',
-        });
-      }
-      cy.add(tags);
-    }
+    // Never draw two labels over each other: keep the most connected terms' labels and
+    // hide any that would collide (they still show on hover). Label boxes are in model
+    // space, so they only change when the zoom decides which labels are drawn at all.
+    // Label boxes are computed from the data (position, size, font, measured text), not
+    // read back from Cytoscape, whose cached boxes can lag behind class changes.
+    const measure = document.createElement('canvas').getContext('2d')!;
+    const family = cy.nodes('[size]').first().style('font-family') as string;
+    const textWidth = (text: string, px: number, weight = 'normal') => {
+      measure.font = `${weight} ${px}px ${family}`;
+      return measure.measureText(text).width;
+    };
+    const cull = () => {
+      const zoom = cy.zoom();
+      const far = zoom < FAR_ZOOM;
+      const fontOf = (n: cytoscape.NodeSingular): number =>
+        far ? n.data('farFont') : n.data('font');
+      const nodes = cy.nodes('[size]');
+      const candidates = nodes
+        .filter((n) => fontOf(n) > 0 && fontOf(n) * zoom >= MIN_LABEL_PX)
+        .sort((a, b) => b.data('size') - a.data('size') || (a.id() < b.id() ? -1 : 1));
+      const hidden = cullLabels(
+        candidates.map((n) => ({
+          id: n.id(),
+          ...labelBelow(
+            n.position(),
+            n.data('size'),
+            textWidth(n.data('label'), fontOf(n)),
+            fontOf(n),
+          ),
+        })),
+        cy
+          .nodes('.tag')
+          .filter((t) => t.data('valign') === 'top')
+          .map((t) =>
+            labelAbove(
+              t.position(),
+              textWidth(t.data('label'), t.data('font'), '600'),
+              t.data('font'),
+            ),
+          ),
+      );
+      cy.batch(() => {
+        nodes.removeClass('nolabel');
+        // Labels too small to read at this zoom are hidden too; the cull, not Cytoscape's
+        // min-zoomed-font-size, decides every label that is drawn.
+        nodes.filter((n) => hidden.has(n.id()) || !candidates.contains(n)).addClass('nolabel');
+      });
+    };
+    let cullAt = -1;
+    let cullTimer = 0;
+    const recull = () => {
+      // Only a change in which labels are drawn needs a new pass.
+      const key = cy.zoom() < FAR_ZOOM ? -Math.floor(cy.zoom() * 20) : Math.floor(cy.zoom() * 20);
+      if (key === cullAt) return;
+      cullAt = key;
+      window.clearTimeout(cullTimer);
+      cullTimer = window.setTimeout(cull, 120);
+    };
     const setFar = () => {
-      const far = cy.zoom() < 0.9;
+      const far = cy.zoom() < FAR_ZOOM;
       const nodes = cy.nodes('[size]');
       if (nodes.nonempty() && far !== nodes.first().hasClass('far')) nodes.toggleClass('far', far);
+      const hoverFont = Math.max(9, Math.round(HOVER_LABEL_PX / cy.zoom()));
+      if (far && nodes.nonempty() && nodes.first().data('hoverFont') !== hoverFont)
+        nodes.data('hoverFont', hoverFont);
+      recull();
     };
     // `viewport()` (the reduced-motion fit) emits 'viewport', not 'zoom'.
     cy.on('zoom viewport', setFar);
     smoothFit(cy, 40, 1.1, legendReserve());
     setFar();
+    // The first pass runs at once, so no unculled labels flash up.
+    window.clearTimeout(cullTimer);
+    cull();
     cy.on('tap', 'node:childless', (e) => setSelected(e.target.id()));
     cy.on('tap', (e) => e.target === cy && setSelected(null));
     cy.on(
@@ -373,10 +562,41 @@ export default function Explorer(props: Props) {
       (e) => (window.location.href = `${termBase}${e.target.id()}/`),
     );
     attachHover(cy);
+    // A hovered neighbourhood is labelled too — hovered term first, then by size — and
+    // its labels are culled among themselves, so even they never overlap.
+    cy.on('mouseover', 'node[size]', (e) => {
+      const hovered = e.target as cytoscape.NodeSingular;
+      const far = cy.zoom() < FAR_ZOOM;
+      const fontOf = (n: cytoscape.NodeSingular): number =>
+        far ? n.data('hoverFont') : n.data('font');
+      const lit = hovered
+        .closedNeighborhood('node[size]')
+        .sort((a, b) =>
+          a.id() === hovered.id()
+            ? -1
+            : b.id() === hovered.id()
+              ? 1
+              : b.data('size') - a.data('size'),
+        );
+      const hidden = cullLabels(
+        lit.map((n) => ({
+          id: n.id(),
+          ...labelBelow(
+            n.position(),
+            n.data('size'),
+            textWidth(n.data('label'), fontOf(n)),
+            fontOf(n),
+          ),
+        })),
+      );
+      cy.batch(() => lit.filter((n) => hidden.has(n.id())).addClass('hoverhide'));
+    });
+    cy.on('mouseout', 'node[size]', () => cy.nodes('.hoverhide').removeClass('hoverhide'));
     const stopFlow = startFlow(cy);
     cyRef.current = cy;
     return () => {
       stopFlow();
+      window.clearTimeout(cullTimer);
       cy.destroy();
       cyRef.current = null;
     };
@@ -455,11 +675,16 @@ export default function Explorer(props: Props) {
           if (glow) glow.material.opacity = faded3d(n.id) ? 0.04 : 0.55;
           return colour3d(n);
         };
-        nodeColour3d.current = nodeColour;
+        // Particle counts never change (rebuilding them is costly): faded links hide
+        // theirs by taking the background colour instead.
+        const reduce = reducedMotion();
+        const particles = (l: GraphLink) => (!reduce && isDirected(l.type) ? 2 : 0);
+        const particleColour = (l: GraphLink) =>
+          linkFaded3d(l) ? BACKGROUND_3D : props.familyColours[l.family];
         const fg = new ForceGraph3D(el)
           .width(el.clientWidth)
           .height(el.clientHeight)
-          .backgroundColor('#07080d')
+          .backgroundColor(BACKGROUND_3D)
           .graphData({ nodes, links })
           .nodeLabel((n: GraphNode) => n.term[lang])
           .nodeVal((n: GraphNode) => 1 + n.degree)
@@ -505,24 +730,31 @@ export default function Explorer(props: Props) {
           .linkCurvature((l: GraphLink) => (curveOf.get(l) ?? 16) / 90)
           .linkDirectionalArrowLength((l: GraphLink) => (isDirected(l.type) ? 3.5 : 0))
           .linkDirectionalArrowRelPos(1)
-          .linkDirectionalParticles(particles3d)
+          .linkDirectionalParticles(particles)
           .linkDirectionalParticleSpeed(0.006)
           .linkDirectionalParticleWidth(1.4)
-          .linkDirectionalParticleColor((l: GraphLink) => props.familyColours[l.family])
+          .linkDirectionalParticleColor(particleColour)
           .onNodeHover((n: GraphNode | null) => {
             hover3d.current = n ? (neighbours.get(n.id) ?? new Set([n.id])) : null;
             el.style.cursor = n ? 'pointer' : 'default';
-            fg.nodeColor(nodeColour).linkColor(linkColour3d).linkDirectionalParticles(particles3d);
+            refresh3d.current?.();
           })
           .onNodeClick((n: GraphNode) => setSelected(n.id));
         // Clusters gather into systems in the horizontal plane; height stays Depth.
-        fg.d3Force('cluster', clusterForce(0.12) as never);
+        fg.d3Force('cluster', clusterForce(0.5) as never);
+        // Passing the same accessor back is 3d-force-graph's way to re-evaluate it.
+        refresh3d.current = () =>
+          fg
+            .nodeColor(fg.nodeColor())
+            .linkColor(fg.linkColor())
+            .linkDirectionalParticleColor(fg.linkDirectionalParticleColor());
         fgRef.current = fg as unknown as ForceGraphInstance;
       },
     );
     return () => {
       cancelled = true;
-      nodeColour3d.current = null;
+      refresh3d.current = null;
+      hover3d.current = null;
       fgRef.current?._destructor();
       fgRef.current = null;
       el.innerHTML = '';
@@ -530,10 +762,7 @@ export default function Explorer(props: Props) {
   }, [mode, visible, lang, colourMode, learner]);
 
   useEffect(() => {
-    fgRef.current
-      ?.nodeColor(nodeColour3d.current ?? colour3d)
-      .linkColor(linkColour3d)
-      .linkDirectionalParticles(particles3d);
+    refresh3d.current?.();
   }, [selected, hl]);
 
   // ---- Tools -----------------------------------------------------------

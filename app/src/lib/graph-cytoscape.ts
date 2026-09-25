@@ -8,9 +8,9 @@ import type { EdgeType } from '../schema';
 import type { Family } from './graph-model';
 import { FLOW_DASH, curveOffsets, edgePaint, flowOffset, type Paintable } from './graph-style';
 
+const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
 export const reducedMotion = () =>
-  typeof window !== 'undefined' &&
-  !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  typeof window !== 'undefined' && !!window.matchMedia?.(REDUCED_MOTION).matches;
 
 type Endpoint = Paintable & { id: string };
 type Link = { source: string; target: string; type: EdgeType; family: Family };
@@ -158,23 +158,38 @@ export function attachHover(cy: cytoscape.Core) {
 
 /**
  * Animate dashes along every edge carrying `flow`/`hflow`, source → target, at ~30 fps.
- * Does nothing under prefers-reduced-motion (the dashes stay still) or when too many
- * edges would flow at once. Returns a stop function.
+ * The loop idles while nothing (or too much) flows and wakes when edge classes change;
+ * it stops and starts with the prefers-reduced-motion setting, live (the dashes stay
+ * still while motion is reduced). Returns a stop function.
  */
 export function startFlow(cy: cytoscape.Core, limit = 160): () => void {
-  if (reducedMotion()) return () => {};
+  const motion = typeof window !== 'undefined' ? window.matchMedia?.(REDUCED_MOTION) : undefined;
   let raf = 0;
   let last = 0;
+  let stopped = false;
   const tick = (t: number) => {
+    raf = 0;
+    if (stopped || motion?.matches) return;
+    const flowing = cy.edges('.flow, .hflow');
+    // Nothing to animate: idle until a class change wakes the loop.
+    if (flowing.empty() || flowing.length > limit) return;
     raf = requestAnimationFrame(tick);
     if (t - last < 33) return;
     last = t;
-    const flowing = cy.edges('.flow, .hflow');
-    if (flowing.empty() || flowing.length > limit) return;
     flowing.style('line-dash-offset', flowOffset(t));
   };
-  raf = requestAnimationFrame(tick);
-  return () => cancelAnimationFrame(raf);
+  const wake = () => {
+    if (!raf && !stopped && !motion?.matches) raf = requestAnimationFrame(tick);
+  };
+  cy.on('class', 'edge', wake);
+  motion?.addEventListener?.('change', wake);
+  wake();
+  return () => {
+    stopped = true;
+    cancelAnimationFrame(raf);
+    cy.removeListener('class', 'edge', wake);
+    motion?.removeEventListener?.('change', wake);
+  };
 }
 
 /**
@@ -182,8 +197,8 @@ export function startFlow(cy: cytoscape.Core, limit = 160): () => void {
  * keeps that many pixels on the right clear, for an overlay such as the legend.
  */
 export function smoothFit(cy: cytoscape.Core, padding = 40, maxZoom = 1.1, reserveRight = 0) {
-  // Fit the terms only — decorative labels (Explorer's region names) may overhang.
-  const bb = cy.nodes('[size]').boundingBox();
+  // Fit every node with its label, so region and cluster names stay in view.
+  const bb = cy.nodes().boundingBox();
   if (!bb.w || !bb.h) return;
   const width = cy.width() - (cy.width() - reserveRight > cy.width() / 2 ? reserveRight : 0);
   const zoom = Math.min(
