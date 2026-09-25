@@ -52,9 +52,9 @@ const about = aboutProps(lang);
 
 <style is:global>
   /*
-   * The About button (A84) owns the explorer's top-right corner. Until the Explorer
-   * reads --explorer-controls-top itself, its own corner stack (Fit to view + legend)
-   * and the sidebar heading are nudged clear of it from here.
+   * The About button (A84) owns the explorer's top-right corner. The Explorer's own
+   * corner stack (Tidy up, Fit to view, legend) starts at --explorer-controls-top on
+   * wide screens; the sidebar heading is nudged clear of it from here.
    */
   #explorer {
     position: relative;
@@ -66,9 +66,6 @@ const about = aboutProps(lang);
   @media (min-width: 1024px) {
     #explorer aside > div:first-child {
       padding-right: 0;
-    }
-    #explorer .pointer-events-none.absolute.top-3.right-3 {
-      top: var(--explorer-controls-top);
     }
   }
 </style>

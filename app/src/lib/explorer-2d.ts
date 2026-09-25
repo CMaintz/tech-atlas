@@ -1,5 +1,5 @@
 /**
- * The Explorer's 2D map (A74, A79): one Cytoscape instance for the life of the page.
+ * The Explorer's 2D map (A74, A85): one Cytoscape instance for the life of the page.
  * The island layout is computed once from the whole graph; filters only hide and show
  * elements in place, layouts (force / depth / time) and "Tidy up" glide nodes to new
  * positions, and nothing here ever re-creates the instance. Browser-only.
@@ -220,7 +220,7 @@ export function createMap2D(opts: Map2DOptions) {
     maxZoom: 3,
     autoungrabify: true,
     boxSelectionEnabled: false,
-    // Pan and zoom move a snapshot of the map; it is redrawn crisp when they stop (A83).
+    // Pan and zoom move a snapshot of the map; it is redrawn crisp when they stop (A85).
     textureOnViewport: true,
     pixelRatio: Math.min(window.devicePixelRatio || 1, 2),
   });
@@ -273,7 +273,7 @@ export function createMap2D(opts: Map2DOptions) {
 
   /**
    * Pack the given islands (only their visible members count) into domain regions, then
-   * turn each region and island so terms shared with another domain face it (A79).
+   * turn each region and island so terms shared with another domain face it (A85).
    */
   const islandMap = (visible: ReadonlySet<string>, enabled?: ReadonlySet<string>) => {
     const members = new Map<string, GraphNode[]>();

@@ -22,7 +22,7 @@ import { clusterColour, domainColour } from './graph-style';
 
 const on = (...d: string[]) => new Set(d);
 
-describe('termVisible (A79)', () => {
+describe('termVisible (A85)', () => {
   it('shows a term while at least one of its domains is enabled', () => {
     expect(termVisible({ domain: ['cs', 'security'] }, on('security'))).toBe(true);
     expect(termVisible({ domain: ['cs', 'security'] }, on('cs'))).toBe(true);
@@ -53,7 +53,7 @@ describe('effectiveHome / effectivePaint', () => {
   });
 });
 
-describe('domainBands / bandGradient (A84)', () => {
+describe('domainBands / bandGradient (A85)', () => {
   const firewall = { domain: ['cs', 'security'], cluster: 'networking' };
   it('gives a shared term one band per enabled domain, home first', () => {
     expect(domainBands(firewall)).toEqual([domainColour('cs'), domainColour('security')]);

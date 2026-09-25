@@ -48,7 +48,7 @@ export function edgeData(
 /**
  * The shared look: glowing nodes, domain rings, curved family-coloured edges. No style
  * transitions here: on the full map they animate every restyled element each frame
- * (A79); small graphs add `FADE_TRANSITIONS`.
+ * (A85); small graphs add `FADE_TRANSITIONS`.
  */
 export const GRAPH_STYLE = [
   {
@@ -73,7 +73,7 @@ export const GRAPH_STYLE = [
       'underlay-shape': 'ellipse',
     },
   },
-  // A term in several domains is split into vertical bands, one per domain (A84).
+  // A term in several domains is split into vertical bands, one per domain (A85).
   {
     selector: 'node[bandColours]',
     style: {

@@ -1,5 +1,5 @@
 /**
- * The Explorer's 3D map (A79): galaxies of terms, computed once (`galaxyLayout`) and
+ * The Explorer's 3D map (A85): galaxies of terms, computed once (`galaxyLayout`) and
  * fixed — no live physics, so the GPU only draws. One scene for the life of the page:
  * filters, hover and selection re-evaluate accessors in place. Glow is a single
  * additive point cloud, hubs carry text sprites, and particles run only along the

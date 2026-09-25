@@ -1,5 +1,5 @@
 /**
- * Pure graph maths for the Explorer (A79): the domain filter, which edges form the
+ * Pure graph maths for the Explorer (A85): the domain filter, which edges form the
  * overview backbone, PageRank for node size, cluster-to-cluster bundles, the "By depth"
  * and "By time" layouts, seam rotation and the 3D galaxy layout. No DOM, no Cytoscape,
  * no three.js — everything here is deterministic and unit-tested.
@@ -22,7 +22,7 @@ type WeightedLink = Link & { weight: number; family: string };
 // ---- Domain filter ------------------------------------------------------------------
 
 /**
- * A term is visible when at least one of its domains is enabled (A79). A term shared by
+ * A term is visible when at least one of its domains is enabled (A85). A term shared by
  * two domains is one node: it stays while either is on. Nothing is ever shown merely
  * because it is connected to a visible term, and edges need both ends visible.
  */
@@ -55,7 +55,7 @@ export function effectivePaint(
 }
 
 /**
- * The colour bands of a term in several enabled domains (A84): one band per domain,
+ * The colour bands of a term in several enabled domains (A85): one band per domain,
  * its effective home first, each in that domain's colour. A term in one enabled domain
  * gets no bands (its fill is its cluster shade).
  */
@@ -88,7 +88,7 @@ export function bandGradient(colours: string[]): { colours: string; stops: strin
 const STRUCTURAL = new Set(['structure', 'dependency']);
 
 /**
- * The overview's edges (A79): each term keeps its `perNode` strongest relationships
+ * The overview's edges (A85): each term keeps its `perNode` strongest relationships
  * inside its own cluster (structure and prerequisites count 1.5×); a term left with
  * none keeps its single strongest relationship of any kind, so no connected term
  * floats alone. Returns the indices of the chosen links.
@@ -295,7 +295,7 @@ export type LaneLayout = {
 };
 
 /**
- * "By depth" (A79): one vertical lane per domain, depth rows shared by every lane
+ * "By depth" (A85): one vertical lane per domain, depth rows shared by every lane
  * (foundations at the bottom), long rows wrapped into sub-rows so lanes stay compact,
  * and terms ordered inside rows by the barycentre of their neighbours in the rows
  * below and above (a few sweeps), which cuts edge crossings.
@@ -401,7 +401,7 @@ export function yearX(year: number, minYear: number): number {
 }
 
 /**
- * "By time" (A79): x = the year a term entered use, one horizontal lane per domain,
+ * "By time" (A85): x = the year a term entered use, one horizontal lane per domain,
  * terms of the same year (and near years) stacked into the nearest free slot of their
  * lane. Undated terms are left out (`hidden`), not piled into a grid.
  */
@@ -459,7 +459,7 @@ export function timeLanes(
 export type Point3 = { x: number; y: number; z: number };
 
 /**
- * Where every term sits in 3D (A79), computed once from the whole graph: each domain is
+ * Where every term sits in 3D (A85), computed once from the whole graph: each domain is
  * a galaxy on a horizontal ring, each cluster a star system round its galaxy's centre,
  * terms spread by repulsion and drawn together by their relationships. A term in two
  * domains is pulled towards the point between its galaxies, so shared terms form the
