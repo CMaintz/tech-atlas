@@ -19,11 +19,11 @@ const ui = UI[lang];
     <>
       <h1 class="mb-2 text-3xl font-semibold">{ui.account}</h1>
       <p class="text-muted">{ui.accountsOff}</p>
+      <p class="mt-10 text-sm text-subtle">
+        <a class="underline hover:text-fg-soft" href={url(`${lang}/privacy/`)}>
+          {ui.privacyLink}
+        </a>
+      </p>
     </>
   )}
-  <p class="mt-10 text-sm text-subtle">
-    <a class="underline hover:text-fg-soft" href={url(`${lang}/privacy/`)}>
-      {ui.privacyLink}
-    </a>
-  </p>
 </Base>
