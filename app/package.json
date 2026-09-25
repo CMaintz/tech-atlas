@@ -12,11 +12,12 @@
     "build": "npm run lint:content && npm run build:graph && astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "vitest run"
+    "test": "vitest run",
+    "seed:vectors": "tsx scripts/seed-vectors.ts",
+    "smoke:semantic": "tsx scripts/smoke-semantic.ts"
   },
   "dependencies": {
     "@astrojs/preact": "^6.0.5",
-    "@huggingface/transformers": "^4.3.0",
     "@supabase/supabase-js": "^2.117.0",
     "@tailwindcss/vite": "^4.3.3",
     "3d-force-graph": "^1.80.0",
@@ -24,7 +25,6 @@
     "cytoscape": "^3.31.2",
     "cytoscape-fcose": "^2.2.0",
     "minisearch": "^7.1.2",
-    "onnxruntime-web": "1.31.0-dev.20260914-8d85527a0",
     "preact": "^10.26.0",
     "tailwindcss": "^4.3.3",
     "three": "^0.186.1",
@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@huggingface/transformers": "^4.3.0",
     "@types/cytoscape": "^3.21.9",
     "@types/cytoscape-fcose": "^2.2.5",
     "@types/node": "^22.13.0",

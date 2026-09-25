@@ -1,29 +1,43 @@
-# Turning on accounts and synced progress (Supabase)
+# Turning on the backend: accounts, synced progress and search by meaning (Supabase)
 
-Atlas works fully without this: learner progress lives in the browser. These steps add
-optional sign-in (email magic link + GitHub) so a learner's progress follows them across
-devices (decisions A44–A50 in `design/AUTONOMOUS_DECISIONS.md`). Until both repository
-variables in step 5 are set, the deployed site has no account UI at all.
+Atlas works fully without this: learner progress lives in the browser and search matches
+names and aliases. One Supabase project adds two optional features:
 
-Everything below is on free tiers. Roughly 15 minutes.
+- **Accounts + synced progress** — sign-in (email magic link + GitHub) so a learner's
+  progress follows them across devices (A44–A50 in `design/AUTONOMOUS_DECISIONS.md`):
+  steps 1–6. Until both repository variables in step 5 are set, the site has no account UI.
+- **Search by meaning** — questions like "how do I stop people reusing leaked passwords"
+  find _Credential stuffing_, in English or Danish (A75–A78): steps 1, 2 and 7.
+  The language model runs on the backend; visitors download nothing.
+
+Everything below is on free tiers. Roughly 15 minutes per feature.
 
 ## 1. Create the Supabase project
 
 1. Sign in at <https://supabase.com/dashboard> and choose **New project**.
 2. Name it (e.g. `tech-atlas`), set a database password (store it in a password manager;
-   the site never needs it), pick the region nearest your learners (e.g. _Central EU
-   (Frankfurt)_), plan **Free**.
+   the site never needs it, but CI does — step 7), plan **Free**, and pick an **EU
+   region — recommended: _Central EU (Frankfurt)_** (`eu-central-1`). Learners are in
+   Denmark, and account data (emails, progress) then stays in the EU under GDPR; it is
+   also the lowest latency for search. The region cannot be changed later.
 3. Wait for it to finish provisioning.
 
-## 2. Create the table (run the migration)
+## 2. Create the tables (run the migrations)
 
-Either:
+If you set up step 7, the `backend` workflow runs every migration for you
+(`supabase db push`) — skip to the check. Otherwise either:
 
-- **Dashboard:** open **SQL Editor → New query**, paste the whole of
-  [`supabase/migrations/20260923000000_learner_state.sql`](../supabase/migrations/20260923000000_learner_state.sql),
-  and **Run**. It is idempotent, so running it twice is harmless.
+- **Dashboard:** open **SQL Editor → New query**, paste the whole of each file in
+  [`supabase/migrations/`](../supabase/migrations/) in name order
+  (`20260923000000_learner_state.sql`, then `20260925000000_term_vectors.sql`), and
+  **Run**. They are idempotent, so running one twice is harmless — including when the
+  workflow later applies them again.
 - **CLI:** from the repo root, `npx supabase login`, `npx supabase link --project-ref <ref>`,
   then `npx supabase db push`.
+
+The second migration **enables pgvector** itself
+(`create extension if not exists vector with schema extensions`). To do it by hand
+instead: **Database → Extensions**, search `vector`, enable it in schema `extensions`.
 
 Check: **Table Editor → learner_state** exists (columns `user_id`, `state`, `version`,
 `updated_at`, `deleted_at`) and shows **RLS enabled** with four policies
@@ -93,10 +107,109 @@ They must be **variables**, not secrets — `deploy.yml` reads `vars.*`.
    sign in there, and check **Study** shows the same progress.
 4. In Supabase, **Table Editor → learner_state** shows one row per signed-in learner.
 
+## 7. Search by meaning
+
+How it fits together: after every push to `main` that passes the gate, the `backend`
+workflow applies the migrations, deploys the `semantic-search` Edge Function, **embeds every
+term through Cloudflare Workers AI** (bge-m3 — too large to run inside a Supabase Edge
+Function, A75) into `public.term_vectors`, and finally runs a **smoke test** that fails the
+workflow unless three known questions (one Danish, two English) find their terms. The site
+calls the function; the function embeds the query with the very same Workers AI call and
+ranks terms in Postgres. Stored and query vectors therefore always come from one service.
+If anything is missing or down, search quietly falls back to names.
+
+**7a. Cloudflare (runs the model; free tier: 10,000 neurons/day — a query costs ~0.02).**
+
+1. Sign up / sign in at <https://dash.cloudflare.com> (the free Workers plan is enough).
+2. **Account ID:** on **Account home → Workers & Pages** (or any zone's overview) the right
+   sidebar shows _Account ID_ — copy it.
+3. **API token:** **My Profile → API Tokens → Create Token →** the **Workers AI** template
+   (or a custom token with _Account · Workers AI · Read_), scoped to this account only →
+   create, copy the token (shown once).
+
+**7b. Supabase values for CI.**
+
+1. **Project ref:** the `abcdefghijklmnop` in `https://abcdefghijklmnop.supabase.co`
+   (also **Project Settings → General → Project ID**).
+2. **Access token:** <https://supabase.com/dashboard/account/tokens> → **Generate new
+   token** (name it `tech-atlas CI`), copy it.
+3. **Database password:** the one from step 1 (lost it? **Project Settings → Database →
+   Reset database password**).
+4. **Legacy API keys must stay enabled** (**Project Settings → API Keys → Legacy API
+   Keys**, on by default). The function reads the platform-injected `SUPABASE_ANON_KEY`
+   (to rank terms under Row Level Security) and `SUPABASE_SERVICE_ROLE_KEY` (for the rate
+   limiter); both are the legacy keys. If you disable them, search by meaning answers
+   `semantic search failed` and the site falls back to names.
+
+**7c. GitHub — CMaintz/tech-atlas → Settings → Secrets and variables → Actions.**
+
+| Kind              | Name                         | Value                                                    |
+| ----------------- | ---------------------------- | -------------------------------------------------------- |
+| **Variables** tab | `SUPABASE_PROJECT_REF`       | the project ref                                          |
+| **Variables** tab | `PUBLIC_SEMANTIC_SEARCH_URL` | `https://<ref>.supabase.co/functions/v1/semantic-search` |
+| **Secrets** tab   | `SUPABASE_ACCESS_TOKEN`      | the Supabase access token                                |
+| **Secrets** tab   | `SUPABASE_DB_PASSWORD`       | the database password                                    |
+| **Secrets** tab   | `CLOUDFLARE_ACCOUNT_ID`      | the Cloudflare account ID                                |
+| **Secrets** tab   | `CLOUDFLARE_API_TOKEN`       | the Cloudflare Workers AI token                          |
+
+`PUBLIC_SEMANTIC_SEARCH_URL` is what turns search by meaning on in the site build — it is
+separate from `PUBLIC_SUPABASE_URL` (step 5), so a site with only accounts configured never
+calls a function that isn't deployed. Set it **after** 7d.1 has passed.
+
+The Cloudflare values must be **GitHub secrets** (the workflow copies them into the
+function and uses them to embed the terms); setting them only in the Supabase dashboard is
+not enough. Without `SUPABASE_PROJECT_REF` the `backend` workflow is skipped; without the
+two Supabase secrets its steps are skipped with a notice; without the two Cloudflare
+secrets it applies the migrations only and leaves search by meaning undeployed.
+
+**7d. Deploy and check.**
+
+1. **Actions → backend → Run workflow** on `main` (manual runs on other branches are
+   ignored). Afterwards it runs by itself once the gate passes on each push to `main`. It
+   should log `term_vectors: <2 × number of terms> rows upserted, …` and then three
+   `ok` smoke lines; if a smoke query misses, the job fails.
+2. Set `PUBLIC_SEMANTIC_SEARCH_URL` (7c), then **Actions → deploy → Run workflow**.
+3. Optionally, from a terminal:
+
+   ```sh
+   curl -s https://<ref>.supabase.co/functions/v1/semantic-search \
+     -H 'Content-Type: application/json' \
+     -d '{"q":"hvem har ansvaret for persondata","lang":"da","k":3}'
+   ```
+
+   → `{"hits":[{"id":"security/data-controller","score":0.6…},…]}`.
+4. On the site, type `how do I stop people reusing leaked passwords`: _Credential
+   stuffing_ appears, labelled **by meaning**.
+
+**Limits and budget (A77).** The function is public (no key needed). It reads at most
+2 KB of request body, accepts queries up to 200 characters, and — in Postgres, shared by
+every instance — allows **30 searches a minute per client** (keyed by a hash of the IP,
+never the address) and **50,000 a day in total**, answering 429 beyond that. CORS answers
+only `https://cmaintz.github.io` and `localhost`. The binding free-tier budget is
+**Supabase Edge Function invocations: 500,000 a month**; Workers AI's 10,000 neurons a day
+cover far more queries than the daily cap allows. To change the caps, edit
+`public.search_allow` in a new migration. Logs: **Edge Functions → semantic-search → Logs**
+(the first request per instance also logs the pooling Workers AI reports).
+
+**After editing terms:** run `npm run embed` in `app/` and commit the updated vector file
+(the content lint fails on a new or removed term, warns on changed text). That file only
+feeds the lint's per-term hashes and the offline ranking tests — the database is always
+re-embedded through Workers AI by the workflow. With `CLOUDFLARE_ACCOUNT_ID` +
+`CLOUDFLARE_API_TOKEN` in your environment `npm run embed` uses Workers AI (seconds);
+otherwise it runs the same model locally (~2.3 GB download once, then a few minutes).
+
 ## Local development
 
-Copy `app/.env.example` to `app/.env` (git-ignored) and fill in the same two values;
-`npm run dev` then includes the account UI. Leave `.env` absent for the local-only site.
+Copy `app/.env.example` to `app/.env` (git-ignored) and fill in the values you want;
+`npm run dev` then includes the account UI and/or search by meaning (which calls the
+deployed function; its CORS allows `localhost`). Leave `.env` absent for the local-only
+site.
+
+To run the function itself locally (needs Docker): `npx supabase start`, then
+`npx supabase functions serve semantic-search --no-verify-jwt --env-file <file with the
+two CLOUDFLARE_* values>`, and load vectors with `SUPABASE_URL=http://127.0.0.1:54321
+SUPABASE_SERVICE_KEY=<the local secret key from supabase start> CLOUDFLARE_ACCOUNT_ID=…
+CLOUDFLARE_API_TOKEN=… npm run seed:vectors`.
 
 ## Good to know
 
@@ -109,4 +222,6 @@ Copy `app/.env.example` to `app/.env` (git-ignored) and fill in the same two val
   sign-in identity itself (email / GitHub id in **Authentication → Users**) remains
   until you delete it there; deleting a user also deletes their row
   (`on delete cascade`).
-- **Turning it off:** delete the two repository variables and redeploy.
+- **Turning it off:** delete the two `PUBLIC_SUPABASE_*` repository variables and redeploy
+  (accounts); delete `PUBLIC_SEMANTIC_SEARCH_URL` and redeploy (search by meaning); delete
+  `SUPABASE_PROJECT_REF` to stop the backend workflow.
