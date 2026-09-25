@@ -43,7 +43,7 @@ deepDive:
     Svaghederne er praktiske snarere end teoretiske. Gode frekvensdata er sjældne, så skønnene hviler på egen hændelseshistorik, branchestudier af tab og skadesdata fra forsikring, som ikke nødvendigvis passer til organisationen; resultaterne kan se autoritative ud, selv om inputtet er svagt; korrelerede tab, fx et nedbrud hos én cloududbyder, der rammer mange processer på én gang, modelleres let fejlagtigt som uafhængige; og indsatsen betyder, at de fleste organisationer kun kvantificerer nogle få toprisici. Resultatet er en model af usikkerhed, ikke en prognose, og bør rapporteres med intervaller og de vigtigste antagelser.
 edges:
   kind-of: [risk-assessment]
-  requires: [likelihood, impact]
+  requires: [risk, likelihood, impact]
   used-with: [risk-transfer]
 sources:
   - title: Cyber Security Fast Track — Kursuskompendium, Modul 5

@@ -8,6 +8,7 @@ domain: [cs, security]
 cluster: identity
 layer: identity
 status: current
+era: 2016
 summary:
   en: Rules that decide at each login whether to let someone in, ask for more proof or block them, based on who, where and what device.
   da: Regler, der ved hvert login afgør, om en person lukkes ind, skal bevise mere eller afvises — ud fra hvem, hvor og hvilken enhed.
@@ -43,7 +44,7 @@ deepDive:
     Fejlene er oftest huller i konfigurationen. Undtagelser hober sig op, hvad enten det er servicekonti, en VIP eller en gammel app, og hver af dem er et hul; nødkonti (break-glass) skal undtages for at undgå at låse sig selv ude, og derfor er overvågning af dem afgørende. IP-placering er et svagt bevis, fordi VPN og cloudhosting skjuler oprindelsen. Kontrol af enhedens overholdelse bygger på MDM-systemets billede af enheden. Stjålne sessionscookies fra adversary-in-the-middle-phishing genbruger et token, der allerede har bestået politikken, og derfor suppleres betinget adgang med tokenbinding og kort loginhyppighed. Microsoft anbefaler at køre nye politikker i report-only-tilstand først og bruge What If-værktøjet; ændringer bør versionsstyres og gennemgås som kode, fordi én fejlagtig politik kan låse en hel tenant ude.
 edges:
   implements: [zero-trust]
-  requires: [authentication, identity-provider]
+  requires: [access-control, authentication, identity-provider]
   used-with:
     - to: mfa
       why:

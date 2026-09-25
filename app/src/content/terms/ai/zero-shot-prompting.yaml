@@ -8,6 +8,7 @@ domain: [ai]
 cluster: prompting
 layer: inference
 status: current
+era: 2020
 summary:
   en: Asking a language model to do a task from an instruction alone, with no worked examples to copy.
   da: At bede en sprogmodel løse en opgave kun ud fra en beskrivelse af den, uden løste eksempler at efterligne.

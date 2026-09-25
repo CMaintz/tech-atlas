@@ -8,6 +8,7 @@ domain: [cs]
 cluster: cryptography
 layer: theory
 status: current
+era: 1977
 summary:
   en: Encryption where the same secret key both locks and unlocks the data, so sender and receiver must share it in advance.
   da: Kryptering, hvor den samme hemmelige nøgle både låser og låser data op, så afsender og modtager skal dele den på forhånd.

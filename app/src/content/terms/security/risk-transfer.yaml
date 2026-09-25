@@ -43,7 +43,7 @@ deepDive:
     Overførsel supplerer derfor reduktion frem for at erstatte den. Den egner sig bedst til den residuale risiko med lav sandsynlighed og høj konsekvens, der er tilbage efter rimelige kontroller, og det er en kvantitativ analyse af tabets hale, der gør det muligt at vælge fornuftige forsikringssummer og selvrisici.
 edges:
   kind-of: [risk-treatment]
-  requires: [impact]
+  requires: [risk, impact]
   used-with: [supplier-management]
 sources:
   - title: Cyber Security Fast Track — Kursuskompendium, Modul 5 og Ordliste (Risikohåndtering — overføre)

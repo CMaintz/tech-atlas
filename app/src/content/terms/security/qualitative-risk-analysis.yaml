@@ -43,7 +43,7 @@ deepDive:
     Metodens styrker er hastighed, lave krav til data og et resultat, som ledelsen let kan læse, og derfor er de fleste risikovurderinger efter ISO/IEC 27001 kvalitative. Begrænsningerne er lige så tydelige: Vurderingerne kan ikke lægges sammen på tværs af risici, kan ikke direkte sammenlignes med prisen på en kontrol og inviterer til falsk præcision, når de lægges sammen i gennemsnit eller ganges. En udbredt hybrid er at screene hele risikoregistret kvalitativt og derefter flytte de få risici, der er knyttet til store investerings- eller forsikringsbeslutninger, over i en kvantitativ analyse, hvor sandsynlighed og konsekvens udtrykkes som sandsynlighedsfordelinger og kroner.
 edges:
   kind-of: [risk-assessment]
-  requires: [likelihood, impact]
+  requires: [risk, likelihood, impact]
   contrasts-with:
     - to: quantitative-risk-analysis
       why:

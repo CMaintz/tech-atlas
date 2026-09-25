@@ -8,6 +8,7 @@ domain: [platform]
 cluster: containers
 layer: orchestration
 status: current
+era: 2014
 summary:
   en: Letting software run many containers across a group of machines automatically, so nobody has to start and place them by hand.
   da: At lade software drive mange containere automatisk på tværs af en gruppe maskiner, så ingen skal starte og placere dem i hånden.

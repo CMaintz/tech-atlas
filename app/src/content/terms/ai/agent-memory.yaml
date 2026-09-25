@@ -8,6 +8,7 @@ domain: [ai]
 cluster: agents
 layer: agent
 status: emerging
+era: 2023
 summary:
   en: Notes an AI agent saves outside the model and reads back later, so it can carry facts and past work from one chat to the next.
   da: Noter, en AI-agent gemmer uden for modellen og læser igen senere, så den kan huske fakta og tidligere arbejde mellem adskilte samtaler.

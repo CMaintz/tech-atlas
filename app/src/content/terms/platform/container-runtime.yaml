@@ -8,6 +8,7 @@ domain: [platform]
 cluster: containers
 layer: infrastructure
 status: current
+era: 2015
 summary:
   en: The software on each host that actually starts, stops and walls off containers — containerd is a well-known example.
   da: Softwaren på hver vært, der rent faktisk starter, stopper og adskiller containere — containerd er et kendt eksempel.

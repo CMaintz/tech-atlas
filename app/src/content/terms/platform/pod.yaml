@@ -8,6 +8,7 @@ domain: [platform]
 cluster: containers
 layer: orchestration
 status: current
+era: 2014
 summary:
   en: The smallest unit Kubernetes runs — one or a few tightly linked containers that share a network address and storage.
   da: Den mindste enhed, Kubernetes kører — én eller få tæt forbundne containere, der deler netværksadresse og lager.

@@ -8,6 +8,7 @@ domain: [platform]
 cluster: cloud
 layer: infrastructure
 status: current
+era: 1967
 summary:
   en: A whole computer made in software, with its own operating system, running side by side with others on one physical machine.
   da: En hel computer lavet i software med sit eget styresystem, der kører side om side med andre på én fysisk maskine.

@@ -8,6 +8,7 @@ domain: [platform]
 cluster: cloud
 layer: infrastructure
 status: current
+era: 2001
 summary:
   en: The cloud model where you simply use a finished program over the internet, and the provider runs everything behind it.
   da: Cloudmodellen, hvor du blot bruger et færdigt program over internettet, og udbyderen driver alt bag det.

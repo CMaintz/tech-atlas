@@ -8,6 +8,7 @@ domain: [security]
 cluster: security-operations
 layer: data
 status: current
+era: 2011
 summary:
   en: A trace left behind by an attack, such as a known bad web address or file, that shows a system has probably been broken into.
   da: Et spor efter et angreb, fx en kendt ondsindet webadresse eller fil, der viser, at et system sandsynligvis er kompromitteret.

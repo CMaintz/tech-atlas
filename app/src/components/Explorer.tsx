@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import cytoscape from 'cytoscape';
 import fcose from 'cytoscape-fcose';
 import {
@@ -37,6 +37,8 @@ import {
   startFlow,
 } from '../lib/graph-cytoscape';
 import GraphLegend from './GraphLegend';
+import TermPanel, { prefetchTerm, type PanelConfig } from './TermPanel';
+import { termFromSearch, withTermParam } from '../lib/term-panel';
 
 cytoscape.use(fcose);
 
@@ -54,6 +56,8 @@ interface Props {
   familyLabels: Dict;
   familyColours: Dict;
   domainLabels: Dict;
+  /** The term panel's strings and data locations (A80). */
+  panel: PanelConfig;
 }
 
 type Mode = '2d' | '3d';
@@ -72,6 +76,9 @@ const KNOWLEDGE_COLOURS: Record<string, string> = {
 const legendOpenAtStart = () => window.innerWidth >= 1024;
 /** Pixels the map keeps clear on the right for the open legend. */
 const legendReserve = () => (legendOpenAtStart() ? 310 : 0);
+
+/** Pixels the docked term panel covers on the right of the map (lg: 26rem). */
+const panelReserve = () => (window.innerWidth >= 1024 ? 416 : 0);
 
 /** Below this zoom only hubs keep a (larger) label. */
 const FAR_ZOOM = 0.9;
@@ -147,8 +154,17 @@ export default function Explorer(props: Props) {
           setSelected(focus);
           setHops(1);
         }
+        // A deep link (`?term=`) opens that term's panel (A80).
+        const deep = termFromSearch(window.location.search);
+        if (deep && g.nodes.some((n) => n.id === deep)) setSelected(deep);
       });
   }, [graphUrl]);
+
+  // The open term is kept in the address (`?term=`), so the view can be shared (A80).
+  useEffect(() => {
+    if (graph)
+      history.replaceState(history.state, '', withTermParam(window.location.href, selected));
+  }, [graph, selected]);
 
   const visible = useMemo<Graph | null>(() => {
     if (!graph) return null;
@@ -556,16 +572,14 @@ export default function Explorer(props: Props) {
     cull();
     cy.on('tap', 'node:childless', (e) => setSelected(e.target.id()));
     cy.on('tap', (e) => e.target === cy && setSelected(null));
-    cy.on(
-      'dbltap',
-      'node:childless',
-      (e) => (window.location.href = `${termBase}${e.target.id()}/`),
-    );
+    // A double click opens the panel too — never a page load (A80).
+    cy.on('dbltap', 'node:childless', (e) => setSelected(e.target.id()));
     attachHover(cy);
     // A hovered neighbourhood is labelled too — hovered term first, then by size — and
     // its labels are culled among themselves, so even they never overlap.
     cy.on('mouseover', 'node[size]', (e) => {
       const hovered = e.target as cytoscape.NodeSingular;
+      prefetchTerm(props.panel.apiBase, hovered.id());
       const far = cy.zoom() < FAR_ZOOM;
       const fontOf = (n: cytoscape.NodeSingular): number =>
         far ? n.data('hoverFont') : n.data('font');
@@ -627,11 +641,15 @@ export default function Explorer(props: Props) {
       node.connectedEdges('[?directed]').addClass('flow');
       cy.edges('[!directed]').removeClass('flow');
     });
-    if (node.nonempty())
+    if (node.nonempty()) {
+      // Centre the term in the part of the map the docked panel leaves visible (A80).
+      const p = node.position();
+      const clear = cy.width() - panelReserve();
       cy.animate(
-        { center: { eles: node } },
+        { pan: { x: clear / 2 - p.x * cy.zoom(), y: cy.height() / 2 - p.y * cy.zoom() } },
         { duration: reducedMotion() ? 0 : 400, easing: 'ease-in-out-cubic' },
       );
+    }
   }, [selected, hl, visible, mode, layout]);
 
   // ---- 3D (3d-force-graph) — height is Depth (ADR-0001) ----------------
@@ -787,12 +805,13 @@ export default function Explorer(props: Props) {
   };
 
   const sel = selected ? byId.get(selected) : undefined;
+  const closePanel = useCallback(() => setSelected(null), []);
   const allDomains = [...new Set((graph?.nodes ?? []).flatMap((n) => n.domain))];
   const button = (active: boolean) =>
     `rounded border px-2 py-1 text-xs ${active ? 'border-neutral-300 text-neutral-100' : 'border-neutral-700 text-neutral-400 hover:border-neutral-500'}`;
 
   return (
-    <div class="flex h-[calc(100vh-4.25rem)] flex-col lg:flex-row">
+    <div class="relative flex h-[calc(100vh-4.25rem)] flex-col lg:flex-row">
       <aside class="w-full shrink-0 space-y-5 overflow-y-auto border-neutral-800 p-4 text-sm lg:w-80 lg:border-r">
         <div>
           <h1 class="text-xl font-semibold">{ui.explorer}</h1>
@@ -955,7 +974,7 @@ export default function Explorer(props: Props) {
             {!graph && <p class="p-6 text-neutral-500">{ui.loading}</p>}
           </div>
         </div>
-        {visible && (
+        {visible && !sel && (
           <div class="pointer-events-none absolute top-3 right-3 flex flex-col items-end gap-2">
             {mode === '2d' && (
               <button
@@ -982,6 +1001,21 @@ export default function Explorer(props: Props) {
           </div>
         )}
       </div>
+      {graph && sel && (
+        <TermPanel
+          {...props.panel}
+          lang={lang}
+          id={sel.id}
+          graph={graph}
+          termBase={termBase}
+          clusterLabels={props.clusterLabels}
+          domainLabels={props.domainLabels}
+          familyLabels={props.familyLabels}
+          graphUi={props.graphUi}
+          onSelect={setSelected}
+          onClose={closePanel}
+        />
+      )}
     </div>
   );
 }

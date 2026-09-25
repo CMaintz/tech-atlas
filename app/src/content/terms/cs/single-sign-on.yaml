@@ -8,6 +8,7 @@ domain: [cs]
 cluster: identity
 layer: identity
 status: current
+era: 1988
 summary:
   en: Logging in once to reach many separate applications, with a trusted identity provider vouching for the user to each.
   da: At logge ind én gang og få adgang til mange programmer, fordi en betroet identitetsudbyder går i god for brugeren.

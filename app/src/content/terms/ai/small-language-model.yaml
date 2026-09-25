@@ -8,6 +8,7 @@ domain: [ai]
 cluster: model-architecture
 layer: model
 status: emerging
+era: 2024
 summary:
   en: A language model small enough to run cheaply on a laptop or phone, trading some broad skill for speed, privacy and low cost.
   da: En sprogmodel, der er lille nok til at køre billigt på en bærbar eller telefon og bytter lidt kunnen for fart, privatliv og lav pris.

@@ -8,6 +8,7 @@ domain: [ai]
 cluster: ai-risk
 layer: model
 status: current
+era: 2016
 summary:
   en: When an AI system treats some people or cases unfairly because of one-sided data or design choices.
   da: Når et AI-system systematisk behandler nogle mennesker eller sager uretfærdigt på grund af skæve data eller valg i designet.

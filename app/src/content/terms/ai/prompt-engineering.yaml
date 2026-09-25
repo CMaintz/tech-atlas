@@ -8,6 +8,7 @@ domain: [ai]
 cluster: prompting
 layer: application
 status: current
+era: 2022
 summary:
   en: The craft of wording, ordering and testing the text you send a language model so that it gives useful answers more often.
   da: Håndværket at formulere, ordne og afprøve den tekst, man sender en sprogmodel, så den oftere giver brugbare svar.

@@ -8,6 +8,7 @@ domain: [platform]
 cluster: cloud
 layer: infrastructure
 status: current
+era: 1967
 summary:
   en: The layer of software that splits one physical computer into several virtual machines and keeps them apart.
   da: Det lag software, der deler én fysisk computer op i flere virtuelle maskiner og holder dem adskilt.

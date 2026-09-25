@@ -44,7 +44,7 @@ deepDive:
     Passkeys er enten synkroniserede eller enhedsbundne. Efter Apples, Googles og Microsofts fælles tilsagn i maj 2022 begyndte platformene at synkronisere passkeys via iCloud-nøglering, Google Password Manager og tredjeparts adgangskodeadministratorer; flagene BE (backup eligible) og BS (backup state) afslører det, og synkroniserede autentifikatorer returnerer ofte signaturtælleren nul, så tællerbaseret kloningsdetektion bliver meningsløs. SP 800-63B-4 accepterer synkroniserbare autentifikatorer op til AAL2, men ikke på AAL3, som kræver en nøgle, der ikke kan eksporteres; administratorer og brug med højt sikringsniveau kræver derfor enhedsbundne passkeys på sikkerhedsnøgler eller platform-TPM'er, ofte med attestation, så modellen kan verificeres. Login på tværs af enheder bruger hybrid-transporten, en QR-kode plus et Bluetooth-nærhedstjek, så en telefon kan autentificere en bærbar. De tilbageværende risici er den svageste tilbageværende gendannelses- eller reservemetode (SMS eller adgangskode, der stadig er slået til), kompromittering af synkroniseringskontoen og tyveri af den sessionscookie, der udstedes efter et fuldt phishing-resistent login.
 edges:
   kind-of: [credential]
-  requires: [public-key-cryptography]
+  requires: [authentication, public-key-cryptography]
   alternative-to:
     - to: password
       why:

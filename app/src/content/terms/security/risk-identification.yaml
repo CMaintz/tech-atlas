@@ -43,7 +43,7 @@ deepDive:
     De vigtigste fejl er snæver deltagelse, hvor en workshop kun med IT overser proces-, leverandør- og personrisici; tilgængelighedsbias, hvor sidste måneds overskrift dominerer; at forveksle manglende kontroller med risici ("ingen SIEM" er et fund, ikke en risiko); og at behandle identifikation som en engangsøvelse i stedet for at gentage den, når systemer, leverandører eller trusselsbilledet ændrer sig. Identifikationen stopper bevidst før vurderingen, fordi scoring under brainstorming har en tendens til at lukke diskussionen om usandsynlige, men alvorlige scenarier.
 edges:
   part-of: [risk-assessment]
-  requires: [asset, threat, vulnerability]
+  requires: [risk, asset, threat, vulnerability]
   used-with: [threat-landscape]
 sources:
   - title: Cyber Security Fast Track — Kursuskompendium, Modul 5

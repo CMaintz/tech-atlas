@@ -8,6 +8,7 @@ domain: [cs]
 cluster: os
 layer: os
 status: current
+era: 1965
 summary:
   en: The way an operating system organises stored data into files and folders and keeps track of who may use each one.
   da: Den måde, et styresystem organiserer gemte data i filer og mapper på og holder styr på, hvem der må bruge hver enkelt.

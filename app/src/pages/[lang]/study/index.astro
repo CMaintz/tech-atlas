@@ -1,7 +1,15 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import StudyHub from '../../../components/StudyHub';
-import { ACCOUNTS, CLUSTER_LABELS, LANGS, UI, url, type Lang } from '../../../lib/site';
+import {
+  ACCOUNTS,
+  CLUSTER_LABELS,
+  DOMAIN_LABELS,
+  LANGS,
+  UI,
+  url,
+  type Lang,
+} from '../../../lib/site';
 
 export function getStaticPaths() {
   return LANGS.map((lang) => ({ params: { lang } }));
@@ -11,6 +19,9 @@ const lang = Astro.params.lang as Lang;
 const ui = UI[lang];
 const clusterLabels = Object.fromEntries(
   Object.entries(CLUSTER_LABELS).map(([k, v]) => [k, v[lang]]),
+);
+const domainLabels = Object.fromEntries(
+  Object.entries(DOMAIN_LABELS).map(([k, v]) => [k, v[lang]]),
 );
 ---
 
@@ -25,6 +36,7 @@ const clusterLabels = Object.fromEntries(
       termBase={url(`${lang}/terms/`)}
       ui={{ ...ui, localNote: ACCOUNTS ? ui.syncNote : ui.localNote }}
       clusterLabels={clusterLabels}
+      domainLabels={domainLabels}
     />
   </div>
 </Base>

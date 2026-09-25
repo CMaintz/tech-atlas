@@ -8,6 +8,7 @@ domain: [ai]
 cluster: ml-fundamentals
 layer: application
 status: current
+era: 2022
 summary:
   en: AI that creates new content — text, images, sound, code — in the style of the examples it learned from, instead of only sorting or scoring.
   da: AI, der skaber nyt indhold — tekst, billeder, lyd, kode — i stil med de eksempler, den har lært af, i stedet for kun at sortere eller score.

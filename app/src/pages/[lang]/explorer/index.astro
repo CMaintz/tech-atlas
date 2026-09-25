@@ -12,6 +12,7 @@ import {
   url,
   type Lang,
 } from '../../../lib/site';
+import { localise as localiseIn, panelConfig } from '../../../lib/panel-config';
 
 export function getStaticPaths() {
   return LANGS.map((lang) => ({ params: { lang } }));
@@ -19,8 +20,10 @@ export function getStaticPaths() {
 
 const lang = Astro.params.lang as Lang;
 const ui = UI[lang];
-const localise = (m: Record<string, Record<Lang, string>>) =>
-  Object.fromEntries(Object.entries(m).map(([k, v]) => [k, v[lang]]));
+const localise = (m: Record<string, Record<Lang, string>>) => localiseIn(m, lang);
+
+// The term panel (A80) gets its tables from here, so the island never bundles the schema.
+const panel = panelConfig(lang);
 ---
 
 <Base lang={lang} title={ui.explorer} wide>
@@ -36,6 +39,7 @@ const localise = (m: Record<string, Record<Lang, string>>) =>
       familyLabels={localise(FAMILY_LABELS)}
       familyColours={FAMILY_COLOURS}
       domainLabels={localise(DOMAIN_LABELS)}
+      panel={panel}
     />
   </div>
 </Base>

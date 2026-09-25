@@ -1,17 +1,24 @@
 ---
-import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
+import Timeline, { type TimelineEntry } from '../../../components/Timeline';
 import { groupByDecade } from '../../../lib/era';
+import { loadGraph } from '../../../lib/graph';
+import type { GraphNode } from '../../../lib/graph-model';
+import { domainColour, homeDomain } from '../../../lib/graph-style';
 import {
-  CLUSTER_COLOURS,
   CLUSTER_LABELS,
   DOMAIN_LABELS,
+  FAMILY_LABELS,
+  GRAPH_UI,
   LANGS,
+  TIMELINE_UI,
   UI,
   termUrl,
+  url,
   type Lang,
 } from '../../../lib/site';
-import type { TermEntry } from '../../../lib/terms';
+import { localise, panelConfig } from '../../../lib/panel-config';
+import { axisRange, milestones, type TimelineItem } from '../../../lib/timeline';
 
 export function getStaticPaths() {
   return LANGS.map((lang) => ({ params: { lang } }));
@@ -19,76 +26,119 @@ export function getStaticPaths() {
 
 const lang = Astro.params.lang as Lang;
 const ui = UI[lang];
-const entries: TermEntry[] = await getCollection('terms');
-const terms = entries.map((t) => ({ id: t.id, ...t.data }));
-const { decades, undated } = groupByDecade(terms, (t) => t.term[lang]);
-const domains = [...new Set(decades.flatMap((d) => d.items.flatMap((t) => t.domain)))].sort();
+const tl = TIMELINE_UI[lang];
+const graph = await loadGraph();
+const nodes: GraphNode[] = graph.nodes;
 
-// Domain filter without JavaScript: a checked radio hides every term (and every decade
-// left empty) outside its domain. Generated because the domain list comes from content.
-const filterCss = domains
-  .map(
-    (d) =>
-      `.tl:has(#tl-${d}:checked) li[data-domain]:not([data-domain~="${d}"]),` +
-      `.tl:has(#tl-${d}:checked) li.decade:not(:has(li[data-domain~="${d}"])){display:none}`,
-  )
-  .join('\n');
-const chip =
-  'cursor-pointer rounded border border-neutral-700 px-2 py-1 text-xs text-neutral-400 hover:border-neutral-500 has-checked:border-neutral-300 has-checked:text-neutral-100 has-focus-visible:outline';
+// Swim-lane timeline (Timeline v2): every dated term in its domain's lane, coloured by
+// domain like the graph (A74); the most connected terms are emphasised as milestones.
+const dated: TimelineItem[] = nodes
+  .filter((n) => n.era !== undefined)
+  .map((n) => ({
+    id: n.id,
+    name: n.term[lang],
+    year: n.era!,
+    domain: n.domain,
+    home: homeDomain(n),
+    degree: n.degree,
+  }));
+const hubs = milestones(dated);
+const summaries = new Map<string, string>(nodes.map((n) => [n.id, n.summary?.[lang] ?? '']));
+const items: TimelineEntry[] = dated.map((t) => ({
+  ...t,
+  summary: summaries.get(t.id) ?? '',
+  href: termUrl(lang, t.id),
+  hub: hubs.has(t.id),
+}));
+const undated = nodes.length - dated.length;
+const order = ['security', 'cs', 'ai', 'platform'];
+const domains = [...new Set(dated.map((t) => t.home))].sort(
+  (a, b) => (order.indexOf(a) + 1 || 99) - (order.indexOf(b) + 1 || 99) || a.localeCompare(b),
+);
+const domainLabels = Object.fromEntries(
+  Object.entries(DOMAIN_LABELS).map(([d, l]) => [d, l[lang]]),
+);
+const domainColours = Object.fromEntries(
+  [...new Set([...domains, ...dated.flatMap((t) => t.domain)])].map((d) => [d, domainColour(d)]),
+);
+const range = axisRange(dated.map((t) => t.year));
+
+// The accessible list view: every dated term by decade (also the no-JavaScript fallback
+// for the phone layout's short names).
+const { decades } = groupByDecade(
+  items.map((t) => ({ ...t, era: t.year })),
+  (t) => t.name,
+);
+const { eras, ...tlText } = tl;
+
+// Clicking a term opens the Explorer's term panel (A80), loaded on demand.
+const panel = {
+  ...panelConfig(lang),
+  lang,
+  termBase: url(`${lang}/terms/`),
+  clusterLabels: localise(CLUSTER_LABELS, lang),
+  familyLabels: localise(FAMILY_LABELS, lang),
+  graphUi: { ...GRAPH_UI[lang] },
+};
 ---
 
 <Base lang={lang} title={ui.timeline}>
-  <style is:inline set:html={filterCss}></style>
-  <h1 class="mb-2 text-3xl font-semibold">{ui.timeline}</h1>
-  <p class="mb-2 text-neutral-400">{ui.timelineIntro}</p>
-  {undated > 0 && (
-    <p class="mb-8 text-sm text-neutral-500">
-      {undated === 1 ? ui.undatedNoteOne : ui.undatedNote.replace('{n}', String(undated))}
-    </p>
-  )}
-  {decades.length === 0 && <p class="text-neutral-400">{ui.noDated}</p>}
-  {decades.length > 0 && (
-    <div class="tl" id="timeline">
-      {domains.length > 1 && (
-        <fieldset class="mb-8 flex flex-wrap items-center gap-2">
-          <legend class="sr-only">{ui.domains}</legend>
-          <label class={chip}>
-            <input class="sr-only" type="radio" name="tl-domain" checked />
-            {ui.allDomains}
-          </label>
-          {domains.map((d) => (
-            <label class={chip}>
-              <input class="sr-only" type="radio" name="tl-domain" id={`tl-${d}`} />
-              {DOMAIN_LABELS[d]?.[lang] ?? d}
-            </label>
-          ))}
-        </fieldset>
-      )}
-      <ol class="space-y-10 border-l border-neutral-800 pl-6">
-        {decades.map(({ decade, items }) => (
-          <li class="decade list-none">
-            <h2 class="relative mb-3 font-mono text-lg text-neutral-200">
-              <span class="absolute top-2.5 -left-[1.85rem] h-2 w-2 rounded-full bg-neutral-500" />
-              {ui.decade.replace('{d}', String(decade))}
-            </h2>
-            <ul class="grid gap-x-6 gap-y-1.5 sm:grid-cols-2">
-              {items.map((t) => (
-                <li data-domain={t.domain.join(' ')} class="flex items-baseline gap-2">
-                  <span class="w-10 shrink-0 font-mono text-xs text-neutral-500">{t.era}</span>
-                  <span
-                    class="inline-block h-2.5 w-2.5 shrink-0 translate-y-[-1px] rounded-full"
-                    style={{ background: CLUSTER_COLOURS[t.cluster] ?? '#a3a3a3' }}
-                    title={CLUSTER_LABELS[t.cluster]?.[lang] ?? t.cluster}
-                  />
-                  <a class="text-neutral-100 hover:underline" href={termUrl(lang, t.id)}>
-                    {t.term[lang]}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ol>
-    </div>
-  )}
+  <div>
+    <h1 class="mb-2 text-3xl font-semibold">{ui.timeline}</h1>
+    <p class="mb-2 max-w-3xl text-neutral-400">{ui.timelineIntro}</p>
+    {undated > 0 && (
+      <p class="mb-6 text-sm text-neutral-500">
+        {undated === 1 ? ui.undatedNoteOne : ui.undatedNote.replace('{n}', String(undated))}
+      </p>
+    )}
+    {items.length === 0 && <p class="text-neutral-400">{ui.noDated}</p>}
+    {items.length > 0 && (
+      <div
+        id="timeline"
+        class="sm:ml-[calc(50%-min(800px,50vw-1rem))] sm:w-[min(1600px,calc(100vw-2rem))]"
+      >
+        <Timeline
+          client:idle
+          items={items}
+          domains={domains}
+          domainLabels={domainLabels}
+          domainColours={domainColours}
+          range={range}
+          eraLabels={eras}
+          text={{ ...tlText, allDomains: ui.allDomains }}
+          panel={panel}
+        />
+        <details class="mt-8 rounded-lg border border-neutral-800 p-4">
+          <summary class="cursor-pointer text-sm text-neutral-300">{tl.listView}</summary>
+          <ol class="mt-4 space-y-6">
+            {decades.map(({ decade, items: list }) => (
+              <li class="list-none">
+                <h2 class="mb-2 font-mono text-neutral-200">
+                  {ui.decade.replace('{d}', String(decade))}
+                </h2>
+                <ul class="gap-x-6 space-y-1 sm:columns-2 lg:columns-3">
+                  {list.map((t) => (
+                    <li class="flex break-inside-avoid items-baseline gap-2 text-sm">
+                      <span class="w-10 shrink-0 font-mono text-xs text-neutral-500">{t.year}</span>
+                      <span
+                        aria-hidden="true"
+                        class="inline-block h-2 w-2 shrink-0 rounded-full"
+                        style={{ background: domainColours[t.home] }}
+                      />
+                      <a class="text-neutral-100 hover:underline" href={t.href}>
+                        {t.name}
+                      </a>
+                      <span class="sr-only">
+                        ({t.domain.map((d) => domainLabels[d] ?? d).join(', ')})
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ol>
+        </details>
+      </div>
+    )}
+  </div>
 </Base>

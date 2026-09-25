@@ -8,6 +8,7 @@ domain: [cs]
 cluster: web
 layer: application
 status: current
+era: 1964
 summary:
   en: An organised store of data that many programs and users can search, add to and change at the same time without mixing it up.
   da: Et organiseret lager af data, som mange programmer og brugere kan søge i, tilføje til og ændre på samme tid, uden at det bliver rodet.

@@ -8,6 +8,7 @@ domain: [ai]
 cluster: prompting
 layer: inference
 status: current
+era: 2024
 summary:
   en: Making a language model answer in a fixed, machine-readable shape — set fields in JSON — so other software can use the reply directly.
   da: At få en sprogmodel til at svare i en fast form, som programmer kan læse — faste felter i JSON — så anden software kan bruge svaret direkte.

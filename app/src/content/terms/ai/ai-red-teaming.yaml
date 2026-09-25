@@ -8,6 +8,7 @@ domain: [ai, security]
 cluster: ai-risk
 layer: governance
 status: emerging
+era: 2023
 summary:
   en: Testers attack an AI system on purpose, before and after release, to find ways it can be tricked into harmful or unsafe behaviour.
   da: Testere angriber med vilje et AI-system før og efter lancering for at finde måder, det kan narres til skadelig eller usikker adfærd.

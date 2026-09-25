@@ -8,6 +8,7 @@ domain: [ai]
 cluster: model-architecture
 layer: model
 status: current
+era: 2023
 summary:
   en: A model whose learned numbers are published for anyone to download and run themselves, instead of only being reachable through an API.
   da: En model, hvis lærte tal er offentliggjort, så alle kan hente og køre den selv, i stedet for kun at kunne nås gennem et API.

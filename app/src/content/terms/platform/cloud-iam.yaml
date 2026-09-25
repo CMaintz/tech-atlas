@@ -8,6 +8,7 @@ domain: [platform, security]
 cluster: cloud
 layer: identity
 status: current
+era: 2011
 summary:
   en: The cloud provider's built-in system of policies that decides which users, roles and service accounts may do what to each resource.
   da: Cloududbyderens indbyggede system af politikker, der afgør, hvilke brugere, roller og servicekonti der må gøre hvad ved hver ressource.
@@ -43,7 +44,7 @@ deepDive:
     I praksis nærmer man sig mindste privilegium iterativt: man starter med udbyderens færdige roller, indsnævrer dem med politikker genereret ud fra adgangslogs (AWS IAM Access Analyzer, Google Clouds rolleanbefalinger), erstatter langlivede adgangsnøgler med kortlivede loginoplysninger fra STS eller workload identity federation og gennemgår med CIEM-værktøjer, der beregner de effektive rettigheder på tværs af alle lag. CIS Foundations Benchmarks for hver udbyder indeholder konkrete IAM-kontroller som MFA på root-kontoen og ingen adgangsnøgler til root. Cloud IAM skal skelnes fra organisationens identitetsudbyder (Entra ID, Okta og lignende): IdP'en autentificerer personer, typisk fødereret ind via SAML 2.0 eller OpenID Connect, mens cloud IAM autoriserer kald mod udbyderens API.
 edges:
   implements: [access-management]
-  requires: [cloud-computing, authorization]
+  requires: [cloud-computing, access-control, authorization]
   used-with:
     - to: least-privilege
       why:

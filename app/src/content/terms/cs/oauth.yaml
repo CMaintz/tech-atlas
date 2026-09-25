@@ -44,7 +44,7 @@ deepDive:
     OAuth er delegeret autorisation, ikke autentificering. Et adgangstoken er rettet mod ressourceserveren, så en klient, der opfatter "jeg har fået et token" som bevis for, hvem brugeren er, kan narres med et token, der er udstedt til en anden applikation; OpenID Connects audience-bundne ID-token lukker det hul. Andre tilbagevendende problemer er for brede scopes, langlivede refresh-tokens, der opbevares usikkert, lækkede koder via åbne redirects eller Referer-headere og ulovlige samtykker (illicit consent grants), hvor brugere narres til at godkende en app, som angriberen har registreret, med adgang til mail eller filer; derfor begrænser mange tenants brugernes samtykke til verificerede udgivere eller rettigheder med lav risiko.
 edges:
   implements: [authorization]
-  requires: [api, account]
+  requires: [access-control, api, account]
   used-with:
     - to: saas
       why:
