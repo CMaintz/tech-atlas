@@ -2,7 +2,14 @@ import type { ComponentChildren } from 'preact';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { prerequisitesOf, shortestPath, type Graph, type GraphNode } from '../lib/graph-model';
 import { loadLearner, type Learner } from '../lib/learner';
-import { domainColour, homeDomain } from '../lib/graph-style';
+import {
+  MAP_INK,
+  domainColour,
+  familyColours,
+  homeDomain,
+  type MapTheme,
+} from '../lib/graph-style';
+import { useTheme } from '../lib/use-theme';
 import {
   OVERVIEW_FAMILIES,
   domainBands,
@@ -48,11 +55,15 @@ type Pop = 'links' | 'route' | 'sheet';
 type Point = { id: string; x: number; y: number };
 
 /** Personal knowledge map colours (SPEC §9): what you know, and what you don't. */
-const KNOWLEDGE_COLOURS: Record<string, string> = {
-  know: '#22c55e',
-  familiar: '#84cc16',
-  learning: '#f59e0b',
-  unknown: '#ef4444',
+const KNOWLEDGE_COLOURS: Record<MapTheme, Record<string, string>> = {
+  dark: {
+    know: '#22c55e',
+    familiar: '#84cc16',
+    learning: '#f59e0b',
+    unknown: '#ef4444',
+  },
+  // Deeper shades for the cream map (3:1 or more on it).
+  light: { know: '#15803d', familiar: '#4d7c0f', learning: '#b45309', unknown: '#b91c1c' },
 };
 
 /** The legend's open/closed choice is remembered; it starts closed on a first visit. */
@@ -106,6 +117,8 @@ export default function Explorer(props: Props) {
   /** Hops shown around the selected term; null = the whole map (SPEC §7: progressive). */
   const [hops, setHops] = useState<number | null>(null);
   const [colourMode, setColourMode] = useState<ColourMode>('cluster');
+  // The map's palette follows the page theme live (A92): a restyle, never a relayout.
+  const theme = useTheme();
   const [learner, setLearner] = useState<Learner>({ terms: {} });
   const [spin, setSpin] = useState(false);
   const [pop, setPop] = useState<Pop | null>(null);
@@ -261,17 +274,17 @@ export default function Explorer(props: Props) {
 
   const colourOf = useMemo(
     () => (n: GraphNode) => {
-      if (colourMode === 'cluster') return effectivePaint(n, domains).fill;
+      if (colourMode === 'cluster') return effectivePaint(n, domains, theme).fill;
       const s = learner.terms[n.id];
       const status = s?.status ?? ((s?.box ?? 0) >= 3 ? 'know' : s?.box ? 'learning' : undefined);
-      return status ? KNOWLEDGE_COLOURS[status] : '#404040';
+      return status ? KNOWLEDGE_COLOURS[theme][status] : MAP_INK[theme].unknown;
     },
-    [colourMode, learner, domains],
+    [colourMode, learner, domains, theme],
   );
   /** A shared term's split fill, one band per enabled domain (cluster colouring only). */
   const bandsOf = useMemo(
-    () => (n: GraphNode) => (colourMode === 'cluster' ? domainBands(n, domains) : []),
-    [colourMode, domains],
+    () => (n: GraphNode) => (colourMode === 'cluster' ? domainBands(n, domains, theme) : []),
+    [colourMode, domains, theme],
   );
   const hl = useMemo(() => new Set(highlight), [highlight]);
   const undated = useMemo(
@@ -298,6 +311,7 @@ export default function Explorer(props: Props) {
       onOpen: onSelect,
       onHover: (id) => prefetchTerm(props.panel.apiBase, id),
       onPoint,
+      theme,
     });
     map2d.current = m;
     return () => {
@@ -305,6 +319,7 @@ export default function Explorer(props: Props) {
       map2d.current = null;
     };
   }, [graph]);
+  useEffect(() => map2d.current?.retheme(theme), [theme]);
 
   useEffect(() => {
     map2d.current?.apply({
@@ -334,6 +349,7 @@ export default function Explorer(props: Props) {
           reserveRight: () => (selRef.current ? panelReserve() : 0),
           onHover: (id) => prefetchTerm(props.panel.apiBase, id),
           onPoint,
+          theme,
         }),
       )
       .then((m) => {
@@ -346,6 +362,7 @@ export default function Explorer(props: Props) {
   }, [mode, graph]);
   useEffect(() => () => map3d?.destroy(), [map3d]);
   useEffect(() => map3d?.spin(spin), [map3d, spin]);
+  useEffect(() => map3d?.retheme(theme), [map3d, theme]);
   useEffect(() => {
     onPoint(null);
     map3d?.show(mode === '3d');
@@ -417,6 +434,7 @@ export default function Explorer(props: Props) {
   const closePanel = useCallback(() => setSelected(null), []);
   const allDomains = [...new Set((graph?.nodes ?? []).flatMap((n) => n.domain))];
   const allFamilies = Object.keys(props.familyColours);
+  const famColours: Dict = familyColours(theme);
   // The legend lists only enabled domains; re-homed shared terms wear their domain colour.
   const legendNodes = (visible?.nodes ?? [])
     .filter((n) => effectiveHome(n, domains) === homeDomain(n))
@@ -424,15 +442,15 @@ export default function Explorer(props: Props) {
 
   // Styles after the canvas lab's floating toolbar (the owner's reference).
   const glass =
-    'border border-neutral-800 bg-neutral-950/85 shadow-lg shadow-black/40 backdrop-blur';
+    'border border-border bg-bg/85 shadow-lg shadow-black/15 dark:shadow-black/40 backdrop-blur';
   const pill = (active: boolean) =>
-    `inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs whitespace-nowrap focus-visible:outline-2 focus-visible:outline-amber-300 ${active ? 'border-neutral-400 bg-neutral-800/80 text-neutral-100' : 'border-neutral-700 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200'}`;
+    `inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs whitespace-nowrap focus-visible:outline-2 focus-visible:outline-(--focus) ${active ? 'border-border-hover bg-surface-2/80 text-fg' : 'border-border-strong text-muted hover:border-border-hover hover:text-fg-soft'}`;
   const seg = (active: boolean) =>
-    `px-2 py-1 text-xs whitespace-nowrap focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-amber-300 ${active ? 'bg-neutral-200 text-neutral-900' : 'text-neutral-400 hover:text-neutral-100'}`;
-  const segGroup = 'flex w-fit shrink-0 overflow-hidden rounded-full border border-neutral-700';
+    `px-2 py-1 text-xs whitespace-nowrap focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-(--focus) ${active ? 'bg-fg text-bg' : 'text-muted hover:text-fg'}`;
+  const segGroup = 'flex w-fit shrink-0 overflow-hidden rounded-full border border-border-strong';
   const field =
-    'w-full rounded-full border border-neutral-700 bg-neutral-900 px-3 py-1 text-xs text-neutral-100 placeholder:text-neutral-500';
-  const heading = 'mb-1.5 text-[11px] tracking-widest text-neutral-500 uppercase';
+    'w-full rounded-full border border-border-strong bg-surface px-3 py-1 text-xs text-fg placeholder:text-subtle';
+  const heading = 'mb-1.5 text-[11px] tracking-widest text-subtle uppercase';
   const act = (active: boolean) =>
     `rounded border px-2 py-1 text-xs focus-visible:outline-2 focus-visible:outline-(--focus) ${active ? 'border-fg-soft text-fg' : 'border-border-strong text-fg-soft hover:border-border-hover hover:text-fg'}`;
 
@@ -471,7 +489,7 @@ export default function Explorer(props: Props) {
         role="group"
         aria-label={label}
         data-map-popover
-        class={`absolute top-full ${align} z-20 mt-2 w-72 max-w-[calc(100vw-2rem)] rounded-xl p-3 text-xs text-neutral-300 ${glass}`}
+        class={`absolute top-full ${align} z-20 mt-2 w-72 max-w-[calc(100vw-2rem)] rounded-xl p-3 text-xs text-fg-soft ${glass}`}
       >
         {body}
       </div>
@@ -535,7 +553,7 @@ export default function Explorer(props: Props) {
           type="button"
           class={
             compact
-              ? `flex h-7 w-7 items-center justify-center rounded-full border focus-visible:outline-2 focus-visible:outline-amber-300 ${domains.has(d) ? 'border-neutral-500 bg-neutral-800/80' : 'border-neutral-700 hover:border-neutral-500'}`
+              ? `flex h-7 w-7 items-center justify-center rounded-full border focus-visible:outline-2 focus-visible:outline-(--focus) ${domains.has(d) ? 'border-border-hover bg-surface-2/80' : 'border-border-strong hover:border-border-hover'}`
               : pill(domains.has(d))
           }
           aria-pressed={domains.has(d)}
@@ -546,8 +564,8 @@ export default function Explorer(props: Props) {
           <span
             class={`inline-block rounded-full ${compact ? 'h-2.5 w-2.5' : 'h-2 w-2'}`}
             style={{
-              background: domains.has(d) ? domainColour(d) : 'transparent',
-              boxShadow: `inset 0 0 0 1px ${domainColour(d)}`,
+              background: domains.has(d) ? domainColour(d, theme) : 'transparent',
+              boxShadow: `inset 0 0 0 1px ${domainColour(d, theme)}`,
             }}
           />
           {!compact && (props.domainLabels[d] ?? d)}
@@ -577,7 +595,7 @@ export default function Explorer(props: Props) {
   );
   const linksBody = (
     <div class="space-y-1.5">
-      <label class="flex items-center gap-2 text-neutral-200">
+      <label class="flex items-center gap-2 text-fg-soft">
         <input
           type="checkbox"
           checked={showAll}
@@ -585,9 +603,9 @@ export default function Explorer(props: Props) {
         />
         {props.graphUi.showAll}
       </label>
-      {!showAll && <p class="text-neutral-500">{props.graphUi.overview}</p>}
-      <p class="text-neutral-500">{props.graphUi.typesNote}</p>
-      <fieldset class="space-y-1 border-t border-neutral-800 pt-1.5">
+      {!showAll && <p class="text-subtle">{props.graphUi.overview}</p>}
+      <p class="text-subtle">{props.graphUi.typesNote}</p>
+      <fieldset class="space-y-1 border-t border-border pt-1.5">
         <legend class="sr-only">{ui.relationshipTypes}</legend>
         {allFamilies.map((f) => (
           <label class="flex items-center gap-2">
@@ -596,7 +614,7 @@ export default function Explorer(props: Props) {
               checked={families.has(f)}
               onChange={() => toggle(families, f, setFamilies)}
             />
-            <span class="inline-block h-0.5 w-4" style={{ background: props.familyColours[f] }} />
+            <span class="inline-block h-0.5 w-4" style={{ background: famColours[f] }} />
             {props.familyLabels[f] ?? f}
           </label>
         ))}
@@ -636,7 +654,7 @@ export default function Explorer(props: Props) {
         </button>
       </div>
       {routeMsg && (
-        <p class="text-neutral-300" aria-live="polite">
+        <p class="text-fg-soft" aria-live="polite">
           {routeMsg}
         </p>
       )}
@@ -696,17 +714,17 @@ export default function Explorer(props: Props) {
             aria-label={ui.findTerm}
             class={`${narrow ? 'mt-2' : `absolute top-full left-0 z-20 mt-2 w-64 max-w-[calc(100vw-2rem)] ${glass}`} space-y-0.5 rounded-xl p-2 text-xs`}
           >
-            {matches.length === 0 && <li class="px-1 text-neutral-500">{ui.noResults}</li>}
+            {matches.length === 0 && <li class="px-1 text-subtle">{ui.noResults}</li>}
             {matches.map((m) => (
               <li>
                 <button
                   type="button"
-                  class="w-full rounded px-1.5 py-1 text-left text-neutral-300 hover:bg-neutral-800 hover:text-white focus-visible:bg-neutral-800"
+                  class="w-full rounded px-1.5 py-1 text-left text-fg-soft hover:bg-surface-2 hover:text-fg focus-visible:bg-surface-2"
                   onClick={() => findTerm(m.id)}
                 >
                   {byId.get(m.id)!.term[lang]}
                   {!m.from.includes('lexical') && (
-                    <span class="ml-1.5 rounded bg-sky-950 px-1 py-px text-[10px] text-sky-300">
+                    <span class="ml-1.5 rounded bg-sky-100 px-1 py-px text-[10px] text-sky-800 dark:bg-sky-950 dark:text-sky-300">
                       ✦ {ui.semanticByMeaning}
                     </span>
                   )}
@@ -732,31 +750,31 @@ export default function Explorer(props: Props) {
       <div
         aria-hidden="true"
         data-hover-card={cardNode.id}
-        class={`pointer-events-none absolute z-10 w-64 rounded-xl px-3 py-2 text-xs text-neutral-300 ${glass}`}
+        class={`pointer-events-none absolute z-10 w-64 rounded-xl px-3 py-2 text-xs text-fg-soft ${glass}`}
         style={{ left, top }}
       >
-        <div class="text-sm font-semibold text-neutral-100">{cardNode.term[lang]}</div>
+        <div class="text-sm font-semibold text-fg">{cardNode.term[lang]}</div>
         <div class="mt-1 flex flex-wrap gap-1">
-          <span class="inline-flex items-center gap-1 rounded-full border border-neutral-700 px-2 py-0.5 text-[11px] text-neutral-300">
+          <span class="inline-flex items-center gap-1 rounded-full border border-border-strong px-2 py-0.5 text-[11px] text-fg-soft">
             <span
               class="inline-block h-2 w-2 rounded-full"
-              style={{ background: effectivePaint(cardNode, domains).fill }}
+              style={{ background: effectivePaint(cardNode, domains, theme).fill }}
             />
             {props.clusterLabels[cardNode.cluster] ?? cardNode.cluster}
           </span>
-          <span class="rounded-full border border-neutral-800 px-2 py-0.5 text-[11px] text-neutral-400">
+          <span class="rounded-full border border-border px-2 py-0.5 text-[11px] text-muted">
             {props.domainLabels[home] ?? home}
           </span>
         </div>
         {cardNode.summary?.[lang] && (
-          <p class="mt-1.5 line-clamp-4 leading-snug text-neutral-400">{cardNode.summary[lang]}</p>
+          <p class="mt-1.5 line-clamp-4 leading-snug text-muted">{cardNode.summary[lang]}</p>
         )}
       </div>
     );
   })();
 
   return (
-    <div class="relative h-[calc(100vh-4.25rem)] overflow-hidden bg-[radial-gradient(ellipse_at_center,#11131c_0%,#0a0a0a_75%)]">
+    <div class="relative h-[calc(100vh-4.25rem)] overflow-hidden map-surface">
       <h1 class="sr-only">{ui.explorer}</h1>
       <p class="sr-only">{ui.explorerIntro}</p>
       <div
@@ -767,7 +785,7 @@ export default function Explorer(props: Props) {
         {/* Cytoscape forces its container to position: relative, so it fills a wrapper. */}
         <div class={`absolute inset-0 ${mode === '2d' ? '' : 'invisible'}`}>
           <div ref={box2d} class="h-full w-full">
-            {!graph && <p class="p-6 pt-20 text-neutral-500">{ui.loading}</p>}
+            {!graph && <p class="p-6 pt-20 text-subtle">{ui.loading}</p>}
           </div>
         </div>
         <div class={`absolute inset-0 ${mode === '3d' ? '' : 'invisible'}`}>
@@ -812,11 +830,11 @@ export default function Explorer(props: Props) {
                   role="group"
                   aria-label={ui.controls}
                   data-map-popover
-                  class={`absolute top-full left-1/2 z-20 mt-2 max-h-[70vh] w-[calc(100vw-2rem)] max-w-sm -translate-x-1/2 space-y-4 overflow-y-auto rounded-xl p-3 text-xs text-neutral-300 ${glass}`}
+                  class={`absolute top-full left-1/2 z-20 mt-2 max-h-[70vh] w-[calc(100vw-2rem)] max-w-sm -translate-x-1/2 space-y-4 overflow-y-auto rounded-xl p-3 text-xs text-fg-soft ${glass}`}
                 >
                   {search}
                   <div class="flex flex-wrap gap-2">{layoutSeg}</div>
-                  {note && <p class="text-neutral-500">{note}</p>}
+                  {note && <p class="text-subtle">{note}</p>}
                   <section>
                     <h2 class={heading}>{ui.colourBy}</h2>
                     {colourBody}
@@ -853,7 +871,7 @@ export default function Explorer(props: Props) {
           )}
         </div>
         {!narrow && note && (
-          <p class="max-w-2xl rounded-full bg-neutral-950/70 px-3 py-0.5 text-center text-[11px] text-neutral-400">
+          <p class="max-w-2xl rounded-full bg-bg/70 px-3 py-0.5 text-center text-[11px] text-muted">
             {note}
           </p>
         )}
@@ -865,7 +883,8 @@ export default function Explorer(props: Props) {
           <GraphLegend
             nodes={legendNodes}
             families={allFamilies.filter((f) => families.has(f))}
-            familyColours={props.familyColours}
+            familyColours={famColours}
+            theme={theme}
             familyLabels={props.familyLabels}
             domainLabels={props.domainLabels}
             clusterLabels={props.clusterLabels}

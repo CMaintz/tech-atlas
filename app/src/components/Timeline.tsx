@@ -28,6 +28,8 @@ interface Props {
   domains: string[];
   domainLabels: Record<string, string>;
   domainColours: Record<string, string>;
+  /** The same domains' colours on the cream map (A92). */
+  domainColoursLight: Record<string, string>;
   /** Axis range in years, [start, end). */
   range: [number, number];
   eraLabels: Record<string, string>;
@@ -67,24 +69,31 @@ const V_ITEM = 20;
 const AXIS_COL = 44;
 const DEFAULT_ZOOM = 0;
 
+/** A colour on both maps: night (`d`) and cream (`l`). */
+type Ink = { d: string; l: string };
+
+/**
+ * CSS custom properties for a `.map-ink` element (global.css): it paints with
+ * `var(--ink)` (and `var(--ink2)`), which follows the theme with no script, so the
+ * server-rendered chart is right before it hydrates.
+ */
+const inkVars = (ink: Ink, ink2?: Ink | null) =>
+  `--ink-d:${ink.d};--ink-l:${ink.l};` + (ink2 ? `--ink2-d:${ink2.d};--ink2-l:${ink2.l};` : '');
+
 /** The dot for one term: domain colour, larger for hubs, ringed when in a second domain. */
-function Dot({ colour, ring, hub }: { colour: string; ring: string | null; hub: boolean }) {
+function Dot({ colour, ring, hub }: { colour: Ink; ring: Ink | null; hub: boolean }) {
   const size = hub ? 12 : 8;
+  const shadow = [
+    ring ? '0 0 0 1.5px var(--map-bg), 0 0 0 3.5px var(--ink2)' : '',
+    hub ? '0 0 10px var(--ink)' : '',
+  ]
+    .filter(Boolean)
+    .join(', ');
   return (
     <span
       aria-hidden="true"
-      class="inline-block shrink-0 rounded-full"
-      style={{
-        width: size,
-        height: size,
-        background: colour,
-        boxShadow: [
-          ring ? `0 0 0 1.5px #0a0a0a, 0 0 0 3.5px ${ring}` : '',
-          hub ? `0 0 10px ${colour}` : '',
-        ]
-          .filter(Boolean)
-          .join(', '),
-      }}
+      class="map-ink inline-block shrink-0 rounded-full"
+      style={`${inkVars(colour, ring)}width:${size}px;height:${size}px;background:var(--ink);${shadow ? `box-shadow:${shadow};` : ''}`}
     />
   );
 }
@@ -97,6 +106,11 @@ function Dot({ colour, ring, hub }: { colour: string; ring: string | null; hub: 
  */
 export default function Timeline(props: Props) {
   const { items, domains, domainLabels, domainColours, text, eraLabels } = props;
+  /** A domain's colour on both maps; a neutral grey for an unknown one. */
+  const ink = (d: string | undefined): Ink =>
+    d && domainColours[d]
+      ? { d: domainColours[d], l: props.domainColoursLight[d] ?? domainColours[d] }
+      : { d: '#a3a3a3', l: '#57534e' };
   const [start, end] = props.range;
   const [shown, setShown] = useState<string[]>(domains);
   const [zoom, setZoom] = useState(DEFAULT_ZOOM);
@@ -136,7 +150,7 @@ export default function Timeline(props: Props) {
 
   const ringOf = (it: TimelineEntry, lane: string) => {
     const other = it.domain.find((d) => d !== lane);
-    return other ? (domainColours[other] ?? null) : null;
+    return other ? ink(other) : null;
   };
 
   // ---- horizontal layout: the axis fits the chart's width at zoom 0; each lane gets a
@@ -315,7 +329,7 @@ export default function Timeline(props: Props) {
   }, [more?.pinned]);
 
   const chip =
-    'rounded-full border px-3 py-1 text-xs transition-colors hover:border-neutral-400 aria-pressed:text-neutral-100';
+    'rounded-full border px-3 py-1 text-xs transition-colors hover:border-border-hover aria-pressed:text-fg';
   const selItem = sel ? byId.get(sel.id) : undefined;
   const single = shown.length === 1;
 
@@ -326,7 +340,7 @@ export default function Timeline(props: Props) {
         <span class="sr-only">{text.filter}</span>
         <button
           type="button"
-          class={`${chip} border-neutral-700 text-neutral-400`}
+          class={`${chip} border-border-strong text-muted`}
           aria-pressed={shown.length === domains.length}
           onClick={() => setShown(domains)}
         >
@@ -337,15 +351,15 @@ export default function Timeline(props: Props) {
           return (
             <button
               type="button"
-              class={`${chip} flex items-center gap-1.5 text-neutral-400`}
-              style={{ borderColor: on ? domainColours[d] : '#404040' }}
+              class={`${chip} map-ink flex items-center gap-1.5 text-muted`}
+              style={`${inkVars(ink(d))}border-color:${on ? 'var(--ink)' : 'var(--border-strong)'}`}
               aria-pressed={on}
               onClick={() => toggle(d)}
             >
               <span
                 aria-hidden="true"
                 class="inline-block h-2 w-2 rounded-full"
-                style={{ background: on ? domainColours[d] : '#525252' }}
+                style={{ background: on ? 'var(--ink)' : 'var(--subtle)' }}
               />
               {domainLabels[d] ?? d}
             </button>
@@ -354,7 +368,7 @@ export default function Timeline(props: Props) {
         <span class="ml-auto flex items-center gap-1" role="group" aria-label={text.zoom}>
           <button
             type="button"
-            class="h-7 w-7 rounded border border-neutral-700 text-neutral-300 hover:border-neutral-400 disabled:opacity-40"
+            class="h-7 w-7 rounded border border-border-strong text-fg-soft hover:border-border-hover disabled:opacity-40"
             aria-label={text.zoomOut}
             title={text.zoomOut}
             disabled={zoom === 0}
@@ -364,7 +378,7 @@ export default function Timeline(props: Props) {
           </button>
           <button
             type="button"
-            class="h-7 w-7 rounded border border-neutral-700 text-neutral-300 hover:border-neutral-400 disabled:opacity-40"
+            class="h-7 w-7 rounded border border-border-strong text-fg-soft hover:border-border-hover disabled:opacity-40"
             aria-label={text.zoomIn}
             title={text.zoomIn}
             disabled={zoom === H_ZOOM.length - 1}
@@ -374,22 +388,18 @@ export default function Timeline(props: Props) {
           </button>
         </span>
       </div>
-      <p class="mb-3 flex flex-wrap items-center gap-x-6 gap-y-1 text-xs text-neutral-400">
+      <p class="mb-3 flex flex-wrap items-center gap-x-6 gap-y-1 text-xs text-muted">
         <span class="flex items-center gap-2">
-          <Dot colour={domainColours[domains[0]] ?? '#d4d4d4'} ring={null} hub /> {text.milestone}
+          <Dot colour={ink(domains[0])} ring={null} hub /> {text.milestone}
         </span>
         <span class="flex items-center gap-2.5">
           <span class="px-1">
-            <Dot
-              colour={domainColours[domains[0]] ?? '#d4d4d4'}
-              ring={domainColours[domains[2] ?? domains[1]] ?? '#a3a3a3'}
-              hub={false}
-            />
+            <Dot colour={ink(domains[0])} ring={ink(domains[2] ?? domains[1])} hub={false} />
           </span>
           {text.otherDomain}
         </span>
         <span class="hidden items-center gap-2 sm:flex">
-          <span class="rounded-full border border-neutral-600 bg-neutral-800 px-1.5 text-[10px] leading-4 text-neutral-200">
+          <span class="rounded-full border border-border-strong bg-surface-2 px-1.5 text-[10px] leading-4 text-fg-soft">
             +3
           </span>
           {text.moreHint}
@@ -400,7 +410,7 @@ export default function Timeline(props: Props) {
       <section
         ref={chartRef}
         aria-label={text.chart}
-        class="relative hidden overflow-x-auto rounded-lg border border-neutral-800 bg-neutral-950 sm:block"
+        class="relative hidden overflow-x-auto rounded-lg border border-border map-surface sm:block"
       >
         <div class="relative" style={{ width: LABEL_COL + h.width, minWidth: '100%' }}>
           {/* decade bands + gridlines, behind everything */}
@@ -411,13 +421,14 @@ export default function Timeline(props: Props) {
                 style={{
                   left: LABEL_COL + H_PAD + h.scale.at(t),
                   width: h.scale.at(ticks[i + 1]) - h.scale.at(t),
-                  background: i % 2 ? 'rgba(255,255,255,0.045)' : 'transparent',
+                  background:
+                    i % 2 ? 'color-mix(in srgb, var(--fg) 4.5%, transparent)' : 'transparent',
                 }}
               />
             ))}
             {ticks.map((t) => (
               <div
-                class="absolute bottom-0 border-l border-neutral-600/80"
+                class="absolute bottom-0 border-l border-border-strong"
                 style={{ left: LABEL_COL + H_PAD + h.scale.at(t), top: 22 }}
               />
             ))}
@@ -426,20 +437,20 @@ export default function Timeline(props: Props) {
           <div aria-hidden="true" class="relative" style={{ height: TOP_AXIS }}>
             {bands.map((b) => (
               <div
-                class="absolute top-0 h-5 overflow-hidden border-l-2 border-neutral-500 bg-neutral-900"
+                class="absolute top-0 h-5 overflow-hidden border-l-2 border-border-hover bg-surface"
                 style={{
                   left: LABEL_COL + H_PAD + h.scale.at(b.from),
                   width: h.scale.at(b.to) - h.scale.at(b.from),
                 }}
               >
-                <span class="absolute top-0.5 left-1.5 text-[10px] tracking-widest whitespace-nowrap text-neutral-400 uppercase">
+                <span class="absolute top-0.5 left-1.5 text-[10px] tracking-widest whitespace-nowrap text-muted uppercase">
                   {eraLabels[b.id]}
                 </span>
               </div>
             ))}
             {ticks.map((t) => (
               <span
-                class="absolute bottom-1 -translate-x-1/2 rounded bg-neutral-950 px-1 font-mono text-xs font-medium text-neutral-200"
+                class="absolute bottom-1 -translate-x-1/2 rounded bg-(--map-bg) px-1 font-mono text-xs font-medium text-fg-soft"
                 style={{ left: LABEL_COL + H_PAD + h.scale.at(t) }}
               >
                 {t}
@@ -447,15 +458,15 @@ export default function Timeline(props: Props) {
             ))}
           </div>
           {h.lanes.map(({ lane, list, count, track, flip, chips, chipRow, height }) => (
-            <div class="relative flex border-t border-neutral-800" style={{ height }}>
+            <div class="relative flex border-t border-border" style={{ height }}>
               <h2
-                class="sticky left-0 z-10 flex shrink-0 items-start gap-2 border-r border-neutral-800 bg-neutral-950 px-3 pt-2 text-sm font-medium"
-                style={{ width: LABEL_COL, color: domainColours[lane] }}
+                class="map-ink sticky left-0 z-10 flex shrink-0 items-start gap-2 border-r border-border bg-(--map-bg) px-3 pt-2 text-sm font-medium"
+                style={`${inkVars(ink(lane))}width:${LABEL_COL}px;color:var(--ink)`}
               >
                 <span
                   aria-hidden="true"
                   class="mt-1.5 inline-block h-2 w-2 shrink-0 rounded-full"
-                  style={{ background: domainColours[lane] }}
+                  style={{ background: 'var(--ink)' }}
                 />
                 {domainLabels[lane] ?? lane}
                 <span class="sr-only">({count})</span>
@@ -478,12 +489,12 @@ export default function Timeline(props: Props) {
                       <a
                         href={it.href}
                         data-tl-item
-                        class={`flex items-center gap-1.5 rounded px-0.5 whitespace-nowrap hover:text-white ${left ? 'flex-row-reverse' : ''} ${it.hub ? 'font-semibold text-neutral-50' : 'text-neutral-300'} ${sel?.id === it.id ? 'bg-neutral-800 text-white' : ''}`}
+                        class={`flex items-center gap-1.5 rounded px-0.5 whitespace-nowrap hover:text-fg ${left ? 'flex-row-reverse' : ''} ${it.hub ? 'font-semibold text-fg' : 'text-fg-soft'} ${sel?.id === it.id ? 'bg-surface-2 text-fg' : ''}`}
                         style={{ fontSize: it.hub ? h.font + 1 : h.font }}
                         aria-label={`${it.name}, ${it.year}`}
                         {...handlers(it)}
                       >
-                        <Dot colour={domainColours[lane]} ring={ringOf(it, lane)} hub={it.hub} />
+                        <Dot colour={ink(lane)} ring={ringOf(it, lane)} hub={it.hub} />
                         {it.name}
                       </a>
                     </li>
@@ -501,7 +512,7 @@ export default function Timeline(props: Props) {
                     <button
                       type="button"
                       data-tl-more
-                      class={`rounded-full border px-1.5 text-[10px] leading-4 hover:border-neutral-300 hover:text-white ${more?.key === c.key ? 'border-neutral-300 bg-neutral-700 text-white' : 'border-neutral-600 bg-neutral-800 text-neutral-200'}`}
+                      class={`rounded-full border px-1.5 text-[10px] leading-4 hover:border-fg-soft hover:text-fg ${more?.key === c.key ? 'border-fg-soft bg-surface-2 text-fg' : 'border-border-strong bg-surface-2 text-fg-soft'}`}
                       aria-expanded={more?.key === c.key && more.pinned}
                       aria-label={text.moreLabel.replace('{n}', String(c.ids.length))}
                       onClick={(e) =>
@@ -525,12 +536,12 @@ export default function Timeline(props: Props) {
           {/* bottom axis */}
           <div
             aria-hidden="true"
-            class="relative border-t border-neutral-700"
+            class="relative border-t border-border-strong"
             style={{ height: BOTTOM_AXIS }}
           >
             {ticks.map((t) => (
               <span
-                class="absolute top-1 -translate-x-1/2 rounded bg-neutral-950 px-1 font-mono text-xs font-medium text-neutral-200"
+                class="absolute top-1 -translate-x-1/2 rounded bg-(--map-bg) px-1 font-mono text-xs font-medium text-fg-soft"
                 style={{ left: LABEL_COL + H_PAD + h.scale.at(t) }}
               >
                 {t}
@@ -545,7 +556,7 @@ export default function Timeline(props: Props) {
         <div
           data-tl-more
           role={more.pinned ? 'dialog' : 'tooltip'}
-          class="fixed z-50 max-h-80 w-64 overflow-y-auto rounded-lg border border-neutral-700 bg-neutral-900/95 p-2 text-xs shadow-xl shadow-black/50 backdrop-blur"
+          class="fixed z-50 max-h-80 w-64 overflow-y-auto rounded-lg border border-border-strong bg-surface/95 p-2 text-xs shadow-xl shadow-black/20 dark:shadow-black/50 backdrop-blur"
           style={popStyle(more.x, more.y)}
           onMouseEnter={() => clearTimeout(moreTimer.current)}
           onMouseLeave={leaveMore}
@@ -558,13 +569,13 @@ export default function Timeline(props: Props) {
                 <li>
                   <a
                     href={it.href}
-                    class="flex items-baseline gap-2 rounded px-1.5 py-1 text-neutral-200 hover:bg-neutral-800 hover:text-white"
+                    class="flex items-baseline gap-2 rounded px-1.5 py-1 text-fg-soft hover:bg-surface-2 hover:text-fg"
                     onClick={(e) => {
                       handlers(it).onClick(e);
                       setMore(null);
                     }}
                   >
-                    <span class="font-mono text-[10px] text-neutral-500">{it.year}</span>
+                    <span class="font-mono text-[10px] text-subtle">{it.year}</span>
                     <span class={it.hub ? 'font-semibold' : ''}>{it.name}</span>
                   </a>
                 </li>
@@ -576,15 +587,15 @@ export default function Timeline(props: Props) {
       {/* ---- vertical chart (phones) ---- */}
       <section
         aria-label={text.chart}
-        class="relative rounded-lg border border-neutral-800 bg-neutral-950 sm:hidden"
+        class="relative rounded-lg border border-border map-surface sm:hidden"
       >
-        {!single && <p class="px-3 pt-3 text-xs text-neutral-500">{text.mobileHint}</p>}
-        <div class="sticky top-0 z-10 flex border-b border-neutral-800 bg-neutral-950/95 backdrop-blur">
+        {!single && <p class="px-3 pt-3 text-xs text-subtle">{text.mobileHint}</p>}
+        <div class="sticky top-0 z-10 flex border-b border-border bg-(--map-bg)/95 backdrop-blur">
           <span style={{ width: AXIS_COL }} class="shrink-0" />
           {[...lanes.keys()].map((lane) => (
             <h2
-              class="min-w-0 flex-1 truncate px-1 py-2 text-[11px] font-medium"
-              style={{ color: domainColours[lane] }}
+              class="map-ink min-w-0 flex-1 truncate px-1 py-2 text-[11px] font-medium"
+              style={`${inkVars(ink(lane))}color:var(--ink)`}
             >
               {domainLabels[lane] ?? lane}
             </h2>
@@ -599,20 +610,21 @@ export default function Timeline(props: Props) {
                   left: AXIS_COL,
                   top: v.scale.at(t),
                   height: v.scale.at(ticks[i + 1]) - v.scale.at(t),
-                  background: i % 2 ? 'rgba(255,255,255,0.045)' : 'transparent',
+                  background:
+                    i % 2 ? 'color-mix(in srgb, var(--fg) 4.5%, transparent)' : 'transparent',
                 }}
               />
             ))}
             {bands.map((b) => (
               <div
-                class="absolute right-0 left-0 border-t border-neutral-500/70"
+                class="absolute right-0 left-0 border-t border-border-hover"
                 style={{
                   top: v.scale.at(b.from),
                   height: v.scale.at(b.to) - v.scale.at(b.from),
                 }}
               >
                 <span
-                  class="absolute top-1 left-0.5 text-[9px] tracking-widest whitespace-nowrap text-neutral-600 uppercase"
+                  class="absolute top-1 left-0.5 text-[9px] tracking-widest whitespace-nowrap text-subtle uppercase"
                   style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
                 >
                   {eraLabels[b.id]}
@@ -621,11 +633,11 @@ export default function Timeline(props: Props) {
             ))}
             {ticks.map((t) => (
               <div
-                class="absolute right-0 border-t border-neutral-600/80"
+                class="absolute right-0 border-t border-border-strong"
                 style={{ top: v.scale.at(t), left: AXIS_COL }}
               >
                 <span
-                  class="absolute -top-2 font-mono text-[11px] font-medium text-neutral-200"
+                  class="absolute -top-2 font-mono text-[11px] font-medium text-fg-soft"
                   style={{ left: -AXIS_COL + 14 }}
                 >
                   {t}
@@ -635,7 +647,7 @@ export default function Timeline(props: Props) {
           </div>
           <span style={{ width: AXIS_COL }} class="shrink-0" />
           {[...lanes].map(([lane, list]) => (
-            <ul class="relative min-w-0 flex-1 border-l border-neutral-900">
+            <ul class="relative min-w-0 flex-1 border-l border-border">
               {list.map((it) => (
                 <li
                   class="absolute right-0 left-0 flex h-5 items-center px-1"
@@ -644,13 +656,13 @@ export default function Timeline(props: Props) {
                   <a
                     href={it.href}
                     data-tl-item
-                    class={`flex min-w-0 items-center gap-1 ${it.hub ? 'font-semibold text-neutral-50' : 'text-neutral-300'} ${single ? 'text-xs' : 'text-[10px]'}`}
+                    class={`flex min-w-0 items-center gap-1 ${it.hub ? 'font-semibold text-fg' : 'text-fg-soft'} ${single ? 'text-xs' : 'text-[10px]'}`}
                     aria-label={`${it.name}, ${it.year}`}
                     {...handlers(it)}
                   >
-                    <Dot colour={domainColours[lane]} ring={ringOf(it, lane)} hub={it.hub} />
+                    <Dot colour={ink(lane)} ring={ringOf(it, lane)} hub={it.hub} />
                     <span class="truncate">
-                      {single && <span class="mr-1 font-mono text-neutral-500">{it.year}</span>}
+                      {single && <span class="mr-1 font-mono text-subtle">{it.year}</span>}
                       {it.name}
                     </span>
                   </a>
@@ -681,27 +693,29 @@ export default function Timeline(props: Props) {
           ref={popRef}
           role={sel.pinned ? 'dialog' : 'tooltip'}
           aria-label={selItem.name}
-          class="fixed inset-x-4 bottom-4 z-50 rounded-lg border border-neutral-700 bg-neutral-900/95 p-4 text-sm shadow-xl shadow-black/50 backdrop-blur sm:inset-x-auto sm:bottom-auto sm:w-80"
+          class="fixed inset-x-4 bottom-4 z-50 rounded-lg border border-border-strong bg-surface/95 p-4 text-sm shadow-xl shadow-black/20 dark:shadow-black/50 backdrop-blur sm:inset-x-auto sm:bottom-auto sm:w-80"
           style={popStyle(sel.x, sel.y)}
         >
           <div class="mb-1 flex items-baseline gap-2">
-            <span class="font-mono text-xs text-neutral-500">{selItem.year}</span>
-            <span class="font-semibold text-neutral-50">{selItem.name}</span>
+            <span class="font-mono text-xs text-subtle">{selItem.year}</span>
+            <span class="font-semibold text-fg">{selItem.name}</span>
           </div>
           <p class="mb-2 flex flex-wrap gap-2 text-[11px]">
             {selItem.domain.map((d) => (
-              <span style={{ color: domainColours[d] }}>{domainLabels[d] ?? d}</span>
+              <span class="map-ink" style={`${inkVars(ink(d))}color:var(--ink)`}>
+                {domainLabels[d] ?? d}
+              </span>
             ))}
           </p>
-          {selItem.summary && <p class="mb-3 text-neutral-300">{selItem.summary}</p>}
+          {selItem.summary && <p class="mb-3 text-fg-soft">{selItem.summary}</p>}
           <div class="flex items-center justify-between">
-            <a class="text-amber-400 hover:underline" href={selItem.href}>
+            <a class="text-accent hover:underline" href={selItem.href}>
               {text.openTerm} →
             </a>
             {sel.pinned && (
               <button
                 type="button"
-                class="text-xs text-neutral-400 hover:text-neutral-100"
+                class="text-xs text-muted hover:text-fg"
                 onClick={() => setSel(null)}
               >
                 {text.close}

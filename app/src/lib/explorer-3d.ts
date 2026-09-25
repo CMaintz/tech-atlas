@@ -8,7 +8,14 @@
  */
 import type { Graph, GraphLink, GraphNode } from './graph-model';
 import { EXPLORER } from './explorer-config';
-import { FAMILY_COLOURS, clusterColour, homeDomain, isDirected } from './graph-style';
+import {
+  MAP_INK,
+  clusterColour,
+  familyColours,
+  homeDomain,
+  isDirected,
+  type MapTheme,
+} from './graph-style';
 import { backboneOf, galaxyLayout, pageRank, separate } from './graph-layout';
 import { reducedMotion } from './graph-cytoscape';
 import { createDragFeedback, orbitDragKind } from './drag-feedback';
@@ -45,6 +52,8 @@ export async function createMap3D(opts: {
   onHover?: (id: string) => void;
   /** The pointer is over a term (screen position in the container), or left it (null). */
   onPoint?: (hit: { id: string; x: number; y: number } | null) => void;
+  /** The scene's palette (A92); change it later with `retheme`. */
+  theme?: MapTheme;
 }) {
   const [{ default: ForceGraph3D }, THREE] = await Promise.all([
     import('3d-force-graph'),
@@ -52,6 +61,9 @@ export async function createMap3D(opts: {
   ]);
   const cfg = EXPLORER.three;
   const { graph, lang, container: el } = opts;
+  let theme: MapTheme = opts.theme ?? 'dark';
+  const ink = () => MAP_INK[theme];
+  const light = () => theme === 'light';
   const rank = pageRank(
     graph.nodes.map((n) => n.id),
     graph.links.map((l) => ({ ...l, directed: isDirected(l.type) })),
@@ -101,7 +113,7 @@ export async function createMap3D(opts: {
     return false;
   };
   const nodeColour = (n: GraphNode) =>
-    n.id === view?.selected ? '#ffffff' : faded(n.id) ? 'rgba(70,74,90,0.25)' : view!.colour(n);
+    n.id === view?.selected ? ink().selected : faded(n.id) ? ink().faded3d : view!.colour(n);
   /** The families filter the overview only: a selected term shows all its relationships. */
   const endsShown = (l: Link3) => {
     if (!view) return false;
@@ -116,12 +128,12 @@ export async function createMap3D(opts: {
   // Only the focused links are 3d-force-graph objects (arrows, particles); the resting
   // web is one merged line geometry below — a single draw call however many links.
   const linkShown = (l: Link3) => endsShown(l) && focusOf(l);
-  const linkColour = (l: Link3) => rgba(FAMILY_COLOURS[l.family], 0.9);
+  const linkColour = (l: Link3) => rgba(familyColours(theme)[l.family], 0.9);
   const motion = !reducedMotion();
   const fg = new ForceGraph3D(el, { controlType: 'orbit' })
     .width(el.clientWidth)
     .height(el.clientHeight)
-    .backgroundColor(cfg.background)
+    .backgroundColor(ink().bg3d)
     .showNavInfo(false)
     .enableNodeDrag(false)
     .warmupTicks(0)
@@ -148,7 +160,8 @@ export async function createMap3D(opts: {
   (fg.controls() as { zoomToCursor?: boolean }).zoomToCursor = true;
 
   const scene = fg.scene();
-  scene.fog = new THREE.FogExp2(cfg.background, cfg.fogDensity);
+  const fog = new THREE.FogExp2(ink().bg3d, cfg.fogDensity);
+  scene.fog = fog;
 
   // ---- Glow: one additive point cloud for every term ----------------------------------
   const glowTexture = (() => {
@@ -183,8 +196,9 @@ export async function createMap3D(opts: {
     uniforms: {
       map: { value: glowTexture },
       opacity: { value: cfg.glowOpacity },
+      light: { value: 0 },
       scale: { value: el.clientHeight / 2 },
-      fogColor: { value: new THREE.Color(cfg.background) },
+
       fogDensity: { value: cfg.fogDensity },
     },
     vertexShader: `
@@ -203,15 +217,19 @@ export async function createMap3D(opts: {
     fragmentShader: `
       uniform sampler2D map;
       uniform float opacity;
+      uniform float light;
       uniform float fogDensity;
       varying vec3 vColor;
       varying float vDepth;
       void main() {
         float fog = exp(-fogDensity * fogDensity * vDepth * vDepth);
         vec4 t = texture2D(map, gl_PointCoord);
-        gl_FragColor = vec4(vColor * t.a * opacity * fog, 1.0);
+        float k = t.a * opacity * fog;
+        // Night map: added light. Cream map: multiplied in, a soft tinted shadow.
+        gl_FragColor = light > 0.5 ? vec4(mix(vec3(1.0), vColor, k), 1.0) : vec4(vColor * k, 1.0);
       }`,
     blending: THREE.AdditiveBlending,
+    premultipliedAlpha: true,
     depthWrite: false,
     transparent: true,
   });
@@ -224,22 +242,32 @@ export async function createMap3D(opts: {
     .sort((a, b) => (rank.get(b.id) ?? 0) - (rank.get(a.id) ?? 0))
     .slice(0, cfg.hubLabels);
   const labels = new Map<string, InstanceType<typeof THREE.Sprite>>();
+  /** Each hub label's text, canvas and texture, redrawn when the theme changes. */
+  const labelArt: { text: string; c: HTMLCanvasElement; tex: { needsUpdate: boolean } }[] = [];
+  const px = 44;
+  const drawLabel = (text: string, c: HTMLCanvasElement) => {
+    const g = c.getContext('2d')!;
+    g.clearRect(0, 0, c.width, c.height);
+    g.font = `600 ${px}px system-ui, sans-serif`;
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    g.shadowColor = ink().labelShadow3d;
+    g.shadowBlur = 10;
+    g.fillStyle = ink().label3d;
+    g.fillText(text, c.width / 2, c.height / 2);
+    // A second pass thickens the halo on the cream map, where a blur alone is faint.
+    if (light()) g.fillText(text, c.width / 2, c.height / 2);
+  };
   for (const n of hubs) {
     const text = n.term[lang];
     const c = document.createElement('canvas');
     const g = c.getContext('2d')!;
-    const px = 44;
     g.font = `600 ${px}px system-ui, sans-serif`;
     c.width = Math.ceil(g.measureText(text).width) + 24;
     c.height = px + 20;
-    g.font = `600 ${px}px system-ui, sans-serif`;
-    g.textAlign = 'center';
-    g.textBaseline = 'middle';
-    g.shadowColor = 'rgba(0,0,0,0.95)';
-    g.shadowBlur = 10;
-    g.fillStyle = '#e5e7eb';
-    g.fillText(text, c.width / 2, c.height / 2);
+    drawLabel(text, c);
     const tex = new THREE.CanvasTexture(c);
+    labelArt.push({ text, c, tex });
     const sprite = new THREE.Sprite(
       new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false, fog: true }),
     );
@@ -294,6 +322,7 @@ export async function createMap3D(opts: {
     new THREE.LineBasicMaterial({
       vertexColors: true,
       blending: THREE.AdditiveBlending,
+      premultipliedAlpha: true,
       transparent: true,
       depthWrite: false,
       fog: true,
@@ -301,11 +330,16 @@ export async function createMap3D(opts: {
   );
   web.frustumCulled = false;
   scene.add(web);
-  const tints = links.map((l) => {
-    const s = byId.get(endId(l.source))!;
-    return new THREE.Color(clusterColour(s.cluster, homeDomain(s)));
-  });
-  /** Additive blending: a colour's brightness is its opacity; black is invisible. */
+  const tintsFor = () =>
+    links.map((l) => {
+      const s = byId.get(endId(l.source))!;
+      return new THREE.Color(clusterColour(s.cluster, homeDomain(s), theme));
+    });
+  let tints = tintsFor();
+  /**
+   * Night map (additive): a colour's brightness is its opacity; black is invisible.
+   * Cream map (multiply): a colour mixed towards white by its opacity; white is invisible.
+   */
   const paintWeb = () => {
     links.forEach((l, i) => {
       let k = 0;
@@ -314,8 +348,14 @@ export async function createMap3D(opts: {
         k = dim ? 0.02 : view.showAll && !l.bb ? cfg.linkAlpha * 0.6 : cfg.linkAlpha;
       }
       const c = tints[i];
+      if (light()) k = Math.min(1, k * 1.5);
       for (let j = 0; j < SEG * 2; j++)
-        webCol.set([c.r * k, c.g * k, c.b * k], (i * SEG * 2 + j) * 3);
+        webCol.set(
+          light()
+            ? [1 - (1 - c.r) * k, 1 - (1 - c.g) * k, 1 - (1 - c.b) * k]
+            : [c.r * k, c.g * k, c.b * k],
+          (i * SEG * 2 + j) * 3,
+        );
     });
     webColours.needsUpdate = true;
   };
@@ -344,6 +384,7 @@ export async function createMap3D(opts: {
       minPx: { value: fl.minPx },
       maxPx: { value: fl.maxPx },
       fogDensity: { value: cfg.fogDensity },
+      light: { value: 0 },
     },
     vertexShader: `
       attribute float size;
@@ -362,6 +403,7 @@ export async function createMap3D(opts: {
       }`,
     fragmentShader: `
       uniform float fogDensity;
+      uniform float light;
       varying vec3 vColor;
       varying float vDepth;
       void main() {
@@ -369,9 +411,12 @@ export async function createMap3D(opts: {
         // A bright core with a soft edge, legible even a few pixels wide.
         float d = length(gl_PointCoord - 0.5) * 2.0;
         float a = smoothstep(1.0, 0.45, d) + 0.6 * smoothstep(0.5, 0.0, d);
-        gl_FragColor = vec4(vColor * a * fog, 1.0);
+        gl_FragColor = light > 0.5
+          ? vec4(mix(vec3(1.0), vColor, clamp(a * fog, 0.0, 1.0)), 1.0)
+          : vec4(vColor * a * fog, 1.0);
       }`,
     blending: THREE.AdditiveBlending,
+    premultipliedAlpha: true,
     depthWrite: false,
     transparent: true,
   });
@@ -389,9 +434,9 @@ export async function createMap3D(opts: {
   );
   // Comets start spread along their links, not in step.
   const phase = links.map((_, i) => ((i * 0.6180339887) % 1) * linkLength[i]);
-  const familyColour = new Map(
-    Object.entries(FAMILY_COLOURS).map(([f, hex]) => [f, new THREE.Color(hex)]),
-  );
+  const familyColoursFor = () =>
+    new Map(Object.entries(familyColours(theme)).map(([f, hex]) => [f, new THREE.Color(hex)]));
+  let familyColour = familyColoursFor();
   /** Indices of the links carrying a comet, in buffer order. */
   let active: number[] = [];
   const moveFlow = (t: number) => {
@@ -423,11 +468,21 @@ export async function createMap3D(opts: {
       if (!lit && !view.showAll && !l.bb) return;
       const dim = !lit && (faded(endId(l.source)) || faded(endId(l.target)));
       const k = lit ? fl.litAlpha : dim ? fl.dimAlpha : fl.alpha;
-      const c = familyColour.get(l.family) ?? new THREE.Color('#ffffff');
+      const c = familyColour.get(l.family) ?? new THREE.Color(ink().selected);
       const j = active.length;
       active.push(i);
       fl.trail.forEach((f, p) => {
-        flowCol.set([c.r * k * f, c.g * k * f, c.b * k * f], (j * TRAIL + p) * 3);
+        const m = k * f;
+        flowCol.set(
+          light()
+            ? [
+                1 - (1 - c.r) * Math.min(1, m),
+                1 - (1 - c.g) * Math.min(1, m),
+                1 - (1 - c.b) * Math.min(1, m),
+              ]
+            : [c.r * m, c.g * m, c.b * m],
+          (j * TRAIL + p) * 3,
+        );
         flowSz[j * TRAIL + p] = fl.size * (lit ? 1.3 : 1) * (0.5 + 0.5 * f);
       });
     });
@@ -448,17 +503,32 @@ export async function createMap3D(opts: {
   };
   runFlow(true);
 
+  /** Additive on the night map; multiplied into the cream map (a light on white is lost). */
+  const setBlend = () => {
+    const blending = light() ? THREE.MultiplyBlending : THREE.AdditiveBlending;
+    for (const m of [glowMat, flowMat, web.material]) {
+      m.blending = blending;
+      m.needsUpdate = true;
+    }
+    glowMat.uniforms.light.value = +light();
+    flowMat.uniforms.light.value = +light();
+    glowMat.uniforms.opacity.value = cfg.glowOpacity * (light() ? 0.7 : 1);
+  };
+  setBlend();
+
   const paintGlow = () => {
     paintWeb();
     paintFlow();
     const col = new THREE.Color();
     nodes.forEach((n, i) => {
-      if (!view?.nodes.has(n.id)) col.setRGB(0, 0, 0);
+      // No glow: black added to the night map, white multiplied into the cream one.
+      if (!view?.nodes.has(n.id) || (light() && faded(n.id)))
+        col.setRGB(+light(), +light(), +light());
       else if (faded(n.id)) col.setRGB(0.02, 0.02, 0.03);
       else {
         // A shared term glows in its second domain's colour: a halo round its own.
         const ring = view.bands(n)[1];
-        col.set(n.id === view.selected ? '#ffffff' : (ring ?? view.colour(n)));
+        col.set(n.id === view.selected ? ink().selected : (ring ?? view.colour(n)));
       }
       glowColours.setXYZ(i, col.r, col.g, col.b);
     });
@@ -597,6 +667,25 @@ export async function createMap3D(opts: {
       controls.autoRotate = spinning;
       controls.autoRotateSpeed = cfg.spinSpeed;
       if (spinning) opts.onPoint?.(null);
+    },
+    /**
+     * Switch palettes (A92) in place: background, fog, blending (additive glow on the
+     * night map, a multiplied soft shadow on the cream one), labels and colours. Term
+     * fills come from the View's `colour`, so the caller applies a new view as well.
+     */
+    retheme(next: MapTheme) {
+      if (next === theme) return;
+      theme = next;
+      setBlend();
+      fg.backgroundColor(ink().bg3d);
+      fog.color.set(ink().bg3d);
+      tints = tintsFor();
+      familyColour = familyColoursFor();
+      for (const a of labelArt) {
+        drawLabel(a.text, a.c);
+        a.tex.needsUpdate = true;
+      }
+      refresh();
     },
     /** Re-frame after the clear part of the canvas changed (e.g. the legend toggled). */
     reframe() {
