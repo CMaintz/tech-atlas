@@ -272,7 +272,7 @@ export function nearBest(scored: Scored[], margin = 0.06): Scored[] {
 }
 
 /** How long the browser waits for the function before showing lexical results only. */
-export const SEMANTIC_TIMEOUT_MS = 2000;
+export const SEMANTIC_TIMEOUT_MS = 6000;
 
 type FetchLike = (url: string, init: RequestInit) => Promise<Response>;
 

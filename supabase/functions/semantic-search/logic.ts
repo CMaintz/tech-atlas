@@ -23,7 +23,7 @@ export const RATE_WINDOW_MS = 60_000;
 /** Largest request body read, in bytes (a 200-character query is well under this). */
 export const MAX_BODY_BYTES = 2048;
 /** One deadline for the whole upstream chain: rate check, Workers AI, match_terms. */
-export const UPSTREAM_DEADLINE_MS = 1700;
+export const UPSTREAM_DEADLINE_MS = 5500;
 
 export type Lang = "en" | "da";
 

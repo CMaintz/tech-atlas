@@ -73,7 +73,7 @@ Deno.serve(async (req) => {
   }
 
   // One deadline for everything upstream, so the answer (or the failure) comes in time
-  // for the browser's 2 s budget.
+  // for the browser's 6 s budget (name results show meanwhile; cold starts need the slack).
   const signal = AbortSignal.timeout(UPSTREAM_DEADLINE_MS);
   const rpc = (fn: string, key: string, args: unknown) =>
     fetch(`${supabaseUrl}/rest/v1/rpc/${fn}`, {
