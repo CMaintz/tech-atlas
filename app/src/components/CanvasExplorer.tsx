@@ -311,13 +311,19 @@ export default function CanvasExplorer(props: Props) {
     v.selected = e && selected ? e.ids.indexOf(selected) : -1;
     v.dirty = true;
     const c = cam.current;
+    c.tcx = (c.w - (selected ? panelReserve() : 0)) / 2;
+  }, [graph, mode, showAll, spin, families, selected]);
+
+  // Only a mode switch moves the camera to that mode's view (a click keeps your orbit).
+  useEffect(() => {
+    const c = cam.current;
     // Unwind auto-rotation, so going back to Flat never spins through many turns.
     c.yaw = Math.atan2(Math.sin(c.yaw), Math.cos(c.yaw));
     c.tyaw = mode === 'depth' ? 0.55 : 0;
     c.tpitch = mode === 'depth' ? -0.28 : 0;
     c.focal = mode === 'depth' ? LAB.focal : Infinity;
-    c.tcx = (c.w - (selected ? panelReserve() : 0)) / 2;
-  }, [graph, mode, showAll, spin, families, selected]);
+    view.current.dirty = true;
+  }, [mode]);
 
   // Domain filter and colours (split fills per enabled domain).
   useEffect(() => {
@@ -687,6 +693,8 @@ export default function CanvasExplorer(props: Props) {
         c.focus = -1;
       } else {
         c.yaw += dx * 0.006;
+        // As in the demo: taking hold of the view stops the auto-rotation.
+        if (v.spin) setSpin(false);
         c.tyaw = c.yaw;
         c.pitch = Math.max(-1.3, Math.min(1.3, c.pitch + dy * 0.005));
         c.tpitch = c.pitch;
