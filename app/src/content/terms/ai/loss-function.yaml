@@ -16,7 +16,7 @@ body:
     en: A formula that compares a model's output with the correct answer and returns a number that is larger the worse the output is; model training adjusts model parameters to make its average over the training data as small as possible.
     da: En formel, der sammenligner en models output med det rigtige svar og giver et tal, der er større, jo dårligere outputtet er; modeltræning justerer modelparametre, så gennemsnittet over træningsdata bliver så lille som muligt.
   plain:
-    en: Like the penalty points in a driving test — each mistake adds points, and the learner practises until the total is as low as it can get.
+    en: Like the penalty points in a driving test; each mistake adds points, and the learner practises until the total is as low as it can get.
     da: Som strafpoint til en køreprøve — hver fejl giver point, og eleven øver, til summen er så lav som muligt.
   inPractice:
     en: A developer at a Danish housing association, building a filter for the inbox tenants write to, chooses a loss function that punishes throwing away a tenant's real complaint far harder than letting a piece of junk mail through.
@@ -58,7 +58,20 @@ edges:
       strength: minor
       confidence: medium
 sources:
-  - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 5)'
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 5 and 6.2)'
     tier: textbook
     publisher: MIT Press
+    url: https://www.deeplearningbook.org/
+  - title: PyTorch documentation, CrossEntropyLoss
+    tier: official-doc
+    publisher: PyTorch
+    url: https://docs.pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html
+  - title: Lin et al. (2017), Focal Loss for Dense Object Detection
+    tier: reference
+    publisher: ICCV 2017
+    url: https://arxiv.org/abs/1708.02002
+  - title: Guo et al. (2017), On Calibration of Modern Neural Networks
+    tier: reference
+    publisher: ICML 2017
+    url: https://arxiv.org/abs/1706.04599
 draft: true

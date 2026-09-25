@@ -16,7 +16,7 @@ body:
     en: A form of machine learning in which each training example is paired with a label giving the wanted output, and the model learns to map new inputs to the right label.
     da: En form for maskinlæring, hvor hvert træningseksempel er parret med en mærkat, der angiver det ønskede resultat, og modellen lærer at knytte nye input til den rigtige mærkat.
   plain:
-    en: Like learning with an answer key — you try each exercise, check the key, and correct yourself.
+    en: Like learning with an answer key. You try each exercise, check the key, and correct yourself.
     da: Som at lære med en facitliste — du prøver hver opgave, tjekker facit og retter dig selv.
   inPractice:
     en: A region's security team labels thousands of past alerts as real attacks or false alarms, and a model trained on them learns to sort new alerts the same way.
@@ -47,7 +47,7 @@ deepDive:
     Grænserne til naboparadigmerne handler om, hvor målsignalet kommer fra. I ikke-superviseret læring er der intet mål; i selvsuperviseret læring udledes målet automatisk af selve inputtet (et maskeret ord, det næste token); i forstærkningslæring er det eneste signal en skalar belønning, der kommer efter handlingerne, uden at den rigtige handling nogensinde vises. Instruction tuning af sprogmodeller er superviseret læring på menneskeskrevne par af prompt og svar.
 edges:
   kind-of: [machine-learning]
-  requires: [training-data]
+  requires: [training-data, label]
   contrasts-with:
     - to: unsupervised-learning
       why:
@@ -56,10 +56,12 @@ edges:
       strength: primary
       confidence: high
 sources:
-  - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+  - title: 'Russell & Norvig (2020), Artificial Intelligence: A Modern Approach, 4th edition'
+    url: https://aima.cs.berkeley.edu/
     tier: textbook
     publisher: Pearson
-  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+  - title: 'ISO/IEC 22989:2022, Information technology: Artificial intelligence concepts and terminology'
+    url: https://www.iso.org/standard/74296.html
     tier: standard
     publisher: ISO/IEC
 draft: true

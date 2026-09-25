@@ -9,20 +9,20 @@ cluster: ml-fundamentals
 layer: inference
 status: current
 summary:
-  en: Using an already trained model to produce an answer for new input — what happens each time you ask a chat assistant something.
+  en: Using an already trained model to produce an answer for new input, which is what happens each time you ask a chat assistant something.
   da: At bruge en færdigtrænet model til at give et svar på nyt input — det, der sker, hver gang du spørger en chatassistent om noget.
 body:
   formal:
     en: The stage where a trained model, with its weights fixed, is run on new input to produce an output such as a label, a score or generated text; the model does not learn from the input by doing so.
     da: Det trin, hvor en trænet model med faste vægte køres på nyt input for at give et resultat som en kategori, en score eller genereret tekst; modellen lærer ikke noget af inputtet undervejs.
   plain:
-    en: Like a trained doctor looking at a new patient — the years of study are over, now the knowledge is simply being used.
+    en: Like a trained doctor looking at a new patient; the years of study are over, and now the knowledge is simply being used.
     da: Som en uddannet læge, der ser på en ny patient — årene med studier er forbi, nu bliver viden bare brugt.
   inPractice:
     en: When a clerk in a municipality pastes a contract into an online AI tool and asks for a summary, the text is sent to the provider's servers abroad, where inference runs.
     da: Når en medarbejder i en kommune indsætter en kontrakt i et online AI-værktøj og beder det opsummere den, sendes teksten til udbyderens servere i udlandet, hvor inferensen kører.
   whyItMatters:
-    en: Where inference runs decides where your data travels and who can see it — a local model and a foreign cloud service carry very different risks.
+    en: Where inference runs decides where your data travels and who can see it; a local model and a foreign cloud service carry very different risks.
     da: Hvor inferensen kører, afgør, hvor dine data rejser hen, og hvem der kan se dem — en lokal model og en udenlandsk cloudtjeneste har vidt forskellige risici.
 deepDive:
   en: |-
@@ -62,10 +62,12 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+  - title: 'ISO/IEC 22989:2022, Artificial intelligence concepts and terminology'
+    url: https://www.iso.org/standard/74296.html
     tier: standard
     publisher: ISO/IEC
-  - title: 'Goodfellow, Bengio & Courville, Deep Learning'
+  - title: 'Goodfellow, Bengio & Courville (2016), Deep Learning'
+    url: https://www.deeplearningbook.org/
     tier: textbook
     publisher: MIT Press
 draft: true

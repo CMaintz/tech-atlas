@@ -9,38 +9,38 @@ cluster: ml-fundamentals
 layer: training
 status: current
 summary:
-  en: The examples a model learns from — its behaviour, its blind spots and its mistakes all come from what is in them.
+  en: The examples a model learns from; its behaviour, its blind spots and its mistakes all come from what is in them.
   da: De eksempler, en model lærer af — dens adfærd, dens blinde vinkler og dens fejl kommer alle fra det, der er i dem.
 body:
   formal:
     en: The collection of examples, often with the correct answers attached, used during model training to set a model's internal numbers; kept apart from the data later used to test it.
     da: Samlingen af eksempler, ofte med de rigtige svar tilknyttet, som bruges under modeltræning til at fastsætte modellens interne tal; holdes adskilt fra de data, der senere bruges til at teste den.
   plain:
-    en: Like the textbooks and past exams a student studies from — if they are wrong, one-sided or out of date, so is what the student learns.
+    en: Like the textbooks and past exams a student studies from. If they are wrong, one-sided or out of date, so is what the student learns.
     da: Som de lærebøger og gamle eksamenssæt, en studerende læser på — er de forkerte, skæve eller forældede, bliver det, den studerende lærer, det også.
   inPractice:
     en: A pension fund wants to train a model on ten years of member emails and must first check which of them hold personal data and on what legal basis they may be used.
     da: En pensionskasse vil træne en model på ti års mails fra medlemmer og skal først undersøge, hvilke af dem der indeholder persondata, og på hvilket retsgrundlag de må bruges.
   whyItMatters:
-    en: Training data is an asset to protect and a source of risk — it can leak personal data, carry unfair patterns, or be quietly changed by an attacker.
+    en: Training data is an asset to protect and a source of risk. It can leak personal data, carry unfair patterns, or be quietly changed by an attacker.
     da: Træningsdata er et aktiv, der skal beskyttes, og en kilde til risiko — de kan lække persondata, bære uretfærdige mønstre eller i det skjulte blive ændret af en angriber.
 deepDive:
   en: |-
     Standard practice splits available data into three disjoint sets: the training set used to fit weights, a validation set used to choose hyperparameters and stopping points, and a test set touched once for the final estimate. Splits must respect the structure of the data: grouped splits keep all records from one patient or customer on one side, and time-based splits train on the past and test on the future. Violating this causes leakage and optimistic scores. For large language models the analogous problem is benchmark contamination, where test items appear in the web-scale pretraining corpus, so reported benchmark results partly measure memorisation.
 
-    Quality problems are well characterised. Label noise from annotators is measured with inter-annotator agreement statistics such as Cohen's kappa; sampling bias arises when collection differs from deployment (a model trained on one hospital's scanners); historical bias arises when accurate labels encode past discrimination; and class imbalance means rare, often important cases are underrepresented. Deduplication matters at scale: duplicated sequences in web corpora increase memorisation and the chance that a model reproduces personal data verbatim.
+    Quality problems are well characterised. Label noise from annotators is estimated with inter-annotator agreement statistics such as Cohen's kappa; sampling bias arises when collection differs from deployment (a model trained on one hospital's scanners); historical bias arises when accurate labels encode past discrimination; and class imbalance means rare, often important cases are underrepresented. Deduplication matters at scale: duplicated sequences in web corpora increase memorisation and the chance that a model reproduces personal data verbatim.
 
     Training data is an attack surface. Data poisoning inserts crafted examples so the model misbehaves in general or only on a trigger (a backdoor). Web-scraped corpora are exposed because an attacker can control content at URLs that will be crawled. Provenance tracking, dataset hashes, access control on labelling pipelines and anomaly checks on new data are the corresponding controls, alongside documentation such as datasheets for datasets.
 
-    The legal framework in Europe is layered. Personal data in a training set needs a legal basis under GDPR Article 6, and special categories under Article 9; purpose limitation and data minimisation apply to training as to any processing. For high-risk systems, Article 10 of the EU AI Act requires data governance practices covering design choices, collection, preparation, and examination for possible biases, and Article 10(3) requires training, validation and testing data sets to be relevant, sufficiently representative and, to the best extent possible, free of errors and complete in view of the intended purpose. Article 10(5) allows exceptional processing of special-category data strictly for bias detection and correction, under safeguards. Providers of general-purpose AI models must publish a sufficiently detailed summary of training content (Article 53(1)(d)) and have a policy to respect EU copyright law, including machine-readable opt-outs from text and data mining under Article 4(3) of the DSM Directive (EU) 2019/790.
+    The legal framework in Europe is layered. Personal data in a training set needs a legal basis under GDPR Article 6, and special categories under Article 9; purpose limitation and data minimisation apply to training as to any processing. For high-risk systems, Article 10 of the EU AI Act requires data governance practices covering design choices, collection, preparation, and examination for possible biases, and Article 10(3) requires training, validation and testing data sets to be relevant, sufficiently representative and, to the best extent possible, free of errors and complete in view of the intended purpose. Article 10(5) allows exceptional processing of special-category data strictly for bias detection and correction, under safeguards. Providers of general-purpose AI models must publish a sufficiently detailed summary of training content (Article 53(1)(d)) and have a policy to comply with EU copyright law (Article 53(1)(c)), including machine-readable opt-outs from text and data mining under Article 4(3) of the DSM Directive (EU) 2019/790.
   da: |-
     Standardpraksis deler de tilgængelige data i tre adskilte sæt: træningssættet, der bruges til at fastsætte vægtene, et valideringssæt til at vælge hyperparametre og stoptidspunkt, og et testsæt, der kun røres én gang til det endelige estimat. Opdelingen skal respektere dataenes struktur: Grupperede opdelinger holder alle poster fra én patient eller kunde på samme side, og tidsbaserede opdelinger træner på fortiden og tester på fremtiden. Brydes det, opstår lækage og for optimistiske resultater. For store sprogmodeller er det tilsvarende problem benchmark-kontaminering, hvor testopgaver optræder i det webbaserede fortræningskorpus, så de rapporterede benchmarkresultater delvis måler udenadslære.
 
-    Kvalitetsproblemerne er velbeskrevne. Støj i annotatorernes mærkater måles med statistik for enighed mellem annotatorer som Cohens kappa; stikprøveskævhed opstår, når indsamlingen afviger fra driften (en model trænet på ét hospitals scannere); historisk skævhed opstår, når korrekte mærkater afspejler tidligere diskrimination; og klasseubalance betyder, at sjældne, ofte vigtige tilfælde er underrepræsenterede. Deduplikering er afgørende i stor skala: Gentagne sekvenser i webkorpora øger udenadslæren og risikoen for, at en model gengiver personoplysninger ordret.
+    Kvalitetsproblemerne er velbeskrevne. Støj i annotatorernes mærkater estimeres med statistik for enighed mellem annotatorer som Cohens kappa; stikprøveskævhed opstår, når indsamlingen afviger fra driften (en model trænet på ét hospitals scannere); historisk skævhed opstår, når korrekte mærkater afspejler tidligere diskrimination; og klasseubalance betyder, at sjældne, ofte vigtige tilfælde er underrepræsenterede. Deduplikering er afgørende i stor skala: Gentagne sekvenser i webkorpora øger udenadslæren og risikoen for, at en model gengiver personoplysninger ordret.
 
     Træningsdata er en angrebsflade. Dataforgiftning indsætter konstruerede eksempler, så modellen opfører sig forkert generelt eller kun ved en bestemt trigger (en bagdør). Webskrabede korpora er udsatte, fordi en angriber kan styre indholdet på URL'er, der vil blive crawlet. Sporing af oprindelse, hashværdier af datasæt, adgangskontrol på mærkningsprocesser og anomalitjek af nye data er de tilsvarende kontroller, sammen med dokumentation som datasheets for datasets.
 
-    Den europæiske retlige ramme er lagdelt. Personoplysninger i et træningssæt kræver et behandlingsgrundlag efter databeskyttelsesforordningens artikel 6 og for særlige kategorier artikel 9; formålsbegrænsning og dataminimering gælder for træning som for al anden behandling. For højrisikosystemer kræver AI-forordningens artikel 10 datastyringspraksis, der dækker designvalg, indsamling, forberedelse og undersøgelse for mulige skævheder, og artikel 10, stk. 3, kræver, at trænings-, validerings- og testdatasæt er relevante, tilstrækkeligt repræsentative og så vidt muligt fejlfri og fuldstændige set i forhold til det tilsigtede formål. Artikel 10, stk. 5, tillader undtagelsesvis behandling af særlige kategorier af personoplysninger udelukkende for at opdage og korrigere skævheder og med garantier. Udbydere af AI-modeller til almen brug skal offentliggøre et tilstrækkeligt detaljeret resumé af træningsindholdet (artikel 53, stk. 1, litra d) og have en politik for overholdelse af EU's ophavsret, herunder maskinlæsbare forbehold mod tekst- og datamining efter artikel 4, stk. 3, i DSM-direktivet (EU) 2019/790.
+    Den europæiske retlige ramme er lagdelt. Personoplysninger i et træningssæt kræver et behandlingsgrundlag efter databeskyttelsesforordningens artikel 6 og for særlige kategorier artikel 9; formålsbegrænsning og dataminimering gælder for træning som for al anden behandling. For højrisikosystemer kræver AI-forordningens artikel 10 datastyringspraksis, der dækker designvalg, indsamling, forberedelse og undersøgelse for mulige skævheder, og artikel 10, stk. 3, kræver, at trænings-, validerings- og testdatasæt er relevante, tilstrækkeligt repræsentative og så vidt muligt fejlfri og fuldstændige set i forhold til det tilsigtede formål. Artikel 10, stk. 5, tillader undtagelsesvis behandling af særlige kategorier af personoplysninger udelukkende for at opdage og korrigere skævheder og med garantier. Udbydere af AI-modeller til almen brug skal offentliggøre et tilstrækkeligt detaljeret resumé af træningsindholdet (artikel 53, stk. 1, litra d) og have en politik for overholdelse af EU's ophavsret (artikel 53, stk. 1, litra c), herunder maskinlæsbare forbehold mod tekst- og datamining efter artikel 4, stk. 3, i DSM-direktivet (EU) 2019/790.
 edges:
   kind-of:
     - to: asset
@@ -64,13 +64,20 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+  - title: 'ISO/IEC 22989:2022, Information technology: Artificial intelligence concepts and terminology'
+    url: https://www.iso.org/standard/74296.html
     tier: standard
     publisher: ISO/IEC
-  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 10 — Data and data governance
+  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 10 (Data and data governance) and Article 53
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
     tier: standard
     publisher: European Union
-  - title: NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+  - title: 'NIST AI 100-1 (2023), Artificial Intelligence Risk Management Framework (AI RMF 1.0)'
+    url: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf
     tier: standard
     publisher: NIST
+  - title: Regulation (EU) 2016/679 (GDPR), Articles 6 and 9
+    url: https://eur-lex.europa.eu/eli/reg/2016/679/oj
+    tier: standard
+    publisher: European Union
 draft: true

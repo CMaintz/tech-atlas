@@ -1,0 +1,77 @@
+term:
+  en: Feature
+  da: Feature (inputvariabel)
+aka:
+  en: [input variable]
+  da: [inputvariabel, forklarende variabel]
+domain: [ai]
+cluster: ml-fundamentals
+layer: model
+status: current
+summary:
+  en: One measurable fact about an example, such as a price or an age, that a model reads as input when it makes a guess.
+  da: Én målbar oplysning om et eksempel, fx en pris eller en alder, som en model læser som input, når den skal gætte.
+body:
+  formal:
+    en: A single input value describing an example, given to a model as a number or turned into numbers first; in training data each example is a row of features, often paired with a label.
+    da: En enkelt inputværdi, der beskriver et eksempel, og som gives til en model som et tal eller først omsættes til tal; i træningsdata er hvert eksempel en række af features, ofte parret med en label.
+  plain:
+    en: Like the boxes on a form, such as age, income and address, that a bank clerk reads before deciding on a loan.
+    da: Som felterne på en blanket, fx alder, indkomst og adresse, som en bankrådgiver læser, før hun beslutter sig om et lån.
+  inPractice:
+    en: A housing company that wants to guess the rent a flat can fetch gives its model the size in square metres, the number of rooms, the floor and the distance to the nearest train station.
+    da: Et boligselskab, der vil gætte, hvilken husleje en lejlighed kan opnå, giver sin model størrelsen i kvadratmeter, antal værelser, etagen og afstanden til nærmeste togstation.
+  whyItMatters:
+    en: A model can only find patterns in what it is shown, so a missing, wrong or unfair input limits every answer it gives.
+    da: En model kan kun finde mønstre i det, den får vist, så et manglende, forkert eller urimeligt input begrænser alle de svar, den giver.
+deepDive:
+  en: |-
+    In the standard supervised setting each example is a feature vector x in R^d together with a label y, and a dataset is a design matrix with one row per example and one column per feature (Goodfellow et al., Deep Learning, ch. 5). Google's ML glossary defines a feature simply as an input variable used in making predictions. Features are numerical, categorical (a postcode, a product type) or ordinal (a rating from one to five); categorical features must be encoded before most models can use them, for example with one-hot encoding or ordinal encoding, and numeric features are often standardised to zero mean and unit variance so that no single scale dominates distance or gradient computations.
+
+    Features are distinct from model parameters: features are properties of the data supplied at inference time, while parameters (weights) are learned during training. They are also distinct from the label, which is the value to be predicted. Statistics calls features independent or explanatory variables, covariates or predictors; the machine learning term is used here.
+
+    Feature quality bounds model quality. Irrelevant or redundant features add noise and raise the risk of overfitting, which is why feature selection and dimensionality reduction exist. A feature that encodes information unavailable at prediction time, such as a field filled in only after the outcome is known, causes target leakage and inflated offline scores. Features that act as proxies for protected characteristics (postcode for ethnicity, for instance) can carry bias into decisions even when the protected attribute itself is removed.
+
+    In deep learning the raw input (pixels, tokens) is still the feature vector, but the network learns intermediate representations, often also called features or learned features, in its hidden layers. Interpretability work on large models uses the word in this second sense, for directions in activation space that correspond to human-meaningful concepts.
+  da: |-
+    I den klassiske superviserede opsætning er hvert eksempel en feature-vektor x i R^d sammen med en label y, og et datasæt er en designmatrix med én række pr. eksempel og én søjle pr. feature (Goodfellow m.fl., Deep Learning, kap. 5). Googles ML-ordliste definerer en feature ganske enkelt som en inputvariabel, der bruges til at lave forudsigelser. Features er numeriske, kategoriske (et postnummer, en produkttype) eller ordinale (en vurdering fra et til fem); kategoriske features skal kodes, før de fleste modeller kan bruge dem, fx med one-hot-kodning eller ordinal kodning, og numeriske features standardiseres ofte til middelværdi nul og varians ét, så ingen enkelt skala dominerer afstands- eller gradientberegninger.
+
+    Features er noget andet end modelparametre: Features er egenskaber ved de data, der gives ind ved inferens, mens parametre (vægte) læres under træningen. De er også forskellige fra labelen, som er den værdi, der skal forudsiges. I statistik kaldes features uafhængige eller forklarende variable, kovariater eller prædiktorer; her bruges maskinlæringsordet.
+
+    Kvaliteten af features sætter loftet for modellens kvalitet. Irrelevante eller overflødige features tilføjer støj og øger risikoen for overtilpasning, og derfor findes feature-udvælgelse og dimensionsreduktion. En feature, der indeholder oplysninger, som ikke er tilgængelige på forudsigelsestidspunktet, fx et felt, der først udfyldes, når udfaldet kendes, giver target leakage og for gode resultater offline. Features, der fungerer som stedfortrædere for beskyttede karakteristika (fx postnummer for etnicitet), kan føre bias ind i beslutninger, selv når den beskyttede oplysning selv er fjernet.
+
+    I deep learning er det rå input (pixels, tokens) stadig feature-vektoren, men netværket lærer mellemliggende repræsentationer i sine skjulte lag, som også kaldes features eller lærte features. Forskning i forklarlighed af store modeller bruger ordet i denne anden betydning om retninger i aktiveringsrummet, der svarer til begreber, mennesker kan genkende.
+edges:
+  requires: [training-data]
+  used-with:
+    - to: label
+      why:
+        en: In supervised learning every example pairs its features, the inputs, with a label, the answer the model learns to give.
+        da: I superviseret læring parrer hvert eksempel sine features, inputtet, med en label, det svar modellen lærer at give.
+      strength: primary
+      confidence: high
+  contrasts-with:
+    - to: model-parameter
+      why:
+        en: Features are the values an example brings to the model; model parameters are the values the model learns and keeps from training.
+        da: Features er de værdier, et eksempel bringer med til modellen; modelparametre er de værdier, modellen lærer og beholder fra træningen.
+      strength: normal
+      confidence: high
+sources:
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning, ch. 5 Machine Learning Basics'
+    url: https://www.deeplearningbook.org/
+    tier: textbook
+    publisher: MIT Press
+  - title: Machine Learning Glossary
+    url: https://developers.google.com/machine-learning/glossary
+    tier: official-doc
+    publisher: Google for Developers
+  - title: 'Machine Learning Crash Course: Supervised learning terminology'
+    url: https://developers.google.com/machine-learning/crash-course/framing/ml-terminology
+    tier: reference
+    publisher: Google for Developers
+  - title: scikit-learn User Guide, Preprocessing data
+    url: https://scikit-learn.org/stable/modules/preprocessing.html
+    tier: official-doc
+    publisher: scikit-learn
+draft: true

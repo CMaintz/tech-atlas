@@ -1,0 +1,64 @@
+term:
+  en: Learning rate
+  da: Læringsrate
+aka:
+  en: [step size]
+  da: [learning rate, skridtlængde]
+domain: [ai]
+cluster: training
+layer: training
+status: current
+summary:
+  en: The setting that decides how big a step a model takes each time it adjusts itself to make fewer mistakes during learning.
+  da: Indstillingen, der afgør, hvor store skridt en model tager, hver gang den justerer sig selv for at lave færre fejl under læringen.
+body:
+  formal:
+    en: A hyperparameter that scales each update in gradient descent; the model weights move by the learning rate times the direction that most lowers the loss function, and the value is often changed on a set plan during model training.
+    da: En hyperparameter, der skalerer hver opdatering i gradientnedstigning; modelvægtene flyttes med læringsraten gange den retning, der sænker tabsfunktionen mest, og værdien ændres ofte efter en fast plan under modeltræningen.
+  plain:
+    en: Like walking down a foggy hill to reach the lowest point. Tiny steps get you there, but only after hours; giant leaps keep jumping past the bottom and may land you higher than where you started.
+    da: Som at gå ned ad en tåget bakke for at nå det laveste punkt. Små skridt bringer dig derned, men først efter flere timer; kæmpespring hopper hele tiden forbi bunden og kan ende højere oppe, end hvor du startede.
+  inPractice:
+    en: An engineer fine-tuning a speech model sees the loss jump to huge values after a few hundred steps, cuts the learning rate to a tenth and adds a short warm-up, and the run then settles and improves steadily.
+    da: En ingeniør, der finjusterer en talemodel, ser tabet springe til enorme værdier efter et par hundrede skridt, sænker læringsraten ti gange og tilføjer en kort opvarmning, hvorefter kørslen falder til ro og forbedres jævnt.
+  whyItMatters:
+    en: It is often the single setting that most decides whether learning works at all; a bad value wastes days of costly computer time or leaves a model far worse than it could be.
+    da: Den er ofte den ene indstilling, der mest afgør, om læringen overhovedet lykkes; en dårlig værdi spilder dages dyr regnetid eller efterlader en model langt dårligere, end den kunne være.
+deepDive:
+  en: |-
+    In stochastic gradient descent the update is w <- w - eta * g, where g is the gradient of the loss on a mini-batch and eta is the learning rate. For full-batch gradient descent on a smooth loss whose curvature is bounded by L, any eta below 2/L guarantees that each step lowers the loss, which is why too large a rate shows up as oscillation or a loss that explodes to NaN, and too small a rate as slow progress or getting stuck on plateaus. Learning rate and batch size interact: Goyal et al. (2017) trained ImageNet models with mini-batches of 8,192 by scaling the learning rate linearly with batch size and adding a gradual warm-up over the first epochs.
+
+    Schedules change eta over training. Common ones are step decay, exponential decay, cosine annealing, one-cycle and linear warm-up followed by decay, which is standard for transformers because early updates with an adaptive optimiser are unstable. Smith (2017) proposed cyclical learning rates that oscillate between bounds, together with a learning-rate range test for finding sensible bounds. PyTorch implements these in torch.optim.lr_scheduler (for example StepLR, CosineAnnealingLR, OneCycleLR, LinearLR), stepped once per batch or per epoch depending on the scheduler.
+
+    Adaptive optimisers keep a global learning rate but scale it per parameter. Adam (Kingma and Ba, 2015) divides a running mean of gradients by the square root of a running mean of squared gradients; its paper defaults are a learning rate of 0.001, beta1 = 0.9, beta2 = 0.999 and epsilon = 1e-8. Adaptive scaling reduces, but does not remove, sensitivity to the base rate, and it changes how weight decay behaves, which motivated AdamW. In practice the learning rate is the first hyperparameter to tune, usually on a logarithmic grid, and a rate that works for pretraining is typically too high for fine-tuning, where values one or two orders of magnitude smaller are common.
+  da: |-
+    I stokastisk gradientnedstigning er opdateringen w <- w - eta * g, hvor g er tabets gradient på en minibatch, og eta er læringsraten. For gradientnedstigning på hele datasættet med et glat tab, hvis krumning er begrænset af L, garanterer enhver eta under 2/L, at hvert skridt sænker tabet, og derfor viser en for høj rate sig som svingninger eller et tab, der eksploderer til NaN, mens en for lav rate giver langsom fremgang eller fastlåsning på plateauer. Læringsrate og batchstørrelse påvirker hinanden: Goyal m.fl. (2017) trænede ImageNet-modeller med minibatches på 8.192 ved at skalere læringsraten lineært med batchstørrelsen og tilføje en gradvis opvarmning over de første epoker.
+
+    Skemaer ændrer eta i løbet af træningen. Almindelige skemaer er trinvis aftagning, eksponentiel aftagning, cosinus-annealing, one-cycle samt lineær opvarmning efterfulgt af aftagning, som er standard for transformere, fordi de tidlige opdateringer med en adaptiv optimeringsalgoritme er ustabile. Smith (2017) foreslog cykliske læringsrater, der svinger mellem to grænser, sammen med en læringsrate-test til at finde fornuftige grænser. PyTorch implementerer dem i torch.optim.lr_scheduler (fx StepLR, CosineAnnealingLR, OneCycleLR og LinearLR), som tages et skridt pr. batch eller pr. epoke afhængigt af skemaet.
+
+    Adaptive optimeringsalgoritmer beholder en global læringsrate, men skalerer den for hver parameter. Adam (Kingma og Ba, 2015) dividerer et løbende gennemsnit af gradienterne med kvadratroden af et løbende gennemsnit af de kvadrerede gradienter; artiklens standardværdier er en læringsrate på 0,001, beta1 = 0,9, beta2 = 0,999 og epsilon = 1e-8. Den adaptive skalering mindsker, men fjerner ikke, følsomheden over for grundraten, og den ændrer, hvordan weight decay virker, hvilket førte til AdamW. I praksis er læringsraten den første hyperparameter, man tuner, typisk på et logaritmisk gitter, og en rate, der virker til fortræning, er typisk for høj til finjustering, hvor værdier en eller to størrelsesordener mindre er almindelige.
+edges:
+  kind-of: [hyperparameter]
+  requires: [gradient-descent]
+sources:
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning, ch. 8: Optimization for Training Deep Models'
+    url: https://www.deeplearningbook.org/contents/optimization.html
+    tier: textbook
+    publisher: MIT Press
+  - title: PyTorch documentation, torch.optim (learning rate schedulers)
+    url: https://docs.pytorch.org/docs/stable/optim.html
+    tier: official-doc
+    publisher: PyTorch
+  - title: Kingma & Ba (2015), Adam, A Method for Stochastic Optimization
+    url: https://arxiv.org/abs/1412.6980
+    tier: reference
+    publisher: ICLR 2015
+  - title: Smith (2017), Cyclical Learning Rates for Training Neural Networks
+    url: https://arxiv.org/abs/1506.01186
+    tier: reference
+    publisher: WACV 2017
+  - title: Goyal et al. (2017), Accurate, Large Minibatch SGD, Training ImageNet in 1 Hour
+    url: https://arxiv.org/abs/1706.02677
+    tier: reference
+    publisher: arXiv
+draft: true

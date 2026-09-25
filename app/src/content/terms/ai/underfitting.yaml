@@ -13,10 +13,10 @@ summary:
   da: Når en model er for simpel eller trænet for lidt til at fange mønstret, så den scorer dårligt selv på de eksempler, den lærte af.
 body:
   formal:
-    en: A failure of model training in which the model cannot fit even its training data well — high loss on the training data and on held-back data alike — usually because it has too few model parameters, too few epochs or too little useful information in its input.
+    en: A failure of model training in which the model cannot fit even its training data well, with high loss on the training data and on held-back data alike, usually because it has too few model parameters, too few epochs or too little useful information in its input.
     da: En fejl i modeltræning, hvor modellen ikke engang kan tilpasse sig sine træningsdata godt — højt tab både på træningsdata og på tilbageholdte data — typisk fordi den har for få modelparametre, for få epoker eller for lidt brugbar information i sit input.
   plain:
-    en: Like describing every animal as “has legs” — the rule is too rough to tell a dog from a table, even for the animals you studied.
+    en: Like describing every animal as “has legs”; the rule is too rough to tell a dog from a table, even for the animals you studied.
     da: Som at beskrive alle dyr som “har ben” — reglen er for grov til at skelne en hund fra et bord, selv for de dyr, man har studeret.
   inPractice:
     en: The owner of a small Danish garden centre forecasts sales with a straight line; it misses both the spring rush and the Christmas-tree peak even in last year's own figures, so she switches to a richer model.
@@ -26,13 +26,13 @@ body:
     da: En undertilpasset model tager fejl på en stabil, forudsigelig måde, så den kan se solid ud, mens den giver dårlige beslutninger; løsningen er mere kapacitet eller mere træning, ikke flere regler.
 deepDive:
   en: |-
-    The signature of underfitting is a training loss that stays high and a validation loss close to it: the gap between them is small, but both are well above what the task allows, measured against a reference such as human-level performance, a strong baseline or the estimated irreducible (Bayes) error. Learning curves make the diagnosis concrete. Plotted against training-set size, an underfitting model's training and validation curves converge quickly at a poor level, so collecting more data does not help, whereas an overfitting model shows a wide gap that more data narrows. In the bias–variance decomposition of squared error, expected error = bias² + variance + irreducible noise, and underfitting is the high-bias regime (Goodfellow et al., §5.2 and §5.4).
+    The signature of underfitting is a training loss that stays high and a validation loss close to it: the gap between them is small, but both are well above what the task allows, measured against a reference such as human-level performance, a strong baseline or the estimated irreducible (Bayes) error. Learning curves make the diagnosis concrete. Plotted against training-set size, an underfitting model's training and validation curves converge quickly at a poor level, so collecting more data does not help, whereas an overfitting model shows a wide gap that more data narrows. In the bias-variance decomposition of squared error, expected error = bias² + variance + irreducible noise, and underfitting is the high-bias regime (Goodfellow et al., §5.2 and §5.4).
 
-    Causes fall into four groups. Capacity: the hypothesis class cannot represent the pattern, as with a linear model for a seasonal or interacting signal. Regularisation: weight decay, dropout, L1 penalties or data augmentation set so strong that they suppress real structure. Optimisation: too few steps, a learning rate far too small or so large that training stalls, stopping early on a noisy validation signal, vanishing gradients or poor initialisation. Information: the input features simply do not carry what is needed to predict the target. Bugs belong under optimisation in practice — misaligned labels, unscaled inputs, a frozen layer or a loss applied to the wrong tensor all look like underfitting. A standard sanity check is to try to overfit a single small batch: if the loss cannot be driven close to zero on a handful of examples, the problem is a bug or a capacity mismatch, not a lack of data.
+    Causes fall into four groups. Capacity: the hypothesis class cannot represent the pattern, as with a linear model for a seasonal or interacting signal. Regularisation: weight decay, dropout, L1 penalties or data augmentation set so strong that they suppress real structure. Optimisation: too few steps, a learning rate far too small or so large that training stalls, stopping early on a noisy validation signal, vanishing gradients or poor initialisation. Information: the input features simply do not carry what is needed to predict the target. Bugs belong under optimisation in practice: misaligned labels, unscaled inputs, a frozen layer or a loss applied to the wrong tensor all look like underfitting. A standard sanity check is to try to overfit a single small batch: if the loss cannot be driven close to zero on a handful of examples, the problem is a bug or a capacity mismatch, not a lack of data.
 
     Remedies follow the cause: a larger or more expressive model, better features, weaker regularisation, longer training or a tuned learning-rate schedule. The classical picture of a U-shaped test-error curve over model capacity has been revised by the double-descent phenomenon (Belkin et al., 2019), in which test error falls again once models are large enough to interpolate the training data, so heavily overparameterised networks rarely underfit for lack of capacity. Underfitting at scale is instead about compute and data: Hoffmann et al. (2022) showed that several large language models of the time were undertrained for their size, and in single-epoch pretraining training and validation loss track each other closely, so the usual lever is more tokens or compute rather than regularisation.
 
-    Underfitting should be kept apart from neighbouring failures. Overfitting shows a large train–validation gap; distribution shift shows good validation results but poor production results; label noise caps both curves at a level set by the data rather than the model. Because an underfit model errs consistently, its mistakes are systematic — a straight-line forecast that always misses the seasonal peak — and can look deceptively stable.
+    Underfitting should be kept apart from neighbouring failures. Overfitting shows a large gap between training and validation loss; distribution shift shows good validation results but poor production results; label noise caps both curves at a level set by the data rather than the model. Because an underfit model errs consistently, its mistakes are systematic (a straight-line forecast that always misses the seasonal peak) and can look deceptively stable.
   da: |-
     Kendetegnet ved undertilpasning er et træningstab, der forbliver højt, og et valideringstab tæt på det: afstanden mellem dem er lille, men begge ligger et godt stykke over, hvad opgaven tillader, målt mod en reference som menneskeligt niveau, en stærk baseline eller den estimerede irreducible (Bayes-)fejl. Læringskurver gør diagnosen konkret. Tegnet op mod træningssættets størrelse mødes en undertilpasset models trænings- og valideringskurver hurtigt på et dårligt niveau, så flere data ikke hjælper, mens en overtilpasset model viser en bred kløft, som flere data indsnævrer. I bias–varians-dekomponeringen af kvadratfejl er forventet fejl = bias² + varians + irreducibel støj, og undertilpasning er regimet med høj bias (Goodfellow m.fl., §5.2 og §5.4).
 
@@ -51,7 +51,15 @@ edges:
       strength: minor
       confidence: low
 sources:
-  - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 5.2)'
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 5.2 and 5.4)'
     tier: textbook
     publisher: MIT Press
+    url: https://www.deeplearningbook.org/contents/ml.html
+  - title: Belkin et al. (2019), Reconciling modern machine-learning practice and the classical bias-variance trade-off
+    tier: reference
+    publisher: PNAS
+    url: https://doi.org/10.1073/pnas.1903070116
+  - title: Hoffmann et al. (2022), Training Compute-Optimal Large Language Models
+    tier: reference
+    url: https://arxiv.org/abs/2203.15556
 draft: true

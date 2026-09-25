@@ -1,0 +1,66 @@
+term:
+  en: Feature engineering
+  da: Feature engineering
+aka:
+  en: []
+  da: []
+domain: [ai]
+cluster: ml-fundamentals
+layer: training
+status: current
+summary:
+  en: Turning raw records into useful inputs for a model, by picking, cleaning, combining and reshaping the facts it will read.
+  da: At omsætte rå registreringer til nyttige input for en model ved at vælge, rense, kombinere og omforme de oplysninger, den skal læse.
+body:
+  formal:
+    en: The work of building each feature from raw data using human knowledge of the problem, for example counting, grouping, turning text or dates into numbers and dropping unhelpful columns, done before or as part of model training.
+    da: Arbejdet med at bygge hver feature ud fra rådata med menneskelig viden om problemet, fx at tælle, gruppere, omsætte tekst eller datoer til tal og fjerne uhjælpsomme kolonner, udført før eller som en del af modeltræningen.
+  plain:
+    en: Like a cook who washes, peels and chops the vegetables before cooking, because the same pot gives a far better dish when what goes in is well prepared.
+    da: Som en kok, der vasker, skræller og hakker grøntsagerne, før der skal koges, fordi den samme gryde giver en langt bedre ret, når det, der kommer i, er godt forberedt.
+  inPractice:
+    en: A bank building a model to spot card fraud does not hand it single payments; it adds new columns such as "number of payments in the last hour" and "distance from the customer's home".
+    da: En bank, der bygger en model til at opdage kortsvindel, giver den ikke bare enkelte betalinger; den tilføjer nye kolonner som "antal betalinger den seneste time" og "afstand fra kundens bopæl".
+  whyItMatters:
+    en: On ordinary business tables, good inputs often matter more than the choice of model, and a careless step can leak the answer into the data.
+    da: På almindelige forretningstabeller betyder gode input ofte mere end valget af model, og et skødesløst trin kan lække svaret ind i data.
+deepDive:
+  en: |-
+    Typical feature engineering operations include encoding categorical variables (one-hot, ordinal, or target encoding for high-cardinality columns), scaling numeric columns (standardisation, min-max scaling), non-linear transforms (log, Box-Cox, Yeo-Johnson, quantile), discretisation into bins, polynomial and interaction terms, date and time decomposition (day of week, hour, holiday flags), aggregations over windows or groups (counts, sums, rolling means per customer), and text representations such as bag-of-words or TF-IDF. scikit-learn's preprocessing module and ColumnTransformer implement most of these.
+
+    The main correctness risk is leakage. Every transform that learns statistics from data (a scaler's mean, a target encoder's category means, an imputer's median) must be fitted on training data only and then applied unchanged to validation, test and production data; scikit-learn recommends wrapping preprocessing and model in a Pipeline so that cross-validation refits the transforms inside each fold. Aggregate features must be computed only from information available at prediction time, and the same code path must run at training and serving time to avoid training-serving skew, which Google's production ML guidance lists as a primary monitoring target. Feature stores exist largely to share one definition across both paths.
+
+    Domingos (2012) summarised the empirical folk wisdom that the features used are often the most important factor in whether a project succeeds. Deep learning shifted much of this work into the model: convolutional and transformer networks learn representations directly from pixels or tokens, which is the core argument of representation learning (Goodfellow et al., ch. 15). For tabular data, however, gradient-boosted trees on engineered features remain highly competitive, and even deep pipelines still depend on engineering choices such as tokenisation, normalisation and data cleaning.
+  da: |-
+    Typiske trin i feature engineering er kodning af kategoriske variable (one-hot, ordinal eller target encoding for kolonner med mange kategorier), skalering af numeriske kolonner (standardisering, min-max-skalering), ikke-lineære transformationer (log, Box-Cox, Yeo-Johnson, kvantiler), opdeling i intervaller, polynomielle led og vekselvirkningsled, opsplitning af dato og tid (ugedag, time, helligdagsflag), aggregeringer over tidsvinduer eller grupper (antal, summer, glidende gennemsnit pr. kunde) og tekstrepræsentationer som bag-of-words eller TF-IDF. scikit-learns preprocessing-modul og ColumnTransformer dækker de fleste af dem.
+
+    Den største faldgrube er lækage. Enhver transformation, der lærer statistik fra data (en skalers middelværdi, en target encoders kategorigennemsnit, en imputers median), skal tilpasses på træningsdata alene og derefter anvendes uændret på validerings-, test- og produktionsdata; scikit-learn anbefaler at pakke forbehandling og model ind i en Pipeline, så krydsvalidering tilpasser transformationerne på ny inden for hvert fold. Aggregerede features må kun beregnes ud fra oplysninger, der er tilgængelige på forudsigelsestidspunktet, og den samme kode skal køre ved træning og i drift for at undgå training-serving skew, som Googles vejledning om produktions-ML nævner som et centralt overvågningspunkt. Feature stores findes i høj grad for at dele én definition mellem de to spor.
+
+    Domingos (2012) opsummerede den erfaringsbaserede tommelfingerregel, at de anvendte features ofte er den vigtigste faktor for, om et projekt lykkes. Deep learning flyttede meget af dette arbejde ind i modellen: foldningsnetværk og transformere lærer repræsentationer direkte fra pixels eller tokens, hvilket er kernen i representation learning (Goodfellow m.fl., kap. 15). På tabeldata er gradient boosting-træer på håndlavede features dog stadig meget konkurrencedygtige, og selv dybe pipelines afhænger af konstruktionsvalg som tokenisering, normalisering og datarensning.
+edges:
+  requires: [feature]
+  used-with:
+    - to: gradient-boosting
+      why:
+        en: On ordinary business tables, well prepared inputs fed to gradient boosting remain one of the strongest and most common set-ups.
+        da: På almindelige forretningstabeller er godt forberedte input kombineret med gradient boosting stadig en af de stærkeste og mest udbredte opsætninger.
+      strength: normal
+      confidence: medium
+sources:
+  - title: scikit-learn User Guide, Preprocessing data
+    url: https://scikit-learn.org/stable/modules/preprocessing.html
+    tier: official-doc
+    publisher: scikit-learn
+  - title: 'Machine Learning Crash Course: Production ML systems, Monitoring pipelines'
+    url: https://developers.google.com/machine-learning/crash-course/production-ml-systems/monitoring
+    tier: reference
+    publisher: Google for Developers
+  - title: Domingos (2012), A Few Useful Things to Know About Machine Learning
+    url: https://doi.org/10.1145/2347736.2347755
+    tier: reference
+    publisher: Communications of the ACM
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning, ch. 15 Representation Learning'
+    url: https://www.deeplearningbook.org/
+    tier: textbook
+    publisher: MIT Press
+draft: true

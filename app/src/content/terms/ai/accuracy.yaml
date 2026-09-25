@@ -9,14 +9,14 @@ cluster: evaluation
 layer: theory
 status: current
 summary:
-  en: The share of all cases a model gets right — simple to read, but it can look excellent when the thing you care about is rare.
+  en: The share of all cases a model gets right; simple to read, but it can look excellent when the thing you care about is rare.
   da: Andelen af alle tilfælde, en model rammer rigtigt — let at læse, men den kan se flot ud, når det, man leder efter, er sjældent.
 body:
   formal:
     en: In classification, the number of correct answers divided by the total number of cases; in a confusion matrix it is the sum of the cells where the answer and the true class agree, divided by the sum of all cells.
     da: I klassifikation antallet af rigtige svar delt med det samlede antal tilfælde; i en forvekslingsmatrix er det summen af de felter, hvor svaret og den sande klasse stemmer overens, delt med summen af alle felter.
   plain:
-    en: Like a weather forecaster in the desert who says “no rain” every single day — right almost every time, and useless on the one day it pours.
+    en: Like a weather forecaster in the desert who says “no rain” every single day and is right almost every time, yet useless on the one day it pours.
     da: Som en vejrudsigt i ørkenen, der siger “ingen regn” hver eneste dag — rigtig næsten hver gang og ubrugelig den ene dag, det styrter ned.
   inPractice:
     en: A data analyst at a shipping company tests a model meant to warn of engine faults; it scores 99.5% accuracy, yet it has never raised a single warning, because faults occur on only one voyage in 200.
@@ -26,7 +26,7 @@ body:
     da: Det er det tal, de fleste nævner først, så teams må tjekke, om klasserne er i balance, før de stoler på det, og bruge præcision, genkaldelse eller F1-score, når de ikke er.
 deepDive:
   en: |-
-    For a binary classifier, accuracy = (TP + TN) / (TP + TN + FP + FN); for k classes it is the trace of the k × k confusion matrix divided by the total count, which makes it exactly 1 minus the empirical 0-1 loss. Variants change what counts as correct: top-k accuracy (popularised by the ImageNet top-5 metric) accepts the true class anywhere among the k highest-scoring predictions, and in multilabel problems scikit-learn's accuracy_score computes subset accuracy, where a sample only counts if every one of its labels is right — a far stricter number than per-label accuracy.
+    For a binary classifier, accuracy = (TP + TN) / (TP + TN + FP + FN); for k classes it is the trace of the k × k confusion matrix divided by the total count, which makes it exactly 1 minus the empirical 0-1 loss. Variants change what counts as correct: top-k accuracy (popularised by the ImageNet top-5 metric) accepts the true class anywhere among the k highest-scoring predictions, and in multilabel problems scikit-learn's accuracy_score computes subset accuracy, where a sample only counts if every one of its labels is right, a far stricter number than per-label accuracy.
 
     The best-known failure is the accuracy paradox. With a positive-class prevalence p, a constant classifier that always predicts the majority class scores 1 − p, so 99% accuracy is worthless at 1% prevalence. Accuracy should therefore always be reported next to the majority-class baseline. Alternatives that resist imbalance include balanced accuracy (the mean of per-class recall, (TPR + TNR) / 2 in the binary case), Cohen's kappa, which subtracts the agreement expected by chance, and the Matthews correlation coefficient, which uses all four cells and is only high when both classes are predicted well.
 
@@ -55,13 +55,24 @@ sources:
   - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 5.1.2 and 11.1)'
     tier: textbook
     publisher: MIT Press
-  - title: 'Jurafsky & Martin, Speech and Language Processing (ch. 4, Evaluation: precision, recall, F-measure)'
+    url: https://www.deeplearningbook.org/
+  - title: 'Jurafsky & Martin, Speech and Language Processing, 3rd ed. draft (§4.9, Evaluation: Precision, Recall, F-measure)'
     tier: textbook
-  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    url: https://web.stanford.edu/~jurafsky/slp3/
+  - title: 'ISO/IEC 22989:2022, Artificial intelligence concepts and terminology'
+    url: https://www.iso.org/standard/74296.html
     tier: standard
     publisher: ISO/IEC
-  - title: ISO/IEC TS 4213:2022 — Assessment of machine learning classification performance
+  - title: 'ISO/IEC TS 4213:2022, Assessment of machine learning classification performance'
     tier: standard
     publisher: ISO/IEC
     url: https://www.iso.org/standard/79799.html
+  - title: scikit-learn User Guide, Metrics and scoring (classification metrics)
+    tier: official-doc
+    publisher: scikit-learn
+    url: https://scikit-learn.org/stable/modules/model_evaluation.html
+  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 15
+    tier: standard
+    publisher: EUR-Lex
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
 draft: true

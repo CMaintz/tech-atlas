@@ -9,20 +9,20 @@ cluster: training
 layer: training
 status: current
 summary:
-  en: The step-by-step method most models learn by — nudge every setting a little in whichever direction makes the error shrink.
+  en: The step-by-step method most models learn by, which nudges every setting a little in whichever direction makes the error shrink.
   da: Den trinvise metode, de fleste modeller lærer med — skub hver indstilling en smule i den retning, der gør fejlen mindre.
 body:
   formal:
     en: A method that lowers the value of a loss function by repeatedly working out which way each model parameter should move to reduce the loss, then moving all of them a small step that way; the size of the step is a hyperparameter.
     da: En metode, der sænker værdien af en tabsfunktion ved gentagne gange at regne ud, hvilken vej hver modelparameter skal flyttes for at mindske tabet, og så flytte dem alle et lille skridt i den retning; skridtets størrelse er en hyperparameter.
   plain:
-    en: Like walking down a foggy hill with your eyes closed — you feel which way the ground slopes under your feet and take a small step downhill, again and again, until it is flat.
+    en: Like walking down a foggy hill with your eyes closed; you feel which way the ground slopes under your feet and take a small step downhill, again and again, until it is flat.
     da: Som at gå ned ad en tåget bakke med lukkede øjne — du mærker, hvilken vej jorden hælder under fødderne, og tager et lille skridt nedad, igen og igen, til det bliver fladt.
   inPractice:
     en: An analyst in a ministry trains a model to sort incoming letters by topic; the error jumps up and down instead of falling, because gradient descent is taking steps that are too large, so she lowers the step size and starts again.
     da: En analytiker i et ministerium træner en model til at sortere indkomne breve efter emne; fejlen hopper op og ned i stedet for at falde, fordi gradientnedstigning tager for store skridt, så hun sænker skridtstørrelsen og starter forfra.
   whyItMatters:
-    en: Almost every modern neural network is trained this way, so its choices — step size, how many rounds — decide whether training succeeds, stalls or wastes large amounts of costly computing.
+    en: Almost every modern neural network is trained this way, so its choices, such as step size and how many rounds, decide whether training succeeds, stalls or wastes large amounts of costly computing.
     da: Næsten alle moderne neurale netværk trænes sådan, så valgene — skridtstørrelse, antal runder — afgør, om træningen lykkes, går i stå eller spilder store mængder dyr regnekraft.
 deepDive:
   en: |-
@@ -54,7 +54,21 @@ sources:
   - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 4 and 8)'
     tier: textbook
     publisher: MIT Press
-  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    url: https://www.deeplearningbook.org/
+  - title: ISO/IEC 22989:2022, Artificial intelligence concepts and terminology
     tier: standard
     publisher: ISO/IEC
+    url: https://www.iso.org/standard/74296.html
+  - title: Robbins & Monro (1951), A Stochastic Approximation Method
+    tier: reference
+    publisher: The Annals of Mathematical Statistics
+    url: https://doi.org/10.1214/aoms/1177729586
+  - title: Kingma & Ba (2015), Adam, A Method for Stochastic Optimization
+    tier: reference
+    publisher: ICLR 2015
+    url: https://arxiv.org/abs/1412.6980
+  - title: Loshchilov & Hutter (2019), Decoupled Weight Decay Regularization
+    tier: reference
+    publisher: ICLR 2019
+    url: https://arxiv.org/abs/1711.05101
 draft: true

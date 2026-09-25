@@ -34,7 +34,7 @@ deepDive:
 
     Diagnostics come from the loss curves. Training loss falling while validation loss rises indicates overfitting; both staying high indicates underfitting or a bug; sudden spikes or NaNs point to an excessive learning rate or numerical instability. Reproducibility is harder than it looks: random seeds, data order, non-deterministic GPU kernels and library versions all change the result, so audit-grade training records the full configuration, data snapshot hashes and code version.
 
-    Regulation attaches to this stage. Under the EU AI Act, a general-purpose AI model is presumed to have systemic risk when the cumulative compute used for its training exceeds 10^25 floating-point operations (Article 51(2)), and providers of general-purpose models must document the training process and publish a summary of training content (Article 53). Security-wise, training is when data poisoning and backdoors become embedded, and the resulting weights are an asset whose theft transfers the entire training investment.
+    Regulation attaches to this stage. Under the EU AI Act, a general-purpose AI model is presumed to have high-impact capabilities, and so is classified as a model with systemic risk, when the cumulative compute used for its training exceeds 10^25 floating-point operations (Article 51(2) with 51(1)(a)), and providers of general-purpose models must document the training process (Article 53(1)(a)) and publish a summary of training content (Article 53(1)(d)). Security-wise, training is when data poisoning and backdoors become embedded, and the resulting weights are an asset whose theft transfers the entire training investment.
   da: |-
     Kerneløkken er stokastisk gradientnedstigning med minibatches: Man udtrækker en batch, kører et forward pass, beregner tabet, bruger backpropagation til at finde gradienterne og lader en optimeringsalgoritme opdatere vægtene. Adam og varianten AdamW med afkoblet weight decay er de facto standard for neurale netværk (Adams sædvanlige standardværdier er β1 = 0,9, β2 = 0,999, ε = 1e-8), mens almindelig SGD med momentum stadig er udbredt inden for billedgenkendelse. Læringsraten styres typisk efter en plan, ofte med lineær opvarmning efterfulgt af cosinus- eller lineært aftagende rate, og klipning af gradientnormen beskytter mod pludselige tabsspidser.
 
@@ -44,7 +44,7 @@ deepDive:
 
     Diagnosen stilles ud fra tabskurverne. Falder træningstabet, mens valideringstabet stiger, er der tale om overtilpasning; forbliver begge høje, er det undertilpasning eller en fejl; pludselige spidser eller NaN-værdier tyder på for høj læringsrate eller numerisk ustabilitet. Reproducerbarhed er sværere, end det ser ud: tilfældige seeds, datarækkefølge, ikke-deterministiske GPU-kerner og biblioteksversioner ændrer alle resultatet, så træning, der skal kunne revideres, registrerer den fulde konfiguration, hashværdier af datasnapshots og kodeversion.
 
-    Reguleringen knytter sig til netop denne fase. Efter AI-forordningen formodes en AI-model til almen brug at have systemisk risiko, når den samlede regnekraft brugt til træningen overstiger 10^25 flydende-komma-operationer (artikel 51, stk. 2), og udbydere af modeller til almen brug skal dokumentere træningsprocessen og offentliggøre et resumé af træningsindholdet (artikel 53). Sikkerhedsmæssigt er træningen det tidspunkt, hvor dataforgiftning og bagdøre bygges ind, og de færdige vægte er et aktiv, hvis tyveri overfører hele træningsinvesteringen.
+    Reguleringen knytter sig til netop denne fase. Efter AI-forordningen formodes en AI-model til almen brug at have kapaciteter med stor virkning og klassificeres dermed som en model med systemisk risiko, når den samlede regnekraft brugt til træningen overstiger 10^25 flydende-komma-operationer (artikel 51, stk. 2, jf. stk. 1, litra a), og udbydere af modeller til almen brug skal dokumentere træningsprocessen (artikel 53, stk. 1, litra a) og offentliggøre et resumé af træningsindholdet (artikel 53, stk. 1, litra d). Sikkerhedsmæssigt er træningen det tidspunkt, hvor dataforgiftning og bagdøre bygges ind, og de færdige vægte er et aktiv, hvis tyveri overfører hele træningsinvesteringen.
 edges:
   part-of: [machine-learning]
   requires: [training-data]
@@ -56,10 +56,24 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: 'Goodfellow, Bengio & Courville, Deep Learning'
+  - title: 'Goodfellow, Bengio & Courville (2016), Deep Learning'
+    url: https://www.deeplearningbook.org/
     tier: textbook
     publisher: MIT Press
-  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+  - title: 'ISO/IEC 22989:2022, Information technology: Artificial intelligence concepts and terminology'
+    url: https://www.iso.org/standard/74296.html
     tier: standard
     publisher: ISO/IEC
+  - title: 'Kingma & Ba (2015), Adam: A Method for Stochastic Optimization'
+    url: https://arxiv.org/abs/1412.6980
+    tier: reference
+    publisher: ICLR 2015
+  - title: Kaplan et al. (2020), Scaling Laws for Neural Language Models
+    url: https://arxiv.org/abs/2001.08361
+    tier: reference
+    publisher: arXiv
+  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), Articles 51 and 53
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+    tier: standard
+    publisher: European Union
 draft: true

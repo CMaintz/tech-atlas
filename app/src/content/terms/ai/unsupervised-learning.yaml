@@ -13,7 +13,7 @@ summary:
   da: Maskinlæring ud fra eksempler uden svar, hvor modellen selv finder grupper, mønstre eller usædvanlige tilfælde.
 body:
   formal:
-    en: A form of machine learning that works on training data without labels, finding structure in it — for example grouping similar items or flagging items that differ from the rest.
+    en: A form of machine learning that works on training data without labels, finding structure in it, for example grouping similar items or flagging items that differ from the rest.
     da: En form for maskinlæring, der arbejder på træningsdata uden mærkater og finder struktur i dem — fx ved at gruppere lignende ting eller markere ting, der skiller sig ud fra resten.
   plain:
     en: Like sorting a box of mixed buttons into piles by colour and size without anyone telling you what the piles should be.
@@ -26,7 +26,7 @@ body:
     da: Den kan opdage nye, ukendte trusler, som ingen har mærket endnu, men markerer også harmløs usædvanlig adfærd, så mennesker stadig skal vurdere alarmerne.
 deepDive:
   en: |-
-    Unsupervised learning estimates properties of the input distribution P(X) alone, with no target variable. The main task families are clustering (k-means, hierarchical clustering, DBSCAN, Gaussian mixture models fitted with the EM algorithm), dimensionality reduction (principal component analysis, which projects data onto the directions of greatest variance; t-SNE from 2008 and UMAP from 2018 for non-linear visualisation), density estimation (kernel density estimates, mixture models, normalising flows) and association rule mining (the Apriori algorithm for market-basket analysis).
+    Unsupervised learning estimates properties of the input distribution P(X) alone, with no target variable. The main task families are clustering (k-means, hierarchical clustering, DBSCAN, Gaussian mixture models fitted with the EM algorithm), dimensionality reduction (principal component analysis, which projects data onto the directions of greatest variance; t-SNE (van der Maaten and Hinton, 2008) and UMAP (McInnes et al., 2018) for non-linear visualisation), density estimation (kernel density estimates, mixture models, normalising flows) and association rule mining (the Apriori algorithm for market-basket analysis).
 
     Anomaly detection is the most common security use and is what behavioural analytics products (UEBA) typically build on. Methods include isolation forests (Liu, Ting and Zhou, 2008), which isolate points by random splits and score outliers by how few splits they need; one-class SVMs; local outlier factor; and autoencoders, which learn to reconstruct normal data and flag inputs with high reconstruction error. All of these model "normal" from historical data, so an attacker who was already present during the baseline period becomes part of normal, and legitimate change (a new VPN provider, a reorganisation) produces bursts of false positives.
 
@@ -36,7 +36,7 @@ deepDive:
 
     In a governance context, unsupervised output is a hypothesis, not a finding. Clusters and anomaly scores need human interpretation before they drive decisions about people, and profiling built on them can still fall under GDPR rules on profiling and automated decision-making (Article 22) when it produces legal or similarly significant effects.
   da: |-
-    Ikke-superviseret læring estimerer egenskaber ved inputfordelingen P(X) alene, uden en målvariabel. De vigtigste opgavetyper er klyngeanalyse (k-means, hierarkisk klyngeanalyse, DBSCAN, gaussiske mixture-modeller tilpasset med EM-algoritmen), dimensionsreduktion (principal component analysis, der projicerer data på retningerne med størst varians; t-SNE fra 2008 og UMAP fra 2018 til ikke-lineær visualisering), tæthedsestimering (kernetæthedsestimater, mixture-modeller, normalizing flows) og associationsregler (Apriori-algoritmen til kurvanalyse i detailhandel).
+    Ikke-superviseret læring estimerer egenskaber ved inputfordelingen P(X) alene, uden en målvariabel. De vigtigste opgavetyper er klyngeanalyse (k-means, hierarkisk klyngeanalyse, DBSCAN, gaussiske mixture-modeller tilpasset med EM-algoritmen), dimensionsreduktion (principal component analysis, der projicerer data på retningerne med størst varians; t-SNE (van der Maaten og Hinton, 2008) og UMAP (McInnes m.fl., 2018) til ikke-lineær visualisering), tæthedsestimering (kernetæthedsestimater, mixture-modeller, normalizing flows) og associationsregler (Apriori-algoritmen til kurvanalyse i detailhandel).
 
     Anomalidetektion er den mest udbredte sikkerhedsanvendelse og det, adfærdsanalyseprodukter (UEBA) typisk bygger på. Metoderne omfatter isolation forests (Liu, Ting og Zhou, 2008), der isolerer punkter med tilfældige opsplitninger og scorer afvigere efter, hvor få opsplitninger de kræver; one-class SVM'er; local outlier factor; og autoencodere, der lærer at rekonstruere normale data og markerer input med stor rekonstruktionsfejl. Alle modellerer "normalen" ud fra historiske data, så en angriber, der allerede var til stede i baselineperioden, bliver en del af det normale, og legitime ændringer (en ny VPN-udbyder, en omorganisering) giver bølger af falske positiver.
 
@@ -49,13 +49,28 @@ edges:
   kind-of: [machine-learning]
   requires: [training-data]
 sources:
-  - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+  - title: 'Russell & Norvig (2020), Artificial Intelligence: A Modern Approach, 4th edition'
+    url: https://aima.cs.berkeley.edu/
     tier: textbook
     publisher: Pearson
-  - title: 'Goodfellow, Bengio & Courville, Deep Learning'
+  - title: 'Goodfellow, Bengio & Courville (2016), Deep Learning'
+    url: https://www.deeplearningbook.org/
     tier: textbook
     publisher: MIT Press
-  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+  - title: 'ISO/IEC 22989:2022, Information technology: Artificial intelligence concepts and terminology'
+    url: https://www.iso.org/standard/74296.html
     tier: standard
     publisher: ISO/IEC
+  - title: 'van der Maaten & Hinton (2008), Visualizing Data using t-SNE'
+    url: https://www.jmlr.org/papers/v9/vandermaaten08a.html
+    tier: reference
+    publisher: Journal of Machine Learning Research
+  - title: 'McInnes, Healy & Melville (2018), UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction'
+    url: https://arxiv.org/abs/1802.03426
+    tier: reference
+    publisher: arXiv
+  - title: Regulation (EU) 2016/679 (GDPR), Article 22
+    url: https://eur-lex.europa.eu/eli/reg/2016/679/oj
+    tier: standard
+    publisher: European Union
 draft: true

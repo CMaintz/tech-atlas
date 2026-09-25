@@ -23,7 +23,7 @@ body:
     en: A Danish bank's fraud system is shown millions of past card payments marked genuine or fraudulent, and learns to flag new payments that resemble the fraudulent ones for a person to review.
     da: En dansk banks svindelsystem får vist millioner af tidligere kortbetalinger mærket som ægte eller svindel og lærer at markere nye betalinger, der ligner svindel, så en medarbejder kan se på dem.
   whyItMatters:
-    en: Because the behaviour comes from data, nobody wrote down the rules — so the quality, fairness and safety of the result depend on the data and are harder to check.
+    en: Because the behaviour comes from data, nobody wrote down the rules, so the quality, fairness and safety of the result depend on the data and are harder to check.
     da: Fordi adfærden kommer fra data, har ingen skrevet reglerne ned — så resultatets kvalitet, retfærdighed og sikkerhed afhænger af data og er sværere at kontrollere.
 deepDive:
   en: |-
@@ -51,12 +51,19 @@ edges:
   requires: [training-data]
 sources:
   - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    url: https://aima.cs.berkeley.edu/
     tier: textbook
     publisher: Pearson
-  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+  - title: 'ISO/IEC 22989:2022, Artificial intelligence concepts and terminology'
+    url: https://www.iso.org/standard/74296.html
     tier: standard
     publisher: ISO/IEC
   - title: Samuel (1959), Some Studies in Machine Learning Using the Game of Checkers
     tier: reference
+    url: https://doi.org/10.1147/rd.33.0210
     publisher: IBM Journal of Research and Development
+  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), Articles 10 and 11
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+    tier: standard
+    publisher: European Union
 draft: true

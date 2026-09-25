@@ -9,14 +9,14 @@ cluster: evaluation
 layer: model
 status: current
 summary:
-  en: The practice of checking how well an AI system does its job — with scores, public tests, human review and deliberate attacks.
+  en: The practice of checking how well an AI system does its job, with scores, public tests, human review and deliberate attacks.
   da: Praksis med at kontrollere, hvor godt et AI-system løser sin opgave — med tal, offentlige tests, menneskelig gennemgang og bevidste angreb.
 body:
   formal:
     en: The planned measuring of a model or AI system against goals for quality, safety and fairness, combining numbers such as accuracy and the F1 score, benchmark results, human review, LLM-as-a-judge grading and AI red teaming.
     da: Den planlagte måling af en model eller et AI-system op imod mål for kvalitet, sikkerhed og retfærdighed, som kombinerer tal som nøjagtighed og F1-score, benchmarkresultater, menneskelig gennemgang, LLM som dommer og AI red teaming.
   plain:
-    en: Like a car's road trials before sale — speed runs on the track, crash checks, drivers' opinions and people trying hard to make it fail.
+    en: Like a car's road trials before sale, with speed runs on the track, crash checks, drivers' opinions and people trying hard to make it fail.
     da: Som en bils prøvekørsler før salg — fartløb på banen, kollisionsforsøg, førernes meninger og folk, der gør alt for at få den til at svigte.
   inPractice:
     en: Before moving its tenant chat to a newer large language model, a housing association's IT lead reruns 500 saved tenant questions, has staff grade a sample of the answers, and switches only if nothing gets worse.
@@ -30,7 +30,7 @@ deepDive:
 
     Most failures of evaluation are failures of validity rather than arithmetic. Construct validity asks whether the metric measures the property that matters; external validity asks whether the test distribution matches production, which breaks under data drift or when a demo set was hand-picked. Aggregate scores hide subgroup failures, so results should be sliced by language, customer segment, document type or protected characteristic. Scores carry sampling error and should be reported with bootstrap or binomial confidence intervals. Generative models are non-deterministic, so each item should be sampled several times; pass@k (at least one of k attempts succeeds) and pass^k (all k succeed, as used in τ-bench) answer very different reliability questions.
 
-    Governance frameworks treat evaluation as a lifecycle duty. NIST AI RMF 1.0 (NIST AI 100-1, 2023) places test, evaluation, verification and validation (TEVV) under its Measure function, and NIST AI 600-1 extends this to generative AI. ISO/IEC TS 4213:2022 specifies how to assess classification performance. The EU AI Act requires high-risk systems to be tested against "prior defined metrics and probabilistic thresholds" before being placed on the market (Art. 9(8)), to reach an appropriate level of accuracy, robustness and cybersecurity with the metrics declared in the instructions for use (Art. 15), and to be followed up by post-market monitoring (Art. 72); providers of general-purpose models with systemic risk must perform model evaluations including adversarial testing (Art. 55(1)(a)). Under the Digital Omnibus on AI, agreed by the EU institutions in 2026, the Annex III high-risk obligations are deferred to 2 December 2027.
+    Governance frameworks treat evaluation as a lifecycle duty. NIST AI RMF 1.0 (NIST AI 100-1, 2023) places test, evaluation, verification and validation (TEVV) under its Measure function, and NIST AI 600-1 extends this to generative AI. ISO/IEC TS 4213:2022 specifies how to assess classification performance. The EU AI Act requires high-risk systems to be tested against "prior defined metrics and probabilistic thresholds" before being placed on the market (Art. 9(8)), to reach an appropriate level of accuracy, robustness and cybersecurity with the metrics declared in the instructions for use (Art. 15), and to be followed up by post-market monitoring (Art. 72); providers of general-purpose models with systemic risk must perform model evaluations including adversarial testing (Art. 55(1)(a)). The AI Omnibus, Regulation (EU) 2026/1744, in force since 27 July 2026, deferred the Annex III high-risk obligations to 2 December 2027 and those for high-risk AI in products under Annex I to 2 August 2028.
 
     Evaluation must be kept separate from training: if test results drive repeated changes, the test set becomes a validation set and its score is optimistically biased. Good practice therefore freezes a test split, logs every evaluation run with model, prompt and data versions, and refreshes evaluation data when it has been seen too often. Comparing numbers across organisations is only meaningful when the harness, prompts and decoding settings are identical.
   da: |-
@@ -38,7 +38,7 @@ deepDive:
 
     De fleste fejl i evaluering handler om validitet, ikke regnestykker. Begrebsvaliditet spørger, om målet måler den egenskab, der betyder noget; ekstern validitet spørger, om testfordelingen svarer til driften, hvilket brister ved datadrift, eller når et demosæt er håndplukket. Samlede scorer skjuler fejl i undergrupper, så resultater bør opdeles efter sprog, kundesegment, dokumenttype eller beskyttede karakteristika. Scorer har stikprøveusikkerhed og bør rapporteres med bootstrap- eller binomiale konfidensintervaller. Generative modeller er ikke-deterministiske, så hvert testtilfælde bør køres flere gange; pass@k (mindst ét af k forsøg lykkes) og pass^k (alle k lykkes, som i τ-bench) besvarer vidt forskellige spørgsmål om pålidelighed.
 
-    Governance-rammer behandler evaluering som en pligt gennem hele livscyklussen. NIST AI RMF 1.0 (NIST AI 100-1, 2023) placerer test, evaluering, verifikation og validering (TEVV) under funktionen Measure, og NIST AI 600-1 udvider det til generativ AI. ISO/IEC TS 4213:2022 beskriver, hvordan klassifikationsydelse vurderes. EU's AI-forordning kræver, at højrisikosystemer testes mod på forhånd fastlagte målinger og sandsynlighedsbaserede tærskler, før de bringes i omsætning (art. 9, stk. 8), at de opnår et passende niveau af nøjagtighed, robusthed og cybersikkerhed med målene angivet i brugsanvisningen (art. 15), og at de følges op af overvågning efter omsætning (art. 72); udbydere af AI-modeller til almen brug med systemisk risiko skal udføre modelevalueringer inklusive adversarial test (art. 55, stk. 1, litra a). Med den digitale omnibus om AI, som EU-institutionerne blev enige om i 2026, udskydes højrisikoforpligtelserne i bilag III til 2. december 2027.
+    Governance-rammer behandler evaluering som en pligt gennem hele livscyklussen. NIST AI RMF 1.0 (NIST AI 100-1, 2023) placerer test, evaluering, verifikation og validering (TEVV) under funktionen Measure, og NIST AI 600-1 udvider det til generativ AI. ISO/IEC TS 4213:2022 beskriver, hvordan klassifikationsydelse vurderes. EU's AI-forordning kræver, at højrisikosystemer testes mod på forhånd fastlagte målinger og sandsynlighedsbaserede tærskler, før de bringes i omsætning (art. 9, stk. 8), at de opnår et passende niveau af nøjagtighed, robusthed og cybersikkerhed med målene angivet i brugsanvisningen (art. 15), og at de følges op af overvågning efter omsætning (art. 72); udbydere af AI-modeller til almen brug med systemisk risiko skal udføre modelevalueringer inklusive adversarial test (art. 55, stk. 1, litra a). AI-omnibussen, forordning (EU) 2026/1744, der trådte i kraft den 27. juli 2026, udskød højrisikoforpligtelserne i bilag III til 2. december 2027 og forpligtelserne for højrisiko-AI i produkter under bilag I til 2. august 2028.
 
     Evaluering skal holdes adskilt fra træning: hvis testresultater styrer gentagne ændringer, bliver testsættet i praksis et valideringssæt, og dets score bliver for optimistisk. God praksis fryser derfor et testsplit, logger hver evalueringskørsel med model-, prompt- og dataversion og fornyer evalueringsdata, når de er blevet set for mange gange. Tal på tværs af organisationer kan kun sammenlignes, når harness, prompts og dekodningsindstillinger er identiske.
 edges:
@@ -66,16 +66,23 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: 'NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0), Measure function'
+  - title: 'NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0), Measure function'
     tier: standard
     publisher: NIST
-  - title: 'NIST AI 600-1 — Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile'
+    url: https://doi.org/10.6028/NIST.AI.100-1
+  - title: 'NIST AI 600-1, Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile'
     tier: standard
     publisher: NIST
-  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 15
+    url: https://doi.org/10.6028/NIST.AI.600-1
+  - title: 'Regulation (EU) 2024/1689 (Artificial Intelligence Act), Articles 9(8), 15, 55(1)(a) and 72'
     tier: standard
     publisher: European Union
-  - title: ISO/IEC TS 4213:2022 — Assessment of machine learning classification performance
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+  - title: European Commission (2026), AI Omnibus enters into force
+    tier: official-doc
+    publisher: European Commission
+    url: https://digital-strategy.ec.europa.eu/en/news/ai-omnibus-enters-force
+  - title: 'ISO/IEC TS 4213:2022, Assessment of machine learning classification performance'
     tier: standard
     publisher: ISO/IEC
     url: https://www.iso.org/standard/79799.html

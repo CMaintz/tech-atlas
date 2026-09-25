@@ -17,10 +17,10 @@ body:
     en: A broad field and a label for systems that, for a set of goals chosen by people, produce outputs such as predictions, content, advice or decisions that affect the world around them, with some level of independence.
     da: Et bredt fagområde og en betegnelse for systemer, der ud fra mål sat af mennesker frembringer resultater som forudsigelser, indhold, anbefalinger eller beslutninger, der påvirker omgivelserne, med en vis grad af selvstændighed.
   plain:
-    en: An umbrella word, like “vehicle” — it covers everything from a simple filter that sorts junk mail by fixed rules to a chat assistant that writes whole reports.
+    en: An umbrella word, like “vehicle”, covering everything from a simple filter that sorts junk mail by fixed rules to a chat assistant that writes whole reports.
     da: Et paraplyord ligesom “køretøj” — det dækker alt fra et simpelt filter, der sorterer uønsket post efter faste regler, til en chatassistent, der skriver hele rapporter.
   inPractice:
-    en: A supplier tells a region's purchasing team that its new HR tool “uses AI”; the team asks what it actually does — sorts job applications, writes text or makes decisions about staff.
+    en: A supplier tells a region's purchasing team that its new HR tool “uses AI”; the team asks whether it actually sorts job applications, writes text or makes decisions about staff.
     da: En leverandør fortæller en regions indkøbsafdeling, at dens nye HR-værktøj “bruger AI”; afdelingen spørger, hvad det faktisk gør — sorterer ansøgninger, skriver tekst eller træffer beslutninger om medarbejdere.
   whyItMatters:
     en: The label alone says little about risk; laws such as the EU AI Act judge a system by what it is used for, so buyers and users must ask what it really does.
@@ -58,15 +58,30 @@ edges:
       confidence: high
 sources:
   - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    url: https://aima.cs.berkeley.edu/
     tier: textbook
     publisher: Pearson
-  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+  - title: 'ISO/IEC 22989:2022, Artificial intelligence concepts and terminology'
+    url: https://www.iso.org/standard/74296.html
     tier: standard
     publisher: ISO/IEC
-  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 3
+  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 3(1) and Recital 12
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
     tier: standard
     publisher: European Union
-  - title: NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+  - title: 'NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0)'
+    url: https://doi.org/10.6028/NIST.AI.100-1
     tier: standard
     publisher: NIST
+  - title: McCarthy, Minsky, Rochester & Shannon (1955), A Proposal for the Dartmouth Summer Research Project on Artificial Intelligence
+    url: http://www-formal.stanford.edu/jmc/history/dartmouth/dartmouth.html
+    tier: reference
+  - title: OECD (2023), Updates to the OECD's definition of an AI system explained
+    url: https://oecd.ai/en/wonk/ai-system-definition-update
+    tier: official-doc
+    publisher: OECD
+  - title: European Commission (2025), Guidelines on the definition of an artificial intelligence system
+    url: https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-ai-system-definition-facilitate-first-ai-acts-rules-application
+    tier: official-doc
+    publisher: European Commission
 draft: true

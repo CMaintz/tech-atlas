@@ -16,13 +16,13 @@ body:
     en: A task in machine learning where the model learns from labelled examples to give each new input one label from a known, fixed list, often together with a score for how sure it is.
     da: En opgave i maskinlæring, hvor modellen lærer af mærkede eksempler at give hvert nyt input én mærkat fra en kendt, fast liste, ofte sammen med en score for, hvor sikker den er.
   plain:
-    en: Like a coin-sorting machine at a bank — every coin drops into the slot for its value, and there is no slot for a coin it has never seen.
+    en: Like a coin-sorting machine at a bank; every coin drops into the slot for its value, and there is no slot for a coin it has never seen.
     da: Som en møntsorteringsmaskine i banken — hver mønt falder ned i hullet for sin værdi, og der er intet hul til en mønt, den aldrig har set.
   inPractice:
     en: At a shipping company, a model trained on thousands of invoices a bookkeeper had already sorted puts each new invoice into one of 40 cost types, such as fuel or harbour fees, and sends the unsure ones back to her.
     da: I et rederi sætter en model, der er trænet på tusindvis af fakturaer, som en bogholder allerede havde sorteret, hver ny faktura i én af 40 slags udgifter, fx brændstof eller havneafgifter, og sender de usikre tilbage til hende.
   whyItMatters:
-    en: No model sorts every case right, and wrong calls differ in cost — a missed attack usually costs more than a false alarm — so someone must decide which mistakes to accept and where a person checks.
+    en: No model sorts every case right, and wrong calls differ in cost (a missed attack usually costs more than a false alarm), so someone must decide which mistakes to accept and where a person checks.
     da: Ingen model sorterer alle tilfælde rigtigt, og forkerte afgørelser koster forskelligt — et overset angreb koster som regel mere end en falsk alarm — så nogen må beslutte, hvilke fejl man accepterer, og hvor et menneske tjekker.
 deepDive:
   en: |-
@@ -68,7 +68,7 @@ edges:
       confidence: high
     - to: data-classification
       why:
-        en: Same word, different job — data classification is people labelling files by how secret they are, not a machine sorting inputs.
+        en: Same word, different job. Data classification is people labelling files by how secret they are, not a machine sorting inputs.
         da: Samme ord, forskelligt arbejde — dataklassifikation er, at mennesker mærker filer efter, hvor fortrolige de er, ikke at en maskine sorterer input.
       strength: normal
       confidence: high
@@ -82,9 +82,19 @@ edges:
       confidence: medium
 sources:
   - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    url: https://aima.cs.berkeley.edu/
     tier: textbook
     publisher: Pearson
-  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+  - title: ISO/IEC 22989:2022, Artificial intelligence concepts and terminology
+    url: https://www.iso.org/standard/74296.html
     tier: standard
     publisher: ISO/IEC
+  - title: Guo, Pleiss, Sun & Weinberger (2017), On Calibration of Modern Neural Networks
+    url: https://arxiv.org/abs/1706.04599
+    tier: reference
+    publisher: ICML 2017
+  - title: scikit-learn User Guide, Probability calibration
+    url: https://scikit-learn.org/stable/modules/calibration.html
+    tier: official-doc
+    publisher: scikit-learn
 draft: true

@@ -129,7 +129,9 @@ describe('makeLinker', () => {
     expect(ids(en.link('limits of attention', { self: 'security/human-factor' }))).toEqual([]);
     expect(ids(en.link('sorted by sensitivity', { self: 'security/security-policy' }))).toEqual([]);
     // A product feature update, a certification label.
-    expect(ids(en.link('separately from feature updates', { self: 'security/cyber-resilience-act' }))).toEqual([]);
+    expect(
+      ids(en.link('separately from feature updates', { self: 'security/cyber-resilience-act' })),
+    ).toEqual([]);
     expect(ids(en.link('award of the label', { self: 'security/d-maerket' }))).toEqual([]);
     // Same domain: still a link.
     expect(ids(en.link('predict the next token', { self: 'ai/embedding' }))).toEqual(['ai/token']);

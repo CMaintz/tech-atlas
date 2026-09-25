@@ -1,0 +1,76 @@
+term:
+  en: Data drift
+  da: Dataskred (data drift)
+aka:
+  en: [dataset shift, distribution shift]
+  da: [datasætskred]
+domain: [ai]
+cluster: evaluation
+layer: inference
+status: current
+summary:
+  en: The slow or sudden change in real-world data after a model goes live, so it no longer looks like what the model learned from.
+  da: Den langsomme eller pludselige ændring i virkelighedens data, efter en model er sat i drift, så de ikke længere ligner det, den lærte af.
+body:
+  formal:
+    en: A change over time in the inputs a model sees at inference, or in how those inputs relate to the right answer, compared with its training data; it lowers quality without any change to the model itself.
+    da: En ændring over tid i de input, en model ser ved inferens, eller i hvordan de input hænger sammen med det rigtige svar, sammenlignet med dens træningsdata; den sænker kvaliteten, uden at selve modellen er ændret.
+  plain:
+    en: Like an old city map that was right when it was printed, but the streets have been rebuilt since, so following it faithfully now gets you lost.
+    da: Som et gammelt bykort, der var rigtigt, da det blev trykt, men gaderne er bygget om siden, så følger man det trofast i dag, farer man vild.
+  inPractice:
+    en: A model that guessed how many calls a support desk would get was trained before a new self-service website opened; afterwards the calls change in number and kind, and its guesses quietly go wrong.
+    da: En model, der gættede, hvor mange opkald en supportafdeling ville få, blev trænet, før en ny selvbetjeningsside åbnede; derefter ændrer opkaldene sig i antal og art, og dens gæt bliver stille og roligt forkerte.
+  whyItMatters:
+    en: A model that passed every test can still fail months later with no error message, so its live inputs and results must be watched and it must be retrained.
+    da: En model, der bestod alle test, kan stadig fejle måneder senere uden nogen fejlmeddelelse, så dens input og resultater i drift skal overvåges, og den skal gentrænes.
+deepDive:
+  en: |-
+    The umbrella term in the literature is dataset shift (Quiñonero-Candela et al., eds., Dataset Shift in Machine Learning, MIT Press, 2009): the joint distribution P(X, Y) at deployment differs from the one in training. It is usually split into covariate shift, where P(X) changes but P(Y | X) stays the same (a new customer segment arrives); prior or label shift, where P(Y) changes (fraud becomes more common); and concept drift, where P(Y | X) itself changes, so the same inputs now call for different answers (what counts as spam evolves). Google's ML glossary defines concept drift as a shift in the relationship between features and the label that reduces model quality over time. Gama et al. (2014) classify drift by its timing as sudden, gradual, incremental or recurring (seasonal), and distinguish real drift, which changes the decision boundary, from virtual drift, which only changes the input distribution.
+
+    Detection compares live data with a reference window, usually the training or validation data. Common checks are per-feature statistical tests (Kolmogorov-Smirnov for numeric features, chi-squared for categorical), distance measures such as the population stability index, Jensen-Shannon or Wasserstein distance, drift in the model's output distribution, and, where labels arrive late, the actual decline in accuracy or error. Stream-learning detectors such as DDM and ADWIN watch the error rate and signal when it changes significantly. Univariate tests on many features raise many false alarms, so thresholds are usually tuned or corrected for multiple comparisons.
+
+    Data drift is related to but different from training-serving skew, where the pipeline itself produces different features at training and serving time; Google's production ML guidance treats both as monitoring targets and recommends applying the same statistical checks to training and serving data. Responses include scheduled or triggered retraining on recent data, weighting recent examples, online learning, and human review of whether the change is real or a data quality bug such as a broken upstream field.
+
+    For generative and language models the same idea appears as knowledge that ages: the world moves past the training cutoff, user behaviour changes, and prompts shift toward tasks absent from training.
+  da: |-
+    Overbegrebet i litteraturen er dataset shift (Quiñonero-Candela m.fl., red., Dataset Shift in Machine Learning, MIT Press, 2009): Den fælles fordeling P(X, Y) i drift er en anden end under træningen. Det opdeles normalt i covariate shift, hvor P(X) ændrer sig, men P(Y | X) er den samme (et nyt kundesegment kommer til); prior- eller label shift, hvor P(Y) ændrer sig (svindel bliver hyppigere); og concept drift (begrebsskred), hvor P(Y | X) selv ændrer sig, så de samme input nu kræver andre svar (hvad der tæller som spam, udvikler sig). Googles ML-ordliste definerer concept drift som et skift i forholdet mellem features og labelen, der over tid sænker modellens kvalitet. Gama m.fl. (2014) inddeler skred efter tidsforløb i pludseligt, gradvist, trinvist og tilbagevendende (sæsonbestemt) og skelner mellem reelt skred, der flytter beslutningsgrænsen, og virtuelt skred, der kun ændrer inputfordelingen.
+
+    Opdagelse sker ved at sammenligne data i drift med et referencevindue, typisk trænings- eller valideringsdata. Almindelige tjek er statistiske test pr. feature (Kolmogorov-Smirnov for numeriske features, chi-i-anden for kategoriske), afstandsmål som population stability index, Jensen-Shannon- eller Wasserstein-afstand, ændringer i fordelingen af modellens output og, hvor labels kommer sent, det faktiske fald i nøjagtighed eller stigning i fejl. Detektorer fra stream learning som DDM og ADWIN følger fejlraten og giver signal, når den ændrer sig markant. Test af mange features hver for sig giver mange falske alarmer, så tærskler justeres eller korrigeres for multiple sammenligninger.
+
+    Dataskred er beslægtet med, men forskelligt fra training-serving skew, hvor selve pipelinen producerer forskellige features ved træning og i drift; Googles vejledning om produktions-ML behandler begge som overvågningspunkter og anbefaler at bruge de samme statistiske tjek på trænings- og driftsdata. Modtræk er planlagt eller udløst gentræning på nye data, højere vægt på nye eksempler, online læring og menneskelig vurdering af, om ændringen er reel eller en datakvalitetsfejl som et ødelagt felt længere oppe i kæden.
+
+    For generative modeller og sprogmodeller viser samme idé sig som viden, der forælder: Verden bevæger sig forbi vidensgrænsen, brugeradfærd ændrer sig, og prompts glider mod opgaver, der ikke var med i træningen.
+edges:
+  requires: [training-data, inference]
+  contrasts-with:
+    - to: overfitting
+      why:
+        en: Both show up as a model doing worse in real use than in testing, but overfitting is a flaw from training, while data drift comes from the world changing afterwards.
+        da: Begge viser sig ved, at en model klarer sig dårligere i brug end i test, men overtilpasning er en fejl fra træningen, mens dataskred skyldes, at verden ændrer sig bagefter.
+      strength: normal
+      confidence: high
+  used-with:
+    - to: model-evaluation
+      why:
+        en: Spotting data drift means repeating the evaluation on fresh live data and comparing it with the scores from before launch.
+        da: At opdage dataskred kræver, at evalueringen gentages på friske driftsdata og sammenlignes med resultaterne fra før lanceringen.
+      strength: normal
+      confidence: medium
+sources:
+  - title: Gama, Zliobaite, Bifet, Pechenizkiy & Bouchachia (2014), A Survey on Concept Drift Adaptation
+    url: https://doi.org/10.1145/2523813
+    tier: reference
+    publisher: ACM Computing Surveys
+  - title: Machine Learning Glossary (concept drift)
+    url: https://developers.google.com/machine-learning/glossary
+    tier: official-doc
+    publisher: Google for Developers
+  - title: 'Machine Learning Crash Course: Production ML systems, Monitoring pipelines'
+    url: https://developers.google.com/machine-learning/crash-course/production-ml-systems/monitoring
+    tier: reference
+    publisher: Google for Developers
+  - title: Quiñonero-Candela, Sugiyama, Schwaighofer & Lawrence (eds.), Dataset Shift in Machine Learning
+    tier: textbook
+    publisher: MIT Press, 2009
+draft: true
