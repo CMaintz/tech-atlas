@@ -1,3 +1,4 @@
+import { parseAuthProviders } from './auth-config';
 import type { TourStep } from './tour';
 
 export const LANGS = ['en', 'da'] as const;
@@ -18,6 +19,14 @@ export const url = (path = '') => BASE + path.replace(/^\//, '');
 export const SUPABASE_URL: string = import.meta.env.PUBLIC_SUPABASE_URL ?? '';
 export const SUPABASE_ANON_KEY: string = import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? '';
 export const ACCOUNTS = !!SUPABASE_URL && !!SUPABASE_ANON_KEY;
+
+/**
+ * Sign-in providers offered (A87), from `PUBLIC_AUTH_PROVIDERS` — e.g.
+ * `github,linkedin_oidc`; unset = GitHub only. A provider's button appears only once the
+ * owner has configured it in Supabase and listed it here. Email: `EMAIL_SIGNIN` in
+ * auth-config.ts.
+ */
+export const AUTH_PROVIDERS = parseAuthProviders(import.meta.env.PUBLIC_AUTH_PROVIDERS);
 
 /**
  * Search by meaning (A75) is switched on separately, by the full URL of the
@@ -156,6 +165,12 @@ export const UI = {
     linkSent: 'Check your inbox and open the link in this browser to finish signing in.',
     or: 'or',
     withGitHub: 'Sign in with GitHub',
+    withLinkedIn: 'Sign in with LinkedIn',
+    privacy: 'Privacy',
+    privacyLink: 'How Atlas handles your data',
+    downloadProgress: 'Download my progress',
+    downloadNote:
+      'Your progress as a JSON file — the same data that is synced when you are signed in.',
     authError: 'Something went wrong: {msg}',
     signedInAs: 'Signed in as {email}',
     syncRetry: 'Try again',
@@ -338,6 +353,12 @@ export const UI = {
     linkSent: 'Tjek din indbakke, og åbn linket i denne browser for at logge ind.',
     or: 'eller',
     withGitHub: 'Log ind med GitHub',
+    withLinkedIn: 'Log ind med LinkedIn',
+    privacy: 'Privatliv',
+    privacyLink: 'Sådan behandler Atlas dine data',
+    downloadProgress: 'Download mine fremskridt',
+    downloadNote:
+      'Dine fremskridt som en JSON-fil — de samme data, der synkroniseres, når du er logget ind.',
     authError: 'Noget gik galt: {msg}',
     signedInAs: 'Logget ind som {email}',
     syncRetry: 'Prøv igen',

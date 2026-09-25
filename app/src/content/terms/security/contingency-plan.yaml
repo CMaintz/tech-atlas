@@ -2,8 +2,8 @@ term:
   en: Contingency plan
   da: Beredskabsplan
 aka:
-  en: [incident response plan]
-  da: [hændelsesberedskabsplan]
+  en: []
+  da: []
 domain: [security]
 cluster: incident-response
 layer: governance

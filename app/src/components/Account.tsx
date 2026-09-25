@@ -2,8 +2,8 @@ import { useEffect, useState } from 'preact/hooks';
 import {
   deleteSyncedData,
   dismissNotice,
+  signInWith,
   signInWithEmail,
-  signInWithGitHub,
   signOut,
   startSync,
   startSyncingAgain,
@@ -11,6 +11,9 @@ import {
   syncNow,
   type SyncState,
 } from '../lib/account';
+import { EMAIL_SIGNIN, signInOptions, type AuthProvider } from '../lib/auth-config';
+import { learnerExport, loadLearner } from '../lib/learner';
+import { AUTH_PROVIDERS, url } from '../lib/site';
 
 type Lang = 'en' | 'da';
 
@@ -21,6 +24,24 @@ interface Props {
 
 const button =
   'rounded border border-neutral-700 px-3 py-1.5 text-sm hover:border-neutral-400 disabled:opacity-50';
+
+/** What the signed-out view offers (A87): email only behind EMAIL_SIGNIN, providers by build variable. */
+const options = signInOptions({ emailSignin: EMAIL_SIGNIN, providers: AUTH_PROVIDERS });
+
+const providerLabel: Record<AuthProvider, string> = {
+  github: 'withGitHub',
+  linkedin_oidc: 'withLinkedIn',
+};
+
+/** Save this browser's progress as a JSON file (data portability, A88). */
+function downloadProgress() {
+  const blob = new Blob([learnerExport(loadLearner())], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `atlas-progress-${new Date().toISOString().slice(0, 10)}.json`;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 0);
+}
 
 /** An auth error handed back in the redirect URL (e.g. an expired sign-in link). */
 function redirectError(): string {
@@ -34,7 +55,7 @@ function redirectError(): string {
   return '';
 }
 
-/** Sign in / out, sync status and "delete my data" (A44, A47). */
+/** Sign in / out, sync status, "delete my data" and "download my progress" (A44, A47, A88). */
 export default function Account({ lang, ui }: Props) {
   const [s, setS] = useState<SyncState>({ status: 'loading' });
   const [email, setEmail] = useState('');
@@ -78,45 +99,71 @@ export default function Account({ lang, ui }: Props) {
     </>
   );
 
+  const privacy = (
+    <p class="text-xs text-neutral-500">
+      <a class="underline hover:text-neutral-300" href={url(`${lang}/privacy/`)}>
+        {ui.privacyLink}
+      </a>
+    </p>
+  );
+
+  const download = (
+    <div class="border-t border-neutral-800 pt-6">
+      <p class="mb-2 text-sm text-neutral-400">{ui.downloadNote}</p>
+      <button class={button} type="button" onClick={downloadProgress}>
+        {ui.downloadProgress}
+      </button>
+    </div>
+  );
+
   if (s.status === 'loading') return <p class="text-neutral-500">{ui.loading}</p>;
 
   if (s.status === 'signed-out' || s.status === 'off') {
     return (
       <div class="max-w-md space-y-6">
         {feedback}
-        <form
-          class="space-y-2"
-          onSubmit={(e) => {
-            e.preventDefault();
-            void run(() => signInWithEmail(email.trim(), lang), ui.linkSent);
-          }}
-        >
-          <label class="block text-sm text-neutral-400" for="account-email">
-            {ui.emailLabel}
-          </label>
-          <div class="flex gap-2">
-            <input
-              id="account-email"
-              type="email"
-              required
-              autocomplete="email"
-              class="min-w-0 flex-1 rounded border border-neutral-700 bg-neutral-900 px-2 py-1.5 text-sm"
-              value={email}
-              onInput={(e) => setEmail(e.currentTarget.value)}
-            />
-            <button class={button} type="submit" disabled={busy}>
-              {ui.sendLink}
+        {options.email && (
+          <form
+            class="space-y-2"
+            onSubmit={(e) => {
+              e.preventDefault();
+              void run(() => signInWithEmail(email.trim(), lang), ui.linkSent);
+            }}
+          >
+            <label class="block text-sm text-neutral-400" for="account-email">
+              {ui.emailLabel}
+            </label>
+            <div class="flex gap-2">
+              <input
+                id="account-email"
+                type="email"
+                required
+                autocomplete="email"
+                class="min-w-0 flex-1 rounded border border-neutral-700 bg-neutral-900 px-2 py-1.5 text-sm"
+                value={email}
+                onInput={(e) => setEmail(e.currentTarget.value)}
+              />
+              <button class={button} type="submit" disabled={busy}>
+                {ui.sendLink}
+              </button>
+            </div>
+          </form>
+        )}
+        {options.divider && <p class="text-xs text-neutral-500 uppercase">{ui.or}</p>}
+        <div class="flex flex-wrap gap-2">
+          {options.providers.map((p) => (
+            <button
+              key={p}
+              class={button}
+              disabled={busy}
+              onClick={() => void run(() => signInWith(p, lang))}
+            >
+              {ui[providerLabel[p]]}
             </button>
-          </div>
-        </form>
-        <p class="text-xs text-neutral-500 uppercase">{ui.or}</p>
-        <button
-          class={button}
-          disabled={busy}
-          onClick={() => void run(() => signInWithGitHub(lang))}
-        >
-          {ui.withGitHub}
-        </button>
+          ))}
+        </div>
+        {privacy}
+        {download}
       </div>
     );
   }
@@ -170,7 +217,9 @@ export default function Account({ lang, ui }: Props) {
           </button>
         </div>
       )}
+      {download}
       {feedback}
+      {privacy}
     </div>
   );
 }

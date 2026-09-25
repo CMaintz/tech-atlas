@@ -10,8 +10,8 @@ layer: network
 status: current
 era: 1994
 summary:
-  en: The way web browsers and websites exchange pages with TLS protecting every message, shown by the padlock in the address bar.
-  da: Måden, browsere og websteder udveksler sider på, hvor TLS beskytter hver besked — vist med hængelåsen i adresselinjen.
+  en: The way web browsers and websites exchange pages with TLS protecting every message, so no one on the way can read or change them.
+  da: Måden, browsere og websteder udveksler sider på, hvor TLS beskytter hver besked, så ingen undervejs kan læse eller ændre dem.
 body:
   formal:
     en: The web's request-and-answer protocol between a client and a server, carried inside a TLS connection, usually on port 443, so the pages, forms and cookies sent are encrypted and checked for changes.

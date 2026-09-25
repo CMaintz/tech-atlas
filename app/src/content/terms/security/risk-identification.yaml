@@ -10,11 +10,11 @@ layer: governance
 status: current
 summary:
   en: The first step of a risk assessment — finding and writing down what could go wrong, to what, and why.
-  da: Første trin i en risikoanalyse — at finde og skrive ned, hvad der kan gå galt, med hvad, og hvorfor.
+  da: Første trin i en risikovurdering — at finde og skrive ned, hvad der kan gå galt, med hvad, og hvorfor.
 body:
   formal:
     en: The part of risk assessment that finds, recognises and describes risks by listing the assets that matter, the threats that could harm them and the vulnerabilities those threats could use, before any rating is done.
-    da: Den del af risikoanalysen, der finder, genkender og beskriver risici ved at liste de aktiver, der betyder noget, de trusler, der kan skade dem, og de sårbarheder, truslerne kan udnytte, før der foretages nogen vurdering.
+    da: Den del af risikovurderingen, der finder, genkender og beskriver risici ved at liste de aktiver, der betyder noget, de trusler, der kan skade dem, og de sårbarheder, truslerne kan udnytte, før der foretages nogen vurdering.
   plain:
     en: Like walking through a new flat before moving in and noting every loose wire, wobbly step and window that does not close — fixing comes later.
     da: Som at gå en ny lejlighed igennem, før man flytter ind, og notere hver løs ledning, vaklende trappetrin og vindue, der ikke lukker — reparationerne kommer bagefter.

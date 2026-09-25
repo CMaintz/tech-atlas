@@ -43,8 +43,7 @@ deepDive:
 
     NIST SP 800-125 (2011) og SP 800-125A Rev. 1 anbefaler en minimal hypervisor, hurtig patching, et administrationsnetværk adskilt fra gæsternes trafik og stram kontrol med administrativ adgang; i praksis skal hypervisor-administratorer behandles som administratorer på højeste niveau, fordi de kan læse alle gæsters hukommelse og diske. En hypervisor adskiller sig fra en container-runtime, hvor alle containere deler én værtskerne; sandboxede runtimes som Kata Containers og gVisor udvisker den grænse.
 edges:
-  requires: [operating-system]
-  used-with: [iaas]
+  used-with: [iaas, operating-system]
 sources:
   - title: NIST SP 800-125 — Guide to Security for Full Virtualization Technologies
     tier: standard

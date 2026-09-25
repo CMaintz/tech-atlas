@@ -1,6 +1,8 @@
 # Foundry gate — the six-verb contract (see AGENTS.md). Tasks operate in app/.
 [tools]
 node = "22.14.0"
+# Secret scanner for `mise run audit` (A89); rules and allowlist in .gitleaks.toml.
+gitleaks = "8.30.1"
 
 [tasks.fix]
 description = "Apply every mechanically-safe fix (format). No judgement calls."
@@ -23,9 +25,13 @@ dir = "app"
 run = ["npm test", "npm run build"]
 
 [tasks.audit]
-description = "Dependency vulnerabilities."
+description = "Dependency vulnerabilities, registry signatures, and secrets anywhere in git history."
 dir = "app"
-run = "npm audit --audit-level=high"
+run = [
+  "npm audit --audit-level=high",
+  "npm audit signatures",
+  "gitleaks git --redact --no-banner --config ../.gitleaks.toml ..",
+]
 
 [tasks.gate]
 description = "lint -> typecheck -> test -> audit, in order. The oracle."

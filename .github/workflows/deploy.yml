@@ -15,10 +15,13 @@ concurrency:
   cancel-in-progress: false
 jobs:
   build:
+    # Manual runs on main only (A89); the github-pages environment enforces it again.
     if: >-
-      github.event_name == 'workflow_dispatch' ||
-      (github.event.workflow_run.conclusion == 'success' &&
-       github.event.workflow_run.event == 'push')
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push' &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -29,6 +32,7 @@ jobs:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
           # Full history: the RSS feeds date each term by the commit that added it (A71).
           fetch-depth: 0
+          persist-credentials: false
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         with:
           version: 2026.8.5
@@ -45,6 +49,8 @@ jobs:
         env:
           PUBLIC_SUPABASE_URL: ${{ vars.PUBLIC_SUPABASE_URL }}
           PUBLIC_SUPABASE_ANON_KEY: ${{ vars.PUBLIC_SUPABASE_ANON_KEY }}
+          # Sign-in buttons offered (A87), e.g. github,linkedin_oidc; unset => GitHub only.
+          PUBLIC_AUTH_PROVIDERS: ${{ vars.PUBLIC_AUTH_PROVIDERS }}
           # Search by meaning (A75): the semantic-search function URL; unset => name search only.
           PUBLIC_SEMANTIC_SEARCH_URL: ${{ vars.PUBLIC_SEMANTIC_SEARCH_URL }}
         run: npm run build

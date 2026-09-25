@@ -47,6 +47,8 @@ edges:
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material
-  - title: NIST SP 800-61 Rev. 2
+  - title: NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management
+    url: https://doi.org/10.6028/NIST.SP.800-61r3
     tier: standard
+    publisher: NIST
 draft: true
