@@ -26,13 +26,13 @@ const mail = `mailto:${CONTROLLER.email}`;
 // The controller's name in plain text; the address follows the sentence as a link.
 const controllerText = p.controller.replace('{name}', CONTROLLER.name);
 const h2 = 'mt-12 mb-3 text-xl font-semibold';
-const link = 'underline decoration-neutral-600 underline-offset-2 hover:decoration-neutral-300';
+const link = 'underline decoration-subtle underline-offset-2 hover:decoration-fg-soft';
 ---
 
 <Base lang={lang} title={p.title} description={p.intro}>
-  <article class="max-w-3xl text-neutral-300">
-    <h1 class="mb-2 text-3xl font-semibold text-neutral-100">{p.title}</h1>
-    <p class="mb-6 text-sm text-neutral-500">
+  <article class="max-w-3xl text-fg-soft">
+    <h1 class="mb-2 text-3xl font-semibold text-fg">{p.title}</h1>
+    <p class="mb-6 text-sm text-subtle">
       <time datetime={UPDATED}>{p.updated.replace('{date}', date)}</time>
     </p>
     <p class="mb-8">{p.intro}</p>
@@ -59,18 +59,18 @@ const link = 'underline decoration-neutral-600 underline-offset-2 hover:decorati
     </h2>
     <div class="space-y-6">
       {DATA.map((d) => (
-        <section class="rounded border border-neutral-800 p-4">
-          <h3 class="mb-3 font-semibold text-neutral-100">{d.title[lang]}</h3>
+        <section class="rounded border border-border p-4">
+          <h3 class="mb-3 font-semibold text-fg">{d.title[lang]}</h3>
           <dl class="grid gap-x-4 gap-y-2 text-sm sm:grid-cols-[10rem_1fr]">
-            <dt class="text-neutral-500">{p.what}</dt>
+            <dt class="text-subtle">{p.what}</dt>
             <dd>{d.what[lang]}</dd>
-            <dt class="text-neutral-500">{p.why}</dt>
+            <dt class="text-subtle">{p.why}</dt>
             <dd>{d.why[lang]}</dd>
-            <dt class="text-neutral-500">{p.where}</dt>
+            <dt class="text-subtle">{p.where}</dt>
             <dd>{d.where[lang]}</dd>
-            <dt class="text-neutral-500">{p.basis}</dt>
+            <dt class="text-subtle">{p.basis}</dt>
             <dd>{d.basis[lang]}</dd>
-            <dt class="text-neutral-500">{p.retention}</dt>
+            <dt class="text-subtle">{p.retention}</dt>
             <dd>{d.retention[lang]}</dd>
           </dl>
         </section>
@@ -83,7 +83,7 @@ const link = 'underline decoration-neutral-600 underline-offset-2 hover:decorati
     <p class="mb-4">{p.storageIntro}</p>
     <div class="overflow-x-auto">
       <table class="w-full text-left text-sm">
-        <thead class="text-xs tracking-widest text-neutral-500 uppercase">
+        <thead class="text-xs tracking-widest text-subtle uppercase">
           <tr>
             <th class="py-2 pr-4 font-normal">{p.storageKey}</th>
             <th class="py-2 pr-4 font-normal">{p.storageWhere}</th>
@@ -92,9 +92,9 @@ const link = 'underline decoration-neutral-600 underline-offset-2 hover:decorati
         </thead>
         <tbody>
           {STORAGE.map((s) => (
-            <tr class="border-t border-neutral-800 align-top">
-              <td class="py-2 pr-4 font-mono text-xs break-all text-neutral-100">{s.key}</td>
-              <td class="py-2 pr-4 text-neutral-400">{s.store}</td>
+            <tr class="border-t border-border align-top">
+              <td class="py-2 pr-4 font-mono text-xs break-all text-fg">{s.key}</td>
+              <td class="py-2 pr-4 text-muted">{s.store}</td>
               <td class="py-2">{s.purpose[lang]}</td>
             </tr>
           ))}
@@ -109,7 +109,7 @@ const link = 'underline decoration-neutral-600 underline-offset-2 hover:decorati
     <ul class="space-y-2">
       {PROCESSORS.map((x) => (
         <li>
-          <a class={`${link} text-neutral-100`} href={x.link}>
+          <a class={`${link} text-fg`} href={x.link}>
             {x.name}
           </a>{' '}
           — {x.role[lang]}

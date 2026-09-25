@@ -157,15 +157,12 @@ const crumbs = [
 >
   <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-10" data-term-id={term.id}>
     <div>
-      <nav
-        aria-label={ui.breadcrumb}
-        class="mb-2 text-xs tracking-widest text-neutral-500 uppercase"
-      >
+      <nav aria-label={ui.breadcrumb} class="mb-2 text-xs tracking-widest text-subtle uppercase">
         <ol class="flex flex-wrap items-center gap-x-1.5">
           {crumbs.map((c, i) => (
             <li class="flex items-center gap-x-1.5">
               {i > 0 && <span aria-hidden="true">›</span>}
-              <a class="hover:text-neutral-200" href={c.href}>
+              <a class="hover:text-fg-soft" href={c.href}>
                 {c.label}
               </a>
             </li>
@@ -178,41 +175,35 @@ const crumbs = [
           type="button"
           data-copy-link
           data-copied={ui.linkCopied}
-          class="mt-1.5 rounded border border-neutral-800 px-2 py-1 text-xs text-neutral-400 hover:border-neutral-500 hover:text-neutral-100 print:hidden"
+          class="mt-1.5 rounded border border-border px-2 py-1 text-xs text-muted hover:border-border-hover hover:text-fg print:hidden"
         >
           <span data-label>{ui.copyLink}</span>
         </button>
       </div>
       {aka.length > 0 && (
-        <p class="mt-1 text-sm text-neutral-500">
+        <p class="mt-1 text-sm text-subtle">
           {ui.aka}: {aka.join(', ')}
         </p>
       )}
-      <p class="mt-3 text-lg text-neutral-300">{d.summary[lang]}</p>
+      <p class="mt-3 text-lg text-fg-soft">{d.summary[lang]}</p>
 
       {collides && (
         <p class="mt-3 text-sm">
-          <a
-            class="text-neutral-400 underline hover:text-neutral-100"
-            href={url(`${lang}/terms/${name}/`)}
-          >
+          <a class="text-muted underline hover:text-fg" href={url(`${lang}/terms/${name}/`)}>
             {ui.otherMeanings.replace('{name}', name.replace(/-/g, ' '))}
           </a>
         </p>
       )}
 
       {d.draft && (
-        <p class="mt-4 rounded border border-amber-900 bg-amber-950/40 px-3 py-2 text-sm text-amber-300">
+        <p class="mt-4 rounded border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900 dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-300">
           {ui.draft}
         </p>
       )}
 
       {d.article?.[lang] && (
         <p class="mt-6">
-          <a
-            class="text-neutral-100 underline hover:text-white"
-            href={url(`${lang}/articles/${term.id}/`)}
-          >
+          <a class="text-fg underline hover:text-fg" href={url(`${lang}/articles/${term.id}/`)}>
             {ui.readArticle}
           </a>
         </p>
@@ -221,8 +212,8 @@ const crumbs = [
       <div class="mt-8 space-y-5" id="facets">
         {facets.map((f) => (
           <div>
-            <h2 class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">{ui[f]}</h2>
-            <p class="text-neutral-200">
+            <h2 class="mb-1 text-xs tracking-widest text-subtle uppercase">{ui[f]}</h2>
+            <p class="text-fg-soft">
               <Prose segments={linked[f]} lang={lang} />
             </p>
           </div>
@@ -231,8 +222,8 @@ const crumbs = [
 
       {deepDive.length > 0 && (
         <section class="mt-10" id="deep-dive">
-          <h2 class="mb-2 text-xs tracking-widest text-neutral-500 uppercase">{deep.deepDive}</h2>
-          <div class="space-y-4 leading-relaxed text-neutral-200">
+          <h2 class="mb-2 text-xs tracking-widest text-subtle uppercase">{deep.deepDive}</h2>
+          <div class="space-y-4 leading-relaxed text-fg-soft">
             {deepDive.map((p) => (
               <p>
                 <Prose segments={p} lang={lang} />
@@ -244,14 +235,14 @@ const crumbs = [
 
       {learnFirst.length > 0 && (
         <section class="mt-10" id="learn-first">
-          <h2 class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">{ui.learnFirst}</h2>
-          <p class="mb-2 text-sm text-neutral-500">{ui.learnFirstIntro}</p>
+          <h2 class="mb-1 text-xs tracking-widest text-subtle uppercase">{ui.learnFirst}</h2>
+          <p class="mb-2 text-sm text-subtle">{ui.learnFirstIntro}</p>
           <ol class="flex flex-wrap items-center gap-1 text-sm">
             {learnFirst.map((n, i) => (
               <li class="flex items-center gap-1">
-                {i > 0 && <span class="text-neutral-600">→</span>}
+                {i > 0 && <span class="text-subtle">→</span>}
                 <a
-                  class="rounded border border-neutral-800 px-2 py-1 text-neutral-300 hover:border-neutral-400"
+                  class="rounded border border-border px-2 py-1 text-fg-soft hover:border-border-hover"
                   href={termUrl(lang, n.id)}
                 >
                   {n.term[lang]}
@@ -259,8 +250,8 @@ const crumbs = [
               </li>
             ))}
             <li class="flex items-center gap-1">
-              <span class="text-neutral-600">→</span>
-              <span class="rounded border border-neutral-500 px-2 py-1 text-neutral-100">
+              <span class="text-subtle">→</span>
+              <span class="rounded border border-border-hover px-2 py-1 text-fg">
                 {d.term[lang]}
               </span>
             </li>
@@ -270,13 +261,11 @@ const crumbs = [
 
       {groups.length > 0 && (
         <section class="mt-10" id="relationships">
-          <h2 class="mb-3 text-xs tracking-widest text-neutral-500 uppercase">
-            {ui.relationships}
-          </h2>
+          <h2 class="mb-3 text-xs tracking-widest text-subtle uppercase">{ui.relationships}</h2>
           <dl class="space-y-3">
             {groups.map((g) => (
               <div>
-                <dt class="text-sm text-neutral-400">{EDGE_LABELS[g.type]?.[lang] ?? g.type}</dt>
+                <dt class="text-sm text-muted">{EDGE_LABELS[g.type]?.[lang] ?? g.type}</dt>
                 <dd class="mt-1 flex flex-wrap gap-2">
                   {g.items.map((r) => (
                     <a
@@ -287,10 +276,10 @@ const crumbs = [
                       }
                       title={r.why?.[lang]}
                       class:list={[
-                        'rounded border px-2 py-1 text-sm hover:border-neutral-400',
+                        'rounded border px-2 py-1 text-sm hover:border-border-hover',
                         r.strength === 'primary'
-                          ? 'border-neutral-500 text-neutral-100'
-                          : 'border-neutral-800 text-neutral-300',
+                          ? 'border-border-hover text-fg'
+                          : 'border-border text-fg-soft',
                       ]}
                     >
                       {r.target.data.term[lang]}
@@ -303,44 +292,38 @@ const crumbs = [
         </section>
       )}
 
-      <section class="mt-10 rounded border border-neutral-800 p-4 text-sm" id="continue-learning">
-        <h2 class="text-xs tracking-widest text-neutral-400 uppercase">{deep.sourcesFurther}</h2>
+      <section class="mt-10 rounded border border-border p-4 text-sm" id="continue-learning">
+        <h2 class="text-xs tracking-widest text-muted uppercase">{deep.sourcesFurther}</h2>
         {sourceGroups.map((g) => (
           <div class="mt-3">
-            <h3 class="text-xs text-neutral-500">{extra.tiers[g.tier]}</h3>
-            <ul class="mt-1 list-inside list-disc text-neutral-300">
+            <h3 class="text-xs text-subtle">{extra.tiers[g.tier]}</h3>
+            <ul class="mt-1 list-inside list-disc text-fg-soft">
               {g.items.map((s) => (
                 <li>
                   {s.url ? (
-                    <a
-                      class="underline-offset-2 hover:text-neutral-100 hover:underline"
-                      href={s.url}
-                    >
+                    <a class="underline-offset-2 hover:text-fg hover:underline" href={s.url}>
                       {s.title}
                     </a>
                   ) : (
                     s.title
                   )}
-                  {s.publisher && <span class="text-neutral-500"> · {s.publisher}</span>}
+                  {s.publisher && <span class="text-subtle"> · {s.publisher}</span>}
                 </li>
               ))}
             </ul>
           </div>
         ))}
-        <div class="mt-5 border-t border-neutral-800 pt-3 text-neutral-400" id="provenance">
-          <h3 class="text-xs tracking-widest text-neutral-500 uppercase">{deep.provenanceTitle}</h3>
+        <div class="mt-5 border-t border-border pt-3 text-muted" id="provenance">
+          <h3 class="text-xs tracking-widest text-subtle uppercase">{deep.provenanceTitle}</h3>
           <p class="mt-1">{d.draft ? deep.provenanceDraft : deep.provenanceReviewed}</p>
           <p class="mt-2 flex flex-wrap gap-x-4 gap-y-1 print:hidden">
-            <a class="hover:text-neutral-200 hover:underline" href={url(`${lang}/review/`)}>
+            <a class="hover:text-fg-soft hover:underline" href={url(`${lang}/review/`)}>
               {deep.reviewQueue}
             </a>
-            <a class="hover:text-neutral-200 hover:underline" href={editUrl}>
+            <a class="hover:text-fg-soft hover:underline" href={editUrl}>
               {deep.suggestFix}
             </a>
-            <a
-              class="hover:text-neutral-200 hover:underline"
-              href={url(`api/terms/${term.id}.json`)}
-            >
+            <a class="hover:text-fg-soft hover:underline" href={url(`api/terms/${term.id}.json`)}>
               {extra.dataThisTerm}
             </a>
           </p>
@@ -348,11 +331,11 @@ const crumbs = [
       </section>
       {mentionedIn.length > 0 && (
         <section class="mt-8" id="mentions">
-          <h2 class="mb-2 text-xs tracking-widest text-neutral-500 uppercase">{ui.mentionedIn}</h2>
+          <h2 class="mb-2 text-xs tracking-widest text-subtle uppercase">{ui.mentionedIn}</h2>
           <div class="flex flex-wrap gap-2">
             {mentionedIn.map((n) => (
               <a
-                class="rounded border border-dashed border-neutral-800 px-2 py-1 text-sm text-neutral-400 hover:border-neutral-500"
+                class="rounded border border-dashed border-border px-2 py-1 text-sm text-muted hover:border-border-hover"
                 href={termUrl(lang, n.id)}
               >
                 {n.term[lang]}
@@ -363,10 +346,10 @@ const crumbs = [
       )}
 
       <section
-        class="mt-10 space-y-5 rounded border border-neutral-800 p-4 print:hidden"
+        class="mt-10 space-y-5 rounded border border-border p-4 print:hidden"
         id="check-yourself"
       >
-        <h2 class="text-xs tracking-widest text-neutral-500 uppercase">{ui.checkYourself}</h2>
+        <h2 class="text-xs tracking-widest text-subtle uppercase">{ui.checkYourself}</h2>
         <KnowledgeStatus client:only="preact" termId={term.id} ui={{ ...ui }} />
         <Quiz
           client:visible
@@ -380,26 +363,28 @@ const crumbs = [
       </section>
     </div>
     <aside class="mt-10 lg:sticky lg:top-6 lg:mt-0 lg:self-start print:hidden" id="connections">
-      <h2 class="mb-2 text-xs tracking-widest text-neutral-500 uppercase">{ui.connections}</h2>
-      <Graph
-        client:only="preact"
-        nodes={[...nodes.values()]}
-        edges={edges}
-        termBase={url(`${lang}/terms/`)}
-        familyLabels={Object.fromEntries(
-          Object.entries(FAMILY_LABELS).map(([k, v]) => [k, v[lang]]),
-        )}
-        domainLabels={Object.fromEntries(
-          Object.entries(DOMAIN_LABELS).map(([k, v]) => [k, v[lang]]),
-        )}
-        clusterLabels={Object.fromEntries(
-          Object.entries(CLUSTER_LABELS).map(([k, v]) => [k, v[lang]]),
-        )}
-        text={{ ...GRAPH_UI[lang] }}
-      />
+      <h2 class="mb-2 text-xs tracking-widest text-subtle uppercase">{ui.connections}</h2>
+      <div data-theme="dark" class="night-map bg-bg text-fg">
+        <Graph
+          client:only="preact"
+          nodes={[...nodes.values()]}
+          edges={edges}
+          termBase={url(`${lang}/terms/`)}
+          familyLabels={Object.fromEntries(
+            Object.entries(FAMILY_LABELS).map(([k, v]) => [k, v[lang]]),
+          )}
+          domainLabels={Object.fromEntries(
+            Object.entries(DOMAIN_LABELS).map(([k, v]) => [k, v[lang]]),
+          )}
+          clusterLabels={Object.fromEntries(
+            Object.entries(CLUSTER_LABELS).map(([k, v]) => [k, v[lang]]),
+          )}
+          text={{ ...GRAPH_UI[lang] }}
+        />
+      </div>
 
       <a
-        class="mt-2 inline-block text-sm text-neutral-400 hover:text-neutral-100"
+        class="mt-2 inline-block text-sm text-muted hover:text-fg"
         href={url(`${lang}/explorer/?focus=${encodeURIComponent(term.id)}`)}
       >
         {ui.openExplorer}

@@ -58,13 +58,13 @@ const multi = (s: (typeof sections)[number]) => s.clusters.length > 1;
 
 <Base lang={lang} title={ui.compareTitle}>
   <h1 class="mb-2 text-3xl font-semibold">{ui.compareTitle}</h1>
-  <p class="mb-6 text-neutral-400">{ui.compareIntro}</p>
-  <div class="sticky top-0 z-20 -mx-4 mb-6 border-b border-neutral-800 bg-neutral-950/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6">
+  <p class="mb-6 text-muted">{ui.compareIntro}</p>
+  <div class="sticky top-0 z-20 -mx-4 mb-6 border-b border-border bg-bg/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6">
     <nav class="mb-3 flex flex-wrap gap-2 text-sm" aria-label={ui.compareTitle}>
       {sections.map((s) => (
         <a
           href={`#${s.id}`}
-          class="flex items-center gap-2 rounded-full border border-neutral-700 px-3 py-1 text-neutral-200 hover:border-neutral-400"
+          class="flex items-center gap-2 rounded-full border border-border-strong px-3 py-1 text-fg-soft hover:border-border-hover"
         >
           <span
             aria-hidden="true"
@@ -72,7 +72,7 @@ const multi = (s: (typeof sections)[number]) => s.clusters.length > 1;
             style={{ background: s.colour }}
           />
           {s.label}
-          <span class="text-xs text-neutral-500">{s.count}</span>
+          <span class="text-xs text-subtle">{s.count}</span>
         </a>
       ))}
     </nav>
@@ -83,11 +83,11 @@ const multi = (s: (typeof sections)[number]) => s.clusters.length > 1;
         data-compare-filter
         placeholder={ui.compareFilter}
         autocomplete="off"
-        class="w-full max-w-md rounded-md border border-neutral-700 bg-neutral-900 px-3 py-1.5 text-sm text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-400 focus:outline-none"
+        class="w-full max-w-md rounded-md border border-border-strong bg-surface px-3 py-1.5 text-sm text-fg placeholder:text-subtle focus:border-border-hover focus:outline-none"
       />
     </label>
   </div>
-  <p data-compare-none hidden class="text-neutral-400">
+  <p data-compare-none hidden class="text-muted">
     {ui.compareNone}
   </p>
   {sections.map((s) => (
@@ -97,12 +97,12 @@ const multi = (s: (typeof sections)[number]) => s.clusters.length > 1;
         style={{ borderColor: s.colour, color: s.colour }}
       >
         {s.label}
-        <span class="text-sm font-normal text-neutral-500">{s.count}</span>
+        <span class="text-sm font-normal text-subtle">{s.count}</span>
       </h2>
       {s.clusters.map((c) => (
         <div data-compare-group class="mb-6">
           {multi(s) && (
-            <h3 class="mb-2 text-xs font-medium tracking-widest text-neutral-400 uppercase">
+            <h3 class="mb-2 text-xs font-medium tracking-widest text-muted uppercase">
               {c.label || ui.compareAcrossClusters}
             </h3>
           )}
@@ -120,13 +120,13 @@ const multi = (s: (typeof sections)[number]) => s.clusters.length > 1;
                   .toLowerCase()}
               >
                 <a
-                  class="text-neutral-100 hover:underline"
+                  class="text-fg hover:underline"
                   href={url(`${lang}/compare/${pairSlug(p.a, p.b)}/`)}
                 >
-                  {p.a.data.term[lang]} <span class="text-neutral-500">{ui.versus}</span>{' '}
+                  {p.a.data.term[lang]} <span class="text-subtle">{ui.versus}</span>{' '}
                   {p.b.data.term[lang]}
                 </a>
-                {p.why && <p class="text-sm text-neutral-500">{p.why[lang]}</p>}
+                {p.why && <p class="text-sm text-subtle">{p.why[lang]}</p>}
               </li>
             ))}
           </ul>

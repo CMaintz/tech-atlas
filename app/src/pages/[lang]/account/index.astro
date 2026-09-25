@@ -12,18 +12,18 @@ const ui = UI[lang];
 ---
 
 <Base lang={lang} title={ui.account}>
-  <h1 class="mb-2 text-3xl font-semibold">{ui.account}</h1>
+  {/* Signed out, the page *is* the sign-in page; the island owns the heading (A92). */}
   {ACCOUNTS ? (
-    <>
-      <p class="mb-10 text-neutral-400">{ui.accountIntro}</p>
-      <Account client:only="preact" lang={lang} ui={{ ...ui }} />
-    </>
+    <Account client:only="preact" lang={lang} ui={{ ...ui }} />
   ) : (
-    <p class="text-neutral-400">{ui.accountsOff}</p>
+    <>
+      <h1 class="mb-2 text-3xl font-semibold">{ui.account}</h1>
+      <p class="text-muted">{ui.accountsOff}</p>
+      <p class="mt-10 text-sm text-subtle">
+        <a class="underline hover:text-fg-soft" href={url(`${lang}/privacy/`)}>
+          {ui.privacyLink}
+        </a>
+      </p>
+    </>
   )}
-  <p class="mt-10 text-sm text-neutral-500">
-    <a class="underline hover:text-neutral-300" href={url(`${lang}/privacy/`)}>
-      {ui.privacyLink}
-    </a>
-  </p>
 </Base>

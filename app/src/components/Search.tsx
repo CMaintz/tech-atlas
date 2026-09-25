@@ -210,11 +210,11 @@ export default function Search({
         onInput={(e) => setQuery((e.target as HTMLInputElement).value)}
         placeholder={placeholder}
         aria-label={placeholder}
-        class="w-full rounded border border-neutral-700 bg-neutral-900 px-3 py-2 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-400 focus:outline-none"
+        class="w-full rounded border border-border-strong bg-surface px-3 py-2 text-fg placeholder:text-subtle focus:border-border-hover focus:outline-none"
       />
       {q && !engine && (
         <p
-          class="absolute z-10 mt-1 w-full rounded border border-neutral-800 bg-neutral-900 px-3 py-2 text-neutral-500"
+          class="absolute z-10 mt-1 w-full rounded border border-border bg-surface px-3 py-2 text-subtle"
           role="status"
         >
           {loadingLabel}
@@ -222,13 +222,13 @@ export default function Search({
       )}
       {q && engine && (
         <ul
-          class="absolute z-10 mt-1 w-full overflow-hidden rounded border border-neutral-800 bg-neutral-900 shadow-lg"
+          class="absolute z-10 mt-1 w-full overflow-hidden rounded border border-border bg-surface shadow-lg"
           aria-live="polite"
         >
           {action && (
             <li>
               <a
-                class="block border-b border-neutral-800 bg-neutral-800/60 px-3 py-2 text-neutral-100 hover:bg-neutral-800"
+                class="block border-b border-border bg-surface-2/60 px-3 py-2 text-fg hover:bg-surface-2"
                 href={action.href}
               >
                 → {action.label}
@@ -238,7 +238,7 @@ export default function Search({
           {disambiguation && (
             <li>
               <a
-                class="block border-b border-neutral-800 bg-neutral-800/60 px-3 py-2 text-neutral-100 hover:bg-neutral-800"
+                class="block border-b border-border bg-surface-2/60 px-3 py-2 text-fg hover:bg-surface-2"
                 href={disambiguation.href}
               >
                 → {disambiguation.label}
@@ -246,24 +246,21 @@ export default function Search({
             </li>
           )}
           {results.length === 0 && !action && !disambiguation ? (
-            <li class="px-3 py-2 text-neutral-500">{noResults}</li>
+            <li class="px-3 py-2 text-subtle">{noResults}</li>
           ) : (
             results.map((r) => {
               const d = byId.get(r.id);
               if (!d) return null;
               return (
                 <li key={d.id}>
-                  <a
-                    class="block px-3 py-2 hover:bg-neutral-800"
-                    href={`${langBase}terms/${d.id}/`}
-                  >
-                    <span class="text-neutral-100">{d.term[lang]}</span>
+                  <a class="block px-3 py-2 hover:bg-surface-2" href={`${langBase}terms/${d.id}/`}>
+                    <span class="text-fg">{d.term[lang]}</span>
                     {!r.from.includes('lexical') && (
-                      <span class="ml-2 rounded bg-sky-950 px-1.5 py-0.5 text-xs text-sky-300">
+                      <span class="ml-2 rounded bg-sky-100 px-1.5 py-0.5 text-xs text-sky-800 dark:bg-sky-950 dark:text-sky-300">
                         ✦ {byMeaningLabel}
                       </span>
                     )}
-                    <span class="block text-sm text-neutral-500">{d.summary[lang]}</span>
+                    <span class="block text-sm text-subtle">{d.summary[lang]}</span>
                   </a>
                 </li>
               );
@@ -271,7 +268,7 @@ export default function Search({
           )}
         </ul>
       )}
-      {hint && <p class="mt-2 text-xs text-neutral-500">{hint}</p>}
+      {hint && <p class="mt-2 text-xs text-subtle">{hint}</p>}
     </div>
   );
 }

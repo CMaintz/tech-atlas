@@ -86,48 +86,51 @@ const panel = {
   <div class="px-4 py-4 sm:px-6">
     <div class="mb-3 flex flex-wrap items-baseline gap-x-4 gap-y-1">
       <h1 class="text-2xl font-semibold">{ui.timeline}</h1>
-      <p class="max-w-3xl text-sm text-neutral-400">
+      <p class="max-w-3xl text-sm text-muted">
         {ui.timelineIntro}
         {undated > 0 && (
-          <span class="text-neutral-500">
+          <span class="text-subtle">
             {' '}
             {undated === 1 ? ui.undatedNoteOne : ui.undatedNote.replace('{n}', String(undated))}
           </span>
         )}
       </p>
     </div>
-    {items.length === 0 && <p class="text-neutral-400">{ui.noDated}</p>}
+    {items.length === 0 && <p class="text-muted">{ui.noDated}</p>}
     {items.length > 0 && (
       <div id="timeline">
-        <Timeline
-          client:idle
-          items={items}
-          domains={domains}
-          domainLabels={domainLabels}
-          domainColours={domainColours}
-          range={range}
-          eraLabels={eras}
-          text={{ ...tlText, allDomains: ui.allDomains }}
-          panel={panel}
-        />
-        <details class="mt-8 rounded-lg border border-neutral-800 p-4">
-          <summary class="cursor-pointer text-sm text-neutral-300">{tl.listView}</summary>
+        {/* The chart stays a dark "night map" in the light theme (A92). */}
+        <div data-theme="dark" class="night-map bg-bg text-fg">
+          <Timeline
+            client:idle
+            items={items}
+            domains={domains}
+            domainLabels={domainLabels}
+            domainColours={domainColours}
+            range={range}
+            eraLabels={eras}
+            text={{ ...tlText, allDomains: ui.allDomains }}
+            panel={panel}
+          />
+        </div>
+        <details class="mt-8 rounded-lg border border-border p-4">
+          <summary class="cursor-pointer text-sm text-fg-soft">{tl.listView}</summary>
           <ol class="mt-4 space-y-6">
             {decades.map(({ decade, items: list }) => (
               <li class="list-none">
-                <h2 class="mb-2 font-mono text-neutral-200">
+                <h2 class="mb-2 font-mono text-fg-soft">
                   {ui.decade.replace('{d}', String(decade))}
                 </h2>
                 <ul class="gap-x-6 space-y-1 sm:columns-2 lg:columns-3">
                   {list.map((t) => (
                     <li class="flex break-inside-avoid items-baseline gap-2 text-sm">
-                      <span class="w-10 shrink-0 font-mono text-xs text-neutral-500">{t.year}</span>
+                      <span class="w-10 shrink-0 font-mono text-xs text-subtle">{t.year}</span>
                       <span
                         aria-hidden="true"
                         class="inline-block h-2 w-2 shrink-0 rounded-full"
                         style={{ background: domainColours[t.home] }}
                       />
-                      <a class="text-neutral-100 hover:underline" href={t.href}>
+                      <a class="text-fg hover:underline" href={t.href}>
                         {t.name}
                       </a>
                       <span class="sr-only">

@@ -461,20 +461,16 @@ export default function Tour({ steps, langBase, autoStart = true, ui }: Props) {
 
   if (view.kind === 'resume') {
     return (
-      <div class="tour-pill fixed bottom-4 left-4 flex items-center gap-2 rounded border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm shadow-lg print:hidden">
+      <div class="tour-pill fixed bottom-4 left-4 flex items-center gap-2 rounded border border-border-strong bg-surface px-3 py-2 text-sm shadow-lg print:hidden">
         <button
           type="button"
-          class="text-amber-300 hover:underline"
+          class="text-accent hover:underline"
           onClick={() => go(view.step)}
           data-tour-resume
         >
           {fillCount(ui.tourContinue, view.step, total)} →
         </button>
-        <button
-          type="button"
-          class="text-neutral-500 hover:text-neutral-200"
-          onClick={() => finish(false)}
-        >
+        <button type="button" class="text-subtle hover:text-fg-soft" onClick={() => finish(false)}>
           {ui.tourEnd}
         </button>
       </div>
@@ -485,8 +481,8 @@ export default function Tour({ steps, langBase, autoStart = true, ui }: Props) {
   const titleId = 'tour-title';
   const bodyId = 'tour-body';
   const btn = 'rounded border px-3 py-1.5 text-sm';
-  const primary = `${btn} border-amber-400 bg-amber-400 font-medium text-neutral-950 hover:bg-amber-300`;
-  const secondary = `${btn} border-neutral-700 text-neutral-300 hover:border-neutral-500`;
+  const primary = `${btn} border-amber-400 bg-amber-400 font-medium text-on-accent hover:bg-amber-300`;
+  const secondary = `${btn} border-border-strong text-fg-soft hover:border-border-hover`;
   const sv = shown?.view;
   const step = sv?.kind === 'show' ? sv.step : sv?.kind === 'bridge' ? sv.from : 0;
   const bridge = sv?.kind === 'bridge' ? sv : null;
@@ -505,7 +501,7 @@ export default function Tour({ steps, langBase, autoStart = true, ui }: Props) {
         aria-labelledby={titleId}
         aria-describedby={bodyId}
         tabIndex={-1}
-        class="tour-card max-h-[60vh] overflow-y-auto rounded border border-neutral-700 bg-neutral-900 p-4 text-neutral-100 shadow-2xl focus:outline-none"
+        class="tour-card max-h-[60vh] overflow-y-auto rounded border border-border-strong bg-surface p-4 text-fg shadow-2xl focus:outline-none"
       >
         <div class="mb-1 flex items-start justify-between gap-4">
           <h2 id={titleId} class="text-base font-semibold">
@@ -515,13 +511,13 @@ export default function Tour({ steps, langBase, autoStart = true, ui }: Props) {
             type="button"
             aria-label={ui.tourClose}
             title={ui.tourClose}
-            class="-mt-1 -mr-1 px-1 text-lg leading-none text-neutral-500 hover:text-neutral-100"
+            class="-mt-1 -mr-1 px-1 text-lg leading-none text-subtle hover:text-fg"
             onClick={() => finish(welcome ? dontShow : false)}
           >
             ×
           </button>
         </div>
-        <p id={bodyId} class="text-sm text-neutral-300">
+        <p id={bodyId} class="text-sm text-fg-soft">
           {bridge ? bridgeBody : current.body}
         </p>
         {welcome ? (
@@ -534,7 +530,7 @@ export default function Tour({ steps, langBase, autoStart = true, ui }: Props) {
                 {ui.tourNotNow}
               </button>
             </div>
-            <label class="flex items-center gap-2 text-xs text-neutral-400">
+            <label class="flex items-center gap-2 text-xs text-muted">
               <input
                 type="checkbox"
                 checked={dontShow}
@@ -545,7 +541,7 @@ export default function Tour({ steps, langBase, autoStart = true, ui }: Props) {
           </div>
         ) : (
           <div class="mt-4 flex items-center justify-between gap-3">
-            <span class="text-xs text-neutral-500" aria-live="polite">
+            <span class="text-xs text-subtle" aria-live="polite">
               {/* No count on the way from the welcome card: it is not a step. */}
               {(bridge ? bridge.from : step) > 0 &&
                 fillCount(ui.tourStepOf, bridge ? bridge.from : step, total)}

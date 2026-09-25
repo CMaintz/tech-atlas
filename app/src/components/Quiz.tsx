@@ -80,12 +80,12 @@ export default function Quiz({
     if (termId && quizzer) start();
   }, [quizzer]);
 
-  if (!quizzer) return <p class="text-sm text-neutral-500">{ui.loading}</p>;
+  if (!quizzer) return <p class="text-sm text-subtle">{ui.loading}</p>;
 
   if (!session) {
     return (
       <button
-        class="rounded border border-neutral-400 px-3 py-1.5 text-sm hover:bg-neutral-900"
+        class="rounded border border-border-hover px-3 py-1.5 text-sm hover:bg-surface"
         onClick={start}
       >
         {ui.start}
@@ -94,7 +94,7 @@ export default function Quiz({
   }
   if (session.length === 0)
     return (
-      <p class="text-sm text-neutral-500">
+      <p class="text-sm text-subtle">
         {scope === 'weak' && !termId ? ui.noWeakTerms : ui.noQuestions}
       </p>
     );
@@ -106,7 +106,7 @@ export default function Quiz({
           {ui.score.replace('{n}', String(score)).replace('{m}', String(session.length))}
         </p>
         <button
-          class="rounded border border-neutral-400 px-3 py-1.5 text-sm hover:bg-neutral-900"
+          class="rounded border border-border-hover px-3 py-1.5 text-sm hover:bg-surface"
           onClick={start}
         >
           {ui.again}
@@ -133,19 +133,19 @@ export default function Quiz({
 
   return (
     <div class="space-y-3">
-      <p class="text-xs text-neutral-500">
+      <p class="text-xs text-subtle">
         {index + 1} / {session.length}
       </p>
-      <p class="text-neutral-100">{q.prompt}</p>
+      <p class="text-fg">{q.prompt}</p>
       <div class={`grid gap-2 ${long ? '' : 'sm:grid-cols-2'}`}>
         {q.options.map((o) => {
           const state = !chosen
-            ? 'border-neutral-700 hover:border-neutral-400'
+            ? 'border-border-strong hover:border-border-hover'
             : o.id === q.answer
-              ? 'border-green-600 bg-green-950/40'
+              ? 'border-green-600 bg-green-50 dark:bg-green-950/40'
               : o.id === chosen
-                ? 'border-red-600 bg-red-950/40'
-                : 'border-neutral-800 opacity-60';
+                ? 'border-red-600 bg-red-50 dark:bg-red-950/40'
+                : 'border-border opacity-60';
           return (
             <button
               class={`rounded border px-3 py-2 text-left text-sm ${state}`}
@@ -159,13 +159,13 @@ export default function Quiz({
       {chosen && (
         <div class="flex flex-wrap items-center gap-3 text-sm">
           {chosen === q.answer ? (
-            <span class="text-green-400">{ui.correct}</span>
+            <span class="text-green-700 dark:text-green-400">{ui.correct}</span>
           ) : q.explanation ? (
-            <span class="text-red-400">
+            <span class="text-red-700 dark:text-red-400">
               {ui.incorrect} {answerLabel}
             </span>
           ) : (
-            <span class="text-red-400">
+            <span class="text-red-700 dark:text-red-400">
               {ui.incorrect}{' '}
               <a class="underline" href={`${termBase}${q.link}/`}>
                 {answerLabel}
@@ -173,7 +173,7 @@ export default function Quiz({
             </span>
           )}
           {q.explanation && (
-            <p class="basis-full text-neutral-300">
+            <p class="basis-full text-fg-soft">
               {q.explanation}{' '}
               {linkName && (
                 <a class="underline" href={`${termBase}${q.link}/`}>
@@ -183,7 +183,7 @@ export default function Quiz({
             </p>
           )}
           <button
-            class="rounded border border-neutral-400 px-3 py-1 hover:bg-neutral-900"
+            class="rounded border border-border-hover px-3 py-1 hover:bg-surface"
             onClick={() => {
               setIndex(index + 1);
               setChosen(null);

@@ -1,13 +1,37 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
   RECENT_MAX,
+  THEME_KEY,
   isCurrentNav,
   isSearchShortcut,
   isTypingTarget,
   parseRecent,
+  parseTheme,
   prefersDanish,
   pushRecent,
+  resolveTheme,
 } from './prefs';
+
+describe('colour theme', () => {
+  it('reads a stored choice; anything else is "system"', () => {
+    expect(parseTheme('light')).toBe('light');
+    expect(parseTheme('dark')).toBe('dark');
+    expect(parseTheme(null)).toBe('system');
+    expect(parseTheme('sepia')).toBe('system');
+  });
+  it('follows the OS only for "system"', () => {
+    expect(resolveTheme('system', true)).toBe('light');
+    expect(resolveTheme('system', false)).toBe('dark');
+    expect(resolveTheme('dark', true)).toBe('dark');
+    expect(resolveTheme('light', false)).toBe('light');
+  });
+  it('uses the same key as the pre-paint script', () => {
+    const src = readFileSync(join(__dirname, '../../public/theme-init.js'), 'utf8');
+    expect(src).toContain(`'${THEME_KEY}'`);
+  });
+});
 
 describe('recently viewed', () => {
   it('parses only a list of strings', () => {

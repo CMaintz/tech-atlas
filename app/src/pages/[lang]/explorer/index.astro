@@ -30,7 +30,8 @@ const about = aboutProps(lang);
 ---
 
 <Base lang={lang} title={ui.explorer} wide>
-  <div id="explorer">
+  {/* The map stays a dark "night map" in the light theme (A92). */}
+  <div id="explorer" data-theme="dark" class="bg-bg text-fg">
     <Explorer
       client:only="preact"
       lang={lang}
