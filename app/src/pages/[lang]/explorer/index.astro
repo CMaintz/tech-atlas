@@ -8,10 +8,13 @@ import {
   FAMILY_LABELS,
   GRAPH_UI,
   LANGS,
+  PANEL_UI,
   UI,
   url,
   type Lang,
 } from '../../../lib/site';
+import { EDGE_LABELS, RELATION_ORDER } from '../../../lib/terms';
+import { EDGE_TYPES } from '../../../schema';
 
 export function getStaticPaths() {
   return LANGS.map((lang) => ({ params: { lang } }));
@@ -21,6 +24,17 @@ const lang = Astro.params.lang as Lang;
 const ui = UI[lang];
 const localise = (m: Record<string, Record<Lang, string>>) =>
   Object.fromEntries(Object.entries(m).map(([k, v]) => [k, v[lang]]));
+
+// The term panel (A79) gets its tables from here, so the island never bundles the schema.
+const panel = {
+  apiBase: url('api/terms/'),
+  graphUrl: url('graph.json'),
+  ui: { ...ui },
+  text: { ...PANEL_UI[lang] },
+  edgeLabels: localise(EDGE_LABELS),
+  edgeInverse: Object.fromEntries(Object.entries(EDGE_TYPES).map(([k, v]) => [k, v.inverse])),
+  relationOrder: RELATION_ORDER,
+};
 ---
 
 <Base lang={lang} title={ui.explorer} wide>
@@ -36,6 +50,7 @@ const localise = (m: Record<string, Record<Lang, string>>) =>
       familyLabels={localise(FAMILY_LABELS)}
       familyColours={FAMILY_COLOURS}
       domainLabels={localise(DOMAIN_LABELS)}
+      panel={panel}
     />
   </div>
 </Base>

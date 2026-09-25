@@ -25,6 +25,19 @@ body:
   whyItMatters:
     en: It is cheap to send and needs only one person to fall for it, which makes it one of the most common first steps in an attack.
     da: Det er billigt at sende og kræver kun, at én person hopper på det, hvilket gør det til et af de mest almindelige første skridt i et angreb.
+deepDive:
+  en: |
+    Most phishing starts with forged or look-alike sender identity. SMTP does not authenticate the From header a reader sees, so attackers either spoof it outright or register a look-alike domain (typosquats, homoglyphs, or a trusted brand name in a subdomain). SPF, DKIM and DMARC let a receiving mail server check whether a message really comes from the domain it claims; a DMARC policy of p=reject stops exact-domain spoofing, but does nothing against a look-alike domain that publishes its own valid records.
+
+    The payload is usually a link to a credential-harvesting page or an attachment that runs code. Modern kits act as a reverse proxy between the victim and the real login page (adversary-in-the-middle), so they capture not only the password but also the session cookie issued after a one-time code or push approval, which defeats most MFA. Only phishing-resistant authenticators, such as FIDO2/WebAuthn passkeys, which bind the login to the real origin, reliably stop this.
+
+    Defence is layered: mail filtering and URL rewriting, DMARC on your own domains, phishing-resistant MFA, browser isolation or download controls for attachments, awareness training with simulated campaigns, and an easy reporting button so one employee's report can trigger removal of the same mail from every inbox.
+  da: |
+    De fleste phishing-angreb begynder med en forfalsket eller forvekslelig afsender. SMTP kontrollerer ikke den From-adresse, læseren ser, så angriberen enten forfalsker den direkte eller registrerer et domæne, der ligner (tastefejl, tegn der ligner hinanden, eller et kendt brand som underdomæne). SPF, DKIM og DMARC lader den modtagende mailserver tjekke, om en besked virkelig kommer fra det domæne, den påstår; en DMARC-politik med p=reject stopper forfalskning af præcis det domæne, men intet mod et forveksleligt domæne med sine egne gyldige opsætninger.
+
+    Selve angrebet er som regel et link til en side, der opsamler loginoplysninger, eller en vedhæftet fil, der kører kode. Moderne phishing-kits fungerer som omvendt proxy mellem offeret og den rigtige login-side (adversary-in-the-middle), så de opsnapper både adgangskoden og den sessionscookie, der udstedes efter engangskode eller push-godkendelse, og dermed omgår det meste MFA. Kun phishing-resistente løsninger som FIDO2/WebAuthn-passkeys, der binder login til den rigtige adresse, stopper det pålideligt.
+
+    Forsvaret er lagdelt: mailfiltrering og omskrivning af links, DMARC på egne domæner, phishing-resistent MFA, browserisolering eller kontrol med downloads, awareness-træning med simulerede kampagner og en nem rapportknap, så én medarbejders anmeldelse kan fjerne den samme mail fra alle indbakker.
 edges:
   kind-of: [social-engineering]
   requires: [credential]

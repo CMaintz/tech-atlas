@@ -269,10 +269,11 @@ Adding a 13th edge type is a deliberate schema change. Deferred candidates:
 
 ### The Term page (primary)
 The default surface and the primary learning experience. Structure: title + domain
-tags + status; `summary`; the four Body facets; then generated relationship sections
+tags + status; `summary`; the four Body facets; the optional *Technical deep dive*
+(`deepDive`, exempt from Closed Vocabulary, A79); then generated relationship sections
 (*contrasts with · requires · unlocks · mitigates/mitigated-by · mandates* …, from
-edges); *Continue learning* (the Term's sources grouped by source tier, standards
-first, A73); an **Explore connections**
+edges); *Sources & further reading* (the Term's sources grouped by source tier,
+standards first, A73) with a *Where this data comes from* note (A79); an **Explore connections**
 action that opens the graph centred on this Term; "Read the full entry" for Terms
 with an Article. Statically rendered, SEO-friendly, fast on a phone, bilingual with a
 language toggle.
@@ -301,7 +302,10 @@ real, statically rendered page ("the canvas is an index, not a container").
 - The full-screen Explorer (`/[lang]/explorer/`) offers 2D (force, layered by
   Depth, or laid out by Time — x = `era`, undated terms in a side lane) and 3D
   (height = Depth), a route finder between any two terms, and prerequisite
-  highlighting. The 2D force layout is deterministic and cluster-aware: clusters
+  highlighting. Clicking a term opens its **term panel** on the right (facets in both
+  languages, what to learn first, relationships that re-focus the map); the panel
+  expands in place to fill the page below the header, and "Read more" opens the Term
+  page; `?term=<id>` deep-links it (A79). The 2D force layout is deterministic and cluster-aware: clusters
   settle into named systems, domains into loose regions (A74). 3D uses the same
   colours, curved links, flowing particles on one-way links and a pull towards
   each cluster.
