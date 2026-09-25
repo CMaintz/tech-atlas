@@ -74,7 +74,7 @@ questions:
     options:
       - en: One that writes a reply word by word, each word based only on the ones before
         da: En, der skriver et svar ord for ord, hvor hvert ord kun bygger på de foregående
-      - en: One that reads the whole email at once, letting each word see both directions
+      - en: One that reads the whole email at once, each word seeing both directions
         da: En, der læser hele mailen på én gang og lader hvert ord se i begge retninger
       - en: One that turns random noise into output step by step until it looks right
         da: En, der omdanner tilfældig støj til output trin for trin, til det ser rigtigt ud

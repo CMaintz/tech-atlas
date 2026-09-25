@@ -131,14 +131,14 @@ questions:
         virksomhedens Git-repository. En time senere opdager hun det og sletter nøglen i
         en ny commit. Er det nok?
     options:
-      - en: No — revoke and replace the key, and have the pipeline fetch it from a secrets store
-        da: Nej — spær og udskift nøglen, og lad pipelinen hente den fra et secrets-lager
+      - en: No — revoke and replace the key; let the pipeline fetch it from a secrets store
+        da: Nej — spær og udskift nøglen; lad pipelinen hente den fra et secrets-lager
       - en: Yes — once the file is changed, the key is gone from the repository
         da: Ja — når filen er rettet, er nøglen væk fra repositoryet
-      - en: No — rewrite the repository's history to remove it; the key itself can stay
-        da: Nej — omskriv repositoryets historik, så den forsvinder; selve nøglen kan blive
-      - en: Yes, as long as the repository is private and only employees can read it
-        da: Ja, så længe repositoryet er privat, og kun medarbejdere kan læse det
+      - en: No — rewrite the history with git filter-repo to purge it; the key itself can stay
+        da: Nej — omskriv historikken med git filter-repo, så den forsvinder; selve nøglen kan blive
+      - en: Yes, as long as the repository is private and only current employees can read it
+        da: Ja, så længe repositoryet er privat, og kun nuværende medarbejdere kan læse det
     answer: 0
     explanation:
       en: >-

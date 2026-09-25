@@ -19,10 +19,10 @@ questions:
     options:
       - en: Containers on one host cannot be given separate network addresses
         da: Containere på samme vært kan ikke få hver deres netværksadresse
-      - en: Virtual machines start faster and use less memory than containers
-        da: Virtuelle maskiner starter hurtigere og bruger mindre hukommelse end containere
-      - en: A database cannot run inside a container, only inside a virtual machine
-        da: En database kan ikke køre i en container, kun i en virtuel maskine
+      - en: Virtual machines start faster and use far less memory than containers
+        da: Virtuelle maskiner starter hurtigere og bruger langt mindre hukommelse end containere
+      - en: A database cannot run inside a container at all, only inside a virtual machine
+        da: En database kan slet ikke køre i en container, kun i en virtuel maskine
       - en: Containers share the host's kernel, so the wall between them is thinner
         da: Containere deler værtens kerne, så væggen mellem dem er tyndere
     answer: 3

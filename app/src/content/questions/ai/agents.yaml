@@ -15,12 +15,12 @@ questions:
         en ordre op i webshoppens eget ordresystem. En kunde spørger, hvor pakke 4711
         er. I hvilken rækkefølge sker tingene, når chatbotten bruger værktøjet?
     options:
-      - en: Question and tool descriptions sent → model runs find_order in the order system → model sends the result to the app → app shows the answer
-        da: Spørgsmål og værktøjsbeskrivelser sendes → modellen kører find_order i ordresystemet → modellen sender resultatet til appen → appen viser svaret
+      - en: Question and tool descriptions sent → model itself runs find_order directly in the shop's order system → model sends the result to the app → app shows the answer
+        da: Spørgsmål og værktøjsbeskrivelser sendes → modellen kører selv find_order direkte i webshoppens ordresystem → modellen sender resultatet til appen → appen viser svaret
       - en: App runs find_order for every question → result and question sent to the model → model picks the tool → model writes the answer
         da: Appen kører find_order ved hvert spørgsmål → resultat og spørgsmål sendes til modellen → modellen vælger værktøjet → modellen skriver svaret
-      - en: Question and tool descriptions sent → model replies with a call to find_order and its arguments → app runs the lookup and returns the result → model writes the answer
-        da: Spørgsmål og værktøjsbeskrivelser sendes → modellen svarer med et kald til find_order og dets argumenter → appen laver opslaget og sender resultatet tilbage → modellen skriver svaret
+      - en: Question and tool descriptions sent → model replies with a find_order call and arguments → app runs the lookup, returns the result → model answers
+        da: Spørgsmål og værktøjsbeskrivelser sendes → modellen svarer med et find_order-kald og argumenter → appen laver opslaget, sender resultatet tilbage → modellen svarer
       - en: Question sent without tool descriptions → model writes an answer → app runs find_order to check it → model corrects its answer
         da: Spørgsmålet sendes uden værktøjsbeskrivelser → modellen skriver et svar → appen kører find_order for at tjekke det → modellen retter sit svar
     answer: 2
@@ -70,13 +70,13 @@ questions:
         webportaler for indkøbsafdelingen. Hvilken opsætning er mest fornuftig til
         pilotforsøget?
     options:
-      - en: A separate virtual machine with few rights, approved sites only, and a person confirming each binding step
+      - en: A separate virtual machine with few rights, approved sites only, a person confirming each binding step
         da: En separat virtuel maskine med få rettigheder, kun godkendte sider og en person, der bekræfter hvert bindende trin
-      - en: The buyer's own PC, where she is already logged in, so the agent can reuse her saved passwords
-        da: Indkøberens egen pc, hvor hun allerede er logget ind, så agenten kan genbruge hendes gemte adgangskoder
+      - en: The buyer's own PC, where she is already logged in, so the agent can reuse her saved passwords and sessions
+        da: Indkøberens egen pc, hvor hun allerede er logget ind, så agenten kan genbruge hendes gemte adgangskoder og sessioner
       - en: Any machine, as long as the system prompt tells the agent to ignore instructions found on web pages
         da: En hvilken som helst maskine, blot systemprompten beder agenten ignorere instruktioner på websider
-      - en: Full internet access, with an employee going through the agent's screenshots once a week afterwards
+      - en: Full internet access, with an employee going through all of the agent's screenshots once a week afterwards
         da: Fri adgang til internettet, hvor en medarbejder bagefter gennemgår agentens skærmbilleder en gang om ugen
     answer: 0
     explanation:
@@ -133,10 +133,10 @@ questions:
         da: Finjustere hver apps model på arkivet, så tegningerne bliver en del af modellen
       - en: Paste an export of the whole archive into each app's system prompt every morning
         da: Indsætte et udtræk af hele arkivet i hver apps systemprompt hver morgen
-      - en: Build a separate search pipeline with its own vector database inside each app
-        da: Bygge en særskilt søgepipeline med sin egen vektordatabase ind i hver app
-      - en: Expose the archive search once through an MCP server that all three apps connect to
-        da: Udstille arkivsøgningen én gang gennem en MCP-server, som alle tre apps forbinder sig til
+      - en: Build a separate search pipeline with its own vector database inside each of the three apps
+        da: Bygge en særskilt søgepipeline med sin egen vektordatabase ind i hver af de tre apps
+      - en: Expose the archive search once via an MCP server that all three apps connect to
+        da: Udstille arkivsøgningen én gang via en MCP-server, som alle tre apps kobler sig på
     answer: 3
     explanation:
       en: >-
@@ -182,9 +182,9 @@ questions:
       - en: MCP is an open standard, so a server that follows the protocol is safe by design
         da: MCP er en åben standard, så en server, der følger protokollen, er sikker af design
       - en: The server's code acts with her access, and its tool descriptions may hide instructions
-        da: Serverens kode handler med hendes adgang, og dens værktøjsbeskrivelser kan skjule instruktioner
-      - en: The only real risk is that the assistant's answers about her mail may be less accurate
-        da: Den eneste reelle risiko er, at assistentens svar om hendes mails kan blive mindre præcise
+        da: Serverens kode handler med hendes adgang, og værktøjsbeskrivelserne kan skjule instruktioner
+      - en: The only real risk is that the assistant's answers about her mail may become less accurate
+        da: Den eneste reelle risiko er, at assistentens svar om hendes e-mails kan blive mindre præcise
       - en: It is safe as long as the assistant asks her before each tool is called
         da: Det er sikkert, så længe assistenten spørger hende, før hvert værktøj bliver kaldt
     answer: 1
@@ -233,8 +233,8 @@ questions:
         send den til det rette afsnit — og revisorerne ønsker, at forløbet er
         forudsigeligt og nemt at kontrollere. Hvilket design passer bedst?
     options:
-      - en: An autonomous agent that decides for itself which steps each letter needs
-        da: En selvstændig agent, der selv beslutter, hvilke trin hver henvisning kræver
+      - en: An autonomous agent that decides for itself which steps each referral letter needs
+        da: En selvstændig agent, der selv beslutter, hvilke trin hver enkelt henvisning har brug for
       - en: A multi-agent system in which a lead agent hands letters to helper agents
         da: Et multiagentsystem, hvor en ledende agent giver henvisninger videre til hjælpeagenter
       - en: An agentic workflow where code fixes the steps and the model does some of them

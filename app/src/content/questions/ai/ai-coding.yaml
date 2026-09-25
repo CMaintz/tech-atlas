@@ -77,11 +77,11 @@ questions:
     options:
       - en: They work the same way; the cloud agent simply runs on a faster language model
         da: De virker på samme måde; cloud-agenten kører bare på en hurtigere sprogmodel
-      - en: The cloud agent merges its own changes once the tests pass, so no review is needed
-        da: Cloud-agenten fletter selv sine ændringer, når testene består, så ingen skal gennemgå dem
+      - en: The cloud agent merges its own changes once the tests pass, so no human review is needed
+        da: Cloud-agenten fletter selv sine ændringer, når testene består, så intet menneske skal gennemgå dem
       - en: The editor suggestions run the tests and commit the code on the developer's behalf
         da: Forslagene i editoren kører testene og committer koden på udviklerens vegne
-      - en: The agent works alone and opens a pull request for review; team A accepts each suggestion
+      - en: The agent works alone and opens a pull request for review; team A accepts each proposal
         da: Agenten arbejder selv og åbner en pull request til gennemgang; hold A godkender hvert forslag
     answer: 3
     explanation:
@@ -190,8 +190,8 @@ questions:
         da: Indsætte reglerne i chatten i starten af hver session med hvert værktøj
       - en: Fine-tune a model on the repository so that it learns the rules by itself
         da: Finjustere en model på kodebasen, så den selv lærer reglerne
-      - en: Write the commands and rules in an AGENTS.md file at the root of the repository
-        da: Skrive kommandoerne og reglerne i en AGENTS.md-fil i roden af kodebasen
+      - en: Write the commands and rules in an AGENTS.md file at the repository root
+        da: Skrive kommandoerne og reglerne i en AGENTS.md-fil i kodebasens rod
       - en: Put a comment with the rules at the top of every source file in the project
         da: Sætte en kommentar med reglerne øverst i hver kildefil i projektet
     answer: 2

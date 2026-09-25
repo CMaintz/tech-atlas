@@ -134,7 +134,7 @@ questions:
     options:
       - en: Cross-site scripting (XSS)
         da: Cross-site scripting (XSS)
-      - en: Session hijacking
+      - en: Session hijacking (taking over the session)
         da: Session hijacking (kapring af session)
       - en: Cross-site request forgery (CSRF)
         da: Cross-site request forgery (CSRF)

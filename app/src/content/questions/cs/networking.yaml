@@ -184,14 +184,14 @@ questions:
         Siden viser en hængelås i adresselinjen, så hun går ud fra, at den er ægte.
         Hvad fortæller hængelåsen hende egentlig?
     options:
-      - en: That her bank has checked and approved the site for customers
-        da: At hendes bank har kontrolleret og godkendt siden til kunderne
+      - en: That her bank has checked and approved the site for its customers to use
+        da: At hendes bank har kontrolleret og godkendt siden til brug for sine kunder
       - en: That the connection is encrypted to whoever controls that domain
         da: At forbindelsen er krypteret til den, der styrer netop det domæne
       - en: That the site has been scanned and contains no malware
         da: At siden er scannet og ikke indeholder malware
-      - en: That an authority has confirmed the owner is a real bank
-        da: At en myndighed har bekræftet, at ejeren er en rigtig bank
+      - en: That an official authority has confirmed the site's owner is a real bank
+        da: At en offentlig myndighed har bekræftet, at sidens ejer er en rigtig bank
     answer: 1
     explanation:
       en: >-
@@ -355,8 +355,8 @@ questions:
         da: TCP-forbindelse til port 443 → TLS-håndtryk med certifikattjek → HTTP-forespørgsel
       - en: HTTP request → TCP connection to port 443 → TLS handshake with certificate check
         da: HTTP-forespørgsel → TCP-forbindelse til port 443 → TLS-håndtryk med certifikattjek
-      - en: TCP connection to port 80 → HTTP request → TLS handshake with certificate check
-        da: TCP-forbindelse til port 80 → HTTP-forespørgsel → TLS-håndtryk med certifikattjek
+      - en: TCP connection to port 80 → plain HTTP request → TLS handshake with certificate check
+        da: TCP-forbindelse til port 80 → almindelig HTTP-forespørgsel → TLS-håndtryk med certifikattjek
     answer: 1
     explanation:
       en: >-

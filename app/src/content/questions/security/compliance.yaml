@@ -18,8 +18,8 @@ questions:
     options:
       - en: The Danish NIS2 Act, in the same way as for the other critical sectors
         da: NIS2-loven, på samme måde som for de øvrige kritiske sektorer
-      - en: DORA, which applies directly, plus Danish financial law overseen by Finanstilsynet
-        da: DORA, der gælder direkte, suppleret af dansk finanslovgivning med Finanstilsynet som tilsyn
+      - en: DORA, directly applicable, plus Danish financial law under Finanstilsynet
+        da: DORA, der gælder direkte, samt dansk finanslovgivning under Finanstilsynet
       - en: Only the GDPR, since a bank's main cyber risk concerns customer data
         da: Kun GDPR, da en banks største cyberrisiko handler om kundedata
       - en: DORA, but only once Folketinget has passed a law copying it into Danish law
@@ -127,14 +127,14 @@ questions:
         giv os bare besked, hvis noget går galt." Compliancekoordinatoren protesterer. Hvad
         kræver loven egentlig af bestyrelsen?
     options:
-      - en: The IT manager may approve the measures, provided the board gets a yearly report
-        da: IT-chefen må godkende tiltagene, bare bestyrelsen får en årlig rapport
+      - en: The IT manager may approve the measures, provided the board gets a yearly written report
+        da: IT-chefen må godkende tiltagene, bare bestyrelsen får en årlig skriftlig rapport
       - en: The board must approve the measures, but only IT staff need cyber training
         da: Bestyrelsen skal godkende tiltagene, men kun IT-personalet skal have kurser
       - en: The board need only get involved once the authority asks for documentation
         da: Bestyrelsen skal først involveres, når myndigheden beder om dokumentation
-      - en: The board must approve the measures, oversee them and itself take relevant courses
-        da: Bestyrelsen skal godkende tiltagene, føre tilsyn med dem og selv tage relevante kurser
+      - en: The board must approve and oversee the measures and take relevant courses itself
+        da: Bestyrelsen skal godkende og føre tilsyn med tiltagene og selv tage relevante kurser
     answer: 3
     explanation:
       en: >-
@@ -182,8 +182,8 @@ questions:
         nye kontrakt kræver dokumenteret patching, multifaktorgodkendelse og
         hændelsesrapportering af den. Hvad forklarer bedst hvorfor?
     options:
-      - en: The utility must manage supply-chain security, so it passes demands on by contract
-        da: Selskabet skal styre sikkerheden i forsyningskæden og giver derfor krav videre i kontrakten
+      - en: The utility must secure its supply chain, so it passes demands on by contract
+        da: Selskabet skal sikre sin forsyningskæde og giver derfor krav videre i kontrakten
       - en: Supplying a covered utility automatically makes the IT company an essential entity
         da: Levering til et omfattet selskab gør automatisk IT-virksomheden til en væsentlig enhed
       - en: The GDPR requires it, since every IT supplier counts as a data processor
@@ -240,8 +240,8 @@ questions:
         da: Intet ekstra, så længe det nye hostingfirma opbevarer data inden for EU
       - en: The supplier becomes controller for the hosting and simply informs Datatilsynet
         da: Leverandøren bliver dataansvarlig for hostingen og orienterer blot Datatilsynet
-      - en: The municipality must carry out a new impact assessment before any subcontractor
-        da: Kommunen skal lave en ny konsekvensanalyse, før der må bruges en underleverandør
+      - en: The municipality must carry out a new impact assessment (DPIA) before any subcontractor is used
+        da: Kommunen skal lave en ny konsekvensanalyse (DPIA), før der må bruges en underleverandør
       - en: The municipality's prior written authorisation, specific or general with a right to object
         da: Kommunens forudgående skriftlige godkendelse, specifik eller generel med ret til indsigelse
     answer: 3
@@ -295,8 +295,8 @@ questions:
         da: En pilot er fin, så længe risikoen for privatlivet vurderes inden for tre måneder
       - en: An impact assessment before processing starts, as health data is processed at scale
         da: En konsekvensanalyse, før behandlingen starter, da der behandles helbredsdata i stort omfang
-      - en: A notification to Datatilsynet within 72 hours of the system going live
-        da: En anmeldelse til Datatilsynet senest 72 timer efter, at systemet er sat i drift
+      - en: A notification to Datatilsynet within 72 hours of the new system going into production
+        da: En anmeldelse til Datatilsynet senest 72 timer efter, at det nye system er sat i drift
       - en: An assessment only for patients who have not consented to the analysis
         da: En vurdering kun for de patienter, der ikke har givet samtykke til analysen
     answer: 1
@@ -344,8 +344,8 @@ questions:
     options:
       - en: Delete them from its copy of Annex A before the certification audit
         da: Slette dem fra sin kopi af Annex A før certificeringsauditten
-      - en: Put them in place anyway, since certification requires every control
-        da: Indføre dem alligevel, da certificering kræver samtlige kontroller
+      - en: Put them in place anyway, since certification requires every Annex A control
+        da: Indføre dem alligevel, da certificering kræver samtlige kontroller i Annex A
       - en: Record in its Statement of Applicability that they are excluded, and why
         da: Notere i sin Statement of Applicability, at de er fravalgt, og hvorfor
       - en: Leave them out without comment, since ISO 27002 is only guidance
@@ -396,8 +396,8 @@ questions:
         da: 27001 stiller certificerbare krav til et ISMS; 27002 vejleder i at indføre kontroller
       - en: 27002 sets certifiable ISMS requirements; 27001 guides how to put controls in place
         da: 27002 stiller certificerbare krav til et ISMS; 27001 vejleder i at indføre kontroller
-      - en: 27002 is the newer edition of 27001 and has replaced it for certification
-        da: 27002 er den nyere udgave af 27001 og har erstattet den ved certificering
+      - en: 27002 is the 2022 edition of 27001 and has replaced it as the standard for certification
+        da: 27002 er 2022-udgaven af 27001 og har erstattet den som standard ved certificering
       - en: 27001 is written for private companies, 27002 for public authorities
         da: 27001 er skrevet til private virksomheder, 27002 til offentlige myndigheder
     answer: 0
@@ -442,8 +442,8 @@ questions:
         aktiviteter: én nu og én om et år. Hvad beskriver bedst forskellen på en gap-analyse
         og en audit i den situation?
     options:
-      - en: The gap analysis is done by the authority; the audit is the firm's own self-check
-        da: Gap-analysen foretages af myndigheden; audit er virksomhedens egen selvevaluering
+      - en: The gap analysis is done by the supervisory authority; the audit is the firm's own self-check
+        da: Gap-analysen foretages af tilsynsmyndigheden; audit er virksomhedens egen selvevaluering
       - en: Both give the same result, so the firm can choose either one at any time
         da: Begge giver samme resultat, så virksomheden kan vælge den ene når som helst
       - en: The gap analysis maps today against the requirements; the audit checks rules are followed

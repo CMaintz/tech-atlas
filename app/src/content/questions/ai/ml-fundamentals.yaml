@@ -73,7 +73,7 @@ questions:
         usædvanlige grupper springer i øjnene og kan undersøges nærmere. Hvilken
         tilgang passer?
     options:
-      - en: Let a model group similar events on its own, with no answers given in advance
+      - en: Let a model group similar events itself, with no answers given in advance
         da: Lade en model samle ensartede hændelser i grupper selv, uden facit på forhånd
       - en: Train a model to sort events into harmless and malicious from the log alone
         da: Træne en model til at sortere hændelser i harmløse og ondsindede ud fra loggen alene

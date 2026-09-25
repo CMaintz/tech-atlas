@@ -77,13 +77,13 @@ questions:
         finder en journalist fakturaerne på nettet. Hvis fejl er det efter modellen for
         delt ansvar?
     options:
-      - en: The web shop's, because access settings on its own data are the customer's part
+      - en: The web shop's, because access settings on its data are the customer's part
         da: Webshoppens, fordi adgangsindstillinger på egne data er kundens del af ansvaret
       - en: AWS's, because the provider answers for everything stored in its cloud
         da: AWS', fordi udbyderen står inde for alt, hvad der ligger i dens sky
-      - en: AWS's, because S3 is a managed service where AWS sets each bucket's access
-        da: AWS', fordi S3 er en administreret tjeneste, hvor AWS styrer adgangen til hver bucket
-      - en: Nobody's alone, because public buckets are a platform flaw both must patch
+      - en: AWS's, because S3 is a managed service where AWS itself sets each bucket's access
+        da: AWS', fordi S3 er en administreret tjeneste, hvor AWS selv styrer adgangen til hver bucket
+      - en: Nobody's alone, because public buckets are a platform flaw that both must patch
         da: Ingens alene, fordi offentlige buckets er en fejl i platformen, som begge skal rette
     answer: 0
     explanation:

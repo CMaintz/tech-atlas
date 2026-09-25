@@ -214,14 +214,14 @@ questions:
         den rigtigt på 61 %, mens en lavere rangeret model får 78 %. Hvad forklarer
         bedst forskellen?
     options:
-      - en: The public tasks differ from its work and may sit in the training data
+      - en: Public tasks differ from its work and may be in the training data
         da: De offentlige opgaver ligner ikke kommunens og kan ligge i træningsdataene
       - en: 300 questions are far too few to judge a model's quality
         da: 300 spørgsmål er alt for få til at bedømme en models kvalitet
       - en: Public leaderboards rank models on speed, not correct answers
         da: Offentlige ranglister rangerer efter hastighed, ikke rigtige svar
-      - en: The top model overfitted to the caseworkers' questions in testing
-        da: Topmodellen overtilpassede sig sagsbehandlernes testspørgsmål
+      - en: The top model overfitted to the caseworkers' questions while it was being tested
+        da: Topmodellen overtilpassede sig sagsbehandlernes spørgsmål, mens den blev testet
     answer: 0
     explanation:
       en: >-

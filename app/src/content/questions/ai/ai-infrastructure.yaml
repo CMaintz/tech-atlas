@@ -120,7 +120,7 @@ questions:
         da: Samlet gennemløb, som øges ved at samle endnu flere forespørgsler i hver batch
       - en: Inter-token latency, the time between each word once the answer has started
         da: Latens mellem tokens, altså tiden mellem hvert ord, når svaret er gået i gang
-      - en: Time to first token, which covers queueing and processing of the whole input
+      - en: Time to first token, covering queueing and processing of the whole input
         da: Tid til første token, som dækker kø og behandling af hele inputtet
       - en: The model's accuracy score on a benchmark of typical citizen questions
         da: Modellens nøjagtighed på en benchmark med typiske borgerspørgsmål
@@ -171,8 +171,8 @@ questions:
         sidst kundens spørgsmål. Regningen viser slet ingen læsninger fra cachen. Hvad er
         den mest sandsynlige årsag?
     options:
-      - en: The changing case line comes first, so no two prompts share the same opening
-        da: Den skiftende sagslinje står først, så ingen to prompter har samme begyndelse
+      - en: The changing case line comes first, so no two prompts start the same way
+        da: Den skiftende sagslinje står først, så ingen to prompter begynder ens
       - en: The cache is emptied after a few seconds, which is too short for any reuse
         da: Cachen tømmes efter få sekunder, hvilket er for kort til nogen genbrug
       - en: Prompt caching stores only the model's answers, not the text that is sent in
@@ -223,12 +223,12 @@ questions:
     options:
       - en: Quantizing trains a new, smaller model; distilling rounds the existing weights
         da: Kvantisering træner en ny, mindre model; destillation afrunder de eksisterende vægte
-      - en: Quantizing stores the same weights with fewer bits; distilling trains a new, smaller model
+      - en: Quantizing stores the same weights in fewer bits; distilling trains a new, smaller model
         da: Kvantisering gemmer de samme vægte med færre bit; destillation træner en ny, mindre model
       - en: They are two names for the same technique of compressing a model's file
         da: Det er to navne for den samme teknik til at komprimere en models fil
-      - en: Quantizing removes layers from the model; distilling removes words from its vocabulary
-        da: Kvantisering fjerner lag fra modellen; destillation fjerner ord fra dens ordforråd
+      - en: Quantizing removes layers from the model; distilling removes rare words from its vocabulary
+        da: Kvantisering fjerner lag fra modellen; destillation fjerner sjældne ord fra dens ordforråd
     answer: 1
     explanation:
       en: >-

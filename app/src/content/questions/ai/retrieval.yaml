@@ -130,7 +130,7 @@ questions:
     options:
       - en: Lower the temperature so the model sticks more closely to the text it gets
         da: Sænk temperaturen, så modellen holder sig tættere til den tekst, den får
-      - en: Cut the policy along its sections into larger pieces that overlap a little
+      - en: Cut the policy by its sections into larger, slightly overlapping pieces
         da: Del politikken langs afsnittene i større stykker, der overlapper lidt
       - en: Store the whole 80-page policy as a single piece so nothing is ever split
         da: Gem hele den 80 sider lange politik som ét stykke, så intet bliver delt
@@ -184,8 +184,8 @@ questions:
         da: Skriv i systemprompten, at modellen aldrig må afsløre noget fra HR-filer
       - en: Encrypt the vector database at rest so the HR embeddings cannot be read
         da: Krypter de lagrede data i vektordatabasen, så HR-embeddings ikke kan læses
-      - en: Only return passages that the asking user is allowed to open at the source
-        da: Returner kun afsnit, som den spørgende bruger selv må åbne i kildesystemet
+      - en: Only return passages that the asking user may open at the source
+        da: Returner kun afsnit, som den spørgende bruger må åbne i kildesystemet
       - en: Scan each answer for the word "salary" and block it before it is shown
         da: Scan hvert svar for ordet "løn", og bloker det, før det vises
     answer: 2

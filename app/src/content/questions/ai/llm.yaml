@@ -77,8 +77,8 @@ questions:
     options:
       - en: Train the model once more on all current guidelines so it knows them by heart
         da: Træn modellen én gang til på alle gældende retningslinjer, så den kan dem udenad
-      - en: Fetch relevant guideline passages per question; have it answer and cite from them
-        da: Hent relevante afsnit af retningslinjerne pr. spørgsmål; lad den svare og citere ud fra dem
+      - en: Fetch relevant passages per question and have it answer and cite from them
+        da: Hent relevante afsnit pr. spørgsmål, og lad den svare og citere ud fra dem
       - en: Raise the temperature so the model weighs more possible answers before it replies
         da: Hæv temperaturen, så modellen overvejer flere mulige svar, før den svarer
       - en: Add a line to the system prompt telling the model it must never be wrong
@@ -134,9 +134,9 @@ questions:
         hvad er en fornuftig løsning?
     options:
       - en: The text exceeds the model's token limit per request; split it or send only relevant parts
-        da: Teksten overskrider modellens grænse for tokens pr. forespørgsel; del den op, eller send kun relevante dele
-      - en: The tender is newer than the model's training data; wait for a model trained on newer text
-        da: Udbuddet er nyere end modellens træningsdata; vent på en model, der er trænet på nyere tekst
+        da: Teksten overskrider modellens tokengrænse pr. forespørgsel; del den op, eller send kun relevante dele
+      - en: The tender is newer than the model's training data; wait for a model trained on more recent text
+        da: Udbuddet er nyere end modellens træningsdata; vent på en model, der er trænet på mere aktuel tekst
       - en: The temperature is set too high for long input; set it to 0 and send the request again
         da: Temperaturen er sat for højt til langt input; sæt den til 0, og send forespørgslen igen
       - en: The model counts pages, not text; merge the files into fewer, larger pages first
@@ -243,12 +243,12 @@ questions:
         bruger med sin private konto, og beder om et udkast til et svarbrev. Kommunen har
         ingen aftale med chatbottens udbyder. Hvad er det væsentligste problem?
     options:
-      - en: None, because the chatbot only keeps the text in its context window during the chat
+      - en: None, because the chatbot only keeps the text in its context window while the chat lasts
         da: Intet, for chatbotten beholder kun teksten i sit kontekstvindue, mens chatten varer
-      - en: Personal data goes to a provider with no data processing agreement or control over its use
+      - en: Personal data goes to a provider with no data processing agreement or control of its use
         da: Personoplysninger sendes til en udbyder uden databehandleraftale eller kontrol med brugen
-      - en: The only risk is that the draft letter may contain invented facts about the citizen
-        da: Den eneste risiko er, at udkastet til brevet kan indeholde opdigtede fakta om borgeren
+      - en: The only risk is that the draft letter may contain invented facts about the citizen's case
+        da: Den eneste risiko er, at udkastet til brevet kan indeholde opdigtede fakta om borgerens sag
       - en: None, as long as she deletes the chat history as soon as the letter is written
         da: Intet, så længe hun sletter chathistorikken, så snart brevet er skrevet
     answer: 1

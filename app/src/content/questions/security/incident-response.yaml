@@ -21,8 +21,8 @@ questions:
         da: Torsdag kl. 9.00 — 72 timer efter, at den blev bekendt med bruddet
       - en: Within 24 hours, because health data is involved
         da: Inden for 24 timer, fordi der er tale om helbredsoplysninger
-      - en: 72 hours after the laptop was stolen, whenever that was
-        da: 72 timer efter, at computeren blev stjålet, uanset hvornår det var
+      - en: 72 hours after the laptop was stolen from the car, whenever that was
+        da: 72 timer efter, at computeren blev stjålet fra bilen, uanset hvornår det var
       - en: Within one month, when the internal investigation is complete
         da: Inden for en måned, når den interne undersøgelse er afsluttet
     answer: 0
@@ -78,8 +78,8 @@ questions:
     options:
       - en: Wipe the three servers at once and restore them from last night's backup
         da: Slette de tre servere med det samme og gendanne dem fra nattens backup
-      - en: Cut the affected servers off the network and secure logs and snapshots first
-        da: Koble de ramte servere fra netværket og sikre logs og snapshots først
+      - en: Cut the affected servers off the network and secure logs and snapshots
+        da: Koble de ramte servere fra netværket og sikre logs og snapshots
       - en: Leave the servers running untouched to watch the attackers and learn more
         da: Lade serverne køre urørt for at holde øje med angriberne og lære mere
       - en: Run antivirus scans on the servers while they stay connected to the network
@@ -253,8 +253,8 @@ questions:
     options:
       - en: Gaps in roles, decisions and communication, such as who may call the police
         da: Huller i roller, beslutninger og kommunikation, fx hvem der må ringe til politiet
-      - en: Whether the backups can really be restored within the agreed recovery time
-        da: Om backupperne reelt kan gendannes inden for den aftalte genopretningstid
+      - en: Whether the backups can really be restored within the agreed recovery time objective
+        da: Om backupperne reelt kan gendannes inden for den aftalte genopretningstid (RTO)
       - en: How many employees would click on a phishing email carrying the ransomware
         da: Hvor mange medarbejdere der ville klikke på en phishingmail med ransomwaren
       - en: Which weaknesses in the firewall an attacker could use to enter the network
@@ -359,8 +359,8 @@ questions:
         it-sikkerhedsteamet og en krisestab ledet af topledelsen. Hvilken
         arbejdsdeling mellem dem er den rigtige?
     options:
-      - en: The crisis team isolates infected servers, while IT approves press statements
-        da: Krisestaben isolerer ramte servere, mens IT godkender pressemeddelelser
+      - en: The crisis team isolates the infected servers, while IT approves the press statements
+        da: Krisestaben isolerer de ramte servere, mens IT godkender pressemeddelelserne
       - en: The crisis team only starts once IT has cleaned up, to handle the aftermath
         da: Krisestaben går først i gang, når IT har ryddet op, og tager sig af efterspillet
       - en: IT handles the whole event alone, since a cyberattack is a technical matter

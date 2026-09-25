@@ -72,12 +72,12 @@ questions:
     options:
       - en: Because a test score should always be computed on the training data instead
         da: Fordi en testscore altid bør beregnes på træningsdataene i stedet
-      - en: Because the choices were fitted to the test data, so it no longer counts as new
+      - en: Because the choices were tuned to the test data, so it no longer counts as new
         da: Fordi valgene er tilpasset testdataene, så de ikke længere tæller som nye
       - en: Because three weeks of training is too short for any model to be reliable
         da: Fordi tre ugers træning er for kort tid til, at nogen model kan være pålidelig
-      - en: Because 94% is too low for money laundering, where only 100% is acceptable
-        da: Fordi 94 % er for lidt ved hvidvask, hvor kun 100 % kan accepteres
+      - en: Because 94% is too low for money laundering, where only a perfect 100% is acceptable
+        da: Fordi 94 % er for lidt ved hvidvask, hvor kun fejlfri 100 % kan accepteres
     answer: 1
     explanation:
       en: >-

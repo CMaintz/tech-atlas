@@ -170,8 +170,8 @@ questions:
         Ved en ugentlig gennemgang i en dansk bank noterer en analytiker fire fund.
         Hvilket af dem er en kompromitteringsindikator?
     options:
-      - en: A web server runs a version with a known CVE that is not yet patched
-        da: En webserver kører en version med en kendt CVE, der endnu ikke er patchet
+      - en: A public web server runs a version with a known CVE that is not yet patched
+        da: En offentlig webserver kører en version med en kendt CVE, der endnu ikke er patchet
       - en: An administrator account can still log in without multi-factor login
         da: En administratorkonto kan stadig logge ind uden flerfaktorgodkendelse
       - en: Remote Desktop on a test server can be reached from the whole internet

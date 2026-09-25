@@ -80,7 +80,7 @@ questions:
     options:
       - en: The vendor — a preparatory task always falls outside high-risk
         da: Leverandøren — en forberedende opgave falder altid uden for højrisiko
-      - en: Not the vendor — it is high-risk because it profiles applicants
+      - en: Not the vendor — it is high-risk as it profiles applicants
         da: Ikke leverandøren — det er højrisiko, fordi det profilerer ansøgere
       - en: Neither — ranking job applicants is a prohibited practice
         da: Ingen af dem — at rangere jobansøgere er en forbudt praksis
@@ -196,8 +196,8 @@ questions:
         skjult tekst, der bad assistenten om netop det. Assistenten skal kun
         opsummere. Hvilken ændring forhindrer bedst, at det sker igen?
     options:
-      - en: Give it read-only mailbox access and have a person approve any sending
-        da: Giv den kun læseadgang til postkassen, og lad et menneske godkende al afsendelse
+      - en: Give it read-only access and have a person approve any sending
+        da: Giv den kun læseadgang, og lad et menneske godkende al afsendelse
       - en: Add a system-prompt rule never to follow instructions found in emails
         da: Tilføj en regel i systemprompten om aldrig at følge instruktioner i mails
       - en: Replace the model with a larger one that is better at spotting tricks
@@ -306,10 +306,10 @@ questions:
     options:
       - en: Poisoning targets language models; adversarial examples target images
         da: Forgiftning rammer sprogmodeller; adversarielle eksempler rammer billeder
-      - en: Poisoning corrupts what the model learns; an adversarial example fools a finished model
-        da: Forgiftning ødelægger det, modellen lærer; et adversarielt eksempel narrer en færdig model
-      - en: Poisoning needs access to the model's weights; adversarial examples never do
-        da: Forgiftning kræver adgang til modellens vægte; adversarielle eksempler gør aldrig
+      - en: Poisoning corrupts what the model learns; adversarial examples fool a finished model
+        da: Forgiftning ødelægger det, modellen lærer; adversarielle eksempler narrer en færdig model
+      - en: Poisoning requires direct access to the trained model's weights; adversarial examples never do
+        da: Forgiftning kræver direkte adgang til den trænede models vægte; adversarielle eksempler gør aldrig
       - en: Poisoning is detected at once in testing; adversarial examples go unnoticed
         da: Forgiftning opdages straks ved test; adversarielle eksempler går ubemærket hen
     answer: 1

@@ -127,10 +127,10 @@ questions:
         rigtige loginside i realtid og overtager hendes indloggede session. Hvilken
         loginmetode ville have stoppet angriberen, selv om hun blev narret?
     options:
-      - en: A longer, more complex password that is changed every 90 days
-        da: En længere og mere kompleks adgangskode, der skiftes hver 90. dag
-      - en: A one-time code sent by SMS to her work phone at each login
-        da: En engangskode sendt som sms til hendes arbejdstelefon ved hvert login
+      - en: A longer, more complex password that must be changed every 90 days
+        da: En længere og mere kompleks adgangskode, der skal skiftes hver 90. dag
+      - en: A six-digit one-time code sent by SMS to her work phone at each login
+        da: En sekscifret engangskode sendt som sms til hendes arbejdstelefon ved hvert login
       - en: A six-digit code from an authenticator app on her work phone
         da: En sekscifret kode fra en autentificeringsapp på hendes arbejdstelefon
       - en: A passkey (FIDO2/WebAuthn) stored on her work phone or laptop
@@ -185,10 +185,10 @@ questions:
         bruge det OAuth 2.0-access token, appen modtager, som bevis på, at brugeren er
         logget ind, og identificere brugeren ud fra det. Hvad er det bedste råd?
     options:
-      - en: Use OpenID Connect, whose ID token states who logged in; OAuth 2.0 only grants access
+      - en: Use OpenID Connect, whose ID token says who logged in; OAuth 2.0 only grants access
         da: Brug OpenID Connect, hvis ID-token siger, hvem der loggede ind; OAuth 2.0 giver kun adgang
-      - en: Keep the plan, as an OAuth 2.0 access token is itself a signed statement of identity
-        da: Behold planen, for et OAuth 2.0-access token er i sig selv en signeret identitetserklæring
+      - en: Keep the plan, as an OAuth 2.0 access token is itself a signed statement of the user's identity
+        da: Behold planen, for et OAuth 2.0-access token er i sig selv en signeret erklæring om brugerens identitet
       - en: Switch to SAML, because OAuth 2.0 cannot be used by web applications at all
         da: Skift til SAML, fordi OAuth 2.0 slet ikke kan bruges af webapplikationer
       - en: Keep OAuth 2.0 but also ask for the Microsoft password so the app can check it
@@ -372,11 +372,11 @@ questions:
           Identitetsudbyderen tjekker login → Identitetsudbyderen sender signeret
           assertion → Appen opretter session
       - en: >-
-          User opens app → App asks for the password → App forwards it to identity
-          provider → Identity provider sends signed assertion → App creates session
+          User opens app → App asks the user for her password → App forwards the password
+          to identity provider → Identity provider sends signed assertion → App creates session
         da: >-
-          Brugeren åbner appen → Appen beder om adgangskoden → Appen sender den til
-          identitetsudbyderen → Identitetsudbyderen sender signeret assertion → Appen
+          Brugeren åbner appen → Appen beder brugeren om adgangskoden → Appen sender
+          adgangskoden til identitetsudbyderen → Identitetsudbyderen sender signeret assertion → Appen
           opretter session
     answer: 2
     explanation:

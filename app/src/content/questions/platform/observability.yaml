@@ -76,12 +76,12 @@ questions:
     options:
       - en: Pause risky releases and work on stability, as the 43-minute budget is spent
         da: Stoppe risikable udgivelser og arbejde på stabilitet, da budgettet på 43 minutter er brugt
-      - en: Carry on, since 0.1 % of 30 days is about seven hours, so 45 minutes is fine
-        da: Fortsætte, for 0,1 % af 30 dage er omkring syv timer, så 45 minutter er fint
+      - en: Carry on, since 0.1 % of 30 days is about seven hours, so 45 minutes is well within it
+        da: Fortsætte, for 0,1 % af 30 dage er omkring syv timer, så 45 minutter er langt inden for
       - en: Raise the target to 99.99 %, so the team is pushed to be more careful
         da: Hæve målet til 99,99 %, så teamet bliver presset til at være mere forsigtigt
-      - en: Pay compensation to customers, since missing the target breaches a contract
-        da: Betale kompensation til kunderne, fordi et overskredet mål er et kontraktbrud
+      - en: Pay compensation to affected customers, since missing the target breaches a contract
+        da: Betale kompensation til de berørte kunder, fordi et overskredet mål er et kontraktbrud
     answer: 0
     explanation:
       en: >-
@@ -128,10 +128,10 @@ questions:
         Driftsteamet sigter selv efter 99,95 %. Hvorfor sætter det sit eget mål højere
         end kontrakten?
     options:
-      - en: Because the contract figure is the internal goal and 99.95 % is the promise
-        da: Fordi kontraktens tal er det interne mål, og 99,95 % er løftet
-      - en: Because missing the internal target also triggers the price reduction
-        da: Fordi det også udløser prisnedslaget, hvis det interne mål ikke nås
+      - en: Because the contract figure is the internal goal and 99.95 % is the customer promise
+        da: Fordi kontraktens tal er det interne mål, og 99,95 % er løftet til kunderne
+      - en: Because missing the internal target also triggers the price reduction in the contract
+        da: Fordi det også udløser kontraktens prisnedslag, hvis det interne mål ikke nås
       - en: Because the higher figure is what gets reported to customers each month
         da: Fordi det højere tal er det, der rapporteres til kunderne hver måned
       - en: To keep a safety margin, reacting to problems before the contract is broken

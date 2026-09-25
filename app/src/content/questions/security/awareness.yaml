@@ -79,8 +79,8 @@ questions:
         da: Svare på mailen og bede direktøren bekræfte betalingen
       - en: Pay it, since the address is the director's own and looks genuine
         da: Betale, da adressen er direktørens egen og ser ægte ud
-      - en: Call the director on the number she already has, not one in the mail
-        da: Ringe til direktøren på det nummer, hun har i forvejen, ikke et fra mailen
+      - en: Call the director on a number she knows, not one from the mail
+        da: Ringe til direktøren på et nummer, hun kender, ikke et fra mailen
       - en: Pay it, but ask the bank to watch the transfer afterwards
         da: Betale, men bede banken holde øje med overførslen bagefter
     answer: 2
@@ -392,11 +392,11 @@ questions:
         hovedtrinnene komme?
     options:
       - en: >-
-          Develop the campaign → Test it on users → Choose the target group → Set
-          SMART goals → Measure the effect
+          Develop the campaign → Test it on a pilot group of users → Choose the target
+          group → Set SMART goals → Measure the effect
         da: >-
-          Udvikl kampagnen → Test den på brugerne → Vælg målgruppen → Sæt SMART-mål →
-          Mål effekten
+          Udvikl kampagnen → Test den på en pilotgruppe af brugere → Vælg målgruppen →
+          Sæt SMART-mål → Mål effekten
       - en: >-
           Decide the behaviour for a target group → Map barriers → Set SMART goals
           → Develop and user-test → Measure the effect

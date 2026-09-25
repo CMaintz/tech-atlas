@@ -133,9 +133,9 @@ questions:
     options:
       - en: None, because the traffic is still encrypted, so logging in is safe
         da: Ingen, for trafikken er stadig krypteret, så det er sikkert at logge ind
-      - en: The connection is fully unencrypted, so anyone nearby can read it
-        da: Forbindelsen er helt ukrypteret, så alle i nærheden kan læse med
-      - en: The portal's server is infected with malware the browser has detected
+      - en: The connection is fully unencrypted, so anyone on the same network can read it
+        da: Forbindelsen er helt ukrypteret, så alle på samme netværk kan læse med
+      - en: The portal's server is infected with malware that the browser has detected
         da: Portalens server er inficeret med malware, som browseren har opdaget
       - en: The browser cannot confirm who holds the key, so it may be an impostor
         da: Browseren kan ikke bekræfte, hvem der har nøglen, så det kan være en bedrager
@@ -303,12 +303,12 @@ questions:
         på en seddel i samme taske. Disken indeholder kunders lønoplysninger. Hvordan
         bør firmaet vurdere den beskyttelse, krypteringen gav?
     options:
-      - en: Little — whoever holds the key can decrypt, so treat the data as exposed
+      - en: Little — whoever has the key can decrypt, so treat the data as exposed
         da: Ringe — den, der har nøglen, kan dekryptere, så data må anses for kompromitteret
-      - en: Full, because modern disk encryption cannot be broken in practice
-        da: Fuld, for moderne diskkryptering kan ikke brydes i praksis
-      - en: Full, unless there is evidence that the thief opened the files
-        da: Fuld, medmindre der er tegn på, at tyven har åbnet filerne
+      - en: Full, because modern full-disk encryption cannot be broken by any practical attack
+        da: Fuld, for moderne fuld diskkryptering kan ikke brydes med noget praktisk angreb
+      - en: Full, unless there is concrete evidence that the thief actually opened the files
+        da: Fuld, medmindre der er konkrete tegn på, at tyven faktisk har åbnet filerne
       - en: None that matters, as encryption only protects data being sent
         da: Ingen af betydning, da kryptering kun beskytter data under forsendelse
     answer: 0

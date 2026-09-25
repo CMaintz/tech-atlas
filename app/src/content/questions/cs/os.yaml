@@ -133,12 +133,12 @@ questions:
     options:
       - en: The log reached its size limit and was archived; no action is needed
         da: Loggen nåede sin maksimale størrelse og blev arkiveret; intet skal gøres
-      - en: The Security log was cleared by that account; investigate it as suspicious
+      - en: The Security log was cleared by that account; investigate as suspicious
         da: Sikkerhedsloggen blev ryddet af den konto; undersøg det som mistænkeligt
-      - en: The account logged on successfully; check whether its password is weak
-        da: Kontoen loggede ind med succes; tjek, om dens adgangskode er svag
-      - en: A scheduled backup of the event log ran; confirm the backup finished
-        da: En planlagt backup af hændelsesloggen kørte; bekræft, at den blev færdig
+      - en: The account logged on successfully at night; check whether its password is weak
+        da: Kontoen loggede ind med succes om natten; tjek, om dens adgangskode er svag
+      - en: A scheduled backup of the Security event log ran; confirm the backup finished
+        da: En planlagt backup af sikkerhedshændelsesloggen kørte; bekræft, at den blev færdig
     answer: 1
     explanation:
       en: >-

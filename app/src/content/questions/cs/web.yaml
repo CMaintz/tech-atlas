@@ -15,12 +15,12 @@ questions:
         kommunens webbaserede sagssystem over HTTPS via caféens åbne wi-fi. En anden
         gæst optager al trafikken på netværket. Hvad kan gæsten få at vide?
     options:
-      - en: Everything, since an open Wi-Fi without a password is not encrypted
-        da: Alt, fordi et åbent wi-fi uden adgangskode ikke er krypteret
+      - en: Everything she does, since an open Wi-Fi without a password is not encrypted
+        da: Alt, hvad hun laver, fordi et åbent wi-fi uden adgangskode ikke er krypteret
       - en: The server she talks to and roughly how much data flows, not the pages
         da: Serveren hun taler med og cirka hvor meget data der sendes, ikke siderne
-      - en: The full addresses of the pages she opens, but not her password
-        da: De fulde adresser på de sider, hun åbner, men ikke hendes adgangskode
+      - en: The full addresses of every page she opens, but not her password itself
+        da: De fulde adresser på hver side, hun åbner, men ikke selve hendes adgangskode
       - en: Nothing at all, since HTTPS also hides which website she is using
         da: Slet intet, for HTTPS skjuler også, hvilket website hun bruger
     answer: 1
@@ -128,12 +128,12 @@ questions:
     options:
       - en: Let the API send Access-Control-Allow-Origin with the app's origin
         da: Lade API'et sende Access-Control-Allow-Origin med appens oprindelse
-      - en: Restart the API, since it is down and Postman fails to detect it
-        da: Genstarte API'et, for det er nede, og Postman opdager det ikke
+      - en: Restart the API server, since it is down and Postman simply fails to detect it
+        da: Genstarte API-serveren, for den er nede, og Postman opdager det bare ikke
       - en: Ask users to switch off the same-origin policy in their browsers
         da: Bede brugerne slå same-origin policy fra i deres browsere
-      - en: Move the API to plain http:// so the browser stops checking it
-        da: Flytte API'et til almindelig http://, så browseren holder op med at tjekke
+      - en: Move the API to plain http:// so the browser stops checking the origin
+        da: Flytte API'et til almindelig http://, så browseren holder op med at tjekke oprindelsen
     answer: 0
     explanation:
       en: >-

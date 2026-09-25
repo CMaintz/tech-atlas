@@ -138,21 +138,22 @@ questions:
           Ja — når de planlagte kontroller er på plads og lever op til politikken, er
           risikoen væk
       - en: >-
-          No — but the remaining risk now belongs to the IT supplier that runs the controls
+          No — but the remaining risk now belongs to the IT supplier that operates the new
+          controls
         da: >-
-          Nej — men den tilbageværende risiko ligger nu hos den it-leverandør, der driver
-          kontrollerne
+          Nej — men den tilbageværende risiko ligger nu hos den it-leverandør, der driver de
+          nye kontroller
       - en: >-
           Yes — what is left only needs to be recorded again if an incident actually occurs
         da: >-
           Ja — det, der er tilbage, skal først registreres igen, hvis en hændelse faktisk
           sker
       - en: >-
-          No — the remaining risk must be re-rated and then accepted by its owner or treated
+          No — the remaining risk must be re-rated, then accepted by its owner or treated
           further
         da: >-
-          Nej — den tilbageværende risiko skal vurderes igen og derefter accepteres af
-          ejeren eller håndteres yderligere
+          Nej — restrisikoen skal vurderes igen og derefter accepteres af ejeren eller
+          håndteres yderligere
     answer: 3
     explanation:
       en: >-
@@ -203,10 +204,9 @@ questions:
         Hvilken beslutning passer til bestyrelsens udmelding?
     options:
       - en: >-
-          Accept the HR risk on record, and treat the SCADA risk further until it is low
+          Accept the HR risk on record; treat the SCADA risk further until it is low
         da: >-
-          Acceptér HR-risikoen skriftligt, og håndtér SCADA-risikoen yderligere, til den er
-          lav
+          Acceptér HR-risikoen skriftligt; håndtér SCADA-risikoen yderligere, til den er lav
       - en: >-
           Treat both risks further, since any medium risk lies above the stated appetite
         da: >-
@@ -379,20 +379,20 @@ questions:
           Kvantitativ er altid det mest objektive valg, fordi tal fjerner menneskelig
           vurdering
       - en: >-
-          Qualitative rates threats, while quantitative rates vulnerabilities in the same
-          systems
+          Qualitative rates the threats, while quantitative rates the vulnerabilities in the
+          same systems
         da: >-
-          Kvalitativ vurderer trusler, mens kvantitativ vurderer sårbarheder i de samme
+          Kvalitativ vurderer truslerne, mens kvantitativ vurderer sårbarhederne i de samme
           systemer
       - en: >-
-          Quantitative allows cost-benefit sums in kroner but needs data; qualitative is
-          faster but subjective
+          Quantitative allows cost-benefit in kroner but needs data; qualitative is quick
+          but subjective
         da: >-
-          Kvantitativ giver cost-benefit-regnestykker i kroner men kræver data; kvalitativ
-          er hurtigere men subjektiv
+          Kvantitativ muliggør cost-benefit i kroner men kræver data; kvalitativ er hurtig
+          men subjektiv
       - en: >-
-          Qualitative is required by ISO/IEC 27005, so quantitative is only for insurance
-          companies
+          Qualitative is required by ISO/IEC 27005, so quantitative is only used by
+          insurance companies
         da: >-
           Kvalitativ er et krav i ISO/IEC 27005, så kvantitativ bruges kun af
           forsikringsselskaber
@@ -446,16 +446,17 @@ questions:
         informationssikkerhedskoordinatoren gøre ved risikoregistret?
     options:
       - en: >-
-          Reassess the VPN risk now with a higher likelihood, and check the treatment still
+          Reassess the VPN risk now with higher likelihood, and check the treatment still
           holds
         da: >-
           Vurdér VPN-risikoen igen nu med højere sandsynlighed, og tjek, at håndteringen
           stadig holder
       - en: >-
-          Keep the approved rating until the yearly review, so the register stays consistent
+          Keep the approved rating until the yearly review in March, so the register stays
+          consistent
         da: >-
-          Behold den godkendte vurdering til den årlige gennemgang, så registret forbliver
-          konsistent
+          Behold den godkendte vurdering til den årlige gennemgang i marts, så registret
+          forbliver konsistent
       - en: >-
           Raise the impact rating, since a known weakness makes a break-in more damaging
         da: >-

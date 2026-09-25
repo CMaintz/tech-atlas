@@ -78,8 +78,8 @@ questions:
         skal de tre tiltag klassificeres efter attributten "control type" i ISO/IEC
         27002:2022?
     options:
-      - en: (1) preventive, (2) corrective, (3) detective
-        da: (1) forebyggende, (2) korrigerende, (3) detekterende
+      - en: (1) preventive, (2) preventive, (3) corrective
+        da: (1) forebyggende, (2) forebyggende, (3) korrigerende
       - en: (1) detective, (2) preventive, (3) corrective
         da: (1) detekterende, (2) forebyggende, (3) korrigerende
       - en: (1) preventive, (2) detective, (3) corrective
@@ -138,8 +138,8 @@ questions:
     options:
       - en: Back up to the same NAS every hour instead of every night
         da: Tage backup til den samme NAS hver time i stedet for hver nat
-      - en: Mirror the NAS disks with RAID 1 so a copy always exists
-        da: Spejle NAS'ens diske med RAID 1, så der altid findes en kopi
+      - en: Mirror the NAS disks with RAID 1 so a second copy always exists
+        da: Spejle NAS'ens diske med RAID 1, så der altid findes en ekstra kopi
       - en: Scan the backup files with antivirus once a week
         da: Scanne backupfilerne med antivirus en gang om ugen
       - en: Keep a copy offline or immutable, and test restores regularly
@@ -240,8 +240,8 @@ questions:
         da: Indføre Implementation Group 3, så alle safeguards er dækket med det samme
       - en: Order an external penetration test before introducing any other control
         da: Bestille en ekstern penetrationstest, før andre kontroller indføres
-      - en: Start with the Implementation Group 1 safeguards, the basic cyber hygiene
-        da: Starte med safeguards i Implementation Group 1, den basale cyberhygiejne
+      - en: 'Start with the Implementation Group 1 safeguards: basic cyber hygiene'
+        da: 'Starte med safeguards i Implementation Group 1: basal cyberhygiejne'
       - en: Pick the cheapest safeguard from each of the 18 controls to begin with
         da: Vælge den billigste safeguard fra hver af de 18 kontroller til at begynde med
     answer: 2
@@ -294,8 +294,8 @@ questions:
         deres webmail fra udlandet med de korrekte adgangskoder. Hvilket tiltag ville
         mest direkte have stoppet disse login?
     options:
-      - en: Requiring a second factor, such as app approval, on webmail logins
-        da: At kræve en ekstra faktor, fx godkendelse i en app, ved login på webmail
+      - en: Requiring a second factor, such as app approval, for webmail
+        da: At kræve en ekstra faktor, fx godkendelse i en app, til webmail
       - en: Requiring 16-character passwords that are changed every 90 days
         da: At kræve adgangskoder på 16 tegn, der skiftes hver 90. dag
       - en: Installing up-to-date antivirus on all the employees' computers
