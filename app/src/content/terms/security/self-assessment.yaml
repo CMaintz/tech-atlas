@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: It is a cheap first step for smaller organisations to see where they stand against NIS2 and similar demands before spending money on outside help.
     da: Det er et billigt første skridt for mindre organisationer til at se, hvor de står i forhold til NIS2 og lignende krav, før de bruger penge på ekstern hjælp.
+deepDive:
+  en: |-
+    A self-assessment is a first-party evaluation: the organisation answers questions about itself, usually against a fixed catalogue, and its value depends almost entirely on how evidence is handled. It sits at the bottom of a hierarchy of assurance. Second-party assessments are made by a customer or partner, for example a supplier audit; third-party assessments are made by an independent body, such as an accredited ISO/IEC 27001 certification audit or an ISAE 3402 or SOC 2 assurance report from an auditor. The same questionnaire can serve all three, so what distinguishes them is independence and the depth of evidence examined, not the questions.
+
+    Many established schemes start with self-assessment. The Cloud Security Alliance's STAR programme has a Level 1 self-assessment in which providers publish their answers to the Consensus Assessments Initiative Questionnaire (CAIQ), mapped to the Cloud Controls Matrix; CIS offers a self-assessment tool for the CIS Controls; the NIST CSF is designed around an organisation describing its own current profile; and C2M2 is intended as a facilitated self-evaluation. In Denmark, D-mærket begins with a self-assessment that determines which criteria apply to the company, followed by a review by D-mærket's auditors before the label is granted; the label is awarded for one year at a time, and renewal starts with the self-assessment again.
+
+    The typical weaknesses are predictable. Binary yes/no questions reward the existence of a policy rather than its operation; respondents answer for the design of a control, not its operating effectiveness over time (the distinction between Type I and Type II reports in ISAE 3402 and SOC 2); optimism bias inflates scores, especially when the person answering also owns the control; and questions are interpreted differently from year to year, destroying comparability. Mitigations include requiring an evidence reference for every positive answer, sampling a few answers for verification, rotating who answers, and scoring on a graded scale with defined criteria.
+
+    Self-assessment is not the same as the internal audit required by ISO/IEC 27001 clause 9.2, which must follow an audit programme and be carried out by auditors selected to ensure objectivity and impartiality; a self-assessment can feed the internal audit and management review but cannot replace it. Under NIS2 no self-assessment replaces supervision either, although Article 21(2)(f) requires procedures to assess the effectiveness of the measures, and a structured, repeated self-assessment is a common and inexpensive way to meet part of that duty.
+  da: |-
+    En selvevaluering er en førstepartsvurdering: organisationen besvarer spørgsmål om sig selv, som regel ud fra et fast katalog, og værdien afhænger næsten helt af, hvordan dokumentationen håndteres. Den ligger nederst i et hierarki af sikkerhed for, at tingene er i orden. Andenpartsvurderinger foretages af en kunde eller samarbejdspartner, fx en leverandøraudit; tredjepartsvurderinger foretages af et uafhængigt organ, fx en akkrediteret certificeringsaudit efter ISO/IEC 27001 eller en ISAE 3402- eller SOC 2-erklæring fra en revisor. Det samme spørgeskema kan bruges i alle tre, så forskellen ligger i uafhængigheden og i, hvor grundigt dokumentationen efterprøves, ikke i spørgsmålene.
+
+    Mange etablerede ordninger begynder med en selvevaluering. Cloud Security Alliances STAR-program har et niveau 1, hvor udbydere offentliggør deres svar på Consensus Assessments Initiative Questionnaire (CAIQ), koblet til Cloud Controls Matrix; CIS tilbyder et selvevalueringsværktøj til CIS Controls; NIST CSF er bygget op om, at organisationen selv beskriver sin nuværende profil; og C2M2 er tænkt som en faciliteret selvevaluering. I Danmark begynder D-mærket med en selvevaluering, der afgør, hvilke kriterier der gælder for virksomheden, efterfulgt af en gennemgang hos D-mærkets auditorer, før mærket tildeles; mærket gives for ét år ad gangen, og fornyelsen begynder igen med selvevalueringen.
+
+    De typiske svagheder er forudsigelige. Ja/nej-spørgsmål belønner, at en politik findes, frem for at den efterleves; besvarelserne handler om kontrollens design, ikke om, hvorvidt den virker over tid (forskellen mellem type 1- og type 2-erklæringer efter ISAE 3402 og SOC 2); optimisme trækker scoren op, især når den, der svarer, også ejer kontrollen; og spørgsmålene fortolkes forskelligt fra år til år, så sammenligneligheden forsvinder. Modtræk er at kræve en henvisning til dokumentation for hvert positivt svar, at efterprøve et udsnit af svarene, at skifte mellem dem, der svarer, og at score på en graderet skala med definerede kriterier.
+
+    En selvevaluering er ikke det samme som den interne audit, ISO/IEC 27001 afsnit 9.2 kræver, og som skal følge et auditprogram og udføres af auditorer, der er udvalgt, så objektivitet og upartiskhed sikres; selvevalueringen kan føde ind i den interne audit og ledelsens evaluering, men ikke erstatte dem. Under NIS2 erstatter en selvevaluering heller ikke tilsynet, men artikel 21, stk. 2, litra f, kræver procedurer til at vurdere foranstaltningernes effektivitet, og en struktureret, gentagen selvevaluering er en udbredt og billig måde at opfylde en del af den pligt på.
 edges:
   requires: [compliance]
 sources:
@@ -31,4 +48,8 @@ sources:
     tier: course-material
   - title: D-mærket — Kriterier og selvevalueringsværktøj
     tier: official-doc
+  - title: D-mærket — Sådan får du D-mærket
+    tier: official-doc
+    publisher: D-mærket
+    url: https://d-maerket.dk/
 draft: true

@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: In a crisis people forget and guess; a good runbook makes the response fast and the same every time, and lets new staff handle problems only experts knew before.
     da: I en krise glemmer folk og gætter; en god runbook gør indsatsen hurtig og ens hver gang og lader nye medarbejdere håndtere problemer, som før kun eksperter kunne klare.
+deepDive:
+  en: |-
+    The word comes from mainframe operations, where a run book listed the jobs, parameters and recovery steps operators needed to run a batch schedule. In modern operations a runbook is procedural and narrow: one alert or one routine task, with a precondition, a sequence of diagnostic and remedial steps, verification that the fix worked and an escalation point. The term playbook is often used interchangeably, but many organisations use playbook for the broader, scenario-level response (a ransomware playbook, a data breach playbook covering roles, communications and legal notification), with runbooks as the technical procedures invoked from it. The Google SRE book reports that recording best practices ahead of time in a playbook gives roughly a threefold improvement in mean time to repair compared with improvising.
+
+    A well-structured runbook for an alert states what the alert means and its user impact, links to the dashboards and queries needed to confirm it, lists ordered diagnostic commands with expected output, gives mitigations from least to most invasive (drain a node, roll back the last deployment, fail over a region), says when to stop and escalate and to whom, and records owner and last review date. Linking the runbook from the alert itself, for example through a runbook_url annotation on a Prometheus rule, means the responder reaches it in one step from the page.
+
+    Runbooks decay: infrastructure changes, commands reference hosts that no longer exist, and steps that were correct become dangerous. Common countermeasures are keeping runbooks in version control next to the service code, reviewing them after every incident that used them, exercising them in game days, and deleting alerts that have no meaningful runbook, since an alert with no documented action is usually one that should not page. Runbooks written as narrative prose rather than executable, checkable steps are harder to follow at 3 a.m.
+
+    The natural evolution is automation. Steps that are fully deterministic can be converted into scripts, then into runbook automation tools or executable notebooks, and finally into self-healing controllers that act without paging anyone, at which point the alert should be downgraded or removed. On the security side SOAR platforms implement the same idea for SOC workflows, executing enrichment and containment steps automatically when a SIEM alert arrives. NIST SP 800-61 Rev. 3 (April 2025) frames incident response within the NIST Cybersecurity Framework 2.0 functions and expects organisations to maintain documented response procedures; runbooks are the most concrete form of such procedures, and for entities under NIS2 or DORA they are part of the evidence that incident handling is actually operational.
+  da: |-
+    Ordet stammer fra mainframe-driften, hvor en run book listede de jobs, parametre og genopretningstrin, som operatørerne skulle bruge for at afvikle en batchplan. I moderne drift er en runbook procedurel og snæver: én alarm eller én rutineopgave, med en forudsætning, en række diagnosticerende og afhjælpende trin, en kontrol af at rettelsen virkede, og et eskaleringspunkt. Ordet playbook bruges ofte i flæng, men mange organisationer bruger playbook om den bredere, scenariebaserede respons (en ransomware-playbook eller en playbook for brud på persondatasikkerheden, der dækker roller, kommunikation og anmeldelse til myndigheder), med runbooks som de tekniske procedurer, der kaldes derfra. Googles SRE-bog oplyser, at det giver cirka en tredobbelt forbedring af den gennemsnitlige tid til genopretning (MTTR) at nedskrive bedste praksis på forhånd i en playbook frem for at improvisere.
+
+    En velstruktureret runbook til en alarm beskriver, hvad alarmen betyder, og hvordan brugerne påvirkes, linker til de dashboards og forespørgsler, der skal bruges til at bekræfte den, oplister diagnostiske kommandoer i rækkefølge med forventet output, angiver afhjælpning fra mindst til mest indgribende (dræn en node, rul den seneste udrulning tilbage, fail over til en anden region), siger, hvornår man skal stoppe og eskalere og til hvem, og registrerer ejer og dato for seneste gennemgang. Når runbooken linkes direkte fra alarmen, fx via en runbook_url-annotation på en Prometheus-regel, kommer den vagthavende frem til den i ét skridt fra opkaldet.
+
+    Runbooks forældes: infrastrukturen ændrer sig, kommandoer henviser til hosts, der ikke længere findes, og trin, der var korrekte, bliver farlige. Typiske modtræk er at have runbooks i versionsstyring ved siden af tjenestens kode, gennemgå dem efter hver hændelse, hvor de blev brugt, øve dem på game days og slette alarmer uden en meningsfuld runbook, da en alarm uden dokumenteret handling som regel ikke burde vække nogen. Runbooks skrevet som fortællende prosa frem for eksekverbare, kontrollerbare trin er sværere at følge klokken tre om natten.
+
+    Den naturlige udvikling er automatisering. Trin, der er fuldt deterministiske, kan laves om til scripts, dernæst til værktøjer til runbook-automatisering eller eksekverbare notebooks og til sidst til selvhelende controllere, der handler uden at tilkalde nogen, hvorefter alarmen bør nedgraderes eller fjernes. På sikkerhedssiden implementerer SOAR-platforme samme idé for SOC-arbejdsgange og udfører berigelse og inddæmning automatisk, når en SIEM-alarm kommer ind. NIST SP 800-61 Rev. 3 (april 2025) indplacerer hændelseshåndtering i funktionerne i NIST Cybersecurity Framework 2.0 og forventer, at organisationer vedligeholder dokumenterede responsprocedurer; runbooks er den mest konkrete form for sådanne procedurer, og for enheder omfattet af NIS2 eller DORA indgår de i dokumentationen for, at hændelseshåndteringen reelt fungerer.
 edges:
   requires: [alerting]
   used-with:
@@ -43,4 +60,8 @@ sources:
     url: https://doi.org/10.6028/NIST.SP.800-61r3
     tier: standard
     publisher: NIST
+  - title: Google SRE book — Chapter 1, Introduction
+    tier: reference
+    publisher: Google
+    url: https://sre.google/sre-book/introduction/
 draft: true

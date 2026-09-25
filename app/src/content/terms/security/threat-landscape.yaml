@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Risks can only be judged against the threats that actually exist, so an outdated picture leads to protecting against yesterday's attacks.
     da: Risici kan kun vurderes ud fra de trusler, der faktisk findes, så et forældet billede fører til beskyttelse mod gårsdagens angreb.
+deepDive:
+  en: |-
+    A threat landscape is an aggregate, periodic picture rather than a feed. It is usually described at several levels: global and regional reports such as ENISA's annual Threat Landscape, national assessments, sector-specific assessments from sector CERTs or ISACs, and finally the organisation's own view, which filters the others through its sector, geography, technology stack and visibility. The organisation-level view is what ISO/IEC 27001:2022 clause 4.1 expects to be considered among external issues and what feeds likelihood estimates in the risk assessment; NIS2 Art. 21(2) adds that measures must follow an all-hazards approach, so the landscape should include accidental, technical and physical threats and not only hostile actors.
+
+    In Denmark the reference is the annual assessment Cybertruslen mod Danmark, published since 2016, first by the Centre for Cyber Security (CFCS) and, from the November 2025 edition, by Styrelsen for Samfundssikkerhed in close cooperation with, among others, the Danish Defence Intelligence Service. It uses a five-level scale, INGEN, LAV, MIDDEL, HØJ and MEGET HØJ, per purpose category. The 2025 edition kept cybercrime and cyber espionage at MEGET HØJ, cyber activism at HØJ, destructive cyber attacks at MIDDEL and cyber terrorism at INGEN, and for the first time organised the analysis around six attack types: ransomware, data theft, digital fraud, DDoS, manipulation of operational technology and wiper attacks. Such levels change between editions, so any register citing them should record the edition used.
+
+    A national threat level describes actors' intent and capability against the country as a whole; it is not a likelihood for a specific organisation. Translating it into risk requires asking which actors have a reason to target this organisation or will hit it opportunistically, which techniques they use, and which of the organisation's exposures match those techniques. Vendor reports such as Verizon's Data Breach Investigations Report or incident-response firms' annual reviews add useful statistics on initial access vectors and dwell times, but reflect the vendor's own customer and case sample, so they are indicative rather than representative.
+
+    The landscape differs from threat intelligence in time scale and purpose: the landscape is a strategic snapshot used for risk assessment, planning and board communication, typically refreshed annually; intelligence is the continuous, requirement-driven flow of analysed information that updates the snapshot and drives detection and response. An outdated landscape is a common reason why risk registers keep rating last decade's threats while missing current patterns such as edge-device exploitation, MFA fatigue or supply-chain compromise.
+  da: |-
+    Et trusselsbillede er et samlet, periodisk overblik og ikke et feed. Det beskrives typisk på flere niveauer: globale og regionale rapporter som ENISAs årlige Threat Landscape, nationale vurderinger, sektorvurderinger fra sektor-CERT'er eller ISAC'er og til sidst organisationens eget billede, som filtrerer de øvrige gennem dens branche, geografi, teknologi og synlighed. Det er organisationens eget billede, som ISO/IEC 27001:2022 punkt 4.1 forventer indgår blandt de eksterne forhold, og som leverer input til skønnene over sandsynlighed i risikovurderingen; NIS2 art. 21, stk. 2, tilføjer, at foranstaltningerne skal bygge på en tilgang, der omfatter alle farer, så trusselsbilledet bør omfatte utilsigtede, tekniske og fysiske trusler og ikke kun fjendtlige aktører.
+
+    I Danmark er referencen den årlige vurdering Cybertruslen mod Danmark, der er udkommet siden 2016, først fra Center for Cybersikkerhed (CFCS) og fra udgaven i november 2025 fra Styrelsen for Samfundssikkerhed i samarbejde med bl.a. Forsvarets Efterretningstjeneste. Den bruger en skala med fem niveauer, INGEN, LAV, MIDDEL, HØJ og MEGET HØJ, for hver formålskategori. Udgaven fra 2025 fastholdt cyberkriminalitet og cyberspionage på MEGET HØJ, cyberaktivisme på HØJ, destruktive cyberangreb på MIDDEL og cyberterror på INGEN og organiserede for første gang analysen omkring seks angrebstyper: ransomware-angreb, datatyveri, digital svindel, DDoS, manipulation af operationel teknologi og wiper-angreb. Niveauerne ændrer sig mellem udgaverne, så et risikoregister, der henviser til dem, bør angive, hvilken udgave der er brugt.
+
+    Et nationalt trusselsniveau beskriver aktørernes hensigt og kapacitet over for landet som helhed; det er ikke en sandsynlighed for en bestemt organisation. For at omsætte det til risiko må man spørge, hvilke aktører der har grund til at gå målrettet efter netop denne organisation eller vil ramme den opportunistisk, hvilke teknikker de bruger, og hvilke af organisationens eksponeringer der passer til de teknikker. Leverandørrapporter som Verizons Data Breach Investigations Report eller hændelsesfirmaernes årsrapporter giver nyttige tal for indgangsvektorer og opholdstid, men afspejler leverandørens egne kunder og sager og er derfor vejledende snarere end repræsentative.
+
+    Trusselsbilledet adskiller sig fra threat intelligence i tidshorisont og formål: Trusselsbilledet er et strategisk øjebliksbillede til risikovurdering, planlægning og kommunikation med bestyrelsen, typisk opdateret årligt; efterretningerne er den løbende, behovsstyrede strøm af analyseret information, der opdaterer billedet og driver detektion og respons. Et forældet trusselsbillede er en hyppig årsag til, at risikoregistre bliver ved med at vurdere det forrige årtis trusler og overser aktuelle mønstre som udnyttelse af edge-enheder, MFA-træthed eller kompromittering af forsyningskæden.
 edges:
   requires: [threat]
   part-of: [risk-management]
@@ -33,4 +50,8 @@ sources:
     tier: course-material
   - title: ISO/IEC 27005:2022
     tier: standard
+  - title: Cybertruslen mod Danmark 2025 (trusselsvurdering, november 2025)
+    tier: official-doc
+    publisher: Styrelsen for Samfundssikkerhed
+    url: https://samsik.dk/wp-content/uploads/2025/11/Cybertruslen-mod-Danmark-2025.pdf
 draft: true

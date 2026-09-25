@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Most of the code in a modern app was written by strangers; without this check, one old library can quietly open a hole that attackers already know how to use.
     da: Det meste af koden i en moderne app er skrevet af fremmede; uden dette tjek kan ét gammelt bibliotek stille åbne et hul, som angribere allerede ved, hvordan de udnytter.
+deepDive:
+  en: |-
+    An SCA tool works in three stages. Discovery builds the dependency inventory by parsing manifests and, preferably, lockfiles (package-lock.json, poetry.lock, go.sum, Cargo.lock, pom.xml resolved through Maven), resolving the full transitive graph, and — for compiled artefacts or container images — fingerprinting binaries, JARs and OS packages. Identification maps each component to a canonical identifier, today usually a Package URL (purl) and sometimes a CPE. Matching compares name and version against vulnerability sources such as the NVD (CPE-based), OSV.dev (ecosystem-native version ranges aggregated from GitHub Security Advisories, PyPA, RustSec, Go and others) and vendor feeds, and against licence data expressed as SPDX licence identifiers. The output is often an SBOM plus findings, which is why SCA and SBOM tooling increasingly overlap.
+
+    Accuracy is limited by identification. CPE matching generates false positives (a CVE for a product with a similar name) and misses (a component whose CPE was never assigned), and the NVD's enrichment backlog since early 2024 left many CVEs without CPE data for months, pushing tools towards OSV-style ecosystem advisories. Lockfile-less projects give only version ranges, so the scanner must guess what will be installed; vendored, shaded or statically linked code escapes manifest-based scanning entirely.
+
+    Prioritisation separates useful programmes from noisy ones. A vulnerable function is often not reachable from the application's call graph, so modern tools add reachability analysis; exploit likelihood (EPSS), presence in CISA's Known Exploited Vulnerabilities catalogue and supplier VEX statements further narrow the list. Remediation is automated with Dependabot or Renovate pull requests that bump versions, but transitive fixes may require overrides or waiting for an intermediate maintainer. Licence analysis flags strong copyleft terms (GPL, AGPL) in distributed or network-exposed software and missing attribution obligations.
+
+    SCA has also expanded from known-vulnerability matching to supply-chain threats: detecting typosquatted or newly published malicious packages, dependency confusion (demonstrated publicly by Alex Birsan in 2021, when internal package names were claimed on public registries), install scripts that execute on npm install, and abandoned maintainership. OWASP ranked "Vulnerable and Outdated Components" as A06 in the Top 10:2021, and the 2025 edition broadened it to "Software Supply Chain Failures" at A03:2025. SCA differs from SAST, which analyses first-party source for coding flaws, and from container image scanning, which applies the same matching to OS packages in an image; it is a kind of vulnerability scanning focused on third-party components rather than running hosts.
+  da: |-
+    Et SCA-værktøj arbejder i tre trin. Opdagelse opbygger fortegnelsen over afhængigheder ved at læse manifester og helst lockfiler (package-lock.json, poetry.lock, go.sum, Cargo.lock, pom.xml opløst via Maven), opløse hele den transitive graf og — for kompilerede artefakter eller container-images — tage fingeraftryk af binærer, JAR-filer og styresystempakker. Identifikation kobler hver komponent til en kanonisk identifikator, i dag som regel en Package URL (purl) og undertiden en CPE. Matchning sammenligner navn og version med sårbarhedskilder som NVD (CPE-baseret), OSV.dev (økosystemets egne versionsintervaller samlet fra GitHub Security Advisories, PyPA, RustSec, Go m.fl.) og leverandørfeeds samt med licensdata udtrykt som SPDX-licensidentifikatorer. Resultatet er ofte en SBOM plus fund, og derfor overlapper SCA- og SBOM-værktøjer i stigende grad.
+
+    Præcisionen begrænses af identifikationen. CPE-matchning giver falske positiver (en CVE for et produkt med et lignende navn) og oversete fund (en komponent, der aldrig har fået en CPE), og NVD's efterslæb med berigelse siden begyndelsen af 2024 efterlod mange CVE'er uden CPE-data i måneder, hvilket har skubbet værktøjerne mod økosystemspecifikke advisories i OSV-stil. Projekter uden lockfil giver kun versionsintervaller, så scanneren må gætte, hvad der bliver installeret; vendoreret, shadet eller statisk linket kode undslipper manifestbaseret scanning helt.
+
+    Prioritering adskiller brugbare programmer fra støjende. En sårbar funktion kan ofte ikke nås fra applikationens kaldgraf, så moderne værktøjer tilføjer reachability-analyse; sandsynligheden for udnyttelse (EPSS), optagelse i CISA's katalog over Known Exploited Vulnerabilities og leverandørers VEX-erklæringer indsnævrer listen yderligere. Afhjælpning automatiseres med pull requests fra Dependabot eller Renovate, der løfter versioner, men transitive rettelser kan kræve overrides eller at vente på en mellemliggende vedligeholder. Licensanalyse markerer stærke copyleft-vilkår (GPL, AGPL) i software, der distribueres eller eksponeres over netværk, og manglende krav om kildeangivelse.
+
+    SCA er også vokset fra matchning af kendte sårbarheder til trusler i forsyningskæden: detektion af typosquattede eller nyudgivne ondsindede pakker, dependency confusion (demonstreret offentligt af Alex Birsan i 2021, hvor interne pakkenavne blev registreret i offentlige registries), installationsscripts, der kører ved npm install, og forladte projekter uden vedligeholder. OWASP rangerede "Vulnerable and Outdated Components" som A06 i Top 10:2021, og 2025-udgaven udvidede kategorien til "Software Supply Chain Failures" som A03:2025. SCA adskiller sig fra SAST, der analyserer egen kildekode for kodefejl, og fra scanning af container-images, der anvender samme matchning på styresystempakker i et image; det er en form for sårbarhedsscanning rettet mod tredjepartskomponenter frem for kørende værter.
 edges:
   kind-of: [vulnerability-scanning]
   requires:
@@ -49,6 +66,10 @@ sources:
     publisher: OWASP Foundation
   - title: OWASP Dependency-Check
     url: https://owasp.org/www-project-dependency-check/
+    tier: reference
+    publisher: OWASP Foundation
+  - title: OWASP Top 10:2025
+    url: https://top10.owasp.org/2025
     tier: reference
     publisher: OWASP Foundation
 draft: true

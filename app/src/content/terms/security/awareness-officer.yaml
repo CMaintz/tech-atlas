@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Attacks aimed at people keep changing, so someone must own the job of keeping staff ready — NIS2 even requires training for management.
     da: Angreb rettet mod mennesker ændrer sig hele tiden, så nogen skal eje opgaven med at holde medarbejderne klar — NIS2 kræver endda træning af ledelsen.
+deepDive:
+  en: |-
+    NIST SP 800-50 Rev. 1 (September 2024), which supersedes SP 800-50 (2003) and SP 800-16 (1998), is the most detailed public description of the role, calling it the CPLP manager (Cybersecurity and Privacy Learning Program manager). Section 1.6.3 gives it tactical responsibility: interpreting legislation and policy with subject-matter experts, producing timely material for defined audiences, choosing dissemination channels, collecting learner feedback, reviewing content periodically, setting up tracking and reporting, identifying staff with significant security or privacy responsibilities, and reporting goals and metrics to a senior leadership committee. Strategy, budget and accountability stay with the head of the organisation and senior leadership, which is the right split: the officer runs the programme but does not own the risk.
+
+    The regulatory hooks the officer works against are specific. ISO/IEC 27001:2022 clause 7.2 requires the organisation to determine competence, act to close gaps and retain documented information as evidence, and clause 7.3 requires that people doing work under the organisation's control are aware of the information security policy, their contribution to the ISMS and the implications of not conforming; Annex A control 6.3 (detailed in ISO/IEC 27002:2022) covers awareness, education and training. NIS2 Art. 20(2) obliges members of management bodies to follow training and encourages regular training for employees, and Art. 21(2)(g) lists basic cyber hygiene and cybersecurity training among the minimum measures; in Denmark this is transposed through NIS 2-loven, in force since 1 July 2025. Financial entities also fall under DORA Art. 13(6), which makes ICT security awareness and digital operational resilience training compulsory for all staff and senior management.
+
+    Day to day the work is closer to behavioural design and marketing than to IT: needs analysis per audience segment (finance, HR, developers, privileged administrators, executives), a content calendar, phishing and vishing simulations, report-button adoption and feedback loops with the SOC so that reporters hear what happened to their report. Useful KPIs are reporting rate, median time-to-report, repeat-clicker rate and incidents with a human root cause; completion rates alone only prove attendance.
+
+    The role is often confused with neighbours. A data protection officer under GDPR Art. 39(1)(b) must also monitor awareness-raising and training, but only for personal-data processing and with independence requirements the awareness officer does not have. The CISO owns security risk overall, and HR owns onboarding and sanctions. In smaller organisations these hats are frequently combined, which is legitimate as long as the awareness work has its own plan, budget and measures.
+  da: |-
+    NIST SP 800-50 Rev. 1 (september 2024), der afløser SP 800-50 (2003) og SP 800-16 (1998), er den mest detaljerede offentlige beskrivelse af rollen, som her kaldes CPLP manager (Cybersecurity and Privacy Learning Program). Afsnit 1.6.3 giver rollen det taktiske ansvar: at fortolke lovgivning og politikker sammen med fageksperter, udarbejde rettidigt materiale til definerede målgrupper, vælge formidlingskanaler, indsamle feedback fra deltagerne, gennemgå indholdet periodisk, etablere opfølgning og rapportering, udpege medarbejdere med væsentligt sikkerheds- eller privatlivsansvar og rapportere mål og nøgletal til et ledelsesudvalg. Strategi, budget og ansvar ligger hos den øverste ledelse, og det er den rigtige fordeling: Den awareness-ansvarlige driver programmet, men ejer ikke risikoen.
+
+    De regulatoriske krav, rollen arbejder ud fra, er konkrete. ISO/IEC 27001:2022 pkt. 7.2 kræver, at organisationen fastlægger de nødvendige kompetencer, lukker huller og opbevarer dokumenteret information som bevis, og pkt. 7.3 kræver, at personer, der arbejder under organisationens kontrol, kender informationssikkerhedspolitikken, deres eget bidrag til ISMS'et og konsekvenserne af ikke at overholde kravene; kontrol 6.3 i bilag A (uddybet i ISO/IEC 27002:2022) dækker awareness, uddannelse og træning. NIS2 art. 20, stk. 2, forpligter medlemmerne af ledelsesorganet til at deltage i træning og tilskynder til regelmæssig træning af medarbejderne, og art. 21, stk. 2, litra g, nævner grundlæggende cyberhygiejne og cybersikkerhedstræning blandt minimumsforanstaltningerne; i Danmark er det gennemført med NIS 2-loven, der trådte i kraft 1. juli 2025. Finansielle virksomheder er desuden omfattet af DORA-forordningens art. 13, stk. 6, der gør IKT-sikkerhedsawareness og træning i digital operationel modstandsdygtighed obligatorisk for alle ansatte og den øverste ledelse.
+
+    I hverdagen ligner arbejdet mere adfærdsdesign og kommunikation end IT: behovsanalyse pr. målgruppe (økonomi, HR, udviklere, privilegerede administratorer, direktion), en indholdskalender, phishing- og vishing-simuleringer, udbredelse af meldeknappen og feedbacksløjfer med SOC'en, så den, der melder, får at vide, hvad der skete med meldingen. Brugbare KPI'er er meldeprocent, mediantid til melding, andelen af gengangere, der klikker igen, og hændelser med menneskelig grundårsag; gennemførelsesprocenter beviser kun fremmøde.
+
+    Rollen forveksles ofte med naborollerne. En databeskyttelsesrådgiver (DPO) skal efter databeskyttelsesforordningens art. 39, stk. 1, litra b, også overvåge oplysningskampagner og uddannelse af personale, men kun for behandling af personoplysninger og med krav om uafhængighed, som den awareness-ansvarlige ikke har. CISO'en ejer sikkerhedsrisikoen samlet, og HR ejer onboarding og sanktioner. I mindre organisationer samles kasketterne ofte hos én person, og det er fint, så længe awareness-arbejdet har sin egen plan, sit eget budget og sine egne mål.
 edges:
   kind-of: [grey-roles]
   requires: [awareness-programme]
@@ -33,4 +50,12 @@ sources:
     tier: course-material
   - title: NIST SP 800-50 Rev. 1 — Building a Cybersecurity and Privacy Learning Program
     tier: standard
+  - title: Regulation (EU) 2022/2554 (DORA) — Art. 13 Learning and evolving
+    tier: standard
+    publisher: EUR-Lex
+    url: https://eur-lex.europa.eu/eli/reg/2022/2554/oj/eng
+  - title: Lov om foranstaltninger til sikring af et højt cybersikkerhedsniveau (NIS 2-loven)
+    tier: standard
+    publisher: Retsinformation
+    url: https://www.retsinformation.dk/eli/lta/2025/434
 draft: true

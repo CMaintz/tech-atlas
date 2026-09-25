@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: It could let agents from different vendors work together, but every agent you accept work from is a stranger whose answers need the same doubt as any outside input.
     da: Det kan lade agenter fra forskellige leverandører arbejde sammen, men hver agent, man tager imod arbejde fra, er en fremmed, hvis svar kræver samme skepsis som alt andet udefrakommende input.
+deepDive:
+  en: |-
+    Google announced A2A on 9 April 2025 with a large group of launch partners and donated it to the Linux Foundation on 23 June 2025, where it is governed as a vendor-neutral project with an Apache 2.0 reference implementation and SDKs in several languages. Version 1.0, published in March 2026 and described by the project as its first stable release, defines the data model normatively in Protocol Buffers and maps it onto three bindings: JSON-RPC 2.0 over HTTP, gRPC, and an HTTP+JSON/REST style. Streaming over HTTP uses Server-Sent Events, and long-running work can instead report back through push-notification webhooks that the client registers per task.
+
+    Discovery starts with the Agent Card, a JSON document conventionally served at /.well-known/agent-card.json following the RFC 8615 well-known-URI pattern. It declares the agent's identity and provider, its service interfaces, capability flags such as streaming or push notifications, a list of skills with descriptions and example inputs, and the security schemes a caller must satisfy (API key, HTTP bearer, OAuth 2.0 flows, OpenID Connect or mutual TLS). A richer card can be restricted to authenticated callers via GetExtendedAgentCard, and v1.0 added cryptographically signed cards over a canonicalised JSON form so that a client can verify who published a card rather than trusting whoever serves it.
+
+    Work is modelled as a Task with a server-assigned ID and a state machine: submitted, working, input-required, auth-required, and the terminal states completed, failed, canceled and rejected. The interrupted states are what make A2A suitable for multi-turn delegation, since the remote agent can pause and ask for clarification or credentials. Messages carry a role and a list of Parts, each holding exactly one of text, raw bytes, a URL or structured JSON data; outputs are returned as Artifacts, which can be streamed in chunks. Core operations include SendMessage, SendStreamingMessage, GetTask, ListTasks, CancelTask and SubscribeToTask.
+
+    The design principle is opacity: agents exchange tasks and results, never their prompts, tools, memory or chain of thought. That separates A2A from the Model Context Protocol, where a client sees each tool's schema and invokes it much like a function call; many systems use MCP inside an agent and A2A between agents. Opacity has a security cost. A remote agent's card text, status messages and artifacts are untrusted input that can carry prompt injection, and authenticating the transport says nothing about whether the delegated action should be permitted, so authorisation, rate limits and audit logging of cross-agent requests remain the integrator's responsibility.
+  da: |-
+    Google annoncerede A2A den 9. april 2025 sammen med en stor gruppe lanceringspartnere og overdrog protokollen til Linux Foundation den 23. juni 2025, hvor den styres som et leverandørneutralt projekt med en referenceimplementering under Apache 2.0 og SDK'er i flere sprog. Version 1.0, udgivet i marts 2026 og af projektet betegnet som den første stabile udgave, definerer datamodellen normativt i Protocol Buffers og mapper den til tre bindinger: JSON-RPC 2.0 over HTTP, gRPC og en HTTP+JSON/REST-variant. Streaming over HTTP sker med Server-Sent Events, og langvarigt arbejde kan i stedet melde tilbage via push-notifikationer til webhooks, som klienten registrerer pr. opgave.
+
+    Opdagelse begynder med Agent Card, et JSON-dokument, der efter konvention ligger på /.well-known/agent-card.json efter mønsteret for well-known-URI'er i RFC 8615. Kortet angiver agentens identitet og udbyder, dens tjenestegrænseflader, kapabilitetsflag som streaming eller push-notifikationer, en liste af skills med beskrivelser og eksempler på input samt de sikkerhedsskemaer, en kalder skal opfylde (API-nøgle, HTTP bearer, OAuth 2.0-flows, OpenID Connect eller gensidig TLS). Et fyldigere kort kan forbeholdes autentificerede kaldere via GetExtendedAgentCard, og v1.0 tilføjede kryptografisk signerede kort over en kanonisk JSON-form, så en klient kan verificere, hvem der har udgivet kortet, i stedet for at stole på den, der serverer det.
+
+    Arbejde modelleres som en Task med et ID tildelt af serveren og en tilstandsmaskine: submitted, working, input-required, auth-required og sluttilstandene completed, failed, canceled og rejected. De afbrudte tilstande er det, der gør A2A egnet til delegering over flere runder, fordi fjernagenten kan holde pause og bede om afklaring eller legitimation. Beskeder har en rolle og en liste af Parts, der hver rummer præcis én af tekst, rå bytes, en URL eller strukturerede JSON-data; resultater returneres som Artifacts, der kan streames i bidder. Centrale operationer er bl.a. SendMessage, SendStreamingMessage, GetTask, ListTasks, CancelTask og SubscribeToTask.
+
+    Designprincippet er uigennemsigtighed: agenter udveksler opgaver og resultater, aldrig deres prompts, værktøjer, hukommelse eller ræsonnement. Det adskiller A2A fra Model Context Protocol, hvor en klient ser hvert værktøjs skema og kalder det næsten som et funktionskald; mange systemer bruger MCP inde i en agent og A2A mellem agenter. Uigennemsigtigheden har en sikkerhedspris. En fjernagents korttekst, statusbeskeder og artifacts er upålideligt input, der kan bære prompt injection, og autentificering af transporten siger intet om, hvorvidt den delegerede handling bør tillades, så autorisation, rate limits og auditlogning af forespørgsler mellem agenter forbliver integratorens ansvar.
 edges:
   kind-of: [protocol]
   requires: [ai-agent]
@@ -49,4 +66,12 @@ sources:
   - title: Google (2025), Announcing the Agent2Agent Protocol (A2A)
     tier: reference
     publisher: Google
+  - title: Agent2Agent (A2A) Protocol Specification v1.0.0
+    tier: official-doc
+    publisher: Linux Foundation (A2A project)
+    url: https://a2a-protocol.org/v1.0.0/specification/
+  - title: 'Google Open Source Blog (2026), A year of open collaboration: Celebrating the anniversary of A2A'
+    tier: reference
+    publisher: Google
+    url: https://opensource.googleblog.com/2026/04/a-year-of-open-collaboration-celebrating-the-anniversary-of-a2a.html
 draft: true

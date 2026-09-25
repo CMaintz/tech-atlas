@@ -52,6 +52,90 @@ main:focus,
   }
 }
 
+/* Guided tour (A61, A85). One eased curve for every move — decelerating, no overshoot.
+   The spotlight is a single fixed element whose huge box-shadow dims the rest of the
+   page; it and the card move by transform (the spotlight also by width/height). Tour.tsx toggles the data-* states. */
+:root {
+  --tour-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --tour-move: 420ms;
+  --tour-fade: 260ms;
+}
+.tour-spot,
+.tour-card {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity var(--tour-fade) ease;
+}
+.tour-spot {
+  z-index: 60; /* above the fixed BETA ribbon (z-50) */
+  width: 0;
+  height: 0;
+  border-radius: 6px;
+  pointer-events: none;
+  /* Always two shadows (ring + dim), so a transition interpolates each on its own. */
+  box-shadow:
+    0 0 0 2px transparent,
+    0 0 0 200vmax rgb(0 0 0 / 0.55);
+}
+.tour-spot[data-ring] {
+  box-shadow:
+    0 0 0 2px #fbbf24,
+    0 0 0 200vmax rgb(0 0 0 / 0.55);
+}
+.tour-card {
+  z-index: 61;
+  width: 22rem;
+}
+/* The card takes focus on every step (for screen readers and keyboards); an amber ring
+   round it would read as a second spotlight, so its focus ring is a quiet one. */
+.tour-card:focus-visible {
+  outline: 1px solid #737373;
+  outline-offset: 0;
+}
+@media (max-width: 639.98px) {
+  .tour-card {
+    width: calc(100vw - 24px);
+  }
+}
+[data-tour-overlay][data-visible] :is(.tour-spot, .tour-card) {
+  opacity: 1;
+}
+[data-tour-overlay][data-travel] .tour-card,
+[data-tour-overlay][data-leaving] :is(.tour-spot, .tour-card) {
+  opacity: 0;
+}
+[data-tour-overlay][data-glide] .tour-spot {
+  transition:
+    transform var(--tour-move) var(--tour-ease),
+    width var(--tour-move) var(--tour-ease),
+    height var(--tour-move) var(--tour-ease),
+    box-shadow var(--tour-move) var(--tour-ease),
+    opacity var(--tour-fade) ease;
+}
+[data-tour-overlay][data-glide] .tour-card {
+  transition:
+    transform var(--tour-move) var(--tour-ease),
+    opacity var(--tour-fade) ease;
+}
+.tour-pill {
+  z-index: 61;
+  animation: tour-in var(--tour-fade) var(--tour-ease) both;
+}
+@keyframes tour-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tour-pill {
+    animation: none;
+  }
+}
+
 /* Print: an entry on white paper — no chrome, islands or dark backgrounds. */
 @media print {
   :root {

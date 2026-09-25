@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: A model can only be as good as the answers it learns from; rushed, poorly paid or one-sided labelling passes straight into the model's errors and bias.
     da: En model kan kun blive så god som de svar, den lærer af; forhastet, dårligt betalt eller skæv datamærkning går direkte videre i modellens fejl og bias.
+deepDive:
+  en: |-
+    Labelling covers very different annotation types: document- or image-level class labels, bounding boxes, polygons and pixel masks for vision, span and relation annotation for named-entity recognition, relevance judgements for search, transcripts for speech, and pairwise preference rankings for RLHF. Each project rests on a written guideline (a codebook) defining every label with positive and negative examples and explicit rules for edge cases, refined in pilot rounds until annotators converge. Quality control in production relies on gold items with known answers mixed into the queue, overlap where several annotators label the same item, and review or adjudication of disagreements. Open-source tools such as Label Studio and CVAT handle queues, overlap and export formats.
+
+    Inter-annotator agreement quantifies how well-defined the task is. Cohen's kappa corrects two-rater agreement for chance, Fleiss' kappa extends this to many raters, and Krippendorff's alpha handles missing ratings and ordinal or interval scales. Low agreement usually indicates an ambiguous guideline or a genuinely subjective task rather than careless annotators, and it sets a ceiling on measurable model performance. Multiple labels can be aggregated by majority vote, by an adjudicator, or by probabilistic models such as Dawid and Skene's (1979) EM approach, which estimates a confusion matrix per annotator; some teams keep the label distribution as a soft target instead of forcing a single answer.
+
+    Because labelling is expensive, much effort goes into doing less of it. Active learning queries the examples a current model is least certain about; weak supervision, as in Snorkel (Ratner et al., 2017), combines noisy programmatic labelling functions into probabilistic labels; and model-assisted pre-labelling or LLM-generated labels let humans correct rather than create. Pre-labelling speeds work but anchors annotators towards the model's suggestion, which can hide exactly the errors the project needs to find. Label errors are common even in famous data sets: Northcutt et al. (2021) estimated an average of at least 3.3% across ten benchmark test sets, and confident-learning tools such as cleanlab are used to flag likely mislabelled items for review.
+
+    Labelling is also a compliance and supply-chain activity. Under the EU AI Act, data governance for high-risk systems must cover data-preparation operations "such as annotation, labelling, cleaning" (Art. 10(2)(c)). When annotators see personal data, an external labelling vendor is a processor under GDPR Art. 28, requiring a data processing agreement and, for work done outside the EEA, a Chapter V transfer basis. Working conditions are a known risk: in 2023 TIME reported that Kenyan workers labelling toxic content for OpenAI via the contractor Sama were paid less than two dollars an hour.
+  da: |-
+    Datamærkning dækker meget forskellige annoteringstyper: klasselabels på dokument- eller billedniveau, bounding boxes, polygoner og pixelmasker til computersyn, annotering af spænd og relationer til named-entity recognition, relevansvurderinger til søgning, transskriptioner til tale og parvise præferencerangeringer til RLHF. Hvert projekt hviler på en skriftlig mærkningsvejledning (en kodebog), der definerer hver label med positive og negative eksempler og eksplicitte regler for grænsetilfælde, og som forfines i pilotrunder, indtil annotatorerne er enige. Kvalitetskontrol i drift bygger på guldeksempler med kendt svar blandet ind i køen, overlap, hvor flere annotatorer mærker samme eksempel, og gennemgang eller afgørelse af uenigheder. Open source-værktøjer som Label Studio og CVAT håndterer køer, overlap og eksportformater.
+
+    Enighed mellem annotatorer viser, hvor veldefineret opgaven er. Cohens kappa korrigerer enighed mellem to bedømmere for tilfældighed, Fleiss' kappa udvider det til mange, og Krippendorffs alfa håndterer manglende bedømmelser og ordinale eller intervalskalaer. Lav enighed skyldes som regel en tvetydig vejledning eller en reelt subjektiv opgave snarere end sjuskede annotatorer, og den sætter et loft for, hvor god en model kan måles til at være. Flere labels kan samles ved flertalsafstemning, af en afgører eller med probabilistiske modeller som Dawid og Skenes EM-metode (1979), der estimerer en forvekslingsmatrix pr. annotator; nogle teams beholder fordelingen af labels som et blødt mål i stedet for at tvinge ét svar igennem.
+
+    Fordi mærkning er dyr, går meget arbejde ud på at gøre mindre af den. Active learning udvælger de eksempler, den nuværende model er mest usikker på; weak supervision, som i Snorkel (Ratner m.fl., 2017), kombinerer støjfyldte programmatiske mærkningsfunktioner til probabilistiske labels; og modelstøttet formærkning eller labels genereret af en LLM lader mennesker rette i stedet for at skabe. Formærkning gør arbejdet hurtigere, men forankrer annotatorerne i modellens forslag, hvilket kan skjule netop de fejl, projektet skal finde. Fejl i labels er almindelige selv i berømte datasæt: Northcutt m.fl. (2021) anslog i gennemsnit mindst 3,3 % på tværs af ti benchmark-testsæt, og værktøjer til confident learning som cleanlab bruges til at markere sandsynligt fejlmærkede eksempler til gennemsyn.
+
+    Datamærkning er også en compliance- og leverandørkædeopgave. Efter EU's AI-forordning skal datastyring for højrisikosystemer omfatte dataforberedende behandlinger som annotering, mærkning og rensning (art. 10, stk. 2, litra c). Når annotatorer ser personoplysninger, er en ekstern mærkningsleverandør databehandler efter databeskyttelsesforordningens art. 28, hvilket kræver en databehandleraftale og, ved arbejde uden for EØS, et overførselsgrundlag efter kapitel V. Arbejdsvilkår er en kendt risiko: i 2023 beskrev TIME, at kenyanske arbejdere, der mærkede giftigt indhold for OpenAI via underleverandøren Sama, fik under to dollars i timen.
 edges:
   part-of:
     - to: supervised-learning
@@ -47,4 +64,12 @@ sources:
   - title: NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0)
     tier: standard
     publisher: NIST
+  - title: 'Northcutt, Athalye & Mueller (2021), Pervasive Label Errors in Test Sets Destabilize Machine Learning Benchmarks'
+    tier: reference
+    publisher: NeurIPS 2021 Datasets and Benchmarks
+    url: https://arxiv.org/abs/2103.14749
+  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 10
+    tier: standard
+    publisher: European Union
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
 draft: true

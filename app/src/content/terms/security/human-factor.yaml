@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Technology can be perfect and still fail if people cannot use it, so security that ignores human limits invites both mistakes and manipulation.
     da: Teknologien kan være perfekt og alligevel fejle, hvis folk ikke kan bruge den, så sikkerhed, der ignorerer menneskelige grænser inviterer til både fejl og manipulation.
+deepDive:
+  en: |-
+    The field draws on cognitive psychology, human-computer interaction and safety science. A useful starting point is dual-process theory, popularised by Daniel Kahneman: most everyday decisions are made by fast, automatic, heuristic System 1 processing, and only a small share by slow, deliberate System 2. Clicking a link in the fortieth email of the morning is a System 1 act, so security that relies on users consciously weighing every message will fail at scale. Attention, working memory and vigilance are finite and degrade with fatigue, interruption and multitasking.
+
+    Social engineering deliberately targets these heuristics. Robert Cialdini's principles of influence, reciprocity, commitment and consistency, social proof, authority, liking and scarcity (unity was added in 2016), map closely onto phishing and pretexting patterns: a message from the "CEO" (authority) needing a payment "before 15:00 today" (scarcity and urgency). Business email compromise and helpdesk impersonation attacks succeed largely through authority and urgency rather than technical sophistication.
+
+    Usable security research showed that non-compliance is often rational. Adams and Sasse's 1999 paper "Users Are Not the Enemy" found that password rules which exceed human memory lead to written-down or reused passwords, and Beautement, Sasse and Wonham (2008) described a "compliance budget": people accept a limited amount of security friction, after which they route around it. This work fed directly into modern guidance such as NIST SP 800-63B dropping periodic forced password changes and composition rules in favour of length and breach checks, and into designs such as password managers, single sign-on and passkeys that remove the memory burden instead of adding rules.
+
+    Organisationally, ISO/IEC 27002:2022 control 6.3 requires awareness, education and training appropriate to roles, and NIST SP 800-50 Rev. 1 (2024) frames it as a cybersecurity and privacy learning program. ENISA's work on cybersecurity culture emphasises measuring behaviour rather than course completion. Phishing simulations are useful for measuring reporting rates, but when used punitively they erode trust and reporting. Nudging adjusts the choice architecture, for example secure defaults and well-timed warnings; the human firewall concept frames staff as an active detection layer. The human factor differs from human error, which is one outcome, and from security culture, which is the shared norms that shape behaviour over time; it is also a vulnerability that the technical controls around it must be designed to tolerate.
+  da: |-
+    Fagområdet trækker på kognitiv psykologi, menneske-maskine-interaktion og sikkerhedsvidenskab. Et godt udgangspunkt er teorien om to tankesystemer, som Daniel Kahneman har gjort kendt: de fleste hverdagsbeslutninger træffes af det hurtige, automatiske og heuristiske System 1, og kun en lille del af det langsomme, overvejende System 2. At klikke på et link i formiddagens fyrretyvende mail er en System 1-handling, så sikkerhed, der bygger på, at brugerne bevidst vurderer hver besked, vil fejle i stor skala. Opmærksomhed, arbejdshukommelse og årvågenhed er begrænsede ressourcer og forringes af træthed, afbrydelser og multitasking.
+
+    Social engineering går bevidst efter disse heuristikker. Robert Cialdinis principper for påvirkning, gensidighed, forpligtelse og konsistens, social bevisførelse, autoritet, sympati og knaphed (fællesskab kom til i 2016), passer tæt på mønstrene i phishing og pretexting: en besked fra "direktøren" (autoritet), der skal have en betaling gennemført "inden kl. 15 i dag" (knaphed og hast). Business email compromise og angreb, hvor angriberen udgiver sig for at være en medarbejder over for helpdesken, lykkes i høj grad gennem autoritet og tidspres snarere end teknisk raffinement.
+
+    Forskning i brugbar sikkerhed har vist, at manglende regelefterlevelse ofte er rationel. Adams og Sasses artikel "Users Are Not the Enemy" fra 1999 fandt, at adgangskoderegler, der overstiger den menneskelige hukommelse, fører til nedskrevne eller genbrugte adgangskoder, og Beautement, Sasse og Wonham (2008) beskrev et "compliance budget": folk accepterer en begrænset mængde sikkerhedsfriktion, hvorefter de finder veje udenom. Dette arbejde lå direkte til grund for nyere vejledning som NIST SP 800-63B, der opgav periodisk tvunget skift af adgangskoder og kompositionsregler til fordel for længde og tjek mod lækkede adgangskoder, og for løsninger som adgangskodemanagere, single sign-on og passkeys, der fjerner hukommelsesbyrden i stedet for at tilføje regler.
+
+    Organisatorisk kræver ISO/IEC 27002:2022 kontrol 6.3 awareness, uddannelse og træning tilpasset rollerne, og NIST SP 800-50 Rev. 1 (2024) beskriver det som et læringsprogram for cybersikkerhed og privatliv. ENISA's arbejde med sikkerhedskultur lægger vægt på at måle adfærd frem for gennemførte kurser. Phishingsimuleringer er nyttige til at måle, hvor mange der indrapporterer, men bruges de til at straffe, undergraver de tilliden og indrapporteringen. Nudging justerer valgarkitekturen, fx med sikre standardindstillinger og velplacerede advarsler; begrebet human firewall ser medarbejderne som et aktivt detektionslag. Den menneskelige faktor adskiller sig fra menneskelige fejl, som er ét af udfaldene, og fra sikkerhedskultur, som er de fælles normer, der former adfærden over tid; den er også en sårbarhed, som de tekniske kontroller omkring den skal designes til at tåle.
 edges:
   used-with: [human-firewall, nudging, security-culture, vulnerability]
 sources:
@@ -31,4 +48,8 @@ sources:
     tier: course-material
   - title: ENISA — Cybersecurity Culture Guidelines — Behavioural Aspects of Cybersecurity
     tier: reference
+  - title: NIST SP 800-50 Rev. 1 — Building a Cybersecurity and Privacy Learning Program
+    tier: standard
+    publisher: NIST
+    url: https://csrc.nist.gov/pubs/sp/800/50/r1/final
 draft: true

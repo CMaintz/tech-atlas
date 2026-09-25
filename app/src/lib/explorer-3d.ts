@@ -1,5 +1,5 @@
 /**
- * The Explorer's 3D map (A85): galaxies of terms, computed once (`galaxyLayout`) and
+ * The Explorer's 3D map (A86): galaxies of terms, computed once (`galaxyLayout`) and
  * fixed — no live physics, so the GPU only draws. One scene for the life of the page:
  * filters, hover and selection re-evaluate accessors in place. Glow is a single
  * additive point cloud, hubs carry text sprites, and particles run only along the
@@ -129,7 +129,7 @@ export async function createMap3D(opts: {
     .linkDirectionalParticleSpeed(cfg.particleSpeed)
     .linkDirectionalParticleWidth(cfg.particleWidth)
     .linkDirectionalParticleColor((l: Link3) => FAMILY_COLOURS[l.family])
-    // A shared term is a sphere split into vertical bands, one per domain (A85): one
+    // A shared term is a sphere split into vertical bands, one per domain (A86): one
     // canvas texture per colour combination, shared by every sphere that uses it.
     .nodeThreeObject((n: GraphNode) => {
       const bands = view?.bands(n) ?? [];

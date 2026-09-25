@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: Whether information counts as personal decides whether GDPR applies at all; indirect cases like logs and IDs from devices are easy to overlook, and that is where many breaches and fines start.
     da: Om oplysninger tæller som personoplysninger, afgør, om GDPR overhovedet gælder; indirekte tilfælde som logs og id'er fra enheder er lette at overse, og det er dér, mange brud og bøder begynder.
+deepDive:
+  en: |-
+    GDPR Article 4(1) defines personal data through four elements: "any information", "relating to", "an identified or identifiable", "natural person". Each is read broadly. Information can be objective or subjective, true or false. It relates to a person by content, purpose or effect, so a car's telemetry relates to its driver when used to assess driving behaviour. A person is identifiable when they can be singled out directly or indirectly by reference to an identifier such as a name, identification number, location data or online identifier, or to factors specific to their physical, physiological, genetic, mental, economic, cultural or social identity. Legal persons are outside the definition (recital 14), and so are the dead (recital 27), although member states may extend protection; Denmark's Data Protection Act (databeskyttelsesloven) § 2(5) applies the rules to deceased persons for ten years after death.
+
+    Identifiability is a risk test, not a technical absolute. Recital 26 asks whether identification is possible using "all the means reasonably likely to be used", considering cost, time and available technology. In Breyer (C-582/14, 2016) the CJEU held that a dynamic IP address can be personal data for a website operator that has legal means to obtain the subscriber's identity from the ISP. In EDPS v SRB (C-413/23 P, 4 September 2025) the Court confirmed that pseudonymised data remains personal data for the controller holding the key but may not be personal data for a recipient that cannot reasonably re-identify anyone, making the assessment dependent on whose perspective is taken. Pseudonymisation under Article 4(5) is therefore a security measure, not an exit from the GDPR; only anonymisation that withstands singling out, linkability and inference, the three tests of the Article 29 Working Party's Opinion 05/2014, takes data out of scope.
+
+    Special categories under Article 9(1) are racial or ethnic origin, political opinions, religious or philosophical beliefs, trade union membership, genetic data, biometric data processed to uniquely identify a person, health data and data on sex life or sexual orientation; processing is prohibited unless an Article 9(2) exception applies. Criminal convictions and offences are handled separately under Article 10. Danish CPR numbers are not a special category but have their own processing rules in databeskyttelsesloven § 11, based on the opening in GDPR Article 87.
+
+    In engineering practice the hard cases are indirect identifiers: device IDs, cookie IDs, advertising IDs, precise location traces, hashed e-mail addresses (a deterministic hash of an e-mail address is a stable identifier, not anonymisation), free-text fields, log files and embeddings or model weights that can reproduce training examples. Data classification and records of processing (Article 30) should treat such fields as personal data by default, with retention limits and access control to match.
+  da: |-
+    GDPR artikel 4, nr. 1, definerer personoplysninger gennem fire elementer: "enhver form for information", "om", "en identificeret eller identificerbar" og "fysisk person". Hvert element fortolkes bredt. Informationen kan være objektiv eller subjektiv, sand eller falsk. Den vedrører en person gennem sit indhold, sit formål eller sin virkning, så telemetri fra en bil vedrører føreren, når den bruges til at vurdere kørselsadfærd. En person er identificerbar, når vedkommende direkte eller indirekte kan udskilles ved hjælp af en identifikator som navn, identifikationsnummer, lokaliseringsdata eller onlineidentifikator eller ved faktorer, der er særlige for personens fysiske, fysiologiske, genetiske, psykiske, økonomiske, kulturelle eller sociale identitet. Juridiske personer falder uden for definitionen (betragtning 14), og det gør afdøde også (betragtning 27), men medlemsstaterne kan udvide beskyttelsen; databeskyttelseslovens § 2, stk. 5, lader reglerne gælde for afdøde personer i ti år efter dødsfaldet.
+
+    Identificerbarhed er en risikovurdering, ikke en teknisk absolut størrelse. Betragtning 26 spørger, om identifikation er mulig med "alle midler, der med rimelighed kan tænkes bragt i anvendelse", under hensyn til omkostninger, tid og tilgængelig teknologi. I Breyer (C-582/14, 2016) fastslog EU-Domstolen, at en dynamisk IP-adresse kan være en personoplysning for en webstedsoperatør, der har lovlige midler til at få abonnentens identitet oplyst af internetudbyderen. I EDPS mod SRB (C-413/23 P, 4. september 2025) bekræftede Domstolen, at pseudonymiserede data fortsat er personoplysninger for den dataansvarlige, der har nøglen, men måske ikke er det for en modtager, der ikke med rimelighed kan genidentificere nogen, så vurderingen afhænger af, hvis perspektiv der anlægges. Pseudonymisering efter artikel 4, nr. 5, er derfor en sikkerhedsforanstaltning, ikke en udgang fra GDPR; kun anonymisering, der holder mod udskillelse, sammenkædning og slutning, de tre test i Artikel 29-gruppens udtalelse 05/2014, bringer data uden for reglerne.
+
+    Særlige kategorier efter artikel 9, stk. 1, er race eller etnisk oprindelse, politisk, religiøs eller filosofisk overbevisning, fagforeningsmæssigt tilhørsforhold, genetiske data, biometriske data med henblik på entydig identifikation, helbredsoplysninger og oplysninger om seksuelle forhold eller seksuel orientering; behandling er forbudt, medmindre en undtagelse i artikel 9, stk. 2, finder anvendelse. Straffedomme og lovovertrædelser behandles særskilt efter artikel 10. Danske CPR-numre er ikke en særlig kategori, men har egne behandlingsregler i databeskyttelseslovens § 11 med hjemmel i GDPR artikel 87.
+
+    I udviklingspraksis er de svære tilfælde de indirekte identifikatorer: enheds-id'er, cookie-id'er, reklame-id'er, præcise lokationsspor, hashede e-mailadresser (en deterministisk hash af en e-mailadresse er en stabil identifikator, ikke anonymisering), fritekstfelter, logfiler og embeddings eller modelvægte, der kan gengive træningseksempler. Dataklassifikation og fortegnelsen over behandlingsaktiviteter (artikel 30) bør som udgangspunkt behandle sådanne felter som personoplysninger med tilsvarende slettefrister og adgangskontrol.
 edges:
   kind-of:
     - to: asset
@@ -51,4 +68,12 @@ sources:
     tier: standard
     publisher: European Union
     url: 'https://eur-lex.europa.eu/eli/reg/2016/679/oj'
+  - title: CJEU Case C-413/23 P, EDPS v SRB (concept of personal data) — press release
+    tier: official-doc
+    publisher: Court of Justice of the European Union
+    url: https://curia.europa.eu/site/upload/docs/application/pdf/2025-09/cp250107en.pdf
+  - title: Databeskyttelsesloven (lov nr. 502 af 23. maj 2018)
+    tier: standard
+    publisher: Retsinformation
+    url: https://www.retsinformation.dk/eli/lta/2018/502
 draft: true

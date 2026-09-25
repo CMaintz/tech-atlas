@@ -46,7 +46,7 @@ const legendReserve = () => (legendOpenAtStart() ? 310 : 0);
 const panelReserve = () => (window.innerWidth >= 1024 ? 416 : 0);
 
 /**
- * The full-map explorer (SPEC §7, A85). Every node links to a real, statically rendered
+ * The full-map explorer (SPEC §7, A86). Every node links to a real, statically rendered
  * page: the canvas is an index, not a container. The 2D and 3D maps are each built once
  * and kept; every control below only changes what they show.
  */
@@ -124,7 +124,7 @@ export default function Explorer(props: Props) {
     [graph, lang],
   );
 
-  /** Terms shown: the domain filter (A85), the time layout's dated terms, a neighbourhood. */
+  /** Terms shown: the domain filter (A86), the time layout's dated terms, a neighbourhood. */
   const visibleIds = useMemo<Set<string>>(() => {
     if (!graph) return new Set();
     const timeOnly = mode === '2d' && layout === 'time';

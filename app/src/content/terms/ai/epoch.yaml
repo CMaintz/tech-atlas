@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Too few epochs leave a model half-learned; too many make it learn its examples by heart, so picking the count is a direct trade-off between underfitting and overfitting.
     da: For få epoker efterlader en halvlært model; for mange får den til at lære eksemplerne udenad, så antallet skal lande et sted mellem undertilpasning og overtilpasning.
+deepDive:
+  en: |-
+    With N training examples and batch size B, an epoch consists of ⌈N/B⌉ optimiser steps, or ⌊N/B⌋ when the last incomplete batch is dropped (drop_last=True in a PyTorch DataLoader). The data is normally reshuffled at the start of each epoch, so training samples without replacement within an epoch; this random reshuffling generally works better in practice than the with-replacement sampling assumed in much SGD theory. With on-the-fly data augmentation each epoch sees different random crops, flips or noise, so later epochs are not exact repeats. In distributed training each replica must see a disjoint shard per epoch, which is why samplers such as PyTorch's DistributedSampler need set_epoch() called each epoch, otherwise every epoch repeats the same order.
+
+    The epoch is a convenient unit for logging, checkpointing and validation, but it is not what the optimiser sees; learning-rate warmup and cosine or step decay are defined in steps, so changing the batch size silently changes how many steps an epoch-based schedule contains. Typical counts vary enormously: classic ImageNet ResNet-50 recipes use about 90 epochs, small tabular or vision data sets may use hundreds, and fine-tuning a pretrained language model usually uses only one to three epochs, since more tends to cause memorisation and loss of general ability.
+
+    Large-scale pretraining has largely abandoned multi-epoch training over the whole corpus. Most web data is seen once or less, while smaller high-quality sources are upsampled and repeated. Muennighoff et al. (2023) found that, for a fixed compute budget, up to about four epochs of repeated data yield almost the same loss as unique data, after which the value of repetition falls off quickly. Repetition also has privacy implications: sequences duplicated many times in training data are far more likely to be memorised and regurgitated verbatim (Carlini et al., 2022), which is one reason deduplication is a standard preprocessing step.
+
+    The number of epochs is usually chosen by early stopping on the validation set, but the loss curve does not always behave as the textbook U-shape suggests. Nakkiran et al. (2019) documented epoch-wise double descent, where test error rises and then falls again with further training in sufficiently large models, and Power et al. (2022) described "grokking", where small networks on algorithmic tasks generalise long after fitting their training set perfectly. Patience-based stopping is therefore a heuristic, and for expensive runs it pays to keep periodic checkpoints rather than only the best one.
+  da: |-
+    Med N træningseksempler og batchstørrelse B består en epoke af ⌈N/B⌉ optimeringsskridt, eller ⌊N/B⌋, når den sidste ufuldstændige batch droppes (drop_last=True i en PyTorch-DataLoader). Data blandes normalt på ny ved starten af hver epoke, så træningen trækker uden tilbagelægning inden for en epoke; denne tilfældige omblanding virker generelt bedre i praksis end den trækning med tilbagelægning, som meget SGD-teori antager. Med dataaugmentering undervejs ser hver epoke andre tilfældige udsnit, spejlinger eller støj, så senere epoker ikke er eksakte gentagelser. Ved distribueret træning skal hver replika se et separat udsnit pr. epoke, og derfor skal samplere som PyTorchs DistributedSampler have kaldt set_epoch() i hver epoke, ellers gentager hver epoke samme rækkefølge.
+
+    Epoken er en praktisk enhed til logning, checkpoints og validering, men det er ikke den, optimeringsalgoritmen ser; opvarmning af læringsraten og cosinus- eller trinvis nedtrapning defineres i skridt, så en ændret batchstørrelse ændrer stille, hvor mange skridt en epokebaseret plan indeholder. Typiske antal varierer enormt: klassiske opskrifter for ResNet-50 på ImageNet bruger cirka 90 epoker, små tabel- eller billeddatasæt kan bruge hundredvis, og finjustering af en fortrænet sprogmodel bruger som regel kun én til tre epoker, fordi flere har tendens til at give udenadslære og tab af generelle evner.
+
+    Fortræning i stor skala har stort set opgivet at køre flere epoker over hele korpusset. De fleste webdata ses én gang eller mindre, mens mindre kilder af høj kvalitet opvægtes og gentages. Muennighoff m.fl. (2023) fandt, at op til omkring fire epoker med gentagne data ved et fast beregningsbudget giver næsten samme tab som unikke data, hvorefter værdien af gentagelse falder hurtigt. Gentagelse har også betydning for privatliv: sekvenser, der optræder mange gange i træningsdata, bliver langt oftere lært udenad og gengivet ordret (Carlini m.fl., 2022), hvilket er én grund til, at deduplikering er et standardtrin i forbehandlingen.
+
+    Antallet af epoker vælges som regel med early stopping på valideringssættet, men tabskurven opfører sig ikke altid som lærebogens U-form. Nakkiran m.fl. (2019) dokumenterede epokevis double descent, hvor testfejlen stiger og derefter falder igen ved fortsat træning i tilstrækkeligt store modeller, og Power m.fl. (2022) beskrev "grokking", hvor små netværk på algoritmiske opgaver generaliserer længe efter, at de har tilpasset sig træningssættet perfekt. Stop baseret på patience er derfor en heuristik, og ved dyre kørsler betaler det sig at gemme checkpoints løbende i stedet for kun det bedste.
 edges:
   requires: [training-data]
   used-with: [hyperparameter]
@@ -39,4 +56,8 @@ sources:
   - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 7.8, early stopping)'
     tier: textbook
     publisher: MIT Press
+  - title: Muennighoff et al. (2023), Scaling Data-Constrained Language Models
+    tier: reference
+    publisher: NeurIPS 2023
+    url: https://arxiv.org/abs/2305.16264
 draft: true

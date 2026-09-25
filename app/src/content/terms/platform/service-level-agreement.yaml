@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: When you depend on a supplier, the SLA is what you can actually hold them to, so it must match what your own business and your own promises to others need.
     da: Når man er afhængig af en leverandør, er SLA'en det, man reelt kan holde dem op på, så den skal passe til det, ens egen forretning og egne løfter over for andre kræver.
+deepDive:
+  en: |-
+    An SLA is only as meaningful as its definitions. The core clause specifies a service level indicator, how it is measured, over which window and with which exclusions: for example monthly uptime percentage defined as the minutes in the calendar month minus downtime minutes, divided by total minutes, where downtime means consecutive minutes in which a stated share of requests fail, measured by the provider's own monitoring. Scheduled maintenance, force majeure, customer-caused faults, beta features and failures of third-party networks are typically excluded. Two SLAs with the same 99.9% headline can therefore differ greatly depending on whether a minute counts as down at 1% or at 100% errors, and whether measurement is per region, per instance or per account.
+
+    The nines translate into small budgets. 99.9% monthly allows about 43.8 minutes of downtime in an average month (43.2 minutes in a 30-day month) and about 8.8 hours per year; 99.95% about 22 minutes a month; 99.99% about 4.4 minutes a month or 52.6 minutes a year. Availability of serially dependent components multiplies, so two independent services at 99.9% each give roughly 99.8% for a request that needs both, which is why an SLA offered to one's own customers must be looser than the product of the SLAs one depends on, unless redundancy is added.
+
+    Remedies in cloud SLAs are usually service credits on a tiered scale as a percentage of the monthly fee, often requiring the customer to file a claim within a set period, capped at a proportion of the bill and stated as the sole and exclusive remedy. A credit therefore rarely compensates the actual business loss of an outage; the SLA allocates financial risk rather than guaranteeing reliability. Response and resolution times for support tickets by severity are a second common SLA category, distinct from availability.
+
+    In ITIL terms the SLA is the external agreement with a customer, supported internally by operational level agreements (OLAs) between internal teams and underpinning contracts with suppliers. In SRE practice the SLA is backed by a stricter internal SLO, so the team reacts to burn long before contractual penalties trigger. Regulation increasingly prescribes SLA content: under DORA (Regulation (EU) 2022/2554, applicable since 17 January 2025), Article 30(2)(e) requires ICT service contracts of financial entities to include service level descriptions, and Article 30(3)(a) requires full service level descriptions with precise quantitative and qualitative performance targets for services supporting critical or important functions, so the entity can monitor performance and act without undue delay when levels are missed.
+  da: |-
+    En SLA er aldrig mere meningsfuld end dens definitioner. Kerneklausulen angiver en serviceniveauindikator, hvordan den måles, over hvilken periode og med hvilke undtagelser: fx månedlig oppetid defineret som kalendermånedens minutter minus nedetidsminutter divideret med det samlede antal minutter, hvor nedetid betyder sammenhængende minutter, hvor en angivet andel af forespørgslerne fejler, målt med leverandørens egen overvågning. Planlagt vedligehold, force majeure, fejl forårsaget af kunden, betafunktioner og fejl i tredjepartsnetværk er typisk undtaget. To SLA'er med samme overskrift på 99,9 % kan derfor være meget forskellige, afhængigt af om et minut tæller som nede ved 1 % eller ved 100 % fejl, og om der måles pr. region, pr. instans eller pr. konto.
+
+    Nitallerne svarer til små budgetter. 99,9 % pr. måned giver omkring 43,8 minutters nedetid i en gennemsnitsmåned (43,2 minutter i en måned på 30 dage) og cirka 8,8 timer om året; 99,95 % omkring 22 minutter om måneden; 99,99 % omkring 4,4 minutter om måneden eller 52,6 minutter om året. Tilgængeligheden for serielt afhængige komponenter multipliceres, så to uafhængige tjenester på hver 99,9 % giver cirka 99,8 % for en forespørgsel, der kræver begge, og derfor skal en SLA, man selv giver sine kunder, være lempeligere end produktet af de SLA'er, man afhænger af, medmindre der tilføjes redundans.
+
+    Kompensationen i cloud-SLA'er er normalt servicekreditter efter en trappeskala som procent af månedsgebyret, ofte på betingelse af at kunden gør krav gældende inden for en frist, med et loft som en andel af regningen og formuleret som den eneste og udtømmende beføjelse. En kreditering dækker derfor sjældent det reelle forretningstab ved et nedbrud; SLA'en fordeler den økonomiske risiko frem for at garantere driftssikkerhed. Svar- og løsningstider for supportsager efter alvorlighed er en anden udbredt SLA-kategori, adskilt fra tilgængelighed.
+
+    I ITIL-terminologi er SLA'en den eksterne aftale med en kunde, understøttet internt af operational level agreements (OLA'er) mellem interne teams og underliggende kontrakter med leverandører. I SRE-praksis er SLA'en bakket op af en strengere intern SLO, så teamet reagerer på forbruget af fejlbudget længe før kontraktlige sanktioner udløses. Regulering fastlægger i stigende grad SLA-indhold: efter DORA (forordning (EU) 2022/2554, gældende fra 17. januar 2025) kræver artikel 30, stk. 2, litra e, at finansielle enheders kontrakter om IKT-tjenester indeholder beskrivelser af serviceniveauer, og artikel 30, stk. 3, litra a, kræver fuldstændige serviceniveaubeskrivelser med præcise kvantitative og kvalitative præstationsmål for tjenester, der understøtter kritiske eller vigtige funktioner, så enheden kan overvåge leverancen og handle uden unødig forsinkelse, når niveauerne ikke overholdes.
 edges:
   requires: [availability]
   contrasts-with:
@@ -45,4 +62,8 @@ sources:
     url: https://sre.google/sre-book/service-level-objectives/
     tier: reference
     publisher: Google
+  - title: Regulation (EU) 2022/2554 (DORA) — Article 30, Key contractual provisions
+    tier: standard
+    publisher: European Union
+    url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022R2554
 draft: true

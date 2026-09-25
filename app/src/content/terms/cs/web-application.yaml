@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Anyone on the internet can reach it and send it whatever they like, which makes it one of the most common ways into an organisation's data.
     da: Alle på internettet kan nå den og sende den, hvad de vil, hvilket gør den til en af de mest almindelige veje ind til en organisations data.
+deepDive:
+  en: |-
+    Architecturally most web applications are three-tier: presentation in the browser (HTML, CSS, JavaScript), application logic on servers, and persistent data in a database. The rendering model varies: classic multi-page applications render HTML on the server for each navigation; single-page applications load a JavaScript bundle once and render client-side from JSON APIs; hybrid frameworks render on the server and then hydrate in the browser; static generation pre-builds pages at deploy time. In front sit reverse proxies, load balancers, CDNs and often a web application firewall. Sessions are carried in cookies or bearer tokens, and login is increasingly delegated to an identity provider over OpenID Connect or SAML; Danish public-sector services typically authenticate citizens with MitID through a broker.
+
+    The decisive security fact is the trust boundary: everything arriving from the browser, including hidden fields, cookies, headers and the JavaScript itself, is under the user's control. Client-side validation is a usability feature; authorisation must be enforced on the server for every request and every object. That is why A01:2025 Broken Access Control tops the OWASP Top 10:2025, followed by A02 Security Misconfiguration and the new A03 Software Supply Chain Failures, which reflects that most application code today is third-party dependencies. Injection, including cross-site scripting, is A05:2025. Recurring concrete flaws are insecure direct object references, stored and DOM-based XSS, CSRF, SSRF through URL-fetching features, unsafe file uploads and insecure deserialisation.
+
+    Part of the defence is delivered by the application to the browser through response headers: Content-Security-Policy restricts script sources and, via frame-ancestors, framing (clickjacking); Strict-Transport-Security enforces HTTPS; X-Content-Type-Options: nosniff stops MIME sniffing; Referrer-Policy limits URL leakage; and the Secure, HttpOnly and SameSite cookie attributes protect sessions. On the server, contextual output encoding (preferably via auto-escaping templates), parameterised queries and framework CSRF tokens remove whole bug classes.
+
+    Assurance is structured by OWASP's Application Security Verification Standard, whose version 5.0 was released in May 2025 with graded verification levels, and by the Web Security Testing Guide for testing methodology, combined in the development pipeline with SAST, software composition analysis and DAST, and before release with penetration testing. A web application differs from a website, which mainly publishes content, and from a native app, which is installed and runs outside the browser sandbox; a single-page application is still a web application even though much of its logic has moved to the client, and its API must then be defended as a public interface in its own right.
+  da: |-
+    Arkitektonisk er de fleste webapplikationer trelagsløsninger: præsentation i browseren (HTML, CSS, JavaScript), forretningslogik på servere og vedvarende data i en database. Renderingsmodellen varierer: klassiske flersidede applikationer renderer HTML på serveren ved hver navigation; single-page-applikationer henter et JavaScript-bundle én gang og renderer i klienten ud fra JSON-API'er; hybride frameworks renderer på serveren og hydrerer derefter i browseren; statisk generering bygger siderne på forhånd ved udrulning. Foran står reverse proxies, load balancers, CDN'er og ofte en web application firewall. Sessioner bæres i cookies eller bearer tokens, og login uddelegeres i stigende grad til en identitetsudbyder via OpenID Connect eller SAML; danske offentlige løsninger autentificerer typisk borgere med MitID via en broker.
+
+    Det afgørende sikkerhedsfaktum er tillidsgrænsen: alt, der kommer fra browseren, herunder skjulte felter, cookies, headere og selve JavaScript-koden, er under brugerens kontrol. Validering i klienten er en brugervenlighedsfunktion; autorisation skal håndhæves på serveren for hver forespørgsel og hvert objekt. Derfor topper A01:2025 Broken Access Control OWASP Top 10:2025, efterfulgt af A02 Security Misconfiguration og den nye A03 Software Supply Chain Failures, som afspejler, at det meste applikationskode i dag er tredjepartsafhængigheder. Injektion, herunder cross-site scripting, er A05:2025. Tilbagevendende konkrete fejl er insecure direct object references, lagret og DOM-baseret XSS, CSRF, SSRF via funktioner, der henter URL'er, usikker filupload og usikker deserialisering.
+
+    En del af forsvaret leveres af applikationen til browseren via svarheadere: Content-Security-Policy begrænser, hvorfra scripts må komme, og via frame-ancestors, hvem der må indramme siden (clickjacking); Strict-Transport-Security håndhæver HTTPS; X-Content-Type-Options: nosniff stopper MIME-sniffing; Referrer-Policy begrænser lækage af URL'er; og cookie-attributterne Secure, HttpOnly og SameSite beskytter sessionerne. På serveren fjerner kontekstafhængig outputkodning (helst via templates med automatisk escaping), parametriserede forespørgsler og frameworkets CSRF-tokens hele fejlklasser.
+
+    Sikkerhedsverificering struktureres af OWASP's Application Security Verification Standard, hvis version 5.0 udkom i maj 2025 med graduerede verifikationsniveauer, og af Web Security Testing Guide som testmetode, kombineret i udviklingspipelinen med SAST, software composition analysis og DAST og før release med penetrationstest. En webapplikation adskiller sig fra et websted, der primært udgiver indhold, og fra en native app, der installeres og kører uden for browserens sandbox; en single-page-applikation er stadig en webapplikation, selvom meget af logikken er flyttet til klienten, og dens API skal så forsvares som en offentlig grænseflade i sig selv.
 edges:
   requires: [http, server]
   used-with:
@@ -42,4 +59,8 @@ sources:
     url: https://developer.mozilla.org/en-US/docs/Web
     tier: official-doc
     publisher: Mozilla
+  - title: OWASP Top 10:2025
+    url: https://top10.owasp.org/2025
+    tier: reference
+    publisher: OWASP
 draft: true

@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Two proofs of the same kind, such as two passwords, fall to the same attack, so real protection comes from mixing different kinds.
     da: To beviser af samme slags, fx to adgangskoder, falder for det samme angreb, så reel beskyttelse kommer af at blande forskellige slags.
+deepDive:
+  en: |-
+    The three-category taxonomy — knowledge, possession, inherence — is codified in several places with slightly different consequences. NIST SP 800-63B (revision 4, finalised in 2025) does not treat factors as abstract categories but as authenticator types: memorised secrets (passwords), look-up secrets, out-of-band devices, single- and multi-factor OTP devices, single- and multi-factor cryptographic authenticators (software or hardware). A multi-factor cryptographic device such as a smart card unlocked by a PIN, or a FIDO2 authenticator with user verification, delivers two factors in one object. In EU payments law, the PSD2 strong customer authentication rules (Commission Delegated Regulation (EU) 2018/389) define the elements in Articles 6 (knowledge), 7 (possession) and 8 (inherence), and Article 9 adds an explicit independence requirement: the breach of one element must not compromise the reliability of the others.
+
+    Independence is the property most often lost in practice. A password manager and an authenticator app on the same unlocked phone, or an SMS code delivered to the device on which the user is logging in, collapse two nominal factors into one attack surface. Similarly, "knowledge-based" questions (mother's maiden name) are frequently public knowledge and add little entropy.
+
+    Biometrics are special. A biometric trait is not a secret — faces are photographed and fingerprints are left on glass — so its security rests on presentation attack detection (liveness) and on the matcher's false-match rate. NIST therefore only accepts biometrics as part of multi-factor authentication bound to a specific physical authenticator, never as a standalone factor, and in mainstream platforms the biometric is verified locally only to unlock a private key held in a secure element or TPM; the template never leaves the device. A compromised biometric cannot be rotated, which is another reason it is used as a local gate rather than as a transmitted credential.
+
+    Contextual signals — IP address, geolocation, device posture, behavioural patterns — are sometimes called "somewhere you are" or a fourth factor. Standards bodies generally do not count them as authentication factors; they feed risk-based or conditional access decisions that can demand step-up authentication. The strength of an authentication event depends less on the number of factors than on their resistance to phishing, replay and interception: a password plus a phishable OTP is two factors, while a device-bound passkey with user verification is also two factors but defeats relay attacks through origin binding.
+  da: |-
+    Tredelingen i viden, besiddelse og biometri (inherence) er kodificeret flere steder med lidt forskellige konsekvenser. NIST SP 800-63B (revision 4, færdiggjort i 2025) behandler ikke faktorer som abstrakte kategorier, men som autentifikatortyper: memorerede hemmeligheder (adgangskoder), look-up-hemmeligheder, out-of-band-enheder, en- og multifaktor-OTP-enheder og en- og multifaktor-kryptografiske autentifikatorer i software eller hardware. En multifaktor-kryptografisk enhed, fx et chipkort låst op med pinkode eller en FIDO2-autentifikator med brugerverifikation, leverer to faktorer i én genstand. I EU's betalingsret definerer reglerne om stærk kundeautentifikation under PSD2 (Kommissionens delegerede forordning (EU) 2018/389) elementerne i artikel 6 (viden), 7 (besiddelse) og 8 (biometri), og artikel 9 tilføjer et eksplicit krav om uafhængighed: brud på ét element må ikke kompromittere de andres pålidelighed.
+
+    Uafhængigheden er den egenskab, der oftest går tabt i praksis. En password manager og en autentifikator-app på den samme oplåste telefon, eller en sms-kode, der leveres til den enhed, brugeren logger ind fra, får to formelle faktorer til at falde sammen til én angrebsflade. Tilsvarende er vidensbaserede kontrolspørgsmål (mors pigenavn) ofte offentligt tilgængelige og tilfører kun lidt entropi.
+
+    Biometri er et særtilfælde. Et biometrisk kendetegn er ikke hemmeligt — ansigter fotograferes, og fingeraftryk efterlades på glas — så sikkerheden hviler på detektion af præsentationsangreb (liveness) og på matcherens false match rate. NIST accepterer derfor kun biometri som del af multifaktorautentificering bundet til en bestemt fysisk autentifikator, aldrig som selvstændig faktor, og på de udbredte platforme verificeres biometrien lokalt og bruges kun til at låse en privat nøgle op i et secure element eller en TPM; skabelonen forlader aldrig enheden. Et kompromitteret fingeraftryk kan ikke udskiftes, hvilket er endnu en grund til, at biometri bruges som lokal lås frem for som overført legitimation.
+
+    Kontekstsignaler — IP-adresse, geolokation, enhedens tilstand, adfærdsmønstre — kaldes undertiden "et sted man er" (somewhere you are) eller en fjerde faktor. Standardiseringsorganer regner dem generelt ikke som autentificeringsfaktorer; de indgår i risikobaserede eller betingede adgangsbeslutninger, som kan kræve step-up-autentificering. Styrken af et login afhænger mindre af antallet af faktorer end af deres modstandskraft mod phishing, replay og aflytning: en adgangskode plus en engangskode, der kan phishes, er to faktorer, men det er en enhedsbundet passkey med brugerverifikation også — og den modstår relay-angreb, fordi svaret er bundet til sitets origin.
 edges:
   requires: [authentication]
   used-with: [passkey, password]
@@ -32,4 +49,8 @@ sources:
     tier: course-material
   - title: NIST SP 800-63B — Digital Identity Guidelines, Authentication and Lifecycle Management
     tier: standard
+  - title: Commission Delegated Regulation (EU) 2018/389 — RTS on strong customer authentication (Arts. 6–9)
+    tier: standard
+    publisher: European Commission
+    url: https://eur-lex.europa.eu/eli/reg_del/2018/389/oj/eng
 draft: true

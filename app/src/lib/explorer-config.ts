@@ -1,5 +1,5 @@
 /**
- * Every tunable number of the Explorer's look and motion, in one place (A85), so the
+ * Every tunable number of the Explorer's look and motion, in one place (A86), so the
  * owner can iterate on the visuals without touching the code that uses them. Pure data.
  */
 export const EXPLORER = {
@@ -11,7 +11,7 @@ export const EXPLORER = {
     hubShare: 0.3,
   },
 
-  /** Which edges the overview draws (A85): a backbone, not the hairball. */
+  /** Which edges the overview draws (A86): a backbone, not the hairball. */
   edges: {
     /** Strongest within-cluster relationships each term keeps in the overview. */
     backbonePerNode: 2,
@@ -29,7 +29,7 @@ export const EXPLORER = {
   /** Hover intent: the pointer must rest this long before the map re-styles. */
   hoverDelayMs: 45,
 
-  /** Marching dashes on the hovered / selected / route edges only (A85). */
+  /** Marching dashes on the hovered / selected / route edges only (A86). */
   flow: {
     /** Pixels per second the dash pattern moves, source → target. */
     speed: 7,

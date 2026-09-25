@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: It gives developers, testers and buyers a shared starting point and a common language, but it is a floor rather than a full checklist — covering all ten does not make an application safe.
     da: Den giver udviklere, testere og indkøbere et fælles udgangspunkt og et fælles sprog, men den er et minimum og ikke en fuld tjekliste — at dække alle ti gør ikke en webapplikation sikker.
+deepDive:
+  en: |-
+    The list first appeared in 2003 and has been revised in 2004, 2007, 2010, 2013, 2017, 2021 and 2025, making the 2025 edition the eighth. Since 2021 it has been built from two inputs. OWASP collects testing data from contributing organisations, maps the findings to CWE identifiers, groups related CWEs into categories and ranks them using incidence in the data together with exploitability and impact scores derived from the CVSS data of the mapped CVEs. Because tool-based data lags behind what practitioners see, eight of the ten categories are chosen from the data and two are promoted from a community survey. For 2025 the data covered more than 2.8 million applications and 589 CWEs, and the ten categories contain 248 CWEs between them.
+
+    The 2025 categories are A01 Broken Access Control, A02 Security Misconfiguration, A03 Software Supply Chain Failures, A04 Cryptographic Failures, A05 Injection, A06 Insecure Design, A07 Authentication Failures, A08 Software or Data Integrity Failures, A09 Security Logging and Alerting Failures and A10 Mishandling of Exceptional Conditions. Compared with 2021, Server-Side Request Forgery is no longer its own category and has been folded into A01, Vulnerable and Outdated Components has been broadened into supply-chain failures covering compromises anywhere in the ecosystem of dependencies, build systems and distribution, and A10 is new, covering error handling, failing open and unhandled edge cases. XSS has sat inside Injection since 2021 and CSRF was dropped as a separate entry in 2017.
+
+    The categories are root causes and weakness families, not individual bugs, so a single finding can plausibly map to several of them, and the ranking says nothing about the risk in a particular application. OWASP describes the document as an awareness document and explicitly points organisations that want a testable standard to the Application Security Verification Standard (ASVS), which defines verification requirements at three levels. Using the Top 10 as an acceptance criterion in contracts or as a scanner "compliance" checkbox is a common misuse, since several categories, notably A06 Insecure Design, cannot be verified by automated testing at all.
+
+    Separate lists exist for other technology areas and should not be confused with the main list: the OWASP API Security Top 10 (2023 edition), the Mobile Top 10 and the Top 10 for LLM Applications. PCI DSS and many procurement templates reference the Top 10 or ASVS as examples of industry-accepted secure coding guidance, and the list is likewise often cited in public tenders and supplier contracts.
+  da: |-
+    Listen udkom første gang i 2003 og er revideret i 2004, 2007, 2010, 2013, 2017, 2021 og 2025, så 2025-udgaven er den ottende. Siden 2021 er den bygget på to kilder. OWASP indsamler testdata fra bidragende organisationer, knytter fundene til CWE-numre, grupperer beslægtede CWE'er i kategorier og rangordner dem ud fra forekomst i data sammen med scorer for udnyttelighed og konsekvens afledt af CVSS-data for de tilknyttede CVE'er. Fordi værktøjsbaserede data halter efter det, fagfolk ser i praksis, udvælges otte af de ti kategorier fra data, mens to løftes ind via en rundspørge i fællesskabet. For 2025 dækkede data mere end 2,8 millioner applikationer og 589 CWE'er, og de ti kategorier rummer tilsammen 248 CWE'er.
+
+    Kategorierne i 2025 er A01 Broken Access Control, A02 Security Misconfiguration, A03 Software Supply Chain Failures, A04 Cryptographic Failures, A05 Injection, A06 Insecure Design, A07 Authentication Failures, A08 Software or Data Integrity Failures, A09 Security Logging and Alerting Failures og A10 Mishandling of Exceptional Conditions. I forhold til 2021 er Server-Side Request Forgery ikke længere en selvstændig kategori, men lagt ind under A01, Vulnerable and Outdated Components er udvidet til kompromitteringer i hele økosystemet af afhængigheder, build-systemer og distribution, og A10 er ny og dækker fejlhåndtering, systemer der fejler åbent, og uhåndterede kanttilfælde. XSS har ligget under Injection siden 2021, og CSRF røg ud som selvstændigt punkt i 2017.
+
+    Kategorierne er grundårsager og familier af svagheder, ikke enkelte fejl, så ét fund kan med rimelighed placeres i flere af dem, og rangordningen siger intet om risikoen i en bestemt applikation. OWASP kalder selv dokumentet et awareness-dokument og henviser organisationer, der ønsker en testbar standard, til Application Security Verification Standard (ASVS), som definerer verifikationskrav på tre niveauer. At bruge Top 10 som acceptkriterium i kontrakter eller som "compliance"-afkrydsning i en scanner er en udbredt misforståelse, fordi flere kategorier, især A06 Insecure Design, slet ikke kan verificeres med automatiske test.
+
+    Der findes separate lister for andre teknologiområder, som ikke må forveksles med hovedlisten: OWASP API Security Top 10 (2023-udgaven), Mobile Top 10 og Top 10 for LLM Applications. PCI DSS og mange udbudsskabeloner nævner Top 10 eller ASVS som eksempler på anerkendt vejledning i sikker kodning, og listen citeres på samme måde ofte i offentlige udbud og leverandørkontrakter.
 edges:
   requires: [vulnerability, web-application]
   used-with:
@@ -55,4 +72,8 @@ sources:
     tier: reference
     publisher: OWASP
     url: https://owasp.org/www-project-top-ten/
+  - title: OWASP Top 10:2025 — Introduction (What's new in 2025)
+    tier: reference
+    publisher: OWASP
+    url: https://top10.owasp.org/2025/0x00_2025-Introduction/
 draft: true

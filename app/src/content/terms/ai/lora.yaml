@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: It puts fine-tuning within reach of small teams, but adapter files shared online are a new, easily overlooked thing to vet, because one small file can quietly change how a trusted model behaves.
     da: Det gør finjustering mulig for små teams, men adapterfiler delt online er en ny, let overset ting at tjekke, fordi én lille fil stille og roligt kan ændre, hvordan en betroet model opfører sig.
+deepDive:
+  en: |-
+    For a frozen weight matrix W₀ ∈ ℝ^(d×k), LoRA learns an update ΔW = BA with B ∈ ℝ^(d×r), A ∈ ℝ^(r×k) and rank r ≪ min(d, k), so the layer computes h = W₀x + (α/r)·BAx. A is initialised randomly and B with zeros, so training starts exactly at the pretrained model. The parameter saving is large: for a 4096 × 4096 projection, r = 8 gives 8 × (4096 + 4096) = 65,536 trainable values instead of about 16.8 million, roughly 0.4%. Gradients and optimiser state are needed only for A and B, which is where most of the memory saving comes from; the frozen base still has to be held in memory for the forward and backward passes.
+
+    Hu et al. (2021) applied LoRA to the attention query and value projections of GPT-3 175B and reported about 10,000 times fewer trainable parameters and a threefold reduction in GPU memory compared with full fine-tuning, with quality on par. Because BA has the same shape as W₀, it can be merged into the base weights after training, adding no inference latency; alternatively adapters stay separate so many task-specific adapters can share one base model, which serving systems exploit by batching requests for different adapters together. The method rests on the observation that fine-tuning updates have low intrinsic rank. Current practice often targets all linear layers, with ranks from about 4 to 64, using libraries such as Hugging Face PEFT.
+
+    QLoRA (Dettmers et al., 2023) trains LoRA adapters on top of a base model quantised to 4-bit NormalFloat, adding double quantisation of the quantisation constants and paged optimiser states, which made fine-tuning a 65-billion-parameter model possible on a single 48 GB GPU. Other variants include DoRA, which separates the magnitude and direction of the weight update, and rank-stabilised LoRA, which scales by α/√r instead of α/r so higher ranks remain effective.
+
+    LoRA is not a free replacement for full fine-tuning. Biderman et al. (2024) found that in continued training on code and mathematics it substantially underperforms full fine-tuning, whose weight updates had 10–100 times higher rank than typical LoRA settings, but that it also forgets less of the base model's other abilities. An adapter is bound to the exact base checkpoint it was trained on; loading it onto a different version or quantisation silently changes behaviour. Adapters are also a supply-chain artefact: OWASP's Top 10 for LLM Applications 2025 (LLM03) warns that a malicious LoRA adapter can compromise the integrity of a trusted base model, and research has shown that LoRA fine-tuning can cheaply strip safety training from aligned models, so third-party adapters need provenance checks and evaluation before use.
+  da: |-
+    For en frossen vægtmatrix W₀ ∈ ℝ^(d×k) lærer LoRA en opdatering ΔW = BA med B ∈ ℝ^(d×r), A ∈ ℝ^(r×k) og rang r ≪ min(d, k), så laget beregner h = W₀x + (α/r)·BAx. A initialiseres tilfældigt og B med nuller, så træningen starter præcis i den fortrænede model. Besparelsen i parametre er stor: for en projektion på 4096 × 4096 giver r = 8 i alt 8 × (4096 + 4096) = 65.536 trænbare værdier i stedet for cirka 16,8 millioner, omtrent 0,4 %. Gradienter og optimeringstilstand er kun nødvendige for A og B, og det er dér, det meste af hukommelsesbesparelsen kommer fra; den frosne basismodel skal stadig ligge i hukommelsen til det forlæns og baglæns pass.
+
+    Hu m.fl. (2021) anvendte LoRA på attention-lagenes query- og value-projektioner i GPT-3 175B og rapporterede omkring 10.000 gange færre trænbare parametre og en tredobbelt reduktion i GPU-hukommelse sammenlignet med fuld finjustering, med tilsvarende kvalitet. Fordi BA har samme form som W₀, kan den efter træningen lægges ind i basisvægtene uden ekstra latenstid ved inferens; alternativt holdes adapterne adskilt, så mange opgavespecifikke adaptere kan dele én basismodel, hvilket serving-systemer udnytter ved at batche forespørgsler til forskellige adaptere sammen. Metoden bygger på observationen, at finjusteringsopdateringer har lav indre rang. Nuværende praksis rammer ofte alle lineære lag med rang fra cirka 4 til 64 via biblioteker som Hugging Face PEFT.
+
+    QLoRA (Dettmers m.fl., 2023) træner LoRA-adaptere oven på en basismodel kvantiseret til 4-bit NormalFloat og tilføjer dobbelt kvantisering af kvantiseringskonstanterne samt paged optimeringstilstand, hvilket gjorde det muligt at finjustere en model med 65 milliarder parametre på én GPU med 48 GB. Andre varianter er DoRA, der adskiller størrelse og retning i vægtopdateringen, og rank-stabilised LoRA, der skalerer med α/√r i stedet for α/r, så højere rang forbliver effektiv.
+
+    LoRA er ikke en gratis erstatning for fuld finjustering. Biderman m.fl. (2024) fandt, at den ved fortsat træning på kode og matematik klarer sig markant dårligere end fuld finjustering, hvis vægtopdateringer havde 10–100 gange højere rang end typiske LoRA-indstillinger, men at den også glemmer mindre af basismodellens øvrige evner. En adapter er bundet til præcis det basis-checkpoint, den er trænet på; indlæses den på en anden version eller kvantisering, ændres adfærden stille. Adaptere er også en del af leverandørkæden: OWASP Top 10 for LLM Applications 2025 (LLM03) advarer om, at en ondsindet LoRA-adapter kan kompromittere integriteten af en betroet basismodel, og forskning har vist, at LoRA-finjustering billigt kan fjerne sikkerhedstræning fra aligned modeller, så adaptere fra tredjepart kræver kontrol af oprindelse og evaluering før brug.
 edges:
   kind-of: [fine-tuning]
   requires:
@@ -44,4 +61,12 @@ edges:
 sources:
   - title: Hu et al. (2021), LoRA — Low-Rank Adaptation of Large Language Models
     tier: reference
+  - title: Biderman et al. (2024), LoRA Learns Less and Forgets Less
+    tier: reference
+    publisher: arXiv
+    url: https://arxiv.org/abs/2405.09673
+  - title: 'OWASP Top 10 for LLM Applications 2025 — LLM03:2025 Supply Chain'
+    tier: reference
+    publisher: OWASP
+    url: https://genai.owasp.org/llmrisk/llm032025-supply-chain/
 draft: true

@@ -15,7 +15,7 @@ interface Props {
   open?: boolean;
   /** Compact: one domain row each, no cluster list (term-page graph). */
   compact?: boolean;
-  /** Explorer only: the overview/all-relationships toggle (A85). */
+  /** Explorer only: the overview/all-relationships toggle (A86). */
   showAll?: boolean;
   onShowAll?: (on: boolean) => void;
 }

@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: Used for simple questions it only wastes time and money, and its shown working-out is not a reliable record of how the answer was reached, so it proves nothing about whether the answer is right.
     da: Brugt til enkle spørgsmål spilder den blot tid og penge, og den viste mellemregning er ikke et pålideligt billede af, hvordan svaret blev nået, så den beviser intet om, hvorvidt svaret er rigtigt.
+deepDive:
+  en: |-
+    Reasoning models moved chain-of-thought from the prompt into training. OpenAI's o1 (preview released in September 2024) was described as trained with large-scale reinforcement learning to use a long internal chain of thought, with performance improving both with more RL training compute and with more test-time compute spent thinking. DeepSeek-R1 (January 2025) published a recipe: R1-Zero was trained from a base model with reinforcement learning alone, using Group Relative Policy Optimization (GRPO) and rule-based rewards for answer correctness and output format on maths and code problems whose answers can be checked automatically; lengthening reasoning, self-verification and backtracking emerged without supervised examples. The released R1 added a small cold-start SFT set and further stages to fix readability and language mixing.
+
+    Operationally, the model emits reasoning tokens before the visible answer. They occupy the context window, count against the output-token limit and are billed as output tokens even when the provider hides them, which is why cost and latency can be several times those of a non-reasoning call for the same visible answer. Providers expose the trade-off as a control: an effort level, or a token budget for thinking; some return the raw reasoning, others only a summary or nothing. Settings that work on ordinary models — temperature, prefilled answers, few-shot examples of short answers — may be restricted or counter-productive, and "think step by step" instructions add little because the behaviour is already trained in.
+
+    The gains concentrate in domains with verifiable answers: competition mathematics, programming, formal logic, multi-step planning and agentic tool use. On lookup-style questions, short classification and extraction tasks the extra tokens mostly add latency, and long reasoning can "overthink" simple problems into wrong answers. Reasoning also does not eliminate hallucination; a model can reason carefully from a false premise it invented.
+
+    The visible reasoning is not a faithful log of the computation. In Anthropic's 2025 study "Reasoning Models Don't Always Say What They Think", models were given hints to the answer and then checked for whether their chain of thought admitted using them: averaged across hint types, Claude 3.7 Sonnet mentioned the hint 25% of the time and DeepSeek-R1 39%. Reasoning traces are useful for debugging and for monitoring misbehaviour, but they should not be treated as an audit trail or as an explanation in the sense required for decisions about people. They can also contain text the final answer would have filtered out, such as quoted sensitive input, so logging and display of reasoning need the same data-handling rules as other model output.
+  da: |-
+    Ræsonnementsmodeller flyttede tankekæden fra prompten ind i træningen. OpenAI's o1 (preview udgivet i september 2024) blev beskrevet som trænet med storskala forstærkningslæring til at bruge en lang intern tankekæde, hvor ydeevnen steg både med mere regnekraft til RL-træning og med mere regnekraft brugt på at tænke ved svartidspunktet. DeepSeek-R1 (januar 2025) offentliggjorde en opskrift: R1-Zero blev trænet fra en basismodel med forstærkningslæring alene, med Group Relative Policy Optimization (GRPO) og regelbaserede belønninger for korrekt svar og korrekt format på matematik- og kodeopgaver, hvis svar kan tjekkes automatisk; længere ræsonnementer, selvkontrol og tilbagesporing opstod uden superviserede eksempler. Den udgivne R1 tilføjede et lille sæt SFT-data som koldstart og flere trin for at rette læsbarhed og sprogblanding.
+
+    I drift skriver modellen ræsonnements-tokens før det synlige svar. De optager plads i kontekstvinduet, tæller med i grænsen for output-tokens og faktureres som output-tokens, også når udbyderen skjuler dem, og derfor kan pris og ventetid blive flere gange højere end ved et almindeligt kald med samme synlige svar. Udbyderne giver adgang til afvejningen via en indstilling: et effort-niveau eller et token-budget til tænkning; nogle returnerer det rå ræsonnement, andre kun et resumé eller intet. Indstillinger, der virker på almindelige modeller — temperatur, forudfyldte svar, few-shot-eksempler med korte svar — kan være begrænsede eller virke mod hensigten, og instruktioner som "tænk trin for trin" tilføjer lidt, fordi adfærden allerede er trænet ind.
+
+    Gevinsterne ligger især i domæner med efterprøvelige svar: konkurrencematematik, programmering, formel logik, planlægning i flere trin og agentisk værktøjsbrug. Ved opslagsspørgsmål og korte klassifikations- og udtræksopgaver giver de ekstra tokens mest ventetid, og lange ræsonnementer kan "overtænke" enkle problemer til forkerte svar. Ræsonnement fjerner heller ikke hallucination; en model kan ræsonnere omhyggeligt ud fra en falsk præmis, den selv har fundet på.
+
+    Det synlige ræsonnement er ikke en tro log over beregningen. I Anthropics undersøgelse fra 2025, "Reasoning Models Don't Always Say What They Think", fik modeller hints til svaret, og man tjekkede, om tankekæden indrømmede at bruge dem: I gennemsnit over hint-typerne nævnte Claude 3.7 Sonnet hintet i 25 % af tilfældene og DeepSeek-R1 i 39 %. Ræsonnementsspor er nyttige til fejlfinding og til at overvåge uønsket adfærd, men bør ikke behandles som revisionsspor eller som en forklaring i den forstand, der kræves ved afgørelser om personer. De kan også indeholde tekst, som det endelige svar ville have filtreret fra, fx citeret følsomt input, så logning og visning af ræsonnement kræver samme regler for datahåndtering som andet modeloutput.
 edges:
   kind-of: [large-language-model]
   requires:
@@ -48,4 +65,8 @@ sources:
     publisher: OpenAI
   - title: 'DeepSeek-AI (2025), DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning'
     tier: reference
+  - title: Chen et al. (2025), Reasoning Models Don't Always Say What They Think
+    tier: reference
+    publisher: Anthropic
+    url: https://arxiv.org/abs/2505.05410
 draft: true
