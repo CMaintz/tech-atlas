@@ -1,8 +1,8 @@
 /**
  * Pure graph maths for the Explorer (A86): the domain filter, which edges form the
  * overview backbone, PageRank for node size, cluster-to-cluster bundles, the "By depth"
- * and "By time" layouts, seam rotation and the 3D galaxy layout. No DOM, no Cytoscape,
- * no three.js — everything here is deterministic and unit-tested.
+ * and "By time" layouts, map orientation, overlap removal and the 3D galaxy layout.
+ * No DOM, no Cytoscape, no three.js — everything here is deterministic and unit-tested.
  */
 import { EXPLORER } from './explorer-config';
 import {
@@ -55,9 +55,9 @@ export function effectivePaint(
 }
 
 /**
- * The colour bands of a term in several enabled domains (A86): one band per domain,
- * its effective home first, each in that domain's colour. A term in one enabled domain
- * gets no bands (its fill is its cluster shade).
+ * The domain colours of a term in several enabled domains (A86): its effective home
+ * first, then the others. The map fills the term in its own shade and rings it in the
+ * second colour. A term in one enabled domain gets none.
  */
 export function domainBands(n: Paintable, enabled?: ReadonlySet<string>): string[] {
   const on = n.domain.filter((d) => !enabled || enabled.has(d));
@@ -66,56 +66,45 @@ export function domainBands(n: Paintable, enabled?: ReadonlySet<string>): string
   return [home, ...on.filter((d) => d !== home)].map(domainColour);
 }
 
-/**
- * Hard-edged vertical bands as a CSS/Cytoscape gradient: every colour repeated at its
- * band's start and end, so neighbouring bands meet without a blend.
- */
-export function bandGradient(colours: string[]): { colours: string; stops: string } {
-  const c: string[] = [];
-  const s: string[] = [];
-  colours.forEach((col, i) => {
-    const a = (100 * i) / colours.length;
-    const b = (100 * (i + 1)) / colours.length;
-    c.push(col, col);
-    s.push(`${+a.toFixed(3)}%`, `${+b.toFixed(3)}%`);
-  });
-  return { colours: c.join(' '), stops: s.join(' ') };
-}
-
 // ---- Backbone ------------------------------------------------------------------------
 
 /** Relationship families that carry a map's structure (kind-of, part-of, requires …). */
 const STRUCTURAL = new Set(['structure', 'dependency']);
 
 /**
- * The overview's edges (A86): each term keeps its `perNode` strongest relationships
- * inside its own cluster (structure and prerequisites count 1.5×); a term left with
- * none keeps its single strongest relationship of any kind, so no connected term
- * floats alone. Returns the indices of the chosen links.
+ * The overview's edges (A86): every `requires` edge and every edge authored
+ * `strength: primary` is always drawn; each term also keeps its `perNode` strongest
+ * relationships to terms sharing one of its domains, in any cluster (structure and
+ * prerequisites count 1.5×) — so a hub whose links all leave its cluster still shows
+ * them. A term left with none keeps its single strongest relationship, so no connected
+ * term floats alone. Returns the indices of the chosen links.
  */
 export function backbone(
   nodes: Node[],
-  links: WeightedLink[],
+  links: (WeightedLink & { type?: string; primary?: boolean })[],
   perNode: number = EXPLORER.edges.backbonePerNode,
 ): Set<number> {
-  const clusterOf = new Map(nodes.map((n) => [n.id, n.cluster]));
+  const domainsOf = new Map(nodes.map((n) => [n.id, n.domain]));
   const score = (l: WeightedLink) => l.weight * (STRUCTURAL.has(l.family) ? 1.5 : 1);
-  const inside = new Map<string, number[]>();
+  const chosen = new Set<number>();
+  const near = new Map<string, number[]>();
   const any = new Map<string, number[]>();
+  const push = (m: Map<string, number[]>, k: string, i: number) => {
+    if (!m.has(k)) m.set(k, []);
+    m.get(k)!.push(i);
+  };
   links.forEach((l, i) => {
+    if (l.type === 'requires' || l.primary) chosen.add(i);
+    const b = domainsOf.get(l.target) ?? [];
+    const shared = (domainsOf.get(l.source) ?? []).some((d) => b.includes(d));
     for (const end of [l.source, l.target]) {
-      if (!any.has(end)) any.set(end, []);
-      any.get(end)!.push(i);
-      if (clusterOf.get(l.source) === clusterOf.get(l.target)) {
-        if (!inside.has(end)) inside.set(end, []);
-        inside.get(end)!.push(i);
-      }
+      push(any, end, i);
+      if (shared) push(near, end, i);
     }
   });
   const byScore = (a: number, b: number) => score(links[b]) - score(links[a]) || a - b;
-  const chosen = new Set<number>();
   for (const n of nodes)
-    for (const i of [...(inside.get(n.id) ?? [])].sort(byScore).slice(0, perNode)) chosen.add(i);
+    for (const i of [...(near.get(n.id) ?? [])].sort(byScore).slice(0, perNode)) chosen.add(i);
   for (const n of nodes) {
     const mine = any.get(n.id) ?? [];
     if (mine.length && !mine.some((i) => chosen.has(i))) chosen.add([...mine].sort(byScore)[0]);
@@ -231,25 +220,7 @@ export function relativeControls(
   return { distances, weights };
 }
 
-// ---- Seams -------------------------------------------------------------------------------
-
-/**
- * The rotation (radians) that best turns each weighted direction `p` towards its target
- * direction `t` (2D Procrustes). Used to turn an island or region so the terms it shares
- * with another domain face that domain.
- */
-export function facingAngle(pairs: { p: Point; t: Point; w?: number }[]): number {
-  let sin = 0;
-  let cos = 0;
-  for (const { p, t, w = 1 } of pairs) {
-    const lp = Math.hypot(p.x, p.y);
-    const lt = Math.hypot(t.x, t.y);
-    if (!lp || !lt) continue;
-    sin += (w * (p.x * t.y - p.y * t.x)) / (lp * lt);
-    cos += (w * (p.x * t.x + p.y * t.y)) / (lp * lt);
-  }
-  return sin || cos ? Math.atan2(sin, cos) : 0;
-}
+// ---- Orientation -------------------------------------------------------------------------------
 
 /**
  * The rotation (radians) that lays a point cloud's long axis horizontal (principal
@@ -275,6 +246,58 @@ export const rotateAbout = (p: Point, c: Point, a: number): Point => ({
   x: c.x + (p.x - c.x) * Math.cos(a) - (p.y - c.y) * Math.sin(a),
   y: c.y + (p.x - c.x) * Math.sin(a) + (p.y - c.y) * Math.cos(a),
 });
+
+// ---- Overlap removal ------------------------------------------------------------------------
+
+/**
+ * Push points apart until every pair `i`, `j` is at least `min(i, j)` apart (A86), in
+ * place, in 2D or 3D. Each sweep moves both points of a too-close pair half the
+ * shortfall along the line between them; coincident points split along a fixed
+ * direction, so the result is deterministic. A dense cluster grows instead of stacking
+ * nodes on top of each other. O(n²) per sweep — run it per cluster, or on a few hundred
+ * points.
+ */
+export function separate(
+  pts: { x: number; y: number; z?: number }[],
+  min: (i: number, j: number) => number,
+  sweeps = 80,
+): void {
+  const n = pts.length;
+  for (let s = 0; s < sweeps; s++) {
+    let moved = false;
+    for (let i = 0; i < n; i++)
+      for (let j = i + 1; j < n; j++) {
+        const a = pts[i];
+        const b = pts[j];
+        const want = min(i, j);
+        let dx = b.x - a.x;
+        let dy = b.y - a.y;
+        let dz = (b.z ?? 0) - (a.z ?? 0);
+        let d = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        if (d >= want) continue;
+        if (d < 1e-6) {
+          // Coincident: split along a direction fixed by the pair's indices.
+          const t = (i * 7 + j * 13) % 360;
+          dx = Math.cos(t);
+          dy = Math.sin(t);
+          dz = 0;
+          d = 1;
+        }
+        // A hair past the shortfall, so a pair does not settle just under its minimum.
+        const k = ((want - d) / d) * 0.5 * 1.02;
+        a.x -= dx * k;
+        a.y -= dy * k;
+        b.x += dx * k;
+        b.y += dy * k;
+        if (a.z !== undefined && b.z !== undefined) {
+          a.z -= dz * k;
+          b.z += dz * k;
+        }
+        moved = true;
+      }
+    if (!moved) return;
+  }
+}
 
 // ---- Depth lanes ---------------------------------------------------------------------------
 
@@ -461,9 +484,8 @@ export type Point3 = { x: number; y: number; z: number };
 /**
  * Where every term sits in 3D (A86), computed once from the whole graph: each domain is
  * a galaxy on a horizontal ring, each cluster a star system round its galaxy's centre,
- * terms spread by repulsion and drawn together by their relationships. A term in two
- * domains is pulled towards the point between its galaxies, so shared terms form the
- * bridges. Height is a *soft* pull towards Depth (foundations low), never a plane.
+ * terms spread by repulsion and drawn together by their relationships; a term in two
+ * domains stays in its own cluster's galaxy. Height is a *soft* pull towards Depth (foundations low), never a plane.
  * Deterministic (seeded), O(n²) per step — fine for a few thousand terms.
  */
 export function galaxyLayout(
@@ -496,15 +518,8 @@ export function galaxyLayout(
       clusterSeat.set(cl, { x: c.x + r * Math.cos(a), z: c.z + r * Math.sin(a) });
     });
   }
-  // A term's horizontal home: its domains' anchors averaged (the seam for shared terms).
-  const home = nodes.map((n) => {
-    const ds = n.domain.filter((d) => anchor.has(d));
-    const list = ds.length ? ds : [homeDomain(n)];
-    return {
-      x: list.reduce((s, d) => s + anchor.get(d)!.x, 0) / list.length,
-      z: list.reduce((s, d) => s + anchor.get(d)!.z, 0) / list.length,
-    };
-  });
+  // A term's horizontal home: its own cluster's galaxy, like any other term (A86).
+  const home = nodes.map((n) => anchor.get(homeDomain(n))!);
   const meanDepth = nodes.reduce((s, n) => s + n.depth, 0) / Math.max(1, nodes.length);
   // Depth is a bias with a spread, so a row of equal-depth terms is a band, not a floor.
   const targetY = nodes.map(

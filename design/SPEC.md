@@ -287,8 +287,8 @@ real, statically rendered page ("the canvas is an index, not a container").
 - **3D is a mode**, justified because its vertical axis means something: Depth,
   derived from `requires` (ADR-0001) — foundations lie lower, advanced terms higher.
   Depth is a soft bias with a spread, not a set of planes, so the cloud stays
-  volumetric; each domain is a separate galaxy and terms shared by two domains sit
-  between them (A86).
+  volumetric; each domain is a separate galaxy, and a term shared by two domains sits
+  in its own cluster's galaxy with a halo in the other domain's colour (A86).
 - Edge *family* drives colour and filtering — seven readable groups (structure,
   prerequisites, contrasts, attacks & defences, regulation, lineage, used together)
   instead of twelve raw types (A29); the exact type is shown in edge labels. *Domain*
@@ -296,22 +296,26 @@ real, statically rendered page ("the canvas is an index, not a container").
   a ring in the other domain's colour; *domain* drives filtering (A74): a term shows
   while at least one of its domains is enabled, never merely because it is linked to
   a shown term (A86). One-way relationships carry an arrow and a slow, subtle flow
-  towards their target — only on the hovered or selected term's edges and a
-  highlighted route (still under `prefers-reduced-motion`); symmetric ones
+  towards their target — in the Explorer on every visible one-way edge, all the time
+  (dots on an overlay canvas; still under `prefers-reduced-motion`); symmetric ones
   (contrasts, alternatives, used-with) have neither; an edge crossing domains fades
-  between the two domain colours. Edges curve; hovering a term lights its
-  neighbourhood and fades the rest; a legend explains colours, rings and arrows.
+  between the two domain colours. Edges curve; selecting a term keeps it, its
+  neighbours and their edges lit and dims everything else (hover previews the same,
+  lighter); a legend explains colours, rings and arrows.
   Progressive: arriving from a term starts at the focal node + direct edges; expand
   one hop at a time, or open the whole map.
-- **The Explorer overview draws a backbone, not the hairball** (A86): each term's
-  strongest relationships inside its cluster, plus one faint ribbon per pair of
-  related clusters (their count sets its width); hovering or selecting a term shows
+- **The Explorer overview draws a backbone, not the hairball** (A86): every
+  `requires` and `strength: primary` relationship, plus each term's strongest
+  relationships to terms sharing a domain (any cluster), with one faint ribbon per pair
+  of related clusters (their count sets its width); hovering or selecting a term shows
   all its relationships, and a legend switch shows every relationship (edges between
-  clusters then bundle through their islands). Node size is PageRank.
+  clusters then bundle through their islands). Node size is PageRank; no two terms
+  sit closer than a click target plus a label, so clusters grow instead of stacking.
+  A term shared by several domains sits in its own cluster like any other.
 - **The map is stable** (A86): layouts are computed once from the whole graph;
-  relationship and domain filters only hide and show in place, "Tidy up" gathers the
-  visible terms on demand, and switching layout glides terms to their new places.
-  Terms cannot be dragged.
+  relationship and domain filters only hide and show in place, and switching layout
+  glides terms to their new places. The map fits itself on open and on a layout
+  switch; otherwise the reader pans and zooms. Terms cannot be dragged.
 - The full-screen Explorer (`/[lang]/explorer/`) offers 2D (force; by Depth — one
   lane per domain, depth rows with crossings reduced; or by Time — x = `era`, one
   lane per domain, undated terms hidden and counted) and 3D (galaxies, height leaning
