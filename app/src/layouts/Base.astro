@@ -53,7 +53,12 @@ const nav = [
   { href: url(`${lang}/study/`), label: ui.study },
 ];
 const current = (href: string) => isCurrentNav(path, href, langBase);
-const steps = TOUR_STEPS.map((s) => ({ ...s, title: s.title[lang], body: s.body[lang] }));
+const steps = TOUR_STEPS.map((s) => ({
+  ...s,
+  title: s.title[lang],
+  body: s.body[lang],
+  via: s.via?.[lang],
+}));
 const tourUi = {
   tourWelcomeStart: ui.tourWelcomeStart,
   tourNotNow: ui.tourNotNow,
@@ -65,6 +70,8 @@ const tourUi = {
   tourStepOf: ui.tourStepOf,
   tourContinue: ui.tourContinue,
   tourEnd: ui.tourEnd,
+  tourBridgeLink: ui.tourBridgeLink,
+  tourBridgeMenu: ui.tourBridgeMenu,
 };
 ---
 

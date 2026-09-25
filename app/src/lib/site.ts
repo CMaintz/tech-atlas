@@ -213,6 +213,8 @@ export const UI = {
     tourStepOf: 'Step {n} of {m}',
     tourContinue: 'Continue the tour ({n}/{m})',
     tourEnd: 'End tour',
+    tourBridgeLink: 'This link takes you there — follow it, or press Next.',
+    tourBridgeMenu: 'It’s in the menu — open it and follow the link, or press Next.',
   },
   da: {
     tagline: 'En tosproget teknisk ordbog, der læses som en vidensgraf.',
@@ -393,6 +395,8 @@ export const UI = {
     tourStepOf: 'Trin {n} af {m}',
     tourContinue: 'Fortsæt rundvisningen ({n}/{m})',
     tourEnd: 'Afslut rundvisning',
+    tourBridgeLink: 'Dette link fører dig derhen — følg det, eller tryk Næste.',
+    tourBridgeMenu: 'Det ligger i menuen — åbn den og følg linket, eller tryk Næste.',
   },
 } as const;
 
@@ -615,8 +619,9 @@ export const TOUR_PAIR = 'risk-vs-threat';
 type Bi = Record<Lang, string>;
 
 /**
- * The guided tour (A61). Pages are relative to the language root; anchors are tried
- * in order and fall back to a centred card, so a step survives markup changes.
+ * The guided tour (A61, A85). Pages are relative to the language root; anchors are
+ * tried in order and fall back to a centred card, so a step survives markup changes.
+ * A step on a new page carries `via`: the card that first points at the link there.
  */
 export const TOUR_STEPS: TourStep<Bi>[] = [
   {
@@ -631,19 +636,11 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
   {
     page: '',
     anchors: ['#search'],
-    title: { en: 'Search', da: 'Søg' },
+    via: { en: 'Next: the home page', da: 'Næste: forsiden' },
+    title: { en: 'Search — or ask', da: 'Søg — eller spørg' },
     body: {
-      en: 'Search names, abbreviations and synonyms in both languages at once — small typos are fine. Press / on any page to jump here.',
-      da: 'Søg i navne, forkortelser og synonymer på begge sprog på én gang — små stavefejl gør ikke noget. Tryk / på en hvilken som helst side for at hoppe hertil.',
-    },
-  },
-  {
-    page: '',
-    anchors: ['#search'],
-    title: { en: 'Ask, don’t just search', da: 'Spørg — søg ikke bare' },
-    body: {
-      en: 'The search box understands intents: “risk vs threat” compares two terms, “before zero trust” lists what to learn first, and “from password to MFA” finds a route on the map. Whole questions — “how do I stop phishing?” — can be searched by meaning.',
-      da: 'Søgefeltet forstår hensigter: “risiko vs trussel” sammenligner to begreber, “før zero trust” viser, hvad du bør lære først, og “fra adgangskode til MFA” finder en vej på kortet. Hele spørgsmål — “hvordan stopper jeg phishing?” — kan søges efter betydning.',
+      en: 'Search names, abbreviations and synonyms in both languages; small typos are fine. It also understands intents — “risk vs threat” compares two terms, “before zero trust” lists what to learn first — and whole questions are searched by meaning. Press / anywhere to jump here.',
+      da: 'Søg i navne, forkortelser og synonymer på begge sprog; små stavefejl gør ikke noget. Feltet forstår også hensigter — “risiko vs trussel” sammenligner to begreber, “før zero trust” viser, hvad du bør lære først — og hele spørgsmål søges efter betydning. Tryk / hvor som helst for at hoppe hertil.',
     },
   },
   {
@@ -658,6 +655,7 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
   {
     page: `terms/${TOUR_TERM}/`,
     anchors: ['#facets'],
+    via: { en: 'Next: an entry — Risk', da: 'Næste: et opslag — Risiko' },
     title: { en: 'Four ways to explain one term', da: 'Fire måder at forklare ét begreb' },
     body: {
       en: 'Every entry has four facets: a formal definition, a plain-language one, what it looks like in practice, and why it matters. Underlined words are other entries — follow them.',
@@ -684,15 +682,6 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
   },
   {
     page: `terms/${TOUR_TERM}/`,
-    anchors: ['#mentions', '#relationships'],
-    title: { en: 'Mentioned in', da: 'Nævnt i' },
-    body: {
-      en: 'Entries that use this term in their explanation without being directly linked to it — a quick way to see where it turns up.',
-      da: 'Opslag, der bruger dette begreb i deres forklaring uden at være direkte forbundet med det — en hurtig måde at se, hvor det dukker op.',
-    },
-  },
-  {
-    page: `terms/${TOUR_TERM}/`,
     anchors: ['#check-yourself'],
     title: { en: 'Check yourself', da: 'Test dig selv' },
     body: {
@@ -703,6 +692,7 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
   {
     page: `compare/${TOUR_PAIR}/`,
     anchors: ['#compare'],
+    via: { en: 'Next: compare Risk and Threat', da: 'Næste: sammenlign Risiko og Trussel' },
     title: { en: 'Compare', da: 'Sammenlign' },
     body: {
       en: 'Terms that are easy to mix up get a side-by-side page: why they differ, each facet next to the other, and what they have in common. The Compare menu lists every pair.',
@@ -712,6 +702,7 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
   {
     page: 'explorer/',
     anchors: ['[data-tour="explorer-layouts"]', '#explorer aside', '#explorer'],
+    via: { en: 'Next: the Explorer', da: 'Næste: Udforsk' },
     title: { en: 'The explorer', da: 'Udforsk' },
     body: {
       en: 'The whole map at once. Switch between 2D and a 3D view you can fly around, and lay the map out by force, by depth (foundations at the bottom) or by time. Colour it by cluster or by what you already know.',
@@ -739,6 +730,7 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
   {
     page: 'study/',
     anchors: ['#study'],
+    via: { en: 'Next: Study', da: 'Næste: Øv' },
     title: { en: 'Study', da: 'Øv' },
     body: {
       en: 'Quizzes built from the map, with spaced repetition: right answers come back later, wrong ones soon. It also recommends terms whose prerequisites you already know.',
@@ -748,10 +740,11 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
   {
     page: 'timeline/',
     anchors: ['#timeline'],
+    via: { en: 'Next: the timeline', da: 'Næste: tidslinjen' },
     title: { en: 'Timeline', da: 'Tidslinje' },
     body: {
-      en: 'Terms by the decade they came into use — filter by domain to see how a field grew.',
-      da: 'Begreber efter det årti, de kom i brug — filtrér efter domæne for at se, hvordan et fagområde voksede.',
+      en: 'One lane per domain, each term placed at the year it came into use, with the eras behind them — the big dots are milestones. Click a term to read it.',
+      da: 'Én bane pr. domæne, hvert begreb placeret i det år, det kom i brug, med tidsaldrene bagved — de store prikker er milepæle. Klik på et begreb for at læse det.',
     },
   },
   {
