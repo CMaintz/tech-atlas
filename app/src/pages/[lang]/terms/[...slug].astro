@@ -87,17 +87,50 @@ const aka = d.aka[lang];
 // A Collision (ADR-0003): other terms share this bare name — link the Disambiguation page.
 const name = bareName(term.id);
 const collides = collisionsOf(all.map((t) => t.id)).has(name);
+
+// Breadcrumb: Index › primary domain (the folder) › cluster — anchors on the home index.
+const primary = term.id.split('/')[0];
+const crumbs = [
+  { href: url(`${lang}/`), label: ui.index },
+  { href: url(`${lang}/#domain-${primary}`), label: DOMAIN_LABELS[primary]?.[lang] ?? primary },
+  {
+    href: url(`${lang}/#cluster-${primary}-${d.cluster}`),
+    label: CLUSTER_LABELS[d.cluster]?.[lang] ?? d.cluster,
+  },
+];
 ---
 
-<Base lang={lang} title={d.term[lang]} description={d.summary[lang]}>
-  <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-10">
+<Base lang={lang} title={d.term[lang]} description={d.summary[lang]} ogType="article">
+  <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-10" data-term-id={term.id}>
     <div>
-      <div class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">
-        {d.domain.map((x) => DOMAIN_LABELS[x]?.[lang] ?? x).join(' · ')} · {
-          CLUSTER_LABELS[d.cluster]?.[lang] ?? d.cluster
-        }
+      <nav
+        aria-label={ui.breadcrumb}
+        class="mb-2 text-xs tracking-widest text-neutral-500 uppercase"
+      >
+        <ol class="flex flex-wrap items-center gap-x-1.5">
+          {
+            crumbs.map((c, i) => (
+              <li class="flex items-center gap-x-1.5">
+                {i > 0 && <span aria-hidden="true">›</span>}
+                <a class="hover:text-neutral-200" href={c.href}>
+                  {c.label}
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+      <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+        <h1 class="text-3xl font-semibold">{d.term[lang]}</h1>
+        <button
+          type="button"
+          data-copy-link
+          data-copied={ui.linkCopied}
+          class="mt-1.5 rounded border border-neutral-800 px-2 py-1 text-xs text-neutral-400 hover:border-neutral-500 hover:text-neutral-100 print:hidden"
+        >
+          <span data-label>{ui.copyLink}</span>
+        </button>
       </div>
-      <h1 class="text-3xl font-semibold">{d.term[lang]}</h1>
       {
         aka.length > 0 && (
           <p class="mt-1 text-sm text-neutral-500">
@@ -141,7 +174,7 @@ const collides = collisionsOf(all.map((t) => t.id)).has(name);
         )
       }
 
-      <div class="mt-8 space-y-5">
+      <div class="mt-8 space-y-5" id="facets">
         {
           facets.map((f) => (
             <div>
@@ -184,7 +217,7 @@ const collides = collisionsOf(all.map((t) => t.id)).has(name);
 
       {
         groups.length > 0 && (
-          <section class="mt-10">
+          <section class="mt-10" id="relationships">
             <h2 class="mb-3 text-xs tracking-widest text-neutral-500 uppercase">
               {ui.relationships}
             </h2>
@@ -239,7 +272,7 @@ const collides = collisionsOf(all.map((t) => t.id)).has(name);
       </div>
       {
         mentionedIn.length > 0 && (
-          <section class="mt-8">
+          <section class="mt-8" id="mentions">
             <h2 class="mb-2 text-xs tracking-widest text-neutral-500 uppercase">
               {ui.mentionedIn}
             </h2>
@@ -257,7 +290,10 @@ const collides = collisionsOf(all.map((t) => t.id)).has(name);
         )
       }
 
-      <section class="mt-10 space-y-5 rounded border border-neutral-800 p-4">
+      <section
+        class="mt-10 space-y-5 rounded border border-neutral-800 p-4 print:hidden"
+        id="check-yourself"
+      >
         <h2 class="text-xs tracking-widest text-neutral-500 uppercase">{ui.checkYourself}</h2>
         <KnowledgeStatus client:only="preact" termId={term.id} ui={{ ...ui }} />
         <Quiz
@@ -271,7 +307,7 @@ const collides = collisionsOf(all.map((t) => t.id)).has(name);
         />
       </section>
     </div>
-    <aside class="mt-10 lg:sticky lg:top-6 lg:mt-0 lg:self-start">
+    <aside class="mt-10 lg:sticky lg:top-6 lg:mt-0 lg:self-start print:hidden" id="connections">
       <h2 class="mb-2 text-xs tracking-widest text-neutral-500 uppercase">{ui.connections}</h2>
       <Graph
         client:only="preact"
@@ -289,3 +325,18 @@ const collides = collisionsOf(all.map((t) => t.id)).has(name);
     </aside>
   </div>
 </Base>
+
+<script>
+  import { RECENT_KEY, parseRecent, pushRecent } from '../../../lib/prefs';
+
+  // Recently viewed (A62) — shown on the home page.
+  const id = document.querySelector<HTMLElement>('[data-term-id]')?.dataset.termId;
+  try {
+    if (id) {
+      const list = pushRecent(parseRecent(localStorage.getItem(RECENT_KEY)), id);
+      localStorage.setItem(RECENT_KEY, JSON.stringify(list));
+    }
+  } catch {
+    /* storage unavailable: nothing remembered */
+  }
+</script>

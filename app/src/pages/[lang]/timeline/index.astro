@@ -51,7 +51,7 @@ const chip =
   {decades.length === 0 && <p class="text-neutral-400">{ui.noDated}</p>}
   {
     decades.length > 0 && (
-      <div class="tl">
+      <div class="tl" id="timeline">
         {domains.length > 1 && (
           <fieldset class="mb-8 flex flex-wrap items-center gap-2">
             <legend class="sr-only">{ui.domains}</legend>
