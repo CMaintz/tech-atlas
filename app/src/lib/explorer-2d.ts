@@ -40,6 +40,7 @@ import {
   type LaneLayout,
 } from './graph-layout';
 import { GRAPH_STYLE, edgeData, reducedMotion, smoothFit } from './graph-cytoscape';
+import { createDragFeedback } from './drag-feedback';
 import { startDots } from './explorer-flow';
 
 cytoscape.use(fcose);
@@ -89,6 +90,9 @@ const MIN_LABEL_PX = 8;
 const HOVER_LABEL_PX = 11;
 
 const EXTRA_STYLE = [
+  // Cytoscape's own press marker is a dark disc, invisible on the night map: the drag
+  // ring (drag-feedback.ts) replaces it (A95).
+  { selector: 'core', style: { 'active-bg-opacity': 0 } },
   { selector: '.gone', style: { display: 'none' } },
   { selector: 'edge.off', style: { display: 'none' } },
   // Resting backbone: the cluster's own shade, no arrow, straight and solid — a calm
@@ -692,7 +696,7 @@ export function createMap2D(opts: Map2DOptions) {
       was.connectedEdges('.hoverlink').removeClass('hoverlink').addClass('off');
       cy.nodes('.tag').removeClass('faded');
     });
-    opts.container.style.cursor = 'default';
+    opts.container.style.cursor = 'grab';
   };
   const hover = (n: cytoscape.NodeSingular) => {
     hovered = n;
@@ -729,11 +733,24 @@ export function createMap2D(opts: Map2DOptions) {
   };
   // No hover while a button is down: restyling mid-pan throws away the viewport snapshot.
   let pressing = false;
-  cy.on('tapstart', () => {
+  // The background can be dragged: an open hand at rest, a closed one and a ring while
+  // panning (A95). Only a press on the background pans; a press on a term does not.
+  opts.container.style.cursor = 'grab';
+  const drag = createDragFeedback(opts.container);
+  cy.on('tapstart', (e) => {
     pressing = true;
     opts.onPoint?.(null);
+    const ev = e.originalEvent as (MouseEvent & { pointerType?: string }) | TouchEvent | undefined;
+    if (e.target !== cy || !ev) return;
+    if ('touches' in ev) {
+      const t = ev.touches[0];
+      if (t) drag.start('pan', { clientX: t.clientX, clientY: t.clientY, pointerType: 'touch' });
+    } else if (ev.button === 0) drag.start('pan', ev);
   });
-  cy.on('tapend', () => void (pressing = false));
+  cy.on('tapend', () => {
+    pressing = false;
+    drag.end();
+  });
   cy.on('viewport', () => opts.onPoint?.(null));
   cy.on('mouseover', 'node[size]', (e) => {
     if (pressing) return;
@@ -973,6 +990,8 @@ export function createMap2D(opts: Map2DOptions) {
   return {
     cy,
     apply,
+    /** Bring a term into view (Find a term, even when it is already selected). */
+    focus: (id: string) => void centreOn(id, [0.9, 1.2]),
     resize() {
       cy.resize();
       dots.resize();
@@ -981,6 +1000,7 @@ export function createMap2D(opts: Map2DOptions) {
       dots.stop();
       window.clearTimeout(cullTimer);
       window.clearTimeout(hoverTimer);
+      drag.destroy();
       cy.destroy();
     },
   };

@@ -3,14 +3,8 @@ import MiniSearch from 'minisearch';
 import { exactName, parseIntent } from '../lib/intent';
 import { pairSlugFromIds } from '../lib/slug';
 import { collisionForQuery, collisionsOf } from '../lib/collisions';
-import {
-  dropStopwords,
-  fetchSemantic,
-  looksNaturalLanguage,
-  nearBest,
-  reciprocalRankFusion,
-  type Scored,
-} from '../lib/semantic';
+import { dropStopwords, looksNaturalLanguage, mergeHits } from '../lib/semantic';
+import { useSemanticHits } from '../lib/use-semantic';
 
 type Lang = 'en' | 'da';
 type Doc = {
@@ -43,8 +37,6 @@ interface Props {
 }
 
 const MAX = 8;
-/** Pause after the last keystroke before asking the server. */
-const DEBOUNCE_MS = 300;
 
 /**
  * Client-side bilingual search: typo-tolerant over names and aliases in both
@@ -69,9 +61,6 @@ export default function Search({
 }: Props) {
   const [docs, setDocs] = useState<Doc[] | null>(null);
   const [query, setQuery] = useState('');
-  const [semantic, setSemantic] = useState<{ query: string; hits: Scored[] } | null>(null);
-  // Answers already fetched this visit, so editing back to a query doesn't ask again.
-  const answered = useRef(new Map<string, Scored[]>());
   const box = useRef<HTMLInputElement>(null);
 
   // Arriving via the "/" shortcut from another page (…/#search): focus the box.
@@ -131,39 +120,9 @@ export default function Search({
           .map((r) => r.id as string)
       : [];
 
-  useEffect(() => {
-    if (!natural || !semanticUrl) return;
-    const key = `${lang}:${q}`;
-    const cached = answered.current.get(key);
-    if (cached) {
-      setSemantic({ query: q, hits: cached });
-      return;
-    }
-    // Debounced; a newer keystroke aborts the request in flight. Any failure or a
-    // response slower than SEMANTIC_TIMEOUT_MS leaves the lexical results as they are.
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => {
-      fetchSemantic(semanticUrl, q, lang, { signal: ctrl.signal })
-        .then((hits) => {
-          const near = nearBest(hits);
-          answered.current.set(key, near);
-          setSemantic({ query: q, hits: near });
-        })
-        .catch(() => {
-          /* lexical only */
-        });
-    }, DEBOUNCE_MS);
-    return () => {
-      clearTimeout(timer);
-      ctrl.abort();
-    };
-  }, [q, natural, semanticUrl, lang]);
-
-  // Semantic first, so a tie between the two rankings goes to meaning for a question.
-  const fresh = natural && semantic?.query === q ? semantic.hits : null;
-  const results = fresh
-    ? reciprocalRankFusion({ semantic: fresh.map((h) => h.id), lexical: nameIds }).slice(0, MAX)
-    : lexicalIds.map((id) => ({ id, from: ['lexical'] }));
+  // Debounced and abortable; without a backend, or on failure, the lexical results stand.
+  const semantic = useSemanticHits(semanticUrl, q, lang, natural);
+  const results = mergeHits(lexicalIds, natural ? semantic : null, { names: nameIds, max: MAX });
 
   // An intent resolves each phrase to its best-matching term.
   let action: { href: string; label: string } | null = null;

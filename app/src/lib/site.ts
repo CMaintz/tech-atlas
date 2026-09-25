@@ -530,9 +530,9 @@ export const GRAPH_UI = {
     crossDomain: 'Fades between two domain colours: crosses domains',
     showAll: 'Show all relationships',
     overview:
-      'The overview draws each term’s strongest links; faint ribbons bundle the links between clusters. Hover or click a term for all its relationships.',
+      'The overview draws each term’s strongest links; faint ribbons bundle the links between clusters. Click a term for all its relationships.',
     typesNote:
-      'The ticked types filter the overview; a selected term always shows all its relationships.',
+      'The overview starts with structure, prerequisites, attacks & defences, regulation and lineage; tick contrasts or “used together” to add them. A selected term always shows all its relationships.',
   },
   da: {
     legend: 'Forklaring',
@@ -545,9 +545,9 @@ export const GRAPH_UI = {
     crossDomain: 'Glider mellem to domænefarver: krydser domæner',
     showAll: 'Vis alle relationer',
     overview:
-      'Overblikket viser hvert begrebs stærkeste forbindelser; svage bånd samler forbindelserne mellem klynger. Hold musen over eller klik på et begreb for at se alle dets relationer.',
+      'Overblikket viser hvert begrebs stærkeste forbindelser; svage bånd samler forbindelserne mellem klynger. Klik på et begreb for at se alle dets relationer.',
     typesNote:
-      'De valgte typer filtrerer overblikket; et valgt begreb viser altid alle sine relationer.',
+      'Overblikket starter med struktur, forudsætninger, angreb og forsvar, regulering og afstamning; sæt flueben ved kontraster eller “bruges sammen” for at tilføje dem. Et valgt begreb viser altid alle sine relationer.',
   },
 } as const;
 

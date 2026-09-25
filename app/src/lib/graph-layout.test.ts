@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  OVERVIEW_FAMILIES,
   backbone,
   backboneOf,
   bundleControls,
@@ -19,6 +20,7 @@ import {
   yearX,
 } from './graph-layout';
 import { clusterColour, domainColour } from './graph-style';
+import { FAMILY } from './graph-model';
 
 const on = (...d: string[]) => new Set(d);
 
@@ -91,6 +93,52 @@ describe('backboneOf', () => {
   it('lets a family that is on fill the slots of one switched off', () => {
     expect(backboneOf(nodes, links, new Set(['association', 'contrast'])).has(4)).toBe(false);
     expect([...backboneOf(nodes, links, new Set(['contrast']))]).toEqual([4]);
+  });
+});
+
+describe('OVERVIEW_FAMILIES (A95)', () => {
+  const drawn = (Object.keys(FAMILY) as (keyof typeof FAMILY)[])
+    .filter((t) => OVERVIEW_FAMILIES.has(FAMILY[t]))
+    .sort();
+  it('draws exactly the owner-approved relationship types', () => {
+    expect(drawn).toEqual(
+      [
+        'causes',
+        'exploits',
+        'implements',
+        'kind-of',
+        'mandates',
+        'mitigates',
+        'part-of',
+        'requires',
+        'supersedes',
+      ].sort(),
+    );
+  });
+  it('leaves used-with, contrasts-with and alternative-to out of the overview', () => {
+    for (const t of ['used-with', 'contrasts-with', 'alternative-to'] as const)
+      expect(OVERVIEW_FAMILIES.has(FAMILY[t])).toBe(false);
+  });
+  it('is backboneOf’s default: an off type never takes a slot, an on type fills it', () => {
+    const nodes = ['a', 'b', 'c'].map((id) => ({ id, domain: ['cs'], cluster: 'k' }));
+    const links = [
+      { source: 'a', target: 'b', weight: 9, family: 'association', type: 'used-with' },
+      { source: 'a', target: 'c', weight: 8, family: 'contrast', type: 'contrasts-with' },
+      { source: 'b', target: 'c', weight: 1, family: 'structure', type: 'part-of' },
+      {
+        source: 'a',
+        target: 'c',
+        weight: 1,
+        family: 'contrast',
+        type: 'alternative-to',
+        primary: true,
+      },
+    ];
+    const chosen = backboneOf(nodes, links);
+    expect([...chosen]).toEqual([2]);
+    expect(backboneOf(nodes, links, new Set(['association', 'contrast', 'structure'])).has(0)).toBe(
+      true,
+    );
   });
 });
 
