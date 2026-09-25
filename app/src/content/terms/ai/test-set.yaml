@@ -1,0 +1,53 @@
+term:
+  en: Test set
+  da: Testsæt
+aka:
+  en: [holdout test set]
+  da: [test set]
+domain: [ai]
+cluster: evaluation
+layer: training
+status: current
+summary:
+  en: Examples locked away while a model is built and opened once at the end to give an honest final score.
+  da: Eksempler, der låses væk, mens en model bygges, og åbnes én gang til sidst for at give et ærligt slutresultat.
+body:
+  formal:
+    en: A part of the labelled data that plays no role in model training or in choosing settings, used only after all choices are fixed to estimate how well the model will do in real use.
+    da: En del af de mærkede data, der ikke spiller nogen rolle i modeltræningen eller i valget af indstillinger, og som først bruges, når alle valg er låst, til at vurdere, hvor godt modellen vil klare sig i virkeligheden.
+  plain:
+    en: Like the sealed envelope of exam questions that stays in the head teacher's safe until exam day, so nobody could have practised on them.
+    da: Som den forseglede kuvert med eksamensspørgsmål, der ligger i rektors pengeskab til eksamensdagen, så ingen kan have øvet sig på dem.
+  inPractice:
+    en: After weeks of tuning, a team runs its chosen model once on the 10,000 examples it never touched and reports that number to the business — and does not go back to tweak the model afterwards.
+    da: Efter ugers tuning kører et team den valgte model én gang på de 10.000 eksempler, det aldrig har rørt, og rapporterer det tal til forretningen — uden at gå tilbage og justere modellen bagefter.
+  whyItMatters:
+    en: If its examples leak into the training data, or it is checked again and again, the score makes the model look better than it is and a weak system can be put into use.
+    da: Hvis eksemplerne siver ind i træningsdata, eller det tjekkes igen og igen, overvurderer resultatet modellen, og et svagt system kan blive taget i brug.
+edges:
+  requires: [model-training]
+  part-of: [model-evaluation]
+  contrasts-with:
+    - to: training-data
+      why:
+        en: Training data is what the model learns from; the test set is kept strictly apart so it can measure the model fairly.
+        da: Træningsdata er det, modellen lærer af; testsættet holdes strengt adskilt, så det kan måle modellen retfærdigt.
+      strength: primary
+      confidence: high
+    - to: validation-set
+      why:
+        en: The validation set is checked many times to steer choices while building; the test set is opened once, after every choice is made.
+        da: Valideringssættet tjekkes mange gange for at styre valg under opbygningen; testsættet åbnes én gang, når alle valg er truffet.
+      strength: primary
+      confidence: high
+sources:
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 5.3)'
+    tier: textbook
+    publisher: MIT Press
+  - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    tier: textbook
+    publisher: Pearson
+  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    tier: standard
+    publisher: ISO/IEC
+draft: true

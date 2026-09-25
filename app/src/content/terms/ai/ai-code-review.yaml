@@ -1,0 +1,70 @@
+term:
+  en: AI code review
+  da: AI-kodegennemgang
+aka:
+  en: [AI-assisted code review]
+  da: [AI-assisteret kodegennemgang]
+domain: [ai]
+cluster: ai-coding
+layer: application
+status: emerging
+summary:
+  en: Using a large language model to read proposed code changes and leave comments on bugs, risks and style before a person approves them.
+  da: At lade en stor sprogmodel læse foreslåede kodeændringer og kommentere fejl, risici og stil, før et menneske godkender dem.
+body:
+  formal:
+    en: The use of a large language model, triggered when a change is proposed in version control, to read the changed lines with their surrounding code and post comments that point out likely bugs, security weaknesses and unclear parts, as an addition to review by people.
+    da: Brugen af en stor sprogmodel, der sættes i gang, når en ændring foreslås i versionsstyring, til at læse de ændrede linjer med den omgivende kode og skrive kommentarer, der peger på sandsynlige fejl, sikkerhedssvagheder og uklare steder, som et supplement til menneskers gennemgang.
+  plain:
+    en: Like a tireless proof-reader who reads every letter before it is posted — quick to spot slips, sometimes fussy about nothing, and never the one who signs it.
+    da: Som en utrættelig korrekturlæser, der læser hvert brev, før det sendes — hurtig til at fange smuttere, af og til pernitten over ingenting og aldrig den, der skriver under.
+  inPractice:
+    en: A developer opens a change request; within a minute an AI reviewer comments that a new form field is saved without being checked, and a colleague confirms before approving the fix.
+    da: En udvikler åbner en ændringsanmodning; inden for et minut kommenterer en AI-gennemgang, at et nyt formularfelt gemmes uden at blive tjekket, og en kollega bekræfter, før rettelsen godkendes.
+  whyItMatters:
+    en: It catches easy mistakes early and gives every change a first reading, but it misses some real problems and flags harmless ones, so it supports human review rather than replacing it.
+    da: Den fanger lette fejl tidligt og giver hver ændring en første læsning, men den overser nogle reelle problemer og markerer harmløse, så den støtter menneskers gennemgang frem for at erstatte den.
+edges:
+  requires: [large-language-model]
+  used-with:
+    - to: ci-cd
+      why:
+        en: It runs as one more automatic step when a change is proposed, next to the build and tests.
+        da: Den kører som endnu et automatisk trin, når en ændring foreslås, ved siden af bygning og tests.
+      strength: primary
+      confidence: high
+    - to: version-control
+      why:
+        en: It reads the proposed change and posts its comments where the team already discusses changes before merging.
+        da: Den læser den foreslåede ændring og skriver sine kommentarer, hvor teamet i forvejen drøfter ændringer før sammenfletning.
+      strength: primary
+      confidence: high
+    - to: human-in-the-loop
+      why:
+        en: A person still decides whether each comment matters and whether the change is approved.
+        da: Et menneske afgør stadig, om hver kommentar er vigtig, og om ændringen godkendes.
+      strength: normal
+      confidence: high
+    - ai-coding-assistant
+  mitigates:
+    - to: vulnerability
+      why:
+        en: It can spot common security slips, such as unchecked input, before they are merged — though it misses others and must not be the only check.
+        da: Den kan fange almindelige sikkerhedsfejl, som ukontrolleret input, før de flettes ind — men den overser andre og må ikke være det eneste tjek.
+      strength: normal
+      confidence: medium
+  causes:
+    - to: false-positive
+      why:
+        en: It often flags code that is actually fine, and too many such comments teach people to ignore it.
+        da: Den markerer ofte kode, der faktisk er i orden, og for mange af den slags kommentarer lærer folk at ignorere den.
+      strength: minor
+      confidence: medium
+sources:
+  - title: OWASP Top 10 for Large Language Model Applications 2025
+    tier: reference
+    publisher: OWASP
+  - title: NIST SP 800-218 — Secure Software Development Framework (SSDF) Version 1.1
+    tier: standard
+    publisher: NIST
+draft: true

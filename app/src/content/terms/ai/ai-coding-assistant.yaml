@@ -1,0 +1,50 @@
+term:
+  en: AI coding assistant
+  da: AI-kodeassistent
+aka:
+  en: [coding assistant, AI code assistant]
+  da: [kodeassistent, AI-kodehjælper]
+domain: [ai]
+cluster: ai-coding
+layer: application
+era: 2021
+status: current
+summary:
+  en: A tool built into a programmer's editor that suggests, explains and rewrites code using a large language model.
+  da: Et værktøj i programmørens editor, der foreslår, forklarer og omskriver kode ved hjælp af en stor sprogmodel.
+body:
+  formal:
+    en: Software that sends the code a developer is working on, plus nearby files and a request, as context to a large language model and shows the answer as inline code completion, chat replies or proposed edits that the developer accepts or rejects.
+    da: Software, der sender den kode, en udvikler arbejder på, sammen med nærliggende filer og en forespørgsel som kontekst til en stor sprogmodel og viser svaret som kodefuldførelse i linjen, chatsvar eller foreslåede ændringer, som udvikleren godkender eller afviser.
+  plain:
+    en: Like a well-read helper looking over your shoulder while you write — quick with ideas and happy to explain, but it has not seen your whole project and is sometimes confidently wrong.
+    da: Som en belæst hjælper, der kigger dig over skulderen, mens du skriver — hurtig med idéer og glad for at forklare, men den har ikke set hele dit projekt og tager af og til selvsikkert fejl.
+  inPractice:
+    en: A new team member asks the assistant what an unfamiliar function does, gets a short explanation, then has it draft the missing checks, which she reads and adjusts before saving.
+    da: Et nyt teammedlem spørger assistenten, hvad en ukendt funktion gør, får en kort forklaring og lader den så skrive udkastet til de manglende tjek, som hun læser og retter, før hun gemmer.
+  whyItMatters:
+    en: It speeds up routine work, but whatever code and secrets are open in the editor may be sent to an outside service, and its suggestions can carry the same flaws as the public code it learned from.
+    da: Det gør rutinearbejde hurtigere, men den kode og de hemmeligheder, der er åbne i editoren, kan blive sendt til en ekstern tjeneste, og forslagene kan rumme de samme fejl som den offentlige kode, den har lært af.
+edges:
+  requires: [large-language-model, context-window]
+  used-with:
+    - to: secrets-management
+      why:
+        en: Keys written into code can be sent to the assistant's service or suggested back to others, so secrets belong in a proper store, never in the files it reads.
+        da: Nøgler skrevet ind i koden kan sendes til assistentens tjeneste eller blive foreslået for andre, så hemmeligheder hører til i et rigtigt lager, aldrig i de filer, den læser.
+      strength: normal
+      confidence: medium
+    - software-composition-analysis
+  contrasts-with:
+    - to: coding-agent
+      why:
+        en: An assistant answers and suggests while the developer drives; a coding agent is handed a task and carries out many steps, runs commands and edits files by itself.
+        da: En assistent svarer og foreslår, mens udvikleren styrer; en kodeagent får en opgave og udfører selv mange trin, kører kommandoer og retter filer.
+      strength: primary
+      confidence: high
+sources:
+  - title: Chen et al. (2021), Evaluating Large Language Models Trained on Code
+    tier: reference
+  - title: "Pearce et al. (2022), Asleep at the Keyboard? Assessing the Security of GitHub Copilot's Code Contributions (IEEE S&P)"
+    tier: reference
+draft: true

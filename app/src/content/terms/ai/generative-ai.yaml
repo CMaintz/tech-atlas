@@ -1,0 +1,45 @@
+term:
+  en: Generative AI
+  da: Generativ AI
+aka:
+  en: [GenAI]
+  da: [GenAI, generativ kunstig intelligens]
+domain: [ai]
+cluster: ml-fundamentals
+layer: application
+status: current
+summary:
+  en: AI that creates new content — text, images, sound, code — in the style of the examples it learned from, instead of only sorting or scoring.
+  da: AI, der skaber nyt indhold — tekst, billeder, lyd, kode — i stil med de eksempler, den har lært af, i stedet for kun at sortere eller score.
+body:
+  formal:
+    en: AI systems, usually built with deep learning, that learn the patterns in large amounts of training data and use them to produce new output of the same kind when asked.
+    da: AI-systemer, som regel bygget med deep learning, der lærer mønstrene i store mængder træningsdata og bruger dem til at frembringe nyt output af samme slags, når de bliver bedt om det.
+  plain:
+    en: Like a street painter who has studied thousands of paintings and can paint you a new one in any style you name — though never one they saw exactly.
+    da: Som en gademaler, der har studeret tusindvis af malerier og kan male dig et nyt i hvilken som helst stil, du nævner — dog aldrig ét, de har set præcis.
+  inPractice:
+    en: A marketing team asks a chat assistant for ten versions of a product text and an image tool for a matching picture, then picks and edits the best.
+    da: Et marketingteam beder en chatassistent om ti udgaver af en produkttekst og et billedværktøj om et matchende billede og vælger og retter så de bedste.
+  whyItMatters:
+    en: It makes content cheap and fast for everyone, including attackers, and raises new questions about copyright, leaked company data and what can be trusted.
+    da: Det gør indhold billigt og hurtigt for alle, også angribere, og rejser nye spørgsmål om ophavsret, lækkede virksomhedsdata og hvad man kan stole på.
+edges:
+  kind-of: [artificial-intelligence]
+  requires: [deep-learning]
+  causes:
+    - to: hallucination
+      why:
+        en: It is built to produce content that looks likely, not content that has been checked, so fluent but wrong output is part of how it works.
+        da: Den er bygget til at frembringe indhold, der ser sandsynligt ud, ikke indhold, der er tjekket, så flydende men forkert output er en del af, hvordan den virker.
+      strength: primary
+      confidence: high
+  used-with: [prompt]
+sources:
+  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile
+    tier: standard
+    publisher: NIST
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning'
+    tier: textbook
+    publisher: MIT Press
+draft: true

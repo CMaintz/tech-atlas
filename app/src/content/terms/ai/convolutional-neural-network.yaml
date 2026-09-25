@@ -1,0 +1,54 @@
+term:
+  en: Convolutional neural network (CNN)
+  da: Foldningsnetværk (CNN)
+aka:
+  en: [CNN, ConvNet]
+  da: [CNN, konvolutionelt neuralt netværk]
+domain: [ai]
+cluster: model-architecture
+layer: model
+era: 1989
+status: current
+summary:
+  en: A neural network built to see — it slides small pattern checkers across a picture to find edges, then shapes, then whole objects.
+  da: Et neuralt netværk bygget til at se — små mønstertjek glider hen over et billede og finder kanter, så former, så hele ting.
+body:
+  formal:
+    en: A neural network whose early layers apply the same small set of learned checks at every position of a grid-like input such as an image, so a pattern is found wherever it appears; later layers combine these into larger features.
+    da: Et neuralt netværk, hvis tidlige lag anvender det samme lille sæt lærte tjek på hver position i et input opbygget i rækker og kolonner, fx et billede, så et mønster findes, uanset hvor det optræder; senere lag kombinerer dem til større træk.
+  plain:
+    en: Like sweeping a small magnifying glass over a photo, first spotting lines, then eyes and noses, and finally saying "that is a face".
+    da: Som at føre et lille forstørrelsesglas hen over et foto, først få øje på streger, så øjne og næser og til sidst sige "det er et ansigt".
+  inPractice:
+    en: A factory camera checks every bottle on the line, and a CNN flags the ones with cracks or missing caps within a split second.
+    da: Et kamera på en fabrik tjekker hver flaske på båndet, og et CNN markerer dem med revner eller manglende låg på et splitsekund.
+  whyItMatters:
+    en: CNNs made computers good at reading images, from phone face unlock to medical scans, and they remain a cheap, fast choice where a transformer would be overkill.
+    da: CNN'er gjorde computere gode til at aflæse billeder, fra ansigtsgenkendelse på telefonen til medicinske scanninger, og de er stadig et billigt og hurtigt valg, hvor en transformer ville være overkill.
+edges:
+  kind-of: [neural-network]
+  requires: [backpropagation]
+  contrasts-with:
+    - to: transformer
+      why:
+        en: A CNN only looks at small nearby patches at a time and builds up; a transformer lets every part of the input look at every other part from the start.
+        da: Et CNN ser kun på små nærliggende felter ad gangen og bygger op; en transformer lader hver del af inputtet se på alle andre dele fra starten.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: gpu
+      why:
+        en: Training CNNs on GPUs in 2012 made them fast enough to win image contests and set off the deep learning boom.
+        da: Træning af CNN'er på GPU'er i 2012 gjorde dem hurtige nok til at vinde billedkonkurrencer og satte gang i deep learning-bølgen.
+      strength: normal
+      confidence: high
+    - supervised-learning
+sources:
+  - title: LeCun et al. (1989), Backpropagation Applied to Handwritten Zip Code Recognition
+    tier: reference
+  - title: Krizhevsky, Sutskever & Hinton (2012), ImageNet Classification with Deep Convolutional Neural Networks
+    tier: reference
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 9)'
+    tier: textbook
+    publisher: MIT Press
+draft: true

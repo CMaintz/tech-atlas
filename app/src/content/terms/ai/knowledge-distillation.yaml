@@ -1,0 +1,57 @@
+term:
+  en: Knowledge distillation
+  da: Vidensdestillation (distillation)
+aka:
+  en: [distillation, model distillation]
+  da: [destillation, modeldestillation]
+domain: [ai]
+cluster: ai-infrastructure
+layer: training
+era: 2015
+status: current
+summary:
+  en: Training a small "student" model to copy the answers of a large "teacher" model, so it keeps much of the skill at a fraction of the size.
+  da: At træne en lille "elev"-model til at efterligne svar fra en stor "lærer"-model, så den bevarer meget af evnen i langt mindre format.
+body:
+  formal:
+    en: A form of model training in which a smaller student model learns from the full output of a larger teacher model — the chance it gives every possible answer, not just its top pick — or from text the teacher writes, instead of only from labelled training data.
+    da: En form for modeltræning, hvor en mindre elevmodel lærer af det fulde output fra en større lærermodel — den chance, den giver hvert muligt svar, ikke kun dens førstevalg — eller af tekst, læreren skriver, i stedet for kun af mærkede træningsdata.
+  plain:
+    en: Like an apprentice who learns not just what the master chef serves but how sure the master is about each choice, and ends up cooking nearly as well in a much smaller kitchen.
+    da: Som en lærling, der ikke kun lærer, hvad mesterkokken serverer, men også hvor sikker mesteren er på hvert valg, og ender med at lave mad næsten lige så godt i et meget mindre køkken.
+  inPractice:
+    en: A lab asks its largest model to answer millions of questions, then trains a small language model on those answers; the small one runs on phones and handles most everyday requests.
+    da: Et laboratorium lader sin største model besvare millioner af spørgsmål og træner derefter en lille sprogmodel på de svar; den lille kører på telefoner og klarer de fleste hverdagsforespørgsler.
+  whyItMatters:
+    en: It is how many fast, cheap models are made, and it also means a rival can copy much of a model's skill just by collecting its answers, which is why many providers ban this in their terms.
+    da: Det er sådan, mange hurtige, billige modeller bliver lavet, og det betyder også, at en konkurrent kan kopiere meget af en models evne blot ved at samle dens svar — derfor forbyder mange udbydere det i deres vilkår.
+edges:
+  requires: [model-training]
+  alternative-to:
+    - to: quantization
+      why:
+        en: Both make a model cheaper to run — distillation by training a new, smaller model, quantization by storing the same model's numbers with fewer digits.
+        da: Begge gør en model billigere at køre — destillation ved at træne en ny, mindre model, kvantisering ved at gemme den samme models tal med færre cifre.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: small-language-model
+      why:
+        en: Many small language models are trained partly on the outputs of a larger model from the same family.
+        da: Mange små sprogmodeller trænes delvis på output fra en større model i samme familie.
+      strength: primary
+      confidence: high
+    - synthetic-data
+  contrasts-with:
+    - to: transfer-learning
+      why:
+        en: Transfer learning reuses the same model for a new task; distillation moves skill into a different, smaller model.
+        da: Transfer learning genbruger den samme model til en ny opgave; destillation flytter evnen over i en anden, mindre model.
+      strength: normal
+      confidence: medium
+sources:
+  - title: Hinton, Vinyals & Dean (2015), Distilling the Knowledge in a Neural Network
+    tier: reference
+  - title: Sanh et al. (2019), DistilBERT, a distilled version of BERT
+    tier: reference
+draft: true

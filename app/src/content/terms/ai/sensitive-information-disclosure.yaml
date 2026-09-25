@@ -1,0 +1,44 @@
+term:
+  en: Sensitive information disclosure
+  da: Afsløring af følsomme oplysninger
+aka:
+  en: [LLM data leakage]
+  da: [datalæk fra sprogmodeller]
+domain: [ai, security]
+cluster: ai-risk
+layer: data
+status: current
+summary:
+  en: An AI system revealing private or secret details, such as personal data or business secrets, to someone who should not see them.
+  da: Et AI-system, der afslører private eller hemmelige detaljer som personoplysninger eller forretningshemmeligheder for uvedkommende.
+body:
+  formal:
+    en: A weakness, listed as LLM02 in the OWASP Top 10 for LLM Applications 2025, in which a large language model or the application around it exposes personal data, confidential business data, credentials or its system prompt through its output, whether taken from training data, retrieved documents or the conversation.
+    da: En svaghed, opført som LLM02 i OWASP Top 10 for LLM Applications 2025, hvor en stor sprogmodel eller applikationen omkring den udleverer personoplysninger, fortrolige forretningsdata, loginoplysninger eller sin systemprompt i sit output, hvad enten de stammer fra træningsdata, hentede dokumenter eller samtalen.
+  plain:
+    en: Like a chatty receptionist who has overheard everything in the office and, asked the right question in a friendly way, repeats a colleague's home address or salary to a stranger.
+    da: Som en snakkesalig receptionist, der har overhørt alt på kontoret og, når man spørger venligt på den rigtige måde, gentager en kollegas hjemmeadresse eller løn over for en fremmed.
+  inPractice:
+    en: An internal AI assistant searches all shared drives, so a junior employee who asks "what did the managers earn last year?" gets figures from a payroll file they were never meant to open.
+    da: En intern AI-assistent søger i alle fællesdrev, så en ny medarbejder, der spørger "hvad tjente cheferne sidste år?", får tal fra en lønfil, vedkommende aldrig skulle have kunnet åbne.
+  whyItMatters:
+    en: One careless answer can become a data breach that must be reported under GDPR, and once text has left the system it cannot be taken back.
+    da: Ét uforsigtigt svar kan blive et brud på persondatasikkerheden, der skal anmeldes efter GDPR, og når teksten først har forladt systemet, kan den ikke kaldes tilbage.
+edges:
+  requires: [large-language-model, personal-data, training-data]
+  causes:
+    - to: data-breach
+      why:
+        en: Personal or confidential data handed to the wrong person through an AI answer is a data breach like any other leak.
+        da: Personoplysninger eller fortrolige data, der via et AI-svar havner hos den forkerte, er et brud på datasikkerheden som ethvert andet læk.
+      strength: primary
+      confidence: high
+sources:
+  - title: OWASP Top 10 for LLM Applications 2025 — LLM02 Sensitive Information Disclosure
+    tier: reference
+    publisher: OWASP
+    url: https://genai.owasp.org/llmrisk/llm022025-sensitive-information-disclosure/
+  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile (Data Privacy)
+    tier: standard
+    publisher: NIST
+draft: true

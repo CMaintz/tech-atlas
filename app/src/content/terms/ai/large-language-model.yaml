@@ -26,7 +26,20 @@ body:
     en: LLMs sound confident even when wrong, can be steered by hidden text, and send your input to whoever runs them — all real risks to weigh before use.
     da: LLM'er lyder sikre, selv når de tager fejl, kan styres af skjult tekst og sender dit input til den, der driver dem — alt sammen reelle risici, der skal vejes før brug.
 edges:
-  kind-of: [deep-learning]
+  kind-of:
+    - deep-learning
+    - to: generative-ai
+      why:
+        en: A large language model is the text-writing kind of generative AI.
+        da: En stor sprogmodel er den tekstskrivende slags generativ AI.
+      strength: normal
+      confidence: medium
+    - to: foundation-model
+      why:
+        en: 'Large language models are the most common kind of foundation model: pretrained once on broad text, then adapted to many tasks.'
+        da: 'Store sprogmodeller er den mest udbredte slags grundmodel: fortrænet én gang på bred tekst og derefter tilpasset til mange opgaver.'
+      strength: normal
+      confidence: medium
   requires: [transformer, token]
   causes:
     - to: hallucination
@@ -35,6 +48,20 @@ edges:
         da: Modellen er bygget til at skrive tekst, der lyder sandsynlig, ikke tjekkede fakta, så den finder nogle gange på svar.
       strength: primary
       confidence: high
+  used-with:
+    - to: self-supervised-learning
+      why:
+        en: Language models learn from huge amounts of unlabeled text by guessing the next piece, which is self-supervised learning.
+        da: Sprogmodeller lærer af enorme mængder umærket tekst ved at gætte det næste stykke, hvilket er selvsuperviseret læring.
+      strength: normal
+      confidence: medium
+  contrasts-with:
+    - to: small-language-model
+      why:
+        en: Both work the same way, but a small language model has far fewer parameters, so it is cheaper and faster but knows less.
+        da: Begge virker på samme måde, men en lille sprogmodel har langt færre parametre, så den er billigere og hurtigere, men ved mindre.
+      strength: normal
+      confidence: medium
 article:
   en: src/content/articles/ai/large-language-model.en.md
   da: src/content/articles/ai/large-language-model.da.md

@@ -1,0 +1,44 @@
+term:
+  en: Model weights
+  da: Modelvægte (weights)
+aka:
+  en: [weights, weight file]
+  da: [weights, vægte]
+domain: [ai]
+cluster: training
+layer: model
+status: current
+summary:
+  en: The learned numbers that set how strongly each part of a neural network influences the next — in practice, the file that is the model.
+  da: De lærte tal, der styrer, hvor stærkt hver del af et neuralt netværk påvirker den næste — i praksis den fil, der er modellen.
+body:
+  formal:
+    en: The main kind of model parameter in a neural network, one number per connection, adjusted by gradient descent during model training and stored in files that are loaded again at inference.
+    da: Den vigtigste slags modelparameter i et neuralt netværk, ét tal pr. forbindelse, justeret med gradientnedstigning under modeltræning og gemt i filer, der indlæses igen ved inferens.
+  plain:
+    en: Like the volume sliders between every pair of speakers in a huge hall — the whole performance lives in how each slider is set.
+    da: Som lydskyderne mellem hvert par højttalere i en kæmpe sal — hele forestillingen ligger i, hvordan hver skyder står.
+  inPractice:
+    en: A developer downloads a folder of weight files from a public model hub and loads them on a laptop to run the model offline.
+    da: En udvikler henter en mappe med vægtfiler fra et offentligt modelbibliotek og indlæser dem på en bærbar for at køre modellen offline.
+  whyItMatters:
+    en: Weights are expensive to produce and are the model itself, so leaked weights mean a stolen model, and weights downloaded from strangers can hide harmful code or behaviour.
+    da: Vægte er dyre at fremstille og er selve modellen, så lækkede vægte betyder en stjålet model, og vægte hentet fra fremmede kan skjule skadelig kode eller adfærd.
+edges:
+  kind-of:
+    - to: model-parameter
+      why:
+        en: Weights are the bulk of a network's parameters; the rest are small offset values.
+        da: Vægte udgør langt de fleste af et netværks parametre; resten er små forskydningsværdier.
+      strength: primary
+      confidence: high
+  part-of: [neural-network]
+  requires: [model-training]
+sources:
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 6)'
+    tier: textbook
+    publisher: MIT Press
+  - title: OWASP Top 10 for LLM Applications 2025 (LLM03 Supply Chain)
+    tier: reference
+    publisher: OWASP
+draft: true
