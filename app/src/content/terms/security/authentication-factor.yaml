@@ -47,8 +47,10 @@ edges:
 sources:
   - title: Cyber Security Fast Track — Kursuskompendium, Ordliste (MFA, 2FA)
     tier: course-material
-  - title: NIST SP 800-63B — Digital Identity Guidelines, Authentication and Lifecycle Management
+  - title: NIST SP 800-63B-4 — Digital Identity Guidelines, Authentication and Authenticator Management
+    url: https://doi.org/10.6028/NIST.SP.800-63B-4
     tier: standard
+    publisher: NIST
   - title: Commission Delegated Regulation (EU) 2018/389 — RTS on strong customer authentication (Arts. 6–9)
     tier: standard
     publisher: European Commission
