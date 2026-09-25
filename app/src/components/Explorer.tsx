@@ -54,8 +54,6 @@ function storeLegendOpen(open: boolean) {
     // Storage blocked (private mode): the choice just isn't remembered.
   }
 }
-/** Pixels the map keeps clear on the right for the open legend (w-64 + its margins). */
-const LEGEND_RESERVE = 280;
 /** Pixels the docked term panel covers on the right of the map (lg: 26rem). */
 const panelReserve = () => (window.innerWidth >= 1024 ? 416 : 0);
 
@@ -98,14 +96,11 @@ export default function Explorer(props: Props) {
   const [legendOpen, setLegendOpen] = useState(storedLegendOpen);
   const legendRef = useRef(legendOpen);
   legendRef.current = legendOpen;
-  const legendReserve = () => (legendRef.current ? LEGEND_RESERVE : 0);
   const onLegendToggle = (open: boolean) => {
     if (open === legendRef.current) return;
     legendRef.current = open;
     setLegendOpen(open);
     storeLegendOpen(open);
-    // The 3D camera re-frames into the part the legend leaves clear.
-    map3d?.reframe();
   };
 
   useEffect(() => {
@@ -216,7 +211,7 @@ export default function Explorer(props: Props) {
       clusterLabels: props.clusterLabels,
       domainLabels: props.domainLabels,
       // With a term open, the docked panel covers the right; otherwise the legend does.
-      reserveRight: () => (selRef.current ? panelReserve() : legendReserve()),
+      reserveRight: () => (selRef.current ? panelReserve() : 0),
       centreReserve: panelReserve,
       onSelect,
       // A double click opens the panel too — never a page load (A80).
@@ -255,7 +250,7 @@ export default function Explorer(props: Props) {
           graph,
           lang,
           onSelect,
-          reserveRight: () => (selRef.current ? panelReserve() : legendReserve()),
+          reserveRight: () => (selRef.current ? panelReserve() : 0),
           onHover: (id) => prefetchTerm(props.panel.apiBase, id),
         }),
       )
@@ -316,8 +311,8 @@ export default function Explorer(props: Props) {
     .map((n) => ({ cluster: n.cluster, domain: n.domain.filter((d) => domains.has(d)) }));
   const button = (active: boolean) =>
     `rounded border px-2 py-1 text-xs ${active ? 'border-neutral-300 text-neutral-100' : 'border-neutral-700 text-neutral-400 hover:border-neutral-500'}`;
-  const overlayButton =
-    'pointer-events-auto rounded border border-neutral-700 bg-neutral-950/85 px-2 py-1 text-xs text-neutral-300 hover:border-neutral-500';
+  const summary =
+    'mb-2 cursor-pointer text-xs tracking-widest text-neutral-500 uppercase select-none hover:text-neutral-300';
 
   return (
     <div class="relative flex h-[calc(100vh-4.25rem)] flex-col lg:flex-row">
@@ -327,126 +322,158 @@ export default function Explorer(props: Props) {
           <p class="mt-1 text-xs text-neutral-500">{ui.explorerIntro}</p>
         </div>
 
-        <div class="flex flex-wrap gap-2" data-tour="explorer-layouts">
-          <button class={button(mode === '2d')} onClick={() => setMode('2d')}>
-            2D
-          </button>
-          <button class={button(mode === '3d')} onClick={() => setMode('3d')}>
-            3D
-          </button>
-          {mode === '2d' && (
-            <>
-              <button class={button(layout === 'force')} onClick={() => setLayout('force')}>
-                {ui.layoutForce}
-              </button>
-              <button class={button(layout === 'depth')} onClick={() => setLayout('depth')}>
-                {ui.layoutDepth}
-              </button>
-              <button class={button(layout === 'time')} onClick={() => setLayout('time')}>
-                {ui.layoutTime}
-              </button>
-            </>
+        <details open>
+          <summary class={summary}>{ui.view}</summary>
+          <div class="flex flex-wrap gap-2" data-tour="explorer-layouts">
+            <button class={button(mode === '2d')} onClick={() => setMode('2d')}>
+              2D
+            </button>
+            <button class={button(mode === '3d')} onClick={() => setMode('3d')}>
+              3D
+            </button>
+            {mode === '2d' && (
+              <>
+                <button class={button(layout === 'force')} onClick={() => setLayout('force')}>
+                  {ui.layoutForce}
+                </button>
+                <button class={button(layout === 'depth')} onClick={() => setLayout('depth')}>
+                  {ui.layoutDepth}
+                </button>
+                <button class={button(layout === 'time')} onClick={() => setLayout('time')}>
+                  {ui.layoutTime}
+                </button>
+              </>
+            )}
+          </div>
+          {mode === '3d' && <p class="text-xs text-neutral-500">{ui.galaxyNote}</p>}
+          {mode === '2d' && layout === 'depth' && (
+            <p class="text-xs text-neutral-500">{ui.depthNote}</p>
           )}
-        </div>
-        {mode === '3d' && <p class="text-xs text-neutral-500">{ui.galaxyNote}</p>}
-        {mode === '2d' && layout === 'depth' && (
-          <p class="text-xs text-neutral-500">{ui.depthNote}</p>
-        )}
-        {mode === '2d' && layout === 'time' && (
-          <p class="text-xs text-neutral-500">
-            {ui.timeNote}{' '}
-            {undated > 0 &&
-              (undated === 1 ? ui.undatedNoteOne : ui.undatedNote.replace('{n}', String(undated)))}
-          </p>
-        )}
+          {mode === '2d' && layout === 'time' && (
+            <p class="text-xs text-neutral-500">
+              {ui.timeNote}{' '}
+              {undated > 0 &&
+                (undated === 1
+                  ? ui.undatedNoteOne
+                  : ui.undatedNote.replace('{n}', String(undated)))}
+            </p>
+          )}
+        </details>
 
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="text-xs tracking-widest text-neutral-500 uppercase">{ui.colourBy}</span>
-          <button class={button(colourMode === 'cluster')} onClick={() => setColourMode('cluster')}>
-            {ui.byCluster}
-          </button>
-          <button
-            class={button(colourMode === 'knowledge')}
-            onClick={() => setColourMode('knowledge')}
-          >
-            {ui.byKnowledge}
-          </button>
-        </div>
-
-        <fieldset data-tour="explorer-filters">
-          <legend class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">
-            {ui.domains}
-          </legend>
-          {allDomains.map((d) => (
-            <label class="mr-3 inline-flex items-center gap-1">
-              <input
-                type="checkbox"
-                checked={domains.has(d)}
-                onChange={() => toggle(domains, d, setDomains)}
-              />
-              <span
-                class="inline-block h-2.5 w-2.5 rounded-full"
-                style={{ background: domainColour(d) }}
-              />
-              {props.domainLabels[d] ?? d}
-            </label>
-          ))}
-        </fieldset>
-
-        <fieldset>
-          <legend class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">
-            {ui.relationshipTypes}
-          </legend>
-          {Object.keys(props.familyColours).map((f) => (
-            <label class="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={families.has(f)}
-                onChange={() => toggle(families, f, setFamilies)}
-              />
-              <span class="inline-block h-0.5 w-4" style={{ background: props.familyColours[f] }} />
-              {props.familyLabels[f] ?? f}
-            </label>
-          ))}
-        </fieldset>
-
-        <div class="space-y-2" data-tour="explorer-route">
-          <h2 class="text-xs tracking-widest text-neutral-500 uppercase">{ui.route}</h2>
-          <datalist id="atlas-terms">
-            {(graph?.nodes ?? []).map((n) => (
-              <option value={n.term[lang]} />
-            ))}
-          </datalist>
-          <input
-            list="atlas-terms"
-            placeholder={ui.from}
-            value={from}
-            onInput={(e) => setFrom((e.target as HTMLInputElement).value)}
-            class="w-full rounded border border-neutral-700 bg-neutral-900 px-2 py-1"
-          />
-          <input
-            list="atlas-terms"
-            placeholder={ui.to}
-            value={to}
-            onInput={(e) => setTo((e.target as HTMLInputElement).value)}
-            class="w-full rounded border border-neutral-700 bg-neutral-900 px-2 py-1"
-          />
-          <div class="flex gap-2">
-            <button class={button(true)} onClick={findRoute}>
-              {ui.findRoute}
+        <details open>
+          <summary class={summary}>{ui.colourBy}</summary>
+          <div class="flex flex-wrap items-center gap-2">
+            <button
+              class={button(colourMode === 'cluster')}
+              onClick={() => setColourMode('cluster')}
+            >
+              {ui.byCluster}
             </button>
             <button
-              class={button(false)}
-              onClick={() => {
-                setHighlight([]);
-                setRouteMsg('');
-              }}
+              class={button(colourMode === 'knowledge')}
+              onClick={() => setColourMode('knowledge')}
             >
-              {ui.clear}
+              {ui.byKnowledge}
             </button>
           </div>
-          {routeMsg && <p class="text-xs text-neutral-300">{routeMsg}</p>}
-        </div>
+        </details>
+
+        <details open>
+          <summary class={summary}>{ui.domains}</summary>
+          <fieldset data-tour="explorer-filters" aria-label={ui.domains}>
+            {allDomains.map((d) => (
+              <label class="mr-3 inline-flex items-center gap-1">
+                <input
+                  type="checkbox"
+                  checked={domains.has(d)}
+                  onChange={() => toggle(domains, d, setDomains)}
+                />
+                <span
+                  class="inline-block h-2.5 w-2.5 rounded-full"
+                  style={{ background: domainColour(d) }}
+                />
+                {props.domainLabels[d] ?? d}
+              </label>
+            ))}
+          </fieldset>
+        </details>
+
+        <details open>
+          <summary class={summary}>{ui.relationshipTypes}</summary>
+          <fieldset aria-label={ui.relationshipTypes}>
+            {Object.keys(props.familyColours).map((f) => (
+              <label class="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={families.has(f)}
+                  onChange={() => toggle(families, f, setFamilies)}
+                />
+                <span
+                  class="inline-block h-0.5 w-4"
+                  style={{ background: props.familyColours[f] }}
+                />
+                {props.familyLabels[f] ?? f}
+              </label>
+            ))}
+          </fieldset>
+        </details>
+
+        <details open>
+          <summary class={summary}>{ui.route}</summary>
+          <div class="space-y-2" data-tour="explorer-route">
+            <datalist id="atlas-terms">
+              {(graph?.nodes ?? []).map((n) => (
+                <option value={n.term[lang]} />
+              ))}
+            </datalist>
+            <input
+              list="atlas-terms"
+              placeholder={ui.from}
+              value={from}
+              onInput={(e) => setFrom((e.target as HTMLInputElement).value)}
+              class="w-full rounded border border-neutral-700 bg-neutral-900 px-2 py-1"
+            />
+            <input
+              list="atlas-terms"
+              placeholder={ui.to}
+              value={to}
+              onInput={(e) => setTo((e.target as HTMLInputElement).value)}
+              class="w-full rounded border border-neutral-700 bg-neutral-900 px-2 py-1"
+            />
+            <div class="flex gap-2">
+              <button class={button(true)} onClick={findRoute}>
+                {ui.findRoute}
+              </button>
+              <button
+                class={button(false)}
+                onClick={() => {
+                  setHighlight([]);
+                  setRouteMsg('');
+                }}
+              >
+                {ui.clear}
+              </button>
+            </div>
+            {routeMsg && <p class="text-xs text-neutral-300">{routeMsg}</p>}
+          </div>
+        </details>
+
+        {visible && (
+          <GraphLegend
+            nodes={legendNodes}
+            families={Object.keys(props.familyColours).filter((f) => families.has(f))}
+            familyColours={props.familyColours}
+            familyLabels={props.familyLabels}
+            domainLabels={props.domainLabels}
+            clusterLabels={props.clusterLabels}
+            text={props.graphUi}
+            open={legendOpen}
+            onToggle={onLegendToggle}
+            showAll={showAll}
+            onShowAll={setShowAll}
+            sidebar
+          />
+        )}
 
         {sel && (
           <div class="space-y-2 rounded border border-neutral-800 p-3">
@@ -456,9 +483,6 @@ export default function Explorer(props: Props) {
             <div class="text-lg font-semibold">{sel.term[lang]}</div>
             {sel.summary && <p class="text-neutral-300">{sel.summary[lang]}</p>}
             <div class="flex flex-wrap gap-2">
-              <a class={button(true)} href={`${termBase}${sel.id}/`}>
-                {ui.openEntry}
-              </a>
               {sel.requires.length > 0 && (
                 <button class={button(false)} onClick={() => showPrerequisites(sel.id)}>
                   {ui.showPrerequisites}
@@ -491,35 +515,6 @@ export default function Explorer(props: Props) {
         <div class={`absolute inset-0 ${mode === '3d' ? '' : 'invisible'}`}>
           <div ref={box3d} class="h-full w-full" />
         </div>
-        {visible && !sel && (
-          <div class="pointer-events-none absolute top-3 right-3 lg:top-[var(--explorer-controls-top,0.75rem)] flex flex-col items-end gap-2">
-            {mode === '2d' && (
-              <div class="flex gap-2">
-                <button class={overlayButton} onClick={() => map2d.current?.tidy()}>
-                  {props.graphUi.tidy}
-                </button>
-                <button class={overlayButton} onClick={() => map2d.current?.fit()}>
-                  {props.graphUi.fit}
-                </button>
-              </div>
-            )}
-            <div class="pointer-events-auto">
-              <GraphLegend
-                nodes={legendNodes}
-                families={Object.keys(props.familyColours).filter((f) => families.has(f))}
-                familyColours={props.familyColours}
-                familyLabels={props.familyLabels}
-                domainLabels={props.domainLabels}
-                clusterLabels={props.clusterLabels}
-                text={props.graphUi}
-                open={legendOpen}
-                onToggle={onLegendToggle}
-                showAll={showAll}
-                onShowAll={setShowAll}
-              />
-            </div>
-          </div>
-        )}
       </div>
       {graph && sel && (
         <TermPanel

@@ -11,12 +11,27 @@ export const EXPLORER = {
     hubShare: 0.3,
   },
 
+  /**
+   * Minimum distance between two terms (A86), so dense clusters stay clickable: centres
+   * at least `factor` × their mean radius plus `labelClearance` apart (2D px; 3D uses
+   * `three.labelClearance`). Clusters grow to fit.
+   */
+  spacing: {
+    factor: 2.2,
+    labelClearance: 18,
+  },
+
   /** Which edges the overview draws (A86): a backbone, not the hairball. */
   edges: {
-    /** Strongest within-cluster relationships each term keeps in the overview. */
+    /**
+     * Strongest relationships (to terms sharing a domain, any cluster) each term keeps in
+     * the overview, on top of every `requires` and `strength: primary` edge.
+     */
     backbonePerNode: 2,
     /** Resting opacity of backbone edges; revealed (hover/selection) edges are brighter. */
     restAlpha: 0.42,
+    /** Resting opacity of backbone edges between two clusters (they are bundled). */
+    crossAlpha: 0.12,
     allAlpha: 0.22,
     /** Cluster-to-cluster bundles: fewer relationships than this are not drawn. */
     minBundle: 2,
@@ -29,7 +44,7 @@ export const EXPLORER = {
   /** Hover intent: the pointer must rest this long before the map re-styles. */
   hoverDelayMs: 45,
 
-  /** Marching dashes on the hovered / selected / route edges only (A86). */
+  /** Marching dashes on the term page's hovered edges (graph-cytoscape `startFlow`). */
   flow: {
     /** Pixels per second the dash pattern moves, source → target. */
     speed: 7,
@@ -38,8 +53,28 @@ export const EXPLORER = {
     fps: 24,
   },
 
+  /**
+   * The Explorer's flow (A86): small dots drift along every visible one-way edge, all the
+   * time, on an overlay canvas — the map itself is never redrawn for it. Symmetric
+   * relationships never move; nothing moves under prefers-reduced-motion.
+   */
+  dots: {
+    /** Model px per second a dot travels, source → target. */
+    speed: 14,
+    /** Dot spacing along an edge (model px); short edges still carry one dot. */
+    spacing: 220,
+    /** Dot radius on screen (px) and opacity: lit (hovered / selected) and at rest. */
+    radius: 1.4,
+    alpha: 0.4,
+    litAlpha: 0.95,
+    /** Repaint rate of the overlay. */
+    fps: 30,
+    /** The dots rest during a pan or zoom and for this long after it. */
+    settleMs: 200,
+  },
+
   motion: {
-    /** Nodes glide to a new layout (force ↔ depth ↔ time, tidy up) over this long. */
+    /** Nodes glide to a new layout (force ↔ depth ↔ time) over this long. */
     layoutMs: 700,
     /** Edges fade in / out when a relationship family is toggled. */
     fadeMs: 180,
@@ -101,8 +136,11 @@ export const EXPLORER = {
     linkAlpha: 0.2,
     hubLabels: 18,
     hubLabelHeight: 24,
-    particleSpeed: 0.0022,
-    particleWidth: 1.6,
+    /** Minimum distance between terms (see `spacing`), in scene units. */
+    labelClearance: 10,
+    /** Flow particles along every visible one-way link: fraction of a link per second. */
+    particleSpeed: 0.05,
+    particleSize: 5,
     introMs: 2200,
   },
 } as const;

@@ -53,13 +53,19 @@ const about = aboutProps(lang);
 
 <style is:global>
   /*
-   * The About button (A84) owns the explorer's top-right corner. The Explorer's own
-   * corner stack (Tidy up, Fit to view, legend) starts at --explorer-controls-top on
-   * wide screens; the sidebar heading is nudged clear of it from here.
+   * The About button (A84) owns the map's top-right corner (the map has no other
+   * corner controls); on phones the sidebar heading is nudged clear of it from here.
    */
   #explorer {
     position: relative;
-    --explorer-controls-top: 5.25rem;
+  }
+  #explorer [data-about-corner] {
+    transition: right 300ms ease-out;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #explorer [data-about-corner] {
+      transition: none;
+    }
   }
   #explorer aside > div:first-child {
     padding-right: 2.75rem;
@@ -67,6 +73,25 @@ const about = aboutProps(lang);
   @media (min-width: 1024px) {
     #explorer aside > div:first-child {
       padding-right: 0;
+    }
+  }
+  /*
+   * The term panel (A80) must never hide the "i". Full width (phones, or expanded), the
+   * button sits above the panel and the panel's header row keeps its corner clear;
+   * docked on a wide screen, the button moves to the map's corner, left of the panel.
+   */
+  #explorer:has([data-term-panel]) [data-about-corner] {
+    z-index: 30;
+  }
+  #explorer [data-term-panel] > div:first-child {
+    padding-right: 3.5rem;
+  }
+  @media (min-width: 1024px) {
+    #explorer:has([data-term-panel]:not([data-expanded])) [data-about-corner] {
+      right: calc(26rem + 0.75rem);
+    }
+    #explorer [data-term-panel]:not([data-expanded]) > div:first-child {
+      padding-right: 1rem;
     }
   }
 </style>

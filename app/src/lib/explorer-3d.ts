@@ -2,13 +2,14 @@
  * The Explorer's 3D map (A86): galaxies of terms, computed once (`galaxyLayout`) and
  * fixed — no live physics, so the GPU only draws. One scene for the life of the page:
  * filters, hover and selection re-evaluate accessors in place. Glow is a single
- * additive point cloud, hubs carry text sprites, and particles run only along the
- * hovered or selected term's one-way relationships. Browser-only.
+ * additive point cloud (a shared term's glow is its second domain's colour — a halo
+ * round a sphere in its own), hubs carry text sprites, and one more point cloud carries
+ * a particle drifting along every visible one-way relationship. Browser-only.
  */
 import type { Graph, GraphLink, GraphNode } from './graph-model';
 import { EXPLORER } from './explorer-config';
 import { FAMILY_COLOURS, clusterColour, homeDomain, isDirected } from './graph-style';
-import { backbone, galaxyLayout, pageRank } from './graph-layout';
+import { backbone, galaxyLayout, pageRank, separate } from './graph-layout';
 import { reducedMotion } from './graph-cytoscape';
 
 export type View3D = {
@@ -48,11 +49,19 @@ export async function createMap3D(opts: {
   ]);
   const cfg = EXPLORER.three;
   const { graph, lang, container: el } = opts;
-  const pos = galaxyLayout(graph.nodes, graph.links);
   const rank = pageRank(
     graph.nodes.map((n) => n.id),
     graph.links.map((l) => ({ ...l, directed: isDirected(l.type) })),
   );
+  const radius = (n: GraphNode) => cfg.nodeRel * (1.2 + 5 * Math.sqrt(rank.get(n.id) ?? 0));
+  const pos = galaxyLayout(graph.nodes, graph.links);
+  // No two terms closer than a click target and a label apart (A86); galaxies grow.
+  {
+    const pts = graph.nodes.map((n) => ({ ...pos.get(n.id)! }));
+    const r = graph.nodes.map(radius);
+    separate(pts, (i, j) => (EXPLORER.spacing.factor * (r[i] + r[j])) / 2 + cfg.labelClearance, 60);
+    graph.nodes.forEach((n, i) => pos.set(n.id, pts[i]));
+  }
   const spine = backbone(graph.nodes, graph.links);
   const nodes: Node3[] = graph.nodes.map((n) => {
     const p = pos.get(n.id)!;
@@ -65,7 +74,6 @@ export async function createMap3D(opts: {
     neighbours.get(l.source)?.add(l.target);
     neighbours.get(l.target)?.add(l.source);
   }
-  const radius = (n: GraphNode) => cfg.nodeRel * (1.2 + 5 * Math.sqrt(rank.get(n.id) ?? 0));
 
   let view: View3D | null = null;
   let hover: Set<string> | null = null;
@@ -79,8 +87,17 @@ export async function createMap3D(opts: {
     );
   };
   let hoverId: string | null = null;
-  const faded = (id: string) =>
-    (hover && !hover.has(id)) || (!hover && !!view?.highlight.size && !view.highlight.has(id));
+  /**
+   * Receded terms: outside the hovered neighbourhood, else outside a route, else —
+   * with a term selected — everything not connected to it (A86).
+   */
+  const faded = (id: string) => {
+    if (hover) return !hover.has(id);
+    if (!view) return false;
+    if (view.highlight.size) return !view.highlight.has(id);
+    if (view.selected) return !neighbours.get(view.selected)?.has(id);
+    return false;
+  };
   const nodeColour = (n: GraphNode) =>
     n.id === view?.selected ? '#ffffff' : faded(n.id) ? 'rgba(70,74,90,0.25)' : view!.colour(n);
   const endsShown = (l: Link3) => {
@@ -96,12 +113,6 @@ export async function createMap3D(opts: {
   const linkShown = (l: Link3) => endsShown(l) && focusOf(l);
   const linkColour = (l: Link3) => rgba(FAMILY_COLOURS[l.family], 0.9);
   const motion = !reducedMotion();
-  const bandTextures = new Map<string, InstanceType<typeof THREE.CanvasTexture>>();
-  const bandMeshes = new Map<
-    string,
-    InstanceType<typeof THREE.Mesh> & { material: InstanceType<typeof THREE.MeshLambertMaterial> }
-  >();
-
   const fg = new ForceGraph3D(el, { controlType: 'orbit' })
     .width(el.clientWidth)
     .height(el.clientHeight)
@@ -125,34 +136,6 @@ export async function createMap3D(opts: {
     .linkCurvature(0.12)
     .linkDirectionalArrowLength((l: Link3) => (focusOf(l) && isDirected(l.type) ? 5 : 0))
     .linkDirectionalArrowRelPos(1)
-    .linkDirectionalParticles((l: Link3) => (motion && focusOf(l) && isDirected(l.type) ? 1 : 0))
-    .linkDirectionalParticleSpeed(cfg.particleSpeed)
-    .linkDirectionalParticleWidth(cfg.particleWidth)
-    .linkDirectionalParticleColor((l: Link3) => FAMILY_COLOURS[l.family])
-    // A shared term is a sphere split into vertical bands, one per domain (A86): one
-    // canvas texture per colour combination, shared by every sphere that uses it.
-    .nodeThreeObject((n: GraphNode) => {
-      const bands = view?.bands(n) ?? [];
-      if (bands.length < 2) return undefined as never;
-      const key = bands.join('|');
-      if (!bandTextures.has(key)) {
-        const c = document.createElement('canvas');
-        c.width = 64;
-        c.height = 8;
-        const g = c.getContext('2d')!;
-        bands.forEach((col, i) => {
-          g.fillStyle = col;
-          g.fillRect((i * 64) / bands.length, 0, 64 / bands.length, 8);
-        });
-        bandTextures.set(key, new THREE.CanvasTexture(c));
-      }
-      const mesh = new THREE.Mesh(
-        new THREE.SphereGeometry(radius(n), 16, 12),
-        new THREE.MeshLambertMaterial({ map: bandTextures.get(key)!, transparent: true }),
-      );
-      bandMeshes.set(n.id, mesh);
-      return mesh as never;
-    })
     .onNodeClick((n: GraphNode) => opts.onSelect(n.id))
     .onBackgroundClick(() => opts.onSelect(null));
 
@@ -261,6 +244,8 @@ export async function createMap3D(opts: {
 
   // ---- The resting web: every link as a gently curved polyline in one geometry --------
   const SEG = 8;
+  /** Each link's curve (start, bend, end), shared with the flow particles. */
+  const curve = new Float32Array(links.length * 9);
   const webPos = new Float32Array(links.length * SEG * 2 * 3);
   const webCol = new Float32Array(links.length * SEG * 2 * 3);
   links.forEach((l, i) => {
@@ -277,6 +262,7 @@ export async function createMap3D(opts: {
     sx = (sx / sl) * len * 0.12;
     sz = (sz / sl) * len * 0.12;
     const c = { x: (a.x + b.x) / 2 + sx, y: (a.y + b.y) / 2, z: (a.z + b.z) / 2 + sz };
+    curve.set([a.x, a.y, a.z, c.x, c.y, c.z, b.x, b.y, b.z], i * 9);
     const at = (t: number) => {
       const u = 1 - t;
       return [
@@ -326,13 +312,87 @@ export async function createMap3D(opts: {
     webColours.needsUpdate = true;
   };
 
+  // ---- Flow: a particle drifting along every visible one-way link (A86) ----------------
+  const flowPos = new Float32Array(links.length * 3);
+  const flowCol = new Float32Array(links.length * 3);
+  const flowGeo = new THREE.BufferGeometry();
+  const flowPositions = new THREE.BufferAttribute(flowPos, 3);
+  const flowColours = new THREE.BufferAttribute(flowCol, 3);
+  flowGeo.setAttribute('position', flowPositions);
+  flowGeo.setAttribute('color', flowColours);
+  const flow = new THREE.Points(
+    flowGeo,
+    new THREE.PointsMaterial({
+      size: cfg.particleSize,
+      map: glowTexture,
+      vertexColors: true,
+      blending: THREE.AdditiveBlending,
+      transparent: true,
+      depthWrite: false,
+      fog: true,
+    }),
+  );
+  flow.frustumCulled = false;
+  flow.visible = motion;
+  scene.add(flow);
+  const directed = links.map((l) => isDirected(l.type));
+  const linkLength = links.map((_, i) =>
+    Math.hypot(
+      curve[i * 9 + 6] - curve[i * 9],
+      curve[i * 9 + 7] - curve[i * 9 + 1],
+      curve[i * 9 + 8] - curve[i * 9 + 2],
+    ),
+  );
+  // Particles start spread along their links, not in step.
+  const phase = links.map((_, i) => ((i * 0.6180339887) % 1) * linkLength[i]);
+  const paintFlow = () => {
+    links.forEach((l, i) => {
+      let k = 0;
+      if (view && directed[i] && endsShown(l)) {
+        const lit = focusOf(l);
+        const dim = faded(endId(l.source)) || faded(endId(l.target));
+        if (lit) k = 0.9;
+        else if (!dim && (view.showAll || l.bb)) k = 0.45;
+      }
+      const c = new THREE.Color(FAMILY_COLOURS[l.family]);
+      flowCol.set([c.r * k, c.g * k, c.b * k], i * 3);
+    });
+    flowColours.needsUpdate = true;
+  };
+  let flowRaf = 0;
+  const moveFlow = (t: number) => {
+    flowRaf = requestAnimationFrame(moveFlow);
+    const travelled = (t / 1000) * cfg.particleSpeed;
+    for (let i = 0; i < links.length; i++) {
+      const len = linkLength[i] || 1;
+      const u = ((travelled + phase[i]) % len) / len;
+      const v = 1 - u;
+      const o = i * 9;
+      for (let a = 0; a < 3; a++)
+        flowPos[i * 3 + a] =
+          v * v * curve[o + a] + 2 * v * u * curve[o + 3 + a] + u * u * curve[o + 6 + a];
+    }
+    flowPositions.needsUpdate = true;
+  };
+  const runFlow = (on: boolean) => {
+    cancelAnimationFrame(flowRaf);
+    flowRaf = 0;
+    if (on && motion) flowRaf = requestAnimationFrame(moveFlow);
+  };
+  runFlow(true);
+
   const paintGlow = () => {
     paintWeb();
+    paintFlow();
     const col = new THREE.Color();
     nodes.forEach((n, i) => {
       if (!view?.nodes.has(n.id)) col.setRGB(0, 0, 0);
       else if (faded(n.id)) col.setRGB(0.02, 0.02, 0.03);
-      else col.set(n.id === view.selected ? '#ffffff' : view.colour(n));
+      else {
+        // A shared term glows in its second domain's colour: a halo round its own.
+        const ring = view.bands(n)[1];
+        col.set(n.id === view.selected ? '#ffffff' : (ring ?? view.colour(n)));
+      }
       glowColours.setXYZ(i, col.r, col.g, col.b);
     });
     glowColours.needsUpdate = true;
@@ -340,7 +400,6 @@ export async function createMap3D(opts: {
       s.visible = !!view?.nodes.has(id);
       s.material.opacity = faded(id) ? 0.12 : 1;
     }
-    for (const [id, m] of bandMeshes) m.material.opacity = faded(id) ? 0.25 : 0.95;
   };
 
   /** Re-evaluate the accessors (3d-force-graph's idiom) and land any new objects. */
@@ -410,10 +469,6 @@ export async function createMap3D(opts: {
       view = next;
       const nodesChanged = !prev || prev.nodes !== next.nodes;
       if (nodesChanged) fg.nodeVisibility(fg.nodeVisibility());
-      if (prev?.bands !== next.bands) {
-        bandMeshes.clear();
-        fg.nodeThreeObject(fg.nodeThreeObject());
-      }
       refresh();
       // Opening or closing the term panel changes the part of the canvas left clear.
       if (!!next.selected !== !!prev?.selected) resize();
@@ -439,8 +494,10 @@ export async function createMap3D(opts: {
         resize();
         fg.resumeAnimation();
       } else fg.pauseAnimation();
+      runFlow(on);
     },
     destroy() {
+      runFlow(false);
       window.clearTimeout(hoverTimer);
       window.removeEventListener('resize', resize);
       fg._destructor();
