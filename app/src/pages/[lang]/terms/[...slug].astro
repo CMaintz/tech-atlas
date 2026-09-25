@@ -20,6 +20,7 @@ import { prerequisitesOf } from '../../../lib/graph-model';
 import { makeLinker } from '../../../lib/autolink';
 import Prose from '../../../components/Prose.astro';
 import { bareName, collisionsOf } from '../../../lib/collisions';
+import { TIER_ORDER, UI_EXTRA } from '../../../lib/ui-extra';
 
 export async function getStaticPaths() {
   const terms = await getCollection('terms');
@@ -88,6 +89,31 @@ const aka = d.aka[lang];
 const name = bareName(term.id);
 const collides = collisionsOf(all.map((t) => t.id)).has(name);
 
+// Continue learning (SPEC §7, A73): sources grouped by tier, best tier first.
+const extra = UI_EXTRA[lang];
+const sourceGroups = TIER_ORDER.map((tier) => ({
+  tier,
+  items: d.sources.filter((s) => s.tier === tier),
+})).filter((g) => g.items.length > 0);
+
+// Structured data (A68): schema.org DefinedTerm in the Atlas DefinedTermSet.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTerm',
+  '@id': new URL(termUrl(lang, term.id), Astro.site).href,
+  name: d.term[lang],
+  ...(aka.length ? { alternateName: aka } : {}),
+  description: d.summary[lang],
+  inLanguage: lang,
+  url: new URL(termUrl(lang, term.id), Astro.site).href,
+  inDefinedTermSet: {
+    '@type': 'DefinedTermSet',
+    name: 'Atlas',
+    url: new URL(url(`${lang}/`), Astro.site).href,
+  },
+  license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+};
+
 // Breadcrumb: Index › primary domain (the folder) › cluster — anchors on the home index.
 const primary = term.id.split('/')[0];
 const crumbs = [
@@ -100,7 +126,13 @@ const crumbs = [
 ];
 ---
 
-<Base lang={lang} title={d.term[lang]} description={d.summary[lang]} ogType="article">
+<Base
+  lang={lang}
+  title={d.term[lang]}
+  description={d.summary[lang]}
+  ogType="article"
+  jsonLd={jsonLd}
+>
   <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-10" data-term-id={term.id}>
     <div>
       <nav
@@ -252,24 +284,37 @@ const crumbs = [
         )
       }
 
-      <div class="mt-8 text-sm text-neutral-500">
-        <span class="text-xs tracking-widest uppercase">{ui.sources}</span>
-        <ul class="mt-1 list-inside list-disc">
-          {
-            d.sources.map((s) => (
-              <li>
-                {s.url ? (
-                  <a class="hover:text-neutral-300 hover:underline" href={s.url}>
-                    {s.title}
-                  </a>
-                ) : (
-                  s.title
-                )}
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+      <section class="mt-8 text-sm text-neutral-500" id="continue-learning">
+        <h2 class="text-xs tracking-widest uppercase">
+          {ui.sources} · {extra.continueLearning}
+        </h2>
+        {
+          sourceGroups.map((g) => (
+            <div class="mt-2">
+              <h3 class="text-xs text-neutral-600">{extra.tiers[g.tier]}</h3>
+              <ul class="mt-1 list-inside list-disc">
+                {g.items.map((s) => (
+                  <li>
+                    {s.url ? (
+                      <a class="hover:text-neutral-300 hover:underline" href={s.url}>
+                        {s.title}
+                      </a>
+                    ) : (
+                      s.title
+                    )}
+                    {s.publisher && <span class="text-neutral-600"> · {s.publisher}</span>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+        <p class="mt-3 print:hidden">
+          <a class="hover:text-neutral-300 hover:underline" href={url(`api/terms/${term.id}.json`)}>
+            {extra.dataThisTerm}
+          </a>
+        </p>
+      </section>
       {
         mentionedIn.length > 0 && (
           <section class="mt-8" id="mentions">
