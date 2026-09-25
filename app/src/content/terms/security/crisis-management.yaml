@@ -16,11 +16,11 @@ body:
     en: The leadership level of the response to a severe disruption, in which a crisis team makes business decisions, sets priorities, handles communication with staff, customers, media and authorities and starts continuity plans, while technical teams handle the incident itself.
     da: Ledelsesniveauet i reaktionen på en alvorlig forstyrrelse, hvor en krisestab træffer forretningsbeslutninger, sætter prioriteter, håndterer kommunikation med medarbejdere, kunder, medier og myndigheder og sætter kontinuitetsplaner i gang, mens de tekniske teams tager sig af selve hændelsen.
   plain:
-    en: Like the captain during a storm — the crew fixes the sails, but the captain decides whether to turn back and what to tell the passengers.
-    da: Som kaptajnen under en storm — besætningen ordner sejlene, men kaptajnen beslutter, om skibet skal vende om, og hvad passagererne skal have at vide.
+    en: Like parents after a house fire — the fire brigade fights the flames, but the parents decide where the family sleeps tonight, who calls the insurer and what to tell the children.
+    da: Som forældrene efter en husbrand — brandvæsenet slukker ilden, men forældrene beslutter, hvor familien skal sove i nat, hvem der ringer til forsikringen, og hvad børnene skal have at vide.
   inPractice:
-    en: During a ransomware attack, the crisis team meets every three hours, decides to take orders by phone, approves a press statement and chooses not to pay the ransom.
-    da: Under et ransomware-angreb mødes krisestaben hver tredje time, beslutter at tage imod ordrer pr. telefon, godkender en pressemeddelelse og vælger ikke at betale løsesummen.
+    en: During a ransomware attack on a Danish dairy company, the crisis team meets every three hours, decides to take orders from shops by phone, approves a press statement and chooses not to pay the ransom.
+    da: Under et ransomware-angreb på et dansk mejeri mødes krisestaben hver tredje time, beslutter at tage imod butikkernes ordrer pr. telefon, godkender en pressemeddelelse og vælger ikke at betale løsesummen.
   whyItMatters:
     en: A serious attack is a business crisis, not only an IT problem, and slow or muddled leadership can cost more in trust than the attack itself.
     da: Et alvorligt angreb er en forretningskrise og ikke kun et IT-problem, og langsom eller rodet ledelse kan koste mere i tillid end selve angrebet.

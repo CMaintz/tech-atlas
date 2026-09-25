@@ -16,11 +16,11 @@ body:
     en: A way of organising security work in which governance sets direction and ownership, risk management decides where to spend effort, and compliance checks the result against laws, standards and the organisation's own policy — run as one connected process.
     da: En måde at organisere sikkerhedsarbejdet på, hvor governance sætter retning og ejerskab, risikostyring afgør hvor indsatsen skal lægges, og compliance tjekker resultatet mod love, standarder og organisationens egen politik — drevet som én sammenhængende proces.
   plain:
-    en: Like running a ship — the captain sets the course, the navigator watches for rocks, and the harbour inspector checks the safety papers; each job needs the other two.
-    da: Som at føre et skib — kaptajnen sætter kursen, navigatøren holder øje med skær, og havneinspektøren tjekker sikkerhedspapirerne; hvert job har brug for de to andre.
+    en: Like a school — the head sets the goals, the teachers spot which pupils are falling behind, and the outside examiner checks the results against the rules.
+    da: Som en skole — skolelederen sætter målene, lærerne opdager, hvilke elever der halter bagefter, og censor tjekker resultaterne mod reglerne.
   inPractice:
-    en: A new coordinator keeps one shared list where every risk has an owner, a planned control and a note of which NIS2 or ISO 27001 requirement it answers.
-    da: En nyansat koordinator fører én fælles liste, hvor hver risiko har en ejer, en planlagt kontrol og en note om, hvilket krav i NIS2 eller ISO 27001 den svarer på.
+    en: At a Danish water utility, the newly hired security officer keeps one shared list where every risk has an owner, a planned control and a note of which NIS2 or ISO 27001 requirement it answers.
+    da: I et dansk vandselskab fører den nye sikkerhedsansvarlige én fælles liste, hvor hver risiko har en ejer, en planlagt kontrol og en note om, hvilket krav i NIS2 eller ISO 27001 den svarer på.
   whyItMatters:
     en: When the three parts are done by separate teams, the same work is done twice and gaps fall between them; joining them gives leaders one clear picture.
     da: Når de tre dele udføres af hver sit team, laves det samme arbejde to gange, og huller falder mellem stolene; samlet giver de ledelsen ét klart billede.

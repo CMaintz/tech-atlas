@@ -19,11 +19,11 @@ body:
     en: Like a parent telling several teenagers "your rooms must be clean by Sunday" — the goal is fixed, but each decides how to get there.
     da: Som når en forælder siger til flere teenagere "jeres værelser skal være rene på søndag" — målet ligger fast, men hver især bestemmer, hvordan de når det.
   inPractice:
-    en: A Danish hospital does not read NIS2 itself to find its duties; it follows the Danish law that puts NIS2 into force, which also names the Danish authorities.
-    da: Et dansk hospital læser ikke selve NIS2 for at finde sine pligter; det følger den danske lov, der sætter NIS2 i kraft, og som også udpeger de danske myndigheder.
+    en: The IT department of a Danish region does not read NIS2 itself to find its hospitals' duties; it follows the Danish NIS2 Act, which puts the directive into force and names the Danish authorities.
+    da: IT-afdelingen i en dansk region læser ikke selve NIS2 for at finde hospitalernes pligter; den følger NIS2-loven, som sætter direktivet i kraft og udpeger de danske myndigheder.
   whyItMatters:
     en: Because each country writes its own version, details and deadlines can differ between countries, so organisations working across borders must check each national law.
-    da: Fordi hvert land skriver sin egen version, kan detaljer og frister variere mellem landene, så organisationer, der arbejder på tværs af grænser, skal tjekke hver national lov.
+    da: Fordi hvert land skriver sin egen version, kan detaljer og frister være forskellige fra land til land, så organisationer, der arbejder på tværs af grænser, skal tjekke hver national lov.
 edges:
   requires: [compliance]
   contrasts-with:

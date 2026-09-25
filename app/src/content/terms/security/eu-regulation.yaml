@@ -9,15 +9,15 @@ cluster: compliance
 layer: governance
 status: current
 summary:
-  en: A type of EU law that applies directly and in the same words in every member state, with no national law needed.
-  da: En type EU-lov, der gælder direkte og med samme ordlyd i alle medlemslande, uden at der skal en national lov til.
+  en: A type of EU law that applies directly and identically in every member state, with no national law needed to bring it in.
+  da: En type EU-lov, der gælder direkte og ens i alle medlemslande, uden at der skal en national lov til for at indføre den.
 body:
   formal:
-    en: A legal act of the European Union that is binding in full and applies directly in all member states from its start date — for example GDPR, DORA and the Cyber Resilience Act — although countries may add rules on authorities and fines where it allows.
-    da: En retsakt fra EU, der er bindende i alle enkeltheder og gælder direkte i alle medlemslande fra ikrafttrædelsen — fx GDPR, DORA og Cyber Resilience Act — dog kan landene tilføje regler om myndigheder og bøder, hvor den giver plads til det.
+    en: A legal act of the European Union that is binding in full and applies directly in all member states from the date it takes effect — for example GDPR, DORA and the Cyber Resilience Act — although countries may add rules on authorities and fines where it allows.
+    da: En retsakt fra EU, der er bindende i alle enkeltheder og gælder direkte i alle medlemslande fra den dag, den træder i kraft — fx GDPR, DORA og Cyber Resilience Act — dog kan landene tilføje regler om myndigheder og bøder, hvor den giver plads til det.
   plain:
-    en: Like the rules of football — the same book is used in every country, and no national league can rewrite what a goal is.
-    da: Som reglerne i fodbold — den samme regelbog bruges i alle lande, og ingen national liga kan skrive om, hvad et mål er.
+    en: Like a single book of rules for a chess tournament played in many countries — every table follows the same page, and no host country may print its own version.
+    da: Som én regelbog for en skakturnering, der spilles i mange lande — alle borde følger den samme side, og intet værtsland må trykke sin egen udgave.
   inPractice:
     en: A web shop selling to both Denmark and Germany follows one GDPR text for handling customer data, and only checks national rules for details the regulation leaves open.
     da: En webshop, der sælger til både Danmark og Tyskland, følger den samme GDPR-tekst for kundedata og tjekker kun nationale regler for de detaljer, forordningen lader stå åbne.

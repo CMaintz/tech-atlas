@@ -19,8 +19,8 @@ body:
     en: Like an old car whose maker went out of business — it still drives, but when something breaks there are no new parts.
     da: Som en gammel bil, hvis fabrik er lukket — den kører stadig, men når noget går i stykker, findes der ingen nye reservedele.
   inPractice:
-    en: A factory's machine runs on a Windows version that stopped getting updates years ago, so IT puts it on its own network segment with no internet access and watches its traffic.
-    da: En fabriks maskine kører på en Windows-version, der holdt op med at få opdateringer for mange år siden, så IT placerer den i sit eget netværkssegment uden internetadgang og overvåger dens trafik.
+    en: At a dairy, the PC that runs the bottling line still uses a Windows version that stopped getting updates years ago; the IT department moves it to its own part of the network with no internet access and watches its traffic.
+    da: På et mejeri kører den pc, der styrer tappelinjen, stadig en Windows-version, som holdt op med at få opdateringer for mange år siden; IT-afdelingen flytter den til sin egen del af netværket uden internetadgang og overvåger dens trafik.
   whyItMatters:
     en: Such systems often run the most important processes, so they cannot simply be switched off, yet every year they grow easier to attack.
     da: Den slags systemer driver ofte de vigtigste processer, så de kan ikke bare slukkes, men hvert år bliver de lettere at angribe.

@@ -16,14 +16,14 @@ body:
     en: A security control that works through the people in the organisation — background checks, terms of employment and confidentiality, awareness and training, reporting duties and the process when staff join, move or leave — one of the four control themes in ISO 27002.
     da: En sikkerhedskontrol, der virker gennem organisationens mennesker — baggrundstjek, ansættelses- og fortrolighedsvilkår, awareness og træning, pligt til at melde hændelser og processen, når medarbejdere starter, skifter eller stopper — et af de fire kontroltemaer i ISO 27002.
   plain:
-    en: Like teaching every lifeguard first aid and checking their papers before they start — the safety comes from who they are and what they know.
-    da: Som at lære alle livreddere førstehjælp og tjekke deres papirer, før de starter — sikkerheden kommer fra, hvem de er, og hvad de kan.
+    en: Like a kindergarten that checks a new helper's background, walks her through the daily routines on her first day and takes back her key when she leaves — the safety comes from who is let in and what they know.
+    da: Som en børnehave, der tjekker en ny medhjælpers børneattest, viser hende de daglige rutiner på første dag og tager nøglen tilbage, når hun stopper — trygheden kommer fra, hvem der bliver lukket ind, og hvad de ved.
   inPractice:
-    en: New hires sign a confidentiality agreement, take a short training in their first week, and lose all access on their last day.
-    da: Nyansatte underskriver en fortrolighedsaftale, tager en kort træning i første uge og mister al adgang på deres sidste dag.
+    en: At a pharmacy chain, new staff sign a confidentiality agreement and take a short course on handling customer data in their first week, and their access ends on their last day.
+    da: I en apotekskæde underskriver nye medarbejdere en fortrolighedsaftale og tager et kort kursus i at håndtere kundeoplysninger i deres første uge, og deres adgang lukkes på sidste arbejdsdag.
   whyItMatters:
-    en: Many attacks and mistakes go through people, so controls aimed only at machines leave the most used way in wide open.
-    da: Mange angreb og fejl går gennem mennesker, så kontroller rettet kun mod maskiner efterlader den mest brugte vej ind helt åben.
+    en: Many attacks and mistakes start with a person, so controls aimed only at machines leave the most common way in wide open.
+    da: Mange angreb og fejl begynder hos et menneske, så kontroller, der kun er rettet mod maskiner, lader den mest almindelige vej ind stå helt åben.
 edges:
   kind-of: [control]
   requires: [human-factor]

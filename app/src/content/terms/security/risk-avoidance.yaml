@@ -19,11 +19,11 @@ body:
     en: Like selling the trampoline because the children keep getting hurt — no more jumping, but also no more broken arms.
     da: Som at sælge trampolinen, fordi børnene bliver ved med at slå sig — ikke flere hop, men heller ikke flere brækkede arme.
   inPractice:
-    en: Rather than protect an old customer database nobody uses, the company deletes it — data it no longer holds cannot leak.
-    da: I stedet for at beskytte en gammel kundedatabase, som ingen bruger, sletter virksomheden den — data, den ikke længere har, kan ikke lække.
+    en: A fitness chain finds an old database of former members that nobody uses; rather than protect it, it deletes it — data it no longer holds cannot leak.
+    da: En fitnesskæde finder en gammel database over tidligere medlemmer, som ingen bruger; i stedet for at beskytte den sletter kæden den — data, man ikke længere har, kan ikke lække.
   whyItMatters:
-    en: It is the only option that brings a risk to zero, but it gives up whatever value the activity had, so it suits risks with little business gain.
-    da: Det er den eneste mulighed, der bringer en risiko ned på nul, men den opgiver den værdi, aktiviteten havde, så den passer til risici med lille forretningsmæssig gevinst.
+    en: It is the only option that removes a risk completely, but it also gives up whatever value the activity had, so it suits risks that bring the business little gain.
+    da: Det er den eneste mulighed, der fjerner en risiko helt, men man opgiver også den værdi, aktiviteten havde, så den passer til risici, der giver forretningen lille gevinst.
 edges:
   kind-of: [risk-treatment]
   requires: [risk-assessment]

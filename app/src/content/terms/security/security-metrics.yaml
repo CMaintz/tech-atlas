@@ -17,10 +17,10 @@ body:
     da: Aftalte, gentagelige målinger — fx andelen af medarbejdere, der melder en phishing-test, tiden til at installere kritiske patches eller antallet af åbne høje risici — som følges over tid for at vurdere og rapportere, hvor godt kontroller og indsatser virker.
   plain:
     en: Like a bathroom scale on a diet — not the goal itself, but the honest number that tells you whether what you are doing is working.
-    da: Som en badevægt under en slankekur — ikke selve målet, men det ærlige tal, der fortæller, om det man gør, virker.
+    da: Som en badevægt under en slankekur — ikke selve målet, men det ærlige tal, der fortæller, om det, man gør, virker.
   inPractice:
-    en: The board sees one page each quarter — reported phishing up from 20 % to 55 %, patch time down to nine days — and approves more money for the parts that lag.
-    da: Bestyrelsen ser én side hvert kvartal — meldte phishing-mails op fra 20 % til 55 %, patchtid ned til ni dage — og bevilger flere penge til de områder, der halter.
+    en: The board of an insurance company sees one page each quarter — reported phishing up from 20 % to 55 %, patch time down to nine days — and approves more money for the areas that lag behind.
+    da: Bestyrelsen i et forsikringsselskab ser én side hvert kvartal — meldte phishing-mails op fra 20 % til 55 %, patchtid ned til ni dage — og giver flere penge til de områder, der halter.
   whyItMatters:
     en: Without numbers, security spending is a guess, and ISO 27001 requires the organisation to measure how its security performs.
     da: Uden tal er sikkerhedsbudgettet gætværk, og ISO 27001 kræver, at organisationen måler, hvordan dens sikkerhed præsterer.
