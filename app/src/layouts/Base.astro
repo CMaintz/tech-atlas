@@ -80,6 +80,9 @@ const tourUi = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {/* Cross-origin requests get the origin only, never the path (A89). The CSP meta is
+        added by Astro (security.csp, integrations/csp.mjs). */}
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <title>{pageTitle}</title>
     <link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
     <meta name="description" content={desc} />
@@ -264,6 +267,10 @@ const tourUi = {
         isTypingTarget,
         prefersDanish,
       } from '../lib/prefs';
+
+      // Pages can't send frame-ancestors / X-Frame-Options (A89): refuse to render
+      // inside another site's frame, so account actions can't be clickjacked.
+      if (window.top !== window.self) document.documentElement.style.display = 'none';
 
       // Mobile menu.
       const header = document.querySelector<HTMLElement>('[data-site-header]');

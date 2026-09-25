@@ -40,7 +40,14 @@ Deno.serve(async (req) => {
   ) =>
     new Response(JSON.stringify(body), {
       status,
-      headers: { ...cors, ...extra, "Content-Type": "application/json" },
+      headers: {
+        ...cors,
+        ...extra,
+        "Content-Type": "application/json",
+        // Answers are per query and never meant to be rendered as a page (A89).
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff",
+      },
     });
   const tooMany = () =>
     json({ error: "too many requests" }, 429, { "Retry-After": "60" });
