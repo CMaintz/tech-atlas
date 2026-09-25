@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Failing to comply can mean fines, lost customers and personal liability for managers — and requirements often force needed work that would otherwise be put off.
     da: Manglende compliance kan betyde bøder, tabte kunder og personligt ansvar for ledelsen — og kravene tvinger ofte nødvendigt arbejde igennem, som ellers ville blive udskudt.
+deepDive:
+  en: |-
+    Compliance has three sources of obligation with different consequences. Law and regulation, such as GDPR, NIS2 as transposed in Denmark by the NIS2 law in force since 1 July 2025, DORA for financial entities since 17 January 2025, and sector rules, are enforced by authorities with fines and orders. Contracts, such as data processing agreements under GDPR Art. 28, customer security schedules and PCI DSS for card data, are enforced by counterparties. Voluntary standards such as ISO/IEC 27001 bind only once the organisation commits to them, although Danish state authorities have been required to follow ISO/IEC 27001 since 2014. ISO/IEC 27002:2022 controls 5.31 (legal, statutory, regulatory and contractual requirements) and 5.36 (compliance with policies, rules and standards) require these obligations to be identified, kept current and checked.
+
+    Assurance comes in distinct forms. ISO/IEC 27001 certification is performed by an accredited certification body in a stage 1 (documentation and readiness) and stage 2 (implementation) audit, followed by surveillance audits in years two and three and recertification on a three-year cycle; certificates to the 2013 edition expired at the end of the transition period on 31 October 2025. SOC 2 reports against the AICPA Trust Services Criteria come as Type I (design at a point in time) or Type II (operating effectiveness over a period, typically six to twelve months). In Denmark, ISAE 3000 and ISAE 3402 assurance reports from auditors are the common way processors demonstrate compliance with data processing agreements.
+
+    Sanctions differ by regime. GDPR Art. 83 allows administrative fines of up to 20 million euros or 4 % of global annual turnover for the most serious infringements, although in Denmark fines are imposed by the courts after a police report rather than directly by Datatilsynet. NIS2 Art. 34 sets maxima of at least 10 million euros or 2 % of turnover for essential entities and 7 million euros or 1.4 % for important entities, and Art. 20 makes management bodies responsible for approving and overseeing the measures.
+
+    Compliance and security overlap but are not the same. Frameworks lag behind threats, audits sample rather than test everything, and a control can be documented without being effective, a pattern often called checkbox compliance. Conversely, a well-defended organisation can fail an audit for missing evidence. Mature programmes use a unified control framework that maps one control to many requirements, collect evidence continuously from systems rather than by hand before each audit, and use gap analysis to prioritise. Compliance proves that a required baseline exists and is evidenced; governance and risk management decide whether that baseline is enough.
+  da: |-
+    Compliance har tre kilder til forpligtelser med forskellige konsekvenser. Lovgivning og regulering som GDPR, NIS2 som gennemført i Danmark ved NIS2-loven, der har gældt siden 1. juli 2025, DORA for finansielle enheder siden 17. januar 2025 og sektorregler håndhæves af myndigheder med bøder og påbud. Kontrakter som databehandleraftaler efter GDPR art. 28, kunders sikkerhedsbilag og PCI DSS for kortdata håndhæves af modparten. Frivillige standarder som ISO/IEC 27001 binder først, når organisationen forpligter sig til dem, dog har statslige myndigheder i Danmark skullet følge ISO/IEC 27001 siden 2014. ISO/IEC 27002:2022 kontrol 5.31 (lovmæssige, regulatoriske og kontraktlige krav) og 5.36 (overholdelse af politikker, regler og standarder) kræver, at forpligtelserne identificeres, holdes ajour og kontrolleres.
+
+    Sikkerhed for overholdelse findes i forskellige former. ISO/IEC 27001-certificering udføres af et akkrediteret certificeringsorgan i en trin 1-audit (dokumentation og parathed) og en trin 2-audit (implementering), efterfulgt af opfølgningsaudits i år to og tre og recertificering i en treårig cyklus; certifikater efter 2013-udgaven udløb ved overgangsperiodens afslutning den 31. oktober 2025. SOC 2-rapporter efter AICPA's Trust Services Criteria findes som Type I (design på et tidspunkt) eller Type II (operationel effektivitet over en periode, typisk seks til tolv måneder). I Danmark er ISAE 3000- og ISAE 3402-erklæringer fra revisorer den gængse måde, hvorpå databehandlere dokumenterer, at de overholder databehandleraftalerne.
+
+    Sanktionerne varierer mellem regimerne. GDPR art. 83 giver mulighed for administrative bøder på op til 20 mio. euro eller 4 % af den globale årsomsætning for de alvorligste overtrædelser, men i Danmark pålægges bøder af domstolene efter politianmeldelse og ikke direkte af Datatilsynet. NIS2 art. 34 fastsætter maksimumsbøder på mindst 10 mio. euro eller 2 % af omsætningen for væsentlige enheder og 7 mio. euro eller 1,4 % for vigtige enheder, og art. 20 gør ledelsesorganet ansvarligt for at godkende og føre tilsyn med foranstaltningerne.
+
+    Compliance og sikkerhed overlapper, men er ikke det samme. Rammeværk halter efter truslerne, audits bygger på stikprøver frem for at teste alt, og en kontrol kan være dokumenteret uden at være effektiv, et mønster der ofte kaldes checkbox compliance. Omvendt kan en velbeskyttet organisation dumpe en audit på grund af manglende dokumentation. Modne programmer bruger et samlet kontrolrammeværk, hvor én kontrol mappes til mange krav, indsamler dokumentation løbende fra systemerne frem for manuelt før hver audit og bruger gap-analyse til at prioritere. Compliance beviser, at en krævet baseline findes og er dokumenteret; governance og risikostyring afgør, om den baseline er nok.
 edges:
   contrasts-with:
     - to: cyber-and-information-security
@@ -44,4 +61,8 @@ sources:
   - title: ISO/IEC 27002:2022 — Control 5.36, Compliance with policies, rules and standards for information security
     tier: standard
     publisher: ISO/IEC
+  - title: Styrelsen for Samfundssikkerhed — Implementering af NIS 2 i dansk ret
+    tier: official-doc
+    publisher: Styrelsen for Samfundssikkerhed
+    url: https://samsik.dk/nis2/implementering-af-nis-2-i-dansk-ret/
 draft: true

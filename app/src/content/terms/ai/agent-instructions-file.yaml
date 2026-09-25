@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: It turns team knowledge into lasting guidance for AI tools, but anyone who can change the file can change what the agent does — so it needs the same care as code.
     da: Den gør teamets viden til varig vejledning for AI-værktøjer, men alle, der kan ændre filen, kan ændre, hvad agenten gør — så den kræver samme omhu som kode.
+deepDive:
+  en: |-
+    Every coding tool initially invented its own file: CLAUDE.md for Claude Code, .cursorrules and later .cursor/rules for Cursor, .github/copilot-instructions.md for GitHub Copilot, GEMINI.md for Gemini CLI. AGENTS.md emerged in 2025 as a vendor-neutral convention, and OpenAI contributed it to the Agentic AI Foundation under the Linux Foundation in December 2025 alongside MCP. The format is deliberately minimal: plain Markdown with no required fields or schema. Its website reports use in over 60,000 open-source projects and states two precedence rules: in a nested hierarchy the closest AGENTS.md to the file being edited takes precedence, and explicit user prompts override everything.
+
+    Loading semantics differ by tool and matter in practice. Claude Code, for example, loads a managed policy file set by IT, the user's ~/.claude/CLAUDE.md, and every CLAUDE.md or CLAUDE.local.md from the working directory up to the root at launch, while files in subdirectories are loaded on demand when the agent reads files there. Files can pull in others with @path imports, up to four hops deep, and .claude/rules/ holds topic files that can be scoped to path globs. By default it reads AGENTS.md only when no CLAUDE.md is present, and its documentation recommends keeping each file under about 200 lines, because every line consumes context on every session and long files reduce adherence.
+
+    Effective files contain what the agent cannot infer cheaply from the code: exact build, test and lint commands, non-obvious conventions, forbidden actions, pointers to where things live, and the definition of done. Restating general best practice or duplicating a linter configuration wastes tokens. Contradictory rules across nested files are a common source of erratic behaviour, and stale commands are worse than none, since the agent will trust them.
+
+    Two limitations define the security model. First, the file is context, not configuration: the model is steered by it but not bound by it, so hard guarantees (never read .env, never push to main) belong in permission settings, hooks, sandbox policy or branch protection, not in prose. Second, anyone who can change the file can steer the agent. Researchers at Pillar Security demonstrated in 2025 a "rules file backdoor" that used invisible Unicode characters to hide malicious instructions in rules files, and a cloned third-party repository brings its own instructions with it. Mitigations are to require code-owner review for these files, scan diffs for hidden characters, and treat untrusted repositories as untrusted input before running an agent in them.
+  da: |-
+    Hvert kodeværktøj opfandt i starten sin egen fil: CLAUDE.md til Claude Code, .cursorrules og senere .cursor/rules til Cursor, .github/copilot-instructions.md til GitHub Copilot og GEMINI.md til Gemini CLI. AGENTS.md opstod i 2025 som en leverandørneutral konvention, og OpenAI overdrog den til Agentic AI Foundation under Linux Foundation i december 2025 sammen med MCP. Formatet er bevidst minimalt: almindelig Markdown uden obligatoriske felter eller skema. Projektets hjemmeside oplyser, at det bruges i over 60.000 open source-projekter, og angiver to forrangsregler: I et indlejret hierarki har den AGENTS.md, der ligger tættest på den fil, der redigeres, forrang, og eksplicitte prompts fra brugeren går forud for alt.
+
+    Indlæsningsreglerne varierer mellem værktøjer og betyder noget i praksis. Claude Code indlæser fx ved opstart en centralt styret politikfil fra IT, brugerens ~/.claude/CLAUDE.md og alle CLAUDE.md- og CLAUDE.local.md-filer fra arbejdsmappen og op til roden, mens filer i undermapper indlæses efter behov, når agenten læser filer der. Filer kan trække andre ind med @sti-imports op til fire led dybt, og .claude/rules/ rummer emnefiler, der kan afgrænses til bestemte stier. Som standard læser værktøjet kun AGENTS.md, når der ikke findes en CLAUDE.md, og dokumentationen anbefaler at holde hver fil under ca. 200 linjer, fordi hver linje bruger kontekst i hver session, og lange filer mindsker efterlevelsen.
+
+    Gode filer indeholder det, agenten ikke billigt kan udlede af koden: præcise kommandoer til build, test og lint, konventioner, der ikke er åbenlyse, forbudte handlinger, henvisninger til, hvor tingene ligger, og hvad "færdig" betyder. At gentage almindelig god praksis eller duplikere en linterkonfiguration spilder tokens. Modstridende regler på tværs af indlejrede filer er en almindelig kilde til uforudsigelig adfærd, og forældede kommandoer er værre end ingen, fordi agenten stoler på dem.
+
+    To begrænsninger definerer sikkerhedsmodellen. For det første er filen kontekst, ikke konfiguration: Modellen styres af den, men er ikke bundet af den, så hårde garantier (læs aldrig .env, push aldrig til main) hører hjemme i rettighedsindstillinger, hooks, sandkassepolitik eller branch protection, ikke i prosa. For det andet kan alle, der kan ændre filen, styre agenten. Forskere hos Pillar Security demonstrerede i 2025 en "rules file backdoor", der brugte usynlige Unicode-tegn til at skjule ondsindede instruktioner i regelfiler, og et klonet tredjepartsrepository har sine egne instruktioner med. Modtræk er at kræve gennemgang af en code owner for disse filer, scanne diffs for skjulte tegn og behandle upålidelige repositories som upålideligt input, før man kører en agent i dem.
 edges:
   requires: [coding-agent]
   part-of:
@@ -66,4 +83,8 @@ sources:
   - title: Anthropic, Claude Code documentation — Manage Claude's memory (CLAUDE.md)
     tier: official-doc
     publisher: Anthropic
+  - title: 'Pillar Security (2025), New Vulnerability in GitHub Copilot and Cursor: How Hackers Can Weaponize Code Agents (Rules File Backdoor)'
+    tier: reference
+    publisher: Pillar Security
+    url: https://www.pillar.security/blog/new-vulnerability-in-github-copilot-and-cursor-how-hackers-can-weaponize-code-agents
 draft: true

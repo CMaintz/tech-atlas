@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Whoever holds a live session is treated as the user, so an attacker who steals one skips authentication — even MFA — entirely.
     da: Den, der har en aktiv session, behandles som brugeren, så en angriber, der stjæler den, springer autentificeringen — selv MFA — helt over.
+deepDive:
+  en: |-
+    HTTP is stateless, so web sessions are layered on top, almost always through cookies (RFC 6265). There are two basic designs. In a server-side session the cookie holds only a random identifier, and state lives in a server store such as memory, Redis or a database; OWASP's Session Management Cheat Sheet requires at least 64 bits of entropy from a cryptographically secure generator. In a client-side or stateless session the cookie or bearer token carries the state itself, signed and often encrypted, as with a JWT. Stateless designs scale easily but cannot be revoked before expiry without a server-side denylist or short lifetimes plus refresh, which is the real trade-off.
+
+    Cookie hardening is standard: Secure (HTTPS only, backed by HSTS), HttpOnly (not readable from JavaScript, limiting theft through XSS), SameSite=Lax or Strict (restricting cross-site sending, which blunts CSRF), and the __Host- name prefix, which forces Secure, Path=/ and no Domain attribute so subdomains cannot plant or read the cookie. The session identifier must be regenerated at login and at any privilege change, otherwise an attacker who planted a known ID beforehand inherits the authenticated session (session fixation). Logout must invalidate the session on the server, not just delete the cookie in the browser.
+
+    Lifetimes are a policy choice. OWASP suggests idle timeouts of 2 to 5 minutes for high-value applications and 15 to 30 minutes for lower-risk ones, and absolute timeouts of 4 to 8 hours, roughly a working day, for high-risk applications. NIST SP 800-63B-4 sets reauthentication limits by assurance level: at AAL2 no more than 24 hours overall and 1 hour of inactivity, and at AAL3 12 hours overall with inactivity limited to 15 minutes. Sensitive operations such as changing a password or approving a payment should demand fresh authentication regardless of session age.
+
+    The dominant modern threat is theft of a session that was created legitimately. Adversary-in-the-middle phishing kits capture the cookie issued after MFA, and infostealer malware exports cookies from browser profiles; MITRE ATT&CK tracks these as Steal Web Session Cookie (T1539) and Web Session Cookie reuse (T1550.004). Binding sessions to the client is the counter: the earlier Token Binding standard (RFC 8471) found little browser support, and newer approaches bind cookies or refresh tokens to a device-held key. Tying a session to an IP address is brittle on mobile networks. With single sign-on there are several layers, the IdP session, each application's session and any OAuth refresh tokens, and ending one does not end the others unless logout is propagated. Application sessions are also distinct from TLS session resumption and from operating-system logon sessions, which share the name but not the mechanism.
+  da: |-
+    HTTP er tilstandsløst, så websessioner lægges ovenpå, næsten altid via cookies (RFC 6265). Der er to grundlæggende designs. I en serverside-session indeholder cookien kun et tilfældigt id, og tilstanden ligger i et lager på serveren som hukommelse, Redis eller en database; OWASP's Session Management Cheat Sheet kræver mindst 64 bit entropi fra en kryptografisk sikker generator. I en klientside- eller tilstandsløs session bærer cookien eller bearer-tokenet selv tilstanden, signeret og ofte krypteret, som med et JWT. Tilstandsløse designs skalerer let, men kan ikke tilbagekaldes før udløb uden en afvisningsliste på serveren eller korte levetider plus refresh, og det er den egentlige afvejning.
+
+    Hærdning af cookies er standard: Secure (kun HTTPS, understøttet af HSTS), HttpOnly (kan ikke læses fra JavaScript, hvilket begrænser tyveri via XSS), SameSite=Lax eller Strict (begrænser afsendelse på tværs af websites og svækker CSRF) og navnepræfikset __Host-, der gennemtvinger Secure, Path=/ og ingen Domain-attribut, så underdomæner hverken kan plante eller læse cookien. Sessions-id'et skal genereres på ny ved login og ved enhver ændring af rettigheder; ellers arver en angriber, der på forhånd har plantet et kendt id, den autentificerede session (session fixation). Logud skal ugyldiggøre sessionen på serveren og ikke bare slette cookien i browseren.
+
+    Levetider fastlægges i sikkerhedspolitikken. OWASP foreslår inaktivitetsgrænser på 2 til 5 minutter for applikationer med høj værdi og 15 til 30 minutter for applikationer med lavere risiko samt absolutte grænser på 4 til 8 timer, cirka en arbejdsdag, for applikationer med høj risiko. NIST SP 800-63B-4 fastsætter grænser for genautentificering efter sikringsniveau: på AAL2 højst 24 timer i alt og 1 time uden aktivitet og på AAL3 12 timer i alt med inaktivitet begrænset til 15 minutter. Følsomme handlinger som at skifte adgangskode eller godkende en betaling bør kræve frisk autentificering uanset sessionens alder.
+
+    Den dominerende moderne trussel er tyveri af en session, der er oprettet helt legitimt. Adversary-in-the-middle-phishingkits opsnapper den cookie, der udstedes efter MFA, og infostealer-malware eksporterer cookies fra browserprofiler; MITRE ATT&CK beskriver det som Steal Web Session Cookie (T1539) og genbrug af Web Session Cookie (T1550.004). Modtrækket er at binde sessionen til klienten: Den tidligere standard Token Binding (RFC 8471) fik kun ringe browserunderstøttelse, og nyere tilgange binder cookies eller refresh-tokens til en nøgle, som enheden har. At binde en session til en IP-adresse er skrøbeligt på mobilnet. Med single sign-on er der flere lag, IdP-sessionen, hver applikations session og eventuelle OAuth-refresh-tokens, og afslutning af ét lag afslutter ikke de andre, medmindre logud videreformidles. Applikationssessioner er også forskellige fra genoptagelse af TLS-sessioner og fra styresystemets logonsessioner, der deler navnet, men ikke mekanismen.
 edges:
   requires: [authentication]
   used-with:
@@ -36,4 +53,12 @@ sources:
     url: https://pages.nist.gov/800-63-3/sp800-63b.html
     tier: standard
     publisher: NIST
+  - title: NIST SP 800-63B-4 — Authentication and Authenticator Management
+    tier: standard
+    publisher: NIST
+    url: https://pages.nist.gov/800-63-4/sp800-63b.html
+  - title: OWASP Session Management Cheat Sheet
+    tier: reference
+    publisher: OWASP
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html
 draft: true

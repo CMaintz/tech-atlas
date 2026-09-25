@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Tokens decide cost, speed and how much a model can take in at once; note that this AI meaning has nothing to do with a login token.
     da: Tokens bestemmer pris, hastighed og hvor meget en model kan tage ind på én gang; bemærk, at denne AI-betydning intet har med et login-token at gøre.
+deepDive:
+  en: |-
+    A token is an entry in a model's fixed vocabulary, identified by an integer ID. Most vocabularies are learned with subword algorithms such as byte-pair encoding, so frequent words, common word fragments, whitespace-prefixed words, punctuation, digit groups and raw bytes each get their own entries. Vocabulary size is a design choice fixed before pretraining: GPT-2 used 50,257 entries, and more recent model families use vocabularies of roughly 100,000 to more than 250,000 entries so that more languages and code compress well. The ID is used to look up a row of the embedding matrix on input, and the output layer produces one logit per ID.
+
+    Beyond ordinary text tokens, vocabularies contain special tokens that never appear as literal text: beginning- and end-of-sequence markers, padding, role and turn delimiters used by chat templates, tool-call markers and, in some models, reasoning delimiters. Serving stacks normally refuse to let user text produce these tokens by accident, because a user who could inject a turn delimiter could fake a system or assistant message. Images, audio and video in multimodal models are also converted to tokens (patches or frames mapped to embeddings), which is why a picture has a token cost.
+
+    Token counts drive three operational quantities. Pricing is per million input and output tokens, with output typically priced several times higher and cached input cheaper. The context window and maximum output are expressed in tokens. Latency scales with output tokens because each requires a forward pass. A widely quoted rule of thumb is roughly four characters or three quarters of a word per token for English text, but the ratio depends on the tokenizer: Anthropic's documentation notes that 1 million tokens holds fewer words on its newest tokenizer than on earlier models, so identical text can cost different amounts on successive model generations.
+
+    The ratio also varies sharply by language and script. Petrov et al. (2023) measured tokenization lengths for parallel translations of the same text and found differences of up to 15 times between languages, persisting even in tokenizers designed to be multilingual. Danish is written in Latin script and fares better than many languages, but long compounds are still split into several pieces, so Danish text typically costs more tokens than equivalent English and fills the context window faster. For budgeting, count tokens with the specific model's tokenizer or token-counting endpoint rather than estimating from words. The AI sense of token is unrelated to authentication tokens, API keys or cryptographic tokens.
+  da: |-
+    Et token er en post i en models faste ordforråd, identificeret ved et heltals-ID. De fleste ordforråd læres med subword-algoritmer som byte-pair encoding, så hyppige ord, almindelige orddele, ord med foranstillet mellemrum, tegnsætning, grupper af cifre og rå bytes hver får deres egne poster. Ordforrådets størrelse er et designvalg, der låses før fortræningen: GPT-2 brugte 50.257 poster, og nyere modelfamilier bruger ordforråd på omkring 100.000 til over 250.000 poster, så flere sprog og kode komprimeres godt. ID'et bruges til at slå en række op i embedding-matricen på vej ind, og outputlaget giver én logit pr. ID.
+
+    Ud over almindelige teksttokens indeholder ordforråd særlige tokens, der aldrig optræder som bogstavelig tekst: markører for start og slut på en sekvens, udfyldning, skilletegn for roller og ture i chatskabeloner, markører for værktøjskald og i nogle modeller skilletegn for ræsonnement. Serveringslag forhindrer normalt, at brugertekst ved et uheld bliver til disse tokens, for en bruger, der kunne indsætte et tur-skilletegn, kunne forfalske en system- eller assistentbesked. Billeder, lyd og video i multimodale modeller omsættes også til tokens (felter eller billeder afbildet til embeddings), og derfor har et billede en token-pris.
+
+    Antallet af tokens styrer tre driftsstørrelser. Prisen er pr. million input- og output-tokens, hvor output typisk koster flere gange mere, og cachet input mindre. Kontekstvinduet og det maksimale output angives i tokens. Ventetiden vokser med antallet af output-tokens, fordi hvert kræver et forward pass. En udbredt tommelfingerregel er omkring fire tegn eller trekvart ord pr. token for engelsk tekst, men forholdet afhænger af tokenizeren: Anthropics dokumentation oplyser, at 1 million tokens rummer færre ord med den nyeste tokenizer end med tidligere modeller, så den samme tekst kan koste forskelligt på efterfølgende modelgenerationer.
+
+    Forholdet varierer også kraftigt mellem sprog og skriftsystemer. Petrov m.fl. (2023) målte tokenlængder for parallelle oversættelser af samme tekst og fandt forskelle på op til 15 gange mellem sprog, også i tokenizere designet til at være flersprogede. Dansk skrives med latinske bogstaver og klarer sig bedre end mange sprog, men lange sammensatte ord deles stadig i flere stykker, så dansk tekst typisk koster flere tokens end tilsvarende engelsk og fylder kontekstvinduet hurtigere. Til budgettering bør man tælle tokens med den konkrete models tokenizer eller tælle-endpoint i stedet for at skønne ud fra antal ord. AI-betydningen af token har intet med login-tokens, API-nøgler eller kryptografiske tokens at gøre.
 edges:
   part-of: [prompt]
 sources:
@@ -31,4 +48,11 @@ sources:
     tier: reference
   - title: Vaswani et al. (2017), Attention Is All You Need
     tier: reference
+  - title: Petrov et al. (2023), Language Model Tokenizers Introduce Unfairness Between Languages
+    tier: reference
+    url: https://arxiv.org/abs/2305.15425
+  - title: Anthropic documentation — Models overview (context window in words per tokenizer)
+    tier: official-doc
+    publisher: Anthropic
+    url: https://platform.claude.com/docs/en/about-claude/models/overview
 draft: true

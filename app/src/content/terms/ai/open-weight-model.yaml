@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: Running it yourself keeps data in-house and avoids depending on one provider, but a downloaded file may have been tampered with, and once weights are public, anyone can strip out their safety limits and nobody can recall them.
     da: At køre den selv holder data internt og undgår afhængighed af én udbyder, men en hentet fil kan være manipuleret, og når vægtene først er offentlige, kan enhver fjerne deres sikkerhedsgrænser, og ingen kan kalde dem tilbage.
+deepDive:
+  en: |-
+    A typical open-weight release on a hub such as Hugging Face contains the parameter tensors (today usually as safetensors shards), a configuration file describing the architecture, the tokenizer files and a chat template, plus a model card. What is almost never included is the training dataset, the data-processing pipeline, the full training code or the intermediate checkpoints. This is why "open weights" is distinguished from open source: the Open Source Initiative's Open Source AI Definition 1.0 (28 October 2024) requires the code used to train and run the system, the parameters under open terms, and sufficiently detailed "data information" about the training data, and most popular open-weight models do not meet it.
+
+    Licensing varies widely and determines what a deployer may do. Some models ship under permissive licences such as Apache 2.0 or MIT; others use bespoke licences, for example Meta's Llama community licences, which require a separate licence from Meta for services with more than 700 million monthly active users and incorporate an acceptable-use policy, and similar custom terms apply to other families. A licence that restricts fields of use or user counts is not an open-source licence in the OSI sense. In the EU AI Act, Art. 53(2) relieves providers of general-purpose AI models released under a free and open-source licence, with weights and architecture information publicly available, of some documentation duties, but not the copyright-policy and training-summary duties, and not at all where the model presents systemic risk.
+
+    Running weights locally shifts security work to the deployer. Older PyTorch checkpoint formats (.bin, .pt) use Python pickle, which can execute arbitrary code on load; safetensors stores raw tensors and avoids that class of attack. Weights can also carry trained-in backdoors that no static scan detects, so provenance, checksums against the publisher's hashes, and evaluation before deployment are the practical controls; OWASP's Top 10 for LLM Applications 2025 treats this under LLM03 Supply Chain. Updates and vulnerability fixes do not arrive automatically as they do with a hosted API.
+
+    The dual-use debate centres on irreversibility. Safety behaviour learned in post-training is shallow: a small fine-tuning run, or editing out a single "refusal direction" in activation space (Arditi et al., 2024), can remove it, and released weights cannot be recalled. The US NTIA's 2024 report on dual-use foundation models with widely available weights concluded that immediate restrictions were not warranted but recommended monitoring for marginal risk. On the benefit side, open weights enable on-premises processing of personal data, reproducible research, independent auditing and quantized deployment on modest hardware.
+  da: |-
+    En typisk udgivelse med åbne vægte på en platform som Hugging Face indeholder parametertensorerne (i dag som regel opdelt i safetensors-filer), en konfigurationsfil, der beskriver arkitekturen, tokenizer-filerne og en chatskabelon samt et model card. Det, der næsten aldrig følger med, er træningsdatasættet, databehandlingspipelinen, den fulde træningskode eller de mellemliggende checkpoints. Derfor skelnes der mellem "åbne vægte" og open source: Open Source Initiatives Open Source AI Definition 1.0 (28. oktober 2024) kræver den kode, der bruges til at træne og køre systemet, parametrene under åbne vilkår og tilstrækkeligt detaljeret "data information" om træningsdata, og de fleste populære modeller med åbne vægte lever ikke op til den.
+
+    Licenserne varierer meget og afgør, hvad man må. Nogle modeller udgives under tilladende licenser som Apache 2.0 eller MIT; andre bruger egne licenser, fx Metas Llama-community-licenser, der kræver en særskilt licens fra Meta for tjenester med mere end 700 millioner månedlige aktive brugere og indarbejder en acceptable use policy, og lignende særvilkår gælder for andre modelfamilier. En licens, der begrænser anvendelsesområder eller brugertal, er ikke en open source-licens i OSI's forstand. I AI-forordningen fritager art. 53, stk. 2, udbydere af AI-modeller til almen brug, der udgives under en fri open source-licens med offentligt tilgængelige vægte og arkitekturoplysninger, for en del af dokumentationspligterne, men ikke for pligten til en ophavsretspolitik og et resumé af træningsindholdet, og slet ikke hvis modellen udgør en systemisk risiko.
+
+    Når vægtene køres lokalt, flyttes sikkerhedsarbejdet over på den, der tager modellen i brug. Ældre PyTorch-checkpointformater (.bin, .pt) bruger Pythons pickle, som kan afvikle vilkårlig kode ved indlæsning; safetensors gemmer rå tensorer og undgår den type angreb. Vægte kan også rumme indtrænede bagdøre, som ingen statisk scanning opdager, så proveniens, kontrol af checksummer mod udgiverens hashværdier og evaluering før idriftsættelse er de praktiske kontroller; OWASP Top 10 for LLM Applications 2025 behandler det under LLM03 Supply Chain. Opdateringer og sikkerhedsrettelser kommer ikke automatisk, som de gør med et hostet API.
+
+    Debatten om dobbelt anvendelse handler om, at udgivelsen ikke kan gøres om. Sikkerhedsadfærd lært under eftertræningen sidder overfladisk: En lille finjustering, eller at man fjerner en enkelt "afvisningsretning" i aktiveringsrummet (Arditi m.fl., 2024), kan fjerne den, og offentliggjorte vægte kan ikke kaldes tilbage. Den amerikanske NTIA konkluderede i sin rapport fra 2024 om dual-use-grundmodeller med bredt tilgængelige vægte, at øjeblikkelige restriktioner ikke var begrundede, men anbefalede overvågning af den marginale risiko. På plussiden muliggør åbne vægte behandling af personoplysninger on-premises, reproducerbar forskning, uafhængig revision og kvantiseret drift på beskeden hardware.
 edges:
   kind-of: [foundation-model]
   requires:
@@ -53,4 +70,12 @@ sources:
     publisher: U.S. Department of Commerce, NTIA
   - title: Kapoor et al. (2024), On the Societal Impact of Open Foundation Models
     tier: reference
+  - title: The Open Source AI Definition — 1.0
+    tier: official-doc
+    publisher: Open Source Initiative
+    url: https://opensource.org/ai/open-source-ai-definition
+  - title: General-Purpose AI Models in the AI Act — Questions & Answers
+    tier: official-doc
+    publisher: European Commission
+    url: https://digital-strategy.ec.europa.eu/en/faqs/general-purpose-ai-models-ai-act-questions-answers
 draft: true

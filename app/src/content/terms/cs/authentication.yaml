@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Every later decision about access trusts the answer given here, so weak authentication lets an attacker walk in wearing someone else's identity.
     da: Alle senere beslutninger om adgang bygger på svaret her, så svag autentificering lader en angriber gå ind under en andens identitet.
+deepDive:
+  en: |-
+    NIST SP 800-63-4 (final in 2025) gives the standard vocabulary. A claimant proves control of one or more authenticators to a verifier; once bound to a subscriber account by a credential service provider, the authenticator becomes the thing checked at each login. Strength is graded as authenticator assurance levels in SP 800-63B-4: AAL1 permits a single factor, AAL2 requires two distinct factors, and AAL3 requires a phishing-resistant authenticator with a non-exportable private key. The same document sets reauthentication limits: at AAL2 the session should last no more than 24 hours overall and 1 hour of inactivity, and at AAL3 no more than 12 hours overall, with inactivity limited to 15 minutes.
+
+    The factors (knowledge, possession, inherence) are not equally robust against today's main attack, adversary-in-the-middle phishing, in which a proxy such as Evilginx relays the password and one-time code or push approval to the real site in real time and keeps the resulting session cookie. SP 800-63B-4 §3.2.5 defines phishing resistance as preventing disclosure of authenticator outputs to an impostor verifier, achieved either by channel binding (tying the output to the TLS channel, as with client certificates) or verifier-name binding (tying it to the relying party's identifier, as WebAuthn does with the origin and RP ID). Other hard rules in the same document: verifiers must stop an authenticator after at most 100 consecutive failed attempts on an account (§3.2.2), must not use knowledge-based security questions, and PSTN-delivered codes (SMS, voice) are a "restricted" authenticator (§3.1.3.3).
+
+    Underneath, most protocols are challenge-response: the verifier sends a fresh nonce and the claimant returns a value only the authenticator holder could compute, which defeats simple replay. Kerberos (RFC 4120) issues tickets from a key distribution centre so services never see the password, while NTLM's use of the password hash as the key is what makes pass-the-hash possible. Mutual authentication, where the server also proves its identity, is what TLS server certificates provide. Machines authenticate with mutual TLS, signed JWT client assertions (RFC 7523) or platform-issued workload identities rather than passwords.
+
+    Common misconceptions: authentication is not identity proofing, which happens once at enrolment (identity assurance levels in SP 800-63A); the weakest path is often account recovery or a help-desk reset rather than the login page; and an authentication result is a point-in-time event whose value is carried forward by a session, so session theft bypasses even strong MFA. Authentication answers who is asking; authorization, evaluated afterwards, decides what they may do.
+  da: |-
+    NIST SP 800-63-4 (endelig udgave fra 2025) giver det gængse begrebsapparat. En claimant beviser over for en verifier, at vedkommende har kontrol over en eller flere autentifikatorer; når en credential service provider har knyttet autentifikatoren til en brugerkonto, er det den, der kontrolleres ved hvert login. Styrken angives som authenticator assurance levels i SP 800-63B-4: AAL1 tillader én faktor, AAL2 kræver to forskellige faktorer, og AAL3 kræver en phishing-resistent autentifikator med en privat nøgle, der ikke kan eksporteres. Samme dokument fastsætter grænser for genautentificering: På AAL2 bør en session højst vare 24 timer i alt og 1 time uden aktivitet, og på AAL3 højst 12 timer i alt med inaktivitet begrænset til 15 minutter.
+
+    Faktorerne (noget man ved, har eller er) er ikke lige robuste over for dagens hovedangreb, adversary-in-the-middle-phishing, hvor en proxy som Evilginx i realtid videresender adgangskode og engangskode eller push-godkendelse til det rigtige website og beholder den sessionscookie, der kommer ud af det. SP 800-63B-4 §3.2.5 definerer phishing-resistens som evnen til at forhindre, at autentifikatorens output afsløres over for en falsk verifier, enten ved kanalbinding (outputtet bindes til TLS-kanalen, som ved klientcertifikater) eller ved binding til verifierens navn (outputtet bindes til relying partyens identifikator, som WebAuthn gør med origin og RP ID). Andre faste regler i dokumentet: En verifier skal spærre en autentifikator efter højst 100 fejlede forsøg i træk på en konto (§3.2.2), må ikke bruge vidensbaserede kontrolspørgsmål, og koder sendt via telefonnettet (SMS, opkald) er en "begrænset" autentifikator (§3.1.3.3).
+
+    Under overfladen er de fleste protokoller challenge-response: Verifieren sender en frisk nonce, og claimanten returnerer en værdi, som kun indehaveren af autentifikatoren kan beregne, hvilket forhindrer simpel genafspilning. Kerberos (RFC 4120) udsteder billetter fra et key distribution center, så tjenesterne aldrig ser adgangskoden, mens NTLM bruger selve adgangskode-hashen som nøgle, og det er netop det, der gør pass-the-hash muligt. Gensidig autentificering, hvor serveren også beviser sin identitet, er det, TLS-servercertifikater leverer. Maskiner autentificerer sig med gensidig TLS, signerede JWT-klientassertions (RFC 7523) eller workload-identiteter udstedt af platformen frem for adgangskoder.
+
+    Typiske misforståelser: Autentificering er ikke identitetssikring (identity proofing), som sker én gang ved registreringen (identity assurance levels i SP 800-63A); den svageste vej er ofte gendannelse af kontoen eller en nulstilling via servicedesken frem for selve loginsiden; og et autentificeringsresultat gælder kun i øjeblikket og føres videre af en session, så tyveri af sessionen omgår selv stærk MFA. Autentificering svarer på, hvem der spørger; autorisation, der vurderes bagefter, afgør, hvad vedkommende må.
 edges:
   requires: [identity, credential]
   contrasts-with:
@@ -44,4 +61,8 @@ sources:
     url: https://pages.nist.gov/800-63-3/sp800-63-3.html
     tier: standard
     publisher: NIST
+  - title: NIST SP 800-63B-4 — Authentication and Authenticator Management
+    tier: standard
+    publisher: NIST
+    url: https://pages.nist.gov/800-63-4/sp800-63b.html
 draft: true

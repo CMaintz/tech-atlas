@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: Fewer separate accounts means fewer passwords to steal and forget, and when someone leaves, closing one home account shuts every linked door at once.
     da: Færre separate konti betyder færre adgangskoder at stjæle og glemme, og når nogen stopper, er det nok at lukke kontoen hjemme for at lukke alle tilknyttede døre på én gang.
+deepDive:
+  en: |-
+    A federation has three roles: the identity provider (IdP, or OpenID Provider in OIDC) that authenticates the subscriber, the relying party (RP, or service provider in SAML) that consumes assertions, and the subscriber in between. Trust is technical before it is contractual: parties exchange metadata listing entity identifiers, endpoints and signing certificates, as SAML metadata XML or as an OIDC discovery document with a JWKS URI. In bilateral federation each pair configures the other by hand. In multilateral federation an operator vets members and publishes signed aggregate metadata; the Danish research federation WAYF, in operation since 2008, works as a hub that also imports services from the global eduGAIN interfederation. In the Danish public sector, NemLog-in acts as an identity broker between MitID and service providers, using the OIOSAML profiles.
+
+    NIST SP 800-63C-4 grades federation assurance. At FAL1, bearer assertions may target more than one RP and injection protection is recommended; FAL2 requires audience restriction to a single RP, strong protection against assertion injection and a trust agreement established before the transaction; FAL3 additionally requires the RP to verify that the subscriber controls an authenticator, through a holder-of-key assertion or a bound authenticator, so a stolen assertion is useless on its own. A typical assertion carries issuer, subject identifier, audience, issue and expiry times, authentication time and context, and attributes. Pairwise pseudonymous identifiers, such as OIDC's pairwise subject type or a SAML persistent NameID, stop colluding RPs from correlating a user.
+
+    Protocol choice follows the client: SAML 2.0 for browser-based enterprise apps, OpenID Connect for web, mobile and API scenarios, and WS-Federation mainly in legacy Microsoft estates. Federation covers authentication only; account creation downstream is handled either just-in-time from assertion attributes or by separate provisioning via SCIM. Single logout across federated RPs is notoriously unreliable.
+
+    The main risk is concentration. Whoever holds the IdP's token-signing key can mint valid assertions for every RP: the "Golden SAML" technique, described by CyberArk in 2017, was used in the SolarWinds campaign, and in 2023 Storm-0558 forged tokens for Exchange Online accounts with a stolen Microsoft consumer signing key because of a validation flaw, which the US Cyber Safety Review Board judged preventable in its April 2024 report. Mitigations are HSM-protected signing keys, rotation, and RPs that pin the expected issuer and key. RPs must also choose which attributes to trust: using a mutable or unverified email claim as the account key has enabled account takeover. Federation differs from single sign-on in that it crosses organisational trust boundaries, whereas SSO can exist inside one organisation.
+  da: |-
+    En føderation har tre roller: identitetsudbyderen (IdP, eller OpenID Provider i OIDC), der autentificerer brugeren, relying partyen (RP, eller service provider i SAML), der modtager assertions, og brugeren imellem dem. Tilliden er teknisk, før den er kontraktlig: Parterne udveksler metadata med entitets-id'er, endpoints og signeringscertifikater, enten som SAML-metadata i XML eller som et OIDC-discovery-dokument med en JWKS-URI. I bilateral føderation konfigurerer hvert par hinanden manuelt. I multilateral føderation godkender en operatør medlemmerne og udgiver signerede, samlede metadata; den danske forskningsføderation WAYF, der har været i drift siden 2008, fungerer som et knudepunkt, der også henter tjenester ind fra den globale interføderation eduGAIN. I den offentlige sektor fungerer NemLog-in som identitetsbroker mellem MitID og tjenesteudbyderne og bruger OIOSAML-profilerne.
+
+    NIST SP 800-63C-4 inddeler føderation i sikringsniveauer. På FAL1 må bearer-assertions rettes mod mere end én RP, og beskyttelse mod injektion anbefales; FAL2 kræver, at assertionen er begrænset til én enkelt RP, stærk beskyttelse mod injektion af assertions og en tillidsaftale, der er indgået før transaktionen; FAL3 kræver desuden, at RP'en kontrollerer, at brugeren har en autentifikator, via en holder-of-key-assertion eller en bundet autentifikator, så en stjålet assertion ikke kan bruges alene. En typisk assertion indeholder udsteder, subjekt-id, modtager (audience), udstedelses- og udløbstid, autentificeringstidspunkt og -kontekst samt attributter. Parvise pseudonyme identifikatorer, som OIDC's pairwise subject type eller et persistent NameID i SAML, forhindrer samarbejdende RP'er i at sammenkæde en bruger.
+
+    Valget af protokol følger klienten: SAML 2.0 til browserbaserede virksomhedsapps, OpenID Connect til web, mobil og API'er og WS-Federation hovedsageligt i ældre Microsoft-miljøer. Føderation dækker kun autentificering; oprettelsen af konti hos tjenesten sker enten just-in-time ud fra attributterne i assertionen eller via separat provisionering med SCIM. Fælles logud (single logout) på tværs af fødererede RP'er er berygtet for at være upålidelig.
+
+    Den største risiko er koncentrationen. Den, der har IdP'ens signeringsnøgle til tokens, kan udstede gyldige assertions til alle RP'er: Teknikken "Golden SAML", beskrevet af CyberArk i 2017, blev brugt i SolarWinds-kampagnen, og i 2023 forfalskede Storm-0558 tokens til Exchange Online-konti med en stjålet signeringsnøgle fra Microsofts forbrugerplatform på grund af en valideringsfejl, som det amerikanske Cyber Safety Review Board i sin rapport fra april 2024 vurderede kunne have været undgået. Modtræk er signeringsnøgler beskyttet i HSM, nøglerotation og RP'er, der fastlåser den forventede udsteder og nøgle. RP'en skal også vælge, hvilke attributter den stoler på: At bruge et foranderligt eller ubekræftet mail-claim som kontonøgle har gjort kontoovertagelse mulig. Føderation adskiller sig fra single sign-on ved at krydse organisatoriske tillidsgrænser, mens SSO kan findes inden for én organisation.
 edges:
   requires: [identity-provider]
   used-with:
@@ -38,4 +55,12 @@ sources:
   - title: NIST SP 800-63C — Digital Identity Guidelines, Federation and Assertions
     tier: standard
     publisher: NIST
+  - title: NIST SP 800-63C-4 — Federation and Assertions (Federation Assurance Levels)
+    tier: standard
+    publisher: NIST
+    url: https://pages.nist.gov/800-63-4/sp800-63c/fal/
+  - title: CSRB — Review of the Summer 2023 Microsoft Exchange Online Intrusion
+    tier: official-doc
+    publisher: Cyber Safety Review Board (CISA)
+    url: https://www.cisa.gov/sites/default/files/2025-03/CSRBReviewOfTheSummer2023MEOIntrusion508.pdf
 draft: true

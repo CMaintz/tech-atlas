@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: It puts people back in charge of what gets built and gives both the AI and the reviewers something clear to check against, including security needs agreed up front.
     da: Den giver mennesker magten tilbage over, hvad der bygges, og giver både AI-værktøjet og dem, der gennemgår koden, noget klart at tjekke op imod, herunder sikkerhedskrav aftalt på forhånd.
+deepDive:
+  en: |-
+    The idea is older than coding agents. Design by contract, model-driven engineering, behaviour-driven development with Given/When/Then scenarios and test-driven development all tried to make an explicit, checkable statement of intent precede or govern the code. What changed in 2025 is the consumer of the specification: a coding agent that will implement whatever it is told, quickly and confidently, so ambiguity in the request turns directly into plausible but wrong software. Writing the spec forces decisions about scope, edge cases, error handling and non-functional requirements before thousands of lines exist that embody the wrong ones.
+
+    Two tools shaped current practice. GitHub's open-source Spec Kit, announced in September 2025, provides a CLI named specify and a set of agent slash commands that walk through a fixed sequence: a project "constitution" of non-negotiable principles, a feature specification (spec.md) focused on what and why, a technical plan (plan.md) choosing architecture and stack, a task breakdown (tasks.md), and implementation task by task. Amazon's Kiro IDE, launched in 2025, structures each feature as requirements (user stories with structured acceptance criteria), a design document and a task list traced back to requirement numbers, plus "steering" files that hold standing product and technology context. Both treat Markdown artefacts under version control as the durable interface between people and agent.
+
+    Birgitta Böckeler's October 2025 analysis on martinfowler.com distinguishes three levels. Spec-first writes a spec before the work and may discard it afterwards; spec-anchored keeps the spec and evolves it with the feature; spec-as-source makes the spec the only artefact humans edit, with code regenerated from it. She also recorded the main criticisms: generated specs can be longer and more tedious to review than the code, a single workflow imposes the same ceremony on a one-line bug fix as on a new feature, agents still ignore or misread instructions despite elaborate templates, and spec-as-source risks repeating the failures of model-driven development with added non-determinism.
+
+    Done well, the spec is where security and compliance requirements become testable. Threat-modelling outcomes, data-protection constraints and acceptance criteria such as token lifetimes or rate limits can be written as explicit requirements that tests verify and reviewers check, which aligns with NIST SP 800-218's practice of defining security requirements for software development (PO.1). The spec does not remove the need to review code; it gives the reviewer a reference against which divergence can be detected, and it must itself be kept current, since a stale spec misleads the agent as effectively as a missing one.
+  da: |-
+    Idéen er ældre end kodeagenter. Design by contract, modeldrevet udvikling, behaviour-driven development med Given/When/Then-scenarier og testdrevet udvikling forsøgte alle at lade en eksplicit, kontrollerbar beskrivelse af hensigten komme før eller styre koden. Det, der ændrede sig i 2025, er modtageren af specifikationen: en kodeagent, der hurtigt og selvsikkert implementerer det, den får besked på, så tvetydighed i forespørgslen bliver direkte til troværdig, men forkert software. At skrive specifikationen tvinger beslutninger om omfang, grænsetilfælde, fejlhåndtering og ikke-funktionelle krav frem, før der findes tusindvis af linjer, som indbygger de forkerte.
+
+    To værktøjer har formet den nuværende praksis. GitHubs open source-værktøj Spec Kit, annonceret i september 2025, har en CLI ved navn specify og et sæt slash-kommandoer til agenten, der fører gennem en fast rækkefølge: en "constitution" for projektet med ufravigelige principper, en funktionsspecifikation (spec.md) med fokus på hvad og hvorfor, en teknisk plan (plan.md), der vælger arkitektur og stak, en opdeling i opgaver (tasks.md) og implementering opgave for opgave. Amazons IDE Kiro, lanceret i 2025, strukturerer hver funktion som krav (user stories med strukturerede acceptkriterier), et designdokument og en opgaveliste, der kan spores tilbage til kravnumre, plus "steering"-filer med fast kontekst om produkt og teknologi. Begge behandler Markdown-artefakter under versionsstyring som den varige grænseflade mellem mennesker og agent.
+
+    Birgitta Böckelers analyse fra oktober 2025 på martinfowler.com skelner mellem tre niveauer. Spec-first skriver en specifikation før arbejdet og kan kassere den bagefter; spec-anchored beholder specifikationen og udvikler den sammen med funktionen; spec-as-source gør specifikationen til det eneste artefakt, mennesker redigerer, mens koden genereres ud fra den. Hun noterede også de vigtigste kritikpunkter: Genererede specifikationer kan være længere og mere trættende at gennemgå end koden, én fast arbejdsgang pålægger en rettelse på én linje samme ceremoni som en ny funktion, agenter ignorerer eller misforstår stadig instruktioner trods udførlige skabeloner, og spec-as-source risikerer at gentage fiaskoerne fra modeldrevet udvikling, nu med ikke-determinisme oveni.
+
+    Gjort godt er specifikationen stedet, hvor sikkerheds- og compliancekrav bliver testbare. Resultater af trusselsmodellering, databeskyttelseskrav og acceptkriterier som tokens' levetid eller rate limits kan skrives som eksplicitte krav, som tests verificerer og reviewere tjekker, hvilket flugter med praksissen i NIST SP 800-218 om at definere sikkerhedskrav til softwareudvikling (PO.1). Specifikationen fjerner ikke behovet for kodegennemgang; den giver revieweren en reference, som afvigelser kan måles imod, og den skal selv holdes ajour, for en forældet specifikation vildleder agenten lige så effektivt som en manglende.
 edges:
   requires: [coding-agent]
   contrasts-with:
@@ -49,4 +66,12 @@ sources:
   - title: NIST SP 800-218 — Secure Software Development Framework (SSDF) Version 1.1
     tier: standard
     publisher: NIST
+  - title: 'Böckeler (2025), Understanding Spec-Driven-Development: Kiro, spec-kit, and Tessl'
+    tier: reference
+    publisher: martinfowler.com
+    url: https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html
+  - title: 'GitHub Blog (2025), Spec-driven development with AI: Get started with a new open source toolkit'
+    tier: official-doc
+    publisher: GitHub
+    url: https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/
 draft: true

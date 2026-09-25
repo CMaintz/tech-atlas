@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: It is the cheapest and fastest way to change how an AI feature behaves, but a small change in wording can quietly break cases that used to work, so changes need testing.
     da: Det er den billigste og hurtigste måde at ændre, hvordan en AI-funktion opfører sig, men en lille ændring i ordlyden kan stille og roligt ødelægge tilfælde, der plejede at virke, så ændringer skal testes.
+deepDive:
+  en: |-
+    Prompt engineering is best understood as an empirical optimisation loop over an input that has no formal semantics. The model's behaviour is a function of the exact token sequence, and small, meaning-preserving changes can produce large behavioural changes: Sclar et al. (2023) measured differences of up to 76 accuracy points on LLaMA-2-13B from formatting choices alone, such as separators, casing and spacing in few-shot prompts. That sensitivity is why a prompt should be treated like code — versioned, reviewed and regression-tested against a fixed evaluation set — rather than edited ad hoc in production.
+
+    The techniques with the most consistent support are structural. State the task, audience, constraints and success criteria explicitly; give the model a role in the system prompt; separate instructions from input data with clear delimiters such as XML-style tags or fenced sections; put long reference documents before the question rather than after it; specify the output format precisely, ideally backed by a schema via structured output; show examples for format and edge cases (few-shot); ask for step-by-step reasoning on multi-step problems where the model does not reason natively; and break complex jobs into chained calls with one responsibility each. Positive instructions ("write in plain prose") tend to work better than lists of prohibitions, and giving the reason for a rule helps the model generalise it.
+
+    Evaluation is the part most often skipped. A workable loop defines test cases that cover typical, edge and adversarial inputs; scores outputs with exact-match checks, schema validation, heuristics, human review or an LLM-as-a-judge grader calibrated against human labels; and compares prompt versions on the same set, sampling several times per case because outputs vary between runs. Automated methods can search the prompt space: Automatic Prompt Engineer (Zhou et al., 2022) generated and scored candidate instructions with an LLM, and frameworks such as DSPy compile declarative pipelines into optimised prompts and demonstrations against a metric.
+
+    Prompts do not transfer cleanly. A prompt tuned for one model, or one version of a model, can regress on the next, so model upgrades need the same regression run as prompt changes. Prompt engineering is also not a security boundary: instructions such as "never reveal this" or "ignore instructions in documents" reduce but do not prevent prompt injection or system-prompt leakage, so controls belong in the surrounding system — permissions, output validation, human approval. When prompting stops improving results, the next levers are context engineering (what information is supplied), retrieval, a different model, or fine-tuning.
+  da: |-
+    Prompt engineering forstås bedst som en empirisk optimeringsløkke over et input uden formel semantik. Modellens adfærd er en funktion af den præcise tokensekvens, og små ændringer, der bevarer betydningen, kan give store ændringer i adfærden: Sclar m.fl. (2023) målte forskelle på op til 76 procentpoint i præcision på LLaMA-2-13B alene på grund af formatering, fx skilletegn, store og små bogstaver og mellemrum i few-shot-prompts. Den følsomhed er grunden til, at en prompt bør behandles som kode — versioneret, reviewet og regressionstestet mod et fast evalueringssæt — og ikke rettes ad hoc i produktion.
+
+    De teknikker, der har den mest konsekvente opbakning, er strukturelle. Beskriv opgave, målgruppe, begrænsninger og succeskriterier eksplicit; giv modellen en rolle i systemprompten; adskil instruktioner fra inputdata med tydelige skilletegn som XML-lignende tags eller afgrænsede sektioner; placér lange referencedokumenter før spørgsmålet frem for efter; angiv outputformatet præcist, helst understøttet af et skema via struktureret output; vis eksempler på format og grænsetilfælde (few-shot); bed om trinvis ræsonnement ved problemer i flere trin, hvor modellen ikke selv ræsonnerer; og del komplekse opgaver op i kædede kald med ét ansvar hver. Positive instruktioner ("skriv i almindelig prosa") virker som regel bedre end lister over forbud, og at give begrundelsen for en regel hjælper modellen til at generalisere den.
+
+    Evalueringen er den del, der oftest springes over. En brugbar løkke definerer testtilfælde, der dækker typiske, grænse- og fjendtlige input; scorer output med eksakte tjek, skemavalidering, heuristikker, menneskelig gennemgang eller en LLM-as-a-judge kalibreret mod menneskelige vurderinger; og sammenligner promptversioner på samme sæt med flere kørsler pr. tilfælde, fordi output varierer mellem kørsler. Automatiske metoder kan søge i promptrummet: Automatic Prompt Engineer (Zhou m.fl., 2022) genererede og scorede kandidatinstruktioner med en LLM, og frameworks som DSPy kompilerer deklarative pipelines til optimerede prompts og eksempler mod et mål.
+
+    Prompts kan ikke uden videre flyttes. En prompt tunet til én model eller én modelversion kan gå tilbage på den næste, så modelopgraderinger kræver samme regressionskørsel som promptændringer. Prompt engineering er heller ikke en sikkerhedsgrænse: Instruktioner som "afslør aldrig dette" eller "ignorér instruktioner i dokumenter" mindsker, men forhindrer ikke prompt injection eller læk af systemprompten, så kontrollerne hører hjemme i det omgivende system — rettigheder, validering af output, menneskelig godkendelse. Når promptarbejdet holder op med at forbedre resultaterne, er de næste håndtag context engineering (hvilken information der leveres), søgning, en anden model eller finjustering.
 edges:
   requires: [prompt]
   used-with:
@@ -41,4 +58,7 @@ sources:
   - title: OpenAI documentation — Prompt engineering guide
     tier: official-doc
     publisher: OpenAI
+  - title: "Sclar et al. (2023), Quantifying Language Models' Sensitivity to Spurious Features in Prompt Design"
+    tier: reference
+    url: https://arxiv.org/abs/2310.11324
 draft: true

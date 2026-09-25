@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Neither kind of search is reliable alone on real workplace documents, and mixing them is a common, cheap way to find the right passage more often.
     da: Ingen af de to søgetyper er pålidelig alene på en arbejdsplads’ egne dokumenter, og at blande dem er en udbredt og billig måde at ramme det rigtige afsnit oftere.
+deepDive:
+  en: |-
+    A hybrid query runs two retrievers, normally in parallel: a lexical retriever scoring with BM25 over an inverted index, and a dense retriever doing approximate nearest-neighbour search over embeddings. Each returns its own top-k candidates, commonly somewhere between 20 and a few hundred, and a fusion step merges them. The two signals fail differently. BM25 is precise on identifiers, rare terms, names and exact phrases and robust on unseen domains; the BEIR benchmark (Thakur et al., 2021) showed BM25 to be a strong zero-shot baseline that several dense retrievers failed to beat out of domain. Dense retrieval handles paraphrase, synonyms and cross-lingual matches but blurs codes and numbers.
+
+    Reciprocal Rank Fusion (Cormack, Clarke and Büttcher, 2009) is the most common fusion method: RRF(d) = Σ_r 1 / (k + rank_r(d)), summed over the result lists in which document d appears, with k = 60 as the constant proposed in the paper. Because it uses only ranks, it needs no score calibration, and a document ranked highly by both retrievers rises to the top. The alternative is a convex combination of normalised scores, s = α · ŝ_dense + (1 − α) · ŝ_lexical, with min–max or z-score normalisation per query. This is necessary because BM25 scores are unbounded and vary with query length and corpus statistics, whereas cosine scores sit in a narrow band. Bruch, Gai and Ingber (2023) argued that a tuned convex combination generally outperforms RRF and needs only a small labelled set to tune α; RRF remains the safer default without labelled data.
+
+    Most search engines now implement both. Elasticsearch offers an RRF retriever, OpenSearch a hybrid query with a normalisation processor in a search pipeline, and Weaviate a hybrid operator whose alpha parameter runs from pure keyword (0) to pure vector (1); in PostgreSQL the same pattern can be written in SQL combining full-text search on tsvector with pgvector. Learned sparse models such as SPLADE provide a third option: vocabulary-weighted vectors served from an inverted index, which capture some semantics while keeping exact-term behaviour.
+
+    Implementation pitfalls are mostly about consistency. Access-control and metadata filters must be applied identically in both branches, or one branch will leak documents the other excluded. Both indexes must be updated and deleted in step. Pagination over fused results is unstable unless each branch retrieves deep enough. For Danish, the lexical branch needs a Danish analyser with stemming and ideally decompounding, since compounds such as "sygedagpengeloven" otherwise never match "sygedagpenge"; without that, the hybrid gains little on Danish text. Quality should be measured with recall@k and nDCG@10 on labelled queries, and the fused list is typically passed to a reranker.
+  da: |-
+    En hybrid forespørgsel kører to søgemaskiner, normalt parallelt: en leksikalsk, der scorer med BM25 over et inverteret indeks, og en tæt (dense), der laver approksimativ nærmeste-nabo-søgning over embeddings. Hver returnerer sine egne top-k-kandidater, ofte et sted mellem 20 og et par hundrede, og et fusionstrin fletter dem. De to signaler fejler på hver sin måde. BM25 er præcis på identifikatorer, sjældne termer, navne og præcise fraser og robust på ukendte domæner; BEIR-benchmarket (Thakur m.fl., 2021) viste, at BM25 er en stærk zero-shot-basislinje, som flere dense retrievers ikke kunne slå uden for deres domæne. Dense retrieval håndterer omskrivninger, synonymer og match på tværs af sprog, men udvisker koder og tal.
+
+    Reciprocal Rank Fusion (Cormack, Clarke og Büttcher, 2009) er den mest udbredte fusionsmetode: RRF(d) = Σ_r 1 / (k + rank_r(d)), summeret over de resultatlister, hvor dokument d optræder, med k = 60 som den konstant, artiklen foreslog. Da den kun bruger placeringer, kræver den ingen kalibrering af scorer, og et dokument, som begge søgninger placerer højt, stiger til tops. Alternativet er en konveks kombination af normaliserede scorer, s = α · ŝ_dense + (1 − α) · ŝ_leksikalsk, med min-max- eller z-score-normalisering pr. forespørgsel. Det er nødvendigt, fordi BM25-scorer er ubegrænsede og varierer med forespørgslens længde og korpussets statistik, mens cosinusscorer ligger i et smalt bånd. Bruch, Gai og Ingber (2023) argumenterede for, at en tunet konveks kombination generelt slår RRF og kun kræver et lille mærket datasæt for at tune α; RRF er fortsat det sikreste standardvalg uden mærkede data.
+
+    De fleste søgemaskiner understøtter nu begge dele. Elasticsearch har en RRF-retriever, OpenSearch en hybrid query med en normaliseringsprocessor i en search pipeline, og Weaviate en hybrid-operator, hvis alpha-parameter går fra ren nøgleordssøgning (0) til ren vektorsøgning (1); i PostgreSQL kan samme mønster skrives i SQL, der kombinerer fritekstsøgning på tsvector med pgvector. Lærte sparse modeller som SPLADE er en tredje mulighed: vektorer vægtet over ordforrådet og serveret fra et inverteret indeks, som fanger en del semantik og samtidig bevarer adfærden for præcise termer.
+
+    Faldgruberne i implementeringen handler mest om konsistens. Adgangs- og metadatafiltre skal anvendes ens i begge grene, ellers lækker den ene gren dokumenter, som den anden udelukkede. Begge indeks skal opdateres og slettes i takt. Paginering over flettede resultater er ustabil, medmindre hver gren henter dybt nok. På dansk kræver den leksikalske gren en dansk analyzer med stemming og helst opsplitning af sammensatte ord, da sammensætninger som "sygedagpengeloven" ellers aldrig matcher "sygedagpenge"; uden det vinder hybriden kun lidt på dansk tekst. Kvaliteten bør måles med recall@k og nDCG@10 på mærkede forespørgsler, og den flettede liste sendes typisk videre til en reranker.
 edges:
   requires:
     - keyword-search
@@ -41,4 +58,12 @@ sources:
     tier: reference
   - title: Gao et al. (2023), Retrieval-Augmented Generation for Large Language Models — A Survey
     tier: reference
+  - title: Bruch, Gai & Ingber (2023), An Analysis of Fusion Functions for Hybrid Retrieval
+    tier: reference
+    publisher: ACM Transactions on Information Systems
+    url: https://arxiv.org/abs/2210.11934
+  - title: Weaviate documentation — Hybrid search
+    tier: official-doc
+    publisher: Weaviate
+    url: https://docs.weaviate.io/weaviate/search/hybrid
 draft: true

@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: It often ends up holding copies of a company's most private documents in one place, so who may read what has to be enforced there too, not only in the original systems.
     da: Den ender ofte med at rumme kopier af virksomhedens mest fortrolige dokumenter på ét sted, så hvem der må læse hvad, skal håndhæves dér også, ikke kun i de oprindelige systemer.
+deepDive:
+  en: |-
+    A vector database combines four components: durable storage of vectors with an ID and a payload of metadata (source text or reference, owner, date, access labels), one or more approximate nearest-neighbour indexes (most often HNSW, sometimes IVF variants or disk-based graphs such as DiskANN), a filtering engine for metadata predicates, and the usual database machinery of write-ahead logs, segments, replication and backup. The distance function (cosine, inner product or Euclidean) is fixed per collection or index and must match how the embedding model was trained. Vector quantization, whether int8 scalar, product or binary, reduces memory, usually with a rescoring pass over full-precision vectors for the top candidates. Sizing is simple arithmetic: one million 1,024-dimensional float32 vectors take about 4.1 GB before index overhead, and an HNSW graph adds link lists on top.
+
+    The market spans purpose-built systems (Milvus, Qdrant, Weaviate, Pinecone, Chroma and others), vector features added to general-purpose engines (the pgvector extension for PostgreSQL, which gained an HNSW index in version 0.5.0 in August 2023, and k-NN search in Elasticsearch and OpenSearch), and libraries such as FAISS and hnswlib. A library provides the index but not persistence, updates, filtering or access control, so it is not a database on its own. Pan, Wang and Li's 2024 survey in The VLDB Journal describes the design space. For many organisations, keeping vectors in an existing PostgreSQL or search cluster is simpler to secure, back up and govern than introducing a new datastore, at some cost in scale and features.
+
+    Filtering and freshness are the hard engineering parts. Combining a nearest-neighbour search with selective predicates such as "documents this user may read" risks returning too few results or skipping relevant ones, depending on whether filters are applied before, during or after the index traversal, and engines differ significantly here. Newly written vectors may be visible only after an index refresh, and deletions are often tombstones that are physically removed only at compaction.
+
+    Security and data protection follow from the fact that the store holds a copy, or a close derivative, of source content. OWASP's Top 10 for LLM Applications 2025 lists LLM08 Vector and Embedding Weaknesses, covering unauthorised access and cross-tenant leakage, embedding inversion and poisoning of the indexed data. Embeddings are not anonymous: Vec2Text (Morris et al., 2023) reconstructed 92 % of 32-token inputs exactly. Controls include mirroring source-system permissions as metadata and enforcing them in the query filter with the end user's identity, never only in the prompt; separate collections or namespaces for tenants with different trust levels; encryption and access logging; and, under the GDPR, including the store in the record of processing (Art. 30) and ensuring that erasure under Art. 17 reaches vectors, payloads, replicas and backups, not just the original document.
+  da: |-
+    En vektordatabase kombinerer fire komponenter: varig lagring af vektorer med et ID og en payload af metadata (kildetekst eller reference, ejer, dato, adgangsmærkater), et eller flere indeks til approksimativ nærmeste-nabo-søgning (oftest HNSW, nogle gange IVF-varianter eller diskbaserede grafer som DiskANN), en filtreringsmotor til metadatabetingelser og det sædvanlige databasemaskineri med write-ahead-log, segmenter, replikering og backup. Afstandsfunktionen (cosinus, indre produkt eller euklidisk) ligger fast pr. samling eller indeks og skal passe til, hvordan embedding-modellen er trænet. Vektorkvantisering, hvad enten det er int8-skalar-, produkt- eller binær kvantisering, sænker hukommelsesforbruget, som regel med en genberegning af de øverste kandidater på vektorer i fuld præcision. Dimensioneringen er simpel regning: En million float32-vektorer med 1.024 dimensioner fylder omkring 4,1 GB før indeksoverhead, og en HNSW-graf lægger nabolister oveni.
+
+    Markedet spænder fra specialbyggede systemer (Milvus, Qdrant, Weaviate, Pinecone, Chroma og andre) over vektorfunktioner tilføjet generelle motorer (udvidelsen pgvector til PostgreSQL, der fik et HNSW-indeks i version 0.5.0 i august 2023, og k-NN-søgning i Elasticsearch og OpenSearch) til biblioteker som FAISS og hnswlib. Et bibliotek leverer indekset, men ikke persistens, opdateringer, filtrering eller adgangsstyring, og er derfor ikke en database i sig selv. Pan, Wang og Li's oversigt fra 2024 i The VLDB Journal beskriver designrummet. For mange organisationer er det enklere at sikre, tage backup af og styre vektorer i en eksisterende PostgreSQL- eller søgeklynge end at indføre et nyt datalager, mod en vis pris i skala og funktioner.
+
+    Filtrering og aktualitet er de svære ingeniørdele. At kombinere en nærmeste-nabo-søgning med selektive betingelser som "dokumenter, denne bruger må læse" risikerer at give for få resultater eller springe relevante over, afhængigt af om filtrene anvendes før, under eller efter gennemløbet af indekset, og motorerne adskiller sig markant på det punkt. Nyskrevne vektorer bliver måske først synlige efter en opdatering af indekset, og sletninger er ofte tombstones, der først fjernes fysisk ved komprimering.
+
+    Sikkerhed og databeskyttelse følger af, at lageret rummer en kopi, eller en tæt afledning, af kildeindholdet. OWASP Top 10 for LLM Applications 2025 har LLM08 Vector and Embedding Weaknesses, der dækker uautoriseret adgang og læk mellem lejere, embedding-inversion og forgiftning af de indekserede data. Embeddings er ikke anonyme: Vec2Text (Morris m.fl., 2023) genskabte 92 % af input på 32 tokens præcist. Kontrollerne omfatter at spejle kildesystemernes rettigheder som metadata og håndhæve dem i forespørgselsfilteret med slutbrugerens identitet, aldrig kun i prompten; separate samlinger eller namespaces for lejere med forskelligt tillidsniveau; kryptering og adgangslogning; og efter databeskyttelsesforordningen at tage lageret med i fortegnelsen over behandlingsaktiviteter (art. 30) og sikre, at sletning efter art. 17 når vektorer, payloads, replikaer og backups og ikke kun det oprindelige dokument.
 edges:
   kind-of:
     - to: database
@@ -47,4 +64,11 @@ sources:
   - title: OWASP Top 10 for Large Language Model Applications 2025 (LLM08 Vector and Embedding Weaknesses)
     tier: reference
     publisher: OWASP
+  - title: Morris et al. (2023), Text Embeddings Reveal (Almost) As Much As Text
+    tier: reference
+    url: https://arxiv.org/abs/2310.06816
+  - title: pgvector — Open-source vector similarity search for Postgres (README)
+    tier: official-doc
+    publisher: pgvector project
+    url: https://github.com/pgvector/pgvector
 draft: true

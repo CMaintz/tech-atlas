@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: Research found that many invented names come back each time the same question is asked again, so attackers can predict and register them in advance — and one careless install hands them the build machine.
     da: Forskning viste, at mange opdigtede navne dukker op igen, hver gang det samme spørgsmål stilles, så angribere kan forudsige og registrere dem på forhånd — og én uforsigtig pakke giver dem byggemaskinen.
+deepDive:
+  en: |-
+    The name was coined in April 2025 by Seth Larson, security developer-in-residence at the Python Software Foundation, by analogy with typosquatting: instead of betting on a human mistyping a real package name, the attacker bets on a model inventing a plausible one. The attack works because public registries such as PyPI and npm allocate names first come, first served, with no link between a name and any real project, and because installation itself runs code: setup scripts in Python source distributions and preinstall or postinstall lifecycle scripts in npm execute with the installing user's rights before anyone imports the package.
+
+    The key measurement is Spracklen et al., presented at USENIX Security 2025. Using 16 code-generating models and two prompt datasets, they generated 576,000 Python and JavaScript samples and found 205,474 unique hallucinated package names. The average hallucination rate was at least 5.2% for commercial models and 21.7% for open-source models. Crucially for attackers, hallucinations were persistent: when the same prompt was repeated ten times, 43% of hallucinated names appeared in all ten runs and 58% recurred more than once, so an attacker can harvest names by querying models and register the stable ones. Lower sampling temperature, retrieval of real package lists and self-checking reduced but did not eliminate the effect.
+
+    The risk was demonstrated before the name existed. In 2023 researcher Bar Lanyado noticed models recommending pip install huggingface-cli, which is the name of a command, not of the package that provides it; he registered an empty package under that name, and it received over 30,000 downloads within three months, helped by the wrong install command appearing in the README of an Alibaba research repository.
+
+    Slopsquatting differs from typosquatting (near-miss spellings of real names) and dependency confusion (a public package shadowing an internal name, demonstrated by Alex Birsan in 2021), but the defences overlap. Verify that a suggested package exists, is the one intended and has a credible history (age, maintainers, linked source repository, download pattern) before adding it; install from lockfiles with pinned hashes (npm ci, pip --require-hashes); route installs through an internal registry proxy with an allowlist or a malicious-package feed; and run software composition analysis in CI. Coding agents need the same controls enforced technically, because they can install dependencies without a person reading the command: restrict registries, disable install scripts where feasible, and run the agent in a sandbox without access to production credentials.
+  da: |-
+    Navnet blev skabt i april 2025 af Seth Larson, security developer-in-residence hos Python Software Foundation, som en analogi til typosquatting: I stedet for at satse på, at et menneske staver et rigtigt pakkenavn forkert, satser angriberen på, at en model opfinder et troværdigt navn. Angrebet virker, fordi offentlige registre som PyPI og npm tildeler navne efter først til mølle, uden nogen kobling mellem et navn og et rigtigt projekt, og fordi selve installationen kører kode: setup-scripts i Pythons kildedistributioner og preinstall- eller postinstall-scripts i npm afvikles med den installerende brugers rettigheder, før nogen overhovedet importerer pakken.
+
+    Den centrale måling er Spracklen et al., præsenteret på USENIX Security 2025. Med 16 kodegenererende modeller og to datasæt af prompts genererede de 576.000 kodeeksempler i Python og JavaScript og fandt 205.474 unikke hallucinerede pakkenavne. Den gennemsnitlige hallucinationsrate var mindst 5,2 % for kommercielle modeller og 21,7 % for open source-modeller. Afgørende for angribere var, at hallucinationerne var stabile: Når samme prompt blev gentaget ti gange, optrådte 43 % af de hallucinerede navne i alle ti kørsler, og 58 % gik igen mere end én gang, så en angriber kan høste navne ved at spørge modeller og registrere de stabile. Lavere samplingtemperatur, opslag i lister over rigtige pakker og selvkontrol mindskede, men fjernede ikke effekten.
+
+    Risikoen blev demonstreret, før navnet fandtes. I 2023 bemærkede forskeren Bar Lanyado, at modeller anbefalede pip install huggingface-cli, som er navnet på en kommando, ikke på den pakke, der leverer den; han registrerede en tom pakke under navnet, og den fik over 30.000 downloads på tre måneder, hjulpet af, at den forkerte installationskommando stod i README-filen i et forskningsrepository fra Alibaba.
+
+    Slopsquatting adskiller sig fra typosquatting (næsten-rigtige stavemåder af ægte navne) og dependency confusion (en offentlig pakke, der skygger for et internt navn, demonstreret af Alex Birsan i 2021), men forsvaret overlapper. Tjek, at en foreslået pakke findes, er den tilsigtede og har en troværdig historik (alder, maintainere, tilknyttet kilderepository, downloadmønster), før den tilføjes; installer fra lockfiler med fastlåste hashes (npm ci, pip --require-hashes); send installationer gennem en intern registry-proxy med tilladelsesliste eller et feed over ondsindede pakker; og kør software composition analysis i CI. Kodeagenter kræver de samme kontroller håndhævet teknisk, fordi de kan installere afhængigheder, uden at et menneske læser kommandoen: Begræns registrene, slå installationsscripts fra, hvor det er muligt, og kør agenten i en sandkasse uden adgang til legitimationsoplysninger til produktion.
 edges:
   kind-of: [supply-chain-attack]
   exploits:
@@ -48,4 +65,7 @@ sources:
   - title: OWASP Top 10 for Large Language Model Applications 2025 (LLM03 Supply Chain, LLM09 Misinformation)
     tier: reference
     publisher: OWASP
+  - title: Slopsquatting (Wikipedia)
+    tier: reference
+    url: https://en.wikipedia.org/wiki/Slopsquatting
 draft: true

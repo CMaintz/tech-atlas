@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: No one can promise an agent will never be tricked or wrong, so limiting what it can touch is what turns a possible disaster into a small failure that goes no further.
     da: Ingen kan love, at en agent aldrig bliver narret eller tager fejl, så det at begrænse, hvad den kan røre, er det, der gør en mulig katastrofe til et lille uheld, der ikke breder sig.
+deepDive:
+  en: |-
+    An agent sandbox is a containment boundary for code whose behaviour is chosen at runtime by a model that can be wrong or manipulated. The threat model therefore assumes that any command inside the boundary may be hostile, and the design question is what that command can read, write, execute and reach over the network. Isolation strength forms a spectrum. Process-level sandboxes apply kernel policy to an ordinary process: seccomp-bpf syscall filters and Landlock on Linux, unprivileged namespace tools such as bubblewrap, and the Seatbelt framework on macOS. Containers add namespaces and cgroups but still share the host kernel, so a kernel vulnerability can become an escape, a limitation NIST SP 800-190 discusses at length. gVisor interposes a user-space kernel that services most syscalls itself, and microVMs such as Firecracker give each workload its own KVM guest kernel while booting in around 125 ms with a few MiB of memory overhead, which is why many hosted code-execution services use them.
+
+    The filesystem policy usually mounts only the working directory read-write, keeps system paths read-only, and deliberately omits credential locations such as ~/.ssh, ~/.aws or browser profiles. Network policy is typically default-deny egress with an allowlist enforced by a proxy, since blocking only by IP misses DNS-based exfiltration and CDN-hosted endpoints. Credentials that the task genuinely needs should be short-lived and narrowly scoped, and some designs never expose them inside the sandbox at all, letting the egress proxy inject them into requests to approved hosts. Ephemerality matters as much as walls: a fresh sandbox per task prevents persistence, and snapshots make it cheap to reset.
+
+    Claude Code's sandboxed Bash tool illustrates a local implementation: it uses Seatbelt on macOS and bubblewrap plus a socat-relayed proxy on Linux and WSL2, allows writes to the working and session temp directories by default, and restricts egress to allowed domains. Notably, if dependencies are missing it warns and runs unsandboxed unless configured to fail closed, a detail auditors should check.
+
+    Common misconceptions: a sandbox does not stop prompt injection, it bounds its blast radius; and it does not neutralise misuse of channels it allows. An agent permitted to push to GitHub can exfiltrate through a commit, and code written inside the sandbox may plant a malicious git hook or CI step that executes later outside it. The sandbox is thus the enforcement mechanism for least privilege, complementary to human-in-the-loop approval, and it reduces the approval fatigue that arises when every command needs a click.
+  da: |-
+    En agent-sandkasse er en indkapslingsgrænse for kode, hvis adfærd vælges under kørsel af en model, der kan tage fejl eller blive manipuleret. Trusselsmodellen antager derfor, at enhver kommando inden for grænsen kan være fjendtlig, og designspørgsmålet er, hvad kommandoen kan læse, skrive, afvikle og nå over netværket. Isolationsstyrken ligger på en skala. Sandkasser på procesniveau lægger kernepolitik på en almindelig proces: seccomp-bpf-filtre på systemkald og Landlock på Linux, uprivilegerede namespace-værktøjer som bubblewrap og Seatbelt-frameworket på macOS. Containere tilføjer namespaces og cgroups, men deler stadig værtens kerne, så en sårbarhed i kernen kan blive til et udbrud, en begrænsning NIST SP 800-190 gennemgår grundigt. gVisor indskyder en kerne i brugerrummet, der selv håndterer de fleste systemkald, og microVM'er som Firecracker giver hver arbejdsbyrde sin egen KVM-gæstekerne og starter på omkring 125 ms med få MiB hukommelsesoverhead, hvilket er grunden til, at mange hostede tjenester til kodeafvikling bruger dem.
+
+    Filsystempolitikken monterer typisk kun arbejdsmappen med skriveadgang, holder systemstier skrivebeskyttede og udelader bevidst steder med legitimationsoplysninger som ~/.ssh, ~/.aws eller browserprofiler. Netværkspolitikken er normalt udgående trafik afvist som standard med en tilladelsesliste håndhævet af en proxy, fordi blokering alene på IP-adresser overser exfiltration via DNS og endpoints bag CDN'er. Legitimationsoplysninger, opgaven reelt har brug for, bør være kortlivede og snævert afgrænsede, og nogle design eksponerer dem slet ikke inde i sandkassen, men lader udgangsproxyen indsætte dem i forespørgsler til godkendte værter. Kortlivethed betyder lige så meget som mure: en frisk sandkasse pr. opgave forhindrer vedvarende fodfæste, og snapshots gør det billigt at nulstille.
+
+    Claude Codes sandboxede Bash-værktøj viser en lokal implementering: det bruger Seatbelt på macOS og bubblewrap plus en proxy via socat på Linux og WSL2, tillader som standard skrivning i arbejdsmappen og sessionens temp-mappe og begrænser udgående trafik til tilladte domæner. Bemærk, at det ved manglende afhængigheder advarer og kører uden sandkasse, medmindre det er sat op til at fejle lukket, en detalje, som en revision bør tjekke.
+
+    Udbredte misforståelser: En sandkasse stopper ikke prompt injection, den begrænser skadens omfang, og den neutraliserer ikke misbrug af de kanaler, den tillader. En agent, der må pushe til GitHub, kan exfiltrere via et commit, og kode skrevet inde i sandkassen kan plante en ondsindet git-hook eller et CI-trin, der senere kører uden for den. Sandkassen er altså håndhævelsesmekanismen for mindste privilegium, supplerer menneske i løkken-godkendelse og mindsker den godkendelsestræthed, der opstår, når hver kommando kræver et klik.
 edges:
   requires: [ai-agent]
   mitigates:
@@ -61,4 +78,8 @@ sources:
   - title: NIST SP 800-190 — Application Container Security Guide
     tier: standard
     publisher: NIST
+  - title: Claude Code documentation — Configure the sandboxed Bash tool
+    tier: official-doc
+    publisher: Anthropic
+    url: https://code.claude.com/docs/en/sandboxing
 draft: true

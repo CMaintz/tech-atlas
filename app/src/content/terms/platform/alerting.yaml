@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Alerts are how problems and attacks reach people in time; too few and incidents go unseen, too many and staff learn to ignore them.
     da: Alarmer er den måde, problemer og angreb når frem til mennesker i tide; for få, og hændelser går ubemærket hen, for mange, og medarbejderne lærer at ignorere dem.
+deepDive:
+  en: |-
+    An alerting pipeline has two distinct stages that are often conflated. Rule evaluation periodically runs a query against a time-series store or log index and turns the result into alert instances; in Prometheus an alerting rule is a PromQL expression plus a "for:" duration, and an instance moves from inactive to pending to firing only when the expression has returned a non-empty result on every evaluation for that duration. Notification routing is a separate component, such as Alertmanager, which deduplicates instances, groups them by labels (group_by, group_wait, group_interval, repeat_interval), applies silences and inhibition rules (for example suppressing every per-service alert while a datacenter-wide alert fires), and delivers to receivers such as a paging service, chat or a ticket queue. Labels such as severity and team drive routing; annotations carry the summary, a dashboard link and usually a runbook_url.
+
+    The Google SRE book distinguishes three outputs of monitoring: alerts, where a human must act immediately; tickets, where a human must act but not now; and logging, which nobody needs to read unless investigating. Anything that pages but requires no action, or where the action could be scripted, is a defect in the alerting design. The same source recommends alerting on symptoms users feel (the four golden signals: latency, traffic, errors, saturation) rather than on causes such as high CPU, which may or may not hurt anyone. Cause-based alerts remain useful for predictable exhaustion, such as a disk projected to fill within hours, where predict_linear-style extrapolation gives lead time.
+
+    SLO-based alerting refines symptom alerting by paging on the rate at which the error budget is consumed. A burn rate of 1 spends exactly the budget over the SLO window; the SRE Workbook suggests, for a 99.9% SLO over 30 days, paging when the burn rate exceeds 14.4 over one hour (2% of the budget gone) or 6 over six hours (5%), and opening a ticket at burn rate 1 over three days (10%). Each condition is paired with a short window of about one twelfth of the long one, so the alert also resets quickly once the problem stops.
+
+    Common failure modes are alert fatigue from noisy thresholds, flapping around a threshold without hysteresis, missing alerts when the metric itself disappears (a series that stops being scraped yields no data rather than a breach, which is why absent() checks and a dead man's switch "watchdog" alert exist), and a monitoring system that shares fate with what it watches. Alerting also differs from SIEM correlation: SIEM detections target security events across heterogeneous logs, but both depend on the same discipline of tuning, ownership and documented response.
+  da: |-
+    En alarmeringskæde har to forskellige led, som ofte blandes sammen. Regelevaluering kører med faste mellemrum en forespørgsel mod en tidsseriedatabase eller et logindeks og gør resultatet til alarminstanser; i Prometheus er en alarmregel et PromQL-udtryk plus en "for:"-varighed, og en instans går fra inactive over pending til firing, først når udtrykket har givet et ikke-tomt resultat ved hver evaluering i hele den periode. Routing af notifikationer er en separat komponent, fx Alertmanager, som deduplikerer instanser, grupperer dem efter labels (group_by, group_wait, group_interval, repeat_interval), anvender silences og inhibition-regler (fx undertrykkes alle alarmer pr. tjeneste, mens en alarm for hele datacentret er aktiv) og leverer til modtagere som et paging-system, chat eller en ticketkø. Labels som severity og team styrer routingen; annotations bærer resuméet, et link til dashboardet og som regel en runbook_url.
+
+    Googles SRE-bog skelner mellem tre slags output fra overvågning: alarmer, hvor et menneske skal handle straks; tickets, hvor et menneske skal handle, men ikke nu; og logning, som ingen behøver læse, medmindre der skal undersøges noget. En alarm, der vækker folk uden at kræve handling, eller hvor handlingen kunne scriptes, er en fejl i alarmdesignet. Samme kilde anbefaler at alarmere på symptomer, som brugerne mærker (de fire gyldne signaler: latenstid, trafik, fejl og mætning), frem for på årsager som høj CPU, der måske ikke skader nogen. Årsagsbaserede alarmer er stadig nyttige ved forudsigelig udtømning, fx en disk, der forventes at blive fuld inden for få timer, hvor ekstrapolering à la predict_linear giver forvarsel.
+
+    SLO-baseret alarmering forfiner symptomalarmer ved at alarmere på, hvor hurtigt fejlbudgettet bruges. En burn rate på 1 bruger præcis budgettet over SLO-perioden; SRE Workbook foreslår for en SLO på 99,9 % over 30 dage at tilkalde vagten, når burn rate overstiger 14,4 over én time (2 % af budgettet brugt) eller 6 over seks timer (5 %), og at oprette en ticket ved burn rate 1 over tre døgn (10 %). Hver betingelse parres med et kort vindue på cirka en tolvtedel af det lange, så alarmen også hurtigt nulstilles, når problemet ophører.
+
+    Typiske fejl er alarmtræthed fra støjende tærskler, flapping omkring en tærskel uden hysterese, manglende alarmer, når selve metrikken forsvinder (en tidsserie, der ikke længere indsamles, giver ingen data frem for et brud, og derfor findes absent()-tjek og en dead man's switch-alarm, der altid skal fyre), og et overvågningssystem, der deler skæbne med det, det overvåger. Alarmering adskiller sig også fra korrelation i et SIEM: SIEM-detektioner retter sig mod sikkerhedshændelser på tværs af heterogene logs, men begge afhænger af samme disciplin med tuning, ejerskab og dokumenteret respons.
 edges:
   requires: [metrics]
   used-with:
@@ -37,4 +54,8 @@ sources:
     url: https://sre.google/sre-book/monitoring-distributed-systems/
     tier: reference
     publisher: Google
+  - title: Google SRE Workbook — Chapter 5, Alerting on SLOs
+    tier: reference
+    publisher: Google
+    url: https://sre.google/workbook/alerting-on-slos/
 draft: true

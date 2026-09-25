@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: The pipeline is where rules become automatic and hard to skip, but it also holds keys to production, so an attacker who takes it over can ship harmful code to every user.
     da: Pipelinen er stedet, hvor regler bliver automatiske og svære at springe over, men den har også nøglerne til driften, så en angriber, der overtager den, kan sende skadelig kode ud til alle brugere.
+deepDive:
+  en: |-
+    A pipeline is defined as code in the repository it builds: .github/workflows/*.yml for GitHub Actions, .gitlab-ci.yml, a Jenkinsfile, azure-pipelines.yml and so on. The common model is triggers (push, pull request, tag, schedule, manual dispatch) that start a run; a run consists of jobs arranged as a directed acyclic graph through explicit dependencies (needs, dependsOn, stages); each job executes a list of steps on a runner or agent, which may be an ephemeral hosted VM or a self-hosted machine. Jobs exchange outputs through artefacts and speed up through caches; matrix strategies fan a job out over versions or platforms; deployment jobs target named environments that can require manual approval, protected branches or wait timers.
+
+    Sound design principles follow from continuous delivery. Build once and promote the same immutable artefact, identified by digest, through test, staging and production rather than rebuilding per environment; keep builds hermetic and reproducible by pinning toolchains and dependencies; fail fast by running cheap checks first; and make every deployment step idempotent so a rerun is safe. Pipelines also generate evidence: test reports, scan results, SBOMs and signed provenance. The SLSA Build track defines levels for the latter — L1 requires provenance to exist, L2 requires a hosted build platform to generate and sign it, and L3 requires a hardened platform where runs cannot influence one another and build steps cannot reach the provenance signing key.
+
+    Because a pipeline executes code from the repository with access to secrets, it is itself an attack surface, catalogued in the OWASP Top 10 CI/CD Security Risks. Poisoned pipeline execution (CICD-SEC-4) occurs when an attacker can change what runs — for example a GitHub Actions workflow triggered by pull_request_target that checks out and builds the untrusted pull-request head while holding repository secrets. Script injection occurs when attacker-controlled strings such as an issue title are interpolated with ${{ }} directly into a run: shell block. Third-party actions and plugins are dependencies that execute with full job privileges; the March 2025 tj-actions/changed-files compromise (CVE-2025-30066) worked because many workflows referenced it by a mutable tag. Self-hosted runners attached to public repositories can be taken over and persist between jobs; shared caches can be poisoned.
+
+    Mitigations include least-privilege tokens (restricting the default GITHUB_TOKEN permissions per job), OIDC federation so jobs receive short-lived cloud credentials scoped to repository, branch and environment, pinning actions to full commit SHAs with automated update PRs, ephemeral runners, separating untrusted pull-request builds from privileged release jobs, and protecting the pipeline definition itself through code-owner review. The pipeline is the executable implementation; CI/CD is the practice it serves.
+  da: |-
+    En pipeline defineres som kode i det repository, den bygger: .github/workflows/*.yml til GitHub Actions, .gitlab-ci.yml, en Jenkinsfile, azure-pipelines.yml osv. Den fælles model er udløsere (push, pull request, tag, tidsplan, manuel start), der starter en kørsel; en kørsel består af jobs arrangeret som en rettet acyklisk graf via eksplicitte afhængigheder (needs, dependsOn, stages); hvert job udfører en liste af trin på en runner eller agent, som kan være en flygtig hostet VM eller en selvhostet maskine. Jobs udveksler output via artefakter og gøres hurtigere med caches; matrix-strategier folder et job ud over versioner eller platforme; udrulningsjobs rammer navngivne miljøer, der kan kræve manuel godkendelse, beskyttede grene eller ventetider.
+
+    Gode designprincipper følger af kontinuerlig levering. Byg én gang og promovér det samme uforanderlige artefakt, identificeret ved digest, gennem test, staging og produktion i stedet for at bygge om per miljø; hold builds hermetiske og reproducerbare ved at låse værktøjskæder og afhængigheder; fejl hurtigt ved at køre billige tjek først; og gør hvert udrulningstrin idempotent, så en genkørsel er sikker. Pipelines producerer også dokumentation: testrapporter, scanningsresultater, SBOM'er og signeret provenance. SLSA's Build-spor definerer niveauer for det sidste — L1 kræver, at provenance findes, L2 kræver, at en hostet byggeplatform genererer og signerer den, og L3 kræver en hærdet platform, hvor kørsler ikke kan påvirke hinanden, og byggetrin ikke kan nå nøglen, der signerer provenance.
+
+    Fordi en pipeline udfører kode fra repositoryet med adgang til hemmeligheder, er den selv en angrebsflade, katalogiseret i OWASP Top 10 CI/CD Security Risks. Poisoned pipeline execution (CICD-SEC-4) opstår, når en angriber kan ændre, hvad der kører — fx et GitHub Actions-workflow udløst af pull_request_target, der checker den upålidelige pull request-kode ud og bygger den, mens repositoryets hemmeligheder er tilgængelige. Script-injektion opstår, når strenge, som angriberen styrer, fx titlen på et issue, interpoleres med ${{ }} direkte ind i en run:-shellblok. Tredjeparts-actions og plugins er afhængigheder, der kører med jobbets fulde rettigheder; kompromitteringen af tj-actions/changed-files i marts 2025 (CVE-2025-30066) virkede, fordi mange workflows henviste til den via et foranderligt tag. Selvhostede runners koblet til offentlige repositories kan overtages og overleve mellem jobs, og delte caches kan forgiftes.
+
+    Modtræk er tokens med mindste privilegium (begræns standardrettighederne for GITHUB_TOKEN per job), OIDC-føderering, så jobs får kortlivede cloud-legitimationsoplysninger afgrænset til repository, gren og miljø, fastlåsning af actions til fulde commit-SHA'er med automatiske opdaterings-PR'er, flygtige runners, adskillelse af builds af upålidelige pull requests fra privilegerede frigivelsesjobs og beskyttelse af selve pipelinedefinitionen via gennemgang fra code owners. Pipelinen er den eksekverbare implementering; CI/CD er den praksis, den tjener.
 edges:
   part-of: [ci-cd]
   used-with:
@@ -35,4 +52,12 @@ sources:
     url: https://csrc.nist.gov/pubs/sp/800/204/d/final
     tier: standard
     publisher: NIST
+  - title: SLSA v1.2 — Build Track Basics
+    url: https://slsa.dev/spec/v1.2/build-track-basics
+    tier: reference
+    publisher: OpenSSF
+  - title: OWASP Top 10 CI/CD Security Risks
+    url: https://github.com/OWASP/www-project-top-10-ci-cd-security-risks
+    tier: reference
+    publisher: OWASP Foundation
 draft: true
