@@ -5,7 +5,19 @@ import { groupByDecade } from '../../../lib/era';
 import { loadGraph } from '../../../lib/graph';
 import type { GraphNode } from '../../../lib/graph-model';
 import { domainColour, homeDomain } from '../../../lib/graph-style';
-import { DOMAIN_LABELS, LANGS, TIMELINE_UI, UI, termUrl, type Lang } from '../../../lib/site';
+import {
+  CLUSTER_LABELS,
+  DOMAIN_LABELS,
+  FAMILY_LABELS,
+  GRAPH_UI,
+  LANGS,
+  TIMELINE_UI,
+  UI,
+  termUrl,
+  url,
+  type Lang,
+} from '../../../lib/site';
+import { localise, panelConfig } from '../../../lib/panel-config';
 import { axisRange, milestones, type TimelineItem } from '../../../lib/timeline';
 
 export function getStaticPaths() {
@@ -58,6 +70,16 @@ const { decades } = groupByDecade(
   (t) => t.name,
 );
 const { eras, ...tlText } = tl;
+
+// Clicking a term opens the Explorer's term panel (A80), loaded on demand.
+const panel = {
+  ...panelConfig(lang),
+  lang,
+  termBase: url(`${lang}/terms/`),
+  clusterLabels: localise(CLUSTER_LABELS, lang),
+  familyLabels: localise(FAMILY_LABELS, lang),
+  graphUi: { ...GRAPH_UI[lang] },
+};
 ---
 
 <Base lang={lang} title={ui.timeline}>
@@ -84,6 +106,7 @@ const { eras, ...tlText } = tl;
           range={range}
           eraLabels={eras}
           text={{ ...tlText, allDomains: ui.allDomains }}
+          panel={panel}
         />
         <details class="mt-8 rounded-lg border border-neutral-800 p-4">
           <summary class="cursor-pointer text-sm text-neutral-300">{tl.listView}</summary>

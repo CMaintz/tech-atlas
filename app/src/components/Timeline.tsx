@@ -1,4 +1,6 @@
+import type { ComponentType } from 'preact';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import type { Graph } from '../lib/graph-model';
 import {
   bandsWithin,
   decadeTicks,
@@ -10,6 +12,7 @@ import {
   yearLoad,
   type TimelineItem,
 } from '../lib/timeline';
+import type { PanelConfig } from './TermPanel';
 
 export type TimelineEntry = TimelineItem & {
   summary: string;
@@ -27,7 +30,20 @@ interface Props {
   range: [number, number];
   eraLabels: Record<string, string>;
   text: Record<string, string>;
+  /** The Explorer's term panel (A80), loaded on first click; absent → popover only. */
+  panel?: TimelinePanel;
 }
+
+type Dict = Record<string, string>;
+export type TimelinePanel = PanelConfig & {
+  lang: 'en' | 'da';
+  termBase: string;
+  clusterLabels: Dict;
+  familyLabels: Dict;
+  graphUi: Dict;
+};
+/** TermPanel's props, loosely: it is imported on demand, so only its type is known here. */
+type PanelView = ComponentType<Record<string, unknown>>;
 
 // Horizontal (desktop) geometry, px.
 const H_ZOOM = [8, 12, 18, 26, 38];
@@ -75,6 +91,31 @@ export default function Timeline(props: Props) {
     null,
   );
   const popRef = useRef<HTMLDivElement>(null);
+  // The term panel: its code (with the graph renderer) and graph.json load on the first
+  // click, so the page itself stays a small island.
+  const [panelId, setPanelId] = useState<string | null>(null);
+  const [panelKit, setPanelKit] = useState<{ View: PanelView; graph: Graph } | null>(null);
+  const kitLoading = useRef(false);
+  const openPanel = (id: string) => {
+    const cfg = props.panel;
+    if (!cfg) return;
+    setPanelId(id);
+    if (panelKit || kitLoading.current) return;
+    kitLoading.current = true;
+    Promise.all([
+      import('./TermPanel'),
+      fetch(cfg.graphUrl).then((r) => {
+        if (!r.ok) throw new Error(`${r.status} ${cfg.graphUrl}`);
+        return r.json() as Promise<Graph>;
+      }),
+    ]).then(
+      ([m, graph]) => {
+        setPanelKit({ View: m.default as unknown as PanelView, graph });
+        setSel(null); // the panel replaces the pinned popover
+      },
+      () => (kitLoading.current = false), // keep the popover; a later click retries
+    );
+  };
   const byId = useMemo(() => new Map(items.map((i) => [i.id, i])), [items]);
   const lanes = useMemo(() => lanesOf(items, shown), [items, shown]);
   const ticks = decadeTicks(start, end);
@@ -135,8 +176,16 @@ export default function Timeline(props: Props) {
     onClick: (e: MouseEvent) => {
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
       e.preventDefault();
+      if (panelKit) {
+        setSel(null);
+        setPanelId(it.id);
+        return;
+      }
       if (sel?.id === it.id && sel.pinned) setSel(null);
-      else open(it.id, e.currentTarget as HTMLElement, true);
+      else {
+        open(it.id, e.currentTarget as HTMLElement, true);
+        openPanel(it.id);
+      }
     },
     onMouseEnter: (e: MouseEvent) => {
       if (!sel?.pinned && matchMedia('(hover: hover)').matches)
@@ -402,6 +451,20 @@ export default function Timeline(props: Props) {
           ))}
         </div>
       </section>
+
+      {/* ---- term panel (A80), once loaded ---- */}
+      {panelKit && panelId && props.panel && (
+        <div class="pointer-events-none fixed inset-0 z-40 [&>*]:pointer-events-auto">
+          <panelKit.View
+            {...props.panel}
+            domainLabels={domainLabels}
+            id={panelId}
+            graph={panelKit.graph}
+            onSelect={setPanelId}
+            onClose={() => setPanelId(null)}
+          />
+        </div>
+      )}
 
       {/* ---- summary popover ---- */}
       {selItem && sel && (
