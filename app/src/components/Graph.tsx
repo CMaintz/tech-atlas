@@ -214,7 +214,7 @@ export default function Graph({ nodes, edges, termBase, onSelect, ...props }: Pr
   const present = new Set(edges.map((e) => e.family));
   return (
     <div class="space-y-2">
-      <div ref={ref} class="map-surface h-[360px] w-full rounded border border-border" />
+      <div ref={ref} class="chart-surface h-[360px] w-full rounded border border-border" />
       <GraphLegend
         nodes={nodes}
         families={Object.keys(FAMILY_COLOURS).filter((f) => present.has(f as Family))}

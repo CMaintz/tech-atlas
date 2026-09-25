@@ -6,7 +6,9 @@
  * (the reader's choice, else the OS preference). Tokens hang off the attribute
  * *selector*, so a nested `data-theme` would re-scope a subtree. The maps (Explorer,
  * canvas lab, timeline chart, term-page graph) follow the page theme: a night map in the
- * dark theme, a cream paper map in the light one (`--map-*`, `.map-surface`, `.map-ink`).
+ * dark theme; in the light one only the Explorer and the canvas lab sit on cream paper
+ * (`--map-*`, `.map-surface`); the timeline chart and term-page graph use the normal light
+ * surface (`--chart-*`, `.chart-surface`). `.map-ink` carries per-theme colours.
  * Without JavaScript there is no attribute and the OS preference decides.
  * Every text token meets WCAG AA (4.5:1) on bg, surface and surface-2 in its theme.
  */
@@ -27,6 +29,8 @@
   --focus: #f59e0b;
   --map-bg: #0a0a0a;
   --map-glow: #11131c;
+  --chart-bg: #0a0a0a;
+  --chart-glow: #11131c;
   --drag-ring: rgba(245, 245, 245, 0.9);
   --drag-outline: rgba(0, 0, 0, 0.55);
 }
@@ -47,6 +51,8 @@
     --focus: #b45309;
     --map-bg: #f6f1e7;
     --map-glow: #faf6ee;
+    --chart-bg: #f5f5f5;
+    --chart-glow: #f5f5f5;
     --drag-ring: rgba(41, 37, 36, 0.9);
     --drag-outline: rgba(250, 246, 238, 0.85);
   }
@@ -67,6 +73,8 @@
   --focus: #b45309;
   --map-bg: #f6f1e7;
   --map-glow: #faf6ee;
+  --chart-bg: #f5f5f5;
+  --chart-glow: #f5f5f5;
   --drag-ring: rgba(41, 37, 36, 0.9);
   --drag-outline: rgba(250, 246, 238, 0.85);
 }
@@ -93,6 +101,10 @@
  */
 .map-surface {
   background: radial-gradient(ellipse at center, var(--map-glow) 0%, var(--map-bg) 75%);
+}
+/* The timeline chart and term-page graph: the night map when dark, the plain light surface when light. */
+.chart-surface {
+  background: radial-gradient(ellipse at center, var(--chart-glow) 0%, var(--chart-bg) 75%);
 }
 
 /*

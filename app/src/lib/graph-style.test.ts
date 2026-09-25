@@ -338,9 +338,12 @@ describe('cream map palette (A92, light theme)', () => {
       expect(clusterColour(c, undefined, 'dark')).toBe(clusterColour(c));
   });
 
-  it('gives domain colours text contrast (AA) on cream', () => {
-    for (const d of domains)
+  it('gives domain colours text contrast (AA) on cream and on the light chart surface', () => {
+    for (const d of domains) {
       expect(contrastRatio(domainColour(d, 'light'), CREAM)).toBeGreaterThanOrEqual(4.5);
+      // The timeline chart and term-page graph sit on --surface (#f5f5f5), not cream.
+      expect(contrastRatio(domainColour(d, 'light'), '#f5f5f5')).toBeGreaterThanOrEqual(4.5);
+    }
   });
 
   it('gives cluster shades and family colours 3:1 on cream (non-text contrast)', () => {
