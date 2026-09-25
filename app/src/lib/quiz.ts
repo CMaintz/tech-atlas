@@ -60,7 +60,7 @@ const ASK: Partial<Record<EdgeType, Partial<Record<Dir, Bi>>>> = {
   implements: {
     out: {
       en: (x) => `What does ${x} put into practice?`,
-      da: (x) => `Hvad omsætter ${x} til praksis?`,
+      da: (x) => `Hvad er det, ${x} omsætter til praksis?`,
     },
     in: {
       en: (x) => `Which of these puts ${x} into practice?`,
