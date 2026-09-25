@@ -39,7 +39,8 @@ npm run lint:content   # the content lint (E1–E11, W1–W8)
 npx tsx scripts/vocab-report.ts   # which unknown words recur (Closed Vocabulary triage)
 npm run build:graph    # regenerate src/generated/graph.json
 npm run embed          # re-embed terms for semantic search (after editing a name, alias, summary or plain facet; lint E11/W8; see A75)
-npm run seed:vectors   # load the vectors into Supabase (CI does this; needs SUPABASE_URL + SUPABASE_SERVICE_KEY)
+npm run seed:vectors   # embed terms via Workers AI into Supabase (CI does this; needs SUPABASE_URL, SUPABASE_SERVICE_KEY, CLOUDFLARE_*)
+npm run smoke:semantic # check the deployed function answers known questions (CI does this; needs SEMANTIC_SEARCH_URL)
 npm run check          # astro check (typecheck)
 npm run build          # lint -> build:graph -> astro build
 ```

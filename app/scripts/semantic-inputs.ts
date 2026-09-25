@@ -14,9 +14,19 @@ import {
 } from '../src/lib/semantic';
 import type { Term } from './load-terms';
 
-/** Outside the site: the vectors are seeded into Postgres, never shipped to the browser. */
+/** Outside the site (never shipped to the browser): the lint's hash source (A75). */
 export const VECTORS_PATH = '../supabase/seed/term-vectors.json';
 export const FIXTURE_PATH = 'src/lib/semantic.fixture.json';
+
+/**
+ * Checked against the deployed function after every backend deploy
+ * (scripts/smoke-semantic.ts): each query must return its term in the top 3.
+ */
+export const SMOKE_QUERIES: [query: string, lang: 'en' | 'da', expected: string][] = [
+  ['hvem har ansvaret for persondata', 'da', 'security/data-controller'],
+  ['a program that locks your files and demands money', 'en', 'security/ransomware'],
+  ['sneaking database commands into a login form', 'en', 'security/sql-injection'],
+];
 
 /** Queries embedded alongside the terms, so a unit test can check real rankings offline. */
 export const FIXTURE_QUERIES = [

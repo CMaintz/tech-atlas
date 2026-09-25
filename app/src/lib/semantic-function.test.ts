@@ -7,7 +7,11 @@ import {
   MAX_QUERY_CHARS,
   RateLimiter,
   allowedOrigin,
+  MAX_BODY_BYTES,
   clientIp,
+  ipKey,
+  parseAllow,
+  readCapped,
   cloudflareEmbed,
   corsHeaders,
   parseCloudflareEmbedding,
@@ -71,10 +75,51 @@ describe('CORS', () => {
 
 describe('clientIp', () => {
   const h = (m: Record<string, string>) => ({ get: (k: string) => m[k] ?? null });
-  it('takes the first X-Forwarded-For hop', () => {
-    expect(clientIp(h({ 'x-forwarded-for': '1.2.3.4, 10.0.0.1' }))).toBe('1.2.3.4');
-    expect(clientIp(h({ 'cf-connecting-ip': '5.6.7.8' }))).toBe('5.6.7.8');
+  it('prefers cf-connecting-ip, else the rightmost X-Forwarded-For hop (not the spoofable first)', () => {
+    expect(
+      clientIp(h({ 'cf-connecting-ip': '5.6.7.8', 'x-forwarded-for': '1.1.1.1, 5.6.7.8' })),
+    ).toBe('5.6.7.8');
+    expect(clientIp(h({ 'x-forwarded-for': '6.6.6.6, 1.2.3.4' }))).toBe('1.2.3.4');
+    expect(clientIp(h({ 'x-forwarded-for': ' 1.2.3.4 ,' }))).toBe('1.2.3.4');
     expect(clientIp(h({}))).toBe('unknown');
+  });
+});
+
+describe('ipKey', () => {
+  it('is a stable hex hash that never contains the address', async () => {
+    const a = await ipKey('203.0.113.7');
+    expect(a).toMatch(/^[0-9a-f]{24}$/);
+    expect(await ipKey('203.0.113.7')).toBe(a);
+    expect(await ipKey('203.0.113.8')).not.toBe(a);
+  });
+});
+
+describe('readCapped', () => {
+  const stream = (...parts: string[]) =>
+    new ReadableStream<Uint8Array>({
+      start(c) {
+        for (const p of parts) c.enqueue(new TextEncoder().encode(p));
+        c.close();
+      },
+    });
+  it('reads a body up to the cap, across chunks and multi-byte characters', async () => {
+    expect(await readCapped(stream('{"q":"', 'kodeord på dansk"}'), 64)).toEqual({
+      ok: true,
+      text: '{"q":"kodeord på dansk"}',
+    });
+    expect(await readCapped(null)).toEqual({ ok: true, text: '' });
+  });
+  it('stops as soon as the body passes the cap', async () => {
+    expect(await readCapped(stream('x'.repeat(40), 'y'.repeat(40)), 64)).toEqual({ ok: false });
+    expect((await readCapped(stream('x'.repeat(MAX_BODY_BYTES + 1)))).ok).toBe(false);
+  });
+});
+
+describe('parseAllow', () => {
+  it('accepts only a JSON boolean', () => {
+    expect(parseAllow(true)).toBe(true);
+    expect(parseAllow(false)).toBe(false);
+    expect(() => parseAllow([{ search_allow: true }])).toThrow();
   });
 });
 
@@ -106,10 +151,18 @@ describe('Workers AI embedding', () => {
     expect(url).toBe('https://api.cloudflare.com/client/v4/accounts/acc/ai/run/@cf/baai/bge-m3');
     expect((init!.headers as Record<string, string>).Authorization).toBe('Bearer tok');
     expect(JSON.parse(init!.body as string)).toEqual({ text: ['a', 'b'], truncate_inputs: true });
-    expect(out.map((v) => v[0])).toEqual([1, -1]);
+    expect(out.vectors.map((v) => v[0])).toEqual([1, -1]);
+    expect(out.pooling).toBe('cls');
   });
 
-  it('rejects errors, wrong shapes and a different pooling', async () => {
+  it('reports, rather than rejects, whatever pooling Workers AI names', () => {
+    expect(
+      parseCloudflareEmbedding({ result: { data: [vec(1)], pooling: 'mean' } }, 1).pooling,
+    ).toBe('mean');
+    expect(parseCloudflareEmbedding({ result: { data: [vec(1)] } }, 1).pooling).toBeUndefined();
+  });
+
+  it('rejects errors and wrong shapes', async () => {
     const fail = async () => new Response('{}', { status: 401 });
     await expect(
       cloudflareEmbed(['a'], { accountId: 'a', token: 't', fetch: fail }),
@@ -117,9 +170,6 @@ describe('Workers AI embedding', () => {
     expect(() => parseCloudflareEmbedding({ success: false }, 1)).toThrow();
     expect(() => parseCloudflareEmbedding({ result: { data: [[1, 2]] } }, 1)).toThrow();
     expect(() => parseCloudflareEmbedding({ result: { data: [vec(1)] } }, 2)).toThrow();
-    expect(() =>
-      parseCloudflareEmbedding({ result: { data: [vec(1)], pooling: 'mean' } }, 1),
-    ).toThrow('pooling');
   });
 });
 

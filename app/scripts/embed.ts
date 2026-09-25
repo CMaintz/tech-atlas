@@ -1,8 +1,10 @@
 /**
  * `npm run embed` — embed every Term (name + aliases + summary + plain facet, per
- * language) with bge-m3 and write the committed vector file that CI seeds into Postgres
- * for the `semantic-search` Edge Function (A74). Also embeds FIXTURE_QUERIES for the
- * offline ranking test.
+ * language) with bge-m3 and write the committed vector file (A75): the source of the
+ * content lint's per-term hashes (E11/W8) and of the offline ranking test (with the
+ * FIXTURE_QUERIES it also embeds). The database is NOT seeded from this file — CI
+ * re-embeds every passage through Workers AI (scripts/seed-vectors.ts), so stored and
+ * query vectors always come from the same service.
  *
  * Backend: with CLOUDFLARE_ACCOUNT_ID + CLOUDFLARE_API_TOKEN set it calls Workers AI —
  * exactly the model the function embeds queries with. Otherwise it runs the
@@ -44,7 +46,7 @@ async function backend(): Promise<{ name: string; embed: Embed; batch: number }>
   if (accountId && token) {
     return {
       name: `cloudflare:${MODEL.cloudflare}`,
-      embed: (texts) => cloudflareEmbed(texts, { accountId, token }),
+      embed: async (texts) => (await cloudflareEmbed(texts, { accountId, token })).vectors,
       batch: 50,
     };
   }

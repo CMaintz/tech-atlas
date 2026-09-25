@@ -53,3 +53,58 @@ $$;
 
 revoke all on function public.match_terms(extensions.vector, integer) from public;
 grant execute on function public.match_terms(extensions.vector, integer) to anon, authenticated;
+
+-- Abuse limits for the `semantic-search` function (A76), shared by every isolate:
+-- at most 30 searches per client per minute and 50,000 per day overall. Counters live
+-- in a schema the Data API does not expose; clients are keyed by a hash of their IP
+-- (computed in the function), never the address. Only the service role — the function —
+-- may call search_allow, so nobody can burn the daily budget through the API directly.
+create schema if not exists private;
+revoke all on schema private from public;
+revoke all on schema private from anon, authenticated;
+
+create table if not exists private.search_rate (
+  bucket text primary key,
+  count integer not null,
+  expires_at timestamptz not null
+);
+create index if not exists search_rate_expires on private.search_rate (expires_at);
+
+create or replace function public.search_allow(client text)
+returns boolean
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare
+  per_minute constant integer := 30;
+  per_day constant integer := 50000;
+  minute_key text := 'ip:' || left(client, 64) || ':' || to_char(now() at time zone 'utc', 'YYYYMMDDHH24MI');
+  day_key text := 'day:' || to_char(now() at time zone 'utc', 'YYYYMMDD');
+  n integer;
+begin
+  -- Old buckets are cleared now and then; the table stays a few thousand rows at most.
+  if random() < 0.02 then
+    delete from private.search_rate where expires_at < now();
+  end if;
+
+  -- Per client first, so one flooding client can't use up everyone's daily budget.
+  insert into private.search_rate as r (bucket, count, expires_at)
+    values (minute_key, 1, now() + interval '2 minutes')
+    on conflict (bucket) do update set count = r.count + 1
+    returning r.count into n;
+  if n > per_minute then
+    return false;
+  end if;
+
+  insert into private.search_rate as r (bucket, count, expires_at)
+    values (day_key, 1, now() + interval '2 days')
+    on conflict (bucket) do update set count = r.count + 1
+    returning r.count into n;
+  return n <= per_day;
+end;
+$$;
+
+revoke all on function public.search_allow(text) from public;
+revoke all on function public.search_allow(text) from anon, authenticated;
+grant execute on function public.search_allow(text) to service_role;

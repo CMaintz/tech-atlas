@@ -316,16 +316,19 @@ the route in the Explorer, "before X" opens what to learn first.
 **Semantic search (A74–A77, superseding A51–A55)** answers questions and descriptions
 ("how do I stop people reusing leaked passwords" → Credential stuffing), in Danish or
 English and across the two. **The model runs on the backend, never in the browser.**
-Every Term (name + aliases + summary + plain facet, per language) is embedded at author
-time by `npm run embed` with **bge-m3** (`BAAI/bge-m3`, multilingual, 1024 dimensions) into
-a committed vector file (`supabase/seed/term-vectors.json`); CI seeds it into Postgres
-(pgvector, `public.term_vectors`, public read-only) next to the learner data. The lint
-errors (E11) when a term is missing from the vectors or the model settings changed, and
-warns (W8) when a term's text changed since it was embedded. A Supabase Edge Function,
-`semantic-search` (`POST { q, lang, k }` → `{ hits: [{ id, score }] }`), embeds the query
-with the same model on Cloudflare Workers AI and ranks terms by cosine in the database,
-each term scoring its better language. The search box calls it — debounced, abortable —
-for queries of three or more words or with no name match; lexical (names and aliases) and
+The model is **bge-m3** (`BAAI/bge-m3`, multilingual, 1024 dimensions) on Cloudflare
+Workers AI. After each gated push to `main`, CI embeds every Term (name + aliases +
+summary + plain facet, per language) through Workers AI into Postgres (pgvector,
+`public.term_vectors`, public read-only) next to the learner data, then smoke-tests known
+questions against the deployed function. A Supabase Edge Function, `semantic-search`
+(`POST { q, lang, k }` → `{ hits: [{ id, score }] }`), embeds the query with the same
+Workers AI call and ranks terms by cosine in the database, each term scoring its better
+language; it is rate-limited per client and per day in Postgres. `npm run embed` keeps a
+committed copy of the vectors (`supabase/seed/term-vectors.json`) as the lint's source: the
+lint errors (E11) when a term is missing from it or the model settings changed, and warns
+(W8) when a term's text changed since it was embedded. The search box calls the function
+— debounced, abortable — for queries of three or more words or with no name match, only
+in builds given its URL (`PUBLIC_SEMANTIC_SEARCH_URL`); lexical (names and aliases) and
 semantic rankings are merged by reciprocal rank fusion, and hits found only by meaning are
 labelled. There is no opt-in and no download: when the backend is not configured, errors,
 or takes over 2 s, the lexical results simply stand.

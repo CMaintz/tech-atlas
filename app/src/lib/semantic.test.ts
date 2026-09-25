@@ -13,20 +13,35 @@ import {
   quantize,
   rankBySimilarity,
   reciprocalRankFusion,
-  semanticEndpoint,
   fetchSemantic,
   toBase64,
-  vectorRows,
+  toVectorLiteralRows,
   type VectorFile,
 } from './semantic';
-import { VECTORS_PATH } from '../../scripts/semantic-inputs';
+import { SMOKE_QUERIES, VECTORS_PATH } from '../../scripts/semantic-inputs';
 
-describe('semanticEndpoint', () => {
-  it('is the function URL of a configured project, else empty', () => {
-    expect(semanticEndpoint('https://abc.supabase.co/')).toBe(
-      'https://abc.supabase.co/functions/v1/semantic-search',
+describe('toVectorLiteralRows', () => {
+  it('pairs vector i*langs+j with term i, language j, as unit vectors in pgvector text form', () => {
+    const rows = toVectorLiteralRows(
+      ['t', 'u'],
+      ['en', 'da'],
+      [
+        [3, 4],
+        [0, -2],
+        [1, 0],
+        [0, 5],
+      ],
+      { t: 'h1', u: 'h2' },
     );
-    expect(semanticEndpoint('')).toBe('');
+    expect(rows.map((r) => [r.id, r.lang, r.passage_hash, JSON.parse(r.embedding)])).toEqual([
+      ['t', 'en', 'h1', [0.6, 0.8]],
+      ['t', 'da', 'h1', [0, -1]],
+      ['u', 'en', 'h2', [1, 0]],
+      ['u', 'da', 'h2', [0, 1]],
+    ]);
+  });
+  it('refuses a vector count that does not match terms × languages', () => {
+    expect(() => toVectorLiteralRows(['t'], ['en', 'da'], [[1, 0]], { t: 'h' })).toThrow();
   });
 });
 
@@ -71,35 +86,6 @@ describe('fetchSemantic', () => {
     const pending = fetchSemantic('u', 'q', 'en', { fetch: hanging, signal: ctrl.signal });
     ctrl.abort();
     await expect(pending).rejects.toThrow('aborted');
-  });
-});
-
-describe('vectorRows', () => {
-  it('emits one unit-length row per term and language in pgvector text form', () => {
-    const file = {
-      model: 'm',
-      backend: 'b',
-      dim: 2,
-      langs: ['en', 'da'],
-      settingsHash: 's',
-      passageHashes: { t: 'h' },
-      ids: ['t'],
-      data: toBase64(
-        quantize([
-          [3, 4],
-          [0, -2],
-        ]),
-      ),
-    } as VectorFile;
-    const rows = vectorRows(file);
-    expect(rows.map((r) => [r.id, r.lang, r.passage_hash])).toEqual([
-      ['t', 'en', 'h'],
-      ['t', 'da', 'h'],
-    ]);
-    const en = JSON.parse(rows[0].embedding) as number[];
-    expect(cosine(en, [3, 4])).toBeCloseTo(1, 3);
-    expect(Math.hypot(...en)).toBeCloseTo(1, 5);
-    expect(JSON.parse(rows[1].embedding)).toEqual([0, -1]);
   });
 });
 
@@ -256,6 +242,10 @@ describe('semantic ranking (committed vectors)', () => {
 
   it('has a fixture vector for every expectation', () => {
     expect([...fixture.queries].sort()).toEqual(expectations.map(([q]) => q).sort());
+  });
+
+  it('covers every post-deploy smoke query, with the same expected term', () => {
+    for (const [q, , id] of SMOKE_QUERIES) expect(expectations).toContainEqual([q, id]);
   });
 
   it.each(expectations)('"%s" ranks %s in the top 3', (q, id) => {

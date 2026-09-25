@@ -13,7 +13,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "test": "vitest run",
-    "seed:vectors": "tsx scripts/seed-vectors.ts"
+    "seed:vectors": "tsx scripts/seed-vectors.ts",
+    "smoke:semantic": "tsx scripts/smoke-semantic.ts"
   },
   "dependencies": {
     "@astrojs/preact": "^6.0.5",

@@ -1,8 +1,9 @@
 /**
- * Semantic (vector) search — the pure half (A74, superseding A51–A55). Terms are embedded
- * at author time by `npm run embed` (scripts/embed.ts); the vectors are seeded into
- * Postgres (pgvector) next to the learner data, and the `semantic-search` Supabase Edge
- * Function embeds each query with the same model and returns the nearest terms. The
+ * Semantic (vector) search — the pure half (A74, superseding A51–A55). CI embeds every
+ * term through Workers AI into Postgres (pgvector) next to the learner data
+ * (scripts/seed-vectors.ts), and the `semantic-search` Supabase Edge Function embeds each
+ * query with the same call and returns the nearest terms; `npm run embed` keeps a
+ * committed copy for the lint's hashes and the offline ranking tests (A75). The
  * browser never downloads a model: it calls the function (fetchSemantic) and merges its
  * ranking with the lexical one (MiniSearch) by reciprocal rank fusion. Pure, unit-tested.
  */
@@ -53,7 +54,10 @@ export function passageText(t: EmbeddableTerm, lang: Lang): string {
 /** bge-m3 embeds a query as it is (no instruction prefix). */
 export const queryText = (q: string) => q.trim();
 
-/** The committed vector file (supabase/seed/term-vectors.json), seeded into Postgres. */
+/**
+ * The committed vector file (supabase/seed/term-vectors.json): the lint's per-term hash
+ * source and the offline ranking tests' index. The database is seeded by re-embedding.
+ */
 export interface VectorFile {
   model: string;
   /** Where the vectors were computed (Workers AI, or the ONNX export on the author's machine). */
@@ -176,15 +180,25 @@ export interface VectorRow {
   passage_hash: string;
 }
 
-/** The rows the seed script upserts: every term in every language, unit-length vectors. */
-export function vectorRows(file: VectorFile): VectorRow[] {
-  const index = loadIndex(file);
-  return index.ids.flatMap((id, i) =>
-    file.langs.map((lang, j) => ({
+/**
+ * The rows the seed script upserts: vector `i * langs.length + j` belongs to term `i` in
+ * language `j` (the order semanticInputs emits passages in), normalised to unit length.
+ */
+export function toVectorLiteralRows(
+  ids: readonly string[],
+  langs: readonly Lang[],
+  vectors: readonly ArrayLike<number>[],
+  passageHashes: Record<string, string>,
+): VectorRow[] {
+  if (vectors.length !== ids.length * langs.length) {
+    throw new Error(`expected ${ids.length * langs.length} vectors, got ${vectors.length}`);
+  }
+  return ids.flatMap((id, i) =>
+    langs.map((lang, j) => ({
       id,
       lang,
-      embedding: `[${Array.from(index.vectors[i][j], (x) => +x.toFixed(6)).join(',')}]`,
-      passage_hash: file.passageHashes[id],
+      embedding: `[${Array.from(normalize(vectors[i * langs.length + j]), (x) => +x.toFixed(6)).join(',')}]`,
+      passage_hash: passageHashes[id],
     })),
   );
 }
@@ -255,12 +269,6 @@ export function looksNaturalLanguage(query: string, lexicalHits: number): boolea
 export function nearBest(scored: Scored[], margin = 0.06): Scored[] {
   const top = scored[0]?.score ?? 0;
   return scored.filter((s) => s.score >= top - margin);
-}
-
-/** The Edge Function's URL for a Supabase project, or '' when none is configured. */
-export function semanticEndpoint(supabaseUrl: string): string {
-  const base = supabaseUrl.trim().replace(/\/+$/, '');
-  return base ? `${base}/functions/v1/semantic-search` : '';
 }
 
 /** How long the browser waits for the function before showing lexical results only. */
