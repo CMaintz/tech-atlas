@@ -400,7 +400,7 @@ export default function Explorer(props: Props) {
     `inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs whitespace-nowrap focus-visible:outline-2 focus-visible:outline-amber-300 ${active ? 'border-neutral-400 bg-neutral-800/80 text-neutral-100' : 'border-neutral-700 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200'}`;
   const seg = (active: boolean) =>
     `px-2.5 py-1 text-xs whitespace-nowrap focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-amber-300 ${active ? 'bg-neutral-200 text-neutral-900' : 'text-neutral-400 hover:text-neutral-100'}`;
-  const segGroup = 'flex shrink-0 overflow-hidden rounded-full border border-neutral-700';
+  const segGroup = 'flex w-fit shrink-0 overflow-hidden rounded-full border border-neutral-700';
   const field =
     'w-full rounded-full border border-neutral-700 bg-neutral-900 px-3 py-1 text-xs text-neutral-100 placeholder:text-neutral-500';
   const heading = 'mb-1.5 text-[11px] tracking-widest text-neutral-500 uppercase';
@@ -788,9 +788,9 @@ export default function Explorer(props: Props) {
         )}
       </div>
 
-      {/* The legend: its own collapsible box, bottom-left of the map. */}
+      {/* The legend: its own collapsible box, bottom-left of the map (clear of the beta ribbon). */}
       {visible && (
-        <div class="absolute bottom-3 left-3 z-10" data-explorer-legend>
+        <div class="absolute bottom-3 left-28 z-10" data-explorer-legend>
           <GraphLegend
             nodes={legendNodes}
             families={allFamilies.filter((f) => families.has(f))}
