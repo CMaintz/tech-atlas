@@ -1,0 +1,72 @@
+---
+/** Data & downloads (A69): every export, its format, and the content licence (A66). */
+import Base from '../../../layouts/Base.astro';
+import { LANGS, REPO, url, type Lang } from '../../../lib/site';
+import { UI_EXTRA } from '../../../lib/ui-extra';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const x = UI_EXTRA[lang];
+const example = 'security/phishing';
+const rows = [
+  { href: url('api/terms.json'), label: 'terms.json', format: 'JSON', what: x.dataAll },
+  {
+    href: url(`api/terms/${example}.json`),
+    label: `terms/${example}.json`,
+    format: 'JSON',
+    what: `${x.dataOne} ${example}`,
+  },
+  { href: url('api/terms.csv'), label: 'terms.csv', format: 'CSV', what: x.dataCsv },
+  {
+    href: url(`api/anki-${lang}.txt`),
+    label: `anki-${lang}.txt`,
+    format: 'Anki (TSV)',
+    what: x.dataAnki,
+  },
+  { href: url('graph.json'), label: 'graph.json', format: 'JSON', what: x.dataGraph },
+  { href: url(`${lang}/feed.xml`), label: 'feed.xml', format: 'RSS 2.0', what: x.dataFeed },
+];
+---
+
+<Base lang={lang} title={x.dataTitle} description={x.dataIntro}>
+  <h1 class="mb-2 text-3xl font-semibold">{x.dataTitle}</h1>
+  <p class="mb-8 text-neutral-400">{x.dataIntro}</p>
+  <table class="mb-10 w-full text-left text-sm">
+    <thead class="text-xs tracking-widest text-neutral-500 uppercase">
+      <tr>
+        <th class="py-2 pr-4 font-normal">URL</th>
+        <th class="py-2 pr-4 font-normal">{x.dataFormat}</th>
+        <th class="py-2 font-normal">{x.dataWhat}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((r) => (
+          <tr class="border-t border-neutral-800 align-top">
+            <td class="py-2 pr-4">
+              <a class="font-mono break-all text-neutral-100 hover:underline" href={r.href}>
+                {r.label}
+              </a>
+            </td>
+            <td class="py-2 pr-4 whitespace-nowrap text-neutral-400">{r.format}</td>
+            <td class="py-2 text-neutral-300">{r.what}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+  <h2 class="mb-2 text-xs tracking-widest text-neutral-500 uppercase">{x.dataLicence}</h2>
+  <p class="mb-3 text-neutral-300">{x.dataLicenceText}</p>
+  <p class="text-neutral-300">
+    <a
+      class="underline hover:text-white"
+      rel="license"
+      href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a
+    > · <a class="underline hover:text-white" href={`${REPO}/blob/main/CONTENT-LICENSE.md`}
+      >CONTENT-LICENSE.md</a
+    >
+  </p>
+</Base>

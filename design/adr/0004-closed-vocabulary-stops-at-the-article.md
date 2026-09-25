@@ -30,3 +30,9 @@ keep feeding Mentions back into the graph.
   to passing mentions would quietly destroy ADR-0002's granularity test.
 - There are two reading modes by construction: look it up (Summary, seconds) and learn it
   (Body then Article, minutes to an hour).
+
+## Implementation note (2026-09-25)
+
+As built, Articles are Markdown files per language at
+`app/src/content/articles/<domain>/<id>.<lang>.md`, referenced from the Term's YAML
+`article` field; Terms themselves are YAML.

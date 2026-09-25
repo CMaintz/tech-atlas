@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import Search from '../../components/Search';
 import RecentTerms from '../../components/RecentTerms';
 import { CLUSTER_LABELS, DOMAIN_LABELS, LANGS, UI, termUrl, url, type Lang } from '../../lib/site';
+import { UI_EXTRA } from '../../lib/ui-extra';
 
 export function getStaticPaths() {
   return LANGS.map((lang) => ({ params: { lang } }));
@@ -102,6 +103,12 @@ const ids = terms.map((t) => t.id);
         class="rounded border border-neutral-700 px-3 py-1.5 text-neutral-300 hover:border-neutral-400 hover:text-neutral-100"
       >
         {ui.study} →
+      </a>
+      <a
+        href={url(`${lang}/terms/`)}
+        class="rounded border border-neutral-700 px-3 py-1.5 text-neutral-300 hover:border-neutral-400 hover:text-neutral-100"
+      >
+        {UI_EXTRA[lang].azTitle} →
       </a>
     </div>
     <RecentTerms

@@ -5,9 +5,10 @@ import Graph from '../../../components/Graph';
 import KnowledgeStatus from '../../../components/KnowledgeStatus';
 import Quiz from '../../../components/Quiz';
 import {
-  CLUSTER_COLOURS,
   CLUSTER_LABELS,
   DOMAIN_LABELS,
+  FAMILY_LABELS,
+  GRAPH_UI,
   LANGS,
   UI,
   termUrl,
@@ -16,10 +17,12 @@ import {
 } from '../../../lib/site';
 import { EDGE_LABELS, RELATION_ORDER, pairSlug, relationsOf } from '../../../lib/terms';
 import { loadGraph } from '../../../lib/graph';
-import { prerequisitesOf } from '../../../lib/graph-model';
+import { FAMILY, prerequisitesOf } from '../../../lib/graph-model';
+import { EDGE_TYPES, type EdgeType } from '../../../schema';
 import { makeLinker } from '../../../lib/autolink';
 import Prose from '../../../components/Prose.astro';
 import { bareName, collisionsOf } from '../../../lib/collisions';
+import { TIER_ORDER, UI_EXTRA } from '../../../lib/ui-extra';
 
 export async function getStaticPaths() {
   const terms = await getCollection('terms');
@@ -43,25 +46,38 @@ const groups = RELATION_ORDER.map((type) => ({
 })).filter((g) => g.items.length > 0);
 
 // Neighbourhood graph: this term + every directly related term.
-const colour = (c: string) => CLUSTER_COLOURS[c] ?? '#a3a3a3';
 const nodes = new Map([
-  [term.id, { id: term.id, label: d.term[lang], focus: true, colour: colour(d.cluster) }],
+  [
+    term.id,
+    { id: term.id, label: d.term[lang], focus: true, domain: d.domain, cluster: d.cluster },
+  ],
 ]);
 for (const r of relations) {
   nodes.set(r.target.id, {
     id: r.target.id,
     label: r.target.data.term[lang],
     focus: false,
-    colour: colour(r.target.data.cluster),
+    domain: r.target.data.domain,
+    cluster: r.target.data.cluster,
   });
 }
-// Every relation is phrased from this term's point of view (inverses already applied),
-// so every edge points outward from it.
-const edges = relations.map((r) => ({
-  source: term.id,
-  target: r.target.id,
-  type: EDGE_LABELS[r.type]?.[lang] ?? r.type,
-}));
+// Edges are drawn in their authored direction (A74): a generated inverse ("unlocks")
+// is turned back into the authored edge ("requires") pointing at this term.
+const authoredType = (r: (typeof relations)[number]): EdgeType =>
+  r.generated
+    ? ((Object.entries(EDGE_TYPES).find(([, m]) => m.inverse === r.type)?.[0] ??
+        r.type) as EdgeType)
+    : (r.type as EdgeType);
+const edges = relations.map((r) => {
+  const type = authoredType(r);
+  return {
+    source: r.generated ? r.target.id : term.id,
+    target: r.generated ? term.id : r.target.id,
+    type,
+    family: FAMILY[type],
+    label: EDGE_LABELS[type]?.[lang] ?? type,
+  };
+});
 
 const facets = ['formal', 'plain', 'inPractice', 'whyItMatters'] as const;
 const graph = await loadGraph();
@@ -88,6 +104,31 @@ const aka = d.aka[lang];
 const name = bareName(term.id);
 const collides = collisionsOf(all.map((t) => t.id)).has(name);
 
+// Continue learning (SPEC §7, A73): sources grouped by tier, best tier first.
+const extra = UI_EXTRA[lang];
+const sourceGroups = TIER_ORDER.map((tier) => ({
+  tier,
+  items: d.sources.filter((s) => s.tier === tier),
+})).filter((g) => g.items.length > 0);
+
+// Structured data (A68): schema.org DefinedTerm in the Atlas DefinedTermSet.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTerm',
+  '@id': new URL(termUrl(lang, term.id), Astro.site).href,
+  name: d.term[lang],
+  ...(aka.length ? { alternateName: aka } : {}),
+  description: d.summary[lang],
+  inLanguage: lang,
+  url: new URL(termUrl(lang, term.id), Astro.site).href,
+  inDefinedTermSet: {
+    '@type': 'DefinedTermSet',
+    name: 'Atlas',
+    url: new URL(url(`${lang}/`), Astro.site).href,
+  },
+  license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+};
+
 // Breadcrumb: Index › primary domain (the folder) › cluster — anchors on the home index.
 const primary = term.id.split('/')[0];
 const crumbs = [
@@ -100,7 +141,13 @@ const crumbs = [
 ];
 ---
 
-<Base lang={lang} title={d.term[lang]} description={d.summary[lang]} ogType="article">
+<Base
+  lang={lang}
+  title={d.term[lang]}
+  description={d.summary[lang]}
+  ogType="article"
+  jsonLd={jsonLd}
+>
   <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-10" data-term-id={term.id}>
     <div>
       <nav
@@ -252,24 +299,37 @@ const crumbs = [
         )
       }
 
-      <div class="mt-8 text-sm text-neutral-500">
-        <span class="text-xs tracking-widest uppercase">{ui.sources}</span>
-        <ul class="mt-1 list-inside list-disc">
-          {
-            d.sources.map((s) => (
-              <li>
-                {s.url ? (
-                  <a class="hover:text-neutral-300 hover:underline" href={s.url}>
-                    {s.title}
-                  </a>
-                ) : (
-                  s.title
-                )}
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+      <section class="mt-8 text-sm text-neutral-500" id="continue-learning">
+        <h2 class="text-xs tracking-widest uppercase">
+          {ui.sources} · {extra.continueLearning}
+        </h2>
+        {
+          sourceGroups.map((g) => (
+            <div class="mt-2">
+              <h3 class="text-xs text-neutral-600">{extra.tiers[g.tier]}</h3>
+              <ul class="mt-1 list-inside list-disc">
+                {g.items.map((s) => (
+                  <li>
+                    {s.url ? (
+                      <a class="hover:text-neutral-300 hover:underline" href={s.url}>
+                        {s.title}
+                      </a>
+                    ) : (
+                      s.title
+                    )}
+                    {s.publisher && <span class="text-neutral-600"> · {s.publisher}</span>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+        <p class="mt-3 print:hidden">
+          <a class="hover:text-neutral-300 hover:underline" href={url(`api/terms/${term.id}.json`)}>
+            {extra.dataThisTerm}
+          </a>
+        </p>
+      </section>
       {
         mentionedIn.length > 0 && (
           <section class="mt-8" id="mentions">
@@ -314,6 +374,16 @@ const crumbs = [
         nodes={[...nodes.values()]}
         edges={edges}
         termBase={url(`${lang}/terms/`)}
+        familyLabels={Object.fromEntries(
+          Object.entries(FAMILY_LABELS).map(([k, v]) => [k, v[lang]]),
+        )}
+        domainLabels={Object.fromEntries(
+          Object.entries(DOMAIN_LABELS).map(([k, v]) => [k, v[lang]]),
+        )}
+        clusterLabels={Object.fromEntries(
+          Object.entries(CLUSTER_LABELS).map(([k, v]) => [k, v[lang]]),
+        )}
+        text={{ ...GRAPH_UI[lang] }}
       />
 
       <a
