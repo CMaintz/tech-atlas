@@ -340,7 +340,7 @@ lint errors (E11) when a term is missing from it or the model settings changed, 
 in builds given its URL (`PUBLIC_SEMANTIC_SEARCH_URL`); lexical (names and aliases) and
 semantic rankings are merged by reciprocal rank fusion, and hits found only by meaning are
 labelled. There is no opt-in and no download: when the backend is not configured, errors,
-or takes over 2 s, the lexical results simply stand.
+or takes over 6 s (cold starts can take several seconds), the lexical results simply stand.
 
 ### Open data, feeds and SEO
 Every Term is published as data under the content licence (CC BY-SA 4.0, A66):
