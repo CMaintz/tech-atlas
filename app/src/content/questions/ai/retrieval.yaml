@@ -214,7 +214,7 @@ questions:
     sources:
       - title: OWASP Top 10 for LLM Applications 2025 — LLM08 Vector and Embedding Weaknesses
         url: https://genai.owasp.org/llmrisk/llm082025-vector-and-embedding-weaknesses/
-        tier: standard
+        tier: reference
     draft: true
   - id: rag-query-pipeline-order
     terms:

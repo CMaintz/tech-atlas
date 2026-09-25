@@ -108,7 +108,7 @@ questions:
         tier: official-doc
       - title: OWASP Top 10 for LLM Applications 2025 — LLM01 Prompt Injection
         url: https://genai.owasp.org/llmrisk/llm01-prompt-injection/
-        tier: standard
+        tier: reference
     draft: true
   - id: agent-mcp-one-archive-many-apps
     terms:
@@ -267,5 +267,5 @@ questions:
     sources:
       - title: Anthropic (2024), Building effective agents
         url: https://www.anthropic.com/engineering/building-effective-agents
-        tier: official-doc
+        tier: other
     draft: true

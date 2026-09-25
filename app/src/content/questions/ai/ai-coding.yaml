@@ -57,7 +57,7 @@ questions:
         tier: reference
       - title: OWASP Top 10 for LLM Applications 2025 — LLM09 Misinformation
         url: https://genai.owasp.org/llmrisk/llm092025-misinformation/
-        tier: standard
+        tier: reference
     draft: true
   - id: aicode-completion-vs-cloud-agent
     terms:
@@ -167,7 +167,7 @@ questions:
         tier: official-doc
       - title: OWASP Top 10 for LLM Applications 2025 — LLM09 Misinformation
         url: https://genai.owasp.org/llmrisk/llm092025-misinformation/
-        tier: standard
+        tier: reference
     draft: true
   - id: aicode-shared-rules-for-tools
     terms:
@@ -218,7 +218,7 @@ questions:
     sources:
       - title: AGENTS.md — a simple, open format for guiding coding agents
         url: https://agents.md/
-        tier: official-doc
+        tier: other
     draft: true
   - id: aicode-completion-sees-code-below
     terms:
