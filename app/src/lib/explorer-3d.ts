@@ -4,7 +4,7 @@
  * filters, hover and selection re-evaluate accessors in place. Glow is a single
  * additive point cloud (a shared term's glow is its second domain's colour — a halo
  * round a sphere in its own), hubs carry text sprites, and one more point cloud carries
- * a particle drifting along every visible one-way relationship. Browser-only.
+ * a small comet drifting along every visible one-way relationship. Browser-only.
  */
 import type { Graph, GraphLink, GraphNode } from './graph-model';
 import { EXPLORER } from './explorer-config';
@@ -138,6 +138,9 @@ export async function createMap3D(opts: {
     .linkDirectionalArrowRelPos(1)
     .onNodeClick((n: GraphNode) => opts.onSelect(n.id))
     .onBackgroundClick(() => opts.onSelect(null));
+
+  // The wheel (and pinch) zooms towards the point under the cursor, not the orbit centre.
+  (fg.controls() as { zoomToCursor?: boolean }).zoomToCursor = true;
 
   const scene = fg.scene();
   scene.fog = new THREE.FogExp2(cfg.background, cfg.fogDensity);
@@ -312,26 +315,62 @@ export async function createMap3D(opts: {
     webColours.needsUpdate = true;
   };
 
-  // ---- Flow: a particle drifting along every visible one-way link (A86) ----------------
-  const flowPos = new Float32Array(links.length * 3);
-  const flowCol = new Float32Array(links.length * 3);
+  // ---- Flow: a small comet drifting along every visible one-way link (A86) -----------
+  // One THREE.Points for all of them: each comet is a head and a fading tail of points
+  // (`cfg.flow.trail`), positions recomputed on the link's curve every frame for the
+  // visible one-way links only (compacted to the front of the buffers, drawRange).
+  const fl = cfg.flow;
+  const TRAIL = fl.trail.length;
+  const flowPos = new Float32Array(links.length * TRAIL * 3);
+  const flowCol = new Float32Array(links.length * TRAIL * 3);
+  const flowSz = new Float32Array(links.length * TRAIL);
   const flowGeo = new THREE.BufferGeometry();
   const flowPositions = new THREE.BufferAttribute(flowPos, 3);
   const flowColours = new THREE.BufferAttribute(flowCol, 3);
+  const flowSizes = new THREE.BufferAttribute(flowSz, 1);
   flowGeo.setAttribute('position', flowPositions);
   flowGeo.setAttribute('color', flowColours);
-  const flow = new THREE.Points(
-    flowGeo,
-    new THREE.PointsMaterial({
-      size: cfg.particleSize,
-      map: glowTexture,
-      vertexColors: true,
-      blending: THREE.AdditiveBlending,
-      transparent: true,
-      depthWrite: false,
-      fog: true,
-    }),
-  );
+  flowGeo.setAttribute('size', flowSizes);
+  flowGeo.setDrawRange(0, 0);
+  // Sized in scene units (so nearer comets are bigger), clamped to a legible pixel range.
+  const flowMat = new THREE.ShaderMaterial({
+    uniforms: {
+      map: { value: glowTexture },
+      scale: { value: el.clientHeight / 2 },
+      minPx: { value: fl.minPx },
+      maxPx: { value: fl.maxPx },
+      fogDensity: { value: cfg.fogDensity },
+    },
+    vertexShader: `
+      attribute float size;
+      attribute vec3 color;
+      varying vec3 vColor;
+      varying float vDepth;
+      uniform float scale;
+      uniform float minPx;
+      uniform float maxPx;
+      void main() {
+        vColor = color;
+        vec4 mv = modelViewMatrix * vec4(position, 1.0);
+        vDepth = -mv.z;
+        gl_PointSize = clamp(size * scale / -mv.z, minPx, maxPx);
+        gl_Position = projectionMatrix * mv;
+      }`,
+    fragmentShader: `
+      uniform sampler2D map;
+      uniform float fogDensity;
+      varying vec3 vColor;
+      varying float vDepth;
+      void main() {
+        float fog = max(exp(-fogDensity * fogDensity * vDepth * vDepth), 0.35);
+        vec4 t = texture2D(map, gl_PointCoord);
+        gl_FragColor = vec4(vColor * t.a * fog, 1.0);
+      }`,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    transparent: true,
+  });
+  const flow = new THREE.Points(flowGeo, flowMat);
   flow.frustumCulled = false;
   flow.visible = motion;
   scene.add(flow);
@@ -343,41 +382,64 @@ export async function createMap3D(opts: {
       curve[i * 9 + 8] - curve[i * 9 + 2],
     ),
   );
-  // Particles start spread along their links, not in step.
+  // Comets start spread along their links, not in step.
   const phase = links.map((_, i) => ((i * 0.6180339887) % 1) * linkLength[i]);
-  const paintFlow = () => {
-    links.forEach((l, i) => {
-      let k = 0;
-      if (view && directed[i] && endsShown(l)) {
-        const lit = focusOf(l);
-        const dim = faded(endId(l.source)) || faded(endId(l.target));
-        if (lit) k = 0.9;
-        else if (!dim && (view.showAll || l.bb)) k = 0.45;
-      }
-      const c = new THREE.Color(FAMILY_COLOURS[l.family]);
-      flowCol.set([c.r * k, c.g * k, c.b * k], i * 3);
-    });
-    flowColours.needsUpdate = true;
-  };
-  let flowRaf = 0;
+  const familyColour = new Map(
+    Object.entries(FAMILY_COLOURS).map(([f, hex]) => [f, new THREE.Color(hex)]),
+  );
+  /** Indices of the links carrying a comet, in buffer order. */
+  let active: number[] = [];
   const moveFlow = (t: number) => {
-    flowRaf = requestAnimationFrame(moveFlow);
-    const travelled = (t / 1000) * cfg.particleSpeed;
-    for (let i = 0; i < links.length; i++) {
+    const travelled = (t / 1000) * fl.speed;
+    for (let j = 0; j < active.length; j++) {
+      const i = active[j];
       const len = linkLength[i] || 1;
-      const u = ((travelled + phase[i]) % len) / len;
-      const v = 1 - u;
       const o = i * 9;
-      for (let a = 0; a < 3; a++)
-        flowPos[i * 3 + a] =
-          v * v * curve[o + a] + 2 * v * u * curve[o + 3 + a] + u * u * curve[o + 6 + a];
+      const head = (travelled + phase[i]) % len;
+      for (let p = 0; p < TRAIL; p++) {
+        // The tail trails the head, never past the link's start.
+        const u = Math.max(0, head - p * fl.tailGap) / len;
+        const v = 1 - u;
+        const q = (j * TRAIL + p) * 3;
+        for (let a = 0; a < 3; a++)
+          flowPos[q + a] =
+            v * v * curve[o + a] + 2 * v * u * curve[o + 3 + a] + u * u * curve[o + 6 + a];
+      }
     }
     flowPositions.needsUpdate = true;
+  };
+  const paintFlow = () => {
+    active = [];
+    links.forEach((l, i) => {
+      if (!view || !directed[i] || !endsShown(l)) return;
+      const lit = focusOf(l);
+      // Every drawn link carries a comet: the backbone (every link with "show all") and
+      // the focused ones; outside the selection they dim with it.
+      if (!lit && !view.showAll && !l.bb) return;
+      const dim = !lit && (faded(endId(l.source)) || faded(endId(l.target)));
+      const k = lit ? fl.litAlpha : dim ? fl.dimAlpha : fl.alpha;
+      const c = familyColour.get(l.family) ?? new THREE.Color('#ffffff');
+      const j = active.length;
+      active.push(i);
+      fl.trail.forEach((f, p) => {
+        flowCol.set([c.r * k * f, c.g * k * f, c.b * k * f], (j * TRAIL + p) * 3);
+        flowSz[j * TRAIL + p] = fl.size * (lit ? 1.3 : 1) * (0.5 + 0.5 * f);
+      });
+    });
+    flowColours.needsUpdate = true;
+    flowSizes.needsUpdate = true;
+    flowGeo.setDrawRange(0, active.length * TRAIL);
+    moveFlow(performance.now());
+  };
+  let flowRaf = 0;
+  const tickFlow = (t: number) => {
+    flowRaf = requestAnimationFrame(tickFlow);
+    moveFlow(t);
   };
   const runFlow = (on: boolean) => {
     cancelAnimationFrame(flowRaf);
     flowRaf = 0;
-    if (on && motion) flowRaf = requestAnimationFrame(moveFlow);
+    if (on && motion) flowRaf = requestAnimationFrame(tickFlow);
   };
   runFlow(true);
 
@@ -448,6 +510,7 @@ export async function createMap3D(opts: {
   const resize = () => {
     fg.width(el.clientWidth).height(el.clientHeight);
     glowMat.uniforms.scale.value = el.clientHeight / 2;
+    flowMat.uniforms.scale.value = el.clientHeight / 2;
     // Centre the scene in the part of the canvas the legend leaves clear and, in the
     // overview, widen the lens so the whole scene fits that part (none sits under it).
     const w = el.clientWidth;
