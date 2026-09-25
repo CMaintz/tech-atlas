@@ -3,6 +3,10 @@ import { EDGE_TYPES, type EdgeType } from '../schema';
 import { CLUSTER_LABELS } from './site';
 import {
   CLUSTER_DOMAIN,
+  CREAM,
+  FAMILY_COLOURS_LIGHT,
+  MAP_INK,
+  contrastRatio,
   CLUSTER_HUE_SPREAD,
   DOMAIN_HUES,
   FAMILY_COLOURS,
@@ -322,5 +326,47 @@ describe('label boxes', () => {
     const above = labelAbove({ x: 0, y: 0 }, 40, 10);
     expect(above.y2).toBeLessThanOrEqual(4);
     expect(above.y1).toBeLessThan(-10);
+  });
+});
+
+describe('cream map palette (A92, light theme)', () => {
+  const domains = [...Object.keys(DOMAIN_HUES), 'some-new-domain'];
+
+  it('keeps the dark palette as the default', () => {
+    for (const d of domains) expect(domainColour(d, 'dark')).toBe(domainColour(d));
+    for (const c of Object.keys(CLUSTER_DOMAIN))
+      expect(clusterColour(c, undefined, 'dark')).toBe(clusterColour(c));
+  });
+
+  it('gives domain colours text contrast (AA) on cream', () => {
+    for (const d of domains)
+      expect(contrastRatio(domainColour(d, 'light'), CREAM)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('gives cluster shades and family colours 3:1 on cream (non-text contrast)', () => {
+    for (const c of Object.keys(CLUSTER_DOMAIN))
+      expect(contrastRatio(clusterColour(c, undefined, 'light'), CREAM)).toBeGreaterThanOrEqual(3);
+    for (const hex of Object.values(FAMILY_COLOURS_LIGHT))
+      expect(contrastRatio(hex, CREAM)).toBeGreaterThanOrEqual(3);
+  });
+
+  it('keeps map text legible on its background in both themes', () => {
+    expect(contrastRatio(MAP_INK.light.label, CREAM)).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio(MAP_INK.light.tick, CREAM)).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio(MAP_INK.dark.label, '#0a0a0a')).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio(MAP_INK.dark.tick, '#0a0a0a')).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('paints nodes, legends and edges from the cream palette when asked', () => {
+    const n = { domain: ['security', 'cs'], cluster: 'controls' };
+    expect(nodePaint(n, 'light')).toEqual({
+      fill: clusterColour('controls', 'security', 'light'),
+      ring: domainColour('cs', 'light'),
+    });
+    expect(legendDomains([n], 'light')[0].colour).toBe(domainColour('security', 'light'));
+    const other = { domain: ['ai'], cluster: 'llm' };
+    const p = edgePaint({ type: 'requires', family: 'dependency' }, n, other, 'light');
+    expect(p.colour).toBe(FAMILY_COLOURS_LIGHT.dependency);
+    expect(p.gradient?.[0]).toBe(domainColour('security', 'light'));
   });
 });

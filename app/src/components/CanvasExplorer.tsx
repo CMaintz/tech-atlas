@@ -1009,7 +1009,7 @@ export default function CanvasExplorer(props: Props) {
         <button class={pill(false)} onClick={resetView}>
           {t.fit}
         </button>
-        <a class="text-xs text-amber-300 hover:underline" href={props.explorerUrl}>
+        <a class="text-xs text-accent hover:underline" href={props.explorerUrl}>
           {t.compare}
         </a>
       </div>

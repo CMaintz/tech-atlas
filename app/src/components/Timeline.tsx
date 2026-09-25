@@ -709,7 +709,7 @@ export default function Timeline(props: Props) {
           </p>
           {selItem.summary && <p class="mb-3 text-fg-soft">{selItem.summary}</p>}
           <div class="flex items-center justify-between">
-            <a class="text-amber-400 hover:underline" href={selItem.href}>
+            <a class="text-accent hover:underline" href={selItem.href}>
               {text.openTerm} →
             </a>
             {sel.pinned && (

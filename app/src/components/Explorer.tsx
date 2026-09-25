@@ -405,6 +405,7 @@ export default function Explorer(props: Props) {
   const closePanel = useCallback(() => setSelected(null), []);
   const allDomains = [...new Set((graph?.nodes ?? []).flatMap((n) => n.domain))];
   const allFamilies = Object.keys(props.familyColours);
+  const famColours: Dict = familyColours(theme);
   // The legend lists only enabled domains; re-homed shared terms wear their domain colour.
   const legendNodes = (visible?.nodes ?? [])
     .filter((n) => effectiveHome(n, domains) === homeDomain(n))
@@ -576,7 +577,7 @@ export default function Explorer(props: Props) {
               checked={families.has(f)}
               onChange={() => toggle(families, f, setFamilies)}
             />
-            <span class="inline-block h-0.5 w-4" style={{ background: props.familyColours[f] }} />
+            <span class="inline-block h-0.5 w-4" style={{ background: famColours[f] }} />
             {props.familyLabels[f] ?? f}
           </label>
         ))}
@@ -811,7 +812,7 @@ export default function Explorer(props: Props) {
           <GraphLegend
             nodes={legendNodes}
             families={allFamilies.filter((f) => families.has(f))}
-            familyColours={familyColours(theme)}
+            familyColours={famColours}
             theme={theme}
             familyLabels={props.familyLabels}
             domainLabels={props.domainLabels}
