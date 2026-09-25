@@ -1,0 +1,323 @@
+questions:
+  - id: llm-caseworker-invented-ruling
+    terms:
+      - ai/hallucination
+      - ai/next-token-prediction
+      - ai/large-language-model
+    kind: scenario
+    stem:
+      en: >-
+        A caseworker at a Danish municipality asks a general chat assistant for a ruling
+        from the National Social Appeals Board to back up a memo. The assistant answers
+        at once with a case number, a date and a neat summary. A colleague checks the
+        board's database: no such ruling exists. What best explains why the assistant
+        produced it?
+      da: >-
+        En sagsbehandler i en kommune beder en almindelig chatassistent om en afgørelse
+        fra Ankestyrelsen, som kan underbygge et notat. Assistenten svarer straks med et
+        sagsnummer, en dato og et pænt resumé. En kollega slår op i Ankestyrelsens
+        database: afgørelsen findes ikke. Hvad forklarer bedst, at assistenten fandt på
+        den?
+    options:
+      - en: It found the ruling in a public database that had since been altered by an attacker
+        da: Den fandt afgørelsen i en offentlig database, som en angriber siden havde ændret
+      - en: The ruling was newer than its training data, so the model deleted the real details
+        da: Afgørelsen var nyere end dens træningsdata, så modellen slettede de rigtige detaljer
+      - en: It writes the most plausible-sounding text from learned patterns, not checked facts
+        da: Den skriver den mest sandsynligt klingende tekst ud fra lærte mønstre, ikke tjekkede fakta
+      - en: The chat grew too long, so the real case number fell outside what the model could see
+        da: Chatten blev for lang, så det rigtige sagsnummer røg ud af det, modellen kunne se
+    answer: 2
+    explanation:
+      en: >-
+        A language model produces text by predicting likely next tokens; that can give
+        true statements, but it can just as easily give a well-formed case number and
+        summary that fit the pattern of real rulings without any of them existing. NIST
+        calls this confabulation and notes that it includes made-up citations, delivered
+        with the same confidence as true content. A plain chat assistant does not look
+        anything up in a database, so a hacked source is not the explanation. A knowledge
+        cutoff makes a model ignorant of later events; it does not delete facts. And a
+        fresh question in a short chat is not a context-window problem.
+      da: >-
+        En sprogmodel skriver tekst ved at forudsige sandsynlige næste tokens; det kan
+        give sande udsagn, men lige så vel et velformet sagsnummer og resumé, der ligner
+        rigtige afgørelser, uden at noget af det findes. NIST kalder det konfabulering og
+        nævner, at det også omfatter opdigtede kildehenvisninger, fremført lige så sikkert
+        som korrekt indhold. En almindelig chatassistent slår ikke op i en database, så en
+        hacket kilde er ikke forklaringen. En vidensgrænse betyder, at modellen ikke kender
+        senere begivenheder; den sletter ikke fakta. Og et nyt spørgsmål i en kort chat er
+        ikke et problem med kontekstvinduet.
+    difficulty: 1
+    sources:
+      - title: NIST AI 600-1, Artificial Intelligence Risk Management Framework — Generative Artificial Intelligence Profile (2.2 Confabulation)
+        url: https://doi.org/10.6028/NIST.AI.600-1
+        tier: standard
+      - title: Anthropic documentation — Reduce hallucinations
+        url: https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations
+        tier: official-doc
+    draft: true
+
+  - id: llm-rag-for-internal-guidelines
+    terms:
+      - ai/retrieval-augmented-generation
+      - ai/hallucination
+      - ai/fine-tuning
+    kind: scenario
+    stem:
+      en: >-
+        A Danish region wants an internal assistant that answers staff questions about
+        the region's own guidelines, which are revised several times a year. Early tests
+        show the assistant sometimes invents rules that sound right. Which design most
+        directly reduces this and lets staff check each answer?
+      da: >-
+        En region vil have en intern assistent, der besvarer medarbejdernes spørgsmål om
+        regionens egne retningslinjer, som revideres flere gange om året. De første test
+        viser, at assistenten nogle gange opfinder regler, der lyder rigtige. Hvilket
+        design mindsker det mest direkte og lader medarbejderne tjekke hvert svar?
+    options:
+      - en: Train the model once more on all current guidelines so it knows them by heart
+        da: Træn modellen én gang til på alle gældende retningslinjer, så den kan dem udenad
+      - en: Fetch relevant guideline passages per question; have it answer and cite from them
+        da: Hent relevante afsnit af retningslinjerne pr. spørgsmål; lad den svare og citere ud fra dem
+      - en: Raise the temperature so the model weighs more possible answers before it replies
+        da: Hæv temperaturen, så modellen overvejer flere mulige svar, før den svarer
+      - en: Add a line to the system prompt telling the model it must never be wrong
+        da: Tilføj en linje i systemprompten om, at modellen aldrig må tage fejl
+    answer: 1
+    explanation:
+      en: >-
+        Retrieval-augmented generation looks up passages from the region's own documents
+        at question time and puts them in the prompt, so the answer is grounded in the
+        current text and can point to its source; Anthropic's guidance on reducing
+        hallucinations likewise recommends answering only from supplied documents,
+        citing quotes and allowing "I don't know". Fine-tuning changes how the model
+        writes but gives no source to check, and would go stale with every revision.
+        Higher temperature makes output more varied, not more accurate. A "never be
+        wrong" instruction does not give the model knowledge it lacks.
+      da: >-
+        Retrieval-augmented generation slår op i regionens egne dokumenter, når
+        spørgsmålet stilles, og lægger afsnittene ind i prompten, så svaret bygger på den
+        gældende tekst og kan henvise til sin kilde; Anthropics vejledning om at mindske
+        hallucinationer anbefaler ligeledes kun at svare ud fra de givne dokumenter, citere
+        og tillade "det ved jeg ikke". Finjustering ændrer, hvordan modellen skriver, men
+        giver ingen kilde at tjekke og ville være forældet ved hver revision. Højere
+        temperatur gør output mere varieret, ikke mere korrekt. En instruks om aldrig at
+        tage fejl giver ikke modellen viden, den mangler.
+    difficulty: 2
+    sources:
+      - title: Lewis et al. (2020), Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
+        url: https://arxiv.org/abs/2005.11401
+        tier: reference
+      - title: Anthropic documentation — Glossary (RAG, fine-tuning, temperature)
+        url: https://platform.claude.com/docs/en/about-claude/glossary
+        tier: official-doc
+      - title: Anthropic documentation — Reduce hallucinations
+        url: https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations
+        tier: official-doc
+    draft: true
+
+  - id: llm-tender-too-long
+    terms:
+      - ai/context-window
+      - ai/token
+    kind: scenario
+    stem:
+      en: >-
+        A Danish SMV has built a small tool that sends whole public tender packages to a
+        language model through an API and asks for a summary of the requirements. For
+        the largest package, the API rejects the request with the error "prompt is too
+        long". What is the cause, and what is a sensible fix?
+      da: >-
+        En dansk SMV har bygget et lille værktøj, der sender hele udbudsmaterialer til en
+        sprogmodel via et API og beder om et resumé af kravene. Ved det største materiale
+        afviser API'et forespørgslen med fejlen "prompt is too long". Hvad er årsagen, og
+        hvad er en fornuftig løsning?
+    options:
+      - en: The text exceeds the model's token limit per request; split it or send only relevant parts
+        da: Teksten overskrider modellens grænse for tokens pr. forespørgsel; del den op, eller send kun relevante dele
+      - en: The tender is newer than the model's training data; wait for a model trained on newer text
+        da: Udbuddet er nyere end modellens træningsdata; vent på en model, der er trænet på nyere tekst
+      - en: The temperature is set too high for long input; set it to 0 and send the request again
+        da: Temperaturen er sat for højt til langt input; sæt den til 0, og send forespørgslen igen
+      - en: The model counts pages, not text; merge the files into fewer, larger pages first
+        da: Modellen tæller sider, ikke tekst; saml filerne i færre og større sider først
+    answer: 0
+    explanation:
+      en: >-
+        Everything in a request — instructions, documents and the answer still to be
+        written — must fit inside the model's context window, which is measured in
+        tokens; when the input alone is larger, the API refuses the request. Splitting the
+        material, or retrieving only the sections that matter, keeps each request inside
+        the limit. The knowledge cutoff concerns what the model learned in training, not
+        what you send it now. Temperature changes how tokens are picked, not how many fit.
+        Merging pages changes nothing, because the text still turns into the same tokens.
+      da: >-
+        Alt i en forespørgsel — instrukser, dokumenter og det svar, der endnu skal skrives
+        — skal kunne være i modellens kontekstvindue, som måles i tokens; er input alene
+        større, afviser API'et forespørgslen. Deles materialet op, eller hentes kun de
+        relevante afsnit, holder hver forespørgsel sig inden for grænsen. Vidensgrænsen
+        handler om, hvad modellen lærte under træningen, ikke om det, man sender den nu.
+        Temperaturen ændrer, hvordan tokens vælges, ikke hvor mange der er plads til. At
+        samle sider ændrer intet, for teksten bliver stadig til de samme tokens.
+    difficulty: 2
+    sources:
+      - title: Anthropic documentation — Context windows
+        url: https://platform.claude.com/docs/en/build-with-claude/context-windows
+        tier: official-doc
+      - title: Anthropic documentation — Glossary (context window, tokens)
+        url: https://platform.claude.com/docs/en/about-claude/glossary
+        tier: official-doc
+    draft: true
+
+  - id: llm-hospital-new-vulnerability
+    terms:
+      - ai/knowledge-cutoff
+      - ai/large-language-model
+    kind: scenario
+    stem:
+      en: >-
+        A security analyst at a Danish hospital asks a chat assistant, with no web search
+        turned on, about a serious vulnerability in the hospital's VPN product that was
+        published last week. The assistant replies that no known serious vulnerabilities
+        affect the product and recommends an older version as the latest. What best
+        explains the answer?
+      da: >-
+        En sikkerhedsanalytiker på et dansk hospital spørger en chatassistent uden
+        websøgning om en alvorlig sårbarhed i hospitalets VPN-produkt, som blev offentliggjort
+        i sidste uge. Assistenten svarer, at produktet ikke har kendte alvorlige
+        sårbarheder, og anbefaler en ældre version som den nyeste. Hvad forklarer bedst
+        svaret?
+    options:
+      - en: The question used too many tokens, so the model could not see the product's name
+        da: Spørgsmålet brugte for mange tokens, så modellen ikke kunne se produktets navn
+      - en: The vendor asked AI providers to hide the flaw from chat assistants until it was fixed
+        da: Leverandøren bad AI-udbyderne skjule fejlen for chatassistenter, indtil den var rettet
+      - en: The temperature was too low, so the model repeated old answers instead of new ones
+        da: Temperaturen var for lav, så modellen gentog gamle svar i stedet for nye
+      - en: Its built-in knowledge stops at its training date, so it cannot know last week's news
+        da: Dens indbyggede viden stopper ved træningsdatoen, så den kan ikke kende sidste uges nyheder
+    answer: 3
+    explanation:
+      en: >-
+        A language model only knows what was in its training data, which ends at a cutoff
+        date; providers typically publish this date for each model. Something published last
+        week lies after it, so unless the text is supplied in the prompt or fetched by a
+        search tool, the model cannot know it — and it may fill the gap with an outdated
+        answer delivered confidently. A short question is nowhere near the context-window
+        limit. There is no mechanism by which vendors hide flaws from models. Low
+        temperature makes wording steadier; it does not make the model's knowledge older.
+      da: >-
+        En sprogmodel kender kun det, der var i dens træningsdata, og de slutter ved en
+        vidensgrænse; udbyderne oplyser typisk datoen for hver model. Noget, der blev
+        offentliggjort i sidste uge, ligger efter den, så medmindre teksten gives i
+        prompten eller hentes af et søgeværktøj, kan modellen ikke kende det — og den kan
+        fylde hullet med et forældet svar, fremført med stor sikkerhed. Et kort spørgsmål
+        er langt fra grænsen for kontekstvinduet. Der findes ingen mekanisme, hvor
+        leverandører skjuler fejl for modeller. Lav temperatur gør formuleringen mere
+        stabil; den gør ikke modellens viden ældre.
+    difficulty: 1
+    sources:
+      - title: Anthropic documentation — Models overview (reliable knowledge cutoff, training data cutoff)
+        url: https://platform.claude.com/docs/en/about-claude/models/overview
+        tier: official-doc
+      - title: Anthropic documentation — Glossary (RAG, temperature)
+        url: https://platform.claude.com/docs/en/about-claude/glossary
+        tier: official-doc
+    draft: true
+
+  - id: llm-cpr-in-public-chatbot
+    terms:
+      - security/personal-data
+      - security/gdpr
+      - ai/large-language-model
+    kind: scenario
+    stem:
+      en: >-
+        To save time, a caseworker at a Danish municipality pastes a citizen's full case,
+        including name, CPR number and health details, into a free public chatbot that she
+        uses with her private account, and asks for a draft reply letter. The municipality
+        has no agreement with the chatbot's provider. What is the main problem?
+      da: >-
+        For at spare tid kopierer en sagsbehandler i en kommune en borgers hele sag med
+        navn, CPR-nummer og helbredsoplysninger ind i en gratis offentlig chatbot, som hun
+        bruger med sin private konto, og beder om et udkast til et svarbrev. Kommunen har
+        ingen aftale med chatbottens udbyder. Hvad er det væsentligste problem?
+    options:
+      - en: None, because the chatbot only keeps the text in its context window during the chat
+        da: Intet, for chatbotten beholder kun teksten i sit kontekstvindue, mens chatten varer
+      - en: Personal data goes to a provider with no data processing agreement or control over its use
+        da: Personoplysninger sendes til en udbyder uden databehandleraftale eller kontrol med brugen
+      - en: The only risk is that the draft letter may contain invented facts about the citizen
+        da: Den eneste risiko er, at udkastet til brevet kan indeholde opdigtede fakta om borgeren
+      - en: None, as long as she deletes the chat history as soon as the letter is written
+        da: Intet, så længe hun sletter chathistorikken, så snart brevet er skrevet
+    answer: 1
+    explanation:
+      en: >-
+        The municipality is the controller of the citizen's data. Under GDPR Article 28 a
+        provider that processes personal data on its behalf must give sufficient
+        guarantees and be bound by a contract (a data processing agreement); here there is
+        none, so the data — including sensitive health information — leaves the
+        municipality's control, and the provider's own terms decide storage and any reuse.
+        NIST also lists leakage of personal data as a core generative-AI risk. The context
+        window only describes what the model reads for one answer; it says nothing about
+        what the provider stores. Deleting the chat afterwards does not undo the
+        disclosure. Invented facts are a real risk, but not the main one here.
+      da: >-
+        Kommunen er dataansvarlig for borgerens oplysninger. Efter GDPR artikel 28 skal en
+        udbyder, der behandler personoplysninger på dens vegne, give tilstrækkelige
+        garantier og være bundet af en kontrakt (en databehandleraftale); her er der ingen,
+        så oplysningerne — også de følsomme helbredsoplysninger — forlader kommunens
+        kontrol, og det er udbyderens egne vilkår, der afgør opbevaring og eventuel
+        genbrug. NIST nævner også lækage af personoplysninger som en central risiko ved
+        generativ AI. Kontekstvinduet beskriver kun, hvad modellen læser til ét svar; det
+        siger intet om, hvad udbyderen gemmer. At slette chatten bagefter gør ikke
+        videregivelsen ugjort. Opdigtede fakta er en reel risiko, men ikke den væsentligste
+        her.
+    difficulty: 3
+    sources:
+      - title: GDPR (Regulation (EU) 2016/679), Article 28 — Processor
+        url: https://gdpr-info.eu/art-28-gdpr/
+        tier: reference
+      - title: NIST AI 600-1, Artificial Intelligence Risk Management Framework — Generative Artificial Intelligence Profile (2.4 Data Privacy)
+        url: https://doi.org/10.6028/NIST.AI.600-1
+        tier: standard
+    draft: true
+
+  - id: llm-danish-compound-one-token
+    terms:
+      - ai/token
+      - ai/tokenizer
+    kind: true-false
+    stem:
+      en: >-
+        True or false: a language model reads text word by word, so a long Danish compound
+        such as "sygedagpengelovgivningen" always counts as exactly one token.
+      da: >-
+        Sandt eller falsk: En sprogmodel læser tekst ord for ord, så et langt dansk
+        sammensat ord som "sygedagpengelovgivningen" tæller altid som præcis ét token.
+    options:
+      - en: 'True'
+        da: Sandt
+      - en: 'False'
+        da: Falsk
+    answer: 1
+    explanation:
+      en: >-
+        False. A tokenizer cuts text into tokens that can be whole words, parts of words,
+        single characters or even bytes. Common short words are often one token, while a
+        long or rare compound is usually split into several pieces. That is why token
+        counts — which set both the context-window limit and the price — do not match word
+        counts, and why the number of characters per token varies between languages.
+      da: >-
+        Falsk. En tokenizer deler tekst op i tokens, som kan være hele ord, dele af ord,
+        enkelte tegn eller endda bytes. Almindelige korte ord er ofte ét token, mens et
+        langt eller sjældent sammensat ord som regel deles i flere stykker. Derfor passer
+        antallet af tokens — som både bestemmer grænsen for kontekstvinduet og prisen —
+        ikke med antallet af ord, og antallet af tegn pr. token varierer mellem sprog.
+    difficulty: 1
+    sources:
+      - title: Anthropic documentation — Glossary (tokens)
+        url: https://platform.claude.com/docs/en/about-claude/glossary
+        tier: official-doc
+    draft: true

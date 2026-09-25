@@ -1,0 +1,453 @@
+questions:
+  - id: idn-login-ok-case-refused
+    terms:
+      - cs/authentication
+      - cs/authorization
+      - cs/access-control
+    kind: scenario
+    stem:
+      en: >-
+        A caseworker at a Danish municipality's job centre logs in to the case
+        management system with her username, password and a code from her
+        authenticator app, and her start page opens as normal. When she tries to open a
+        case belonging to the municipality's children and family department, the system
+        replies "You do not have access". What does this tell you?
+      da: >-
+        En sagsbehandler i en dansk kommunes jobcenter logger ind i sagssystemet med
+        brugernavn, adgangskode og en kode fra sin autentificeringsapp, og hendes
+        forside åbner som normalt. Da hun prøver at åbne en sag fra kommunens børne- og
+        familieafdeling, svarer systemet "Du har ikke adgang". Hvad fortæller det dig?
+    options:
+      - en: Her login failed, because the system does not believe she is who she claims
+        da: Hendes login slog fejl, fordi systemet ikke tror, hun er den, hun udgiver sig for
+      - en: Her session timed out while she worked, so she must simply log in again
+        da: Hendes session udløb, mens hun arbejdede, så hun skal blot logge ind igen
+      - en: Her login succeeded, but her permissions do not cover that department's cases
+        da: Hendes login lykkedes, men hendes rettigheder dækker ikke den afdelings sager
+      - en: Her second factor only counts for the start page and must be repeated per case
+        da: Hendes anden faktor gælder kun forsiden og skal gentages for hver enkelt sag
+    answer: 2
+    explanation:
+      en: >-
+        Authentication (proving who you are) and authorisation (deciding what that
+        proven user may do) are separate steps. She got past the login and saw her
+        start page, so authentication worked; the refusal comes afterwards, when the
+        system checks her permissions for this particular case and finds they do not
+        include the children and family department. A failed login or an expired
+        session would stop her before or instead of showing the page, not on one
+        specific case, and a second factor is proof of identity for the login as a
+        whole, not a per-case permission.
+      da: >-
+        Autentificering (at bevise, hvem man er) og autorisation (at afgøre, hvad den
+        identificerede bruger må) er to forskellige trin. Hun kom forbi login og så sin
+        forside, så autentificeringen virkede; afvisningen kommer bagefter, når systemet
+        tjekker hendes rettigheder til netop denne sag og ser, at de ikke omfatter børne-
+        og familieafdelingen. Et mislykket login eller en udløbet session ville stoppe
+        hende før eller i stedet for forsiden, ikke ved én bestemt sag, og en anden
+        faktor beviser identiteten for hele login, ikke en rettighed pr. sag.
+    difficulty: 1
+    sources:
+      - title: NIST SP 800-63B-4 — Digital Identity Guidelines, Authentication and Authenticator Management
+        url: https://pages.nist.gov/800-63-4/sp800-63b.html
+        tier: standard
+      - title: OASIS — Security Assertion Markup Language (SAML) V2.0 Technical Overview
+        url: https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html
+        tier: standard
+    draft: true
+
+  - id: idn-which-login-is-two-factor
+    terms:
+      - security/mfa
+      - security/authentication-factor
+      - cs/credential
+      - cs/password
+    kind: scenario
+    stem:
+      en: >-
+        A Danish SME wants to protect its bookkeeping system with genuine two-factor
+        authentication. The IT consultant presents four login designs. Which one
+        actually combines two different factor categories?
+      da: >-
+        En dansk SMV vil beskytte sit bogføringssystem med ægte tofaktorgodkendelse.
+        It-konsulenten fremlægger fire login-løsninger. Hvilken af dem kombinerer
+        faktisk to forskellige kategorier af faktorer?
+    options:
+      - en: A password plus the answer to a security question such as "Your first car?"
+        da: En adgangskode plus svaret på et kontrolspørgsmål som "Din første bil?"
+      - en: A password plus a one-time code from an app on the employee's company phone
+        da: En adgangskode plus en engangskode fra en app på medarbejderens firmatelefon
+      - en: A password plus the employee's CPR number typed in on a second screen
+        da: En adgangskode plus medarbejderens CPR-nummer indtastet på en ekstra side
+      - en: A long password that must be changed every 30 days, with lockout after 5 tries
+        da: En lang adgangskode, der skiftes hver 30. dag, med spærring efter 5 forsøg
+    answer: 1
+    explanation:
+      en: >-
+        Multi-factor authentication needs two distinct factors: something you know,
+        something you have, something you are. The password is something you know, and
+        a code generated by an app on a registered phone proves possession of that
+        phone, something you have. A security question and a CPR number are just more
+        things you know (and a CPR number is hardly secret), so they add a second step
+        but not a second factor. Password
+        rotation and lockout make guessing harder but still rely on one knowledge
+        factor.
+      da: >-
+        Multifaktorgodkendelse kræver to forskellige faktorer: noget, du ved, noget, du
+        har, og noget, du er. Adgangskoden er noget, du ved, og en kode fra en app på en
+        registreret telefon beviser, at du har telefonen – noget, du har. Et
+        kontrolspørgsmål og et CPR-nummer er blot flere ting, du ved (og et CPR-nummer
+        er næppe hemmeligt), så de tilføjer et ekstra trin, men ikke en ekstra faktor.
+        Skift af adgangskode og spærring gør
+        gætteri sværere, men bygger stadig på én vidensfaktor.
+    difficulty: 1
+    sources:
+      - title: NIST SP 800-63B-4 — Digital Identity Guidelines, Authentication and Authenticator Management
+        url: https://pages.nist.gov/800-63-4/sp800-63b.html
+        tier: standard
+    draft: true
+
+  - id: idn-relay-phishing-passkey
+    terms:
+      - cs/passkey
+      - security/phishing
+      - security/mfa
+      - cs/authentication
+    kind: scenario
+    stem:
+      en: >-
+        An employee in a Danish region clicks a link in an email and lands on a
+        convincing copy of the Microsoft 365 login page on a look-alike domain. Behind
+        the page the attacker passes everything she enters on to the real login page in
+        real time and takes over her signed-in session. Which login method would have
+        stopped the attacker even though she was fooled?
+      da: >-
+        En medarbejder i en dansk region klikker på et link i en mail og havner på en
+        overbevisende kopi af Microsoft 365's loginside på et domæne, der ligner det
+        rigtige. Bag siden sender angriberen alt, hvad hun indtaster, videre til den
+        rigtige loginside i realtid og overtager hendes indloggede session. Hvilken
+        loginmetode ville have stoppet angriberen, selv om hun blev narret?
+    options:
+      - en: A longer, more complex password that is changed every 90 days
+        da: En længere og mere kompleks adgangskode, der skiftes hver 90. dag
+      - en: A one-time code sent by SMS to her work phone at each login
+        da: En engangskode sendt som sms til hendes arbejdstelefon ved hvert login
+      - en: A six-digit code from an authenticator app on her work phone
+        da: En sekscifret kode fra en autentificeringsapp på hendes arbejdstelefon
+      - en: A passkey (FIDO2/WebAuthn) stored on her work phone or laptop
+        da: En passkey (FIDO2/WebAuthn) gemt på hendes arbejdstelefon eller pc
+    answer: 3
+    explanation:
+      en: >-
+        A passkey is bound to the real site: WebAuthn scopes each credential to the
+        relying party's identifier and signs the requesting origin into every
+        response, so her device will not produce a valid login for the look-alike
+        domain, however convinced she is. NIST calls this phishing resistance. SMS
+        codes and authenticator-app codes are real second factors, but they are values
+        she can read and type in, so the fake page simply relays them; NIST states
+        that OTP and out-of-band codes are not phishing-resistant. A stronger password
+        is relayed just as easily.
+      da: >-
+        En passkey er bundet til det rigtige websted: WebAuthn knytter hver credential
+        til tjenestens identifikator og signerer den anmodende oprindelse (origin) med i
+        hvert svar, så hendes enhed ikke laver et gyldigt login til det falske domæne,
+        uanset hvor overbevist hun er. NIST kalder det phishing-resistens. Sms-koder og
+        koder fra en autentificeringsapp er ægte andenfaktorer, men de er værdier, hun
+        kan læse og taste ind, så den falske side sender dem bare videre; NIST skriver,
+        at engangskoder og out-of-band-koder ikke er phishing-resistente. En stærkere
+        adgangskode videresendes lige så let.
+    difficulty: 3
+    sources:
+      - title: W3C Web Authentication (WebAuthn) Level 2
+        url: https://www.w3.org/TR/webauthn-2/
+        tier: standard
+      - title: FIDO Alliance — Passkeys
+        url: https://fidoalliance.org/passkeys/
+        tier: official-doc
+      - title: NIST SP 800-63B-4 — Digital Identity Guidelines, Authentication and Authenticator Management
+        url: https://pages.nist.gov/800-63-4/sp800-63b.html
+        tier: standard
+    draft: true
+
+  - id: idn-access-token-is-not-login
+    terms:
+      - cs/oauth
+      - cs/openid-connect
+      - cs/authentication
+      - cs/authorization
+    kind: compare
+    stem:
+      en: >-
+        A developer at a Danish fintech is building a "Sign in with Microsoft" button.
+        She plans to treat the OAuth 2.0 access token the app receives as proof that the
+        user has logged in, and to identify the user from it. What is the best advice?
+      da: >-
+        En udvikler i en dansk fintech bygger en "Log ind med Microsoft"-knap. Hun vil
+        bruge det OAuth 2.0-access token, appen modtager, som bevis på, at brugeren er
+        logget ind, og identificere brugeren ud fra det. Hvad er det bedste råd?
+    options:
+      - en: Use OpenID Connect, whose ID token states who logged in; OAuth 2.0 only grants access
+        da: Brug OpenID Connect, hvis ID-token siger, hvem der loggede ind; OAuth 2.0 giver kun adgang
+      - en: Keep the plan, as an OAuth 2.0 access token is itself a signed statement of identity
+        da: Behold planen, for et OAuth 2.0-access token er i sig selv en signeret identitetserklæring
+      - en: Switch to SAML, because OAuth 2.0 cannot be used by web applications at all
+        da: Skift til SAML, fordi OAuth 2.0 slet ikke kan bruges af webapplikationer
+      - en: Keep OAuth 2.0 but also ask for the Microsoft password so the app can check it
+        da: Behold OAuth 2.0, men bed også om Microsoft-adgangskoden, så appen selv kan tjekke den
+    answer: 0
+    explanation:
+      en: >-
+        OAuth 2.0 is a framework for delegated authorisation: it issues access tokens
+        that let an app use resources, but it defines no standard way to tell the app
+        who the user is or that they were authenticated. OpenID Connect is an identity
+        layer on top of OAuth 2.0 that adds the ID token, a signed statement about the
+        user's authentication. SAML would also work for login, but the claim that OAuth
+        cannot serve web apps is false. Asking for the password defeats the purpose of
+        OAuth, which exists so that apps never handle the user's password.
+      da: >-
+        OAuth 2.0 er et framework til delegeret autorisation: det udsteder access
+        tokens, som lader en app bruge ressourcer, men definerer ingen standard for at
+        fortælle appen, hvem brugeren er, eller at vedkommende er autentificeret.
+        OpenID Connect er et identitetslag oven på OAuth 2.0, som tilføjer ID-tokenet,
+        en signeret erklæring om brugerens autentificering. SAML kunne også bruges til
+        login, men påstanden om, at OAuth ikke kan bruges af webapps, er forkert. At
+        bede om adgangskoden undergraver hele formålet med OAuth, som netop findes, så
+        apps aldrig skal håndtere brugerens adgangskode.
+    difficulty: 3
+    sources:
+      - title: OpenID Connect Core 1.0
+        url: https://openid.net/specs/openid-connect-core-1_0.html
+        tier: standard
+      - title: RFC 6749 — The OAuth 2.0 Authorization Framework
+        url: https://www.rfc-editor.org/rfc/rfc6749
+        tier: standard
+    draft: true
+
+  - id: idn-mover-keeps-payroll-access
+    terms:
+      - cs/least-privilege
+      - cs/role-based-access-control
+      - security/access-management
+    kind: scenario
+    stem:
+      en: >-
+        An employee at a Danish municipality moves from the payroll office to citizen
+        services. IT gives her the citizen-services role on her first day in the new
+        job. Six months later an access review shows that she can still approve salary
+        payments. How should this be judged?
+      da: >-
+        En medarbejder i en dansk kommune skifter fra lønkontoret til Borgerservice.
+        It giver hende rollen til Borgerservice på første dag i det nye job. Et halvt år
+        senere viser en gennemgang af adgange, at hun stadig kan godkende
+        lønudbetalinger. Hvordan skal det vurderes?
+    options:
+      - en: It is acceptable as long as the logs show she has never used the payroll access
+        da: Det er i orden, så længe loggen viser, at hun aldrig har brugt lønadgangen
+      - en: She should have had admin rights so she could remove her own old roles
+        da: Hun burde have haft administratorrettigheder, så hun selv kunne fjerne gamle roller
+      - en: The payroll role is best kept permanently as a backup for holiday cover
+        da: Lønrollen bør helst beholdes permanent som reserve ved ferieafløsning
+      - en: Least privilege is broken; the payroll role should have gone when she moved
+        da: Mindste privilegium er brudt; lønrollen burde være fjernet, da hun skiftede
+    answer: 3
+    explanation:
+      en: >-
+        Least privilege means a user has only the access her current tasks need, and
+        in citizen services she has no need to approve salaries. A transfer should
+        trigger account management (NIST SP 800-53 AC-2 names transfers explicitly), so
+        the "mover" step must remove the old role, not only add the new one; with
+        role-based access control that is a simple swap of roles. Unused access is
+        still a risk if her account is compromised, holiday cover should be granted
+        deliberately and time-limited, and admin rights would widen her access even
+        further.
+      da: >-
+        Mindste privilegium betyder, at en bruger kun har den adgang, hendes nuværende
+        opgaver kræver, og i Borgerservice har hun ikke brug for at godkende løn. Et
+        jobskifte skal udløse en ændring af kontoen (NIST SP 800-53 AC-2 nævner
+        forflyttelser direkte), så "mover"-trinnet skal fjerne den gamle rolle, ikke
+        kun tilføje den nye; med rollebaseret adgangskontrol er det blot et skift af
+        roller. Ubrugt adgang er stadig en risiko, hvis kontoen bliver kompromitteret,
+        ferieafløsning bør tildeles bevidst og tidsbegrænset, og administratorrettigheder
+        ville gøre hendes adgang endnu bredere.
+    difficulty: 2
+    sources:
+      - title: NIST SP 800-53 Rev. 5 — AC-6 Least Privilege (CSF Tools)
+        url: https://csf.tools/reference/nist-sp-800-53/r5/ac/ac-6/
+        tier: reference
+      - title: NIST SP 800-53 Rev. 5 — AC-2 Account Management (CSF Tools)
+        url: https://csf.tools/reference/nist-sp-800-53/r5/ac/ac-2/
+        tier: reference
+    draft: true
+
+  - id: idn-blocked-on-private-pc
+    terms:
+      - cs/conditional-access
+      - cs/identity-provider
+      - cs/authentication
+    kind: scenario
+    stem:
+      en: >-
+        A doctor at a Danish regional hospital opens the patient record system from her
+        hospital PC every day without problems. One evening she tries from her private
+        laptop at home: she types the correct password and approves the MFA request on
+        her phone, yet the region's Microsoft Entra sign-in still refuses her access.
+        What is the most likely explanation?
+      da: >-
+        En læge på et dansk regionshospital åbner hver dag patientjournalsystemet fra sin
+        hospitals-pc uden problemer. En aften prøver hun fra sin private bærbare derhjemme:
+        Hun taster den rigtige adgangskode og godkender MFA-anmodningen på telefonen,
+        men regionens Microsoft Entra-login afviser hende alligevel. Hvad er den mest
+        sandsynlige forklaring?
+    options:
+      - en: A policy checked after she proved who she was requires a region-managed device
+        da: En politik, der tjekkes efter hun har bevist, hvem hun er, kræver en regionsstyret enhed
+      - en: Her password must have been wrong, as access is only refused when login fails
+        da: Hendes adgangskode må have været forkert, for adgang afvises kun, når login fejler
+      - en: Her role does not include the patient record system, so she lacks the permission
+        da: Hendes rolle omfatter ikke patientjournalsystemet, så hun mangler rettigheden
+      - en: Her MFA approval expired, because approvals only work on the hospital network
+        da: Hendes MFA-godkendelse udløb, fordi godkendelser kun virker på hospitalets net
+    answer: 0
+    explanation:
+      en: >-
+        Microsoft Entra Conditional Access is enforced after first-factor
+        authentication and weighs signals such as user, location, device and
+        application; a common policy is to require an organisation-managed (compliant)
+        device for specific applications. She proved her identity, but her private
+        laptop fails the device condition, so access is blocked. The password was
+        evidently accepted, and her role cannot be the problem because the same system
+        opens fine from her hospital PC. MFA approvals are not tied to the hospital
+        network; the difference between the two attempts is the device.
+      da: >-
+        Betinget adgang (Conditional Access) i Microsoft Entra håndhæves efter
+        førstefaktor-autentificeringen og vejer signaler som bruger, placering, enhed og
+        applikation; en almindelig politik er at kræve en organisationsstyret
+        (compliant) enhed til bestemte applikationer. Hun beviste sin identitet, men
+        hendes private bærbare opfylder ikke enhedskravet, så adgangen blokeres.
+        Adgangskoden blev tydeligvis godtaget, og hendes rolle kan ikke være problemet,
+        for samme system åbner fint fra hospitals-pc'en. MFA-godkendelser er ikke bundet
+        til hospitalets net; forskellen på de to forsøg er enheden.
+    difficulty: 2
+    sources:
+      - title: Microsoft Learn — Microsoft Entra Conditional Access overview
+        url: https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview
+        tier: official-doc
+    draft: true
+
+  - id: idn-saml-sso-flow-order
+    terms:
+      - cs/saml
+      - cs/single-sign-on
+      - cs/identity-provider
+      - cs/session
+    kind: order
+    stem:
+      en: >-
+        A Danish region connects its web-based rostering system to the region's identity
+        provider with SAML. An employee who is not yet logged in opens the rostering
+        system in her browser. In which order does the login happen?
+      da: >-
+        En dansk region kobler sit webbaserede vagtplansystem til regionens
+        identitetsudbyder med SAML. En medarbejder, der endnu ikke er logget ind, åbner
+        vagtplansystemet i sin browser. I hvilken rækkefølge foregår selve login?
+    options:
+      - en: >-
+          User opens app → Identity provider checks login → App sends request to identity
+          provider → App creates session → Identity provider sends signed assertion
+        da: >-
+          Brugeren åbner appen → Identitetsudbyderen tjekker login → Appen sender
+          anmodning til identitetsudbyderen → Appen opretter session →
+          Identitetsudbyderen sender signeret assertion
+      - en: >-
+          App redirects browser to identity provider → User opens app → Identity provider
+          sends signed assertion → Identity provider checks login → App creates session
+        da: >-
+          Appen sender browseren til identitetsudbyderen → Brugeren åbner appen →
+          Identitetsudbyderen sender signeret assertion → Identitetsudbyderen tjekker
+          login → Appen opretter session
+      - en: >-
+          User opens app → App redirects browser to identity provider → Identity provider
+          checks login → Identity provider sends signed assertion → App creates session
+        da: >-
+          Brugeren åbner appen → Appen sender browseren til identitetsudbyderen →
+          Identitetsudbyderen tjekker login → Identitetsudbyderen sender signeret
+          assertion → Appen opretter session
+      - en: >-
+          User opens app → App asks for the password → App forwards it to identity
+          provider → Identity provider sends signed assertion → App creates session
+        da: >-
+          Brugeren åbner appen → Appen beder om adgangskoden → Appen sender den til
+          identitetsudbyderen → Identitetsudbyderen sender signeret assertion → Appen
+          opretter session
+    answer: 2
+    explanation:
+      en: >-
+        In SAML's SP-initiated web browser SSO the app (service provider) is contacted
+        first, finds no session and redirects the browser to the identity provider with
+        an authentication request. The identity provider checks the user's login (or an
+        existing login session), builds a digitally signed assertion and sends it back
+        through the browser; the app validates the signature and sets up its own
+        session. The app never asks for or sees the password, and the assertion cannot
+        come before the login check or the session before the assertion.
+      da: >-
+        Ved SAML's SP-initierede web-SSO kontaktes appen (tjenesteudbyderen) først;
+        den finder ingen session og sender browseren videre til identitetsudbyderen med
+        en autentificeringsanmodning. Identitetsudbyderen tjekker brugerens login
+        (eller en eksisterende loginsession), danner en digitalt signeret assertion og
+        sender den tilbage via browseren; appen validerer signaturen og opretter sin
+        egen session. Appen beder aldrig om eller ser adgangskoden, og assertion kan
+        ikke komme før login-tjekket, ligesom sessionen ikke kan komme før assertion.
+    difficulty: 2
+    sources:
+      - title: OASIS — Security Assertion Markup Language (SAML) V2.0 Technical Overview
+        url: https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html
+        tier: standard
+    draft: true
+
+  - id: idn-federated-sso-no-password-to-apps
+    terms:
+      - cs/single-sign-on
+      - cs/identity-provider
+      - cs/federation
+    kind: true-false
+    stem:
+      en: >-
+        A Danish municipality has connected 30 cloud applications to its identity
+        provider with federation-based single sign-on (SAML or OpenID Connect). True or
+        false: each of these applications therefore receives the employee's password
+        and checks it against its own user database.
+      da: >-
+        En dansk kommune har koblet 30 cloud-applikationer til sin identitetsudbyder med
+        føderationsbaseret single sign-on (SAML eller OpenID Connect). Sandt eller
+        falsk: Hver af disse applikationer modtager derfor medarbejderens adgangskode og
+        tjekker den mod sin egen brugerdatabase.
+    options:
+      - en: 'True'
+        da: Sandt
+      - en: 'False'
+        da: Falsk
+    answer: 1
+    explanation:
+      en: >-
+        False. With federation-based SSO the employee signs in only at the identity
+        provider, which verifies her and then vouches for her to each application with
+        a signed assertion or token. The applications trust that statement and no
+        longer manage separate usernames and passwords. (Microsoft Entra also offers a
+        "password-based SSO" that stores and replays passwords for apps that cannot
+        federate, but that is not SAML or OpenID Connect.)
+      da: >-
+        Falsk. Ved føderationsbaseret SSO logger medarbejderen kun ind hos
+        identitetsudbyderen, som verificerer hende og derefter går i god for hende over
+        for hver applikation med en signeret assertion eller et token. Applikationerne
+        stoler på den erklæring og håndterer ikke længere egne brugernavne og
+        adgangskoder. (Microsoft Entra har også en "adgangskodebaseret SSO", som gemmer
+        og genafspiller adgangskoder til apps, der ikke kan føderere, men det er ikke
+        SAML eller OpenID Connect.)
+    difficulty: 1
+    sources:
+      - title: Microsoft Learn — What is single sign-on in Microsoft Entra ID?
+        url: https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/what-is-single-sign-on
+        tier: official-doc
+      - title: OASIS — Security Assertion Markup Language (SAML) V2.0 Technical Overview
+        url: https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html
+        tier: standard
+    draft: true

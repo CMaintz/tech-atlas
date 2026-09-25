@@ -1,0 +1,434 @@
+questions:
+  - id: ctl-screening-theme
+    terms:
+      - security/people-control
+      - security/organisational-control
+      - security/iso-27002
+    kind: scenario
+    stem:
+      en: >-
+        Before new system administrators start at a Danish region, HR must now check
+        their references, verify their qualifications and obtain a criminal record
+        certificate. The region maps its measures to the four themes of ISO/IEC
+        27002:2022. Which theme does this pre-employment check belong to?
+      da: >-
+        Før nye systemadministratorer starter i en dansk region, skal HR nu tjekke
+        deres referencer, kontrollere deres kvalifikationer og indhente en
+        straffeattest. Regionen placerer sine foranstaltninger i de fire temaer i
+        ISO/IEC 27002:2022. Hvilket tema hører denne kontrol før ansættelsen til?
+    options:
+      - en: Organisational control
+        da: Organisatorisk kontrol
+      - en: People control
+        da: Menneskelig kontrol
+      - en: Physical control
+        da: Fysisk kontrol
+      - en: Technological control
+        da: Teknologisk kontrol
+    answer: 1
+    explanation:
+      en: >-
+        ISO/IEC 27002:2022 groups its 93 controls into four themes, and screening of
+        candidates before they join is control 6.1 in the people theme (8 controls),
+        alongside terms of employment, awareness training and the leaving process. It
+        is tempting to call it organisational because HR runs a process, but the
+        organisational theme covers policies, roles, suppliers and incident handling
+        rather than measures aimed at the staff themselves. Nothing here is a lock,
+        fence or badge reader (physical), and no system enforces it automatically
+        (technological).
+      da: >-
+        ISO/IEC 27002:2022 samler sine 93 kontroller i fire temaer, og screening af
+        kandidater før ansættelsen er kontrol 6.1 i temaet for mennesker (8
+        kontroller) sammen med ansættelsesvilkår, awareness-træning og processen, når
+        nogen stopper. Det er fristende at kalde den organisatorisk, fordi HR kører en
+        proces, men det organisatoriske tema dækker politikker, roller, leverandører
+        og hændelseshåndtering frem for tiltag rettet mod medarbejderne selv. Der er
+        ingen lås, hegn eller kortlæser (fysisk), og intet system håndhæver den
+        automatisk (teknologisk).
+    difficulty: 1
+    sources:
+      - title: ISMS.online — ISO 27002:2022 overview (themes and control counts)
+        url: https://www.isms.online/iso-27002/
+        tier: reference
+      - title: ISMS.online — ISO 27002:2022 Control 6.1 Screening
+        url: https://www.isms.online/iso-27002/control-6-1-screening/
+        tier: reference
+      - title: Cyber Security Fast Track — kursuskompendium
+        tier: course-material
+    draft: true
+
+  - id: ctl-control-type-mapping
+    terms:
+      - security/control
+      - security/mfa
+      - security/intrusion-detection-system
+      - security/backup
+    kind: scenario
+    stem:
+      en: >-
+        A Danish water utility introduces three measures: (1) MFA on all remote
+        access, (2) an IDS that alerts the SOC about suspicious traffic but blocks
+        nothing, and (3) a routine for restoring servers from backup after an
+        incident. Using the "control type" attribute from ISO/IEC 27002:2022, how
+        should the three measures be classified?
+      da: >-
+        Et dansk forsyningsselskab indfører tre tiltag: (1) MFA på al fjernadgang,
+        (2) et IDS, der advarer SOC'en om mistænkelig trafik, men ikke blokerer noget,
+        og (3) en rutine for at genskabe servere fra backup efter en hændelse. Hvordan
+        skal de tre tiltag klassificeres efter attributten "control type" i ISO/IEC
+        27002:2022?
+    options:
+      - en: (1) preventive, (2) corrective, (3) detective
+        da: (1) forebyggende, (2) korrigerende, (3) detekterende
+      - en: (1) detective, (2) preventive, (3) corrective
+        da: (1) detekterende, (2) forebyggende, (3) korrigerende
+      - en: (1) preventive, (2) detective, (3) corrective
+        da: (1) forebyggende, (2) detekterende, (3) korrigerende
+      - en: (1) corrective, (2) detective, (3) preventive
+        da: (1) korrigerende, (2) detekterende, (3) forebyggende
+    answer: 2
+    explanation:
+      en: >-
+        ISO/IEC 27002:2022 tags each control with a control type: preventive (stops
+        an incident happening), detective (reveals that one is happening) or
+        corrective (limits the damage and restores afterwards). MFA stops an attacker
+        with a stolen password from getting in, so it is preventive, like control 8.5
+        Secure authentication. An IDS only watches and warns, so it is detective — an
+        IPS that blocks traffic would lean towards preventive. Restoring from backup
+        repairs the damage after the fact, which is why control 8.13 Information
+        backup is tagged corrective, not preventive.
+      da: >-
+        ISO/IEC 27002:2022 mærker hver kontrol med en kontroltype: forebyggende
+        (forhindrer, at en hændelse sker), detekterende (afslører, at den sker) eller
+        korrigerende (begrænser skaden og genopretter bagefter). MFA forhindrer en
+        angriber med en stjålet adgangskode i at komme ind og er derfor forebyggende,
+        ligesom kontrol 8.5 om sikker autentificering. Et IDS overvåger og advarer
+        kun og er derfor detekterende — et IPS, der blokerer trafik, ville ligge
+        nærmere forebyggende. Genskabelse fra backup reparerer skaden bagefter, og
+        derfor er kontrol 8.13 om backup mærket korrigerende, ikke forebyggende.
+    difficulty: 3
+    sources:
+      - title: ISMS.online — ISO 27002:2022 Control 8.13 Information Backup
+        url: https://www.isms.online/iso-27002/control-8-13-information-backup/
+        tier: reference
+      - title: ISMS.online — ISO 27002:2022 Control 8.5 Secure Authentication
+        url: https://www.isms.online/iso-27002/control-8-5-secure-authentication/
+        tier: reference
+      - title: NIST CSRC Glossary — intrusion detection system
+        url: https://csrc.nist.gov/glossary/term/intrusion_detection_system
+        tier: official-doc
+    draft: true
+
+  - id: ctl-ransomware-offline-backup
+    terms:
+      - security/backup
+      - security/ransomware
+    kind: scenario
+    stem:
+      en: >-
+        A Danish manufacturing SME backs up every night to a NAS in the same server
+        room, which is mounted as a network drive on the file server. During a
+        ransomware attack both the file server and the NAS were encrypted, so nothing
+        could be restored. Which change best addresses this weakness?
+      da: >-
+        En dansk produktionsvirksomhed tager hver nat backup til en NAS i samme
+        serverrum, og NAS'en er tilknyttet filserveren som netværksdrev. Under et
+        ransomwareangreb blev både filserveren og NAS'en krypteret, så intet kunne
+        genskabes. Hvilken ændring løser bedst denne svaghed?
+    options:
+      - en: Back up to the same NAS every hour instead of every night
+        da: Tage backup til den samme NAS hver time i stedet for hver nat
+      - en: Mirror the NAS disks with RAID 1 so a copy always exists
+        da: Spejle NAS'ens diske med RAID 1, så der altid findes en kopi
+      - en: Scan the backup files with antivirus once a week
+        da: Scanne backupfilerne med antivirus en gang om ugen
+      - en: Keep a copy offline or immutable, and test restores regularly
+        da: Holde en kopi offline eller uforanderlig og teste genskabelse jævnligt
+    answer: 3
+    explanation:
+      en: >-
+        CISA's ransomware guide advises offline, encrypted backups that are tested
+        regularly, because many ransomware variants look for reachable backups and
+        delete or encrypt them; immutable storage achieves the same protection
+        without a separate environment. Backing up more often to the same connected
+        NAS only means more copies that the attacker can also encrypt. RAID 1 mirrors
+        every change instantly, including the encryption, so it protects against a
+        failed disk, not against malware. Antivirus scans may spot known malware but
+        do nothing to stop an attacker with access to the network drive from
+        encrypting it.
+      da: >-
+        CISA's vejledning om ransomware anbefaler offline, krypterede backupkopier,
+        der testes jævnligt, fordi mange ransomwarevarianter leder efter
+        tilgængelige backupper og sletter eller krypterer dem; uforanderlig
+        (immutable) lagring giver samme beskyttelse uden et separat miljø. Hyppigere
+        backup til den samme tilkoblede NAS giver bare flere kopier, som angriberen
+        også kan kryptere. RAID 1 spejler hver ændring med det samme, også
+        krypteringen, så det beskytter mod en defekt disk, ikke mod malware. En
+        antivirusscanning kan finde kendt malware, men forhindrer ikke en angriber
+        med adgang til netværksdrevet i at kryptere det.
+    difficulty: 2
+    sources:
+      - title: CISA — #StopRansomware Guide
+        url: https://www.cisa.gov/stopransomware/ransomware-guide
+        tier: official-doc
+      - title: ISMS.online — ISO 27002:2022 Control 8.13 Information Backup
+        url: https://www.isms.online/iso-27002/control-8-13-information-backup/
+        tier: reference
+    draft: true
+
+  - id: ctl-3-2-1-backup-rule
+    terms:
+      - security/backup
+    kind: concept
+    stem:
+      en: >-
+        An IT consultant recommends that a small accounting firm follow the 3-2-1
+        rule for its backups. What does the rule ask for?
+      da: >-
+        En it-konsulent anbefaler, at et lille revisionsfirma følger 3-2-1-reglen for
+        sin backup. Hvad kræver reglen?
+    options:
+      - en: Three copies of the data, on two types of media, one of them offsite
+        da: Tre kopier af data på to typer medier, hvoraf én ligger uden for huset
+      - en: Three backups a day, kept for two weeks, plus one monthly full backup
+        da: Tre backupper om dagen, gemt i to uger, plus én fuld backup om måneden
+      - en: Three copies in the cloud, with two providers, one of them encrypted
+        da: Tre kopier i skyen hos to udbydere, hvoraf én er krypteret
+      - en: Three backup generations, two restore tests a year, one copy offline
+        da: Tre backupgenerationer, to genskabelsestest om året og én kopi offline
+    answer: 0
+    explanation:
+      en: >-
+        The 3-2-1 rule, as described in the US-CERT paper Data Backup Options, means
+        keeping three copies of any important file (the original and two backups),
+        on two different types of media to guard against different hazards, with one
+        copy stored offsite. It says nothing about how often to back up or how long
+        to keep copies, so the "three a day" option confuses it with a retention
+        schedule. Putting all copies in the cloud gives up the separate media, and
+        restore tests, though important, are not what the numbers stand for.
+      da: >-
+        3-2-1-reglen, som den beskrives i US-CERT-publikationen Data Backup Options,
+        betyder, at man har tre kopier af enhver vigtig fil (originalen og to
+        backupper) på to forskellige typer medier for at beskytte mod forskellige
+        farer, og at én kopi opbevares et andet sted. Den siger intet om, hvor ofte
+        der tages backup, eller hvor længe kopier gemmes, så "tre om dagen" blander
+        den sammen med en opbevaringsplan. Lægger man alle kopier i skyen, mister man
+        de forskellige medier, og genskabelsestest er vigtige, men er ikke det, tallene
+        står for.
+    difficulty: 1
+    sources:
+      - title: US-CERT — Data Backup Options (Ruggiero & Heckathorn, 2012)
+        url: https://www.cisa.gov/sites/default/files/publications/data_backup_options.pdf
+        tier: official-doc
+    draft: true
+
+  - id: ctl-cis-ig1-small-company
+    terms:
+      - security/cis-controls
+    kind: scenario
+    stem:
+      en: >-
+        A Danish SME in Odense has 20 employees, one part-time IT person and no
+        security team. Management wants to use the CIS Controls v8 to get started.
+        What is the most sensible starting point?
+      da: >-
+        En dansk SMV i Odense har 20 ansatte, én deltids-it-medarbejder og intet
+        sikkerhedsteam. Ledelsen vil bruge CIS Controls v8 til at komme i gang. Hvad
+        er det mest fornuftige udgangspunkt?
+    options:
+      - en: Implement Implementation Group 3 so every safeguard is covered at once
+        da: Indføre Implementation Group 3, så alle safeguards er dækket med det samme
+      - en: Order an external penetration test before introducing any other control
+        da: Bestille en ekstern penetrationstest, før andre kontroller indføres
+      - en: Start with the Implementation Group 1 safeguards, the basic cyber hygiene
+        da: Starte med safeguards i Implementation Group 1, den basale cyberhygiejne
+      - en: Pick the cheapest safeguard from each of the 18 controls to begin with
+        da: Vælge den billigste safeguard fra hver af de 18 kontroller til at begynde med
+    answer: 2
+    explanation:
+      en: >-
+        CIS describes Implementation Group 1 (56 safeguards) as essential cyber
+        hygiene for small and medium-sized enterprises with limited IT and security
+        expertise, aimed at the most common, non-targeted attacks. The groups are
+        cumulative: IG3 includes all 153 safeguards and assumes security specialists
+        the company does not have. A penetration test checks defences that are
+        already in place, so without the basics it mostly confirms obvious gaps.
+        Choosing by price ignores the CIS prioritisation, which is the whole point of
+        the implementation groups.
+      da: >-
+        CIS beskriver Implementation Group 1 (56 safeguards) som basal cyberhygiejne
+        for små og mellemstore virksomheder med begrænset it- og sikkerhedsekspertise,
+        rettet mod de mest almindelige, ikke-målrettede angreb. Grupperne bygger oven
+        på hinanden: IG3 omfatter alle 153 safeguards og forudsætter
+        sikkerhedsspecialister, som virksomheden ikke har. En penetrationstest afprøver
+        forsvar, der allerede er på plads, så uden det grundlæggende bekræfter den
+        mest åbenlyse huller. At vælge efter pris ignorerer CIS' prioritering, som er
+        hele idéen med implementation groups.
+    difficulty: 2
+    sources:
+      - title: CIS — Implementation Group 1 (IG1)
+        url: https://www.cisecurity.org/controls/implementation-groups/ig1
+        tier: official-doc
+      - title: CIS — CIS Controls Implementation Groups
+        url: https://www.cisecurity.org/controls/implementation-groups
+        tier: official-doc
+      - title: Cyber Security Fast Track — kursuskompendium
+        tier: course-material
+    draft: true
+
+  - id: ctl-mfa-after-phishing
+    terms:
+      - security/mfa
+      - security/phishing
+      - security/authentication-factor
+    kind: scenario
+    stem:
+      en: >-
+        At a Danish bank, several employees have typed their password into a fake
+        login page from a phishing email. Shortly after, attackers logged into their
+        webmail from abroad using the correct passwords. Which measure would most
+        directly have stopped these logins?
+      da: >-
+        I en dansk bank har flere medarbejdere tastet deres adgangskode ind på en
+        falsk loginside fra en phishingmail. Kort efter loggede angribere ind på
+        deres webmail fra udlandet med de korrekte adgangskoder. Hvilket tiltag ville
+        mest direkte have stoppet disse login?
+    options:
+      - en: Requiring a second factor, such as app approval, on webmail logins
+        da: At kræve en ekstra faktor, fx godkendelse i en app, ved login på webmail
+      - en: Requiring 16-character passwords that are changed every 90 days
+        da: At kræve adgangskoder på 16 tegn, der skiftes hver 90. dag
+      - en: Installing up-to-date antivirus on all the employees' computers
+        da: At installere opdateret antivirus på alle medarbejdernes computere
+      - en: Placing an IDS that monitors traffic to and from the mail server
+        da: At placere et IDS, der overvåger trafikken til og fra mailserveren
+    answer: 0
+    explanation:
+      en: >-
+        The attackers already had the correct passwords, so only a check that does
+        not depend on the password could stop them: MFA makes access harder even
+        when passwords are phished, as CISA points out. A longer or more frequently
+        changed password is still just as easy to type into a fake page, and the
+        attacker uses it straight away, long before 90 days pass. Antivirus protects
+        the employees' PCs but does nothing when the attacker logs in from their own
+        machine. An IDS might raise an alert, but it only detects — it does not
+        prevent the login.
+      da: >-
+        Angriberne havde allerede de korrekte adgangskoder, så kun en kontrol, der
+        ikke afhænger af adgangskoden, kunne stoppe dem: MFA gør adgang sværere, selv
+        når adgangskoder er fisket, som CISA påpeger. En længere eller oftere skiftet
+        adgangskode er lige så let at taste ind på en falsk side, og angriberen
+        bruger den med det samme, længe før der er gået 90 dage. Antivirus beskytter
+        medarbejdernes pc'er, men hjælper ikke, når angriberen logger ind fra sin egen
+        maskine. Et IDS kan måske give en alarm, men det opdager kun — det forhindrer
+        ikke login.
+    difficulty: 2
+    sources:
+      - title: CISA — More than a Password (multifactor authentication)
+        url: https://www.cisa.gov/MFA
+        tier: official-doc
+      - title: ISMS.online — ISO 27002:2022 Control 8.5 Secure Authentication
+        url: https://www.isms.online/iso-27002/control-8-5-secure-authentication/
+        tier: reference
+    draft: true
+
+  - id: ctl-pentest-vs-scanning
+    terms:
+      - security/penetration-test
+      - security/vulnerability-scanning
+      - security/vulnerability-assessment
+    kind: compare
+    stem:
+      en: >-
+        A Danish region already runs a weekly automated check that lists known
+        weaknesses on its servers. Management now wants to know whether an outsider
+        could actually chain several of those weaknesses together to reach patient
+        data, with testers acting as attackers under agreed rules. What should the
+        region order?
+      da: >-
+        En dansk region kører allerede hver uge et automatisk tjek, der oplister
+        kendte svagheder på dens servere. Ledelsen vil nu vide, om en udefrakommende
+        faktisk kunne kæde flere af svaghederne sammen og nå frem til
+        patientdata, med testere, der optræder som angribere efter aftalte regler.
+        Hvad skal regionen bestille?
+    options:
+      - en: A vulnerability scan with a broader list of checks
+        da: En sårbarhedsscanning med en bredere liste af tjek
+      - en: A penetration test
+        da: En penetrationstest
+      - en: A vulnerability assessment of the scan report
+        da: En sårbarhedsvurdering af scanningsrapporten
+      - en: A SIEM that collects logs from the servers
+        da: Et SIEM, der samler logs fra serverne
+    answer: 1
+    explanation:
+      en: >-
+        NIST defines penetration testing as testing in which evaluators mimic
+        real-world attacks to find ways around a system's security features, often
+        by combining vulnerabilities to gain access that no single flaw would give.
+        Vulnerability scanning, which the region already does, only identifies hosts
+        and their known weaknesses; a broader scan still does not try to exploit
+        them. A vulnerability assessment ranks the findings but does not show whether
+        they can be chained in practice. A SIEM watches for attacks as they happen
+        rather than testing whether one would succeed.
+      da: >-
+        NIST definerer penetrationstest som test, hvor testerne efterligner
+        virkelige angreb for at finde veje uden om et systems sikkerhedsfunktioner,
+        ofte ved at kombinere sårbarheder og opnå adgang, som ingen enkelt fejl ville
+        give. Sårbarhedsscanning, som regionen allerede laver, finder kun maskiner og
+        deres kendte svagheder; en bredere scanning forsøger stadig ikke at udnytte
+        dem. En sårbarhedsvurdering prioriterer fundene, men viser ikke, om de kan
+        kædes sammen i praksis. Et SIEM holder øje med angreb, mens de sker, i stedet
+        for at teste, om et angreb ville lykkes.
+    difficulty: 2
+    sources:
+      - title: NIST CSRC Glossary — penetration testing
+        url: https://csrc.nist.gov/glossary/term/penetration_testing
+        tier: official-doc
+      - title: NIST CSRC Glossary — vulnerability scanning
+        url: https://csrc.nist.gov/glossary/term/vulnerability_scanning
+        tier: official-doc
+    draft: true
+
+  - id: ctl-zero-trust-inside-network
+    terms:
+      - security/zero-trust
+      - security/lateral-movement
+    kind: true-false
+    stem:
+      en: >-
+        True or false? In a Zero Trust design at a Danish hospital, a PC plugged into
+        the internal network may open the patient record system without further
+        checks, because being on the internal network shows it can be trusted.
+      da: >-
+        Sandt eller falsk? I et Zero Trust-design på et dansk hospital må en pc, der
+        er sat i det interne netværk, åbne patientjournalsystemet uden yderligere
+        kontrol, fordi dens placering på det interne netværk viser, at den kan
+        betros.
+    options:
+      - en: 'True'
+        da: Sandt
+      - en: 'False'
+        da: Falsk
+    answer: 1
+    explanation:
+      en: >-
+        False. NIST SP 800-207 states that Zero Trust grants no implicit trust to
+        assets or user accounts based solely on their physical or network location;
+        each access request is authenticated and authorised before a session is
+        opened. Trusting everything inside the network is exactly the perimeter model
+        Zero Trust replaces, and it lets an attacker who takes over one PC move
+        freely to other systems.
+      da: >-
+        Falsk. NIST SP 800-207 slår fast, at Zero Trust ikke giver nogen implicit
+        tillid til enheder eller brugerkonti alene på grund af deres fysiske
+        placering eller netværksplacering; hver anmodning om adgang autentificeres og
+        autoriseres, før der åbnes en session. At stole på alt inden for netværket er
+        netop den perimetermodel, som Zero Trust afløser, og den lader en angriber,
+        der overtager én pc, bevæge sig frit videre til andre systemer.
+    difficulty: 1
+    sources:
+      - title: NIST SP 800-207 — Zero Trust Architecture
+        url: https://csrc.nist.gov/pubs/sp/800/207/final
+        tier: standard
+    draft: true

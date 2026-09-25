@@ -1,0 +1,279 @@
+questions:
+  - id: cd-delivery-vs-deployment
+    terms:
+      - platform/ci-cd
+      - platform/pipeline
+    kind: compare
+    stem:
+      en: >-
+        At a Danish bank, every change a developer merges is built, tested and
+        packaged automatically, and each resulting version could be put into
+        production at any moment. A product owner still decides when a version
+        actually goes live. Which practice does this describe?
+      da: >-
+        I en dansk bank bliver hver ændring, en udvikler fletter ind, automatisk
+        bygget, testet og pakket, og hver version, der kommer ud af det, kunne sættes i
+        produktion når som helst. En product owner bestemmer dog stadig, hvornår en
+        version faktisk går i luften. Hvilken praksis beskriver det?
+    options:
+      - en: Continuous integration only
+        da: Kun continuous integration
+      - en: Continuous delivery
+        da: Continuous delivery
+      - en: Continuous deployment
+        da: Continuous deployment
+      - en: GitOps
+        da: GitOps
+    answer: 1
+    explanation:
+      en: >-
+        Martin Fowler defines continuous delivery as building software so that it can
+        be released to production at any time, while the organisation may choose not
+        to release every version — here the product owner decides. Continuous
+        deployment goes one step further: every change that passes the pipeline goes
+        into production automatically, with no one pressing a button. Continuous
+        integration alone means merging and testing changes often; it does not by
+        itself keep every build ready for release. GitOps is about agents keeping the
+        live system in line with a declared state in version control, which the
+        scenario does not mention.
+      da: >-
+        Martin Fowler definerer continuous delivery som at bygge software, så den kan
+        sættes i produktion når som helst, mens organisationen kan vælge ikke at
+        frigive hver version — her er det product owneren, der bestemmer.
+        Continuous deployment går et skridt videre: Hver ændring, der kommer gennem
+        pipelinen, går automatisk i produktion, uden at nogen trykker på en knap.
+        Continuous integration alene betyder, at ændringer flettes og testes ofte; det
+        sørger ikke i sig selv for, at hver build er klar til frigivelse. GitOps
+        handler om, at agenter holder det kørende system i overensstemmelse med en
+        erklæret tilstand i versionsstyring, og det nævner scenariet ikke.
+    difficulty: 2
+    sources:
+      - title: Martin Fowler — ContinuousDelivery (bliki)
+        url: https://martinfowler.com/bliki/ContinuousDelivery.html
+        tier: reference
+      - title: OpenGitOps — GitOps principles
+        url: https://opengitops.dev/
+        tier: reference
+    draft: true
+  - id: cd-blue-green-instant-switch
+    terms:
+      - platform/ci-cd
+      - platform/pipeline
+    kind: scenario
+    stem:
+      en: >-
+        Before Christmas, a Danish web shop must release a new version of the whole
+        shop. Management wants every customer moved to the new version at the same
+        moment, without a period where some see the old shop and some the new, and, if
+        it fails, everyone back on the old version within seconds. Which release
+        technique fits best?
+      da: >-
+        Inden jul skal en dansk webshop sætte en ny version af hele butikken i drift.
+        Ledelsen vil have alle kunder flyttet til den nye version på samme tid, uden en
+        periode hvor nogle ser den gamle butik og andre den nye, og hvis det går galt,
+        skal alle være tilbage på den gamle version i løbet af sekunder. Hvilken
+        udrulningsteknik passer bedst?
+    options:
+      - en: Canary release, moving 5 % of customers first and then gradually more
+        da: Canary release, hvor 5 % af kunderne flyttes først og siden gradvist flere
+      - en: Installing the new version on the live servers at night, with a backup ready
+        da: At installere den nye version på de kørende servere om natten med en backup klar
+      - en: Continuous deployment, where every commit goes to production automatically
+        da: Continuous deployment, hvor hver commit automatisk går i produktion
+      - en: Blue-green deployment, with two identical environments and a switch between
+        da: Blue-green deployment med to ens miljøer og et skift mellem dem
+    answer: 3
+    explanation:
+      en: >-
+        In a blue-green deployment the new version is installed and tested in an idle
+        copy of production; then the router is switched so all requests go to it at
+        once, and if anything goes wrong it is switched back to the old environment.
+        A canary release deliberately runs both versions side by side, moving a small
+        share of users first — the opposite of what management asked for, though its
+        rollback is also quick. Installing over the live servers means going back
+        requires a slow reinstall or restore, not seconds. Continuous deployment says
+        how often changes reach production, not how a single risky release is switched
+        over and rolled back.
+      da: >-
+        Ved blue-green deployment installeres og testes den nye version i en ledig
+        kopi af produktionsmiljøet; derefter skiftes routeren, så alle forespørgsler går
+        dertil på én gang, og hvis noget går galt, skiftes der tilbage til det gamle
+        miljø. En canary release kører bevidst begge versioner side om side og flytter
+        en lille del af brugerne først — det modsatte af, hvad ledelsen bad om, selv om
+        den også kan rulles hurtigt tilbage. Installeres der oven i de kørende servere,
+        kræver vejen tilbage en langsom geninstallation eller gendannelse, ikke
+        sekunder. Continuous deployment siger, hvor ofte ændringer når produktion, ikke
+        hvordan én risikabel udgivelse skiftes over og rulles tilbage.
+    difficulty: 2
+    sources:
+      - title: Martin Fowler — BlueGreenDeployment (bliki)
+        url: https://martinfowler.com/bliki/BlueGreenDeployment.html
+        tier: reference
+      - title: martinfowler.com — CanaryRelease (bliki)
+        url: https://martinfowler.com/bliki/CanaryRelease.html
+        tier: reference
+    draft: true
+  - id: cd-committed-key-rotate
+    terms:
+      - platform/secrets-management
+      - platform/version-control
+      - platform/pipeline
+    kind: scenario
+    stem:
+      en: >-
+        A developer at a Danish web shop committed the API key for the shop's payment
+        provider in a pipeline configuration file and pushed it to the company's Git
+        repository. An hour later she notices and deletes the key in a new commit. Is
+        that enough?
+      da: >-
+        En udvikler i en dansk webshop har committet API-nøglen til butikkens
+        betalingsudbyder i en konfigurationsfil til pipelinen og skubbet den til
+        virksomhedens Git-repository. En time senere opdager hun det og sletter nøglen i
+        en ny commit. Er det nok?
+    options:
+      - en: No — revoke and replace the key, and have the pipeline fetch it from a secrets store
+        da: Nej — spær og udskift nøglen, og lad pipelinen hente den fra et secrets-lager
+      - en: Yes — once the file is changed, the key is gone from the repository
+        da: Ja — når filen er rettet, er nøglen væk fra repositoryet
+      - en: No — rewrite the repository's history to remove it; the key itself can stay
+        da: Nej — omskriv repositoryets historik, så den forsvinder; selve nøglen kan blive
+      - en: Yes, as long as the repository is private and only employees can read it
+        da: Ja, så længe repositoryet er privat, og kun medarbejdere kan læse det
+    answer: 0
+    explanation:
+      en: >-
+        OWASP's CI/CD risk on credential hygiene points out that a secret pushed to a
+        repository is exposed to everyone with read access, and even when deleted from
+        the branch it stays in the commit history. The key must therefore be treated
+        as leaked: revoke and replace it, and let the pipeline receive secrets at run
+        time from a managed store, scoped to the steps that need them. Rewriting
+        history is a clean-up, but copies may already exist in clones and logs, so the
+        old key must still be retired. A private repository still exposes the key to
+        every employee, contractor and tool with access.
+      da: >-
+        OWASP's CI/CD-risiko om håndtering af legitimationsoplysninger påpeger, at en
+        hemmelighed, der er skubbet til et repository, er synlig for alle med
+        læseadgang, og at den stadig ligger i commit-historikken, selv om den slettes
+        fra grenen. Nøglen skal derfor betragtes som lækket: Spær og udskift den, og
+        lad pipelinen få hemmeligheder under kørslen fra et administreret lager,
+        afgrænset til de trin, der har brug for dem. At omskrive historikken er
+        oprydning, men der kan allerede ligge kopier i kloner og logs, så den gamle
+        nøgle skal stadig skiftes ud. Et privat repository viser stadig nøglen til alle
+        medarbejdere, konsulenter og værktøjer med adgang.
+    difficulty: 2
+    sources:
+      - title: OWASP Top 10 CI/CD Security Risks — CICD-SEC-6 Insufficient Credential Hygiene
+        url: https://raw.githubusercontent.com/OWASP/www-project-top-10-ci-cd-security-risks/main/CICD-SEC-06-Insufficient-Credential-Hygiene.md
+        tier: reference
+    draft: true
+  - id: cd-iac-snowflake-servers
+    terms:
+      - platform/infrastructure-as-code
+      - platform/version-control
+    kind: scenario
+    stem:
+      en: >-
+        A Danish municipality's test and production servers have been set up by hand
+        over many years. Before a release, an application works in test but fails in
+        production, and a comparison finds dozens of small, undocumented differences
+        between the two. Which approach would best prevent this in future?
+      da: >-
+        En dansk kommunes test- og produktionsservere er gennem mange år sat op i
+        hånden. Før en udgivelse virker en applikation i test, men fejler i
+        produktion, og en sammenligning finder snesevis af små, udokumenterede
+        forskelle mellem de to. Hvilken tilgang vil bedst forhindre det fremover?
+    options:
+      - en: A detailed wiki page for each server, updated whenever someone changes it
+        da: En udførlig wikiside for hver server, som opdateres, når nogen ændrer den
+      - en: Letting one senior administrator make every change, so all are done the same way
+        da: At lade én erfaren administrator lave alle ændringer, så de altid laves på samme måde
+      - en: Describing the servers in version-controlled files that a tool applies to both
+        da: At beskrive serverne i versionsstyrede filer, som et værktøj anvender på begge
+      - en: Copying a backup of production over test before each release
+        da: At lægge en backup af produktion ind over test før hver udgivelse
+    answer: 2
+    explanation:
+      en: >-
+        This is infrastructure as code: servers and networks are defined in files that
+        a tool applies, and the files are kept in version control, so both
+        environments are built from the same definition and every change is recorded
+        and can be reviewed. Martin Fowler names ending "snowflake servers" with
+        drifting settings as a main benefit. A wiki page depends on people remembering
+        to update it and cannot make two servers equal. One trusted administrator is
+        still doing it by hand, and is a single point of failure. Copying production
+        over test would put real citizen data into the test environment and still
+        leave the settings undescribed.
+      da: >-
+        Det er infrastructure as code: Servere og netværk defineres i filer, som et
+        værktøj anvender, og filerne ligger i versionsstyring, så begge miljøer bygges
+        ud fra samme beskrivelse, og hver ændring registreres og kan gennemgås. Martin
+        Fowler fremhæver, at man slipper for "snowflake servers" med indstillinger, der
+        glider fra hinanden. En wikiside afhænger af, at folk husker at opdatere den, og
+        kan ikke gøre to servere ens. Én betroet administrator arbejder stadig i hånden
+        og bliver et enkelt svagt punkt. At kopiere produktion over test ville lægge
+        rigtige borgerdata ind i testmiljøet og stadig efterlade indstillingerne
+        ubeskrevne.
+    difficulty: 1
+    sources:
+      - title: Martin Fowler — InfrastructureAsCode (bliki)
+        url: https://martinfowler.com/bliki/InfrastructureAsCode.html
+        tier: reference
+    draft: true
+  - id: cd-sbom-new-vulnerability
+    terms:
+      - platform/sbom
+      - platform/software-supply-chain
+      - platform/software-composition-analysis
+    kind: scenario
+    stem:
+      en: >-
+        A Danish software house delivers a case-management product to 30
+        municipalities. A critical vulnerability is announced in a widely used
+        open-source logging library, and the municipalities ask whether their version
+        of the product is affected. What would let the company answer fastest and
+        most reliably?
+      da: >-
+        Et dansk softwarehus leverer et sagsbehandlingsprodukt til 30 kommuner. Der
+        bliver offentliggjort en kritisk sårbarhed i et udbredt open source-bibliotek
+        til logning, og kommunerne spørger, om deres version af produktet er ramt. Hvad
+        ville give virksomheden det hurtigste og mest pålidelige svar?
+    options:
+      - en: A penetration test of the whole product, already booked with a supplier for next month
+        da: En penetrationstest af hele produktet, som allerede er bestilt hos en leverandør til næste måned
+      - en: An up-to-date list of every component and version in each release
+        da: En opdateret liste over alle komponenter og versioner i hver udgivelse
+      - en: Code signatures on every release, proving who built it
+        da: Kodesignaturer på hver udgivelse, der beviser, hvem der byggede den
+      - en: The pipeline's record of passed unit tests for each release
+        da: Pipelinens oversigt over beståede enhedstest for hver udgivelse
+    answer: 1
+    explanation:
+      en: >-
+        That list is a software bill of materials. NTIA describes an SBOM as a formal
+        record of the components used to build software and their supply-chain
+        relationships, and says that in vulnerability management it helps producers
+        and operators assess the risk of a newly uncovered vulnerability more quickly
+        and accurately — here, by looking up whether the library and version appear in
+        each municipality's release. A penetration test next month is far too slow and
+        may miss a library that is present but not reachable in the test. Code
+        signatures prove origin and integrity, not contents. Passed unit tests say
+        nothing about which third-party versions were included.
+      da: >-
+        Den liste er en softwarestykliste (SBOM). NTIA beskriver en SBOM som en formel
+        fortegnelse over de komponenter, software er bygget af, og deres forbindelser i
+        forsyningskæden, og skriver, at den i sårbarhedsstyring hjælper producenter og
+        driftsansvarlige med at vurdere risikoen ved en nyopdaget sårbarhed hurtigere
+        og mere præcist — her ved at slå op, om biblioteket og versionen findes i hver
+        kommunes udgivelse. En penetrationstest næste måned er alt for langsom og kan
+        overse et bibliotek, der er med, men ikke rammes i testen. Kodesignaturer
+        beviser oprindelse og integritet, ikke indhold. Beståede enhedstest siger intet
+        om, hvilke tredjepartsversioner der er med.
+    difficulty: 2
+    sources:
+      - title: NTIA — The Minimum Elements For a Software Bill of Materials (SBOM), 2021
+        url: https://www.ntia.gov/files/ntia/publications/sbom_minimum_elements_report.pdf
+        tier: official-doc
+      - title: CISA — Software Bill of Materials (SBOM)
+        url: https://www.cisa.gov/sbom
+        tier: official-doc
+    draft: true

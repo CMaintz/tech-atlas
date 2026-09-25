@@ -1,0 +1,445 @@
+questions:
+  - id: aw-spear-phishing-region-hr
+    terms:
+      - security/spear-phishing
+      - security/phishing
+      - security/social-engineering
+    kind: scenario
+    stem:
+      en: >-
+        An HR consultant in a Danish region receives an email that greets her by
+        name, mentions her manager and the recruitment round her team is running
+        right now, and asks her to open an attached "final list of candidates". The
+        sender address looks like a colleague's, but one letter is wrong. Which kind
+        of attack is this most likely to be?
+      da: >-
+        En HR-konsulent i en region får en mail, der hilser på hende ved navn, nævner
+        hendes chef og den rekrutteringsrunde, hendes team kører lige nu, og beder
+        hende åbne en vedhæftet "endelig kandidatliste". Afsenderadressen ligner en
+        kollegas, men ét bogstav er forkert. Hvilken type angreb er der mest
+        sandsynligt tale om?
+    options:
+      - en: Generic phishing, because it arrives by email with an attachment
+        da: Almindelig phishing, fordi den kommer som mail med en vedhæftet fil
+      - en: Spear phishing, because it is tailored to her and her team
+        da: Spear phishing, fordi den er skræddersyet til hende og hendes team
+      - en: Smishing, because it tries to make her act on a short request
+        da: Smishing, fordi den prøver at få hende til at handle på en kort besked
+      - en: Vishing, because it plays on her trust in a known colleague
+        da: Vishing, fordi den spiller på hendes tillid til en kendt kollega
+    answer: 1
+    explanation:
+      en: >-
+        The message uses details about her, her manager and a real, ongoing task to
+        look like it comes from someone she knows — that tailoring is what makes it
+        spear phishing rather than a mass mailing. Generic phishing is sent in bulk
+        with the same text to many people, so it would not know about her team's
+        recruitment round. Smishing is phishing by text message, and vishing is done
+        over a phone or voice call; the channel here is email, so neither fits, even
+        though all of them play on trust and short requests.
+      da: >-
+        Beskeden bruger oplysninger om hende, hendes chef og en reel, igangværende
+        opgave for at se ud, som om den kommer fra en, hun kender — den tilpasning er
+        netop det, der gør det til spear phishing frem for en masseudsendelse.
+        Almindelig phishing sendes bredt med samme tekst til mange, så den ville ikke
+        kende til teamets rekrutteringsrunde. Smishing er phishing via sms, og vishing
+        foregår over telefon eller taleopkald; her er kanalen mail, så ingen af dem
+        passer, selv om de alle spiller på tillid og korte beskeder.
+    difficulty: 1
+    sources:
+      - title: 'NCSC — Phishing attacks: defending your organisation'
+        url: https://www.ncsc.gov.uk/guidance/phishing
+        tier: official-doc
+      - title: CISA — Avoiding Social Engineering and Phishing Attacks
+        url: https://www.cisa.gov/news-events/news/avoiding-social-engineering-and-phishing-attacks
+        tier: official-doc
+      - title: Cyber Security Fast Track — kursuskompendium
+        tier: course-material
+    draft: true
+
+  - id: aw-ceo-fraud-call-known-number
+    terms:
+      - security/business-email-compromise
+      - security/social-engineering
+    kind: scenario
+    stem:
+      en: >-
+        The bookkeeper at a Danish SME gets an email from the managing director, who
+        is on holiday: a confidential company purchase must be paid today to an
+        account abroad, and she must not discuss it with anyone. The sender address
+        is the director's usual one. What should she do before any money is
+        transferred?
+      da: >-
+        Bogholderen i en dansk SMV får en mail fra direktøren, som er på ferie: Et
+        fortroligt opkøb skal betales i dag til en konto i udlandet, og hun må ikke
+        tale med nogen om det. Afsenderadressen er direktørens sædvanlige. Hvad bør hun
+        gøre, før der overføres penge?
+    options:
+      - en: Reply to the email and ask the director to confirm the payment
+        da: Svare på mailen og bede direktøren bekræfte betalingen
+      - en: Pay it, since the address is the director's own and looks genuine
+        da: Betale, da adressen er direktørens egen og ser ægte ud
+      - en: Call the director on the number she already has, not one in the mail
+        da: Ringe til direktøren på det nummer, hun har i forvejen, ikke et fra mailen
+      - en: Pay it, but ask the bank to watch the transfer afterwards
+        da: Betale, men bede banken holde øje med overførslen bagefter
+    answer: 2
+    explanation:
+      en: >-
+        This is the classic pattern of CEO fraud: authority, urgency, secrecy and a
+        transfer abroad while the boss is away. The request must be checked through a
+        second, independent channel — a call to a number she already knows. Replying
+        to the mail does not help, because the reply goes to whoever controls the
+        conversation. A correct sender address proves little, since the director's
+        mailbox may itself have been taken over. Paying first and involving the bank
+        later means relying on getting the money back, which often fails once it has
+        left the country.
+      da: >-
+        Det er det klassiske mønster i direktørsvindel: autoritet, hast, hemmelighed og
+        en overførsel til udlandet, mens chefen er væk. Anmodningen skal tjekkes via en
+        anden, uafhængig kanal — et opkald til et nummer, hun allerede kender. At svare
+        på mailen hjælper ikke, for svaret går til den, der styrer samtalen. En korrekt
+        afsenderadresse beviser ikke meget, da direktørens postkasse selv kan være
+        overtaget. At betale først og inddrage banken bagefter betyder, at man satser
+        på at få pengene tilbage, hvilket ofte slår fejl, når de først har forladt
+        landet.
+    difficulty: 1
+    sources:
+      - title: Sikkerdigital.dk — CEO-fraud (direktørsvindel)
+        url: https://sikkerdigital.dk/virksomhed/hvad-truer-din-virksomhed/ceo-fraud
+        tier: official-doc
+      - title: 'FBI IC3 — Business Email Compromise: The $50 Billion Scam (PSA230609)'
+        url: https://www.ic3.gov/PSA/2023/PSA230609
+        tier: official-doc
+      - title: NCSC — How to spot a scam email, text message or call
+        url: https://www.ncsc.gov.uk/collection/phishing-scams/spot-scams
+        tier: official-doc
+    draft: true
+
+  - id: aw-clicked-link-report-at-once
+    terms:
+      - security/phishing
+      - security/security-culture
+      - security/human-firewall
+    kind: scenario
+    stem:
+      en: >-
+        A caseworker in a municipality clicks a link in a mail about a "shared
+        document", types her username and password on the page that opens, and then
+        realises the page was fake. She is embarrassed. What is the best thing for
+        her to do now?
+      da: >-
+        En sagsbehandler i en kommune klikker på et link i en mail om et "delt
+        dokument", taster sit brugernavn og sin adgangskode på den side, der åbner, og
+        opdager så, at siden var falsk. Hun er flov over det. Hvad er det bedste, hun
+        kan gøre nu?
+    options:
+      - en: Contact the IT service desk at once and say what she entered
+        da: Kontakte it-supporten med det samme og fortælle, hvad hun tastede
+      - en: Change her password herself and keep quiet about the mistake
+        da: Selv skifte adgangskode og holde fejlen for sig selv
+      - en: Delete the mail, run a virus scan and carry on working as usual
+        da: Slette mailen, køre en virusscanning og arbejde videre som normalt
+      - en: Wait a few days and report it if anything odd happens on her PC
+        da: Vente et par dage og melde det, hvis der sker noget mærkeligt på pc'en
+    answer: 0
+    explanation:
+      en: >-
+        Once a password has been typed into a fake page, the attacker may already be
+        using it, so speed matters: IT can reset the password, check the account for
+        misuse and warn colleagues who got the same mail. Changing the password
+        quietly is a good step but leaves IT blind to what the attacker may have done
+        in the meantime. A virus scan does not help against stolen credentials, and
+        waiting for symptoms gives the attacker time. This is why guidance stresses
+        that staff must not be blamed for clicking — people who fear reprisals report
+        late or not at all.
+      da: >-
+        Når en adgangskode er tastet ind på en falsk side, kan angriberen allerede
+        være i gang med at bruge den, så det haster: it kan nulstille adgangskoden,
+        tjekke kontoen for misbrug og advare kolleger, der har fået samme mail. At
+        skifte adgangskoden i stilhed er et godt skridt, men efterlader it uden viden
+        om, hvad angriberen kan have nået. En virusscanning hjælper ikke mod stjålne
+        loginoplysninger, og at vente på symptomer giver angriberen tid. Derfor
+        understreger vejledningerne, at medarbejdere ikke må bebrejdes for at klikke —
+        den, der frygter repressalier, melder sent eller slet ikke.
+    difficulty: 1
+    sources:
+      - title: 'NCSC — Phishing attacks: defending your organisation'
+        url: https://www.ncsc.gov.uk/guidance/phishing
+        tier: official-doc
+      - title: CISA — Avoiding Social Engineering and Phishing Attacks
+        url: https://www.cisa.gov/news-events/news/avoiding-social-engineering-and-phishing-attacks
+        tier: official-doc
+    draft: true
+
+  - id: aw-phishing-simulation-reporting
+    terms:
+      - security/phishing-simulation
+      - security/awareness-officer
+      - security/security-culture
+    kind: scenario
+    stem:
+      en: >-
+        The awareness lead at a Danish utility is planning the first phishing
+        simulation. The management team asks to receive, after the test, the names of
+        the employees who clicked, so their managers can talk to them. Following the
+        Danish code of conduct for security tests, how should the results be
+        reported?
+      da: >-
+        Den awareness-ansvarlige i et dansk forsyningsselskab planlægger den første
+        phishing-simulering. Direktionen beder om at få navnene på de medarbejdere, der
+        klikkede, efter testen, så deres ledere kan tale med dem. Hvordan bør
+        resultaterne afrapporteres efter det danske kodeks for sikkerhedstests?
+    options:
+      - en: Names go only to HR, which handles the follow-up confidentially
+        da: Navnene går kun til HR, som tager opfølgningen fortroligt
+      - en: Results per team, even small ones, so every manager sees their share
+        da: Resultater pr. team, også små, så hver leder ser sin andel
+      - en: Names stay with the awareness lead, who talks to each person alone
+        da: Navnene bliver hos den awareness-ansvarlige, som taler med hver enkelt
+      - en: Only for groups large enough that no individual can be identified
+        da: Kun for grupper, der er så store, at ingen enkeltperson kan genkendes
+    answer: 3
+    explanation:
+      en: >-
+        The code (Kodeks for gennemførsel af sikkerhedstests, 2021) says a test should
+        examine the organisation, not the employee, and that reports must not contain
+        information about specific employees or about groups so small that
+        individuals can be identified. Sending names to HR or keeping them with the
+        awareness lead still singles people out, just more discreetly. Breaking the
+        results down to small teams identifies people indirectly. Singling out
+        clickers also undermines reporting: staff who fear consequences hide their
+        mistakes instead of reporting them.
+      da: >-
+        Kodekset (Kodeks for gennemførsel af sikkerhedstests, 2021) siger, at en test
+        skal undersøge organisationen, ikke medarbejderen, og at afrapporteringen ikke
+        må indeholde oplysninger om konkrete medarbejdere eller om så små grupper, at
+        enkeltpersoner kan identificeres. At sende navnene til HR eller lade dem blive
+        hos den awareness-ansvarlige udpeger stadig enkeltpersoner, bare mere diskret.
+        At bryde resultaterne ned på små teams udpeger folk indirekte. At hænge dem ud,
+        der klikkede, skader også lysten til at melde: medarbejdere, der frygter
+        konsekvenser, skjuler deres fejl i stedet for at melde dem.
+    difficulty: 2
+    sources:
+      - title: Kodeks for gennemførsel af sikkerhedstests (2021)
+        url: https://sikkerdigital.dk/media/7037/kodeks-for-sikkerhedstest-2021.pdf
+        tier: official-doc
+      - title: 'NCSC — Phishing attacks: defending your organisation'
+        url: https://www.ncsc.gov.uk/guidance/phishing
+        tier: official-doc
+    draft: true
+
+  - id: aw-simulation-no-authority-pretext
+    terms:
+      - security/phishing-simulation
+      - security/pretexting
+    kind: true-false
+    stem:
+      en: >-
+        True or false? Under the Danish code of conduct for security tests, a
+        phishing simulation at a Danish bank may pose as a mail from the tax authority
+        (Skattestyrelsen), as long as the bank's management has approved the
+        scenario in advance.
+      da: >-
+        Sandt eller falsk? Efter det danske kodeks for sikkerhedstests må en
+        phishing-simulering i en dansk bank udgive sig for at være en mail fra
+        Skattestyrelsen, så længe bankens ledelse har godkendt scenariet på forhånd.
+    options:
+      - en: 'True'
+        da: Sandt
+      - en: 'False'
+        da: Falsk
+    answer: 1
+    explanation:
+      en: >-
+        False. The code says that, because of the law, a tester can never pose as a
+        public authority such as the police, Datatilsynet or the tax authorities — the
+        customer's approval does not change that. Management approval is still
+        required for the concrete case description of a phishing campaign, and posing
+        as another existing company needs that company's agreement. A realistic but
+        lawful pretext, such as an internal IT notice, can train the same warning
+        signs.
+      da: >-
+        Falsk. Kodekset siger, at testeren på grund af lovgivningen aldrig kan udgive
+        sig for at være en myndighedsperson, fx fra politiet, Datatilsynet eller
+        skattevæsenet — kundens godkendelse ændrer ikke på det. Kunden skal stadig
+        godkende den konkrete case-beskrivelse af en phishingkampagne, og at udgive
+        sig for en anden eksisterende virksomhed kræver en aftale med den. Et
+        realistisk, men lovligt påskud, fx en intern it-besked, kan træne de samme
+        advarselstegn.
+    difficulty: 3
+    sources:
+      - title: Kodeks for gennemførsel af sikkerhedstests (2021), afsnit 3.1–3.2
+        url: https://sikkerdigital.dk/media/7037/kodeks-for-sikkerhedstest-2021.pdf
+        tier: official-doc
+    draft: true
+
+  - id: aw-nudge-lock-screen-hospital
+    terms:
+      - security/nudging
+      - security/security-awareness
+    kind: scenario
+    stem:
+      en: >-
+        At a Danish hospital, staff often walk away from shared PCs in the wards
+        without locking the screen. The region wants to change this habit with a
+        nudge. Which measure is an example of nudging?
+      da: >-
+        På et dansk hospital går personalet ofte fra de fælles pc'er på afdelingerne
+        uden at låse skærmen. Regionen vil ændre vanen med et nudge. Hvilket tiltag er
+        et eksempel på nudging?
+    options:
+      - en: A sticker on each screen saying "Leaving? Windows key + L"
+        da: Et klistermærke på hver skærm med "Går du? Windows-tast + L"
+      - en: A new rule that staff who leave a PC unlocked get a written warning
+        da: En ny regel om, at man får en skriftlig advarsel for en ulåst pc
+      - en: A yearly e-learning module on why unlocked screens are a risk
+        da: Et årligt e-læringsmodul om, hvorfor ulåste skærme er en risiko
+      - en: A report each month listing the wards with the most unlocked PCs
+        da: En månedlig rapport over de afdelinger, der har flest ulåste pc'er
+    answer: 0
+    explanation:
+      en: >-
+        A nudge is a small prompt placed at the moment of choice that makes the safe
+        action the easy one without forbidding anything — the sticker reminds people
+        exactly when they stand up to leave. A rule backed by a written warning steers
+        through sanctions, which is policy, not nudging. A yearly e-learning module is
+        training: it explains why, but it is far from the moment of choice and easily
+        forgotten. A monthly league table measures and names wards afterwards; it
+        neither helps at the moment nor keeps the choice free of pressure.
+      da: >-
+        Et nudge er et lille skub, der placeres i det øjeblik, valget træffes, og gør
+        den sikre handling til den lette uden at forbyde noget — klistermærket minder
+        folk om det, netop når de rejser sig for at gå. En regel med skriftlig
+        advarsel styrer gennem sanktioner, og det er politik, ikke nudging. Et årligt
+        e-læringsmodul er træning: det forklarer hvorfor, men ligger langt fra
+        valgøjeblikket og glemmes let. En månedlig rangliste måler og udpeger
+        afdelinger bagefter; den hjælper hverken i øjeblikket eller lader valget være
+        frit for pres.
+    difficulty: 1
+    sources:
+      - title: Cyber Security Fast Track — kursuskompendium
+        tier: course-material
+      - title: Sikkerdigital.dk — Om at arbejde med adfærdsindsatser
+        url: https://sikkerdigital.dk/myndighed/uddannelse-og-awareness/om-at-arbejde-med-adfaerdsindsatser
+        tier: official-doc
+    draft: true
+
+  - id: aw-awareness-vs-culture
+    terms:
+      - security/security-awareness
+      - security/security-culture
+    kind: compare
+    stem:
+      en: >-
+        A Danish bank has trained all staff in security, yet the head of security
+        says the bank still lacks a security culture. What best describes the
+        difference between security awareness and security culture?
+      da: >-
+        En dansk bank har uddannet alle medarbejdere i sikkerhed, men
+        sikkerhedschefen siger, at banken stadig mangler en sikkerhedskultur. Hvad
+        beskriver bedst forskellen på awareness og sikkerhedskultur?
+    options:
+      - en: Awareness is for all staff; culture concerns only managers and IT
+        da: Awareness er for alle; kultur angår kun ledere og it-folk
+      - en: Awareness is the policy staff sign; culture is the training they take
+        da: Awareness er den politik, man skriver under på; kultur er træningen
+      - en: Awareness is what each person knows and does; culture is shared habits
+        da: Awareness er, hvad den enkelte ved og gør; kultur er fælles vaner
+      - en: Awareness is measured in courses; culture is measured in audit findings
+        da: Awareness måles i kurser; kultur måles i fund ved revisionen
+    answer: 2
+    explanation:
+      en: >-
+        Awareness is what the individual employee knows about security and how they
+        act on it; security culture is the shared norms and habits that decide how
+        people act when nobody is checking — for example that colleagues remind each
+        other and that reporting a strange mail is praised. Training can raise
+        awareness without changing the culture. Culture is not reserved for managers
+        and IT; it lives in the whole workforce, although leaders shape it. Neither
+        term means the signed policy, and audit findings are not a measure of culture.
+      da: >-
+        Awareness er, hvad den enkelte medarbejder ved om sikkerhed, og hvordan
+        vedkommende handler på det; sikkerhedskultur er de fælles normer og vaner, der
+        afgør, hvordan folk handler, når ingen holder øje — fx at kolleger minder
+        hinanden om tingene, og at man bliver rost for at melde en mærkelig mail.
+        Træning kan øge awareness uden at ændre kulturen. Kultur er ikke forbeholdt
+        ledere og it; den findes i hele medarbejderstaben, selv om ledelsen former
+        den. Ingen af begreberne betyder den underskrevne politik, og revisionsfund er
+        ikke et mål for kultur.
+    difficulty: 2
+    sources:
+      - title: Cyber Security Fast Track — kursuskompendium
+        tier: course-material
+      - title: ENISA — Cyber Security Culture in Organisations (2018)
+        url: https://www.enisa.europa.eu/publications/cyber-security-culture-in-organisations
+        tier: official-doc
+    draft: true
+
+  - id: aw-behaviour-initiative-order
+    terms:
+      - security/awareness-programme
+      - security/awareness-officer
+    kind: order
+    stem:
+      en: >-
+        The new awareness officer in a Danish municipality wants to plan a behaviour
+        change initiative the way sikkerdigital.dk recommends for public
+        authorities. In which order should the main steps come?
+      da: >-
+        Den nye awareness-ansvarlige i en kommune vil planlægge en adfærdsindsats,
+        sådan som sikkerdigital.dk anbefaler myndigheder. I hvilken rækkefølge bør
+        hovedtrinnene komme?
+    options:
+      - en: >-
+          Develop the campaign → Test it on users → Choose the target group → Set
+          SMART goals → Measure the effect
+        da: >-
+          Udvikl kampagnen → Test den på brugerne → Vælg målgruppen → Sæt SMART-mål →
+          Mål effekten
+      - en: >-
+          Decide the behaviour for a target group → Map barriers → Set SMART goals
+          → Develop and user-test → Measure the effect
+        da: >-
+          Beslut adfærd for en målgruppe → Kortlæg barrierer → Sæt SMART-mål →
+          Udvikl og brugertest → Mål effekten
+      - en: >-
+          Set SMART goals → Develop and user-test → Decide the behaviour for a
+          target group → Map barriers → Measure the effect
+        da: >-
+          Sæt SMART-mål → Udvikl og brugertest → Beslut adfærd for en målgruppe →
+          Kortlæg barrierer → Mål effekten
+      - en: >-
+          Decide the behaviour for a target group → Develop and user-test → Measure
+          the effect → Map barriers → Set SMART goals
+        da: >-
+          Beslut adfærd for en målgruppe → Udvikl og brugertest → Mål effekten →
+          Kortlæg barrierer → Sæt SMART-mål
+    answer: 1
+    explanation:
+      en: >-
+        Sikkerdigital.dk's model starts by deciding which behaviour a given target
+        group should show, then maps the gap to today's behaviour and the barriers,
+        sets SMART goals, develops and user-tests the initiative, and finally
+        evaluates its effect before planning the next one. Starting with the campaign
+        itself is the common mistake of choosing a method before knowing whom it is
+        for and what should change. Setting goals before the behaviour and barriers
+        are known leaves nothing concrete to measure, and mapping barriers after the
+        launch comes too late to shape the initiative.
+      da: >-
+        Sikkerdigital.dk's model starter med at beslutte, hvilken adfærd en bestemt
+        målgruppe skal have, kortlægger derefter afstanden til nuværende adfærd og
+        barriererne, sætter SMART-mål, udvikler og brugertester indsatsen og evaluerer
+        til sidst effekten, før den næste planlægges. At begynde med selve kampagnen
+        er den klassiske fejl, hvor man vælger metode, før man ved, hvem den er til,
+        og hvad der skal ændres. At sætte mål, før adfærd og barrierer kendes, giver
+        intet konkret at måle på, og at kortlægge barrierer efter lanceringen er for
+        sent til at forme indsatsen.
+    difficulty: 2
+    sources:
+      - title: Sikkerdigital.dk — Om at arbejde med adfærdsindsatser
+        url: https://sikkerdigital.dk/myndighed/uddannelse-og-awareness/om-at-arbejde-med-adfaerdsindsatser
+        tier: official-doc
+      - title: Cyber Security Fast Track — kursuskompendium
+        tier: course-material
+    draft: true

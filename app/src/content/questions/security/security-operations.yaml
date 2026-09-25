@@ -1,0 +1,310 @@
+questions:
+  - id: secops-phishing-playbook-automation
+    terms:
+      - security/soar
+      - security/alert-triage
+      - security/soc
+    kind: scenario
+    stem:
+      en: >-
+        The three-person SOC at a Danish region gets about 60 staff reports of
+        suspicious emails a day. For every report an analyst repeats the same steps by
+        hand: pull out the links, look them up in threat intelligence, delete the same
+        email from every inbox and write up the case. The alarms already arrive
+        correctly from the SIEM. Which investment frees up the most analyst time?
+      da: >-
+        SOC'en i en dansk region består af tre personer og får omkring 60
+        indberetninger om mistænkelige mails fra medarbejderne om dagen. For hver
+        indberetning gentager en analytiker de samme trin i hånden: trækker linkene
+        ud, slår dem op i threat intelligence, sletter den samme mail fra alle
+        indbakker og skriver sagen. Alarmerne kommer allerede korrekt fra SIEM'en.
+        Hvilken investering frigør mest af analytikernes tid?
+    options:
+      - en: Connect more log sources to the SIEM so each alarm carries more context
+        da: Kobl flere logkilder på SIEM'en, så hver alarm får mere kontekst med
+      - en: Roll out EDR on all laptops so infected machines are isolated at once
+        da: Udrul EDR på alle bærbare, så inficerede maskiner isoleres med det samme
+      - en: A SOAR platform that runs the fixed steps as an automated playbook
+        da: En SOAR-platform, der kører de faste trin som en automatiseret playbook
+      - en: A threat-hunting programme that looks for attackers already inside
+        da: Et threat hunting-program, der leder efter angribere, som allerede er inde
+    answer: 2
+    explanation:
+      en: >-
+        The bottleneck is not detection but the same manual steps repeated for every
+        alarm, which is exactly what SOAR is for: it takes alarms from the SIEM and
+        runs a stored playbook across the other tools, so the analyst only reviews the
+        result. More log sources would give each alarm more context but add work
+        rather than remove it. EDR stops threats on the endpoint, yet the phishing
+        emails still have to be investigated and purged by hand. Threat hunting is
+        valuable, but it is a new proactive task that needs more analyst time, not
+        less.
+      da: >-
+        Flaskehalsen er ikke detektionen, men de samme manuelle trin, der gentages for
+        hver alarm — og netop det er SOAR beregnet til: den tager alarmerne fra
+        SIEM'en og kører en gemt playbook på tværs af de andre værktøjer, så
+        analytikeren kun skal vurdere resultatet. Flere logkilder giver mere kontekst
+        til hver alarm, men lægger arbejde til i stedet for at fjerne det. EDR stopper
+        trusler på endpointet, men phishing-mailene skal stadig undersøges og fjernes
+        i hånden. Threat hunting er værdifuldt, men det er en ny, proaktiv opgave, der
+        kræver mere analytikertid, ikke mindre.
+    difficulty: 2
+    sources:
+      - title: Wikipedia — Security orchestration, automation and response
+        url: https://en.wikipedia.org/wiki/Security_orchestration,_automation_and_response
+        tier: reference
+      - title: NIST SP 800-92 — Guide to Computer Security Log Management
+        url: https://doi.org/10.6028/NIST.SP.800-92
+        tier: standard
+    draft: true
+
+  - id: secops-tune-noisy-login-rule
+    terms:
+      - security/false-positive
+      - security/detection-rule
+      - security/alert-triage
+    kind: scenario
+    stem:
+      en: >-
+        A municipality's SIEM has a rule that raises an alarm after five failed
+        logins on one account within ten minutes. It now fires about 150 times a day;
+        almost all come from the service account of a document scanner whose stored
+        password has expired, and the analysts have started closing the alarms
+        unread. What is the best next step?
+      da: >-
+        En kommunes SIEM har en regel, der slår alarm efter fem mislykkede login på
+        én konto inden for ti minutter. Den udløses nu omkring 150 gange om dagen;
+        næsten alle alarmerne kommer fra servicekontoen på en dokumentscanner, hvis
+        gemte adgangskode er udløbet, og analytikerne er begyndt at lukke alarmerne
+        uden at læse dem. Hvad er det bedste næste skridt?
+    options:
+      - en: Switch the rule off until there is time to rewrite it from scratch
+        da: Slå reglen fra, indtil der er tid til at skrive den helt forfra
+      - en: Fix the scanner's stored password and keep the rule for every account
+        da: Ret scannerens gemte adgangskode og behold reglen for alle konti
+      - en: Raise the threshold to 50 failed logins so only big attacks trigger it
+        da: Hæv grænsen til 50 mislykkede login, så kun store angreb udløser den
+      - en: Lower the alarm's priority so it is only reviewed at the weekly meeting
+        da: Sænk alarmens prioritet, så den kun gennemgås på det ugentlige møde
+    answer: 1
+    explanation:
+      en: >-
+        The alarms are false positives with one known, harmless cause, so removing
+        that cause stops the noise while the rule keeps watching every other account.
+        Switching the rule off turns every future password-guessing attack into a
+        false negative. Raising the threshold to 50 also cuts noise, but a slow
+        attacker who tries a few passwords per account would never reach it — NIST
+        notes that reducing one kind of error usually increases the other. Lowering
+        the priority leaves the flood in place and lets a real attack wait up to a
+        week.
+      da: >-
+        Alarmerne er falske positiver med én kendt, harmløs årsag, så når årsagen
+        fjernes, forsvinder støjen, mens reglen fortsat overvåger alle andre konti.
+        Slås reglen fra, bliver ethvert fremtidigt forsøg på at gætte adgangskoder en
+        falsk negativ. En grænse på 50 fjerner også støj, men en langsom angriber, der
+        kun prøver få adgangskoder pr. konto, når aldrig op på den — NIST påpeger, at
+        færre fejl af den ene slags som regel giver flere af den anden. En lavere
+        prioritet lader strømmen af alarmer blive og lader et reelt angreb vente i op
+        til en uge.
+    difficulty: 2
+    sources:
+      - title: NIST SP 800-94 — Guide to Intrusion Detection and Prevention Systems (IDPS)
+        url: https://doi.org/10.6028/NIST.SP.800-94
+        tier: standard
+      - title: NIST SP 800-92 — Guide to Computer Security Log Management
+        url: https://doi.org/10.6028/NIST.SP.800-92
+        tier: standard
+    draft: true
+
+  - id: secops-tuning-tradeoff
+    terms:
+      - security/false-positive
+      - security/detection-rule
+    kind: true-false
+    stem:
+      en: >-
+        A hospital SOC tightens a detection rule so that it raises far fewer false
+        alarms. Statement: the same change can make the rule miss more real attacks.
+      da: >-
+        En hospitals SOC strammer en detektionsregel, så den giver langt færre falske
+        alarmer. Påstand: den samme ændring kan få reglen til at overse flere reelle
+        angreb.
+    options:
+      - en: 'True'
+        da: Sandt
+      - en: 'False'
+        da: Falsk
+    answer: 0
+    explanation:
+      en: >-
+        True. NIST SP 800-94 notes that no detection is perfectly accurate and that,
+        in most cases, reducing the occurrences of false positives increases the
+        occurrences of false negatives — real attacks that raise no alarm. That is
+        why tuning is a trade-off: after tightening a rule, the SOC should test it
+        against known examples of the attack it is meant to catch, not only count
+        how much quieter it has become.
+      da: >-
+        Sandt. NIST SP 800-94 påpeger, at ingen detektion er helt præcis, og at færre
+        falske positiver i de fleste tilfælde giver flere falske negativer — reelle
+        angreb, der ikke udløser nogen alarm. Derfor er tuning en afvejning: når en
+        regel er strammet, bør SOC'en teste den mod kendte eksempler på det angreb,
+        den skal fange, og ikke kun se på, hvor meget mere stille den er blevet.
+    difficulty: 2
+    sources:
+      - title: NIST SP 800-94 — Guide to Intrusion Detection and Prevention Systems (IDPS)
+        url: https://doi.org/10.6028/NIST.SP.800-94
+        tier: standard
+    draft: true
+
+  - id: secops-spot-the-ioc
+    terms:
+      - security/indicator-of-compromise
+      - security/vulnerability
+      - security/attack-surface
+    kind: scenario
+    stem:
+      en: >-
+        During a weekly review at a Danish bank, an analyst writes down four findings.
+        Which of them is an indicator of compromise?
+      da: >-
+        Ved en ugentlig gennemgang i en dansk bank noterer en analytiker fire fund.
+        Hvilket af dem er en kompromitteringsindikator?
+    options:
+      - en: A web server runs a version with a known CVE that is not yet patched
+        da: En webserver kører en version med en kendt CVE, der endnu ikke er patchet
+      - en: An administrator account can still log in without multi-factor login
+        da: En administratorkonto kan stadig logge ind uden flerfaktorgodkendelse
+      - en: Remote Desktop on a test server can be reached from the whole internet
+        da: Fjernskrivebord på en testserver kan nås fra hele internettet
+      - en: A file server contacts a domain named in a report on an active campaign
+        da: En filserver kontakter et domæne, der er nævnt i en rapport om en aktiv kampagne
+    answer: 3
+    explanation:
+      en: >-
+        NIST defines an indicator of compromise as a technical artefact or observable
+        suggesting that an attack is imminent or underway, or that a compromise may
+        already have happened. A server talking to a domain tied to a live campaign is
+        exactly such a trace and should be investigated at once. The unpatched CVE and
+        the missing MFA are vulnerabilities, and the exposed Remote Desktop widens the
+        attack surface: all three make an attack more likely, but none of them is
+        evidence that anyone has actually got in.
+      da: >-
+        NIST definerer en kompromitteringsindikator som et teknisk spor eller en
+        observation, der tyder på, at et angreb er nært forestående eller i gang,
+        eller at en kompromittering måske allerede er sket. En server, der taler med
+        et domæne knyttet til en aktiv kampagne, er netop sådan et spor og skal
+        undersøges straks. Den upatchede CVE og den manglende MFA er sårbarheder, og
+        det åbne fjernskrivebord gør angrebsfladen større: alle tre gør et angreb mere
+        sandsynligt, men ingen af dem viser, at nogen faktisk er kommet ind.
+    difficulty: 1
+    sources:
+      - title: NIST CSRC Glossary — indicator of compromise
+        url: https://csrc.nist.gov/glossary/term/indicator_of_compromise
+        tier: standard
+    draft: true
+
+  - id: secops-hypothesis-hunt
+    terms:
+      - security/threat-hunting
+      - security/mitre-attack
+      - security/edr
+    kind: scenario
+    stem:
+      en: >-
+        A threat intelligence report describes a group that keeps its foothold by
+        creating Windows scheduled tasks (MITRE ATT&CK T1053.005), and none of a
+        Danish utility's SIEM rules would catch it. No alarm has fired. Two analysts
+        then spend a week searching 90 days of EDR data for unusual scheduled tasks on
+        the company's servers. What is this activity called?
+      da: >-
+        En threat intelligence-rapport beskriver en gruppe, der fastholder sin adgang
+        ved at oprette planlagte opgaver i Windows (MITRE ATT&CK T1053.005), og ingen
+        af et dansk forsyningsselskabs SIEM-regler ville fange det. Der er ikke gået
+        nogen alarm. To analytikere bruger derefter en uge på at gennemsøge 90 dages
+        EDR-data efter usædvanlige planlagte opgaver på selskabets servere. Hvad
+        kaldes denne aktivitet?
+    options:
+      - en: Threat hunting
+        da: Threat hunting (trusselsjagt)
+      - en: Alert triage
+        da: Triage af alarmer
+      - en: Anomaly detection
+        da: Anomalidetektion
+      - en: Penetration testing
+        da: Penetrationstest
+    answer: 0
+    explanation:
+      en: >-
+        Threat hunting is the proactive, hypothesis-driven search for attackers who
+        may already be inside, without waiting for an alarm — here the hypothesis
+        comes from an ATT&CK technique the existing rules do not cover. Alert triage
+        is sorting alarms that have already fired, and none has. Anomaly detection is
+        a tool automatically flagging departures from a learned baseline, not analysts
+        testing a specific idea by hand. A penetration test is an authorised,
+        simulated attack to find weaknesses, not a search for a real intruder.
+      da: >-
+        Threat hunting er den proaktive, hypotesedrevne søgning efter angribere, der
+        måske allerede er inde, uden at vente på en alarm — her kommer hypotesen fra
+        en ATT&CK-teknik, som de eksisterende regler ikke dækker. Triage af alarmer
+        er sortering af alarmer, der allerede er gået, og det er ingen. Anomalidetektion
+        er et værktøj, der automatisk markerer afvigelser fra en indlært normal, ikke
+        analytikere, der afprøver en bestemt idé i hånden. En penetrationstest er et
+        godkendt, simuleret angreb for at finde svagheder, ikke en søgning efter en
+        rigtig ubuden gæst.
+    difficulty: 3
+    sources:
+      - title: MITRE ATT&CK — Scheduled Task/Job, Scheduled Task (T1053.005)
+        url: https://attack.mitre.org/techniques/T1053/005/
+        tier: reference
+      - title: Wikipedia — Cyber threat hunting
+        url: https://en.wikipedia.org/wiki/Cyber_threat_hunting
+        tier: reference
+    draft: true
+
+  - id: secops-siem-log-flow
+    terms:
+      - security/siem
+      - security/log-management
+    kind: order
+    stem:
+      en: >-
+        In which order does an event logged on a server pass through a SIEM before an
+        analyst sees it as an alarm?
+      da: >-
+        I hvilken rækkefølge bevæger en hændelse, der er logget på en server, sig
+        gennem en SIEM, før en analytiker ser den som en alarm?
+    options:
+      - en: Correlate → Collect → Normalise → Alarm to analyst
+        da: Korrelér → Indsaml → Normalisér → Alarm til analytiker
+      - en: Collect → Alarm to analyst → Normalise → Correlate
+        da: Indsaml → Alarm til analytiker → Normalisér → Korrelér
+      - en: Collect → Normalise → Correlate → Alarm to analyst
+        da: Indsaml → Normalisér → Korrelér → Alarm til analytiker
+      - en: Normalise → Collect → Alarm to analyst → Correlate
+        da: Normalisér → Indsaml → Alarm til analytiker → Korrelér
+    answer: 2
+    explanation:
+      en: >-
+        NIST SP 800-92 describes the flow: log data is collected from the hosts (by
+        an agent or pulled by the server), normalised into one consistent format,
+        and then analysed centrally, where the SIEM correlates events across sources
+        and flags and prioritises the significant ones for people to investigate.
+        Normalising must come before correlating, because entries from different
+        systems can only be matched once their times and fields share one format.
+        Nothing can be normalised before it has been collected, and an alarm is the
+        result of correlation, so it cannot come before it.
+      da: >-
+        NIST SP 800-92 beskriver forløbet: logdata indsamles fra maskinerne (af en
+        agent eller hentet af serveren), normaliseres til ét ensartet format og
+        analyseres derefter centralt, hvor SIEM'en korrelerer hændelser på tværs af
+        kilder og markerer og prioriterer de væsentlige, så mennesker kan undersøge
+        dem. Normalisering skal komme før korrelering, for poster fra forskellige
+        systemer kan først sammenholdes, når deres tidspunkter og felter har samme
+        format. Intet kan normaliseres, før det er indsamlet, og en alarm er
+        resultatet af korreleringen og kan derfor ikke komme før den.
+    difficulty: 1
+    sources:
+      - title: NIST SP 800-92 — Guide to Computer Security Log Management
+        url: https://doi.org/10.6028/NIST.SP.800-92
+        tier: standard
+    draft: true

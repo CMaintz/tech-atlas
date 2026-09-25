@@ -1,0 +1,288 @@
+questions:
+  - id: ctr-shared-kernel-vs-vm
+    terms:
+      - platform/container
+      - platform/virtual-machine
+      - platform/hypervisor
+    kind: compare
+    stem:
+      en: >-
+        A Danish region wants to run the container for its public information website
+        and the container for a patient database on the same physical server. The
+        security team would rather put the two in separate virtual machines. What is
+        the main reason?
+      da: >-
+        En dansk region vil køre containeren til sit offentlige informationswebsite og
+        containeren til en patientdatabase på den samme fysiske server.
+        Sikkerhedsteamet vil hellere lægge de to i hver sin virtuelle maskine. Hvad er
+        den vigtigste grund?
+    options:
+      - en: Containers on one host cannot be given separate network addresses
+        da: Containere på samme vært kan ikke få hver deres netværksadresse
+      - en: Virtual machines start faster and use less memory than containers
+        da: Virtuelle maskiner starter hurtigere og bruger mindre hukommelse end containere
+      - en: A database cannot run inside a container, only inside a virtual machine
+        da: En database kan ikke køre i en container, kun i en virtuel maskine
+      - en: Containers share the host's kernel, so the wall between them is thinner
+        da: Containere deler værtens kerne, så væggen mellem dem er tyndere
+    answer: 3
+    explanation:
+      en: >-
+        NIST SP 800-190 explains that containers share one operating-system kernel,
+        whereas a hypervisor gives each VM its own guest OS with hardware-level
+        isolation — so containers do not offer as clear a security boundary, and a
+        flaw in the shared kernel can affect every container on the host. It
+        recommends that a host kernel only runs containers of one sensitivity level,
+        using separate VMs where needed, so a hacked public website sits further from
+        the patient data. Containers can get their own network addresses, and
+        databases do run in containers. VMs are, if anything, heavier than
+        containers, because each carries a whole guest operating system.
+      da: >-
+        NIST SP 800-190 forklarer, at containere deler én styresystemkerne, mens en
+        hypervisor giver hver VM sit eget gæstestyresystem med isolation på
+        hardwareniveau — containere giver derfor ikke en lige så klar
+        sikkerhedsgrænse, og en fejl i den fælles kerne kan ramme alle containere på
+        værten. Standarden anbefaler, at en værtskerne kun kører containere af samme
+        følsomhedsniveau, om nødvendigt i separate VM'er, så et hacket offentligt
+        website står længere fra patientdata. Containere kan godt få egne
+        netværksadresser, og databaser kører fint i containere. VM'er er snarere
+        tungere end containere, fordi hver af dem har et helt gæstestyresystem med.
+    difficulty: 2
+    sources:
+      - title: >-
+          NIST SP 800-190 — Application Container Security Guide, sections 2.2, 3.5.2
+          and 4.3.4
+        url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf
+        tier: standard
+    draft: true
+  - id: ctr-patch-image-not-container
+    terms:
+      - platform/container-image
+      - platform/container
+    kind: scenario
+    stem:
+      en: >-
+        An operations engineer at a Danish web shop finds a vulnerable OpenSSL version
+        in the running containers of the checkout service. He logs in to each container
+        and upgrades the package. Two days later, after Kubernetes has started new
+        containers, the vulnerable version is back. What should he have done?
+      da: >-
+        En driftsmedarbejder i en dansk webshop finder en sårbar OpenSSL-version i de
+        kørende containere til betalingstjenesten. Han logger ind i hver container og
+        opgraderer pakken. To dage senere, efter at Kubernetes har startet nye
+        containere, er den sårbare version tilbage. Hvad burde han have gjort?
+    options:
+      - en: Built a fixed image and replaced the containers with ones started from it
+        da: Bygget et rettet image og erstattet containerne med nye, startet fra det
+      - en: Restarted the containers after the upgrade, so the change was saved in them
+        da: Genstartet containerne efter opgraderingen, så ændringen blev gemt i dem
+      - en: Patched the host's operating system, since containers use its libraries
+        da: Patchet værtens styresystem, da containerne bruger dets biblioteker
+      - en: Deleted the old image from the registry so Kubernetes could not use it again
+        da: Slettet det gamle image fra registret, så Kubernetes ikke kunne bruge det igen
+    answer: 0
+    explanation:
+      en: >-
+        Every container is started from an image, a read-only snapshot of the app and
+        its libraries, so changes made inside a running container vanish when it is
+        replaced. NIST SP 800-190 describes containers as immutable: to update one, you
+        destroy it and start a new one from an updated image. A restart does not write
+        the change back into the image. OpenSSL here lives inside the image, not on the
+        host — containers share the host's kernel, not its libraries. Deleting the old
+        image removes nothing that is fixed and simply leaves Kubernetes unable to
+        start the service.
+      da: >-
+        Hver container startes fra et image, et skrivebeskyttet øjebliksbillede af
+        applikationen og dens biblioteker, så ændringer inde i en kørende container
+        forsvinder, når den bliver erstattet. NIST SP 800-190 beskriver containere som
+        uforanderlige: For at opdatere en container fjerner man den og starter en ny
+        fra et opdateret image. En genstart skriver ikke ændringen tilbage i imaget.
+        OpenSSL ligger her i imaget, ikke på værten — containere deler værtens kerne,
+        ikke dens biblioteker. At slette det gamle image giver ikke noget rettet at
+        køre og efterlader bare Kubernetes uden mulighed for at starte tjenesten.
+    difficulty: 2
+    sources:
+      - title: NIST SP 800-190 — Application Container Security Guide, section 2.1 (immutability)
+        url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf
+        tier: standard
+      - title: Docker Docs — What is an image?
+        url: https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-an-image/
+        tier: official-doc
+    draft: true
+  - id: ctr-dont-run-as-root
+    terms:
+      - platform/container
+      - platform/container-escape
+      - platform/docker
+    kind: scenario
+    stem:
+      en: >-
+        At a Danish SMV, the Dockerfile for the company's web API has no USER
+        instruction, so the application runs as root inside its container. A developer
+        says it does not matter, because the container is isolated anyway. What is the
+        best reply?
+      da: >-
+        I en dansk SMV har Dockerfilen til virksomhedens web-API ingen USER-instruktion,
+        så applikationen kører som root inde i containeren. En udvikler siger, at det
+        er ligegyldigt, fordi containeren jo er isoleret. Hvad er det bedste svar?
+    options:
+      - en: He is right, because root in a container has no link to the host at all
+        da: Han har ret, for root i en container har overhovedet ingen forbindelse til værten
+      - en: Root is fine as long as the image is scanned for known vulnerabilities
+        da: Root er i orden, så længe imaget bliver scannet for kendte sårbarheder
+      - en: Run it as an unprivileged user, so a hijacked app has less to escalate from
+        da: Kør den som en bruger uden privilegier, så en kapret app har mindre at eskalere fra
+      - en: Root is needed anyway, because the API listens on port 443, which is below 1024
+        da: Root er alligevel nødvendigt, fordi API'et lytter på port 443, som ligger under 1024
+    answer: 2
+    explanation:
+      en: >-
+        Docker's documentation calls running the container's applications as
+        unprivileged users the best way to prevent privilege-escalation attacks from
+        within a container, NIST SP 800-190 says images should be configured to run as
+        non-privileged users, and the Kubernetes Restricted pod security standard
+        requires runAsNonRoot. Isolation is not absolute: containers share the host's
+        kernel, and unless user namespaces remap it, root inside is the host's user 0
+        with most capabilities removed. Scanning only finds known flaws and does not
+        limit what an attacker can do after a break-in. Binding a port below 1024 does
+        not need root; Docker notes that such a process can be given just that one
+        capability.
+      da: >-
+        Dockers dokumentation kalder det at køre containerens applikationer som
+        brugere uden privilegier den bedste måde at forhindre angreb med
+        rettighedsforøgelse inde fra en container, NIST SP 800-190 siger, at images
+        skal sættes op til at køre som brugere uden særlige rettigheder, og Kubernetes'
+        Restricted-sikkerhedsstandard for pods kræver runAsNonRoot. Isolationen er ikke
+        absolut: Containere deler værtens kerne, og medmindre user namespaces mapper
+        den om, er root indenfor værtens bruger 0 med de fleste rettigheder fjernet.
+        Scanning finder kun kendte fejl og begrænser ikke, hvad en angriber kan gøre
+        efter et indbrud. At lytte på en port under 1024 kræver ikke root; Docker
+        påpeger, at sådan en proces kan få netop den ene rettighed.
+    difficulty: 2
+    sources:
+      - title: Docker Docs — Docker Engine security
+        url: https://docs.docker.com/engine/security/
+        tier: official-doc
+      - title: Docker Docs — Isolate containers with a user namespace
+        url: https://docs.docker.com/engine/security/userns-remap/
+        tier: official-doc
+      - title: NIST SP 800-190 — Application Container Security Guide, section 4.1.2
+        url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf
+        tier: standard
+      - title: Kubernetes documentation — Pod Security Standards (Restricted)
+        url: https://kubernetes.io/docs/concepts/security/pod-security-standards/
+        tier: official-doc
+    draft: true
+  - id: ctr-rescan-stored-images
+    terms:
+      - platform/container-image
+      - platform/container-registry
+    kind: scenario
+    stem:
+      en: >-
+        A Danish bank scans every container image in its pipeline and only lets images
+        without known serious vulnerabilities into its registry. An image that was
+        built and scanned clean in March is still running in September. In August a
+        critical vulnerability was published in a library inside that image. Which
+        practice would have flagged it?
+      da: >-
+        En dansk bank scanner hvert container-image i sin pipeline og lukker kun images
+        uden kendte alvorlige sårbarheder ind i sit registry. Et image, der blev bygget
+        og scannet rent i marts, kører stadig i september. I august blev der
+        offentliggjort en kritisk sårbarhed i et bibliotek i imaget. Hvilken praksis
+        ville have fanget den?
+    options:
+      - en: Signing every image in the pipeline, so the cluster only runs images the bank itself built
+        da: At signere hvert image i pipelinen, så clusteret kun kører images, banken selv har bygget
+      - en: Rescanning stored and running images regularly against new vulnerability data
+        da: At scanne lagrede og kørende images igen løbende mod nye sårbarhedsdata
+      - en: Referring to images by fixed version tags such as payments:2.3
+        da: At henvise til images med faste versionstags som payments:2.3
+      - en: Configuring the image to run as a non-privileged user instead of root
+        da: At sætte imaget op til at køre som en bruger uden privilegier i stedet for root
+    answer: 1
+    explanation:
+      en: >-
+        A scan only knows the vulnerabilities published by the day it runs. NIST SP
+        800-190 therefore asks for vulnerability management across the whole image
+        lifecycle — from build, through the registries, to runtime — and warns that
+        registries collect stale, vulnerable images over time. Signing proves who built
+        the image and that it is unchanged, not that its libraries are free of flaws.
+        Fixed version tags make sure a known image is deployed, and here that known
+        image is the vulnerable one. Running as a non-privileged user limits the damage
+        of an attack but reveals nothing about the new flaw.
+      da: >-
+        En scanning kender kun de sårbarheder, der er offentliggjort den dag, den
+        kører. NIST SP 800-190 kræver derfor sårbarhedsstyring gennem hele imagets
+        livsforløb — fra bygning over registries til drift — og advarer om, at
+        registries med tiden samler forældede, sårbare images. Signering beviser, hvem
+        der byggede imaget, og at det er uændret, ikke at bibliotekerne er fri for
+        fejl. Faste versionstags sikrer, at et kendt image bliver udrullet, og her er
+        det kendte image netop det sårbare. At køre som en bruger uden privilegier
+        begrænser skaden ved et angreb, men afslører intet om den nye fejl.
+    difficulty: 3
+    sources:
+      - title: >-
+          NIST SP 800-190 — Application Container Security Guide, sections 3.2.2, 4.1.1
+          and 4.2.2
+        url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf
+        tier: standard
+    draft: true
+  - id: ctr-orchestrator-restarts
+    terms:
+      - platform/container-orchestration
+      - platform/kubernetes
+      - platform/container
+    kind: scenario
+    stem:
+      en: >-
+        A Danish hospital runs 40 containers spread over six servers, all started by
+        hand with scripts. When a server fails at night, the technician on call has to
+        log in and start its containers on the other servers. What would take over
+        this work?
+      da: >-
+        Et dansk hospital kører 40 containere fordelt på seks servere, som alle bliver
+        startet manuelt med scripts. Når en server går ned om natten, må teknikeren på
+        vagt logge ind og starte dens containere på de andre servere. Hvad ville kunne
+        overtage det arbejde?
+    options:
+      - en: A container orchestrator such as Kubernetes, which restarts and places them
+        da: En container-orkestrator som Kubernetes, der genstarter og placerer dem
+      - en: A container registry, which stores every image in named versions and hands them out
+        da: Et container-registry, der gemmer hvert image i navngivne versioner og udleverer dem
+      - en: A hypervisor, which splits each server into several virtual machines
+        da: En hypervisor, der deler hver server op i flere virtuelle maskiner
+      - en: A container runtime such as containerd, installed on every server
+        da: En container-runtime som containerd, installeret på hver server
+    answer: 0
+    explanation:
+      en: >-
+        Container orchestration automates the lifecycle of containers across a group
+        of machines; the Kubernetes documentation lists self-healing — restarting and
+        replacing containers that fail — and fitting containers onto the nodes
+        available. A registry only stores and hands out images; it does not decide
+        where anything runs. A hypervisor splits a machine into VMs but does not move
+        containers when a server dies. A container runtime is needed on each node so
+        containers can run there, but it only acts on the machine it is installed on
+        and waits to be told what to start.
+      da: >-
+        Container-orkestrering automatiserer containernes livsforløb på tværs af en
+        gruppe maskiner; Kubernetes' dokumentation nævner selvheling — at genstarte og
+        erstatte containere, der fejler — og at fordele containere på de tilgængelige
+        noder. Et registry gemmer og udleverer kun images; det bestemmer ikke, hvor
+        noget kører. En hypervisor deler en maskine op i VM'er, men flytter ikke
+        containere, når en server går ned. En container-runtime skal være på hver
+        node, for at containere kan køre der, men den arbejder kun på den maskine, den
+        er installeret på, og venter på at få besked om, hvad den skal starte.
+    difficulty: 1
+    sources:
+      - title: Kubernetes documentation — Overview
+        url: https://kubernetes.io/docs/concepts/overview/
+        tier: official-doc
+      - title: Cloud Native Glossary — Container Orchestration
+        url: https://glossary.cncf.io/container-orchestration/
+        tier: reference
+      - title: Kubernetes documentation — Container Runtimes
+        url: https://kubernetes.io/docs/setup/production-environment/container-runtimes/
+        tier: official-doc
+    draft: true

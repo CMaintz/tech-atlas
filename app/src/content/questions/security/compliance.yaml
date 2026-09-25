@@ -1,0 +1,521 @@
+questions:
+  - id: comp-bank-dora-not-nis2-loven
+    terms:
+      - security/dora
+      - security/nis2-loven
+      - security/eu-regulation
+    kind: scenario
+    stem:
+      en: >-
+        A new IT risk officer at a Danish bank is asked by the board which set of rules
+        governs the bank's digital resilience — security measures, incident reporting and
+        testing — now that the Danish NIS2 Act has come into force. What is the best answer?
+      da: >-
+        En nyansat IT-risikomedarbejder i en dansk bank bliver spurgt af bestyrelsen, hvilke
+        regler der styrer bankens digitale modstandsdygtighed — sikkerhedstiltag,
+        hændelsesrapportering og test — nu hvor NIS2-loven er trådt i kraft. Hvad er det
+        bedste svar?
+    options:
+      - en: The Danish NIS2 Act, in the same way as for the other critical sectors
+        da: NIS2-loven, på samme måde som for de øvrige kritiske sektorer
+      - en: DORA, which applies directly, plus Danish financial law overseen by Finanstilsynet
+        da: DORA, der gælder direkte, suppleret af dansk finanslovgivning med Finanstilsynet som tilsyn
+      - en: Only the GDPR, since a bank's main cyber risk concerns customer data
+        da: Kun GDPR, da en banks største cyberrisiko handler om kundedata
+      - en: DORA, but only once Folketinget has passed a law copying it into Danish law
+        da: DORA, men først når Folketinget har vedtaget en lov, der skriver den ind i dansk ret
+    answer: 1
+    explanation:
+      en: >-
+        DORA (Regulation (EU) 2022/2554) has applied since 17 January 2025 and, as a
+        regulation, is binding and directly applicable in every member state; for the
+        financial sector Denmark implemented NIS2 in the Financial Business Act, aligned with
+        DORA and supervised by Finanstilsynet. The Danish NIS2 Act itself carves out the
+        financial, energy and telecom sectors, so it is not the bank's rulebook. The GDPR
+        still applies to customer data but does not cover operational IT resilience. Waiting
+        for a Danish law misreads what a regulation is — no transposition is needed.
+      da: >-
+        DORA (forordning (EU) 2022/2554) har gældet siden 17. januar 2025 og er som
+        forordning bindende og direkte gældende i alle medlemslande; for finanssektoren har
+        Danmark gennemført NIS2 i lov om finansiel virksomhed, afstemt med DORA og med
+        Finanstilsynet som tilsyn. NIS2-loven undtager selv finans-, energi- og
+        telesektoren, så den er ikke bankens regelsæt. GDPR gælder stadig for kundedata, men
+        dækker ikke den operationelle IT-modstandsdygtighed. At vente på en dansk lov er en
+        misforståelse af, hvad en forordning er — den skal ikke gennemføres i national ret.
+    difficulty: 2
+    sources:
+      - title: Regulation (EU) 2022/2554 (DORA), Article 64
+        url: https://eur-lex.europa.eu/eli/reg/2022/2554/oj
+        tier: standard
+      - title: Lov nr. 434 af 6. maj 2025 (NIS 2-loven), § 1, stk. 2
+        url: https://www.retsinformation.dk/eli/lta/2025/434
+        tier: standard
+      - title: Styrelsen for Samfundssikkerhed — NIS 2 spørgsmål og svar
+        url: https://samsik.dk/nis2/faq/
+        tier: official-doc
+    draft: true
+
+  - id: comp-nis2-final-report-deadline
+    terms:
+      - security/incident-reporting
+      - security/nis2-loven
+    kind: scenario
+    stem:
+      en: >-
+        On Monday 1 September 2025 at 10:00 a Danish drinking-water utility realises that
+        ransomware has halted its pumping stations — a significant incident under the NIS2
+        Act. It sends its early warning the same day and its incident notification on
+        Wednesday 3 September. By when must the final report be submitted at the latest,
+        assuming the incident is over by then?
+      da: >-
+        Mandag den 1. september 2025 kl. 10 står det klart for et dansk vandforsyningsselskab,
+        at ransomware har lammet dets pumpestationer — en væsentlig hændelse efter
+        NIS2-loven. Selskabet sender sin tidlige varsling samme dag og sin
+        hændelsesunderretning onsdag den 3. september. Hvornår skal den endelige rapport
+        senest være indsendt, hvis hændelsen er afsluttet til den tid?
+    options:
+      - en: 1 October 2025 — one month after the utility became aware of the incident
+        da: 1. oktober 2025 — en måned efter, at selskabet fik kendskab til hændelsen
+      - en: 6 September 2025 — 72 hours after the incident notification was sent
+        da: 6. september 2025 — 72 timer efter, at hændelsesunderretningen blev sendt
+      - en: 3 October 2025 — one month after the incident notification was sent
+        da: 3. oktober 2025 — en måned efter, at hændelsesunderretningen blev sendt
+      - en: 1 December 2025 — three months after the incident was discovered
+        da: 1. december 2025 — tre måneder efter, at hændelsen blev opdaget
+    answer: 2
+    explanation:
+      en: >-
+        NIS2 Article 23(4)(d) and section 13 of the Danish NIS2 Act set the final report at
+        no later than one month after the incident notification (the 72-hour step), so the
+        clock for this stage starts on 3 September, not on the day of discovery. Counting
+        from awareness (1 October) mixes up this stage with the 24-hour and 72-hour
+        deadlines, which do run from awareness. There is no 72-hour step after the
+        notification — an intermediate report is sent only if the CSIRT asks. Three months
+        is not a NIS2 deadline at all.
+      da: >-
+        NIS2 artikel 23, stk. 4, litra d, og § 13 i NIS2-loven fastsætter, at den endelige
+        rapport skal sendes senest en måned efter hændelsesunderretningen (72-timers-trinnet),
+        så fristen for dette trin løber fra 3. september og ikke fra opdagelsen. At regne fra
+        kendskabet (1. oktober) blander trinnet sammen med fristerne på 24 og 72 timer, som
+        netop løber fra kendskabet. Der er intet 72-timers-trin efter underretningen — en
+        foreløbig rapport sendes kun, hvis CSIRT'en beder om den. Tre måneder er slet ikke en
+        NIS2-frist.
+    difficulty: 3
+    sources:
+      - title: Directive (EU) 2022/2555 (NIS2), Article 23(4)
+        url: https://eur-lex.europa.eu/eli/dir/2022/2555/oj
+        tier: standard
+      - title: Lov nr. 434 af 6. maj 2025 (NIS 2-loven), §§ 12–13
+        url: https://www.retsinformation.dk/eli/lta/2025/434
+        tier: standard
+    draft: true
+
+  - id: comp-nis2-board-cannot-delegate
+    terms:
+      - security/management-responsibility
+      - security/nis2-loven
+    kind: scenario
+    stem:
+      en: >-
+        The board of a large Danish waste-management company covered by the NIS2 Act
+        decides to hand all cybersecurity to the IT manager: "You decide the measures, and
+        just tell us if something goes wrong." The compliance coordinator objects. What does
+        the Act actually require of the board?
+      da: >-
+        Bestyrelsen i en stor dansk affaldsvirksomhed, der er omfattet af NIS2-loven,
+        beslutter at overlade al cybersikkerhed til IT-chefen: "Du bestemmer tiltagene, og
+        giv os bare besked, hvis noget går galt." Compliancekoordinatoren protesterer. Hvad
+        kræver loven egentlig af bestyrelsen?
+    options:
+      - en: The IT manager may approve the measures, provided the board gets a yearly report
+        da: IT-chefen må godkende tiltagene, bare bestyrelsen får en årlig rapport
+      - en: The board must approve the measures, but only IT staff need cyber training
+        da: Bestyrelsen skal godkende tiltagene, men kun IT-personalet skal have kurser
+      - en: The board need only get involved once the authority asks for documentation
+        da: Bestyrelsen skal først involveres, når myndigheden beder om dokumentation
+      - en: The board must approve the measures, oversee them and itself take relevant courses
+        da: Bestyrelsen skal godkende tiltagene, føre tilsyn med dem og selv tage relevante kurser
+    answer: 3
+    explanation:
+      en: >-
+        Section 7 of the Danish NIS2 Act, implementing NIS2 Article 20, says the measures
+        must be approved by the entity's management body, which also oversees their
+        implementation, and that its members must take relevant courses in managing
+        cybersecurity risks. The IT manager can prepare and run the measures, but approval
+        cannot be pushed down to them in exchange for a report. Training is required of the
+        board members themselves, with staff training only encouraged. The duty applies
+        from the start, not only when an authority comes asking.
+      da: >-
+        § 7 i NIS2-loven, der gennemfører NIS2 artikel 20, siger, at tiltagene skal være
+        godkendt af enhedens ledelsesorgan, som også fører tilsyn med gennemførelsen, og at
+        medlemmerne skal deltage i relevante kurser om styring af cybersikkerhedsrisici.
+        IT-chefen kan forberede og drive tiltagene, men godkendelsen kan ikke skubbes ned til
+        IT-chefen mod en rapport. Kurserne gælder bestyrelsesmedlemmerne selv, mens kurser for
+        øvrige ansatte kun skal tilskyndes. Pligten gælder fra start, ikke først når en
+        myndighed spørger.
+    difficulty: 2
+    sources:
+      - title: Lov nr. 434 af 6. maj 2025 (NIS 2-loven), § 7
+        url: https://www.retsinformation.dk/eli/lta/2025/434
+        tier: standard
+      - title: Directive (EU) 2022/2555 (NIS2), Article 20
+        url: https://eur-lex.europa.eu/eli/dir/2022/2555/oj
+        tier: standard
+      - title: Cyber Security Fast Track — kursuskompendium
+        tier: course-material
+    draft: true
+
+  - id: comp-nis2-supply-chain-knock-on
+    terms:
+      - security/supplier-management
+      - security/nis2-minimum-requirements
+    kind: scenario
+    stem:
+      en: >-
+        A Danish IT company with 15 staff maintains the control system for a municipal
+        water utility. The company is not itself covered by NIS2, yet the utility's new
+        contract demands documented patching, multi-factor authentication and incident
+        reporting from it. What best explains why?
+      da: >-
+        En dansk IT-virksomhed med 15 ansatte vedligeholder styresystemet for et kommunalt
+        vandforsyningsselskab. Virksomheden er ikke selv omfattet af NIS2, men selskabets
+        nye kontrakt kræver dokumenteret patching, multifaktorgodkendelse og
+        hændelsesrapportering af den. Hvad forklarer bedst hvorfor?
+    options:
+      - en: The utility must manage supply-chain security, so it passes demands on by contract
+        da: Selskabet skal styre sikkerheden i forsyningskæden og giver derfor krav videre i kontrakten
+      - en: Supplying a covered utility automatically makes the IT company an essential entity
+        da: Levering til et omfattet selskab gør automatisk IT-virksomheden til en væsentlig enhed
+      - en: The GDPR requires it, since every IT supplier counts as a data processor
+        da: GDPR kræver det, fordi enhver IT-leverandør regnes for databehandler
+      - en: The IT company had to register as a subcontractor on virk.dk by 1 October 2025
+        da: IT-virksomheden skulle registrere sig som underleverandør på virk.dk inden 1. oktober 2025
+    answer: 0
+    explanation:
+      en: >-
+        NIS2 Article 21(2)(d) makes supply-chain security, including the relationship with
+        direct suppliers, one of the minimum measures, and Styrelsen for Samfundssikkerhed
+        notes that firms outside the law are affected when they deliver to a covered entity.
+        The requirement reaches the supplier through the contract, not through the law.
+        Delivering to a covered entity does not by itself put the supplier in scope as
+        essential or important. A control system need not involve personal data, so the
+        GDPR is not the driver, and the registration duty applies only to covered entities.
+      da: >-
+        NIS2 artikel 21, stk. 2, litra d, gør sikkerhed i forsyningskæden, herunder forholdet
+        til direkte leverandører, til et af minimumskravene, og Styrelsen for
+        Samfundssikkerhed påpeger, at virksomheder uden for loven påvirkes, når de leverer
+        til en omfattet enhed. Kravet når leverandøren via kontrakten, ikke via loven. At
+        levere til en omfattet enhed gør ikke i sig selv leverandøren til en væsentlig eller
+        vigtig enhed. Et styresystem behøver ikke rumme personoplysninger, så GDPR er ikke
+        årsagen, og registreringspligten gælder kun omfattede enheder.
+    difficulty: 2
+    sources:
+      - title: Directive (EU) 2022/2555 (NIS2), Article 21(2)–(3)
+        url: https://eur-lex.europa.eu/eli/dir/2022/2555/oj
+        tier: standard
+      - title: Styrelsen for Samfundssikkerhed — NIS 2 spørgsmål og svar
+        url: https://samsik.dk/nis2/faq/
+        tier: official-doc
+    draft: true
+
+  - id: comp-gdpr-sub-processor-authorisation
+    terms:
+      - security/data-processor
+      - security/data-controller
+      - security/data-processing-agreement
+    kind: scenario
+    stem:
+      en: >-
+        A Danish municipality runs its HR and payroll in a cloud system from a supplier that
+        handles employees' personal data only on the municipality's instructions. The
+        supplier now wants to move the data to a new hosting company it would hire itself.
+        Under the GDPR, what must be in place before the move?
+      da: >-
+        En dansk kommune kører løn og personaleadministration i et cloudsystem fra en
+        leverandør, der kun behandler medarbejdernes personoplysninger efter kommunens
+        instruks. Leverandøren vil nu flytte data til et nyt hostingfirma, som den selv vil
+        hyre. Hvad skal ifølge GDPR være på plads, før flytningen sker?
+    options:
+      - en: Nothing extra, as long as the new hosting company keeps the data inside the EU
+        da: Intet ekstra, så længe det nye hostingfirma opbevarer data inden for EU
+      - en: The supplier becomes controller for the hosting and simply informs Datatilsynet
+        da: Leverandøren bliver dataansvarlig for hostingen og orienterer blot Datatilsynet
+      - en: The municipality must carry out a new impact assessment before any subcontractor
+        da: Kommunen skal lave en ny konsekvensanalyse, før der må bruges en underleverandør
+      - en: The municipality's prior written authorisation, specific or general with a right to object
+        da: Kommunens forudgående skriftlige godkendelse, specifik eller generel med ret til indsigelse
+    answer: 3
+    explanation:
+      en: >-
+        The municipality is the controller and the supplier its processor, and GDPR Article
+        28(2) forbids a processor to engage another processor without the controller's prior
+        specific or general written authorisation; under a general one the controller must be
+        told of changes and be able to object. The data processing agreement must state these
+        conditions (Article 28(3)(d)). Keeping data in the EU matters for transfers but does
+        not replace the authorisation. Hiring a subcontractor does not turn the supplier into
+        a controller, and a DPIA is only required for high-risk processing, not for every new
+        sub-processor.
+      da: >-
+        Kommunen er dataansvarlig og leverandøren dens databehandler, og GDPR artikel 28, stk.
+        2, forbyder en databehandler at bruge en anden databehandler uden den dataansvarliges
+        forudgående specifikke eller generelle skriftlige godkendelse; ved en generel
+        godkendelse skal den dataansvarlige have besked om ændringer og kunne gøre indsigelse.
+        Databehandleraftalen skal fastlægge disse vilkår (artikel 28, stk. 3, litra d). At data
+        bliver i EU har betydning for overførsler, men erstatter ikke godkendelsen. En
+        underleverandør gør ikke leverandøren til dataansvarlig, og en konsekvensanalyse
+        kræves kun ved behandling med høj risiko, ikke ved hver ny underdatabehandler.
+    difficulty: 3
+    sources:
+      - title: GDPR (Regulation (EU) 2016/679), Article 28
+        url: https://eur-lex.europa.eu/eli/reg/2016/679/oj
+        tier: standard
+      - title: Cyber Security Fast Track — kursuskompendium
+        tier: course-material
+    draft: true
+
+  - id: comp-dpia-before-health-analytics
+    terms:
+      - security/dpia
+      - security/gdpr
+      - security/personal-data
+    kind: scenario
+    stem:
+      en: >-
+        A Danish region plans a system that analyses the health records of all its hospital
+        patients to predict who is likely to be readmitted. The project manager suggests
+        running a pilot first and looking at the privacy risks after three months, "when we
+        have real data to look at". What does the GDPR require?
+      da: >-
+        En dansk region planlægger et system, der analyserer journalerne for alle regionens
+        hospitalspatienter for at forudsige, hvem der sandsynligvis bliver genindlagt.
+        Projektlederen foreslår at køre en pilot først og se på risikoen for patienternes
+        privatliv efter tre måneder, "når vi har rigtige data at se på". Hvad kræver GDPR?
+    options:
+      - en: A pilot is fine, as long as the privacy risks are assessed within three months
+        da: En pilot er fin, så længe risikoen for privatlivet vurderes inden for tre måneder
+      - en: An impact assessment before processing starts, as health data is processed at scale
+        da: En konsekvensanalyse, før behandlingen starter, da der behandles helbredsdata i stort omfang
+      - en: A notification to Datatilsynet within 72 hours of the system going live
+        da: En anmeldelse til Datatilsynet senest 72 timer efter, at systemet er sat i drift
+      - en: An assessment only for patients who have not consented to the analysis
+        da: En vurdering kun for de patienter, der ikke har givet samtykke til analysen
+    answer: 1
+    explanation:
+      en: >-
+        GDPR Article 35(1) requires the controller to assess the impact prior to processing
+        when it is likely to result in high risk, and Article 35(3)(b) names large-scale
+        processing of special categories such as health data as a case where a DPIA is
+        required. A pilot on real patient records is already processing, so assessing
+        afterwards is too late. The 72-hour rule belongs to breach notification (Article 33),
+        not to new systems. Consent does not remove the duty — the assessment covers the
+        processing as a whole.
+      da: >-
+        GDPR artikel 35, stk. 1, kræver, at den dataansvarlige vurderer konsekvenserne, før
+        behandlingen begynder, når den sandsynligvis indebærer en høj risiko, og artikel 35,
+        stk. 3, litra b, nævner behandling i stort omfang af særlige kategorier som
+        helbredsoplysninger som et tilfælde, hvor en DPIA er påkrævet. En pilot på rigtige
+        journaler er allerede behandling, så en vurdering bagefter kommer for sent.
+        72-timers-reglen hører til anmeldelse af brud (artikel 33), ikke til nye systemer.
+        Samtykke fjerner ikke pligten — analysen dækker behandlingen som helhed.
+    difficulty: 2
+    sources:
+      - title: GDPR (Regulation (EU) 2016/679), Article 35
+        url: https://eur-lex.europa.eu/eli/reg/2016/679/oj
+        tier: standard
+    draft: true
+
+  - id: comp-soa-justify-excluded-controls
+    terms:
+      - security/statement-of-applicability
+      - security/annex-a
+      - security/certification
+    kind: scenario
+    stem:
+      en: >-
+        A Danish software company with 40 staff is preparing for ISO 27001 certification.
+        It has no server room of its own — all its systems run with a cloud provider — so
+        the Annex A controls on protecting its own server room do not fit. What should it do
+        with those controls?
+      da: >-
+        En dansk softwarevirksomhed med 40 ansatte forbereder sig på ISO 27001-certificering.
+        Den har intet serverrum selv — alle systemer kører hos en cloududbyder — så kontrollerne
+        i Annex A om beskyttelse af eget serverrum passer ikke. Hvad skal den gøre med de
+        kontroller?
+    options:
+      - en: Delete them from its copy of Annex A before the certification audit
+        da: Slette dem fra sin kopi af Annex A før certificeringsauditten
+      - en: Put them in place anyway, since certification requires every control
+        da: Indføre dem alligevel, da certificering kræver samtlige kontroller
+      - en: Record in its Statement of Applicability that they are excluded, and why
+        da: Notere i sin Statement of Applicability, at de er fravalgt, og hvorfor
+      - en: Leave them out without comment, since ISO 27002 is only guidance
+        da: Udelade dem uden kommentar, da ISO 27002 kun er vejledning
+    answer: 2
+    explanation:
+      en: >-
+        ISO 27001 asks the organisation to compare its risk treatment with Annex A and to
+        produce a Statement of Applicability that takes a stand on every control — included
+        or excluded — with the reason, which the auditor then checks. Annex A is a reference
+        list, so it is neither edited nor implemented wholesale; certification does not
+        demand controls that the risks do not call for. That ISO 27002 is guidance does not
+        make silent omission acceptable: the unexplained gap is exactly what the auditor
+        will flag.
+      da: >-
+        ISO 27001 kræver, at organisationen holder sin risikohåndtering op mod Annex A og
+        udarbejder en Statement of Applicability, der tager stilling til hver kontrol — til-
+        eller fravalgt — med begrundelse, som auditoren derefter efterprøver. Annex A er en
+        referenceliste, så den hverken redigeres eller indføres i sin helhed; certificering
+        kræver ikke kontroller, som risiciene ikke begrunder. At ISO 27002 er vejledning gør
+        ikke en tavs udeladelse acceptabel: det uforklarede hul er netop det, auditoren vil
+        påpege.
+    difficulty: 2
+    sources:
+      - title: Dansk Standard — ISO/IEC 27001 Informationssikkerhed
+        url: https://www.ds.dk/da/om-standarder/ledelsesstandarder/iso-27001-informationssikkerhed
+        tier: official-doc
+      - title: Cyber Security Fast Track — kursuskompendium
+        tier: course-material
+    draft: true
+
+  - id: comp-iso-27001-vs-27002
+    terms:
+      - security/iso-27001
+      - security/iso-27002
+    kind: compare
+    stem:
+      en: >-
+        The information security coordinator in a Danish municipality has to explain to the
+        management team how the two best-known standards in the ISO 27000 series differ.
+        Which explanation is accurate?
+      da: >-
+        Informationssikkerhedskoordinatoren i en dansk kommune skal forklare direktionen,
+        hvordan de to mest kendte standarder i ISO 27000-serien adskiller sig. Hvilken
+        forklaring er korrekt?
+    options:
+      - en: 27001 sets certifiable ISMS requirements; 27002 guides how to put controls in place
+        da: 27001 stiller certificerbare krav til et ISMS; 27002 vejleder i at indføre kontroller
+      - en: 27002 sets certifiable ISMS requirements; 27001 guides how to put controls in place
+        da: 27002 stiller certificerbare krav til et ISMS; 27001 vejleder i at indføre kontroller
+      - en: 27002 is the newer edition of 27001 and has replaced it for certification
+        da: 27002 er den nyere udgave af 27001 og har erstattet den ved certificering
+      - en: 27001 is written for private companies, 27002 for public authorities
+        da: 27001 er skrevet til private virksomheder, 27002 til offentlige myndigheder
+    answer: 0
+    explanation:
+      en: >-
+        ISO 27001 is the management-system standard: it sets the requirements an ISMS must
+        meet, such as risk management, documentation and roles, and it is the one an
+        organisation is certified against. ISO 27002 is a supporting guidance standard that
+        describes each control and how to implement it. Swapping the two gets the roles
+        backwards, 27002 is a separate standard rather than a new edition, and both apply
+        equally to private and public organisations.
+      da: >-
+        ISO 27001 er ledelsessystemstandarden: den stiller de krav, et ISMS skal opfylde, fx
+        til risikostyring, dokumentation og roller, og det er den, man certificeres efter.
+        ISO 27002 er en vejledende støttestandard, der beskriver hver kontrol, og hvordan den
+        indføres. Bytter man om på de to, vender rollerne forkert, 27002 er en selvstændig
+        standard og ikke en ny udgave, og begge gælder lige vel for private og offentlige
+        organisationer.
+    difficulty: 1
+    sources:
+      - title: Dansk Standard — ISO/IEC 27001 Informationssikkerhed
+        url: https://www.ds.dk/da/om-standarder/ledelsesstandarder/iso-27001-informationssikkerhed
+        tier: official-doc
+      - title: Cyber Security Fast Track — kursuskompendium
+        tier: course-material
+    draft: true
+
+  - id: comp-gap-analysis-vs-audit
+    terms:
+      - security/gap-analysis
+      - security/audit
+    kind: compare
+    stem:
+      en: >-
+        A Danish manufacturing SME has just found out it falls under NIS2 and has hardly any
+        security documentation. A consultant proposes two activities: one now, and one in a
+        year's time. What best describes the difference between a gap analysis and an audit
+        in this situation?
+      da: >-
+        En dansk produktionsvirksomhed (SMV) har lige fundet ud af, at den er omfattet af
+        NIS2, og har næsten ingen sikkerhedsdokumentation. En konsulent foreslår to
+        aktiviteter: én nu og én om et år. Hvad beskriver bedst forskellen på en gap-analyse
+        og en audit i den situation?
+    options:
+      - en: The gap analysis is done by the authority; the audit is the firm's own self-check
+        da: Gap-analysen foretages af myndigheden; audit er virksomhedens egen selvevaluering
+      - en: Both give the same result, so the firm can choose either one at any time
+        da: Begge giver samme resultat, så virksomheden kan vælge den ene når som helst
+      - en: The gap analysis maps today against the requirements; the audit checks rules are followed
+        da: Gap-analysen kortlægger i dag mod kravene; audit tjekker, at reglerne efterleves
+      - en: The audit maps today against the requirements; the gap analysis checks rules are followed
+        da: Audit kortlægger i dag mod kravene; gap-analysen tjekker, at reglerne efterleves
+    answer: 2
+    explanation:
+      en: >-
+        A gap analysis compares what the firm does today with the requirements it wants to
+        meet, so it belongs at the start and feeds the roadmap of what to fix first. An
+        audit later checks whether the firm actually follows the policies and requirements
+        it has committed to. Swapping them reverses their purpose. Neither is by definition
+        carried out by the authority — a gap analysis is often internal or done with a
+        consultant — and the two answer different questions, so they are not
+        interchangeable.
+      da: >-
+        En gap-analyse sammenligner, hvad virksomheden gør i dag, med de krav, den vil leve
+        op til, så den hører til i starten og giver input til roadmappen over, hvad der skal
+        rettes først. En audit tjekker senere, om virksomheden faktisk efterlever de politikker
+        og krav, den har forpligtet sig til. Bytter man om, vender formålet på hovedet. Ingen
+        af dem foretages pr. definition af myndigheden — en gap-analyse laves ofte internt
+        eller med en konsulent — og de besvarer forskellige spørgsmål, så de kan ikke
+        erstatte hinanden.
+    difficulty: 1
+    sources:
+      - title: Cyber Security Fast Track — kursuskompendium
+        tier: course-material
+    draft: true
+
+  - id: comp-nis2-important-same-measures
+    terms:
+      - security/nis2-entities
+      - security/nis2-minimum-requirements
+    kind: true-false
+    stem:
+      en: >-
+        True or false: under NIS2, a medium-sized Danish food producer classed as an
+        important entity only has to meet some of the security measures that an essential
+        entity, such as a large water utility, must meet.
+      da: >-
+        Sandt eller falsk: Efter NIS2 skal en mellemstor dansk fødevareproducent, der er en
+        vigtig enhed, kun opfylde en del af de sikkerhedstiltag, som en væsentlig enhed, fx
+        et stort vandforsyningsselskab, skal opfylde.
+    options:
+      - en: 'True'
+        da: Sandt
+      - en: 'False'
+        da: Falsk
+    answer: 1
+    explanation:
+      en: >-
+        False. NIS2 Article 21 applies the same minimum measures to essential and important
+        entities alike, scaled in proportion to size and risk, and Styrelsen for
+        Samfundssikkerhed stresses that the requirements for the two groups are in principle
+        the same. What differs is supervision and sanctions: important entities are
+        supervised after the fact (Article 33), and the maximum fines are lower — at least
+        EUR 7 million or 1.4 % of turnover against EUR 10 million or 2 % for essential
+        entities (Article 34).
+      da: >-
+        Falsk. NIS2 artikel 21 stiller de samme minimumskrav til væsentlige og vigtige
+        enheder, tilpasset størrelse og risiko, og Styrelsen for Samfundssikkerhed
+        understreger, at kravene til de to grupper i udgangspunktet er ens. Forskellen ligger
+        i tilsyn og sanktioner: vigtige enheder får efterfølgende tilsyn (artikel 33), og
+        bødeloftet er lavere — mindst 7 mio. euro eller 1,4 % af omsætningen mod 10 mio.
+        euro eller 2 % for væsentlige enheder (artikel 34).
+    difficulty: 1
+    sources:
+      - title: Directive (EU) 2022/2555 (NIS2), Articles 21, 33 and 34
+        url: https://eur-lex.europa.eu/eli/dir/2022/2555/oj
+        tier: standard
+      - title: Styrelsen for Samfundssikkerhed — NIS 2 spørgsmål og svar
+        url: https://samsik.dk/nis2/faq/
+        tier: official-doc
+    draft: true

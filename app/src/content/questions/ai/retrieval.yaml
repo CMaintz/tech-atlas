@@ -1,0 +1,315 @@
+questions:
+  - id: rag-different-wording-no-hits
+    terms:
+      - ai/semantic-search
+      - ai/keyword-search
+      - ai/embedding-model
+    kind: scenario
+    stem:
+      en: >-
+        A caseworker in a Danish municipality types "may I work from home on
+        Fridays?" into the staff assistant. The HR guideline that answers it only ever
+        says "distance work" and "remote working days", so the assistant's word-matching
+        search finds nothing useful. Which change would most directly let the question
+        find that guideline?
+      da: >-
+        En sagsbehandler i en dansk kommune skriver "må jeg arbejde hjemmefra om
+        fredagen?" i personaleassistenten. Den HR-retningslinje, der besvarer det, skriver
+        kun "distancearbejde" og "hjemmearbejdsdage", så assistentens ordbaserede søgning
+        finder intet brugbart. Hvilken ændring vil mest direkte få spørgsmålet til at ramme
+        retningslinjen?
+    options:
+      - en: Give rare words in the question extra weight when documents are scored
+        da: Giv sjældne ord i spørgsmålet ekstra vægt, når dokumenterne får point
+      - en: Raise the language model's temperature so it phrases the search more freely
+        da: Hæv sprogmodellens temperatur, så den formulerer søgningen mere frit
+      - en: Put the whole HR handbook into every prompt so the model can read it all
+        da: Læg hele HR-håndbogen ind i hver prompt, så modellen kan læse det hele
+      - en: Compare embeddings of the question and the passages instead of their words
+        da: Sammenlign embeddings af spørgsmålet og afsnittene i stedet for deres ord
+    answer: 3
+    explanation:
+      en: >-
+        An embedding model places texts with similar meaning close together, so the
+        question and a passage about distance work can match even though they share
+        almost no words — Google's crash course describes distance in embedding space as
+        a measure of similarity. Weighting rare words is how keyword scoring such as
+        BM25 already works; it still needs the same words to appear. Temperature
+        controls how varied the model's generated text is, not how documents are found.
+        Pasting the whole handbook into every prompt wastes the context window and
+        money, and may not even fit; the point of retrieval is to send only the
+        passages that matter.
+      da: >-
+        En embedding-model placerer tekster med lignende betydning tæt på hinanden, så
+        spørgsmålet og et afsnit om distancearbejde kan matche, selvom de næsten ingen ord
+        har til fælles — Googles crash course beskriver afstanden i et embedding-rum som et
+        mål for lighed. At vægte sjældne ord er netop sådan, nøgleordsscoring som BM25
+        allerede virker; den kræver stadig, at de samme ord optræder. Temperaturen styrer,
+        hvor varieret modellens tekst er, ikke hvordan dokumenter findes. At lægge hele
+        håndbogen i hver prompt spilder kontekstvinduet og penge og kan slet ikke altid
+        være der; idéen med søgningen er netop kun at sende de afsnit, der betyder noget.
+    difficulty: 1
+    sources:
+      - title: Google Machine Learning Crash Course — Embeddings, Embedding space and static embeddings
+        url: https://developers.google.com/machine-learning/crash-course/embeddings/embedding-space
+        tier: course-material
+      - title: Anthropic — Introducing Contextual Retrieval
+        url: https://www.anthropic.com/engineering/contextual-retrieval
+        tier: official-doc
+    draft: true
+  - id: rag-part-number-missed
+    terms:
+      - ai/hybrid-search
+      - ai/semantic-search
+      - ai/keyword-search
+    kind: scenario
+    stem:
+      en: >-
+        A Danish region replaced the word search in its equipment-manual assistant with
+        pure embedding search. Now, when a technician asks about spare part "K-4471",
+        the top results are pages about similar parts, and the one page that names
+        K-4471 is missing. Which fix best keeps the new benefits while solving this?
+      da: >-
+        En dansk region har udskiftet ordsøgningen i sin assistent til udstyrsmanualer
+        med ren embedding-søgning. Når en tekniker nu spørger om reservedel "K-4471",
+        handler de øverste resultater om lignende dele, og den ene side, der nævner
+        K-4471, mangler. Hvilken løsning bevarer bedst de nye fordele og løser samtidig problemet?
+    options:
+      - en: Run a word-matching search alongside it and merge the two ranked lists
+        da: Kør en ordbaseret søgning ved siden af og flet de to rangerede lister
+      - en: Switch back to word matching only and drop the embeddings entirely
+        da: Gå tilbage til ren ordmatchning og drop embeddings helt
+      - en: Return the 200 nearest passages instead of 10 so the page is included
+        da: Returner de 200 nærmeste afsnit i stedet for 10, så siden kommer med
+      - en: Ask technicians to describe the valve in words instead of using its code
+        da: Bed teknikerne om at beskrive ventilen med ord i stedet for at bruge koden
+    answer: 0
+    explanation:
+      en: >-
+        Embeddings capture meaning well but can miss exact matches such as codes;
+        Anthropic's write-up on contextual retrieval uses the example of an error code
+        that BM25 finds and embeddings miss, and recommends combining the two. That is
+        hybrid search: the word match catches "K-4471", the meaning match still finds
+        pages phrased differently. Dropping embeddings throws away that second benefit.
+        Returning 200 passages floods the model's context with mostly irrelevant text
+        and still does not rank the exact match high. Asking people to avoid codes
+        works against the most precise thing they know.
+      da: >-
+        Embeddings fanger betydning godt, men kan overse præcise match som koder;
+        Anthropics artikel om contextual retrieval bruger eksemplet med en fejlkode, som
+        BM25 finder og embeddings overser, og anbefaler at kombinere de to. Det er hybrid
+        søgning: Ordmatchet fanger "K-4471", og betydningsmatchet finder stadig sider, der
+        er formuleret anderledes. At droppe embeddings smider den anden fordel væk. At
+        returnere 200 afsnit oversvømmer modellens kontekst med mest irrelevant tekst og
+        placerer stadig ikke det præcise match højt. At bede folk undgå koder går imod
+        det mest præcise, de ved.
+    difficulty: 2
+    sources:
+      - title: Anthropic — Introducing Contextual Retrieval
+        url: https://www.anthropic.com/engineering/contextual-retrieval
+        tier: official-doc
+    draft: true
+  - id: rag-rule-split-from-exception
+    terms:
+      - ai/chunking
+      - ai/retrieval-augmented-generation
+    kind: scenario
+    stem:
+      en: >-
+        A Danish bank's internal assistant splits its credit policy into pieces of 50
+        tokens with no overlap. An adviser is told that a customer "may borrow up to four
+        times their income" — but in the policy, the next sentence limits this for
+        customers with other debt, and that sentence ended up in a separate piece that
+        was not retrieved. What should the team change first?
+      da: >-
+        En dansk banks interne assistent deler kreditpolitikken op i stykker på 50 tokens
+        uden overlap. En rådgiver får at vide, at en kunde "må låne op til fire gange sin
+        indkomst" — men i politikken begrænser den næste sætning det for kunder med anden
+        gæld, og den sætning endte i et andet stykke, som ikke blev hentet. Hvad bør
+        teamet ændre først?
+    options:
+      - en: Lower the temperature so the model sticks more closely to the text it gets
+        da: Sænk temperaturen, så modellen holder sig tættere til den tekst, den får
+      - en: Cut the policy along its sections into larger pieces that overlap a little
+        da: Del politikken langs afsnittene i større stykker, der overlapper lidt
+      - en: Store the whole 80-page policy as a single piece so nothing is ever split
+        da: Gem hele den 80 sider lange politik som ét stykke, så intet bliver delt
+      - en: Replace the embedding search with keyword search on the word "income"
+        da: Erstat embedding-søgningen med nøgleordssøgning på ordet "indkomst"
+    answer: 1
+    explanation:
+      en: >-
+        The rule and its exception were cut apart, so only half the truth reached the
+        model. Anthropic notes that chunk size, chunk boundaries and overlap all affect
+        retrieval, and that small chunks can lose the context they need; pieces cut
+        along the policy's own sections, with a little overlap, keep a rule and its
+        limits together. Lowering the temperature cannot restore a sentence the model
+        never received. One 80-page piece is the opposite mistake: it may not fit in
+        the context window and cannot be matched precisely. Searching on "income" still
+        returns the same too-small piece.
+      da: >-
+        Reglen og dens undtagelse blev skåret fra hinanden, så kun den halve sandhed nåede
+        modellen. Anthropic påpeger, at stykkernes størrelse, grænser og overlap alle
+        påvirker søgningen, og at små stykker kan miste den sammenhæng, de har brug for;
+        stykker skåret langs politikkens egne afsnit og med lidt overlap holder en regel
+        og dens begrænsninger sammen. En lavere temperatur kan ikke genskabe en sætning,
+        modellen aldrig fik. Ét stykke på 80 sider er den modsatte fejl: Det kan være for
+        stort til kontekstvinduet og kan ikke matches præcist. At søge på "indkomst"
+        henter stadig det samme for lille stykke.
+    difficulty: 2
+    sources:
+      - title: Anthropic — Introducing Contextual Retrieval
+        url: https://www.anthropic.com/engineering/contextual-retrieval
+        tier: official-doc
+    draft: true
+  - id: rag-hr-files-through-chatbot
+    terms:
+      - ai/vector-database
+      - cs/access-control
+      - ai/retrieval-augmented-generation
+    kind: scenario
+    stem:
+      en: >-
+        A Danish municipality loads all its file shares, including HR folders with
+        salaries and sick-leave cases, into the vector database behind a staff chatbot.
+        In testing, an employee asks about a colleague's salary and gets an answer
+        quoting an HR file she has no right to open. What is the right fix?
+      da: >-
+        En dansk kommune lægger alle sine fildrev, også HR-mapper med lønninger og
+        sygefraværssager, ind i vektordatabasen bag en chatbot til medarbejderne. Under
+        test spørger en medarbejder til en kollegas løn og får et svar, der citerer en
+        HR-fil, hun ikke har ret til at åbne. Hvad er den rigtige løsning?
+    options:
+      - en: Tell the model in its system prompt never to reveal anything from HR files
+        da: Skriv i systemprompten, at modellen aldrig må afsløre noget fra HR-filer
+      - en: Encrypt the vector database at rest so the HR embeddings cannot be read
+        da: Krypter de lagrede data i vektordatabasen, så HR-embeddings ikke kan læses
+      - en: Only return passages that the asking user is allowed to open at the source
+        da: Returner kun afsnit, som den spørgende bruger selv må åbne i kildesystemet
+      - en: Scan each answer for the word "salary" and block it before it is shown
+        da: Scan hvert svar for ordet "løn", og bloker det, før det vises
+    answer: 2
+    explanation:
+      en: >-
+        OWASP's LLM08 (Vector and Embedding Weaknesses) warns that weak access controls
+        on a vector store let users reach sensitive information, and recommends a
+        permission-aware vector database so only authorised groups can retrieve their
+        own data. Filtering by the user's rights at retrieval means the HR text never
+        reaches the model. A system-prompt instruction is not a security control — the
+        text is already in the prompt and can be coaxed out. Encryption at rest protects
+        stolen disks, not what the chatbot itself reads and passes on. Blocking the word
+        "salary" misses the same facts phrased differently and leaves the sick-leave
+        cases exposed.
+      da: >-
+        OWASP's LLM08 (Vector and Embedding Weaknesses) advarer om, at svag adgangskontrol
+        i et vektorlager giver brugere adgang til følsomme oplysninger, og anbefaler en
+        vektordatabase, der kender rettighederne, så kun autoriserede grupper kan hente
+        deres egne data. Filtreres der efter brugerens rettigheder ved søgningen, når
+        HR-teksten aldrig frem til modellen. En instruks i systemprompten er ikke en
+        sikkerhedskontrol — teksten ligger allerede i prompten og kan lokkes frem.
+        Kryptering af lagrede data beskytter stjålne diske, ikke det, chatbotten selv
+        læser og giver videre. At blokere ordet "løn" overser de samme oplysninger
+        formuleret anderledes og lader sygefraværssagerne stå åbne.
+    difficulty: 2
+    sources:
+      - title: OWASP Top 10 for LLM Applications 2025 — LLM08 Vector and Embedding Weaknesses
+        url: https://genai.owasp.org/llmrisk/llm082025-vector-and-embedding-weaknesses/
+        tier: standard
+    draft: true
+  - id: rag-query-pipeline-order
+    terms:
+      - ai/reranking
+      - ai/nearest-neighbour-search
+      - ai/retrieval-augmented-generation
+    kind: order
+    stem:
+      en: >-
+        A caseworker at a Danish jobcentre asks the rules assistant a question. The
+        rules and guidance notes have already been chunked, embedded and stored in a
+        vector database. In which order does the assistant handle her question?
+      da: >-
+        En sagsbehandler på et dansk jobcenter stiller regelassistenten et spørgsmål.
+        Regler og vejledninger er allerede delt op, lavet om til embeddings og gemt i en
+        vektordatabase. I hvilken rækkefølge behandler assistenten spørgsmålet?
+    options:
+      - en: Embed the question → rerank all stored passages → fetch the 150 nearest → model answers from the top 20
+        da: Lav spørgsmålet om til en embedding → genranger alle gemte afsnit → hent de 150 nærmeste → modellen svarer ud fra de 20 bedste
+      - en: Model drafts an answer → embed the draft → fetch the 150 nearest passages → rerank to the top 20
+        da: Modellen skriver et udkast → lav udkastet om til en embedding → hent de 150 nærmeste afsnit → genranger til de 20 bedste
+      - en: Embed the question → fetch the 150 nearest passages → model answers from all 150 → rerank the answer
+        da: Lav spørgsmålet om til en embedding → hent de 150 nærmeste afsnit → modellen svarer ud fra alle 150 → genranger svaret
+      - en: Embed the question → fetch the 150 nearest passages → rerank them → model answers from the top 20
+        da: Lav spørgsmålet om til en embedding → hent de 150 nærmeste afsnit → genranger dem → modellen svarer ud fra de 20 bedste
+    answer: 3
+    explanation:
+      en: >-
+        The question is turned into an embedding with the same model used for the
+        passages, a fast nearest-neighbour search pulls a broad set of candidates, a
+        slower and more careful reranker scores each candidate against the question,
+        and only the best few go into the prompt — Anthropic's contextual-retrieval
+        write-up describes exactly this: take the top 150 chunks, rerank, pass the top
+        20 to the model. Reranking every stored passage would be far too slow; that is
+        why a cheap first search comes first. Drafting an answer before retrieval lets
+        the model guess without sources. Reranking comes before generation, because its
+        job is to pick what the model gets to read.
+      da: >-
+        Spørgsmålet laves om til en embedding med den samme model, som blev brugt til
+        afsnittene, en hurtig nærmeste-nabo-søgning henter en bred skare kandidater, en
+        langsommere og grundigere genrangering vurderer hver kandidat op mod spørgsmålet,
+        og kun de bedste få kommer med i prompten — Anthropics artikel om contextual
+        retrieval beskriver netop dette: Tag de 150 øverste stykker, genranger, og giv de
+        20 bedste til modellen. At genrangere alle gemte afsnit ville være alt for
+        langsomt; derfor kommer en billig første søgning først. At skrive et udkast før
+        søgningen lader modellen gætte uden kilder. Genrangeringen kommer før
+        genereringen, fordi dens opgave er at vælge, hvad modellen får at læse.
+    difficulty: 3
+    sources:
+      - title: Anthropic — Introducing Contextual Retrieval
+        url: https://www.anthropic.com/engineering/contextual-retrieval
+        tier: official-doc
+    draft: true
+  - id: rag-citations-still-check
+    terms:
+      - ai/grounding
+      - ai/hallucination
+    kind: true-false
+    stem:
+      en: >-
+        A Danish pension company's assistant answers customers' questions and adds a
+        citation to the policy term it used after every claim. True or false: because
+        every claim carries a citation, the customer advisers no longer need to check
+        the cited terms themselves.
+      da: >-
+        Et dansk pensionsselskabs assistent besvarer kundernes spørgsmål og tilføjer efter
+        hver påstand en henvisning til det punkt i vilkårene, den har brugt. Sandt eller
+        falsk: Fordi hver påstand har en kildehenvisning, behøver rådgiverne ikke længere
+        selv at tjekke de citerede vilkår.
+    options:
+      - en: 'True'
+        da: Sandt
+      - en: 'False'
+        da: Falsk
+    answer: 1
+    explanation:
+      en: >-
+        False. Citations make answers easier to check, but they do not guarantee that
+        the cited text actually supports the claim: in Gao et al.'s benchmark for cited answers, even
+        the best models lacked complete citation support about half the time on one of
+        the datasets. A model can cite the right term and still misread it, stretch it
+        or attach it to a claim it does not cover. Grounding reduces unsupported claims
+        and makes them easier to spot; it does not remove them, so a person should still
+        open the source before relying on the answer with a customer.
+      da: >-
+        Falsk. Kildehenvisninger gør svarene lettere at kontrollere, men garanterer ikke,
+        at den citerede tekst faktisk støtter påstanden: I Gao m.fl.s benchmark for svar
+        med kilder manglede selv de bedste modeller fuld kildestøtte omkring halvdelen af gangene på
+        et af datasættene. En model kan citere det rigtige punkt og alligevel misforstå
+        det, strække det eller hæfte det på en påstand, den ikke dækker. Forankring
+        mindsker udokumenterede påstande og gør dem lettere at opdage, men fjerner dem
+        ikke, så en person bør stadig åbne kilden, før svaret bruges over for en kunde.
+    difficulty: 1
+    sources:
+      - title: Gao et al. (2023), Enabling Large Language Models to Generate Text with Citations
+        url: https://arxiv.org/abs/2305.14627
+        tier: reference
+    draft: true

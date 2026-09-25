@@ -1,0 +1,266 @@
+questions:
+  - id: cloud-iaas-guest-os-patching
+    terms:
+      - platform/shared-responsibility-model
+      - platform/iaas
+      - platform/virtual-machine
+    kind: scenario
+    stem:
+      en: >-
+        A Danish municipality has moved its case-handling system to Windows Server
+        virtual machines that it rents in Microsoft Azure as infrastructure as a
+        service. Microsoft now announces a critical Windows vulnerability. Who is
+        responsible for installing the patch on these virtual machines?
+      da: >-
+        En dansk kommune har flyttet sit sagsbehandlingssystem over på virtuelle
+        Windows Server-maskiner, som den lejer i Microsoft Azure som infrastructure as
+        a service. Nu offentliggør Microsoft en kritisk sårbarhed i Windows. Hvem har
+        ansvaret for at installere rettelsen på de virtuelle maskiner?
+    options:
+      - en: Microsoft, as the provider that runs the data centre and the hosts below the VMs
+        da: Microsoft, fordi udbyderen driver datacentret og de værter, VM'erne kører på
+      - en: No one, because the hypervisor updates the guest systems on its own
+        da: Ingen, fordi hypervisoren selv opdaterer gæstesystemerne
+      - en: The municipality, because in IaaS the guest operating system is the customer's
+        da: Kommunen, fordi gæstestyresystemet i IaaS er kundens ansvar
+      - en: Microsoft, because Windows is its own product, wherever it happens to run
+        da: Microsoft, fordi Windows er dets eget produkt, uanset hvor det kører
+    answer: 2
+    explanation:
+      en: >-
+        In IaaS the provider secures the physical data centre, network and hosts,
+        while the customer manages the operating system and everything above it —
+        Microsoft's responsibility matrix puts the operating system on the customer's
+        side for IaaS, and AWS says the same about EC2 guest operating systems,
+        including updates and security patches. Running the data centre does not make
+        Microsoft patch the guest; that shift only happens in PaaS and SaaS. The
+        hypervisor keeps virtual machines apart but does not install updates inside
+        them. Writing Windows is not the same as operating this installation of it:
+        Microsoft publishes the patch, but the customer who runs the VM applies it.
+      da: >-
+        I IaaS sikrer udbyderen det fysiske datacenter, netværket og værterne, mens
+        kunden står for styresystemet og alt ovenover — Microsofts ansvarsmatrix
+        placerer styresystemet hos kunden i IaaS, og AWS siger det samme om
+        gæstestyresystemer på EC2, herunder opdateringer og sikkerhedsrettelser. At
+        udbyderen driver datacentret, betyder ikke, at den patcher gæsten; det skifte
+        sker først i PaaS og SaaS. Hypervisoren holder de virtuelle maskiner adskilt,
+        men installerer ikke opdateringer inde i dem. At Microsoft har skrevet Windows,
+        er ikke det samme som at drive netop denne installation: Microsoft udgiver
+        rettelsen, men det er kunden, der kører VM'en, som skal installere den.
+    difficulty: 1
+    sources:
+      - title: Microsoft Learn — Shared responsibility in the cloud
+        url: https://learn.microsoft.com/en-us/azure/security/fundamentals/shared-responsibility
+        tier: official-doc
+      - title: AWS — Shared Responsibility Model
+        url: https://aws.amazon.com/compliance/shared-responsibility-model/
+        tier: official-doc
+      - title: NIST SP 800-145 — The NIST Definition of Cloud Computing (IaaS)
+        url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-145.pdf
+        tier: standard
+    draft: true
+  - id: cloud-public-bucket-customer-fault
+    terms:
+      - platform/cloud-misconfiguration
+      - platform/shared-responsibility-model
+      - platform/cloud-iam
+    kind: scenario
+    stem:
+      en: >-
+        A Danish web shop keeps customer invoices in an Amazon S3 storage bucket. A
+        developer set the bucket to public during a test and forgot to change it back,
+        and a journalist later finds the invoices online. Under the shared
+        responsibility model, whose failure is this?
+      da: >-
+        En dansk webshop gemmer kundernes fakturaer i en Amazon S3-bucket. En udvikler
+        gjorde bucketen offentlig under en test og glemte at lave det om, og senere
+        finder en journalist fakturaerne på nettet. Hvis fejl er det efter modellen for
+        delt ansvar?
+    options:
+      - en: The web shop's, because access settings on its own data are the customer's part
+        da: Webshoppens, fordi adgangsindstillinger på egne data er kundens del af ansvaret
+      - en: AWS's, because the provider answers for everything stored in its cloud
+        da: AWS', fordi udbyderen står inde for alt, hvad der ligger i dens sky
+      - en: AWS's, because S3 is a managed service where AWS sets each bucket's access
+        da: AWS', fordi S3 er en administreret tjeneste, hvor AWS styrer adgangen til hver bucket
+      - en: Nobody's alone, because public buckets are a platform flaw both must patch
+        da: Ingens alene, fordi offentlige buckets er en fejl i platformen, som begge skal rette
+    answer: 0
+    explanation:
+      en: >-
+        AWS is responsible for security of the cloud — the infrastructure its services
+        run on — and the customer for security in the cloud. For abstracted services
+        such as S3, AWS runs the infrastructure, operating system and platform, but the
+        customer manages its data and uses the IAM tools to decide who may reach it;
+        Microsoft's matrix likewise leaves data, configuration and identities with the
+        customer in every service model. "Managed service" means AWS runs the storage,
+        not that it chooses who can read each bucket. A bucket set to public is not a
+        platform flaw either: the setting did exactly what the developer asked of it.
+      da: >-
+        AWS har ansvaret for sikkerheden af skyen — den infrastruktur, tjenesterne
+        kører på — og kunden for sikkerheden i skyen. For abstrakte tjenester som S3
+        driver AWS infrastruktur, styresystem og platform, men kunden forvalter sine
+        data og bruger IAM-værktøjerne til at bestemme, hvem der kan få adgang;
+        Microsofts matrix lader ligeledes data, konfiguration og identiteter blive hos
+        kunden i alle tjenestemodeller. At S3 er administreret, betyder, at AWS driver
+        lageret, ikke at AWS vælger, hvem der må læse hver bucket. En offentlig bucket
+        er heller ikke en fejl i platformen: Indstillingen gjorde præcis det, udvikleren
+        bad den om.
+    difficulty: 2
+    sources:
+      - title: AWS — Shared Responsibility Model
+        url: https://aws.amazon.com/compliance/shared-responsibility-model/
+        tier: official-doc
+      - title: Microsoft Learn — Shared responsibility in the cloud
+        url: https://learn.microsoft.com/en-us/azure/security/fundamentals/shared-responsibility
+        tier: official-doc
+    draft: true
+  - id: cloud-model-for-own-web-app
+    terms:
+      - platform/paas
+      - platform/iaas
+      - platform/saas
+      - platform/cloud-computing
+    kind: scenario
+    stem:
+      en: >-
+        Three developers at a Danish SMV have built their own booking web application.
+        They want to upload the code and have it running without buying servers and
+        without installing or patching an operating system, while keeping control of
+        the application's code and settings. Which cloud service model fits best?
+      da: >-
+        Tre udviklere i en dansk SMV har bygget deres egen bookingapplikation til
+        nettet. De vil kunne lægge koden op og få den til at køre uden at købe servere
+        og uden at skulle installere eller patche et styresystem, men de vil stadig
+        selv bestemme over applikationens kode og indstillinger. Hvilken
+        cloudtjenestemodel passer bedst?
+    options:
+      - en: Infrastructure as a service (IaaS)
+        da: Infrastructure as a service (IaaS)
+      - en: Software as a service (SaaS)
+        da: Software as a service (SaaS)
+      - en: Colocation of their own servers in a data centre
+        da: Housing af egne servere i et datacenter
+      - en: Platform as a service (PaaS)
+        da: Platform as a service (PaaS)
+    answer: 3
+    explanation:
+      en: >-
+        NIST SP 800-145 describes PaaS as deploying applications you created onto the
+        provider's infrastructure, where you do not manage servers, operating systems
+        or storage but do control the deployed applications and their hosting settings
+        — exactly this need. IaaS would give them virtual machines, but then the
+        operating system and its patches are theirs to run. SaaS means using the
+        provider's finished application, so there is no place for their own booking
+        code. Colocation puts their own hardware in someone else's building, which
+        still means buying servers and running the whole stack themselves.
+      da: >-
+        NIST SP 800-145 beskriver PaaS som at lægge egne applikationer ud på
+        udbyderens infrastruktur, hvor man ikke styrer servere, styresystemer eller
+        lager, men selv har kontrol over de udrullede applikationer og deres
+        opsætning — præcis det, de har brug for. IaaS ville give dem virtuelle
+        maskiner, men så er styresystemet og dets opdateringer deres eget ansvar. SaaS
+        betyder, at man bruger udbyderens færdige program, så der er ingen plads til
+        deres egen bookingkode. Housing betyder, at deres egen hardware står i en andens
+        bygning, og så skal de stadig købe servere og drive hele stakken selv.
+    difficulty: 1
+    sources:
+      - title: NIST SP 800-145 — The NIST Definition of Cloud Computing (service models)
+        url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-145.pdf
+        tier: standard
+      - title: Microsoft Learn — Shared responsibility in the cloud
+        url: https://learn.microsoft.com/en-us/azure/security/fundamentals/shared-responsibility
+        tier: official-doc
+    draft: true
+  - id: cloud-choose-eu-region
+    terms:
+      - platform/cloud-computing
+      - platform/shared-responsibility-model
+    kind: scenario
+    stem:
+      en: >-
+        A Danish municipality wants to run a citizen self-service system at a large
+        public cloud provider. Its own policy says the citizens' data must be stored in
+        data centres inside the EU. Which statement about meeting that requirement is
+        correct?
+      da: >-
+        En dansk kommune vil køre et selvbetjeningssystem for borgerne hos en stor
+        offentlig cloududbyder. Ifølge kommunens egen politik skal borgernes data
+        opbevares i datacentre inden for EU. Hvilket udsagn om at opfylde det krav er
+        korrekt?
+    options:
+      - en: It cannot be controlled, as cloud data moves freely between all data centres
+        da: Det kan ikke styres, da data i skyen flytter frit mellem alle datacentre
+      - en: The municipality can usually pick the location, such as an EU region
+        da: Kommunen kan som regel selv vælge placeringen, fx en region i EU
+      - en: Location does not matter as long as the data is encrypted at rest
+        da: Placeringen er ligegyldig, så længe data er krypteret, når de er lagret
+      - en: The provider decides, since data centres are its side of the responsibility
+        da: Udbyderen bestemmer, fordi datacentrene er dens del af ansvaret
+    answer: 1
+    explanation:
+      en: >-
+        NIST SP 800-145 notes that with resource pooling the customer generally does
+        not know the exact location of the resources but may be able to specify it at
+        a higher level, such as country, state or data centre — in practice, choosing
+        the region when the service is set up. So "it cannot be controlled" is too
+        pessimistic. Encryption protects the data's confidentiality but does not change
+        where it is stored, so it does not meet a rule about location. The provider is
+        responsible for securing its data centres, but choosing among the locations it
+        offers is the customer's decision.
+      da: >-
+        NIST SP 800-145 bemærker, at kunden ved ressourcepuljer som regel ikke kender
+        ressourcernes præcise placering, men kan have mulighed for at angive den på et
+        højere niveau, fx land, delstat eller datacenter — i praksis ved at vælge
+        region, når tjenesten sættes op. "Det kan ikke styres" er derfor for
+        pessimistisk. Kryptering beskytter fortroligheden, men ændrer ikke, hvor data
+        ligger, så den opfylder ikke et krav om placering. Udbyderen har ansvaret for
+        at sikre sine datacentre, men valget mellem de placeringer, den tilbyder, er
+        kundens beslutning.
+    difficulty: 2
+    sources:
+      - title: NIST SP 800-145 — The NIST Definition of Cloud Computing (resource pooling)
+        url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-145.pdf
+        tier: standard
+    draft: true
+  - id: cloud-elasticity-black-friday
+    terms:
+      - platform/cloud-computing
+    kind: true-false
+    stem:
+      en: >-
+        A Danish web shop sells ten times as much on Black Friday as on an ordinary
+        day. True or false: after moving to the cloud, it must still pay all year for
+        enough capacity to handle Black Friday.
+      da: >-
+        En dansk webshop sælger ti gange så meget på Black Friday som på en
+        almindelig dag. Sandt eller falsk: Efter flytningen til skyen skal den stadig
+        betale hele året for kapacitet nok til at klare Black Friday.
+    options:
+      - en: 'True'
+        da: Sandt
+      - en: 'False'
+        da: Falsk
+    answer: 1
+    explanation:
+      en: >-
+        False. Rapid elasticity is one of NIST's five essential characteristics of
+        cloud computing: capacity can be provisioned and released, sometimes
+        automatically, to scale outward and inward with demand. Together with measured
+        service, typically charged per use, the shop can add capacity for the peak and
+        give it back afterwards instead of owning servers sized for its busiest day
+        all year — provided it actually sets up its service to scale down again.
+      da: >-
+        Falsk. Hurtig elasticitet er en af NIST's fem grundlæggende egenskaber ved
+        cloud computing: Kapacitet kan tildeles og frigives, nogle gange automatisk, så
+        den skalerer op og ned efter behov. Sammen med målt forbrug, som typisk
+        afregnes efter brug, kan webshoppen tilføje kapacitet til spidsbelastningen og
+        give den tilbage bagefter i stedet for at eje servere, der hele året er
+        dimensioneret til den travleste dag — forudsat at den faktisk sætter tjenesten
+        op til at skalere ned igen.
+    difficulty: 1
+    sources:
+      - title: NIST SP 800-145 — The NIST Definition of Cloud Computing (essential characteristics)
+        url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-145.pdf
+        tier: standard
+    draft: true

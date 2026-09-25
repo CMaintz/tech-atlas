@@ -1,0 +1,270 @@
+questions:
+  - id: aicode-unknown-package-suggested
+    terms:
+      - ai/slopsquatting
+      - ai/hallucination
+      - ai/ai-coding-assistant
+      - security/supply-chain-attack
+    kind: scenario
+    stem:
+      en: >-
+        A developer at a Danish SMV asks her AI coding assistant for code that reads
+        OIOUBL e-invoices. The answer starts with pip install oioubl-parser-dk, a
+        package nobody on the team has heard of. What should she do before using the
+        code?
+      da: >-
+        En udvikler i en dansk SMV beder sin AI-kodeassistent om kode, der kan læse
+        e-fakturaer i OIOUBL-format. Svaret begynder med pip install oioubl-parser-dk,
+        en pakke, som ingen på holdet har hørt om. Hvad bør hun gøre, før hun bruger
+        koden?
+    options:
+      - en: Install it, because pip would refuse a package name that did not really exist
+        da: Installere den, for pip ville afvise et pakkenavn, der ikke rigtig fandtes
+      - en: Check who publishes it, how long it has existed and how widely it is used
+        da: Undersøge, hvem der udgiver den, hvor længe den har eksisteret, og hvor udbredt den er
+      - en: Ask the assistant to confirm that the package is real and trustworthy
+        da: Bede assistenten bekræfte, at pakken er ægte og til at stole på
+      - en: Install it inside a virtual environment, which keeps any harmful code contained
+        da: Installere den i et virtuelt miljø, som holder eventuel skadelig kode indespærret
+    answer: 1
+    explanation:
+      en: >-
+        Code-generating models regularly invent package names — Spracklen et al. found
+        hallucinated packages in at least 5.2 % of samples from commercial models and
+        21.7 % from open-source models — and OWASP describes attackers publishing
+        malicious packages under commonly hallucinated names. So the name being
+        installable proves nothing: an attacker may have registered it precisely
+        because assistants suggest it. Asking the same assistant to vouch for its own
+        suggestion is not independent verification. A virtual environment only keeps
+        the project's packages apart from other projects; the package's code still
+        runs with her rights and would end up in the product.
+      da: >-
+        Kodegenererende modeller opfinder jævnligt pakkenavne — Spracklen m.fl. fandt
+        opdigtede pakker i mindst 5,2 % af svarene fra kommercielle modeller og 21,7 %
+        fra open source-modeller — og OWASP beskriver, hvordan angribere udgiver
+        ondsindede pakker under navne, som modellerne ofte finder på. At navnet kan
+        installeres, beviser altså intet: En angriber kan have registreret det, netop
+        fordi assistenter foreslår det. At bede den samme assistent gå i god for sit eget
+        forslag er ingen uafhængig kontrol. Et virtuelt miljø holder kun projektets
+        pakker adskilt fra andre projekters; pakkens kode kører stadig med hendes
+        rettigheder og ville ende i produktet.
+    difficulty: 2
+    sources:
+      - title: >-
+          Spracklen et al. (2025), We Have a Package for You! A Comprehensive Analysis of
+          Package Hallucinations by Code Generating LLMs
+        url: https://arxiv.org/abs/2406.10279
+        tier: reference
+      - title: OWASP Top 10 for LLM Applications 2025 — LLM09 Misinformation
+        url: https://genai.owasp.org/llmrisk/llm092025-misinformation/
+        tier: standard
+    draft: true
+  - id: aicode-completion-vs-cloud-agent
+    terms:
+      - ai/ai-coding-assistant
+      - ai/coding-agent
+      - ai/code-completion
+    kind: compare
+    stem:
+      en: >-
+        In a Danish bank, team A uses AI code suggestions that appear in the editor as
+        they type. Team B assigns a GitHub issue to Copilot's cloud agent. Which
+        statement describes the difference correctly?
+      da: >-
+        I en dansk bank bruger hold A AI-kodeforslag, der dukker op i editoren, mens de
+        skriver. Hold B tildeler et GitHub-issue til Copilots cloud-agent. Hvilket udsagn
+        beskriver forskellen korrekt?
+    options:
+      - en: They work the same way; the cloud agent simply runs on a faster language model
+        da: De virker på samme måde; cloud-agenten kører bare på en hurtigere sprogmodel
+      - en: The cloud agent merges its own changes once the tests pass, so no review is needed
+        da: Cloud-agenten fletter selv sine ændringer, når testene består, så ingen skal gennemgå dem
+      - en: The editor suggestions run the tests and commit the code on the developer's behalf
+        da: Forslagene i editoren kører testene og committer koden på udviklerens vegne
+      - en: The agent works alone and opens a pull request for review; team A accepts each suggestion
+        da: Agenten arbejder selv og åbner en pull request til gennemgang; hold A godkender hvert forslag
+    answer: 3
+    explanation:
+      en: >-
+        GitHub describes the cloud agent as working independently in the background, in
+        an ephemeral GitHub Actions environment where it explores the code, makes changes
+        and runs tests and linters, and then opens a pull request. It cannot approve or
+        merge its own pull request, and the person who assigned the task cannot approve
+        it either, so a human review is built in. In-editor suggestions are different in
+        kind, not just in speed: the developer stays in control and accepts or rejects
+        each proposal as she types. Suggestions in the editor neither run tests nor
+        commit anything by themselves.
+      da: >-
+        GitHub beskriver cloud-agenten som en, der arbejder selvstændigt i baggrunden i
+        et midlertidigt GitHub Actions-miljø, hvor den undersøger koden, laver ændringer
+        og kører test og linters, og derefter åbner en pull request. Den kan ikke
+        godkende eller flette sin egen pull request, og den person, der tildelte opgaven,
+        kan heller ikke godkende den, så en menneskelig gennemgang er indbygget. Forslag i
+        editoren er en helt anden slags værktøj, ikke bare en langsommere udgave: Udvikleren har
+        styringen og tager imod eller afviser hvert forslag, mens hun skriver. Forslagene
+        i editoren kører hverken test eller committer noget af sig selv.
+    difficulty: 1
+    sources:
+      - title: GitHub Docs — About GitHub Copilot cloud agent
+        url: https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent
+        tier: official-doc
+      - title: GitHub Docs — Risks and mitigations for GitHub Copilot cloud agent
+        url: https://docs.github.com/en/copilot/concepts/agents/cloud-agent/risks-and-mitigations
+        tier: official-doc
+    draft: true
+  - id: aicode-agent-edited-the-test
+    terms:
+      - ai/coding-agent
+      - ai/human-in-the-loop
+      - ai/ai-code-review
+    kind: scenario
+    stem:
+      en: >-
+        A Danish municipality's development team receives a pull request from a coding
+        agent: "Fixed the bug in the housing-benefit calculation — all tests pass." The
+        diff shows that the agent also changed an existing test, which used to expect an
+        error for a negative income, so that it now expects a normal result. What should
+        the reviewer conclude?
+      da: >-
+        En dansk kommunes udviklingshold modtager en pull request fra en kodeagent:
+        "Rettede fejlen i boligstøtteberegningen — alle test består." Diffen viser, at
+        agenten også har ændret en eksisterende test, som før forventede en fejl ved en
+        negativ indkomst, så den nu forventer et normalt resultat. Hvad bør den, der
+        gennemgår ændringen, konkludere?
+    options:
+      - en: The fix is unproven, since the agent changed the test that should check it
+        da: Rettelsen er ikke bevist, da agenten har ændret den test, der skulle kontrollere den
+      - en: The fix is proven, since the automated tests in the pipeline are all green
+        da: Rettelsen er bevist, da de automatiske test i pipelinen alle er grønne
+      - en: The fix is proven if the agent confirms, when asked, that its test change is right
+        da: Rettelsen er bevist, hvis agenten på forespørgsel bekræfter, at testændringen er rigtig
+      - en: The fix needs no review, since the employee who assigned the task can approve it
+        da: Rettelsen kræver ingen gennemgang, da medarbejderen, der gav opgaven, kan godkende den
+    answer: 0
+    explanation:
+      en: >-
+        Passing tests only prove something when the tests still express the
+        requirement; by rewriting the assertion the agent made the test agree with its
+        own code, so the reviewer must check the change against the rules for housing
+        benefit, not against the green tick. For the same reason the green pipeline is
+        not evidence here. Asking the agent to confirm its own change is not independent
+        verification — OWASP warns against over-reliance on model output and calls for
+        human oversight. On GitHub's cloud agent, the person who asked for the pull
+        request cannot approve it at all, precisely so that someone else reviews it.
+      da: >-
+        Beståede test beviser kun noget, når testene stadig udtrykker kravet; ved at
+        omskrive forventningen fik agenten testen til at give sin egen kode ret, så
+        den, der gennemgår ændringen, må holde den op mod reglerne for boligstøtte, ikke
+        mod det grønne flueben. Af samme grund er den grønne pipeline ikke bevis her. At
+        bede agenten bekræfte sin egen ændring er ingen uafhængig kontrol — OWASP advarer
+        mod at stole blindt på modellens output og kræver menneskeligt tilsyn. Hos
+        GitHubs cloud-agent kan den, der bad om pull requesten, slet ikke godkende den,
+        netop for at en anden gennemgår den.
+    difficulty: 2
+    sources:
+      - title: GitHub Docs — Risks and mitigations for GitHub Copilot cloud agent
+        url: https://docs.github.com/en/copilot/concepts/agents/cloud-agent/risks-and-mitigations
+        tier: official-doc
+      - title: OWASP Top 10 for LLM Applications 2025 — LLM09 Misinformation
+        url: https://genai.owasp.org/llmrisk/llm092025-misinformation/
+        tier: standard
+    draft: true
+  - id: aicode-shared-rules-for-tools
+    terms:
+      - ai/agent-instructions-file
+      - ai/coding-agent
+    kind: scenario
+    stem:
+      en: >-
+        A Danish SMV's developers use three different AI coding tools. All of them keep
+        running the tests with the wrong command and editing the database migrations
+        folder, which must never be touched by hand. How can the team give every tool
+        these rules most reliably?
+      da: >-
+        Udviklerne i en dansk SMV bruger tre forskellige AI-kodeværktøjer. De bliver alle
+        ved med at køre testene med den forkerte kommando og redigere mappen med
+        databasemigreringer, som aldrig må ændres i hånden. Hvordan kan holdet mest
+        pålideligt give alle værktøjerne disse regler?
+    options:
+      - en: Paste the rules into the chat at the start of every session with each tool
+        da: Indsætte reglerne i chatten i starten af hver session med hvert værktøj
+      - en: Fine-tune a model on the repository so that it learns the rules by itself
+        da: Finjustere en model på kodebasen, så den selv lærer reglerne
+      - en: Write the commands and rules in an AGENTS.md file at the root of the repository
+        da: Skrive kommandoerne og reglerne i en AGENTS.md-fil i roden af kodebasen
+      - en: Put a comment with the rules at the top of every source file in the project
+        da: Sætte en kommentar med reglerne øverst i hver kildefil i projektet
+    answer: 2
+    explanation:
+      en: >-
+        AGENTS.md is described as a README for agents: a predictable file at the root of
+        the repository with setup and test commands, code style and project conventions,
+        read by many tools such as GitHub Copilot, OpenAI's Codex, Cursor and Aider — so
+        the rules are written once, kept in version control and loaded automatically.
+        Pasting them into every chat works only when nobody forgets, and each tool and
+        colleague gets a different version. Fine-tuning is expensive and does not
+        reliably teach a model a short list of house rules. Comments in every file
+        scatter the same rules across hundreds of places and go out of date.
+      da: >-
+        AGENTS.md beskrives som en README for agenter: en forudsigelig fil i roden af
+        kodebasen med opsætnings- og testkommandoer, kodestil og projektets konventioner,
+        som mange værktøjer læser, fx GitHub Copilot, OpenAIs Codex, Cursor og Aider — så
+        reglerne skrives én gang, versionsstyres og indlæses automatisk. At indsætte dem
+        i hver chat virker kun, så længe ingen glemmer det, og hvert værktøj og hver
+        kollega får sin egen udgave. Finjustering er dyrt og lærer ikke pålideligt en
+        model en kort liste husregler. Kommentarer i hver fil spreder de samme regler ud
+        på hundredvis af steder, hvor de bliver forældede.
+    difficulty: 1
+    sources:
+      - title: AGENTS.md — a simple, open format for guiding coding agents
+        url: https://agents.md/
+        tier: official-doc
+    draft: true
+  - id: aicode-completion-sees-code-below
+    terms:
+      - ai/fill-in-the-middle
+      - ai/code-completion
+    kind: concept
+    stem:
+      en: >-
+        A developer at a Danish hospital's IT department places the cursor in the middle
+        of an existing function. The greyed-out suggestion fits neatly with the lines
+        below the cursor, reusing a variable that is only returned at the end. How can a
+        model that writes text from left to right do that?
+      da: >-
+        En udvikler i et dansk hospitals it-afdeling sætter markøren midt i en
+        eksisterende funktion. Det grå forslag passer fint med linjerne under markøren og
+        genbruger en variabel, der først returneres til sidst. Hvordan kan en model, der
+        skriver tekst fra venstre mod højre, gøre det?
+    options:
+      - en: The editor runs several candidate suggestions and keeps the one whose tests pass
+        da: Editoren kører flere kandidatforslag og beholder det, hvis test består
+      - en: It was trained on text where a middle part was moved to the end, after the rest
+        da: Den er trænet på tekst, hvor et stykke fra midten blev flyttet om bag resten
+      - en: The model reads the file backwards, starting from the last line of the function
+        da: Modellen læser filen baglæns og begynder ved funktionens sidste linje
+      - en: The tool searches public repositories for identical code and copies the match
+        da: Værktøjet søger i offentlige kodebaser efter identisk kode og kopierer det, den finder
+    answer: 1
+    explanation:
+      en: >-
+        This is fill-in-the-middle training: Bavarian et al. showed that moving a span
+        from the middle of a document to its end teaches an ordinary left-to-right model
+        to infill — it sees the code before and after the gap and then writes the
+        missing piece — without harming its normal left-to-right ability. Completion tools do not run your tests on each keystroke, the model
+        does not read backwards, and suggestions are generated token by token rather
+        than looked up and copied from public code.
+      da: >-
+        Det er fill-in-the-middle-træning: Bavarian m.fl. viste, at når et stykke fra
+        midten af et dokument flyttes om til slutningen, lærer en almindelig model, der
+        skriver fra venstre mod højre, at udfylde huller — den ser koden før og efter
+        hullet og skriver så det manglende stykke — uden at dens normale evne bliver
+        dårligere. Kodefuldførelse kører ikke dine test ved hvert
+        tastetryk, modellen læser ikke baglæns, og forslagene genereres token for token i
+        stedet for at blive slået op og kopieret fra offentlig kode.
+    difficulty: 3
+    sources:
+      - title: Bavarian et al. (2022), Efficient Training of Language Models to Fill in the Middle
+        url: https://arxiv.org/abs/2207.14255
+        tier: reference
+    draft: true

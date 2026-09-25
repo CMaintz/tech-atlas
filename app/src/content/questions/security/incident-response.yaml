@@ -54,6 +54,394 @@ questions:
         url: https://www.edpb.europa.eu/our-work-tools/our-documents/guidelines/guidelines-92022-personal-data-breach-notification-under_en
         tier: official-doc
       - title: Datatilsynet — Anmeld brud på persondatasikkerheden
-        url: https://www.datatilsynet.dk/hvad-siger-reglerne/vejledning/sikkerhed/brud-paa-persondatasikkerheden
+        url: https://www.datatilsynet.dk/sikkerhedsbrud/anmeld-sikkerhedsbrud
         tier: official-doc
+    draft: true
+  - id: ir-ransomware-contain-first
+    terms:
+      - security/incident-response
+      - security/ransomware
+    kind: scenario
+    stem:
+      en: >-
+        At 07:30 an IT operations employee in a Danish region sees that files on one of
+        a hospital department's file servers are being renamed with a strange
+        extension, and a ransom note has appeared in several folders. Two neighbouring
+        servers show the same activity. Following the NIST SP 800-61 approach to
+        incident handling, what should the team do first?
+      da: >-
+        Kl. 7.30 opdager en driftsmedarbejder i en dansk region, at filerne på en af et
+        hospitalsafsnits filservere bliver omdøbt med en mærkelig filendelse, og at der
+        er dukket et krav om løsesum op i flere mapper. To servere ved siden af viser
+        samme aktivitet. Hvad bør teamet gøre først, hvis det følger NIST SP 800-61's
+        tilgang til hændelseshåndtering?
+    options:
+      - en: Wipe the three servers at once and restore them from last night's backup
+        da: Slette de tre servere med det samme og gendanne dem fra nattens backup
+      - en: Cut the affected servers off the network and secure logs and snapshots first
+        da: Koble de ramte servere fra netværket og sikre logs og snapshots først
+      - en: Leave the servers running untouched to watch the attackers and learn more
+        da: Lade serverne køre urørt for at holde øje med angriberne og lære mere
+      - en: Run antivirus scans on the servers while they stay connected to the network
+        da: Køre antivirusscanninger på serverne, mens de forbliver på netværket
+    answer: 1
+    explanation:
+      en: >-
+        The ransomware is still spreading, so containment comes first: isolating the
+        servers stops the damage and buys time to plan the clean-up, and NIST advises
+        taking a snapshot of a system as it is before anyone alters it, so the evidence
+        survives. Wiping and restoring straight away jumps to recovery — it destroys the
+        traces needed to find how the attackers got in and which other machines are hit,
+        and the restored servers may be infected again. Leaving the servers running to
+        watch the attackers is the delayed containment NIST calls dangerous, because they
+        can spread further. Scanning while the servers stay online is an attempt at
+        eradication before containment, and the encryption keeps running meanwhile.
+      da: >-
+        Ransomwaren spreder sig stadig, så inddæmning kommer først: Når serverne isoleres,
+        stopper skaden, og der bliver tid til at planlægge oprydningen, og NIST anbefaler
+        at tage et snapshot af et system, som det er, før nogen ændrer det, så sporene
+        bevares. At slette og gendanne med det samme springer direkte til genopretning —
+        det ødelægger de spor, der skal vise, hvordan angriberne kom ind, og hvilke andre
+        maskiner der er ramt, og de gendannede servere kan blive smittet igen. At lade
+        serverne køre for at iagttage angriberne er den forsinkede inddæmning, som NIST
+        kalder farlig, fordi angrebet kan brede sig. At scanne, mens serverne stadig er på
+        netværket, er et forsøg på at fjerne årsagen før inddæmning, og krypteringen
+        fortsætter imens.
+    difficulty: 2
+    sources:
+      - title: NIST SP 800-61 Rev. 2 — Computer Security Incident Handling Guide, sections 3.3.1–3.3.4
+        url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r2.pdf
+        tier: standard
+      - title: >-
+          NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations
+          for Cyber Risk Management, RS.MI (Incident Mitigation)
+        url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r3.pdf
+        tier: standard
+    draft: true
+  - id: ir-nis2-report-order
+    terms:
+      - security/incident-reporting
+      - security/nis2
+    kind: order
+    stem:
+      en: >-
+        On Tuesday at 10:00 a Danish drinking-water utility that is an essential entity
+        under NIS2 becomes aware that attackers have disrupted its control systems — a
+        significant incident. Which sequence of reports to the CSIRT matches the
+        reporting obligations in NIS2 Article 23?
+      da: >-
+        Tirsdag kl. 10.00 får et dansk vandforsyningsselskab, der er væsentlig enhed
+        efter NIS2, kendskab til, at angribere har forstyrret dets styringssystemer — en
+        væsentlig hændelse. Hvilken rækkefølge af underretninger til CSIRT'en svarer til
+        rapporteringspligten i NIS2's artikel 23?
+    options:
+      - en: Incident notification within 24 hours → early warning within 72 hours → final report within one month
+        da: Hændelsesunderretning inden 24 timer → tidlig varsling inden 72 timer → endelig rapport inden en måned
+      - en: Early warning within 24 hours → final report within 72 hours → incident notification within one month
+        da: Tidlig varsling inden 24 timer → endelig rapport inden 72 timer → hændelsesunderretning inden en måned
+      - en: Early warning within 24 hours → incident notification within 72 hours → final report one month after the incident was discovered
+        da: Tidlig varsling inden 24 timer → hændelsesunderretning inden 72 timer → endelig rapport en måned efter, at hændelsen blev opdaget
+      - en: Early warning within 24 hours → incident notification within 72 hours → final report one month after the incident notification
+        da: Tidlig varsling inden 24 timer → hændelsesunderretning inden 72 timer → endelig rapport en måned efter hændelsesunderretningen
+    answer: 3
+    explanation:
+      en: >-
+        Article 23(4) sets three stages: an early warning within 24 hours of becoming
+        aware of the significant incident (saying whether it looks malicious or could
+        have a cross-border impact), an incident notification within 72 hours with a
+        first assessment of severity and impact, and a final report no later than one
+        month after that incident notification — not one month after discovery, which
+        is the tempting near-miss. The quick, short warning always comes before the
+        fuller notification, so swapping them is wrong, and a final report after 72
+        hours would come before the investigation could describe the root cause. The
+        CSIRT may also ask for an intermediate report along the way; the Danish NIS 2
+        law, § 13, repeats the same stages.
+      da: >-
+        Artikel 23, stk. 4, fastlægger tre trin: en tidlig varsling senest 24 timer efter,
+        at enheden har fået kendskab til den væsentlige hændelse (om den mistænkes at
+        være ondsindet eller kan have grænseoverskridende virkning), en
+        hændelsesunderretning senest efter 72 timer med en indledende vurdering af alvor
+        og indvirkning og en endelig rapport senest en måned efter
+        hændelsesunderretningen — ikke en måned efter opdagelsen, som er den fristende
+        fejl. Den hurtige, korte varsling kommer altid før den fyldigere underretning, så
+        det er forkert at bytte om på dem, og en endelig rapport efter 72 timer ville
+        komme, før undersøgelsen kunne beskrive årsagen. CSIRT'en kan desuden bede om en
+        foreløbig rapport undervejs; den danske NIS 2-lov gentager trinene i § 13.
+    difficulty: 3
+    sources:
+      - title: Directive (EU) 2022/2555 (NIS2 Directive), Article 23 — Reporting obligations
+        url: https://eur-lex.europa.eu/eli/dir/2022/2555/oj
+        tier: standard
+      - title: NIS 2-loven (lov nr. 434 af 6. maj 2025), § 13
+        url: https://www.retsinformation.dk/eli/lta/2025/434
+        tier: standard
+    draft: true
+  - id: ir-escalation-night-alert
+    terms:
+      - security/escalation-procedure
+      - security/soc
+    kind: scenario
+    stem:
+      en: >-
+        At 02:40 an analyst on night duty in a Danish pension fund's SOC sees the same
+        administrator account log in to twelve servers within ten minutes, from an
+        address the fund has never seen before. She is unsure whether it is serious
+        enough to wake anyone. What should decide whom she contacts, and how quickly?
+      da: >-
+        Kl. 2.40 ser en analytiker på nattevagt i en dansk pensionskasses SOC, at den
+        samme administratorkonto logger ind på tolv servere på ti minutter fra en
+        adresse, pensionskassen aldrig har set før. Hun er i tvivl om, hvorvidt det er
+        alvorligt nok til at vække nogen. Hvad bør afgøre, hvem hun kontakter, og hvor
+        hurtigt?
+    options:
+      - en: Her own judgement — if the logins go on, she emails the IT department in the morning
+        da: Hendes egen vurdering — fortsætter loginnene, mailer hun IT-afdelingen om morgenen
+      - en: The communication plan, which lists who may speak to members and to the press
+        da: Kommunikationsplanen, som angiver, hvem der må udtale sig til medlemmer og presse
+      - en: The thresholds and contact chain agreed in advance for alerts of this kind
+        da: De tærskler og den kontaktkæde, der på forhånd er aftalt for alarmer af denne type
+      - en: A standing rule that any alert at night goes straight to the managing director
+        da: En fast regel om, at enhver alarm om natten går direkte til den administrerende direktør
+    answer: 2
+    explanation:
+      en: >-
+        An escalation procedure sets, in advance, the thresholds at which an alert must
+        be passed on, to whom and within what time, so a first responder never has to
+        guess at 3 a.m. — NIST SP 800-61 Rev. 3 lists deciding when to escalate or
+        elevate incident response as part of preparation. Waiting until morning on her
+        own judgement can cost hours while an attacker with admin rights spreads. The
+        communication plan governs messages to members, the press and authorities, not
+        who inside the organisation is woken. Sending every alert to the director is not
+        a threshold at all: it floods leadership and still does not bring in the
+        specialists who can act.
+      da: >-
+        En eskaleringsprocedure fastlægger på forhånd, ved hvilke tærskler en alarm skal
+        sendes videre, til hvem og inden for hvilken tid, så den, der sidder med alarmen,
+        ikke skal gætte kl. 3 om natten — NIST SP 800-61 Rev. 3 nævner beslutninger om,
+        hvornår hændelseshåndteringen skal eskaleres eller løftes op, som en del af
+        forberedelsen. At vente til om morgenen på egen vurdering kan koste timer, mens en
+        angriber med administratorrettigheder breder sig. Kommunikationsplanen styrer
+        budskaber til medlemmer, presse og myndigheder, ikke hvem internt der skal vækkes.
+        At sende alle alarmer til direktøren er slet ikke en tærskel: Det oversvømmer
+        ledelsen og får stadig ikke fat i de specialister, der kan handle.
+    difficulty: 1
+    sources:
+      - title: >-
+          NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations
+          for Cyber Risk Management, GV.RM-07 and RS.MA-04
+        url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r3.pdf
+        tier: standard
+      - title: Cyber Security Fast Track — kursuskompendium, Modul 7 (roller, kommunikationsveje og eskaleringsprocedurer)
+        tier: course-material
+    draft: true
+  - id: ir-table-top-reveals
+    terms:
+      - security/table-top-exercise
+      - security/contingency-plan
+    kind: scenario
+    stem:
+      en: >-
+        A municipality's management team spends two hours around a meeting table. An
+        exercise leader describes a made-up ransomware attack step by step, and each
+        manager says what they would do at that point. No systems are touched. What is
+        this kind of exercise best at revealing?
+      da: >-
+        En kommunes ledelse bruger to timer rundt om et mødebord. En øvelsesleder
+        beskriver trin for trin et tænkt ransomware-angreb, og hver leder fortæller, hvad
+        de vil gøre på det tidspunkt. Ingen systemer bliver rørt. Hvad er denne type
+        øvelse bedst til at afsløre?
+    options:
+      - en: Gaps in roles, decisions and communication, such as who may call the police
+        da: Huller i roller, beslutninger og kommunikation, fx hvem der må ringe til politiet
+      - en: Whether the backups can really be restored within the agreed recovery time
+        da: Om backupperne reelt kan gendannes inden for den aftalte genopretningstid
+      - en: How many employees would click on a phishing email carrying the ransomware
+        da: Hvor mange medarbejdere der ville klikke på en phishingmail med ransomwaren
+      - en: Which weaknesses in the firewall an attacker could use to enter the network
+        da: Hvilke svagheder i firewallen en angriber kunne bruge til at komme ind på netværket
+    answer: 0
+    explanation:
+      en: >-
+        This is a table-top exercise: NIST SP 800-84 describes it as discussion-based,
+        with a facilitator presenting a scenario that prompts talk about roles,
+        responsibilities, coordination and decision-making — so it shows where the plan
+        is unclear or silent. Because it does not deploy equipment or touch live
+        systems, it cannot prove that backups restore in time; that takes a functional
+        exercise or an actual restore test. Phishing susceptibility is measured with a
+        phishing simulation, and firewall weaknesses are found by a penetration test or
+        vulnerability scan, not by managers talking through a scenario.
+      da: >-
+        Det er en table-top-øvelse: NIST SP 800-84 beskriver den som samtalebaseret, hvor
+        en mødeleder præsenterer et scenarie, der sætter gang i en drøftelse af roller,
+        ansvar, koordinering og beslutninger — så den viser, hvor planen er uklar eller
+        tavs. Fordi den ikke tager udstyr i brug eller rører de rigtige systemer, kan den
+        ikke bevise, at backupperne kan gendannes til tiden; det kræver en funktionel
+        øvelse eller en egentlig gendannelsestest. Hvor mange der falder for phishing,
+        måles med en phishingsimulering, og svagheder i firewallen findes med en
+        penetrationstest eller sårbarhedsscanning, ikke ved at ledere taler et scenarie
+        igennem.
+    difficulty: 1
+    sources:
+      - title: >-
+          NIST SP 800-84 — Guide to Test, Training, and Exercise Programs for IT Plans
+          and Capabilities, section 4
+        url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-84.pdf
+        tier: standard
+      - title: Cyber Security Fast Track — kursuskompendium, Modul 7 og Ordliste (Table-top øvelse)
+        tier: course-material
+    draft: true
+  - id: ir-rpo-nightly-backup
+    terms:
+      - security/recovery-objectives
+      - security/backup
+    kind: scenario
+    stem:
+      en: >-
+        After its business impact analysis, a Danish online shop has agreed that its
+        order system may be down for at most four hours and that at most one hour of
+        orders may be lost. The orders are backed up every night at 02:00, and a test
+        shows that a full restore takes two hours. Which target does the current setup
+        fail to meet?
+      da: >-
+        Efter sin konsekvensanalyse har en dansk webshop besluttet, at ordresystemet
+        højst må være nede i fire timer, og at højst én times ordrer må gå tabt.
+        Ordrerne sikkerhedskopieres hver nat kl. 2.00, og en test viser, at en fuld
+        gendannelse tager to timer. Hvilket mål opfylder den nuværende opsætning ikke?
+    options:
+      - en: The RTO, because a two-hour restore leaves too little margin inside four hours
+        da: RTO'en, fordi en gendannelse på to timer giver for lidt luft inden for fire timer
+      - en: Neither, because a backup exists and restoring it fits inside four hours
+        da: Ingen af dem, fordi der findes en backup, og gendannelsen kan nås på fire timer
+      - en: The RPO, because a failure late in the day could lose almost a day of orders
+        da: RPO'en, fordi et nedbrud sidst på dagen kan koste næsten et døgns ordrer
+      - en: The RTO, because the backup is taken only once every twenty-four hours
+        da: RTO'en, fordi der kun tages backup én gang i døgnet
+    answer: 2
+    explanation:
+      en: >-
+        The one-hour limit on lost orders is the recovery point objective: NIST SP
+        800-34 defines the RPO as the point in time the data can be recovered to from
+        the most recent backup, so a nightly backup can mean losing up to about 24 hours
+        of orders — the shop needs a copy at least every hour. The four-hour limit is
+        the recovery time objective, and a tested two-hour restore fits inside it, so
+        the RTO is met. "Neither" overlooks the data loss. How often backups run decides
+        how much data can be lost, not how long the system is down, so blaming the RTO
+        for the backup interval mixes up the two targets.
+      da: >-
+        Grænsen på én times tabte ordrer er recovery point objective: NIST SP 800-34
+        definerer RPO som det tidspunkt, data kan gendannes til ud fra den seneste
+        backup, så en natlig backup kan betyde, at op til omkring et døgns ordrer går
+        tabt — webshoppen skal have en kopi mindst hver time. Grænsen på fire timer er
+        recovery time objective, og en afprøvet gendannelse på to timer ligger inden for
+        den, så RTO'en er opfyldt. "Ingen af dem" overser datatabet. Hvor ofte der tages
+        backup, afgør, hvor meget data der kan gå tabt, ikke hvor længe systemet er nede,
+        så at give RTO'en skylden for backupintervallet blander de to mål sammen.
+    difficulty: 3
+    sources:
+      - title: >-
+          NIST SP 800-34 Rev. 1 — Contingency Planning Guide for Federal Information
+          Systems, section 3.2 (RTO and RPO)
+        url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf
+        tier: standard
+    draft: true
+  - id: ir-crisis-vs-incident-response
+    terms:
+      - security/crisis-management
+      - security/incident-response
+    kind: compare
+    stem:
+      en: >-
+        During a ransomware attack on a Danish dairy company, two groups are at work at
+        the same time: the IT security team and a crisis team led by top management.
+        Which division of the work between them is right?
+      da: >-
+        Under et ransomware-angreb på et dansk mejeri arbejder to grupper samtidig:
+        it-sikkerhedsteamet og en krisestab ledet af topledelsen. Hvilken
+        arbejdsdeling mellem dem er den rigtige?
+    options:
+      - en: The crisis team isolates infected servers, while IT approves press statements
+        da: Krisestaben isolerer ramte servere, mens IT godkender pressemeddelelser
+      - en: The crisis team only starts once IT has cleaned up, to handle the aftermath
+        da: Krisestaben går først i gang, når IT har ryddet op, og tager sig af efterspillet
+      - en: IT handles the whole event alone, since a cyberattack is a technical matter
+        da: IT håndterer hele forløbet alene, da et cyberangreb er en teknisk sag
+      - en: IT contains and cleans up the attack; the crisis team steers business and press
+        da: IT inddæmmer og rydder op efter angrebet; krisestaben styrer forretning og presse
+    answer: 3
+    explanation:
+      en: >-
+        Incident response is the technical work of containing, eradicating and
+        recovering from the attack; crisis management is the leadership level that, in
+        parallel, makes business decisions — taking shop orders by phone, what to tell
+        customers and the press, whether to pay. NIST SP 800-61 Rev. 3 gives leadership
+        decision-making authority on high-impact actions, while incident handlers limit
+        the damage and restore operations. Swapping the roles puts technical actions and
+        public statements in the wrong hands. Waiting until IT has finished leaves days
+        of business decisions unmade, and treating the attack as a purely technical
+        matter ignores that the whole business is disrupted.
+      da: >-
+        Hændelseshåndtering er det tekniske arbejde med at inddæmme, fjerne årsagen og
+        genoprette efter angrebet; krisestyring er ledelsesniveauet, der sideløbende
+        træffer forretningsbeslutninger — at tage imod butikkernes ordrer pr. telefon,
+        hvad kunder og presse skal have at vide, og om der skal betales. NIST SP 800-61
+        Rev. 3 giver ledelsen beslutningskompetence over indgreb med stor betydning,
+        mens de, der håndterer hændelsen, begrænser skaden og genopretter driften. At
+        bytte om på rollerne lægger tekniske indgreb og offentlige udtalelser i de forkerte
+        hænder. At vente, til IT er færdig, efterlader dagevis af forretningsbeslutninger
+        uafklarede, og at se angrebet som en rent teknisk sag overser, at hele
+        forretningen er ramt.
+    difficulty: 2
+    sources:
+      - title: >-
+          NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations
+          for Cyber Risk Management, section 2 (roles and responsibilities)
+        url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r3.pdf
+        tier: standard
+      - title: Cyber Security Fast Track — kursuskompendium, Modul 7 (Beredskabs- og genopretningsplaner)
+        tier: course-material
+    draft: true
+  - id: ir-restored-not-finished
+    terms:
+      - security/lessons-learned
+      - security/incident-response
+    kind: true-false
+    stem:
+      en: >-
+        A Danish accounting firm has restored all its servers from clean backups after
+        a ransomware attack, and everything works again. True or false: its incident
+        handling is now complete.
+      da: >-
+        Et dansk revisionsfirma har gendannet alle sine servere fra rene backupper efter
+        et ransomware-angreb, og alt virker igen. Sandt eller falsk: Hændelseshåndteringen
+        er nu afsluttet.
+    options:
+      - en: 'True'
+        da: Sandt
+      - en: 'False'
+        da: Falsk
+    answer: 1
+    explanation:
+      en: >-
+        False. Recovery is not the last phase: NIST SP 800-61 Rev. 2 ends the incident
+        response life cycle with post-incident activity, and calls learning and
+        improving one of the most important parts and the one most often omitted. A
+        lessons-learned meeting with everyone involved, held within several days of the
+        incident's end, asks what happened, what should be done differently and which
+        corrective actions can prevent a repeat. Skipping it risks leaving open the very
+        weakness the attackers used.
+      da: >-
+        Falsk. Genopretning er ikke den sidste fase: NIST SP 800-61 Rev. 2 afslutter
+        hændelseshåndteringens livscyklus med aktiviteter efter hændelsen og kalder
+        læring og forbedring en af de vigtigste dele — og den, der oftest springes over.
+        Et lessons learned-møde med alle involverede, holdt inden for få dage efter
+        hændelsens afslutning, spørger, hvad der skete, hvad der skal gøres anderledes,
+        og hvilke rettelser der kan forhindre en gentagelse. Springes det over, kan netop
+        den svaghed, angriberne udnyttede, stå åben endnu.
+    difficulty: 1
+    sources:
+      - title: NIST SP 800-61 Rev. 2 — Computer Security Incident Handling Guide, section 3.4.1 Lessons Learned
+        url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r2.pdf
+        tier: standard
+      - title: Cyber Security Fast Track — kursuskompendium, Ordliste (Lessons learned)
+        tier: course-material
     draft: true

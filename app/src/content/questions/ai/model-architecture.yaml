@@ -1,0 +1,317 @@
+questions:
+  - id: arch-attention-long-contract
+    terms:
+      - ai/attention-mechanism
+      - ai/transformer
+      - ai/context-window
+    kind: scenario
+    stem:
+      en: >-
+        A lawyer at a Danish SMV pastes a 100-page supplier contract into a chat
+        assistant built on a transformer and asks whether the company may terminate
+        early. The answer depends on one clause on page 3 and an exception on page 97.
+        What in the model's design lets it connect the question to both passages
+        directly?
+      da: >-
+        En jurist i en dansk SMV indsætter en leverandørkontrakt på 100 sider i en
+        chatassistent bygget på en transformer og spørger, om virksomheden må opsige
+        den før tid. Svaret afhænger af en klausul på side 3 og en undtagelse på side
+        97. Hvad i modellens opbygning gør, at den kan koble spørgsmålet direkte til
+        begge afsnit?
+    options:
+      - en: It reads the text word by word and carries a running memory to the end
+        da: Den læser teksten ord for ord og bærer en løbende hukommelse med til slutningen
+      - en: It slides a small window over the text and merges nearby words step by step
+        da: Den fører et lille vindue hen over teksten og samler nære ord trin for trin
+      - en: In every layer, each token is scored against every other token in the text
+        da: I hvert lag vurderes hvert token op mod alle andre tokens i teksten
+      - en: It builds a keyword index of the contract and looks up the question's words
+        da: Den bygger et stikordsregister over kontrakten og slår spørgsmålets ord op
+    answer: 2
+    explanation:
+      en: >-
+        Self-attention compares every position with every other position in a single
+        step, so Vaswani et al. note that the path between any two tokens has constant
+        length, however far apart they are — page 3 and page 97 are one step from the
+        question. The price is that the work per layer grows with the square of the
+        input length, which is why long inputs are costly. Carrying a running memory
+        word by word is how a recurrent network works, and distant details fade along
+        the way. A small sliding window is the convolutional approach, which needs many
+        stacked layers to link far-apart words. A keyword index is a search technique,
+        not part of how the model itself reads its input.
+      da: >-
+        Self-attention sammenligner hver position med alle andre i ét trin, så Vaswani
+        m.fl. påpeger, at vejen mellem to tokens har konstant længde, uanset hvor langt
+        de står fra hinanden — side 3 og side 97 er kun ét skridt fra spørgsmålet.
+        Prisen er, at arbejdet i hvert lag vokser med kvadratet på inputtets længde, og
+        derfor er lange input dyre. At bære en løbende hukommelse med ord for ord er
+        sådan, et rekurrent netværk arbejder, og fjerne detaljer udviskes undervejs. Et
+        lille glidende vindue er den konvolutionelle tilgang, som kræver mange lag oven
+        på hinanden for at forbinde ord langt fra hinanden. Et stikordsregister er en
+        søgeteknik, ikke en del af, hvordan modellen selv læser sit input.
+    difficulty: 2
+    sources:
+      - title: Vaswani et al. (2017), Attention Is All You Need, section 4 and Table 1
+        url: https://arxiv.org/abs/1706.03762
+        tier: reference
+    draft: true
+  - id: arch-encoder-mail-sorting
+    terms:
+      - ai/encoder
+      - ai/decoder
+    kind: scenario
+    stem:
+      en: >-
+        A Danish water utility wants to label every incoming customer email as "meter
+        reading", "leak" or "new connection" so it lands in the right queue. It needs no
+        generated text, only a label, and it wants the cheapest model that does the job
+        well. Which kind of transformer model fits best?
+      da: >-
+        Et dansk vandselskab vil mærke hver indgående kundemail som "måleraflæsning",
+        "læk" eller "ny tilslutning", så den havner i den rigtige kø. Der skal ikke skrives
+        nogen tekst, kun sættes en mærkat, og selskabet vil have den billigste model,
+        der løser opgaven godt. Hvilken slags transformer-model passer bedst?
+    options:
+      - en: One that writes a reply word by word, each word based only on the ones before
+        da: En, der skriver et svar ord for ord, hvor hvert ord kun bygger på de foregående
+      - en: One that reads the whole email at once, letting each word see both directions
+        da: En, der læser hele mailen på én gang og lader hvert ord se i begge retninger
+      - en: One that turns random noise into output step by step until it looks right
+        da: En, der omdanner tilfældig støj til output trin for trin, til det ser rigtigt ud
+      - en: One of the largest general chat models, since a bigger model is always better
+        da: En af de største generelle chatmodeller, da en større model altid er bedre
+    answer: 1
+    explanation:
+      en: >-
+        Labelling a whole email is an understanding task, and encoder-only models such
+        as BERT are built for it: their attention sees every word in the input in both
+        directions, and a small output layer on top turns that into a class. A
+        decoder-only model is auto-regressive — each token sees only what came before —
+        which suits writing text, but here nothing needs to be written, so it is more
+        model than the job needs. Starting from noise and cleaning it up step by step is
+        how diffusion models generate images. The largest chat models can classify too,
+        but "always better" ignores the cost and speed the company asked about.
+      da: >-
+        At mærke en hel mail er en forståelsesopgave, og rene encoder-modeller som BERT
+        er bygget til den: Deres attention ser alle ord i inputtet i begge retninger, og
+        et lille outputlag ovenpå gør det til en kategori. En ren decoder-model er
+        autoregressiv — hvert token ser kun det, der kom før — hvilket passer til at
+        skrive tekst, men her skal intet skrives, så den er mere model, end opgaven
+        kræver. At starte fra støj og rense den trin for trin er sådan, diffusionsmodeller
+        laver billeder. De største chatmodeller kan også klassificere, men "altid bedre"
+        overser den pris og hastighed, selskabet spurgte til.
+    difficulty: 2
+    sources:
+      - title: Devlin et al. (2019), BERT — Pre-training of Deep Bidirectional Transformers for Language Understanding
+        url: https://arxiv.org/abs/1810.04805
+        tier: reference
+      - title: Hugging Face LLM Course, chapter 1 — Transformer architectures
+        url: https://huggingface.co/learn/llm-course/chapter1/6
+        tier: course-material
+    draft: true
+  - id: arch-moe-memory-true-false
+    terms:
+      - ai/mixture-of-experts
+      - ai/model-parameter
+      - ai/gpu
+    kind: true-false
+    stem:
+      en: >-
+        An IT architect at a Danish bank reads that a mixture-of-experts model has
+        eight experts but sends each token through only two of them. True or false:
+        the model will therefore fit in the GPU memory needed for a dense model about
+        the size of two experts.
+      da: >-
+        En IT-arkitekt i en dansk bank læser, at en mixture of experts-model har
+        otte eksperter, men kun sender hvert token gennem to af dem. Sandt eller falsk:
+        Modellen kan derfor være i den GPU-hukommelse, der skal til for en tæt model på
+        størrelse med cirka to eksperter.
+    options:
+      - en: 'True'
+        da: Sandt
+      - en: 'False'
+        da: Falsk
+    answer: 1
+    explanation:
+      en: >-
+        False. Routing each token to a few experts cuts the computation per token, not
+        the memory: the router can pick any expert for the next token, so every expert
+        must be loaded. Hugging Face's explanation of Mixtral 8x7B puts it plainly — it
+        needs enough VRAM to hold a dense model of about 47 billion parameters, while
+        its speed is closer to that of a 12-billion-parameter model. The Switch
+        Transformer paper describes the same trade: a huge number of parameters at a
+        roughly constant compute cost per token.
+      da: >-
+        Falsk. At sende hvert token til få eksperter sparer beregning pr. token, ikke
+        hukommelse: Routeren kan vælge en hvilken som helst ekspert til det næste token,
+        så alle eksperter skal være indlæst. Hugging Faces forklaring af Mixtral 8x7B
+        siger det ligeud — den kræver VRAM nok til en tæt model på omkring 47 milliarder
+        parametre, mens hastigheden minder mere om en model med 12 milliarder. Switch
+        Transformer-artiklen beskriver den samme afvejning: et enormt antal parametre til
+        en nogenlunde konstant beregningspris pr. token.
+    difficulty: 3
+    sources:
+      - title: Hugging Face blog — Mixture of Experts Explained
+        url: https://huggingface.co/blog/moe
+        tier: official-doc
+      - title: >-
+          Fedus, Zoph & Shazeer (2021), Switch Transformers — Scaling to Trillion
+          Parameter Models with Simple and Efficient Sparsity
+        url: https://arxiv.org/abs/2101.03961
+        tier: reference
+    draft: true
+  - id: arch-cnn-road-damage
+    terms:
+      - ai/convolutional-neural-network
+      - ai/neural-network
+    kind: scenario
+    stem:
+      en: >-
+        A Danish bridge operator flies drones along its bridges and wants a model that
+        finds cracks and spalling in the concrete in the photos, wherever in the frame
+        they appear. A developer recommends a convolutional neural network over a plain fully
+        connected network. What is the main reason it fits this job?
+      da: >-
+        Et dansk broselskab flyver droner langs sine broer og vil have en model, der
+        finder revner og afskalninger i betonen på billederne, uanset hvor i billedet de
+        sidder. En udvikler anbefaler et foldningsnetværk frem for et almindeligt fuldt
+        forbundet netværk. Hvad er hovedgrunden til, at det passer til opgaven?
+    options:
+      - en: The same small learned filter is reused at every position in the image
+        da: Det samme lille lærte filter genbruges på hver eneste position i billedet
+      - en: Every pixel is connected to every neuron, so no detail is ever overlooked
+        da: Hver pixel er forbundet til hver neuron, så ingen detalje nogensinde overses
+      - en: It generates new bridge images from noise to show what the damage looks like
+        da: Det skaber nye brobilleder ud fra støj for at vise, hvordan skaden ser ud
+      - en: It needs no labelled examples, because it already knows what bridges look like
+        da: Det kræver ingen mærkede eksempler, fordi det allerede ved, hvordan broer ser ud
+    answer: 0
+    explanation:
+      en: >-
+        A convolutional layer looks at small local patches and shares the same filter
+        weights across the whole image, on the idea (as Stanford's CS231n notes put it)
+        that a feature useful at one position is useful at another — so a crack is found
+        wherever it appears, with far fewer weights to learn. Connecting every pixel to
+        every neuron is the fully connected design the developer rejected: for a
+        200×200 colour image that is 120,000 weights per neuron, which does not scale.
+        Generating images from noise is what a diffusion model does, not a detector.
+        And a CNN still has to be trained on labelled examples of damage; it knows
+        nothing about bridges beforehand.
+      da: >-
+        Et foldningslag ser på små lokale felter og deler de samme filtervægte over hele
+        billedet ud fra idéen (som Stanfords CS231n-noter formulerer det), at et træk, der
+        er nyttigt ét sted, også er nyttigt et andet — så en revne findes, uanset hvor
+        den sidder, med langt færre vægte at lære. At forbinde hver pixel til hver neuron
+        er netop det fuldt forbundne design, udvikleren fravalgte: For et 200×200
+        farvebillede giver det 120.000 vægte pr. neuron, og det skalerer ikke. At skabe
+        billeder ud fra støj er, hvad en diffusionsmodel gør, ikke en detektor. Og et CNN
+        skal stadig trænes på mærkede eksempler på skader; det ved intet om broer på
+        forhånd.
+    difficulty: 1
+    sources:
+      - title: Stanford CS231n — Convolutional Neural Networks for Visual Recognition, course notes
+        url: https://cs231n.github.io/convolutional-networks/
+        tier: course-material
+    draft: true
+  - id: arch-open-weights-hospital
+    terms:
+      - ai/open-weight-model
+      - ai/model-weights
+    kind: scenario
+    stem:
+      en: >-
+        A Danish hospital wants a language model to summarise patient records, but its
+        data protection officer insists that no record may be sent to an outside
+        provider. The IT department has its own servers with GPUs. Which kind of model
+        makes this possible?
+      da: >-
+        Et dansk hospital vil bruge en sprogmodel til at opsummere patientjournaler, men
+        databeskyttelsesrådgiveren kræver, at ingen journal må sendes til en ekstern
+        leverandør. It-afdelingen har egne servere med GPU'er. Hvilken slags model gør
+        det muligt?
+    options:
+      - en: A top commercial model reached through the vendor's cloud API with a strict prompt
+        da: En førende kommerciel model, der bruges via leverandørens cloud-API med en streng prompt
+      - en: A model the vendor fine-tunes on the records and then keeps hosting for the hospital
+        da: En model, som leverandøren finjusterer på journalerne og derefter hoster for hospitalet
+      - en: Any chat model, as long as staff remove patient names before pasting the text
+        da: En hvilken som helst chatmodel, bare personalet fjerner patientnavne, før de indsætter teksten
+      - en: A model whose weights are published, so it can be downloaded and run in-house
+        da: En model, hvis vægte er offentliggjort, så den kan hentes ned og køres internt
+    answer: 3
+    explanation:
+      en: >-
+        When the model's weights are published, the hospital can download them and run
+        the model on its own servers, so the records never leave its network — the US
+        NTIA report on widely available model weights notes that such models let users
+        work without sharing data with third parties. A cloud API sends every record to
+        the provider, and a strict prompt does not change where the data goes. Having
+        the vendor fine-tune and host the model hands over the records twice: for
+        training and for every request. Removing names is not enough, because health
+        records contain many other details that can identify a patient, and the text
+        still goes to an outside service.
+      da: >-
+        Når modellens vægte er offentliggjort, kan hospitalet hente dem ned og køre
+        modellen på egne servere, så journalerne aldrig forlader dets netværk — den
+        amerikanske NTIA-rapport om frit tilgængelige modelvægte påpeger, at sådanne
+        modeller kan bruges uden at dele data med tredjeparter. Et cloud-API sender hver
+        journal til leverandøren, og en streng prompt ændrer ikke, hvor data havner. Lader
+        man leverandøren finjustere og hoste modellen, udleveres journalerne to gange: til
+        træningen og ved hver forespørgsel. Det er ikke nok at fjerne navne, for journaler
+        rummer mange andre detaljer, der kan identificere en patient, og teksten sendes
+        stadig til en ekstern tjeneste.
+    difficulty: 2
+    sources:
+      - title: NTIA — Dual-Use Foundation Models with Widely Available Model Weights Report
+        url: https://www.ntia.gov/programs-and-initiatives/artificial-intelligence/open-model-weights-report
+        tier: official-doc
+    draft: true
+  - id: arch-embedding-closeness
+    terms:
+      - ai/embedding
+      - ai/embedding-model
+    kind: concept
+    stem:
+      en: >-
+        An embedding model turns the phrases "sick leave", "absence due to illness" and
+        "parking permit" into lists of numbers. What does it mean when two of those
+        lists lie close together?
+      da: >-
+        En embedding-model laver udtrykkene "sygefravær", "fravær på grund af sygdom" og
+        "parkeringstilladelse" om til lister af tal. Hvad betyder det, når to af de
+        lister ligger tæt på hinanden?
+    options:
+      - en: The two phrases share most of their letters and have a similar length
+        da: De to udtryk har de fleste bogstaver til fælles og er omtrent lige lange
+      - en: The two phrases were stored next to each other in the training data
+        da: De to udtryk stod lige ved siden af hinanden i træningsdataene
+      - en: The model treats the two phrases as similar in meaning
+        da: Modellen opfatter de to udtryk som beslægtede i betydning
+      - en: The two phrases will always return exactly the same search results
+        da: De to udtryk vil altid give nøjagtig de samme søgeresultater
+    answer: 2
+    explanation:
+      en: >-
+        In an embedding space, the distance between two items can be read as a measure
+        of how similar the model thinks they are, as Google's Machine Learning Crash
+        Course explains — so "sick leave" and "absence due to illness" should sit close
+        together even though they share almost no words, while "parking permit" lies far
+        away. Closeness is not about spelling or length; that is what word matching
+        looks at. The numbers do not record where phrases stood in the training data
+        either. And close is not identical: nearby embeddings make similar results
+        likely, not the same list every time.
+      da: >-
+        I et embedding-rum kan afstanden mellem to elementer læses som et mål for, hvor
+        ens modellen opfatter dem, som Googles Machine Learning Crash Course forklarer —
+        så "sygefravær" og "fravær på grund af sygdom" bør ligge tæt, selvom de næsten
+        ingen ord har til fælles, mens "parkeringstilladelse" ligger langt væk. Nærhed
+        handler ikke om stavning eller længde; det er, hvad ordmatch ser på. Tallene
+        gemmer heller ikke, hvor udtrykkene stod i træningsdataene. Og tæt på er ikke det
+        samme som ens: Nære embeddings gør lignende resultater sandsynlige, ikke den samme
+        liste hver gang.
+    difficulty: 1
+    sources:
+      - title: Google Machine Learning Crash Course — Embeddings, Embedding space and static embeddings
+        url: https://developers.google.com/machine-learning/crash-course/embeddings/embedding-space
+        tier: course-material
+    draft: true

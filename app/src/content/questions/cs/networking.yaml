@@ -1,0 +1,383 @@
+questions:
+  - id: net-name-fails-address-works
+    terms:
+      - cs/dns
+      - cs/ip-address
+      - cs/network
+    kind: scenario
+    stem:
+      en: >-
+        On Monday morning, staff at a Danish municipality cannot open the intranet at
+        intra.kommune.local: the browser says the site cannot be found. When an IT
+        supporter types the intranet server's IP address into the browser
+        instead, the intranet opens straight away. What is the most likely cause?
+      da: >-
+        Mandag morgen kan medarbejderne i en dansk kommune ikke åbne intranettet på
+        intra.kommune.local: browseren melder, at siden ikke kan findes. Da en
+        it-supporter i stedet skriver intranetserverens IP-adresse direkte i
+        browseren, åbner intranettet med det samme. Hvad er den mest sandsynlige
+        årsag?
+    options:
+      - en: The intranet server has stopped and needs to be restarted
+        da: Intranetserveren er gået ned og skal genstartes
+      - en: The firewall is blocking the port the intranet uses
+        da: Firewallen blokerer den port, intranettet bruger
+      - en: The lookup that turns the name into an address is failing
+        da: Opslaget, der oversætter navnet til en adresse, fejler
+      - en: The intranet's TLS certificate has expired over the weekend
+        da: Intranettets TLS-certifikat er udløbet i løbet af weekenden
+    answer: 2
+    explanation:
+      en: >-
+        Because the intranet opens when the numeric IP address is used, the server is
+        running, the network path works and the firewall lets the traffic through to
+        the right port, which rules out the first two options. What fails is the step
+        before the connection: DNS, which translates a name like intra.kommune.local
+        into an IP address. An expired certificate would give a certificate warning
+        once the connection is made, not a "site cannot be found" error. The next step
+        is to check the DNS server the PCs are using.
+      da: >-
+        Når intranettet åbner, så snart man bruger IP-adressen, kører serveren,
+        netværksvejen virker, og firewallen lukker trafikken igennem til den rigtige
+        port, så de to første svar kan udelukkes. Det, der fejler, er trinnet før
+        forbindelsen: DNS, som oversætter et navn som intra.kommune.local til en
+        IP-adresse. Et udløbet certifikat ville give en certifikatadvarsel, efter at
+        forbindelsen er oprettet, ikke fejlen "siden kan ikke findes". Næste skridt er
+        at tjekke den DNS-server, pc'erne bruger.
+    difficulty: 1
+    sources:
+      - title: RFC 1034 — Domain Names, Concepts and Facilities
+        url: https://www.rfc-editor.org/rfc/rfc1034
+        tier: standard
+      - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
+        tier: textbook
+    draft: true
+
+  - id: net-rdp-port-open-to-internet
+    terms:
+      - cs/port
+      - cs/firewall
+      - cs/vpn
+    kind: scenario
+    stem:
+      en: >-
+        During a yearly review, the IT consultant of a Danish SMV finds that an old
+        Windows server answers on TCP port 3389 from anywhere on the internet. A few
+        employees use it to work from home. What is the best fix?
+      da: >-
+        Ved en årlig gennemgang opdager it-konsulenten i en dansk SMV, at en gammel
+        Windows-server svarer på TCP-port 3389 fra hele internettet. Et par
+        medarbejdere bruger den til at arbejde hjemmefra. Hvad er den bedste løsning?
+    options:
+      - en: Close 3389 to the internet and have remote staff connect via VPN
+        da: Luk 3389 mod internettet, og lad fjernbrugere forbinde via VPN
+      - en: Move Remote Desktop to port 3390 so scanners looking for 3389 miss it
+        da: Flyt Fjernskrivebord til port 3390, så scannere efter 3389 overser den
+      - en: Block outbound traffic on port 3389 from the server to the internet
+        da: Bloker udgående trafik på port 3389 fra serveren mod internettet
+      - en: Keep 3389 open, but require longer passwords on the remote accounts
+        da: Lad 3389 stå åben, men kræv længere adgangskoder på fjernkontiene
+    answer: 0
+    explanation:
+      en: >-
+        Port 3389 is the default listening port of Remote Desktop (RDP), so the
+        server's login screen is exposed to anyone on the internet, who can guess
+        passwords or try an exploit against any unpatched flaw. Closing the inbound
+        firewall rule and requiring a VPN means only users who have first
+        authenticated to the tunnel can reach the server. Moving the service to 3390
+        only moves the open door: a scan of all ports still finds it. Blocking
+        outbound traffic does nothing against incoming connections, and longer
+        passwords only address guessing, not flaws in the exposed service itself.
+      da: >-
+        Port 3389 er standardporten for Fjernskrivebord (RDP), så serverens
+        login-skærm står åben for alle på internettet, som kan gætte adgangskoder
+        eller forsøge at udnytte en sårbarhed, der ikke er patchet. Fjerner man den
+        indgående firewallregel og kræver VPN, kan kun brugere, der først har logget
+        ind i tunnelen, nå serveren. At flytte tjenesten til 3390 flytter blot den
+        åbne dør: en scanning af alle porte finder den stadig. At blokere udgående
+        trafik hjælper ikke mod indgående forbindelser, og længere adgangskoder
+        hjælper kun mod gætteri, ikke mod fejl i selve den eksponerede tjeneste.
+    difficulty: 2
+    sources:
+      - title: Change Remote Desktop listening port on Windows and Windows Server (Microsoft Learn)
+        url: https://learn.microsoft.com/en-us/windows-server/remote/remote-desktop-services/remotepc/change-listening-port
+        tier: official-doc
+      - title: IANA Service Name and Transport Protocol Port Number Registry
+        url: https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml
+        tier: standard
+      - title: Virtual private network (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Virtual_private_network
+        tier: reference
+    draft: true
+
+  - id: net-trace-shared-public-address
+    terms:
+      - cs/router
+      - cs/ip-address
+      - cs/port
+      - cs/log
+    kind: scenario
+    stem:
+      en: >-
+        A Danish accounting firm is told that its public IP address tried to log in to
+        a customer's web shop hundreds of times yesterday, from source port 51123 at
+        14:02:17. The firm's 40 PCs all reach the internet through one router that has
+        that single public address. How can IT find out which PC was responsible?
+      da: >-
+        Et dansk revisionsfirma får at vide, at firmaets offentlige IP-adresse i går
+        forsøgte at logge ind i en kundes webshop hundredvis af gange, fra kildeport
+        51123 kl. 14.02.17. Firmaets 40 pc'er går alle på internettet gennem én router
+        med netop den ene offentlige adresse. Hvordan kan it-afdelingen finde ud af,
+        hvilken pc der stod bag?
+    options:
+      - en: Ask the internet provider which of the firm's PCs used the address
+        da: Spørge internetudbyderen, hvilken af firmaets pc'er der brugte adressen
+      - en: Look up the public address in DNS to get the name of the PC
+        da: Slå den offentlige adresse op i DNS for at få pc'ens navn
+      - en: Search every PC's network settings for the reported public address
+        da: Gennemsøge hver pc's netværksindstillinger for den oplyste adresse
+      - en: Match time and source port against the router's translation log
+        da: Matche tidspunkt og kildeport med routerens oversættelseslog
+    answer: 3
+    explanation:
+      en: >-
+        The router performs network address and port translation (NAPT): it swaps
+        each PC's private address and port for the shared public address and a port
+        of its own, and keeps that mapping to route replies back. Only the router's
+        record of those mappings — if it logs them — can tie the public address, time
+        and source port to one internal PC. The provider only sees the router's public
+        address, not what sits behind it. A reverse DNS lookup of the public address
+        at best names the firm's line or router, and no PC has the public address in
+        its settings, since each has its own private one.
+      da: >-
+        Routeren laver adresse- og portoversættelse (NAPT): den bytter hver pc's
+        private adresse og port ud med den fælles offentlige adresse og sin egen port
+        og husker koblingen, så svarene kan sendes tilbage. Kun routerens registrering
+        af disse koblinger — hvis den logger dem — kan knytte den offentlige adresse,
+        tidspunktet og kildeporten til én bestemt pc. Udbyderen ser kun routerens
+        offentlige adresse, ikke hvad der gemmer sig bag den. Et omvendt DNS-opslag på
+        den offentlige adresse giver i bedste fald navnet på firmaets forbindelse
+        eller router, og ingen pc har den offentlige adresse i sine indstillinger,
+        fordi hver har sin egen private.
+    difficulty: 3
+    sources:
+      - title: RFC 3022 — Traditional IP Network Address Translator (Traditional NAT)
+        url: https://www.rfc-editor.org/rfc/rfc3022
+        tier: standard
+    draft: true
+
+  - id: net-padlock-on-lookalike-site
+    terms:
+      - cs/https
+      - cs/tls
+      - cs/digital-certificate
+    kind: scenario
+    stem:
+      en: >-
+        An employee at a Danish bank gets an email asking her to confirm her login at
+        nordbank-sikker-login.dk, although the bank's real address is nordbank.dk. The
+        page shows a padlock in the address bar, so she decides it must be genuine.
+        What does the padlock actually tell her?
+      da: >-
+        En medarbejder i en dansk bank får en mail, der beder hende bekræfte sit login
+        på nordbank-sikker-login.dk, selvom bankens rigtige adresse er nordbank.dk.
+        Siden viser en hængelås i adresselinjen, så hun går ud fra, at den er ægte.
+        Hvad fortæller hængelåsen hende egentlig?
+    options:
+      - en: That her bank has checked and approved the site for customers
+        da: At hendes bank har kontrolleret og godkendt siden til kunderne
+      - en: That the connection is encrypted to whoever controls that domain
+        da: At forbindelsen er krypteret til den, der styrer netop det domæne
+      - en: That the site has been scanned and contains no malware
+        da: At siden er scannet og ikke indeholder malware
+      - en: That an authority has confirmed the owner is a real bank
+        da: At en myndighed har bekræftet, at ejeren er en rigtig bank
+    answer: 1
+    explanation:
+      en: >-
+        The padlock means the page was loaded over HTTPS: TLS encrypts the traffic,
+        and the browser has checked that the server's certificate matches the host
+        name in the address bar. A certificate authority such as Let's Encrypt only
+        checks that the applicant controls the domain name, so whoever registers a
+        look-alike domain can get a valid certificate for it. The padlock therefore
+        says nothing about who is behind the domain, whether the bank or an authority
+        has approved it, or whether the page is free of malware. What protects her is
+        reading the domain name itself.
+      da: >-
+        Hængelåsen betyder, at siden er hentet over HTTPS: TLS krypterer trafikken, og
+        browseren har tjekket, at serverens certifikat passer til værtsnavnet i
+        adresselinjen. En certifikatudsteder som Let's Encrypt tjekker kun, at
+        ansøgeren har kontrol over domænenavnet, så den, der registrerer et
+        forvekslingsdomæne, kan få et gyldigt certifikat til det. Hængelåsen siger
+        derfor intet om, hvem der står bag domænet, om banken eller en myndighed har
+        godkendt det, eller om siden er fri for malware. Det, der beskytter hende, er
+        at læse selve domænenavnet.
+    difficulty: 2
+    sources:
+      - title: RFC 2818 — HTTP Over TLS
+        url: https://www.rfc-editor.org/rfc/rfc2818
+        tier: standard
+      - title: Let's Encrypt — Challenge Types
+        url: https://letsencrypt.org/docs/challenge-types/
+        tier: official-doc
+      - title: HTTPS (Wikipedia)
+        url: https://en.wikipedia.org/wiki/HTTPS
+        tier: reference
+    draft: true
+
+  - id: net-hospital-unpatched-devices
+    terms:
+      - cs/network-segmentation
+      - cs/firewall
+      - security/lateral-movement
+    kind: scenario
+    stem:
+      en: >-
+        A hospital in a Danish region has lab analysers running an old Windows version
+        that the supplier no longer patches, and they cannot be replaced for two
+        years. They sit on the same flat network as 3,000 staff PCs. Which measure
+        most reduces the risk that ransomware on a staff PC reaches the analysers?
+      da: >-
+        Et hospital i en dansk region har laboratorieapparater, der kører en gammel
+        Windows-version, som leverandøren ikke længere patcher, og de kan ikke
+        udskiftes de næste to år. De står på det samme flade netværk som 3.000
+        medarbejder-pc'er. Hvilket tiltag mindsker mest risikoen for, at ransomware på
+        en medarbejder-pc når apparaterne?
+    options:
+      - en: Give the analysers public IP addresses so they are handled separately
+        da: Give apparaterne offentlige IP-adresser, så de håndteres for sig
+      - en: Install a VPN client on each analyser so its traffic is encrypted
+        da: Installere en VPN-klient på hvert apparat, så trafikken krypteres
+      - en: Move them into their own zone that only lets needed traffic through
+        da: Flytte dem til deres egen zone, der kun lukker nødvendig trafik ind
+      - en: Install a stronger firewall at the hospital's internet connection
+        da: Sætte en kraftigere firewall ved hospitalets internetforbindelse
+    answer: 2
+    explanation:
+      en: >-
+        Network segmentation — typically a separate VLAN with firewall rules between
+        the segments — lets only the traffic the analysers need (for example from the
+        lab system) reach them, so an infected staff PC cannot move sideways to
+        them. A stronger firewall at the internet connection does not see traffic
+        that stays inside the flat internal network, which is exactly where
+        ransomware spreads. A VPN client encrypts traffic but does not stop an
+        infected PC on the same network from connecting to the device. Public IP
+        addresses would expose the unpatched devices to the whole internet, making
+        things worse.
+      da: >-
+        Netværkssegmentering — typisk et separat VLAN med firewallregler mellem
+        segmenterne — lukker kun den trafik ind, apparaterne har brug for (fx fra
+        laboratoriesystemet), så en inficeret medarbejder-pc ikke kan bevæge sig
+        videre til dem. En kraftigere firewall ved internetforbindelsen ser ikke
+        trafik, der bliver inde på det flade interne netværk, og det er netop dér,
+        ransomware spreder sig. En VPN-klient krypterer trafikken, men forhindrer ikke
+        en inficeret pc på samme netværk i at forbinde til apparatet. Offentlige
+        IP-adresser ville udsætte de upatchede apparater for hele internettet og gøre
+        det værre.
+    difficulty: 3
+    sources:
+      - title: Network segmentation (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Network_segmentation
+        tier: reference
+    draft: true
+
+  - id: net-home-worker-internal-system
+    terms:
+      - cs/vpn
+      - cs/network
+      - cs/internet
+    kind: scenario
+    stem:
+      en: >-
+        A caseworker at a Danish municipality works from home. She can read the news
+        and use her webmail, but the municipality's case system, which only runs on
+        the internal network, will not open. The IT desk asks whether she has started
+        the municipality's VPN connection. Why does that matter?
+      da: >-
+        En sagsbehandler i en dansk kommune arbejder hjemmefra. Hun kan læse nyheder
+        og bruge sin webmail, men kommunens sagssystem, som kun kører på det interne
+        netværk, vil ikke åbne. It-supporten spørger, om hun har startet kommunens
+        VPN-forbindelse. Hvorfor betyder det noget?
+    options:
+      - en: It tunnels her PC into the internal network, where the system is
+        da: Den giver pc'en en tunnel ind på det interne netværk, hvor systemet er
+      - en: It speeds up her home connection so the heavy system can load
+        da: Den gør hjemmeforbindelsen hurtigere, så det tunge system kan indlæses
+      - en: It replaces her login, so the system no longer asks for a password
+        da: Den erstatter hendes login, så systemet ikke længere beder om kode
+      - en: It encrypts her webmail, which must be secured before anything else
+        da: Den krypterer hendes webmail, som skal sikres før alt andet
+    answer: 0
+    explanation:
+      en: >-
+        Internal systems are not reachable from the internet at large. A remote-access
+        VPN builds an encrypted tunnel across the internet, so her PC behaves as if it
+        were on the municipality's own network and can reach the case system. It does
+        not make the connection faster — the extra encryption and detour, if
+        anything, add overhead. It does not replace her login: she still signs in to
+        the case system. And webmail works without it, so securing webmail is not a
+        condition for reaching other systems.
+      da: >-
+        Interne systemer kan ikke nås fra internettet i almindelighed. En VPN til
+        fjernadgang bygger en krypteret tunnel hen over internettet, så hendes pc
+        opfører sig, som om den sad på kommunens eget netværk, og kan nå sagssystemet.
+        Den gør ikke forbindelsen hurtigere — den ekstra kryptering og omvej giver
+        snarere lidt ekstra belastning. Den erstatter ikke hendes login: hun skal
+        stadig logge ind i sagssystemet. Og webmailen virker uden VPN, så det er ikke
+        en betingelse for at nå andre systemer, at den er sikret først.
+    difficulty: 1
+    sources:
+      - title: Virtual private network (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Virtual_private_network
+        tier: reference
+    draft: true
+
+  - id: net-https-connection-order
+    terms:
+      - cs/tcp-ip
+      - cs/tls
+      - cs/https
+    kind: order
+    stem:
+      en: >-
+        A nurse at a Danish hospital types an https:// address for the patient record
+        system into her browser. The name has already been looked up and turned into
+        an IP address. With classic HTTPS over TCP, in which order does the rest
+        happen?
+      da: >-
+        En sygeplejerske på et dansk hospital skriver en https://-adresse til
+        patientjournalen i sin browser. Navnet er allerede slået op og oversat til en
+        IP-adresse. I hvilken rækkefølge sker resten med klassisk HTTPS over TCP?
+    options:
+      - en: TLS handshake with certificate check → TCP connection to port 443 → HTTP request
+        da: TLS-håndtryk med certifikattjek → TCP-forbindelse til port 443 → HTTP-forespørgsel
+      - en: TCP connection to port 443 → TLS handshake with certificate check → HTTP request
+        da: TCP-forbindelse til port 443 → TLS-håndtryk med certifikattjek → HTTP-forespørgsel
+      - en: HTTP request → TCP connection to port 443 → TLS handshake with certificate check
+        da: HTTP-forespørgsel → TCP-forbindelse til port 443 → TLS-håndtryk med certifikattjek
+      - en: TCP connection to port 80 → HTTP request → TLS handshake with certificate check
+        da: TCP-forbindelse til port 80 → HTTP-forespørgsel → TLS-håndtryk med certifikattjek
+    answer: 1
+    explanation:
+      en: >-
+        RFC 2818 describes it: the browser first opens a connection to the server's
+        port (443 by default for HTTPS), then sends the TLS ClientHello to start the
+        handshake, during which it checks that the certificate matches the host name.
+        Only when the handshake is complete is the first HTTP request sent, as
+        encrypted TLS data. TLS runs on top of the TCP connection, so the handshake
+        cannot come first. Sending the HTTP request before TLS would expose it
+        unencrypted, and port 80 is the port for plain, unencrypted HTTP.
+      da: >-
+        RFC 2818 beskriver det: browseren åbner først en forbindelse til serverens
+        port (443 som standard for HTTPS) og sender derefter TLS' ClientHello for at
+        starte håndtrykket, hvor den tjekker, at certifikatet passer til værtsnavnet.
+        Først når håndtrykket er færdigt, sendes den første HTTP-forespørgsel som
+        krypterede TLS-data. TLS kører oven på TCP-forbindelsen, så håndtrykket kan
+        ikke komme først. Blev HTTP-forespørgslen sendt før TLS, ville den gå
+        ukrypteret, og port 80 er porten til almindelig, ukrypteret HTTP.
+    difficulty: 2
+    sources:
+      - title: RFC 2818 — HTTP Over TLS
+        url: https://www.rfc-editor.org/rfc/rfc2818
+        tier: standard
+    draft: true

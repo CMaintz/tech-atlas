@@ -1,0 +1,297 @@
+questions:
+  - id: eval-phishing-filter-caught-share
+    terms:
+      - ai/recall
+      - ai/confusion-matrix
+      - ai/precision
+      - security/phishing
+    kind: scenario
+    stem:
+      en: >-
+        A Danish region tests a new AI phishing filter on 1,000 emails, of which 50
+        are known phishing. The filter flags 60 emails; 40 of them really are
+        phishing. What share of the real phishing emails did the filter catch?
+      da: >-
+        En region tester et nyt AI-phishingfilter på 1.000 mails, hvoraf 50 vides at
+        være phishing. Filteret markerer 60 mails; 40 af dem er reelt phishing. Hvor
+        stor en andel af de reelle phishingmails fangede filteret?
+    options:
+      - en: 67 %
+        da: 67 %
+      - en: 97 %
+        da: 97 %
+      - en: 80 %
+        da: 80 %
+      - en: 20 %
+        da: 20 %
+    answer: 2
+    explanation:
+      en: >-
+        The share of real positives that are found is recall, TP / (TP + FN): 40
+        caught out of 50 real phishing emails is 80 %. 67 % is precision, TP / (TP +
+        FP) = 40 / 60 — how many flags were right, not how many attacks were caught.
+        97 % is accuracy: 40 true positives plus 930 correctly passed emails, out of
+        1,000; it looks impressive only because most mail is harmless. 20 % is the
+        share of phishing the filter missed (10 of 50).
+      da: >-
+        Andelen af de reelle positive, der bliver fundet, er recall, TP / (TP + FN):
+        40 fanget ud af 50 reelle phishingmails giver 80 %. 67 % er præcision, TP /
+        (TP + FP) = 40 / 60 — hvor mange markeringer der var rigtige, ikke hvor mange
+        angreb der blev fanget. 97 % er nøjagtighed: 40 sande positive plus 930
+        korrekt godkendte mails ud af 1.000; tallet ser flot ud, fordi de fleste
+        mails er harmløse. 20 % er den andel phishing, filteret overså (10 af 50).
+    difficulty: 2
+    sources:
+      - title: Google Machine Learning Crash Course — Classification, accuracy, precision and recall
+        url: https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall
+        tier: course-material
+    draft: true
+
+  - id: eval-sepsis-alert-metric
+    terms:
+      - ai/recall
+      - ai/precision
+      - ai/confusion-matrix
+      - ai/f1-score
+      - security/false-positive
+    kind: scenario
+    stem:
+      en: >-
+        A Danish hospital is choosing between models that warn ward nurses about
+        possible sepsis. Every warning is checked by a nurse in about two minutes,
+        but a patient whose sepsis goes unflagged can die. Which metric should the
+        hospital put first when it compares the models?
+      da: >-
+        Et dansk hospital skal vælge mellem modeller, der advarer sygeplejersker på
+        sengeafsnit om mulig sepsis. Hver advarsel tjekkes af en sygeplejerske på
+        cirka to minutter, men en patient, hvis sepsis ikke bliver opdaget, kan dø.
+        Hvilket mål bør hospitalet prioritere, når modellerne sammenlignes?
+    options:
+      - en: Precision
+        da: Præcision (precision)
+      - en: Recall
+        da: Genkaldelse (recall)
+      - en: Accuracy
+        da: Nøjagtighed (accuracy)
+      - en: F1 score
+        da: F1-score
+    answer: 1
+    explanation:
+      en: >-
+        Recall is the share of real sepsis cases the model flags, and it is the
+        metric to favour when a false negative costs far more than a false positive —
+        here a missed patient against two minutes of a nurse's time. Precision would
+        matter most if every false alarm were expensive, for example if it triggered
+        treatment without a check. Accuracy is dominated by the many patients without
+        sepsis, so a model that misses cases can still score high. The F1 score
+        weighs precision and recall equally, which undervalues misses when they are
+        this much worse than false alarms.
+      da: >-
+        Recall er andelen af reelle sepsistilfælde, modellen markerer, og det er det
+        mål, man skal prioritere, når en falsk negativ koster langt mere end en falsk
+        positiv — her en overset patient over for to minutter af en sygeplejerskes
+        tid. Præcision ville veje tungest, hvis hver falsk alarm var dyr, fx hvis den
+        udløste behandling uden kontrol. Nøjagtighed domineres af de mange patienter
+        uden sepsis, så en model, der overser tilfælde, kan stadig score højt.
+        F1-scoren vægter præcision og recall lige højt og undervurderer derfor
+        oversete tilfælde, når de er så meget værre end falske alarmer.
+    difficulty: 2
+    sources:
+      - title: Google Machine Learning Crash Course — Classification, accuracy, precision and recall
+        url: https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall
+        tier: course-material
+    draft: true
+
+  - id: eval-fraud-accuracy-baseline
+    terms:
+      - ai/accuracy
+      - ai/model-evaluation
+    kind: true-false
+    stem:
+      en: >-
+        At a Danish bank, 0.5 % of card transactions are fraudulent. A vendor
+        promotes its fraud model with an accuracy of 99.5 %. True or false: a model
+        that never flags a single transaction would reach the same accuracy on this
+        data.
+      da: >-
+        I en dansk bank er 0,5 % af korttransaktionerne svindel. En leverandør
+        reklamerer med, at dens svindelmodel har en nøjagtighed på 99,5 %. Sandt
+        eller falsk: en model, der aldrig markerer en eneste transaktion, ville opnå
+        den samme nøjagtighed på disse data.
+    options:
+      - en: 'True'
+        da: Sandt
+      - en: 'False'
+        da: Falsk
+    answer: 0
+    explanation:
+      en: >-
+        True. A model that labels everything as legitimate is right on all the 99.5 %
+        of transactions that are legitimate, so its accuracy is 99.5 % — while it
+        catches no fraud at all. On such imbalanced data accuracy says almost nothing
+        about the rare class. The bank should instead ask for recall and precision on
+        the fraud class, or look at the confusion matrix.
+      da: >-
+        Sandt. En model, der kalder alt legitimt, har ret i alle de 99,5 % af
+        transaktionerne, der er legitime, så dens nøjagtighed er 99,5 % — mens den
+        ikke fanger en eneste svindelsag. På så skævt fordelte data siger
+        nøjagtighed næsten intet om den sjældne klasse. Banken bør i stedet bede om
+        recall og præcision for svindelklassen eller se på forvekslingsmatricen.
+    difficulty: 1
+    sources:
+      - title: Google Machine Learning Crash Course — Classification, accuracy, precision and recall
+        url: https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall
+        tier: course-material
+    draft: true
+
+  - id: eval-test-set-worn-out
+    terms:
+      - ai/test-set
+      - ai/validation-set
+      - ai/overfitting
+    kind: scenario
+    stem:
+      en: >-
+        A data team at a Danish municipality builds a model that sorts incoming
+        citizen emails. For weeks they adjust its settings, check the score on the
+        test set after each change, and keep whatever raises it. They report 96 %.
+        On a fresh sample from the same months, the model gets 84 %. What went wrong?
+      da: >-
+        Et datateam i en kommune bygger en model, der sorterer indgående
+        borgerhenvendelser. I ugevis justerer de dens indstillinger, tjekker scoren
+        på testsættet efter hver ændring og beholder det, der hæver den. De
+        rapporterer 96 %. På en ny stikprøve fra de samme måneder får modellen 84 %.
+        Hvad gik galt?
+    options:
+      - en: The emails changed over time, so the model became outdated
+        da: Mailene ændrede sig over tid, så modellen blev forældet
+      - en: The model was too simple to learn the patterns in the data
+        da: Modellen var for simpel til at lære mønstrene i dataene
+      - en: The test set was too large, which pulled the score down
+        da: Testsættet var for stort, hvilket trak scoren ned
+      - en: Tuning against the test set made its score too optimistic
+        da: Tuning mod testsættet gjorde dens score for optimistisk
+    answer: 3
+    explanation:
+      en: >-
+        Using the same test set again and again to pick settings makes the model
+        implicitly fit that test set's peculiarities, so 96 % overstates how it does
+        on new data. Settings should be tuned on a validation set, and the test set
+        opened once at the end. Drift cannot explain the drop, because the fresh
+        sample comes from the same months. A model too simple to learn would score
+        low on the test set as well, not 96 %. And a larger test set gives a more
+        reliable score, not a lower one.
+      da: >-
+        Når man bruger det samme testsæt igen og igen til at vælge indstillinger,
+        tilpasser modellen sig indirekte testsættets særheder, så 96 % overvurderer,
+        hvordan den klarer sig på nye data. Indstillinger skal tunes på et
+        valideringssæt, og testsættet åbnes først én gang til sidst. Ændringer over
+        tid kan ikke forklare faldet, fordi den nye stikprøve er fra de samme
+        måneder. En for simpel model ville også score lavt på testsættet, ikke 96 %.
+        Og et større testsæt giver en mere pålidelig score, ikke en lavere.
+    difficulty: 2
+    sources:
+      - title: Google Machine Learning Crash Course — Dividing the original dataset
+        url: https://developers.google.com/machine-learning/crash-course/overfitting/dividing-datasets
+        tier: course-material
+    draft: true
+
+  - id: eval-benchmark-vs-own-tasks
+    terms:
+      - ai/benchmark
+      - ai/model-evaluation
+      - ai/test-set
+    kind: scenario
+    stem:
+      en: >-
+        A Danish municipality picks the language model at the top of a well-known
+        public leaderboard. On 300 real questions from its own caseworkers, it
+        answers 61 % correctly, while a lower-ranked model gets 78 %. What best
+        explains the gap?
+      da: >-
+        En kommune vælger den sprogmodel, der ligger øverst på en kendt offentlig
+        rangliste. På 300 rigtige spørgsmål fra kommunens egne sagsbehandlere svarer
+        den rigtigt på 61 %, mens en lavere rangeret model får 78 %. Hvad forklarer
+        bedst forskellen?
+    options:
+      - en: The public tasks differ from its work and may sit in the training data
+        da: De offentlige opgaver ligner ikke kommunens og kan ligge i træningsdataene
+      - en: 300 questions are far too few to judge a model's quality
+        da: 300 spørgsmål er alt for få til at bedømme en models kvalitet
+      - en: Public leaderboards rank models on speed, not correct answers
+        da: Offentlige ranglister rangerer efter hastighed, ikke rigtige svar
+      - en: The top model overfitted to the caseworkers' questions in testing
+        da: Topmodellen overtilpassede sig sagsbehandlernes testspørgsmål
+    answer: 0
+    explanation:
+      en: >-
+        A benchmark measures a fixed set of public tasks; NIST notes gaps between
+        benchmarks and real-world use, and warns that test questions can end up in
+        the training data, inflating scores. A Danish caseworker's questions are a
+        different task, so the municipality's own test is the better guide. 300
+        questions are enough to show a 17-point gap. Leaderboards like this score
+        answers against known correct ones, not speed. And a model does not learn
+        from being tested, so it cannot overfit to the caseworkers' questions.
+      da: >-
+        Et benchmark måler et fast sæt offentlige opgaver; NIST peger på afstanden
+        mellem benchmarks og brug i virkeligheden og advarer om, at testspørgsmål
+        kan ende i træningsdataene og puste scoren op. En dansk sagsbehandlers
+        spørgsmål er en anden opgave, så kommunens egen test er den bedste
+        rettesnor. 300 spørgsmål er nok til at vise en forskel på 17 point. Den slags
+        ranglister vurderer svar op mod kendte rigtige svar, ikke hastighed. Og en
+        model lærer ikke af at blive testet, så den kan ikke overtilpasse sig
+        sagsbehandlernes spørgsmål.
+    difficulty: 2
+    sources:
+      - title: 'NIST AI 600-1 — Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile'
+        url: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf
+        tier: standard
+    draft: true
+
+  - id: eval-train-validate-test-order
+    terms:
+      - ai/validation-set
+      - ai/test-set
+      - ai/model-training
+    kind: order
+    stem:
+      en: >-
+        A Danish SMV builds a model to predict which invoices will be paid late. In
+        what order should it use its three data splits to get an honest final score?
+      da: >-
+        En dansk SMV bygger en model, der skal forudsige, hvilke fakturaer der bliver
+        betalt for sent. I hvilken rækkefølge skal virksomheden bruge sine tre
+        dataopdelinger for at få en ærlig slutscore?
+    options:
+      - en: Train on the training set → score on the test set → tune on the validation set
+        da: Træn på træningssættet → mål på testsættet → tun på valideringssættet
+      - en: Tune on the validation set → train on the training set → score on the test set
+        da: Tun på valideringssættet → træn på træningssættet → mål på testsættet
+      - en: Train on the training set → tune on the validation set → score on the test set
+        da: Træn på træningssættet → tun på valideringssættet → mål på testsættet
+      - en: Train on the training set → tune on the test set → score on the validation set
+        da: Træn på træningssættet → tun på testsættet → mål på valideringssættet
+    answer: 2
+    explanation:
+      en: >-
+        The model learns from the training set, its settings are chosen by checking
+        it on the validation set while it is being built, and the test set is opened
+        once at the end for the final score. Scoring on the test set before tuning
+        means later tuning is guided by it, so the final number is no longer honest.
+        Tuning before any training has nothing to tune. Swapping the roles of the two
+        held-out sets just renames the mistake: whichever set guided the tuning
+        cannot give the final score.
+      da: >-
+        Modellen lærer af træningssættet, dens indstillinger vælges ved at tjekke
+        den på valideringssættet undervejs, og testsættet åbnes én gang til sidst
+        for at give slutscoren. Måler man på testsættet før tuningen, styres den
+        senere tuning af det, og slutscoren er ikke længere ærlig. Tuning før
+        træning har intet at tune. At bytte rollerne for de to tilbageholdte sæt
+        flytter blot fejlen: det sæt, der har styret tuningen, kan ikke give
+        slutscoren.
+    difficulty: 1
+    sources:
+      - title: Google Machine Learning Crash Course — Dividing the original dataset
+        url: https://developers.google.com/machine-learning/crash-course/overfitting/dividing-datasets
+        tier: course-material
+    draft: true

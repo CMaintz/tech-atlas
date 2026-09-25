@@ -1,0 +1,321 @@
+questions:
+  - id: ml-spam-filter-labelled-mails
+    terms:
+      - ai/supervised-learning
+      - ai/classification
+      - ai/training-data
+    kind: scenario
+    stem:
+      en: >-
+        The IT department of a Danish municipality has 40,000 old emails that staff have
+        already sorted into "spam" and "not spam" over the years. It wants a model that
+        does the same sorting automatically for new mail. Which way of learning fits
+        this task best?
+      da: >-
+        It-afdelingen i en dansk kommune har 40.000 gamle mails, som medarbejderne gennem
+        årene har sorteret i "spam" og "ikke spam". Den vil have en model, der
+        automatisk sorterer nye mails på samme måde. Hvilken måde at lære på passer bedst
+        til opgaven?
+    options:
+      - en: Letting the model group the mails by itself, without looking at the markings
+        da: At lade modellen gruppere mailene selv uden at se på markeringerne
+      - en: Letting the model try sorting live mail and collect rewards from users later
+        da: At lade modellen prøve at sortere rigtige mails og få belønning fra brugerne senere
+      - en: Training the model on the old mails with their spam markings as the answers
+        da: At træne modellen på de gamle mails med spam-markeringerne som facit
+      - en: Writing fixed rules by hand for words that appeared in the old spam mails
+        da: At skrive faste regler i hånden for ord, der optrådte i de gamle spammails
+    answer: 2
+    explanation:
+      en: >-
+        The old mails come with the right answer attached — each is marked spam or not
+        spam — so this is supervised learning: the model learns from labelled examples to
+        predict the label of new, unseen mail, a classic classification task. Grouping
+        without the markings is unsupervised learning; it could find clusters, but they
+        need not match "spam", and it throws away the answers the municipality already
+        has. Reinforcement learning learns from rewards for actions in an environment,
+        which is slow and needless when labelled examples exist. Hand-written word rules
+        are not machine learning at all and break as soon as spammers change wording.
+      da: >-
+        De gamle mails har det rigtige svar hæftet på — hver er markeret som spam eller
+        ikke spam — så det er superviseret læring: Modellen lærer af mærkede eksempler at
+        forudsige mærkatet for nye mails, den ikke har set, en klassisk
+        klassifikationsopgave. At gruppere uden markeringerne er ikke-superviseret
+        læring; det kan finde klynger, men de behøver ikke at svare til "spam", og
+        kommunens facit bliver smidt væk. Forstærkningslæring lærer af belønninger for
+        handlinger i et miljø, hvilket er langsomt og unødvendigt, når der findes mærkede
+        eksempler. Håndskrevne ordregler er slet ikke maskinlæring og holder op med at
+        virke, så snart spammerne ændrer ordvalg.
+    difficulty: 1
+    sources:
+      - title: Google for Developers — Introduction to Machine Learning, What is ML?
+        url: https://developers.google.com/machine-learning/intro-to-ml/what-is-ml
+        tier: course-material
+      - title: Google for Developers — Introduction to Machine Learning, Supervised Learning
+        url: https://developers.google.com/machine-learning/intro-to-ml/supervised
+        tier: course-material
+    draft: true
+  - id: ml-soc-log-events-no-labels
+    terms:
+      - ai/clustering
+      - ai/unsupervised-learning
+    kind: scenario
+    stem:
+      en: >-
+        A SOC analyst in a Danish region has millions of log events from the past month.
+        None of them are marked as harmless or malicious, and nobody has time to mark
+        them. She wants to see which kinds of activity occur, so that odd groups stand
+        out for closer inspection. Which approach fits?
+      da: >-
+        En SOC-analytiker i en dansk region har millioner af loghændelser fra den seneste
+        måned. Ingen af dem er markeret som harmløse eller ondsindede, og ingen har tid
+        til at markere dem. Hun vil se, hvilke slags aktivitet der forekommer, så
+        usædvanlige grupper springer i øjnene og kan undersøges nærmere. Hvilken
+        tilgang passer?
+    options:
+      - en: Let a model group similar events on its own, with no answers given in advance
+        da: Lade en model samle ensartede hændelser i grupper selv, uden facit på forhånd
+      - en: Train a model to sort events into harmless and malicious from the log alone
+        da: Træne en model til at sortere hændelser i harmløse og ondsindede ud fra loggen alene
+      - en: Train a model to predict a numeric risk score for each event from the log
+        da: Træne en model til at forudsige en risikoscore som tal for hver hændelse ud fra loggen
+      - en: Let a model block events and learn from the rewards it gets for each block
+        da: Lade en model blokere hændelser og lære af den belønning, den får for hver blokering
+    answer: 0
+    explanation:
+      en: >-
+        With no labels, the fitting approach is unsupervised learning: clustering lets
+        the model gather similar events into groups by itself, and a small or unusual
+        group is exactly what the analyst wants to inspect. Sorting into harmless and
+        malicious is classification, and predicting a risk score is regression; both are
+        supervised and need examples with the right answer attached, which she does not
+        have. Blocking events and learning from rewards is reinforcement learning — it
+        acts in the live environment, which is risky, and it does not answer her
+        question of which kinds of activity exist.
+      da: >-
+        Uden mærkater er den passende tilgang ikke-superviseret læring: Med
+        klyngeanalyse samler modellen selv ensartede hændelser i grupper, og en lille
+        eller usædvanlig gruppe er netop det, analytikeren vil undersøge. At sortere i
+        harmløse og ondsindede er klassifikation, og at forudsige en risikoscore er
+        regression; begge er superviseret læring og kræver eksempler med det rigtige
+        svar hæftet på, som hun ikke har. At blokere hændelser og lære af belønninger er
+        forstærkningslæring — den handler i det kørende miljø, hvilket er risikabelt, og
+        den svarer ikke på, hvilke slags aktivitet der findes.
+    difficulty: 1
+    sources:
+      - title: Google for Developers — Introduction to Machine Learning, What is ML?
+        url: https://developers.google.com/machine-learning/intro-to-ml/what-is-ml
+        tier: course-material
+    draft: true
+  - id: ml-bank-fraud-and-loss
+    terms:
+      - ai/classification
+      - ai/regression
+    kind: compare
+    stem:
+      en: >-
+        A Danish bank wants two models. Model A shall say whether a card transaction is
+        fraud or not. Model B shall estimate how many kroner the bank will lose on a
+        fraud case. What kind of task is each?
+      da: >-
+        En dansk bank vil have to modeller. Model A skal afgøre, om en korttransaktion er
+        svindel eller ej. Model B skal anslå, hvor mange kroner banken vil tabe på en
+        svindelsag. Hvilken slags opgave er hver af dem?
+    options:
+      - en: Both are regression, since each model outputs a number the bank acts on
+        da: Begge er regression, da hver model giver et tal, som banken handler på
+      - en: A is regression and B is classification, since B puts cases in loss bands
+        da: A er regression og B er klassifikation, da B lægger sager i tabsintervaller
+      - en: Both are classification, since both are about fraudulent transactions
+        da: Begge er klassifikation, da begge handler om svigagtige transaktioner
+      - en: A is classification and B is regression, since B predicts an amount
+        da: A er klassifikation og B er regression, da B forudsiger et beløb
+    answer: 3
+    explanation:
+      en: >-
+        Classification predicts which of a fixed set of categories a case belongs to —
+        fraud or not fraud — while regression predicts a numeric value on a scale, such
+        as an amount in kroner. So A is classification and B is regression. A
+        classifier may output a probability, but its task is still to pick a category,
+        which is why "both are regression" is wrong. Swapping them would only hold if B
+        were redesigned to pick loss bands, which is not what the bank asked for. The
+        shared topic of fraud says nothing about the kind of output, so "both are
+        classification" confuses the subject with the task.
+      da: >-
+        Klassifikation forudsiger, hvilken af et fast sæt kategorier en sag hører til —
+        svindel eller ikke svindel — mens regression forudsiger en talværdi på en
+        skala, fx et beløb i kroner. Altså er A klassifikation og B regression. En
+        klassifikator kan godt give en sandsynlighed, men dens opgave er stadig at vælge
+        en kategori, og derfor er "begge er regression" forkert. Ombytningen ville kun
+        holde, hvis B blev lavet om til at vælge tabsintervaller, og det er ikke det,
+        banken har bedt om. At begge handler om svindel, siger intet om, hvilken slags
+        output der skal til, så "begge er klassifikation" blander emnet sammen med
+        opgaven.
+    difficulty: 1
+    sources:
+      - title: Google for Developers — Introduction to Machine Learning, What is ML?
+        url: https://developers.google.com/machine-learning/intro-to-ml/what-is-ml
+        tier: course-material
+    draft: true
+  - id: ml-hospital-model-new-patients
+    terms:
+      - ai/overfitting
+      - ai/training-data
+      - ai/underfitting
+    kind: scenario
+    stem:
+      en: >-
+        A Danish hospital has trained a model to flag patients at risk of readmission.
+        On the records it was trained on it is right 99% of the time, but on new
+        patients from the following months it is right only 68% of the time. The
+        training data came from one department over a single year. What is most likely
+        to help?
+      da: >-
+        Et dansk hospital har trænet en model, der skal markere patienter med risiko for
+        genindlæggelse. På de journaler, den er trænet på, rammer den rigtigt i 99 % af
+        tilfældene, men på nye patienter fra de følgende måneder kun i 68 %.
+        Træningsdataene kom fra én afdeling over et enkelt år. Hvad vil mest sandsynligt
+        hjælpe?
+    options:
+      - en: Training for more rounds on the same records until it scores 100% on them
+        da: At træne flere runder på de samme journaler, til den rammer 100 % på dem
+      - en: Using broader, more varied data and a simpler model
+        da: At bruge bredere og mere varierede data og en enklere model
+      - en: Making the model larger so it has room to store more detail about each patient
+        da: At gøre modellen større, så den har plads til flere detaljer om hver patient
+      - en: Measuring accuracy on the training records again to see if the drop was luck
+        da: At måle træfsikkerheden på træningsjournalerne igen for at se, om faldet var held
+    answer: 1
+    explanation:
+      en: >-
+        Near-perfect results on the training data and much worse results on new cases
+        is the mark of overfitting: the model has memorised its training set, including
+        noise, instead of the general pattern. Google's course names two causes —
+        training data that does not represent real conditions and a model that is too
+        complex — so more varied data and a simpler model, judged on data held out from
+        training, address both. More rounds on the same records and a larger model push
+        memorisation further. Re-measuring on the training records only confirms the
+        99% again; the real test is always new examples. This is not underfitting,
+        which shows as poor scores even on the training data.
+      da: >-
+        Næsten perfekte resultater på træningsdata og langt dårligere resultater på nye
+        tilfælde er kendetegnet for overtilpasning: Modellen har lært træningssættet
+        udenad, støj og det hele, i stedet for det generelle mønster. Googles kursus
+        nævner to årsager — træningsdata, der ikke afspejler virkeligheden, og en model,
+        der er for kompleks — så mere varierede data og en enklere model, bedømt på
+        data holdt uden for træningen, tager fat i begge. Flere runder på de samme
+        journaler og en større model driver udenadslæren endnu længere. At måle på
+        træningsjournalerne igen bekræfter bare de 99 %; den rigtige prøve er altid nye
+        eksempler. Det er ikke undertilpasning, som viser sig ved dårlige resultater
+        allerede på træningsdataene.
+    difficulty: 2
+    sources:
+      - title: Google Machine Learning Crash Course — Overfitting
+        url: https://developers.google.com/machine-learning/crash-course/overfitting/overfitting
+        tier: course-material
+    draft: true
+  - id: ml-municipality-historical-decisions
+    terms:
+      - ai/training-data
+      - ai/ai-bias
+      - ai/supervised-learning
+    kind: scenario
+    stem:
+      en: >-
+        A Danish municipality trains a model on 15 years of its own decisions on
+        applications for home help, so the model can suggest a decision in new cases.
+        An audit later shows that, in some of those years, applicants from certain
+        districts were turned down more often than comparable applicants elsewhere.
+        What should the municipality expect from the model?
+      da: >-
+        En dansk kommune træner en model på 15 års egne afgørelser om ansøgninger om
+        hjemmehjælp, så modellen kan foreslå en afgørelse i nye sager. En gennemgang
+        viser senere, at ansøgere fra bestemte bydele i nogle af årene fik afslag
+        oftere end sammenlignelige ansøgere andre steder. Hvad bør kommunen forvente af
+        modellen?
+    options:
+      - en: It will even out the old differences, as it weighs every case the same way
+        da: Den udligner de gamle forskelle, da den vægter alle sager på samme måde
+      - en: It will be neutral as long as the district is not one of its input fields
+        da: Den er neutral, så længe bydelen ikke er et af dens inputfelter
+      - en: It will tend to repeat the old pattern, as it learns from those decisions
+        da: Den vil have tendens til at gentage det gamle mønster, da den lærer af de afgørelser
+      - en: It will only be affected if the old decisions contain typing errors
+        da: Den bliver kun påvirket, hvis de gamle afgørelser indeholder tastefejl
+    answer: 2
+    explanation:
+      en: >-
+        A supervised model learns to reproduce the answers in its training data, so if
+        past decisions reflect an unfair pattern, the model learns that pattern too —
+        Google's course calls this historical bias: data that reflects inequities of
+        the time it was collected. Treating every case alike in training does not
+        correct the labels; it copies them faithfully. Removing the district field is
+        not enough, because other fields such as postcode, address or the local care
+        centre can carry the same information. And the problem is not typing errors:
+        the data can be perfectly recorded and still carry the unfairness.
+      da: >-
+        En superviseret model lærer at gengive svarene i sine træningsdata, så hvis
+        tidligere afgørelser afspejler et skævt mønster, lærer modellen også det mønster
+        — Googles kursus kalder det historisk bias: data, der afspejler uligheder fra
+        den tid, de blev indsamlet. At behandle alle sager ens under træningen retter
+        ikke facit; det kopierer det trofast. Det er ikke nok at fjerne feltet for
+        bydel, fordi andre felter som postnummer, adresse eller det lokale plejecenter
+        kan bære den samme oplysning. Og problemet er ikke tastefejl: Data kan være
+        registreret helt korrekt og stadig bære skævheden med sig.
+    difficulty: 3
+    sources:
+      - title: Google Machine Learning Crash Course — Fairness, Types of bias
+        url: https://developers.google.com/machine-learning/crash-course/fairness/types-of-bias
+        tier: course-material
+      - title: Wikipedia — Algorithmic bias (Emergent bias, Correlations)
+        url: https://en.wikipedia.org/wiki/Algorithmic_bias
+        tier: reference
+    draft: true
+  - id: ml-pretraining-needs-no-labellers
+    terms:
+      - ai/self-supervised-learning
+      - ai/pretraining
+    kind: true-false
+    stem:
+      en: >-
+        A Danish SMV considers building its own language model from scratch. The CTO
+        says: "For the first, big training stage we must hire people to write the
+        correct next word for every sentence in the text collection." True or false?
+      da: >-
+        En dansk SMV overvejer at bygge sin egen sprogmodel fra bunden. It-chefen siger:
+        "Til det første, store træningstrin skal vi ansætte folk til at skrive det
+        rigtige næste ord for hver eneste sætning i tekstsamlingen." Sandt eller falsk?
+    options:
+      - en: 'True'
+        da: Sandt
+      - en: 'False'
+        da: Falsk
+    answer: 1
+    explanation:
+      en: >-
+        False. The first, large training stage of a language model is self-supervised:
+        the right answer — the next word — is already in the text, so the training
+        process makes its own labels by hiding a word and asking the model to predict
+        it. Google's glossary describes self-supervised learning as generating labels
+        from unlabelled data itself, which is what makes training on vast text
+        collections affordable. Human-written examples do matter later, in smaller
+        stages such as instruction tuning and RLHF, where people write demonstrations
+        or rank answers.
+      da: >-
+        Falsk. En sprogmodels første, store træningstrin er selvsuperviseret: Det
+        rigtige svar — det næste ord — står allerede i teksten, så træningen laver selv
+        sine mærkater ved at skjule et ord og lade modellen gætte det. Googles ordliste
+        beskriver selvsuperviseret læring som at danne mærkater ud fra selve de
+        umærkede data, og det er det, der gør træning på enorme tekstmængder
+        overkommelig. Menneskeskrevne eksempler får betydning senere, i mindre trin som
+        instruktionstilpasning og RLHF, hvor folk skriver eksempelsvar skrevet af mennesker eller rangordner
+        svar.
+    difficulty: 2
+    sources:
+      - title: Google for Developers — Machine Learning Glossary (self-supervised learning)
+        url: https://developers.google.com/machine-learning/glossary
+        tier: reference
+      - title: Ouyang et al. (2022), Training language models to follow instructions with human feedback
+        url: https://arxiv.org/abs/2203.02155
+        tier: other
+    draft: true
