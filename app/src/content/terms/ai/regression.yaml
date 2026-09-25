@@ -9,14 +9,14 @@ cluster: ml-fundamentals
 layer: training
 status: current
 summary:
-  en: Teaching a computer to guess a number on a scale - a price, a time, a size - from past examples where the real number was known.
-  da: At lære en computer at gætte et tal på en skala - en pris, en tid, en størrelse - ud fra tidligere eksempler med kendte tal.
+  en: Teaching a computer to guess a number on a scale, such as a price, a time or a size, from past examples where the real number was known.
+  da: At lære en computer at gætte et tal på en skala, fx en pris, en tid eller en størrelse, ud fra tidligere eksempler med kendte tal.
 body:
   formal:
     en: A task in machine learning where the model learns from labelled examples to map an input to a number that can take any value within a range, and is judged by how far its guesses land from the real values.
     da: En opgave i maskinlæring, hvor modellen lærer af mærkede eksempler at knytte et input til et tal, der kan have enhver værdi mellem to grænser, og bedømmes på, hvor langt dens gæt ligger fra de rigtige værdier.
   plain:
-    en: Like guessing a house's price from its size, age and street after seeing what many other houses sold for - the answer is an amount, not a yes or no.
+    en: Like guessing a house's price from its size, age and street after seeing what many other houses sold for; the answer is an amount, not a yes or no.
     da: Som at gætte en boligs pris ud fra størrelse, alder og gade efter at have set, hvad mange andre boliger blev solgt for - svaret er et beløb, ikke et ja eller nej.
   inPractice:
     en: An operations planner at a water utility uses a model trained on five years of readings to predict tomorrow's water use hour by hour from the weather forecast and the day of the week.
@@ -26,7 +26,7 @@ body:
     da: Mange forretningsspørgsmål handler om "hvor meget" eller "hvor længe", ikke "hvilken"; gættet har altid en fejlmargin, der skal vises, ikke skjules.
 deepDive:
   en: |-
-    The name comes from Francis Galton's 1880s observation that children of unusually tall parents tend to be closer to average height, "regression towards mediocrity". The workhorse is linear regression fitted by ordinary least squares: minimise the sum of squared residuals, which for a design matrix X and target vector y has the closed-form solution β = (XᵀX)⁻¹Xᵀy, the normal equations. Under the Gauss-Markov assumptions (linear model, uncorrelated errors with constant variance, no perfect multicollinearity) OLS is the best linear unbiased estimator. In practice it is solved with QR or SVD decompositions rather than an explicit matrix inverse, for numerical stability.
+    The name comes from Francis Galton's observation that children of unusually tall parents tend to be closer to average height, published in 1886 as "Regression towards mediocrity in hereditary stature". The workhorse is linear regression fitted by ordinary least squares: minimise the sum of squared residuals, which for a design matrix X and target vector y has the closed-form solution β = (XᵀX)⁻¹Xᵀy, the normal equations. Under the Gauss-Markov assumptions (a model linear in its parameters, errors with zero mean given the inputs, uncorrelated errors with constant variance, no perfect multicollinearity) OLS is the best linear unbiased estimator. In practice it is solved with QR or SVD decompositions rather than an explicit matrix inverse, for numerical stability.
 
     Regularised variants trade a little bias for lower variance: ridge regression (Hoerl and Kennard, 1970) adds an L2 penalty, lasso (Tibshirani, 1996) an L1 penalty that sets some coefficients exactly to zero, and elastic net combines both. Non-linear regression is handled by feature transformations, splines, generalised additive models, tree ensembles such as gradient boosting, or neural networks with a linear output unit. Poisson and other generalised linear models suit counts and rates; time-series forecasting adds temporal structure (autoregression, seasonality) and must be validated on strictly later periods.
 
@@ -36,7 +36,7 @@ deepDive:
 
     Two naming traps: logistic regression is a classification method, and "regression" in software testing means a previously working feature breaking, which is unrelated. Regression also differs from classification only in the output type; ordinal targets such as ratings from 1 to 5 sit in between and can be modelled either way.
   da: |-
-    Navnet stammer fra Francis Galtons iagttagelse i 1880'erne af, at børn af usædvanligt høje forældre som regel er tættere på gennemsnitshøjden, "regression mod middelmådigheden". Arbejdshesten er lineær regression tilpasset med mindste kvadraters metode (OLS): Summen af kvadrerede residualer minimeres, hvilket for en designmatrix X og en målvektor y har den lukkede løsning β = (XᵀX)⁻¹Xᵀy, normalligningerne. Under Gauss-Markov-antagelserne (lineær model, ukorrelerede fejl med konstant varians, ingen perfekt multikollinearitet) er OLS den bedste lineære middelret estimator. I praksis løses den med QR- eller SVD-dekomposition frem for en eksplicit matrixinvers af hensyn til den numeriske stabilitet.
+    Navnet stammer fra Francis Galtons iagttagelse af, at børn af usædvanligt høje forældre som regel er tættere på gennemsnitshøjden, offentliggjort i 1886 som "Regression towards mediocrity in hereditary stature" (regression mod middelmådigheden). Arbejdshesten er lineær regression tilpasset med mindste kvadraters metode (OLS): Summen af kvadrerede residualer minimeres, hvilket for en designmatrix X og en målvektor y har den lukkede løsning β = (XᵀX)⁻¹Xᵀy, normalligningerne. Under Gauss-Markov-antagelserne (en model, der er lineær i parametrene, fejl med middelværdi nul givet input, ukorrelerede fejl med konstant varians, ingen perfekt multikollinearitet) er OLS den bedste lineære middelret estimator. I praksis løses den med QR- eller SVD-dekomposition frem for en eksplicit matrixinvers af hensyn til den numeriske stabilitet.
 
     Regulariserede varianter bytter lidt bias for lavere varians: Ridge-regression (Hoerl og Kennard, 1970) tilføjer en L2-straf, lasso (Tibshirani, 1996) en L1-straf, der sætter nogle koefficienter præcis til nul, og elastic net kombinerer begge. Ikke-lineær regression håndteres med transformationer af features, splines, generaliserede additive modeller, træensembler som gradient boosting eller neurale netværk med en lineær outputenhed. Poisson- og andre generaliserede lineære modeller passer til optællinger og rater; tidsserieprognoser tilføjer tidsstruktur (autoregression, sæsonmønstre) og skal valideres på strengt senere perioder.
 
@@ -57,9 +57,27 @@ edges:
       confidence: high
 sources:
   - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    url: https://aima.cs.berkeley.edu/
     tier: textbook
     publisher: Pearson
-  - title: ISO/IEC 22989:2022 - Artificial intelligence concepts and terminology
+  - title: ISO/IEC 22989:2022, Artificial intelligence concepts and terminology
+    url: https://www.iso.org/standard/74296.html
     tier: standard
     publisher: ISO/IEC
+  - title: scikit-learn User Guide, Linear Models
+    url: https://scikit-learn.org/stable/modules/linear_model.html
+    tier: official-doc
+    publisher: scikit-learn
+  - title: Galton (1886), Regression Towards Mediocrity in Hereditary Stature
+    url: https://doi.org/10.2307/2841583
+    tier: reference
+    publisher: Journal of the Anthropological Institute of Great Britain and Ireland
+  - title: 'Hoerl & Kennard (1970), Ridge Regression: Biased Estimation for Nonorthogonal Problems'
+    url: https://doi.org/10.1080/00401706.1970.10488634
+    tier: reference
+    publisher: Technometrics
+  - title: Tibshirani (1996), Regression Shrinkage and Selection via the Lasso
+    url: https://doi.org/10.1111/j.2517-6161.1996.tb02080.x
+    tier: reference
+    publisher: Journal of the Royal Statistical Society, Series B
 draft: true

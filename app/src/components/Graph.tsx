@@ -2,16 +2,23 @@ import { useEffect, useRef } from 'preact/hooks';
 import cytoscape from 'cytoscape';
 import type { EdgeType } from '../schema';
 import type { Family } from '../lib/graph-model';
-import { FAMILY_COLOURS, nodePaint } from '../lib/graph-style';
+import {
+  FAMILY_COLOURS,
+  MAP_INK,
+  familyColours,
+  nodePaint,
+  type MapTheme,
+} from '../lib/graph-style';
 import { domainBands } from '../lib/graph-layout';
 import {
   FADE_TRANSITIONS,
-  GRAPH_STYLE,
   attachHover,
   edgeData,
+  graphStyle,
   smoothFit,
   startFlow,
 } from '../lib/graph-cytoscape';
+import { useTheme } from '../lib/use-theme';
 import GraphLegend from './GraphLegend';
 
 type Dict = Record<string, string>;
@@ -33,6 +40,42 @@ interface Props {
   onSelect?: (id: string) => void;
 }
 
+/** The term-page graph's stylesheet for a map theme (A92). */
+const sheet = (theme: MapTheme) =>
+  [
+    ...(graphStyle(theme) as unknown[]),
+    ...(FADE_TRANSITIONS as unknown[]),
+    {
+      selector: 'node[focus = 1]',
+      style: {
+        'outline-width': 2,
+        'outline-color': MAP_INK[theme].selected,
+        'outline-offset': 3,
+        'underlay-opacity': theme === 'light' ? 0.3 : 0.4,
+        'underlay-padding': 9,
+        'text-valign': 'top',
+        'text-margin-y': -6,
+        'font-weight': 600,
+      },
+    },
+    {
+      selector: 'edge',
+      style: {
+        label: 'data(label)',
+        'font-size': 7,
+        color: MAP_INK[theme].tick,
+        'text-rotation': 'autorotate',
+        'text-outline-color': MAP_INK[theme].halo,
+        'text-outline-width': 2,
+        // Relationship names appear on hover, so the resting graph stays calm.
+        'text-opacity': 0,
+        opacity: 0.7,
+      },
+    },
+    { selector: 'edge.flow', style: { opacity: 0.85 } },
+    { selector: 'edge.lit', style: { 'text-opacity': 1, 'font-size': 9 } },
+  ] as cytoscape.StylesheetJson;
+
 /**
  * The term page's neighbourhood graph (2D, Cytoscape), in the Explorer's visual
  * language (A74): the focal term at the centre, its neighbours on a ring grouped by
@@ -42,6 +85,10 @@ export default function Graph({ nodes, edges, termBase, onSelect, ...props }: Pr
   const ref = useRef<HTMLDivElement>(null);
   const select = useRef(onSelect);
   select.current = onSelect;
+  // The palette follows the page theme live (A92): a restyle in place, never a relayout.
+  const theme = useTheme();
+  const cyRef = useRef<cytoscape.Core | null>(null);
+  const painted = useRef(theme);
 
   useEffect(() => {
     if (!ref.current) return;
@@ -62,12 +109,13 @@ export default function Graph({ nodes, edges, termBase, onSelect, ...props }: Pr
           a.cluster.localeCompare(b.cluster) ||
           a.label.localeCompare(b.label),
       );
+    const t = painted.current;
     const cy = cytoscape({
       container: ref.current,
       elements: [
         ...[...(focus ? [focus] : []), ...ring].map((n) => {
-          const paint = nodePaint(n);
-          const ring = domainBands(n)[1];
+          const paint = nodePaint(n, t);
+          const ring = domainBands(n, undefined, t)[1];
           return {
             data: {
               id: n.id,
@@ -84,44 +132,14 @@ export default function Graph({ nodes, edges, termBase, onSelect, ...props }: Pr
           edges,
           (id) => byId.get(id),
           () => 1.6,
+          0.5,
+          t,
         ).map((data, i) => ({
           data: { ...data, label: edges[i].label },
           classes: data.directed ? 'flow' : '',
         })),
       ],
-      style: [
-        ...(GRAPH_STYLE as unknown[]),
-        ...(FADE_TRANSITIONS as unknown[]),
-        {
-          selector: 'node[focus = 1]',
-          style: {
-            'outline-width': 2,
-            'outline-color': '#ffffff',
-            'outline-offset': 3,
-            'underlay-opacity': 0.4,
-            'underlay-padding': 9,
-            'text-valign': 'top',
-            'text-margin-y': -6,
-            'font-weight': 600,
-          },
-        },
-        {
-          selector: 'edge',
-          style: {
-            label: 'data(label)',
-            'font-size': 7,
-            color: '#a3a3a3',
-            'text-rotation': 'autorotate',
-            'text-outline-color': '#171717',
-            'text-outline-width': 2,
-            // Relationship names appear on hover, so the resting graph stays calm.
-            'text-opacity': 0,
-            opacity: 0.7,
-          },
-        },
-        { selector: 'edge.flow', style: { opacity: 0.85 } },
-        { selector: 'edge.lit', style: { 'text-opacity': 1, 'font-size': 9 } },
-      ] as cytoscape.StylesheetJson,
+      style: sheet(t),
       layout: {
         name: 'concentric',
         concentric: (n: cytoscape.NodeSingular) => (n.data('focus') ? 2 : 1),
@@ -158,27 +176,54 @@ export default function Graph({ nodes, edges, termBase, onSelect, ...props }: Pr
     });
     attachHover(cy);
     const stop = startFlow(cy);
+    cyRef.current = cy;
     return () => {
       stop();
       cy.destroy();
+      cyRef.current = null;
     };
   }, []);
+
+  // A theme switch recolours the elements and swaps the stylesheet; positions stay.
+  useEffect(() => {
+    const cy = cyRef.current;
+    if (!cy || painted.current === theme) return;
+    painted.current = theme;
+    const byId = new Map(nodes.map((n) => [n.id, n]));
+    const paint = edgeData(
+      edges,
+      (id) => byId.get(id),
+      () => 1.6,
+      0.5,
+      theme,
+    );
+    cy.batch(() => {
+      for (const n of nodes) {
+        const el = cy.getElementById(n.id);
+        el.data('colour', nodePaint(n, theme).fill);
+        const ring = domainBands(n, undefined, theme)[1];
+        if (ring) el.data('ring', ring);
+      }
+      paint.forEach((p, i) =>
+        cy.getElementById(`e${i}`).data({ colour: p.colour, gradient: p.gradient }),
+      );
+    });
+    cy.style(sheet(theme));
+  }, [theme]);
 
   const present = new Set(edges.map((e) => e.family));
   return (
     <div class="space-y-2">
-      <div
-        ref={ref}
-        class="h-[360px] w-full rounded border border-neutral-800 bg-[radial-gradient(ellipse_at_center,#161822_0%,#101010_75%)]"
-      />
+      <div ref={ref} class="chart-surface h-[360px] w-full rounded border border-border" />
       <GraphLegend
         nodes={nodes}
         families={Object.keys(FAMILY_COLOURS).filter((f) => present.has(f as Family))}
-        familyColours={FAMILY_COLOURS}
+        familyColours={familyColours(theme)}
         familyLabels={props.familyLabels}
         domainLabels={props.domainLabels}
         clusterLabels={props.clusterLabels}
         text={props.text}
+        theme={theme}
         compact
       />
     </div>

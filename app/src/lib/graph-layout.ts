@@ -11,6 +11,7 @@ import {
   clusterColour,
   homeDomain,
   seededRandom,
+  type MapTheme,
   type Paintable,
   type Point,
 } from './graph-style';
@@ -48,13 +49,14 @@ export function effectiveHome(n: Paintable, enabled?: ReadonlySet<string>): stri
 export function effectivePaint(
   n: Paintable,
   enabled?: ReadonlySet<string>,
+  theme: MapTheme = 'dark',
 ): { fill: string; ring: string | null } {
   const home = homeDomain(n);
   const eff = effectiveHome(n, enabled);
   const other = n.domain.find((d) => d !== eff && (!enabled || enabled.has(d)));
   return {
-    fill: eff === home ? clusterColour(n.cluster, home) : domainColour(eff),
-    ring: other ? domainColour(other) : null,
+    fill: eff === home ? clusterColour(n.cluster, home, theme) : domainColour(eff, theme),
+    ring: other ? domainColour(other, theme) : null,
   };
 }
 
@@ -63,11 +65,15 @@ export function effectivePaint(
  * first, then the others. The map fills the term in its own shade and rings it in the
  * second colour. A term in one enabled domain gets none.
  */
-export function domainBands(n: Paintable, enabled?: ReadonlySet<string>): string[] {
+export function domainBands(
+  n: Paintable,
+  enabled?: ReadonlySet<string>,
+  theme: MapTheme = 'dark',
+): string[] {
   const on = n.domain.filter((d) => !enabled || enabled.has(d));
   if (on.length < 2) return [];
   const home = effectiveHome(n, enabled);
-  return [home, ...on.filter((d) => d !== home)].map(domainColour);
+  return [home, ...on.filter((d) => d !== home)].map((d) => domainColour(d, theme));
 }
 
 // ---- Backbone ------------------------------------------------------------------------

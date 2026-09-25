@@ -49,13 +49,16 @@ deepDive:
 edges:
   part-of: [machine-learning]
 sources:
-  - title: 'Goodfellow, Bengio & Courville, Deep Learning'
+  - title: 'Goodfellow, Bengio & Courville (2016), Deep Learning'
+    url: https://www.deeplearningbook.org/
     tier: textbook
     publisher: MIT Press
   - title: Rosenblatt (1958), The Perceptron
     tier: reference
+    url: https://doi.org/10.1037/h0042519
     publisher: Psychological Review
-  - title: ISO/IEC 22989:2022 - Artificial intelligence concepts and terminology
+  - title: 'ISO/IEC 22989:2022, Artificial intelligence concepts and terminology'
+    url: https://www.iso.org/standard/74296.html
     tier: standard
     publisher: ISO/IEC
 draft: true

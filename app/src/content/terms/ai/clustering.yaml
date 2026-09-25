@@ -16,17 +16,17 @@ body:
     en: A task in machine learning that splits unlabelled items into groups so that items in the same group are more alike than items in different groups; the number and meaning of the groups are not given.
     da: En opgave i maskinlæring, der deler ting uden mærkater op i grupper, så ting i samme gruppe ligner hinanden mere end ting i forskellige grupper; antallet af grupper og deres betydning er ikke givet.
   plain:
-    en: Like looking up at the night sky and seeing which stars sit close together - the groups come first, and the names for them come afterwards.
+    en: Like looking up at the night sky and seeing which stars sit close together; the groups come first, and the names for them come afterwards.
     da: Som at kigge op på nattehimlen og se, hvilke stjerner der ligger tæt sammen - grupperne kommer først, og navnene på dem kommer bagefter.
   inPractice:
     en: A data analyst at a Danish online shop groups 80,000 customers by what and when they buy and finds six groups, including one that only ever shops during sales.
     da: En dataanalytiker i en dansk webshop grupperer 80.000 kunder efter, hvad og hvornår de køber, og finder seks grupper, herunder én, der kun handler, når der er udsalg.
   whyItMatters:
-    en: It finds order in piles of data nobody has time to label, but the groups carry no meaning until a person looks at them - and a different setting can split the same data quite differently.
+    en: It finds order in piles of data nobody has time to label, but the groups carry no meaning until a person looks at them, and a different setting can split the same data quite differently.
     da: Den finder orden i bunker af data, som ingen har tid til at mærke, men grupperne betyder intet, før et menneske har set på dem - og en anden indstilling kan dele de samme data helt anderledes.
 deepDive:
   en: |-
-    k-means is the default partitioning method. Given k, it minimises the within-cluster sum of squared distances to the cluster centroids by Lloyd's algorithm: assign each point to its nearest centroid, recompute each centroid as the mean of its points, and repeat until assignments stop changing. Each iteration costs O(n·k·d). Finding the global optimum is NP-hard, so the result depends on initialisation; k-means++ (Arthur and Vassilvitskii, 2007) picks spread-out starting centroids with probability proportional to squared distance and gives a provable approximation bound, and implementations run several restarts and keep the best. k-means assumes roughly spherical clusters of similar size in Euclidean space and is sensitive to outliers and to feature scaling.
+    k-means is the default partitioning method. Given k, it minimises the within-cluster sum of squared distances to the cluster centroids by Lloyd's algorithm: assign each point to its nearest centroid, recompute each centroid as the mean of its points, and repeat until assignments stop changing. Each iteration costs O(n·k·d). Finding the global optimum is NP-hard even for two clusters, so the result depends on initialisation; k-means++ (Arthur and Vassilvitskii, 2007) picks spread-out starting centroids with probability proportional to squared distance and is O(log k)-competitive with the optimal clustering in expectation, and implementations run several restarts and keep the best. k-means assumes roughly spherical clusters of similar size in Euclidean space and is sensitive to outliers and to feature scaling.
 
     Other families make different assumptions. Hierarchical agglomerative clustering starts with every point alone and repeatedly merges the closest pair of clusters, with the linkage criterion (single, complete, average or Ward's minimum variance) defining "closest"; the result is a dendrogram that can be cut at any level. Density-based DBSCAN (Ester et al., 1996) takes a radius eps and a minimum neighbourhood size minPts, grows clusters from core points in dense regions, finds arbitrarily shaped clusters and labels sparse points as noise; HDBSCAN removes the need for a single global eps. Gaussian mixture models fitted with the EM algorithm give soft, probabilistic assignments and elliptical clusters. Spectral clustering works on the eigenvectors of a similarity graph.
 
@@ -36,7 +36,7 @@ deepDive:
 
     Clustering is sometimes confused with classification because both produce groups, but classification assigns inputs to predefined, labelled classes learned from examples, while clustering discovers groups whose meaning must be interpreted afterwards. When clusters are used to segment or profile customers or citizens, the resulting segments can amount to profiling under GDPR Article 4(4).
   da: |-
-    k-means er standardmetoden til opdeling. Givet k minimerer den summen af kvadrerede afstande til klyngernes centroider inden for hver klynge med Lloyds algoritme: Hvert punkt tildeles den nærmeste centroide, hver centroide genberegnes som gennemsnittet af sine punkter, og det gentages, til tildelingerne ikke ændrer sig. Hver iteration koster O(n·k·d). Det globale optimum er NP-svært at finde, så resultatet afhænger af initialiseringen; k-means++ (Arthur og Vassilvitskii, 2007) vælger spredte startcentroider med sandsynlighed proportional med den kvadrerede afstand og giver en bevist approksimationsgrænse, og implementeringer kører flere genstarter og beholder den bedste. k-means antager nogenlunde kugleformede klynger af ens størrelse i euklidisk rum og er følsom over for afvigere og skalering af features.
+    k-means er standardmetoden til opdeling. Givet k minimerer den summen af kvadrerede afstande til klyngernes centroider inden for hver klynge med Lloyds algoritme: Hvert punkt tildeles den nærmeste centroide, hver centroide genberegnes som gennemsnittet af sine punkter, og det gentages, til tildelingerne ikke ændrer sig. Hver iteration koster O(n·k·d). Det globale optimum er NP-svært at finde, selv med to klynger, så resultatet afhænger af initialiseringen; k-means++ (Arthur og Vassilvitskii, 2007) vælger spredte startcentroider med sandsynlighed proportional med den kvadrerede afstand og er i forventning O(log k)-konkurrencedygtig med den optimale opdeling, og implementeringer kører flere genstarter og beholder den bedste. k-means antager nogenlunde kugleformede klynger af ens størrelse i euklidisk rum og er følsom over for afvigere og skalering af features.
 
     Andre familier bygger på andre antagelser. Hierarkisk agglomerativ klyngeanalyse starter med hvert punkt for sig og slår gentagne gange det nærmeste par klynger sammen, hvor linkage-kriteriet (single, complete, average eller Wards minimumvarians) definerer "nærmest"; resultatet er et dendrogram, der kan skæres på ethvert niveau. Den tæthedsbaserede DBSCAN (Ester m.fl., 1996) tager en radius eps og en mindste nabolagsstørrelse minPts, vokser klynger fra kernepunkter i tætte områder, finder klynger af vilkårlig form og markerer spredte punkter som støj; HDBSCAN fjerner behovet for én global eps. Gaussiske mixture-modeller tilpasset med EM-algoritmen giver bløde, sandsynlighedsbaserede tildelinger og elliptiske klynger. Spektral klyngeanalyse arbejder på egenvektorerne af en similaritetsgraf.
 
@@ -58,9 +58,34 @@ edges:
     - cosine-similarity
 sources:
   - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    url: https://aima.cs.berkeley.edu/
     tier: textbook
     publisher: Pearson
-  - title: ISO/IEC 22989:2022 - Artificial intelligence concepts and terminology
+  - title: ISO/IEC 22989:2022, Artificial intelligence concepts and terminology
+    url: https://www.iso.org/standard/74296.html
     tier: standard
     publisher: ISO/IEC
+  - title: scikit-learn User Guide, Clustering
+    url: https://scikit-learn.org/stable/modules/clustering.html
+    tier: official-doc
+    publisher: scikit-learn
+  - title: 'Arthur & Vassilvitskii (2007), k-means++: The Advantages of Careful Seeding'
+    url: https://theory.stanford.edu/~sergei/papers/kMeansPP-soda.pdf
+    tier: reference
+    publisher: ACM-SIAM SODA 2007
+  - title: Ester, Kriegel, Sander & Xu (1996), A Density-Based Algorithm for Discovering Clusters in Large Spatial Databases with Noise
+    url: https://cdn.aaai.org/KDD/1996/KDD96-037.pdf
+    tier: reference
+    publisher: KDD-96
+  - title: Kleinberg (2002), An Impossibility Theorem for Clustering
+    url: https://www.cs.cornell.edu/home/kleinber/nips15.pdf
+    tier: reference
+    publisher: NIPS 2002
+  - title: 'Rousseeuw (1987), Silhouettes: A Graphical Aid to the Interpretation and Validation of Cluster Analysis'
+    url: https://doi.org/10.1016/0377-0427(87)90125-7
+    tier: reference
+    publisher: Journal of Computational and Applied Mathematics
+  - title: GDPR (Regulation (EU) 2016/679), Article 4(4)
+    url: https://eur-lex.europa.eu/eli/reg/2016/679/oj
+    tier: standard
 draft: true

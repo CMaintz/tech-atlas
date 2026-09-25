@@ -1,0 +1,73 @@
+term:
+  en: Linear regression
+  da: Lineær regression
+aka:
+  en: [ordinary least squares, OLS]
+  da: [mindste kvadraters metode, OLS]
+domain: [ai]
+cluster: ml-fundamentals
+layer: model
+status: current
+summary:
+  en: A simple model that predicts a number by adding up each input times its own weight, choosing the weights that fit past examples best.
+  da: En enkel model, der forudsiger et tal som en vægtet sum af input, hvor vægtene er dem, der passer bedst til tidligere eksempler.
+body:
+  formal:
+    en: A form of regression that predicts a number as a weighted sum of the features plus a fixed starting value, with the weights chosen to make the squared errors on the training data as small as possible.
+    da: En form for regression, der forudsiger et tal som en vægtet sum af features plus en fast startværdi, hvor vægtene vælges, så de kvadrerede fejl på træningsdata bliver så små som muligt.
+  plain:
+    en: Like guessing the price of a flat from its size by drawing the straight line that passes as close as possible to all the flats you already know the price of.
+    da: Som at gætte prisen på en lejlighed ud fra dens størrelse ved at tegne den rette linje, der går så tæt som muligt på alle de lejligheder, du allerede kender prisen på.
+  inPractice:
+    en: A Danish energy company predicts next month's power use for each home from floor area, number of people and last year's use, and can read off how much each extra person adds.
+    da: Et dansk energiselskab forudsiger næste måneds elforbrug for hver bolig ud fra areal, antal beboere og sidste års forbrug og kan aflæse, hvor meget hver ekstra beboer lægger til.
+  whyItMatters:
+    en: It is fast, easy to check and easy to explain, so it is the baseline every more complex model must beat, and a common choice when a decision has to be justified.
+    da: Den er hurtig, nem at kontrollere og nem at forklare, så den er målestokken, som enhver mere kompleks model skal slå, og et oplagt valg, når en beslutning skal kunne begrundes.
+deepDive:
+  en: |-
+    Linear regression models a numeric target as y = w0 + w1 x1 + ... + wp xp. Ordinary least squares (OLS) chooses the coefficients that minimise the residual sum of squares ||Xw - y||^2. The method goes back to Legendre (1805) and Gauss (1809). The minimiser has a closed form, the normal equations w = (X^T X)^-1 X^T y, which in practice is solved with a QR or singular value decomposition rather than an explicit inverse; the cost grows roughly with the number of samples times the square of the number of features. For very large data the same squared-error loss can instead be minimised with gradient descent.
+
+    Each coefficient is the expected change in the prediction for a one-unit change in that feature with the others held fixed, which is why linear models are prized for interpretability. That reading breaks down under multicollinearity: when features are strongly correlated, X^T X is close to singular and the coefficients become unstable and can flip sign between samples. Under the classical assumptions (linear relationship, independent errors with constant variance) OLS is the best linear unbiased estimator, and with normally distributed errors it is also the maximum likelihood estimate.
+
+    Regularised variants add a penalty to the loss. Ridge regression adds an L2 penalty alpha ||w||^2 that shrinks coefficients and copes better with correlated features; lasso adds an L1 penalty that drives some coefficients exactly to zero and so performs feature selection; elastic net combines the two. Non-linear relationships can still be captured by a linear model if the features are transformed first, for example with polynomial terms or splines, since the model only needs to be linear in its weights.
+
+    Squared error is sensitive to outliers, because one far-off point can pull the whole line. Robust alternatives such as Huber, RANSAC and Theil-Sen regression reduce that influence, and quantile regression predicts a chosen quantile instead of the mean.
+  da: |-
+    Lineær regression modellerer en numerisk målvariabel som y = w0 + w1 x1 + ... + wp xp. Mindste kvadraters metode (OLS) vælger de koefficienter, der minimerer summen af de kvadrerede residualer ||Xw - y||^2. Metoden går tilbage til Legendre (1805) og Gauss (1809). Minimum har en lukket løsning, normalligningerne w = (X^T X)^-1 X^T y, som i praksis løses med en QR- eller singulærværdidekomposition frem for en eksplicit invers; omkostningen vokser nogenlunde med antallet af eksempler gange kvadratet på antallet af features. Ved meget store datamængder kan den samme kvadrerede fejl i stedet minimeres med gradientnedstigning.
+
+    Hver koefficient er den forventede ændring i forudsigelsen, når den pågældende feature stiger med én enhed, og de andre holdes fast, og derfor værdsættes lineære modeller for deres fortolkelighed. Den læsning holder ikke ved multikollinearitet: Når features er stærkt korrelerede, er X^T X tæt på singulær, og koefficienterne bliver ustabile og kan skifte fortegn fra stikprøve til stikprøve. Under de klassiske antagelser (lineær sammenhæng, uafhængige fejl med konstant varians) er OLS den bedste lineære middelrette estimator, og med normalfordelte fejl er den også maksimum likelihood-estimatet.
+
+    Regulariserede varianter lægger en straf til tabsfunktionen. Ridge-regression tilføjer en L2-straf alpha ||w||^2, der skrumper koefficienterne og klarer korrelerede features bedre; lasso tilføjer en L1-straf, der sætter nogle koefficienter præcis til nul og dermed udvælger features; elastic net kombinerer de to. Ikke-lineære sammenhænge kan stadig fanges af en lineær model, hvis features først transformeres, fx med polynomielle led eller splines, fordi modellen kun skal være lineær i sine vægte.
+
+    Kvadreret fejl er følsom over for outliers, fordi ét fjerntliggende punkt kan trække hele linjen. Robuste alternativer som Huber-, RANSAC- og Theil-Sen-regression mindsker den indflydelse, og kvantilregression forudsiger en valgt kvantil i stedet for middelværdien.
+edges:
+  implements:
+    - to: regression
+      why:
+        en: It is the most basic way to do regression, predicting a number as a straight-line mix of the inputs.
+        da: Den er den mest grundlæggende måde at lave regression på, hvor et tal forudsiges som en retlinet blanding af input.
+      strength: primary
+      confidence: high
+  requires: [feature, loss-function]
+  contrasts-with:
+    - to: logistic-regression
+      why:
+        en: Linear regression predicts a number such as a price; logistic regression, despite its name, predicts which group something belongs to.
+        da: Lineær regression forudsiger et tal som en pris; logistisk regression forudsiger trods navnet, hvilken gruppe noget hører til.
+      strength: normal
+      confidence: high
+sources:
+  - title: scikit-learn User Guide, 1.1 Linear Models
+    url: https://scikit-learn.org/stable/modules/linear_model.html
+    tier: official-doc
+    publisher: scikit-learn
+  - title: Least squares
+    url: https://en.wikipedia.org/wiki/Least_squares
+    tier: reference
+    publisher: Wikipedia
+  - title: 'Hastie, Tibshirani & Friedman, The Elements of Statistical Learning (2nd ed.), ch. 3'
+    url: https://hastie.su.domains/ElemStatLearn/
+    tier: textbook
+    publisher: Springer
+draft: true

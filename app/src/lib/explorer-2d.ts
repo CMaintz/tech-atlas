@@ -20,6 +20,8 @@ import {
   outerSide,
   packIslands,
   withSeededRandom,
+  MAP_INK,
+  type MapTheme,
   type Island,
   type IslandLink,
   type Point,
@@ -42,7 +44,7 @@ import {
   visibleBundleCounts,
   type LaneLayout,
 } from './graph-layout';
-import { GRAPH_STYLE, edgeData, reducedMotion, smoothFit } from './graph-cytoscape';
+import { edgeData, graphStyle, reducedMotion, smoothFit } from './graph-cytoscape';
 import { createDragFeedback } from './drag-feedback';
 import { startDots } from './explorer-flow';
 
@@ -69,6 +71,8 @@ export type Map2DOptions = {
    * moved (null) — for the Explorer's resting hover card.
    */
   onPoint?: (hit: { id: string; x: number; y: number } | null) => void;
+  /** The map's palette (A92); change it later with `retheme`. */
+  theme?: MapTheme;
 };
 
 /** What the map shows; every field is applied in place. */
@@ -92,7 +96,7 @@ const FAR_ZOOM = 0.9;
 const MIN_LABEL_PX = 8;
 const HOVER_LABEL_PX = 11;
 
-const EXTRA_STYLE = [
+const extraStyle = (theme: MapTheme) => [
   // Cytoscape's own press marker is a dark disc, invisible on the night map: the drag
   // ring (drag-feedback.ts) replaces it (A95).
   { selector: 'core', style: { 'active-bg-opacity': 0 } },
@@ -181,7 +185,7 @@ const EXTRA_STYLE = [
       'text-valign': 'data(valign)',
       'text-halign': 'data(halign)',
       'text-opacity': 0.8,
-      'text-outline-color': '#0a0a0a',
+      'text-outline-color': MAP_INK[theme].halo,
       'text-outline-width': 3,
       'text-outline-opacity': 0.85,
       'min-zoomed-font-size': 6,
@@ -190,7 +194,10 @@ const EXTRA_STYLE = [
     },
   },
   { selector: 'node.tag.domain', style: { 'text-opacity': 0.45, 'text-outline-width': 0 } },
-  { selector: 'node.tag.tick', style: { 'text-opacity': 0.35, 'font-weight': 400 } },
+  {
+    selector: 'node.tag.tick',
+    style: { 'text-opacity': theme === 'light' ? 1 : 0.35, 'font-weight': 400 },
+  },
   { selector: 'node.tag.faded', style: { 'text-opacity': 0.08 } },
   // Hover previews the selection look, lighter.
   { selector: 'node.faded', style: { opacity: 0.35, 'text-opacity': 0, 'underlay-opacity': 0 } },
@@ -210,6 +217,11 @@ const EXTRA_STYLE = [
 
 export function createMap2D(opts: Map2DOptions) {
   const { graph, lang } = opts;
+  let theme: MapTheme = opts.theme ?? 'dark';
+  const stylesheet = (t: MapTheme) =>
+    [...(graphStyle(t) as unknown[]), ...extraStyle(t)] as cytoscape.StylesheetJson;
+  const bundleGradient = (a: string, b: string) =>
+    `${clusterColour(a, undefined, theme)} ${clusterColour(b, undefined, theme)}`;
   const byId = new Map(graph.nodes.map((n) => [n.id, n]));
   const rank = pageRank(
     graph.nodes.map((n) => n.id),
@@ -242,17 +254,18 @@ export function createMap2D(opts: Map2DOptions) {
         (id) => byId.get(id),
         (_, i) => 0.7 + graph.links[i].weight * 0.35,
         EXPLORER.edges.restAlpha,
+        theme,
       ).map((data, i) => {
         const s = byId.get(data.source)!;
         const t = byId.get(data.target)!;
         const cross = s.cluster !== t.cluster;
         return {
-          data: { ...data, tint: clusterColour(s.cluster, homeDomain(s)) },
+          data: { ...data, tint: clusterColour(s.cluster, homeDomain(s), theme) },
           classes: [spine.has(i) ? 'bb' : '', cross ? 'xc' : ''].join(' '),
         };
       }),
     ],
-    style: [...(GRAPH_STYLE as unknown[]), ...EXTRA_STYLE] as cytoscape.StylesheetJson,
+    style: stylesheet(theme),
     layout: { name: 'preset', fit: false } as cytoscape.LayoutOptions,
     minZoom: 0.08,
     maxZoom: 3,
@@ -411,9 +424,9 @@ export function createMap2D(opts: Map2DOptions) {
         width: wMin + (wMax - wMin) * Math.sqrt(b.count / maxCount),
         curve: (i % 2 ? 1 : -1) * 24,
         alpha: 0,
-        colour: clusterColour(b.a),
+        colour: clusterColour(b.a, undefined, theme),
         arrow: 'none',
-        gradient: `${clusterColour(b.a)} ${clusterColour(b.b)}`,
+        gradient: bundleGradient(b.a, b.b),
       },
       classes: 'bundle',
     })),
@@ -437,7 +450,7 @@ export function createMap2D(opts: Map2DOptions) {
           data: {
             id: `tag:c:${isl.id}`,
             label: opts.clusterLabels[isl.id] ?? isl.id,
-            colour: clusterColour(isl.id, isl.domain),
+            colour: clusterColour(isl.id, isl.domain, theme),
             font: 30,
             valign: 'top',
             halign: 'center',
@@ -471,7 +484,7 @@ export function createMap2D(opts: Map2DOptions) {
           data: {
             id: `tag:d:${d}`,
             label: opts.domainLabels[d] ?? d,
-            colour: domainColour(d),
+            colour: domainColour(d, theme),
             font: 96,
             valign: at.valign,
             halign: at.halign,
@@ -487,7 +500,7 @@ export function createMap2D(opts: Map2DOptions) {
           data: {
             id: `tag:l:${l.domain}`,
             label: opts.domainLabels[l.domain] ?? l.domain,
-            colour: domainColour(l.domain),
+            colour: domainColour(l.domain, theme),
             font: layout === 'depth' ? 44 : 30,
             valign: layout === 'depth' ? 'top' : 'center',
             halign: layout === 'depth' ? 'center' : 'left',
@@ -500,7 +513,7 @@ export function createMap2D(opts: Map2DOptions) {
           data: {
             id: `tag:t:${t.label}`,
             label: t.label,
-            colour: '#a3a3a3',
+            colour: MAP_INK[theme].tick,
             font: 22,
             valign: layout === 'time' ? 'bottom' : 'center',
             halign: layout === 'time' ? 'center' : 'left',
@@ -762,7 +775,12 @@ export function createMap2D(opts: Map2DOptions) {
   cy.on('dbltap', 'node[size]', (e) => opts.onOpen(e.target.id()));
   /** True while nodes glide to a new layout: the flow dots wait for them to land. */
   let moving = false;
-  const dots = startDots(cy, links, () => moving);
+  const dots = startDots(
+    cy,
+    links,
+    () => moving,
+    () => MAP_INK[theme].dotAlpha,
+  );
 
   // ---- 6. Positions ------------------------------------------------------------------
   const targetFor = (v: View) => {
@@ -978,6 +996,50 @@ export function createMap2D(opts: Map2DOptions) {
   return {
     cy,
     apply,
+    /**
+     * Switch palettes (A92) in place: the stylesheet, and every colour held in element
+     * data (edges, bundles, names). No relayout. Term fills come from the View's
+     * `colour`, so the caller applies a view with the new theme's colours as well.
+     */
+    retheme(next: MapTheme) {
+      if (next === theme) return;
+      theme = next;
+      const paint = edgeData(
+        graph.links,
+        (id) => byId.get(id),
+        () => 0,
+        0,
+        theme,
+      );
+      cy.batch(() => {
+        links.forEach((e) => {
+          const p = paint[Number(e.id().slice(1))];
+          const s = byId.get(e.data('source'))!;
+          e.data({
+            colour: p.colour,
+            gradient: p.gradient,
+            tint: clusterColour(s.cluster, homeDomain(s), theme),
+          });
+        });
+        bundleEdges.forEach((e) => {
+          e.data({
+            colour: clusterColour(e.data('a'), undefined, theme),
+            gradient: bundleGradient(e.data('a'), e.data('b')),
+          });
+        });
+        cy.nodes('.tag').forEach((n) => {
+          const [, kind, key] = n.id().split(':');
+          const colour =
+            kind === 'c'
+              ? clusterColour(key, undefined, theme)
+              : kind === 't'
+                ? MAP_INK[theme].tick
+                : domainColour(key, theme);
+          n.data('colour', colour);
+        });
+      });
+      cy.style(stylesheet(theme));
+    },
     /** Bring a term into view (Find a term, even when it is already selected). */
     focus: (id: string) => void centreOn(id, [0.9, 1.2]),
     resize() {
