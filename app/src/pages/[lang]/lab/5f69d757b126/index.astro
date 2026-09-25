@@ -1,0 +1,48 @@
+---
+/**
+ * The canvas Explorer lab (A91): a hand-rolled canvas renderer beside the real Explorer,
+ * for the owner to compare. Obscure, not secret (the repo is public): linked from
+ * nowhere, noindex (so out of the sitemap), no tour.
+ */
+import Base from '../../../../layouts/Base.astro';
+import CanvasExplorer from '../../../../components/CanvasExplorer';
+import { aboutProps } from '../../../../lib/about-assets';
+import {
+  CLUSTER_LABELS,
+  DOMAIN_LABELS,
+  FAMILY_COLOURS,
+  FAMILY_LABELS,
+  GRAPH_UI,
+  LANGS,
+  UI,
+  url,
+  type Lang,
+} from '../../../../lib/site';
+import { localise as localiseIn, panelConfig } from '../../../../lib/panel-config';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const ui = UI[lang];
+const localise = (m: Record<string, Record<Lang, string>>) => localiseIn(m, lang);
+---
+
+<Base lang={lang} title="Canvas lab" wide noindex tourAutoStart={false}>
+  <CanvasExplorer
+    client:only="preact"
+    lang={lang}
+    graphUrl={url('graph.json')}
+    termBase={url(`${lang}/terms/`)}
+    explorerUrl={url(`${lang}/explorer/`)}
+    ui={{ ...ui }}
+    clusterLabels={localise(CLUSTER_LABELS)}
+    graphUi={{ ...GRAPH_UI[lang] }}
+    familyLabels={localise(FAMILY_LABELS)}
+    familyColours={FAMILY_COLOURS}
+    domainLabels={localise(DOMAIN_LABELS)}
+    panel={panelConfig(lang)}
+    about={aboutProps(lang)}
+  />
+</Base>
