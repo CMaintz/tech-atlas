@@ -125,7 +125,14 @@ describe('OVERVIEW_FAMILIES (A95)', () => {
       { source: 'a', target: 'b', weight: 9, family: 'association', type: 'used-with' },
       { source: 'a', target: 'c', weight: 8, family: 'contrast', type: 'contrasts-with' },
       { source: 'b', target: 'c', weight: 1, family: 'structure', type: 'part-of' },
-      { source: 'a', target: 'c', weight: 1, family: 'contrast', type: 'alternative-to', primary: true },
+      {
+        source: 'a',
+        target: 'c',
+        weight: 1,
+        family: 'contrast',
+        type: 'alternative-to',
+        primary: true,
+      },
     ];
     const chosen = backboneOf(nodes, links);
     expect([...chosen]).toEqual([2]);

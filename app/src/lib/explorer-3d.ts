@@ -561,6 +561,19 @@ export async function createMap3D(opts: {
   resize();
   window.addEventListener('resize', resize);
 
+  /** The camera glides to a term (a cut under reduced motion). */
+  const flyTo = (id: string) => {
+    const n = byId.get(id);
+    if (!n) return;
+    const d = 260;
+    const r = Math.hypot(n.x, n.z) || 1;
+    fg.cameraPosition(
+      { x: n.x + (n.x / r) * d, y: n.y + d * 0.5, z: n.z + (n.z / r) * d },
+      { x: n.x, y: n.y, z: n.z },
+      motion ? 1200 : 0,
+    );
+  };
+
   return {
     apply(next: View3D) {
       const prev = view;
@@ -574,19 +587,10 @@ export async function createMap3D(opts: {
       refresh();
       // Opening or closing the term panel changes the part of the canvas left clear.
       if (!!next.selected !== !!prev?.selected) resize();
-      if (next.selected && next.selected !== prev?.selected) {
-        const n = byId.get(next.selected);
-        if (n && motion) {
-          const d = 260;
-          const r = Math.hypot(n.x, n.z) || 1;
-          fg.cameraPosition(
-            { x: n.x + (n.x / r) * d, y: n.y + d * 0.5, z: n.z + (n.z / r) * d },
-            { x: n.x, y: n.y, z: n.z },
-            1200,
-          );
-        }
-      }
+      if (next.selected && next.selected !== prev?.selected) flyTo(next.selected);
     },
+    /** Bring a term into view (Find a term, even when it is already selected). */
+    focus: (id: string) => flyTo(id),
     /** Slow auto-rotation about the scene centre (off under reduced motion). */
     spin(on: boolean) {
       spinning = on && motion;

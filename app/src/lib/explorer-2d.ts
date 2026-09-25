@@ -990,6 +990,8 @@ export function createMap2D(opts: Map2DOptions) {
   return {
     cy,
     apply,
+    /** Bring a term into view (Find a term, even when it is already selected). */
+    focus: (id: string) => void centreOn(id, [0.9, 1.2]),
     resize() {
       cy.resize();
       dots.resize();

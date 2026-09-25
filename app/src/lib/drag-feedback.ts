@@ -73,14 +73,18 @@ export function createDragFeedback(host: HTMLElement): DragFeedback {
 
   let active = false;
   let origin = { x: 0, y: 0 };
+  // The host does not move during a drag: read its box once, never per pointer move.
+  let at = { left: 0, top: 0 };
   const place = (e: { clientX: number; clientY: number }) => {
-    const r = host.getBoundingClientRect();
-    ring.style.transform = `translate(${e.clientX - r.left}px, ${e.clientY - r.top}px)`;
+    ring.style.transform = `translate(${e.clientX - at.left}px, ${e.clientY - at.top}px)`;
   };
   const onMove = (e: PointerEvent) => {
     if (!active) return;
     place(e);
-    if (ring.style.visibility === 'hidden' && beyondSlop(e.clientX - origin.x, e.clientY - origin.y))
+    if (
+      ring.style.visibility === 'hidden' &&
+      beyondSlop(e.clientX - origin.x, e.clientY - origin.y)
+    )
       show();
   };
   const show = () => {
@@ -102,16 +106,17 @@ export function createDragFeedback(host: HTMLElement): DragFeedback {
   };
 
   return {
-    start(kind, at) {
+    start(kind, p) {
       end();
       active = true;
       host.dataset.drag = kind;
-      origin = { x: at.clientX, y: at.clientY };
+      origin = { x: p.clientX, y: p.clientY };
       window.addEventListener('pointerup', end);
       window.addEventListener('pointercancel', end);
       window.addEventListener('blur', end);
-      if (at.pointerType === 'touch') return;
-      place(at);
+      if (p.pointerType === 'touch') return;
+      at = host.getBoundingClientRect();
+      place(p);
       window.addEventListener('pointermove', onMove);
     },
     end,

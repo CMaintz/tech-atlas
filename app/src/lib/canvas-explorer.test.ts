@@ -192,4 +192,15 @@ describe('domainOrder / searchTerms', () => {
     expect(searchTerms(ns, 'api', 'en').map((n) => n.id)).toEqual(['x/api', 'x/api-key']);
     expect(searchTerms(ns, '  ', 'en')).toEqual([]);
   });
+  it('matches aliases in the reader’s language, just below a name at the same tier', () => {
+    const ns = [
+      { ...node('x/mfa', 'c', ['cs'], 0), aka: { en: ['MFA', '2FA'], da: ['MFA'] } },
+      { ...node('x/mfa-fatigue', 'c', ['cs'], 0) },
+    ];
+    ns[0].term.en = 'Multi-factor authentication';
+    ns[1].term.en = 'MFA fatigue';
+    expect(searchTerms(ns, 'mfa', 'en').map((n) => n.id)).toEqual(['x/mfa', 'x/mfa-fatigue']);
+    expect(searchTerms(ns, '2fa', 'en').map((n) => n.id)).toEqual(['x/mfa']);
+    expect(searchTerms(ns, '2fa', 'da')).toEqual([]);
+  });
 });

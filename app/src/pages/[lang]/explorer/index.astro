@@ -10,6 +10,7 @@ import {
   FAMILY_LABELS,
   GRAPH_UI,
   LANGS,
+  SEMANTIC_SEARCH_URL,
   UI,
   url,
   type Lang,
@@ -44,6 +45,7 @@ const about = aboutProps(lang);
       familyColours={FAMILY_COLOURS}
       domainLabels={localise(DOMAIN_LABELS)}
       panel={panel}
+      semanticUrl={SEMANTIC_SEARCH_URL}
     />
     <div class="absolute top-3 right-3 z-10" data-about-corner>
       <AboutButton client:idle {...about} />

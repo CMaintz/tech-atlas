@@ -14,6 +14,8 @@ import { createMap2D, type Layout, type Map2D } from '../lib/explorer-2d';
 import type { Map3D } from '../lib/explorer-3d';
 import { EXPLORER } from '../lib/explorer-config';
 import { searchTerms } from '../lib/canvas-explorer';
+import { looksNaturalLanguage, mergeHits } from '../lib/semantic';
+import { useSemanticHits } from '../lib/use-semantic';
 import GraphLegend from './GraphLegend';
 import TermPanel, { prefetchTerm, type PanelConfig } from './TermPanel';
 import { termFromSearch, withTermParam } from '../lib/term-panel';
@@ -34,6 +36,8 @@ interface Props {
   domainLabels: Dict;
   /** The term panel's strings and data locations (A80). */
   panel: PanelConfig;
+  /** The `semantic-search` Edge Function, or '' when none is configured (names only). */
+  semanticUrl?: string;
 }
 
 type Mode = '2d' | '3d';
@@ -385,16 +389,24 @@ export default function Explorer(props: Props) {
     else next.add(key);
     apply(next);
   };
-  const matches = useMemo(
-    () => (graph ? searchTerms(graph.nodes, query, lang) : []),
-    [graph, query, lang],
+  // "Find a term" works like the home search (A95): names and aliases at once, then, for
+  // a question or description, the terms nearest in meaning, fused by RRF.
+  const q = query.trim();
+  const named = useMemo(
+    () => (graph ? searchTerms(graph.nodes, q, lang).map((n) => n.id) : []),
+    [graph, q, lang],
   );
+  const natural = !!graph && looksNaturalLanguage(q, named.length);
+  const meaning = useSemanticHits(props.semanticUrl ?? '', q, lang, natural);
+  const matches = mergeHits(named, natural ? meaning : null, { known: (id) => byId.has(id) });
   /** Find a term: make sure it is shown (its domain on, a layout that has it), select it. */
   const findTerm = (id: string) => {
     const n = byId.get(id);
     if (!n) return;
     if (!termVisible(n, domains)) setDomains(new Set([...domains, ...n.domain]));
     if (mode === '2d' && layout === 'time' && n.era === undefined) setLayout('force');
+    // A new selection glides into view by itself; the open term may have been panned away.
+    if (id === selected) (mode === '3d' ? map3d : map2d.current)?.focus(id);
     setSelected(id);
     setQuery('');
     setFindOpen(false);
@@ -680,6 +692,7 @@ export default function Explorer(props: Props) {
         {query.trim() && (
           <ul
             id="xp-find"
+            aria-live="polite"
             aria-label={ui.findTerm}
             class={`${narrow ? 'mt-2' : `absolute top-full left-0 z-20 mt-2 w-64 max-w-[calc(100vw-2rem)] ${glass}`} space-y-0.5 rounded-xl p-2 text-xs`}
           >
@@ -691,7 +704,12 @@ export default function Explorer(props: Props) {
                   class="w-full rounded px-1.5 py-1 text-left text-neutral-300 hover:bg-neutral-800 hover:text-white focus-visible:bg-neutral-800"
                   onClick={() => findTerm(m.id)}
                 >
-                  {m.term[lang]}
+                  {byId.get(m.id)!.term[lang]}
+                  {!m.from.includes('lexical') && (
+                    <span class="ml-1.5 rounded bg-sky-950 px-1 py-px text-[10px] text-sky-300">
+                      ✦ {ui.semanticByMeaning}
+                    </span>
+                  )}
                 </button>
               </li>
             ))}

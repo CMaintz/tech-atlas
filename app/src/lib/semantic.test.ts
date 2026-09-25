@@ -8,6 +8,7 @@ import {
   fromBase64,
   loadIndex,
   looksNaturalLanguage,
+  mergeHits,
   nearBest,
   passageText,
   quantize,
@@ -130,6 +131,38 @@ describe('reciprocalRankFusion', () => {
   });
   it('returns nothing for empty rankings', () => {
     expect(reciprocalRankFusion({ lexical: [], semantic: [] })).toEqual([]);
+  });
+});
+
+describe('mergeHits (A95)', () => {
+  it('shows the name matches alone until meaning-based hits arrive', () => {
+    expect(mergeHits(['a', 'b'], null)).toEqual([
+      { id: 'a', from: ['lexical'] },
+      { id: 'b', from: ['lexical'] },
+    ]);
+  });
+  it('fuses both, meaning first, and labels hits found only by meaning', () => {
+    const hits = mergeHits(
+      ['a'],
+      [
+        { id: 'x', score: 0.7 },
+        { id: 'a', score: 0.69 },
+      ],
+    );
+    expect(hits[0]).toEqual({ id: 'a', from: ['semantic', 'lexical'] });
+    expect(hits[1]).toEqual({ id: 'x', from: ['semantic'] });
+  });
+  it('uses the names-only side in fusion, caps the list, drops unknown ids', () => {
+    const hits = mergeHits(
+      ['summary-hit'],
+      [
+        { id: 'gone', score: 0.8 },
+        { id: 's1', score: 0.7 },
+        { id: 's2', score: 0.7 },
+      ],
+      { names: ['n1'], max: 2, known: (id) => id !== 'gone' },
+    );
+    expect(hits.map((h) => h.id)).toEqual(['s1', 'n1']);
   });
 });
 
