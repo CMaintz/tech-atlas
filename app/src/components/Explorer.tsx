@@ -38,10 +38,24 @@ const KNOWLEDGE_COLOURS: Record<string, string> = {
   unknown: '#ef4444',
 };
 
-/** The legend starts open on wide screens, where it sits beside the map. */
-const legendOpenAtStart = () => window.innerWidth >= 1024;
-/** Pixels the map keeps clear on the right for the open legend. */
-const legendReserve = () => (legendOpenAtStart() ? 310 : 0);
+/** The legend's open/closed choice is remembered; it starts closed on a first visit. */
+const LEGEND_KEY = 'atlas.explorer.legend';
+function storedLegendOpen(): boolean {
+  try {
+    return localStorage.getItem(LEGEND_KEY) === 'open';
+  } catch {
+    return false;
+  }
+}
+function storeLegendOpen(open: boolean) {
+  try {
+    localStorage.setItem(LEGEND_KEY, open ? 'open' : 'closed');
+  } catch {
+    // Storage blocked (private mode): the choice just isn't remembered.
+  }
+}
+/** Pixels the map keeps clear on the right for the open legend (w-64 + its margins). */
+const LEGEND_RESERVE = 280;
 /** Pixels the docked term panel covers on the right of the map (lg: 26rem). */
 const panelReserve = () => (window.innerWidth >= 1024 ? 416 : 0);
 
@@ -81,6 +95,18 @@ export default function Explorer(props: Props) {
   const box3d = useRef<HTMLDivElement>(null);
   const map2d = useRef<Map2D | null>(null);
   const [map3d, setMap3d] = useState<Map3D | null>(null);
+  const [legendOpen, setLegendOpen] = useState(storedLegendOpen);
+  const legendRef = useRef(legendOpen);
+  legendRef.current = legendOpen;
+  const legendReserve = () => (legendRef.current ? LEGEND_RESERVE : 0);
+  const onLegendToggle = (open: boolean) => {
+    if (open === legendRef.current) return;
+    legendRef.current = open;
+    setLegendOpen(open);
+    storeLegendOpen(open);
+    // The 3D camera re-frames into the part the legend leaves clear.
+    map3d?.reframe();
+  };
 
   useEffect(() => {
     fetch(graphUrl)
@@ -486,7 +512,8 @@ export default function Explorer(props: Props) {
                 domainLabels={props.domainLabels}
                 clusterLabels={props.clusterLabels}
                 text={props.graphUi}
-                open={legendOpenAtStart()}
+                open={legendOpen}
+                onToggle={onLegendToggle}
                 showAll={showAll}
                 onShowAll={setShowAll}
               />

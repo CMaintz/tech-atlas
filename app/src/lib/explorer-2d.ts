@@ -381,10 +381,17 @@ export function createMap2D(opts: Map2DOptions) {
   };
 
   const everyone = new Set(graph.nodes.map((n) => n.id));
-  const base = {
-    force: islandMap(everyone),
-    depth: depthLanes(graph.nodes, graph.links),
-    time: timeLanes(graph.nodes),
+  // Only the opening layout is computed up front; depth and time are computed on first use
+  // and cached, so each whole-graph layout is still computed once and never changes.
+  const base = { force: islandMap(everyone) };
+  const lanes = new Map<'depth' | 'time', LaneLayout>();
+  const fullLanes = (layout: 'depth' | 'time') => {
+    if (!lanes.has(layout))
+      lanes.set(
+        layout,
+        layout === 'depth' ? depthLanes(graph.nodes, graph.links) : timeLanes(graph.nodes),
+      );
+    return lanes.get(layout)!;
   };
 
   // Anchors (island centres) and the cluster-to-cluster bundles between them.
@@ -735,11 +742,12 @@ export function createMap2D(opts: Map2DOptions) {
       const s = compact ? islandMap(v.nodes, v.domains) : base.force;
       return { positions: s.positions, tags: tagsFor('force', s), centre: s.centre };
     }
-    const subset = graph.nodes.filter((n) => !compact || v.nodes.has(n.id));
-    const s =
-      v.layout === 'depth'
-        ? depthLanes(subset, graph.links, compact ? v.domains : undefined)
-        : timeLanes(subset, compact ? v.domains : undefined);
+    const subset = graph.nodes.filter((n) => v.nodes.has(n.id));
+    const s = !compact
+      ? fullLanes(v.layout)
+      : v.layout === 'depth'
+        ? depthLanes(subset, graph.links, v.domains)
+        : timeLanes(subset, v.domains);
     return { positions: s.positions, tags: tagsFor(v.layout, s), centre: undefined };
   };
   let centreNow: Record<string, Point> | undefined = base.force.centre;
@@ -800,7 +808,7 @@ export function createMap2D(opts: Map2DOptions) {
   };
   const fit = () => {
     cy.stop(true);
-    smoothFit(cy, 40, 1.1, opts.reserveRight(), shown.nodes().union(cy.nodes('.tag').not('.gone')));
+    smoothFit(cy, 24, 1.1, opts.reserveRight(), shown.nodes().union(cy.nodes('.tag').not('.gone')));
   };
   /** Centre a term in the part of the map the docked panel leaves visible (A80). */
   const centreOn = (id: string, zoomRange: [number, number] = [0, Infinity]) => {
