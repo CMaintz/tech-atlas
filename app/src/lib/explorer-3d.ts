@@ -82,22 +82,18 @@ export async function createMap3D(opts: {
     (hover && !hover.has(id)) || (!hover && !!view?.highlight.size && !view.highlight.has(id));
   const nodeColour = (n: GraphNode) =>
     n.id === view?.selected ? '#ffffff' : faded(n.id) ? 'rgba(70,74,90,0.25)' : view!.colour(n);
-  const linkShown = (l: Link3) => {
+  const endsShown = (l: Link3) => {
     if (!view) return false;
-    const s = endId(l.source);
-    const t = endId(l.target);
-    if (!view.nodes.has(s) || !view.nodes.has(t) || !view.families.has(l.family)) return false;
-    return view.showAll || l.bb || focusOf(l);
-  };
-  const linkColour = (l: Link3) => {
-    if (focusOf(l)) return rgba(FAMILY_COLOURS[l.family], 0.9);
-    const s = byId.get(endId(l.source))!;
-    if (faded(s.id) || faded(endId(l.target))) return 'rgba(60,64,80,0.03)';
-    return rgba(
-      clusterColour(s.cluster, homeDomain(s)),
-      view?.showAll && !l.bb ? cfg.linkAlpha * 0.6 : cfg.linkAlpha,
+    return (
+      view.nodes.has(endId(l.source)) &&
+      view.nodes.has(endId(l.target)) &&
+      view.families.has(l.family)
     );
   };
+  // Only the focused links are 3d-force-graph objects (arrows, particles); the resting
+  // web is one merged line geometry below — a single draw call however many links.
+  const linkShown = (l: Link3) => endsShown(l) && focusOf(l);
+  const linkColour = (l: Link3) => rgba(FAMILY_COLOURS[l.family], 0.9);
   const motion = !reducedMotion();
 
   const fg = new ForceGraph3D(el, { controlType: 'orbit' })
@@ -120,7 +116,7 @@ export async function createMap3D(opts: {
     .linkColor(linkColour)
     .linkWidth(0)
     .linkOpacity(1)
-    .linkCurvature((l: Link3) => (l.bb ? 0.12 : 0.25))
+    .linkCurvature(0.12)
     .linkDirectionalArrowLength((l: Link3) => (focusOf(l) && isDirected(l.type) ? 5 : 0))
     .linkDirectionalArrowRelPos(1)
     .linkDirectionalParticles((l: Link3) => (motion && focusOf(l) && isDirected(l.type) ? 1 : 0))
@@ -233,7 +229,75 @@ export async function createMap3D(opts: {
     scene.add(sprite);
   }
 
+  // ---- The resting web: every link as a gently curved polyline in one geometry --------
+  const SEG = 8;
+  const webPos = new Float32Array(links.length * SEG * 2 * 3);
+  const webCol = new Float32Array(links.length * SEG * 2 * 3);
+  links.forEach((l, i) => {
+    const a = byId.get(endId(l.source))!;
+    const b = byId.get(endId(l.target))!;
+    // A quadratic bend, sideways from the link (like 3d-force-graph's curvature).
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    const dz = b.z - a.z;
+    const len = Math.hypot(dx, dy, dz) || 1;
+    let sx = -dz;
+    let sz = dx;
+    const sl = Math.hypot(sx, sz) || 1;
+    sx = (sx / sl) * len * 0.12;
+    sz = (sz / sl) * len * 0.12;
+    const c = { x: (a.x + b.x) / 2 + sx, y: (a.y + b.y) / 2, z: (a.z + b.z) / 2 + sz };
+    const at = (t: number) => {
+      const u = 1 - t;
+      return [
+        u * u * a.x + 2 * u * t * c.x + t * t * b.x,
+        u * u * a.y + 2 * u * t * c.y + t * t * b.y,
+        u * u * a.z + 2 * u * t * c.z + t * t * b.z,
+      ];
+    };
+    for (let k = 0; k < SEG; k++) {
+      const o = (i * SEG + k) * 6;
+      webPos.set(at(k / SEG), o);
+      webPos.set(at((k + 1) / SEG), o + 3);
+    }
+  });
+  const webGeo = new THREE.BufferGeometry();
+  webGeo.setAttribute('position', new THREE.BufferAttribute(webPos, 3));
+  const webColours = new THREE.BufferAttribute(webCol, 3);
+  webGeo.setAttribute('color', webColours);
+  const web = new THREE.LineSegments(
+    webGeo,
+    new THREE.LineBasicMaterial({
+      vertexColors: true,
+      blending: THREE.AdditiveBlending,
+      transparent: true,
+      depthWrite: false,
+      fog: true,
+    }),
+  );
+  web.frustumCulled = false;
+  scene.add(web);
+  const tints = links.map((l) => {
+    const s = byId.get(endId(l.source))!;
+    return new THREE.Color(clusterColour(s.cluster, homeDomain(s)));
+  });
+  /** Additive blending: a colour's brightness is its opacity; black is invisible. */
+  const paintWeb = () => {
+    links.forEach((l, i) => {
+      let k = 0;
+      if (view && endsShown(l) && (view.showAll || l.bb) && !focusOf(l)) {
+        const dim = faded(endId(l.source)) || faded(endId(l.target));
+        k = dim ? 0.02 : view.showAll && !l.bb ? cfg.linkAlpha * 0.6 : cfg.linkAlpha;
+      }
+      const c = tints[i];
+      for (let j = 0; j < SEG * 2; j++)
+        webCol.set([c.r * k, c.g * k, c.b * k], (i * SEG * 2 + j) * 3);
+    });
+    webColours.needsUpdate = true;
+  };
+
   const paintGlow = () => {
+    paintWeb();
     const col = new THREE.Color();
     nodes.forEach((n, i) => {
       if (!view?.nodes.has(n.id)) col.setRGB(0, 0, 0);
@@ -282,7 +346,7 @@ export async function createMap3D(opts: {
     z: nodes.reduce((s, n) => s + n.z, 0) / nodes.length,
   };
   const extent = Math.max(...nodes.map((n) => Math.hypot(n.x - centre.x, n.z - centre.z)));
-  const rest = { x: centre.x, y: centre.y + extent * 0.7, z: centre.z + extent * 1.45 };
+  const rest = { x: centre.x, y: centre.y + extent * 0.85, z: centre.z + extent * 1.75 };
   if (motion) {
     fg.cameraPosition(
       { x: centre.x + extent * 1.2, y: centre.y + extent * 2.6, z: centre.z + extent * 3.2 },

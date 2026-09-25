@@ -213,11 +213,13 @@ export function createMap2D(opts: Map2DOptions) {
       }),
     ],
     style: [...(GRAPH_STYLE as unknown[]), ...EXTRA_STYLE] as cytoscape.StylesheetJson,
-    layout: { name: 'preset' },
+    layout: { name: 'preset', fit: false } as cytoscape.LayoutOptions,
     minZoom: 0.08,
     maxZoom: 3,
     autoungrabify: true,
     boxSelectionEnabled: false,
+    // Pan and zoom move a snapshot of the map; it is redrawn crisp when they stop (A83).
+    textureOnViewport: true,
     pixelRatio: Math.min(window.devicePixelRatio || 1, 2),
   });
   const terms = cy.nodes('[size]');
@@ -529,6 +531,8 @@ export function createMap2D(opts: Map2DOptions) {
   const cull = () => {
     const zoom = cy.zoom();
     const far = zoom < FAR_ZOOM;
+    const hoverFont = Math.max(9, Math.round(HOVER_LABEL_PX / zoom));
+    if (far && terms.first().data('hoverFont') !== hoverFont) terms.data('hoverFont', hoverFont);
     const fontOf = (n: cytoscape.NodeSingular): number =>
       far ? n.data('farFont') : n.data('font');
     const shown = terms.not('.gone');
@@ -571,8 +575,8 @@ export function createMap2D(opts: Map2DOptions) {
     if (far !== terms.first().hasClass('far')) terms.toggleClass('far', far);
     // Bundles are an overview device: zoomed in, the real edges take over.
     if (far === bundleEdges.first().hasClass('near')) bundleEdges.toggleClass('near', !far);
-    const hoverFont = Math.max(9, Math.round(HOVER_LABEL_PX / cy.zoom()));
-    if (far && terms.first().data('hoverFont') !== hoverFont) terms.data('hoverFont', hoverFont);
+    // Everything else waits until the zoom settles (see `cull`): restyling mid-gesture
+    // would throw away the viewport snapshot.
     recull();
   };
   cy.on('zoom viewport', setFar);
@@ -797,11 +801,11 @@ export function createMap2D(opts: Map2DOptions) {
     smoothFit(cy, 40, 1.1, opts.reserveRight(), shown.nodes().union(cy.nodes('.tag').not('.gone')));
   };
   /** Centre a term in the part of the map the docked panel leaves visible (A80). */
-  const centreOn = (id: string, minZoom = 0) => {
+  const centreOn = (id: string, zoomRange: [number, number] = [0, Infinity]) => {
     const node = cy.getElementById(id);
     if (node.empty() || node.hasClass('gone')) return false;
     cy.stop(true);
-    const zoom = Math.max(cy.zoom(), minZoom);
+    const zoom = Math.min(zoomRange[1], Math.max(cy.zoom(), zoomRange[0]));
     const p = node.position();
     const clear = cy.width() - opts.centreReserve();
     cy.animate(
@@ -817,7 +821,7 @@ export function createMap2D(opts: Map2DOptions) {
   const frame = () => {
     const sel = view?.selected;
     if (sel && shown.nodes('[size]').length > EXPLORER.islands.minTermsForSystems) {
-      if (centreOn(sel, 0.9)) return;
+      if (centreOn(sel, [0.9, 1.2])) return;
     }
     fit();
   };
