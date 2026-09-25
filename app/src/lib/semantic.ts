@@ -271,6 +271,35 @@ export function nearBest(scored: Scored[], margin = 0.06): Scored[] {
   return scored.filter((s) => s.score >= top - margin);
 }
 
+/** A search result and which rankings found it ('lexical', 'semantic'). */
+export type Hit = { id: string; from: string[] };
+
+/**
+ * The list a search box shows (A75; the home search and the Explorer's "Find a term",
+ * A95): the lexical hits as they are until the server's meaning-based hits for this
+ * very query arrive, then both fused by RRF (semantic first, so a tie goes to meaning).
+ * `names` is the lexical side in fusion (names and aliases only); ids `known` rejects
+ * (terms this page cannot show) are dropped.
+ */
+export function mergeHits(
+  lexical: readonly string[],
+  semantic: readonly Scored[] | null,
+  opts: { names?: readonly string[]; max?: number; known?: (id: string) => boolean } = {},
+): Hit[] {
+  const { names = lexical, max = 8, known = () => true } = opts;
+  if (!semantic)
+    return lexical
+      .filter(known)
+      .slice(0, max)
+      .map((id) => ({ id, from: ['lexical'] }));
+  return reciprocalRankFusion({
+    semantic: semantic.map((h) => h.id).filter(known),
+    lexical: names.filter(known),
+  })
+    .slice(0, max)
+    .map(({ id, from }) => ({ id, from }));
+}
+
 /** How long the browser waits for the function before showing lexical results only. */
 export const SEMANTIC_TIMEOUT_MS = 6000;
 

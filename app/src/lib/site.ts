@@ -530,9 +530,9 @@ export const GRAPH_UI = {
     crossDomain: 'Fades between two domain colours: crosses domains',
     showAll: 'Show all relationships',
     overview:
-      'The overview draws each term’s strongest links; faint ribbons bundle the links between clusters. Hover or click a term for all its relationships.',
+      'The overview draws each term’s strongest links; faint ribbons bundle the links between clusters. Click a term for all its relationships.',
     typesNote:
-      'The ticked types filter the overview; a selected term always shows all its relationships.',
+      'The overview starts with structure, prerequisites, attacks & defences, regulation and lineage; tick contrasts or “used together” to add them. A selected term always shows all its relationships.',
   },
   da: {
     legend: 'Forklaring',
@@ -545,23 +545,19 @@ export const GRAPH_UI = {
     crossDomain: 'Glider mellem to domænefarver: krydser domæner',
     showAll: 'Vis alle relationer',
     overview:
-      'Overblikket viser hvert begrebs stærkeste forbindelser; svage bånd samler forbindelserne mellem klynger. Hold musen over eller klik på et begreb for at se alle dets relationer.',
+      'Overblikket viser hvert begrebs stærkeste forbindelser; svage bånd samler forbindelserne mellem klynger. Klik på et begreb for at se alle dets relationer.',
     typesNote:
-      'De valgte typer filtrerer overblikket; et valgt begreb viser altid alle sine relationer.',
+      'Overblikket starter med struktur, forudsætninger, angreb og forsvar, regulering og afstamning; sæt flueben ved kontraster eller “bruges sammen” for at tilføje dem. Et valgt begreb viser altid alle sine relationer.',
   },
 } as const;
 
 /** The Explorer's term panel (A80). `da` must carry every key `en` has. */
 const PANEL_EN = {
-  panelLabel: 'Term details: {name}',
-  panelExpand: 'Expand',
   panelExpandLabel: 'Expand the panel to fill the page',
-  panelCollapse: 'Collapse',
   panelCollapseLabel: 'Return the panel to the side of the map',
   panelClose: 'Close the panel',
   readMore: 'Read more →',
   readMoreLabel: 'Read the full entry, with the technical deep dive and sources',
-  contentLanguage: 'Language of the text',
   facets: 'Definitions',
   loadError: 'Could not load the details of this term.',
   noRelations: 'No relationships yet.',
@@ -572,9 +568,7 @@ const PANEL_EN = {
   connectionCount: '{n} connections',
   connectionCountOne: '1 connection',
   cyclePosition: '{i} of {n} · {type}',
-  prevConnection: 'Previous',
   prevConnectionLabel: 'Previous connection of {name} (←)',
-  nextConnection: 'Next',
   nextConnectionLabel: 'Next connection of {name} (→)',
   returnTo: 'Return to {name}',
 } as const;
@@ -582,15 +576,11 @@ const PANEL_EN = {
 export const PANEL_UI: Record<Lang, Record<keyof typeof PANEL_EN, string>> = {
   en: PANEL_EN,
   da: {
-    panelLabel: 'Detaljer om begrebet: {name}',
-    panelExpand: 'Udvid',
     panelExpandLabel: 'Udvid panelet til hele siden',
-    panelCollapse: 'Formindsk',
     panelCollapseLabel: 'Sæt panelet tilbage ved siden af kortet',
     panelClose: 'Luk panelet',
     readMore: 'Læs mere →',
     readMoreLabel: 'Læs hele opslaget med den tekniske uddybning og kilderne',
-    contentLanguage: 'Tekstens sprog',
     facets: 'Definitioner',
     loadError: 'Detaljerne om dette begreb kunne ikke hentes.',
     noRelations: 'Ingen relationer endnu.',
@@ -601,9 +591,7 @@ export const PANEL_UI: Record<Lang, Record<keyof typeof PANEL_EN, string>> = {
     connectionCount: '{n} forbindelser',
     connectionCountOne: '1 forbindelse',
     cyclePosition: '{i} af {n} · {type}',
-    prevConnection: 'Forrige',
     prevConnectionLabel: 'Forrige forbindelse for {name} (←)',
-    nextConnection: 'Næste',
     nextConnectionLabel: 'Næste forbindelse for {name} (→)',
     returnTo: 'Tilbage til {name}',
   },

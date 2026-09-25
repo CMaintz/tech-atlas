@@ -393,21 +393,24 @@ export function phaseOf(key: string): number {
 }
 
 /** Terms whose name (or id) contains the query, best (prefix) matches first. */
-export function searchTerms<T extends { id: string; term: Record<string, string> }>(
-  nodes: T[],
-  query: string,
-  lang: string,
-  limit = 8,
-): T[] {
+export function searchTerms<
+  T extends { id: string; term: Record<string, string>; aka?: Record<string, string[]> },
+>(nodes: T[], query: string, lang: string, limit = 8): T[] {
   const q = query.trim().toLowerCase();
   if (!q) return [];
+  /** 0 exact, 1 prefix, 2 inside, -1 no match. */
+  const tier = (s: string) => {
+    const at = s.toLowerCase().indexOf(q);
+    return at < 0 ? -1 : s.length === q.length ? 0 : at === 0 ? 1 : 2;
+  };
   const scored: [number, T][] = [];
   for (const n of nodes) {
-    const name = (n.term[lang] ?? '').toLowerCase();
-    const at = name.indexOf(q);
-    const idAt = n.id.toLowerCase().indexOf(q);
-    if (at < 0 && idAt < 0) continue;
-    scored.push([name === q ? 0 : at === 0 ? 1 : at > 0 ? 2 : 3, n]);
+    const name = tier(n.term[lang] ?? '');
+    // An alias ranks just below a name at the same tier (A95).
+    const alias = Math.min(...(n.aka?.[lang] ?? []).map(tier).filter((t) => t >= 0), Infinity);
+    const best = Math.min(name >= 0 ? name * 2 : Infinity, alias * 2 + 1);
+    if (best !== Infinity) scored.push([best, n]);
+    else if (n.id.toLowerCase().includes(q)) scored.push([6, n]);
   }
   return scored
     .sort((a, b) => a[0] - b[0] || a[1].term[lang].localeCompare(b[1].term[lang]))

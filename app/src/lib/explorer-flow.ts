@@ -54,7 +54,7 @@ export function startDots(
   cy: cytoscape.Core,
   edges: cytoscape.EdgeCollection,
   paused: () => boolean,
-  /** The settings, read every frame (the hidden visual lab tunes a copy live, A95). */
+  /** The settings, read every frame (the hidden visual lab tunes a copy live, A96). */
   cfg: DotsConfig = EXPLORER.dots,
 ): { stop: () => void; resize: () => void } {
   const container = cy.container()!;

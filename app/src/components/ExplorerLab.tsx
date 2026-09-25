@@ -155,7 +155,7 @@ const CHOICES_3D = {
 } as const;
 
 /**
- * The hidden visual lab (A95): the real Explorer, plus a floating panel that swaps in
+ * The hidden visual lab (A96): the real Explorer, plus a floating panel that swaps in
  * old visual effects live (restyle, never relayout), a frame meter and a scripted
  * benchmark. Toggles start from the address (`?curve=bezier&bench=1`); nothing is stored.
  */
