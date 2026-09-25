@@ -363,7 +363,7 @@ export default function Explorer(props: Props) {
   }, [mode, graph]);
   useEffect(() => () => map3d?.destroy(), [map3d]);
 
-  // ---- Keyboard: WASD / arrows move the map with focus or the pointer on it (A96) ------
+  // ---- Keyboard: WASD / arrows move the map with focus or the pointer on it (A97) ------
   const mapHost = useRef<HTMLDivElement>(null);
   const modeRef = useRef(mode);
   modeRef.current = mode;
@@ -796,7 +796,7 @@ export default function Explorer(props: Props) {
     <div class="relative h-[calc(100vh-4.25rem)] overflow-hidden map-surface">
       <h1 class="sr-only">{ui.explorer}</h1>
       <p class="sr-only">{ui.explorerIntro}</p>
-      {/* The map host: focusable, so the keyboard can move the map (A96). */}
+      {/* The map host: focusable, so the keyboard can move the map (A97). */}
       <div
         ref={mapHost}
         tabIndex={0}

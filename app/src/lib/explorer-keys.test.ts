@@ -4,7 +4,7 @@ import { EXPLORER } from './explorer-config';
 
 const key = (code: string, key = '') => ({ code, key });
 
-describe('navKey (A96)', () => {
+describe('navKey (A97)', () => {
   it('reads letters and arrows by physical key', () => {
     expect(navKey(key('KeyW', 'w'), '2d')).toBe('KeyW');
     expect(navKey(key('KeyW', 'W'), '3d')).toBe('KeyW');

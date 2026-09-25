@@ -20,7 +20,7 @@ interface Props {
   /** Explorer only: the overview/all-relationships toggle (A86). */
   showAll?: boolean;
   onShowAll?: (on: boolean) => void;
-  /** Explorer only: a one-line keyboard hint at the foot (A96). */
+  /** Explorer only: a one-line keyboard hint at the foot (A97). */
   hint?: string;
   /** The map theme its colours match (A92); dark by default. */
   theme?: MapTheme;

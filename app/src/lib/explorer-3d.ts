@@ -174,7 +174,7 @@ export async function createMap3D(opts: {
   const fog = new THREE.FogExp2(ink().bg3d, cfg.fogDensity);
   scene.fog = fog;
 
-  // ---- Draw order (A96): every sphere is transparent (nodeOpacity < 1), so three.js
+  // ---- Draw order (A97): every sphere is transparent (nodeOpacity < 1), so three.js
   // sorted each against the one merged web by distance, and a receded sphere drawn
   // first wrote depth and erased every line behind it. A fixed order instead: glow, the
   // solid spheres (they write depth, so they still hide what is behind them), the
@@ -692,7 +692,7 @@ export async function createMap3D(opts: {
     /** Bring a term into view (Find a term, even when it is already selected). */
     focus: (id: string) => flyTo(id),
     /**
-     * Keyboard navigation (A96), for dt seconds: fly (the orbit centre travels with the
+     * Keyboard navigation (A97), for dt seconds: fly (the orbit centre travels with the
      * camera, so a mouse orbit afterwards turns about what is in front) and orbit.
      */
     nudge(v: Axes, dt: number) {

@@ -56,7 +56,7 @@ export const EXPLORER = {
   },
 
   /**
-   * Keyboard navigation (A96, explorer-keys.ts): speeds at full throttle, the ease in and
+   * Keyboard navigation (A97, explorer-keys.ts): speeds at full throttle, the ease in and
    * out (time constant, s; none under reduced motion) and the Shift multiplier.
    */
   keys: {
@@ -171,7 +171,7 @@ export const EXPLORER = {
     glowOpacity: 0.5,
     /**
      * A sphere at least this opaque hides what is behind it; a receded one (dimmed by a
-     * selection, hover or route) writes no depth, so the lines behind it show (A96).
+     * selection, hover or route) writes no depth, so the lines behind it show (A97).
      */
     solidOpacity: 0.5,
     linkAlpha: 0.2,

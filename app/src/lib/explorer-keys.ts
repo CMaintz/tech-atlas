@@ -1,5 +1,5 @@
 /**
- * Keyboard navigation for the Explorer's maps (A96). The pure part maps held keys to a
+ * Keyboard navigation for the Explorer's maps (A97). The pure part maps held keys to a
  * target velocity and eases towards it (frame-rate independent); the driver listens on
  * the window, but only acts while the map host has focus or the pointer is over it (with
  * nothing else focused), so it never takes keys from a field, a popover, the control

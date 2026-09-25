@@ -1055,7 +1055,7 @@ export function createMap2D(opts: Map2DOptions) {
     },
     /** Bring a term into view (Find a term, even when it is already selected). */
     focus: (id: string) => void centreOn(id, [0.9, 1.2]),
-    /** Keyboard navigation (A96): pan and zoom about the clear part's centre, for dt s. */
+    /** Keyboard navigation (A97): pan and zoom about the clear part's centre, for dt s. */
     nudge(v: Axes, dt: number) {
       const k = EXPLORER.keys;
       cy.stop(true);
