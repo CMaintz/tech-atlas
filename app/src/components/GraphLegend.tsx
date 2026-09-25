@@ -15,6 +15,9 @@ interface Props {
   open?: boolean;
   /** Compact: one domain row each, no cluster list (term-page graph). */
   compact?: boolean;
+  /** Explorer only: the overview/all-relationships toggle (A86). */
+  showAll?: boolean;
+  onShowAll?: (on: boolean) => void;
 }
 
 /** The graph legend (A74): domains and their cluster shades, edge families, arrow meaning. */
@@ -61,14 +64,29 @@ export default function GraphLegend(props: Props) {
       {hasRing && (
         <p class="mt-2 flex items-center gap-2 text-neutral-400">
           <span
-            class="inline-block h-3 w-3 shrink-0 rounded-full border-2"
-            style={{ background: domainColour('cs'), borderColor: domainColour('security') }}
+            class="inline-block h-3 w-3 shrink-0 rounded-full"
+            style={{
+              background: `linear-gradient(90deg, ${domainColour('cs')} 50%, ${domainColour('security')} 50%)`,
+            }}
           />
           {text.ring}
         </p>
       )}
 
       <p class="mt-3 mb-1 text-neutral-500">{text.edges}</p>
+      {props.onShowAll && (
+        <>
+          <label class="mb-1.5 flex items-center gap-2 text-neutral-200">
+            <input
+              type="checkbox"
+              checked={props.showAll}
+              onChange={(e) => props.onShowAll!((e.target as HTMLInputElement).checked)}
+            />
+            {text.showAll}
+          </label>
+          {!props.showAll && <p class="mb-1.5 text-neutral-500">{text.overview}</p>}
+        </>
+      )}
       <ul class="space-y-1">
         {props.families.map((f) => (
           <li class="flex items-center gap-2">

@@ -6,6 +6,7 @@
  */
 import type { EdgeType } from '../schema';
 import type { Family } from './graph-model';
+import { EXPLORER } from './explorer-config';
 
 // ---- Colour maths --------------------------------------------------------------
 
@@ -567,10 +568,10 @@ export function clusterForce(strength = 0.08) {
 
 // ---- Flow ---------------------------------------------------------------------------
 
-/** Dash pattern and speed of the animated flow along one-way edges. */
-export const FLOW_DASH: [number, number] = [6, 6];
+/** Dash pattern and speed of the animated flow along one-way edges (explorer-config). */
+export const FLOW_DASH: [number, number] = [...EXPLORER.flow.dash];
 /** Pixels the dash pattern advances per second (source → target). */
-export const FLOW_SPEED = 18;
+export const FLOW_SPEED: number = EXPLORER.flow.speed;
 
 /** Dash offset for a moment in time: negative, so dashes travel source → target. */
 export const flowOffset = (ms: number) =>

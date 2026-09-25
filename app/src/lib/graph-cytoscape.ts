@@ -45,7 +45,11 @@ export function edgeData(
   });
 }
 
-/** The shared look: glowing nodes, domain rings, curved family-coloured edges. */
+/**
+ * The shared look: glowing nodes, domain rings, curved family-coloured edges. No style
+ * transitions here: on the full map they animate every restyled element each frame
+ * (A86); small graphs add `FADE_TRANSITIONS`.
+ */
 export const GRAPH_STYLE = [
   {
     selector: 'node[size]',
@@ -67,14 +71,17 @@ export const GRAPH_STYLE = [
       'underlay-opacity': 0.2,
       'underlay-padding': 5,
       'underlay-shape': 'ellipse',
-      'transition-property': 'opacity, underlay-opacity, underlay-padding, text-opacity',
-      'transition-duration': '0.18s',
     },
   },
-  // A term in two domains wears a ring in the other domain's colour.
+  // A term in several domains is split into vertical bands, one per domain (A86).
   {
-    selector: 'node[ring]',
-    style: { 'border-width': 3, 'border-color': 'data(ring)', 'border-opacity': 0.95 },
+    selector: 'node[bandColours]',
+    style: {
+      'background-fill': 'linear-gradient',
+      'background-gradient-direction': 'to-right',
+      'background-gradient-stop-colors': 'data(bandColours)',
+      'background-gradient-stop-positions': 'data(bandStops)',
+    },
   },
   {
     selector: 'edge',
@@ -89,8 +96,6 @@ export const GRAPH_STYLE = [
       'control-point-weights': 0.5,
       'line-cap': 'round',
       opacity: 'data(alpha)',
-      'transition-property': 'opacity',
-      'transition-duration': '0.18s',
     },
   },
   // Edges that bridge two domains fade from one domain's colour to the other's.
@@ -136,6 +141,18 @@ export const GRAPH_STYLE = [
   },
 ] as unknown as cytoscape.StylesheetJson;
 
+/** Soft fades for small graphs (the term page), where restyling is cheap. */
+export const FADE_TRANSITIONS = [
+  {
+    selector: 'node[size]',
+    style: {
+      'transition-property': 'opacity, underlay-opacity, underlay-padding, text-opacity',
+      'transition-duration': '0.18s',
+    },
+  },
+  { selector: 'edge', style: { 'transition-property': 'opacity', 'transition-duration': '0.18s' } },
+] as unknown as cytoscape.StylesheetJson;
+
 /**
  * Hovering a node lights its neighbourhood, fades the rest and sets its one-way edges
  * flowing. Only childless nodes react (never a compound parent, should one be added).
@@ -157,12 +174,12 @@ export function attachHover(cy: cytoscape.Core) {
 }
 
 /**
- * Animate dashes along every edge carrying `flow`/`hflow`, source → target, at ~30 fps.
+ * Animate dashes along every edge carrying `flow`/`hflow`, source → target, at `fps`.
  * The loop idles while nothing (or too much) flows and wakes when edge classes change;
  * it stops and starts with the prefers-reduced-motion setting, live (the dashes stay
  * still while motion is reduced). Returns a stop function.
  */
-export function startFlow(cy: cytoscape.Core, limit = 160): () => void {
+export function startFlow(cy: cytoscape.Core, limit = 160, fps = 30): () => void {
   const motion = typeof window !== 'undefined' ? window.matchMedia?.(REDUCED_MOTION) : undefined;
   let raf = 0;
   let last = 0;
@@ -174,7 +191,7 @@ export function startFlow(cy: cytoscape.Core, limit = 160): () => void {
     // Nothing to animate: idle until a class change wakes the loop.
     if (flowing.empty() || flowing.length > limit) return;
     raf = requestAnimationFrame(tick);
-    if (t - last < 33) return;
+    if (t - last < 1000 / fps) return;
     last = t;
     flowing.style('line-dash-offset', flowOffset(t));
   };
@@ -196,9 +213,16 @@ export function startFlow(cy: cytoscape.Core, limit = 160): () => void {
  * Fit the graph with a short ease-in zoom (instant under reduced motion). `reserveRight`
  * keeps that many pixels on the right clear, for an overlay such as the legend.
  */
-export function smoothFit(cy: cytoscape.Core, padding = 40, maxZoom = 1.1, reserveRight = 0) {
+export function smoothFit(
+  cy: cytoscape.Core,
+  padding = 40,
+  maxZoom = 1.1,
+  reserveRight = 0,
+  /** What to fit; every node (with its label) by default. */
+  eles: cytoscape.CollectionReturnValue | cytoscape.NodeCollection = cy.nodes(),
+) {
   // Fit every node with its label, so region and cluster names stay in view.
-  const bb = cy.nodes().boundingBox();
+  const bb = eles.boundingBox();
   if (!bb.w || !bb.h) return;
   const width = cy.width() - (cy.width() - reserveRight > cy.width() / 2 ? reserveRight : 0);
   const zoom = Math.min(

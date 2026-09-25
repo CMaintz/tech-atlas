@@ -91,7 +91,10 @@ export const UI = {
       'The whole map. Click a term to open it in the side panel; expand the panel to read it in full.',
     layoutForce: 'Force',
     layoutDepth: 'By depth',
-    depthNote: 'Height = depth: foundations at the bottom, advanced terms on top.',
+    depthNote:
+      'Height = depth: foundations at the bottom, advanced terms on top. One lane per domain.',
+    galaxyNote:
+      'Each domain is a galaxy; terms shared by two domains sit between them. Foundations lie lower, advanced terms higher.',
     domains: 'Domains',
     relationshipTypes: 'Relationships',
     route: 'Route between two terms',
@@ -141,7 +144,7 @@ export const UI = {
     allDomains: 'All',
     decade: '{d}s',
     layoutTime: 'By time',
-    timeNote: 'Left to right = the year a term entered use. Terms without a year sit on the left.',
+    timeNote: 'Left to right = the year a term entered use; one lane per domain.',
     account: 'Account',
     signIn: 'Sign in',
     signOut: 'Sign out',
@@ -270,7 +273,9 @@ export const UI = {
       'Hele kortet. Klik på et begreb for at åbne det i sidepanelet; udvid panelet for at læse det hele.',
     layoutForce: 'Kraft',
     layoutDepth: 'Efter dybde',
-    depthNote: 'Højde = dybde: grundlaget nederst, avancerede begreber øverst.',
+    depthNote: 'Højde = dybde: grundlaget nederst, avancerede begreber øverst. Én bane pr. domæne.',
+    galaxyNote:
+      'Hvert domæne er en galakse; begreber, som to domæner deler, ligger imellem dem. Grundlaget ligger lavere, avancerede begreber højere.',
     domains: 'Domæner',
     relationshipTypes: 'Relationer',
     route: 'Vej mellem to begreber',
@@ -321,8 +326,7 @@ export const UI = {
     allDomains: 'Alle',
     decade: "{d}'erne",
     layoutTime: 'Efter tid',
-    timeNote:
-      'Fra venstre mod højre = året, et begreb kom i brug. Begreber uden årstal står til venstre.',
+    timeNote: 'Fra venstre mod højre = året, et begreb kom i brug; én bane pr. domæne.',
     account: 'Konto',
     signIn: 'Log ind',
     signOut: 'Log ud',
@@ -456,24 +460,32 @@ export const GRAPH_UI = {
   en: {
     legend: 'Legend',
     nodes: 'Terms — colour = domain, shade = cluster',
-    ring: 'Ring: the term belongs to a second domain',
+    ring: 'Split colours: the term belongs to several domains, one band each',
     edges: 'Relationships — colour = family',
     oneWay:
       'One-way: the arrow (and moving dashes) point from a term to what it requires, mitigates, causes …',
     twoWay: 'Two-way: contrasts, alternatives and “used with” — no arrow',
     crossDomain: 'Fades between two domain colours: crosses domains',
     fit: 'Fit to view',
+    tidy: 'Tidy up',
+    showAll: 'Show all relationships',
+    overview:
+      'The overview draws each term’s strongest links; faint ribbons bundle the links between clusters. Hover or click a term for all its relationships.',
   },
   da: {
     legend: 'Forklaring',
     nodes: 'Begreber — farve = domæne, nuance = klynge',
-    ring: 'Ring: begrebet hører også til et andet domæne',
+    ring: 'Delte farver: begrebet hører til flere domæner, én stribe for hvert',
     edges: 'Relationer — farve = familie',
     oneWay:
       'Envejs: pilen (og de bevægelige streger) peger fra et begreb mod det, det forudsætter, afbøder, forårsager …',
     twoWay: 'Tovejs: kontraster, alternativer og “bruges sammen med” — ingen pil',
     crossDomain: 'Glider mellem to domænefarver: krydser domæner',
     fit: 'Tilpas visning',
+    tidy: 'Ryd op',
+    showAll: 'Vis alle relationer',
+    overview:
+      'Overblikket viser hvert begrebs stærkeste forbindelser; svage bånd samler forbindelserne mellem klynger. Hold musen over eller klik på et begreb for at se alle dets relationer.',
   },
 } as const;
 

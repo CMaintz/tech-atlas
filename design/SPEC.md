@@ -284,31 +284,46 @@ fullscreen. Always present, never the only route to content; every node links to
 real, statically rendered page ("the canvas is an index, not a container").
 
 - **2D is the default** — readable labels, precise clicking, works on a phone.
-- **3D is a mode**, justified only because its vertical axis means something: Depth,
-  derived from `requires` (ADR-0001) — a layered dependency graph with foundations at
-  the bottom.
+- **3D is a mode**, justified because its vertical axis means something: Depth,
+  derived from `requires` (ADR-0001) — foundations lie lower, advanced terms higher.
+  Depth is a soft bias with a spread, not a set of planes, so the cloud stays
+  volumetric; each domain is a separate galaxy and terms shared by two domains sit
+  between them (A86).
 - Edge *family* drives colour and filtering — seven readable groups (structure,
   prerequisites, contrasts, attacks & defences, regulation, lineage, used together)
   instead of twelve raw types (A29); the exact type is shown in edge labels. *Domain*
   owns a colour family and *cluster* is a shade within it; a term in two domains wears
-  a ring in the other domain's colour; *domain* drives filtering (A74). One-way
-  relationships carry an arrow and a gentle animated flow towards their target
-  (still under `prefers-reduced-motion`); symmetric ones (contrasts, alternatives,
-  used-with) have neither; an edge crossing domains fades between the two domain
-  colours. Edges curve; hovering a term lights its neighbourhood and fades the rest;
-  a legend explains colours, rings and arrows. Progressive: arriving from a term
-  starts at the focal node + direct edges; expand one hop at a time, or open the
-  whole map.
-- The full-screen Explorer (`/[lang]/explorer/`) offers 2D (force, layered by
-  Depth, or laid out by Time — x = `era`, undated terms in a side lane) and 3D
-  (height = Depth), a route finder between any two terms, and prerequisite
+  a ring in the other domain's colour; *domain* drives filtering (A74): a term shows
+  while at least one of its domains is enabled, never merely because it is linked to
+  a shown term (A86). One-way relationships carry an arrow and a slow, subtle flow
+  towards their target — only on the hovered or selected term's edges and a
+  highlighted route (still under `prefers-reduced-motion`); symmetric ones
+  (contrasts, alternatives, used-with) have neither; an edge crossing domains fades
+  between the two domain colours. Edges curve; hovering a term lights its
+  neighbourhood and fades the rest; a legend explains colours, rings and arrows.
+  Progressive: arriving from a term starts at the focal node + direct edges; expand
+  one hop at a time, or open the whole map.
+- **The Explorer overview draws a backbone, not the hairball** (A86): each term's
+  strongest relationships inside its cluster, plus one faint ribbon per pair of
+  related clusters (their count sets its width); hovering or selecting a term shows
+  all its relationships, and a legend switch shows every relationship (edges between
+  clusters then bundle through their islands). Node size is PageRank.
+- **The map is stable** (A86): layouts are computed once from the whole graph;
+  relationship and domain filters only hide and show in place, "Tidy up" gathers the
+  visible terms on demand, and switching layout glides terms to their new places.
+  Terms cannot be dragged.
+- The full-screen Explorer (`/[lang]/explorer/`) offers 2D (force; by Depth — one
+  lane per domain, depth rows with crossings reduced; or by Time — x = `era`, one
+  lane per domain, undated terms hidden and counted) and 3D (galaxies, height leaning
+  on Depth), a route finder between any two terms, and prerequisite
   highlighting. Clicking a term opens its **term panel** on the right (facets in both
   languages, what to learn first, relationships that re-focus the map); the panel
   expands in place to fill the page below the header, and "Read more" opens the Term
   page; `?term=<id>` deep-links it (A80). The 2D force layout is deterministic and cluster-aware: clusters
-  settle into named systems, domains into loose regions (A74). 3D uses the same
-  colours, curved links, flowing particles on one-way links and a pull towards
-  each cluster.
+  settle into named systems, domains into loose regions, and terms shared by two
+  domains sit on the side of their island facing the other domain (A74, A86). 3D uses
+  the same colours, curved links, a soft glow, labels on the hub terms, and particles
+  only along the hovered or selected term's one-way links.
 
 ### Timeline (era view)
 `/[lang]/timeline/` places every Term with an `era` on a year axis in one swim lane
