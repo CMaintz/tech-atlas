@@ -84,7 +84,7 @@ const inkVars = (ink: Ink, ink2?: Ink | null) =>
 function Dot({ colour, ring, hub }: { colour: Ink; ring: Ink | null; hub: boolean }) {
   const size = hub ? 12 : 8;
   const shadow = [
-    ring ? '0 0 0 1.5px var(--map-bg), 0 0 0 3.5px var(--ink2)' : '',
+    ring ? '0 0 0 1.5px var(--chart-bg), 0 0 0 3.5px var(--ink2)' : '',
     hub ? '0 0 10px var(--ink)' : '',
   ]
     .filter(Boolean)
@@ -410,7 +410,7 @@ export default function Timeline(props: Props) {
       <section
         ref={chartRef}
         aria-label={text.chart}
-        class="relative hidden overflow-x-auto rounded-lg border border-border map-surface sm:block"
+        class="relative hidden overflow-x-auto rounded-lg border border-border chart-surface sm:block"
       >
         <div class="relative" style={{ width: LABEL_COL + h.width, minWidth: '100%' }}>
           {/* decade bands + gridlines, behind everything */}
@@ -450,7 +450,7 @@ export default function Timeline(props: Props) {
             ))}
             {ticks.map((t) => (
               <span
-                class="absolute bottom-1 -translate-x-1/2 rounded bg-(--map-bg) px-1 font-mono text-xs font-medium text-fg-soft"
+                class="absolute bottom-1 -translate-x-1/2 rounded bg-(--chart-bg) px-1 font-mono text-xs font-medium text-fg-soft"
                 style={{ left: LABEL_COL + H_PAD + h.scale.at(t) }}
               >
                 {t}
@@ -460,7 +460,7 @@ export default function Timeline(props: Props) {
           {h.lanes.map(({ lane, list, count, track, flip, chips, chipRow, height }) => (
             <div class="relative flex border-t border-border" style={{ height }}>
               <h2
-                class="map-ink sticky left-0 z-10 flex shrink-0 items-start gap-2 border-r border-border bg-(--map-bg) px-3 pt-2 text-sm font-medium"
+                class="map-ink sticky left-0 z-10 flex shrink-0 items-start gap-2 border-r border-border bg-(--chart-bg) px-3 pt-2 text-sm font-medium"
                 style={`${inkVars(ink(lane))}width:${LABEL_COL}px;color:var(--ink)`}
               >
                 <span
@@ -541,7 +541,7 @@ export default function Timeline(props: Props) {
           >
             {ticks.map((t) => (
               <span
-                class="absolute top-1 -translate-x-1/2 rounded bg-(--map-bg) px-1 font-mono text-xs font-medium text-fg-soft"
+                class="absolute top-1 -translate-x-1/2 rounded bg-(--chart-bg) px-1 font-mono text-xs font-medium text-fg-soft"
                 style={{ left: LABEL_COL + H_PAD + h.scale.at(t) }}
               >
                 {t}
@@ -587,10 +587,10 @@ export default function Timeline(props: Props) {
       {/* ---- vertical chart (phones) ---- */}
       <section
         aria-label={text.chart}
-        class="relative rounded-lg border border-border map-surface sm:hidden"
+        class="relative rounded-lg border border-border chart-surface sm:hidden"
       >
         {!single && <p class="px-3 pt-3 text-xs text-subtle">{text.mobileHint}</p>}
-        <div class="sticky top-0 z-10 flex border-b border-border bg-(--map-bg)/95 backdrop-blur">
+        <div class="sticky top-0 z-10 flex border-b border-border bg-(--chart-bg)/95 backdrop-blur">
           <span style={{ width: AXIS_COL }} class="shrink-0" />
           {[...lanes.keys()].map((lane) => (
             <h2
