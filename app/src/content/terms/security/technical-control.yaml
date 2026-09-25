@@ -1,0 +1,41 @@
+term:
+  en: Technical control
+  da: Teknisk kontrol
+aka:
+  en: [technological control, logical control]
+  da: [teknisk foranstaltning, teknologisk kontrol]
+domain: [security]
+cluster: controls
+layer: host
+status: current
+summary:
+  en: A safeguard built into hardware or software, which works automatically once it is set up.
+  da: En beskyttelse, der er bygget ind i hardware eller software og virker automatisk, når den først er sat op.
+body:
+  formal:
+    en: A security control carried out by technology rather than by people or written rules — for example encryption, MFA, a firewall, backups or logging — one of the four control themes in ISO 27002.
+    da: En sikkerhedskontrol, der udføres af teknologi frem for af mennesker eller skrevne regler — fx kryptering, MFA, en firewall, backup eller logning — et af de fire kontroltemaer i ISO 27002.
+  plain:
+    en: Like the automatic lock on a car that clicks shut when you walk away — it protects you whether or not you remember.
+    da: Som den automatiske lås på en bil, der klikker i, når man går fra den — den beskytter, uanset om man husker det.
+  inPractice:
+    en: Instead of only telling staff not to plug in unknown USB sticks, IT blocks USB storage on every laptop through a central setting.
+    da: I stedet for kun at sige til medarbejderne, at de ikke må sætte ukendte USB-nøgler i, blokerer IT USB-lagring på alle bærbare via en central indstilling.
+  whyItMatters:
+    en: Machines apply a rule the same way every time, but a technical control set up wrongly gives false comfort, so it still needs rules and people around it.
+    da: Maskiner håndhæver en regel ens hver gang, men en teknisk kontrol, der er sat forkert op, giver falsk tryghed, så den har stadig brug for regler og mennesker omkring sig.
+edges:
+  kind-of: [control]
+  mitigates:
+    - to: vulnerability
+      why:
+        en: Settings, updates and filters close or shield technical weaknesses directly.
+        da: Indstillinger, opdateringer og filtre lukker eller afskærmer tekniske svagheder direkte.
+      confidence: high
+  used-with: [zero-trust]
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 1 og Ordliste (Kontrol)
+    tier: course-material
+  - title: ISO/IEC 27002:2022 (clause 8 — Technological controls)
+    tier: standard
+draft: true

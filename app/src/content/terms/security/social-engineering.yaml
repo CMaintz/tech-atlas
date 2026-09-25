@@ -33,6 +33,7 @@ edges:
         da: Det behandler menneskelig tillid og hjælpsomhed som den svaghed, der udnyttes, frem for en fejl i en maskine.
       strength: primary
       confidence: medium
+    - human-factor
   causes:
     - to: data-breach
       why:

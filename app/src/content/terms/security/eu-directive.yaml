@@ -1,0 +1,41 @@
+term:
+  en: EU directive
+  da: EU-direktiv
+aka:
+  en: [directive]
+  da: [direktiv]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: A type of EU law that sets goals every member state must reach, but lets each country write its own national law to do it.
+  da: En type EU-lov, der fastsætter mål, som alle medlemslande skal nå, men lader hvert land skrive sin egen nationale lov for at nå dem.
+body:
+  formal:
+    en: A legal act of the European Union that is binding on each member state as to the result, but leaves the form and method to national authorities; it must be written into national law by a deadline, as with NIS2 and the Danish NIS2 Act.
+    da: En retsakt fra EU, der er bindende for hvert medlemsland med hensyn til resultatet, men overlader form og midler til de nationale myndigheder; den skal skrives ind i national lov (gennemføres) inden en frist, som med NIS2 og NIS2-loven.
+  plain:
+    en: Like a parent telling several teenagers "your rooms must be clean by Sunday" — the goal is fixed, but each decides how to get there.
+    da: Som når en forælder siger til flere teenagere "jeres værelser skal være rene på søndag" — målet ligger fast, men hver især bestemmer, hvordan de når det.
+  inPractice:
+    en: A Danish hospital does not read NIS2 itself to find its duties; it follows the Danish law that puts NIS2 into force, which also names the Danish authorities.
+    da: Et dansk hospital læser ikke selve NIS2 for at finde sine pligter; det følger den danske lov, der sætter NIS2 i kraft, og som også udpeger de danske myndigheder.
+  whyItMatters:
+    en: Because each country writes its own version, details and deadlines can differ between countries, so organisations working across borders must check each national law.
+    da: Fordi hvert land skriver sin egen version, kan detaljer og frister variere mellem landene, så organisationer, der arbejder på tværs af grænser, skal tjekke hver national lov.
+edges:
+  requires: [compliance]
+  contrasts-with:
+    - to: eu-regulation
+      why:
+        en: A directive must first become national law; a regulation applies directly and the same way in every member state.
+        da: Et direktiv skal først gøres til national lov; en forordning gælder direkte og ens i alle medlemslande.
+      strength: primary
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Ordliste (NIS2-direktivet)
+    tier: course-material
+  - title: Treaty on the Functioning of the European Union, Article 288
+    tier: standard
+draft: true

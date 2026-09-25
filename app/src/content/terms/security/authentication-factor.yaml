@@ -1,0 +1,35 @@
+term:
+  en: Authentication factor
+  da: Autentificeringsfaktor
+aka:
+  en: [login factor]
+  da: [godkendelsesfaktor, sikkerhedsfaktor]
+domain: [security, cs]
+cluster: controls
+layer: identity
+status: current
+summary:
+  en: One kind of proof used to log in — something you know, something you have, or something you are.
+  da: Én slags bevis, der bruges ved login — noget man ved, noget man har, eller noget man er.
+body:
+  formal:
+    en: A category of evidence used in authentication — knowledge (a password or PIN), possession (a phone, key or card) or something about your body (a fingerprint or face); MFA combines factors from different categories so one stolen factor is not enough.
+    da: En kategori af bevis, der bruges ved autentificering — viden (en adgangskode eller pinkode), besiddelse (en telefon, nøgle eller et kort) eller iboende egenskab (fingeraftryk eller ansigt); MFA kombinerer faktorer fra forskellige kategorier, så én stjålet faktor ikke er nok.
+  plain:
+    en: Like getting into a bank vault — knowing the code, holding the key and having the guard recognise your face are three different kinds of proof.
+    da: Som at komme ind i en bankboks — at kende koden, have nøglen og blive genkendt af vagten er tre forskellige slags bevis.
+  inPractice:
+    en: An employee types her password (know) and then approves a pop-up on her phone (have); a thief with only the password is stopped.
+    da: En medarbejder taster sin adgangskode (ved) og godkender derefter en besked på sin telefon (har); en tyv med kun adgangskoden bliver stoppet.
+  whyItMatters:
+    en: Two proofs of the same kind, such as two passwords, fall to the same attack, so real protection comes from mixing different kinds.
+    da: To beviser af samme slags, fx to adgangskoder, falder for det samme angreb, så reel beskyttelse kommer af at blande forskellige slags.
+edges:
+  requires: [authentication]
+  used-with: [passkey, password]
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Ordliste (MFA, 2FA)
+    tier: course-material
+  - title: NIST SP 800-63B — Digital Identity Guidelines, Authentication and Lifecycle Management
+    tier: standard
+draft: true

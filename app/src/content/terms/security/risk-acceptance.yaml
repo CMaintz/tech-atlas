@@ -1,0 +1,42 @@
+term:
+  en: Risk acceptance
+  da: Risikoaccept
+aka:
+  en: [risk retention]
+  da: [accept af risiko]
+domain: [security]
+cluster: risk-management
+layer: governance
+status: current
+summary:
+  en: A deliberate, recorded decision to live with a risk instead of spending more to reduce it.
+  da: En bevidst og dokumenteret beslutning om at leve med en risiko i stedet for at bruge flere ressourcer på at reducere den.
+body:
+  formal:
+    en: The risk treatment option in which the organisation knowingly keeps a risk, because it is within the risk appetite or further controls would cost more than the harm; the decision is made and signed by someone with the authority to own the risk.
+    da: Den håndteringsmulighed, hvor organisationen bevidst beholder en risiko, fordi den ligger inden for risikoappetitten, eller fordi flere kontroller ville koste mere end skaden; beslutningen træffes og underskrives af en person med ret til at eje risikoen.
+  plain:
+    en: Like choosing not to insure an old bicycle — if it is stolen you will be annoyed, but the cover would cost more than the bike.
+    da: Som at vælge ikke at forsikre en gammel cykel — bliver den stjålet, er det ærgerligt, men forsikringen ville koste mere end cyklen.
+  inPractice:
+    en: The IT manager writes down that the test server has no backup, the director signs that this is fine for one year, and the item is set for review.
+    da: IT-chefen skriver ned, at testserveren ikke har backup, direktøren skriver under på, at det er i orden i et år, og punktet sættes til ny gennemgang.
+  whyItMatters:
+    en: Accepting a risk is fine; ignoring it is not — the written decision shows who owns it and stops risks from being accepted by default.
+    da: At acceptere en risiko er i orden; at ignorere den er ikke — den skriftlige beslutning viser, hvem der ejer den, og forhindrer, at risici bliver accepteret ved et tilfælde.
+edges:
+  kind-of: [risk-treatment]
+  requires: [risk-appetite, residual-risk]
+  contrasts-with:
+    - to: risk-avoidance
+      why:
+        en: Acceptance keeps the activity and its risk; avoidance stops the activity so the risk disappears.
+        da: Accept beholder aktiviteten og dens risiko; undgåelse stopper aktiviteten, så risikoen forsvinder.
+      strength: primary
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 5 og Ordliste (Risikohåndtering)
+    tier: course-material
+  - title: ISO/IEC 27005:2022 (8.2 — Risk treatment options)
+    tier: standard
+draft: true

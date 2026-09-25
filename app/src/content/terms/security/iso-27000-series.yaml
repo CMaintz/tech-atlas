@@ -1,0 +1,41 @@
+term:
+  en: ISO 27000 series
+  da: ISO 27000-serien
+aka:
+  en: [ISO/IEC 27000 family, ISO 27k]
+  da: [ISO 27000-familien, ISO/IEC 27000-serien]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: The family of international standards for information security, with ISO 27001 at its centre and guides built around it.
+  da: Familien af internationale standarder for informationssikkerhed med ISO 27001 i centrum og vejledninger bygget omkring den.
+body:
+  formal:
+    en: A set of ISO/IEC standards on information security management — ISO 27000 (words and a general picture), ISO 27001 (requirements for an ISMS, the only one you can be certified against), ISO 27002 (guidance on controls), ISO 27005 (risk management) and many more for specific areas.
+    da: Et sæt ISO/IEC-standarder om styring af informationssikkerhed — ISO 27000 (begreber og overblik), ISO 27001 (krav til et ISMS, den eneste man kan certificeres efter), ISO 27002 (vejledning om kontroller), ISO 27005 (risikostyring) og mange flere for særlige områder.
+  plain:
+    en: Like a cookbook series — one main book with the rules every kitchen must follow, and companion books with detailed recipes for particular dishes.
+    da: Som en kogebogsserie — én hovedbog med de regler, alle køkkener skal følge, og ledsagebøger med detaljerede opskrifter på bestemte retter.
+  inPractice:
+    en: A company building its ISMS uses ISO 27001 for what it must do, ISO 27002 to pick controls, and ISO 27005 to shape its risk method.
+    da: En virksomhed, der bygger sit ISMS, bruger ISO 27001 til, hvad den skal gøre, ISO 27002 til at vælge kontroller og ISO 27005 til at forme sin risikometode.
+  whyItMatters:
+    en: The series gives a shared, worldwide language for security, so customers, auditors and authorities can compare organisations on the same terms.
+    da: Serien giver et fælles, verdensomspændende sprog for sikkerhed, så kunder, auditorer og myndigheder kan sammenligne organisationer på samme grundlag.
+edges:
+  kind-of: [security-framework]
+  requires: [cyber-and-information-security]
+  contrasts-with:
+    - to: nist-csf
+      why:
+        en: The ISO series is a set of certifiable standards; the NIST framework is a free, voluntary guide without certification.
+        da: ISO-serien er et sæt standarder, man kan certificeres efter; NIST-rammeværket er en gratis, frivillig vejledning uden certificering.
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 1
+    tier: course-material
+  - title: ISO/IEC 27000:2018 — Overview and vocabulary
+    tier: standard
+draft: true
