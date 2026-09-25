@@ -51,7 +51,8 @@ Check: **Table Editor → learner_state** exists (columns `user_id`, `state`, `v
 - **Site URL:** `https://cmaintz.github.io/tech-atlas/`
 - **Redirect URLs** — add:
   - `https://cmaintz.github.io/tech-atlas/**`
-  - `http://localhost:4321/**` (only if you want to try sign-in with `npm run dev`)
+  - `http://localhost:4321/**` (only while you try sign-in with `npm run dev`; remove it
+    afterwards — see [SECURITY.md](SECURITY.md))
 
 Sign-in links and the GitHub flow return to `/tech-atlas/en/account/` or
 `/tech-atlas/da/account/`; the wildcard covers both.
@@ -186,6 +187,10 @@ If anything is missing or down, search quietly falls back to names.
 | **Secrets** tab   | `SUPABASE_DB_PASSWORD`       | the database password                                    |
 | **Secrets** tab   | `CLOUDFLARE_ACCOUNT_ID`      | the Cloudflare account ID                                |
 | **Secrets** tab   | `CLOUDFLARE_API_TOKEN`       | the Cloudflare Workers AI token                          |
+
+Better still, put the four secrets in the **`backend` environment** instead of the
+repository (**Settings → Environments → backend**, deployment branches: `main` only), so
+only a run on `main` can read them — steps in [SECURITY.md](SECURITY.md#owner-actions-repository-settings-and-dashboards).
 
 `PUBLIC_SEMANTIC_SEARCH_URL` is what turns search by meaning on in the site build — it is
 separate from `PUBLIC_SUPABASE_URL` (step 5), so a site with only accounts configured never

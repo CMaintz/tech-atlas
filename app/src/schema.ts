@@ -50,7 +50,12 @@ export const SourceTier = z.enum([
 export const Source = z
   .object({
     title: z.string().min(1),
-    url: z.string().url().optional(),
+    // Web links only: `.url()` alone accepts `javascript:` and `data:` URLs (A89).
+    url: z
+      .string()
+      .url()
+      .regex(/^https?:\/\//, 'must be an http(s) URL')
+      .optional(),
     tier: SourceTier.default('other'),
     publisher: z.string().optional(),
   })

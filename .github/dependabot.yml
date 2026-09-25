@@ -7,6 +7,10 @@ updates:
       interval: weekly
       day: monday
     open-pull-requests-limit: 5
+    # Supply chain (A89): skip releases younger than a few days — most hijacked npm
+    # versions are caught and pulled within that window. Security updates ignore this.
+    cooldown:
+      default-days: 5
     groups:
       # One PR for every minor/patch bump; majors arrive one per package.
       npm-minor-and-patch:
@@ -32,6 +36,8 @@ updates:
     schedule:
       interval: weekly
       day: monday
+    cooldown:
+      default-days: 5
     groups:
       github-actions:
         patterns: ['*']
