@@ -609,8 +609,11 @@ export function createMap2D(opts: Map2DOptions) {
   /** Elements currently displayed — hover fades only these. */
   let shown = cy.collection();
 
-  /** The backbone over the families switched on, recomputed when they change. */
-  let spineFor: ReadonlySet<string> | null = null;
+  /**
+   * The backbone over the families switched on and the terms shown, recomputed when
+   * either changes: a term whose strongest links went to hidden terms keeps a visible one.
+   */
+  let spineFor: [ReadonlySet<string>, ReadonlySet<string>] | null = null;
   /**
    * Which edges are drawn, and how (backbone / all / focus). The families filter the
    * overview only: a selected term shows every one of its relationships.
@@ -620,8 +623,11 @@ export function createMap2D(opts: Map2DOptions) {
     const v = view;
     const sel = v.selected;
     const hl = v.highlight;
-    const spine = spineFor === v.families ? null : backboneOf(graph.nodes, graph.links, v.families);
-    spineFor = v.families;
+    const spine =
+      spineFor?.[0] === v.families && spineFor[1] === v.nodes
+        ? null
+        : backboneOf(graph.nodes, graph.links, v.families, v.nodes);
+    spineFor = [v.families, v.nodes];
     cy.batch(() => {
       links.forEach((e) => {
         const s = e.data('source');

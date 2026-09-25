@@ -94,6 +94,29 @@ describe('backboneOf', () => {
     expect(backboneOf(nodes, links, new Set(['association', 'contrast'])).has(4)).toBe(false);
     expect([...backboneOf(nodes, links, new Set(['contrast']))]).toEqual([4]);
   });
+  it('strands no visible term: hide AI and data poisoning keeps a visible edge', () => {
+    const t = (id: string, domain: string[]) => ({ id, domain, cluster: 'k' });
+    const terms = [
+      t('ai/data-poisoning', ['ai', 'security']),
+      t('ai/training-data', ['ai']),
+      t('ai/model-training', ['ai']),
+      t('ai/prompt-injection', ['ai', 'security']),
+      t('ai/llm', ['ai']),
+      t('ai/jailbreak', ['ai']),
+    ];
+    const edges = [
+      L('ai/data-poisoning', 'ai/training-data', 6.3, 'security'),
+      L('ai/data-poisoning', 'ai/model-training', 5.9, 'dependency'),
+      L('ai/data-poisoning', 'ai/prompt-injection', 2.8, 'security'),
+      L('ai/prompt-injection', 'ai/llm', 9, 'security'),
+      L('ai/prompt-injection', 'ai/jailbreak', 9, 'security'),
+    ];
+    const types = new Set(['security', 'dependency']);
+    // Over the whole graph its two slots go to AI-only terms: hidden with AI off.
+    expect(backboneOf(terms, edges, types).has(2)).toBe(false);
+    const securityOnly = new Set(['ai/data-poisoning', 'ai/prompt-injection']);
+    expect([...backboneOf(terms, edges, types, securityOnly)]).toEqual([2]);
+  });
 });
 
 describe('OVERVIEW_FAMILIES (A95)', () => {

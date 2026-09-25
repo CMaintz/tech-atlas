@@ -648,8 +648,9 @@ export async function createMap3D(opts: {
     apply(next: View3D) {
       const prev = view;
       view = next;
-      if (prev?.families !== next.families) {
-        const spine = backboneOf(graph.nodes, graph.links, next.families);
+      if (prev?.families !== next.families || prev?.nodes !== next.nodes) {
+        // Over the shown terms only, so none is stranded by a hidden domain.
+        const spine = backboneOf(graph.nodes, graph.links, next.families, next.nodes);
         for (const l of links) l.bb = spine.has(l.i);
       }
       const nodesChanged = !prev || prev.nodes !== next.nodes;
