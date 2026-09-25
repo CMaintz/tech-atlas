@@ -129,6 +129,13 @@ export const isDue = (s: TermState | undefined, now = Date.now()) =>
 export const isKnown = (s: TermState | undefined) => s?.status === 'know' || (s?.box ?? 0) >= 3;
 
 /**
+ * A weak term: the learner says they are still learning it or don't understand it,
+ * or their last quiz answer on it was wrong (a wrong answer resets it to box 1).
+ */
+export const isWeak = (s: TermState | undefined) =>
+  !!s && (s.status === 'learning' || s.status === 'unknown' || (s.wrong > 0 && s.box <= 1));
+
+/**
  * What to learn next: terms not yet known whose direct prerequisites are all
  * known (so they are within reach), best-connected first.
  */
