@@ -171,7 +171,19 @@ export default function Explorer(props: Props) {
     const b = bar.current;
     // An opened search field in a compact bar may overflow a little: never a sheet for it.
     if (barSize === 'sheet' || (barSize === 'compact' && findOpen)) return;
-    if (b && !narrow && b.scrollWidth > b.clientWidth + 1) setBarSize(SMALLER[barSize]);
+    // In-flow widths only: an open popover or result list must not shrink the bar.
+    const room = slot.current?.clientWidth ?? 0;
+    const need = (el: HTMLElement) => {
+      const kids = [...el.children] as HTMLElement[];
+      const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
+      const pad = el.offsetWidth - el.clientWidth + 12; // border + px-1.5 padding
+      return (
+        kids.reduce((w, k) => w + k.getBoundingClientRect().width, 0) +
+        gap * (kids.length - 1) +
+        pad
+      );
+    };
+    if (b && !narrow && room && need(b) > room + 1) setBarSize(SMALLER[barSize]);
   });
   // A popover closes on Esc (focus back on its button) or a press outside the bar. The
   // term panel's Esc handler stands down while a [data-map-popover] is open.

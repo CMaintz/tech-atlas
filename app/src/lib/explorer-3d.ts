@@ -316,9 +316,9 @@ export async function createMap3D(opts: {
     );
     const h = cfg.domainLabelHeight;
     sprite.scale.set((h * c.width) / c.height, h, 1);
-    // Above the galaxy's middle, so the name reads over its terms, not through them.
+    // Just above the galaxy, so the name labels its region without covering its terms.
     const top = Math.max(...own.map((n) => n.y));
-    sprite.position.set(mid('x'), (mid('y') + top) / 2 + h * 0.6, mid('z'));
+    sprite.position.set(mid('x'), top + h * 0.5, mid('z'));
     sprite.renderOrder = -1;
     domainArt.push({ domain: d, ids: own.map((n) => n.id), c, tex, sprite });
     scene.add(sprite);
