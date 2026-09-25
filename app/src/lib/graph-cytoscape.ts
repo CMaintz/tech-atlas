@@ -138,7 +138,7 @@ export const GRAPH_STYLE = [
 
 /**
  * Hovering a node lights its neighbourhood, fades the rest and sets its one-way edges
- * flowing. Parents (cluster hulls) are ignored.
+ * flowing. Only childless nodes react (never a compound parent, should one be added).
  */
 export function attachHover(cy: cytoscape.Core) {
   cy.on('mouseover', 'node:childless', (e) => {

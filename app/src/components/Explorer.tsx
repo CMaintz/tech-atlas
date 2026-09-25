@@ -361,8 +361,10 @@ export default function Explorer(props: Props) {
       const nodes = cy.nodes('[size]');
       if (nodes.nonempty() && far !== nodes.first().hasClass('far')) nodes.toggleClass('far', far);
     };
-    cy.on('zoom', setFar);
+    // `viewport()` (the reduced-motion fit) emits 'viewport', not 'zoom'.
+    cy.on('zoom viewport', setFar);
     smoothFit(cy, 40, 1.1, legendReserve());
+    setFar();
     cy.on('tap', 'node:childless', (e) => setSelected(e.target.id()));
     cy.on('tap', (e) => e.target === cy && setSelected(null));
     cy.on(
