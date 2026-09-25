@@ -119,14 +119,29 @@ export function backbone(
 }
 
 /**
- * The backbone over only the relationship families switched on, as indices into the
- * full `links`: a family that is off no longer takes a term's strongest-link slots, so
- * the families left on fill them.
+ * The relationship families the overview draws by default (A95, owner-approved): kind-of,
+ * part-of, implements (structure), requires (dependency), mitigates, exploits, causes
+ * (security), mandates (regulation) and supersedes (lineage). Contrasts, alternatives
+ * and "used with" are off: they appear when a term is selected (a selected term always
+ * shows all its relationships) or when the reader ticks them.
+ */
+export const OVERVIEW_FAMILIES: ReadonlySet<string> = new Set([
+  'structure',
+  'dependency',
+  'security',
+  'regulation',
+  'lineage',
+]);
+
+/**
+ * The backbone over only the relationship families switched on (by default the
+ * overview's, `OVERVIEW_FAMILIES`), as indices into the full `links`: a family that is
+ * off no longer takes a term's strongest-link slots, so the families left on fill them.
  */
 export function backboneOf(
   nodes: Node[],
   links: (WeightedLink & { type?: string; primary?: boolean })[],
-  families: ReadonlySet<string>,
+  families: ReadonlySet<string> = OVERVIEW_FAMILIES,
 ): Set<number> {
   const on = links.flatMap((l, i) => (families.has(l.family) ? [i] : []));
   const chosen = backbone(
