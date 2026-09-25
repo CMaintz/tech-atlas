@@ -1,0 +1,50 @@
+term:
+  en: Keyword search
+  da: Nøgleordssøgning
+aka:
+  en: [lexical search, full-text search, BM25]
+  da: [leksikalsk søgning, fritekstsøgning, BM25]
+domain: [ai]
+cluster: retrieval
+layer: application
+status: current
+summary:
+  en: Finding texts that contain the same words as the question, ranked by how often and how rarely those words appear.
+  da: At finde tekster, der indeholder de samme ord som spørgsmålet, rangeret efter hvor ofte og hvor sjældent ordene forekommer.
+body:
+  formal:
+    en: A way of searching that scores each stored text by the words it shares with the question, giving more weight to words that are rare across all texts and less to words repeated many times; BM25 is the most common scoring recipe.
+    da: En søgemetode, der giver hver gemt tekst point for de ord, den deler med spørgsmålet, med mere vægt til ord, der er sjældne på tværs af alle tekster, og mindre til ord, der gentages mange gange; BM25 er den mest udbredte pointformel.
+  plain:
+    en: Like the index at the back of a book — look up "tax" and it lists every page where that exact word is printed, but not the page that says "duty".
+    da: Som stikordsregistret bag i en bog — slå op under "skat", og det viser hver side, hvor netop det ord står, men ikke siden, der siger "afgift".
+  inPractice:
+    en: A support agent pastes the error code "ERR-4031" into the help centre and keyword search returns the one article that mentions that exact code.
+    da: En supportmedarbejder indsætter fejlkoden "ERR-4031" i hjælpecentret, og nøgleordssøgning finder den ene artikel, der nævner netop den kode.
+  whyItMatters:
+    en: It is fast, cheap and easy to explain, and it wins on names, product numbers and codes where meaning-based search tends to blur the details.
+    da: Den er hurtig, billig og let at forklare, og den vinder på navne, varenumre og koder, hvor betydningsbaseret søgning har det med at udviske detaljerne.
+edges:
+  contrasts-with:
+    - to: semantic-search
+      why:
+        en: Keyword search needs the same words to appear; semantic search matches on meaning, so each catches results the other misses.
+        da: Nøgleordssøgning kræver, at de samme ord optræder; semantisk søgning matcher på betydning, så hver fanger resultater, den anden overser.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: retrieval-augmented-generation
+      why:
+        en: Many RAG systems still find their passages, fully or partly, by matching words, especially for exact terms and codes.
+        da: Mange RAG-systemer finder stadig helt eller delvist deres afsnit ved at matche ord, især for præcise begreber og koder.
+      strength: normal
+      confidence: high
+    - reranking
+sources:
+  - title: Robertson & Zaragoza (2009), The Probabilistic Relevance Framework — BM25 and Beyond
+    tier: reference
+    publisher: Foundations and Trends in Information Retrieval
+  - title: 'Manning, Raghavan & Schütze, Introduction to Information Retrieval'
+    tier: textbook
+    publisher: Cambridge University Press
+draft: true

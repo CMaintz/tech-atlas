@@ -1,0 +1,40 @@
+term:
+  en: Underfitting
+  da: Undertilpasning (underfitting)
+aka:
+  en: []
+  da: [underfitting]
+domain: [ai]
+cluster: training
+layer: training
+status: current
+summary:
+  en: When a model is too simple or trained too little to catch the pattern, so it scores badly even on the examples it learned from.
+  da: Når en model er for simpel eller trænet for lidt til at fange mønstret, så den scorer dårligt selv på de eksempler, den lærte af.
+body:
+  formal:
+    en: A failure of model training in which the model cannot fit even its training data well — high loss on the training data and on held-back data alike — usually because it has too few model parameters, too few epochs or poor input features.
+    da: En fejl i modeltræning, hvor modellen ikke engang kan tilpasse sig sine træningsdata godt — højt tab både på træningsdata og på tilbageholdte data — typisk fordi den har for få modelparametre, for få epoker eller dårlige inputoplysninger.
+  plain:
+    en: Like describing every animal as "has legs" — the rule is too rough to tell a dog from a table, even for the animals you studied.
+    da: Som at beskrive alle dyr som "har ben" — reglen er for grov til at skelne en hund fra et bord, selv for de dyr, man har studeret.
+  inPractice:
+    en: A straight-line forecast of shop sales keeps missing both summer peaks and Christmas rushes in last year's own figures, so the team switches to a richer model.
+    da: En lineær prognose for butikssalg rammer hverken sommertoppe eller julehandel i sidste års egne tal, så teamet skifter til en rigere model.
+  whyItMatters:
+    en: A model like this is wrong in a steady, predictable way, so it can look stable while giving poor decisions; fixing it means more capacity or more training, not more rules.
+    da: En undertilpasset model tager fejl på en stabil, forudsigelig måde, så den kan se solid ud, mens den giver dårlige beslutninger; løsningen er mere kapacitet eller mere træning, ikke flere regler.
+edges:
+  requires: [model-training, loss-function]
+  causes:
+    - to: hallucination
+      why:
+        en: A language model that has not learned enough fills gaps with fluent guesses more often.
+        da: En sprogmodel, der ikke har lært nok, fylder oftere huller ud med flydende gæt.
+      strength: minor
+      confidence: low
+sources:
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 5.2)'
+    tier: textbook
+    publisher: MIT Press
+draft: true

@@ -1,0 +1,61 @@
+term:
+  en: Model evaluation (evals)
+  da: Modelevaluering (evals)
+aka:
+  en: [AI evaluation]
+  da: [AI-evaluering]
+domain: [ai]
+cluster: evaluation
+layer: model
+status: current
+summary:
+  en: The practice of checking how well an AI system does its job — with scores, public tests, human review and deliberate attacks.
+  da: Praksis med at kontrollere, hvor godt et AI-system løser sin opgave — med tal, offentlige tests, menneskelig gennemgang og bevidste angreb.
+body:
+  formal:
+    en: The planned measuring of a model or AI system against goals for quality, safety and fairness, combining numbers such as accuracy and the F1 score, benchmark results, human review, LLM-as-a-judge grading and AI red teaming.
+    da: Den planlagte måling af en model eller et AI-system op imod mål for kvalitet, sikkerhed og retfærdighed, som kombinerer tal som nøjagtighed og F1-score, benchmarkresultater, menneskelig gennemgang, LLM som dommer og AI red teaming.
+  plain:
+    en: Like a car's road trials before sale — speed runs on the track, crash checks, drivers' opinions and people trying hard to make it fail.
+    da: Som en bils prøvekørsler før salg — fartløb på banen, kollisionsforsøg, førernes meninger og folk, der gør alt for at få den til at svigte.
+  inPractice:
+    en: Before switching its support bot to a newer large language model, a team reruns 500 saved customer questions, has staff grade a sample of answers and only switches if nothing gets worse.
+    da: Før supportbotten skiftes til en nyere stor sprogmodel, kører et team 500 gemte kundespørgsmål igen, lader medarbejdere bedømme et udvalg af svarene og skifter kun, hvis intet bliver dårligere.
+  whyItMatters:
+    en: Without regular checks nobody knows whether a change made the system better, worse or unsafe, and rules such as the EU AI Act expect proof that high-risk systems were tested.
+    da: Uden faste kontroller ved ingen, om en ændring gjorde systemet bedre, dårligere eller usikkert, og regler som EU's AI-forordning forventer bevis for, at højrisikosystemer er testet.
+edges:
+  requires: [machine-learning]
+  contrasts-with:
+    - to: model-training
+      why:
+        en: Training changes the model to fit its examples; evaluation only measures the finished model and must not feed back into it unchecked.
+        da: Træning ændrer modellen, så den passer til sine eksempler; evaluering måler kun den færdige model og må ikke ukontrolleret føres tilbage i den.
+      strength: primary
+      confidence: high
+  mitigates:
+    - to: ai-bias
+      why:
+        en: Comparing results group by group shows when a model treats some people worse, so it can be fixed before release.
+        da: Når resultaterne sammenlignes gruppe for gruppe, ses det, når en model behandler nogle mennesker dårligere, så det kan rettes før udgivelse.
+      strength: normal
+      confidence: medium
+    - hallucination
+  used-with:
+    - to: prompt-engineering
+      why:
+        en: Each prompt change should be re-run against a fixed set of test cases so that improvements in one place do not break another.
+        da: Hver promptændring bør køres igen mod et fast sæt testtilfælde, så forbedringer ét sted ikke ødelægger noget andet.
+      strength: normal
+      confidence: medium
+sources:
+  - title: 'NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0), Measure function'
+    tier: standard
+    publisher: NIST
+  - title: 'NIST AI 600-1 — Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile'
+    tier: standard
+    publisher: NIST
+  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 15
+    tier: standard
+    publisher: European Union
+draft: true

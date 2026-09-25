@@ -1,0 +1,49 @@
+term:
+  en: Temperature
+  da: Temperatur
+aka:
+  en: [sampling temperature]
+  da: [samplingtemperatur]
+domain: [ai]
+cluster: prompting
+layer: inference
+status: current
+summary:
+  en: A per-request dial — low keeps a language model's wording steady and repeatable, high makes it more varied and less predictable.
+  da: En indstilling pr. kald — lav holder en sprogmodels ordvalg stabilt og gentageligt, høj gør det mere varieret og uforudsigeligt.
+body:
+  formal:
+    en: A number, usually between 0 and 2, that reshapes the chances next-token prediction gives before sampling picks a token; values below 1 sharpen them toward the most likely tokens, values above 1 flatten them so less likely tokens are picked more often.
+    da: Et tal, typisk mellem 0 og 2, der omformer de chancer, forudsigelse af næste token giver, før sampling vælger et token; værdier under 1 skærper dem mod de mest sandsynlige tokens, værdier over 1 udjævner dem, så mindre sandsynlige tokens vælges oftere.
+  plain:
+    en: Like a DJ's shuffle setting — turned down, you mostly hear the crowd favourites; turned up, more rare tracks slip in.
+    da: Som en DJ's blandeknap — skruet ned hører man mest publikumsfavoritterne; skruet op sniger flere sjældne numre sig ind.
+  inPractice:
+    en: A team sets it near 0 for a tool that pulls fields out of contracts, so the same input gives the same result, and near 1 for a tool that suggests product names.
+    da: Et team sætter den tæt på 0 for et værktøj, der trækker felter ud af kontrakter, så samme input giver samme resultat, og tæt på 1 for et værktøj, der foreslår produktnavne.
+  whyItMatters:
+    en: It is one of the few settings you can change at run time without touching the model, and picking the wrong level gives either stiff, repetitive text or loose, rambling text.
+    da: Det er en af de få indstillinger, man kan ændre under kørslen uden at røre modellen, og et forkert niveau giver enten stiv, gentagende tekst eller løs, springende tekst.
+edges:
+  requires: [next-token-prediction]
+  part-of:
+    - to: sampling
+      why:
+        en: It is a setting of the sampling step, adjusting the chances just before each token is drawn.
+        da: Den er en indstilling i sampling-trinnet, der justerer chancerne lige før hvert token trækkes.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: top-p-sampling
+      why:
+        en: The two are often set together; many providers advise changing one and leaving the other at its default.
+        da: De to sættes ofte sammen; mange udbydere anbefaler at ændre den ene og lade den anden stå på standardværdien.
+      strength: normal
+      confidence: high
+sources:
+  - title: 'Jurafsky & Martin, Speech and Language Processing (3rd ed. draft), chapter on large language models (temperature sampling)'
+    tier: textbook
+  - title: OpenAI API reference — Chat Completions (temperature, top_p)
+    tier: official-doc
+    publisher: OpenAI
+draft: true

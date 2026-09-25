@@ -1,0 +1,69 @@
+term:
+  en: Agent instructions file
+  da: Instruktionsfil til agenter
+aka:
+  en: [AGENTS.md, CLAUDE.md, rules file]
+  da: [AGENTS.md, CLAUDE.md, regelfil]
+domain: [ai]
+cluster: ai-coding
+layer: agent
+era: 2025
+status: emerging
+summary:
+  en: A plain text file kept with the code that tells AI tools the project's rules, commands and habits before they start work.
+  da: En almindelig tekstfil, der ligger sammen med koden og fortæller AI-værktøjer projektets regler, kommandoer og vaner, før de går i gang.
+body:
+  formal:
+    en: A file stored in the project under version control that a coding agent automatically loads into its context window at the start of each session, holding standing guidance such as build and test commands, style rules, folder layout and things never to do.
+    da: En fil gemt i projektet under versionsstyring, som en kodeagent automatisk indlæser i sit kontekstvindue i starten af hver session, med faste anvisninger som bygge- og testkommandoer, stilregler, mappestruktur og ting, der aldrig må gøres.
+  plain:
+    en: Like the note a family leaves for the house-sitter — where things are, which door sticks, never let the cat out — read once on arrival and followed all week.
+    da: Som den seddel, en familie efterlader til huspasseren — hvor tingene er, hvilken dør der binder, luk aldrig katten ud — læst én gang ved ankomsten og fulgt hele ugen.
+  inPractice:
+    en: A team adds a short file saying "run the linter before finishing, never edit generated files, use the shared date helper"; every agent session on the project now follows it without being told.
+    da: Et team tilføjer en kort fil med "kør linteren, før du slutter, ret aldrig i genererede filer, brug den fælles datohjælper"; alle agentsessioner i projektet følger den nu uden at få besked.
+  whyItMatters:
+    en: It turns team knowledge into lasting guidance for AI tools, but anyone who can change the file can change what the agent does — so it needs the same care as code.
+    da: Den gør teamets viden til varig vejledning for AI-værktøjer, men alle, der kan ændre filen, kan ændre, hvad agenten gør — så den kræver samme omhu som kode.
+edges:
+  requires: [coding-agent]
+  part-of:
+    - to: context-engineering
+      why:
+        en: It is a ready-made, reusable piece of context that is loaded before any request, chosen deliberately to steer the agent.
+        da: Den er et færdigt, genbrugeligt stykke kontekst, der indlæses før enhver forespørgsel og er valgt bevidst for at styre agenten.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: coding-agent
+      why:
+        en: Coding agents look for these files in the project and read them before doing anything else.
+        da: Kodeagenter leder efter disse filer i projektet og læser dem, før de gør noget andet.
+      strength: primary
+      confidence: high
+    - to: prompt-injection
+      why:
+        en: Because the agent trusts the file, hidden instructions slipped into it through a change request or a copied project can turn the agent against its user.
+        da: Fordi agenten stoler på filen, kan skjulte instruktioner, der sniges ind via en ændringsanmodning eller et kopieret projekt, vende agenten mod sin bruger.
+      strength: primary
+      confidence: medium
+    - to: version-control
+      why:
+        en: Keeping the file with the code means changes to the agent's orders are tracked and reviewed like any other change.
+        da: At filen ligger med koden betyder, at ændringer i agentens ordrer spores og gennemgås som enhver anden ændring.
+      strength: normal
+      confidence: high
+  contrasts-with:
+    - to: system-prompt
+      why:
+        en: Both are standing orders, but the system prompt is set by whoever builds the AI tool, while this file is written by the project team and travels with the code.
+        da: Begge er faste ordrer, men systemprompten sættes af dem, der bygger AI-værktøjet, mens denne fil skrives af projektteamet og følger med koden.
+      strength: normal
+      confidence: high
+sources:
+  - title: AGENTS.md — a simple, open format for guiding coding agents (agents.md)
+    tier: official-doc
+  - title: Anthropic, Claude Code documentation — Manage Claude's memory (CLAUDE.md)
+    tier: official-doc
+    publisher: Anthropic
+draft: true

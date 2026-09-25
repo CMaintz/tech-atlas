@@ -26,7 +26,14 @@ body:
     da: AI-systemer kan fejle på måder, almindelige test aldrig afprøver, og EU's AI-forordning kræver nu den slags angrebstest af de mest kraftfulde modeller til generelle formål.
 edges:
   requires: [artificial-intelligence]
-  part-of: [ai-governance]
+  part-of:
+    - ai-governance
+    - to: model-evaluation
+      why:
+        en: Deliberate attacks on a model are one of the ways its safety is checked, alongside scores, benchmarks and human review.
+        da: Bevidste angreb på en model er en af måderne, dens sikkerhed kontrolleres på, sammen med tal, benchmarks og menneskelig gennemgang.
+      strength: normal
+      confidence: medium
   contrasts-with:
     - to: penetration-test
       why:
@@ -41,6 +48,13 @@ edges:
         da: Testerne prøver mange skjulte og direkte instruktioner, så svage punkter bliver fundet og lukket, før angribere finder dem.
       strength: normal
       confidence: high
+  used-with:
+    - to: jailbreak
+      why:
+        en: Red teamers try jailbreaks on purpose to find where a model's safety rules give way before attackers do.
+        da: Red teamere forsøger bevidst jailbreaks for at finde, hvor en models sikkerhedsregler giver efter, før angribere gør det.
+      strength: normal
+      confidence: medium
 sources:
   - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile
     tier: standard

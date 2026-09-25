@@ -1,0 +1,51 @@
+term:
+  en: Few-shot prompting
+  da: Few-shot prompting
+aka:
+  en: []
+  da: []
+domain: [ai]
+cluster: prompting
+layer: inference
+status: current
+era: 2020
+summary:
+  en: Showing a language model a handful of worked examples inside the request, so it copies the pattern for the new case.
+  da: At vise en sprogmodel en håndfuld løste eksempler i selve forespørgslen, så den efterligner mønstret i det nye tilfælde.
+body:
+  formal:
+    en: A way of steering a large language model by placing several input–answer pairs in the prompt before the real input; the model picks up the task from these examples at inference time, with no change to its weights.
+    da: En måde at styre en stor sprogmodel på ved at placere flere par af input og svar i prompten før det egentlige input; modellen opfanger opgaven fra eksemplerne under inferensen uden ændringer i sine vægte.
+  plain:
+    en: Like showing a new cashier three filled-in receipts before asking them to write the fourth — they copy the layout without a lesson.
+    da: Som at vise en ny kassemedarbejder tre udfyldte kvitteringer, før de skal skrive den fjerde — de kopierer opsætningen uden undervisning.
+  inPractice:
+    en: To sort support emails, a team puts five sample emails, each followed by its right label, above the new email, and the assistant replies with just a label in the same style.
+    da: For at sortere supportmails sætter et team fem eksempelmails, hver efterfulgt af den rigtige kategori, over den nye mail, og assistenten svarer med blot en kategori i samme stil.
+  whyItMatters:
+    en: It lets a team get a new task working in minutes without fine-tuning, but the examples use up space in the context window and the model may copy their odd habits too closely.
+    da: Det lader et team få en ny opgave til at virke på få minutter uden finjustering, men eksemplerne optager plads i kontekstvinduet, og modellen kan efterligne deres særheder for tæt.
+edges:
+  requires: [prompt]
+  kind-of: [prompt-engineering]
+  alternative-to:
+    - to: fine-tuning
+      why:
+        en: Both teach a model a task from examples; few-shot puts them in each request, while fine-tuning bakes them into the weights.
+        da: Begge lærer en model en opgave ud fra eksempler; few-shot lægger dem i hver forespørgsel, mens finjustering bager dem ind i vægtene.
+      strength: primary
+      confidence: high
+  contrasts-with:
+    - to: zero-shot-prompting
+      why:
+        en: Few-shot shows the model worked examples first; zero-shot gives only the instruction.
+        da: Few-shot viser modellen løste eksempler først; zero-shot giver kun instruktionen.
+      strength: primary
+      confidence: high
+sources:
+  - title: Brown et al. (2020), Language Models are Few-Shot Learners
+    tier: reference
+    url: https://arxiv.org/abs/2005.14165
+  - title: 'Jurafsky & Martin, Speech and Language Processing (3rd ed. draft), chapter on large language models'
+    tier: textbook
+draft: true

@@ -1,0 +1,44 @@
+term:
+  en: Regression
+  da: Regression
+aka:
+  en: []
+  da: []
+domain: [ai]
+cluster: ml-fundamentals
+layer: training
+status: current
+summary:
+  en: Teaching a computer to guess a number on a scale — a price, a time, a size — from past examples where the real number was known.
+  da: At lære en computer at gætte et tal på en skala — en pris, en tid, en størrelse — ud fra tidligere eksempler med kendte tal.
+body:
+  formal:
+    en: A task in machine learning where the model learns from labeled examples to map an input to a number that can take any value in a range, and is judged by how far its guesses land from the real values.
+    da: En opgave i maskinlæring, hvor modellen lærer af mærkede eksempler at knytte et input til et tal, der kan antage enhver værdi i et interval, og bedømmes på, hvor langt dens gæt ligger fra de rigtige værdier.
+  plain:
+    en: Like guessing a house's price from its size, age and street after seeing what many other houses sold for — the answer is an amount, not a yes or no.
+    da: Som at gætte en boligs pris ud fra størrelse, alder og gade efter at have set, hvad mange andre boliger blev solgt for — svaret er et beløb, ikke et ja eller nej.
+  inPractice:
+    en: An IT team learns from a year of usage figures how much disk space each server will need next quarter, so it can buy storage before it runs out.
+    da: Et IT-team lærer ud fra et års forbrugstal, hvor meget diskplads hver server får brug for i næste kvartal, så der kan købes lagerplads, før den løber tør.
+  whyItMatters:
+    en: Many business questions are "how much" or "how long", not "which one"; the guess always has a margin of error that must be shown, not hidden.
+    da: Mange forretningsspørgsmål handler om "hvor meget" eller "hvor længe", ikke "hvilken"; gættet har altid en fejlmargin, der skal vises, ikke skjules.
+edges:
+  kind-of: [supervised-learning]
+  requires: [model-training]
+  used-with:
+    - to: validation-set
+      why:
+        en: How far the guesses miss is only honest when measured on examples the model did not learn from.
+        da: Hvor meget gættene rammer ved siden af, er kun ærligt, når det måles på eksempler, modellen ikke har lært af.
+      strength: normal
+      confidence: high
+sources:
+  - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    tier: textbook
+    publisher: Pearson
+  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    tier: standard
+    publisher: ISO/IEC
+draft: true

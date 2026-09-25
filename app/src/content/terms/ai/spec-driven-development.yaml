@@ -1,0 +1,52 @@
+term:
+  en: Spec-driven development
+  da: Specifikationsdrevet udvikling
+aka:
+  en: [spec-first development]
+  da: [spec-drevet udvikling]
+domain: [ai]
+cluster: ai-coding
+layer: application
+era: 2025
+status: emerging
+summary:
+  en: Writing down exactly what the software must do, agreed by people, before letting AI tools write the code from that plan.
+  da: At skrive præcist ned, hvad softwaren skal gøre, godkendt af mennesker, før AI-værktøjer får lov at skrive koden ud fra den plan.
+body:
+  formal:
+    en: A way of working with coding agents in which a written description of goals, behaviour, limits and acceptance checks is drafted and reviewed first, then broken into tasks the agent carries out, with the written description kept as the lasting source of truth and updated before the code.
+    da: En arbejdsform med kodeagenter, hvor en skriftlig beskrivelse af mål, adfærd, grænser og godkendelsestjek først udarbejdes og gennemgås, derefter deles op i opgaver, som agenten udfører, og den skriftlige beskrivelse bevares som den varige kilde til sandheden og opdateres før koden.
+  plain:
+    en: Like agreeing on drawings with an architect before the builders arrive — slower on day one, but nobody pours concrete for a room you never wanted.
+    da: Som at blive enige om tegningerne med en arkitekt, før håndværkerne kommer — langsommere den første dag, men ingen støber beton til et rum, man aldrig ønskede.
+  inPractice:
+    en: Before any code is written, a team agrees a one-page description of a password-reset feature, including "links expire after 15 minutes"; the agent builds from it, and the tests check that rule.
+    da: Før der skrives kode, bliver et team enige om en side, der beskriver en funktion til nulstilling af adgangskode, inklusive "links udløber efter 15 minutter"; agenten bygger ud fra den, og testene tjekker den regel.
+  whyItMatters:
+    en: It puts people back in charge of what gets built and gives both the AI and the reviewers something clear to check against, including security needs agreed up front.
+    da: Den giver mennesker styringen tilbage over, hvad der bygges, og giver både AI'en og dem, der gennemgår koden, noget klart at tjekke op imod, herunder sikkerhedskrav aftalt på forhånd.
+edges:
+  requires: [coding-agent]
+  contrasts-with:
+    - to: vibe-coding
+      why:
+        en: Vibe coding lets the code decide what gets built and skips reading it; here people agree what should be built first and check the result against it.
+        da: Ved vibe coding bestemmer koden, hvad der bygges, og læsningen springes over; her bliver mennesker først enige om, hvad der skal bygges, og tjekker resultatet op imod det.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: threat-modelling
+      why:
+        en: Writing the description first is the natural moment to ask what could go wrong and write the answers in as rules the agent must follow.
+        da: At skrive beskrivelsen først er det naturlige tidspunkt at spørge, hvad der kan gå galt, og skrive svarene ind som regler, agenten skal følge.
+      strength: normal
+      confidence: medium
+    - version-control
+sources:
+  - title: GitHub, Spec Kit — toolkit for spec-driven development (github/spec-kit)
+    tier: official-doc
+    publisher: GitHub
+  - title: NIST SP 800-218 — Secure Software Development Framework (SSDF) Version 1.1
+    tier: standard
+    publisher: NIST
+draft: true

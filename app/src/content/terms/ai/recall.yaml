@@ -1,0 +1,45 @@
+term:
+  en: Recall
+  da: Genkaldelse (recall)
+aka:
+  en: [sensitivity, true positive rate]
+  da: [sensitivitet, recall]
+domain: [ai]
+cluster: evaluation
+layer: theory
+status: current
+summary:
+  en: Of all the real positive cases, the share a model manages to find — in security terms, how many real attacks were caught.
+  da: Af alle de ægte positive tilfælde, andelen en model formår at finde — i sikkerhedssprog, hvor mange reelle angreb der blev fanget.
+body:
+  formal:
+    en: The number of true positives divided by all cases that truly belong to the class (true positives plus false negatives), taken from a confusion matrix for one class.
+    da: Antallet af sande positive divideret med alle tilfælde, der reelt hører til klassen (sande positive plus falske negative), hentet fra en forvekslingsmatrix for én klasse.
+  plain:
+    en: Like a fishing net with small holes — it brings up nearly every fish in the lake, along with plenty of weed and old boots.
+    da: Som et fiskenet med små masker — det fanger næsten hver fisk i søen, sammen med masser af tang og gamle støvler.
+  inPractice:
+    en: A red team runs 50 attacks against a company, and the anomaly detection tool raises an alert for 40 of them, so its recall on that exercise is 80%; the 10 it missed become the first things to fix.
+    da: Et red team kører 50 angreb mod en virksomhed, og anomalidetektionen slår alarm ved 40 af dem, så genkaldelsen i den øvelse er 80 %; de 10, den overså, er det første, der skal rettes.
+  whyItMatters:
+    en: A missed attack or a missed cancer costs far more than an extra check, so recall is the number to raise when missing a real case is the worst outcome.
+    da: Et overset angreb eller en overset kræftsygdom koster langt mere end en ekstra kontrol, så genkaldelse er tallet, man skal hæve, når det værste er at overse et ægte tilfælde.
+edges:
+  requires: [confusion-matrix, classification]
+  part-of:
+    - to: model-evaluation
+      why:
+        en: It is one of the standard numbers reported whenever a model that sorts cases into groups is checked.
+        da: Det er et af de faste tal, der rapporteres, når en model, der sorterer tilfælde i grupper, bliver kontrolleret.
+      strength: normal
+      confidence: high
+sources:
+  - title: 'Jurafsky & Martin, Speech and Language Processing (ch. 4, Evaluation: precision, recall, F-measure)'
+    tier: textbook
+  - title: 'Fawcett (2006), An introduction to ROC analysis'
+    tier: reference
+    publisher: Pattern Recognition Letters
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 11.1)'
+    tier: textbook
+    publisher: MIT Press
+draft: true

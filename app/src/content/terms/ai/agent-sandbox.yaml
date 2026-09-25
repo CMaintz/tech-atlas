@@ -1,0 +1,64 @@
+term:
+  en: Agent sandbox
+  da: Agent-sandkasse
+aka:
+  en: [sandboxing]
+  da: [sandboxing]
+domain: [ai, security]
+cluster: agents
+layer: agent
+status: emerging
+summary:
+  en: A walled-off space where an AI agent runs code and uses tools, so a mistake or trick cannot reach the rest of your systems.
+  da: Et afgrænset rum, hvor en AI-agent kører kode og bruger værktøjer, så en fejl eller et trick ikke kan nå resten af ens systemer.
+body:
+  formal:
+    en: A limited place to run things — often a container or small virtual machine — in which an agent's commands execute with only chosen folders, network targets and rights, and which can be thrown away after the task.
+    da: Et begrænset sted at køre ting — ofte en container eller en lille virtuel maskine — hvor en agents kommandoer udføres med kun udvalgte mapper, netværksmål og rettigheder, og som kan smides væk efter opgaven.
+  plain:
+    en: Like letting a new cook practise in a test kitchen instead of the restaurant — if they set the pan on fire, only the test kitchen gets burnt.
+    da: Som at lade en ny kok øve sig i et prøvekøkken i stedet for i restauranten — hvis panden bryder i brand, er det kun prøvekøkkenet, der brænder.
+  inPractice:
+    en: A coding assistant runs tests and shell commands inside a fresh container that can see only the project folder and cannot reach the internet, then the container is deleted.
+    da: En kodeassistent kører tests og kommandoer i en frisk container, der kun kan se projektmappen og ikke kan nå internettet, hvorefter containeren slettes.
+  whyItMatters:
+    en: No one can promise an agent will never be tricked or wrong, so limiting what it can touch is what turns a possible disaster into a small, contained failure.
+    da: Ingen kan love, at en agent aldrig bliver narret eller tager fejl, så det at begrænse, hvad den kan røre, er det, der gør en mulig katastrofe til en lille, afgrænset fejl.
+edges:
+  requires: [ai-agent]
+  mitigates:
+    - to: excessive-agency
+      why:
+        en: Even if an agent has broad tools, the walls around it cap what those tools can actually reach.
+        da: Selv hvis en agent har brede værktøjer, sætter væggene omkring den en grænse for, hvad værktøjerne faktisk kan nå.
+      strength: primary
+      confidence: high
+    - to: prompt-injection
+      why:
+        en: It does not stop the trick, but it limits the damage — a tricked agent can only harm what is inside the walls.
+        da: Det stopper ikke tricket, men begrænser skaden — en narret agent kan kun skade det, der er inden for væggene.
+      strength: normal
+      confidence: high
+  used-with:
+    - to: container
+      why:
+        en: Containers are the most common way to build an agent sandbox quickly and throw it away after each task.
+        da: Containere er den mest udbredte måde at bygge en agent-sandkasse hurtigt og smide den væk efter hver opgave.
+      strength: primary
+      confidence: high
+    - least-privilege
+    - computer-use
+    - to: coding-agent
+      why:
+        en: Run the agent inside a sandbox so its commands, file access and network reach stop at the project; a tricked agent then cannot touch the rest of the machine.
+        da: Kør agenten i en sandkasse, så dens kommandoer, filadgang og netværksadgang stopper ved projektet; en narret agent kan så ikke røre resten af maskinen.
+      strength: normal
+      confidence: medium
+sources:
+  - title: OWASP Top 10 for LLM Applications 2025 (LLM06 Excessive Agency)
+    tier: reference
+    publisher: OWASP
+  - title: NIST SP 800-190 — Application Container Security Guide
+    tier: standard
+    publisher: NIST
+draft: true

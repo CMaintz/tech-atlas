@@ -1,0 +1,51 @@
+term:
+  en: Grounding
+  da: Forankring (grounding)
+aka:
+  en: [grounded generation]
+  da: [forankret generering]
+domain: [ai]
+cluster: retrieval
+layer: application
+status: current
+summary:
+  en: Tying a model's answer to sources supplied with the question, so each claim can be traced back to a given document.
+  da: At binde en models svar til kilder, der gives med spørgsmålet, så hver påstand kan føres tilbage til et bestemt dokument.
+body:
+  formal:
+    en: The practice of placing trusted source text in the context window and telling the model to answer only from it, often citing the passage behind each claim and saying so when the sources do not cover the question.
+    da: Praksissen med at lægge troværdig kildetekst i kontekstvinduet og bede modellen om kun at svare ud fra den, ofte med henvisning til afsnittet bag hver påstand og med besked, når kilderne ikke dækker spørgsmålet.
+  plain:
+    en: Like a reporter who may only write what is in the notes on the desk, with a note saying where every line came from — no notes, no story.
+    da: Som en journalist, der kun må skrive det, der står i noterne på bordet, med en henvisning til, hvor hver linje stammer fra — ingen noter, ingen historie.
+  inPractice:
+    en: An insurance bot answers a claims question by quoting clause 4.2 of the customer's own policy with a link, and replies "not covered in your documents" when nothing fits.
+    da: En forsikringsbot besvarer et skadespørgsmål ved at citere punkt 4.2 i kundens egen police med et link og svarer "ikke dækket af dine dokumenter", når intet passer.
+  whyItMatters:
+    en: Answers a person can check against a named source are far easier to trust and audit, though the model can still misread or stretch a source.
+    da: Svar, som en person kan tjekke op mod en navngiven kilde, er langt lettere at stole på og revidere, selvom modellen stadig kan misforstå eller strække en kilde.
+edges:
+  mitigates:
+    - to: hallucination
+      why:
+        en: Limiting answers to supplied sources, with citations, makes unsupported claims rarer and easier to spot — but does not remove them.
+        da: At begrænse svar til de givne kilder med kildehenvisninger gør udokumenterede påstande sjældnere og lettere at opdage — men fjerner dem ikke.
+      strength: primary
+      confidence: medium
+  requires:
+    - large-language-model
+    - context-window
+  used-with:
+    - to: retrieval-augmented-generation
+      why:
+        en: RAG finds the sources; grounding is the instruction and checking that keeps the answer to them.
+        da: RAG finder kilderne; forankring er den instruks og kontrol, der holder svaret til dem.
+      strength: primary
+      confidence: high
+sources:
+  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile
+    tier: standard
+    publisher: NIST
+  - title: Gao et al. (2023), Enabling Large Language Models to Generate Text with Citations
+    tier: reference
+draft: true

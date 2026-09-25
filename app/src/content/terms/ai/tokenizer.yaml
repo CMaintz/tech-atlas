@@ -1,0 +1,42 @@
+term:
+  en: Tokenizer
+  da: Tokenizer
+aka:
+  en: []
+  da: [tokeniser]
+domain: [ai]
+cluster: llm
+layer: model
+status: current
+summary:
+  en: The part of a language model that cuts text into tokens and turns them into numbers on the way in, and back into text on the way out.
+  da: Den del af en sprogmodel, der deler tekst op i tokens og laver dem om til tal på vej ind og tilbage til tekst på vej ud.
+body:
+  formal:
+    en: A fixed program with a list of known text pieces, built before model training, that splits any input text into tokens from that list and maps each one to a number the model can work with.
+    da: Et fast program med en liste over kendte tekststykker, bygget før modeltræningen, som deler enhver tekst op i tokens fra listen og knytter hvert til et tal, modellen kan arbejde med.
+  plain:
+    en: Like a sorting machine at a post office that reads every address and cuts it into standard pieces — street, number, town — before anything else can happen.
+    da: Som en sortermaskine på et posthus, der læser hver adresse og deler den op i faste dele — gade, nummer, by — før noget andet kan ske.
+  inPractice:
+    en: The same sentence costs more to send in Danish than in English, because the tokenizer was built mostly from English text and cuts Danish words into more pieces.
+    da: Den samme sætning koster mere at sende på dansk end på engelsk, fordi tokenizeren mest er bygget ud fra engelsk tekst og deler danske ord op i flere stykker.
+  whyItMatters:
+    en: It decides what the model can "see" — odd spelling, hidden characters or rare words are cut up in surprising ways, which affects price, quality and some filter tricks.
+    da: Den bestemmer, hvad modellen kan "se" — mærkelig stavning, skjulte tegn eller sjældne ord deles op på overraskende måder, hvilket påvirker pris, kvalitet og visse filtertricks.
+edges:
+  requires: [token]
+  part-of:
+    - to: large-language-model
+      why:
+        en: Every language model comes with its own tokenizer, fixed before training; the model only ever sees the numbers it produces.
+        da: Hver sprogmodel har sin egen tokenizer, låst før træningen; modellen ser kun nogensinde de tal, den laver.
+      strength: primary
+      confidence: high
+  used-with: [transformer]
+sources:
+  - title: Sennrich, Haddow & Birch (2016), Neural Machine Translation of Rare Words with Subword Units
+    tier: reference
+  - title: 'Jurafsky & Martin, Speech and Language Processing'
+    tier: textbook
+draft: true

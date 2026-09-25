@@ -34,6 +34,19 @@ edges:
         da: Tekst i kontekstvinduet læses kun til det aktuelle svar; træningsdata formede modellen på forhånd. En leverandør kan dog gemme samtaler og senere genbruge dem som træningsdata.
       strength: primary
       confidence: high
+    - to: knowledge-cutoff
+      why:
+        en: The context window is what the model can read right now; the knowledge cutoff is where its built-in knowledge stops — new facts can only get in through the window.
+        da: Kontekstvinduet er, hvad modellen kan læse lige nu; vidensgrænsen er, hvor dens indbyggede viden stopper — nye fakta kan kun komme ind gennem vinduet.
+      strength: normal
+      confidence: medium
+  used-with:
+    - to: kv-cache
+      why:
+        en: The longer the context window in use, the larger the KV cache grows, so its memory cost often sets the practical context limit.
+        da: Jo længere kontekstvindue der bruges, desto større bliver KV-cachen, så dens hukommelsesforbrug sætter ofte den praktiske grænse for konteksten.
+      strength: normal
+      confidence: medium
 sources:
   - title: Vaswani et al. (2017), Attention Is All You Need
     tier: reference

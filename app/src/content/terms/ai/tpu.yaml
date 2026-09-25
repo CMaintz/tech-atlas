@@ -1,0 +1,42 @@
+term:
+  en: Tensor processing unit (TPU)
+  da: Tensor processing unit (TPU)
+aka:
+  en: [TPU]
+  da: [TPU]
+domain: [ai]
+cluster: ai-infrastructure
+layer: hardware
+era: 2016
+status: current
+summary:
+  en: Google's own chip built only for the number work inside neural networks, rented out through its cloud rather than sold.
+  da: Googles egen chip, bygget udelukkende til talarbejdet i neurale netværk og udlejet gennem Googles cloud frem for at blive solgt.
+body:
+  formal:
+    en: A custom chip designed by Google for multiplying large grids of numbers, the core work of neural networks; it gives up the general use of a GPU in return for more speed per unit of power on that one job, and is linked in large groups for model training and inference.
+    da: En specialbygget chip designet af Google til at gange store tabeller af tal, som er kernearbejdet i neurale netværk; den opgiver en GPU's brede anvendelse til gengæld for mere fart per strømenhed på netop den opgave og kobles i store grupper til modeltræning og inferens.
+  plain:
+    en: Like a kitchen machine that only makes pasta — useless for anything else, but for pasta it beats a whole team of all-round cooks.
+    da: Som en køkkenmaskine, der kun laver pasta — ubrugelig til alt andet, men til pasta slår den et helt hold af almindelige kokke.
+  inPractice:
+    en: A research team rents a group of TPUs from Google Cloud for a week to train a model, because it cannot buy the chips and install them in its own building.
+    da: Et forskerhold lejer en gruppe TPU'er fra Google Cloud i en uge for at træne en model, fordi det ikke kan købe chippene og sætte dem op i egne lokaler.
+  whyItMatters:
+    en: It shows that the biggest AI firms are designing their own chips to cut cost and stop needing one supplier, and that using them ties your work to that firm's cloud.
+    da: Den viser, at de største AI-firmaer designer deres egne chips for at sænke omkostninger og afhængighed af én leverandør — og at brugen af dem binder ens arbejde til firmaets cloud.
+edges:
+  requires:
+    - to: neural-network
+      why:
+        en: The chip is shaped around one job — the number work of neural networks — so it only makes sense once that work is understood.
+        da: Chippen er formet efter én opgave — talarbejdet i neurale netværk — så den giver først mening, når man forstår det arbejde.
+      strength: primary
+      confidence: high
+sources:
+  - title: Jouppi et al. (2017), In-Datacenter Performance Analysis of a Tensor Processing Unit
+    tier: reference
+  - title: Google Cloud documentation — Cloud TPU
+    tier: official-doc
+    publisher: Google
+draft: true

@@ -1,0 +1,46 @@
+term:
+  en: Accuracy
+  da: Nøjagtighed (accuracy)
+aka:
+  en: [classification accuracy]
+  da: [accuracy, træfsikkerhed]
+domain: [ai]
+cluster: evaluation
+layer: theory
+status: current
+summary:
+  en: The share of all cases a model gets right — simple to read, but it can look excellent when the thing you care about is rare.
+  da: Andelen af alle tilfælde, en model rammer rigtigt — let at læse, men den kan se flot ud, når det, man leder efter, er sjældent.
+body:
+  formal:
+    en: In classification, the number of correct answers divided by the total number of cases, read straight off a confusion matrix as the cells where the answer and the true class agree.
+    da: I klassifikation antallet af rigtige svar divideret med det samlede antal tilfælde, aflæst direkte i en forvekslingsmatrix som de felter, hvor svaret og den sande klasse stemmer overens.
+  plain:
+    en: Like a weather forecaster in the desert who says "no rain" every single day — right almost every time, and useless on the one day it pours.
+    da: Som en vejrudsigt i ørkenen, der siger "intet regn" hver eneste dag — rigtig næsten hver gang og ubrugelig den ene dag, det styrter ned.
+  inPractice:
+    en: A fraud model that marks every payment as honest scores 99.9% accuracy on a bank's records, because only one payment in a thousand is fraud — yet it catches none of them.
+    da: En svindelmodel, der markerer hver betaling som ærlig, får 99,9 % nøjagtighed på bankens data, fordi kun én betaling ud af tusind er svindel — men den fanger ingen af dem.
+  whyItMatters:
+    en: It is the number most people quote first, so teams must check whether the classes are balanced before trusting it, and turn to precision, recall or the F1 score when they are not.
+    da: Det er det tal, de fleste nævner først, så teams må tjekke, om klasserne er i balance, før de stoler på det, og bruge præcision, genkaldelse eller F1-score, når de ikke er.
+edges:
+  requires: [confusion-matrix, classification]
+  part-of: [model-evaluation]
+  contrasts-with:
+    - to: f1-score
+      why:
+        en: Accuracy counts every correct answer alike, so it hides a rare class that is always missed; the F1 score looks only at that class and exposes the problem.
+        da: Nøjagtighed tæller alle rigtige svar ens og skjuler derfor en sjælden klasse, der altid overses; F1-score ser kun på den klasse og afslører problemet.
+      strength: primary
+      confidence: high
+sources:
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 5.1.2 and 11.1)'
+    tier: textbook
+    publisher: MIT Press
+  - title: 'Jurafsky & Martin, Speech and Language Processing (ch. 4, Evaluation: precision, recall, F-measure)'
+    tier: textbook
+  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+    tier: standard
+    publisher: ISO/IEC
+draft: true

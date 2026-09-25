@@ -1,0 +1,48 @@
+term:
+  en: Reranking
+  da: Genrangering (reranking)
+aka:
+  en: [re-ranking]
+  da: [re-ranking]
+domain: [ai]
+cluster: retrieval
+layer: application
+status: current
+summary:
+  en: A second, more careful pass that reorders a first rough list of search results so the most useful ones end up on top.
+  da: En anden og mere grundig gennemgang, der sorterer en første grov liste af søgeresultater om, så de mest brugbare ender øverst.
+body:
+  formal:
+    en: A step in which a slower, more exact scorer — often a transformer that reads the question and each found text together — gives every candidate from a fast first search a new score, and only the top few are kept.
+    da: Et trin, hvor en langsommere og mere præcis bedømmer — ofte en transformer, der læser spørgsmålet og hver fundet tekst sammen — giver hver kandidat fra en hurtig første søgning en ny score, og kun de øverste få beholdes.
+  plain:
+    en: Like a hiring manager who lets a quick sort pick fifty applications from a thousand, then reads those fifty properly before choosing five to interview.
+    da: Som en ansættende leder, der lader en hurtig sortering vælge halvtreds ansøgninger ud af tusind og så læser de halvtreds ordentligt, før fem kaldes til samtale.
+  inPractice:
+    en: A legal search tool pulls 100 possibly relevant passages in a split second, then reranking reads each against the question and passes the best eight to the language model.
+    da: Et juridisk søgeværktøj henter 100 mulige afsnit på et splitsekund, hvorefter genrangering læser hvert af dem op mod spørgsmålet og giver de otte bedste til sprogmodellen.
+  whyItMatters:
+    en: Only a few passages fit in front of the model, so getting the right ones to the top often matters more for answer quality than the first search itself.
+    da: Kun få afsnit kan komme foran modellen, så at få de rigtige øverst betyder ofte mere for svarets kvalitet end selve den første søgning.
+edges:
+  part-of:
+    - to: retrieval-augmented-generation
+      why:
+        en: It sits between the search step and the model, choosing which found passages actually go into the prompt.
+        da: Det ligger mellem søgetrinnet og modellen og vælger, hvilke fundne afsnit der faktisk kommer med i prompten.
+      strength: normal
+      confidence: high
+  requires: [transformer]
+  used-with:
+    - to: semantic-search
+      why:
+        en: Semantic search is fast but rough, so its top results are commonly passed to a reranking step for a closer look.
+        da: Semantisk søgning er hurtig men grov, så dens øverste resultater sendes ofte videre til et genrangeringstrin for et nærmere kig.
+      strength: primary
+      confidence: high
+sources:
+  - title: Nogueira & Cho (2019), Passage Re-ranking with BERT
+    tier: reference
+  - title: Gao et al. (2023), Retrieval-Augmented Generation for Large Language Models — A Survey
+    tier: reference
+draft: true

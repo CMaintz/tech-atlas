@@ -46,6 +46,12 @@ edges:
         da: WAF'en filtrerer kendte angrebsmønstre, før de når frem; validering i koden tjekker, hvad hvert felt skal indeholde.
       strength: normal
       confidence: high
+    - to: structured-output
+      why:
+        en: A reply in the right shape can still hold wrong or harmful values, so code must check it like any input it cannot trust.
+        da: Et svar i den rigtige form kan stadig indeholde forkerte eller skadelige værdier, så kode skal validere det som ethvert input, man ikke kan stole på.
+      strength: normal
+      confidence: medium
 sources:
   - title: OWASP Cheat Sheet Series — Input Validation
     tier: reference

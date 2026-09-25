@@ -1,0 +1,57 @@
+term:
+  en: Mixture of experts (MoE)
+  da: Mixture of experts (MoE)
+aka:
+  en: [MoE]
+  da: [MoE]
+domain: [ai]
+cluster: model-architecture
+layer: model
+era: 1991
+status: current
+summary:
+  en: A way to build a very large model where only a few of its many parts do the work for each token, so answers cost far less.
+  da: En måde at bygge en meget stor model på, hvor kun få af dens mange dele arbejder for hvert token, så svar koster langt mindre.
+body:
+  formal:
+    en: A neural network split into many parallel sub-networks ("experts") plus a small chooser that sends each token to just a few of them; the idea dates from 1991, and the modern large-scale form from 2017.
+    da: Et neuralt netværk delt i mange parallelle delnetværk ("eksperter") plus en lille vælger, der sender hvert token til kun nogle få af dem; idéen er fra 1991, og den moderne storskala-form fra 2017.
+  plain:
+    en: Like a hospital full of specialists where the front desk sends each patient to the two doctors who fit best, instead of every doctor seeing every patient.
+    da: Som et hospital fuldt af specialister, hvor skranken sender hver patient til de to læger, der passer bedst, i stedet for at alle læger ser alle patienter.
+  inPractice:
+    en: A model with hundreds of billions of model parameters may use only a tenth of them for each token, so it answers about as fast as a model a tenth its size.
+    da: En model med hundreder af milliarder modelparametre bruger måske kun en tiendedel af dem for hvert token, så den svarer omtrent lige så hurtigt som en model på en tiendedel af størrelsen.
+  whyItMatters:
+    en: It lets builders add knowledge without the running cost growing at the same rate — but all the parts must still be kept in memory, so the hardware needed stays large.
+    da: Den lader udviklere tilføje viden, uden at driftsprisen vokser i samme takt — men alle delene skal stadig holdes i hukommelsen, så kravet til hardware forbliver stort.
+edges:
+  kind-of: [neural-network]
+  requires:
+    - to: model-parameter
+      why:
+        en: The design depends on the gap between how many model parameters exist in total and how many are used for each token.
+        da: Designet bygger på forskellen mellem, hvor mange modelparametre der findes i alt, og hvor mange der bruges for hvert token.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: transformer
+      why:
+        en: In today's large language models, the expert parts usually replace one block inside each transformer layer.
+        da: I nutidens store sprogmodeller erstatter ekspertdelene som regel én blok inde i hvert transformer-lag.
+      strength: primary
+      confidence: high
+    - to: model-serving
+      why:
+        en: Serving it is tricky because every expert must sit in memory even though only a few run at a time.
+        da: Driften er vanskelig, fordi alle eksperter skal ligge i hukommelsen, selvom kun få kører ad gangen.
+      strength: normal
+      confidence: high
+sources:
+  - title: Jacobs, Jordan, Nowlan & Hinton (1991), Adaptive Mixtures of Local Experts
+    tier: reference
+  - title: Shazeer et al. (2017), Outrageously Large Neural Networks — The Sparsely-Gated Mixture-of-Experts Layer
+    tier: reference
+  - title: Fedus, Zoph & Shazeer (2022), Switch Transformers
+    tier: reference
+draft: true

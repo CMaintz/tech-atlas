@@ -1,0 +1,41 @@
+term:
+  en: Throughput
+  da: Gennemløb (throughput)
+aka:
+  en: []
+  da: []
+domain: [ai, cs]
+cluster: ai-infrastructure
+layer: inference
+status: current
+summary:
+  en: How much work a system gets through per second in total — for AI services, often counted as tokens or requests handled each second.
+  da: Hvor meget arbejde et system i alt når igennem per sekund — for AI-tjenester ofte talt som tokens eller forespørgsler håndteret i sekundet.
+body:
+  formal:
+    en: The rate at which a system completes work, measured as units finished per unit of time, such as requests per second; for a language model service it is usually the total number of tokens produced per second across all users at once.
+    da: Den hastighed, hvormed et system fuldfører arbejde, målt som færdige enheder per tidsenhed, fx forespørgsler per sekund; for en sprogmodeltjeneste er det normalt det samlede antal tokens, der frembringes per sekund på tværs af alle brugere på én gang.
+  plain:
+    en: Like counting how many cars cross a bridge each hour — a wider bridge lets more through, even if each car drives no faster.
+    da: Som at tælle, hvor mange biler der krydser en bro i timen — en bredere bro lukker flere igennem, selv om hver bil ikke kører hurtigere.
+  inPractice:
+    en: An AI provider groups many users' requests on each GPU so it can answer thousands of people at once, raising throughput and lowering its cost per answer.
+    da: En udbyder af AI samler mange brugeres forespørgsler på hver GPU, så den kan svare tusindvis af mennesker på én gang, hvilket hæver gennemløbet og sænker prisen per svar.
+  whyItMatters:
+    en: It decides how many machines a service needs and what each answer costs, so it drives the price users pay and how a service copes with sudden crowds.
+    da: Det afgør, hvor mange maskiner en tjeneste har brug for, og hvad hvert svar koster, så det styrer den pris, brugerne betaler, og hvordan tjenesten klarer pludselige stormløb.
+edges:
+  used-with:
+    - to: time-to-first-token
+      why:
+        en: Speed tests of AI services report the two side by side — how soon one answer starts, and how many tokens flow out per second overall.
+        da: Hastighedstest af AI-tjenester viser de to side om side — hvor hurtigt ét svar begynder, og hvor mange tokens der i alt strømmer ud per sekund.
+      strength: normal
+      confidence: high
+sources:
+  - title: 'Hennessy & Patterson, Computer Architecture: A Quantitative Approach (ch. 1)'
+    tier: textbook
+    publisher: Morgan Kaufmann
+  - title: Kwon et al. (2023), Efficient Memory Management for Large Language Model Serving with PagedAttention
+    tier: reference
+draft: true

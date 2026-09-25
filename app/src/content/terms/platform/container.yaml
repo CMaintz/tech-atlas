@@ -26,7 +26,14 @@ body:
     da: Containere starter på sekunder og bruger lidt hukommelse, men fordi de deler én kerne, kan en fejl dér lade én container bryde ud og nå de andre på værten.
 edges:
   requires: [cs/process, cs/kernel]
-  used-with: [microservices]
+  used-with:
+    - microservices
+    - to: model-serving
+      why:
+        en: Models are usually packed into containers with everything they need to run, so they can be served the same way everywhere.
+        da: Modeller pakkes normalt i containere sammen med alt, hvad de skal bruge for at køre, så de kan serveres ens overalt.
+      strength: normal
+      confidence: medium
   contrasts-with:
     - to: virtual-machine
       why:

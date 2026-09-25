@@ -40,6 +40,13 @@ edges:
         da: Rammeværker som NIST AI RMF ser forklarlighed som en af de egenskaber, governance skal sikre.
       strength: normal
       confidence: medium
+  used-with:
+    - to: model-card
+      why:
+        en: A model card explains what a model does, how it was tested and where it fails, which makes its behaviour easier to understand and question.
+        da: Et modelkort forklarer, hvad en model gør, hvordan den er testet, og hvor den fejler, hvilket gør dens adfærd lettere at forstå og efterprøve.
+      strength: normal
+      confidence: medium
 sources:
   - title: NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0)
     tier: standard
