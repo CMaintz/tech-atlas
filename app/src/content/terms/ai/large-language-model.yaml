@@ -17,19 +17,19 @@ body:
     en: A deep learning model, usually a transformer with billions of weights, trained on vast text collections to predict the next token; the same skill, repeated, lets it produce long answers to a prompt.
     da: En deep learning-model, typisk en transformer med milliarder af vægte, trænet på enorme tekstsamlinger til at forudsige det næste token; den samme evne, gentaget, lader den skrive lange svar på en prompt.
   plain:
-    en: Like the next-word suggestions on a phone keyboard, but trained on a large part of the internet — it knows how answers usually sound, not whether they are true.
-    da: Som ordforslagene på en mobiltelefons tastatur, bare trænet på en stor del af internettet — den ved, hvordan svar plejer at lyde, ikke om de er sande.
+    en: Like the next-word suggestions on a phone keyboard, but trained on a large part of the internet - it knows how answers usually sound, not whether they are true.
+    da: Som ordforslagene på en mobiltelefons tastatur, bare trænet på en stor del af internettet - den ved, hvordan svar plejer at lyde, ikke om de er sande.
   inPractice:
     en: Staff in a municipality get a chat assistant built on an LLM to draft replies to citizens and sum up meeting notes, and the IT department must decide which data they may paste into it.
     da: Medarbejderne i en kommune får en chatassistent bygget på en LLM til at skrive udkast til svar til borgere og opsummere mødenoter, og IT-afdelingen må beslutte, hvilke data de må indsætte i den.
   whyItMatters:
-    en: LLMs sound confident even when wrong, can be steered by hidden text, and send your input to whoever runs them — all real risks to weigh before use.
-    da: LLM'er lyder sikre, selv når de tager fejl, kan styres af skjult tekst og sender dit input til den, der driver dem — alt sammen reelle risici, der skal vejes før brug.
+    en: LLMs sound confident even when wrong, can be steered by hidden text, and send your input to whoever runs them - all real risks to weigh before use.
+    da: LLM'er lyder sikre, selv når de tager fejl, kan styres af skjult tekst og sender dit input til den, der driver dem - alt sammen reelle risici, der skal vejes før brug.
 deepDive:
   en: |-
     Almost every current LLM is a decoder-only transformer: a stack of identical blocks, each combining causal (masked) multi-head self-attention with a feed-forward network, residual connections and normalisation, on top of a token-embedding table and under an output projection back to the vocabulary. Modern variants typically use rotary position embeddings, RMSNorm, gated feed-forward layers such as SwiGLU and grouped-query attention; many large models are mixture-of-experts, where a router activates only a few expert feed-forward networks per token, so the parameter count and the compute per token diverge. "Large" has no formal threshold; parameter counts in public models range from about a billion to hundreds of billions.
 
-    Training runs in stages. Pretraining minimises next-token cross-entropy over trillions of tokens of web text, code, books and increasingly synthetic data. Scaling-law work (Kaplan et al., 2020; Hoffmann et al., 2022, the Chinchilla paper) showed loss falls predictably as a power law in parameters, data and compute, and that compute-optimal training uses on the order of 20 tokens per parameter, though production models are often trained far beyond that to make inference cheaper. Post-training then applies supervised fine-tuning on instruction–response pairs, preference optimisation (RLHF or DPO) and, for reasoning models, reinforcement learning on verifiable tasks. The result is shipped as weights plus a tokenizer and a chat template.
+    Training runs in stages. Pretraining minimises next-token cross-entropy over trillions of tokens of web text, code, books and increasingly synthetic data. Scaling-law work (Kaplan et al., 2020; Hoffmann et al., 2022, the Chinchilla paper) showed loss falls predictably as a power law in parameters, data and compute, and that compute-optimal training uses on the order of 20 tokens per parameter, though production models are often trained far beyond that to make inference cheaper. Post-training then applies supervised fine-tuning on instruction-response pairs, preference optimisation (RLHF or DPO) and, for reasoning models, reinforcement learning on verifiable tasks. The result is shipped as weights plus a tokenizer and a chat template.
 
     At inference the model runs one forward pass over the prompt (prefill), then one pass per generated token (decode), reusing a KV cache; prefill is compute-bound, decode memory-bandwidth-bound, which is why output tokens cost more and why time to first token and tokens per second are separate metrics. Capabilities such as in-context learning, tool calling and structured output are behaviours of this same loop shaped by training, not separate modules; the model has no database, no clock and no built-in separation between instructions and data.
 
@@ -85,7 +85,7 @@ article:
 sources:
   - title: Brown et al. (2020), Language Models are Few-Shot Learners
     tier: reference
-  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile
+  - title: NIST AI 600-1 - Artificial Intelligence Risk Management Framework, Generative AI Profile
     tier: standard
     publisher: NIST
   - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), general-purpose AI models

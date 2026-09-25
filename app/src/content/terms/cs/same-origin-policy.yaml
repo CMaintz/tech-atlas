@@ -14,11 +14,11 @@ summary:
   da: En browserregel, der forhindrer en side fra ét site i at læse data, som tilhører et andet site åbent i samme browser.
 body:
   formal:
-    en: A rule built into every web browser that lets code on a page read content only from its own origin — the same protocol (such as https), host name and port in the URL; it may still send requests to other origins, but cannot read their replies unless they allow it.
-    da: En regel, der er bygget ind i alle webbrowsere, og som kun lader kode på en side læse indhold fra sin egen oprindelse — samme protokol (fx https), værtsnavn og port i URL'en; koden må stadig sende forespørgsler til andre oprindelser, men kan ikke læse svarene, medmindre de tillader det.
+    en: A rule built into every web browser that lets code on a page read content only from its own origin - the same protocol (such as https), host name and port in the URL; it may still send requests to other origins, but cannot read their replies unless they allow it.
+    da: En regel, der er bygget ind i alle webbrowsere, og som kun lader kode på en side læse indhold fra sin egen oprindelse - samme protokol (fx https), værtsnavn og port i URL'en; koden må stadig sende forespørgsler til andre oprindelser, men kan ikke læse svarene, medmindre de tillader det.
   plain:
-    en: Like hotel rooms on one key card system — your card works for your own room, and you can knock on any door, but you cannot walk in and read what lies on the next guest's desk.
-    da: Som hotelværelser med nøglekort — dit kort virker til dit eget værelse, og du kan banke på alle døre, men du kan ikke gå ind og læse, hvad der ligger på næste gæsts skrivebord.
+    en: Like hotel rooms on one key card system - your card works for your own room, and you can knock on any door, but you cannot walk in and read what lies on the next guest's desk.
+    da: Som hotelværelser med nøglekort - dit kort virker til dit eget værelse, og du kan banke på alle døre, men du kan ikke gå ind og læse, hvad der ligger på næste gæsts skrivebord.
   inPractice:
     en: A case officer has the municipality's web-based email open in one tab and a shady game site in another; the game's code can send a request to the email site, but the browser will not let it read the inbox that comes back.
     da: En sagsbehandler har kommunens webmail åben i én fane og et lyssky spilsite i en anden; spillets kode kan sende en forespørgsel til webmailen, men browseren lader den ikke læse den indbakke, der kommer tilbage.
@@ -45,11 +45,11 @@ deepDive:
 edges:
   requires: [web-browser, url]
 sources:
-  - title: MDN Web Docs — Same-origin policy
+  - title: MDN Web Docs - Same-origin policy
     tier: official-doc
     publisher: Mozilla
     url: https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy
-  - title: RFC 6454 — The Web Origin Concept
+  - title: RFC 6454 - The Web Origin Concept
     tier: standard
     publisher: IETF
     url: https://www.rfc-editor.org/rfc/rfc6454

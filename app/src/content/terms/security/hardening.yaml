@@ -30,7 +30,7 @@ deepDive:
 
     Typical Windows items: disable SMBv1, LLMNR and NetBIOS name resolution (used for credential relaying), enforce SMB and LDAP signing, restrict NTLM, randomise local administrator passwords with LAPS, enable Credential Guard and attack surface reduction rules, and limit PowerShell to constrained language mode where application control is in force. Typical Linux items: disable root login and password authentication in sshd, remove compilers and unused daemons from production hosts, set kernel parameters via sysctl (for example restricting ptrace and unprivileged BPF), mount /tmp with noexec, and enforce SELinux or AppArmor. For containers and Kubernetes: run as non-root with a read-only root filesystem, drop Linux capabilities, apply a seccomp profile, forbid privileged pods and host path mounts, and enforce the Kubernetes Pod Security Standards (privileged, baseline, restricted) at namespace level.
 
-    Machine-readable formats make baselines auditable: SCAP bundles XCCDF checklists and OVAL checks, and tools such as OpenSCAP, CIS-CAT or cloud posture management services score systems against them. The practical challenge is drift — hand-fixed servers slide back as administrators change settings — so mature organisations encode the baseline as code (Group Policy, Ansible, DSC, Terraform policies, admission controllers) and continuously measure compliance. Every deviation should be a documented exception with a risk owner, because some hardening items break legacy applications.
+    Machine-readable formats make baselines auditable: SCAP bundles XCCDF checklists and OVAL checks, and tools such as OpenSCAP, CIS-CAT or cloud posture management services score systems against them. The practical challenge is drift - hand-fixed servers slide back as administrators change settings - so mature organisations encode the baseline as code (Group Policy, Ansible, DSC, Terraform policies, admission controllers) and continuously measure compliance. Every deviation should be a documented exception with a risk owner, because some hardening items break legacy applications.
 
     Hardening is distinct from patching: patching fixes defects in code that must run, hardening removes or restricts code and settings that need not be exposed. CIS Controls v8 Control 4 (secure configuration of enterprise assets and software) and ISO/IEC 27002:2022 control 8.9 (configuration management), which is new in the 2022 edition, are the usual control anchors.
   da: |-
@@ -38,7 +38,7 @@ deepDive:
 
     Typiske punkter på Windows: slå SMBv1, LLMNR og NetBIOS-navneopslag fra (bruges til relay af legitimationsoplysninger), kræv SMB- og LDAP-signering, begræns NTLM, randomisér lokale administratoradgangskoder med LAPS, aktivér Credential Guard og attack surface reduction-regler, og begræns PowerShell til constrained language mode, hvor der er applikationskontrol. Typiske punkter på Linux: slå root-login og adgangskodeautentificering fra i sshd, fjern compilere og ubrugte dæmoner fra produktionsservere, sæt kerneparametre med sysctl (fx begrænsning af ptrace og uprivilegeret BPF), montér /tmp med noexec, og håndhæv SELinux eller AppArmor. For containere og Kubernetes: kør som ikke-root med skrivebeskyttet rodfilsystem, fjern Linux capabilities, anvend en seccomp-profil, forbyd privilegerede pods og hostPath-monteringer, og håndhæv Kubernetes Pod Security Standards (privileged, baseline, restricted) på namespace-niveau.
 
-    Maskinlæsbare formater gør baselines reviderbare: SCAP samler XCCDF-tjeklister og OVAL-tjek, og værktøjer som OpenSCAP, CIS-CAT eller cloud security posture management scorer systemer op imod dem. Den praktiske udfordring er drift — håndrettede servere glider tilbage, efterhånden som administratorer ændrer indstillinger — så modne organisationer udtrykker baseline som kode (Group Policy, Ansible, DSC, Terraform-politikker, admission controllers) og måler overholdelsen løbende. Hver afvigelse bør være en dokumenteret undtagelse med en risikoejer, fordi visse hærdningspunkter bryder ældre applikationer.
+    Maskinlæsbare formater gør baselines reviderbare: SCAP samler XCCDF-tjeklister og OVAL-tjek, og værktøjer som OpenSCAP, CIS-CAT eller cloud security posture management scorer systemer op imod dem. Den praktiske udfordring er drift - håndrettede servere glider tilbage, efterhånden som administratorer ændrer indstillinger - så modne organisationer udtrykker baseline som kode (Group Policy, Ansible, DSC, Terraform-politikker, admission controllers) og måler overholdelsen løbende. Hver afvigelse bør være en dokumenteret undtagelse med en risikoejer, fordi visse hærdningspunkter bryder ældre applikationer.
 
     Hærdning er noget andet end patching: patching retter fejl i kode, der skal køre, mens hærdning fjerner eller begrænser kode og indstillinger, der ikke behøver at være eksponeret. CIS Controls v8 Control 4 (sikker konfiguration af virksomhedens aktiver og software) og ISO/IEC 27002:2022 kontrol 8.9 (konfigurationsstyring), som er ny i 2022-udgaven, er de sædvanlige kontrolankre.
 edges:
@@ -72,10 +72,10 @@ edges:
       confidence: high
     - infrastructure-as-code
 sources:
-  - title: CIS Controls v8 — Control 4 (Secure Configuration of Enterprise Assets and Software)
+  - title: CIS Controls v8 - Control 4 (Secure Configuration of Enterprise Assets and Software)
     tier: standard
     publisher: Center for Internet Security
-  - title: NIST SP 800-123 — Guide to General Server Security
+  - title: NIST SP 800-123 - Guide to General Server Security
     tier: standard
     publisher: NIST
 draft: true

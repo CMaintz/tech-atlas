@@ -41,7 +41,7 @@ questions:
         less.
       da: >-
         Flaskehalsen er ikke detektionen, men de samme manuelle trin, der gentages for
-        hver alarm — og netop det er SOAR beregnet til: den tager alarmerne fra
+        hver alarm - og netop det er SOAR beregnet til: den tager alarmerne fra
         SIEM'en og kører en gemt playbook på tværs af de andre værktøjer, så
         analytikeren kun skal vurdere resultatet. Flere logkilder giver mere kontekst
         til hver alarm, men lægger arbejde til i stedet for at fjerne det. EDR stopper
@@ -50,10 +50,10 @@ questions:
         kræver mere analytikertid, ikke mindre.
     difficulty: 2
     sources:
-      - title: Wikipedia — Security orchestration, automation and response
+      - title: Wikipedia - Security orchestration, automation and response
         url: https://en.wikipedia.org/wiki/Security_orchestration,_automation_and_response
         tier: reference
-      - title: NIST SP 800-92 — Guide to Computer Security Log Management
+      - title: NIST SP 800-92 - Guide to Computer Security Log Management
         url: https://doi.org/10.6028/NIST.SP.800-92
         tier: standard
     draft: true
@@ -93,7 +93,7 @@ questions:
         that cause stops the noise while the rule keeps watching every other account.
         Switching the rule off turns every future password-guessing attack into a
         false negative. Raising the threshold to 50 also cuts noise, but a slow
-        attacker who tries a few passwords per account would never reach it — NIST
+        attacker who tries a few passwords per account would never reach it - NIST
         notes that reducing one kind of error usually increases the other. Lowering
         the priority leaves the flood in place and lets a real attack wait up to a
         week.
@@ -102,16 +102,16 @@ questions:
         fjernes, forsvinder støjen, mens reglen fortsat overvåger alle andre konti.
         Slås reglen fra, bliver ethvert fremtidigt forsøg på at gætte adgangskoder en
         falsk negativ. En grænse på 50 fjerner også støj, men en langsom angriber, der
-        kun prøver få adgangskoder pr. konto, når aldrig op på den — NIST påpeger, at
+        kun prøver få adgangskoder pr. konto, når aldrig op på den - NIST påpeger, at
         færre fejl af den ene slags som regel giver flere af den anden. En lavere
         prioritet lader strømmen af alarmer blive og lader et reelt angreb vente i op
         til en uge.
     difficulty: 2
     sources:
-      - title: NIST SP 800-94 — Guide to Intrusion Detection and Prevention Systems (IDPS)
+      - title: NIST SP 800-94 - Guide to Intrusion Detection and Prevention Systems (IDPS)
         url: https://doi.org/10.6028/NIST.SP.800-94
         tier: standard
-      - title: NIST SP 800-92 — Guide to Computer Security Log Management
+      - title: NIST SP 800-92 - Guide to Computer Security Log Management
         url: https://doi.org/10.6028/NIST.SP.800-92
         tier: standard
     draft: true
@@ -139,19 +139,19 @@ questions:
       en: >-
         True. NIST SP 800-94 notes that no detection is perfectly accurate and that,
         in most cases, reducing the occurrences of false positives increases the
-        occurrences of false negatives — real attacks that raise no alarm. That is
+        occurrences of false negatives - real attacks that raise no alarm. That is
         why tuning is a trade-off: after tightening a rule, the SOC should test it
         against known examples of the attack it is meant to catch, not only count
         how much quieter it has become.
       da: >-
         Sandt. NIST SP 800-94 påpeger, at ingen detektion er helt præcis, og at færre
-        falske positiver i de fleste tilfælde giver flere falske negativer — reelle
+        falske positiver i de fleste tilfælde giver flere falske negativer - reelle
         angreb, der ikke udløser nogen alarm. Derfor er tuning en afvejning: når en
         regel er strammet, bør SOC'en teste den mod kendte eksempler på det angreb,
         den skal fange, og ikke kun se på, hvor meget mere stille den er blevet.
     difficulty: 2
     sources:
-      - title: NIST SP 800-94 — Guide to Intrusion Detection and Prevention Systems (IDPS)
+      - title: NIST SP 800-94 - Guide to Intrusion Detection and Prevention Systems (IDPS)
         url: https://doi.org/10.6028/NIST.SP.800-94
         tier: standard
     draft: true
@@ -198,7 +198,7 @@ questions:
         sandsynligt, men ingen af dem viser, at nogen faktisk er kommet ind.
     difficulty: 1
     sources:
-      - title: NIST CSRC Glossary — indicator of compromise
+      - title: NIST CSRC Glossary - indicator of compromise
         url: https://csrc.nist.gov/glossary/term/indicator_of_compromise
         tier: standard
     draft: true
@@ -236,7 +236,7 @@ questions:
     explanation:
       en: >-
         Threat hunting is the proactive, hypothesis-driven search for attackers who
-        may already be inside, without waiting for an alarm — here the hypothesis
+        may already be inside, without waiting for an alarm - here the hypothesis
         comes from an ATT&CK technique the existing rules do not cover. Alert triage
         is sorting alarms that have already fired, and none has. Anomaly detection is
         a tool automatically flagging departures from a learned baseline, not analysts
@@ -244,7 +244,7 @@ questions:
         simulated attack to find weaknesses, not a search for a real intruder.
       da: >-
         Threat hunting er den proaktive, hypotesedrevne søgning efter angribere, der
-        måske allerede er inde, uden at vente på en alarm — her kommer hypotesen fra
+        måske allerede er inde, uden at vente på en alarm - her kommer hypotesen fra
         en ATT&CK-teknik, som de eksisterende regler ikke dækker. Triage af alarmer
         er sortering af alarmer, der allerede er gået, og det er ingen. Anomalidetektion
         er et værktøj, der automatisk markerer afvigelser fra en indlært normal, ikke
@@ -253,10 +253,10 @@ questions:
         rigtig ubuden gæst.
     difficulty: 3
     sources:
-      - title: MITRE ATT&CK — Scheduled Task/Job, Scheduled Task (T1053.005)
+      - title: MITRE ATT&CK - Scheduled Task/Job, Scheduled Task (T1053.005)
         url: https://attack.mitre.org/techniques/T1053/005/
         tier: reference
-      - title: Wikipedia — Cyber threat hunting
+      - title: Wikipedia - Cyber threat hunting
         url: https://en.wikipedia.org/wiki/Cyber_threat_hunting
         tier: reference
     draft: true
@@ -304,7 +304,7 @@ questions:
         resultatet af korreleringen og kan derfor ikke komme før den.
     difficulty: 1
     sources:
-      - title: NIST SP 800-92 — Guide to Computer Security Log Management
+      - title: NIST SP 800-92 - Guide to Computer Security Log Management
         url: https://doi.org/10.6028/NIST.SP.800-92
         tier: standard
     draft: true

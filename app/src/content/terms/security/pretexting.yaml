@@ -17,8 +17,8 @@ body:
     en: A form of social engineering built around a made-up situation and identity, usually prepared with research about the target; the story gives the victim a reason to help, so the request feels normal rather than suspicious.
     da: En form for social engineering, der bygger på en falsk situation og identitet, som regel forberedt med research om målet; historien giver offeret en grund til at hjælpe, så anmodningen virker normal frem for mistænkelig.
   plain:
-    en: Like an actor who turns up in a delivery uniform with a clipboard — nobody asks questions, because the costume and the story fit.
-    da: Som en skuespiller, der dukker op i budtøj med en mappe under armen — ingen stiller spørgsmål, fordi kostumet og historien passer.
+    en: Like an actor who turns up in a delivery uniform with a clipboard - nobody asks questions, because the costume and the story fit.
+    da: Som en skuespiller, der dukker op i budtøj med en mappe under armen - ingen stiller spørgsmål, fordi kostumet og historien passer.
   inPractice:
     en: Someone calls the payroll office of a municipality, says she is from the auditors, names the finance manager and asks for a list of staff salaries “for this year's audit”.
     da: En person ringer til lønkontoret i en kommune, siger, at hun er fra revisionen, nævner økonomichefen ved navn og beder om en liste over medarbejdernes lønninger “til årets revision”.
@@ -27,7 +27,7 @@ body:
     da: En god historie slår de fleste af de advarselstegn, folk lærer at kigge efter, så medarbejdere skal have klar besked om, at de må tjekke, hvem der spørger, før de hjælper.
 deepDive:
   en: |-
-    A pretext has three engineered components: an identity (auditor, new colleague, supplier's support engineer, police officer), a scenario that explains why the request is being made now, and supporting detail that makes both credible — internal jargon, correct names from the org chart, ticket or case numbers, an invoice reference, a spoofed caller ID or a plausible email thread. The detail comes from reconnaissance: company websites, LinkedIn, job adverts that reveal internal systems, public registers such as the Danish CVR, earlier data leaks and, often, a first low-stakes call whose only purpose is to harvest vocabulary for the second. Chaining small, individually harmless disclosures into one high-value request is the signature technique.
+    A pretext has three engineered components: an identity (auditor, new colleague, supplier's support engineer, police officer), a scenario that explains why the request is being made now, and supporting detail that makes both credible - internal jargon, correct names from the org chart, ticket or case numbers, an invoice reference, a spoofed caller ID or a plausible email thread. The detail comes from reconnaissance: company websites, LinkedIn, job adverts that reveal internal systems, public registers such as the Danish CVR, earlier data leaks and, often, a first low-stakes call whose only purpose is to harvest vocabulary for the second. Chaining small, individually harmless disclosures into one high-value request is the signature technique.
 
     The legal history explains the term's era. The US Gramm-Leach-Bliley Act of 1999 (section 521, 15 U.S.C. § 6821) prohibited obtaining customer information from financial institutions under false pretences. In 2006 it emerged that investigators hired by Hewlett-Packard's board to trace a press leak had impersonated directors and journalists to obtain their phone records; the scandal led directly to the Telephone Records and Privacy Protection Act of 2006. In current threat reporting the Verizon DBIR uses pretexting as a VERIS social-engineering action, and most incidents it records under that label are business email compromise.
 
@@ -35,7 +35,7 @@ deepDive:
 
     Controls are therefore procedural. Identity verification must use something the pretexter cannot research or control: a call-back to the number in the directory or HR system, manager approval through a separate channel, or verification in person or via a strong digital identity. Help-desk scripts should forbid bypassing verification under time pressure or authority claims. Disclosure rules should classify information so that staff know what may be shared with an unverified caller. Where personal data is handed to a pretexter, it is an unauthorised disclosure and thus a personal data breach under GDPR Art. 4(12), with the notification duties of Art. 33.
   da: |-
-    Et påskud har tre konstruerede dele: en identitet (revisor, ny kollega, leverandørens supportmedarbejder, politibetjent), et scenarie, der forklarer, hvorfor anmodningen kommer netop nu, og understøttende detaljer, der gør begge dele troværdige — intern jargon, korrekte navne fra organisationsdiagrammet, sags- eller ticketnumre, en fakturareference, et forfalsket opkaldsnummer eller en troværdig mailtråd. Detaljerne kommer fra rekognoscering: virksomhedens hjemmeside, LinkedIn, jobopslag, der afslører interne systemer, offentlige registre som CVR, tidligere datalæk og ofte et første, uskyldigt opkald, hvis eneste formål er at høste ordforråd til det næste. At kæde små, hver for sig harmløse oplysninger sammen til én værdifuld anmodning er den typiske teknik.
+    Et påskud har tre konstruerede dele: en identitet (revisor, ny kollega, leverandørens supportmedarbejder, politibetjent), et scenarie, der forklarer, hvorfor anmodningen kommer netop nu, og understøttende detaljer, der gør begge dele troværdige - intern jargon, korrekte navne fra organisationsdiagrammet, sags- eller ticketnumre, en fakturareference, et forfalsket opkaldsnummer eller en troværdig mailtråd. Detaljerne kommer fra rekognoscering: virksomhedens hjemmeside, LinkedIn, jobopslag, der afslører interne systemer, offentlige registre som CVR, tidligere datalæk og ofte et første, uskyldigt opkald, hvis eneste formål er at høste ordforråd til det næste. At kæde små, hver for sig harmløse oplysninger sammen til én værdifuld anmodning er den typiske teknik.
 
     Den juridiske historie forklarer begrebets tidsmæssige placering. Den amerikanske Gramm-Leach-Bliley Act fra 1999 (section 521, 15 U.S.C. § 6821) forbød at skaffe sig kundeoplysninger fra finansielle virksomheder under falske forudsætninger. I 2006 kom det frem, at efterforskere hyret af Hewlett-Packards bestyrelse til at finde kilden til et læk til pressen havde udgivet sig for at være bestyrelsesmedlemmer og journalister for at få fat i deres telefonoplysninger; skandalen førte direkte til Telephone Records and Privacy Protection Act of 2006. I nutidens trusselsrapportering bruger Verizon DBIR pretexting som en social engineering-handling i VERIS-taksonomien, og de fleste hændelser under den betegnelse er direktørsvindel.
 
@@ -59,7 +59,7 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: NIST Glossary — Pretexting
+  - title: NIST Glossary - Pretexting
     tier: standard
     publisher: NIST
     url: https://csrc.nist.gov/glossary/term/pretexting

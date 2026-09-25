@@ -17,11 +17,11 @@ body:
     en: An input to a trained machine learning model, usually a neural network, that an attacker has shifted by a small, calculated amount so that the output changes to a wrong or chosen answer at inference time; the model itself is not modified.
     da: Et input til en trænet maskinlæringsmodel, typisk et neuralt netværk, som en angriber har forskudt en lille, beregnet smule, så resultatet under inferens skifter til et forkert eller bestemt svar; selve modellen ændres ikke.
   plain:
-    en: Like an optical illusion made for a machine — a few dots a person would never notice make the computer see a cat as a toaster.
-    da: Som en optisk illusion lavet til en maskine — nogle få prikker, et menneske aldrig ville lægge mærke til, får computeren til at se en kat som en brødrister.
+    en: Like an optical illusion made for a machine - a few dots a person would never notice make the computer see a cat as a toaster.
+    da: Som en optisk illusion lavet til en maskine - nogle få prikker, et menneske aldrig ville lægge mærke til, får computeren til at se en kat som en brødrister.
   inPractice:
-    en: A municipality's IT operations manager finds that its AI-based malware filter can be fooled — changing a few unused parts of a harmful file, without touching what it does, makes the filter mark it as safe.
-    da: En kommunes IT-driftsansvarlige opdager, at det AI-baserede malware-filter kan narres — ændrer man nogle få dele af en skadelig fil, som filen ikke selv bruger, markerer filteret den som sikker, selvom den virker præcis som før.
+    en: A municipality's IT operations manager finds that its AI-based malware filter can be fooled - changing a few unused parts of a harmful file, without touching what it does, makes the filter mark it as safe.
+    da: En kommunes IT-driftsansvarlige opdager, at det AI-baserede malware-filter kan narres - ændrer man nogle få dele af en skadelig fil, som filen ikke selv bruger, markerer filteret den som sikker, selvom den virker præcis som før.
   whyItMatters:
     en: A model can pass every ordinary test and still fail against an opponent who shapes the input, so high accuracy says little about safety where AI filters malware, checks faces or steers vehicles.
     da: En model kan bestå alle almindelige test og alligevel fejle over for en modstander, der former inputtet, så høj træfsikkerhed siger lidt om sikkerheden, når AI filtrerer malware, genkender ansigter eller styrer køretøjer.
@@ -31,7 +31,7 @@ deepDive:
 
     Most attacks are framed as a constrained optimisation: find δ with ‖δ‖p ≤ ε that maximises the loss (untargeted) or minimises the loss for a chosen label (targeted). Projected Gradient Descent (Madry et al., 2017) iterates FGSM-like steps and projects back onto the ε-ball; Carlini and Wagner (2017) optimise a margin-based objective under L2 or L0. The threat model matters: white-box attackers have gradients, black-box attackers either query the model (score- or decision-based attacks) or craft examples on a local surrogate and rely on transferability. Typical research budgets, such as ε = 8/255 under L∞ on CIFAR-10, measure robustness against small pixel noise, not against every change a real attacker might make.
 
-    Physical-world attacks show the problem survives printing and cameras: stickers on stop signs (Eykholt et al., 2018) and a 3D-printed turtle classified as a rifle (Athalye et al., 2018, using Expectation over Transformation). In security products the constraint is functional rather than perceptual — a malware sample must still execute, so attackers modify padding, appended bytes, unused sections or imports. For language models the analogue is an adversarial suffix of tokens, as in the GCG attack on aligned LLMs, which links this term to jailbreaks.
+    Physical-world attacks show the problem survives printing and cameras: stickers on stop signs (Eykholt et al., 2018) and a 3D-printed turtle classified as a rifle (Athalye et al., 2018, using Expectation over Transformation). In security products the constraint is functional rather than perceptual - a malware sample must still execute, so attackers modify padding, appended bytes, unused sections or imports. For language models the analogue is an adversarial suffix of tokens, as in the GCG attack on aligned LLMs, which links this term to jailbreaks.
 
     NIST AI 100-2 classifies adversarial examples as evasion attacks at deployment time, as opposed to poisoning (training time) and privacy attacks. Defences have a poor track record: many published defences relied on gradient masking and were broken by adaptive attacks (Athalye, Carlini and Wagner, 2018, "Obfuscated Gradients"). Adversarial training with PGD remains the strongest empirical defence but costs several times the normal training compute and usually reduces clean accuracy; randomised smoothing (Cohen et al., 2019) gives certified L2 guarantees only for small radii. Robustness claims should therefore be stated as a threat model plus an attack budget and evaluated with adaptive attacks, with public benchmarks such as RobustBench as reference points.
   da: |-
@@ -39,7 +39,7 @@ deepDive:
 
     De fleste angreb formuleres som et optimeringsproblem med en begrænsning: find δ med ‖δ‖p ≤ ε, der maksimerer tabet (utargeteret) eller minimerer tabet for en valgt klasse (targeteret). Projected Gradient Descent (Madry et al., 2017) gentager FGSM-lignende skridt og projicerer tilbage på ε-kuglen; Carlini og Wagner (2017) optimerer en marginbaseret målfunktion under L2 eller L0. Trusselsmodellen er afgørende: en white-box-angriber har adgang til gradienter, mens en black-box-angriber enten sender forespørgsler til modellen (score- eller beslutningsbaserede angreb) eller laver eksemplerne på en lokal surrogatmodel og udnytter transferability. Typiske forskningsbudgetter som ε = 8/255 under L∞ på CIFAR-10 måler robusthed mod lille pixelstøj, ikke mod enhver ændring, en reel angriber kan finde på.
 
-    Angreb i den fysiske verden viser, at problemet overlever print og kamera: klistermærker på stopskilte (Eykholt et al., 2018) og en 3D-printet skildpadde, der blev klassificeret som et gevær (Athalye et al., 2018, med Expectation over Transformation). I sikkerhedsprodukter er begrænsningen funktionel frem for visuel — malware skal stadig kunne køre, så angriberen ændrer padding, tilføjede bytes, ubrugte sektioner eller imports. For sprogmodeller er det tilsvarende et adversarielt suffiks af tokens som i GCG-angrebet på alignede LLM'er, hvilket forbinder begrebet med jailbreaks.
+    Angreb i den fysiske verden viser, at problemet overlever print og kamera: klistermærker på stopskilte (Eykholt et al., 2018) og en 3D-printet skildpadde, der blev klassificeret som et gevær (Athalye et al., 2018, med Expectation over Transformation). I sikkerhedsprodukter er begrænsningen funktionel frem for visuel - malware skal stadig kunne køre, så angriberen ændrer padding, tilføjede bytes, ubrugte sektioner eller imports. For sprogmodeller er det tilsvarende et adversarielt suffiks af tokens som i GCG-angrebet på alignede LLM'er, hvilket forbinder begrebet med jailbreaks.
 
     NIST AI 100-2 klassificerer adversarielle eksempler som evasion-angreb i driftsfasen, i modsætning til forgiftning (træningsfasen) og privatlivsangreb. Forsvarene har en dårlig historik: mange publicerede forsvar byggede på gradient masking og blev brudt af adaptive angreb (Athalye, Carlini og Wagner, 2018, "Obfuscated Gradients"). Adversarial training med PGD er stadig det stærkeste empiriske forsvar, men koster flere gange den normale træningsberegning og sænker som regel nøjagtigheden på rene data; randomized smoothing (Cohen et al., 2019) giver kun certificerede L2-garantier for små radier. Påstande om robusthed bør derfor angives som en trusselsmodel plus et angrebsbudget og evalueres med adaptive angreb, med offentlige benchmarks som RobustBench som pejlemærke.
 edges:
@@ -63,7 +63,7 @@ sources:
     tier: reference
     publisher: arXiv
     url: https://arxiv.org/abs/1412.6572
-  - title: NIST AI 100-2 — Adversarial Machine Learning, A Taxonomy and Terminology of Attacks and Mitigations
+  - title: NIST AI 100-2 - Adversarial Machine Learning, A Taxonomy and Terminology of Attacks and Mitigations
     tier: standard
     publisher: NIST
     url: https://doi.org/10.6028/NIST.AI.100-2e2025

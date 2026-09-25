@@ -15,10 +15,10 @@ summary:
 body:
   formal:
     en: Any software, online service or device used for work outside the organisation's approved set, and therefore outside its asset inventory, access management and security policy.
-    da: Enhver software, onlinetjeneste eller enhed, der bruges i arbejdet uden for organisationens godkendte udvalg — og derfor uden for dens aktivfortegnelse, adgangsstyring og sikkerhedspolitik.
+    da: Enhver software, onlinetjeneste eller enhed, der bruges i arbejdet uden for organisationens godkendte udvalg - og derfor uden for dens aktivfortegnelse, adgangsstyring og sikkerhedspolitik.
   plain:
-    en: Like tenants quietly adding their own extension cords and heaters — it solves their problem, but the landlord has no idea the fire risk exists.
-    da: Som lejere, der i al stilhed sætter egne forlængerledninger og varmeovne til — det løser deres problem, men udlejeren aner ikke, at brandrisikoen findes.
+    en: Like tenants quietly adding their own extension cords and heaters - it solves their problem, but the landlord has no idea the fire risk exists.
+    da: Som lejere, der i al stilhed sætter egne forlængerledninger og varmeovne til - det løser deres problem, men udlejeren aner ikke, at brandrisikoen findes.
   inPractice:
     en: Case officers at a job centre start sharing citizens' documents through a free file-sharing site because the approved system feels slow, and no one in IT knows.
     da: Sagsbehandlere i et jobcenter begynder at dele borgeres dokumenter via en gratis fildelingstjeneste, fordi det godkendte system føles langsomt, og ingen i IT ved det.
@@ -58,9 +58,9 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
-  - title: Wikipedia — Shadow IT
+  - title: Wikipedia - Shadow IT
     tier: reference
     url: https://en.wikipedia.org/wiki/Shadow_IT
 draft: true

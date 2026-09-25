@@ -10,15 +10,15 @@ layer: agent
 era: 2024
 status: emerging
 summary:
-  en: An AI that is given a programming task and carries it out itself — reading files, running commands and editing code until done.
-  da: En AI, der får en programmeringsopgave og selv udfører den — læser filer, kører kommandoer og retter kode, til den er færdig.
+  en: An AI that is given a programming task and carries it out itself - reading files, running commands and editing code until done.
+  da: En AI, der får en programmeringsopgave og selv udfører den - læser filer, kører kommandoer og retter kode, til den er færdig.
 body:
   formal:
-    en: An AI agent whose tools act on a code project — reading and writing files, searching, running shell commands and tests, and using version control — and which loops through plan, act and check steps via tool calling until the task is done or it hands back to a person.
-    da: En AI-agent, hvis værktøjer arbejder på et kodeprojekt — læser og skriver filer, søger, kører kommandoer og tests og bruger versionsstyring — og som gennem værktøjskald gentager en runde med at planlægge, udføre og tjekke, indtil opgaven er løst, eller den giver den tilbage til et menneske.
+    en: An AI agent whose tools act on a code project - reading and writing files, searching, running shell commands and tests, and using version control - and which loops through plan, act and check steps via tool calling until the task is done or it hands back to a person.
+    da: En AI-agent, hvis værktøjer arbejder på et kodeprojekt - læser og skriver filer, søger, kører kommandoer og tests og bruger versionsstyring - og som gennem værktøjskald gentager en runde med at planlægge, udføre og tjekke, indtil opgaven er løst, eller den giver den tilbage til et menneske.
   plain:
-    en: Like leaving a carpenter alone in your house with a list of repairs — he gets on with it by himself, but he can also open any cupboard you left unlocked.
-    da: Som at lade en tømrer være alene i dit hus med en liste over reparationer — han går selv i gang, men kan også åbne ethvert skab, du lod stå ulåst.
+    en: Like leaving a carpenter alone in your house with a list of repairs - he gets on with it by himself, but he can also open any cupboard you left unlocked.
+    da: Som at lade en tømrer være alene i dit hus med en liste over reparationer - han går selv i gang, men kan også åbne ethvert skab, du lod stå ulåst.
   inPractice:
     en: A developer in a municipality asks the agent to add a date filter to the report page of the housing benefit system; it finds the files, makes the change, runs the tests, fixes one failure and opens a change request.
     da: En udvikler i en kommune beder agenten tilføje et datofilter til rapportsiden i boligstøttesystemet; den finder filerne, laver ændringen, kører testene, retter en fejl og åbner en ændringsanmodning.
@@ -47,8 +47,8 @@ edges:
   requires:
     - to: tool-calling
       why:
-        en: Every action it takes on the project — reading a file, running a test — is a tool call chosen by the model.
-        da: Hver handling, den foretager i projektet — læse en fil, køre en test — er et værktøjskald valgt af modellen.
+        en: Every action it takes on the project - reading a file, running a test - is a tool call chosen by the model.
+        da: Hver handling, den foretager i projektet - læse en fil, køre en test - er et værktøjskald valgt af modellen.
       strength: primary
       confidence: high
   used-with:

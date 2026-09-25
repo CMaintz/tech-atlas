@@ -16,8 +16,8 @@ body:
     en: A way of searching that sends the same question to keyword search and semantic search and combines the two ranked lists, for example by adding weighted scores or by rewarding texts that rank high in both.
     da: En søgemetode, der sender det samme spørgsmål til nøgleordssøgning og semantisk søgning og kombinerer de to rangerede lister, fx ved at lægge vægtede point sammen eller belønne tekster, der ligger højt i begge.
   plain:
-    en: Like asking both a strict clerk who only checks exact labels and a helpful friend who gets the gist — then trusting most what both of them point to.
-    da: Som at spørge både en pertentlig ekspedient, der kun tjekker præcise etiketter, og en hjælpsom ven, der forstår essensen — og så stole mest på det, de begge peger på.
+    en: Like asking both a strict clerk who only checks exact labels and a helpful friend who gets the gist - then trusting most what both of them point to.
+    da: Som at spørge både en pertentlig ekspedient, der kun tjekker præcise etiketter, og en hjælpsom ven, der forstår essensen - og så stole mest på det, de begge peger på.
   inPractice:
     en: A technician at a regional hospital searches the equipment manuals for “V-310 dripping”; the word match finds the spare-parts list with the exact code V-310, and the meaning match finds the page headed “if water leaks from the valve”.
     da: En tekniker på et regionshospital søger i udstyrsmanualerne efter “V-310 drypper”; ordmatchet finder reservedelslisten med den nøjagtige kode V-310, og betydningsmatchet finder siden med overskriften “hvis der løber vand fra ventilen”.
@@ -28,7 +28,7 @@ deepDive:
   en: |-
     A hybrid query runs two retrievers, normally in parallel: a lexical retriever scoring with BM25 over an inverted index, and a dense retriever doing approximate nearest-neighbour search over embeddings. Each returns its own top-k candidates, commonly somewhere between 20 and a few hundred, and a fusion step merges them. The two signals fail differently. BM25 is precise on identifiers, rare terms, names and exact phrases and robust on unseen domains; the BEIR benchmark (Thakur et al., 2021) showed BM25 to be a strong zero-shot baseline that several dense retrievers failed to beat out of domain. Dense retrieval handles paraphrase, synonyms and cross-lingual matches but blurs codes and numbers.
 
-    Reciprocal Rank Fusion (Cormack, Clarke and Büttcher, 2009) is the most common fusion method: RRF(d) = Σ_r 1 / (k + rank_r(d)), summed over the result lists in which document d appears, with k = 60 as the constant proposed in the paper. Because it uses only ranks, it needs no score calibration, and a document ranked highly by both retrievers rises to the top. The alternative is a convex combination of normalised scores, s = α · ŝ_dense + (1 − α) · ŝ_lexical, with min–max or z-score normalisation per query. This is necessary because BM25 scores are unbounded and vary with query length and corpus statistics, whereas cosine scores sit in a narrow band. Bruch, Gai and Ingber (2023) argued that a tuned convex combination generally outperforms RRF and needs only a small labelled set to tune α; RRF remains the safer default without labelled data.
+    Reciprocal Rank Fusion (Cormack, Clarke and Büttcher, 2009) is the most common fusion method: RRF(d) = Σ_r 1 / (k + rank_r(d)), summed over the result lists in which document d appears, with k = 60 as the constant proposed in the paper. Because it uses only ranks, it needs no score calibration, and a document ranked highly by both retrievers rises to the top. The alternative is a convex combination of normalised scores, s = α · ŝ_dense + (1 − α) · ŝ_lexical, with min-max or z-score normalisation per query. This is necessary because BM25 scores are unbounded and vary with query length and corpus statistics, whereas cosine scores sit in a narrow band. Bruch, Gai and Ingber (2023) argued that a tuned convex combination generally outperforms RRF and needs only a small labelled set to tune α; RRF remains the safer default without labelled data.
 
     Most search engines now implement both. Elasticsearch offers an RRF retriever, OpenSearch a hybrid query with a normalisation processor in a search pipeline, and Weaviate a hybrid operator whose alpha parameter runs from pure keyword (0) to pure vector (1); in PostgreSQL the same pattern can be written in SQL combining full-text search on tsvector with pgvector. Learned sparse models such as SPLADE provide a third option: vocabulary-weighted vectors served from an inverted index, which capture some semantics while keeping exact-term behaviour.
 
@@ -56,13 +56,13 @@ edges:
 sources:
   - title: Cormack, Clarke & Büttcher (2009), Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods
     tier: reference
-  - title: Gao et al. (2023), Retrieval-Augmented Generation for Large Language Models — A Survey
+  - title: Gao et al. (2023), Retrieval-Augmented Generation for Large Language Models - A Survey
     tier: reference
   - title: Bruch, Gai & Ingber (2023), An Analysis of Fusion Functions for Hybrid Retrieval
     tier: reference
     publisher: ACM Transactions on Information Systems
     url: https://arxiv.org/abs/2210.11934
-  - title: Weaviate documentation — Hybrid search
+  - title: Weaviate documentation - Hybrid search
     tier: official-doc
     publisher: Weaviate
     url: https://docs.weaviate.io/weaviate/search/hybrid

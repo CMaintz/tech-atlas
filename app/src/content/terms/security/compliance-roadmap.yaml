@@ -16,8 +16,8 @@ body:
     en: A prioritised plan, usually built from a gap analysis and risk assessment, that sets out which measures will be put in place, in what order, by whom and by when, so the organisation reaches and then keeps compliance.
     da: En prioriteret plan, typisk bygget på en gap-analyse og en risikoanalyse, der fastlægger, hvilke tiltag der indføres, i hvilken rækkefølge, af hvem og hvornår, så organisationen opnår og derefter fastholder compliance.
   plain:
-    en: Like planning a house renovation — first the roof that leaks, then the wiring, and the new kitchen last — each job with a builder and a week.
-    da: Som at planlægge en husrenovering — først det utætte tag, så de gamle ledninger og det nye køkken til sidst — hver opgave med en håndværker og en uge.
+    en: Like planning a house renovation - first the roof that leaks, then the wiring, and the new kitchen last - each job with a builder and a week.
+    da: Som at planlægge en husrenovering - først det utætte tag, så de gamle ledninger og det nye køkken til sidst - hver opgave med en håndværker og en uge.
   inPractice:
     en: After a gap analysis against NIS2, a Danish bus company plans MFA and backup tests in the first quarter, supplier checks in the second and its first crisis exercise before the summer holiday.
     da: Efter en gap-analyse mod NIS2 planlægger et dansk busselskab MFA og test af backup i første kvartal, tjek af leverandører i andet kvartal og sin første kriseøvelse inden sommerferien.
@@ -45,6 +45,6 @@ edges:
   requires: [gap-analysis]
   used-with: [nis2, pdca]
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 3 (vejen til god compliance)
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 3 (vejen til god compliance)
     tier: course-material
 draft: true

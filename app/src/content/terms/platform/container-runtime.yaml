@@ -10,15 +10,15 @@ layer: infrastructure
 status: current
 era: 2015
 summary:
-  en: The software on each host that actually starts, stops and walls off containers — containerd is a well-known example.
-  da: Softwaren på hver vært, der rent faktisk starter, stopper og adskiller containere — containerd er et kendt eksempel.
+  en: The software on each host that actually starts, stops and walls off containers - containerd is a well-known example.
+  da: Softwaren på hver vært, der rent faktisk starter, stopper og adskiller containere - containerd er et kendt eksempel.
 body:
   formal:
     en: The program that takes a container image, unpacks it and asks the kernel to start a process with its own view of files, network and other processes plus limits on memory and processor use; higher-level tools such as Docker and Kubernetes hand this work to it.
     da: Det program, der tager et container-image, pakker det ud og beder kernen starte en proces med sit eget syn på filer, netværk og andre processer samt grænser for hukommelse og processorforbrug; værktøjer på et højere niveau som Docker og Kubernetes overlader dette arbejde til det.
   plain:
-    en: Like the engine room of a ship — the captain gives the orders, but this is where the machinery actually turns them into movement.
-    da: Som maskinrummet på et skib — kaptajnen giver ordrerne, men det er her, maskineriet faktisk gør dem til bevægelse.
+    en: Like the engine room of a ship - the captain gives the orders, but this is where the machinery actually turns them into movement.
+    da: Som maskinrummet på et skib - kaptajnen giver ordrerne, men det er her, maskineriet faktisk gør dem til bevægelse.
   inPractice:
     en: When Kubernetes places a pod on a machine in a hospital region's data centre, the agent there asks containerd to fetch the image and start it, and containerd calls a smaller helper tool that sets up the walls in the kernel.
     da: Når Kubernetes placerer en pod på en maskine i en regions datacenter, beder agenten dér containerd om at hente imaget og starte det, og containerd kalder et mindre hjælpeværktøj, der sætter skillevæggene op i kernen.
@@ -27,7 +27,7 @@ body:
     da: Det er runtimen, der holder hver container adskilt fra værten, så en fejl i den kan lade kode bryde ud af alle containere på maskinen på én gang.
 deepDive:
   en: |-
-    "Container runtime" names two layers that are easy to confuse. A low-level (OCI) runtime implements the OCI Runtime Specification: given a bundle — a root filesystem plus config.json — it performs the create, start, kill and delete operations by calling clone/unshare for namespaces, writing cgroup limits, pivoting into the root filesystem, dropping capabilities, installing the seccomp filter and applying the AppArmor or SELinux profile before exec'ing the entrypoint. runc (written in Go, originally Docker's libcontainer donated to the OCI in 2015) is the reference implementation; crun (C) and youki (Rust) are faster or smaller alternatives. A high-level runtime such as containerd or CRI-O manages everything around that: pulling and unpacking images into snapshots, preparing the bundle, attaching networking via CNI plugins, streaming logs and exec sessions, and supervising each container through a small shim process so that the container survives a restart of the daemon.
+    "Container runtime" names two layers that are easy to confuse. A low-level (OCI) runtime implements the OCI Runtime Specification: given a bundle - a root filesystem plus config.json - it performs the create, start, kill and delete operations by calling clone/unshare for namespaces, writing cgroup limits, pivoting into the root filesystem, dropping capabilities, installing the seccomp filter and applying the AppArmor or SELinux profile before exec'ing the entrypoint. runc (written in Go, originally Docker's libcontainer donated to the OCI in 2015) is the reference implementation; crun (C) and youki (Rust) are faster or smaller alternatives. A high-level runtime such as containerd or CRI-O manages everything around that: pulling and unpacking images into snapshots, preparing the bundle, attaching networking via CNI plugins, streaming logs and exec sessions, and supervising each container through a small shim process so that the container survives a restart of the daemon.
 
     Kubernetes talks to the high-level runtime over the Container Runtime Interface (CRI), a gRPC API with a RuntimeService (pod sandboxes and containers) and an ImageService, introduced in Kubernetes 1.5. Docker Engine never implemented CRI itself; the kubelet's built-in adapter, dockershim, was removed in Kubernetes 1.24, after which clusters use containerd or CRI-O directly (images built by Docker still run unchanged because they are OCI images). The call chain on a node is therefore kubelet → CRI → containerd or CRI-O → shim → runc → kernel.
 
@@ -35,7 +35,7 @@ deepDive:
 
     The runtime is part of the trusted computing base: it runs as root on the host and parses attacker-influenced input (image layers, config, exec requests). runc CVE-2019-5736 and CVE-2024-21626 both became host-level escapes, which is why runtime patching belongs in routine vulnerability management alongside kernel patching. Hardening options include rootless mode, enabling user namespaces for pods, restricting access to the runtime socket (/run/containerd/containerd.sock) and default seccomp profiles. Unlike the orchestrator, the runtime has no notion of desired state across the cluster; it only does what its local agent asks.
   da: |-
-    "Container-runtime" dækker over to lag, som er lette at forveksle. En lavniveau-runtime (OCI-runtime) implementerer OCI Runtime Specification: givet et bundle — et rodfilsystem plus config.json — udfører den operationerne create, start, kill og delete ved at kalde clone/unshare for namespaces, skrive cgroup-grænser, skifte ind i rodfilsystemet med pivot_root, fjerne capabilities, installere seccomp-filteret og anvende AppArmor- eller SELinux-profilen, før entrypoint startes med exec. runc (skrevet i Go, oprindeligt Dockers libcontainer, som blev doneret til OCI i 2015) er referenceimplementeringen; crun (C) og youki (Rust) er hurtigere eller mindre alternativer. En højniveau-runtime som containerd eller CRI-O håndterer alt omkring det: at hente og pakke images ud i snapshots, forberede bundlet, koble netværk på via CNI-plugins, streame logs og exec-sessioner og overvåge hver container gennem en lille shim-proces, så containeren overlever en genstart af dæmonen.
+    "Container-runtime" dækker over to lag, som er lette at forveksle. En lavniveau-runtime (OCI-runtime) implementerer OCI Runtime Specification: givet et bundle - et rodfilsystem plus config.json - udfører den operationerne create, start, kill og delete ved at kalde clone/unshare for namespaces, skrive cgroup-grænser, skifte ind i rodfilsystemet med pivot_root, fjerne capabilities, installere seccomp-filteret og anvende AppArmor- eller SELinux-profilen, før entrypoint startes med exec. runc (skrevet i Go, oprindeligt Dockers libcontainer, som blev doneret til OCI i 2015) er referenceimplementeringen; crun (C) og youki (Rust) er hurtigere eller mindre alternativer. En højniveau-runtime som containerd eller CRI-O håndterer alt omkring det: at hente og pakke images ud i snapshots, forberede bundlet, koble netværk på via CNI-plugins, streame logs og exec-sessioner og overvåge hver container gennem en lille shim-proces, så containeren overlever en genstart af dæmonen.
 
     Kubernetes taler med højniveau-runtimen via Container Runtime Interface (CRI), et gRPC-API med en RuntimeService (pod-sandkasser og containere) og en ImageService, som kom til i Kubernetes 1.5. Docker Engine har aldrig selv implementeret CRI; kubelets indbyggede adapter, dockershim, blev fjernet i Kubernetes 1.24, og siden bruger klynger containerd eller CRI-O direkte (images bygget med Docker kører stadig uændret, fordi de er OCI-images). Kaldkæden på en node er derfor kubelet → CRI → containerd eller CRI-O → shim → runc → kerne.
 
@@ -46,11 +46,11 @@ edges:
   requires: [container, container-image, cs/kernel]
   used-with: [docker, kubernetes]
 sources:
-  - title: Kubernetes Documentation — Container Runtimes
+  - title: Kubernetes Documentation - Container Runtimes
     url: https://kubernetes.io/docs/setup/production-environment/container-runtimes/
     tier: official-doc
     publisher: The Kubernetes Authors
-  - title: CNCF Cloud Native Glossary — Container
+  - title: CNCF Cloud Native Glossary - Container
     url: https://glossary.cncf.io/container/
     tier: reference
     publisher: CNCF

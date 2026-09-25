@@ -11,14 +11,14 @@ status: current
 era: 2016
 summary:
   en: Rules that decide at each login whether to let someone in, ask for more proof or block them, based on who, where and what device.
-  da: Regler, der ved hvert login afgør, om en person lukkes ind, skal bevise mere eller afvises — ud fra hvem, hvor og hvilken enhed.
+  da: Regler, der ved hvert login afgør, om en person lukkes ind, skal bevise mere eller afvises - ud fra hvem, hvor og hvilken enhed.
 body:
   formal:
-    en: A policy engine, usually part of the identity provider, that weighs signals about each sign-in — user and group, device health, location, the app being opened and a risk score — and then allows, blocks or adds a demand such as MFA before a session is issued.
-    da: En regelmotor, som regel en del af identitetsudbyderen, der vurderer signaler ved hvert login — bruger og gruppe, enhedens tilstand, placering, den app, der åbnes, og en risikovurdering — og derefter tillader, blokerer eller stiller et ekstra krav som MFA, før der udstedes en session.
+    en: A policy engine, usually part of the identity provider, that weighs signals about each sign-in - user and group, device health, location, the app being opened and a risk score - and then allows, blocks or adds a demand such as MFA before a session is issued.
+    da: En regelmotor, som regel en del af identitetsudbyderen, der vurderer signaler ved hvert login - bruger og gruppe, enhedens tilstand, placering, den app, der åbnes, og en risikovurdering - og derefter tillader, blokerer eller stiller et ekstra krav som MFA, før der udstedes en session.
   plain:
-    en: Like a doorman who knows the regulars — a familiar face at the usual time walks straight in, but the same name turning up at 3 a.m. from abroad has to show ID.
-    da: Som en dørmand, der kender sine faste gæster — et kendt ansigt på det sædvanlige tidspunkt går direkte ind, men det samme navn, der dukker op kl. 3 om natten fra udlandet, skal vise legitimation.
+    en: Like a doorman who knows the regulars - a familiar face at the usual time walks straight in, but the same name turning up at 3 a.m. from abroad has to show ID.
+    da: Som en dørmand, der kender sine faste gæster - et kendt ansigt på det sædvanlige tidspunkt går direkte ind, men det samme navn, der dukker op kl. 3 om natten fra udlandet, skal vise legitimation.
   inPractice:
     en: A municipality's IT operations manager sets rules so staff can open Microsoft 365 from a managed work laptop with a password alone, must pass MFA on a private phone, and are blocked when signing in from abroad.
     da: En kommunes IT-driftsansvarlige sætter regler op, så medarbejderne kan åbne Microsoft 365 fra en administreret arbejdscomputer med adgangskode alene, skal igennem MFA på en privat telefon og afvises ved login fra udlandet.
@@ -59,11 +59,11 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: Microsoft Learn — What is Conditional Access in Microsoft Entra ID?
+  - title: Microsoft Learn - What is Conditional Access in Microsoft Entra ID?
     tier: official-doc
     publisher: Microsoft
     url: https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview
-  - title: NIST SP 800-207 — Zero Trust Architecture
+  - title: NIST SP 800-207 - Zero Trust Architecture
     tier: standard
     publisher: NIST
     url: https://doi.org/10.6028/NIST.SP.800-207

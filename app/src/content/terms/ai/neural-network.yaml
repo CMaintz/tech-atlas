@@ -55,7 +55,7 @@ sources:
   - title: Rosenblatt (1958), The Perceptron
     tier: reference
     publisher: Psychological Review
-  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+  - title: ISO/IEC 22989:2022 - Artificial intelligence concepts and terminology
     tier: standard
     publisher: ISO/IEC
 draft: true

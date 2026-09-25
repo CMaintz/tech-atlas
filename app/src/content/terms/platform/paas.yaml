@@ -17,8 +17,8 @@ body:
     en: A cloud service model in which the customer places its own programs on a platform the provider manages, without control over the underlying servers, operating system or storage, but with control over the programs and their settings.
     da: En cloud-servicemodel, hvor kunden lægger sine egne programmer på en platform, som udbyderen driver, uden kontrol over de underliggende servere, styresystem eller lager, men med kontrol over programmerne og deres indstillinger.
   plain:
-    en: Like renting a fully equipped restaurant kitchen — ovens, gas and cleaning are handled, and you just bring your recipes and ingredients.
-    da: Som at leje et fuldt udstyret restaurantkøkken — ovne, gas og rengøring er klaret, og du kommer bare med dine opskrifter og ingredienser.
+    en: Like renting a fully equipped restaurant kitchen - ovens, gas and cleaning are handled, and you just bring your recipes and ingredients.
+    da: Som at leje et fuldt udstyret restaurantkøkken - ovne, gas og rengøring er klaret, og du kommer bare med dine opskrifter og ingredienser.
   inPractice:
     en: A developer at a municipality puts the booking site for its sports halls on a managed platform; the provider keeps the servers patched, but the developer still decides who can log in and what the site shows the public.
     da: En udvikler i en kommune lægger bookingsiden til kommunens idrætshaller på en færdig platform hos en cloududbyder; udbyderen holder serverne patchede, men udvikleren bestemmer stadig, hvem der kan logge ind, og hvad siden viser offentligt.
@@ -52,7 +52,7 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: NIST SP 800-145 — The NIST Definition of Cloud Computing
+  - title: NIST SP 800-145 - The NIST Definition of Cloud Computing
     tier: standard
     publisher: NIST
 draft: true

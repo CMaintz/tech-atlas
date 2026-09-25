@@ -13,14 +13,14 @@ summary:
   da: At indrette et AI-system, så en person skal tjekke eller godkende dets arbejde på vigtige punkter, før det får virkning.
 body:
   formal:
-    en: A design in which chosen steps of an automated process pause for a human decision — approving, editing or rejecting a proposed action or output — so that the system cannot finish those steps on its own.
-    da: En indretning, hvor udvalgte trin i en automatisk proces holder pause for en menneskelig beslutning — godkend, ret eller afvis en foreslået handling eller et output — så systemet ikke selv kan fuldføre de trin.
+    en: A design in which chosen steps of an automated process pause for a human decision - approving, editing or rejecting a proposed action or output - so that the system cannot finish those steps on its own.
+    da: En indretning, hvor udvalgte trin i en automatisk proces holder pause for en menneskelig beslutning - godkend, ret eller afvis en foreslået handling eller et output - så systemet ikke selv kan fuldføre de trin.
   plain:
-    en: Like a bank that needs a second signature for large payments — the clerk prepares everything, but the money only moves once a manager signs.
-    da: Som en bank, der kræver en ekstra underskrift på store betalinger — ekspedienten forbereder det hele, men pengene flyttes først, når en chef skriver under.
+    en: Like a bank that needs a second signature for large payments - the clerk prepares everything, but the money only moves once a manager signs.
+    da: Som en bank, der kræver en ekstra underskrift på store betalinger - ekspedienten forbereder det hele, men pengene flyttes først, når en chef skriver under.
   inPractice:
     en: At a regional hospital, an AI agent drafts replies to patients' messages about appointments, but nothing is sent until a medical secretary has read the draft and clicked “approve”, or edited or rejected it.
-    da: På et regionshospital skriver en AI-agent udkast til svar på patienters beskeder om aftaler, men intet sendes, før en lægesekretær har læst udkastet og klikket “godkend” — eller rettet eller afvist det.
+    da: På et regionshospital skriver en AI-agent udkast til svar på patienters beskeder om aftaler, men intet sendes, før en lægesekretær har læst udkastet og klikket “godkend” - eller rettet eller afvist det.
   whyItMatters:
     en: It keeps a person responsible for actions that are costly or hard to undo, though if approvals come too often people start clicking yes without reading.
     da: Det holder en person ansvarlig for handlinger, der er dyre eller svære at gøre om, men skal der godkendes for tit, begynder folk at klikke ja uden at læse.
@@ -57,13 +57,13 @@ edges:
       confidence: medium
   used-with: [multi-agent-system]
 sources:
-  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 14 — Human oversight
+  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 14 - Human oversight
     tier: standard
     publisher: European Union
   - title: OWASP Top 10 for LLM Applications 2025 (LLM06 Excessive Agency)
     tier: reference
     publisher: OWASP
-  - title: NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+  - title: NIST AI 100-1 - Artificial Intelligence Risk Management Framework (AI RMF 1.0)
     tier: standard
     publisher: NIST
   - title: European Commission (2026), AI Omnibus enters into force

@@ -17,8 +17,8 @@ body:
     en: Under GDPR Article 4(1), any information relating to an identified or identifiable living person, directly or by combining details such as a name, ID number, location or IP address; Article 9 sets stricter rules for special categories like health, religion and union membership.
     da: Efter GDPR artikel 4, nr. 1, enhver oplysning om en identificeret eller identificerbar fysisk person, direkte eller ved at kombinere fx navn, CPR-nummer, lokation eller IP-adresse; artikel 9 giver skrappere regler for særlige kategorier som helbred, religion og fagforeningsmedlemskab.
   plain:
-    en: Anything that points to you — not just your name, but your number plate, your face on a camera or the fact that "the only redhead on the third floor" called in sick.
-    da: Alt, der peger på dig — ikke kun dit navn, men også din nummerplade, dit ansigt på et kamera eller at "den eneste rødhårede på 3. sal" har meldt sig syg.
+    en: Anything that points to you - not just your name, but your number plate, your face on a camera or the fact that "the only redhead on the third floor" called in sick.
+    da: Alt, der peger på dig - ikke kun dit navn, men også din nummerplade, dit ansigt på et kamera eller at "den eneste rødhårede på 3. sal" har meldt sig syg.
   inPractice:
     en: The developer at a Danish web shop assumes the order logs are harmless, but they hold IP addresses, delivery addresses and buying habits, so the logs fall under GDPR and need access limits and a date by which they are deleted.
     da: Udvikleren i en dansk webshop går ud fra, at ordrelogs er harmløse, men de indeholder IP-adresser, leveringsadresser og købsvaner, så de falder ind under GDPR og kræver begrænset adgang og en slettefrist.
@@ -68,7 +68,7 @@ sources:
     tier: standard
     publisher: European Union
     url: 'https://eur-lex.europa.eu/eli/reg/2016/679/oj'
-  - title: CJEU Case C-413/23 P, EDPS v SRB (concept of personal data) — press release
+  - title: CJEU Case C-413/23 P, EDPS v SRB (concept of personal data) - press release
     tier: official-doc
     publisher: Court of Justice of the European Union
     url: https://curia.europa.eu/site/upload/docs/application/pdf/2025-09/cp250107en.pdf

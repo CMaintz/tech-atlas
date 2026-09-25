@@ -29,7 +29,7 @@ questions:
     explanation:
       en: >-
         With a prepared statement the query and the data travel separately, so the
-        database always treats the search text as a value and never as SQL — OWASP
+        database always treats the search text as a value and never as SQL - OWASP
         lists parameterised queries as the first-choice defence. A blocklist of
         quotes and keywords is fragile: attackers find encodings and syntax it
         misses, and it breaks legitimate searches such as names with an apostrophe.
@@ -38,7 +38,7 @@ questions:
         harder to see; this one returned data without any error at all.
       da: >-
         Med en prepared statement sendes forespørgslen og data hver for sig, så
-        databasen altid behandler søgeteksten som en værdi og aldrig som SQL — OWASP
+        databasen altid behandler søgeteksten som en værdi og aldrig som SQL - OWASP
         nævner parametriserede forespørgsler som det foretrukne forsvar. En sortliste
         over anførselstegn og nøgleord er skrøbelig: angribere finder kodninger og
         syntaks, den ikke fanger, og den ødelægger lovlige søgninger som navne med
@@ -47,7 +47,7 @@ questions:
         angrebet sværere at se; dette angreb gav data tilbage uden nogen fejl.
     difficulty: 2
     sources:
-      - title: OWASP Cheat Sheet Series — SQL Injection Prevention
+      - title: OWASP Cheat Sheet Series - SQL Injection Prevention
         url: https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html
         tier: reference
     draft: true
@@ -87,7 +87,7 @@ questions:
         code instead of text. Encoding it for the context where it is shown makes the
         browser display the script as harmless characters; a Content Security Policy
         is a good extra layer, not a replacement. HttpOnly only stops scripts from
-        reading the cookie — OWASP stresses that it does not stop the script from
+        reading the cookie - OWASP stresses that it does not stop the script from
         running, so it can still act as the caseworker. A CSRF token guards against
         requests forged from other sites, not against a script inside the page. A
         WAF is unreliable against XSS and does not remove the flaw.
@@ -95,17 +95,17 @@ questions:
         Det er stored XSS: beskeden sættes ind i sagsbehandlerens side som kode i
         stedet for tekst. Når den kodes til den kontekst, den vises i, viser browseren
         scriptet som harmløse tegn; en Content Security Policy er et godt ekstra lag,
-        ikke en erstatning. HttpOnly forhindrer kun scripts i at læse cookien — OWASP
+        ikke en erstatning. HttpOnly forhindrer kun scripts i at læse cookien - OWASP
         understreger, at det ikke stopper scriptet i at køre, så det kan stadig
         handle som sagsbehandleren. Et CSRF-token beskytter mod forespørgsler, der er
         forfalsket fra andre sites, ikke mod et script inde på siden. En WAF er
         upålidelig mod XSS og fjerner ikke fejlen.
     difficulty: 2
     sources:
-      - title: OWASP Cheat Sheet Series — Cross Site Scripting Prevention
+      - title: OWASP Cheat Sheet Series - Cross Site Scripting Prevention
         url: https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
         tier: reference
-      - title: OWASP — HttpOnly
+      - title: OWASP - HttpOnly
         url: https://community.owasp.org/HttpOnly
         tier: reference
     draft: true
@@ -145,7 +145,7 @@ questions:
       en: >-
         A page on another site made her browser send a state-changing request to the
         shop, and the browser attached her login cookie by itself, so the shop took
-        it for her own action — the classic pattern of CSRF, stopped by an anti-CSRF
+        it for her own action - the classic pattern of CSRF, stopped by an anti-CSRF
         token on the form. XSS would need a script running on the shop's own pages,
         which the log rules out. In session hijacking the attacker reuses a stolen
         session from their own machine, so the request would not come from her
@@ -154,7 +154,7 @@ questions:
       da: >-
         En side på et andet site fik hendes browser til at sende en ændrende
         forespørgsel til shoppen, og browseren sendte selv hendes login-cookie med,
-        så shoppen troede, det var hende selv — det klassiske mønster for CSRF, som
+        så shoppen troede, det var hende selv - det klassiske mønster for CSRF, som
         stoppes med et CSRF-token i formularen. XSS ville kræve, at et script kørte
         på shoppens egne sider, og det udelukker loggen. Ved session hijacking
         genbruger angriberen en stjålet session fra sin egen maskine, så
@@ -162,7 +162,7 @@ questions:
         injection angriber databasen via input og kræver slet ikke hendes login.
     difficulty: 2
     sources:
-      - title: OWASP Cheat Sheet Series — Cross-Site Request Forgery Prevention
+      - title: OWASP Cheat Sheet Series - Cross-Site Request Forgery Prevention
         url: https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html
         tier: reference
     draft: true
@@ -194,20 +194,20 @@ questions:
       en: >-
         False. A CSRF token works because a page on another site cannot read it. An
         XSS flaw puts the attacker's script inside the bank's own site, where it can
-        read the token from the form and send a valid transfer request with it —
+        read the token from the form and send a valid transfer request with it -
         OWASP warns that XSS can defeat all CSRF mitigation techniques. The token is
         still right for stopping requests forged from outside, but the XSS flaw must
         be fixed as well.
       da: >-
         Falsk. Et CSRF-token virker, fordi en side på et andet site ikke kan læse
         det. En XSS-fejl placerer angriberens script inde på bankens eget site, hvor
-        det kan læse tokenet fra formularen og sende en gyldig overførsel med det —
+        det kan læse tokenet fra formularen og sende en gyldig overførsel med det -
         OWASP advarer om, at XSS kan sætte alle CSRF-forsvar ud af spil. Tokenet er
         stadig det rigtige mod forespørgsler forfalsket udefra, men XSS-fejlen skal
         også rettes.
     difficulty: 3
     sources:
-      - title: OWASP Cheat Sheet Series — Cross-Site Request Forgery Prevention
+      - title: OWASP Cheat Sheet Series - Cross-Site Request Forgery Prevention
         url: https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html
         tier: reference
     draft: true
@@ -262,7 +262,7 @@ questions:
       - title: OWASP Top 10:2025
         url: https://top10.owasp.org/2025
         tier: reference
-      - title: OWASP Top 10:2025 — A01 Broken Access Control
+      - title: OWASP Top 10:2025 - A01 Broken Access Control
         url: https://top10.owasp.org/2025/A01_2025-Broken_Access_Control/
         tier: reference
     draft: true
@@ -312,10 +312,10 @@ questions:
         design, betyder, at der endnu ikke er noget at holde den op imod.
     difficulty: 1
     sources:
-      - title: Microsoft Learn — Microsoft Security Development Lifecycle (SDL)
+      - title: Microsoft Learn - Microsoft Security Development Lifecycle (SDL)
         url: https://learn.microsoft.com/en-us/compliance/assurance/assurance-microsoft-security-development-lifecycle
         tier: official-doc
-      - title: NIST SP 800-218 — Secure Software Development Framework (SSDF)
+      - title: NIST SP 800-218 - Secure Software Development Framework (SSDF)
         url: https://csrc.nist.gov/pubs/sp/800/218/final
         tier: standard
     draft: true

@@ -17,14 +17,14 @@ body:
     en: A supply-chain attack in which an attacker collects package names that large language models make up through hallucination while writing code, registers those unclaimed names in a public package registry, and fills them with harmful code that runs when a developer or coding agent installs the suggested package.
     da: Et forsyningskædeangreb, hvor en angriber indsamler pakkenavne, som store sprogmodeller hallucinerer, når de skriver kode, registrerer de ledige navne i et offentligt pakkeregister og fylder dem med skadelig kode, der kører, når en udvikler eller en kodeagent installerer den foreslåede pakke.
   plain:
-    en: Like a shop assistant who keeps recommending a brand that does not exist — until a crook notices, starts selling fakes under that exact name, and waits for customers to ask for it.
-    da: Som en ekspedient, der bliver ved med at anbefale et mærke, der ikke findes — indtil en svindler opdager det, begynder at sælge forfalskninger under netop det navn og venter på, at kunderne spørger efter det.
+    en: Like a shop assistant who keeps recommending a brand that does not exist - until a crook notices, starts selling fakes under that exact name, and waits for customers to ask for it.
+    da: Som en ekspedient, der bliver ved med at anbefale et mærke, der ikke findes - indtil en svindler opdager det, begynder at sælge forfalskninger under netop det navn og venter på, at kunderne spørger efter det.
   inPractice:
     en: A developer at a Danish logistics firm is told by an assistant to install a helper library with a believable but invented name; an attacker registered that name last month, and installing it quietly copies her cloud access keys.
     da: En udvikler i en dansk logistikvirksomhed får af en assistent besked på at installere et hjælpebibliotek med et troværdigt, men opdigtet navn; en angriber registrerede navnet sidste måned, og da hun installerer det, kopierer det i al stilhed hendes adgangsnøgler til skyen.
   whyItMatters:
-    en: Research found that many invented names come back each time the same question is asked again, so attackers can predict and register them in advance — and one careless install hands them the build machine.
-    da: Forskning viste, at mange opdigtede navne dukker op igen, hver gang det samme spørgsmål stilles, så angribere kan forudsige og registrere dem på forhånd — og én uforsigtig pakke giver dem byggemaskinen.
+    en: Research found that many invented names come back each time the same question is asked again, so attackers can predict and register them in advance - and one careless install hands them the build machine.
+    da: Forskning viste, at mange opdigtede navne dukker op igen, hver gang det samme spørgsmål stilles, så angribere kan forudsige og registrere dem på forhånd - og én uforsigtig pakke giver dem byggemaskinen.
 deepDive:
   en: |-
     The name was coined in April 2025 by Seth Larson, security developer-in-residence at the Python Software Foundation, by analogy with typosquatting: instead of betting on a human mistyping a real package name, the attacker bets on a model inventing a plausible one. The attack works because public registries such as PyPI and npm allocate names first come, first served, with no link between a name and any real project, and because installation itself runs code: setup scripts in Python source distributions and preinstall or postinstall lifecycle scripts in npm execute with the installing user's rights before anyone imports the package.

@@ -13,8 +13,8 @@ summary:
   da: En anden og mere grundig gennemgang, der sorterer en første grov liste af søgeresultater om, så de mest brugbare ender øverst.
 body:
   formal:
-    en: A step in which a slower, more exact scorer — often a transformer that reads the question and each found text together — gives every candidate from a fast first search a new score, and only the top few are kept.
-    da: Et trin, hvor en langsommere og mere præcis bedømmer — ofte en transformer, der læser spørgsmålet og hver fundet tekst sammen — giver hver kandidat fra en hurtig første søgning en ny score, og kun de øverste få beholdes.
+    en: A step in which a slower, more exact scorer - often a transformer that reads the question and each found text together - gives every candidate from a fast first search a new score, and only the top few are kept.
+    da: Et trin, hvor en langsommere og mere præcis bedømmer - ofte en transformer, der læser spørgsmålet og hver fundet tekst sammen - giver hver kandidat fra en hurtig første søgning en ny score, og kun de øverste få beholdes.
   plain:
     en: Like a hiring manager who lets a quick sort pick fifty applications from a thousand, then reads those fifty properly before choosing five to interview.
     da: Som en ansættende leder, der lader en hurtig sortering vælge halvtreds ansøgninger ud af tusind og så læser de halvtreds ordentligt, før fem kaldes til samtale.
@@ -28,7 +28,7 @@ deepDive:
   en: |-
     Reranking is the second stage of a retrieve-then-rerank cascade. The first stage (BM25, dense retrieval or a hybrid) optimises recall over the whole corpus with scores that can be precomputed per document; the second stage spends far more compute on a short candidate list, typically 50 to 200 items, to optimise precision at the top, measured with nDCG@10 or MRR@10. The division of labour is strict: a reranker can only reorder what the first stage returned, so first-stage recall at the candidate depth is a hard ceiling on end-to-end quality.
 
-    The standard neural reranker is a cross-encoder. Query and passage are concatenated into one input, for BERT-style models [CLS] query [SEP] passage [SEP], and full self-attention runs across both, so every query token can attend to every passage token; a linear head on the pooled output gives a relevance logit. Nogueira and Cho (2019) showed with monoBERT that this substantially outperformed BM25 on the MS MARCO passage ranking task, and monoT5 later framed relevance as the probability of generating "true" versus "false". Because nothing can be precomputed, cost is one full forward pass per query–candidate pair, and latency grows linearly with candidate depth and passage length; inputs beyond the model's maximum length, often 512 tokens, are truncated, so long chunks may be judged on their beginning only. Training uses pointwise binary cross-entropy or pairwise and listwise losses, with hard negatives mined from the first-stage retriever.
+    The standard neural reranker is a cross-encoder. Query and passage are concatenated into one input, for BERT-style models [CLS] query [SEP] passage [SEP], and full self-attention runs across both, so every query token can attend to every passage token; a linear head on the pooled output gives a relevance logit. Nogueira and Cho (2019) showed with monoBERT that this substantially outperformed BM25 on the MS MARCO passage ranking task, and monoT5 later framed relevance as the probability of generating "true" versus "false". Because nothing can be precomputed, cost is one full forward pass per query-candidate pair, and latency grows linearly with candidate depth and passage length; inputs beyond the model's maximum length, often 512 tokens, are truncated, so long chunks may be judged on their beginning only. Training uses pointwise binary cross-entropy or pairwise and listwise losses, with hard negatives mined from the first-stage retriever.
 
     Several alternatives sit around the cross-encoder. Late-interaction models such as ColBERT (Khattab and Zaharia, 2020) store one vector per document token and score with a sum of per-query-token maximum similarities (MaxSim), keeping document encoding offline at the cost of much larger indexes. LLM-based rerankers work pointwise, pairwise or listwise; RankGPT (Sun et al., 2023) prompts a model with a numbered list of passages and asks for a permutation, using sliding windows for long lists, but it is expensive and sensitive to the order in which candidates are presented. Before neural models, learning-to-rank methods such as LambdaMART combined hand-crafted features with gradient-boosted trees, and they remain common in e-commerce search.
 
@@ -60,6 +60,6 @@ edges:
 sources:
   - title: Nogueira & Cho (2019), Passage Re-ranking with BERT
     tier: reference
-  - title: Gao et al. (2023), Retrieval-Augmented Generation for Large Language Models — A Survey
+  - title: Gao et al. (2023), Retrieval-Augmented Generation for Large Language Models - A Survey
     tier: reference
 draft: true

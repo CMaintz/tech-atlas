@@ -24,7 +24,7 @@ const canonical = new URL(to, Astro.site).href;
     <link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
     <meta http-equiv="refresh" content={`0; url=${to}`} />
     <link rel="canonical" href={canonical} />
-    <title>{title === 'Atlas' ? title : `${title} — Atlas`}</title>
+    <title>{title === 'Atlas' ? title : `${title} - Atlas`}</title>
   </head>
   <body>
     <a href={to}>{title}</a>

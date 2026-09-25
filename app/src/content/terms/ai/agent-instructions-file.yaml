@@ -17,14 +17,14 @@ body:
     en: A file stored in the project under version control that a coding agent automatically loads into its context window each time it starts work, holding standing guidance such as build and test commands, style rules, folder layout and things never to do.
     da: En fil gemt i projektet under versionsstyring, som en kodeagent automatisk indlæser i sit kontekstvindue, hver gang den går i gang, med faste anvisninger som bygge- og testkommandoer, stilregler, mappestruktur og ting, der aldrig må gøres.
   plain:
-    en: Like the folder kept aboard a sailing club's shared boat, which every member reads before taking her out — how to start the engine, where the key hangs, never moor by the rocks.
-    da: Som mappen om bord på en sejlklubs fælles båd, som alle medlemmer læser, før de tager den ud — hvordan motoren startes, hvor nøglen hænger, fortøj aldrig ved stenene.
+    en: Like the folder kept aboard a sailing club's shared boat, which every member reads before taking her out - how to start the engine, where the key hangs, never moor by the rocks.
+    da: Som mappen om bord på en sejlklubs fælles båd, som alle medlemmer læser, før de tager den ud - hvordan motoren startes, hvor nøglen hænger, fortøj aldrig ved stenene.
   inPractice:
-    en: At a Danish software house, the lead developer adds a short file to the payroll project — “run the tests before finishing, never edit generated files, use the shared date helper” — and the agent now follows it every time without being told.
-    da: Hos et dansk softwarehus lægger den ledende udvikler en kort fil i lønprojektet — “kør testene, før du slutter, ret aldrig i genererede filer, brug den fælles datohjælper” — og agenten følger den nu hver gang uden at få besked.
+    en: At a Danish software house, the lead developer adds a short file to the payroll project - “run the tests before finishing, never edit generated files, use the shared date helper” - and the agent now follows it every time without being told.
+    da: Hos et dansk softwarehus lægger den ledende udvikler en kort fil i lønprojektet - “kør testene, før du slutter, ret aldrig i genererede filer, brug den fælles datohjælper” - og agenten følger den nu hver gang uden at få besked.
   whyItMatters:
-    en: It turns team knowledge into lasting guidance for AI tools, but anyone who can change the file can change what the agent does — so it needs the same care as code.
-    da: Den gør teamets viden til varig vejledning for AI-værktøjer, men alle, der kan ændre filen, kan ændre, hvad agenten gør — så den kræver samme omhu som kode.
+    en: It turns team knowledge into lasting guidance for AI tools, but anyone who can change the file can change what the agent does - so it needs the same care as code.
+    da: Den gør teamets viden til varig vejledning for AI-værktøjer, men alle, der kan ændre filen, kan ændre, hvad agenten gør - så den kræver samme omhu som kode.
 deepDive:
   en: |-
     Every coding tool initially invented its own file: CLAUDE.md for Claude Code, .cursorrules and later .cursor/rules for Cursor, .github/copilot-instructions.md for GitHub Copilot, GEMINI.md for Gemini CLI. AGENTS.md emerged in 2025 as a vendor-neutral convention, and OpenAI contributed it to the Agentic AI Foundation under the Linux Foundation in December 2025 alongside MCP. The format is deliberately minimal: plain Markdown with no required fields or schema. Its website reports use in over 60,000 open-source projects and states two precedence rules: in a nested hierarchy the closest AGENTS.md to the file being edited takes precedence, and explicit user prompts override everything.
@@ -78,9 +78,9 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: AGENTS.md — a simple, open format for guiding coding agents (agents.md)
+  - title: AGENTS.md - a simple, open format for guiding coding agents (agents.md)
     tier: official-doc
-  - title: Anthropic, Claude Code documentation — Manage Claude's memory (CLAUDE.md)
+  - title: Anthropic, Claude Code documentation - Manage Claude's memory (CLAUDE.md)
     tier: official-doc
     publisher: Anthropic
   - title: 'Pillar Security (2025), New Vulnerability in GitHub Copilot and Cursor: How Hackers Can Weaponize Code Agents (Rules File Backdoor)'

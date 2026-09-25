@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   backbone,
+  backboneOf,
   bundleControls,
   clusterBundles,
   depthLanes,
@@ -69,6 +70,27 @@ describe('domainBands (A86)', () => {
       domainColour('security'),
       domainColour('ai'),
     ]);
+  });
+});
+
+describe('backboneOf', () => {
+  const nodes = ['a', 'b', 'c', 'd'].map((id) => ({ id, domain: ['cs'], cluster: 'k' }));
+  const L = (source: string, target: string, weight: number, family: string) => ({
+    source,
+    target,
+    weight,
+    family,
+  });
+  const links = [
+    L('a', 'b', 5, 'association'),
+    L('a', 'c', 4, 'association'),
+    L('d', 'b', 3, 'association'),
+    L('d', 'c', 3, 'association'),
+    L('a', 'd', 1, 'contrast'),
+  ];
+  it('lets a family that is on fill the slots of one switched off', () => {
+    expect(backboneOf(nodes, links, new Set(['association', 'contrast'])).has(4)).toBe(false);
+    expect([...backboneOf(nodes, links, new Set(['contrast']))]).toEqual([4]);
   });
 });
 

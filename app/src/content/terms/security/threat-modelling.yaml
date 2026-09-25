@@ -19,8 +19,8 @@ body:
     en: Like walking through the plans for a new house and asking at every door and window how someone could get in there, and what would stop them.
     da: Som at gennemgå tegningerne til et nyt hus og ved hver dør og hvert vindue spørge, hvordan nogen kunne komme ind her, og hvad der ville stoppe dem.
   inPractice:
-    en: Before adding online payment of nursery fees to a municipality's self-service site, the team draws how card data moves between the site, its server and the payment provider, and finds an internal service that accepts requests from anyone — so they add a check before writing any code.
-    da: Før teamet bygger betaling for daginstitutionspladser ind i en kommunes selvbetjening, tegner det, hvordan kortdata bevæger sig mellem siden, serveren og betalingsudbyderen, og opdager en intern tjeneste, der tager imod forespørgsler fra alle — så det tilføjer et tjek, før der skrives en linje kode.
+    en: Before adding online payment of nursery fees to a municipality's self-service site, the team draws how card data moves between the site, its server and the payment provider, and finds an internal service that accepts requests from anyone - so they add a check before writing any code.
+    da: Før teamet bygger betaling for daginstitutionspladser ind i en kommunes selvbetjening, tegner det, hvordan kortdata bevæger sig mellem siden, serveren og betalingsudbyderen, og opdager en intern tjeneste, der tager imod forespørgsler fra alle - så det tilføjer et tjek, før der skrives en linje kode.
   whyItMatters:
     en: A flaw in the design itself cannot be patched away later and may force a costly rebuild after launch; found on paper, it is cheap to fix.
     da: En fejl i selve designet kan ikke fjernes med en patch bagefter og kan kræve en dyr ombygning efter lancering; findes den på tegnebrættet, er den billig at rette.
@@ -52,7 +52,7 @@ edges:
       strength: primary
       confidence: high
 sources:
-  - title: OWASP Cheat Sheet Series — Threat Modeling
+  - title: OWASP Cheat Sheet Series - Threat Modeling
     tier: reference
     publisher: OWASP
     url: https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html

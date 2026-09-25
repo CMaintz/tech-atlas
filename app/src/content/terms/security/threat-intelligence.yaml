@@ -13,8 +13,8 @@ summary:
   da: Opdateret viden om aktuelle angribere og deres metoder, indsamlet så angreb kan stoppes, før de rammer.
 body:
   formal:
-    en: Collected, checked and shared information about active threats — who is attacking, how, and with what signs — turned into advice an organisation can act on.
-    da: Indsamlet, kontrolleret og delt information om aktive trusler — hvem der angriber, hvordan og med hvilke kendetegn — gjort til konkrete råd, som en organisation kan handle på.
+    en: Collected, checked and shared information about active threats - who is attacking, how, and with what signs - turned into advice an organisation can act on.
+    da: Indsamlet, kontrolleret og delt information om aktive trusler - hvem der angriber, hvordan og med hvilke kendetegn - gjort til konkrete råd, som en organisation kan handle på.
   plain:
     en: Like neighbours warning each other that burglars are trying car doors on the street tonight.
     da: Ligesom naboer, der advarer hinanden om, at der er tyve, som prøver bildøre på vejen i aften.
@@ -52,7 +52,7 @@ edges:
       strength: minor
       confidence: medium
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: NIST SP 800-150
     tier: standard

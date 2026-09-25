@@ -17,8 +17,8 @@ body:
     en: An open protocol in which an AI app, acting as a client, connects to MCP servers that offer tools, readable data and ready-made prompts as JSON messages; the app lists what each server offers and passes tool calls to it. Begun by one AI company in 2024, it has been run by a neutral foundation under the Linux Foundation since December 2025.
     da: En åben protokol, hvor en AI-app som klient forbinder sig til MCP-servere, der tilbyder værktøjer, data til læsning og færdige prompts som JSON-beskeder; appen viser, hvad hver server tilbyder, og sender værktøjskald videre til den. Den blev startet af en AI-virksomhed i 2024 og drives siden december 2025 af en neutral fond under Linux Foundation.
   plain:
-    en: Like the standard wall plug — once every lamp and kettle uses the same shape, you can move any of them to any room without rewiring.
-    da: Som den almindelige stikkontakt — når alle lamper og køkkenapparater bruger samme form, kan man flytte dem til ethvert rum uden at trække nye ledninger.
+    en: Like the standard wall plug - once every lamp and kettle uses the same shape, you can move any of them to any room without rewiring.
+    da: Som den almindelige stikkontakt - når alle lamper og køkkenapparater bruger samme form, kan man flytte dem til ethvert rum uden at trække nye ledninger.
   inPractice:
     en: The IT lead at a Danish upper-secondary school connects the support case system and the shared drive to an AI assistant by listing two MCP servers in a settings file; the same two servers then work unchanged in the staff chat app.
     da: Den IT-ansvarlige på et dansk gymnasium kobler skolens sagssystem til supporthenvendelser og det fælles drev til en AI-assistent ved at skrive to MCP-servere i en indstillingsfil; de samme to servere virker så uændret i personalets chatapp.
@@ -70,7 +70,7 @@ sources:
     tier: reference
     publisher: Anthropic
     url: https://anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation
-  - title: Model Context Protocol specification 2026-07-28 — Key Changes
+  - title: Model Context Protocol specification 2026-07-28 - Key Changes
     tier: official-doc
     publisher: Model Context Protocol project
     url: https://modelcontextprotocol.io/specification/2026-07-28/changelog

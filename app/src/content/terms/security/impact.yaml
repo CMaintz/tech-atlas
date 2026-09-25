@@ -9,15 +9,15 @@ cluster: fundamentals
 layer: governance
 status: current
 summary:
-  en: How much harm an event would do to the business if it actually happened — in money, time, trust or safety.
-  da: Hvor stor skade en hændelse vil gøre for forretningen, hvis den faktisk sker — i penge, tid, tillid eller sikkerhed.
+  en: How much harm an event would do to the business if it actually happened - in money, time, trust or safety.
+  da: Hvor stor skade en hændelse vil gøre for forretningen, hvis den faktisk sker - i penge, tid, tillid eller sikkerhed.
 body:
   formal:
     en: The size of the damage to an asset or to the business when a threat succeeds, usually rated on a scale from minor to severe as one of the two parts of risk.
     da: Omfanget af den skade, et aktiv eller forretningen lider, når en trussel lykkes, typisk vurderet på en skala fra lille til alvorlig som den ene af risikoens to dele.
   plain:
-    en: Spilling coffee on a napkin and spilling it on your laptop are equally likely — but one hurts far more.
-    da: At spilde kaffe på en serviet og på din bærbare er lige sandsynligt — men det ene gør langt mere ondt.
+    en: Spilling coffee on a napkin and spilling it on your laptop are equally likely - but one hurts far more.
+    da: At spilde kaffe på en serviet og på din bærbare er lige sandsynligt - men det ene gør langt mere ondt.
   inPractice:
     en: A Danish water utility rates a day without its control system as severe, because homes may lose clean water, while a broken office printer is rated minor.
     da: Et vandværk vurderer, at en dag uden styringssystemet har alvorlig konsekvens, fordi husstande kan miste rent vand, mens en defekt kontorprinter kun har lille konsekvens.
@@ -52,9 +52,9 @@ edges:
   requires: [asset]
   used-with: [likelihood]
 sources:
-  - title: Cyber Security Fast Track — Ordliste (Risiko)
+  - title: Cyber Security Fast Track - Ordliste (Risiko)
     tier: course-material
-  - title: ISO/IEC 27005 — Information security risk management
+  - title: ISO/IEC 27005 - Information security risk management
     tier: standard
     publisher: ISO
 draft: true

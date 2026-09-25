@@ -49,7 +49,7 @@ edges:
     - log
     - metrics
 sources:
-  - title: OpenTelemetry — Traces
+  - title: OpenTelemetry - Traces
     url: https://opentelemetry.io/docs/concepts/signals/traces/
     tier: official-doc
     publisher: OpenTelemetry (CNCF)

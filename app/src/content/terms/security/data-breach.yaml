@@ -16,8 +16,8 @@ body:
     en: A security incident that leads to the accidental or unlawful loss, change, disclosure of, or access to protected data, breaking its confidentiality, integrity or availability.
     da: En sikkerhedshændelse, der fører til hændeligt eller ulovligt tab, ændring, videregivelse af eller adgang til beskyttede data og dermed bryder deres fortrolighed, integritet eller tilgængelighed.
   plain:
-    en: Like a lost folder of patient records turning up on a train seat — whoever finds it can read it.
-    da: Ligesom en mistet mappe med patientjournaler, der dukker op på et togsæde — den, der finder den, kan læse den.
+    en: Like a lost folder of patient records turning up on a train seat - whoever finds it can read it.
+    da: Ligesom en mistet mappe med patientjournaler, der dukker op på et togsæde - den, der finder den, kan læse den.
   inPractice:
     en: A clerk at a municipal job centre emails a file with 2,000 citizens' CPR numbers to the wrong outside recipient; the municipality must report it to Datatilsynet within 72 hours of finding out.
     da: En sagsbehandler i en kommunes jobcenter mailer et regneark med 2.000 borgeres CPR-numre til en forkert ekstern modtager; kommunen skal anmelde bruddet til Datatilsynet senest 72 timer efter, at den er blevet opmærksom på det.
@@ -46,7 +46,7 @@ edges:
   used-with: [gdpr, supervisory-authority]
   kind-of: [security-incident]
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: GDPR (Regulation (EU) 2016/679), Articles 4(12), 33 and 34
     tier: standard

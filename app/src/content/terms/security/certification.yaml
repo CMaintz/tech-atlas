@@ -16,19 +16,19 @@ body:
     en: A certificate issued by an officially approved certification body after an outside audit in two stages shows that an ISMS meets every requirement of ISO 27001; it runs for three years, kept alive by yearly follow-up audits. ISO 27002 is guidance only and cannot be certified against.
     da: Et certifikat, som et officielt godkendt certificeringsorgan udsteder, når en ekstern audit i to trin har vist, at et ISMS opfylder alle krav i ISO 27001; det gælder i tre år og holdes ved lige med audits hvert år. ISO 27002 er kun vejledning og kan ikke bruges til certificering.
   plain:
-    en: Like a driving test — you may already drive carefully, but only the examiner's pass gives you a licence that strangers will trust.
-    da: Som en køreprøve — du kan sagtens køre forsigtigt i forvejen, men først den beståede prøve giver dig et kørekort, som fremmede stoler på.
+    en: Like a driving test - you may already drive carefully, but only the examiner's pass gives you a licence that strangers will trust.
+    da: Som en køreprøve - du kan sagtens køre forsigtigt i forvejen, men først den beståede prøve giver dig et kørekort, som fremmede stoler på.
   inPractice:
     en: Several municipalities require ISO 27001 certification in a tender for hosting their case systems, so a Danish hosting company books a certification body, passes both audit stages and attaches the certificate to its bid.
     da: Flere kommuner kræver ISO 27001-certificering i et udbud om drift af deres sagssystemer, så en dansk hostingvirksomhed bestiller et certificeringsorgan, består begge audit-trin og sender certifikatet med sit tilbud.
   whyItMatters:
-    en: Customers cannot inspect every supplier themselves, so they rely on the certificate — but it proves that a working system exists, not that a breach cannot happen.
-    da: Kunder kan ikke selv undersøge hver leverandør og læner sig derfor op ad certifikatet — men det beviser, at der findes et fungerende system, ikke at et brud er umuligt.
+    en: Customers cannot inspect every supplier themselves, so they rely on the certificate - but it proves that a working system exists, not that a breach cannot happen.
+    da: Kunder kan ikke selv undersøge hver leverandør og læner sig derfor op ad certifikatet - men det beviser, at der findes et fungerende system, ikke at et brud er umuligt.
 deepDive:
   en: |-
     ISMS certification rests on a three-layer conformity assessment chain. ISO does not certify anyone. National accreditation bodies, operating under ISO/IEC 17011 and in Europe under Regulation (EC) 765/2008 (in Denmark DANAK), accredit certification bodies; the certification bodies audit and certify organisations. A certification body for ISO/IEC 27001 must meet ISO/IEC 17021-1:2015, the generic requirements for bodies certifying management systems, plus ISO/IEC 27006-1:2024, which adds ISMS-specific rules on auditor competence, audit time and the audit process. Accredited certificates are recognised internationally through the IAF Multilateral Recognition Arrangement; certificates from unaccredited bodies are legal but carry little weight in tenders and supplier assessments.
 
-    Initial certification is a two-stage audit. Stage 1 reviews the ISMS documentation, scope, risk assessment and Statement of Applicability and evaluates readiness, including whether internal audit and management review have been performed. Stage 2, normally on-site or partly remote, tests whether the ISMS is implemented and effective by sampling evidence across clauses 4–10 and the Annex A controls declared applicable. Audit time is calculated from tables in ISO/IEC 27006-1 based mainly on the number of persons doing work under the organisation's control, adjusted for complexity and the number of sites. Major nonconformities must be corrected and verified before the certificate is issued; minor ones need an accepted corrective action plan.
+    Initial certification is a two-stage audit. Stage 1 reviews the ISMS documentation, scope, risk assessment and Statement of Applicability and evaluates readiness, including whether internal audit and management review have been performed. Stage 2, normally on-site or partly remote, tests whether the ISMS is implemented and effective by sampling evidence across clauses 4-10 and the Annex A controls declared applicable. Audit time is calculated from tables in ISO/IEC 27006-1 based mainly on the number of persons doing work under the organisation's control, adjusted for complexity and the number of sites. Major nonconformities must be corrected and verified before the certificate is issued; minor ones need an accepted corrective action plan.
 
     The certificate is valid for three years. Surveillance audits take place at least annually, the first within twelve months of the certification decision, and each covers a subset of the ISMS plus fixed items such as internal audit, management review, corrective actions and use of the certification mark. A recertification audit before expiry starts a new cycle. Serious findings in a surveillance audit can lead to suspension or withdrawal. The 2013 edition could no longer be certified after 31 October 2025, so current certificates are against ISO/IEC 27001:2022.
 
@@ -36,7 +36,7 @@ deepDive:
   da: |-
     Certificering af et ISMS hviler på en kæde af overensstemmelsesvurdering i tre led. ISO certificerer ikke selv nogen. Nationale akkrediteringsorganer, der arbejder efter ISO/IEC 17011 og i Europa efter forordning (EF) nr. 765/2008 (i Danmark DANAK), akkrediterer certificeringsorganer, og certificeringsorganerne auditerer og certificerer organisationer. Et certificeringsorgan for ISO/IEC 27001 skal opfylde ISO/IEC 17021-1:2015, de generelle krav til organer, der certificerer ledelsessystemer, samt ISO/IEC 27006-1:2024, der tilføjer særlige regler for ISMS om auditorkompetencer, audittid og auditprocessen. Akkrediterede certifikater anerkendes internationalt via IAF's multilaterale anerkendelsesaftale; certifikater fra ikke-akkrediterede organer er lovlige, men vejer kun lidt i udbud og leverandørvurderinger.
 
-    Den første certificering sker i en audit i to trin. Trin 1 gennemgår ISMS-dokumentationen, omfanget, risikovurderingen og Statement of Applicability og vurderer parathed, herunder om intern audit og ledelsens gennemgang er gennemført. Trin 2, normalt på stedet eller delvist på afstand, tester ved stikprøver på tværs af punkt 4–10 og de Annex A-kontroller, der er erklæret relevante, om ISMS'et er implementeret og virker. Audittiden beregnes ud fra tabeller i ISO/IEC 27006-1, primært efter antallet af personer, der arbejder under organisationens kontrol, justeret for kompleksitet og antal lokationer. Større afvigelser skal rettes og verificeres, før certifikatet udstedes; mindre afvigelser kræver en godkendt plan for korrigerende handlinger.
+    Den første certificering sker i en audit i to trin. Trin 1 gennemgår ISMS-dokumentationen, omfanget, risikovurderingen og Statement of Applicability og vurderer parathed, herunder om intern audit og ledelsens gennemgang er gennemført. Trin 2, normalt på stedet eller delvist på afstand, tester ved stikprøver på tværs af punkt 4-10 og de Annex A-kontroller, der er erklæret relevante, om ISMS'et er implementeret og virker. Audittiden beregnes ud fra tabeller i ISO/IEC 27006-1, primært efter antallet af personer, der arbejder under organisationens kontrol, justeret for kompleksitet og antal lokationer. Større afvigelser skal rettes og verificeres, før certifikatet udstedes; mindre afvigelser kræver en godkendt plan for korrigerende handlinger.
 
     Certifikatet gælder i tre år. Der gennemføres opfølgende audits mindst én gang om året, den første inden for tolv måneder efter certificeringsbeslutningen, og hver dækker en del af ISMS'et plus faste punkter som intern audit, ledelsens gennemgang, korrigerende handlinger og brug af certificeringsmærket. En gencertificeringsaudit før udløb starter en ny cyklus. Alvorlige fund ved en opfølgende audit kan føre til suspension eller tilbagetrækning. Efter 31. oktober 2025 kan der ikke længere være gyldige certifikater efter 2013-udgaven, så aktuelle certifikater er udstedt efter ISO/IEC 27001:2022.
 
@@ -58,10 +58,10 @@ edges:
       strength: primary
       confidence: high
 sources:
-  - title: ISO/IEC 27001:2022 — Information security management systems — Requirements
+  - title: ISO/IEC 27001:2022 - Information security management systems - Requirements
     tier: standard
     publisher: ISO/IEC
-  - title: ISO/IEC 27006-1:2024 — Requirements for bodies providing audit and certification of ISMS
+  - title: ISO/IEC 27006-1:2024 - Requirements for bodies providing audit and certification of ISMS
     tier: standard
     publisher: ISO/IEC
 draft: true

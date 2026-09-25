@@ -17,8 +17,8 @@ body:
     en: A data record, usually in the X.509 format, holding a public key, the identity it belongs to and a validity period, signed by a certificate authority whose own certificate can in turn be checked, forming a chain back to a root the device already trusts.
     da: En datapost, som regel i X.509-format, med en offentlig nøgle, den identitet, den tilhører, og en gyldighedsperiode, signeret af en certifikatudsteder, hvis eget certifikat igen kan tjekkes, så der dannes en kæde tilbage til et rodcertifikat, enheden allerede stoler på.
   plain:
-    en: Like a letter of introduction stamped by an authority both sides trust — the reader accepts the stranger because of the stamp, and only until the date written on it.
-    da: Som et anbefalingsbrev stemplet af en myndighed, begge parter stoler på — modtageren godtager den fremmede på grund af stemplet, og kun indtil den dato, der står på brevet.
+    en: Like a letter of introduction stamped by an authority both sides trust - the reader accepts the stranger because of the stamp, and only until the date written on it.
+    da: Som et anbefalingsbrev stemplet af en myndighed, begge parter stoler på - modtageren godtager den fremmede på grund af stemplet, og kun indtil den dato, der står på brevet.
   inPractice:
     en: A municipality forgets to renew the certificate for its self-service portal; the next morning citizens' browsers show a full-page warning, and the citizen service desk is flooded with calls.
     da: En kommune glemmer at forny certifikatet til sin selvbetjeningsportal; næste morgen viser borgernes browsere en helsides advarsel, og borgerservice bliver overhældt med opkald.
@@ -49,7 +49,7 @@ edges:
     - digital-signature
   implements: [authentication, non-repudiation]
 sources:
-  - title: RFC 5280 — Internet X.509 Public Key Infrastructure Certificate and CRL Profile
+  - title: RFC 5280 - Internet X.509 Public Key Infrastructure Certificate and CRL Profile
     tier: standard
   - title: Paar & Pelzl, Understanding Cryptography
     tier: textbook

@@ -9,21 +9,21 @@ cluster: ml-fundamentals
 layer: training
 status: current
 summary:
-  en: Machine learning where the right answers come from the data itself — for instance hiding a word in a sentence and guessing it back.
-  da: Maskinlæring, hvor de rigtige svar kommer fra selve dataene — fx ved at skjule et ord i en sætning og gætte det igen.
+  en: Machine learning where the right answers come from the data itself - for instance hiding a word in a sentence and guessing it back.
+  da: Maskinlæring, hvor de rigtige svar kommer fra selve dataene - fx ved at skjule et ord i en sætning og gætte det igen.
 body:
   formal:
     en: A form of machine learning that makes its own labels from unlabelled training data, by hiding or holding back part of each example and learning to fill it in from the rest.
     da: En form for maskinlæring, der laver sine egne mærkater ud fra træningsdata uden mærkater ved at skjule eller holde en del af hvert eksempel tilbage og lære at udfylde den ud fra resten.
   plain:
-    en: Like learning a song by pausing the recording mid-line, singing the next words yourself, then playing on to check — the song is its own answer key.
-    da: Som at lære en sang ved at sætte optagelsen på pause midt i en linje, synge de næste ord selv og så spille videre for at tjekke — sangen giver selv svaret.
+    en: Like learning a song by pausing the recording mid-line, singing the next words yourself, then playing on to check - the song is its own answer key.
+    da: Som at lære en sang ved at sætte optagelsen på pause midt i en linje, synge de næste ord selv og så spille videre for at tjekke - sangen giver selv svaret.
   inPractice:
     en: A region's speech-to-text team lets a model learn from thousands of hours of Danish speech by hiding short bits of sound and guessing them, then needs only a few hours of typed-up dictations to handle doctors' notes.
     da: En regions tale-til-tekst-team lader en model lære af tusindvis af timers dansk tale ved at skjule korte bidder af lyden og gætte dem og behøver derefter kun få timers optagelser med færdig tekst for at kunne skrive lægernes notater ud.
   whyItMatters:
-    en: Removing the need for human labels is what made training on the whole web possible — and why whatever is on the web, good or bad, ends up in the model.
-    da: At fjerne behovet for menneskelige mærkater er det, der gjorde det muligt at træne på hele nettet — og grunden til, at alt på nettet, godt eller skidt, ender i modellen.
+    en: Removing the need for human labels is what made training on the whole web possible - and why whatever is on the web, good or bad, ends up in the model.
+    da: At fjerne behovet for menneskelige mærkater er det, der gjorde det muligt at træne på hele nettet - og grunden til, at alt på nettet, godt eller skidt, ender i modellen.
 deepDive:
   en: |-
     The approach defines a pretext task whose target can be computed from the raw input, trains a network on it with an ordinary supervised loss, and then reuses the learned representations for downstream tasks. Two families dominate. Generative or predictive objectives reconstruct hidden parts of the input: causal language modelling predicts the next token from the preceding ones (the GPT line), masked language modelling predicts hidden tokens from both sides, and masked autoencoders for images (He et al., 2021) hide a large share of image patches, typically 75 percent, and reconstruct the pixels. Contrastive and joint-embedding objectives instead learn to map different views of the same item close together and different items apart: SimCLR (2020) contrasts two augmented crops of an image, and CLIP (2021) aligns images with their captions using a contrastive loss over large batches.

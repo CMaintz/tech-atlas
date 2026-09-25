@@ -16,8 +16,8 @@ body:
     en: Step-by-step technical instructions for rebuilding systems and restoring data from backup, with a fixed order and target times taken from the recovery objectives and the business impact analysis.
     da: Trinvise tekniske instruktioner for at genopbygge systemer og gendanne data fra backup i en fast rækkefølge og med måltider hentet fra genopretningsmålene og konsekvensanalysen.
   plain:
-    en: Like a rebuild guide for a house after a flood — which walls go up first, where the spare parts are, and how long each step takes.
-    da: Ligesom en genopbygningsvejledning for et hus efter en oversvømmelse — hvilke vægge der sættes op først, hvor reservedelene er, og hvor lang tid hvert trin tager.
+    en: Like a rebuild guide for a house after a flood - which walls go up first, where the spare parts are, and how long each step takes.
+    da: Ligesom en genopbygningsvejledning for et hus efter en oversvømmelse - hvilke vægge der sættes op først, hvor reservedelene er, og hvor lang tid hvert trin tager.
   inPractice:
     en: After ransomware locks a shipping company's servers, the IT department wipes them and restores the booking system from last night's backup first, then email, then the rest.
     da: Efter at ransomware har låst et rederis servere, sletter IT-afdelingen dem og gendanner først bookingsystemet fra nattens backup, derefter mail og så resten.
@@ -52,7 +52,7 @@ edges:
       strength: primary
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: NIST SP 800-34 Rev. 1
     tier: standard

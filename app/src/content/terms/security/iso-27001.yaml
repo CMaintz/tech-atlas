@@ -14,20 +14,20 @@ summary:
   da: Den internationale standard for at drive et ledelsessystem for informationssikkerhed, som man kan opnå certificering efter.
 body:
   formal:
-    en: An international standard, current edition 2022, whose clauses 4–10 set the requirements for an information security management system — context, leadership, planning, support, operation, performance evaluation and improvement — with Annex A listing 93 controls to choose from.
-    da: En international standard, nuværende udgave fra 2022, hvis afsnit 4–10 stiller kravene til et ledelsessystem for informationssikkerhed — kontekst, ledelse, planlægning, støtte, drift, evaluering og forbedring — mens anneks A rummer 93 kontroller at vælge imellem.
+    en: An international standard, current edition 2022, whose clauses 4-10 set the requirements for an information security management system - context, leadership, planning, support, operation, performance evaluation and improvement - with Annex A listing 93 controls to choose from.
+    da: En international standard, nuværende udgave fra 2022, hvis afsnit 4-10 stiller kravene til et ledelsessystem for informationssikkerhed - kontekst, ledelse, planlægning, støtte, drift, evaluering og forbedring - mens anneks A rummer 93 kontroller at vælge imellem.
   plain:
-    en: A set of house rules for running security as a daily routine rather than a one-off clean-up — written so that an outside inspector can check it is really followed.
-    da: En husorden for at drive sikkerhed som fast rutine frem for en engangsoprydning — skrevet, så en udefrakommende kan kontrollere, at den faktisk bliver fulgt.
+    en: A set of house rules for running security as a daily routine rather than a one-off clean-up - written so that an outside inspector can check it is really followed.
+    da: En husorden for at drive sikkerhed som fast rutine frem for en engangsoprydning - skrevet, så en udefrakommende kan kontrollere, at den faktisk bliver fulgt.
   inPractice:
-    en: Danish state bodies must follow ISO 27001, so the security lead at a ministry uses its clauses to set the scope, run the risk assessment, pick controls from Annex A and report maturity each year — without seeking a certificate.
-    da: Danske statslige myndigheder skal følge ISO 27001, så den sikkerhedsansvarlige i et ministerium bruger standarden til at fastlægge omfanget, lave risikoanalysen, vælge kontroller fra anneks A og indberette modenhed hvert år — uden at søge om certifikat.
+    en: Danish state bodies must follow ISO 27001, so the security lead at a ministry uses its clauses to set the scope, run the risk assessment, pick controls from Annex A and report maturity each year - without seeking a certificate.
+    da: Danske statslige myndigheder skal følge ISO 27001, så den sikkerhedsansvarlige i et ministerium bruger standarden til at fastlægge omfanget, lave risikoanalysen, vælge kontroller fra anneks A og indberette modenhed hvert år - uden at søge om certifikat.
   whyItMatters:
     en: Without a common measure every customer, auditor and authority would ask for security to be shown in a different way; ISO 27001 gives one structure that can be recognised, audited and mapped to laws such as NIS2.
     da: Uden en fælles målestok ville hver kunde, revisor og myndighed kræve sikkerheden dokumenteret på sin egen måde; ISO 27001 giver én struktur, der kan genkendes, auditeres og kobles til love som NIS2.
 deepDive:
   en: |-
-    The normative core is clauses 4–10, written in the harmonized structure used by all ISO management system standards; clauses 0–3 are introduction, scope, normative reference (ISO/IEC 27000) and terms. Annex A is also normative, but its 93 controls only become obligations through clause 6.1.3: the organisation determines the controls needed to treat its assessed risks, compares them with Annex A to verify that nothing necessary has been omitted, and records the result in the Statement of Applicability. Annex A is explicitly not exhaustive, so controls from other sources (CIS Controls, sector rules, customer contracts) can and often should be added.
+    The normative core is clauses 4-10, written in the harmonized structure used by all ISO management system standards; clauses 0-3 are introduction, scope, normative reference (ISO/IEC 27000) and terms. Annex A is also normative, but its 93 controls only become obligations through clause 6.1.3: the organisation determines the controls needed to treat its assessed risks, compares them with Annex A to verify that nothing necessary has been omitted, and records the result in the Statement of Applicability. Annex A is explicitly not exhaustive, so controls from other sources (CIS Controls, sector rules, customer contracts) can and often should be added.
 
     The 2022 revision changed more than the annex. Clause 4.2 now asks which interested-party requirements will be addressed through the ISMS, 4.4 refers to the processes and their interactions, 6.3 requires changes to the ISMS to be planned, 8.1 requires criteria for processes, and management review (9.3.2) must consider changes in the needs and expectations of interested parties. Amendment 1:2024 added to clause 4.1 that the organisation must determine whether climate change is a relevant issue, and a note to 4.2 that interested parties can have climate-related requirements. Under IAF MD 26, certificates against the 2013 edition had to be transitioned by 31 October 2025.
 
@@ -35,7 +35,7 @@ deepDive:
 
     Frequent failure modes are over-narrow scopes, a risk method whose results cannot be reproduced, SoA exclusions justified with "not relevant" but no risk rationale, and internal audits performed by the people who run the controls, which undermines the objectivity required by 9.2. Compared with NIS2 the standard is voluntary and silent on legal deadlines such as the 24-hour early warning; compared with the NIST CSF it prescribes a management system rather than a catalogue of outcomes; and compared with ISO/IEC 27002 it states what must be done, while 27002 explains how each control can be implemented.
   da: |-
-    Den normative kerne er afsnit 4–10, skrevet i den harmoniserede struktur, som alle ISO's ledelsessystemstandarder bruger; afsnit 0–3 er indledning, anvendelsesområde, normativ reference (ISO/IEC 27000) og definitioner. Anneks A er også normativt, men de 93 kontroller bliver først til forpligtelser gennem afsnit 6.1.3: organisationen fastlægger de kontroller, der skal til for at håndtere de vurderede risici, sammenholder dem med anneks A for at sikre, at intet nødvendigt er udeladt, og dokumenterer resultatet i Statement of Applicability. Anneks A er udtrykkeligt ikke udtømmende, så kontroller fra andre kilder (CIS Controls, sektorregler, kundekontrakter) kan og bør ofte tilføjes.
+    Den normative kerne er afsnit 4-10, skrevet i den harmoniserede struktur, som alle ISO's ledelsessystemstandarder bruger; afsnit 0-3 er indledning, anvendelsesområde, normativ reference (ISO/IEC 27000) og definitioner. Anneks A er også normativt, men de 93 kontroller bliver først til forpligtelser gennem afsnit 6.1.3: organisationen fastlægger de kontroller, der skal til for at håndtere de vurderede risici, sammenholder dem med anneks A for at sikre, at intet nødvendigt er udeladt, og dokumenterer resultatet i Statement of Applicability. Anneks A er udtrykkeligt ikke udtømmende, så kontroller fra andre kilder (CIS Controls, sektorregler, kundekontrakter) kan og bør ofte tilføjes.
 
     Revisionen i 2022 ændrede mere end annekset. Afsnit 4.2 spørger nu, hvilke interessentkrav der skal håndteres gennem ISMS'et, 4.4 henviser til processerne og deres samspil, 6.3 kræver, at ændringer af ISMS'et planlægges, 8.1 kræver kriterier for processerne, og ledelsens evaluering (9.3.2) skal tage højde for ændringer i interessenternes behov og forventninger. Tillæg 1 fra 2024 føjede til afsnit 4.1, at organisationen skal afgøre, om klimaforandringer er et relevant forhold, og en note til 4.2 om, at interessenter kan have klimarelaterede krav. Efter IAF MD 26 skulle certifikater efter 2013-udgaven være overført til den nye udgave senest 31. oktober 2025.
 
@@ -96,7 +96,7 @@ article:
   en: src/content/articles/security/iso-27001.en.md
   da: src/content/articles/security/iso-27001.da.md
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: ISO/IEC 27001:2022
     tier: standard

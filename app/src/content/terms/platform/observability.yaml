@@ -47,7 +47,7 @@ edges:
   used-with:
     - service-level-objective
 sources:
-  - title: OpenTelemetry — Observability primer
+  - title: OpenTelemetry - Observability primer
     url: https://opentelemetry.io/docs/concepts/observability-primer/
     tier: official-doc
     publisher: OpenTelemetry (CNCF)

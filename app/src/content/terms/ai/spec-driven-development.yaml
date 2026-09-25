@@ -17,8 +17,8 @@ body:
     en: A way of working with coding agents in which a written description of goals, behaviour, limits and acceptance checks is drafted and reviewed first, then split into tasks the agent carries out; the description stays the lasting source of truth and is updated before the code.
     da: En arbejdsform med kodeagenter, hvor en skriftlig beskrivelse af mål, adfærd, grænser og acceptkriterier først skrives og gennemgås og derefter deles op i opgaver, som agenten udfører; beskrivelsen forbliver den varige rettesnor og opdateres før koden.
   plain:
-    en: Like agreeing the menu and guest numbers with the cook before a wedding — the kitchen can then work fast, because nobody is guessing what to serve or for how many.
-    da: Som at aftale menu og antal gæster med kokken før et bryllup — så kan køkkenet arbejde hurtigt, fordi ingen skal gætte, hvad der skal serveres, eller til hvor mange.
+    en: Like agreeing the menu and guest numbers with the cook before a wedding - the kitchen can then work fast, because nobody is guessing what to serve or for how many.
+    da: Som at aftale menu og antal gæster med kokken før et bryllup - så kan køkkenet arbejde hurtigt, fordi ingen skal gætte, hvad der skal serveres, eller til hvor mange.
   inPractice:
     en: At a software house building a pension fund's member portal, the product owner and developers agree a one-page description of password reset, including “links expire after 15 minutes”; the agent builds from it, and tests check that rule.
     da: Hos et softwarehus, der bygger en pensionskasses medlemsportal, bliver produktejeren og udviklerne enige om én side, der beskriver nulstilling af adgangskode, herunder “links udløber efter 15 minutter”; agenten bygger ud fra den, og tests tjekker reglen.
@@ -60,10 +60,10 @@ edges:
       confidence: medium
     - version-control
 sources:
-  - title: GitHub, Spec Kit — toolkit for spec-driven development (github/spec-kit)
+  - title: GitHub, Spec Kit - toolkit for spec-driven development (github/spec-kit)
     tier: official-doc
     publisher: GitHub
-  - title: NIST SP 800-218 — Secure Software Development Framework (SSDF) Version 1.1
+  - title: NIST SP 800-218 - Secure Software Development Framework (SSDF) Version 1.1
     tier: standard
     publisher: NIST
   - title: 'Böckeler (2025), Understanding Spec-Driven-Development: Kiro, spec-kit, and Tessl'

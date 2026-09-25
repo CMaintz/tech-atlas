@@ -17,14 +17,14 @@ body:
     en: An arrangement in which a user proves who they are once to an identity provider, which then confirms that identity to each connected application, so the applications never see or store the user's password.
     da: En ordning, hvor en bruger beviser sin identitet én gang over for en identitetsudbyder, som derefter bekræfter identiteten over for hvert tilknyttet program, så programmerne aldrig ser eller gemmer brugerens adgangskode.
   plain:
-    en: Like a hotel key card from reception — you prove who you are once at the desk, and the gym, the pool and your room all trust the card.
-    da: Som et hotelnøglekort fra receptionen — du beviser én gang ved skranken, hvem du er, og fitnessrummet, poolen og dit værelse stoler alle på kortet.
+    en: Like a hotel key card from reception - you prove who you are once at the desk, and the gym, the pool and your room all trust the card.
+    da: Som et hotelnøglekort fra receptionen - du beviser én gang ved skranken, hvem du er, og fitnessrummet, poolen og dit værelse stoler alle på kortet.
   inPractice:
     en: Staff at a municipality sign in to Microsoft 365 in the morning and can then open the HR system, the staff website and the expenses app without typing another password.
     da: Medarbejderne i en kommune logger ind i Microsoft 365 om morgenen og kan derefter åbne HR-systemet, intranettet og appen til udlæg uden at indtaste flere adgangskoder.
   whyItMatters:
-    en: Fewer passwords means fewer to use again or steal, and closing one account locks every door at once — but that single login becomes very valuable and needs MFA.
-    da: Færre adgangskoder betyder færre at genbruge eller stjæle, og lukkes én konto, låses alle døre på én gang — men det ene login bliver meget værdifuldt og kræver MFA.
+    en: Fewer passwords means fewer to use again or steal, and closing one account locks every door at once - but that single login becomes very valuable and needs MFA.
+    da: Færre adgangskoder betyder færre at genbruge eller stjæle, og lukkes én konto, låses alle døre på én gang - men det ene login bliver meget værdifuldt og kræver MFA.
 deepDive:
   en: |-
     Two technical families share the name. Enterprise or network SSO is dominated by Kerberos, which originated in MIT's Project Athena; version 5 is specified in RFC 4120. At logon the client obtains a ticket-granting ticket from the key distribution centre (the AS exchange), then presents it to request a service ticket for each service (the TGS exchange), so the password is used once and services only ever see tickets. Active Directory implements this, and browsers extend it to intranet web apps through SPNEGO and the HTTP Negotiate scheme (RFC 4559). Web SSO instead uses federation protocols: the application redirects the browser to an identity provider, which authenticates the user once and then returns a SAML assertion or an OpenID Connect ID token to each application in turn. On Entra-joined Windows devices, a Primary Refresh Token extends SSO to native and browser apps.

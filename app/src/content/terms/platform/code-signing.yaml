@@ -17,8 +17,8 @@ body:
     en: The publisher computes a hash of a program, update, script or container image and signs it with a private key tied to a digital certificate; before installing or running it, the system checks the signature and certificate and refuses the file on any mismatch.
     da: Udgiveren beregner en hash af et program, en opdatering, et script eller et container-image og signerer den med en privat nøgle knyttet til et digitalt certifikat; før systemet installerer eller kører filen, tjekker det signaturen og certifikatet og afviser filen, hvis noget ikke stemmer.
   plain:
-    en: Like the seal on a medicine bottle printed with the maker's name — if the seal is broken or the name is wrong, you do not swallow what is inside.
-    da: Som forseglingen på et medicinglas med producentens navn — er forseglingen brudt eller navnet forkert, sluger man ikke indholdet.
+    en: Like the seal on a medicine bottle printed with the maker's name - if the seal is broken or the name is wrong, you do not swallow what is inside.
+    da: Som forseglingen på et medicinglas med producentens navn - er forseglingen brudt eller navnet forkert, sluger man ikke indholdet.
   inPractice:
     en: A municipality's IT operations team lets staff computers run only software signed by approved publishers; when a fake “update” arrives by email, Windows refuses to start it because the signature is missing.
     da: En kommunes IT-drift lader kun medarbejdernes computere køre software, der er signeret af godkendte udgivere; da en falsk “opdatering” kommer ind med en mail, nægter Windows at starte den, fordi signaturen mangler.
@@ -67,7 +67,7 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: NIST — Security Considerations for Code Signing
+  - title: NIST - Security Considerations for Code Signing
     url: https://csrc.nist.gov/pubs/cswp/1/final
     tier: standard
     publisher: NIST
@@ -75,7 +75,7 @@ sources:
     url: https://docs.sigstore.dev/
     tier: official-doc
     publisher: OpenSSF
-  - title: CA/Browser Forum — Baseline Requirements for the Issuance and Management of Publicly-Trusted Code Signing Certificates
+  - title: CA/Browser Forum - Baseline Requirements for the Issuance and Management of Publicly-Trusted Code Signing Certificates
     url: https://cabforum.org/working-groups/code-signing/requirements/
     tier: standard
     publisher: CA/Browser Forum

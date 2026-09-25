@@ -10,14 +10,14 @@ layer: governance
 status: current
 summary:
   en: Telling the right people and authorities about a serious security event, quickly and within set deadlines.
-  da: At give de rette personer og myndigheder besked om en alvorlig sikkerhedshændelse — hurtigt og inden for faste frister.
+  da: At give de rette personer og myndigheder besked om en alvorlig sikkerhedshændelse - hurtigt og inden for faste frister.
 body:
   formal:
-    en: The duty and process of passing on information about a security incident — inside the organisation and, when rules demand it, to authorities and affected people — in fixed stages and time limits.
-    da: Pligten og processen for at videregive oplysninger om en sikkerhedshændelse — internt og, når reglerne kræver det, til myndigheder og berørte personer — i faste trin og inden for faste frister.
+    en: The duty and process of passing on information about a security incident - inside the organisation and, when rules demand it, to authorities and affected people - in fixed stages and time limits.
+    da: Pligten og processen for at videregive oplysninger om en sikkerhedshændelse - internt og, når reglerne kræver det, til myndigheder og berørte personer - i faste trin og inden for faste frister.
   plain:
     en: Like calling the fire brigade and your neighbours as soon as you see smoke, rather than after the fire is out.
-    da: Som at ringe til brandvæsenet og naboerne, så snart man ser røg — ikke først når branden er slukket.
+    da: Som at ringe til brandvæsenet og naboerne, så snart man ser røg - ikke først når branden er slukket.
   inPractice:
     en: After spotting an attack on its systems, a regional hospital sends the authorities an early warning within 24 hours, a full notification within 72 hours and a final report within a month.
     da: Efter at have opdaget et angreb på sine systemer sender et af regionens hospitaler en tidlig varsling til myndighederne inden for 24 timer, en egentlig anmeldelse inden for 72 timer og en endelig rapport inden for en måned.
@@ -59,12 +59,12 @@ edges:
   requires: [security-incident]
   used-with: [nis2-entities]
 sources:
-  - title: Directive (EU) 2022/2555 (NIS2), Article 23 — Reporting obligations
+  - title: Directive (EU) 2022/2555 (NIS2), Article 23 - Reporting obligations
     tier: standard
     publisher: European Union
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 3
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 3
     tier: course-material
-  - title: Cyber Resilience Act — Reporting obligations
+  - title: Cyber Resilience Act - Reporting obligations
     tier: official-doc
     publisher: European Commission
     url: https://digital-strategy.ec.europa.eu/en/policies/cra-reporting

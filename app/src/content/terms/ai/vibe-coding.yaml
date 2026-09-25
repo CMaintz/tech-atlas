@@ -17,14 +17,14 @@ body:
     en: A style of programming, named by a well-known AI researcher in February 2025, in which a person steers an AI coding assistant or coding agent only through requests and by trying the running result, accepting all changes without reviewing or understanding the code itself.
     da: En programmeringsstil, navngivet af en kendt AI-forsker i februar 2025, hvor en person kun styrer en AI-kodeassistent eller kodeagent gennem forespørgsler og ved at prøve det kørende resultat og tager imod alle ændringer uden at gennemgå eller forstå selve koden.
   plain:
-    en: Like having a builder put up a shed while you only glance at it from the kitchen window — if it looks fine and the door opens, you move in, never checking what holds up the roof.
-    da: Som at lade en håndværker bygge et skur, mens du kun kigger på det fra køkkenvinduet — ser det fint ud, og døren kan åbnes, flytter du ind uden nogensinde at tjekke, hvad der holder taget oppe.
+    en: Like having a builder put up a shed while you only glance at it from the kitchen window - if it looks fine and the door opens, you move in, never checking what holds up the roof.
+    da: Som at lade en håndværker bygge et skur, mens du kun kigger på det fra køkkenvinduet - ser det fint ud, og døren kan åbnes, flytter du ind uden nogensinde at tjekke, hvad der holder taget oppe.
   inPractice:
     en: The owner of a small Danish bike repair shop, with no programming background, asks an AI for a booking website, pastes in each error message until it runs, and puts it online the same evening.
     da: Ejeren af et lille dansk cykelværksted, uden nogen programmeringsbaggrund, beder en AI om en bookinghjemmeside, indsætter hver fejlbesked, indtil den kører, og lægger den online samme aften.
   whyItMatters:
-    en: It lets almost anyone build a working first version fast, but nobody knows what the code really does — so missing checks, exposed secrets and unsafe packages go live unnoticed.
-    da: Det lader næsten alle bygge en fungerende første version hurtigt, men ingen ved, hvad koden reelt gør — så manglende tjek, blottede hemmeligheder og usikre pakker går live uden at blive opdaget.
+    en: It lets almost anyone build a working first version fast, but nobody knows what the code really does - so missing checks, exposed secrets and unsafe packages go live unnoticed.
+    da: Det lader næsten alle bygge en fungerende første version hurtigt, men ingen ved, hvad koden reelt gør - så manglende tjek, blottede hemmeligheder og usikre pakker går live uden at blive opdaget.
 deepDive:
   en: |-
     Andrej Karpathy introduced the phrase in a post on X on 2 February 2025, describing a mode in which you "fully give in to the vibes" and "forget that the code even exists": always clicking Accept All, not reading diffs, pasting error messages back to the model until they go away, and working around bugs instead of understanding them. He framed it as acceptable for throwaway weekend projects. The term spread quickly, and Collins Dictionary named it Word of the Year for 2025 in November. Usage has since broadened to mean almost any AI-assisted programming, which blurs the useful original distinction; Simon Willison's formulation is a good test: if you have reviewed, tested and understood the code the model wrote, you were not vibe coding, you were using an AI as a typing assistant.

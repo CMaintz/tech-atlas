@@ -9,15 +9,15 @@ cluster: awareness
 layer: people
 status: current
 summary:
-  en: A planned, ongoing effort to change how staff behave around security — with target groups, messages, methods and measurable goals.
-  da: En planlagt og løbende indsats for at ændre medarbejdernes adfærd omkring sikkerhed — med målgrupper, budskaber, metoder og målbare mål.
+  en: A planned, ongoing effort to change how staff behave around security - with target groups, messages, methods and measurable goals.
+  da: En planlagt og løbende indsats for at ændre medarbejdernes adfærd omkring sikkerhed - med målgrupper, budskaber, metoder og målbare mål.
 body:
   formal:
-    en: A structured plan for building security awareness across an organisation — defining the people involved, target groups and messages, choosing methods such as online courses, workshops, phishing simulations and nudges, and tracking results with agreed measures.
-    da: En struktureret plan for at opbygge awareness i hele organisationen — med interessenter, målgrupper og budskaber, valg af metoder som e-læring, workshops, phishing-simuleringer og nudges, og opfølgning på resultater med aftalte mål.
+    en: A structured plan for building security awareness across an organisation - defining the people involved, target groups and messages, choosing methods such as online courses, workshops, phishing simulations and nudges, and tracking results with agreed measures.
+    da: En struktureret plan for at opbygge awareness i hele organisationen - med interessenter, målgrupper og budskaber, valg af metoder som e-læring, workshops, phishing-simuleringer og nudges, og opfølgning på resultater med aftalte mål.
   plain:
-    en: Like a fitness plan rather than a single gym visit — small, regular sessions matched to each person, with progress checked along the way.
-    da: Som en træningsplan frem for et enkelt besøg i fitnesscentret — små, faste pas tilpasset den enkelte, hvor fremskridtet tjekkes undervejs.
+    en: Like a fitness plan rather than a single gym visit - small, regular sessions matched to each person, with progress checked along the way.
+    da: Som en træningsplan frem for et enkelt besøg i fitnesscentret - små, faste pas tilpasset den enkelte, hvor fremskridtet tjekkes undervejs.
   inPractice:
     en: A municipality plans a year of short monthly topics, a phishing test each quarter and a separate session for managers, and each quarter tells the management team what share of staff report suspicious emails.
     da: En kommune planlægger et år med korte månedlige temaer, en phishing-test hvert kvartal og en særskilt session for ledere, og hvert kvartal orienterer den direktionen om, hvor stor en andel af medarbejderne der melder mistænkelige mails.
@@ -51,11 +51,11 @@ edges:
         da: Løbende, praktisk træning gør almindelige fejl mindre sandsynlige og hurtigere at melde.
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 2
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 2
     tier: course-material
-  - title: NIST SP 800-50 Rev. 1 — Building a Cybersecurity and Privacy Learning Program
+  - title: NIST SP 800-50 Rev. 1 - Building a Cybersecurity and Privacy Learning Program
     tier: standard
-  - title: Ho et al. — Understanding the Efficacy of Phishing Training in Practice (IEEE S&P 2025)
+  - title: Ho et al. - Understanding the Efficacy of Phishing Training in Practice (IEEE S&P 2025)
     tier: other
     publisher: IEEE
     url: https://people.cs.uchicago.edu/~grantho/papers/oakland2025_phishing-training.pdf

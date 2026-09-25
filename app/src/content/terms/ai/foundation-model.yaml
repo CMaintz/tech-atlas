@@ -14,8 +14,8 @@ summary:
   da: En stor model, der bygges én gang på enorme mængder bred data og derefter genbruges som udgangspunkt for mange forskellige opgaver.
 body:
   formal:
-    en: A deep learning model given pretraining on broad data at scale, usually by self-supervised learning, so that it can be adapted — by fine-tuning, prompts or tools — to a wide range of tasks it was not built for.
-    da: En deep learning-model, der har fået fortræning på bred data i stor skala, typisk ved selvsuperviseret læring, så den kan tilpasses — med finjustering, prompts eller værktøjer — til en lang række opgaver, den ikke blev bygget til.
+    en: A deep learning model given pretraining on broad data at scale, usually by self-supervised learning, so that it can be adapted - by fine-tuning, prompts or tools - to a wide range of tasks it was not built for.
+    da: En deep learning-model, der har fået fortræning på bred data i stor skala, typisk ved selvsuperviseret læring, så den kan tilpasses - med finjustering, prompts eller værktøjer - til en lang række opgaver, den ikke blev bygget til.
   plain:
     en: Like a general education that takes years to get, after which a person can learn to be a nurse, a lawyer or a cook in far less time.
     da: Som en almen uddannelse, der tager år at få, hvorefter en person langt hurtigere kan lære at blive sygeplejerske, jurist eller kok.
@@ -27,7 +27,7 @@ body:
     da: Mange produkter hviler på de samme få grundmodeller, så en fejl, bias eller svaghed i én af dem spreder sig til alle systemer bygget ovenpå.
 deepDive:
   en: |-
-    The term was coined in August 2021 by Bommasani et al. at Stanford's Center for Research on Foundation Models to name a shift in how AI systems are built rather than a new architecture. The report identified two properties: emergence, meaning capabilities that were not explicitly trained for appear as models scale, and homogenisation, meaning that one base model is adapted for many downstream uses, so that its strengths and defects propagate to all of them. Technically a foundation model is almost always a transformer trained with a self-supervised objective, such as next-token prediction, masked-token prediction or contrastive image–text alignment, on web-scale corpora of hundreds of billions to tens of trillions of tokens.
+    The term was coined in August 2021 by Bommasani et al. at Stanford's Center for Research on Foundation Models to name a shift in how AI systems are built rather than a new architecture. The report identified two properties: emergence, meaning capabilities that were not explicitly trained for appear as models scale, and homogenisation, meaning that one base model is adapted for many downstream uses, so that its strengths and defects propagate to all of them. Technically a foundation model is almost always a transformer trained with a self-supervised objective, such as next-token prediction, masked-token prediction or contrastive image-text alignment, on web-scale corpora of hundreds of billions to tens of trillions of tokens.
 
     Scaling behaviour drove the approach. Kaplan et al. (2020) reported smooth power-law relations between loss and parameters, data and compute; Hoffmann et al. (2022, "Chinchilla") revised the compute-optimal ratio to roughly 20 training tokens per parameter, and many later models are deliberately trained far beyond that ratio because a smaller model trained longer is cheaper to serve. Adaptation happens at several layers: prompting and in-context learning with no weight changes, retrieval-augmented generation, parameter-efficient fine-tuning such as LoRA, full fine-tuning, and post-training with instruction tuning and preference optimisation (RLHF, DPO). A released "base" model and its "instruct" or "chat" variant are therefore different artefacts with different behaviour and risk profiles.
 
@@ -63,10 +63,10 @@ sources:
   - title: Bommasani et al. (2021), On the Opportunities and Risks of Foundation Models
     tier: reference
     publisher: Stanford CRFM
-  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework — Generative Artificial Intelligence Profile
+  - title: NIST AI 600-1 - Artificial Intelligence Risk Management Framework - Generative Artificial Intelligence Profile
     tier: standard
     publisher: NIST
-  - title: General-Purpose AI Models in the AI Act — Questions & Answers
+  - title: General-Purpose AI Models in the AI Act - Questions & Answers
     tier: official-doc
     publisher: European Commission
     url: https://digital-strategy.ec.europa.eu/en/faqs/general-purpose-ai-models-ai-act-questions-answers

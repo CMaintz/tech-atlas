@@ -49,7 +49,7 @@ questions:
         kommer ind i databasen.
     difficulty: 1
     sources:
-      - title: OWASP Cheat Sheet Series — Password Storage Cheat Sheet
+      - title: OWASP Cheat Sheet Series - Password Storage Cheat Sheet
         url: https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
         tier: official-doc
     draft: true
@@ -85,7 +85,7 @@ questions:
       en: >-
         A digital signature is made with the signer's private key and checked with the
         matching public key; as NIST puts it, it gives origin authentication, data
-        integrity and support for non-repudiation — so any change after signing would
+        integrity and support for non-repudiation - so any change after signing would
         make the check fail, and the director cannot credibly deny having signed. It
         does not give confidentiality: signing is not encryption, and the file may
         well have crossed the internet readable. The certificate authority only vouches
@@ -95,7 +95,7 @@ questions:
       da: >-
         En digital signatur laves med underskriverens private nøgle og kontrolleres med
         den tilhørende offentlige nøgle; ifølge NIST giver den autentificering af
-        afsenderen, dataintegritet og understøttelse af uafviselighed — enhver ændring
+        afsenderen, dataintegritet og understøttelse af uafviselighed - enhver ændring
         efter signeringen ville få kontrollen til at fejle, og direktøren kan ikke
         troværdigt benægte at have underskrevet. Den giver ikke fortrolighed: At
         signere er ikke at kryptere, og filen kan sagtens have været læsbar på vejen.
@@ -104,10 +104,10 @@ questions:
         signaturen dækker selve filen, ikke blot e-mailens afsenderdomæne.
     difficulty: 2
     sources:
-      - title: NIST CSRC Glossary — digital signature
+      - title: NIST CSRC Glossary - digital signature
         url: https://csrc.nist.gov/glossary/term/digital_signature
         tier: official-doc
-      - title: Wikipedia — Certificate authority
+      - title: Wikipedia - Certificate authority
         url: https://en.wikipedia.org/wiki/Certificate_authority
         tier: reference
     draft: true
@@ -124,12 +124,12 @@ questions:
         A nurse at a Danish hospital follows a link to a supplier's ordering portal.
         The browser warns that the connection is not private because the site's
         certificate is not issued by a trusted authority. A colleague says: "Just
-        click Continue — the padlock is only cosmetic." What is the real risk?
+        click Continue - the padlock is only cosmetic." What is the real risk?
       da: >-
         En sygeplejerske på et dansk hospital følger et link til en leverandørs
         bestillingsportal. Browseren advarer om, at forbindelsen ikke er privat, fordi
         sitets certifikat ikke er udstedt af en betroet udsteder. En kollega siger:
-        "Bare klik Fortsæt — hængelåsen er kun pynt." Hvad er den reelle risiko?
+        "Bare klik Fortsæt - hængelåsen er kun pynt." Hvad er den reelle risiko?
     options:
       - en: None, because the traffic is still encrypted, so logging in is safe
         da: Ingen, for trafikken er stadig krypteret, så det er sikkert at logge ind
@@ -146,7 +146,7 @@ questions:
         authority in their built-in trust store; that is what proves the public key
         really belongs to the site named in the address bar. With an untrusted (for
         example self-signed) certificate the connection is still encrypted but not
-        necessarily to its intended target — an attacker in the
+        necessarily to its intended target - an attacker in the
         middle can present a certificate of their own. So "it is still encrypted" is
         exactly the trap: encryption to an impostor protects nothing. The warning is
         not a malware scan, and it does not mean the traffic is unencrypted; the safe
@@ -156,17 +156,17 @@ questions:
         certifikatudsteder i deres indbyggede tillidsliste; det er dét, der beviser,
         at den offentlige nøgle virkelig tilhører det site, der står i adresselinjen.
         Med et ikke-betroet (fx selvsigneret) certifikat er forbindelsen stadig
-        krypteret, men ikke nødvendigvis til den rigtige modtager — en angriber i
+        krypteret, men ikke nødvendigvis til den rigtige modtager - en angriber i
         midten kan fremvise sit eget certifikat. "Den er jo stadig krypteret" er altså
         netop fælden: Kryptering til en bedrager beskytter ingenting. Advarslen er
         ikke en malwarescanning, og den betyder ikke, at trafikken er ukrypteret; det
         sikre er at stoppe og melde det til it frem for at indtaste en adgangskode.
     difficulty: 2
     sources:
-      - title: Wikipedia — Self-signed certificate
+      - title: Wikipedia - Self-signed certificate
         url: https://en.wikipedia.org/wiki/Self-signed_certificate
         tier: reference
-      - title: Wikipedia — Certificate authority
+      - title: Wikipedia - Certificate authority
         url: https://en.wikipedia.org/wiki/Certificate_authority
         tier: reference
     draft: true
@@ -200,8 +200,8 @@ questions:
     answer: 1
     explanation:
       en: >-
-        TLS protects a connection between two endpoints — here each app and the
-        provider's server — so the server decrypts every message and can read it,
+        TLS protects a connection between two endpoints - here each app and the
+        provider's server - so the server decrypts every message and can read it,
         store it or hand it over. With end-to-end encryption only the sender's and
         recipient's devices hold the keys, so the provider carries messages it cannot
         decrypt. That is why "both are encrypted on the internet" misses the point:
@@ -209,8 +209,8 @@ questions:
         customer in service A, and it protects data only in transit, so messages
         stored on A's servers are not protected by it if the servers are breached.
       da: >-
-        TLS beskytter en forbindelse mellem to endepunkter — her hver app og
-        udbyderens server — så serveren dekrypterer hver besked og kan læse den, gemme
+        TLS beskytter en forbindelse mellem to endepunkter - her hver app og
+        udbyderens server - så serveren dekrypterer hver besked og kan læse den, gemme
         den eller udlevere den. Med end-to-end-kryptering har kun afsenderens og
         modtagerens enheder nøglerne, så udbyderen transporterer beskeder, den ikke
         kan dekryptere. Derfor rammer "begge er krypteret på internettet" ved siden
@@ -219,10 +219,10 @@ questions:
         servere er ikke beskyttet af TLS, hvis serverne bliver kompromitteret.
     difficulty: 2
     sources:
-      - title: Wikipedia — End-to-end encryption
+      - title: Wikipedia - End-to-end encryption
         url: https://en.wikipedia.org/wiki/End-to-end_encryption
         tier: reference
-      - title: RFC 8446 — The Transport Layer Security (TLS) Protocol Version 1.3
+      - title: RFC 8446 - The Transport Layer Security (TLS) Protocol Version 1.3
         url: https://www.rfc-editor.org/rfc/rfc8446
         tier: standard
     draft: true
@@ -260,7 +260,7 @@ questions:
         server; the record protocol then protects all the traffic with symmetric
         authenticated encryption using keys derived from that secret, because
         public-key operations are much more costly than symmetric ones. Neither
-        method is simply "more secure" — they solve different problems. Public-key
+        method is simply "more secure" - they solve different problems. Public-key
         schemes can encrypt, but only small values such as a key efficiently, and
         the data is not encrypted twice.
       da: >-
@@ -270,15 +270,15 @@ questions:
         autentificere serveren; derefter beskytter record-protokollen al trafikken
         med symmetrisk autentificeret kryptering med nøgler afledt af den
         hemmelighed, fordi asymmetriske beregninger er langt tungere end symmetriske.
-        Ingen af metoderne er bare "sikrere" — de løser forskellige problemer.
+        Ingen af metoderne er bare "sikrere" - de løser forskellige problemer.
         Asymmetriske metoder kan godt kryptere, men kun små værdier som en nøgle
         effektivt, og data krypteres ikke to gange.
     difficulty: 2
     sources:
-      - title: RFC 8446 — The Transport Layer Security (TLS) Protocol Version 1.3
+      - title: RFC 8446 - The Transport Layer Security (TLS) Protocol Version 1.3
         url: https://www.rfc-editor.org/rfc/rfc8446
         tier: standard
-      - title: Wikipedia — Hybrid cryptosystem
+      - title: Wikipedia - Hybrid cryptosystem
         url: https://en.wikipedia.org/wiki/Hybrid_cryptosystem
         tier: reference
     draft: true
@@ -303,8 +303,8 @@ questions:
         på en seddel i samme taske. Disken indeholder kunders lønoplysninger. Hvordan
         bør firmaet vurdere den beskyttelse, krypteringen gav?
     options:
-      - en: Little — whoever has the key can decrypt, so treat the data as exposed
-        da: Ringe — den, der har nøglen, kan dekryptere, så data må anses for kompromitteret
+      - en: Little - whoever has the key can decrypt, so treat the data as exposed
+        da: Ringe - den, der har nøglen, kan dekryptere, så data må anses for kompromitteret
       - en: Full, because modern full-disk encryption cannot be broken by any practical attack
         da: Fuld, for moderne fuld diskkryptering kan ikke brydes med noget praktisk angreb
       - en: Full, unless there is concrete evidence that the thief actually opened the files
@@ -316,31 +316,31 @@ questions:
       en: >-
         A cryptographic key is what separates those who can reverse the encryption
         from those who cannot, so encryption is only as strong as the secrecy of its
-        key — here the thief got both lock and key, and the strength of the algorithm
+        key - here the thief got both lock and key, and the strength of the algorithm
         no longer matters. One of the GDPR's exemptions from informing the people
         affected is that measures such as encryption rendered the data unintelligible
         to anyone not authorised (Article 34(3)(a)), which is not the case here. Lack
         of evidence that files were opened is not a basis for assuming they were not.
-        Full-disk encryption protects data at rest — exactly the lost-device case —
+        Full-disk encryption protects data at rest - exactly the lost-device case -
         which is why recovery keys belong in central key management, never beside
         the device.
       da: >-
         En kryptografisk nøgle er det, der adskiller dem, der kan vende krypteringen,
         fra dem, der ikke kan, så krypteringen er aldrig stærkere end hemmeligholdelsen
-        af nøglen — her fik tyven både lås og nøgle, og algoritmens styrke er
+        af nøglen - her fik tyven både lås og nøgle, og algoritmens styrke er
         ligegyldig. En af GDPR's undtagelser fra pligten til at underrette de berørte
         er, at foranstaltninger som kryptering har gjort data uforståelige for alle
         uvedkommende (artikel 34, stk. 3, litra a), og det er ikke tilfældet her.
         Manglende tegn på, at filerne er åbnet, er intet grundlag for at gå ud fra, at
-        de ikke er det. Fuld diskkryptering beskytter lagrede data — netop tilfældet
-        med en mistet enhed — og derfor hører gendannelsesnøgler hjemme i central
+        de ikke er det. Fuld diskkryptering beskytter lagrede data - netop tilfældet
+        med en mistet enhed - og derfor hører gendannelsesnøgler hjemme i central
         nøglehåndtering, aldrig ved siden af enheden.
     difficulty: 3
     sources:
-      - title: NIST CSRC Glossary — cryptographic key
+      - title: NIST CSRC Glossary - cryptographic key
         url: https://csrc.nist.gov/glossary/term/cryptographic_key
         tier: official-doc
-      - title: GDPR Article 34 — Communication of a personal data breach to the data subject (gdpr-info.eu)
+      - title: GDPR Article 34 - Communication of a personal data breach to the data subject (gdpr-info.eu)
         url: https://gdpr-info.eu/art-34-gdpr/
         tier: reference
     draft: true
@@ -370,7 +370,7 @@ questions:
     explanation:
       en: >-
         False. A plain hash uses no secret, so anyone who can alter the spreadsheet in
-        transit can also calculate a new value and replace the one in the e-mail — the
+        transit can also calculate a new value and replace the one in the e-mail - the
         match then proves nothing. A matching hash does catch accidental corruption,
         and it proves integrity when the value arrives through a separate, trusted
         channel. Against deliberate tampering you need a keyed check: a message
@@ -379,17 +379,17 @@ questions:
       da: >-
         Falsk. En almindelig hash bruger ingen hemmelighed, så den, der kan ændre
         regnearket undervejs, kan også beregne en ny værdi og udskifte den i
-        e-mailen — og så beviser overensstemmelsen ingenting. En matchende hash fanger
+        e-mailen - og så beviser overensstemmelsen ingenting. En matchende hash fanger
         utilsigtet beskadigelse, og den beviser integritet, når værdien kommer via en
         separat, betroet kanal. Mod bevidst manipulation skal der en kontrol med
         nøgle til: en MAC, som kræver en fælles hemmelighed, eller en digital signatur
         lavet med afsenderens private nøgle, som også viser, hvem der har signeret.
     difficulty: 2
     sources:
-      - title: Wikipedia — Message authentication code
+      - title: Wikipedia - Message authentication code
         url: https://en.wikipedia.org/wiki/Message_authentication_code
         tier: reference
-      - title: NIST CSRC Glossary — digital signature
+      - title: NIST CSRC Glossary - digital signature
         url: https://csrc.nist.gov/glossary/term/digital_signature
         tier: official-doc
     draft: true

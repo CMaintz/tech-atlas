@@ -9,24 +9,24 @@ cluster: llm
 layer: inference
 status: current
 summary:
-  en: The text you give a language model — a question, an order, pasted files — that it treats as its starting point for an answer.
-  da: Den tekst, du giver en sprogmodel — et spørgsmål, en ordre, indsatte filer — som den bruger som udgangspunkt for sit svar.
+  en: The text you give a language model - a question, an order, pasted files - that it treats as its starting point for an answer.
+  da: Den tekst, du giver en sprogmodel - et spørgsmål, en ordre, indsatte filer - som den bruger som udgangspunkt for sit svar.
 body:
   formal:
     en: The full input sent to a language model for one answer, often made of hidden instructions from the service owner (a "system prompt") plus the user's text and any added documents.
     da: Hele det input, der sendes til en sprogmodel for ét svar, ofte sammensat af skjulte instruktioner fra tjenestens ejer (en "systemprompt") plus brugerens tekst og eventuelle tilføjede dokumenter.
   plain:
-    en: Like the brief you hand a new temp — the clearer and fuller it is, the better the work, but they will follow whatever the note says.
-    da: Som den opgavebeskrivelse, du giver en ny vikar — jo klarere og mere udførlig, jo bedre arbejde, men vikaren følger, hvad der end står på sedlen.
+    en: Like the brief you hand a new temp - the clearer and fuller it is, the better the work, but they will follow whatever the note says.
+    da: Som den opgavebeskrivelse, du giver en ny vikar - jo klarere og mere udførlig, jo bedre arbejde, men vikaren følger, hvad der end står på sedlen.
   inPractice:
-    en: A buyer in a region pastes a supplier contract into an approved chat assistant and writes “list the risky clauses” — the contract and the request together form the prompt.
-    da: En indkøber i en region indsætter en leverandørkontrakt i en godkendt chatassistent og skriver “nævn de risikable klausuler” — kontrakten og anmodningen udgør tilsammen prompten.
+    en: A buyer in a region pastes a supplier contract into an approved chat assistant and writes “list the risky clauses” - the contract and the request together form the prompt.
+    da: En indkøber i en region indsætter en leverandørkontrakt i en godkendt chatassistent og skriver “nævn de risikable klausuler” - kontrakten og anmodningen udgør tilsammen prompten.
   whyItMatters:
     en: Whatever goes into a prompt leaves the organisation's control and may be stored by the provider; and because the model cannot tell data from orders, text inside a prompt can steer it.
     da: Alt, hvad der kommer i en prompt, forlader organisationens kontrol og kan blive gemt af udbyderen; og da modellen ikke kan skelne data fra ordrer, kan tekst i en prompt styre den.
 deepDive:
   en: |-
-    What a user types is rarely what the model receives. Chat APIs accept a structured list of messages with roles — system (or developer), user, assistant and tool — plus tool definitions and parameters. The serving stack renders this list through the model's chat template into one flat token sequence, inserting special delimiter tokens around each turn (ChatML-style markers such as im_start and im_end, or model-specific equivalents), and appends the opening of an assistant turn so that next-token prediction continues as the assistant. Tool schemas, retrieved documents, images, the current date and safety instructions added by the platform all end up in that same sequence. Using the wrong template with an open-weight model is a common cause of degraded or bizarre output.
+    What a user types is rarely what the model receives. Chat APIs accept a structured list of messages with roles - system (or developer), user, assistant and tool - plus tool definitions and parameters. The serving stack renders this list through the model's chat template into one flat token sequence, inserting special delimiter tokens around each turn (ChatML-style markers such as im_start and im_end, or model-specific equivalents), and appends the opening of an assistant turn so that next-token prediction continues as the assistant. Tool schemas, retrieved documents, images, the current date and safety instructions added by the platform all end up in that same sequence. Using the wrong template with an open-weight model is a common cause of degraded or bizarre output.
 
     Role markers are learned conventions, not access controls. Instruction and preference training teach the model to treat system text as higher-priority and tool output as data, and OpenAI's instruction-hierarchy work (Wallace et al., 2024) trains this explicitly, but at inference everything is tokens attending to tokens. That is the structural reason prompt injection exists: an instruction embedded in a pasted document, an email or a web page is processed by the same mechanism as a legitimate instruction. Greshake et al. (2023) named the case where the attacker never talks to the model directly indirect prompt injection; OWASP lists prompt injection as LLM01 in its 2025 Top 10 for LLM applications.
 
@@ -34,7 +34,7 @@ deepDive:
 
     From a data-protection perspective the prompt is the data flow. Everything in it is transmitted to the model operator, may be logged for abuse monitoring or debugging for a period set in the provider's terms, and may appear in the provider's telemetry. Where the prompt contains personal data the provider is typically a data processor under GDPR Art. 28, requiring a data processing agreement, and retention, training-use and region settings must be verified rather than assumed. Logging prompts on the application side is useful for audit and incident response but creates a new store of sensitive text that needs its own access control.
   da: |-
-    Det, brugeren skriver, er sjældent det, modellen modtager. Chat-API'er tager imod en struktureret liste af beskeder med roller — system (eller developer), user, assistant og tool — plus værktøjsdefinitioner og parametre. Serveringslaget omsætter listen via modellens chatskabelon til én flad tokensekvens, indsætter særlige skilletokens omkring hver tur (markører i ChatML-stil som im_start og im_end eller modelspecifikke modstykker) og tilføjer starten på en assistent-tur, så forudsigelsen af næste token fortsætter som assistenten. Værktøjsskemaer, hentede dokumenter, billeder, dagens dato og sikkerhedsinstruktioner fra platformen ender alle i den samme sekvens. En forkert skabelon til en open-weight-model er en almindelig årsag til forringet eller underligt output.
+    Det, brugeren skriver, er sjældent det, modellen modtager. Chat-API'er tager imod en struktureret liste af beskeder med roller - system (eller developer), user, assistant og tool - plus værktøjsdefinitioner og parametre. Serveringslaget omsætter listen via modellens chatskabelon til én flad tokensekvens, indsætter særlige skilletokens omkring hver tur (markører i ChatML-stil som im_start og im_end eller modelspecifikke modstykker) og tilføjer starten på en assistent-tur, så forudsigelsen af næste token fortsætter som assistenten. Værktøjsskemaer, hentede dokumenter, billeder, dagens dato og sikkerhedsinstruktioner fra platformen ender alle i den samme sekvens. En forkert skabelon til en open-weight-model er en almindelig årsag til forringet eller underligt output.
 
     Rollemarkører er lærte konventioner, ikke adgangskontrol. Instruktions- og præferencetræning lærer modellen at vægte systemtekst højere og behandle værktøjsoutput som data, og OpenAI's arbejde med et instruktionshierarki (Wallace m.fl., 2024) træner det eksplicit, men ved inferens er alt tokens, der giver attention til tokens. Det er den strukturelle årsag til, at prompt injection findes: En instruktion gemt i et indsat dokument, en mail eller en webside behandles af samme mekanisme som en legitim instruktion. Greshake m.fl. (2023) kaldte tilfældet, hvor angriberen aldrig taler direkte med modellen, indirekte prompt injection; OWASP har prompt injection som LLM01 i sin Top 10 for LLM-applikationer fra 2025.
 
@@ -45,7 +45,7 @@ edges:
   requires: [large-language-model]
   part-of: [context-window]
 sources:
-  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile
+  - title: NIST AI 600-1 - Artificial Intelligence Risk Management Framework, Generative AI Profile
     tier: standard
     publisher: NIST
   - title: OWASP Top 10 for Large Language Model Applications

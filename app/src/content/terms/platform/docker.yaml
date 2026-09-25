@@ -10,15 +10,15 @@ layer: infrastructure
 era: 2013
 status: current
 summary:
-  en: The widely used tool that made containers easy to use — it builds container images, shares them and runs them with a few commands.
-  da: Det udbredte værktøj, der gjorde containere nemme at bruge — det bygger container-images, deler dem og kører dem med få kommandoer.
+  en: The widely used tool that made containers easy to use - it builds container images, shares them and runs them with a few commands.
+  da: Det udbredte værktøj, der gjorde containere nemme at bruge - det bygger container-images, deler dem og kører dem med få kommandoer.
 body:
   formal:
     en: A set of tools released in 2013 for building container images from a short recipe file, pushing and pulling them through a container registry, and starting and stopping containers on a single host via a background service.
     da: Et sæt værktøjer udgivet i 2013 til at bygge container-images ud fra en kort opskriftsfil, lægge dem op i og hente dem fra et container-register og starte og stoppe containere på en enkelt vært via en baggrundstjeneste.
   plain:
-    en: Like a standard shipping company for software — it packs the goods into the same kind of box every time and delivers them anywhere that accepts that box.
-    da: Som et fast rederi for software — det pakker varerne i den samme slags kasse hver gang og leverer dem overalt, hvor den kasse bliver modtaget.
+    en: Like a standard shipping company for software - it packs the goods into the same kind of box every time and delivers them anywhere that accepts that box.
+    da: Som et fast rederi for software - det pakker varerne i den samme slags kasse hver gang og leverer dem overalt, hvor den kasse bliver modtaget.
   inPractice:
     en: A developer at an accounting firm writes a short file naming the base image and the program's files, runs one build command, and hands the finished image to the IT operations manager to run on the firm's servers.
     da: En udvikler i et revisionsfirma skriver en kort fil med base-image og programmets filer, kører én build-kommando og giver det færdige image til den IT-driftsansvarlige, som kører det på firmaets servere.
@@ -47,11 +47,11 @@ edges:
   requires: [container-image]
   used-with: [kubernetes]
 sources:
-  - title: Docker Docs — Docker overview
+  - title: Docker Docs - Docker overview
     url: https://docs.docker.com/get-started/docker-overview/
     tier: official-doc
     publisher: Docker
-  - title: NIST SP 800-190 — Application Container Security Guide
+  - title: NIST SP 800-190 - Application Container Security Guide
     tier: standard
     publisher: NIST
   - title: Docker Engine 23.0 release notes

@@ -53,7 +53,7 @@ edges:
   used-with:
     - same-origin-policy
 sources:
-  - title: OWASP Cheat Sheet Series — Cross-Site Request Forgery Prevention
+  - title: OWASP Cheat Sheet Series - Cross-Site Request Forgery Prevention
     tier: reference
     publisher: OWASP
     url: https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html

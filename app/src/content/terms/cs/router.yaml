@@ -16,14 +16,14 @@ body:
     en: A device that connects two or more networks and, for each arriving packet, reads the destination IP address and forwards the packet along the best known path.
     da: En enhed, der forbinder to eller flere netværk, og som for hver pakke, den modtager, læser destinationens IP-adresse og sender pakken videre ad den bedste kendte vej.
   plain:
-    en: Like a sorting office at the post — it does not open letters, it just reads the address and sends each one down the right road.
-    da: Som en postterminal — den åbner ikke brevene, men læser adressen og sender hvert brev ud ad den rigtige vej.
+    en: Like a sorting office at the post - it does not open letters, it just reads the address and sends each one down the right road.
+    da: Som en postterminal - den åbner ikke brevene, men læser adressen og sender hvert brev ud ad den rigtige vej.
   inPractice:
     en: A shipping company's IT operations manager finds that the router at a small branch office still has its factory password and an admin page open to the internet; she changes the password and closes the page to outside access.
     da: Hos et rederi opdager den IT-driftsansvarlige, at routeren på et lille lokalkontor stadig har fabrikkens adgangskode og en administrationsside, der kan nås fra internettet; hun skifter adgangskoden og lukker siden for adgang udefra.
   whyItMatters:
-    en: Routers sit at the borders between networks, so they are natural places to enforce rules about what may pass — and valuable targets for attackers.
-    da: Routere sidder på grænserne mellem netværk, så de er oplagte steder at håndhæve regler for, hvad der må passere — og værdifulde mål for angribere.
+    en: Routers sit at the borders between networks, so they are natural places to enforce rules about what may pass - and valuable targets for attackers.
+    da: Routere sidder på grænserne mellem netværk, så de er oplagte steder at håndhæve regler for, hvad der må passere - og værdifulde mål for angribere.
 deepDive:
   en: |-
     For each packet, a router strips the incoming link-layer frame, validates the IP header, looks up the destination address in its forwarding table (FIB) using longest prefix match, decrements TTL or hop limit (recomputing the IPv4 header checksum), resolves the next hop's MAC address with ARP or IPv6 Neighbor Discovery and sends the packet out in a new frame. The source and destination IP addresses stay the same end to end unless NAT rewrites them, whereas the MAC addresses change on every hop. If no more specific route matches, the default route (0.0.0.0/0 or ::/0) is used; if there is none, the packet is dropped with an ICMP Destination Unreachable, and a packet whose TTL reaches zero triggers ICMP Time Exceeded.
@@ -36,7 +36,7 @@ deepDive:
   da: |-
     For hver pakke fjerner en router den indkommende frame fra linklaget, validerer IP-headeren, slår destinationsadressen op i sin forwarding-tabel (FIB) efter længste præfiksmatch, tæller TTL eller hop limit ned (og genberegner IPv4-headerens checksum), finder næste hops MAC-adresse med ARP eller IPv6 Neighbor Discovery og sender pakken ud i en ny frame. Kilde- og destinations-IP-adressen er de samme hele vejen, medmindre NAT omskriver dem, mens MAC-adresserne skifter ved hvert hop. Passer ingen mere specifik rute, bruges standardruten (0.0.0.0/0 eller ::/0); findes der ingen, kasseres pakken med en ICMP Destination Unreachable, og en pakke, hvis TTL når nul, udløser ICMP Time Exceeded.
 
-    En router har tre logiske planer. Kontrolplanet opbygger routingtabellen (RIB) ud fra direkte tilsluttede netværk, statiske ruter og routingprotokoller: interne protokoller som OSPF (RFC 2328) og IS-IS inden for en organisation og BGP-4 (RFC 4271) mellem autonome systemer. De bedste ruter lægges i FIB'en, som dataplanet bruger til at videresende pakker — i kraftige routere med fuld linjehastighed i dedikerede ASIC'er. Administrationsplanet er den vej, administratorer og værktøjer når enheden: SSH, SNMP, webgrænseflader og API'er.
+    En router har tre logiske planer. Kontrolplanet opbygger routingtabellen (RIB) ud fra direkte tilsluttede netværk, statiske ruter og routingprotokoller: interne protokoller som OSPF (RFC 2328) og IS-IS inden for en organisation og BGP-4 (RFC 4271) mellem autonome systemer. De bedste ruter lægges i FIB'en, som dataplanet bruger til at videresende pakker - i kraftige routere med fuld linjehastighed i dedikerede ASIC'er. Administrationsplanet er den vej, administratorer og værktøjer når enheden: SSH, SNMP, webgrænseflader og API'er.
 
     Begreberne bruges løst i praksis. En lag 2-switch videresender frames efter MAC-adresse inden for ét broadcast-domæne, en lag 3-switch router også mellem VLAN'er, og "routeren" i et hjem eller et lille kontor er en kombineret enhed med router, NAT, stateful firewall, DHCP-server, DNS-videresender, switch og Wi-Fi-adgangspunkt. NAT skjuler interne adresser som en bivirkning, men erstatter ikke en firewallpolitik, og routere filtrerer med tilstandsløse adgangslister (ACL'er), medmindre de kører en firewallfunktion.
 

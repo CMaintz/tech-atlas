@@ -16,8 +16,8 @@ body:
     en: The duty in NIS2 Article 20 for the management body to approve the security measures, oversee how they are carried out and take part in training, with members liable if they fail; ISO 27001 clause 5 sets a similar leadership duty.
     da: Pligten i NIS2's artikel 20 for ledelsesorganet til at godkende sikkerhedstiltagene, føre tilsyn med, at de gennemføres, og deltage i uddannelse, så medlemmerne kan holdes ansvarlige, hvis de svigter; ISO 27001 afsnit 5 stiller et lignende krav til ledelsen.
   plain:
-    en: The captain answers for the ship — the crew may do the work, but when it hits the rocks the captain cannot say "that was not my job".
-    da: Kaptajnen står til ansvar for skibet — besætningen udfører arbejdet, men når skibet går på grund, kan kaptajnen ikke sige "det var ikke min opgave".
+    en: The captain answers for the ship - the crew may do the work, but when it hits the rocks the captain cannot say "that was not my job".
+    da: Kaptajnen står til ansvar for skibet - besætningen udfører arbejdet, men når skibet går på grund, kan kaptajnen ikke sige "det var ikke min opgave".
   inPractice:
     en: The chief executive of a Danish municipality signs off the risk assessment each year, attends a half-day course on cyber risk with the rest of the management team and gets a status report from the security lead every quarter.
     da: Den øverste direktør i en dansk kommune godkender hvert år risikoanalysen, deltager sammen med resten af topledelsen i et halvdagskursus om cyberrisici og får hvert kvartal en statusrapport fra den sikkerhedsansvarlige.
@@ -52,7 +52,7 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: Directive (EU) 2022/2555 (NIS2 Directive), Article 20
     tier: standard
