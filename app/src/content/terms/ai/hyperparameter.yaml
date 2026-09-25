@@ -9,15 +9,15 @@ cluster: training
 layer: training
 status: current
 summary:
-  en: A setting a person chooses before model training starts — such as step size or number of rounds — that the model does not learn itself.
-  da: En indstilling, et menneske vælger, før modeltræningen starter — fx skridtstørrelse eller antal runder — som modellen ikke selv lærer.
+  en: A setting a person chooses before model training starts - such as step size or number of rounds - that the model does not learn itself.
+  da: En indstilling, et menneske vælger, før modeltræningen starter - fx skridtstørrelse eller antal runder - som modellen ikke selv lærer.
 body:
   formal:
     en: A value that shapes how model training runs or how large the model is, fixed from outside rather than learned from the training data; it is tuned by trying values and comparing results on a validation set.
     da: En værdi, der former, hvordan modeltræningen kører, eller hvor stor modellen er, og som fastsættes udefra i stedet for at læres fra træningsdata; den justeres ved at prøve værdier og sammenligne resultater på et valideringssæt.
   plain:
-    en: Like the oven heat and baking time you set before the cake goes in — the cake does not choose them, but they decide how it turns out.
-    da: Som ovnvarmen og bagetiden, du sætter, før kagen kommer ind — kagen vælger dem ikke, men de afgør, hvordan den bliver.
+    en: Like the oven heat and baking time you set before the cake goes in - the cake does not choose them, but they decide how it turns out.
+    da: Som ovnvarmen og bagetiden, du sætter, før kagen kommer ind - kagen vælger dem ikke, men de afgør, hvordan den bliver.
   inPractice:
     en: A data analyst in a municipality runs twenty short training jobs overnight on a model that forecasts demand for home care, each with a different step size and batch size, and keeps the combination that does best on held-back cases.
     da: En dataanalytiker i en kommune kører tyve korte træningsjob over natten på en model, der skal forudsige behovet for hjemmepleje, med hver sin skridtstørrelse og batchstørrelse, og beholder den kombination, der klarer sig bedst på tilbageholdte sager.
@@ -28,7 +28,7 @@ deepDive:
   en: |-
     Hyperparameters fall into several groups. Optimisation hyperparameters include the learning rate and its schedule (warmup length, decay shape), batch size, number of epochs or steps, momentum or Adam's β values, weight decay and gradient-clipping threshold. Architectural ones fix capacity: number of layers, hidden width, attention heads, dropout rate, context length. Data-side choices such as augmentation strength or the mixture weights of pretraining sources behave the same way, as do method-specific settings such as LoRA's rank r and scaling α or the KL coefficient in RLHF. Decoding settings such as temperature and top-p are sometimes also called hyperparameters, although they act at inference, not training. The boundary with learned parameters is a design choice: a temperature or a regularisation weight can be made learnable, at which point it stops being a hyperparameter.
 
-    Not all hyperparameters matter equally, and the learning rate is usually the most sensitive (Goodfellow et al., §11.4). Grid search scales exponentially with the number of dimensions and wastes trials on unimportant ones; Bergstra and Bengio (2012) showed that random search finds equally good or better configurations with far fewer trials for exactly that reason. Scale-type hyperparameters should be searched on a log scale, for example learning rates from 10⁻⁵ to 10⁻¹. Bayesian optimisation fits a surrogate model of validation score against configuration — Gaussian processes (Snoek et al., 2012) or the tree-structured Parzen estimator used by default in Optuna — and chooses the next trial by an acquisition function. Multi-fidelity methods such as successive halving and Hyperband (Li et al., 2018) stop unpromising runs early, and population-based training (Jaderberg et al., 2017) mutates hyperparameters of running jobs.
+    Not all hyperparameters matter equally, and the learning rate is usually the most sensitive (Goodfellow et al., §11.4). Grid search scales exponentially with the number of dimensions and wastes trials on unimportant ones; Bergstra and Bengio (2012) showed that random search finds equally good or better configurations with far fewer trials for exactly that reason. Scale-type hyperparameters should be searched on a log scale, for example learning rates from 10⁻⁵ to 10⁻¹. Bayesian optimisation fits a surrogate model of validation score against configuration - Gaussian processes (Snoek et al., 2012) or the tree-structured Parzen estimator used by default in Optuna - and chooses the next trial by an acquisition function. Multi-fidelity methods such as successive halving and Hyperband (Li et al., 2018) stop unpromising runs early, and population-based training (Jaderberg et al., 2017) mutates hyperparameters of running jobs.
 
     Large models cannot be tuned by brute force, since a single run may cost millions. Practitioners tune small proxy models and extrapolate, either through empirical scaling fits for learning rate and batch size or through parametrisations such as μP (Yang et al., 2022), under which optimal hyperparameters stay approximately stable as width grows, allowing "tune small, transfer large".
 
@@ -36,7 +36,7 @@ deepDive:
   da: |-
     Hyperparametre falder i flere grupper. Optimeringshyperparametre omfatter læringsraten og dens plan (opvarmningslængde, nedtrapningsform), batchstørrelse, antal epoker eller skridt, momentum eller Adams β-værdier, weight decay og tærsklen for klipning af gradienter. Arkitekturhyperparametre fastlægger kapaciteten: antal lag, skjult bredde, attention-hoveder, dropout-rate og kontekstlængde. Valg på datasiden som augmenteringsstyrke eller blandingsvægte for fortræningskilder opfører sig på samme måde, og det gør metodespecifikke indstillinger som LoRA's rang r og skalering α eller KL-koefficienten i RLHF. Dekodningsindstillinger som temperatur og top-p kaldes nogle gange også hyperparametre, selv om de virker ved inferens og ikke ved træning. Grænsen til lærte parametre er et designvalg: en temperatur eller en regulariseringsvægt kan gøres lærbar, og så holder den op med at være en hyperparameter.
 
-    Ikke alle hyperparametre betyder lige meget, og læringsraten er som regel den mest følsomme (Goodfellow m.fl., §11.4). Grid search vokser eksponentielt med antallet af dimensioner og spilder forsøg på uvigtige dimensioner; Bergstra og Bengio (2012) viste, at tilfældig søgning netop derfor finder lige så gode eller bedre konfigurationer med langt færre forsøg. Hyperparametre af skala-typen bør afsøges på logaritmisk skala, fx læringsrater fra 10⁻⁵ til 10⁻¹. Bayesiansk optimering tilpasser en surrogatmodel af valideringsscore som funktion af konfigurationen — gaussiske processer (Snoek m.fl., 2012) eller den træstrukturerede Parzen-estimator, som Optuna bruger som standard — og vælger næste forsøg via en acquisition-funktion. Multi-fidelity-metoder som successive halving og Hyperband (Li m.fl., 2018) stopper tidligt de kørsler, der ikke ser lovende ud, og population-based training (Jaderberg m.fl., 2017) muterer hyperparametrene for kørende job.
+    Ikke alle hyperparametre betyder lige meget, og læringsraten er som regel den mest følsomme (Goodfellow m.fl., §11.4). Grid search vokser eksponentielt med antallet af dimensioner og spilder forsøg på uvigtige dimensioner; Bergstra og Bengio (2012) viste, at tilfældig søgning netop derfor finder lige så gode eller bedre konfigurationer med langt færre forsøg. Hyperparametre af skala-typen bør afsøges på logaritmisk skala, fx læringsrater fra 10⁻⁵ til 10⁻¹. Bayesiansk optimering tilpasser en surrogatmodel af valideringsscore som funktion af konfigurationen - gaussiske processer (Snoek m.fl., 2012) eller den træstrukturerede Parzen-estimator, som Optuna bruger som standard - og vælger næste forsøg via en acquisition-funktion. Multi-fidelity-metoder som successive halving og Hyperband (Li m.fl., 2018) stopper tidligt de kørsler, der ikke ser lovende ud, og population-based training (Jaderberg m.fl., 2017) muterer hyperparametrene for kørende job.
 
     Store modeller kan ikke tunes med rå kraft, når én kørsel kan koste millioner. Man tuner i stedet små stedfortrædermodeller og ekstrapolerer, enten via empiriske skaleringsfit for læringsrate og batchstørrelse eller via parametriseringer som μP (Yang m.fl., 2022), hvor de optimale hyperparametre forbliver omtrent stabile, når bredden vokser, så man kan "tune småt og overføre til stort".
 
@@ -54,7 +54,7 @@ sources:
   - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 5.3 and 11.4)'
     tier: textbook
     publisher: MIT Press
-  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+  - title: ISO/IEC 22989:2022 - Artificial intelligence concepts and terminology
     tier: standard
     publisher: ISO/IEC
 draft: true

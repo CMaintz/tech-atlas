@@ -4,6 +4,7 @@ import {
   circularDefinitions,
   depthHistogram,
   draftRatioByDomain,
+  forbiddenDashes,
   missingPrerequisites,
   redundantChildren,
   type RuleTerm,
@@ -136,5 +137,21 @@ describe('reports', () => {
       { domain: 'cs', drafts: 1, total: 2 },
       { domain: 'security', drafts: 1, total: 1 },
     ]);
+  });
+});
+
+describe('forbiddenDashes (E12)', () => {
+  it('finds en dashes, em dashes and horizontal bars with their line', () => {
+    const text = 'summary: plain words\nbody: one — two\nyears: 2018–2020 ― end';
+    expect(forbiddenDashes(text).map((f) => [f.line, f.char])).toEqual([
+      [2, 'U+2014'],
+      [3, 'U+2013'],
+      [3, 'U+2015'],
+    ]);
+    expect(forbiddenDashes(text)[0].excerpt).toBe('body: one ? two');
+  });
+
+  it('accepts hyphen-minus and minus-looking ASCII', () => {
+    expect(forbiddenDashes('one - two, 2018-2020, A-Z, --flag')).toEqual([]);
   });
 });

@@ -17,17 +17,17 @@ body:
     en: A planned training exercise in which an organisation sends realistic but safe phishing messages to its own staff, measures how many click or report them, and follows up with short lessons.
     da: En planlagt træningsøvelse, hvor organisationen sender realistiske, men ufarlige phishingbeskeder til sine egne medarbejdere, måler, hvor mange der klikker eller melder dem, og følger op med korte lektioner.
   plain:
-    en: Like a fire drill for the inbox — practising the right reaction while nothing is really burning.
-    da: Som en brandøvelse for indbakken — man øver den rigtige reaktion, mens intet brænder.
+    en: Like a fire drill for the inbox - practising the right reaction while nothing is really burning.
+    da: Som en brandøvelse for indbakken - man øver den rigtige reaktion, mens intet brænder.
   inPractice:
     en: The IT security officer at an audit firm sends a fake “You have new digital post” mail; staff who click see a friendly page pointing out the warning signs they missed.
     da: Den IT-sikkerhedsansvarlige i et revisionsfirma sender en falsk mail om, at “Du har fået ny digital post”; de, der klikker, ser en venlig side, der peger på de advarselstegn, de overså.
   whyItMatters:
-    en: It turns awareness into a number that can be followed over time and gives safe practice before a real attacker tests people — as long as it is used to teach rather than to shame.
-    da: Det gør awareness til et tal, der kan følges over tid, og giver sikker øvelse, før en rigtig angriber prøver folk af — så længe det bruges til at lære og ikke til at udstille nogen.
+    en: It turns awareness into a number that can be followed over time and gives safe practice before a real attacker tests people - as long as it is used to teach rather than to shame.
+    da: Det gør awareness til et tal, der kan følges over tid, og giver sikker øvelse, før en rigtig angriber prøver folk af - så længe det bruges til at lære og ikke til at udstille nogen.
 deepDive:
   en: |-
-    A simulation platform — commercial suites, Microsoft Defender for Office 365 Attack Simulation Training, or the open-source GoPhish — sends templated messages with per-recipient tracking tokens embedded in links, attachments or QR codes, and records opens, clicks, credential submissions, attachment opens and reports. Typical payload types mirror real techniques: credential harvest, malware attachment, link in attachment, drive-by URL and OAuth consent grant. Because production defences would otherwise block or detonate the mails, third-party simulations must be explicitly exempted, in Microsoft 365 via the advanced delivery policy rather than blanket transport-rule bypasses, and link scanners must be accounted for, since sandbox detonation produces false clicks that inflate results.
+    A simulation platform - commercial suites, Microsoft Defender for Office 365 Attack Simulation Training, or the open-source GoPhish - sends templated messages with per-recipient tracking tokens embedded in links, attachments or QR codes, and records opens, clicks, credential submissions, attachment opens and reports. Typical payload types mirror real techniques: credential harvest, malware attachment, link in attachment, drive-by URL and OAuth consent grant. Because production defences would otherwise block or detonate the mails, third-party simulations must be explicitly exempted, in Microsoft 365 via the advanced delivery policy rather than blanket transport-rule bypasses, and link scanners must be accounted for, since sandbox detonation produces false clicks that inflate results.
 
     Results are only comparable when difficulty is controlled. The NIST Phish Scale (introduced in 2020, user guide NIST TN 2276, 2023) rates a template by counting observable cues (sender, formatting, technical and content anomalies) and assessing premise alignment, how well the pretext fits the recipient's actual work. A low-cue, high-alignment lure will produce far higher click rates than a clumsy one, so a falling click rate may reflect easier templates, not better staff. Report rate and time-to-report are more robust, and the difference between the two gives a picture of both susceptibility and detection. Small departments, one-off campaigns and seasonal effects add noise that is easily mistaken for trend.
 
@@ -35,7 +35,7 @@ deepDive:
 
     Design and governance matter. Lures offering bonuses, pay rises or pandemic information have caused well-publicised staff backlash, for example at GoDaddy in 2020, and erode trust in the security team. Click data is personal data about employees, so under GDPR the programme needs a lawful basis (usually legitimate interest, Art. 6(1)(f)), transparent information to staff, data minimisation and, preferably, aggregated reporting to management rather than named lists. NIST SP 800-50 Rev. 1 places simulations under experiential learning alongside tabletop and cyber-range exercises, and CIS Controls v8 Control 14 expects training on recognising social engineering attacks.
   da: |-
-    En simuleringsplatform — kommercielle pakker, Attack Simulation Training i Microsoft Defender for Office 365 eller open source-værktøjet GoPhish — sender skabelonbaserede beskeder med sporingstokens pr. modtager indlejret i links, vedhæftninger eller QR-koder og registrerer åbninger, klik, indtastede loginoplysninger, åbnede vedhæftninger og meldinger. De typiske nyttelaster spejler rigtige teknikker: høst af loginoplysninger, vedhæftet malware, link i vedhæftning, drive-by-URL og OAuth-samtykke. Da produktionsforsvaret ellers ville blokere eller detonere mailene, skal simuleringer fra tredjepart undtages eksplicit, i Microsoft 365 via advanced delivery policy frem for generelle omgåelser i transportregler, og der skal tages højde for linkscannere, fordi sandbox-detonering giver falske klik, der puster resultaterne op.
+    En simuleringsplatform - kommercielle pakker, Attack Simulation Training i Microsoft Defender for Office 365 eller open source-værktøjet GoPhish - sender skabelonbaserede beskeder med sporingstokens pr. modtager indlejret i links, vedhæftninger eller QR-koder og registrerer åbninger, klik, indtastede loginoplysninger, åbnede vedhæftninger og meldinger. De typiske nyttelaster spejler rigtige teknikker: høst af loginoplysninger, vedhæftet malware, link i vedhæftning, drive-by-URL og OAuth-samtykke. Da produktionsforsvaret ellers ville blokere eller detonere mailene, skal simuleringer fra tredjepart undtages eksplicit, i Microsoft 365 via advanced delivery policy frem for generelle omgåelser i transportregler, og der skal tages højde for linkscannere, fordi sandbox-detonering giver falske klik, der puster resultaterne op.
 
     Resultater kan kun sammenlignes, når sværhedsgraden er styret. NIST Phish Scale (introduceret i 2020, brugervejledning NIST TN 2276 fra 2023) vurderer en skabelon ved at tælle synlige spor (afvigelser i afsender, formatering, teknik og indhold) og vurdere premise alignment, altså hvor godt påskuddet passer til modtagerens faktiske arbejde. Et lokkemiddel med få spor og høj relevans giver langt højere klikrater end et klodset et, så en faldende klikrate kan skyldes lettere skabeloner og ikke bedre medarbejdere. Meldeprocent og tid til melding er mere robuste mål, og forskellen mellem de to giver et billede af både modtagelighed og detektion. Små afdelinger, enkeltstående kampagner og sæsonudsving giver støj, der let forveksles med en tendens.
 
@@ -62,20 +62,20 @@ edges:
       confidence: high
   part-of: [awareness-programme]
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 2
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 2
     tier: course-material
-  - title: CIS Controls v8 — Control 14 (Security Awareness and Skills Training)
+  - title: CIS Controls v8 - Control 14 (Security Awareness and Skills Training)
     tier: standard
     publisher: Center for Internet Security
-  - title: NIST TN 2276 — NIST Phish Scale User Guide
+  - title: NIST TN 2276 - NIST Phish Scale User Guide
     tier: standard
     publisher: NIST
     url: https://csrc.nist.gov/pubs/tn/2276/final
-  - title: Lain, Kostiainen, Čapkun — Phishing in Organizations - Findings from a Large-Scale and Long-Term Study (IEEE S&P 2022)
+  - title: Lain, Kostiainen, Čapkun - Phishing in Organizations - Findings from a Large-Scale and Long-Term Study (IEEE S&P 2022)
     tier: other
     publisher: arXiv
     url: https://arxiv.org/abs/2112.07498
-  - title: Ho et al. — Understanding the Efficacy of Phishing Training in Practice (IEEE S&P 2025)
+  - title: Ho et al. - Understanding the Efficacy of Phishing Training in Practice (IEEE S&P 2025)
     tier: other
     publisher: IEEE
     url: https://people.cs.uchicago.edu/~grantho/papers/oakland2025_phishing-training.pdf

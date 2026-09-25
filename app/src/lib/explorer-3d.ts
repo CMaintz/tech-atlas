@@ -16,7 +16,7 @@ import {
   isDirected,
   type MapTheme,
 } from './graph-style';
-import { backbone, galaxyLayout, pageRank, separate } from './graph-layout';
+import { backboneOf, galaxyLayout, pageRank, separate } from './graph-layout';
 import { reducedMotion } from './graph-cytoscape';
 
 export type View3D = {
@@ -76,13 +76,12 @@ export async function createMap3D(opts: {
     separate(pts, (i, j) => (EXPLORER.spacing.factor * (r[i] + r[j])) / 2 + cfg.labelClearance, 60);
     graph.nodes.forEach((n, i) => pos.set(n.id, pts[i]));
   }
-  const spine = backbone(graph.nodes, graph.links);
   const nodes: Node3[] = graph.nodes.map((n) => {
     const p = pos.get(n.id)!;
     return { ...n, x: p.x, y: p.y, z: p.z, fx: p.x, fy: p.y, fz: p.z };
   });
   const byId = new Map(nodes.map((n) => [n.id, n]));
-  const links: Link3[] = graph.links.map((l, i) => ({ ...l, i, bb: spine.has(i) }));
+  const links: Link3[] = graph.links.map((l, i) => ({ ...l, i, bb: false }));
   const neighbours = new Map<string, Set<string>>(nodes.map((n) => [n.id, new Set([n.id])]));
   for (const l of links) {
     neighbours.get(l.source)?.add(l.target);
@@ -114,12 +113,15 @@ export async function createMap3D(opts: {
   };
   const nodeColour = (n: GraphNode) =>
     n.id === view?.selected ? ink().selected : faded(n.id) ? ink().faded3d : view!.colour(n);
+  /** The families filter the overview only: a selected term shows all its relationships. */
   const endsShown = (l: Link3) => {
     if (!view) return false;
+    const s = endId(l.source);
+    const t = endId(l.target);
     return (
-      view.nodes.has(endId(l.source)) &&
-      view.nodes.has(endId(l.target)) &&
-      view.families.has(l.family)
+      view.nodes.has(s) &&
+      view.nodes.has(t) &&
+      (view.families.has(l.family) || s === view.selected || t === view.selected)
     );
   };
   // Only the focused links are 3d-force-graph objects (arrows, particles); the resting
@@ -617,6 +619,10 @@ export async function createMap3D(opts: {
     apply(next: View3D) {
       const prev = view;
       view = next;
+      if (prev?.families !== next.families) {
+        const spine = backboneOf(graph.nodes, graph.links, next.families);
+        for (const l of links) l.bb = spine.has(l.i);
+      }
       const nodesChanged = !prev || prev.nodes !== next.nodes;
       if (nodesChanged) fg.nodeVisibility(fg.nodeVisibility());
       refresh();

@@ -17,14 +17,14 @@ body:
     en: A program that speaks the Model Context Protocol and tells a connected AI app which tools, data and prompts it offers, each with a name and a text description; it runs the tool calls it receives, either on the same machine or over the internet.
     da: Et program, der taler Model Context Protocol og fortæller en tilsluttet AI-app, hvilke værktøjer, data og prompts det tilbyder, hver med et navn og en tekstbeskrivelse; det udfører de værktøjskald, det modtager, enten på samme maskine eller over internettet.
   plain:
-    en: Like letting a temp from an unknown agency into the office because their written list of skills looks useful — you only have their word for what they will actually do.
-    da: Som at lukke en vikar fra et ukendt bureau ind på kontoret, fordi vikarens skrevne liste over, hvad vedkommende kan, ser nyttig ud — man har kun vikarens eget ord for, hvad der faktisk sker.
+    en: Like letting a temp from an unknown agency into the office because their written list of skills looks useful - you only have their word for what they will actually do.
+    da: Som at lukke en vikar fra et ukendt bureau ind på kontoret, fordi vikarens skrevne liste over, hvad vedkommende kan, ser nyttig ud - man har kun vikarens eget ord for, hvad der faktisk sker.
   inPractice:
     en: The office manager at a small Danish firm installs a free MCP server from the web so an assistant can manage her calendar; it asks for her full account login, and every tool description it sends goes straight to the model.
     da: Kontorchefen i en lille dansk virksomhed installerer en gratis MCP-server fra nettet, så en assistent kan styre hendes kalender; den beder om hele kontoens login, og hver værktøjsbeskrivelse, den sender, går direkte til modellen.
   whyItMatters:
-    en: Each one is outside code with real access running next to your assistant, so a careless or hostile one can leak secrets or steer the model — it deserves the same care as installing any other software.
-    da: Hver af dem er fremmed kode med reel adgang, der kører ved siden af ens assistent, så en sjusket eller ondsindet server kan lække hemmeligheder eller styre modellen — den skal installeres med samme omhu som al anden software.
+    en: Each one is outside code with real access running next to your assistant, so a careless or hostile one can leak secrets or steer the model - it deserves the same care as installing any other software.
+    da: Hver af dem er fremmed kode med reel adgang, der kører ved siden af ens assistent, så en sjusket eller ondsindet server kan lække hemmeligheder eller styre modellen - den skal installeres med samme omhu som al anden software.
 deepDive:
   en: |-
     An MCP server exposes up to three server-side primitives. Tools are model-invoked functions, advertised via tools/list with a name, a natural-language description, a JSON Schema inputSchema (JSON Schema 2020-12 is the default dialect) and optionally an outputSchema, and executed via tools/call, which returns content blocks and optionally structuredContent. Resources are application-controlled, URI-addressed data read with resources/read, and prompts are user-selected templates fetched with prompts/get. Tools may also carry annotations such as readOnlyHint, destructiveHint, idempotentHint and openWorldHint; the specification says clients must treat these as untrusted unless the server itself is trusted, because a malicious server can simply lie.
@@ -61,8 +61,8 @@ edges:
       confidence: high
     - to: prompt-injection
       why:
-        en: A tool's description is read by the model as trusted text, so a hostile MCP server can hide orders in it — known as tool poisoning.
-        da: En værktøjsbeskrivelse læses af modellen som betroet tekst, så en ondsindet MCP-server kan gemme ordrer i den — kendt som tool poisoning.
+        en: A tool's description is read by the model as trusted text, so a hostile MCP server can hide orders in it - known as tool poisoning.
+        da: En værktøjsbeskrivelse læses af modellen som betroet tekst, så en ondsindet MCP-server kan gemme ordrer i den - kendt som tool poisoning.
       strength: primary
       confidence: high
     - to: secrets-management
@@ -78,11 +78,11 @@ sources:
   - title: OWASP Top 10 for LLM Applications 2025 (LLM01 Prompt Injection; LLM06 Excessive Agency)
     tier: reference
     publisher: OWASP
-  - title: Model Context Protocol specification 2026-07-28 — Authorization
+  - title: Model Context Protocol specification 2026-07-28 - Authorization
     tier: official-doc
     publisher: Model Context Protocol project
     url: https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization
-  - title: GitHub Advisory GHSA-6xpm-ggf7-wc3p (CVE-2025-6514) — OS command injection in mcp-remote
+  - title: GitHub Advisory GHSA-6xpm-ggf7-wc3p (CVE-2025-6514) - OS command injection in mcp-remote
     tier: reference
     publisher: GitHub
     url: https://github.com/advisories/GHSA-6xpm-ggf7-wc3p

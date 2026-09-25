@@ -49,10 +49,10 @@ questions:
         ikke et problem med kontekstvinduet.
     difficulty: 1
     sources:
-      - title: NIST AI 600-1, Artificial Intelligence Risk Management Framework — Generative Artificial Intelligence Profile (2.2 Confabulation)
+      - title: NIST AI 600-1, Artificial Intelligence Risk Management Framework - Generative Artificial Intelligence Profile (2.2 Confabulation)
         url: https://doi.org/10.6028/NIST.AI.600-1
         tier: standard
-      - title: Anthropic documentation — Reduce hallucinations
+      - title: Anthropic documentation - Reduce hallucinations
         url: https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations
         tier: official-doc
     draft: true
@@ -108,10 +108,10 @@ questions:
       - title: Lewis et al. (2020), Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
         url: https://arxiv.org/abs/2005.11401
         tier: reference
-      - title: Anthropic documentation — Glossary (RAG, fine-tuning, temperature)
+      - title: Anthropic documentation - Glossary (RAG, fine-tuning, temperature)
         url: https://platform.claude.com/docs/en/about-claude/glossary
         tier: official-doc
-      - title: Anthropic documentation — Reduce hallucinations
+      - title: Anthropic documentation - Reduce hallucinations
         url: https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations
         tier: official-doc
     draft: true
@@ -144,16 +144,16 @@ questions:
     answer: 0
     explanation:
       en: >-
-        Everything in a request — instructions, documents and the answer still to be
-        written — must fit inside the model's context window, which is measured in
+        Everything in a request - instructions, documents and the answer still to be
+        written - must fit inside the model's context window, which is measured in
         tokens; when the input alone is larger, the API refuses the request. Splitting the
         material, or retrieving only the sections that matter, keeps each request inside
         the limit. The knowledge cutoff concerns what the model learned in training, not
         what you send it now. Temperature changes how tokens are picked, not how many fit.
         Merging pages changes nothing, because the text still turns into the same tokens.
       da: >-
-        Alt i en forespørgsel — instrukser, dokumenter og det svar, der endnu skal skrives
-        — skal kunne være i modellens kontekstvindue, som måles i tokens; er input alene
+        Alt i en forespørgsel - instrukser, dokumenter og det svar, der endnu skal skrives
+        - skal kunne være i modellens kontekstvindue, som måles i tokens; er input alene
         større, afviser API'et forespørgslen. Deles materialet op, eller hentes kun de
         relevante afsnit, holder hver forespørgsel sig inden for grænsen. Vidensgrænsen
         handler om, hvad modellen lærte under træningen, ikke om det, man sender den nu.
@@ -161,10 +161,10 @@ questions:
         samle sider ændrer intet, for teksten bliver stadig til de samme tokens.
     difficulty: 2
     sources:
-      - title: Anthropic documentation — Context windows
+      - title: Anthropic documentation - Context windows
         url: https://platform.claude.com/docs/en/build-with-claude/context-windows
         tier: official-doc
-      - title: Anthropic documentation — Glossary (context window, tokens)
+      - title: Anthropic documentation - Glossary (context window, tokens)
         url: https://platform.claude.com/docs/en/about-claude/glossary
         tier: official-doc
     draft: true
@@ -202,7 +202,7 @@ questions:
         A language model only knows what was in its training data, which ends at a cutoff
         date; providers typically publish this date for each model. Something published last
         week lies after it, so unless the text is supplied in the prompt or fetched by a
-        search tool, the model cannot know it — and it may fill the gap with an outdated
+        search tool, the model cannot know it - and it may fill the gap with an outdated
         answer delivered confidently. A short question is nowhere near the context-window
         limit. There is no mechanism by which vendors hide flaws from models. Low
         temperature makes wording steadier; it does not make the model's knowledge older.
@@ -210,17 +210,17 @@ questions:
         En sprogmodel kender kun det, der var i dens træningsdata, og de slutter ved en
         vidensgrænse; udbyderne oplyser typisk datoen for hver model. Noget, der blev
         offentliggjort i sidste uge, ligger efter den, så medmindre teksten gives i
-        prompten eller hentes af et søgeværktøj, kan modellen ikke kende det — og den kan
+        prompten eller hentes af et søgeværktøj, kan modellen ikke kende det - og den kan
         fylde hullet med et forældet svar, fremført med stor sikkerhed. Et kort spørgsmål
         er langt fra grænsen for kontekstvinduet. Der findes ingen mekanisme, hvor
         leverandører skjuler fejl for modeller. Lav temperatur gør formuleringen mere
         stabil; den gør ikke modellens viden ældre.
     difficulty: 1
     sources:
-      - title: Anthropic documentation — Models overview (reliable knowledge cutoff, training data cutoff)
+      - title: Anthropic documentation - Models overview (reliable knowledge cutoff, training data cutoff)
         url: https://platform.claude.com/docs/en/about-claude/models/overview
         tier: official-doc
-      - title: Anthropic documentation — Glossary (RAG, temperature)
+      - title: Anthropic documentation - Glossary (RAG, temperature)
         url: https://platform.claude.com/docs/en/about-claude/glossary
         tier: official-doc
     draft: true
@@ -257,7 +257,7 @@ questions:
         The municipality is the controller of the citizen's data. Under GDPR Article 28 a
         provider that processes personal data on its behalf must give sufficient
         guarantees and be bound by a contract (a data processing agreement); here there is
-        none, so the data — including sensitive health information — leaves the
+        none, so the data - including sensitive health information - leaves the
         municipality's control, and the provider's own terms decide storage and any reuse.
         NIST also lists leakage of personal data as a core generative-AI risk. The context
         window only describes what the model reads for one answer; it says nothing about
@@ -267,7 +267,7 @@ questions:
         Kommunen er dataansvarlig for borgerens oplysninger. Efter GDPR artikel 28 skal en
         udbyder, der behandler personoplysninger på dens vegne, give tilstrækkelige
         garantier og være bundet af en kontrakt (en databehandleraftale); her er der ingen,
-        så oplysningerne — også de følsomme helbredsoplysninger — forlader kommunens
+        så oplysningerne - også de følsomme helbredsoplysninger - forlader kommunens
         kontrol, og det er udbyderens egne vilkår, der afgør opbevaring og eventuel
         genbrug. NIST nævner også lækage af personoplysninger som en central risiko ved
         generativ AI. Kontekstvinduet beskriver kun, hvad modellen læser til ét svar; det
@@ -276,10 +276,10 @@ questions:
         her.
     difficulty: 3
     sources:
-      - title: GDPR (Regulation (EU) 2016/679), Article 28 — Processor
+      - title: GDPR (Regulation (EU) 2016/679), Article 28 - Processor
         url: https://gdpr-info.eu/art-28-gdpr/
         tier: reference
-      - title: NIST AI 600-1, Artificial Intelligence Risk Management Framework — Generative Artificial Intelligence Profile (2.4 Data Privacy)
+      - title: NIST AI 600-1, Artificial Intelligence Risk Management Framework - Generative Artificial Intelligence Profile (2.4 Data Privacy)
         url: https://doi.org/10.6028/NIST.AI.600-1
         tier: standard
     draft: true
@@ -307,17 +307,17 @@ questions:
         False. A tokenizer cuts text into tokens that can be whole words, parts of words,
         single characters or even bytes. Common short words are often one token, while a
         long or rare compound is usually split into several pieces. That is why token
-        counts — which set both the context-window limit and the price — do not match word
+        counts - which set both the context-window limit and the price - do not match word
         counts, and why the number of characters per token varies between languages.
       da: >-
         Falsk. En tokenizer deler tekst op i tokens, som kan være hele ord, dele af ord,
         enkelte tegn eller endda bytes. Almindelige korte ord er ofte ét token, mens et
         langt eller sjældent sammensat ord som regel deles i flere stykker. Derfor passer
-        antallet af tokens — som både bestemmer grænsen for kontekstvinduet og prisen —
+        antallet af tokens - som både bestemmer grænsen for kontekstvinduet og prisen -
         ikke med antallet af ord, og antallet af tegn pr. token varierer mellem sprog.
     difficulty: 1
     sources:
-      - title: Anthropic documentation — Glossary (tokens)
+      - title: Anthropic documentation - Glossary (tokens)
         url: https://platform.claude.com/docs/en/about-claude/glossary
         tier: official-doc
     draft: true

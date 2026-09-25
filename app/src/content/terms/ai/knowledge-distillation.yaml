@@ -14,8 +14,8 @@ summary:
   da: At træne en lille “elev”-model til at efterligne svar fra en stor “lærer”-model, så den bevarer meget af evnen i langt mindre format.
 body:
   formal:
-    en: A form of model training in which a smaller student model learns from the full output of a larger teacher model — the chance it gives every possible answer, not just its top pick — or from text the teacher writes, instead of only from labelled training data.
-    da: En form for modeltræning, hvor en mindre elevmodel lærer af det fulde output fra en større lærermodel — den chance, den giver hvert muligt svar, ikke kun dens førstevalg — eller af tekst, læreren skriver, i stedet for kun af mærkede træningsdata.
+    en: A form of model training in which a smaller student model learns from the full output of a larger teacher model - the chance it gives every possible answer, not just its top pick - or from text the teacher writes, instead of only from labelled training data.
+    da: En form for modeltræning, hvor en mindre elevmodel lærer af det fulde output fra en større lærermodel - den chance, den giver hvert muligt svar, ikke kun dens førstevalg - eller af tekst, læreren skriver, i stedet for kun af mærkede træningsdata.
   plain:
     en: Like a pupil who learns not only which answer the teacher picks but how sure the teacher is about each option, and ends up almost as good after far less study.
     da: Som en elev, der ikke kun lærer, hvilket svar læreren vælger, men også hvor sikker læreren er på hver mulighed, og ender næsten lige så dygtig efter langt mindre læsning.
@@ -24,10 +24,10 @@ body:
     da: En dataforsker i Skattestyrelsen lader en stor model besvare 100.000 typiske spørgsmål om fradrag og træner derefter en lille model på svarene, så selvbetjeningschatten kører billigt på styrelsens egne servere.
   whyItMatters:
     en: It is how many fast, cheap models are made, and it also means a rival can copy much of a model's skill just by collecting its answers, which is why many providers ban this in their terms.
-    da: Det er sådan, mange hurtige, billige modeller bliver lavet, og det betyder også, at en konkurrent kan kopiere meget af en models evne blot ved at samle dens svar — derfor forbyder mange udbydere det i deres vilkår.
+    da: Det er sådan, mange hurtige, billige modeller bliver lavet, og det betyder også, at en konkurrent kan kopiere meget af en models evne blot ved at samle dens svar - derfor forbyder mange udbydere det i deres vilkår.
 deepDive:
   en: |-
-    The idea predates deep learning — Buciluă, Caruana and Niculescu-Mizil described "model compression" in 2006 — but the standard formulation is Hinton, Vinyals and Dean (2015). The teacher's logits z are passed through a softmax with temperature T, p_i = exp(z_i/T) / Σ_j exp(z_j/T); a T above 1 flattens the distribution and exposes the "dark knowledge" in the relative probabilities of wrong classes (that a 7 looks more like a 1 than like an 8). The student is trained on a weighted sum of the ordinary cross-entropy against hard labels and the KL divergence between teacher and student softened distributions, with the soft term multiplied by T² so its gradients keep a comparable scale as T changes.
+    The idea predates deep learning - Buciluă, Caruana and Niculescu-Mizil described "model compression" in 2006 - but the standard formulation is Hinton, Vinyals and Dean (2015). The teacher's logits z are passed through a softmax with temperature T, p_i = exp(z_i/T) / Σ_j exp(z_j/T); a T above 1 flattens the distribution and exposes the "dark knowledge" in the relative probabilities of wrong classes (that a 7 looks more like a 1 than like an 8). The student is trained on a weighted sum of the ordinary cross-entropy against hard labels and the KL divergence between teacher and student softened distributions, with the soft term multiplied by T² so its gradients keep a comparable scale as T changes.
 
     Variants differ in what is transferred. Response-based distillation matches output distributions; feature-based distillation (FitNets, 2014) also matches intermediate activations through learned projections; relation-based methods match similarities between examples. For language models, token-level distillation matches the teacher's next-token distribution at every position, which requires access to its logits and a shared tokenizer. Sequence-level distillation (Kim and Rush, 2016) instead trains the student on text the teacher generates, which only needs black-box API access. Much of what is loosely called distillation in the LLM world is this second kind: supervised fine-tuning on synthetic teacher outputs, including chain-of-thought traces, as with the smaller models DeepSeek released in 2025 that were fine-tuned on reasoning samples from DeepSeek-R1.
 
@@ -35,7 +35,7 @@ deepDive:
 
     Distillation is distinct from its neighbours. Quantization keeps the same architecture and weights but stores them at lower precision; pruning removes weights or structures from the same network; transfer learning adapts one model to a new task. These techniques are frequently stacked: distil to a smaller architecture, then quantize for deployment. Distillation also has a security and legal side. Model extraction attacks are effectively unauthorised distillation through a public API, and the terms of several commercial providers prohibit using outputs to develop competing models, so provenance of synthetic training data is a licensing question as much as a technical one.
   da: |-
-    Idéen er ældre end deep learning — Buciluă, Caruana og Niculescu-Mizil beskrev "model compression" i 2006 — men standardformuleringen stammer fra Hinton, Vinyals og Dean (2015). Lærerens logits z sendes gennem en softmax med temperatur T, p_i = exp(z_i/T) / Σ_j exp(z_j/T); en T over 1 udjævner fordelingen og blotlægger den "mørke viden" i de relative sandsynligheder for forkerte klasser (at et 7-tal ligner et 1-tal mere end et 8-tal). Eleven trænes på en vægtet sum af almindelig krydsentropi mod de hårde labels og KL-divergensen mellem lærerens og elevens blødgjorte fordelinger, hvor det bløde led ganges med T², så gradienterne bevarer en sammenlignelig størrelse, når T ændres.
+    Idéen er ældre end deep learning - Buciluă, Caruana og Niculescu-Mizil beskrev "model compression" i 2006 - men standardformuleringen stammer fra Hinton, Vinyals og Dean (2015). Lærerens logits z sendes gennem en softmax med temperatur T, p_i = exp(z_i/T) / Σ_j exp(z_j/T); en T over 1 udjævner fordelingen og blotlægger den "mørke viden" i de relative sandsynligheder for forkerte klasser (at et 7-tal ligner et 1-tal mere end et 8-tal). Eleven trænes på en vægtet sum af almindelig krydsentropi mod de hårde labels og KL-divergensen mellem lærerens og elevens blødgjorte fordelinger, hvor det bløde led ganges med T², så gradienterne bevarer en sammenlignelig størrelse, når T ændres.
 
     Varianterne adskiller sig ved, hvad der overføres. Svarbaseret destillation matcher outputfordelinger; feature-baseret destillation (FitNets, 2014) matcher også mellemliggende aktiveringer via lærte projektioner; relationsbaserede metoder matcher ligheder mellem eksempler. For sprogmodeller matcher destillation på tokenniveau lærerens fordeling over næste token i hver position, hvilket kræver adgang til dens logits og en fælles tokenizer. Destillation på sekvensniveau (Kim og Rush, 2016) træner i stedet eleven på tekst, som læreren genererer, og kræver kun black-box-adgang via et API. Meget af det, der løst kaldes destillation i LLM-verdenen, er af den anden slags: supervised fine-tuning på syntetisk output fra læreren, herunder chain-of-thought-forløb, som ved de mindre modeller, DeepSeek udgav i 2025, der var finjusteret på ræsonnementseksempler fra DeepSeek-R1.
 
@@ -47,8 +47,8 @@ edges:
   alternative-to:
     - to: quantization
       why:
-        en: Both make a model cheaper to run — distillation by training a new, smaller model, quantization by storing the same model's numbers with fewer digits.
-        da: Begge gør en model billigere at køre — destillation ved at træne en ny, mindre model, kvantisering ved at gemme den samme models tal med færre cifre.
+        en: Both make a model cheaper to run - distillation by training a new, smaller model, quantization by storing the same model's numbers with fewer digits.
+        da: Begge gør en model billigere at køre - destillation ved at træne en ny, mindre model, kvantisering ved at gemme den samme models tal med færre cifre.
       strength: primary
       confidence: high
   used-with:

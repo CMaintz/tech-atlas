@@ -13,8 +13,8 @@ summary:
   da: At sikre, at eksterne partnere, der håndterer ens data eller systemer, lever op til ens sikkerhedskrav.
 body:
   formal:
-    en: The ongoing process of selecting, contracting, monitoring and exiting suppliers — as required by NIS2 Article 21(2)(d) and ISO 27002 controls 5.19–5.22 — so that the risks they bring are known and kept within the organisation's accepted limits.
-    da: Den løbende proces med at vælge, indgå aftaler med, følge op på og afslutte samarbejdet med leverandører — som krævet i NIS2 artikel 21, stk. 2, litra d, og ISO 27002 kontrol 5.19–5.22 — så de risici, de bringer med sig, er kendte og holdes inden for organisationens accepterede grænser.
+    en: The ongoing process of selecting, contracting, monitoring and exiting suppliers - as required by NIS2 Article 21(2)(d) and ISO 27002 controls 5.19-5.22 - so that the risks they bring are known and kept within the organisation's accepted limits.
+    da: Den løbende proces med at vælge, indgå aftaler med, følge op på og afslutte samarbejdet med leverandører - som krævet i NIS2 artikel 21, stk. 2, litra d, og ISO 27002 kontrol 5.19-5.22 - så de risici, de bringer med sig, er kendte og holdes inden for organisationens accepterede grænser.
   plain:
     en: You lock your own front door, but you also check that the cleaning company holding a spare key looks after it properly.
     da: Du låser din egen hoveddør, men tjekker også, at rengøringsfirmaet, der har en ekstra nøgle, passer ordentligt på den.
@@ -59,13 +59,13 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: Directive (EU) 2022/2555 (NIS2 Directive), Article 21(2)(d)
     tier: standard
     publisher: European Union
     url: 'https://eur-lex.europa.eu/eli/dir/2022/2555/oj'
-  - title: ISO/IEC 27002:2022, Controls 5.19–5.22 (Supplier relationships)
+  - title: ISO/IEC 27002:2022, Controls 5.19-5.22 (Supplier relationships)
     tier: standard
     publisher: ISO/IEC
 draft: true

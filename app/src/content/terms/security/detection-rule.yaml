@@ -12,11 +12,11 @@ summary:
   da: En nedskrevet betingelse, som et overvågningsværktøj holder indkomne logs op imod, og som udløser en alarm, hver gang hændelserne matcher.
 body:
   formal:
-    en: A stored query or pattern — for example "more than ten failed logins for one account within five minutes" — that a SIEM or similar tool runs against log entries, with a priority and a short guide for the analyst attached.
-    da: En gemt forespørgsel eller et mønster — fx "mere end ti mislykkede login på én konto inden for fem minutter" — som en SIEM eller et lignende værktøj kører mod logposter, med en prioritet og en kort vejledning til analytikeren vedhæftet.
+    en: A stored query or pattern - for example "more than ten failed logins for one account within five minutes" - that a SIEM or similar tool runs against log entries, with a priority and a short guide for the analyst attached.
+    da: En gemt forespørgsel eller et mønster - fx "mere end ti mislykkede login på én konto inden for fem minutter" - som en SIEM eller et lignende værktøj kører mod logposter, med en prioritet og en kort vejledning til analytikeren vedhæftet.
   plain:
-    en: Like telling a shop guard exactly what to watch for — "anyone who tries three card terminals in a row" — instead of asking him to watch for anything strange.
-    da: Som at fortælle en butiksvagt præcis, hvad han skal holde øje med — "enhver, der prøver tre kortterminaler i træk" — i stedet for at bede ham kigge efter alt mærkeligt.
+    en: Like telling a shop guard exactly what to watch for - "anyone who tries three card terminals in a row" - instead of asking him to watch for anything strange.
+    da: Som at fortælle en butiksvagt præcis, hvad han skal holde øje med - "enhver, der prøver tre kortterminaler i træk" - i stedet for at bede ham kigge efter alt mærkeligt.
   inPractice:
     en: After CFCS warns of a new phishing wave aimed at municipalities, a municipal SOC writes a rule that fires when any staff member's browser visits one of the web addresses in the warning.
     da: Efter at CFCS har advaret om en ny phishing-bølge mod kommuner, skriver en kommunes SOC en regel, der slår alarm, når en medarbejders browser besøger en af webadresserne i advarslen.
@@ -59,11 +59,11 @@ edges:
       confidence: high
     - indicator-of-compromise
 sources:
-  - title: NIST SP 800-92 — Guide to Computer Security Log Management
+  - title: NIST SP 800-92 - Guide to Computer Security Log Management
     url: https://doi.org/10.6028/NIST.SP.800-92
     tier: standard
     publisher: NIST
-  - title: Cyber Security Fast Track — SIEM module
+  - title: Cyber Security Fast Track - SIEM module
     tier: course-material
   - title: Sigma Specification (v2.0), incl. Sigma Correlation Rules
     url: https://github.com/SigmaHQ/sigma-specification

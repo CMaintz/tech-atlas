@@ -9,21 +9,21 @@ cluster: fundamentals
 layer: governance
 status: current
 summary:
-  en: Anything of value to the organisation that needs protecting — data, systems, devices, people or know-how.
-  da: Alt af værdi for organisationen, som skal beskyttes — data, systemer, enheder, medarbejdere eller viden.
+  en: Anything of value to the organisation that needs protecting - data, systems, devices, people or know-how.
+  da: Alt af værdi for organisationen, som skal beskyttes - data, systemer, enheder, medarbejdere eller viden.
 body:
   formal:
     en: Any resource the organisation depends on to do its work and whose loss, misuse or disruption would cause harm. Each asset is given an owner and a value, so that risks can be tied to something concrete.
     da: Enhver ressource, som organisationen er afhængig af i sit arbejde, og hvis tab, misbrug eller nedbrud vil gøre skade. Hvert aktiv får en ejer og en værdi, så risici kan knyttes til noget konkret.
   plain:
-    en: Everything you would worry about if your home caught fire — the laptop, the family photos, the house keys, and the one person who knows where everything is kept.
-    da: Alt det, du ville bekymre dig om, hvis dit hjem brændte — den bærbare, familiebillederne, husnøglerne og den ene person, der ved, hvor alting ligger.
+    en: Everything you would worry about if your home caught fire - the laptop, the family photos, the house keys, and the one person who knows where everything is kept.
+    da: Alt det, du ville bekymre dig om, hvis dit hjem brændte - den bærbare, familiebillederne, husnøglerne og den ene person, der ved, hvor alting ligger.
   inPractice:
-    en: Before its first risk review, a small accounting firm in Copenhagen lists its client files, its bookkeeping system and the staff laptops — and the one bookkeeper who is the only person who knows how to run payroll.
-    da: Før sin første risikogennemgang skriver et lille revisionsfirma i København kundemapperne, bogføringssystemet og medarbejdernes bærbare op — og den ene bogholder, som er den eneste, der kan køre lønnen.
+    en: Before its first risk review, a small accounting firm in Copenhagen lists its client files, its bookkeeping system and the staff laptops - and the one bookkeeper who is the only person who knows how to run payroll.
+    da: Før sin første risikogennemgang skriver et lille revisionsfirma i København kundemapperne, bogføringssystemet og medarbejdernes bærbare op - og den ene bogholder, som er den eneste, der kan køre lønnen.
   whyItMatters:
     en: Protection can only be planned for what the organisation knows it has; a forgotten server gets no updates, no backup and no owner, and every risk in the end harms some asset.
-    da: Man kan kun planlægge beskyttelse af det, man ved, man har; en glemt server får hverken opdateringer, backup eller en ejer — og enhver risiko ender med at ramme et bestemt aktiv.
+    da: Man kan kun planlægge beskyttelse af det, man ved, man har; en glemt server får hverken opdateringer, backup eller en ejer - og enhver risiko ender med at ramme et bestemt aktiv.
 deepDive:
   en: |-
     ISO/IEC 27005 distinguishes primary assets, meaning business processes and the information they depend on, from supporting assets such as hardware, software, networks, people, sites and organisational structures, on which the primary assets rely. The distinction matters because value and impact belong to the primary asset, while vulnerabilities usually sit in the supporting ones: a customer database is valuable because of the sales process it serves, but it is breached through an unpatched web server, a misconfigured storage bucket or an administrator's laptop. A risk assessment that lists only servers misses the processes; one that lists only processes cannot be turned into concrete controls.
@@ -52,9 +52,9 @@ edges:
   used-with: [asset-inventory]
   requires: [cia-triad]
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 5
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 5
     tier: course-material
-  - title: NIST Glossary — Asset
+  - title: NIST Glossary - Asset
     tier: standard
     publisher: NIST
     url: https://csrc.nist.gov/glossary/term/asset

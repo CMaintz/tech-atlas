@@ -16,8 +16,8 @@ body:
     en: An entry in an operating system or application that links one identity to its credentials, settings and permissions. One person may have several accounts, and some accounts belong to programs rather than people.
     da: En post i et styresystem eller program, der knytter én identitet til dens loginoplysninger, indstillinger og rettigheder. Én person kan have flere konti, og nogle konti tilhører programmer frem for mennesker.
   plain:
-    en: Like a membership card at a gym — the card is not you, but it is how the gym knows you, what you have paid for and which classes you may join.
-    da: Som et medlemskort i et fitnesscenter — kortet er ikke dig, men det er sådan, centret kender dig og ved, hvad du har betalt for, og hvilke hold du må deltage i.
+    en: Like a membership card at a gym - the card is not you, but it is how the gym knows you, what you have paid for and which classes you may join.
+    da: Som et medlemskort i et fitnesscenter - kortet er ikke dig, men det er sådan, centret kender dig og ved, hvad du har betalt for, og hvilke hold du må deltage i.
   inPractice:
     en: Before the yearly audit, the IT manager at a small Danish company compares the list of active user accounts with HR's staff list and finds six accounts still open for people who left last year.
     da: Før den årlige revision sammenligner IT-chefen i en mindre dansk virksomhed listen over aktive brugerkonti med HR's medarbejderliste og finder seks konti, der stadig er åbne for folk, som stoppede sidste år.

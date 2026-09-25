@@ -17,11 +17,11 @@ body:
     en: An open standard in which an identity provider, after authentication, sends the user's browser to the app carrying a signed document, called an assertion, that states who the user is and facts about them; the app checks the signature and trusts it.
     da: En åben standard, hvor en identitetsudbyder efter autentificering sender brugerens browser videre til appen med et signeret dokument, en såkaldt assertion, der angiver, hvem brugeren er, og oplysninger om vedkommende; appen kontrollerer signaturen og stoler på indholdet.
   plain:
-    en: Like a sealed letter of introduction from your employer — the hotel does not know you, but it knows the seal and lets you in.
-    da: Som et forseglet anbefalingsbrev fra din arbejdsgiver — hotellet kender ikke dig, men det kender seglet og lukker dig ind.
+    en: Like a sealed letter of introduction from your employer - the hotel does not know you, but it knows the seal and lets you in.
+    da: Som et forseglet anbefalingsbrev fra din arbejdsgiver - hotellet kender ikke dig, men det kender seglet og lukker dig ind.
   inPractice:
-    en: A nurse at a regional hospital clicks the icon for the shift-planning system, is sent briefly to the region's login page, and lands back in the planning system already logged in — the SAML message did the work in between.
-    da: En sygeplejerske på et regionshospital klikker på ikonet for vagtplanlægningssystemet, sendes et øjeblik til regionens loginside og lander igen i vagtplanen som logget ind — SAML-beskeden klarede arbejdet imellem.
+    en: A nurse at a regional hospital clicks the icon for the shift-planning system, is sent briefly to the region's login page, and lands back in the planning system already logged in - the SAML message did the work in between.
+    da: En sygeplejerske på et regionshospital klikker på ikonet for vagtplanlægningssystemet, sendes et øjeblik til regionens loginside og lander igen i vagtplanen som logget ind - SAML-beskeden klarede arbejdet imellem.
   whyItMatters:
     en: It lets organisations connect hundreds of business apps to one login and one place to close accounts, and much of the enterprise world still runs on it.
     da: Det lader organisationer koble hundredvis af forretningsapps til ét login og ét sted at lukke konti, og store dele af virksomhedsverdenen kører stadig på det.
@@ -46,7 +46,7 @@ edges:
   implements: [federation, single-sign-on]
   requires: [identity-provider, digital-signature]
 sources:
-  - title: OASIS — Assertions and Protocols for the OASIS Security Assertion Markup Language (SAML) V2.0
+  - title: OASIS - Assertions and Protocols for the OASIS Security Assertion Markup Language (SAML) V2.0
     tier: standard
     publisher: OASIS
     url: https://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf

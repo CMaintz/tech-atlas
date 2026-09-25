@@ -14,11 +14,11 @@ summary:
   da: En udbredt slags web-API, hvor hver ting har sin egen URL, og programmer læser, tilføjer, ændrer eller sletter den med HTTP-metoder.
 body:
   formal:
-    en: An API that follows the REST style described by Roy Fielding in 2000 — each resource has its own URL, HTTP methods such as GET, POST, PUT and DELETE say what to do with it, and the server keeps no memory of the client between requests.
-    da: Et API, der følger REST-stilen, som Roy Fielding beskrev i 2000 — hver ressource har sin egen URL, HTTP-metoder som GET, POST, PUT og DELETE siger, hvad der skal ske med den, og serveren husker ikke klienten mellem forespørgslerne.
+    en: An API that follows the REST style described by Roy Fielding in 2000 - each resource has its own URL, HTTP methods such as GET, POST, PUT and DELETE say what to do with it, and the server keeps no memory of the client between requests.
+    da: Et API, der følger REST-stilen, som Roy Fielding beskrev i 2000 - hver ressource har sin egen URL, HTTP-metoder som GET, POST, PUT og DELETE siger, hvad der skal ske med den, og serveren husker ikke klienten mellem forespørgslerne.
   plain:
-    en: Like a library where every book has a fixed shelf number, and there are only a handful of desk requests — borrow, return, add, remove — that work the same for every book.
-    da: Som et bibliotek, hvor hver bog har et fast hyldenummer, og der kun er en håndfuld ting, man kan bede om ved skranken — låne, aflevere, tilføje, fjerne — som virker ens for alle bøger.
+    en: Like a library where every book has a fixed shelf number, and there are only a handful of desk requests - borrow, return, add, remove - that work the same for every book.
+    da: Som et bibliotek, hvor hver bog har et fast hyldenummer, og der kun er en håndfuld ting, man kan bede om ved skranken - låne, aflevere, tilføje, fjerne - som virker ens for alle bøger.
   inPractice:
     en: A ferry company's booking app sends GET to the address for booking 42 to show its status, and DELETE to the same address when the passenger cancels the trip.
     da: Et rederis bookingapp sender GET til adressen for booking 42 for at vise dens status og DELETE til samme adresse, når passageren aflyser turen.
@@ -46,11 +46,11 @@ edges:
   kind-of: [api]
   requires: [http, url]
 sources:
-  - title: Roy T. Fielding — Architectural Styles and the Design of Network-based Software Architectures (Chapter 5, REST)
+  - title: Roy T. Fielding - Architectural Styles and the Design of Network-based Software Architectures (Chapter 5, REST)
     tier: reference
     publisher: University of California, Irvine
     url: https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
-  - title: MDN Web Docs — Glossary, REST
+  - title: MDN Web Docs - Glossary, REST
     tier: official-doc
     publisher: Mozilla
     url: https://developer.mozilla.org/en-US/docs/Glossary/REST

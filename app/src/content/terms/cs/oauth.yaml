@@ -17,8 +17,8 @@ body:
     en: An open standard for delegated authorization in which the owner of an account approves a limited request, and a trusted server then hands the requesting app a short-lived access token that its API accepts in place of the owner's credential.
     da: En åben standard for delegeret autorisation, hvor ejeren af en konto godkender en begrænset forespørgsel, hvorefter en betroet server giver den app, der beder om adgang, et kortlivet adgangstoken, som API'et godtager i stedet for ejerens loginoplysninger.
   plain:
-    en: Like a valet key for a car — it lets the attendant drive and park, but not open the boot or the glove box, and you never hand over your own key.
-    da: Som en parkeringsnøgle til en bil — den lader betjenten køre og parkere, men ikke åbne bagagerummet eller handskerummet, og du afleverer aldrig din egen nøgle.
+    en: Like a valet key for a car - it lets the attendant drive and park, but not open the boot or the glove box, and you never hand over your own key.
+    da: Som en parkeringsnøgle til en bil - den lader betjenten køre og parkere, men ikke åbne bagagerummet eller handskerummet, og du afleverer aldrig din egen nøgle.
   inPractice:
     en: A teacher at a Danish school connects a lesson-planning app to her Google calendar; she approves “read your calendar” on Google's own page, and the app gets a token that can read events but not her email.
     da: En lærer på en dansk skole kobler en app til lektionsplanlægning til sin Google-kalender; hun godkender “læs din kalender” på Googles egen side, og appen får et token, der kan læse aftaler, men ikke hendes mails.
@@ -53,14 +53,14 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: RFC 6749 — The OAuth 2.0 Authorization Framework
+  - title: RFC 6749 - The OAuth 2.0 Authorization Framework
     tier: standard
     publisher: IETF
     url: https://www.rfc-editor.org/rfc/rfc6749
   - title: OAuth Core 1.0
     tier: official-doc
     url: https://oauth.net/core/1.0/
-  - title: RFC 9700 — Best Current Practice for OAuth 2.0 Security
+  - title: RFC 9700 - Best Current Practice for OAuth 2.0 Security
     tier: standard
     publisher: IETF
     url: https://www.rfc-editor.org/rfc/rfc9700

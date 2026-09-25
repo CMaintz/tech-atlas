@@ -16,14 +16,14 @@ body:
     en: The risk treatment option in which controls are chosen and put in place to reduce the likelihood, the impact, or both, until the remaining risk falls within the risk appetite.
     da: Den håndteringsmulighed, hvor der vælges og indføres kontroller, som reducerer sandsynligheden, konsekvensen eller begge dele, indtil den tilbageværende risiko ligger inden for risikoappetitten.
   plain:
-    en: Like putting a rubber mat in the shower and a grab bar by the bath — you still wash, but a fall is less likely and less bad if it happens.
-    da: Som at lægge en skridsikker måtte i bruseren og sætte et greb op ved badekarret — man vasker sig stadig, men et fald sker sjældnere og bliver mindre slemt.
+    en: Like putting a rubber mat in the shower and a grab bar by the bath - you still wash, but a fall is less likely and less bad if it happens.
+    da: Som at lægge en skridsikker måtte i bruseren og sætte et greb op ved badekarret - man vasker sig stadig, men et fald sker sjældnere og bliver mindre slemt.
   inPractice:
     en: After fraud attempts, an unemployment fund requires a second case officer to approve any change of a member's bank account and has staff call the member back first; the risk moves from high to medium.
     da: Efter forsøg på svindel kræver en a-kasse, at en anden sagsbehandler godkender enhver ændring af et medlems bankkonto, og at medarbejderne først ringer medlemmet op; risikoen flytter fra høj til middel.
   whyItMatters:
-    en: It is by far the most used option and the one most security work is about, but a risk is never removed this way — some always remains.
-    da: Det er langt den mest brugte mulighed og den, det meste sikkerhedsarbejde handler om, men en risiko fjernes aldrig helt på denne måde — noget er altid tilbage.
+    en: It is by far the most used option and the one most security work is about, but a risk is never removed this way - some always remains.
+    da: Det er langt den mest brugte mulighed og den, det meste sikkerhedsarbejde handler om, men en risiko fjernes aldrig helt på denne måde - noget er altid tilbage.
 deepDive:
   en: |-
     ISO/IEC 27005 calls this option risk modification, and ISO 31000:2018 clause 6.5.2 splits it into changing the likelihood and changing the consequences, alongside removing the risk source. The distinction matters for control selection. Likelihood-reducing controls act before an event: patching, MFA, network segmentation, application allow-listing and secure configuration. Consequence-reducing controls act during or after it: offline backups with tested restores, immutable logging, encryption of data at rest so stolen media is less harmful, and incident response and continuity plans. A risk dominated by impact, such as ransomware against a critical system, is rarely brought within appetite by prevention alone, because no preventive control is perfect.
@@ -52,8 +52,8 @@ edges:
       confidence: high
   used-with: [statement-of-applicability]
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 5 og Ordliste (Risikohåndtering — reducere)
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 5 og Ordliste (Risikohåndtering - reducere)
     tier: course-material
-  - title: ISO/IEC 27005:2022 (8.2 — Risk treatment options)
+  - title: ISO/IEC 27005:2022 (8.2 - Risk treatment options)
     tier: standard
 draft: true

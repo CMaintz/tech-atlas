@@ -47,10 +47,10 @@ questions:
         faktor beviser identiteten for hele login, ikke en rettighed pr. sag.
     difficulty: 1
     sources:
-      - title: NIST SP 800-63B-4 — Digital Identity Guidelines, Authentication and Authenticator Management
+      - title: NIST SP 800-63B-4 - Digital Identity Guidelines, Authentication and Authenticator Management
         url: https://pages.nist.gov/800-63-4/sp800-63b.html
         tier: standard
-      - title: OASIS — Security Assertion Markup Language (SAML) V2.0 Technical Overview
+      - title: OASIS - Security Assertion Markup Language (SAML) V2.0 Technical Overview
         url: https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html
         tier: standard
     draft: true
@@ -94,14 +94,14 @@ questions:
       da: >-
         Multifaktorgodkendelse kræver to forskellige faktorer: noget, du ved, noget, du
         har, og noget, du er. Adgangskoden er noget, du ved, og en kode fra en app på en
-        registreret telefon beviser, at du har telefonen – noget, du har. Et
+        registreret telefon beviser, at du har telefonen - noget, du har. Et
         kontrolspørgsmål og et CPR-nummer er blot flere ting, du ved (og et CPR-nummer
         er næppe hemmeligt), så de tilføjer et ekstra trin, men ikke en ekstra faktor.
         Skift af adgangskode og spærring gør
         gætteri sværere, men bygger stadig på én vidensfaktor.
     difficulty: 1
     sources:
-      - title: NIST SP 800-63B-4 — Digital Identity Guidelines, Authentication and Authenticator Management
+      - title: NIST SP 800-63B-4 - Digital Identity Guidelines, Authentication and Authenticator Management
         url: https://pages.nist.gov/800-63-4/sp800-63b.html
         tier: standard
     draft: true
@@ -160,10 +160,10 @@ questions:
       - title: W3C Web Authentication (WebAuthn) Level 2
         url: https://www.w3.org/TR/webauthn-2/
         tier: standard
-      - title: FIDO Alliance — Passkeys
+      - title: FIDO Alliance - Passkeys
         url: https://fidoalliance.org/passkeys/
         tier: official-doc
-      - title: NIST SP 800-63B-4 — Digital Identity Guidelines, Authentication and Authenticator Management
+      - title: NIST SP 800-63B-4 - Digital Identity Guidelines, Authentication and Authenticator Management
         url: https://pages.nist.gov/800-63-4/sp800-63b.html
         tier: standard
     draft: true
@@ -217,7 +217,7 @@ questions:
       - title: OpenID Connect Core 1.0
         url: https://openid.net/specs/openid-connect-core-1_0.html
         tier: standard
-      - title: RFC 6749 — The OAuth 2.0 Authorization Framework
+      - title: RFC 6749 - The OAuth 2.0 Authorization Framework
         url: https://www.rfc-editor.org/rfc/rfc6749
         tier: standard
     draft: true
@@ -270,10 +270,10 @@ questions:
         ville gøre hendes adgang endnu bredere.
     difficulty: 2
     sources:
-      - title: NIST SP 800-53 Rev. 5 — AC-6 Least Privilege (CSF Tools)
+      - title: NIST SP 800-53 Rev. 5 - AC-6 Least Privilege (CSF Tools)
         url: https://csf.tools/reference/nist-sp-800-53/r5/ac/ac-6/
         tier: reference
-      - title: NIST SP 800-53 Rev. 5 — AC-2 Account Management (CSF Tools)
+      - title: NIST SP 800-53 Rev. 5 - AC-2 Account Management (CSF Tools)
         url: https://csf.tools/reference/nist-sp-800-53/r5/ac/ac-2/
         tier: reference
     draft: true
@@ -328,7 +328,7 @@ questions:
         til hospitalets net; forskellen på de to forsøg er enheden.
     difficulty: 2
     sources:
-      - title: Microsoft Learn — Microsoft Entra Conditional Access overview
+      - title: Microsoft Learn - Microsoft Entra Conditional Access overview
         url: https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview
         tier: official-doc
     draft: true
@@ -398,7 +398,7 @@ questions:
         ikke komme før login-tjekket, ligesom sessionen ikke kan komme før assertion.
     difficulty: 2
     sources:
-      - title: OASIS — Security Assertion Markup Language (SAML) V2.0 Technical Overview
+      - title: OASIS - Security Assertion Markup Language (SAML) V2.0 Technical Overview
         url: https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html
         tier: standard
     draft: true
@@ -444,10 +444,10 @@ questions:
         SAML eller OpenID Connect.)
     difficulty: 1
     sources:
-      - title: Microsoft Learn — What is single sign-on in Microsoft Entra ID?
+      - title: Microsoft Learn - What is single sign-on in Microsoft Entra ID?
         url: https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/what-is-single-sign-on
         tier: official-doc
-      - title: OASIS — Security Assertion Markup Language (SAML) V2.0 Technical Overview
+      - title: OASIS - Security Assertion Markup Language (SAML) V2.0 Technical Overview
         url: https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html
         tier: standard
     draft: true

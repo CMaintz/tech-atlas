@@ -13,11 +13,11 @@ summary:
   da: Fordelingen af sikkerhedsopgaver mellem en cloududbyder og kunden, som flytter sig alt efter, hvilken slags tjeneste man køber.
 body:
   formal:
-    en: A division of security and operating duties in which the provider is responsible for the security of the cloud itself — buildings, hardware and the layers it runs — and the customer for what it puts in and sets up, with the line moving between IaaS, PaaS and SaaS.
-    da: En fordeling af sikkerheds- og driftsopgaver, hvor udbyderen har ansvaret for sikkerheden i selve skyen — bygninger, hardware og de lag, den driver — og kunden for det, den lægger ind og sætter op, med en grænse, der flytter sig mellem IaaS, PaaS og SaaS.
+    en: A division of security and operating duties in which the provider is responsible for the security of the cloud itself - buildings, hardware and the layers it runs - and the customer for what it puts in and sets up, with the line moving between IaaS, PaaS and SaaS.
+    da: En fordeling af sikkerheds- og driftsopgaver, hvor udbyderen har ansvaret for sikkerheden i selve skyen - bygninger, hardware og de lag, den driver - og kunden for det, den lægger ind og sætter op, med en grænse, der flytter sig mellem IaaS, PaaS og SaaS.
   plain:
-    en: Like renting a flat — the landlord must keep the front door lock and the wiring safe, but locking your own door and not handing out spare keys is up to you.
-    da: Som at leje en lejlighed — udlejeren skal holde gadedørens lås og ledningerne i væggene i orden, men at låse din egen dør og ikke dele ekstranøgler ud er op til dig.
+    en: Like renting a flat - the landlord must keep the front door lock and the wiring safe, but locking your own door and not handing out spare keys is up to you.
+    da: Som at leje en lejlighed - udlejeren skal holde gadedørens lås og ledningerne i væggene i orden, men at låse din egen dør og ikke dele ekstranøgler ud er op til dig.
   inPractice:
     en: During a supplier review, the compliance officer at a hospital region maps each ISO 27001 control to provider, customer or both, and finds that nobody had taken charge of backing up the region's SaaS data.
     da: Ved en leverandørgennemgang fordeler den compliance-ansvarlige i en region hver ISO 27001-kontrol på udbyder, kunde eller begge og opdager, at ingen havde taget ansvar for backup af regionens SaaS-data.
@@ -55,7 +55,7 @@ article:
   en: src/content/articles/platform/shared-responsibility-model.en.md
   da: src/content/articles/platform/shared-responsibility-model.da.md
 sources:
-  - title: NIST SP 800-145 — The NIST Definition of Cloud Computing
+  - title: NIST SP 800-145 - The NIST Definition of Cloud Computing
     tier: standard
     publisher: NIST
   - title: CSA Cloud Controls Matrix (CCM)

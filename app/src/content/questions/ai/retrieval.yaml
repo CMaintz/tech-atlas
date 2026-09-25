@@ -32,7 +32,7 @@ questions:
       en: >-
         An embedding model places texts with similar meaning close together, so the
         question and a passage about distance work can match even though they share
-        almost no words — Google's crash course describes distance in embedding space as
+        almost no words - Google's crash course describes distance in embedding space as
         a measure of similarity. Weighting rare words is how keyword scoring such as
         BM25 already works; it still needs the same words to appear. Temperature
         controls how varied the model's generated text is, not how documents are found.
@@ -42,7 +42,7 @@ questions:
       da: >-
         En embedding-model placerer tekster med lignende betydning tæt på hinanden, så
         spørgsmålet og et afsnit om distancearbejde kan matche, selvom de næsten ingen ord
-        har til fælles — Googles crash course beskriver afstanden i et embedding-rum som et
+        har til fælles - Googles crash course beskriver afstanden i et embedding-rum som et
         mål for lighed. At vægte sjældne ord er netop sådan, nøgleordsscoring som BM25
         allerede virker; den kræver stadig, at de samme ord optræder. Temperaturen styrer,
         hvor varieret modellens tekst er, ikke hvordan dokumenter findes. At lægge hele
@@ -50,10 +50,10 @@ questions:
         være der; idéen med søgningen er netop kun at sende de afsnit, der betyder noget.
     difficulty: 1
     sources:
-      - title: Google Machine Learning Crash Course — Embeddings, Embedding space and static embeddings
+      - title: Google Machine Learning Crash Course - Embeddings, Embedding space and static embeddings
         url: https://developers.google.com/machine-learning/crash-course/embeddings/embedding-space
         tier: course-material
-      - title: Anthropic — Introducing Contextual Retrieval
+      - title: Anthropic - Introducing Contextual Retrieval
         url: https://www.anthropic.com/engineering/contextual-retrieval
         tier: official-doc
     draft: true
@@ -105,7 +105,7 @@ questions:
         det mest præcise, de ved.
     difficulty: 2
     sources:
-      - title: Anthropic — Introducing Contextual Retrieval
+      - title: Anthropic - Introducing Contextual Retrieval
         url: https://www.anthropic.com/engineering/contextual-retrieval
         tier: official-doc
     draft: true
@@ -118,13 +118,13 @@ questions:
       en: >-
         A Danish bank's internal assistant splits its credit policy into pieces of 50
         tokens with no overlap. An adviser is told that a customer "may borrow up to four
-        times their income" — but in the policy, the next sentence limits this for
+        times their income" - but in the policy, the next sentence limits this for
         customers with other debt, and that sentence ended up in a separate piece that
         was not retrieved. What should the team change first?
       da: >-
         En dansk banks interne assistent deler kreditpolitikken op i stykker på 50 tokens
         uden overlap. En rådgiver får at vide, at en kunde "må låne op til fire gange sin
-        indkomst" — men i politikken begrænser den næste sætning det for kunder med anden
+        indkomst" - men i politikken begrænser den næste sætning det for kunder med anden
         gæld, og den sætning endte i et andet stykke, som ikke blev hentet. Hvad bør
         teamet ændre først?
     options:
@@ -158,7 +158,7 @@ questions:
         henter stadig det samme for lille stykke.
     difficulty: 2
     sources:
-      - title: Anthropic — Introducing Contextual Retrieval
+      - title: Anthropic - Introducing Contextual Retrieval
         url: https://www.anthropic.com/engineering/contextual-retrieval
         tier: official-doc
     draft: true
@@ -195,7 +195,7 @@ questions:
         on a vector store let users reach sensitive information, and recommends a
         permission-aware vector database so only authorised groups can retrieve their
         own data. Filtering by the user's rights at retrieval means the HR text never
-        reaches the model. A system-prompt instruction is not a security control — the
+        reaches the model. A system-prompt instruction is not a security control - the
         text is already in the prompt and can be coaxed out. Encryption at rest protects
         stolen disks, not what the chatbot itself reads and passes on. Blocking the word
         "salary" misses the same facts phrased differently and leaves the sick-leave
@@ -206,13 +206,13 @@ questions:
         vektordatabase, der kender rettighederne, så kun autoriserede grupper kan hente
         deres egne data. Filtreres der efter brugerens rettigheder ved søgningen, når
         HR-teksten aldrig frem til modellen. En instruks i systemprompten er ikke en
-        sikkerhedskontrol — teksten ligger allerede i prompten og kan lokkes frem.
+        sikkerhedskontrol - teksten ligger allerede i prompten og kan lokkes frem.
         Kryptering af lagrede data beskytter stjålne diske, ikke det, chatbotten selv
         læser og giver videre. At blokere ordet "løn" overser de samme oplysninger
         formuleret anderledes og lader sygefraværssagerne stå åbne.
     difficulty: 2
     sources:
-      - title: OWASP Top 10 for LLM Applications 2025 — LLM08 Vector and Embedding Weaknesses
+      - title: OWASP Top 10 for LLM Applications 2025 - LLM08 Vector and Embedding Weaknesses
         url: https://genai.owasp.org/llmrisk/llm082025-vector-and-embedding-weaknesses/
         tier: reference
     draft: true
@@ -246,7 +246,7 @@ questions:
         The question is turned into an embedding with the same model used for the
         passages, a fast nearest-neighbour search pulls a broad set of candidates, a
         slower and more careful reranker scores each candidate against the question,
-        and only the best few go into the prompt — Anthropic's contextual-retrieval
+        and only the best few go into the prompt - Anthropic's contextual-retrieval
         write-up describes exactly this: take the top 150 chunks, rerank, pass the top
         20 to the model. Reranking every stored passage would be far too slow; that is
         why a cheap first search comes first. Drafting an answer before retrieval lets
@@ -256,7 +256,7 @@ questions:
         Spørgsmålet laves om til en embedding med den samme model, som blev brugt til
         afsnittene, en hurtig nærmeste-nabo-søgning henter en bred skare kandidater, en
         langsommere og grundigere genrangering vurderer hver kandidat op mod spørgsmålet,
-        og kun de bedste få kommer med i prompten — Anthropics artikel om contextual
+        og kun de bedste få kommer med i prompten - Anthropics artikel om contextual
         retrieval beskriver netop dette: Tag de 150 øverste stykker, genranger, og giv de
         20 bedste til modellen. At genrangere alle gemte afsnit ville være alt for
         langsomt; derfor kommer en billig første søgning først. At skrive et udkast før
@@ -264,7 +264,7 @@ questions:
         genereringen, fordi dens opgave er at vælge, hvad modellen får at læse.
     difficulty: 3
     sources:
-      - title: Anthropic — Introducing Contextual Retrieval
+      - title: Anthropic - Introducing Contextual Retrieval
         url: https://www.anthropic.com/engineering/contextual-retrieval
         tier: official-doc
     draft: true

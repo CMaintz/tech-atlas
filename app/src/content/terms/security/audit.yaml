@@ -13,11 +13,11 @@ summary:
   da: En uafhængig gennemgang af, om en organisation faktisk følger sine egne politikker og de krav, den har forpligtet sig til.
 body:
   formal:
-    en: A planned, documented and impartial examination that gathers evidence — samples, records, interviews — to judge whether practice matches set criteria such as policies, contracts, laws or a standard, and reports each deviation as a finding.
-    da: En planlagt, dokumenteret og upartisk undersøgelse, der indsamler beviser — stikprøver, dokumenter, interview — for at vurdere, om praksis svarer til fastsatte kriterier som politikker, aftaler, love eller en standard, og som rapporterer hver afvigelse som et fund.
+    en: A planned, documented and impartial examination that gathers evidence - samples, records, interviews - to judge whether practice matches set criteria such as policies, contracts, laws or a standard, and reports each deviation as a finding.
+    da: En planlagt, dokumenteret og upartisk undersøgelse, der indsamler beviser - stikprøver, dokumenter, interview - for at vurdere, om praksis svarer til fastsatte kriterier som politikker, aftaler, love eller en standard, og som rapporterer hver afvigelse som et fund.
   plain:
-    en: Like the regular car inspection — the owner may say the brakes are fine, but the inspector puts the car on the test bench and checks for real.
-    da: Som når bilen skal til syn — ejeren kan godt sige, at bremserne er i orden, men synsmanden kører bilen op på rullefeltet og tjekker det selv.
+    en: Like the regular car inspection - the owner may say the brakes are fine, but the inspector puts the car on the test bench and checks for real.
+    da: Som når bilen skal til syn - ejeren kan godt sige, at bremserne er i orden, men synsmanden kører bilen op på rullefeltet og tjekker det selv.
   inPractice:
     en: An internal auditor at a Danish region picks twenty staff who left last year and finds that four still have active accounts in the patient system; the report lists it as a finding with a deadline.
     da: En intern auditor i en region vælger tyve medarbejdere ud, der stoppede sidste år, og finder, at fire stadig har aktive konti i patientsystemet; rapporten angiver det som et fund med en frist.
@@ -66,7 +66,7 @@ edges:
       confidence: high
     - explainability
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: ISO/IEC 27001:2022, Clause 9.2 (Internal audit)
     tier: standard

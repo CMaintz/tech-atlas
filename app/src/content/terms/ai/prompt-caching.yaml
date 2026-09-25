@@ -17,14 +17,14 @@ body:
     en: A model-serving feature that stores the KV cache for the opening part of a prompt for a short time and reuses it when a later request begins with exactly the same tokens, so only the new remainder has to be read; providers usually bill reused tokens at a lower rate.
     da: En funktion i modelservering, der i kort tid gemmer KV-cache for den første del af en prompt og genbruger den, når en senere forespørgsel begynder med nøjagtig de samme tokens, så kun den nye rest skal læses; udbydere tager normalt en lavere pris for genbrugte tokens.
   plain:
-    en: Like a lawyer who has already read the thick case file — each new question about it takes minutes, not a whole day of rereading.
-    da: Som en advokat, der allerede har læst den tykke sagsmappe — hvert nyt spørgsmål om den tager minutter, ikke en hel dag med genlæsning.
+    en: Like a lawyer who has already read the thick case file - each new question about it takes minutes, not a whole day of rereading.
+    da: Som en advokat, der allerede har læst den tykke sagsmappe - hvert nyt spørgsmål om den tager minutter, ikke en hel dag med genlæsning.
   inPractice:
     en: At a Danish webshop, the developer behind the customer chat puts the 40 pages of delivery and return rules first in every request and the customer's question last; the provider reuses the stored start, so the chat's monthly bill falls sharply.
     da: I en dansk webshop lægger udvikleren bag kundechatten de 40 sider med leverings- og returregler først i hver forespørgsel og kundens spørgsmål til sidst; udbyderen genbruger den gemte begyndelse, så chattens månedlige regning falder markant.
   whyItMatters:
-    en: It only pays off if the fixed part comes first and stays word-for-word the same. Providers keep the stored work for minutes up to a day and should never share it between customers — where it is shared, answer speed can reveal what others sent.
-    da: Det betaler sig kun, hvis den faste del kommer først og forbliver ord for ord den samme. Udbydere gemmer arbejdet fra minutter op til et døgn og bør aldrig dele det mellem kunder — hvor det deles, kan svarhastigheden afsløre, hvad andre har sendt.
+    en: It only pays off if the fixed part comes first and stays word-for-word the same. Providers keep the stored work for minutes up to a day and should never share it between customers - where it is shared, answer speed can reveal what others sent.
+    da: Det betaler sig kun, hvis den faste del kommer først og forbliver ord for ord den samme. Udbydere gemmer arbejdet fra minutter op til et døgn og bør aldrig dele det mellem kunder - hvor det deles, kan svarhastigheden afsløre, hvad andre har sendt.
 deepDive:
   en: |-
     Mechanically, prompt caching is KV-cache persistence across requests. After a request's prefill, the serving system keeps the key and value tensors for a prefix of the prompt, indexed by a hash of the exact token sequence, often in fixed-size blocks so that any block-aligned prefix can be matched. When a new request arrives, the scheduler looks up the longest cached prefix, skips prefill for those tokens and computes only the remainder. Because every token's keys and values depend on all preceding tokens, a single changed token invalidates the cache from that point onward; identical content in a different position is not reusable. Open-source engines expose the same idea as automatic prefix caching (vLLM) or RadixAttention (SGLang, which organises cached prefixes in a radix tree).
@@ -46,8 +46,8 @@ edges:
   requires:
     - to: kv-cache
       why:
-        en: What is stored is the KV cache for the prompt's start — kept after one request ends so the next can pick it up.
-        da: Det, der gemmes, er KV-cache for promptens begyndelse — bevaret, efter én forespørgsel er slut, så den næste kan tage den op.
+        en: What is stored is the KV cache for the prompt's start - kept after one request ends so the next can pick it up.
+        da: Det, der gemmes, er KV-cache for promptens begyndelse - bevaret, efter én forespørgsel er slut, så den næste kan tage den op.
       strength: primary
       confidence: high
     - prompt
@@ -60,10 +60,10 @@ edges:
       confidence: high
     - system-prompt
 sources:
-  - title: Anthropic documentation — Prompt caching
+  - title: Anthropic documentation - Prompt caching
     tier: official-doc
     publisher: Anthropic
-  - title: OpenAI API documentation — Prompt caching
+  - title: OpenAI API documentation - Prompt caching
     tier: official-doc
     publisher: OpenAI
   - title: Gu et al. (2025), Auditing Prompt Caching in Language Model APIs

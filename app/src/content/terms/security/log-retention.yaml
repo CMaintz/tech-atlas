@@ -9,8 +9,8 @@ cluster: security-operations
 layer: governance
 status: current
 summary:
-  en: Deciding how long each kind of log is kept before it is deleted — long enough to look into incidents, but no longer than needed.
-  da: At fastsætte, hvor længe hver slags log gemmes, før den slettes — længe nok til at efterforske hændelser, men ikke længere end nødvendigt.
+  en: Deciding how long each kind of log is kept before it is deleted - long enough to look into incidents, but no longer than needed.
+  da: At fastsætte, hvor længe hver slags log gemmes, før den slettes - længe nok til at efterforske hændelser, men ikke længere end nødvendigt.
 body:
   formal:
     en: A documented rule for each type of log stating how long it is stored, where, how it is protected and when it is deleted, based on the risk assessment, legal duties and the purpose of the log.
@@ -53,24 +53,24 @@ edges:
       confidence: high
     - security-incident
 sources:
-  - title: NIST SP 800-92 — Guide to Computer Security Log Management
+  - title: NIST SP 800-92 - Guide to Computer Security Log Management
     url: https://doi.org/10.6028/NIST.SP.800-92
     tier: standard
     publisher: NIST
-  - title: Commission Delegated Regulation (EU) 2024/1774 (DORA RTS on ICT risk management) — Article 12, Logging
+  - title: Commission Delegated Regulation (EU) 2024/1774 (DORA RTS on ICT risk management) - Article 12, Logging
     tier: standard
     publisher: European Union
-  - title: Commission Implementing Regulation (EU) 2024/2690 (NIS2) — Annex, point 3.2 Monitoring and logging
+  - title: Commission Implementing Regulation (EU) 2024/2690 (NIS2) - Annex, point 3.2 Monitoring and logging
     tier: standard
     publisher: European Union
-  - title: GDPR (Regulation (EU) 2016/679) — Article 5(1)(e), storage limitation
+  - title: GDPR (Regulation (EU) 2016/679) - Article 5(1)(e), storage limitation
     tier: standard
     publisher: European Union
   - title: Bekendtgørelse nr. 528 af 15. juni 2000 om sikkerhedsforanstaltninger til beskyttelse af personoplysninger, som behandles for den offentlige forvaltning (repealed)
     url: https://www.retsinformation.dk/eli/lta/2000/528
     tier: standard
     publisher: Justitsministeriet
-  - title: Datatilsynet — Logning af brugernes anvendelser af personoplysninger
+  - title: Datatilsynet - Logning af brugernes anvendelser af personoplysninger
     url: https://www.datatilsynet.dk/regler-og-vejledning/behandlingssikkerhed/katalog-over-foranstaltninger/logning-af-brugernes-anvendelser-af-personoplysninger
     tier: official-doc
     publisher: Datatilsynet

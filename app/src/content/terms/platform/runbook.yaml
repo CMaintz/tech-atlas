@@ -52,15 +52,15 @@ edges:
       confidence: high
     - soc
 sources:
-  - title: Google SRE book — Chapter 11, Being On-Call
+  - title: Google SRE book - Chapter 11, Being On-Call
     url: https://sre.google/sre-book/being-on-call/
     tier: reference
     publisher: Google
-  - title: NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management
+  - title: NIST SP 800-61 Rev. 3 - Incident Response Recommendations and Considerations for Cybersecurity Risk Management
     url: https://doi.org/10.6028/NIST.SP.800-61r3
     tier: standard
     publisher: NIST
-  - title: Google SRE book — Chapter 1, Introduction
+  - title: Google SRE book - Chapter 1, Introduction
     tier: reference
     publisher: Google
     url: https://sre.google/sre-book/introduction/

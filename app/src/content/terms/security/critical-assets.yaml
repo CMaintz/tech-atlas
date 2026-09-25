@@ -16,8 +16,8 @@ body:
     en: The part of an organisation's assets whose loss, damage or being out of reach would seriously harm its operations, and which therefore get the highest priority for protection.
     da: Den del af en organisations aktiver, hvis tab, skade eller manglende tilgængelighed vil ramme driften alvorligt, og som derfor får højeste prioritet i beskyttelsen.
   plain:
-    en: Like the few things you would grab first if your house were on fire — passports, medicine, family photos — rather than the sofa.
-    da: Ligesom de få ting, man ville tage med først, hvis ens hus brændte — pas, medicin og familiebilleder, ikke sofaen.
+    en: Like the few things you would grab first if your house were on fire - passports, medicine, family photos - rather than the sofa.
+    da: Ligesom de få ting, man ville tage med først, hvis ens hus brændte - pas, medicin og familiebilleder, ikke sofaen.
   inPractice:
     en: A water utility's board and operations manager mark the pump controls and the water quality readings as critical assets, while the system for booking the staff canteen is not.
     da: Et vandværks bestyrelse og driftsleder udpeger styringen af pumperne og målingerne af vandkvaliteten som kritiske aktiver, mens systemet til at bestille mad i kantinen ikke er det.
@@ -45,7 +45,7 @@ edges:
   requires: [asset-inventory, availability]
   used-with: [data-classification, risk-management]
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: ISO/IEC 27005:2022
     tier: standard

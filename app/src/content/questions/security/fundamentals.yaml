@@ -31,14 +31,14 @@ questions:
     explanation:
       en: >-
         A DDoS attack stops legitimate users from getting timely and reliable access
-        to a service, which is exactly what availability protects — the parents could
+        to a service, which is exactly what availability protects - the parents could
         not use the site when they needed it. Confidentiality would be hit if someone
         had read or leaked the applications, and integrity if data had been altered,
         but the investigation ruled both out. Non-repudiation is about proving who did
         something, and it is not one of the three CIA properties.
       da: >-
         Et DDoS-angreb forhindrer legitime brugere i at få rettidig og pålidelig
-        adgang til en tjeneste, og det er netop det, tilgængelighed beskytter —
+        adgang til en tjeneste, og det er netop det, tilgængelighed beskytter -
         forældrene kunne ikke bruge løsningen, da de havde brug for den. Fortroligheden
         ville være ramt, hvis nogen havde læst eller lækket ansøgningerne, og
         integriteten, hvis data var blevet ændret, men begge dele blev udelukket.
@@ -46,10 +46,10 @@ questions:
         af de tre egenskaber i CIA-triaden.
     difficulty: 1
     sources:
-      - title: NIST CSRC Glossary — Availability
+      - title: NIST CSRC Glossary - Availability
         url: https://csrc.nist.gov/glossary/term/availability
         tier: standard
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -87,7 +87,7 @@ questions:
         Integrity means information stays correct and is protected against improper
         change; here the account numbers were altered without permission, so the file
         was no longer correct. Confidentiality is not the main issue, because nothing
-        was disclosed — no outsider read the file. Availability was not hit
+        was disclosed - no outsider read the file. Availability was not hit
         either, as the system kept running. Authentication (checking who a user is)
         may be the weakness that let the change happen, but it is not a CIA property
         and not what the incident broke.
@@ -95,19 +95,19 @@ questions:
         Integritet betyder, at information forbliver korrekt og er beskyttet mod
         uautoriserede ændringer; her blev kontonumrene ændret uden tilladelse, så
         filen var ikke længere korrekt. Fortroligheden er ikke hovedproblemet, for
-        intet blev videregivet — ingen uvedkommende læste filen. Tilgængeligheden blev
+        intet blev videregivet - ingen uvedkommende læste filen. Tilgængeligheden blev
         heller ikke ramt, for systemet kørte videre. Autentifikation (at kontrollere,
         hvem en bruger er) kan være den svaghed, der gjorde ændringen mulig, men det er
         ikke en egenskab i CIA-triaden og ikke det, hændelsen brød.
     difficulty: 2
     sources:
-      - title: NIST CSRC Glossary — Integrity
+      - title: NIST CSRC Glossary - Integrity
         url: https://csrc.nist.gov/glossary/term/integrity
         tier: standard
-      - title: NIST CSRC Glossary — Confidentiality
+      - title: NIST CSRC Glossary - Confidentiality
         url: https://csrc.nist.gov/glossary/term/confidentiality
         tier: standard
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -146,7 +146,7 @@ questions:
     answer: 3
     explanation:
       en: >-
-        A vulnerability is a weakness in a system that a threat source can exploit —
+        A vulnerability is a weakness in a system that a threat source can exploit -
         here the missing update on the VPN gateway. The ransomware groups are the
         threat (or threat actor): the source of potential harm, not the weakness. The
         published code is an exploit, the tool that turns the weakness into access.
@@ -154,7 +154,7 @@ questions:
         would hurt is the risk, which is built from threat, vulnerability, likelihood
         and impact together.
       da: >-
-        En sårbarhed er en svaghed i et system, som en trussel kan udnytte — her den
+        En sårbarhed er en svaghed i et system, som en trussel kan udnytte - her den
         manglende opdatering på VPN-gatewayen. Ransomwaregrupperne er truslen (eller
         trusselsaktøren): kilden til mulig skade, ikke selve svagheden. Den
         offentliggjorte kode er et exploit, værktøjet der gør svagheden til adgang.
@@ -163,19 +163,19 @@ questions:
         konsekvens tilsammen.
     difficulty: 2
     sources:
-      - title: NIST CSRC Glossary — Vulnerability
+      - title: NIST CSRC Glossary - Vulnerability
         url: https://csrc.nist.gov/glossary/term/vulnerability
         tier: standard
-      - title: NIST CSRC Glossary — Threat
+      - title: NIST CSRC Glossary - Threat
         url: https://csrc.nist.gov/glossary/term/threat
         tier: standard
-      - title: NIST CSRC Glossary — Risk
+      - title: NIST CSRC Glossary - Risk
         url: https://csrc.nist.gov/glossary/term/risk
         tier: standard
       - title: Exploit Database
         url: https://www.exploit-db.com/
         tier: reference
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -229,7 +229,7 @@ questions:
         fordi forsøgene kommer fra mange forskellige IP-adresser.
     difficulty: 2
     sources:
-      - title: OWASP Cheat Sheet Series — Credential Stuffing Prevention
+      - title: OWASP Cheat Sheet Series - Credential Stuffing Prevention
         url: https://cheatsheetseries.owasp.org/cheatsheets/Credential_Stuffing_Prevention_Cheat_Sheet.html
         tier: reference
     draft: true
@@ -283,10 +283,10 @@ questions:
         ved en angriber, der allerede styrer en pc.
     difficulty: 2
     sources:
-      - title: MITRE ATT&CK — Lateral Movement (TA0008)
+      - title: MITRE ATT&CK - Lateral Movement (TA0008)
         url: https://attack.mitre.org/tactics/TA0008/
         tier: reference
-      - title: MITRE ATT&CK — Network Segmentation (M1030)
+      - title: MITRE ATT&CK - Network Segmentation (M1030)
         url: https://attack.mitre.org/mitigations/M1030/
         tier: reference
     draft: true
@@ -320,7 +320,7 @@ questions:
       en: >-
         Governance is how leadership steers security: setting strategy and policy,
         deciding how much risk is acceptable, assigning responsibility and overseeing
-        the result — which is what the NIST CSF 2.0 Govern function describes and
+        the result - which is what the NIST CSF 2.0 Govern function describes and
         what the board does here. Installing patches is IT operations carrying out
         the work. The phishing test is the coordinator managing and measuring a
         security activity. Choosing a firewall within an approved budget is a
@@ -329,7 +329,7 @@ questions:
       da: >-
         Governance er den måde, ledelsen styrer sikkerheden på: fastlægger strategi og
         politik, beslutter, hvor meget risiko der kan accepteres, fordeler ansvar og
-        fører tilsyn med resultatet — det er det, Govern-funktionen i NIST CSF 2.0
+        fører tilsyn med resultatet - det er det, Govern-funktionen i NIST CSF 2.0
         beskriver, og det, bestyrelsen gør her. At installere opdateringer er IT-drift,
         der udfører arbejdet. Phishingtesten er koordinatoren, der styrer og måler en
         sikkerhedsaktivitet. At vælge en firewall inden for et godkendt budget er en
@@ -340,7 +340,7 @@ questions:
       - title: NIST Cybersecurity Framework (CSF) 2.0 (NIST CSWP 29)
         url: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf
         tier: standard
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -393,10 +393,10 @@ questions:
         konsekvensen er så stor.
     difficulty: 1
     sources:
-      - title: NIST CSRC Glossary — Risk
+      - title: NIST CSRC Glossary - Risk
         url: https://csrc.nist.gov/glossary/term/risk
         tier: standard
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -423,21 +423,21 @@ questions:
     explanation:
       en: >-
         False. Defence in depth means stacking several different, independent layers
-        — people, technology and processes — so that an attack one layer misses is
+        - people, technology and processes - so that an attack one layer misses is
         caught by another, as NIST describes it. Relying on a single strong barrier at
         the edge is perimeter security: once an attacker gets past the firewall, for
         example through a phishing e-mail, nothing else stops them. Layers such as MFA,
         network segmentation, patching and logging are what give depth.
       da: >-
-        Falsk. Lagdelt sikkerhed betyder at stable flere forskellige, uafhængige lag —
-        mennesker, teknologi og processer — så et angreb, som ét lag overser, bliver
+        Falsk. Lagdelt sikkerhed betyder at stable flere forskellige, uafhængige lag -
+        mennesker, teknologi og processer - så et angreb, som ét lag overser, bliver
         fanget af et andet, som NIST beskriver det. At stole på én stærk barriere ved
         kanten er perimetersikkerhed: kommer en angriber forbi firewallen, fx via en
         phishingmail, er der intet andet, der stopper vedkommende. Lag som MFA,
         netværkssegmentering, opdateringer og logning er det, der giver dybde.
     difficulty: 1
     sources:
-      - title: NIST CSRC Glossary — Defense-in-Depth
+      - title: NIST CSRC Glossary - Defense-in-Depth
         url: https://csrc.nist.gov/glossary/term/defense_in_depth
         tier: standard
     draft: true

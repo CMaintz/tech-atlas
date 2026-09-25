@@ -10,15 +10,15 @@ layer: inference
 status: current
 era: 2022
 summary:
-  en: When an AI model states something false or made up — a fact, a quote, a source — in the same confident tone as a true answer.
-  da: Når en AI-model finder på noget, der ikke er sandt — et faktum, et citat, en kilde — og siger det lige så sikkert som et sandt svar.
+  en: When an AI model states something false or made up - a fact, a quote, a source - in the same confident tone as a true answer.
+  da: Når en AI-model finder på noget, der ikke er sandt - et faktum, et citat, en kilde - og siger det lige så sikkert som et sandt svar.
 body:
   formal:
     en: Fluent, plausible output that is supported by neither the input nor fact, produced by an AI model that creates new text or images; it arises because such models are built to produce likely text, not checked truth.
     da: Flydende og troværdigt output, som hverken har støtte i input eller i fakta, fra en AI-model, der skaber ny tekst eller nye billeder; det opstår, fordi sådanne modeller er bygget til at skrive sandsynlig tekst, ikke tjekket sandhed.
   plain:
-    en: Like a guest at a party who never admits not knowing — asked anything, they give a smooth, detailed answer, whether or not it is true.
-    da: Som en gæst til en fest, der aldrig indrømmer ikke at vide noget — spurgt om hvad som helst giver de et glat, detaljeret svar, uanset om det er sandt.
+    en: Like a guest at a party who never admits not knowing - asked anything, they give a smooth, detailed answer, whether or not it is true.
+    da: Som en gæst til en fest, der aldrig indrømmer ikke at vide noget - spurgt om hvad som helst giver de et glat, detaljeret svar, uanset om det er sandt.
   inPractice:
     en: An official in a ministry asks a chat assistant for court rulings to support a draft reply; it names three, and a check shows that none of the cases exist.
     da: En medarbejder i et ministerium beder en chatassistent om domme til støtte for et udkast til svar; den nævner tre, og et tjek viser, at ingen af sagerne findes.
@@ -29,7 +29,7 @@ deepDive:
   en: |-
     The survey by Ji et al. (2023) distinguishes intrinsic hallucination, where output contradicts the source it was given (a summary that reverses a figure in the document), from extrinsic hallucination, where output adds claims that the source can neither confirm nor refute. For open-ended assistants a further split is useful: factuality errors (the claim is false about the world) versus faithfulness errors (the claim is not supported by the provided context, whether or not it happens to be true). NIST AI 600-1 prefers the term confabulation and lists it as one of the risks specific to generative AI; OWASP's 2025 LLM Top 10 covers the downstream effect as LLM09 Misinformation.
 
-    The root cause is the training objective. Pretraining rewards assigning high probability to plausible continuations, and a fabricated citation with the right author-title-year shape is highly plausible text. Rare facts seen only once or twice in training are especially fragile, and the model has no separate store it can consult to check a claim. Post-training can make things better or worse: preference tuning that rewards confident, complete-looking answers, and benchmarks that score an abstention the same as a wrong answer, both give the model an incentive to guess rather than say it does not know — an argument OpenAI researchers made explicitly in 2025. Decoding matters too: higher temperature increases the chance of sampling a low-probability, wrong continuation, although greedy decoding does not prevent hallucination.
+    The root cause is the training objective. Pretraining rewards assigning high probability to plausible continuations, and a fabricated citation with the right author-title-year shape is highly plausible text. Rare facts seen only once or twice in training are especially fragile, and the model has no separate store it can consult to check a claim. Post-training can make things better or worse: preference tuning that rewards confident, complete-looking answers, and benchmarks that score an abstention the same as a wrong answer, both give the model an incentive to guess rather than say it does not know - an argument OpenAI researchers made explicitly in 2025. Decoding matters too: higher temperature increases the chance of sampling a low-probability, wrong continuation, although greedy decoding does not prevent hallucination.
 
     Hallucinated content typically looks locally coherent, which is why it is hard to catch. Well-known failure patterns include invented references and case law (the 2023 Mata v. Avianca case in New York, where lawyers were sanctioned for filing a brief citing non-existent decisions produced by a chatbot), fabricated software package names that attackers then register (slopsquatting), wrong numbers inside otherwise correct summaries, and confident answers about events after the knowledge cutoff.
 
@@ -37,7 +37,7 @@ deepDive:
   da: |-
     Oversigtsartiklen af Ji m.fl. (2023) skelner mellem intrinsisk hallucination, hvor output modsiger den kilde, modellen fik (et resumé, der vender et tal i dokumentet om), og ekstrinsisk hallucination, hvor output tilføjer påstande, som kilden hverken kan be- eller afkræfte. For åbne assistenter er endnu en opdeling nyttig: faktuelle fejl (påstanden er forkert om verden) over for fejl i tro gengivelse (påstanden har ikke støtte i den givne kontekst, uanset om den tilfældigvis er sand). NIST AI 600-1 foretrækker betegnelsen konfabulering og nævner den som en af de risici, der er særlige for generativ AI; OWASP's LLM Top 10 fra 2025 dækker følgevirkningen som LLM09 Misinformation.
 
-    Grundårsagen er træningsmålet. Fortræning belønner høj sandsynlighed til plausible fortsættelser, og en opdigtet kildehenvisning med den rigtige form af forfatter, titel og årstal er meget plausibel tekst. Sjældne fakta, der kun optræder en eller to gange i træningsdata, er særligt skrøbelige, og modellen har intet separat lager, den kan slå op i for at tjekke en påstand. Eftertræning kan gøre det bedre eller værre: Præferencetræning, der belønner selvsikre og komplette svar, og benchmarks, der giver samme score for at melde pas som for et forkert svar, giver begge modellen et incitament til at gætte frem for at sige, at den ikke ved det — et argument, som forskere hos OpenAI fremførte eksplicit i 2025. Afkodningen spiller også ind: En højere temperatur øger chancen for at trække en usandsynlig, forkert fortsættelse, men grådig afkodning forhindrer ikke hallucination.
+    Grundårsagen er træningsmålet. Fortræning belønner høj sandsynlighed til plausible fortsættelser, og en opdigtet kildehenvisning med den rigtige form af forfatter, titel og årstal er meget plausibel tekst. Sjældne fakta, der kun optræder en eller to gange i træningsdata, er særligt skrøbelige, og modellen har intet separat lager, den kan slå op i for at tjekke en påstand. Eftertræning kan gøre det bedre eller værre: Præferencetræning, der belønner selvsikre og komplette svar, og benchmarks, der giver samme score for at melde pas som for et forkert svar, giver begge modellen et incitament til at gætte frem for at sige, at den ikke ved det - et argument, som forskere hos OpenAI fremførte eksplicit i 2025. Afkodningen spiller også ind: En højere temperatur øger chancen for at trække en usandsynlig, forkert fortsættelse, men grådig afkodning forhindrer ikke hallucination.
 
     Hallucineret indhold hænger typisk sammen lokalt, og derfor er det svært at opdage. Kendte mønstre er opdigtede kilder og domme (sagen Mata v. Avianca i New York i 2023, hvor advokater blev sanktioneret for et processkrift med henvisninger til ikke-eksisterende afgørelser fra en chatbot), opdigtede softwarepakkenavne, som angribere derefter registrerer (slopsquatting), forkerte tal i ellers korrekte resuméer og selvsikre svar om begivenheder efter vidensgrænsen.
 
@@ -45,7 +45,7 @@ deepDive:
 edges:
   requires: [inference]
 sources:
-  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile (confabulation)
+  - title: NIST AI 600-1 - Artificial Intelligence Risk Management Framework, Generative AI Profile (confabulation)
     tier: standard
     publisher: NIST
   - title: Ji et al. (2023), Survey of Hallucination in Natural Language Generation

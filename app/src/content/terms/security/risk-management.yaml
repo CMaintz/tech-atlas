@@ -22,8 +22,8 @@ body:
     en: Each spring the IT security manager at a small Danish manufacturer goes through the main risks with the managers, updates last year's scores, and the board agrees which ones get a budget first.
     da: Hvert forår gennemgår IT-sikkerhedschefen i en mindre dansk produktionsvirksomhed de vigtigste risici med lederne, opdaterer sidste års vurderinger, og bestyrelsen aftaler, hvilke der får budget først.
   whyItMatters:
-    en: No company can protect everything equally, so without it money is spent on the loudest fears rather than the real dangers — and rules such as NIS2 expect leadership to show it is done.
-    da: Ingen virksomhed kan beskytte alt lige meget, så uden risikostyring bruges pengene på den største frygt i stedet for de reelle farer — og regler som NIS2 kræver, at ledelsen kan vise, at det sker.
+    en: No company can protect everything equally, so without it money is spent on the loudest fears rather than the real dangers - and rules such as NIS2 expect leadership to show it is done.
+    da: Ingen virksomhed kan beskytte alt lige meget, så uden risikostyring bruges pengene på den største frygt i stedet for de reelle farer - og regler som NIS2 kræver, at ledelsen kan vise, at det sker.
 deepDive:
   en: |-
     ISO 31000:2018 is organised in three layers: principles (clause 4), a framework that embeds risk management in governance, leadership and decision-making (clause 5), and the process of scope and context, assessment, treatment, monitoring and review, communication and consultation, and recording and reporting (clause 6). It is guidance and not certifiable. ISO/IEC 27005:2022 applies the process to information security, and ISO/IEC 27001:2022 makes it auditable: clauses 4.1 and 4.2 establish context and interested parties, 6.1.2 and 6.1.3 define the assessment and treatment processes, 8.2 and 8.3 require them to be run, 9.1 and 9.3 cover measurement and management review, and clause 10 covers improvement. A frequent confusion is clause 6.1.1, which concerns risks and opportunities affecting the management system itself, not the information security risks handled under 6.1.2.
@@ -49,7 +49,7 @@ article:
   en: src/content/articles/security/risk-management.en.md
   da: src/content/articles/security/risk-management.da.md
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: ISO/IEC 27005:2022
     tier: standard

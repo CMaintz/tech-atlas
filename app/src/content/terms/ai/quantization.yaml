@@ -16,14 +16,14 @@ body:
     en: Converting model weights, and sometimes the working values of inference, from high-detail numbers (often 16 bits each) to coarser ones (8, 4 or fewer bits) by mapping them onto a smaller set of allowed values; it shrinks memory use and speeds up the math while adding small rounding errors.
     da: At lave modelvægte, og nogle gange arbejdsværdierne under inferens, om fra meget detaljerede tal (ofte 16 bit hver) til grovere tal (8, 4 eller færre bit) ved at lægge dem over på et mindre sæt tilladte værdier; det mindsker hukommelsesforbruget og gør regningen hurtigere, men tilføjer små fejl, fordi tallene bliver grovere.
   plain:
-    en: Like saving a photo as a smaller file — it loses a little fine detail you rarely notice, and in return fits on your phone and opens instantly.
-    da: Som at gemme et foto som en mindre fil — det mister lidt fine detaljer, man sjældent bemærker, og til gengæld kan det ligge på telefonen og åbner med det samme.
+    en: Like saving a photo as a smaller file - it loses a little fine detail you rarely notice, and in return fits on your phone and opens instantly.
+    da: Som at gemme et foto som en mindre fil - det mister lidt fine detaljer, man sjældent bemærker, og til gengæld kan det ligge på telefonen og åbner med det samme.
   inPractice:
     en: A developer in a municipality tests 8-bit and 4-bit versions of the same open model on 200 real questions from case officers; the 8-bit one does as well as the original, the 4-bit one slips on sums, so she picks 8-bit.
     da: En udvikler i en kommune tester en 8-bit- og en 4-bit-udgave af den samme åbne model på 200 rigtige spørgsmål fra sagsbehandlere; 8-bit-udgaven klarer sig som originalen, 4-bit-udgaven fejler på regnestykker, så hun vælger 8-bit.
   whyItMatters:
-    en: Memory is usually what limits where a model can run, and using half the bits needs roughly half the memory — often the difference between using hardware you already own and renting capacity in someone else's cloud.
-    da: Hukommelsen er som regel det, der begrænser, hvor en model kan køre, og halveres antallet af bit, halveres den omtrent — ofte forskellen på at bruge egen hardware og at leje kapacitet i en andens cloud.
+    en: Memory is usually what limits where a model can run, and using half the bits needs roughly half the memory - often the difference between using hardware you already own and renting capacity in someone else's cloud.
+    da: Hukommelsen er som regel det, der begrænser, hvor en model kan køre, og halveres antallet af bit, halveres den omtrent - ofte forskellen på at bruge egen hardware og at leje kapacitet i en andens cloud.
 deepDive:
   en: |-
     The basic scheme is affine (uniform) quantization: a real value x is mapped to an integer q = clamp(round(x / s) + z, q_min, q_max) and approximately recovered as x̂ = s · (q − z), where s is the scale and z the zero point. Symmetric quantization fixes z = 0 and suits roughly zero-centred weights; asymmetric quantization spends the extra parameter on skewed ranges such as post-ReLU activations. Granularity matters as much as bit width: one scale per tensor is cheap but coarse, per-channel scales are standard for weights, and LLM weight quantization at 4 bits usually uses per-group scales (for example one scale per 128 consecutive weights), which adds a small storage overhead but sharply reduces error.
@@ -32,7 +32,7 @@ deepDive:
 
     It is important to be clear about what is quantized. Weight-only schemes (W4A16, W8A16) store weights compactly but dequantize them for 16-bit arithmetic; they mainly help memory-bound decoding, where speed tracks bytes read per token. Weight-and-activation schemes (W8A8 in INT8 or FP8) also use low-precision tensor-core math and help compute-bound prefill. FP8 comes in two variants, E4M3 and E5M2, trading mantissa precision against range, and newer hardware adds 4-bit floating-point formats. The KV cache can be quantized separately. In the llama.cpp ecosystem, GGUF files carry block-wise formats such as Q4_K_M and Q8_0.
 
-    The memory arithmetic is simple: 70 billion parameters take about 140 GB at 16 bits, 70 GB at 8 bits and roughly 35–40 GB at 4 bits including scales, which can decide whether a model fits on one accelerator. The failure modes are less obvious. Degradation is uneven: perplexity and general benchmarks may barely move while arithmetic, code, long-context retrieval or languages other than English can degrade noticeably, so evaluation should use task-specific data. Very low bit widths (3 bits and below) usually need QAT or careful methods. Quantization differs from distillation, which trains a new smaller model, and from pruning, which removes parameters; the three are often combined.
+    The memory arithmetic is simple: 70 billion parameters take about 140 GB at 16 bits, 70 GB at 8 bits and roughly 35-40 GB at 4 bits including scales, which can decide whether a model fits on one accelerator. The failure modes are less obvious. Degradation is uneven: perplexity and general benchmarks may barely move while arithmetic, code, long-context retrieval or languages other than English can degrade noticeably, so evaluation should use task-specific data. Very low bit widths (3 bits and below) usually need QAT or careful methods. Quantization differs from distillation, which trains a new smaller model, and from pruning, which removes parameters; the three are often combined.
   da: |-
     Grundskemaet er affin (uniform) kvantisering: en reel værdi x afbildes på et heltal q = clamp(round(x / s) + z, q_min, q_max) og genskabes tilnærmelsesvis som x̂ = s · (q − z), hvor s er skalaen og z nulpunktet. Symmetrisk kvantisering fastlåser z = 0 og passer til vægte, der ligger nogenlunde omkring nul; asymmetrisk kvantisering bruger den ekstra parameter på skæve intervaller som aktiveringer efter ReLU. Granulariteten betyder lige så meget som antallet af bit: én skala pr. tensor er billig, men grov, skalaer pr. kanal er standard for vægte, og 4-bit-kvantisering af LLM-vægte bruger normalt skalaer pr. gruppe (fx én skala pr. 128 på hinanden følgende vægte), hvilket koster lidt ekstra lagerplads, men mindsker fejlen markant.
 
@@ -40,7 +40,7 @@ deepDive:
 
     Det er vigtigt at være klar over, hvad der kvantiseres. Skemaer, der kun kvantiserer vægte (W4A16, W8A16), gemmer vægtene kompakt, men dekvantiserer dem til 16-bit-regning; de hjælper især den memory-bound decode-fase, hvor hastigheden følger antallet af bytes, der læses pr. token. Skemaer for både vægte og aktiveringer (W8A8 i INT8 eller FP8) bruger også tensor core-regning med lav præcision og hjælper den compute-bound prefill-fase. FP8 findes i to varianter, E4M3 og E5M2, der bytter præcision i mantissen mod talområde, og nyere hardware tilføjer floating point-formater på 4 bit. KV-cachen kan kvantiseres for sig. I llama.cpp-økosystemet indeholder GGUF-filer blokvise formater som Q4_K_M og Q8_0.
 
-    Hukommelsesregnestykket er enkelt: 70 milliarder parametre fylder omkring 140 GB ved 16 bit, 70 GB ved 8 bit og cirka 35–40 GB ved 4 bit inklusive skalaer, hvilket kan afgøre, om en model kan ligge på én accelerator. Fejlmønstrene er mindre åbenlyse. Forringelsen er ujævn: perplexity og generelle benchmarks rykker sig måske knap, mens regning, kode, genfinding i lange kontekster eller andre sprog end engelsk kan blive mærkbart dårligere, så evalueringen bør bruge opgavespecifikke data. Meget lave bitbredder (3 bit og derunder) kræver som regel QAT eller omhyggelige metoder. Kvantisering adskiller sig fra destillation, der træner en ny, mindre model, og fra pruning, der fjerner parametre; de tre kombineres ofte.
+    Hukommelsesregnestykket er enkelt: 70 milliarder parametre fylder omkring 140 GB ved 16 bit, 70 GB ved 8 bit og cirka 35-40 GB ved 4 bit inklusive skalaer, hvilket kan afgøre, om en model kan ligge på én accelerator. Fejlmønstrene er mindre åbenlyse. Forringelsen er ujævn: perplexity og generelle benchmarks rykker sig måske knap, mens regning, kode, genfinding i lange kontekster eller andre sprog end engelsk kan blive mærkbart dårligere, så evalueringen bør bruge opgavespecifikke data. Meget lave bitbredder (3 bit og derunder) kræver som regel QAT eller omhyggelige metoder. Kvantisering adskiller sig fra destillation, der træner en ny, mindre model, og fra pruning, der fjerner parametre; de tre kombineres ofte.
 edges:
   requires:
     - to: model-weights
@@ -59,6 +59,6 @@ edges:
 sources:
   - title: Jacob et al. (2018), Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference
     tier: reference
-  - title: Dettmers et al. (2023), QLoRA — Efficient Finetuning of Quantized LLMs
+  - title: Dettmers et al. (2023), QLoRA - Efficient Finetuning of Quantized LLMs
     tier: reference
 draft: true

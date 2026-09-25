@@ -17,8 +17,8 @@ body:
     en: An open protocol in which each AI agent publishes a card describing what it can do and how to reach it, and other agents send it tasks over the web, follow their progress and receive results, without seeing how the agent works inside.
     da: En åben protokol, hvor hver AI-agent offentliggør et kort, der beskriver, hvad den kan, og hvordan den nås, og andre agenter sender den opgaver over nettet, følger deres fremgang og modtager resultater uden at se, hvordan agenten virker indvendigt.
   plain:
-    en: Like a shared job board for freelancers — each posts what they are good at, and others can hire them for a piece of work without caring how they do it.
-    da: Som en fælles opslagstavle for freelancere — hver skriver, hvad de er gode til, og andre kan hyre dem til en opgave uden at bekymre sig om, hvordan de løser den.
+    en: Like a shared job board for freelancers - each posts what they are good at, and others can hire them for a piece of work without caring how they do it.
+    da: Som en fælles opslagstavle for freelancere - hver skriver, hvad de er gode til, og andre kan hyre dem til en opgave uden at bekymre sig om, hvordan de løser den.
   inPractice:
     en: A travel coordinator at a ministry uses a trip-planning agent that finds a travel agency's booking agent through its card, sends the dates and budget over A2A and gets back three priced options an hour later.
     da: En medarbejder i et ministerium, der planlægger kollegernes rejser, bruger en agent, som finder et rejsebureaus bookingagent via dens kort, sender datoer og budget over A2A og får tre forslag med priser en time senere.

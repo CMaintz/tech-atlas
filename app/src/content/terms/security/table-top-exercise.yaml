@@ -45,7 +45,7 @@ edges:
   requires: [contingency-plan, incident-response]
   causes: [lessons-learned]
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: NIST SP 800-84
     tier: standard

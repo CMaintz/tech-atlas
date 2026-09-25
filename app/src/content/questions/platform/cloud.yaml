@@ -29,7 +29,7 @@ questions:
     explanation:
       en: >-
         In IaaS the provider secures the physical data centre, network and hosts,
-        while the customer manages the operating system and everything above it —
+        while the customer manages the operating system and everything above it -
         Microsoft's responsibility matrix puts the operating system on the customer's
         side for IaaS, and AWS says the same about EC2 guest operating systems,
         including updates and security patches. Running the data centre does not make
@@ -39,7 +39,7 @@ questions:
         Microsoft publishes the patch, but the customer who runs the VM applies it.
       da: >-
         I IaaS sikrer udbyderen det fysiske datacenter, netværket og værterne, mens
-        kunden står for styresystemet og alt ovenover — Microsofts ansvarsmatrix
+        kunden står for styresystemet og alt ovenover - Microsofts ansvarsmatrix
         placerer styresystemet hos kunden i IaaS, og AWS siger det samme om
         gæstestyresystemer på EC2, herunder opdateringer og sikkerhedsrettelser. At
         udbyderen driver datacentret, betyder ikke, at den patcher gæsten; det skifte
@@ -49,13 +49,13 @@ questions:
         rettelsen, men det er kunden, der kører VM'en, som skal installere den.
     difficulty: 1
     sources:
-      - title: Microsoft Learn — Shared responsibility in the cloud
+      - title: Microsoft Learn - Shared responsibility in the cloud
         url: https://learn.microsoft.com/en-us/azure/security/fundamentals/shared-responsibility
         tier: official-doc
-      - title: AWS — Shared Responsibility Model
+      - title: AWS - Shared Responsibility Model
         url: https://aws.amazon.com/compliance/shared-responsibility-model/
         tier: official-doc
-      - title: NIST SP 800-145 — The NIST Definition of Cloud Computing (IaaS)
+      - title: NIST SP 800-145 - The NIST Definition of Cloud Computing (IaaS)
         url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-145.pdf
         tier: standard
     draft: true
@@ -88,8 +88,8 @@ questions:
     answer: 0
     explanation:
       en: >-
-        AWS is responsible for security of the cloud — the infrastructure its services
-        run on — and the customer for security in the cloud. For abstracted services
+        AWS is responsible for security of the cloud - the infrastructure its services
+        run on - and the customer for security in the cloud. For abstracted services
         such as S3, AWS runs the infrastructure, operating system and platform, but the
         customer manages its data and uses the IAM tools to decide who may reach it;
         Microsoft's matrix likewise leaves data, configuration and identities with the
@@ -97,8 +97,8 @@ questions:
         not that it chooses who can read each bucket. A bucket set to public is not a
         platform flaw either: the setting did exactly what the developer asked of it.
       da: >-
-        AWS har ansvaret for sikkerheden af skyen — den infrastruktur, tjenesterne
-        kører på — og kunden for sikkerheden i skyen. For abstrakte tjenester som S3
+        AWS har ansvaret for sikkerheden af skyen - den infrastruktur, tjenesterne
+        kører på - og kunden for sikkerheden i skyen. For abstrakte tjenester som S3
         driver AWS infrastruktur, styresystem og platform, men kunden forvalter sine
         data og bruger IAM-værktøjerne til at bestemme, hvem der kan få adgang;
         Microsofts matrix lader ligeledes data, konfiguration og identiteter blive hos
@@ -108,10 +108,10 @@ questions:
         bad den om.
     difficulty: 2
     sources:
-      - title: AWS — Shared Responsibility Model
+      - title: AWS - Shared Responsibility Model
         url: https://aws.amazon.com/compliance/shared-responsibility-model/
         tier: official-doc
-      - title: Microsoft Learn — Shared responsibility in the cloud
+      - title: Microsoft Learn - Shared responsibility in the cloud
         url: https://learn.microsoft.com/en-us/azure/security/fundamentals/shared-responsibility
         tier: official-doc
     draft: true
@@ -149,7 +149,7 @@ questions:
         NIST SP 800-145 describes PaaS as deploying applications you created onto the
         provider's infrastructure, where you do not manage servers, operating systems
         or storage but do control the deployed applications and their hosting settings
-        — exactly this need. IaaS would give them virtual machines, but then the
+        - exactly this need. IaaS would give them virtual machines, but then the
         operating system and its patches are theirs to run. SaaS means using the
         provider's finished application, so there is no place for their own booking
         code. Colocation puts their own hardware in someone else's building, which
@@ -158,17 +158,17 @@ questions:
         NIST SP 800-145 beskriver PaaS som at lægge egne applikationer ud på
         udbyderens infrastruktur, hvor man ikke styrer servere, styresystemer eller
         lager, men selv har kontrol over de udrullede applikationer og deres
-        opsætning — præcis det, de har brug for. IaaS ville give dem virtuelle
+        opsætning - præcis det, de har brug for. IaaS ville give dem virtuelle
         maskiner, men så er styresystemet og dets opdateringer deres eget ansvar. SaaS
         betyder, at man bruger udbyderens færdige program, så der er ingen plads til
         deres egen bookingkode. Housing betyder, at deres egen hardware står i en andens
         bygning, og så skal de stadig købe servere og drive hele stakken selv.
     difficulty: 1
     sources:
-      - title: NIST SP 800-145 — The NIST Definition of Cloud Computing (service models)
+      - title: NIST SP 800-145 - The NIST Definition of Cloud Computing (service models)
         url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-145.pdf
         tier: standard
-      - title: Microsoft Learn — Shared responsibility in the cloud
+      - title: Microsoft Learn - Shared responsibility in the cloud
         url: https://learn.microsoft.com/en-us/azure/security/fundamentals/shared-responsibility
         tier: official-doc
     draft: true
@@ -202,7 +202,7 @@ questions:
       en: >-
         NIST SP 800-145 notes that with resource pooling the customer generally does
         not know the exact location of the resources but may be able to specify it at
-        a higher level, such as country, state or data centre — in practice, choosing
+        a higher level, such as country, state or data centre - in practice, choosing
         the region when the service is set up. So "it cannot be controlled" is too
         pessimistic. Encryption protects the data's confidentiality but does not change
         where it is stored, so it does not meet a rule about location. The provider is
@@ -211,7 +211,7 @@ questions:
       da: >-
         NIST SP 800-145 bemærker, at kunden ved ressourcepuljer som regel ikke kender
         ressourcernes præcise placering, men kan have mulighed for at angive den på et
-        højere niveau, fx land, delstat eller datacenter — i praksis ved at vælge
+        højere niveau, fx land, delstat eller datacenter - i praksis ved at vælge
         region, når tjenesten sættes op. "Det kan ikke styres" er derfor for
         pessimistisk. Kryptering beskytter fortroligheden, men ændrer ikke, hvor data
         ligger, så den opfylder ikke et krav om placering. Udbyderen har ansvaret for
@@ -219,7 +219,7 @@ questions:
         kundens beslutning.
     difficulty: 2
     sources:
-      - title: NIST SP 800-145 — The NIST Definition of Cloud Computing (resource pooling)
+      - title: NIST SP 800-145 - The NIST Definition of Cloud Computing (resource pooling)
         url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-145.pdf
         tier: standard
     draft: true
@@ -249,18 +249,18 @@ questions:
         automatically, to scale outward and inward with demand. Together with measured
         service, typically charged per use, the shop can add capacity for the peak and
         give it back afterwards instead of owning servers sized for its busiest day
-        all year — provided it actually sets up its service to scale down again.
+        all year - provided it actually sets up its service to scale down again.
       da: >-
         Falsk. Hurtig elasticitet er en af NIST's fem grundlæggende egenskaber ved
         cloud computing: Kapacitet kan tildeles og frigives, nogle gange automatisk, så
         den skalerer op og ned efter behov. Sammen med målt forbrug, som typisk
         afregnes efter brug, kan webshoppen tilføje kapacitet til spidsbelastningen og
         give den tilbage bagefter i stedet for at eje servere, der hele året er
-        dimensioneret til den travleste dag — forudsat at den faktisk sætter tjenesten
+        dimensioneret til den travleste dag - forudsat at den faktisk sætter tjenesten
         op til at skalere ned igen.
     difficulty: 1
     sources:
-      - title: NIST SP 800-145 — The NIST Definition of Cloud Computing (essential characteristics)
+      - title: NIST SP 800-145 - The NIST Definition of Cloud Computing (essential characteristics)
         url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-145.pdf
         tier: standard
     draft: true

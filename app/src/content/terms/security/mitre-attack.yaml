@@ -17,8 +17,8 @@ body:
     en: A knowledge base kept by the not-for-profit MITRE, built from observed attacks, that sorts attacker behaviour into tactics (the goal, such as lateral movement) and techniques (how the goal is reached), each with a number, examples and advice on detection.
     da: En vidensbase bygget på observerede angreb og vedligeholdt af den almennyttige organisation MITRE, der inddeler angriberes adfærd i taktikker (målet, fx lateral bevægelse) og teknikker (hvordan målet nås), hver med et nummer, eksempler og råd om detektion.
   plain:
-    en: Like a handbook of every trick known to pickpockets, sorted by stage — picking a victim, distracting them, taking the wallet, getting away — so guards know what to watch for at each step.
-    da: Som en håndbog over alle kendte lommetyvetricks, ordnet efter fase — at vælge et offer, aflede det, tage pungen, slippe væk — så vagter ved, hvad de skal holde øje med i hvert trin.
+    en: Like a handbook of every trick known to pickpockets, sorted by stage - picking a victim, distracting them, taking the wallet, getting away - so guards know what to watch for at each step.
+    da: Som en håndbog over alle kendte lommetyvetricks, ordnet efter fase - at vælge et offer, aflede det, tage pungen, slippe væk - så vagter ved, hvad de skal holde øje med i hvert trin.
   inPractice:
     en: A region's SOC maps its detection rules onto the ATT&CK matrix and sees it has no rule at all for attackers stealing browser cookies, so that becomes the next rule it writes.
     da: En regions SOC lægger sine detektionsregler ind over ATT&CK-matricen og ser, at den slet ingen regel har for angribere, der stjæler browsercookies, så det bliver den næste regel, der skrives.
@@ -61,7 +61,7 @@ sources:
   - title: 'MITRE ATT&CK: Design and Philosophy'
     tier: official-doc
     publisher: MITRE
-  - title: 'ATT&CK v18 — Detection Strategies, More Adversary Insights'
+  - title: 'ATT&CK v18 - Detection Strategies, More Adversary Insights'
     url: https://medium.com/mitre-attack/attack-v18-8f82d839ee9e
     tier: official-doc
     publisher: MITRE

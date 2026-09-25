@@ -191,7 +191,7 @@ export default function Account({ lang, ui }: Props) {
     <div class="max-w-md space-y-6">
       <div>
         {heading(ui.account)}
-        <p>{ui.signedInAs.replace('{email}', s.email || '—')}</p>
+        <p>{ui.signedInAs.replace('{email}', s.email || '-')}</p>
         <p class="mt-1 text-sm text-muted" role="status">
           {statusText}
         </p>

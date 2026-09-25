@@ -58,7 +58,7 @@ const anchor = (l: string) => `letter-${l === '#' ? 'other' : encodeURIComponent
               {' '}
               · {CLUSTER_LABELS[t.data.cluster]?.[lang] ?? t.data.cluster}
             </span>
-            <span class="text-subtle"> — {t.data.summary[lang]}</span>
+            <span class="text-subtle"> - {t.data.summary[lang]}</span>
           </li>
         ))}
       </ul>

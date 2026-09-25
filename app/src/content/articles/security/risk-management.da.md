@@ -31,9 +31,9 @@ Før den første risiko skrives ned, skal man være enige om afgrænsningen (hel
 
 En brugbar risikobeskrivelse rummer et aktiv, en trussel, en sårbarhed og en konsekvens: "Ransomware (trussel) udnytter en upatchet VPN-løsning (sårbarhed) og krypterer ERP-systemet (aktiv), så ordrebehandlingen står stille i flere dage (konsekvens)." Input kan komme fra myndighedernes trusselsvurderinger, tidligere hændelser, revisionsfund, afhængigheder af leverandører og interviews med procesejerne.
 
-### Analyse – kvalitativ eller kvantitativ
+### Analyse - kvalitativ eller kvantitativ
 
-Ved en **kvalitativ** analyse bruger man skalaer, fx 1–5 for sandsynlighed og 1–5 for konsekvens, hvor hvert niveau er beskrevet med ord ("kan ske én gang på ti år", "tab af en nøglekunde"). Metoden er hurtig, kræver ikke mange data og passer til de fleste små og mellemstore organisationer. Svagheden er, at tallene ser præcise ud, men i virkeligheden er skøn – to personer kan sagtens score den samme risiko helt forskelligt.
+Ved en **kvalitativ** analyse bruger man skalaer, fx 1-5 for sandsynlighed og 1-5 for konsekvens, hvor hvert niveau er beskrevet med ord ("kan ske én gang på ti år", "tab af en nøglekunde"). Metoden er hurtig, kræver ikke mange data og passer til de fleste små og mellemstore organisationer. Svagheden er, at tallene ser præcise ud, men i virkeligheden er skøn - to personer kan sagtens score den samme risiko helt forskelligt.
 
 En **kvantitativ** analyse udtrykker risikoen i kroner og øre, fx som forventet årligt tab eller et spænd af mulige tab beregnet ud fra anslået hyppighed og konsekvens. Den taler økonomidirektørens sprog og gør det let at sammenligne omkostning og gevinst, men den kræver data og tid, og resultatet bliver aldrig bedre end de skøn, der ligger bag.
 
@@ -41,22 +41,22 @@ Mange starter kvalitativt og supplerer med kvantitative beregninger for de få r
 
 ### Vurdering og heat-map
 
-Placerer man hver risiko i et gitter med sandsynlighed på den ene akse og konsekvens på den anden, får man et **heat-map** (en risikomatrix): grønne felter er lav risiko, gule mellem og røde høj. Holdt op mod risikokriterierne viser det, hvilke risici der skal håndteres, og i hvilken rækkefølge. Husk, at heat-mappet er et kommunikationsværktøj og ikke en regnemaskine – to risici i samme røde felt kan sagtens fortjene vidt forskellig opmærksomhed.
+Placerer man hver risiko i et gitter med sandsynlighed på den ene akse og konsekvens på den anden, får man et **heat-map** (en risikomatrix): grønne felter er lav risiko, gule mellem og røde høj. Holdt op mod risikokriterierne viser det, hvilke risici der skal håndteres, og i hvilken rækkefølge. Husk, at heat-mappet er et kommunikationsværktøj og ikke en regnemaskine - to risici i samme røde felt kan sagtens fortjene vidt forskellig opmærksomhed.
 
 ### Håndtering
 
 For hver risiko over acceptgrænsen vælger man én eller flere af fire muligheder:
 
-- **Reduktion** – indfør eller forbedr kontroller: patching, MFA, backup, uddannelse. Det er det mest almindelige valg.
-- **Overførsel** – flyt en del af konsekvensen over på andre, typisk via en forsikring eller en kontrakt med en leverandør. Ansvaret bliver dog hos jer selv.
-- **Undgåelse** – stop den aktivitet, der skaber risikoen, fx ved at udfase et system, der ikke længere understøttes, eller lade være med at lancere en tjeneste.
-- **Accept** – lev bevidst med risikoen, fordi håndteringen koster mere end den skade, den forhindrer. Accept skal være en dokumenteret beslutning truffet af en person med den rette myndighed – ikke noget, der sker af sig selv.
+- **Reduktion** - indfør eller forbedr kontroller: patching, MFA, backup, uddannelse. Det er det mest almindelige valg.
+- **Overførsel** - flyt en del af konsekvensen over på andre, typisk via en forsikring eller en kontrakt med en leverandør. Ansvaret bliver dog hos jer selv.
+- **Undgåelse** - stop den aktivitet, der skaber risikoen, fx ved at udfase et system, der ikke længere understøttes, eller lade være med at lancere en tjeneste.
+- **Accept** - lev bevidst med risikoen, fordi håndteringen koster mere end den skade, den forhindrer. Accept skal være en dokumenteret beslutning truffet af en person med den rette myndighed - ikke noget, der sker af sig selv.
 
 Hvert tiltag får en ejer, en frist og et budget, og det hele samles i en plan for risikohåndtering.
 
 ### Monitorering og opfølgning
 
-Trusler, systemer og leverandører ændrer sig, så registeret gennemgås efter en fast plan – ofte årligt og kvartalsvis for de største risici – og desuden, når der sker noget væsentligt: en alvorlig hændelse, et nyt system, en fusion eller ny lovgivning.
+Trusler, systemer og leverandører ændrer sig, så registeret gennemgås efter en fast plan - ofte årligt og kvartalsvis for de største risici - og desuden, når der sker noget væsentligt: en alvorlig hændelse, et nyt system, en fusion eller ny lovgivning.
 
 ## Risikoappetit og restrisiko
 
@@ -69,9 +69,9 @@ Trusler, systemer og leverandører ændrer sig, så registeret gennemgås efter 
 Efter NIS2 skal ledelsen godkende foranstaltningerne til styring af cybersikkerhedsrisici, og ledelsen kan drages til ansvar for overtrædelser. Bestyrelse og direktion er altså ikke bare tilhørere, men beslutningstagere. Nogle gode vaner:
 
 - **Start med konsekvensen for forretningen**, ikke med teknikken: "ordrerne står stille i tre dage", ikke "sårbarhed i VPN-gatewayen".
-- **Vis de fem til ti største risici**, ikke hele registeret – gerne med et heat-map og en pil, der viser udviklingen siden sidst.
-- **Bed om en beslutning.** Præsentér for hver større risiko mulighederne, hvad de koster, og hvilken restrisiko de efterlader, og lad ledelsen vælge – også udtrykkeligt at acceptere.
+- **Vis de fem til ti største risici**, ikke hele registeret - gerne med et heat-map og en pil, der viser udviklingen siden sidst.
+- **Bed om en beslutning.** Præsentér for hver større risiko mulighederne, hvad de koster, og hvilken restrisiko de efterlader, og lad ledelsen vælge - også udtrykkeligt at acceptere.
 - **Vær ærlig om usikkerheden.** Et spænd ("mellem én og tre dage") virker mere troværdigt end et skinpræcist tal.
 - **Følg op** næste gang: Hvad blev der gjort, og har scorerne flyttet sig?
 
-Gjort på den måde bliver risikostyring bindeleddet mellem sikkerhedsarbejdet og organisationens budget og strategi – og ikke bare et regneark, der produceres én gang om året til revisor.
+Gjort på den måde bliver risikostyring bindeleddet mellem sikkerhedsarbejdet og organisationens budget og strategi - og ikke bare et regneark, der produceres én gang om året til revisor.

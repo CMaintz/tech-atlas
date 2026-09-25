@@ -16,8 +16,8 @@ body:
     en: A legal act of the European Union that is binding on each member state as to the result, but leaves the form and method to national authorities; it must be written into national law by a deadline, as with NIS2 and the Danish NIS2 Act.
     da: En retsakt fra EU, der er bindende for hvert medlemsland med hensyn til resultatet, men overlader form og midler til de nationale myndigheder; den skal skrives ind i national lov (gennemføres) inden en frist, som med NIS2 og NIS2-loven.
   plain:
-    en: Like a parent telling several teenagers "your rooms must be clean by Sunday" — the goal is fixed, but each decides how to get there.
-    da: Som når en forælder siger til flere teenagere "jeres værelser skal være rene på søndag" — målet ligger fast, men hver især bestemmer, hvordan de når det.
+    en: Like a parent telling several teenagers "your rooms must be clean by Sunday" - the goal is fixed, but each decides how to get there.
+    da: Som når en forælder siger til flere teenagere "jeres værelser skal være rene på søndag" - målet ligger fast, men hver især bestemmer, hvordan de når det.
   inPractice:
     en: The IT department of a Danish region does not read NIS2 itself to find its hospitals' duties; it follows the Danish NIS2 Act, which puts the directive into force and names the Danish authorities.
     da: IT-afdelingen i en dansk region læser ikke selve NIS2 for at finde hospitalernes pligter; den følger NIS2-loven, som sætter direktivet i kraft og udpeger de danske myndigheder.
@@ -51,7 +51,7 @@ edges:
       strength: primary
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Ordliste (NIS2-direktivet)
+  - title: Cyber Security Fast Track - Kursuskompendium, Ordliste (NIS2-direktivet)
     tier: course-material
   - title: Treaty on the Functioning of the European Union, Article 288
     tier: standard

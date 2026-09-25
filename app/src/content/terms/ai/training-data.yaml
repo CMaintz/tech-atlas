@@ -9,21 +9,21 @@ cluster: ml-fundamentals
 layer: training
 status: current
 summary:
-  en: The examples a model learns from — its behaviour, its blind spots and its mistakes all come from what is in them.
-  da: De eksempler, en model lærer af — dens adfærd, dens blinde vinkler og dens fejl kommer alle fra det, der er i dem.
+  en: The examples a model learns from - its behaviour, its blind spots and its mistakes all come from what is in them.
+  da: De eksempler, en model lærer af - dens adfærd, dens blinde vinkler og dens fejl kommer alle fra det, der er i dem.
 body:
   formal:
     en: The collection of examples, often with the correct answers attached, used during model training to set a model's internal numbers; kept apart from the data later used to test it.
     da: Samlingen af eksempler, ofte med de rigtige svar tilknyttet, som bruges under modeltræning til at fastsætte modellens interne tal; holdes adskilt fra de data, der senere bruges til at teste den.
   plain:
-    en: Like the textbooks and past exams a student studies from — if they are wrong, one-sided or out of date, so is what the student learns.
-    da: Som de lærebøger og gamle eksamenssæt, en studerende læser på — er de forkerte, skæve eller forældede, bliver det, den studerende lærer, det også.
+    en: Like the textbooks and past exams a student studies from - if they are wrong, one-sided or out of date, so is what the student learns.
+    da: Som de lærebøger og gamle eksamenssæt, en studerende læser på - er de forkerte, skæve eller forældede, bliver det, den studerende lærer, det også.
   inPractice:
     en: A pension fund wants to train a model on ten years of member emails and must first check which of them hold personal data and on what legal basis they may be used.
     da: En pensionskasse vil træne en model på ti års mails fra medlemmer og skal først undersøge, hvilke af dem der indeholder persondata, og på hvilket retsgrundlag de må bruges.
   whyItMatters:
-    en: Training data is an asset to protect and a source of risk — it can leak personal data, carry unfair patterns, or be quietly changed by an attacker.
-    da: Træningsdata er et aktiv, der skal beskyttes, og en kilde til risiko — de kan lække persondata, bære uretfærdige mønstre eller i det skjulte blive ændret af en angriber.
+    en: Training data is an asset to protect and a source of risk - it can leak personal data, carry unfair patterns, or be quietly changed by an attacker.
+    da: Træningsdata er et aktiv, der skal beskyttes, og en kilde til risiko - de kan lække persondata, bære uretfærdige mønstre eller i det skjulte blive ændret af en angriber.
 deepDive:
   en: |-
     Standard practice splits available data into three disjoint sets: the training set used to fit weights, a validation set used to choose hyperparameters and stopping points, and a test set touched once for the final estimate. Splits must respect the structure of the data: grouped splits keep all records from one patient or customer on one side, and time-based splits train on the past and test on the future. Violating this causes leakage and optimistic scores. For large language models the analogous problem is benchmark contamination, where test items appear in the web-scale pretraining corpus, so reported benchmark results partly measure memorisation.
@@ -64,13 +64,13 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+  - title: ISO/IEC 22989:2022 - Artificial intelligence concepts and terminology
     tier: standard
     publisher: ISO/IEC
-  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 10 — Data and data governance
+  - title: Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 10 - Data and data governance
     tier: standard
     publisher: European Union
-  - title: NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+  - title: NIST AI 100-1 - Artificial Intelligence Risk Management Framework (AI RMF 1.0)
     tier: standard
     publisher: NIST
 draft: true

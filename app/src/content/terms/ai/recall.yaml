@@ -9,15 +9,15 @@ cluster: evaluation
 layer: theory
 status: current
 summary:
-  en: Of all the real positive cases, the share a model manages to find — in security terms, how many real attacks were caught.
-  da: Af alle de ægte positive tilfælde, andelen en model formår at finde — i sikkerhedssprog, hvor mange reelle angreb der blev fanget.
+  en: Of all the real positive cases, the share a model manages to find - in security terms, how many real attacks were caught.
+  da: Af alle de ægte positive tilfælde, andelen en model formår at finde - i sikkerhedssprog, hvor mange reelle angreb der blev fanget.
 body:
   formal:
     en: The number of true positives divided by all cases that truly belong to the class (true positives plus false negatives), taken from a confusion matrix for one class.
     da: Antallet af sande positive delt med alle tilfælde, der reelt hører til klassen (sande positive plus falske negative), hentet fra en forvekslingsmatrix for én klasse.
   plain:
-    en: Like a fishing net with small holes — it brings up nearly every fish in the lake, along with plenty of weed and old boots.
-    da: Som et fiskenet med små masker — det fanger næsten hver fisk i søen, sammen med masser af tang og gamle støvler.
+    en: Like a fishing net with small holes - it brings up nearly every fish in the lake, along with plenty of weed and old boots.
+    da: Som et fiskenet med små masker - det fanger næsten hver fisk i søen, sammen med masser af tang og gamle støvler.
   inPractice:
     en: A hospital's IT security officer has an outside firm run 50 test attacks, and the anomaly detection tool raises an alert for 40 of them, so its recall is 80%; the 10 it missed are fixed first.
     da: En IT-sikkerhedsansvarlig på et hospital lader et eksternt firma køre 50 testangreb, og anomalidetektionen slår alarm ved 40 af dem, så genkaldelsen er 80 %; de 10, den overså, rettes først.
@@ -30,7 +30,7 @@ deepDive:
 
     Recall of 100% is trivially available by flagging everything, so it is only meaningful paired with precision or the false positive rate. Lowering the decision threshold can only keep recall the same or raise it. Requirements are therefore stated as an operating point, such as recall at a false positive rate of 1% or at a precision of at least 90%, and the threshold is chosen on the validation set. Averaging recall over classes gives balanced accuracy, and macro recall is a common headline metric for imbalanced multiclass tasks.
 
-    Measuring recall requires knowing every positive in the evaluation data, which is often the hard part. In a labelled test set it is given, but in large-scale retrieval the full set of relevant documents is unknown; TREC-style evaluations approximate it by pooling the top results of many systems, and technology-assisted review in e-discovery estimates recall by sampling the documents that were not flagged. In retrieval-augmented generation, retriever recall@k — whether the needed passage is among the top k chunks — caps end-to-end answer quality, since the generator cannot use evidence it never received. Summarisation metrics such as ROUGE are also recall-oriented, counting how much of the reference is covered.
+    Measuring recall requires knowing every positive in the evaluation data, which is often the hard part. In a labelled test set it is given, but in large-scale retrieval the full set of relevant documents is unknown; TREC-style evaluations approximate it by pooling the top results of many systems, and technology-assisted review in e-discovery estimates recall by sampling the documents that were not flagged. In retrieval-augmented generation, retriever recall@k - whether the needed passage is among the top k chunks - caps end-to-end answer quality, since the generator cannot use evidence it never received. Summarisation metrics such as ROUGE are also recall-oriented, counting how much of the reference is covered.
 
     Small positive counts make recall estimates wide. The example of 40 detected out of 50 test attacks gives 80%, but a Wilson 95% confidence interval runs from about 67% to 89%, so a second run with a different attack set could easily land ten points away. Red-team or penetration-test results used as recall estimates should therefore be reported with the number of attempts and, ideally, broken down by technique, since a detector's recall is rarely uniform across attack types.
   da: |-
@@ -38,7 +38,7 @@ deepDive:
 
     Genkaldelse på 100 % kan opnås trivielt ved at markere alt, så tallet giver kun mening sammen med præcision eller den falsk positive rate. En lavere beslutningstærskel kan kun holde genkaldelsen uændret eller øge den. Krav angives derfor som et arbejdspunkt, fx genkaldelse ved en falsk positiv rate på 1 % eller ved en præcision på mindst 90 %, og tærsklen vælges på valideringssættet. Gennemsnittet af genkaldelse over klasser giver balanced accuracy, og makro-genkaldelse er et udbredt hovedtal for ubalancerede multiklasse-opgaver.
 
-    For at måle genkaldelse skal man kende alle positive i evalueringsdata, og det er ofte den svære del. I et mærket testsæt er de givet, men ved søgning i stor skala kendes den fulde mængde relevante dokumenter ikke; evalueringer i TREC-stil tilnærmer den ved at samle (poole) topresultaterne fra mange systemer, og teknologistøttet gennemgang i e-discovery estimerer genkaldelse ved stikprøver blandt de dokumenter, der ikke blev markeret. I retrieval-augmented generation sætter retrieverens recall@k — om den nødvendige passage er blandt de k øverste chunks — loftet for svarkvaliteten, fordi generatoren ikke kan bruge evidens, den aldrig fik. Opsummeringsmål som ROUGE er også genkaldelsesorienterede og tæller, hvor meget af referencen der dækkes.
+    For at måle genkaldelse skal man kende alle positive i evalueringsdata, og det er ofte den svære del. I et mærket testsæt er de givet, men ved søgning i stor skala kendes den fulde mængde relevante dokumenter ikke; evalueringer i TREC-stil tilnærmer den ved at samle (poole) topresultaterne fra mange systemer, og teknologistøttet gennemgang i e-discovery estimerer genkaldelse ved stikprøver blandt de dokumenter, der ikke blev markeret. I retrieval-augmented generation sætter retrieverens recall@k - om den nødvendige passage er blandt de k øverste chunks - loftet for svarkvaliteten, fordi generatoren ikke kan bruge evidens, den aldrig fik. Opsummeringsmål som ROUGE er også genkaldelsesorienterede og tæller, hvor meget af referencen der dækkes.
 
     Små antal positive giver brede estimater. Eksemplet med 40 opdagede ud af 50 testangreb giver 80 %, men et Wilson-konfidensinterval på 95 % går fra cirka 67 % til 89 %, så en ny kørsel med andre angreb kunne sagtens lande ti point ved siden af. Resultater fra red teaming eller penetrationstest, der bruges som estimat for genkaldelse, bør derfor rapporteres med antallet af forsøg og helst opdelt efter teknik, fordi en detektors genkaldelse sjældent er ens på tværs af angrebstyper.
 edges:

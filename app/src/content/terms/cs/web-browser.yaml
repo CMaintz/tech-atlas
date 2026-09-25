@@ -10,15 +10,15 @@ layer: application
 status: current
 era: 1990
 summary:
-  en: The program people use to visit websites — it fetches pages from servers and turns them into something you can read and click.
-  da: Programmet, man bruger til at besøge websteder — det henter sider fra servere og gør dem til noget, man kan læse og klikke på.
+  en: The program people use to visit websites - it fetches pages from servers and turns them into something you can read and click.
+  da: Programmet, man bruger til at besøge websteder - det henter sider fra servere og gør dem til noget, man kan læse og klikke på.
 body:
   formal:
     en: A client program that requests resources over HTTP or HTTPS, draws the returned pages on screen, runs the code they contain in a closed-off space, and stores cookies and other data for each website separately.
     da: Et klientprogram, der henter ressourcer over HTTP eller HTTPS, tegner de modtagne sider på skærmen, kører den kode, de indeholder, i et lukket rum og gemmer cookies og andre data adskilt for hvert websted.
   plain:
-    en: Like a television set for the web — the shows are made and sent elsewhere, and the set just tunes in and plays them for you.
-    da: Som et fjernsyn til nettet — programmerne laves og sendes et andet sted fra, og apparatet stiller bare ind og viser dem for dig.
+    en: Like a television set for the web - the shows are made and sent elsewhere, and the set just tunes in and plays them for you.
+    da: Som et fjernsyn til nettet - programmerne laves og sendes et andet sted fra, og apparatet stiller bare ind og viser dem for dig.
   inPractice:
     en: A finance clerk in a municipality opens the finance system, the online bank and a news site in three tabs of the same browser, and each site sees only its own data.
     da: En økonomimedarbejder i en kommune åbner økonomisystemet, netbanken og en nyhedsside i tre faner i samme browser, og hvert websted ser kun sine egne data.
@@ -46,7 +46,7 @@ edges:
   kind-of: [client]
   requires: [http, internet]
 sources:
-  - title: MDN Web Docs — How browsers work
+  - title: MDN Web Docs - How browsers work
     url: https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work
     tier: official-doc
     publisher: Mozilla

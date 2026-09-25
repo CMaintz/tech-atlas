@@ -19,8 +19,8 @@ body:
     en: Like a shop that keeps selling with a paper notebook and cash when the card terminal dies.
     da: Ligesom en butik, der bliver ved med at sælge med en notesblok og kontanter, når kortterminalen går ned.
   inPractice:
-    en: When an attack takes a municipality's systems down for a week, its care homes follow the BCP — medicine charts on paper, phone lists printed in advance and meal orders phoned through to the central kitchen.
-    da: Da et cyberangreb lægger en kommunes systemer ned i en uge, følger plejehjemmene BCP'en — medicinskemaer på papir, telefonlister printet på forhånd og madbestillinger ringet ind til centralkøkkenet.
+    en: When an attack takes a municipality's systems down for a week, its care homes follow the BCP - medicine charts on paper, phone lists printed in advance and meal orders phoned through to the central kitchen.
+    da: Da et cyberangreb lægger en kommunes systemer ned i en uge, følger plejehjemmene BCP'en - medicinskemaer på papir, telefonlister printet på forhånd og madbestillinger ringet ind til centralkøkkenet.
   whyItMatters:
     en: Citizens and patients still need help while IT is being repaired; without an agreed plan B, staff improvise and the most urgent tasks may be the ones that stop.
     da: Borgere og patienter har stadig brug for hjælp, mens IT bliver repareret; uden en aftalt plan B improviserer medarbejderne, og de mest presserende opgaver kan være dem, der går i stå.
@@ -53,7 +53,7 @@ edges:
       confidence: high
   used-with: [crisis-management]
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: ISO 22301:2019
     tier: standard

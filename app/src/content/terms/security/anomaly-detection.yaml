@@ -14,8 +14,8 @@ summary:
   da: At lære, hvordan normal aktivitet ser ud, og slå alarm, når noget afviger fra den, også selv om ingen regel beskriver angrebet.
 body:
   formal:
-    en: A way of finding threats by building a model of normal behaviour for users, devices or network traffic — often with machine learning — and flagging events that differ from it by more than a set amount.
-    da: En måde at finde trusler på ved at opbygge en model af normal adfærd for brugere, enheder eller netværkstrafik — ofte med maskinlæring — og markere hændelser, der afviger mere end en fastsat grænse fra den.
+    en: A way of finding threats by building a model of normal behaviour for users, devices or network traffic - often with machine learning - and flagging events that differ from it by more than a set amount.
+    da: En måde at finde trusler på ved at opbygge en model af normal adfærd for brugere, enheder eller netværkstrafik - ofte med maskinlæring - og markere hændelser, der afviger mere end en fastsat grænse fra den.
   plain:
     en: Like a bank teller who knows a regular customer so well that she notices at once when he asks to move all his savings abroad on a Sunday.
     da: Som en bankassistent, der kender en fast kunde så godt, at hun straks lægger mærke til det, når han en søndag vil flytte hele sin opsparing til udlandet.
@@ -33,7 +33,7 @@ deepDive:
 
     The central difficulty is the base-rate fallacy, analysed for intrusion detection by Axelsson (2000). Because genuinely malicious events are extremely rare, even a detector with a very low false-positive rate produces far more false alarms than true ones. Sommer and Paxson (2010) added that network anomaly detection differs from classic ML domains: the cost of errors is high, the "normal" class is extremely diverse and changing, ground truth is scarce, and a flagged anomaly often comes without an explanation an analyst can act on. Baselines also drift as organisations change, and patient attackers can deliberately stay within normal ranges or shift the baseline gradually, a form of poisoning. A new employee, a quarter-end batch job or a migration will look anomalous without being malicious.
 
-    In practice, effective deployments narrow the question: they model specific, well-understood behaviours (authentication geography, data egress volume, process parent–child relationships, service account usage), keep a training period free of known incidents, document the baseline window and thresholds, and route anomalies as context or risk scores that raise the priority of related rule-based alerts rather than as stand-alone alarms. Anomaly detection complements detection rules rather than replacing them: rules give precise, explainable coverage of known techniques, while anomaly models offer a chance to catch the unknown at the price of lower precision.
+    In practice, effective deployments narrow the question: they model specific, well-understood behaviours (authentication geography, data egress volume, process parent-child relationships, service account usage), keep a training period free of known incidents, document the baseline window and thresholds, and route anomalies as context or risk scores that raise the priority of related rule-based alerts rather than as stand-alone alarms. Anomaly detection complements detection rules rather than replacing them: rules give precise, explainable coverage of known techniques, while anomaly models offer a chance to catch the unknown at the price of lower precision.
   da: |-
     Dorothy Dennings artikel "An Intrusion-Detection Model" fra 1987, udviklet sideløbende med SRI's IDES-system, fastlagde den grundlæggende idé: vedligehold statistiske profiler for subjekter (brugere, maskiner, processer), der handler på objekter, og markér observationer, der afviger markant fra profilen. Den klassiske modsætning er misbrugs- eller signaturdetektion, der matcher kendte ondsindede mønstre. NIST SP 800-94 bruger betegnelserne anomalibaseret og signaturbaseret detektion og tilføjer stateful protokolanalyse som en tredje metode. Chandola, Banerjee og Kumars meget citerede oversigtsartikel fra 2009 skelner mellem punktanomalier (en enkelt afvigende værdi), kontekstuelle anomalier (normale i én sammenhæng og unormale i en anden, fx et login kl. 03.00) og kollektive anomalier (en sekvens, der kun er unormal som helhed, fx langsom, periodisk beaconing).
 
@@ -79,11 +79,11 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: Denning, D. E. — An Intrusion-Detection Model (IEEE Transactions on Software Engineering, 1987)
+  - title: Denning, D. E. - An Intrusion-Detection Model (IEEE Transactions on Software Engineering, 1987)
     url: https://doi.org/10.1109/TSE.1987.232894
     tier: reference
     publisher: IEEE
-  - title: NIST SP 800-94 — Guide to Intrusion Detection and Prevention Systems (IDPS)
+  - title: NIST SP 800-94 - Guide to Intrusion Detection and Prevention Systems (IDPS)
     url: https://doi.org/10.6028/NIST.SP.800-94
     tier: standard
     publisher: NIST

@@ -14,8 +14,8 @@ summary:
   da: En phishing-besked skræddersyet til én person eller ét team, så den ligner noget fra en, de kender.
 body:
   formal:
-    en: Phishing aimed at a chosen person or small group, where the attacker first gathers details about the target — names, roles, current projects — to make the message look like it comes from a known contact.
-    da: Phishing rettet mod en udvalgt person eller lille gruppe, hvor angriberen først samler oplysninger om målet — navne, roller, aktuelle projekter — så beskeden ligner noget fra en kendt kontakt.
+    en: Phishing aimed at a chosen person or small group, where the attacker first gathers details about the target - names, roles, current projects - to make the message look like it comes from a known contact.
+    da: Phishing rettet mod en udvalgt person eller lille gruppe, hvor angriberen først samler oplysninger om målet - navne, roller, aktuelle projekter - så beskeden ligner noget fra en kendt kontakt.
   plain:
     en: Like a fisher who ignores the shoal and aims a spear at one particular fish, after watching where it likes to swim.
     da: Som en fisker, der er ligeglad med stimen og sigter med et spyd efter én bestemt fisk efter at have set, hvor den plejer at svømme.
@@ -23,8 +23,8 @@ body:
     en: The IT administrator at a regional hospital gets a mail that names a real system upgrade and the supplier's project manager, with a link to “the updated plan” that leads to a fake login page.
     da: IT-administratoren på et regionshospital får en mail, der nævner en rigtig systemopgradering og leverandørens projektleder ved navn, med et link til “den opdaterede plan”, som fører til en falsk login-side.
   whyItMatters:
-    en: Because it uses real names and real context, the usual warning signs are missing, so even careful staff can be fooled — and the targets are often the people with the most access.
-    da: Fordi den bruger rigtige navne og rigtig sammenhæng, mangler de sædvanlige advarselstegn, så selv forsigtige medarbejdere kan blive narret — og målene er ofte dem med den bredeste adgang.
+    en: Because it uses real names and real context, the usual warning signs are missing, so even careful staff can be fooled - and the targets are often the people with the most access.
+    da: Fordi den bruger rigtige navne og rigtig sammenhæng, mangler de sædvanlige advarselstegn, så selv forsigtige medarbejdere kan blive narret - og målene er ofte dem med den bredeste adgang.
 deepDive:
   en: |-
     Spear phishing trades volume for precision, and the work happens before the message is sent. Reconnaissance (MITRE ATT&CK tactic Reconnaissance, including T1598 Phishing for Information) builds a target profile from LinkedIn, company websites, press releases, procurement notices, conference speaker lists, code repositories and earlier breach data: who reports to whom, which suppliers and systems are in use, what projects are running, and how internal mail looks. The delivery techniques are T1566.001 (attachment), T1566.002 (link) and T1566.003 (via a third-party service such as LinkedIn messages, Teams or Slack), and once one mailbox is compromised, T1534 Internal Spearphishing uses it to target colleagues with mail that is authentic by every technical measure. Whaling is the same technique aimed at executives or board members.
@@ -52,9 +52,9 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
-  - title: NIST Glossary — Spear Phishing
+  - title: NIST Glossary - Spear Phishing
     tier: standard
     publisher: NIST
     url: https://csrc.nist.gov/glossary/term/spear_phishing

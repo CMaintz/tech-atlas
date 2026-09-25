@@ -9,15 +9,15 @@ cluster: cryptography
 layer: theory
 status: current
 summary:
-  en: The secret value that decides how data is scrambled and restored — whoever holds it can read the protected data.
-  da: Den hemmelige værdi, der styrer, hvordan data krypteres og gøres læsbare igen — den, der har den, kan læse de beskyttede data.
+  en: The secret value that decides how data is scrambled and restored - whoever holds it can read the protected data.
+  da: Den hemmelige værdi, der styrer, hvordan data krypteres og gøres læsbare igen - den, der har den, kan læse de beskyttede data.
 body:
   formal:
     en: A long, randomly chosen value fed into an encryption or signing method. The method itself is public, so all of the protection rests on keeping the right key secret and on it being too long to guess.
     da: En lang, tilfældigt valgt værdi, der indgår i en krypterings- eller signeringsmetode. Selve metoden er offentlig, så al beskyttelse hviler på, at den rette nøgle holdes hemmelig og er for lang til at blive gættet.
   plain:
-    en: Like the key to a padlock — everyone knows how padlocks work, but only the person with the right key can open this one.
-    da: Som nøglen til en hængelås — alle ved, hvordan hængelåse virker, men kun den med den rette nøgle kan åbne netop denne.
+    en: Like the key to a padlock - everyone knows how padlocks work, but only the person with the right key can open this one.
+    da: Som nøglen til en hængelås - alle ved, hvordan hængelåse virker, men kun den med den rette nøgle kan åbne netop denne.
   inPractice:
     en: The IT operations lead at a pension fund keeps the keys for its encrypted backups in a separate, locked-down system, so an attacker who gets hold of the backups does not also get the keys.
     da: Den IT-driftsansvarlige i en pensionskasse opbevarer nøglerne til de krypterede backups i et separat, aflåst system, så en angriber, der får fat i backuppene, ikke også får nøglerne.

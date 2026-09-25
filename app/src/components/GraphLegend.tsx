@@ -34,7 +34,7 @@ export default function GraphLegend(props: Props) {
     <details
       open={props.open}
       onToggle={(e) => props.onToggle?.((e.currentTarget as HTMLDetailsElement).open)}
-      class={`max-h-[60vh] ${props.compact ? 'w-full p-3' : 'w-64 px-3 py-2'} max-w-[calc(100vw-2rem)] overflow-y-auto rounded-lg border border-border bg-bg/85 text-xs text-fg-soft shadow-lg shadow-black/15 dark:shadow-black/40 backdrop-blur`}
+      class={`max-h-[60vh] ${props.compact ? 'w-full p-3' : 'w-fit px-3 py-2 open:w-64'} max-w-[calc(100vw-2rem)] overflow-y-auto rounded-lg border border-border bg-bg/85 text-xs text-fg-soft shadow-lg shadow-black/15 dark:shadow-black/40 backdrop-blur`}
     >
       <summary class="cursor-pointer text-[11px] tracking-widest text-muted uppercase select-none">
         {text.legend}

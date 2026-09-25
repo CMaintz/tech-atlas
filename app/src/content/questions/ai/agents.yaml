@@ -28,7 +28,7 @@ questions:
       en: >-
         In tool calling the model never touches the order system itself: it only
         returns a structured request naming the tool and its arguments. Anthropic's
-        documentation describes the round trip — the model stops with a tool_use block,
+        documentation describes the round trip - the model stops with a tool_use block,
         your code executes the operation and sends back a tool_result, and the model
         then uses that result to answer. The first sequence is the common misconception
         that the model runs the function; it only produces text. Running the lookup on
@@ -38,7 +38,7 @@ questions:
       da: >-
         Ved værktøjskald rører modellen aldrig selv ordresystemet: Den returnerer kun en
         struktureret anmodning med værktøjets navn og argumenter. Anthropics
-        dokumentation beskriver rundturen — modellen stopper med en tool_use-blok, din
+        dokumentation beskriver rundturen - modellen stopper med en tool_use-blok, din
         kode udfører handlingen og sender et tool_result tilbage, og modellen bruger
         derefter resultatet til at svare. Den første rækkefølge er den udbredte
         misforståelse, at modellen selv kører funktionen; den producerer kun tekst. At
@@ -47,7 +47,7 @@ questions:
         at værktøjet findes, og må gætte, hvor pakken er.
     difficulty: 1
     sources:
-      - title: Anthropic documentation — Tool use with Claude (How tool use works)
+      - title: Anthropic documentation - Tool use with Claude (How tool use works)
         url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview
         tier: official-doc
     draft: true
@@ -103,10 +103,10 @@ questions:
         skaden er sket.
     difficulty: 2
     sources:
-      - title: Anthropic documentation — Computer use tool (security considerations)
+      - title: Anthropic documentation - Computer use tool (security considerations)
         url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool
         tier: official-doc
-      - title: OWASP Top 10 for LLM Applications 2025 — LLM01 Prompt Injection
+      - title: OWASP Top 10 for LLM Applications 2025 - LLM01 Prompt Injection
         url: https://genai.owasp.org/llmrisk/llm01-prompt-injection/
         tier: reference
     draft: true
@@ -142,7 +142,7 @@ questions:
       en: >-
         The Model Context Protocol is an open standard for exactly this: a server exposes
         tools and data once, and any host application that speaks MCP can connect to it
-        — the specification compares it to the Language Server Protocol, which lets one
+        - the specification compares it to the Language Server Protocol, which lets one
         language integration work across many editors. Fine-tuning does not give reliable
         look-up of specific drawings, goes stale as the archive changes and would have to
         be repeated for three models. Pasting the whole archive into the system prompt
@@ -151,7 +151,7 @@ questions:
       da: >-
         Model Context Protocol er en åben standard til netop dette: En server udstiller
         værktøjer og data én gang, og enhver værtsapplikation, der taler MCP, kan
-        forbinde sig til den — specifikationen sammenligner den med Language Server
+        forbinde sig til den - specifikationen sammenligner den med Language Server
         Protocol, der lader én sprogintegration virke i mange editorer. Finjustering giver
         ikke pålidelige opslag i bestemte tegninger, bliver forældet, når arkivet ændrer
         sig, og skal gentages for tre modeller. At indsætte hele arkivet i systemprompten
@@ -159,7 +159,7 @@ questions:
         særskilt søgepipeline i hver app er præcis de tre integrationer, IT ville undgå.
     difficulty: 1
     sources:
-      - title: Model Context Protocol specification (2025-06-18) — Overview
+      - title: Model Context Protocol specification (2025-06-18) - Overview
         url: https://modelcontextprotocol.io/specification/2025-06-18
         tier: standard
     draft: true
@@ -192,7 +192,7 @@ questions:
       en: >-
         The MCP specification warns that tools represent arbitrary code execution and
         that descriptions of tool behaviour should be treated as untrusted unless they
-        come from a trusted server — so an unknown server both runs code with her mail
+        come from a trusted server - so an unknown server both runs code with her mail
         rights and can plant instructions the model reads. It should be vetted like any
         other third-party software before it touches a bank mailbox. Following an open
         protocol says nothing about what a server's code does. Inaccurate answers are
@@ -202,7 +202,7 @@ questions:
       da: >-
         MCP-specifikationen advarer om, at værktøjer svarer til vilkårlig kodekørsel, og
         at beskrivelser af værktøjers adfærd skal betragtes som upålidelige, medmindre de
-        kommer fra en betroet server — så en ukendt server både kører kode med hendes
+        kommer fra en betroet server - så en ukendt server både kører kode med hendes
         mailrettigheder og kan plante instruktioner, som modellen læser. Den bør
         vurderes som al anden tredjepartssoftware, før den får adgang til en
         bankpostkasse. At følge en åben protokol siger intet om, hvad serverens kode gør.
@@ -211,7 +211,7 @@ questions:
         hjælper, men et uskyldigt værktøjsnavn viser hende ikke, hvad koden bag det gør.
     difficulty: 2
     sources:
-      - title: Model Context Protocol specification (2025-06-18) — Security and Trust & Safety
+      - title: Model Context Protocol specification (2025-06-18) - Security and Trust & Safety
         url: https://modelcontextprotocol.io/specification/2025-06-18
         tier: standard
     draft: true
@@ -224,13 +224,13 @@ questions:
     stem:
       en: >-
         A Danish region wants AI help with incoming referral letters. Every letter goes
-        through the same steps — extract the patient details, classify the referral,
-        send it to the right department — and the auditors want the process to be
+        through the same steps - extract the patient details, classify the referral,
+        send it to the right department - and the auditors want the process to be
         predictable and easy to check. Which design fits best?
       da: >-
         En dansk region vil have AI-hjælp til indkomne henvisninger. Hver henvisning går
-        gennem de samme trin — træk patientoplysningerne ud, klassificér henvisningen,
-        send den til det rette afsnit — og revisorerne ønsker, at forløbet er
+        gennem de samme trin - træk patientoplysningerne ud, klassificér henvisningen,
+        send den til det rette afsnit - og revisorerne ønsker, at forløbet er
         forudsigeligt og nemt at kontrollere. Hvilket design passer bedst?
     options:
       - en: An autonomous agent that decides for itself which steps each referral letter needs
@@ -249,8 +249,8 @@ questions:
         dynamically directs its own process; workflows suit well-defined tasks that need
         consistency and predictability, agents suit open-ended problems where the steps
         cannot be known in advance. Here the steps are fixed and auditors want
-        predictability, so a workflow fits. A free-running agent — alone or as a team of
-        agents — adds unpredictability and cost the task does not need. Having an agent
+        predictability, so a workflow fits. A free-running agent - alone or as a team of
+        agents - adds unpredictability and cost the task does not need. Having an agent
         click through the screens is the least predictable way to do a job that code can
         call directly.
       da: >-
@@ -259,8 +259,8 @@ questions:
         forløbet; workflows passer til veldefinerede opgaver, der kræver ensartethed og
         forudsigelighed, agenter til åbne problemer, hvor trinene ikke kan kendes på
         forhånd. Her ligger trinene fast, og revisorerne vil have forudsigelighed, så en
-        arbejdsgang passer. En frit arbejdende agent — alene eller som et hold af agenter
-        — tilfører uforudsigelighed og omkostninger, som opgaven ikke har brug for. At lade
+        arbejdsgang passer. En frit arbejdende agent - alene eller som et hold af agenter
+        - tilfører uforudsigelighed og omkostninger, som opgaven ikke har brug for. At lade
         en agent klikke sig gennem skærmbillederne er den mindst forudsigelige måde at
         løse en opgave, som kode kan kalde direkte.
     difficulty: 2

@@ -9,15 +9,15 @@ cluster: ai-risk
 layer: model
 status: current
 summary:
-  en: Attacking the ready-made parts an AI system is built from — shared models, datasets or plug-in files — instead of the system itself.
-  da: At angribe de færdige dele, et AI-system er bygget af — delte modeller, datasæt eller tilføjelser — i stedet for selve systemet.
+  en: Attacking the ready-made parts an AI system is built from - shared models, datasets or plug-in files - instead of the system itself.
+  da: At angribe de færdige dele, et AI-system er bygget af - delte modeller, datasæt eller tilføjelser - i stedet for selve systemet.
 body:
   formal:
-    en: Tampering with third-party parts of an AI system — model weights, add-on files such as LoRA, training data, model files that run hidden code when loaded, or copycat model pages on public hubs; OWASP lists it as LLM03:2025.
-    da: Manipulation af tredjepartsdele i et AI-system — modelvægte, tilføjelser som LoRA, træningsdata, modelfiler, der kører skjult kode, når de indlæses, eller efterlignede modelsider på offentlige hubs; OWASP fører det som LLM03:2025.
+    en: Tampering with third-party parts of an AI system - model weights, add-on files such as LoRA, training data, model files that run hidden code when loaded, or copycat model pages on public hubs; OWASP lists it as LLM03:2025.
+    da: Manipulation af tredjepartsdele i et AI-system - modelvægte, tilføjelser som LoRA, træningsdata, modelfiler, der kører skjult kode, når de indlæses, eller efterlignede modelsider på offentlige hubs; OWASP fører det som LLM03:2025.
   plain:
-    en: Like buying a spare part from a shop whose name differs by one letter from your usual one — it fits and works, but someone altered it before it reached you.
-    da: Som at købe en reservedel i en butik, hvis navn afviger med ét bogstav fra den, du plejer at bruge — den passer og virker, men nogen har ændret den, før du fik den.
+    en: Like buying a spare part from a shop whose name differs by one letter from your usual one - it fits and works, but someone altered it before it reached you.
+    da: Som at købe en reservedel i en butik, hvis navn afviger med ét bogstav fra den, du plejer at bruge - den passer og virker, men nogen har ændret den, før du fik den.
   inPractice:
     en: A developer in a pension fund's IT department downloads a popular open model from a copycat page; loading its old-style file quietly runs code that opens a back door on the build server.
     da: En udvikler i en pensionskasses IT-afdeling henter en populær åben model fra en efterlignet side; når den gamle filtype indlæses, kører der stille kode, der åbner en bagdør på byggeserveren.
@@ -47,7 +47,7 @@ edges:
     - to: supply-chain-attack
       why:
         en: It is the same trick of striking through a trusted supplier, aimed at models and data instead of ordinary software.
-        da: Det er det samme greb — at ramme gennem en betroet leverandør — rettet mod modeller og data i stedet for almindelig software.
+        da: Det er det samme greb - at ramme gennem en betroet leverandør - rettet mod modeller og data i stedet for almindelig software.
       strength: primary
       confidence: high
   used-with:
@@ -71,15 +71,15 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: OWASP Top 10 for LLM Applications 2025 — LLM03 Supply Chain
+  - title: OWASP Top 10 for LLM Applications 2025 - LLM03 Supply Chain
     tier: reference
     publisher: OWASP
     url: https://genai.owasp.org/llmrisk/llm032025-supply-chain/
-  - title: NIST AI 100-2 — Adversarial Machine Learning, A Taxonomy and Terminology of Attacks and Mitigations
+  - title: NIST AI 100-2 - Adversarial Machine Learning, A Taxonomy and Terminology of Attacks and Mitigations
     tier: standard
     publisher: NIST
     url: https://doi.org/10.6028/NIST.AI.100-2e2025
-  - title: CERT/CC VU#253266 — Keras Lambda layers allow arbitrary code injection (CVE-2024-3660)
+  - title: CERT/CC VU#253266 - Keras Lambda layers allow arbitrary code injection (CVE-2024-3660)
     tier: official-doc
     publisher: CERT/CC
     url: https://kb.cert.org/vuls/id/253266

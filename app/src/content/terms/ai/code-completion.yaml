@@ -16,8 +16,8 @@ body:
     en: A feature that, after each pause in typing, sends the code before and after the editing point to a model trained with fill-in-the-middle and shows the most likely continuation inline; older forms only listed matching names from the project.
     da: En funktion, der hver gang man holder pause med at skrive, sender koden før og efter redigeringsstedet til en model trænet med fill-in-the-middle og viser den mest sandsynlige fortsættelse i linjen; ældre former viste kun passende navne fra projektet.
   plain:
-    en: Like a friend who finishes your sentences as you talk — nod and their ending is yours, or just keep talking and it is forgotten.
-    da: Som en ven, der gør dine sætninger færdige, mens du taler — nikker du, er slutningen din, og taler du bare videre, er den glemt.
+    en: Like a friend who finishes your sentences as you talk - nod and their ending is yours, or just keep talking and it is forgotten.
+    da: Som en ven, der gør dine sætninger færdige, mens du taler - nikker du, er slutningen din, og taler du bare videre, er den glemt.
   inPractice:
     en: A developer at a Danish web shop types the name of a function that checks phone numbers; before she writes the body, a ten-line version appears in grey and she presses Tab.
     da: En udvikler i en dansk webshop skriver navnet på en funktion, der tjekker telefonnumre; før hun skriver indholdet, dukker en version på ti linjer op i gråt, og hun trykker Tab.
