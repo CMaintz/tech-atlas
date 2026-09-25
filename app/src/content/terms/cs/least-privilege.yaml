@@ -17,14 +17,14 @@ body:
     en: A design principle stating that each account and process should run with the smallest set of permissions, for the shortest time, that still lets it do its job.
     da: Et designprincip om, at hver konto og proces skal køre med så få rettigheder og i så kort tid som muligt, men stadig kunne udføre sit arbejde.
   plain:
-    en: Like giving a house-sitter the key to the front door but not to the safe — they can water the plants, and a lost key costs you less.
-    da: Som at give en huspasser nøglen til hoveddøren, men ikke til pengeskabet — de kan vande blomsterne, og en mistet nøgle koster dig mindre.
+    en: Like giving a house-sitter the key to the front door but not to the safe - they can water the plants, and a lost key costs you less.
+    da: Som at give en huspasser nøglen til hoveddøren, men ikke til pengeskabet - de kan vande blomsterne, og en mistet nøgle koster dig mindre.
   inPractice:
     en: In a municipality's family services department, each case officer can see only her own cases, and a student trainee gets read access for the three months of her placement, after which it ends automatically.
     da: I en kommunes børne- og familieafdeling kan hver sagsbehandler kun se sine egne sager, og en praktikant får læseadgang i de tre måneder, praktikken varer, hvorefter den udløber af sig selv.
   whyItMatters:
-    en: It limits how far a mistake, a stolen login or harmful software can spread — the damage is capped by what the account was allowed to do.
-    da: Det begrænser, hvor langt en fejl, et stjålet login eller skadelig software kan sprede sig — skaden kan ikke blive større end det, kontoen havde lov til.
+    en: It limits how far a mistake, a stolen login or harmful software can spread - the damage is capped by what the account was allowed to do.
+    da: Det begrænser, hvor langt en fejl, et stjålet login eller skadelig software kan sprede sig - skaden kan ikke blive større end det, kontoen havde lov til.
 deepDive:
   en: |-
     The canonical statement comes from Saltzer and Schroeder's "The Protection of Information in Computer Systems" (1975): every program and every user of the system should operate using the least set of privileges necessary to complete the job. It sits among their eight design principles alongside fail-safe defaults, complete mediation, separation of privilege and least common mechanism, and its stated rationale is damage containment and a smaller set of code and people to audit. The capability-security community's variant, the principle of least authority (POLA), stresses authority rather than permissions, meaning everything a subject can cause, including indirectly through the objects and services it can invoke.

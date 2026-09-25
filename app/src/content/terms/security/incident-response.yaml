@@ -14,11 +14,11 @@ summary:
   da: Den organiserede måde, en virksomhed opdager, stopper og rydder op efter et sikkerhedsangreb eller uheld og vender tilbage til normal drift.
 body:
   formal:
-    en: A prepared cycle of phases — preparation, detection and analysis, containment, removal of the cause, recovery, and review afterwards — carried out by named people with agreed authority when a security incident occurs.
-    da: Et forberedt forløb i faser — forberedelse, opdagelse og analyse, inddæmning, fjernelse af årsagen, genopretning og efterfølgende evaluering — som udføres af navngivne personer med aftalte beføjelser, når en sikkerhedshændelse indtræffer.
+    en: A prepared cycle of phases - preparation, detection and analysis, containment, removal of the cause, recovery, and review afterwards - carried out by named people with agreed authority when a security incident occurs.
+    da: Et forberedt forløb i faser - forberedelse, opdagelse og analyse, inddæmning, fjernelse af årsagen, genopretning og efterfølgende evaluering - som udføres af navngivne personer med aftalte beføjelser, når en sikkerhedshændelse indtræffer.
   plain:
-    en: Like a fire drill that turns into the real thing — everyone knows who calls for help, who closes the doors and who counts heads.
-    da: Ligesom en brandøvelse, der bliver til virkelighed — alle ved, hvem der ringer efter hjælp, hvem der lukker dørene, og hvem der tæller, om alle er kommet ud.
+    en: Like a fire drill that turns into the real thing - everyone knows who calls for help, who closes the doors and who counts heads.
+    da: Ligesom en brandøvelse, der bliver til virkelighed - alle ved, hvem der ringer efter hjælp, hvem der lukker dørene, og hvem der tæller, om alle er kommet ud.
   inPractice:
     en: At three in the morning the SIEM at a municipality flags a strange login; the on-call technician locks the account, cuts the laptop off the network and calls the incident lead.
     da: Klokken tre om natten slår en kommunes SIEM alarm over et mærkeligt login; den vagthavende tekniker spærrer kontoen, kobler den bærbare fra netværket og ringer til den ansvarlige for hændelsen.
@@ -72,9 +72,9 @@ article:
   en: src/content/articles/security/incident-response.en.md
   da: src/content/articles/security/incident-response.da.md
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
-  - title: NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management
+  - title: NIST SP 800-61 Rev. 3 - Incident Response Recommendations and Considerations for Cybersecurity Risk Management
     url: https://doi.org/10.6028/NIST.SP.800-61r3
     tier: standard
     publisher: NIST

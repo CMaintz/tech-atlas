@@ -17,8 +17,8 @@ body:
     en: Software that sends the code a developer is working on, plus nearby files and a request, as context to a large language model and shows the answer as inline code completion, chat replies or proposed edits that the developer accepts or rejects.
     da: Software, der sender den kode, en udvikler arbejder på, sammen med nærliggende filer og en forespørgsel som kontekst til en stor sprogmodel og viser svaret som kodefuldførelse i linjen, chatsvar eller foreslåede ændringer, som udvikleren godkender eller afviser.
   plain:
-    en: Like a helper who has read a great deal looking over your shoulder while you write — quick with ideas and happy to explain, but it has not seen your whole project and is sometimes confidently wrong.
-    da: Som en hjælper, der har læst en masse og kigger dig over skulderen, mens du skriver — hurtig med idéer og glad for at forklare, men den har ikke set hele dit projekt og tager af og til selvsikkert fejl.
+    en: Like a helper who has read a great deal looking over your shoulder while you write - quick with ideas and happy to explain, but it has not seen your whole project and is sometimes confidently wrong.
+    da: Som en hjælper, der har læst en masse og kigger dig over skulderen, mens du skriver - hurtig med idéer og glad for at forklare, men den har ikke set hele dit projekt og tager af og til selvsikkert fejl.
   inPractice:
     en: A newly hired developer in a region's IT department asks the assistant what an old function in the lab system does, gets a short explanation, then has it draft the missing input checks, which she reads and adjusts.
     da: En udvikler, der lige er startet i en regions IT-afdeling, spørger assistenten, hvad en gammel funktion i laboratoriesystemet gør, får en kort forklaring og lader den skrive et udkast til de manglende inputtjek, som hun læser og retter til.

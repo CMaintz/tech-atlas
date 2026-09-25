@@ -27,7 +27,7 @@ body:
     da: Man kan ikke rette det, man ikke ved, man har; amerikanske statslige regler har siden 2021 bedt softwareleverandører om SBOM'er, og Cyberrobusthedsforordningen kræver, at producenter af produkter, der sælges i EU, udarbejder en.
 deepDive:
   en: |-
-    The modern SBOM effort began with the US NTIA multistakeholder process in 2018 and was given regulatory weight by Executive Order 14028 (May 2021), after which NTIA published The Minimum Elements for an SBOM (July 2021). It defines three groups: data fields (supplier name, component name, version, other unique identifiers, dependency relationship, author of the SBOM data and timestamp), automation support (a machine-readable format — SPDX, CycloneDX or SWID tags), and practices and processes (frequency of regeneration, depth, handling of known unknowns, distribution and access control).
+    The modern SBOM effort began with the US NTIA multistakeholder process in 2018 and was given regulatory weight by Executive Order 14028 (May 2021), after which NTIA published The Minimum Elements for an SBOM (July 2021). It defines three groups: data fields (supplier name, component name, version, other unique identifiers, dependency relationship, author of the SBOM data and timestamp), automation support (a machine-readable format - SPDX, CycloneDX or SWID tags), and practices and processes (frequency of regeneration, depth, handling of known unknowns, distribution and access control).
 
     Two formats dominate. SPDX, from the Linux Foundation, was standardised as ISO/IEC 5962:2021 (SPDX 2.2.1); SPDX 3.0 (2024) restructured the model into profiles for security, licensing, AI and datasets. CycloneDX, from OWASP, is standardised by Ecma as ECMA-424 (first edition June 2024, second edition December 2025) and also covers services, hardware, machine-learning models (ML-BOM), cryptographic assets (CBOM) and embedded vulnerability or VEX data. Components are identified by Package URLs (purl, e.g. pkg:npm/lodash@4.17.21) and sometimes CPE names; accurate identifiers are what make automated vulnerability matching possible, and inconsistent CPEs are a common cause of both false positives and misses.
 
@@ -35,7 +35,7 @@ deepDive:
 
     An SBOM is an inventory, not an assessment. Its value appears when it is ingested into tooling (for example OWASP Dependency-Track) and continuously correlated with vulnerability data, and when paired with VEX (Vulnerability Exploitability eXchange, in CSAF or OpenVEX form), in which the supplier states whether a listed vulnerability actually affects the product. In the EU, the Cyber Resilience Act (Regulation (EU) 2024/2847), Annex I Part II point 1, requires manufacturers to identify and document components, including by drawing up an SBOM in a commonly used, machine-readable format covering at the very least the top-level dependencies; the SBOM belongs to the technical documentation and need not be published. The CRA's main obligations apply from 11 December 2027, while its vulnerability-reporting duties have applied since 11 September 2026. SBOM differs from software composition analysis, which is the process that consumes or produces such inventories to find vulnerable and non-compliant components.
   da: |-
-    Det moderne SBOM-arbejde begyndte med den amerikanske NTIA's multistakeholder-proces i 2018 og fik regulatorisk vægt med Executive Order 14028 (maj 2021), hvorefter NTIA udgav The Minimum Elements for an SBOM (juli 2021). Den definerer tre grupper: datafelter (leverandørnavn, komponentnavn, version, andre unikke identifikatorer, afhængighedsforhold, forfatter til SBOM-data og tidsstempel), understøttelse af automatisering (et maskinlæsbart format — SPDX, CycloneDX eller SWID-tags) samt praksis og processer (hvor ofte den gendannes, dybde, håndtering af kendte ubekendte, distribution og adgangskontrol).
+    Det moderne SBOM-arbejde begyndte med den amerikanske NTIA's multistakeholder-proces i 2018 og fik regulatorisk vægt med Executive Order 14028 (maj 2021), hvorefter NTIA udgav The Minimum Elements for an SBOM (juli 2021). Den definerer tre grupper: datafelter (leverandørnavn, komponentnavn, version, andre unikke identifikatorer, afhængighedsforhold, forfatter til SBOM-data og tidsstempel), understøttelse af automatisering (et maskinlæsbart format - SPDX, CycloneDX eller SWID-tags) samt praksis og processer (hvor ofte den gendannes, dybde, håndtering af kendte ubekendte, distribution og adgangskontrol).
 
     To formater dominerer. SPDX fra Linux Foundation blev standardiseret som ISO/IEC 5962:2021 (SPDX 2.2.1); SPDX 3.0 (2024) omstrukturerede modellen i profiler for sikkerhed, licenser, AI og datasæt. CycloneDX fra OWASP er standardiseret af Ecma som ECMA-424 (første udgave juni 2024, anden udgave december 2025) og dækker også tjenester, hardware, maskinlæringsmodeller (ML-BOM), kryptografiske aktiver (CBOM) og indlejrede sårbarheds- eller VEX-data. Komponenter identificeres med Package URLs (purl, fx pkg:npm/lodash@4.17.21) og undertiden CPE-navne; præcise identifikatorer er det, der gør automatisk matchning af sårbarheder mulig, og inkonsistente CPE'er er en almindelig årsag til både falske positiver og oversete fund.
 
@@ -66,15 +66,15 @@ sources:
     url: https://www.ntia.gov/report/2021/minimum-elements-software-bill-materials-sbom
     tier: standard
     publisher: NTIA, US Department of Commerce
-  - title: Regulation (EU) 2024/2847 — Cyber Resilience Act, Annex I
+  - title: Regulation (EU) 2024/2847 - Cyber Resilience Act, Annex I
     url: https://eur-lex.europa.eu/eli/reg/2024/2847/oj
     tier: standard
     publisher: European Union
-  - title: NIST SP 800-218 — Secure Software Development Framework (SSDF)
+  - title: NIST SP 800-218 - Secure Software Development Framework (SSDF)
     url: https://csrc.nist.gov/pubs/sp/800/218/final
     tier: standard
     publisher: NIST
-  - title: ECMA-424 — CycloneDX Bill of Materials Specification
+  - title: ECMA-424 - CycloneDX Bill of Materials Specification
     url: https://ecma-international.org/publications-and-standards/standards/ecma-424/
     tier: standard
     publisher: Ecma International

@@ -31,7 +31,7 @@ questions:
     explanation:
       en: >-
         The message uses details about her, her manager and a real, ongoing task to
-        look like it comes from someone she knows — that tailoring is what makes it
+        look like it comes from someone she knows - that tailoring is what makes it
         spear phishing rather than a mass mailing. Generic phishing is sent in bulk
         with the same text to many people, so it would not know about her team's
         recruitment round. Smishing is phishing by text message, and vishing is done
@@ -39,7 +39,7 @@ questions:
         though all of them play on trust and short requests.
       da: >-
         Beskeden bruger oplysninger om hende, hendes chef og en reel, igangværende
-        opgave for at se ud, som om den kommer fra en, hun kender — den tilpasning er
+        opgave for at se ud, som om den kommer fra en, hun kender - den tilpasning er
         netop det, der gør det til spear phishing frem for en masseudsendelse.
         Almindelig phishing sendes bredt med samme tekst til mange, så den ville ikke
         kende til teamets rekrutteringsrunde. Smishing er phishing via sms, og vishing
@@ -47,13 +47,13 @@ questions:
         passer, selv om de alle spiller på tillid og korte beskeder.
     difficulty: 1
     sources:
-      - title: 'NCSC — Phishing attacks: defending your organisation'
+      - title: 'NCSC - Phishing attacks: defending your organisation'
         url: https://www.ncsc.gov.uk/guidance/phishing
         tier: official-doc
-      - title: CISA — Avoiding Social Engineering and Phishing Attacks
+      - title: CISA - Avoiding Social Engineering and Phishing Attacks
         url: https://www.cisa.gov/news-events/news/avoiding-social-engineering-and-phishing-attacks
         tier: official-doc
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -88,7 +88,7 @@ questions:
       en: >-
         This is the classic pattern of CEO fraud: authority, urgency, secrecy and a
         transfer abroad while the boss is away. The request must be checked through a
-        second, independent channel — a call to a number she already knows. Replying
+        second, independent channel - a call to a number she already knows. Replying
         to the mail does not help, because the reply goes to whoever controls the
         conversation. A correct sender address proves little, since the director's
         mailbox may itself have been taken over. Paying first and involving the bank
@@ -97,7 +97,7 @@ questions:
       da: >-
         Det er det klassiske mønster i direktørsvindel: autoritet, hast, hemmelighed og
         en overførsel til udlandet, mens chefen er væk. Anmodningen skal tjekkes via en
-        anden, uafhængig kanal — et opkald til et nummer, hun allerede kender. At svare
+        anden, uafhængig kanal - et opkald til et nummer, hun allerede kender. At svare
         på mailen hjælper ikke, for svaret går til den, der styrer samtalen. En korrekt
         afsenderadresse beviser ikke meget, da direktørens postkasse selv kan være
         overtaget. At betale først og inddrage banken bagefter betyder, at man satser
@@ -105,13 +105,13 @@ questions:
         landet.
     difficulty: 1
     sources:
-      - title: Sikkerdigital.dk — CEO-fraud (direktørsvindel)
+      - title: Sikkerdigital.dk - CEO-fraud (direktørsvindel)
         url: https://sikkerdigital.dk/virksomhed/hvad-truer-din-virksomhed/ceo-fraud
         tier: official-doc
-      - title: 'FBI IC3 — Business Email Compromise: The $50 Billion Scam (PSA230609)'
+      - title: 'FBI IC3 - Business Email Compromise: The $50 Billion Scam (PSA230609)'
         url: https://www.ic3.gov/PSA/2023/PSA230609
         tier: official-doc
-      - title: NCSC — How to spot a scam email, text message or call
+      - title: NCSC - How to spot a scam email, text message or call
         url: https://www.ncsc.gov.uk/collection/phishing-scams/spot-scams
         tier: official-doc
     draft: true
@@ -151,7 +151,7 @@ questions:
         quietly is a good step but leaves IT blind to what the attacker may have done
         in the meantime. A virus scan does not help against stolen credentials, and
         waiting for symptoms gives the attacker time. This is why guidance stresses
-        that staff must not be blamed for clicking — people who fear reprisals report
+        that staff must not be blamed for clicking - people who fear reprisals report
         late or not at all.
       da: >-
         Når en adgangskode er tastet ind på en falsk side, kan angriberen allerede
@@ -160,14 +160,14 @@ questions:
         skifte adgangskoden i stilhed er et godt skridt, men efterlader it uden viden
         om, hvad angriberen kan have nået. En virusscanning hjælper ikke mod stjålne
         loginoplysninger, og at vente på symptomer giver angriberen tid. Derfor
-        understreger vejledningerne, at medarbejdere ikke må bebrejdes for at klikke —
+        understreger vejledningerne, at medarbejdere ikke må bebrejdes for at klikke -
         den, der frygter repressalier, melder sent eller slet ikke.
     difficulty: 1
     sources:
-      - title: 'NCSC — Phishing attacks: defending your organisation'
+      - title: 'NCSC - Phishing attacks: defending your organisation'
         url: https://www.ncsc.gov.uk/guidance/phishing
         tier: official-doc
-      - title: CISA — Avoiding Social Engineering and Phishing Attacks
+      - title: CISA - Avoiding Social Engineering and Phishing Attacks
         url: https://www.cisa.gov/news-events/news/avoiding-social-engineering-and-phishing-attacks
         tier: official-doc
     draft: true
@@ -224,7 +224,7 @@ questions:
       - title: Kodeks for gennemførsel af sikkerhedstests (2021)
         url: https://sikkerdigital.dk/media/7037/kodeks-for-sikkerhedstest-2021.pdf
         tier: official-doc
-      - title: 'NCSC — Phishing attacks: defending your organisation'
+      - title: 'NCSC - Phishing attacks: defending your organisation'
         url: https://www.ncsc.gov.uk/guidance/phishing
         tier: official-doc
     draft: true
@@ -253,7 +253,7 @@ questions:
     explanation:
       en: >-
         False. The code says that, because of the law, a tester can never pose as a
-        public authority such as the police, Datatilsynet or the tax authorities — the
+        public authority such as the police, Datatilsynet or the tax authorities - the
         customer's approval does not change that. Management approval is still
         required for the concrete case description of a phishing campaign, and posing
         as another existing company needs that company's agreement. A realistic but
@@ -262,14 +262,14 @@ questions:
       da: >-
         Falsk. Kodekset siger, at testeren på grund af lovgivningen aldrig kan udgive
         sig for at være en myndighedsperson, fx fra politiet, Datatilsynet eller
-        skattevæsenet — kundens godkendelse ændrer ikke på det. Kunden skal stadig
+        skattevæsenet - kundens godkendelse ændrer ikke på det. Kunden skal stadig
         godkende den konkrete case-beskrivelse af en phishingkampagne, og at udgive
         sig for en anden eksisterende virksomhed kræver en aftale med den. Et
         realistisk, men lovligt påskud, fx en intern it-besked, kan træne de samme
         advarselstegn.
     difficulty: 3
     sources:
-      - title: Kodeks for gennemførsel af sikkerhedstests (2021), afsnit 3.1–3.2
+      - title: Kodeks for gennemførsel af sikkerhedstests (2021), afsnit 3.1-3.2
         url: https://sikkerdigital.dk/media/7037/kodeks-for-sikkerhedstest-2021.pdf
         tier: official-doc
     draft: true
@@ -301,7 +301,7 @@ questions:
     explanation:
       en: >-
         A nudge is a small prompt placed at the moment of choice that makes the safe
-        action the easy one without forbidding anything — the sticker reminds people
+        action the easy one without forbidding anything - the sticker reminds people
         exactly when they stand up to leave. A rule backed by a written warning steers
         through sanctions, which is policy, not nudging. A yearly e-learning module is
         training: it explains why, but it is far from the moment of choice and easily
@@ -309,7 +309,7 @@ questions:
         neither helps at the moment nor keeps the choice free of pressure.
       da: >-
         Et nudge er et lille skub, der placeres i det øjeblik, valget træffes, og gør
-        den sikre handling til den lette uden at forbyde noget — klistermærket minder
+        den sikre handling til den lette uden at forbyde noget - klistermærket minder
         folk om det, netop når de rejser sig for at gå. En regel med skriftlig
         advarsel styrer gennem sanktioner, og det er politik, ikke nudging. Et årligt
         e-læringsmodul er træning: det forklarer hvorfor, men ligger langt fra
@@ -318,9 +318,9 @@ questions:
         frit for pres.
     difficulty: 1
     sources:
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
-      - title: Sikkerdigital.dk — Om at arbejde med adfærdsindsatser
+      - title: Sikkerdigital.dk - Om at arbejde med adfærdsindsatser
         url: https://sikkerdigital.dk/myndighed/uddannelse-og-awareness/om-at-arbejde-med-adfaerdsindsatser
         tier: official-doc
     draft: true
@@ -353,7 +353,7 @@ questions:
       en: >-
         Awareness is what the individual employee knows about security and how they
         act on it; security culture is the shared norms and habits that decide how
-        people act when nobody is checking — for example that colleagues remind each
+        people act when nobody is checking - for example that colleagues remind each
         other and that reporting a strange mail is praised. Training can raise
         awareness without changing the culture. Culture is not reserved for managers
         and IT; it lives in the whole workforce, although leaders shape it. Neither
@@ -361,7 +361,7 @@ questions:
       da: >-
         Awareness er, hvad den enkelte medarbejder ved om sikkerhed, og hvordan
         vedkommende handler på det; sikkerhedskultur er de fælles normer og vaner, der
-        afgør, hvordan folk handler, når ingen holder øje — fx at kolleger minder
+        afgør, hvordan folk handler, når ingen holder øje - fx at kolleger minder
         hinanden om tingene, og at man bliver rost for at melde en mærkelig mail.
         Træning kan øge awareness uden at ændre kulturen. Kultur er ikke forbeholdt
         ledere og it; den findes i hele medarbejderstaben, selv om ledelsen former
@@ -369,9 +369,9 @@ questions:
         ikke et mål for kultur.
     difficulty: 2
     sources:
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
-      - title: ENISA — Cyber Security Culture in Organisations (2018)
+      - title: ENISA - Cyber Security Culture in Organisations (2018)
         url: https://www.enisa.europa.eu/publications/cyber-security-culture-in-organisations
         tier: official-doc
     draft: true
@@ -437,9 +437,9 @@ questions:
         sent til at forme indsatsen.
     difficulty: 2
     sources:
-      - title: Sikkerdigital.dk — Om at arbejde med adfærdsindsatser
+      - title: Sikkerdigital.dk - Om at arbejde med adfærdsindsatser
         url: https://sikkerdigital.dk/myndighed/uddannelse-og-awareness/om-at-arbejde-med-adfaerdsindsatser
         tier: official-doc
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true

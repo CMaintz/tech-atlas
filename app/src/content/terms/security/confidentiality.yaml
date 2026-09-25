@@ -13,14 +13,14 @@ summary:
   da: At sikre, at kun de rette personer kan se en given information.
 body:
   formal:
-    en: The property that information is not made available or disclosed to people, systems or processes that are not allowed to have it — whether it is stored, being sent or being printed.
-    da: Egenskaben, at information ikke gøres tilgængelig eller videregives til personer, systemer eller processer, der ikke har lov til at få den — uanset om den er gemt, er på vej eller bliver printet.
+    en: The property that information is not made available or disclosed to people, systems or processes that are not allowed to have it - whether it is stored, being sent or being printed.
+    da: Egenskaben, at information ikke gøres tilgængelig eller videregives til personer, systemer eller processer, der ikke har lov til at få den - uanset om den er gemt, er på vej eller bliver printet.
   plain:
-    en: Like a sealed letter — the address is on the outside, but only the person it is meant for should read what is inside.
-    da: Som et lukket brev — adressen står udenpå, men kun den, brevet er til, bør læse indholdet.
+    en: Like a sealed letter - the address is on the outside, but only the person it is meant for should read what is inside.
+    da: Som et lukket brev - adressen står udenpå, men kun den, brevet er til, bør læse indholdet.
   inPractice:
     en: In a municipality's HR system, salary details can be seen only by the payroll team and each employee's own manager, not by colleagues in other departments.
-    da: I en kommunes HR-system kan lønoplysninger kun ses af lønkontoret og den enkelte medarbejders egen leder — ikke af kolleger i andre afdelinger.
+    da: I en kommunes HR-system kan lønoplysninger kun ses af lønkontoret og den enkelte medarbejders egen leder - ikke af kolleger i andre afdelinger.
   whyItMatters:
     en: Once secret information has leaked it cannot be taken back, and a leak of personal data must be reported to the authorities and can bring fines and lasting damage to trust.
     da: Når hemmelig information først er lækket, kan den ikke hentes tilbage, og et læk af personoplysninger skal anmeldes til myndighederne og kan give bøder og varig skade på tilliden.
@@ -51,9 +51,9 @@ edges:
       strength: primary
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
-  - title: ISO/IEC 27000:2018 — Information security management systems — Overview and vocabulary
+  - title: ISO/IEC 27000:2018 - Information security management systems - Overview and vocabulary
     tier: standard
     publisher: ISO/IEC
 draft: true

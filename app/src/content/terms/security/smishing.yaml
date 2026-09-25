@@ -17,8 +17,8 @@ body:
     en: A form of phishing delivered by text message or chat app instead of email; the short format hides the real sender and the full link address, and texts usually pass through fewer filters than work email.
     da: En form for phishing, der sendes som sms eller i en chat-app i stedet for mail; det korte format skjuler den rigtige afsender og den fulde linkadresse, og sms'er passerer som regel færre filtre end arbejdsmailen.
   plain:
-    en: Like a fake parking ticket tucked under your wiper — it looks official enough that you pay before you check.
-    da: Som en falsk parkeringsbøde under viskeren — den ser officiel nok ud til, at du betaler, før du tjekker.
+    en: Like a fake parking ticket tucked under your wiper - it looks official enough that you pay before you check.
+    da: Som en falsk parkeringsbøde under viskeren - den ser officiel nok ud til, at du betaler, før du tjekker.
   inPractice:
     en: The secretary at a school gets a text, apparently from the municipality's IT department, saying her account closes today unless she confirms her login; the link leads to a copy of the municipality's login page.
     da: Sekretæren på en skole får en sms, der ser ud til at komme fra kommunens IT-afdeling, om at hendes konto lukkes i dag, medmindre hun bekræfter sit login; linket fører til en kopi af kommunens login-side.
@@ -59,7 +59,7 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: NIST Glossary — Smishing
+  - title: NIST Glossary - Smishing
     tier: standard
     publisher: NIST
     url: https://csrc.nist.gov/glossary/term/smishing

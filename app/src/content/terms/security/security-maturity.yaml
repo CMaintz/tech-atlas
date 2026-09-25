@@ -9,15 +9,15 @@ cluster: compliance
 layer: governance
 status: current
 summary:
-  en: How far an organisation's security has grown — from random and tied to single people to planned, measured and steadily improving.
-  da: Hvor langt en organisations sikkerhed er nået — fra tilfældig og personafhængig til planlagt, målt og løbende forbedret.
+  en: How far an organisation's security has grown - from random and tied to single people to planned, measured and steadily improving.
+  da: Hvor langt en organisations sikkerhed er nået - fra tilfældig og personafhængig til planlagt, målt og løbende forbedret.
 body:
   formal:
     en: A rating of how established and repeatable an organisation's security practices are, usually on a scale of levels (for example from "initial" to "always improving"), used to compare against a target and to plan the next steps.
     da: En vurdering af, hvor veletablerede og gentagelige en organisations sikkerhedspraksisser er, typisk på en skala af niveauer (fx fra "indledende" til "løbende forbedret"), som bruges til at sammenligne med et mål og planlægge de næste skridt.
   plain:
-    en: Like belt colours in karate — they show not whether you can win one fight, but how steady and practised your skills have become.
-    da: Som bæltefarver i karate — de viser ikke, om man kan vinde én kamp, men hvor sikre og øvede ens færdigheder er blevet.
+    en: Like belt colours in karate - they show not whether you can win one fight, but how steady and practised your skills have become.
+    da: Som bæltefarver i karate - de viser ikke, om man kan vinde én kamp, men hvor sikre og øvede ens færdigheder er blevet.
   inPractice:
     en: A regional bus company rates itself at level 2 of 5, because backups are taken but only one person knows how to restore them; it sets level 3 as next year's goal.
     da: Et regionalt busselskab vurderer sig selv til niveau 2 ud af 5, fordi der tages backup, men kun én person ved, hvordan den genskabes; det sætter niveau 3 som mål for næste år.
@@ -45,7 +45,7 @@ edges:
   requires: [governance]
   used-with: [security-metrics, self-assessment]
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 8
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 8
     tier: course-material
   - title: NIST Cybersecurity Framework 2.0 (Tiers)
     tier: standard

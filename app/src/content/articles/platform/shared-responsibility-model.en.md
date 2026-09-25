@@ -1,12 +1,12 @@
 ---
-title: The shared responsibility model — who secures what in the cloud
+title: The shared responsibility model - who secures what in the cloud
 term: platform/shared-responsibility-model
 lang: en
 ---
 
 ## What it is
 
-The **shared responsibility model** describes how security and operating duties are divided between a cloud provider and its customer. The provider is responsible for the security _of_ the cloud — data centres, hardware, networks and the software layers it runs — while the customer is responsible for security _in_ the cloud: its data, its users and access rights, and the way it configures the services it buys.
+The **shared responsibility model** describes how security and operating duties are divided between a cloud provider and its customer. The provider is responsible for the security _of_ the cloud - data centres, hardware, networks and the software layers it runs - while the customer is responsible for security _in_ the cloud: its data, its users and access rights, and the way it configures the services it buys.
 
 The phrase was popularised by Amazon Web Services in the early 2010s, when customers moving to the cloud assumed that "the provider does security now". AWS published diagrams showing a line between provider and customer, and Microsoft, Google and others followed with their own versions. The idea has since been adopted by the Cloud Security Alliance, whose Cloud Controls Matrix (CCM) marks for each control whether it is typically owned by the provider, the customer or both. The model is not a law or a standard in itself, but it is the language contracts, audits and supervisory authorities use when they ask who does what.
 
@@ -43,7 +43,7 @@ Backup is the classic gap. Many SaaS providers guarantee the _availability_ of t
 
 The model is only useful when it is written down for each specific service. Generic diagrams from providers are a starting point; the actual split depends on the contract, the service tier and the options you have switched on.
 
-- **Map controls to owners.** For each important cloud service, go through your control set — ISO 27001 Annex A, the CSA CCM or the NIS2 minimum measures — and mark every control as provider, customer or shared.
+- **Map controls to owners.** For each important cloud service, go through your control set - ISO 27001 Annex A, the CSA CCM or the NIS2 minimum measures - and mark every control as provider, customer or shared.
 - **Get evidence for the provider's part.** Certificates, audit reports (ISAE 3402, SOC 2) and the provider's own shared-responsibility documentation show that the provider's side is covered. Check the scope.
 - **Assign internal owners for your part.** "Customer" is not an owner. Name the team or role responsible for each customer control.
 - **Write it into contracts and supplier management.** The split belongs in the supplier review and, where possible, in the contract and the data processing agreement.

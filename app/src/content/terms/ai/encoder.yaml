@@ -26,7 +26,7 @@ body:
     da: Encodere klarer søgning og sortering billigt, men kan ikke skrive ny tekst, så kender man forskellen, kan man vælge et mindre og hurtigere værktøj, når opgaven kun er at forstå tekst.
 deepDive:
   en: |-
-    A transformer encoder block consists of unmasked multi-head self-attention followed by a position-wise feed-forward network, each with a residual connection and layer normalisation. Because there is no causal mask, every output vector is a function of the entire input sequence, which is what "bidirectional" means in practice. The whole sequence is processed in one parallel forward pass; there is no autoregressive loop and no KV cache, and cost is dominated by the O(n²) attention over the input length. In the original encoder–decoder transformer, the encoder runs once per input and its final hidden states serve as the keys and values that every decoder layer reads through cross-attention.
+    A transformer encoder block consists of unmasked multi-head self-attention followed by a position-wise feed-forward network, each with a residual connection and layer normalisation. Because there is no causal mask, every output vector is a function of the entire input sequence, which is what "bidirectional" means in practice. The whole sequence is processed in one parallel forward pass; there is no autoregressive loop and no KV cache, and cost is dominated by the O(n²) attention over the input length. In the original encoder-decoder transformer, the encoder runs once per input and its final hidden states serve as the keys and values that every decoder layer reads through cross-attention.
 
     BERT (Devlin et al., 2019) established the encoder-only pattern. BERT-base has 12 layers, hidden size 768, 12 heads and about 110 million parameters; BERT-large has 24 layers, hidden size 1024 and about 340 million. Pretraining used masked language modelling: 15 % of token positions are selected, of which 80 % are replaced by [MASK], 10 % by a random token and 10 % left unchanged, and the model predicts the originals; a next-sentence-prediction task was added but RoBERTa (2019) showed it could be dropped. Input length was fixed at 512 positions, a limit that shaped chunking practice for years; later encoders such as ModernBERT (2024) extend it to 8,192 tokens. ELECTRA replaced masking with replaced-token detection, which is more sample-efficient.
 
@@ -53,7 +53,7 @@ edges:
 sources:
   - title: Vaswani et al. (2017), Attention Is All You Need
     tier: reference
-  - title: Devlin et al. (2019), BERT — Pre-training of Deep Bidirectional Transformers for Language Understanding
+  - title: Devlin et al. (2019), BERT - Pre-training of Deep Bidirectional Transformers for Language Understanding
     tier: reference
   - title: 'Jurafsky & Martin, Speech and Language Processing (3rd ed. draft)'
     tier: textbook

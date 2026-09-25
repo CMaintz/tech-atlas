@@ -29,7 +29,7 @@ questions:
     explanation:
       en: >-
         Article 5(1)(f) bans AI systems that infer the emotions of people in the
-        workplace or in education, except for medical or safety reasons — a mood score
+        workplace or in education, except for medical or safety reasons - a mood score
         for call-centre agents is exactly that, and the ban has applied since 2
         February 2025. Worker monitoring in general is high-risk under Annex III
         point 4, but a prohibited practice is not rescued by meeting high-risk
@@ -39,7 +39,7 @@ questions:
       da: >-
         Artikel 5, stk. 1, litra f, forbyder AI-systemer, der udleder følelser hos
         personer på arbejdspladsen eller i uddannelsesinstitutioner, medmindre det
-        sker af medicinske eller sikkerhedsmæssige grunde — en humørscore for
+        sker af medicinske eller sikkerhedsmæssige grunde - en humørscore for
         kundecentermedarbejdere er netop det, og forbuddet har gældet siden 2.
         februar 2025. Overvågning af medarbejdere er generelt højrisiko efter bilag
         III, punkt 4, men en forbudt praksis bliver ikke lovlig af at opfylde
@@ -48,13 +48,13 @@ questions:
         nok. At et menneske træffer beslutningen, sænker heller ikke risikoniveauet.
     difficulty: 2
     sources:
-      - title: AI Act, Article 5 — Prohibited AI practices
+      - title: AI Act, Article 5 - Prohibited AI practices
         url: https://artificialintelligenceact.eu/article/5/
         tier: reference
-      - title: AI Act, Article 50 — Transparency obligations
+      - title: AI Act, Article 50 - Transparency obligations
         url: https://artificialintelligenceact.eu/article/50/
         tier: reference
-      - title: AI Act, Article 113 — Entry into force and application
+      - title: AI Act, Article 113 - Entry into force and application
         url: https://artificialintelligenceact.eu/article/113/
         tier: reference
     draft: true
@@ -78,14 +78,14 @@ questions:
         højrisiko efter AI-forordningen, fordi det kun udfører en "forberedende
         opgave", og et menneske træffer det endelige valg. Hvem har ret?
     options:
-      - en: The vendor — a preparatory task always falls outside high-risk
-        da: Leverandøren — en forberedende opgave falder altid uden for højrisiko
-      - en: Not the vendor — it is high-risk as it profiles applicants
-        da: Ikke leverandøren — det er højrisiko, fordi det profilerer ansøgere
-      - en: Neither — ranking job applicants is a prohibited practice
-        da: Ingen af dem — at rangere jobansøgere er en forbudt praksis
-      - en: Neither — the AI Act does not cover public-sector recruitment
-        da: Ingen af dem — AI-forordningen dækker ikke offentlig rekruttering
+      - en: The vendor - a preparatory task always falls outside high-risk
+        da: Leverandøren - en forberedende opgave falder altid uden for højrisiko
+      - en: Not the vendor - it is high-risk as it profiles applicants
+        da: Ikke leverandøren - det er højrisiko, fordi det profilerer ansøgere
+      - en: Neither - ranking job applicants is a prohibited practice
+        da: Ingen af dem - at rangere jobansøgere er en forbudt praksis
+      - en: Neither - the AI Act does not cover public-sector recruitment
+        da: Ingen af dem - AI-forordningen dækker ikke offentlig rekruttering
     answer: 1
     explanation:
       en: >-
@@ -93,7 +93,7 @@ questions:
         evaluate candidates, and Article 6(2) makes Annex III systems high-risk.
         Article 6(3) lets some Annex III systems escape, for example a narrow
         procedural task or a preparatory task, but it also says a system that profiles natural persons is
-        always high-risk — and ranking applicants on a built profile is profiling.
+        always high-risk - and ranking applicants on a built profile is profiling.
         Recruitment tools are regulated, not banned; the Article 5 bans cover things
         like social scoring and emotion recognition at work. The Act applies to
         public bodies as well as companies.
@@ -102,20 +102,20 @@ questions:
         og vurderer kandidater, og artikel 6, stk. 2, gør systemer i bilag III til
         højrisiko. Artikel 6, stk. 3, lader visse bilag III-systemer slippe, fx ved
         en snæver proceduremæssig opgave eller en forberedende opgave, men fastslår også, at et system, der
-        profilerer fysiske personer, altid er højrisiko — og at rangere ansøgere ud
+        profilerer fysiske personer, altid er højrisiko - og at rangere ansøgere ud
         fra en opbygget profil er profilering. Rekrutteringsværktøjer er reguleret,
         ikke forbudt; forbuddene i artikel 5 gælder fx social scoring og
         følelsesgenkendelse på arbejdspladsen. Forordningen gælder både for
         myndigheder og virksomheder.
     difficulty: 3
     sources:
-      - title: AI Act, Article 6 — Classification rules for high-risk AI systems
+      - title: AI Act, Article 6 - Classification rules for high-risk AI systems
         url: https://artificialintelligenceact.eu/article/6/
         tier: reference
-      - title: AI Act, Annex III — High-risk AI systems referred to in Article 6(2)
+      - title: AI Act, Annex III - High-risk AI systems referred to in Article 6(2)
         url: https://artificialintelligenceact.eu/annex/3/
         tier: reference
-      - title: AI Act, Article 5 — Prohibited AI practices
+      - title: AI Act, Article 5 - Prohibited AI practices
         url: https://artificialintelligenceact.eu/article/5/
         tier: reference
     draft: true
@@ -164,13 +164,13 @@ questions:
         kravet om åbenhed gælder, selv om chatbotten ikke træffer afgørelser.
     difficulty: 1
     sources:
-      - title: AI Act, Article 50 — Transparency obligations
+      - title: AI Act, Article 50 - Transparency obligations
         url: https://artificialintelligenceact.eu/article/50/
         tier: reference
-      - title: AI Act, Article 6 — Classification rules for high-risk AI systems
+      - title: AI Act, Article 6 - Classification rules for high-risk AI systems
         url: https://artificialintelligenceact.eu/article/6/
         tier: reference
-      - title: AI Act, Annex III — High-risk AI systems referred to in Article 6(2)
+      - title: AI Act, Annex III - High-risk AI systems referred to in Article 6(2)
         url: https://artificialintelligenceact.eu/annex/3/
         tier: reference
     draft: true
@@ -210,7 +210,7 @@ questions:
         The attack is an indirect prompt injection, but the damage came from
         excessive agency: an assistant that only summarises was able to send mail.
         OWASP's advice for exactly this case is a read-only scope, plus human
-        approval for high-impact actions — then an injected instruction has nothing
+        approval for high-impact actions - then an injected instruction has nothing
         to act with. A system-prompt rule helps but is not reliable, because
         injected text can still override it. A bigger model is no guarantee against
         manipulation, and a weekly log review only finds the leak after the invoices
@@ -219,17 +219,17 @@ questions:
         Angrebet er en indirekte prompt injection, men skaden skyldtes overdreven
         handlefrihed: en assistent, der kun skal opsummere, kunne sende mails. OWASP
         anbefaler netop i dette tilfælde kun læseadgang og menneskelig godkendelse
-        af handlinger med stor konsekvens — så har en indsmuglet instruks intet at
+        af handlinger med stor konsekvens - så har en indsmuglet instruks intet at
         handle med. En regel i systemprompten hjælper, men er ikke pålidelig, fordi
         indsmuglet tekst stadig kan tilsidesætte den. En større model er ingen
         garanti mod manipulation, og en ugentlig loggennemgang opdager først lækket,
         når fakturaerne allerede er væk.
     difficulty: 2
     sources:
-      - title: OWASP Top 10 for LLM Applications 2025 — LLM06 Excessive Agency
+      - title: OWASP Top 10 for LLM Applications 2025 - LLM06 Excessive Agency
         url: https://genai.owasp.org/llmrisk/llm062025-excessive-agency/
         tier: reference
-      - title: OWASP Top 10 for LLM Applications 2025 — LLM01 Prompt Injection
+      - title: OWASP Top 10 for LLM Applications 2025 - LLM01 Prompt Injection
         url: https://genai.owasp.org/llmrisk/llm01-prompt-injection/
         tier: reference
     draft: true
@@ -266,7 +266,7 @@ questions:
     explanation:
       en: >-
         NIST SP 1270 notes that dropping protected attributes does not remedy bias,
-        because the information can be inferred through proxy variables — its example
+        because the information can be inferred through proxy variables - its example
         is race inferred from a zip code. Postcode and length of residence correlate
         strongly with origin, and the historical decisions the model learns from
         carry the old pattern. A retrained model starts from scratch, so there is
@@ -276,7 +276,7 @@ questions:
       da: >-
         NIST SP 1270 påpeger, at det ikke fjerner skævheden at udelade beskyttede
         oplysninger, fordi de kan udledes gennem stedfortrædende variable (proxies)
-        — eksemplet er etnicitet udledt af et postnummer. Postnummer og bopælstid
+        - eksemplet er etnicitet udledt af et postnummer. Postnummer og bopælstid
         hænger stærkt sammen med oprindelse, og de historiske beslutninger, modellen
         lærer af, bærer det gamle mønster med sig. En gentrænet model starter forfra,
         så der er intet at glemme. Et lille testsæt kan gøre tallene usikre, men
@@ -284,7 +284,7 @@ questions:
         skævhed, ikke en uskyldig tilskuer.
     difficulty: 2
     sources:
-      - title: NIST SP 1270 — Towards a Standard for Identifying and Managing Bias in Artificial Intelligence
+      - title: NIST SP 1270 - Towards a Standard for Identifying and Managing Bias in Artificial Intelligence
         url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.1270.pdf
         tier: standard
     draft: true
@@ -320,7 +320,7 @@ questions:
         given to a model that is already trained, to make it answer wrongly. Both
         attacks work on text, images and other data, so the type of model is not the
         difference. Data poisoning needs only a way into the training data, not the
-        weights — slipping examples into a shared dataset is enough, and many
+        weights - slipping examples into a shared dataset is enough, and many
         evasion attacks are black-box. And poisoning is often hard to
         catch in testing, because a backdoor only fires on the attacker's trigger.
       da: >-
@@ -329,16 +329,16 @@ questions:
         eksempel er et tilrettelagt input til en færdigtrænet model, der får den til
         at svare forkert. Begge angreb virker på tekst, billeder og andre data, så
         modeltypen er ikke forskellen. Dataforgiftning kræver kun en vej ind i træningsdataene, ikke
-        vægtene — det er nok at smugle eksempler ind i et delt datasæt, og mange
+        vægtene - det er nok at smugle eksempler ind i et delt datasæt, og mange
         undvigelsesangreb er black-box. Og
         forgiftning er ofte svær at fange ved test, fordi en bagdør kun aktiveres af
         angriberens udløser.
     difficulty: 2
     sources:
-      - title: OWASP Top 10 for LLM Applications 2025 — LLM04 Data and Model Poisoning
+      - title: OWASP Top 10 for LLM Applications 2025 - LLM04 Data and Model Poisoning
         url: https://genai.owasp.org/llmrisk/llm042025-data-and-model-poisoning/
         tier: reference
-      - title: NIST AI 100-2 E2025 — Adversarial Machine Learning, A Taxonomy and Terminology of Attacks and Mitigations
+      - title: NIST AI 100-2 E2025 - Adversarial Machine Learning, A Taxonomy and Terminology of Attacks and Mitigations
         url: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-2e2025.pdf
         tier: standard
     draft: true
@@ -388,10 +388,10 @@ questions:
         system, og det peger på Govern.
     difficulty: 1
     sources:
-      - title: NIST AI 100-1 — Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+      - title: NIST AI 100-1 - Artificial Intelligence Risk Management Framework (AI RMF 1.0)
         url: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf
         tier: standard
-      - title: NIST — AI Risk Management Framework
+      - title: NIST - AI Risk Management Framework
         url: https://www.nist.gov/itl/ai-risk-management-framework
         tier: official-doc
     draft: true

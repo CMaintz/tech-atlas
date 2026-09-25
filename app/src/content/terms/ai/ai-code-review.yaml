@@ -16,8 +16,8 @@ body:
     en: The use of a large language model, triggered when a change is proposed in version control, to read the changed lines with their surrounding code and post comments that point out likely bugs, security weaknesses and unclear parts, as an addition to review by people.
     da: Brugen af en stor sprogmodel, der sættes i gang, når en ændring foreslås i versionsstyring, til at læse de ændrede linjer og koden omkring dem og skrive kommentarer om sandsynlige fejl, sikkerhedssvagheder og uklare steder, som en tilføjelse til menneskers gennemgang.
   plain:
-    en: Like a proof-reader who checks every letter before it is posted — quick to spot slips, sometimes fussy about nothing, and never the one who signs it.
-    da: Som en korrekturlæser, der tjekker hvert brev, før det sendes — hurtig til at fange smuttere, af og til pernitten over ingenting og aldrig den, der skriver under.
+    en: Like a proof-reader who checks every letter before it is posted - quick to spot slips, sometimes fussy about nothing, and never the one who signs it.
+    da: Som en korrekturlæser, der tjekker hvert brev, før det sendes - hurtig til at fange smuttere, af og til pernitten over ingenting og aldrig den, der skriver under.
   inPractice:
     en: At a software house building a school portal, a developer opens a change request; within a minute an AI reviewer notes that a new search field goes straight into a database query, and the senior developer confirms it and sends the change back.
     da: Hos et softwarehus, der bygger en skoleportal, åbner en udvikler en ændringsanmodning; inden for et minut påpeger en AI-gennemgang, at et nyt søgefelt sendes direkte ind i en databaseforespørgsel, og seniorudvikleren bekræfter det og sender ændringen tilbage.
@@ -66,8 +66,8 @@ edges:
   mitigates:
     - to: vulnerability
       why:
-        en: It can spot common security slips, such as unchecked input, before they are merged — though it misses others and must not be the only check.
-        da: Den kan fange almindelige sikkerhedsfejl, som ukontrolleret input, før de flettes ind — men den overser andre og må ikke være det eneste tjek.
+        en: It can spot common security slips, such as unchecked input, before they are merged - though it misses others and must not be the only check.
+        da: Den kan fange almindelige sikkerhedsfejl, som ukontrolleret input, før de flettes ind - men den overser andre og må ikke være det eneste tjek.
       strength: normal
       confidence: medium
   causes:
@@ -81,7 +81,7 @@ sources:
   - title: OWASP Top 10 for Large Language Model Applications 2025
     tier: reference
     publisher: OWASP
-  - title: NIST SP 800-218 — Secure Software Development Framework (SSDF) Version 1.1
+  - title: NIST SP 800-218 - Secure Software Development Framework (SSDF) Version 1.1
     tier: standard
     publisher: NIST
 draft: true

@@ -14,11 +14,11 @@ summary:
   da: Et fast sæt sikkerhedstrin bygget ind i alle faser af softwareudvikling, fra planlægning og design over test til frigivelse.
 body:
   formal:
-    en: A development process that adds set security activities to each phase — security requirements at planning, threat modelling at design, secure coding rules and code review while building, security testing before release, and a plan for handling flaws found afterwards.
-    da: En udviklingsproces, der tilføjer faste sikkerhedsaktiviteter til hver fase — sikkerhedskrav ved planlægning, trusselsmodellering ved design, regler for sikker kode og kodegennemgang under udviklingen, sikkerhedstest før frigivelse og en plan for at håndtere fejl, der findes bagefter.
+    en: A development process that adds set security activities to each phase - security requirements at planning, threat modelling at design, secure coding rules and code review while building, security testing before release, and a plan for handling flaws found afterwards.
+    da: En udviklingsproces, der tilføjer faste sikkerhedsaktiviteter til hver fase - sikkerhedskrav ved planlægning, trusselsmodellering ved design, regler for sikker kode og kodegennemgang under udviklingen, sikkerhedstest før frigivelse og en plan for at håndtere fejl, der findes bagefter.
   plain:
-    en: Like the checks a new building must pass at each stage — drawings approved, foundation inspected, wiring tested — instead of one inspection when it is already finished.
-    da: Som de tjek, en ny bygning skal igennem undervejs — tegninger godkendt, fundament inspiceret, de elektriske ledninger testet — i stedet for én inspektion, når huset står færdigt.
+    en: Like the checks a new building must pass at each stage - drawings approved, foundation inspected, wiring tested - instead of one inspection when it is already finished.
+    da: Som de tjek, en ny bygning skal igennem undervejs - tegninger godkendt, fundament inspiceret, de elektriske ledninger testet - i stedet for én inspektion, når huset står færdigt.
   inPractice:
     en: A software house building a case system for a ministry will not hand over a new version until the design has a threat model, the code has passed review and automatic scans, and a tester has signed off; flaws found later follow a set fix-and-notify routine.
     da: Et softwarehus, der udvikler et sagssystem til et ministerium, afleverer ikke en ny version, før designet har en trusselsmodel, koden har bestået gennemgang og automatiske scanninger, og en tester har godkendt; fejl, der findes senere, følger en fast rutine for rettelse og besked til kunden.
@@ -63,7 +63,7 @@ sources:
     tier: official-doc
     publisher: Microsoft
     url: https://www.microsoft.com/en-us/securityengineering/sdl
-  - title: NIST SP 800-218 — Secure Software Development Framework (SSDF)
+  - title: NIST SP 800-218 - Secure Software Development Framework (SSDF)
     tier: standard
     publisher: NIST
     url: https://csrc.nist.gov/pubs/sp/800/218/final

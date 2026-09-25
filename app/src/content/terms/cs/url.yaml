@@ -14,11 +14,11 @@ summary:
   da: En skrevet adresse, der fortæller, hvor noget ligger på internettet, og hvordan man når frem til det, fx en webside eller en fil.
 body:
   formal:
-    en: A text string with fixed parts in a fixed order — the protocol to use, such as https, then the host name, an optional port, a path, an optional query and an optional fragment — that together point to one thing on a network.
-    da: En tekststreng med faste dele i fast rækkefølge — protokollen, fx https, derefter værtsnavnet, en valgfri port, en sti, en valgfri forespørgsel og en valgfri henvisning til et sted på siden — som tilsammen peger på én ting på et netværk.
+    en: A text string with fixed parts in a fixed order - the protocol to use, such as https, then the host name, an optional port, a path, an optional query and an optional fragment - that together point to one thing on a network.
+    da: En tekststreng med faste dele i fast rækkefølge - protokollen, fx https, derefter værtsnavnet, en valgfri port, en sti, en valgfri forespørgsel og en valgfri henvisning til et sted på siden - som tilsammen peger på én ting på et netværk.
   plain:
-    en: Like a postal address with a delivery note — the town and street get you to the building, and the rest says which flat and which letter box.
-    da: Som en postadresse med en leveringsbesked — by og gade fører dig til bygningen, og resten siger, hvilken lejlighed og hvilken postkasse.
+    en: Like a postal address with a delivery note - the town and street get you to the building, and the rest says which flat and which letter box.
+    da: Som en postadresse med en leveringsbesked - by og gade fører dig til bygningen, og resten siger, hvilken lejlighed og hvilken postkasse.
   inPractice:
     en: A clerk at an accounting firm holds the mouse over a link in a mail that claims to come from the tax authority, sees that the host name belongs to an unknown site, and reports the mail instead of clicking.
     da: En medarbejder i et revisionsfirma holder musen over et link i en mail, der påstår at komme fra Skattestyrelsen, ser, at værtsnavnet tilhører et ukendt site, og anmelder mailen i stedet for at klikke.
@@ -53,11 +53,11 @@ edges:
       confidence: high
     - web-application
 sources:
-  - title: RFC 3986 — Uniform Resource Identifier (URI) Generic Syntax
+  - title: RFC 3986 - Uniform Resource Identifier (URI) Generic Syntax
     tier: standard
     publisher: IETF
     url: https://www.rfc-editor.org/rfc/rfc3986
-  - title: MDN Web Docs — What is a URL?
+  - title: MDN Web Docs - What is a URL?
     tier: official-doc
     publisher: Mozilla
     url: https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/What_is_a_URL

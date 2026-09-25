@@ -32,7 +32,7 @@ questions:
       en: >-
         Self-attention compares every position with every other position in a single
         step, so Vaswani et al. note that the path between any two tokens has constant
-        length, however far apart they are — page 3 and page 97 are one step from the
+        length, however far apart they are - page 3 and page 97 are one step from the
         question. The price is that the work per layer grows with the square of the
         input length, which is why long inputs are costly. Carrying a running memory
         word by word is how a recurrent network works, and distant details fade along
@@ -42,7 +42,7 @@ questions:
       da: >-
         Self-attention sammenligner hver position med alle andre i ét trin, så Vaswani
         m.fl. påpeger, at vejen mellem to tokens har konstant længde, uanset hvor langt
-        de står fra hinanden — side 3 og side 97 er kun ét skridt fra spørgsmålet.
+        de står fra hinanden - side 3 og side 97 er kun ét skridt fra spørgsmålet.
         Prisen er, at arbejdet i hvert lag vokser med kvadratet på inputtets længde, og
         derfor er lange input dyre. At bære en løbende hukommelse med ord for ord er
         sådan, et rekurrent netværk arbejder, og fjerne detaljer udviskes undervejs. Et
@@ -86,7 +86,7 @@ questions:
         Labelling a whole email is an understanding task, and encoder-only models such
         as BERT are built for it: their attention sees every word in the input in both
         directions, and a small output layer on top turns that into a class. A
-        decoder-only model is auto-regressive — each token sees only what came before —
+        decoder-only model is auto-regressive - each token sees only what came before -
         which suits writing text, but here nothing needs to be written, so it is more
         model than the job needs. Starting from noise and cleaning it up step by step is
         how diffusion models generate images. The largest chat models can classify too,
@@ -95,17 +95,17 @@ questions:
         At mærke en hel mail er en forståelsesopgave, og rene encoder-modeller som BERT
         er bygget til den: Deres attention ser alle ord i inputtet i begge retninger, og
         et lille outputlag ovenpå gør det til en kategori. En ren decoder-model er
-        autoregressiv — hvert token ser kun det, der kom før — hvilket passer til at
+        autoregressiv - hvert token ser kun det, der kom før - hvilket passer til at
         skrive tekst, men her skal intet skrives, så den er mere model, end opgaven
         kræver. At starte fra støj og rense den trin for trin er sådan, diffusionsmodeller
         laver billeder. De største chatmodeller kan også klassificere, men "altid bedre"
         overser den pris og hastighed, selskabet spurgte til.
     difficulty: 2
     sources:
-      - title: Devlin et al. (2019), BERT — Pre-training of Deep Bidirectional Transformers for Language Understanding
+      - title: Devlin et al. (2019), BERT - Pre-training of Deep Bidirectional Transformers for Language Understanding
         url: https://arxiv.org/abs/1810.04805
         tier: reference
-      - title: Hugging Face LLM Course, chapter 1 — Transformer architectures
+      - title: Hugging Face LLM Course, chapter 1 - Transformer architectures
         url: https://huggingface.co/learn/llm-course/chapter1/6
         tier: course-material
     draft: true
@@ -136,7 +136,7 @@ questions:
       en: >-
         False. Routing each token to a few experts cuts the computation per token, not
         the memory: the router can pick any expert for the next token, so every expert
-        must be loaded. Hugging Face's explanation of Mixtral 8x7B puts it plainly — it
+        must be loaded. Hugging Face's explanation of Mixtral 8x7B puts it plainly - it
         needs enough VRAM to hold a dense model of about 47 billion parameters, while
         its speed is closer to that of a 12-billion-parameter model. The Switch
         Transformer paper describes the same trade: a huge number of parameters at a
@@ -145,17 +145,17 @@ questions:
         Falsk. At sende hvert token til få eksperter sparer beregning pr. token, ikke
         hukommelse: Routeren kan vælge en hvilken som helst ekspert til det næste token,
         så alle eksperter skal være indlæst. Hugging Faces forklaring af Mixtral 8x7B
-        siger det ligeud — den kræver VRAM nok til en tæt model på omkring 47 milliarder
+        siger det ligeud - den kræver VRAM nok til en tæt model på omkring 47 milliarder
         parametre, mens hastigheden minder mere om en model med 12 milliarder. Switch
         Transformer-artiklen beskriver den samme afvejning: et enormt antal parametre til
         en nogenlunde konstant beregningspris pr. token.
     difficulty: 3
     sources:
-      - title: Hugging Face blog — Mixture of Experts Explained
+      - title: Hugging Face blog - Mixture of Experts Explained
         url: https://huggingface.co/blog/moe
         tier: official-doc
       - title: >-
-          Fedus, Zoph & Shazeer (2021), Switch Transformers — Scaling to Trillion
+          Fedus, Zoph & Shazeer (2021), Switch Transformers - Scaling to Trillion
           Parameter Models with Simple and Efficient Sparsity
         url: https://arxiv.org/abs/2101.03961
         tier: reference
@@ -190,7 +190,7 @@ questions:
       en: >-
         A convolutional layer looks at small local patches and shares the same filter
         weights across the whole image, on the idea (as Stanford's CS231n notes put it)
-        that a feature useful at one position is useful at another — so a crack is found
+        that a feature useful at one position is useful at another - so a crack is found
         wherever it appears, with far fewer weights to learn. Connecting every pixel to
         every neuron is the fully connected design the developer rejected: for a
         200×200 colour image that is 120,000 weights per neuron, which does not scale.
@@ -200,7 +200,7 @@ questions:
       da: >-
         Et foldningslag ser på små lokale felter og deler de samme filtervægte over hele
         billedet ud fra idéen (som Stanfords CS231n-noter formulerer det), at et træk, der
-        er nyttigt ét sted, også er nyttigt et andet — så en revne findes, uanset hvor
+        er nyttigt ét sted, også er nyttigt et andet - så en revne findes, uanset hvor
         den sidder, med langt færre vægte at lære. At forbinde hver pixel til hver neuron
         er netop det fuldt forbundne design, udvikleren fravalgte: For et 200×200
         farvebillede giver det 120.000 vægte pr. neuron, og det skalerer ikke. At skabe
@@ -209,7 +209,7 @@ questions:
         forhånd.
     difficulty: 1
     sources:
-      - title: Stanford CS231n — Convolutional Neural Networks for Visual Recognition, course notes
+      - title: Stanford CS231n - Convolutional Neural Networks for Visual Recognition, course notes
         url: https://cs231n.github.io/convolutional-networks/
         tier: course-material
     draft: true
@@ -242,7 +242,7 @@ questions:
     explanation:
       en: >-
         When the model's weights are published, the hospital can download them and run
-        the model on its own servers, so the records never leave its network — the US
+        the model on its own servers, so the records never leave its network - the US
         NTIA report on widely available model weights notes that such models let users
         work without sharing data with third parties. A cloud API sends every record to
         the provider, and a strict prompt does not change where the data goes. Having
@@ -252,7 +252,7 @@ questions:
         still goes to an outside service.
       da: >-
         Når modellens vægte er offentliggjort, kan hospitalet hente dem ned og køre
-        modellen på egne servere, så journalerne aldrig forlader dets netværk — den
+        modellen på egne servere, så journalerne aldrig forlader dets netværk - den
         amerikanske NTIA-rapport om frit tilgængelige modelvægte påpeger, at sådanne
         modeller kan bruges uden at dele data med tredjeparter. Et cloud-API sender hver
         journal til leverandøren, og en streng prompt ændrer ikke, hvor data havner. Lader
@@ -262,7 +262,7 @@ questions:
         stadig til en ekstern tjeneste.
     difficulty: 2
     sources:
-      - title: NTIA — Dual-Use Foundation Models with Widely Available Model Weights Report
+      - title: NTIA - Dual-Use Foundation Models with Widely Available Model Weights Report
         url: https://www.ntia.gov/programs-and-initiatives/artificial-intelligence/open-model-weights-report
         tier: official-doc
     draft: true
@@ -294,7 +294,7 @@ questions:
       en: >-
         In an embedding space, the distance between two items can be read as a measure
         of how similar the model thinks they are, as Google's Machine Learning Crash
-        Course explains — so "sick leave" and "absence due to illness" should sit close
+        Course explains - so "sick leave" and "absence due to illness" should sit close
         together even though they share almost no words, while "parking permit" lies far
         away. Closeness is not about spelling or length; that is what word matching
         looks at. The numbers do not record where phrases stood in the training data
@@ -302,7 +302,7 @@ questions:
         likely, not the same list every time.
       da: >-
         I et embedding-rum kan afstanden mellem to elementer læses som et mål for, hvor
-        ens modellen opfatter dem, som Googles Machine Learning Crash Course forklarer —
+        ens modellen opfatter dem, som Googles Machine Learning Crash Course forklarer -
         så "sygefravær" og "fravær på grund af sygdom" bør ligge tæt, selvom de næsten
         ingen ord har til fælles, mens "parkeringstilladelse" ligger langt væk. Nærhed
         handler ikke om stavning eller længde; det er, hvad ordmatch ser på. Tallene
@@ -311,7 +311,7 @@ questions:
         liste hver gang.
     difficulty: 1
     sources:
-      - title: Google Machine Learning Crash Course — Embeddings, Embedding space and static embeddings
+      - title: Google Machine Learning Crash Course - Embeddings, Embedding space and static embeddings
         url: https://developers.google.com/machine-learning/crash-course/embeddings/embedding-space
         tier: course-material
     draft: true

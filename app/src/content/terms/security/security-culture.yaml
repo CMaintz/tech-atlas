@@ -52,9 +52,9 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
-  - title: ENISA — Cyber Security Culture in Organisations
+  - title: ENISA - Cyber Security Culture in Organisations
     tier: official-doc
     publisher: ENISA
     url: https://www.enisa.europa.eu/publications/cyber-security-culture-in-organisations

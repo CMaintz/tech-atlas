@@ -9,21 +9,21 @@ cluster: fundamentals
 layer: governance
 status: current
 summary:
-  en: Living up to the laws, rules and standards that apply — for example NIS2, GDPR or ISO 27001.
-  da: At leve op til gældende regler, lovgivning og standarder — fx NIS2, GDPR og ISO 27001.
+  en: Living up to the laws, rules and standards that apply - for example NIS2, GDPR or ISO 27001.
+  da: At leve op til gældende regler, lovgivning og standarder - fx NIS2, GDPR og ISO 27001.
 body:
   formal:
     en: The state of meeting the requirements set by laws, contracts, standards and the organisation's own policies, and being able to show proof that they are met.
-    da: Tilstanden, hvor man opfylder de krav, der stilles af lovgivning, kontrakter, standarder og organisationens egne politikker — og kan dokumentere, at de er opfyldt.
+    da: Tilstanden, hvor man opfylder de krav, der stilles af lovgivning, kontrakter, standarder og organisationens egne politikker - og kan dokumentere, at de er opfyldt.
   plain:
-    en: Like a car passing its road-worthiness check — it proves the car meets the rules, but not that it is driven safely.
-    da: Som en bil, der består synet — det beviser, at bilen overholder reglerne, men ikke at den bliver kørt sikkert.
+    en: Like a car passing its road-worthiness check - it proves the car meets the rules, but not that it is driven safely.
+    da: Som en bil, der består synet - det beviser, at bilen overholder reglerne, men ikke at den bliver kørt sikkert.
   inPractice:
     en: Before the yearly audit, the compliance officer at a Danish pension fund gathers proof that backups have been test-restored and that every employee has completed the required security training.
     da: Før den årlige audit samler den complianceansvarlige i en pensionskasse dokumentation for, at backupper er blevet prøvegendannet, og at alle medarbejdere har gennemført den obligatoriske sikkerhedstræning.
   whyItMatters:
-    en: Failing to comply can mean fines, lost customers and personal liability for managers — and requirements often force needed work that would otherwise be put off.
-    da: Manglende compliance kan betyde bøder, tabte kunder og personligt ansvar for ledelsen — og kravene tvinger ofte nødvendigt arbejde igennem, som ellers ville blive udskudt.
+    en: Failing to comply can mean fines, lost customers and personal liability for managers - and requirements often force needed work that would otherwise be put off.
+    da: Manglende compliance kan betyde bøder, tabte kunder og personligt ansvar for ledelsen - og kravene tvinger ofte nødvendigt arbejde igennem, som ellers ville blive udskudt.
 deepDive:
   en: |-
     Compliance has three sources of obligation with different consequences. Law and regulation, such as GDPR, NIS2 as transposed in Denmark by the NIS2 law in force since 1 July 2025, DORA for financial entities since 17 January 2025, and sector rules, are enforced by authorities with fines and orders. Contracts, such as data processing agreements under GDPR Art. 28, customer security schedules and PCI DSS for card data, are enforced by counterparties. Voluntary standards such as ISO/IEC 27001 bind only once the organisation commits to them, although Danish state authorities have been required to follow ISO/IEC 27001 since 2014. ISO/IEC 27002:2022 controls 5.31 (legal, statutory, regulatory and contractual requirements) and 5.36 (compliance with policies, rules and standards) require these obligations to be identified, kept current and checked.
@@ -56,12 +56,12 @@ edges:
     - gdpr
     - iso-27001
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
-  - title: ISO/IEC 27002:2022 — Control 5.36, Compliance with policies, rules and standards for information security
+  - title: ISO/IEC 27002:2022 - Control 5.36, Compliance with policies, rules and standards for information security
     tier: standard
     publisher: ISO/IEC
-  - title: Styrelsen for Samfundssikkerhed — Implementering af NIS 2 i dansk ret
+  - title: Styrelsen for Samfundssikkerhed - Implementering af NIS 2 i dansk ret
     tier: official-doc
     publisher: Styrelsen for Samfundssikkerhed
     url: https://samsik.dk/nis2/implementering-af-nis-2-i-dansk-ret/

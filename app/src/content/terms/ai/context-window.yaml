@@ -16,17 +16,17 @@ body:
     en: The fixed limit on how many tokens a language model can handle in one go; the prompt, earlier turns of the chat, added documents and the answer must all fit inside it.
     da: Den faste grænse for, hvor mange tokens en sprogmodel kan håndtere på én gang; prompten, tidligere dele af samtalen, tilføjede dokumenter og svaret skal alle være inden for den.
   plain:
-    en: Like the size of a desk — everything the model is working on has to fit on it, and when it is full, something has to be cleared away to make room.
-    da: Som størrelsen på et skrivebord — alt, modellen arbejder med, skal kunne ligge på det, og når det er fuldt, må noget ryddes væk for at gøre plads.
+    en: Like the size of a desk - everything the model is working on has to fit on it, and when it is full, something has to be cleared away to make room.
+    da: Som størrelsen på et skrivebord - alt, modellen arbejder med, skal kunne ligge på det, og når det er fuldt, må noget ryddes væk for at gøre plads.
   inPractice:
     en: A clerk in a region works with an AI assistant through a long afternoon; it starts ignoring the format rules given at the start, because the chat app has cut the oldest messages to keep the rest inside the context window.
     da: En medarbejder i en region arbejder med en AI-assistent en hel eftermiddag; den begynder at ignorere de formatregler, den fik i starten, fordi chat-appen har skåret de ældste beskeder fra for at holde resten inden for kontekstvinduet.
   whyItMatters:
-    en: It limits how much a model can weigh in one answer, and everything inside it — including text from a file nobody checked — shapes that answer.
-    da: Det begrænser, hvor meget en model kan tage højde for i ét svar, og alt, hvad der ligger i vinduet — også tekst fra en fil, ingen har tjekket — påvirker svaret.
+    en: It limits how much a model can weigh in one answer, and everything inside it - including text from a file nobody checked - shapes that answer.
+    da: Det begrænser, hvor meget en model kan tage højde for i ét svar, og alt, hvad der ligger i vinduet - også tekst fra en fil, ingen har tjekket - påvirker svaret.
 deepDive:
   en: |-
-    The context window is the maximum sequence length, in tokens, over which a transformer computes attention in one forward pass. Input and output share the same budget: a model with a 200,000-token window that is asked for up to 8,000 output tokens can accept at most 192,000 tokens of input, and APIs reject or truncate requests that exceed it. Everything counts — system prompt, tool definitions, earlier turns, retrieved documents, images converted to tokens and, for reasoning models, the hidden reasoning tokens generated during the current turn.
+    The context window is the maximum sequence length, in tokens, over which a transformer computes attention in one forward pass. Input and output share the same budget: a model with a 200,000-token window that is asked for up to 8,000 output tokens can accept at most 192,000 tokens of input, and APIs reject or truncate requests that exceed it. Everything counts - system prompt, tool definitions, earlier turns, retrieved documents, images converted to tokens and, for reasoning models, the hidden reasoning tokens generated during the current turn.
 
     The limit has three technical sources. Self-attention compares every token with every other token, so naive compute and memory grow quadratically with sequence length; kernels such as FlashAttention (Dao et al., 2022) reduce memory traffic but not the quadratic compute. Positional information must generalise: models trained with rotary position embeddings (RoPE) or ALiBi are usually pretrained on shorter sequences and then extended by continued training on long documents combined with rescaling of the positional frequencies. Finally, during generation the KV cache stores a key and a value vector per token, per layer and per KV head, so its size grows linearly with context length and often dominates GPU memory; grouped-query attention and cache quantisation exist largely to shrink it.
 
@@ -34,7 +34,7 @@ deepDive:
 
     Applications manage the window explicitly. Chat front-ends drop or summarise the oldest turns (the failure in this term's example), agents compact long histories into summaries or offload notes to external memory, and RAG systems insert only the top-ranked chunks. Prompt caching reuses the computed prefix across calls to cut latency and cost but does not enlarge the window. The context window is also distinct from memory features that persist between sessions: those work by writing text to storage and re-inserting it into a later context, so they consume the same budget and inherit the same prompt-injection exposure as any other text placed there.
   da: |-
-    Kontekstvinduet er den maksimale sekvenslængde, målt i tokens, som en transformer beregner attention over i ét forward pass. Input og output deler samme budget: En model med et vindue på 200.000 tokens, der bedes om op til 8.000 output-tokens, kan højst modtage 192.000 tokens input, og API'er afviser eller afkorter kald, der overskrider grænsen. Alt tæller med — systemprompt, værktøjsdefinitioner, tidligere beskeder, hentede dokumenter, billeder omsat til tokens og, for ræsonnementsmodeller, de skjulte ræsonnements-tokens, der genereres i den aktuelle tur.
+    Kontekstvinduet er den maksimale sekvenslængde, målt i tokens, som en transformer beregner attention over i ét forward pass. Input og output deler samme budget: En model med et vindue på 200.000 tokens, der bedes om op til 8.000 output-tokens, kan højst modtage 192.000 tokens input, og API'er afviser eller afkorter kald, der overskrider grænsen. Alt tæller med - systemprompt, værktøjsdefinitioner, tidligere beskeder, hentede dokumenter, billeder omsat til tokens og, for ræsonnementsmodeller, de skjulte ræsonnements-tokens, der genereres i den aktuelle tur.
 
     Grænsen har tre tekniske årsager. Self-attention sammenligner hvert token med alle andre, så naivt regnearbejde og hukommelse vokser kvadratisk med sekvenslængden; kerner som FlashAttention (Dao m.fl., 2022) reducerer hukommelsestrafikken, men ikke det kvadratiske regnearbejde. Positionsinformationen skal kunne generalisere: Modeller med rotary position embeddings (RoPE) eller ALiBi fortrænes typisk på kortere sekvenser og udvides derefter med fortsat træning på lange dokumenter kombineret med omskalering af positionsfrekvenserne. Endelig gemmer KV-cachen under generering en key- og en value-vektor pr. token, pr. lag og pr. KV-hoved, så den vokser lineært med kontekstlængden og fylder ofte mest i GPU-hukommelsen; grouped-query attention og kvantisering af cachen findes i høj grad for at gøre den mindre.
 
@@ -53,8 +53,8 @@ edges:
       confidence: high
     - to: knowledge-cutoff
       why:
-        en: The context window is what the model can read right now; the knowledge cutoff is where its built-in knowledge stops — new facts can only get in through the window.
-        da: Kontekstvinduet er, hvad modellen kan læse lige nu; vidensgrænsen er, hvor dens indbyggede viden stopper — nye fakta kan kun komme ind gennem vinduet.
+        en: The context window is what the model can read right now; the knowledge cutoff is where its built-in knowledge stops - new facts can only get in through the window.
+        da: Kontekstvinduet er, hvad modellen kan læse lige nu; vidensgrænsen er, hvor dens indbyggede viden stopper - nye fakta kan kun komme ind gennem vinduet.
       strength: normal
       confidence: medium
   used-with:
@@ -67,7 +67,7 @@ edges:
 sources:
   - title: Vaswani et al. (2017), Attention Is All You Need
     tier: reference
-  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile
+  - title: NIST AI 600-1 - Artificial Intelligence Risk Management Framework, Generative AI Profile
     tier: standard
     publisher: NIST
 draft: true

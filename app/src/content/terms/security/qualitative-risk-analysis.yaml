@@ -13,11 +13,11 @@ summary:
   da: At vurdere risici med ord eller enkle skalaer, fx lav, middel og høj, ud fra skøn frem for præcise tal.
 body:
   formal:
-    en: A risk assessment method that scores likelihood and impact on ordered scales (for example 1–5 or low–high), usually by the judgement of people who know the systems, and often shows the result in a heat map.
-    da: En metode til risikoanalyse, der vurderer sandsynlighed og konsekvens på ordnede skalaer (fx 1–5 eller lav–høj), typisk ud fra skøn fra folk, der kender systemerne, og ofte viser resultatet i et heat-map.
+    en: A risk assessment method that scores likelihood and impact on ordered scales (for example 1-5 or low-high), usually by the judgement of people who know the systems, and often shows the result in a heat map.
+    da: En metode til risikoanalyse, der vurderer sandsynlighed og konsekvens på ordnede skalaer (fx 1-5 eller lav-høj), typisk ud fra skøn fra folk, der kender systemerne, og ofte viser resultatet i et heat-map.
   plain:
-    en: Like a mountain guide calling a slope "probably fine, but deadly if it slides" — quick and useful, even without an exact percentage.
-    da: Som når en bjergfører kalder en skråning "nok i orden, men livsfarlig hvis den skrider" — hurtigt og brugbart, selv uden en præcis procentsats.
+    en: Like a mountain guide calling a slope "probably fine, but deadly if it slides" - quick and useful, even without an exact percentage.
+    da: Som når en bjergfører kalder en skråning "nok i orden, men livsfarlig hvis den skrider" - hurtigt og brugbart, selv uden en præcis procentsats.
   inPractice:
     en: The partners of an architect firm rate "a laptop with client drawings is left on the train" as medium likelihood and high impact, colour it orange on the chart and add one line on why.
     da: Partnerne i en arkitektvirksomhed vurderer "en bærbar med kundernes tegninger bliver glemt i toget" til middel sandsynlighed og høj konsekvens, farver den orange i skemaet og skriver én linje om hvorfor.
@@ -28,7 +28,7 @@ deepDive:
   en: |-
     Qualitative analysis stands or falls with its scale definitions, which ISO 31000:2018 and ISO/IEC 27005:2022 treat as part of the risk criteria agreed before any scoring. Each level needs an anchored descriptor, not a bare word: likelihood tied to frequency bands or expected occurrences over a time window, consequence tied to thresholds per impact type, such as revenue lost, hours of outage, records exposed or regulatory sanction. Without anchors, "likely" is read very differently by different people; research on verbal probability expressions, going back to Sherman Kent's work on estimative language at the CIA, shows wide spread in the numeric probability people attach to the same word.
 
-    NIST SP 800-30 Rev. 1 gives the most detailed public template. Appendix D rates adversarial threat sources on capability, intent and targeting; Appendix G builds overall likelihood from the likelihood of a threat event being initiated or occurring and the likelihood of it resulting in adverse impact; Appendix H covers impact; and Appendix I combines the two into a risk level. Each scale has five levels, Very Low to Very High, with optional semi-quantitative equivalents on a 0–100 or 0–10 range. Semi-quantitative scoring is still ordinal judgement expressed as numbers, and arithmetic on it inherits the weaknesses of heat-map multiplication.
+    NIST SP 800-30 Rev. 1 gives the most detailed public template. Appendix D rates adversarial threat sources on capability, intent and targeting; Appendix G builds overall likelihood from the likelihood of a threat event being initiated or occurring and the likelihood of it resulting in adverse impact; Appendix H covers impact; and Appendix I combines the two into a risk level. Each scale has five levels, Very Low to Very High, with optional semi-quantitative equivalents on a 0-100 or 0-10 range. Semi-quantitative scoring is still ordinal judgement expressed as numbers, and arithmetic on it inherits the weaknesses of heat-map multiplication.
 
     Reliability depends on process. Scores should come from people who know the systems and the business, ideally scored independently first and then discussed, as in a Delphi round, so that anchoring on the most senior voice is reduced. Recording a confidence level and a one-line rationale per rating makes later review possible and exposes guessing. Consistency across business units requires shared scales and occasional calibration sessions where teams score the same reference scenarios.
 
@@ -52,8 +52,8 @@ edges:
       strength: primary
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 5
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 5
     tier: course-material
-  - title: NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments
+  - title: NIST SP 800-30 Rev. 1 - Guide for Conducting Risk Assessments
     tier: standard
 draft: true

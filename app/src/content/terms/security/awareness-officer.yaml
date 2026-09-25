@@ -13,17 +13,17 @@ summary:
   da: Den person, der har ansvaret for at lære medarbejderne at opdage og undgå angreb og for at måle, om deres vaner faktisk ændrer sig.
 body:
   formal:
-    en: A role that plans, runs and evaluates the organisation's awareness and training work — choosing target groups, messages and methods, running phishing simulations, and reporting results against agreed measures.
-    da: En rolle, der planlægger, gennemfører og evaluerer organisationens awareness- og træningsarbejde — vælger målgrupper, budskaber og metoder, kører phishing-simuleringer og rapporterer resultater mod aftalte mål.
+    en: A role that plans, runs and evaluates the organisation's awareness and training work - choosing target groups, messages and methods, running phishing simulations, and reporting results against agreed measures.
+    da: En rolle, der planlægger, gennemfører og evaluerer organisationens awareness- og træningsarbejde - vælger målgrupper, budskaber og metoder, kører phishing-simuleringer og rapporterer resultater mod aftalte mål.
   plain:
-    en: Like the dental nurse who teaches children to brush — the aim is fewer holes later, and the next check-up shows whether the lesson stuck.
-    da: Som tandplejeren, der lærer børn at børste tænder — målet er færre huller senere, og det næste eftersyn viser, om lektien har sat sig.
+    en: Like the dental nurse who teaches children to brush - the aim is fewer holes later, and the next check-up shows whether the lesson stuck.
+    da: Som tandplejeren, der lærer børn at børste tænder - målet er færre huller senere, og det næste eftersyn viser, om lektien har sat sig.
   inPractice:
     en: At a Danish wholesale company, the awareness officer sees that the warehouse team rarely reports fake emails, so she runs a ten-minute session at their morning meeting instead of sending another online course.
     da: I en dansk engrosvirksomhed ser den awareness-ansvarlige, at lagerholdet sjældent melder falske mails, så hun holder ti minutter om det på deres morgenmøde i stedet for at sende endnu et onlinekursus.
   whyItMatters:
-    en: Attacks aimed at people keep changing, so someone must own the job of keeping staff ready — NIS2 even requires training for management.
-    da: Angreb rettet mod mennesker ændrer sig hele tiden, så nogen skal eje opgaven med at holde medarbejderne klar — NIS2 kræver endda træning af ledelsen.
+    en: Attacks aimed at people keep changing, so someone must own the job of keeping staff ready - NIS2 even requires training for management.
+    da: Angreb rettet mod mennesker ændrer sig hele tiden, så nogen skal eje opgaven med at holde medarbejderne klar - NIS2 kræver endda træning af ledelsen.
 deepDive:
   en: |-
     NIST SP 800-50 Rev. 1 (September 2024), which supersedes SP 800-50 (2003) and SP 800-16 (1998), is the most detailed public description of the role, calling it the CPLP manager (Cybersecurity and Privacy Learning Program manager). Section 1.6.3 gives it tactical responsibility: interpreting legislation and policy with subject-matter experts, producing timely material for defined audiences, choosing dissemination channels, collecting learner feedback, reviewing content periodically, setting up tracking and reporting, identifying staff with significant security or privacy responsibilities, and reporting goals and metrics to a senior leadership committee. Strategy, budget and accountability stay with the head of the organisation and senior leadership, which is the right split: the officer runs the programme but does not own the risk.
@@ -46,11 +46,11 @@ edges:
   requires: [awareness-programme]
   used-with: [phishing-simulation]
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Kursistens udbytte og Modul 2
+  - title: Cyber Security Fast Track - Kursuskompendium, Kursistens udbytte og Modul 2
     tier: course-material
-  - title: NIST SP 800-50 Rev. 1 — Building a Cybersecurity and Privacy Learning Program
+  - title: NIST SP 800-50 Rev. 1 - Building a Cybersecurity and Privacy Learning Program
     tier: standard
-  - title: Regulation (EU) 2022/2554 (DORA) — Art. 13 Learning and evolving
+  - title: Regulation (EU) 2022/2554 (DORA) - Art. 13 Learning and evolving
     tier: standard
     publisher: EUR-Lex
     url: https://eur-lex.europa.eu/eli/reg/2022/2554/oj/eng

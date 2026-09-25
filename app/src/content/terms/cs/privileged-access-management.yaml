@@ -16,8 +16,8 @@ body:
     en: The controls and tooling that keep privileged account passwords in a guarded store, grant admin rights only for a set task and time after approval, and record each privileged session for later review.
     da: De kontroller og værktøjer, der opbevarer adgangskoder til privilegerede konti i et beskyttet lager, kun giver administratorrettigheder til en bestemt opgave og i en bestemt tid efter godkendelse, og optager hver privilegeret session til senere gennemgang.
   plain:
-    en: Like the key cabinet in a bank — the vault key is signed out for one job, the time is written down, a camera watches, and the key goes back afterwards.
-    da: Som nøgleskabet i en bank — nøglen til boksen kvitteres ud til én opgave, tidspunktet noteres, et kamera ser med, og nøglen afleveres bagefter.
+    en: Like the key cabinet in a bank - the vault key is signed out for one job, the time is written down, a camera watches, and the key goes back afterwards.
+    da: Som nøgleskabet i en bank - nøglen til boksen kvitteres ud til én opgave, tidspunktet noteres, et kamera ser med, og nøglen afleveres bagefter.
   inPractice:
     en: A database administrator at a pension fund asks for server rights to install an update; her manager approves, and the tool opens a recorded two-hour session with a one-time password, then closes it.
     da: En databaseadministrator i en pensionskasse beder om serverrettigheder for at installere en opdatering; hendes leder godkender, og værktøjet åbner en optaget session på to timer med en engangsadgangskode og lukker den bagefter.
@@ -59,10 +59,10 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: NIST SP 1800-18 — Privileged Account Management for the Financial Services Sector
+  - title: NIST SP 1800-18 - Privileged Account Management for the Financial Services Sector
     tier: standard
     publisher: NIST
-  - title: CIS Controls v8 — Control 5 (Account Management) and Control 6 (Access Control Management)
+  - title: CIS Controls v8 - Control 5 (Account Management) and Control 6 (Access Control Management)
     tier: standard
     publisher: Center for Internet Security
 draft: true

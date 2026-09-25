@@ -17,17 +17,17 @@ body:
     en: A method in a neural network where each token's embedding is compared with every other token's, the match scores are turned into shares that add up to one, and the token takes on a mix of the others weighted by those shares.
     da: En metode i et neuralt netværk, hvor hvert tokens embedding sammenlignes med alle andre tokens, matchscorerne laves om til andele, der tilsammen giver én, og tokenet optager en blanding af de andre vægtet efter de andele.
   plain:
-    en: Like following one friend at a noisy party — out of all the voices in the room you pick up the few that matter to what you are hearing and let the rest fade.
-    da: Som at følge med i, hvad én ven siger til en larmende fest — af alle stemmerne i rummet opfanger du de få, der har betydning, og lader resten glide i baggrunden.
+    en: Like following one friend at a noisy party - out of all the voices in the room you pick up the few that matter to what you are hearing and let the rest fade.
+    da: Som at følge med i, hvad én ven siger til en larmende fest - af alle stemmerne i rummet opfanger du de få, der har betydning, og lader resten glide i baggrunden.
   inPractice:
     en: A case officer in a municipality asks a chat assistant whether a 120-page local plan allows a garage; attention lets the question draw directly on the one paragraph, far back in the text, that settles it.
     da: En sagsbehandler i en kommune spørger en chatassistent, om en lokalplan på 120 sider tillader en carport; attention lader spørgsmålet trække direkte på det ene afsnit langt tilbage i teksten, der afgør sagen.
   whyItMatters:
-    en: Every token is compared with every other, so the work grows much faster than the length of the input — the main reason a longer context window costs more time and money.
-    da: Hvert token sammenlignes med alle de andre, så arbejdet vokser langt hurtigere end inputtets længde — hovedårsagen til, at et længere kontekstvindue koster mere tid og flere penge.
+    en: Every token is compared with every other, so the work grows much faster than the length of the input - the main reason a longer context window costs more time and money.
+    da: Hvert token sammenlignes med alle de andre, så arbejdet vokser langt hurtigere end inputtets længde - hovedårsagen til, at et længere kontekstvindue koster mere tid og flere penge.
 deepDive:
   en: |-
-    Attention was introduced by Bahdanau, Cho and Bengio (2014) as an alignment layer for recurrent encoder–decoder translation: instead of squeezing a source sentence into one fixed vector, the decoder computed a weighted average of all encoder states at each output step, with weights from a small feed-forward scoring network (additive attention). Luong et al. (2015) simplified the score to a dot product. Vaswani et al. (2017) then removed recurrence entirely and made attention the main operation of the transformer.
+    Attention was introduced by Bahdanau, Cho and Bengio (2014) as an alignment layer for recurrent encoder-decoder translation: instead of squeezing a source sentence into one fixed vector, the decoder computed a weighted average of all encoder states at each output step, with weights from a small feed-forward scoring network (additive attention). Luong et al. (2015) simplified the score to a dot product. Vaswani et al. (2017) then removed recurrence entirely and made attention the main operation of the transformer.
 
     The transformer form is scaled dot-product attention: Attention(Q, K, V) = softmax(QKᵀ / √d_k) V. Each token's hidden state is projected by learned matrices into a query, a key and a value vector; the query of token i is compared with the key of every token j, the scores are divided by √d_k so that the softmax does not saturate as the dimension grows, and the resulting weights mix the value vectors. Multi-head attention runs h such operations in parallel on lower-dimensional projections and concatenates them; the original base model used d_model = 512 with 8 heads of d_k = 64. Self-attention takes Q, K and V from the same sequence; cross-attention takes queries from one sequence (the decoder) and keys and values from another (the encoder output). A causal mask sets scores for future positions to −∞ so a decoder cannot look ahead. Attention itself is permutation-invariant, so position must be injected separately, originally with sinusoidal encodings and today usually with rotary position embeddings (RoPE) or relative biases such as ALiBi.
 

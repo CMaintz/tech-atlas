@@ -13,11 +13,11 @@ summary:
   da: En konto med mere magt end almindelig brug, fx til at installere software, ændre indstillinger eller administrere andre brugere.
 body:
   formal:
-    en: A user account granted permissions that can change the system itself or reach other users' data — for example a domain admin, root on a server or a cloud owner role — and which therefore needs tighter control than an ordinary account.
-    da: En brugerkonto med rettigheder, der kan ændre selve systemet eller nå andre brugeres data — fx en domæneadministrator, root på en server eller en ejerrolle i skyen — og som derfor kræver strammere kontrol end en almindelig konto.
+    en: A user account granted permissions that can change the system itself or reach other users' data - for example a domain admin, root on a server or a cloud owner role - and which therefore needs tighter control than an ordinary account.
+    da: En brugerkonto med rettigheder, der kan ændre selve systemet eller nå andre brugeres data - fx en domæneadministrator, root på en server eller en ejerrolle i skyen - og som derfor kræver strammere kontrol end en almindelig konto.
   plain:
-    en: Like the master key in a hotel that opens every room — handy for the manager, but a disaster if it is lost or copied.
-    da: Som hovednøglen på et hotel, der åbner alle værelser — praktisk for hotellets leder, men en katastrofe, hvis den bliver væk eller kopieret.
+    en: Like the master key in a hotel that opens every room - handy for the manager, but a disaster if it is lost or copied.
+    da: Som hovednøglen på et hotel, der åbner alle værelser - praktisk for hotellets leder, men en katastrofe, hvis den bliver væk eller kopieret.
   inPractice:
     en: An IT technician at a water utility has one normal account for email and web, and a separate admin account used only for installing updates, protected by MFA and logged each time it is used.
     da: En IT-tekniker på et vandværk har én almindelig konto til mail og web og en separat administratorkonto, der kun bruges til at installere opdateringer, er beskyttet med MFA og bliver logget, hver gang den bruges.
@@ -53,10 +53,10 @@ edges:
   used-with:
     - zero-trust
 sources:
-  - title: CIS Controls v8 — Control 5 (Account Management) and Control 6 (Access Control Management)
+  - title: CIS Controls v8 - Control 5 (Account Management) and Control 6 (Access Control Management)
     tier: standard
     publisher: Center for Internet Security
-  - title: NIST SP 800-53 Rev. 5 — AC-6 (Least Privilege)
+  - title: NIST SP 800-53 Rev. 5 - AC-6 (Least Privilege)
     tier: standard
     publisher: NIST
 draft: true

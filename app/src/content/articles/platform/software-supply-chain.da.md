@@ -1,5 +1,5 @@
 ---
-title: Softwareforsyningskæden — hvorfor jeres sikkerhed afhænger af kode, I ikke selv har skrevet
+title: Softwareforsyningskæden - hvorfor jeres sikkerhed afhænger af kode, I ikke selv har skrevet
 term: platform/software-supply-chain
 lang: da
 ---
@@ -41,17 +41,17 @@ Myndighederne reagerede. En amerikansk præsidentordre (executive order) fra 202
 
 ## Hvad betyder det for en organisation og en koordinator?
 
-Næsten alle organisationer er _forbrugere_ i softwareforsyningskæden, og mange er også _producenter_ – enhver virksomhed, der bygger en webshop, en app eller en integration. Koordinatorens opgave er at gøre begge roller synlige i risikoarbejdet.
+Næsten alle organisationer er _forbrugere_ i softwareforsyningskæden, og mange er også _producenter_ - enhver virksomhed, der bygger en webshop, en app eller en integration. Koordinatorens opgave er at gøre begge roller synlige i risikoarbejdet.
 
 Som forbruger er spørgsmålene: Hvilken software er vi afhængige af, hvem leverer den, hvordan sikrer de den, og hvor hurtigt får vi at vide, når noget i den er sårbart? Som producent: Hvilke komponenter bruger vi, er vores pipeline beskyttet, og kan vi inden for et døgn fortælle en kunde, om vi er ramt af en ny sårbarhed? NIS2's artikel 21, stk. 2, litra d (forsyningskædesikkerhed) og litra e (sikkerhed ved anskaffelse, udvikling og vedligeholdelse) dækker begge sider.
 
 ### Et eksempel fra praksis
 
-Clara er GRC-studerende i en dansk virksomhed, der laver bookingsoftware til tandlægeklinikker. En nyhed breder sig om angribere, der brød ind i en softwareproducents byggesystem og gemte malware i en almindelig opdatering, som tusindvis af kunder derefter installerede, fordi den kom fra en betroet leverandør – mønstret fra begrebets definition. Direktøren spørger: "Kan det ske for os – eller gennem os?"
+Clara er GRC-studerende i en dansk virksomhed, der laver bookingsoftware til tandlægeklinikker. En nyhed breder sig om angribere, der brød ind i en softwareproducents byggesystem og gemte malware i en almindelig opdatering, som tusindvis af kunder derefter installerede, fordi den kom fra en betroet leverandør - mønstret fra begrebets definition. Direktøren spørger: "Kan det ske for os - eller gennem os?"
 
 Clara kortlægger kæden sammen med udviklingsteamet. Opstrøms bruger produktet omkring 900 open source-pakker; der er ingen SBOM, og ingen kan hurtigt sige, hvilke versioner der er i produktion. Byggepipelinen kører på en hostet CI-tjeneste med et langtidsholdbart token, der kan udgive versioner, gemt som en almindelig variabel. Nedstrøms installerer 300 klinikker opdateringer automatisk.
 
-Hun vurderer risikoen som høj – en kompromittering ville ramme alle kunder, og klinikkerne har helbredsoplysninger. Hendes forslag til plan: Generer en SBOM ved hvert build, og scan den for kendte sårbarheder; flyt udgivelsestokenet over i en løsning til håndtering af hemmeligheder med kortlivede adgangsoplysninger; kræv MFA og beskyttede branches for alle udviklere; signer udgivelser, så klinikkernes installationsprogram kan kontrollere dem; og tilføj de tre mest kritiske leverandører til leverandørgennemgangen. Hun noterer også, at installeret software, der sælges på EU-markedet, sandsynligvis falder ind under Cyberrobusthedsforordningen, så arbejdet samtidig er forberedelse til den. Ledelsen godkender en køreplan på seks måneder.
+Hun vurderer risikoen som høj - en kompromittering ville ramme alle kunder, og klinikkerne har helbredsoplysninger. Hendes forslag til plan: Generer en SBOM ved hvert build, og scan den for kendte sårbarheder; flyt udgivelsestokenet over i en løsning til håndtering af hemmeligheder med kortlivede adgangsoplysninger; kræv MFA og beskyttede branches for alle udviklere; signer udgivelser, så klinikkernes installationsprogram kan kontrollere dem; og tilføj de tre mest kritiske leverandører til leverandørgennemgangen. Hun noterer også, at installeret software, der sælges på EU-markedet, sandsynligvis falder ind under Cyberrobusthedsforordningen, så arbejdet samtidig er forberedelse til den. Ledelsen godkender en køreplan på seks måneder.
 
 ## Typiske misforståelser
 

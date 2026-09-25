@@ -16,8 +16,8 @@ body:
     en: The decision, made after authentication, whether a given identity may perform a given action on a given resource, based on its permissions, roles or other rules.
     da: Afgørelsen, der træffes efter autentificering, om en given identitet må udføre en bestemt handling på en bestemt ressource, ud fra dens rettigheder, roller eller andre regler.
   plain:
-    en: Like the coloured band on your wrist at a festival — the gate already knows who you are, and the colour decides whether you may go backstage.
-    da: Som armbåndet på en festival — indgangen ved allerede, hvem du er, og farven på armbåndet afgør, om du må komme backstage.
+    en: Like the coloured band on your wrist at a festival - the gate already knows who you are, and the colour decides whether you may go backstage.
+    da: Som armbåndet på en festival - indgangen ved allerede, hvem du er, og farven på armbåndet afgør, om du må komme backstage.
   inPractice:
     en: A case officer at a municipal citizen service desk is logged in, but when she tries to open the payroll folder, the system checks her permissions and refuses, because only HR staff may read it.
     da: En sagsbehandler i en kommunes borgerservice er logget ind, men da hun prøver at åbne lønmappen, tjekker systemet hendes rettigheder og afviser hende, fordi kun HR må læse den.

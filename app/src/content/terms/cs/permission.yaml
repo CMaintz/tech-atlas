@@ -16,8 +16,8 @@ body:
     en: A rule, kept by the operating system or an application, stating which account may perform which action on which thing. Anything not granted is refused.
     da: En regel, som styresystemet eller et program holder styr på, og som angiver, hvilken konto der må udføre hvilken handling på hvad. Alt, der ikke udtrykkeligt er givet lov til, bliver afvist.
   plain:
-    en: Like the keys on a caretaker's ring — each key opens particular doors, and the key to the boiler room does not open the office.
-    da: Som nøglerne på en viceværts nøglering — hver nøgle åbner bestemte døre, og nøglen til fyrrummet åbner ikke kontoret.
+    en: Like the keys on a caretaker's ring - each key opens particular doors, and the key to the boiler room does not open the office.
+    da: Som nøglerne på en viceværts nøglering - hver nøgle åbner bestemte døre, og nøglen til fyrrummet åbner ikke kontoret.
   inPractice:
     en: At an accounting firm, a student assistant's account may read the client folders but not change them, while a partner's account may do both. The difference is simply two different permissions.
     da: I et revisionsfirma må en studentermedhjælpers konto læse kundemapperne, men ikke ændre dem, mens en partners konto må begge dele. Forskellen er blot to forskellige rettigheder.

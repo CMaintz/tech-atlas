@@ -13,14 +13,14 @@ summary:
   da: Hurtig sortering af indkomne alarmer i reelle trusler, harmløs støj og sager, der kræver et nærmere kig, så de værste håndteres først.
 body:
   formal:
-    en: The first step of handling an alarm, in which an analyst checks its context, decides whether it points to a real security incident, gives it a priority and either closes it or passes it on — up to management when the harm could be serious.
-    da: Det første trin i håndteringen af en alarm, hvor en analytiker undersøger sammenhængen, afgør, om den peger på en reel sikkerhedshændelse, giver den en prioritet og enten lukker den eller sender den videre — helt op til ledelsen, når skaden kan blive alvorlig.
+    en: The first step of handling an alarm, in which an analyst checks its context, decides whether it points to a real security incident, gives it a priority and either closes it or passes it on - up to management when the harm could be serious.
+    da: Det første trin i håndteringen af en alarm, hvor en analytiker undersøger sammenhængen, afgør, om den peger på en reel sikkerhedshændelse, giver den en prioritet og enten lukker den eller sender den videre - helt op til ledelsen, når skaden kan blive alvorlig.
   plain:
     en: Like the nurse at a hospital's emergency desk who looks at everyone coming in and decides who sees a doctor now, who can wait, and who can go home.
     da: Som sygeplejersken i skadestuens modtagelse, der ser på alle, der kommer ind, og afgør, hvem der skal til lægen nu, hvem der kan vente, og hvem der kan gå hjem.
   inPractice:
-    en: Of forty overnight alarms in a region's SOC, the analyst closes thirty-five as a known backup job, groups four into one case about a single laptop, and sends the last — an admin login from abroad — straight to the on-call lead.
-    da: Af fyrre alarmer i en regions SOC i løbet af natten lukker analytikeren 35 som et kendt backupjob, samler fire i én sag om en enkelt bærbar og sender den sidste — et admin-login fra udlandet — straks videre til den vagthavende leder.
+    en: Of forty overnight alarms in a region's SOC, the analyst closes thirty-five as a known backup job, groups four into one case about a single laptop, and sends the last - an admin login from abroad - straight to the on-call lead.
+    da: Af fyrre alarmer i en regions SOC i løbet af natten lukker analytikeren 35 som et kendt backupjob, samler fire i én sag om en enkelt bærbar og sender den sidste - et admin-login fra udlandet - straks videre til den vagthavende leder.
   whyItMatters:
     en: A team cannot look deeply at every alarm, so the quality of this first sort decides whether a real attack is caught in minutes or lost among hundreds of harmless ones.
     da: Et team kan ikke gå i dybden med hver alarm, så kvaliteten af den første sortering afgør, om et reelt angreb fanges på minutter eller drukner blandt hundredvis af harmløse.
@@ -68,13 +68,13 @@ edges:
       strength: primary
       confidence: high
 sources:
-  - title: NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management
+  - title: NIST SP 800-61 Rev. 3 - Incident Response Recommendations and Considerations for Cybersecurity Risk Management
     url: https://doi.org/10.6028/NIST.SP.800-61r3
     tier: standard
     publisher: NIST
-  - title: Cyber Security Fast Track — SIEM module
+  - title: Cyber Security Fast Track - SIEM module
     tier: course-material
-  - title: NIST CSWP 29 — The NIST Cybersecurity Framework (CSF) 2.0
+  - title: NIST CSWP 29 - The NIST Cybersecurity Framework (CSF) 2.0
     url: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf
     tier: standard
     publisher: NIST

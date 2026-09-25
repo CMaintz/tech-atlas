@@ -28,8 +28,8 @@ questions:
     answer: 2
     explanation:
       en: >-
-        The old mails come with the right answer attached — each is marked spam or not
-        spam — so this is supervised learning: the model learns from labelled examples to
+        The old mails come with the right answer attached - each is marked spam or not
+        spam - so this is supervised learning: the model learns from labelled examples to
         predict the label of new, unseen mail, a classic classification task. Grouping
         without the markings is unsupervised learning; it could find clusters, but they
         need not match "spam", and it throws away the answers the municipality already
@@ -37,8 +37,8 @@ questions:
         which is slow and needless when labelled examples exist. Hand-written word rules
         are not machine learning at all and break as soon as spammers change wording.
       da: >-
-        De gamle mails har det rigtige svar hæftet på — hver er markeret som spam eller
-        ikke spam — så det er superviseret læring: Modellen lærer af mærkede eksempler at
+        De gamle mails har det rigtige svar hæftet på - hver er markeret som spam eller
+        ikke spam - så det er superviseret læring: Modellen lærer af mærkede eksempler at
         forudsige mærkatet for nye mails, den ikke har set, en klassisk
         klassifikationsopgave. At gruppere uden markeringerne er ikke-superviseret
         læring; det kan finde klynger, men de behøver ikke at svare til "spam", og
@@ -48,10 +48,10 @@ questions:
         virke, så snart spammerne ændrer ordvalg.
     difficulty: 1
     sources:
-      - title: Google for Developers — Introduction to Machine Learning, What is ML?
+      - title: Google for Developers - Introduction to Machine Learning, What is ML?
         url: https://developers.google.com/machine-learning/intro-to-ml/what-is-ml
         tier: course-material
-      - title: Google for Developers — Introduction to Machine Learning, Supervised Learning
+      - title: Google for Developers - Introduction to Machine Learning, Supervised Learning
         url: https://developers.google.com/machine-learning/intro-to-ml/supervised
         tier: course-material
     draft: true
@@ -89,7 +89,7 @@ questions:
         group is exactly what the analyst wants to inspect. Sorting into harmless and
         malicious is classification, and predicting a risk score is regression; both are
         supervised and need examples with the right answer attached, which she does not
-        have. Blocking events and learning from rewards is reinforcement learning — it
+        have. Blocking events and learning from rewards is reinforcement learning - it
         acts in the live environment, which is risky, and it does not answer her
         question of which kinds of activity exist.
       da: >-
@@ -99,11 +99,11 @@ questions:
         harmløse og ondsindede er klassifikation, og at forudsige en risikoscore er
         regression; begge er superviseret læring og kræver eksempler med det rigtige
         svar hæftet på, som hun ikke har. At blokere hændelser og lære af belønninger er
-        forstærkningslæring — den handler i det kørende miljø, hvilket er risikabelt, og
+        forstærkningslæring - den handler i det kørende miljø, hvilket er risikabelt, og
         den svarer ikke på, hvilke slags aktivitet der findes.
     difficulty: 1
     sources:
-      - title: Google for Developers — Introduction to Machine Learning, What is ML?
+      - title: Google for Developers - Introduction to Machine Learning, What is ML?
         url: https://developers.google.com/machine-learning/intro-to-ml/what-is-ml
         tier: course-material
     draft: true
@@ -133,8 +133,8 @@ questions:
     answer: 3
     explanation:
       en: >-
-        Classification predicts which of a fixed set of categories a case belongs to —
-        fraud or not fraud — while regression predicts a numeric value on a scale, such
+        Classification predicts which of a fixed set of categories a case belongs to -
+        fraud or not fraud - while regression predicts a numeric value on a scale, such
         as an amount in kroner. So A is classification and B is regression. A
         classifier may output a probability, but its task is still to pick a category,
         which is why "both are regression" is wrong. Swapping them would only hold if B
@@ -142,8 +142,8 @@ questions:
         shared topic of fraud says nothing about the kind of output, so "both are
         classification" confuses the subject with the task.
       da: >-
-        Klassifikation forudsiger, hvilken af et fast sæt kategorier en sag hører til —
-        svindel eller ikke svindel — mens regression forudsiger en talværdi på en
+        Klassifikation forudsiger, hvilken af et fast sæt kategorier en sag hører til -
+        svindel eller ikke svindel - mens regression forudsiger en talværdi på en
         skala, fx et beløb i kroner. Altså er A klassifikation og B regression. En
         klassifikator kan godt give en sandsynlighed, men dens opgave er stadig at vælge
         en kategori, og derfor er "begge er regression" forkert. Ombytningen ville kun
@@ -153,7 +153,7 @@ questions:
         opgaven.
     difficulty: 1
     sources:
-      - title: Google for Developers — Introduction to Machine Learning, What is ML?
+      - title: Google for Developers - Introduction to Machine Learning, What is ML?
         url: https://developers.google.com/machine-learning/intro-to-ml/what-is-ml
         tier: course-material
     draft: true
@@ -190,9 +190,9 @@ questions:
       en: >-
         Near-perfect results on the training data and much worse results on new cases
         is the mark of overfitting: the model has memorised its training set, including
-        noise, instead of the general pattern. Google's course names two causes —
+        noise, instead of the general pattern. Google's course names two causes -
         training data that does not represent real conditions and a model that is too
-        complex — so more varied data and a simpler model, judged on data held out from
+        complex - so more varied data and a simpler model, judged on data held out from
         training, address both. More rounds on the same records and a larger model push
         memorisation further. Re-measuring on the training records only confirms the
         99% again; the real test is always new examples. This is not underfitting,
@@ -201,8 +201,8 @@ questions:
         Næsten perfekte resultater på træningsdata og langt dårligere resultater på nye
         tilfælde er kendetegnet for overtilpasning: Modellen har lært træningssættet
         udenad, støj og det hele, i stedet for det generelle mønster. Googles kursus
-        nævner to årsager — træningsdata, der ikke afspejler virkeligheden, og en model,
-        der er for kompleks — så mere varierede data og en enklere model, bedømt på
+        nævner to årsager - træningsdata, der ikke afspejler virkeligheden, og en model,
+        der er for kompleks - så mere varierede data og en enklere model, bedømt på
         data holdt uden for træningen, tager fat i begge. Flere runder på de samme
         journaler og en større model driver udenadslæren endnu længere. At måle på
         træningsjournalerne igen bekræfter bare de 99 %; den rigtige prøve er altid nye
@@ -210,7 +210,7 @@ questions:
         allerede på træningsdataene.
     difficulty: 2
     sources:
-      - title: Google Machine Learning Crash Course — Overfitting
+      - title: Google Machine Learning Crash Course - Overfitting
         url: https://developers.google.com/machine-learning/crash-course/overfitting/overfitting
         tier: course-material
     draft: true
@@ -246,7 +246,7 @@ questions:
     explanation:
       en: >-
         A supervised model learns to reproduce the answers in its training data, so if
-        past decisions reflect an unfair pattern, the model learns that pattern too —
+        past decisions reflect an unfair pattern, the model learns that pattern too -
         Google's course calls this historical bias: data that reflects inequities of
         the time it was collected. Treating every case alike in training does not
         correct the labels; it copies them faithfully. Removing the district field is
@@ -256,7 +256,7 @@ questions:
       da: >-
         En superviseret model lærer at gengive svarene i sine træningsdata, så hvis
         tidligere afgørelser afspejler et skævt mønster, lærer modellen også det mønster
-        — Googles kursus kalder det historisk bias: data, der afspejler uligheder fra
+        - Googles kursus kalder det historisk bias: data, der afspejler uligheder fra
         den tid, de blev indsamlet. At behandle alle sager ens under træningen retter
         ikke facit; det kopierer det trofast. Det er ikke nok at fjerne feltet for
         bydel, fordi andre felter som postnummer, adresse eller det lokale plejecenter
@@ -264,10 +264,10 @@ questions:
         registreret helt korrekt og stadig bære skævheden med sig.
     difficulty: 3
     sources:
-      - title: Google Machine Learning Crash Course — Fairness, Types of bias
+      - title: Google Machine Learning Crash Course - Fairness, Types of bias
         url: https://developers.google.com/machine-learning/crash-course/fairness/types-of-bias
         tier: course-material
-      - title: Wikipedia — Algorithmic bias (Emergent bias, Correlations)
+      - title: Wikipedia - Algorithmic bias (Emergent bias, Correlations)
         url: https://en.wikipedia.org/wiki/Algorithmic_bias
         tier: reference
     draft: true
@@ -294,7 +294,7 @@ questions:
     explanation:
       en: >-
         False. The first, large training stage of a language model is self-supervised:
-        the right answer — the next word — is already in the text, so the training
+        the right answer - the next word - is already in the text, so the training
         process makes its own labels by hiding a word and asking the model to predict
         it. Google's glossary describes self-supervised learning as generating labels
         from unlabelled data itself, which is what makes training on vast text
@@ -303,7 +303,7 @@ questions:
         or rank answers.
       da: >-
         Falsk. En sprogmodels første, store træningstrin er selvsuperviseret: Det
-        rigtige svar — det næste ord — står allerede i teksten, så træningen laver selv
+        rigtige svar - det næste ord - står allerede i teksten, så træningen laver selv
         sine mærkater ved at skjule et ord og lade modellen gætte det. Googles ordliste
         beskriver selvsuperviseret læring som at danne mærkater ud fra selve de
         umærkede data, og det er det, der gør træning på enorme tekstmængder
@@ -312,7 +312,7 @@ questions:
         svar.
     difficulty: 2
     sources:
-      - title: Google for Developers — Machine Learning Glossary (self-supervised learning)
+      - title: Google for Developers - Machine Learning Glossary (self-supervised learning)
         url: https://developers.google.com/machine-learning/glossary
         tier: reference
       - title: Ouyang et al. (2022), Training language models to follow instructions with human feedback

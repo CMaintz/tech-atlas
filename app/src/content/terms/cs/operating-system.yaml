@@ -17,14 +17,14 @@ body:
     en: The layer of software between the physical machine and the programs a user runs. It divides time, storage and devices among programs and gives them one common, controlled way to use the machine.
     da: Det lag af software, der ligger mellem selve maskinen og de programmer, en bruger kører. Det fordeler tid, lagerplads og udstyr mellem programmerne og giver dem én fælles, kontrolleret måde at bruge maskinen på.
   plain:
-    en: Like the management of an apartment building — tenants share the water, heat and stairs, and the management makes sure no one takes everything or walks into someone else's flat.
-    da: Som administrationen i en boligforening — beboerne deler vand, varme og trappe, og administrationen sørger for, at ingen tager det hele eller går ind i andres lejlighed.
+    en: Like the management of an apartment building - tenants share the water, heat and stairs, and the management makes sure no one takes everything or walks into someone else's flat.
+    da: Som administrationen i en boligforening - beboerne deler vand, varme og trappe, og administrationen sørger for, at ingen tager det hele eller går ind i andres lejlighed.
   inPractice:
     en: A case officer in a municipality has email and a budget sheet open at once on a Windows laptop; the operating system decides which one gets the machine at each moment and stops either from reading the other's data.
     da: En sagsbehandler i en kommune har mail og et budgetark åbent samtidig på en Windows-bærbar; styresystemet bestemmer, hvilket program der får maskinen hvornår, og forhindrer dem i at læse hinandens data.
   whyItMatters:
-    en: Almost every security control on a computer — logins, permissions, logs — is enforced by the operating system, so a weakness in it undermines everything built on top.
-    da: Næsten alle sikkerhedskontroller på en computer — login, rettigheder, logs — håndhæves af styresystemet, så en svaghed i det undergraver alt, der bygger ovenpå.
+    en: Almost every security control on a computer - logins, permissions, logs - is enforced by the operating system, so a weakness in it undermines everything built on top.
+    da: Næsten alle sikkerhedskontroller på en computer - login, rettigheder, logs - håndhæves af styresystemet, så en svaghed i det undergraver alt, der bygger ovenpå.
 deepDive:
   en: |-
     An operating system provides two things at once: abstraction and isolation. It turns a CPU into processes and threads, physical RAM into per-process virtual address spaces, disks into file systems, network interfaces into sockets and devices into uniform driver interfaces, and it multiplexes all of them among competing programs. Isolation depends on hardware support that the OS configures: privilege rings or exception levels separate kernel and user mode, and the memory-management unit translates every virtual address through page tables the kernel controls, so one process simply has no mapping for another's memory. A page fault, a timer interrupt or a system call are the only ways control returns to the kernel.

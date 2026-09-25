@@ -29,7 +29,7 @@ questions:
     explanation:
       en: >-
         Gradient descent moves the weights a step against the gradient, and the
-        learning rate — a hyperparameter set before training — decides how big that
+        learning rate - a hyperparameter set before training - decides how big that
         step is. Google's crash course describes exactly this picture: with a learning
         rate that is too high the model never converges but bounces around, the loss
         going down and then up again. A smaller step lets it settle. Raising the rate
@@ -38,7 +38,7 @@ questions:
         score, not whether training lands on a good solution.
       da: >-
         Gradientnedstigning flytter vægtene et skridt modsat gradienten, og
-        læringsraten — en hyperparameter, der fastsættes før træningen — bestemmer, hvor
+        læringsraten - en hyperparameter, der fastsættes før træningen - bestemmer, hvor
         stort skridtet er. Googles crash course beskriver netop dette billede: Er
         læringsraten for høj, konvergerer modellen aldrig, men hopper rundt, så tabet
         falder og stiger igen. Et mindre skridt lader den falde til ro. At hæve raten
@@ -47,7 +47,7 @@ questions:
         træningen lander på en god løsning.
     difficulty: 2
     sources:
-      - title: Google Machine Learning Crash Course — Linear regression, Hyperparameters
+      - title: Google Machine Learning Crash Course - Linear regression, Hyperparameters
         url: https://developers.google.com/machine-learning/crash-course/linear-regression/hyperparameters
         tier: course-material
     draft: true
@@ -100,7 +100,7 @@ questions:
         rammer ved siden af: Problemet er, at man ikke kan stole på selve de 94 %.
     difficulty: 3
     sources:
-      - title: Google Machine Learning Crash Course — Dividing the original dataset
+      - title: Google Machine Learning Crash Course - Dividing the original dataset
         url: https://developers.google.com/machine-learning/crash-course/overfitting/dividing-datasets
         tier: course-material
     draft: true
@@ -119,20 +119,20 @@ questions:
         Batchstørrelsen er 100, og træningen kører i 5 epoker. Hvor mange gange bliver
         modellens vægte opdateret i alt?
     options:
-      - en: 500 — one update per batch, 100 batches per pass, over five passes
-        da: 500 — én opdatering pr. batch, 100 batches pr. gennemløb, over fem gennemløb
-      - en: 5 — one update at the end of each full pass through the deliveries
-        da: 5 — én opdatering ved slutningen af hvert fulde gennemløb af leveringerne
-      - en: 100 — one update per batch, since later passes reuse the same batches
-        da: 100 — én opdatering pr. batch, da de senere gennemløb genbruger samme batches
-      - en: 50,000 — one update per delivery in each of the five passes
-        da: 50.000 — én opdatering pr. levering i hvert af de fem gennemløb
+      - en: 500 - one update per batch, 100 batches per pass, over five passes
+        da: 500 - én opdatering pr. batch, 100 batches pr. gennemløb, over fem gennemløb
+      - en: 5 - one update at the end of each full pass through the deliveries
+        da: 5 - én opdatering ved slutningen af hvert fulde gennemløb af leveringerne
+      - en: 100 - one update per batch, since later passes reuse the same batches
+        da: 100 - én opdatering pr. batch, da de senere gennemløb genbruger samme batches
+      - en: 50,000 - one update per delivery in each of the five passes
+        da: 50.000 - én opdatering pr. levering i hvert af de fem gennemløb
     answer: 0
     explanation:
       en: >-
         An epoch is one full pass through the training data, and the batch size is how
         many examples the model processes before it updates its weights once. So each
-        epoch has 10,000 / 100 = 100 updates, and five epochs give 500 — the same
+        epoch has 10,000 / 100 = 100 updates, and five epochs give 500 - the same
         arithmetic as Google's worked example of 1,000 examples, batch size 100 and 20
         epochs giving 200 updates. One update per epoch would be full-batch training,
         which a batch size of 100 rules out. Every epoch updates the weights again, so
@@ -140,7 +140,7 @@ questions:
       da: >-
         En epoke er ét fuldt gennemløb af træningsdataene, og batchstørrelsen er det
         antal eksempler, modellen behandler, før den opdaterer sine vægte én gang. Hver
-        epoke giver altså 10.000 / 100 = 100 opdateringer, og fem epoker giver 500 —
+        epoke giver altså 10.000 / 100 = 100 opdateringer, og fem epoker giver 500 -
         samme regnestykke som Googles eksempel, hvor 1.000 eksempler, batchstørrelse
         100 og 20 epoker giver 200 opdateringer. Én opdatering pr. epoke ville være
         træning med hele datasættet som én batch, og det udelukker en batchstørrelse på
@@ -148,10 +148,10 @@ questions:
         gentagelser. 50.000 opdateringer ville kræve en batchstørrelse på 1.
     difficulty: 2
     sources:
-      - title: Google Machine Learning Crash Course — Linear regression, Hyperparameters
+      - title: Google Machine Learning Crash Course - Linear regression, Hyperparameters
         url: https://developers.google.com/machine-learning/crash-course/linear-regression/hyperparameters
         tier: course-material
-      - title: Google for Developers — Machine Learning Glossary (epoch, batch size, iteration)
+      - title: Google for Developers - Machine Learning Glossary (epoch, batch size, iteration)
         url: https://developers.google.com/machine-learning/glossary
         tier: reference
     draft: true
@@ -206,7 +206,7 @@ questions:
       - title: Ouyang et al. (2022), Training language models to follow instructions with human feedback
         url: https://arxiv.org/abs/2203.02155
         tier: other
-      - title: Hugging Face — Illustrating Reinforcement Learning from Human Feedback (RLHF)
+      - title: Hugging Face - Illustrating Reinforcement Learning from Human Feedback (RLHF)
         url: https://huggingface.co/blog/rlhf
         tier: other
     draft: true
@@ -239,8 +239,8 @@ questions:
         In RLHF, people compare and rank the model's own answers; those rankings train
         a reward model that turns an answer into a score, and the chat model is then
         trained with reinforcement learning to earn high scores. Hugging Face notes that
-        rankings are used because people's absolute scores are uncalibrated and noisy —
-        which is also why a 1–10 mark is the weaker design, and no score is ever copied
+        rankings are used because people's absolute scores are uncalibrated and noisy -
+        which is also why a 1-10 mark is the weaker design, and no score is ever copied
         straight into the weights. Correcting spelling for the pretraining text and
         writing new texts from scratch feed other stages, pretraining and supervised
         fine-tuning, not the feedback step.
@@ -249,13 +249,13 @@ questions:
         træner en belønningsmodel, der omsætter et svar til en score, og chatmodellen
         trænes derefter med forstærkningslæring til at opnå høje scorer. Hugging Face
         påpeger, at man bruger rangordninger, fordi folks absolutte karakterer er
-        ukalibrerede og støjfyldte — og derfor er karakterer fra 1 til 10 det svageste
+        ukalibrerede og støjfyldte - og derfor er karakterer fra 1 til 10 det svageste
         valg, ligesom ingen score nogensinde kopieres direkte ind i vægtene. At rette
         stavefejl til fortræningsteksten og skrive nye tekster fra bunden hører til
         andre trin, fortræning og superviseret finjustering, ikke feedbacktrinnet.
     difficulty: 2
     sources:
-      - title: Hugging Face — Illustrating Reinforcement Learning from Human Feedback (RLHF)
+      - title: Hugging Face - Illustrating Reinforcement Learning from Human Feedback (RLHF)
         url: https://huggingface.co/blog/rlhf
         tier: other
       - title: Ouyang et al. (2022), Training language models to follow instructions with human feedback
@@ -296,7 +296,7 @@ questions:
         training data because it is not complex enough to capture the pattern. The cure
         is a more capable model, better features or more training. Memorisation is
         overfitting, which shows as good training results and poor results on new data
-        — the opposite picture — so simplifying would make things worse. Leakage would
+        - the opposite picture - so simplifying would make things worse. Leakage would
         make new data look deceptively good, not equally bad. And fewer days of data
         gives the model less to learn from.
       da: >-
@@ -305,12 +305,12 @@ questions:
         der klarer sig dårligt på træningsdataene, fordi den ikke er kompleks nok til at
         fange mønsteret. Kuren er en model med mere kapacitet, bedre features eller mere
         træning. Udenadslære er overtilpasning, som viser sig ved gode resultater på
-        træningsdata og dårlige på nye data — det modsatte billede — så en enklere model
+        træningsdata og dårlige på nye data - det modsatte billede - så en enklere model
         ville gøre det værre. Datalæk ville få nye data til at se vildledende gode ud,
         ikke lige så dårlige. Og færre dages data giver modellen mindre at lære af.
     difficulty: 1
     sources:
-      - title: Google Machine Learning Crash Course — Overfitting
+      - title: Google Machine Learning Crash Course - Overfitting
         url: https://developers.google.com/machine-learning/crash-course/overfitting/overfitting
         tier: course-material
     draft: true

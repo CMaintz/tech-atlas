@@ -10,26 +10,26 @@ layer: orchestration
 status: current
 era: 2014
 summary:
-  en: The smallest unit Kubernetes runs — one or a few tightly linked containers that share a network address and storage.
-  da: Den mindste enhed, Kubernetes kører — én eller få tæt forbundne containere, der deler netværksadresse og lager.
+  en: The smallest unit Kubernetes runs - one or a few tightly linked containers that share a network address and storage.
+  da: Den mindste enhed, Kubernetes kører - én eller få tæt forbundne containere, der deler netværksadresse og lager.
 body:
   formal:
     en: A group of one or more containers that Kubernetes always places together on the same machine, where they share one IP address and can share storage; pods are short-lived and are replaced rather than repaired.
     da: En gruppe af en eller flere containere, som Kubernetes altid placerer sammen på den samme maskine, hvor de deler én IP-adresse og kan dele lager; pods er kortlivede og bliver udskiftet frem for repareret.
   plain:
-    en: Like two people sharing one flat — same address, same fridge, and when they move, they move together.
-    da: Som to, der deler lejlighed — samme adresse, samme køleskab, og når de flytter, flytter de sammen.
+    en: Like two people sharing one flat - same address, same fridge, and when they move, they move together.
+    da: Som to, der deler lejlighed - samme adresse, samme køleskab, og når de flytter, flytter de sammen.
   inPractice:
     en: In a hospital region's setup, a pod holds the lab system's container plus a small helper container that ships its logs; when the pod is moved to another machine, both move as one.
     da: I en regions opsætning rummer en pod laboratoriesystemets container plus en lille hjælpecontainer, der sender dens logs videre; når poden flyttes til en anden maskine, flytter begge som én.
   whyItMatters:
-    en: Security settings are made pod by pod — such as whether it may run as the admin user or reach the host's disks — so one pod with too many rights can open a way into the whole host.
-    da: Sikkerhedsindstillinger sættes pod for pod — fx om den må køre som administrator eller nå værtens diske — så én pod med for mange rettigheder kan åbne en vej ind til hele værten.
+    en: Security settings are made pod by pod - such as whether it may run as the admin user or reach the host's disks - so one pod with too many rights can open a way into the whole host.
+    da: Sikkerhedsindstillinger sættes pod for pod - fx om den må køre som administrator eller nå værtens diske - så én pod med for mange rettigheder kan åbne en vej ind til hele værten.
 deepDive:
   en: |-
     On the node, a pod is a sandbox: the runtime first creates a network namespace (traditionally held open by a tiny "pause" container), the CNI plugin assigns it an IP, and the application containers then join that namespace. Containers in a pod therefore share one IP and port space and reach each other on localhost; they share the IPC namespace, and can share a PID namespace if shareProcessNamespace is set. Filesystems are separate unless containers mount the same pod-level volume, such as an emptyDir, which lives as long as the pod. The pod as a whole is scheduled once and never moves: "moving" a pod really means deleting it and creating a new one with a new name and IP, which is why stable addressing goes through Services.
 
-    A pod spec can contain three kinds of containers. Init containers run to completion in order before the app containers start. Sidecar containers — declared as init containers with restartPolicy: Always — start before and keep running alongside the main containers, and are terminated after them; this native sidecar support was introduced in Kubernetes 1.28, enabled by default from 1.29 and stable in 1.33. Ephemeral containers can be added to a running pod for debugging with kubectl debug. The kubelet drives health through liveness probes (restart on failure), readiness probes (remove from Service endpoints) and startup probes (hold off the other probes during slow starts). On deletion each container receives SIGTERM, preStop hooks run, and after terminationGracePeriodSeconds (30 seconds by default) remaining processes are killed with SIGKILL.
+    A pod spec can contain three kinds of containers. Init containers run to completion in order before the app containers start. Sidecar containers - declared as init containers with restartPolicy: Always - start before and keep running alongside the main containers, and are terminated after them; this native sidecar support was introduced in Kubernetes 1.28, enabled by default from 1.29 and stable in 1.33. Ephemeral containers can be added to a running pod for debugging with kubectl debug. The kubelet drives health through liveness probes (restart on failure), readiness probes (remove from Service endpoints) and startup probes (hold off the other probes during slow starts). On deletion each container receives SIGTERM, preStop hooks run, and after terminationGracePeriodSeconds (30 seconds by default) remaining processes are killed with SIGKILL.
 
     Resource requests and limits per container determine the pod's QoS class: Guaranteed when every container has equal requests and limits for CPU and memory, BestEffort when none are set, Burstable otherwise; under node memory pressure BestEffort pods are evicted first. Pods are almost never created directly: a Deployment manages ReplicaSets that create pods, while StatefulSets, DaemonSets and Jobs cover stable identity, one-per-node and run-to-completion workloads. Static pods, defined by files on a node, are how kubeadm runs the control plane itself.
 
@@ -37,7 +37,7 @@ deepDive:
   da: |-
     På noden er en pod en sandkasse: runtimen opretter først et network namespace (traditionelt holdt åbent af en lillebitte "pause"-container), CNI-plugin'et giver det en IP, og applikationscontainerne tilslutter sig derefter dette namespace. Containere i samme pod deler derfor én IP og ét portrum og når hinanden på localhost; de deler IPC-namespace og kan dele PID-namespace, hvis shareProcessNamespace er sat. Filsystemerne er adskilte, medmindre containerne monterer det samme volumen på pod-niveau, fx et emptyDir, der lever lige så længe som poden. Poden planlægges samlet én gang og flytter aldrig: at "flytte" en pod betyder i virkeligheden at slette den og oprette en ny med nyt navn og ny IP, og derfor går stabil adressering gennem Services.
 
-    En podspecifikation kan rumme tre slags containere. Init-containere kører færdigt i rækkefølge, før applikationscontainerne starter. Sidecar-containere — erklæret som init-containere med restartPolicy: Always — starter før og kører side om side med hovedcontainerne og stoppes efter dem; den indbyggede sidecar-understøttelse kom i Kubernetes 1.28, blev slået til som standard i 1.29 og blev stabil i 1.33. Ephemeral containers kan føjes til en kørende pod til fejlfinding med kubectl debug. kubelet styrer sundheden via liveness probes (genstart ved fejl), readiness probes (fjern fra Service-endepunkter) og startup probes (hold de andre probes tilbage ved langsom opstart). Ved sletning modtager hver container SIGTERM, preStop-hooks kører, og efter terminationGracePeriodSeconds (30 sekunder som standard) dræbes tilbageværende processer med SIGKILL.
+    En podspecifikation kan rumme tre slags containere. Init-containere kører færdigt i rækkefølge, før applikationscontainerne starter. Sidecar-containere - erklæret som init-containere med restartPolicy: Always - starter før og kører side om side med hovedcontainerne og stoppes efter dem; den indbyggede sidecar-understøttelse kom i Kubernetes 1.28, blev slået til som standard i 1.29 og blev stabil i 1.33. Ephemeral containers kan føjes til en kørende pod til fejlfinding med kubectl debug. kubelet styrer sundheden via liveness probes (genstart ved fejl), readiness probes (fjern fra Service-endepunkter) og startup probes (hold de andre probes tilbage ved langsom opstart). Ved sletning modtager hver container SIGTERM, preStop-hooks kører, og efter terminationGracePeriodSeconds (30 sekunder som standard) dræbes tilbageværende processer med SIGKILL.
 
     Ressourceforespørgsler og -grænser per container afgør podens QoS-klasse: Guaranteed, når alle containere har ens forespørgsler og grænser for CPU og hukommelse, BestEffort, når ingen er sat, og ellers Burstable; ved hukommelsespres på noden smides BestEffort-pods ud først. Pods oprettes næsten aldrig direkte: et Deployment styrer ReplicaSets, der opretter pods, mens StatefulSets, DaemonSets og Jobs dækker stabil identitet, én per node og opgaver, der kører til ende. Statiske pods, defineret af filer på en node, er den måde, kubeadm kører selve kontrolplanet på.
 
@@ -46,11 +46,11 @@ edges:
   part-of: [kubernetes]
   requires: [container, ip-address]
 sources:
-  - title: Kubernetes Documentation — Pods
+  - title: Kubernetes Documentation - Pods
     url: https://kubernetes.io/docs/concepts/workloads/pods/
     tier: official-doc
     publisher: The Kubernetes Authors
-  - title: Kubernetes Documentation — Sidecar Containers
+  - title: Kubernetes Documentation - Sidecar Containers
     url: https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/
     tier: official-doc
     publisher: The Kubernetes Authors

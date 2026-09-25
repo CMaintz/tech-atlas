@@ -67,7 +67,7 @@ edges:
 sources:
   - title: Jacobs, Jordan, Nowlan & Hinton (1991), Adaptive Mixtures of Local Experts
     tier: reference
-  - title: Shazeer et al. (2017), Outrageously Large Neural Networks — The Sparsely-Gated Mixture-of-Experts Layer
+  - title: Shazeer et al. (2017), Outrageously Large Neural Networks - The Sparsely-Gated Mixture-of-Experts Layer
     tier: reference
   - title: Fedus, Zoph & Shazeer (2022), Switch Transformers
     tier: reference

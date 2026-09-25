@@ -16,14 +16,14 @@ body:
     en: The property that information and systems can be reached and used on demand by those allowed to use them, within agreed times. It is lost through faults, overload, power cuts and attacks alike.
     da: Egenskaben, at information og systemer kan nås og bruges efter behov af dem, der har lov til det, inden for aftalte tidsrammer. Den kan gå tabt ved fejl, overbelastning, strømsvigt og angreb.
   plain:
-    en: Like a shop's opening hours — the goods are no use to anyone if the door is locked when customers arrive.
-    da: Som en butiks åbningstider — varerne gavner ingen, hvis døren er låst, når kunderne kommer.
+    en: Like a shop's opening hours - the goods are no use to anyone if the door is locked when customers arrive.
+    da: Som en butiks åbningstider - varerne gavner ingen, hvis døren er låst, når kunderne kommer.
   inPractice:
     en: A power cut takes down the patient record system at a Danish regional hospital; for three hours doctors and nurses work from paper lists and phone calls until it is running again.
     da: Et strømsvigt lægger patientjournalsystemet ned på et hospital i en af regionerne; i tre timer arbejder læger og sygeplejersker ud fra papirlister og telefonopkald, indtil systemet kører igen.
   whyItMatters:
-    en: Every hour a key system is down can stop sales, delay care or halt production — which is exactly what attacks like ransomware aim for.
-    da: Hver time et vigtigt system er nede, kan salget stoppe, behandlinger blive forsinket eller produktionen gå i stå — og det er netop, hvad angreb som ransomware går efter.
+    en: Every hour a key system is down can stop sales, delay care or halt production - which is exactly what attacks like ransomware aim for.
+    da: Hver time et vigtigt system er nede, kan salget stoppe, behandlinger blive forsinket eller produktionen gå i stå - og det er netop, hvad angreb som ransomware går efter.
 deepDive:
   en: |-
     ISO/IEC 27000 defines availability as the property of being accessible and usable on demand by an authorised entity. Operationally it is expressed as a ratio, A = MTBF / (MTBF + MTTR), where MTBF is mean time between failures and MTTR mean time to repair or restore. The "nines" convert directly into downtime budgets: 99.9 % allows about 8.8 hours of unavailability per year, 99.99 % about 53 minutes and 99.999 % about 5.3 minutes. Because MTTR sits in the denominator, faster detection and recovery often buy more availability than more reliable hardware.
@@ -52,9 +52,9 @@ edges:
       confidence: high
   used-with: [monitoring]
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
-  - title: ISO/IEC 27000:2018 — Information security management systems — Overview and vocabulary
+  - title: ISO/IEC 27000:2018 - Information security management systems - Overview and vocabulary
     tier: standard
     publisher: ISO/IEC
 draft: true

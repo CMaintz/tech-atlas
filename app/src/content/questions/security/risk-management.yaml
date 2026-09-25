@@ -31,28 +31,28 @@ questions:
         The single loss expectancy is asset value × exposure factor: DKK 2,000,000 × 20% =
         DKK 400,000 per attack. Once every four years is an annual rate of occurrence of
         0.25, so ALE = 400,000 × 0.25 = DKK 100,000 per year. DKK 400,000 is only the SLE
-        — the loss from one attack, not the yearly average. DKK 1,600,000 multiplies by 4
+        - the loss from one attack, not the yearly average. DKK 1,600,000 multiplies by 4
         instead of dividing, reading "every four years" as four times a year. DKK 500,000
         applies the frequency to the whole asset value and skips the 20% exposure factor.
       da: >-
         Det enkelte tab (SLE) er aktivets værdi × eksponeringsfaktoren: 2.000.000 kr. × 20
         % = 400.000 kr. pr. angreb. Én gang hvert fjerde år svarer til en årlig hyppighed
         (ARO) på 0,25, så ALE = 400.000 × 0,25 = 100.000 kr. om året. 400.000 kr. er kun
-        SLE — tabet ved ét angreb, ikke gennemsnittet pr. år. 1.600.000 kr. ganger med 4 i
+        SLE - tabet ved ét angreb, ikke gennemsnittet pr. år. 1.600.000 kr. ganger med 4 i
         stedet for at dividere, som om angrebet skete fire gange om året. 500.000 kr.
         bruger hyppigheden på hele aktivets værdi og springer eksponeringsfaktoren på 20 %
         over.
     difficulty: 2
     sources:
-      - title: Annualized loss expectancy — Wikipedia
+      - title: Annualized loss expectancy - Wikipedia
         url: https://en.wikipedia.org/wiki/Annualized_loss_expectancy
         tier: reference
       - title: >-
-          NISTIR 8286A — Identifying and Estimating Cybersecurity Risk for Enterprise Risk
+          NISTIR 8286A - Identifying and Estimating Cybersecurity Risk for Enterprise Risk
           Management
         url: https://nvlpubs.nist.gov/nistpubs/ir/2021/NIST.IR.8286A.pdf
         tier: official-doc
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -87,7 +87,7 @@ questions:
       en: >-
         Insurance moves the financial cost of the incident to another party, which is risk
         transfer (also called sharing). It is not mitigation: the policy does not make a
-        ransomware attack any less likely or less disruptive — only the bill is paid by
+        ransomware attack any less likely or less disruptive - only the bill is paid by
         someone else. It is not acceptance either, because the firm has acted on the risk
         instead of simply living with it. Avoidance would mean stopping the activity that
         creates the risk, and the firm keeps running its systems. Note that the firm still
@@ -96,20 +96,20 @@ questions:
         En forsikring flytter de økonomiske omkostninger ved hændelsen over på en anden
         part, og det er risikooverførsel (også kaldet deling). Det er ikke risikoreduktion:
         policen gør hverken et ransomwareangreb mindre sandsynligt eller mindre
-        forstyrrende — det er kun regningen, som en anden betaler. Det er heller ikke
+        forstyrrende - det er kun regningen, som en anden betaler. Det er heller ikke
         accept, for virksomheden har gjort noget ved risikoen i stedet for bare at leve med
         den. Undgåelse ville betyde, at man stopper den aktivitet, der skaber risikoen, og
         virksomheden bruger fortsat sine systemer. Virksomheden bærer stadig de
         driftsmæssige og juridiske konsekvenser, fx sine forpligtelser efter GDPR.
     difficulty: 1
     sources:
-      - title: NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments
+      - title: NIST SP 800-30 Rev. 1 - Guide for Conducting Risk Assessments
         url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf
         tier: standard
-      - title: ISO 31000 — Wikipedia
+      - title: ISO 31000 - Wikipedia
         url: https://en.wikipedia.org/wiki/ISO_31000
         tier: reference
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -132,27 +132,27 @@ questions:
         risikoregistret. Hvad er det bedste svar?
     options:
       - en: >-
-          Yes — once the planned controls are in place and meet the policy, the risk is
+          Yes - once the planned controls are in place and meet the policy, the risk is
           gone
         da: >-
-          Ja — når de planlagte kontroller er på plads og lever op til politikken, er
+          Ja - når de planlagte kontroller er på plads og lever op til politikken, er
           risikoen væk
       - en: >-
-          No — but the remaining risk now belongs to the IT supplier that operates the new
+          No - but the remaining risk now belongs to the IT supplier that operates the new
           controls
         da: >-
-          Nej — men den tilbageværende risiko ligger nu hos den it-leverandør, der driver de
+          Nej - men den tilbageværende risiko ligger nu hos den it-leverandør, der driver de
           nye kontroller
       - en: >-
-          Yes — what is left only needs to be recorded again if an incident actually occurs
+          Yes - what is left only needs to be recorded again if an incident actually occurs
         da: >-
-          Ja — det, der er tilbage, skal først registreres igen, hvis en hændelse faktisk
+          Ja - det, der er tilbage, skal først registreres igen, hvis en hændelse faktisk
           sker
       - en: >-
-          No — the remaining risk must be re-rated, then accepted by its owner or treated
+          No - the remaining risk must be re-rated, then accepted by its owner or treated
           further
         da: >-
-          Nej — restrisikoen skal vurderes igen og derefter accepteres af ejeren eller
+          Nej - restrisikoen skal vurderes igen og derefter accepteres af ejeren eller
           håndteres yderligere
     answer: 3
     explanation:
@@ -176,10 +176,10 @@ questions:
         til der sker en hændelse, underminerer hele formålet med registret.
     difficulty: 2
     sources:
-      - title: NIST CSRC Glossary — residual risk
+      - title: NIST CSRC Glossary - residual risk
         url: https://csrc.nist.gov/glossary/term/residual_risk
         tier: official-doc
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -242,10 +242,10 @@ questions:
         appetitten.
     difficulty: 3
     sources:
-      - title: NIST CSRC Glossary — risk appetite
+      - title: NIST CSRC Glossary - risk appetite
         url: https://csrc.nist.gov/glossary/term/risk_appetite
         tier: official-doc
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -258,13 +258,13 @@ questions:
     kind: scenario
     stem:
       en: >-
-        A Danish bank places its IT risks on a 5 × 5 heat map, with likelihood (1–5) on one
-        axis and impact (1–5) on the other. A cell's colour is set by likelihood × impact,
+        A Danish bank places its IT risks on a 5 × 5 heat map, with likelihood (1-5) on one
+        axis and impact (1-5) on the other. A cell's colour is set by likelihood × impact,
         running from green at the low end to red at the top. Which of these risks lands
         furthest into the red and should be handled first?
       da: >-
-        En dansk bank placerer sine it-risici på et 5 × 5 heat-map med sandsynlighed (1–5)
-        på den ene akse og konsekvens (1–5) på den anden. Feltets farve bestemmes af
+        En dansk bank placerer sine it-risici på et 5 × 5 heat-map med sandsynlighed (1-5)
+        på den ene akse og konsekvens (1-5) på den anden. Feltets farve bestemmes af
         sandsynlighed × konsekvens og går fra grøn i den lave ende til rød i toppen. Hvilken
         af disse risici ligger længst inde i det røde og bør håndteres først?
     options:
@@ -284,7 +284,7 @@ questions:
         likely event, but its low impact gives only 5 × 2 = 10. The data-centre fire has
         the highest impact, yet it is so unlikely that it scores just 1 × 5 = 5. The insider
         leak scores 2 × 4 = 8. A heat map is useful exactly because it combines both
-        factors: looking at only one of them — the most frequent or the most harmful event —
+        factors: looking at only one of them - the most frequent or the most harmful event -
         gives the wrong priority.
       da: >-
         På dette heat-map er scoren sandsynlighed × konsekvens, så ransomware på
@@ -292,14 +292,14 @@ questions:
         er den mest sandsynlige hændelse, men den lave konsekvens giver kun 5 × 2 = 10.
         Branden i datacentret har den største konsekvens, men er så usandsynlig, at den kun
         får 1 × 5 = 5. Insiderlækket får 2 × 4 = 8. Et heat-map er netop nyttigt, fordi det
-        kombinerer begge faktorer: kigger man kun på den ene — den hyppigste eller den mest
-        skadelige hændelse — prioriterer man forkert.
+        kombinerer begge faktorer: kigger man kun på den ene - den hyppigste eller den mest
+        skadelige hændelse - prioriterer man forkert.
     difficulty: 1
     sources:
-      - title: NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments (Table I-2)
+      - title: NIST SP 800-30 Rev. 1 - Guide for Conducting Risk Assessments (Table I-2)
         url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf
         tier: standard
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -350,10 +350,10 @@ questions:
         med alle trin i stedet for at have en fast plads.
     difficulty: 2
     sources:
-      - title: ISO 31000 — Wikipedia
+      - title: ISO 31000 - Wikipedia
         url: https://en.wikipedia.org/wiki/ISO_31000
         tier: reference
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -400,7 +400,7 @@ questions:
     explanation:
       en: >-
         A quantitative analysis puts numbers on likelihood and loss, which lets you weigh a
-        control's cost against the expected loss — but it depends on reliable data and
+        control's cost against the expected loss - but it depends on reliable data and
         takes more effort. A qualitative analysis uses scales such as low, medium and high:
         it is quicker and easier to communicate, but the ratings rest on judgement. Numbers
         are not automatically objective; NIST SP 800-30 warns that subjective estimates
@@ -409,7 +409,7 @@ questions:
         standards leave the choice of method to the organisation.
       da: >-
         En kvantitativ analyse sætter tal på sandsynlighed og tab, så man kan veje en
-        kontrols pris op mod det forventede tab — men den kræver pålidelige data og mere
+        kontrols pris op mod det forventede tab - men den kræver pålidelige data og mere
         arbejde. En kvalitativ analyse bruger skalaer som lav, middel og høj: den er
         hurtigere og lettere at kommunikere, men vurderingerne bygger på skøn. Tal er ikke
         automatisk objektive; NIST SP 800-30 advarer om, at subjektive skøn gemt i en
@@ -418,10 +418,10 @@ questions:
         Standarderne overlader valget af metode til organisationen.
     difficulty: 2
     sources:
-      - title: NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments (section 2.3.2)
+      - title: NIST SP 800-30 Rev. 1 - Guide for Conducting Risk Assessments (section 2.3.2)
         url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf
         tier: standard
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -470,7 +470,7 @@ questions:
       en: >-
         Risk monitoring exists to catch risk-impacting changes between formal reviews, and
         an actively exploited weakness in the region's own VPN product makes a break-in far
-        more likely. The risk should be reassessed now and the treatment checked — for
+        more likely. The risk should be reassessed now and the treatment checked - for
         example, whether the patch is applied. Waiting for the yearly review lets an
         approved rating go stale exactly when it matters. The warning changes how likely an
         attack is, not how much harm a successful break-in does, so raising the impact is
@@ -480,16 +480,16 @@ questions:
         Risikoovervågning skal fange ændringer, der påvirker risikoen mellem de formelle
         gennemgange, og en aktivt udnyttet sårbarhed i regionens eget VPN-produkt gør et
         indbrud langt mere sandsynligt. Risikoen bør vurderes igen nu, og håndteringen
-        tjekkes — fx om rettelsen er installeret. At vente til den årlige gennemgang lader
+        tjekkes - fx om rettelsen er installeret. At vente til den årlige gennemgang lader
         en godkendt vurdering blive forældet, netop når det gælder. Advarslen ændrer, hvor
         sandsynligt et angreb er, ikke hvor stor skade et vellykket indbrud gør, så at hæve
         konsekvensen er den rigtige tanke på den forkerte faktor. Threat intelligence om et
         produkt, regionen bruger, handler direkte om regionens egen risiko.
     difficulty: 2
     sources:
-      - title: NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments
+      - title: NIST SP 800-30 Rev. 1 - Guide for Conducting Risk Assessments
         url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf
         tier: standard
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true

@@ -16,8 +16,8 @@ body:
     en: A form of machine learning in which each training example is paired with a label giving the wanted output, and the model learns to map new inputs to the right label.
     da: En form for maskinlæring, hvor hvert træningseksempel er parret med en mærkat, der angiver det ønskede resultat, og modellen lærer at knytte nye input til den rigtige mærkat.
   plain:
-    en: Like learning with an answer key — you try each exercise, check the key, and correct yourself.
-    da: Som at lære med en facitliste — du prøver hver opgave, tjekker facit og retter dig selv.
+    en: Like learning with an answer key - you try each exercise, check the key, and correct yourself.
+    da: Som at lære med en facitliste - du prøver hver opgave, tjekker facit og retter dig selv.
   inPractice:
     en: A region's security team labels thousands of past alerts as real attacks or false alarms, and a model trained on them learns to sort new alerts the same way.
     da: En regions sikkerhedsteam mærker tusindvis af tidligere alarmer som ægte angreb eller falske alarmer, og en model, der trænes på dem, lærer at sortere nye alarmer på samme måde.
@@ -59,7 +59,7 @@ sources:
   - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
     tier: textbook
     publisher: Pearson
-  - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
+  - title: ISO/IEC 22989:2022 - Artificial intelligence concepts and terminology
     tier: standard
     publisher: ISO/IEC
 draft: true

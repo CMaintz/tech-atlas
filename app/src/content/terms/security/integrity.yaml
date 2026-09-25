@@ -16,8 +16,8 @@ body:
     en: The property that information is accurate and complete, and that any change to it is made only by those allowed to, in a way that can be noticed. Hashing and digital signatures are common ways to show that nothing has been altered.
     da: Egenskaben, at information er nøjagtig og fuldstændig, og at enhver ændring kun foretages af dem, der har lov, og på en måde, der kan opdages. Hashing og digitale signaturer bruges ofte til at vise, at intet er ændret.
   plain:
-    en: Like a recipe card — if someone quietly changes “one teaspoon of salt” to “one cup”, everyone who follows it ruins the dish without knowing why.
-    da: Som et opskriftskort — hvis nogen i al stilhed retter “lidt salt” til “en hel kop salt”, ødelægger alle, der følger det, retten uden at vide hvorfor.
+    en: Like a recipe card - if someone quietly changes “one teaspoon of salt” to “one cup”, everyone who follows it ruins the dish without knowing why.
+    da: Som et opskriftskort - hvis nogen i al stilhed retter “lidt salt” til “en hel kop salt”, ødelægger alle, der følger det, retten uden at vide hvorfor.
   inPractice:
     en: An attacker inside a supplier's mailbox changes the account number on an invoice sent to a municipality, and a finance clerk pays a large sum to the wrong account.
     da: En angriber, der har fået adgang til en leverandørs mailboks, ændrer kontonummeret på en faktura til en kommune, og en medarbejder i økonomiafdelingen betaler et stort beløb til den forkerte konto.
@@ -45,9 +45,9 @@ edges:
   part-of: [cia-triad]
   contrasts-with: [non-repudiation]
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
-  - title: ISO/IEC 27000:2018 — Information security management systems — Overview and vocabulary
+  - title: ISO/IEC 27000:2018 - Information security management systems - Overview and vocabulary
     tier: standard
     publisher: ISO/IEC
 draft: true

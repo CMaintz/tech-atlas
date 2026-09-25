@@ -13,11 +13,11 @@ summary:
   da: At en organisation selv tjekker sin sikkerhed mod en fast liste af spørgsmål eller kriterier uden en ekstern kontrollant.
 body:
   formal:
-    en: A structured review the organisation carries out on itself, using a questionnaire or criteria from a standard, label or law — such as the D-mærket tool — to map its practice, find gaps and pick improvements.
-    da: En struktureret gennemgang, som organisationen foretager af sig selv ud fra et spørgeskema eller kriterier fra en standard, et mærke eller en lov — fx D-mærkets værktøj — for at kortlægge sin praksis, finde huller og vælge forbedringer.
+    en: A structured review the organisation carries out on itself, using a questionnaire or criteria from a standard, label or law - such as the D-mærket tool - to map its practice, find gaps and pick improvements.
+    da: En struktureret gennemgang, som organisationen foretager af sig selv ud fra et spørgeskema eller kriterier fra en standard, et mærke eller en lov - fx D-mærkets værktøj - for at kortlægge sin praksis, finde huller og vælge forbedringer.
   plain:
-    en: Like going through a home safety checklist on a Sunday — you walk round with the list yourself to see what needs fixing, before anyone official ever comes by.
-    da: Som at gå en tjekliste for sikkerhed i hjemmet igennem en søndag — man går selv rundt med listen for at se, hvad der skal ordnes, før nogen officiel nogensinde kommer forbi.
+    en: Like going through a home safety checklist on a Sunday - you walk round with the list yourself to see what needs fixing, before anyone official ever comes by.
+    da: Som at gå en tjekliste for sikkerhed i hjemmet igennem en søndag - man går selv rundt med listen for at se, hvad der skal ordnes, før nogen officiel nogensinde kommer forbi.
   inPractice:
     en: A family-owned furniture maker answers the D-mærket questions over two afternoons and finds it has no written plan for what to do if its systems go down.
     da: En familieejet møbelproducent besvarer D-mærkets spørgsmål over to eftermiddage og opdager, at den ikke har nogen skriftlig plan for, hvad den gør, hvis systemerne går ned.
@@ -44,11 +44,11 @@ deepDive:
 edges:
   requires: [compliance]
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 8
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 8
     tier: course-material
-  - title: D-mærket — Kriterier og selvevalueringsværktøj
+  - title: D-mærket - Kriterier og selvevalueringsværktøj
     tier: official-doc
-  - title: D-mærket — Sådan får du D-mærket
+  - title: D-mærket - Sådan får du D-mærket
     tier: official-doc
     publisher: D-mærket
     url: https://d-maerket.dk/

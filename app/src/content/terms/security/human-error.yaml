@@ -9,15 +9,15 @@ cluster: fundamentals
 layer: people
 status: current
 summary:
-  en: An honest mistake by a person — a wrong click, a lost laptop, a file sent to the wrong address — that harms security.
-  da: En ærlig fejl begået af et menneske — et forkert klik, en tabt bærbar, en fil sendt til den forkerte — der skader sikkerheden.
+  en: An honest mistake by a person - a wrong click, a lost laptop, a file sent to the wrong address - that harms security.
+  da: En ærlig fejl begået af et menneske - et forkert klik, en tabt bærbar, en fil sendt til den forkerte - der skader sikkerheden.
 body:
   formal:
     en: A threat in which someone with legitimate access causes harm without meaning to, for example by setting a system up wrongly, sharing data with the wrong person or losing a device.
     da: En trussel, hvor en person med lovlig adgang gør skade uden at ville det, fx ved at sætte et system forkert op, dele data med den forkerte eller miste en enhed.
   plain:
-    en: Like leaving the front door unlocked by accident — nobody planned a break-in, but the house is open all the same.
-    da: Som at glemme at låse hoveddøren — ingen havde planlagt et indbrud, men huset står åbent alligevel.
+    en: Like leaving the front door unlocked by accident - nobody planned a break-in, but the house is open all the same.
+    da: Som at glemme at låse hoveddøren - ingen havde planlagt et indbrud, men huset står åbent alligevel.
   inPractice:
     en: An HR assistant at a Danish engineering firm sends a file of salaries to an outside email address with a similar name; the firm must handle it as a data breach and, given the risk to staff, report it to the authority within 72 hours.
     da: En HR-assistent i en dansk ingeniørvirksomhed sender et regneark med lønninger til en ekstern mailadresse med et lignende navn; virksomheden skal håndtere det som et databrud og, fordi det udgør en risiko for medarbejderne, anmelde det til Datatilsynet inden for 72 timer.
@@ -46,7 +46,7 @@ edges:
   requires: [human-factor]
   causes: [security-incident, data-breach]
 sources:
-  - title: Cyber Security Fast Track — Ordliste (Trussel — insiderfejl)
+  - title: Cyber Security Fast Track - Ordliste (Trussel - insiderfejl)
     tier: course-material
   - title: ISO/IEC 27005:2022
     tier: standard

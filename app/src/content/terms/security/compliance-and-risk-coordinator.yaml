@@ -16,8 +16,8 @@ body:
     en: A role that maps legal and standard requirements to the organisation's practice, runs gap analyses and risk assessments, keeps the evidence in order and reports progress and open risks to management.
     da: En rolle, der kobler krav fra love og standarder til organisationens praksis, gennemfører gap-analyser og risikoanalyser, holder dokumentationen i orden og rapporterer fremdrift og åbne risici til ledelsen.
   plain:
-    en: Like a bookkeeper for rules — keeping the list of what is owed, what is paid and what is overdue, so there are no surprises when the inspector comes.
-    da: Som en bogholder for regler — der holder listen over, hvad der skyldes, hvad der er betalt, og hvad der er forfaldent, så der ikke kommer overraskelser, når kontrollen kommer.
+    en: Like a bookkeeper for rules - keeping the list of what is owed, what is paid and what is overdue, so there are no surprises when the inspector comes.
+    da: Som en bogholder for regler - der holder listen over, hvad der skyldes, hvad der er betalt, og hvad der er forfaldent, så der ikke kommer overraskelser, når kontrollen kommer.
   inPractice:
     en: Two weeks before an ISO 27001 audit at a Danish energy company, the coordinator checks each requirement against the evidence folder and chases three risk owners for missing records.
     da: To uger før en ISO 27001-audit i et dansk energiselskab tjekker koordinatoren hvert krav mod mappen med dokumentation og rykker tre risikoejere for manglende materiale.
@@ -52,6 +52,6 @@ edges:
         da: Compliance- og risikokoordinatoren tjekker mod regler og risici; sikkerhedskoordinatoren driver hele sikkerhedsarbejdet i hverdagen.
       confidence: medium
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Kursistens udbytte
+  - title: Cyber Security Fast Track - Kursuskompendium, Kursistens udbytte
     tier: course-material
 draft: true

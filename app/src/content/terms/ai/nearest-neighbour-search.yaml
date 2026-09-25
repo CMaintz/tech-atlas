@@ -16,8 +16,8 @@ body:
     en: The task of returning the k stored embeddings closest to a query embedding under a chosen distance or cosine similarity; approximate methods group or link the stored items in advance so only a small share must be checked.
     da: Opgaven at returnere de k gemte embeddings, der ligger tættest på en forespørgsels embedding målt med en valgt afstand eller cosinuslighed; approksimative metoder grupperer eller forbinder de gemte elementer på forhånd, så kun en lille del skal tjekkes.
   plain:
-    en: Like looking for the nearest open pharmacy — you do not measure the distance to every pharmacy in the country, you check the few in your part of town.
-    da: Som at lede efter det nærmeste åbne apotek — man måler ikke afstanden til hvert apotek i landet, man tjekker de få i sin egen bydel.
+    en: Like looking for the nearest open pharmacy - you do not measure the distance to every pharmacy in the country, you check the few in your part of town.
+    da: Som at lede efter det nærmeste åbne apotek - man måler ikke afstanden til hvert apotek i landet, man tjekker de få i sin egen bydel.
   inPractice:
     en: When a case officer in a municipality opens a building case, the system shows “similar earlier cases” from four million documents within a twentieth of a second by checking only a few thousand likely ones.
     da: Når en sagsbehandler i en kommune åbner en byggesag, viser systemet “lignende tidligere sager” blandt fire millioner dokumenter på en tyvendedel af et sekund ved kun at tjekke nogle få tusinde sandsynlige.
@@ -63,7 +63,7 @@ sources:
     publisher: IEEE TPAMI
   - title: Johnson, Douze & Jégou (2017), Billion-scale similarity search with GPUs
     tier: reference
-  - title: pgvector — Open-source vector similarity search for Postgres (README)
+  - title: pgvector - Open-source vector similarity search for Postgres (README)
     tier: official-doc
     publisher: pgvector project
     url: https://github.com/pgvector/pgvector

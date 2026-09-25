@@ -20,8 +20,8 @@ body:
     en: IP is the post office that moves envelopes; TCP is the careful clerk who numbers them, checks every one arrived, and asks again for any that went missing.
     da: IP er postvæsenet, der flytter kuverterne; TCP er den omhyggelige ekspedient, der nummererer dem, tjekker at alle er kommet frem, og beder om dem, der mangler.
   inPractice:
-    en: When the online exam system at an upper-secondary school keeps freezing, the school's IT manager records the network traffic and sees TCP resending many lost packets between the students' laptops and the server — pointing to a faulty wireless access point.
-    da: Da eksamenssystemet på et gymnasium bliver ved med at fryse, optager skolens IT-ansvarlige netværkstrafikken og ser TCP sende mange tabte pakker igen mellem elevernes bærbare og serveren — et tegn på et defekt trådløst adgangspunkt.
+    en: When the online exam system at an upper-secondary school keeps freezing, the school's IT manager records the network traffic and sees TCP resending many lost packets between the students' laptops and the server - pointing to a faulty wireless access point.
+    da: Da eksamenssystemet på et gymnasium bliver ved med at fryse, optager skolens IT-ansvarlige netværkstrafikken og ser TCP sende mange tabte pakker igen mellem elevernes bærbare og serveren - et tegn på et defekt trådløst adgangspunkt.
   whyItMatters:
     en: It is the shared language of nearly every network, so firewall rules, logs and many attacks are all described in its terms.
     da: Det er det fælles sprog for næsten alle netværk, så firewallregler, logs og mange angreb beskrives alle i dets begreber.
@@ -37,7 +37,7 @@ deepDive:
   da: |-
     Vint Cerf og Bob Kahn beskrev designet i "A Protocol for Packet Network Intercommunication" (IEEE Transactions on Communications, maj 1974), oprindeligt som ét samlet Transmission Control Program. Det blev senere delt i IP, der står for adressering og videresendelse, og TCP, der sørger for pålidelig levering fra ende til ende, så applikationer uden behov for pålidelighed kunne køre direkte over IP; UDP (RFC 768, 1980) udfylder den rolle. IP (RFC 791) og TCP (RFC 793) blev udgivet i 1981, ARPANET skiftede over den 1. januar 1983, og RFC 1122 og RFC 1123 (1989) fastlagde kravene til værter. Den samlede TCP-specifikation er i dag RFC 9293 (2022), som afløser RFC 793.
 
-    Protokolfamilien beskrives normalt i fire lag: link, internet (IP og ICMP), transport (TCP, UDP) og applikation. TCP åbner en forbindelse med et trevejshåndtryk (SYN, SYN-ACK, ACK), hvor hver side vælger et startsekvensnummer; sekvensnumre er på 32 bit og tæller byte, og kvitteringer (ACK) er kumulative. Startsekvensnumre skal være uforudsigelige (RFC 6528), fordi forudsigelige numre muliggjorde blind spoofing og indsprøjtning i sessioner — berømt udnyttet af Kevin Mitnick i 1994. Flowkontrol bruger modtagerens annoncerede vindue, et 16-bit felt, der udvides med window scale-optionen (RFC 7323). Tabte segmenter genoprettes via retransmission efter timeout (RFC 6298), fast retransmit efter tre dublerede ACK'er og selektive kvitteringer (SACK, RFC 2018). Trængselskontrol (RFC 5681) kombinerer slow start og congestion avoidance; CUBIC (RFC 9438) er standard på Linux, og BBR er en alternativ, modelbaseret algoritme. Forbindelser lukkes med udveksling af FIN, og den side, der lukker først, venter i TIME-WAIT i to gange den maksimale segmentlevetid; RST afbryder en forbindelse øjeblikkeligt.
+    Protokolfamilien beskrives normalt i fire lag: link, internet (IP og ICMP), transport (TCP, UDP) og applikation. TCP åbner en forbindelse med et trevejshåndtryk (SYN, SYN-ACK, ACK), hvor hver side vælger et startsekvensnummer; sekvensnumre er på 32 bit og tæller byte, og kvitteringer (ACK) er kumulative. Startsekvensnumre skal være uforudsigelige (RFC 6528), fordi forudsigelige numre muliggjorde blind spoofing og indsprøjtning i sessioner - berømt udnyttet af Kevin Mitnick i 1994. Flowkontrol bruger modtagerens annoncerede vindue, et 16-bit felt, der udvides med window scale-optionen (RFC 7323). Tabte segmenter genoprettes via retransmission efter timeout (RFC 6298), fast retransmit efter tre dublerede ACK'er og selektive kvitteringer (SACK, RFC 2018). Trængselskontrol (RFC 5681) kombinerer slow start og congestion avoidance; CUBIC (RFC 9438) er standard på Linux, og BBR er en alternativ, modelbaseret algoritme. Forbindelser lukkes med udveksling af FIN, og den side, der lukker først, venter i TIME-WAIT i to gange den maksimale segmentlevetid; RST afbryder en forbindelse øjeblikkeligt.
 
     UDP tilføjer kun porte, en længde og en checksum i en header på 8 byte og bruges, hvor lav forsinkelse betyder mere end genudsendelse, eller hvor applikationen selv sørger for pålidelighed: DNS, VoIP og QUIC. QUIC (RFC 9000) kører over UDP og implementerer streams, genopretning efter tab og trængselskontrol i brugerrummet med TLS 1.3 indbygget, så man undgår TCP's head-of-line blocking; fordi det meste af headeren er krypteret, ser mellemliggende udstyr langt mindre end ved TCP.
 
@@ -48,6 +48,6 @@ edges:
 sources:
   - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
     tier: textbook
-  - title: RFC 9293 — Transmission Control Protocol
+  - title: RFC 9293 - Transmission Control Protocol
     tier: standard
 draft: true

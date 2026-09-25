@@ -17,8 +17,8 @@ body:
     en: A Danish public body set up in 2012 under the Defence Intelligence Service to warn, advise and assist against serious cyber attacks. Since January 2025 its advice and threat work sits in the Danish Resilience Agency, while incident reports go to the Defence Intelligence Service as national response team.
     da: En dansk myndighed oprettet i 2012 under Forsvarets Efterretningstjeneste for at advare, rådgive og hjælpe ved alvorlige cyberangreb. Siden januar 2025 ligger rådgivningen og trusselsarbejdet i Styrelsen for Samfundssikkerhed (SAMSIK), mens indberetninger om hændelser går til Forsvarets Efterretningstjeneste som nationalt CSIRT.
   plain:
-    en: Like a national weather service for storms on the internet — it watched the sky, sent out warnings and told people how to prepare, and was later folded into a larger agency.
-    da: Som en national vejrtjeneste for storme på nettet — den holdt øje med himlen, sendte advarsler ud og fortalte folk, hvordan de skulle forberede sig, og blev siden lagt ind i en større styrelse.
+    en: Like a national weather service for storms on the internet - it watched the sky, sent out warnings and told people how to prepare, and was later folded into a larger agency.
+    da: Som en national vejrtjeneste for storme på nettet - den holdt øje med himlen, sendte advarsler ud og fortalte folk, hvordan de skulle forberede sig, og blev siden lagt ind i en større styrelse.
   inPractice:
     en: An IT manager in a Danish municipality still finds CFCS guides and threat assessments when she searches online; for current advice she now uses the versions the Danish Resilience Agency publishes.
     da: En IT-chef i en dansk kommune finder stadig CFCS-vejledninger og trusselsvurderinger, når hun søger på nettet; til den nyeste rådgivning bruger hun nu de udgaver, SAMSIK udgiver.
@@ -60,8 +60,8 @@ edges:
   contrasts-with:
     - to: supervisory-authority
       why:
-        en: CFCS dealt with cyber threats to Danish firms and society; Datatilsynet checks how personal data is handled under GDPR — easily mixed up when a breach must be reported.
-        da: CFCS beskæftigede sig med cybertrusler mod danske virksomheder og samfundet; Datatilsynet fører tilsyn med behandling af personoplysninger efter GDPR — de forveksles let, når et brud skal anmeldes.
+        en: CFCS dealt with cyber threats to Danish firms and society; Datatilsynet checks how personal data is handled under GDPR - easily mixed up when a breach must be reported.
+        da: CFCS beskæftigede sig med cybertrusler mod danske virksomheder og samfundet; Datatilsynet fører tilsyn med behandling af personoplysninger efter GDPR - de forveksles let, når et brud skal anmeldes.
       strength: normal
       confidence: high
 sources:
@@ -69,7 +69,7 @@ sources:
     tier: official-doc
     publisher: Styrelsen for Samfundssikkerhed
     url: 'https://samsik.dk/artikler/2025/03/center-for-cybersikkerhed-er-en-del-af-styrelsen-for-samfundssikkerhed/'
-  - title: NIS 2 — Spørgsmål og svar
+  - title: NIS 2 - Spørgsmål og svar
     tier: official-doc
     publisher: Styrelsen for Samfundssikkerhed
     url: 'https://samsik.dk/nis2/faq/'

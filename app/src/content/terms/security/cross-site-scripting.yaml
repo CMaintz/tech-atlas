@@ -17,8 +17,8 @@ body:
     en: A flaw in a web application that places untrusted input into its pages without making it safe first; the web browser then runs that input as code with the same rights as the site's own code, so it can read what the user sees and act in their name.
     da: En fejl i en webapplikation, der sætter input udefra ind i sine sider uden først at gøre det ufarligt; webbrowseren kører så inputtet som kode med samme rettigheder som sitets egen kode og kan dermed læse, hvad brugeren ser, og handle i brugerens navn.
   plain:
-    en: Like a notice board where someone pins up a note that, when read aloud, makes the reader hand over their house keys — the board itself never checks what is pinned to it.
-    da: Som en opslagstavle, hvor nogen hænger en seddel op, der får den, der læser den højt, til at udlevere sine husnøgler — tavlen tjekker aldrig, hvad der bliver hængt op.
+    en: Like a notice board where someone pins up a note that, when read aloud, makes the reader hand over their house keys - the board itself never checks what is pinned to it.
+    da: Som en opslagstavle, hvor nogen hænger en seddel op, der får den, der læser den højt, til at udlevere sine husnøgler - tavlen tjekker aldrig, hvad der bliver hængt op.
   inPractice:
     en: An attacker posts a comment with a hidden script on a municipality's public consultation page; every resident who opens the page while logged in unknowingly hands the attacker their session.
     da: En angriber skriver en kommentar med et skjult script på en kommunes høringsside; hver borger, der åbner siden, mens vedkommende er logget ind, giver uden at vide det angriberen sin session.
@@ -66,15 +66,15 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: OWASP — Cross Site Scripting (XSS)
+  - title: OWASP - Cross Site Scripting (XSS)
     tier: reference
     publisher: OWASP
     url: https://owasp.org/www-community/attacks/xss/
-  - title: OWASP Cheat Sheet Series — Cross Site Scripting Prevention
+  - title: OWASP Cheat Sheet Series - Cross Site Scripting Prevention
     tier: reference
     publisher: OWASP
     url: https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
-  - title: OWASP Top 10:2025 — A05 Injection
+  - title: OWASP Top 10:2025 - A05 Injection
     tier: reference
     publisher: OWASP
     url: https://owasp.org/Top10/2025/A05_2025-Injection/

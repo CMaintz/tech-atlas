@@ -9,15 +9,15 @@ cluster: ai-infrastructure
 layer: inference
 status: current
 summary:
-  en: How long one request has to wait from being sent until its answer arrives — for an AI chat, the pause before and while it replies.
-  da: Hvor længe én forespørgsel skal vente, fra den sendes, til svaret kommer — for en AI-chat pausen før og mens den svarer.
+  en: How long one request has to wait from being sent until its answer arrives - for an AI chat, the pause before and while it replies.
+  da: Hvor længe én forespørgsel skal vente, fra den sendes, til svaret kommer - for en AI-chat pausen før og mens den svarer.
 body:
   formal:
     en: The time from a request leaving the sender until the matching response arrives, usually reported as a typical value and a slow-end value, such as the time 99 in 100 requests beat; for a language model it covers queueing, reading the prompt and producing each token.
     da: Tiden fra en forespørgsel forlader afsenderen, til det tilhørende svar er modtaget, typisk angivet som en normal værdi og en værdi for de langsomme, fx den tid, 99 ud af 100 forespørgsler er hurtigere end; for en sprogmodel dækker den kø, læsning af prompten og frembringelse af hvert token.
   plain:
-    en: Like the wait between ordering a coffee and holding it in your hand — it says nothing about how many coffees the café makes in an hour.
-    da: Som ventetiden fra man bestiller en kaffe, til man står med den i hånden — den siger intet om, hvor mange kaffer caféen laver i timen.
+    en: Like the wait between ordering a coffee and holding it in your hand - it says nothing about how many coffees the café makes in an hour.
+    da: Som ventetiden fra man bestiller en kaffe, til man står med den i hånden - den siger intet om, hvor mange kaffer caféen laver i timen.
   inPractice:
     en: A housing association's web manager moves its tenant chat to a smaller model because tenants gave up when answers took eight seconds to start; the smaller model begins replying in under one.
     da: Den webansvarlige i en boligforening flytter lejerchatten over på en mindre model, fordi lejerne gav op, når svarene var otte sekunder om at begynde; den mindre model begynder at svare på under ét.

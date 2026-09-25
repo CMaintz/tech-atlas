@@ -17,8 +17,8 @@ body:
     en: Directive (EU) 2022/2555, to be written into national law by 17 October 2024, which obliges essential and important entities in 18 sectors to manage cyber risk, report significant incidents in stages and make their management body answerable.
     da: Direktiv (EU) 2022/2555, som skulle være skrevet ind i national lovgivning senest 17. oktober 2024, og som forpligter væsentlige og vigtige enheder i 18 sektorer til at styre cyberrisici, indberette væsentlige hændelser i trin og gøre ledelsesorganet ansvarligt.
   plain:
-    en: Like common building safety rules for the whole EU — every country must write them into its own law, and those who keep society running must build by them.
-    da: Som fælles byggeregler for hele EU — hvert land skal skrive dem ind i sin egen lov, og de, der holder samfundet kørende, skal bygge efter dem.
+    en: Like common building safety rules for the whole EU - every country must write them into its own law, and those who keep society running must build by them.
+    da: Som fælles byggeregler for hele EU - hvert land skal skrive dem ind i sin egen lov, og de, der holder samfundet kørende, skal bygge efter dem.
   inPractice:
     en: The board of a mid-sized Danish shipping company learns it falls under NIS2, so it approves a risk assessment, a routine for reporting incidents within 24 hours and security terms for its suppliers.
     da: Bestyrelsen i et mellemstort dansk rederi finder ud af, at rederiet hører under NIS2, og godkender derfor en risikoanalyse, en procedure for at indberette hændelser inden for 24 timer og sikkerhedskrav til leverandørerne.
@@ -100,7 +100,7 @@ article:
   en: src/content/articles/security/nis2.en.md
   da: src/content/articles/security/nis2.da.md
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: Directive (EU) 2022/2555 (NIS2 Directive)
     tier: standard

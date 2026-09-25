@@ -17,14 +17,14 @@ body:
     en: A way of working, named after the practice of two programmers sharing one screen, in which a developer and an AI coding assistant take turns proposing, questioning and refining code, with the developer reading and approving each change before it is kept.
     da: En arbejdsform, opkaldt efter praksissen med to programmører ved én skærm, hvor en udvikler og en AI-kodeassistent skiftes til at foreslå, udfordre og forbedre kode, og udvikleren læser og godkender hver ændring, før den beholdes.
   plain:
-    en: Like driving with a quick-thinking friend reading the map — they suggest turns and spot signs, but your hands stay on the wheel and you decide where to go.
-    da: Som at køre bil med en kvik ven, der læser kortet — vennen foreslår sving og ser skilte, men dine hænder bliver på rattet, og du bestemmer, hvor turen går hen.
+    en: Like driving with a quick-thinking friend reading the map - they suggest turns and spot signs, but your hands stay on the wheel and you decide where to go.
+    da: Som at køre bil med en kvik ven, der læser kortet - vennen foreslår sving og ser skilte, men dine hænder bliver på rattet, og du bestemmer, hvor turen går hen.
   inPractice:
     en: A developer at an accounting firm, chasing a rounding error in invoice totals, asks the assistant for two possible fixes, picks one, then has it explain a line she does not trust before keeping the change.
     da: En udvikler i et revisionsfirma, der leder efter en fejl i, hvordan fakturabeløb rundes af, beder assistenten om to mulige løsninger, vælger den ene og får den så til at forklare en linje, hun ikke stoler på, før hun beholder ændringen.
   whyItMatters:
-    en: Keeping a person reading along is what separates helpful speed from blind trust — the human catches the confident mistakes before they reach real users.
-    da: At et menneske læser med, er det, der skiller nyttig fart fra blind tillid — mennesket fanger de selvsikre fejl, før de når rigtige brugere.
+    en: Keeping a person reading along is what separates helpful speed from blind trust - the human catches the confident mistakes before they reach real users.
+    da: At et menneske læser med, er det, der skiller nyttig fart fra blind tillid - mennesket fanger de selvsikre fejl, før de når rigtige brugere.
 deepDive:
   en: |-
     Pair programming was formalised in Extreme Programming by Kent Beck in the late 1990s: two developers at one workstation, a driver who types and a navigator who reviews each line, thinks ahead and catches mistakes, swapping roles frequently. GitHub marketed Copilot from its 2021 launch as "your AI pair programmer", and tools such as Aider describe themselves the same way. The metaphor is imperfect in an instructive way: in AI pairing the model usually drives, producing code faster than a person types, and the human becomes the permanent navigator, whose job is exactly the review discipline that is easiest to let slip.

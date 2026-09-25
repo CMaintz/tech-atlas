@@ -9,8 +9,8 @@ cluster: incident-response
 layer: governance
 status: current
 summary:
-  en: A plan for who tells what to whom during a crisis — staff, customers, authorities and the press.
-  da: En plan for, hvem der siger hvad til hvem under en krise — medarbejdere, kunder, myndigheder og presse.
+  en: A plan for who tells what to whom during a crisis - staff, customers, authorities and the press.
+  da: En plan for, hvem der siger hvad til hvem under en krise - medarbejdere, kunder, myndigheder og presse.
 body:
   formal:
     en: The part of the contingency plan that names who may speak for the organisation and sets approval steps, prepared messages, contact lists and reporting deadlines for internal and external communication during an incident.
@@ -45,9 +45,9 @@ edges:
   part-of: [contingency-plan]
   used-with: [data-breach, incident-response, crisis-management]
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
-  - title: NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management
+  - title: NIST SP 800-61 Rev. 3 - Incident Response Recommendations and Considerations for Cybersecurity Risk Management
     url: https://doi.org/10.6028/NIST.SP.800-61r3
     tier: standard
     publisher: NIST

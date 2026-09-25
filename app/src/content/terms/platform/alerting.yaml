@@ -50,11 +50,11 @@ edges:
     - incident-response
     - service-level-objective
 sources:
-  - title: Google SRE book — Chapter 6, Monitoring Distributed Systems
+  - title: Google SRE book - Chapter 6, Monitoring Distributed Systems
     url: https://sre.google/sre-book/monitoring-distributed-systems/
     tier: reference
     publisher: Google
-  - title: Google SRE Workbook — Chapter 5, Alerting on SLOs
+  - title: Google SRE Workbook - Chapter 5, Alerting on SLOs
     tier: reference
     publisher: Google
     url: https://sre.google/workbook/alerting-on-slos/

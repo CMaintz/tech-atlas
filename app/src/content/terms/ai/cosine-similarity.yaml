@@ -16,8 +16,8 @@ body:
     en: A measure of likeness between two embeddings based on the angle between them, ignoring their length; 1 means the same direction, 0 means unrelated and -1 means opposite.
     da: Et mål for lighed mellem to embeddings baseret på vinklen mellem dem, uden hensyn til deres længde; 1 betyder samme retning, 0 betyder ingen sammenhæng og -1 betyder modsat.
   plain:
-    en: Like comparing two arrows by which way they point, not how long they are — two people walking north are going the same way even if one walks much further.
-    da: Som at sammenligne to pile efter, hvilken vej de peger, ikke hvor lange de er — to personer, der går mod nord, går samme vej, selvom den ene går meget længere.
+    en: Like comparing two arrows by which way they point, not how long they are - two people walking north are going the same way even if one walks much further.
+    da: Som at sammenligne to pile efter, hvilken vej de peger, ikke hvor lange de er - to personer, der går mod nord, går samme vej, selvom den ene går meget længere.
   inPractice:
     en: An IT supporter in a municipality tests the new help search; the embedding of “reset my password” scores 0.86 against the article “forgot your login” and 0.12 against “parking at the town hall”.
     da: En IT-supporter i en kommune tester den nye hjælpesøgning; embeddingen af “nulstil min adgangskode” scorer 0,86 mod artiklen “glemt dit login” og 0,12 mod “parkering ved rådhuset”.
@@ -32,7 +32,7 @@ deepDive:
 
     The numeric value is less informative than the formal range suggests. Many transformer embeddings are anisotropic, occupying a narrow cone of the space (Ethayarajh, 2019), so unrelated texts can still score 0.6 or higher and negative scores are rare. Scores are therefore only comparable within one model and one version; a threshold such as "above 0.8 counts as a match" must be calibrated per model on labelled pairs and will not transfer when the model is changed. Steck, Ekanadham and Kallus (2024) showed that for some learned embeddings, cosine similarity can yield arbitrary results because the training objective leaves the scaling of individual dimensions undetermined, a reminder that the measure inherits whatever geometry the training imposed.
 
-    Computation is d multiply–adds per pair, cheap enough for brute-force comparison of a query with tens of thousands of vectors using SIMD or GPU kernels, but approximate nearest-neighbour indexes are needed at millions of vectors. Compressed representations change the arithmetic: int8 scalar quantization keeps cosine ranking close to float32, while binary quantization replaces it with Hamming distance on sign bits and is normally followed by rescoring the top candidates with full-precision vectors.
+    Computation is d multiply-adds per pair, cheap enough for brute-force comparison of a query with tens of thousands of vectors using SIMD or GPU kernels, but approximate nearest-neighbour indexes are needed at millions of vectors. Compressed representations change the arithmetic: int8 scalar quantization keeps cosine ranking close to float32, while binary quantization replaces it with Hamming distance on sign bits and is normally followed by rescoring the top candidates with full-precision vectors.
   da: |-
     For vektorerne a og b er definitionen cos(a, b) = (a · b) / (‖a‖ ‖b‖) = Σ aᵢbᵢ / (√Σ aᵢ² · √Σ bᵢ²). Den er invariant over for positiv skalering af hver af vektorerne, og derfor blev den standard i vektorrumsmodellen for informationssøgning: Et langt dokument med samme fordeling af termer som et kort får samme score. Med ikke-negative vektorer som TF-IDF-vægte, som i den klassiske fremstilling hos Manning, Raghavan og Schütze, er intervallet 0 til 1; kun tætte embeddings med fortegnsbærende komponenter bruger hele intervallet fra −1 til 1. Pearson-korrelation er cosinus mellem middelværdicentrerede vektorer.
 

@@ -1,17 +1,17 @@
 ---
-title: EU's AI-forordning i praksis — risikoniveauer, frister og koordinatorens opgaver
+title: EU's AI-forordning i praksis - risikoniveauer, frister og koordinatorens opgaver
 term: ai/eu-ai-act
 lang: da
 ---
 
 ## Hvad er AI-forordningen, og hvem er omfattet?
 
-AI-forordningen er forordning (EU) 2024/1689. Den trådte i kraft 1. august 2024 og er – i modsætning til NIS2 – en _forordning_: Den gælder direkte i alle medlemslande uden at skulle skrives ind i national lov. Nationale regler udfylder kun detaljer som, hvilke myndigheder der fører tilsyn, og hvordan bøder håndteres. Kommissionen fremsatte forslaget i april 2021; forhandlingerne blev overhalet af ChatGPT's gennembrud i slutningen af 2022, og derfor indeholder den endelige tekst et særskilt kapitel om AI-modeller til almen brug, som ikke var med i det oprindelige forslag.
+AI-forordningen er forordning (EU) 2024/1689. Den trådte i kraft 1. august 2024 og er - i modsætning til NIS2 - en _forordning_: Den gælder direkte i alle medlemslande uden at skulle skrives ind i national lov. Nationale regler udfylder kun detaljer som, hvilke myndigheder der fører tilsyn, og hvordan bøder håndteres. Kommissionen fremsatte forslaget i april 2021; forhandlingerne blev overhalet af ChatGPT's gennembrud i slutningen af 2022, og derfor indeholder den endelige tekst et særskilt kapitel om AI-modeller til almen brug, som ikke var med i det oprindelige forslag.
 
 Forordningen er produktsikkerhedslovgivning. Den regulerer AI-systemer som produkter, der bringes i omsætning eller tages i brug, og den fordeler pligter efter **rolle**:
 
 - **Udbydere** udvikler et AI-system (eller får det udviklet) og markedsfører det under eget navn. De fleste pligter ligger her.
-- **Idriftsættere** bruger et AI-system i deres egen erhvervsmæssige virksomhed – en bank, der bruger et kreditvurderingsværktøj, en kommune, der bruger et system til at sortere sager.
+- **Idriftsættere** bruger et AI-system i deres egen erhvervsmæssige virksomhed - en bank, der bruger et kreditvurderingsværktøj, en kommune, der bruger et system til at sortere sager.
 - **Importører, distributører og bemyndigede repræsentanter** har understøttende pligter til at kontrollere, at det, de videreformidler, overholder reglerne.
 
 Forordningen rammer også udbydere uden for EU, når deres systemer bruges i EU. En organisation, der ændrer et højrisikosystem væsentligt eller sætter sit eget navn på det, kan selv blive udbyder.
@@ -27,7 +27,7 @@ Forordningen rammer også udbydere uden for EU, når deres systemer bruges i EU.
 | Begrænset risiko (gennemsigtighed) | Chatbots, deepfakes, AI-genereret tekst offentliggjort for at informere offentligheden                                                                     | Folk skal have at vide, at de har med AI eller AI-skabt indhold at gøre |
 | Minimal risiko                     | Spamfiltre, AI i spil, de fleste kontorværktøjer                                                                                                           | Ingen nye pligter                                                       |
 
-Ud over niveauerne har **AI-modeller til almen brug** – de store modeller, der ligger under mange produkter – deres egne pligter: teknisk dokumentation, information til udbydere længere nede i kæden, en ophavsretspolitik og et resumé af træningsindholdet. Modeller med "systemisk risiko" (de mest avancerede) skal desuden evalueres, have alvorlige hændelser indberettet og være tilstrækkeligt sikret.
+Ud over niveauerne har **AI-modeller til almen brug** - de store modeller, der ligger under mange produkter - deres egne pligter: teknisk dokumentation, information til udbydere længere nede i kæden, en ophavsretspolitik og et resumé af træningsindholdet. Modeller med "systemisk risiko" (de mest avancerede) skal desuden evalueres, have alvorlige hændelser indberettet og være tilstrækkeligt sikret.
 
 ### Pligter for højrisikosystemer
 
@@ -63,7 +63,7 @@ Tag scenariet fra begrebets definition. Sofie er GRC-studerende i praktik hos et
 
 1. **Kortlægning.** Hun oplister alle AI-systemer i brug, også funktioner gemt i HR- og CRM-platforme. CV-værktøjet, chatassistenten på hjemmesiden og en oversættelsestjeneste dukker op.
 2. **Klassifikation.** Chatassistenten er begrænset risiko (besøgende skal have at vide, at de taler med AI, fra august 2026). Oversættelse er minimal risiko. CV-screening står i bilag III (beskæftigelse), så det er **høj risiko**.
-3. **Afklar rollen.** Firmaet har ikke bygget værktøjet, så det er **idriftsætter**. Leverandøren er udbyder og bærer de tunge designkrav – men hvis firmaet gentræner værktøjet på egne data og markedsfører det som sit eget, kan det ændre sig.
+3. **Afklar rollen.** Firmaet har ikke bygget værktøjet, så det er **idriftsætter**. Leverandøren er udbyder og bærer de tunge designkrav - men hvis firmaet gentræner værktøjet på egne data og markedsfører det som sit eget, kan det ændre sig.
 4. **Gap-analyse af idriftsætterens pligter.** Hvem fører tilsyn med værktøjet og kan underkende dets rangeringer? Føres der log? Bliver kandidaterne informeret? Er der en dokumenteret test for skæve resultater, fx på tværs af køn og alder? Hun kører GDPR-sporet parallelt: En konsekvensanalyse (DPIA) er meget sandsynligt påkrævet.
 5. **Opfølgning hos leverandøren.** Hun beder udbyderen om en tidsplan for overensstemmelsesvurdering, CE-mærkning og brugsanvisning inden **2. december 2027** og får pligterne skrevet ind i kontrakten.
 6. **Governance.** Hun foreslår en AI-politik godkendt af ledelsen, en ejer for hvert AI-system og uddannelse, så medarbejderne forstår de værktøjer, de bruger.

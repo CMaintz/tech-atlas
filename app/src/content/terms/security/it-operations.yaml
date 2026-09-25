@@ -13,11 +13,11 @@ summary:
   da: Det team og det daglige arbejde, der holder en organisations computere, systemer og netværk kørende.
 body:
   formal:
-    en: The function that installs, runs, updates and supports an organisation's IT systems day to day — the people who in practice carry out most security controls, such as patches, backups and account changes.
-    da: Den funktion, der installerer, driver, opdaterer og supporterer organisationens IT-systemer i hverdagen — de folk, der i praksis udfører de fleste sikkerhedskontroller, fx patches, backup og ændringer af brugerkonti.
+    en: The function that installs, runs, updates and supports an organisation's IT systems day to day - the people who in practice carry out most security controls, such as patches, backups and account changes.
+    da: Den funktion, der installerer, driver, opdaterer og supporterer organisationens IT-systemer i hverdagen - de folk, der i praksis udfører de fleste sikkerhedskontroller, fx patches, backup og ændringer af brugerkonti.
   plain:
-    en: Like the ground crew at an airport — they refuel, load and check the planes so flights leave on time; the pilots are the ones people notice, but nothing moves without the crew.
-    da: Som jordpersonalet i en lufthavn — de tanker, læsser og tjekker flyene, så de letter til tiden; piloterne får opmærksomheden, men intet flytter sig uden personalet på jorden.
+    en: Like the ground crew at an airport - they refuel, load and check the planes so flights leave on time; the pilots are the ones people notice, but nothing moves without the crew.
+    da: Som jordpersonalet i en lufthavn - de tanker, læsser og tjekker flyene, så de letter til tiden; piloterne får opmærksomheden, men intet flytter sig uden personalet på jorden.
   inPractice:
     en: At a Danish home-care provider, the security officer agrees with IT operations that critical updates go out within 14 days, and the IT department reports each month how many machines are still behind.
     da: Hos en dansk hjemmeplejeleverandør aftaler den sikkerhedsansvarlige med IT-driften, at kritiske opdateringer rulles ud inden for 14 dage, og IT-afdelingen melder hver måned, hvor mange maskiner der stadig mangler.
@@ -51,7 +51,7 @@ edges:
         da: IT-driften holder systemerne kørende; et SOC holder øje med de samme systemer for angreb.
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 1, 4 og 7
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 1, 4 og 7
     tier: course-material
   - title: CIS Critical Security Controls v8.1
     tier: standard

@@ -1,5 +1,5 @@
 ---
-title: The EU AI Act in practice — risk tiers, deadlines and what a coordinator does
+title: The EU AI Act in practice - risk tiers, deadlines and what a coordinator does
 term: ai/eu-ai-act
 lang: en
 ---
@@ -11,7 +11,7 @@ The Artificial Intelligence Act is Regulation (EU) 2024/1689. It entered into fo
 The Act is product-safety law. It regulates AI systems as things placed on the market or put into service, and it assigns duties by **role**:
 
 - **Providers** develop an AI system (or have it developed) and place it on the market under their own name. Most duties fall here.
-- **Deployers** use an AI system in their own professional activity — a bank using a credit-scoring tool, a municipality using a case-sorting system.
+- **Deployers** use an AI system in their own professional activity - a bank using a credit-scoring tool, a municipality using a case-sorting system.
 - **Importers, distributors and authorised representatives** have supporting duties to check that what they pass on is compliant.
 
 The Act reaches providers outside the EU when their systems are used in the EU. An organisation that substantially modifies a high-risk system, or puts its own name on one, can become its provider.
@@ -27,7 +27,7 @@ The Act reaches providers outside the EU when their systems are used in the EU. 
 | Limited (transparency) risk | Chat assistants, deepfakes, AI-generated text published to inform the public                                                                          | People must be told they are dealing with AI or AI-made content |
 | Minimal risk                | Spam filters, AI in games, most office tools                                                                                                          | No new duties                                                   |
 
-On top of these tiers, **general-purpose AI models** — the large models underneath many products — carry their own duties: technical documentation, information for downstream providers, a copyright policy and a summary of training content. Models with "systemic risk" (the most capable ones) must also be evaluated, have serious incidents reported and be adequately secured.
+On top of these tiers, **general-purpose AI models** - the large models underneath many products - carry their own duties: technical documentation, information for downstream providers, a copyright policy and a summary of training content. Models with "systemic risk" (the most capable ones) must also be evaluated, have serious incidents reported and be adequately secured.
 
 ### Duties for high-risk systems
 
@@ -63,7 +63,7 @@ Take the scenario from the term definition. Sofie is a GRC student interning at 
 
 1. **Inventory.** She lists every AI system in use, including features hidden in HR and CRM platforms. The CV tool, the website chat assistant and a translation service appear.
 2. **Classify.** The chat assistant is limited risk (visitors must be told they are talking to AI, from August 2026). Translation is minimal risk. CV screening is listed in Annex III (employment), so it is **high risk**.
-3. **Determine the role.** The firm did not build the tool, so it is a **deployer**. The supplier is the provider and carries the heavy design duties — but if the firm retrains the tool on its own data and markets it as its own, that could change.
+3. **Determine the role.** The firm did not build the tool, so it is a **deployer**. The supplier is the provider and carries the heavy design duties - but if the firm retrains the tool on its own data and markets it as its own, that could change.
 4. **Gap analysis for the deployer duties.** Who oversees the tool and can override its rankings? Are logs kept? Are candidates informed? Is there a documented check for unfair results, e.g. across gender and age? She runs the GDPR check in parallel: a data protection impact assessment is very likely required.
 5. **Supplier follow-up.** She asks the provider for its timeline to conformity assessment, CE marking and instructions for use ahead of **2 December 2027**, and adds these duties to the contract.
 6. **Governance.** She proposes an AI policy approved by management, an owner for each AI system, and training so staff understand the tools they use.

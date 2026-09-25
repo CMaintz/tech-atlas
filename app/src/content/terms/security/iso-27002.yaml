@@ -10,12 +10,12 @@ layer: governance
 status: current
 era: 2007
 summary:
-  en: A guidance standard describing each security control in detail — what it is for and how to put it in place.
-  da: En vejledende standard, der beskriver hver sikkerhedskontrol i detaljer — hvad den skal og hvordan den indføres.
+  en: A guidance standard describing each security control in detail - what it is for and how to put it in place.
+  da: En vejledende standard, der beskriver hver sikkerhedskontrol i detaljer - hvad den skal og hvordan den indføres.
 body:
   formal:
-    en: A companion standard to ISO 27001, current edition 2022, that gives the purpose of the same 93 controls and guidance on putting them in place, grouped into four themes — organisational, people, physical and technological; it contains no requirements and cannot be certified against.
-    da: En følgestandard til ISO 27001, nuværende udgave fra 2022, der giver formål og vejledning for de samme 93 kontroller, fordelt på fire temaer — organisatoriske, menneskelige, fysiske og teknologiske; den stiller ingen krav og kan ikke bruges til certificering.
+    en: A companion standard to ISO 27001, current edition 2022, that gives the purpose of the same 93 controls and guidance on putting them in place, grouped into four themes - organisational, people, physical and technological; it contains no requirements and cannot be certified against.
+    da: En følgestandard til ISO 27001, nuværende udgave fra 2022, der giver formål og vejledning for de samme 93 kontroller, fordelt på fire temaer - organisatoriske, menneskelige, fysiske og teknologiske; den stiller ingen krav og kan ikke bruges til certificering.
   plain:
     en: If the house rules say "keep the house safe", this is the handyman's manual explaining which locks, alarms and smoke detectors to fit and where.
     da: Hvis husordenen siger "hold huset sikkert", er det her håndværkerens manual, der forklarer, hvilke låse, alarmer og røgalarmer der skal sættes op, og hvor.
@@ -27,7 +27,7 @@ body:
     da: En kontroloverskrift på én linje siger, hvad man skal opnå, men ikke hvordan; uden vejledningen skulle hver organisation selv udtænke hver kontrol fra bunden og ville ofte overse vigtige dele.
 deepDive:
   en: |-
-    The 2022 edition, retitled "Information security, cybersecurity and privacy protection — Information security controls", replaced the 114 controls in 14 clauses of the 2013 edition with 93 controls in four themes: organisational (clause 5, 37 controls), people (clause 6, 8), physical (clause 7, 14) and technological (clause 8, 34). Every control follows the same template: a control statement, a purpose, guidance and other information. The control statements are the same short texts that appear in ISO/IEC 27001 Annex A, so the Annex A entry says what, and the 27002 entry explains why and how.
+    The 2022 edition, retitled "Information security, cybersecurity and privacy protection - Information security controls", replaced the 114 controls in 14 clauses of the 2013 edition with 93 controls in four themes: organisational (clause 5, 37 controls), people (clause 6, 8), physical (clause 7, 14) and technological (clause 8, 34). Every control follows the same template: a control statement, a purpose, guidance and other information. The control statements are the same short texts that appear in ISO/IEC 27001 Annex A, so the Annex A entry says what, and the 27002 entry explains why and how.
 
     Eleven controls were new in 2022: 5.7 threat intelligence, 5.23 information security for use of cloud services, 5.30 ICT readiness for business continuity, 7.4 physical security monitoring, 8.9 configuration management, 8.10 information deletion, 8.11 data masking, 8.12 data leakage prevention, 8.16 monitoring activities, 8.23 web filtering and 8.28 secure coding. Many older controls were merged rather than removed; Annex B of the standard maps each 2022 control back to its 2013 predecessors, which is what organisations used when moving their SoA to the new edition.
 
@@ -35,7 +35,7 @@ deepDive:
 
     Because it is guidance, 27002 uses "should" throughout and cannot be certified against; an auditor assesses the organisation against 27001 and uses 27002 as a reference for what a reasonable implementation looks like. A common mistake is treating the guidance text as a checklist that must be followed word for word, when the actual obligation is the risk-based selection documented in the SoA. Sector documents such as ISO/IEC 27017 (cloud), 27018 (personal data in public clouds) and 27019 (energy utilities) extend the controls with sector-specific guidance, while the CIS Controls offer a more prescriptive, prioritised set of technical safeguards that can sit underneath the technological theme.
   da: |-
-    2022-udgaven, med den nye titel "Information security, cybersecurity and privacy protection — Information security controls", erstattede 2013-udgavens 114 kontroller i 14 afsnit med 93 kontroller i fire temaer: organisatoriske (afsnit 5, 37 kontroller), menneskelige (afsnit 6, 8), fysiske (afsnit 7, 14) og teknologiske (afsnit 8, 34). Hver kontrol følger samme skabelon: en kontroltekst, et formål, vejledning og øvrig information. Kontrolteksterne er de samme korte formuleringer, som står i ISO/IEC 27001 anneks A, så anneks A siger hvad, mens 27002 forklarer hvorfor og hvordan.
+    2022-udgaven, med den nye titel "Information security, cybersecurity and privacy protection - Information security controls", erstattede 2013-udgavens 114 kontroller i 14 afsnit med 93 kontroller i fire temaer: organisatoriske (afsnit 5, 37 kontroller), menneskelige (afsnit 6, 8), fysiske (afsnit 7, 14) og teknologiske (afsnit 8, 34). Hver kontrol følger samme skabelon: en kontroltekst, et formål, vejledning og øvrig information. Kontrolteksterne er de samme korte formuleringer, som står i ISO/IEC 27001 anneks A, så anneks A siger hvad, mens 27002 forklarer hvorfor og hvordan.
 
     Elleve kontroller var nye i 2022: 5.7 trusselsefterretninger, 5.23 informationssikkerhed ved brug af cloudtjenester, 5.30 IKT-parathed til driftskontinuitet, 7.4 overvågning af fysisk sikkerhed, 8.9 konfigurationsstyring, 8.10 sletning af information, 8.11 datamaskering, 8.12 forebyggelse af datalæk, 8.16 overvågningsaktiviteter, 8.23 webfiltrering og 8.28 sikker kodning. Mange ældre kontroller blev slået sammen frem for fjernet; standardens anneks B kobler hver 2022-kontrol til sine forgængere fra 2013, og det var den kobling, organisationerne brugte, da de flyttede deres SoA til den nye udgave.
 
@@ -61,7 +61,7 @@ edges:
         da: SoA'en gennemgår de kontroller i anneks A, som ISO 27002 forklarer i detaljer.
   part-of: [iso-27000-series]
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: ISO/IEC 27002:2022
     tier: standard

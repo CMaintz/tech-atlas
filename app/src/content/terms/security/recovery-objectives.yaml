@@ -9,8 +9,8 @@ cluster: incident-response
 layer: governance
 status: current
 summary:
-  en: Two agreed limits for a failure — how long a system may be down (RTO) and how much recent data may be lost (RPO).
-  da: To aftalte grænser ved nedbrud — hvor længe et system må være nede (RTO), og hvor meget af de seneste data der må gå tabt (RPO).
+  en: Two agreed limits for a failure - how long a system may be down (RTO) and how much recent data may be lost (RPO).
+  da: To aftalte grænser ved nedbrud - hvor længe et system må være nede (RTO), og hvor meget af de seneste data der må gå tabt (RPO).
 body:
   formal:
     en: The recovery time objective (RTO) is the longest a system or process may be unavailable before the harm becomes unacceptable. The recovery point objective (RPO) is the oldest point in time the data may be restored to, which sets how often a backup must be taken.
@@ -46,10 +46,10 @@ edges:
   requires: [business-impact-analysis, availability]
   contrasts-with: [service-level-objective]
 sources:
-  - title: NIST SP 800-34 Rev. 1 — Contingency Planning Guide for Federal Information Systems
+  - title: NIST SP 800-34 Rev. 1 - Contingency Planning Guide for Federal Information Systems
     tier: standard
     publisher: NIST
-  - title: ISO 22301:2019 — Business continuity management systems, Requirements
+  - title: ISO 22301:2019 - Business continuity management systems, Requirements
     tier: standard
     publisher: ISO
 draft: true

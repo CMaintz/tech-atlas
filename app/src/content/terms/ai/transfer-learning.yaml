@@ -16,14 +16,14 @@ body:
     en: A way of doing model training in which a model trained on a large, general body of training data is taken as the start for a new task, and only adjusted with a smaller amount of task data.
     da: En måde at lave modeltræning på, hvor en model trænet på et stort, generelt datasæt tages som start for en ny opgave og kun justeres med en mindre mængde opgavedata.
   plain:
-    en: Like a car driver learning to drive a van — steering, traffic rules and road sense carry over, so only the size and the mirrors need practice.
-    da: Som en bilist, der skal lære at køre varevogn — rattet, færdselsreglerne og fornemmelsen for trafikken følger med, så kun størrelsen og spejlene skal øves.
+    en: Like a car driver learning to drive a van - steering, traffic rules and road sense carry over, so only the size and the mirrors need practice.
+    da: Som en bilist, der skal lære at køre varevogn - rattet, færdselsreglerne og fornemmelsen for trafikken følger med, så kun størrelsen og spejlene skal øves.
   inPractice:
     en: An engineer at a water utility takes an image model trained on millions of everyday photos and teaches it to spot cracks in sewer inspection videos, using only 3,000 labelled frames.
     da: En ingeniør i et forsyningsselskab tager en billedmodel, der er trænet på millioner af almindelige fotos, og lærer den at finde revner i kloakvideoer med kun 3.000 mærkede billeder.
   whyItMatters:
-    en: It lets small teams build useful models without huge data or budgets — but the new model also inherits the old one's blind spots, biases and any hidden tampering.
-    da: Det lader små teams bygge brugbare modeller uden enorme datamængder eller budgetter — men den nye model arver også den gamle models blinde vinkler, skævheder og al skjult manipulation.
+    en: It lets small teams build useful models without huge data or budgets - but the new model also inherits the old one's blind spots, biases and any hidden tampering.
+    da: Det lader små teams bygge brugbare modeller uden enorme datamængder eller budgetter - men den nye model arver også den gamle models blinde vinkler, skævheder og al skjult manipulation.
 deepDive:
   en: |-
     Pan and Yang's 2010 survey formalises the setting with a source domain and task and a target domain and task, where a domain is a feature space plus a marginal distribution over it. Transfer is useful when the target task has little labelled data but shares structure with the source. Their taxonomy distinguishes inductive transfer (target labels available, different task), transductive transfer (same task, different domain, often called domain adaptation) and unsupervised transfer (no labels in either).

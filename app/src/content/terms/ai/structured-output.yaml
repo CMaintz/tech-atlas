@@ -10,52 +10,52 @@ layer: inference
 status: current
 era: 2024
 summary:
-  en: Making a language model answer in a fixed, machine-readable shape — set fields in JSON — so other software can use the reply directly.
-  da: At få en sprogmodel til at svare i en fast form, som programmer kan læse — faste felter i JSON — så anden software kan bruge svaret direkte.
+  en: Making a language model answer in a fixed, machine-readable shape - set fields in JSON - so other software can use the reply directly.
+  da: At få en sprogmodel til at svare i en fast form, som programmer kan læse - faste felter i JSON - så anden software kan bruge svaret direkte.
 body:
   formal:
     en: A feature of a model service that forces generated text to match a given JSON layout, usually by letting sampling pick only tokens that keep the output valid against it; the looser “JSON mode” promises valid JSON but not the right fields.
     da: En funktion i en modeltjeneste, der tvinger genereret tekst til at følge en given JSON-opbygning, typisk ved kun at lade sampling vælge tokens, der holder outputtet gyldigt; den løsere “JSON-tilstand” lover gyldig JSON, men ikke de rigtige felter.
   plain:
-    en: Like handing someone a paper form with labelled boxes instead of a blank sheet — whatever they write, it lands in the right box.
-    da: Som at give nogen en papirblanket med mærkede felter i stedet for et blankt ark — hvad de end skriver, havner det i det rigtige felt.
+    en: Like handing someone a paper form with labelled boxes instead of a blank sheet - whatever they write, it lands in the right box.
+    da: Som at give nogen en papirblanket med mærkede felter i stedet for et blankt ark - hvad de end skriver, havner det i det rigtige felt.
   inPractice:
     en: A developer in a region's IT department has a language model read referral letters from family doctors and return the fields department, urgency and reason, which the hospital's booking system reads straight in without anyone retyping them.
     da: En udvikler i en regions IT-afdeling lader en sprogmodel læse henvisninger fra patienternes egen læge og returnere felterne afdeling, hastegrad og årsag, som hospitalets bookingsystem læser direkte ind, uden at nogen skal taste dem igen.
   whyItMatters:
-    en: It removes a common cause of broken AI features — replies that code cannot read — but a well-shaped answer can still hold a wrong or harmful value, such as an urgent case marked routine, so the content still needs checking.
-    da: Det fjerner en almindelig årsag til AI-funktioner, der går i stykker — svar, som kode ikke kan læse — men et korrekt formet svar kan stadig indeholde en forkert eller skadelig værdi, fx en akut sag markeret som rutine, så indholdet skal stadig tjekkes.
+    en: It removes a common cause of broken AI features - replies that code cannot read - but a well-shaped answer can still hold a wrong or harmful value, such as an urgent case marked routine, so the content still needs checking.
+    da: Det fjerner en almindelig årsag til AI-funktioner, der går i stykker - svar, som kode ikke kan læse - men et korrekt formet svar kan stadig indeholde en forkert eller skadelig værdi, fx en akut sag markeret som rutine, så indholdet skal stadig tjekkes.
 deepDive:
   en: |-
     There are three levels of guarantee, and they are often confused. Prompt-only formatting asks for JSON in the instructions, perhaps with an example, and has no guarantee at all; outputs may include prose around the JSON, trailing commas or missing fields. JSON mode, introduced by OpenAI in November 2023 and offered in similar form by other providers, guarantees syntactically valid JSON but not any particular shape. Schema-constrained output guarantees that the result validates against a supplied JSON Schema. OpenAI launched this as Structured Outputs on 6 August 2024, both as a response format and as strict: true on function definitions, reporting 100% schema adherence on its internal evaluation for gpt-4o-2024-08-06 against under 40% for gpt-4-0613 with prompting alone; Anthropic introduced JSON outputs and strict tool use in public beta in November 2025.
 
-    The guarantee comes from constrained decoding. The schema is compiled into a grammar or finite-state machine, and at each step the sampler masks the logits of every token that could not lead to a valid continuation, so only grammatical tokens can be chosen. Because tokens do not align with JSON syntax (one token may contain a quote, a colon and part of a key), the compiler must precompute which vocabulary entries are admissible in each automaton state; libraries such as Outlines, llama.cpp's GBNF grammars and XGrammar implement this for open-weight models, and hosted APIs typically cache the compiled schema, so the first request with a new schema can be slower. Providers support only a subset of JSON Schema in strict mode — commonly requiring every property to be listed as required, disallowing additional properties, and limiting recursion, pattern and format keywords.
+    The guarantee comes from constrained decoding. The schema is compiled into a grammar or finite-state machine, and at each step the sampler masks the logits of every token that could not lead to a valid continuation, so only grammatical tokens can be chosen. Because tokens do not align with JSON syntax (one token may contain a quote, a colon and part of a key), the compiler must precompute which vocabulary entries are admissible in each automaton state; libraries such as Outlines, llama.cpp's GBNF grammars and XGrammar implement this for open-weight models, and hosted APIs typically cache the compiled schema, so the first request with a new schema can be slower. Providers support only a subset of JSON Schema in strict mode - commonly requiring every property to be listed as required, disallowing additional properties, and limiting recursion, pattern and format keywords.
 
     Constraints guarantee form, not content. The model still chooses values, so an enum field can hold the wrong category, a date field a plausible but false date, and a string field arbitrary text including injected instructions or markup. Forcing a format can also cost quality: Tam et al. (2024, "Let Me Speak Freely?") reported that strict format constraints degraded reasoning performance on some tasks. Common mitigations are to include a free-text reasoning field before the answer fields, to keep schemas flat and descriptive (field names and descriptions act as instructions), and to model "unknown" or "not found" explicitly so the model is not forced to invent a value. Safety refusals may be returned in a separate field rather than inside the schema.
 
-    Downstream code must still treat model output as untrusted input. OWASP's 2025 LLM Top 10 lists Improper Output Handling as LLM05: values from a well-formed object can still cause SQL injection, cross-site scripting, path traversal or unintended tool actions if passed on without validation. Structured output makes semantic validation easier — check ranges, cross-field consistency and business rules on typed fields — but does not replace it.
+    Downstream code must still treat model output as untrusted input. OWASP's 2025 LLM Top 10 lists Improper Output Handling as LLM05: values from a well-formed object can still cause SQL injection, cross-site scripting, path traversal or unintended tool actions if passed on without validation. Structured output makes semantic validation easier - check ranges, cross-field consistency and business rules on typed fields - but does not replace it.
   da: |-
     Der findes tre garantiniveauer, og de forveksles ofte. Formatering alene via prompten beder om JSON i instruktionerne, måske med et eksempel, og giver ingen garanti; output kan indeholde prosa omkring JSON'en, overskydende kommaer eller manglende felter. JSON-tilstand, som OpenAI introducerede i november 2023, og som andre udbydere tilbyder i lignende form, garanterer syntaktisk gyldig JSON, men ikke nogen bestemt form. Skemabegrænset output garanterer, at resultatet validerer mod et givet JSON Schema. OpenAI lancerede det som Structured Outputs den 6. august 2024, både som svarformat og som strict: true på funktionsdefinitioner, og rapporterede 100 % overholdelse af skemaet i sin interne evaluering for gpt-4o-2024-08-06 mod under 40 % for gpt-4-0613 med prompting alene; Anthropic introducerede JSON-output og strict tool use i offentlig beta i november 2025.
 
-    Garantien kommer fra begrænset afkodning. Skemaet kompileres til en grammatik eller en endelig tilstandsmaskine, og i hvert trin maskerer sampleren logits for alle tokens, der ikke kan føre til en gyldig fortsættelse, så kun grammatisk tilladte tokens kan vælges. Da tokens ikke flugter med JSON-syntaksen (ét token kan indeholde et anførselstegn, et kolon og en del af en nøgle), skal kompilatoren på forhånd beregne, hvilke poster i ordforrådet der er tilladt i hver tilstand; biblioteker som Outlines, llama.cpp's GBNF-grammatikker og XGrammar gør det for open-weight-modeller, og hostede API'er cacher typisk det kompilerede skema, så det første kald med et nyt skema kan være langsommere. Udbyderne understøtter kun en delmængde af JSON Schema i strict-tilstand — ofte skal alle egenskaber angives som required, ekstra egenskaber er ikke tilladt, og rekursion samt nøgleord som pattern og format er begrænsede.
+    Garantien kommer fra begrænset afkodning. Skemaet kompileres til en grammatik eller en endelig tilstandsmaskine, og i hvert trin maskerer sampleren logits for alle tokens, der ikke kan føre til en gyldig fortsættelse, så kun grammatisk tilladte tokens kan vælges. Da tokens ikke flugter med JSON-syntaksen (ét token kan indeholde et anførselstegn, et kolon og en del af en nøgle), skal kompilatoren på forhånd beregne, hvilke poster i ordforrådet der er tilladt i hver tilstand; biblioteker som Outlines, llama.cpp's GBNF-grammatikker og XGrammar gør det for open-weight-modeller, og hostede API'er cacher typisk det kompilerede skema, så det første kald med et nyt skema kan være langsommere. Udbyderne understøtter kun en delmængde af JSON Schema i strict-tilstand - ofte skal alle egenskaber angives som required, ekstra egenskaber er ikke tilladt, og rekursion samt nøgleord som pattern og format er begrænsede.
 
     Begrænsningerne garanterer form, ikke indhold. Modellen vælger stadig værdierne, så et enum-felt kan få den forkerte kategori, et datofelt en troværdig, men forkert dato, og et tekstfelt vilkårlig tekst, herunder indsatte instruktioner eller markup. At tvinge et format kan også koste kvalitet: Tam m.fl. (2024, "Let Me Speak Freely?") rapporterede, at stramme formatkrav forringede ræsonnementet på nogle opgaver. Gængse modtræk er at have et fritekstfelt til ræsonnement før svarfelterne, at holde skemaer flade og beskrivende (feltnavne og beskrivelser fungerer som instruktioner) og at modellere "ukendt" eller "ikke fundet" eksplicit, så modellen ikke tvinges til at opfinde en værdi. Sikkerhedsbetingede afvisninger kan blive returneret i et separat felt frem for inde i skemaet.
 
-    Kode længere nede i kæden skal stadig behandle modeloutput som upålideligt input. OWASP's LLM Top 10 fra 2025 har Improper Output Handling som LLM05: Værdier fra et velformet objekt kan stadig give SQL-injection, cross-site scripting, path traversal eller utilsigtede værktøjshandlinger, hvis de sendes videre uden validering. Struktureret output gør semantisk validering lettere — tjek intervaller, sammenhæng mellem felter og forretningsregler på typede felter — men erstatter den ikke.
+    Kode længere nede i kæden skal stadig behandle modeloutput som upålideligt input. OWASP's LLM Top 10 fra 2025 har Improper Output Handling som LLM05: Værdier fra et velformet objekt kan stadig give SQL-injection, cross-site scripting, path traversal eller utilsigtede værktøjshandlinger, hvis de sendes videre uden validering. Struktureret output gør semantisk validering lettere - tjek intervaller, sammenhæng mellem felter og forretningsregler på typede felter - men erstatter den ikke.
 edges:
   requires: [sampling]
 sources:
-  - title: OpenAI documentation — Structured Outputs
+  - title: OpenAI documentation - Structured Outputs
     tier: official-doc
     publisher: OpenAI
-  - title: OWASP Top 10 for LLM Applications 2025 — LLM05 Improper Output Handling
+  - title: OWASP Top 10 for LLM Applications 2025 - LLM05 Improper Output Handling
     tier: reference
     publisher: OWASP
   - title: OpenAI (2024), Introducing Structured Outputs in the API
     tier: official-doc
     publisher: OpenAI
     url: https://openai.com/index/introducing-structured-outputs-in-the-api/
-  - title: Anthropic documentation — Structured outputs
+  - title: Anthropic documentation - Structured outputs
     tier: official-doc
     publisher: Anthropic
     url: https://platform.claude.com/docs/en/build-with-claude/structured-outputs

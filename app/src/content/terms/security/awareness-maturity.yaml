@@ -13,11 +13,11 @@ summary:
   da: Et mål for, hvor langt en organisation er nået med at gøre sikkerhed til en del af, hvordan dens folk tænker og handler.
 body:
   formal:
-    en: An assessment that places an organisation's awareness work on a scale of stages — from nothing in place, through a yearly course held only to meet requirements, to lasting change in behaviour and security culture — to show where it stands and what to improve next.
-    da: En vurdering, der placerer organisationens awareness-arbejde på en skala med trin — fra intet på plads over et kursus en gang om året for at opfylde kravene til varig ændring i adfærd og sikkerhedskultur — så det bliver tydeligt, hvor den står, og hvad der skal forbedres som det næste.
+    en: An assessment that places an organisation's awareness work on a scale of stages - from nothing in place, through a yearly course held only to meet requirements, to lasting change in behaviour and security culture - to show where it stands and what to improve next.
+    da: En vurdering, der placerer organisationens awareness-arbejde på en skala med trin - fra intet på plads over et kursus en gang om året for at opfylde kravene til varig ændring i adfærd og sikkerhedskultur - så det bliver tydeligt, hvor den står, og hvad der skal forbedres som det næste.
   plain:
-    en: Like the swimming badges children earn in stages — a badge does not make them swim better, but it shows honestly where they are and what the next step is.
-    da: Som svømmemærker for børn — mærket gør dem ikke bedre til at svømme, men det viser ærligt, hvor de står, og hvad næste skridt er.
+    en: Like the swimming badges children earn in stages - a badge does not make them swim better, but it shows honestly where they are and what the next step is.
+    da: Som svømmemærker for børn - mærket gør dem ikke bedre til at svømme, men det viser ærligt, hvor de står, og hvad næste skridt er.
   inPractice:
     en: The awareness lead at a pension fund places it at the stage “one course a year, nothing measured”, and sets the goal of tracking phishing reports every quarter to reach the next stage.
     da: Den awareness-ansvarlige i en pensionskasse placerer den på trinnet “ét kursus om året, ingen målinger” og sætter som mål at følge antallet af phishing-meldinger hvert kvartal for at nå næste trin.
@@ -28,7 +28,7 @@ deepDive:
   en: |-
     Awareness maturity models are staged capability models in the tradition of CMM/CMMI, applied to the human side of security. The most widely cited is the SANS Security Awareness Maturity Model, which defines five stages: Non-Existent; Compliance Focused, where the goal is to satisfy an audit or regulatory training requirement, typically with an annual module; Promoting Awareness and Behavior Change, where the programme targets a small set of high-impact human risks and addresses them continuously; Long-Term Culture Change; and a fifth stage, originally labelled Metrics Framework and in the current edition Optimization and Resilience, where outcomes are tied to measurable risk reduction. SANS itself puts measurable results from stage three at roughly six to twelve months, and stage four at three to ten years depending on size and complexity.
 
-    NIST SP 800-50 Rev. 1 (September 2024) takes a different route: its Appendix A offers example maturity levels adapted from the FY21 Inspector General FISMA metrics — Ad Hoc, Defined, Consistently Implemented, Managed and Measurable, and Optimized — scored per question, for example whether roles are defined and resourced, whether workforce skills are assessed, and whether the programme's effectiveness is measured through practical exercises. At the top level the organisation must be able to show that incidents caused by personnel actions or inactions are decreasing over time, which moves the evidence from activity to outcome.
+    NIST SP 800-50 Rev. 1 (September 2024) takes a different route: its Appendix A offers example maturity levels adapted from the FY21 Inspector General FISMA metrics - Ad Hoc, Defined, Consistently Implemented, Managed and Measurable, and Optimized - scored per question, for example whether roles are defined and resourced, whether workforce skills are assessed, and whether the programme's effectiveness is measured through practical exercises. At the top level the organisation must be able to show that incidents caused by personnel actions or inactions are decreasing over time, which moves the evidence from activity to outcome.
 
     The key methodological point is that maturity describes the programme's capability, not the workforce's current risk level. A mature programme can still report a high click rate in a hard simulation, and an immature one can look good on a trivial template. Assessments should therefore combine document evidence (strategy, plan, roles, budget), process evidence (needs analysis, audience segmentation, repetition cadence) and outcome evidence (reporting rate, time-to-report, repeat-clicker trends, incidents with a human root cause). Completion percentages of mandatory e-learning are the classic stage-two metric and say almost nothing about behaviour.
 
@@ -36,7 +36,7 @@ deepDive:
   da: |-
     Modenhedsmodeller for awareness er trinbaserede kapabilitetsmodeller i CMM/CMMI-traditionen, anvendt på sikkerhedens menneskelige side. Den mest citerede er SANS Security Awareness Maturity Model, der har fem trin: Non-Existent; Compliance Focused, hvor målet er at opfylde et revisions- eller lovkrav om træning, typisk med ét årligt modul; Promoting Awareness and Behavior Change, hvor programmet går målrettet efter nogle få menneskelige risici med stor effekt og arbejder med dem løbende; Long-Term Culture Change; og et femte trin, oprindeligt kaldet Metrics Framework og i den nuværende udgave Optimization and Resilience, hvor resultaterne kobles til målbar risikoreduktion. SANS angiver selv, at trin tre giver målbare resultater på cirka seks til tolv måneder, mens trin fire tager tre til ti år afhængigt af organisationens størrelse og kompleksitet.
 
-    NIST SP 800-50 Rev. 1 (september 2024) går en anden vej: Appendix A giver eksempler på modenhedsniveauer, tilpasset fra de amerikanske Inspector General FISMA-metrikker for FY21 — Ad Hoc, Defined, Consistently Implemented, Managed and Measurable og Optimized — der vurderes spørgsmål for spørgsmål, fx om roller er defineret og har ressourcer, om medarbejdernes kompetencer vurderes, og om programmets effekt måles med praktiske øvelser. På øverste niveau skal organisationen kunne dokumentere, at hændelser forårsaget af medarbejderes handlinger eller undladelser falder over tid, så beviserne flytter sig fra aktivitet til effekt.
+    NIST SP 800-50 Rev. 1 (september 2024) går en anden vej: Appendix A giver eksempler på modenhedsniveauer, tilpasset fra de amerikanske Inspector General FISMA-metrikker for FY21 - Ad Hoc, Defined, Consistently Implemented, Managed and Measurable og Optimized - der vurderes spørgsmål for spørgsmål, fx om roller er defineret og har ressourcer, om medarbejdernes kompetencer vurderes, og om programmets effekt måles med praktiske øvelser. På øverste niveau skal organisationen kunne dokumentere, at hændelser forårsaget af medarbejderes handlinger eller undladelser falder over tid, så beviserne flytter sig fra aktivitet til effekt.
 
     Den vigtigste metodiske pointe er, at modenhed beskriver programmets kapabilitet, ikke medarbejdernes aktuelle risikoniveau. Et modent program kan sagtens vise en høj klikrate i en svær simulering, og et umodent program kan se godt ud på en let skabelon. En vurdering bør derfor kombinere dokumentation (strategi, plan, roller, budget), procesbevis (behovsanalyse, segmentering af målgrupper, gentagelsesfrekvens) og effektmål (meldeprocent, tid til melding, udviklingen i gengangere, der klikker igen og igen, og hændelser med menneskelig grundårsag). Gennemførelsesprocenten for obligatorisk e-læring er det klassiske mål på trin to og siger næsten intet om adfærd.
 
@@ -59,13 +59,13 @@ edges:
     - security-metrics
   kind-of: [security-maturity]
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: SANS Security Awareness Maturity Model
     tier: reference
     publisher: SANS Institute
     url: https://www.sans.org/security-awareness-training/resources/maturity-model/
-  - title: NIST SP 800-50 Rev. 1 — Building a Cybersecurity and Privacy Learning Program (Appendix A, maturity levels)
+  - title: NIST SP 800-50 Rev. 1 - Building a Cybersecurity and Privacy Learning Program (Appendix A, maturity levels)
     tier: standard
     publisher: NIST
     url: https://csrc.nist.gov/pubs/sp/800/50/r1/final

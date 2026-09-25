@@ -14,14 +14,14 @@ summary:
   da: En fast kæde af trin skrevet i kode, hvor en sprogmodel udfører nogle af trinene, men ikke selv vælger rækkefølgen.
 body:
   formal:
-    en: A system in which large language model calls and tool calls follow paths set in advance by the developer — in a line, in branches chosen by rules, or side by side — rather than the model deciding its own next step as an AI agent does.
-    da: Et system, hvor kald til store sprogmodeller og værktøjskald følger veje, som udvikleren har lagt på forhånd — i række, i forgreninger valgt ud fra regler eller side om side — i stedet for at modellen selv bestemmer næste trin, som en AI-agent gør.
+    en: A system in which large language model calls and tool calls follow paths set in advance by the developer - in a line, in branches chosen by rules, or side by side - rather than the model deciding its own next step as an AI agent does.
+    da: Et system, hvor kald til store sprogmodeller og værktøjskald følger veje, som udvikleren har lagt på forhånd - i række, i forgreninger valgt ud fra regler eller side om side - i stedet for at modellen selv bestemmer næste trin, som en AI-agent gør.
   plain:
-    en: Like a relay race on a fixed route — each runner is fast and skilled, but where they run and whom they hand the baton to was settled before the start.
-    da: Som et stafetløb på en fast rute — hver løber er hurtig og dygtig, men hvor de løber, og hvem de giver stafetten videre til, blev bestemt før start.
+    en: Like a relay race on a fixed route - each runner is fast and skilled, but where they run and whom they hand the baton to was settled before the start.
+    da: Som et stafetløb på en fast rute - hver løber er hurtig og dygtig, men hvor de løber, og hvem de giver stafetten videre til, blev bestemt før start.
   inPractice:
-    en: At a water utility, each customer email passes a fixed chain — a model sorts it by topic, a prompt written for that topic drafts a reply, code checks the draft against the price rules, and a customer adviser sends it.
-    da: Hos et vandværk går hver kundemail gennem en fast kæde — en model sorterer den efter emne, en prompt skrevet til det emne laver et svarudkast, kode tjekker udkastet mod prisreglerne, og en kunderådgiver sender det.
+    en: At a water utility, each customer email passes a fixed chain - a model sorts it by topic, a prompt written for that topic drafts a reply, code checks the draft against the price rules, and a customer adviser sends it.
+    da: Hos et vandværk går hver kundemail gennem en fast kæde - en model sorterer den efter emne, en prompt skrevet til det emne laver et svarudkast, kode tjekker udkastet mod prisreglerne, og en kunderådgiver sender det.
   whyItMatters:
     en: For most business tasks a fixed path is cheaper, easier to test and harder to lead astray than a free-acting agent, so it is often the better first choice.
     da: Til de fleste forretningsopgaver er en fast vej billigere, lettere at teste og sværere at lede på afveje end en agent, der handler frit, så den er ofte det bedste første valg.

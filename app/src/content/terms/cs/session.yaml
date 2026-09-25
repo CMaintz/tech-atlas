@@ -16,14 +16,14 @@ body:
     en: A temporary link between a user and a system that begins after successful authentication. The system hands out a short-lived secret marker that each later request carries as proof of the same user, until the user logs out or a time limit ends it.
     da: En midlertidig forbindelse mellem en bruger og et system, der begynder efter vellykket autentificering. Systemet udleverer et kortlivet hemmeligt kendetegn, som hver efterfølgende forespørgsel medbringer som bevis på, at det er den samme bruger, indtil der logges ud, eller en tidsgrænse udløber.
   plain:
-    en: Like the hand stamp at a club — you show ID once at the door, then the stamp lets you back in all evening, until it washes off.
-    da: Som stemplet på hånden på et diskotek — du viser ID én gang ved døren, og så lukker stemplet dig ind igen hele aftenen, indtil det bliver vasket af.
+    en: Like the hand stamp at a club - you show ID once at the door, then the stamp lets you back in all evening, until it washes off.
+    da: Som stemplet på hånden på et diskotek - du viser ID én gang ved døren, og så lukker stemplet dig ind igen hele aftenen, indtil det bliver vasket af.
   inPractice:
     en: A Danish online bank ends the session after ten minutes without activity, so a customer who walks away from a library computer is logged out automatically.
     da: En dansk netbank afslutter sessionen efter ti minutter uden aktivitet, så en kunde, der går fra en computer på biblioteket, automatisk bliver logget ud.
   whyItMatters:
-    en: Whoever holds a live session is treated as the user, so an attacker who steals one skips authentication — even MFA — entirely.
-    da: Den, der har en aktiv session, behandles som brugeren, så en angriber, der stjæler den, springer autentificeringen — selv MFA — helt over.
+    en: Whoever holds a live session is treated as the user, so an attacker who steals one skips authentication - even MFA - entirely.
+    da: Den, der har en aktiv session, behandles som brugeren, så en angriber, der stjæler den, springer autentificeringen - selv MFA - helt over.
 deepDive:
   en: |-
     HTTP is stateless, so web sessions are layered on top, almost always through cookies (RFC 6265). There are two basic designs. In a server-side session the cookie holds only a random identifier, and state lives in a server store such as memory, Redis or a database; OWASP's Session Management Cheat Sheet requires at least 64 bits of entropy from a cryptographically secure generator. In a client-side or stateless session the cookie or bearer token carries the state itself, signed and often encrypted, as with a JWT. Stateless designs scale easily but cannot be revoked before expiry without a server-side denylist or short lifetimes plus refresh, which is the real trade-off.
@@ -53,7 +53,7 @@ sources:
     url: https://pages.nist.gov/800-63-3/sp800-63b.html
     tier: standard
     publisher: NIST
-  - title: NIST SP 800-63B-4 — Authentication and Authenticator Management
+  - title: NIST SP 800-63B-4 - Authentication and Authenticator Management
     tier: standard
     publisher: NIST
     url: https://pages.nist.gov/800-63-4/sp800-63b.html
