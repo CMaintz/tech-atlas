@@ -170,8 +170,8 @@ export const DATA: DataItem[] = [
       da: 'Legitim interesse (art. 6, stk. 1, litra f): at besvare den søgning, du har bedt om.',
     },
     retention: {
-      en: 'We do not store the question. Cloudflare states that it does not store it or use it to train models. Supabase keeps short technical request logs (about one day on our plan).',
-      da: 'Vi gemmer ikke spørgsmålet. Cloudflare oplyser, at de hverken gemmer det eller bruger det til at træne modeller. Supabase gemmer korte tekniske logs over forespørgsler (cirka en dag på vores abonnement).',
+      en: 'We do not store the question, and we use no Cloudflare storage, so nothing is kept there. Cloudflare states that it does not use it to train models. Supabase keeps short technical request logs (about one day on our plan).',
+      da: 'Vi gemmer ikke spørgsmålet, og vi bruger ingen lagring hos Cloudflare, så intet gemmes dér. Cloudflare oplyser, at de ikke bruger det til at træne modeller. Supabase gemmer korte tekniske logs over forespørgsler (cirka en dag på vores abonnement).',
     },
   },
   {

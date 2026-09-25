@@ -52,6 +52,8 @@ grant execute on function public.search_allow(text) to service_role;
 -- Supabase Cron (pg_cron), in schema pg_catalog as Supabase requires. Scheduling a job
 -- under an existing name replaces it, so re-running this keeps exactly one job.
 create extension if not exists pg_cron with schema pg_catalog;
+grant usage on schema cron to postgres;
+grant all privileges on all tables in schema cron to postgres;
 
 select cron.schedule(
   'atlas-search-rate-purge',
