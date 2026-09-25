@@ -69,6 +69,8 @@ export const EXPLORER = {
     litAlpha: 0.95,
     /** Repaint rate of the overlay. */
     fps: 30,
+    /** The dots rest during a pan or zoom and for this long after it. */
+    settleMs: 200,
   },
 
   motion: {

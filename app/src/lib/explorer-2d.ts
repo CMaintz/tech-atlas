@@ -85,26 +85,35 @@ const HOVER_LABEL_PX = 11;
 const EXTRA_STYLE = [
   { selector: '.gone', style: { display: 'none' } },
   { selector: 'edge.off', style: { display: 'none' } },
-  // Resting backbone: the cluster's own shade, no arrow — a calm constellation.
+  // Resting backbone: the cluster's own shade, no arrow, straight and solid — a calm
+  // constellation, and the cheapest edges Cytoscape draws (haystack), so ~950 of them
+  // still pan smoothly (A86).
   {
     selector: 'edge.bb',
     style: {
       'line-color': 'data(tint)',
+      'line-fill': 'solid',
       'target-arrow-shape': 'none',
-      'curve-style': 'bezier',
-      'control-point-step-size': 30,
+      'curve-style': 'haystack',
+      'haystack-radius': 0,
     },
   },
-  // Resting edges between islands are quieter, and bundled (see `setBundledRoutes`).
+  // Resting edges between islands are quieter.
   { selector: 'edge.bb.xc', style: { opacity: EXPLORER.edges.crossAlpha } },
-  // Revealed (hover, selection, route, "show all"): family colour and arrow.
+  // Revealed (hover, selection, route, "show all"): family colour, curve and arrow.
   {
     selector: 'edge.all, edge.lit, edge.hl, edge.focus',
     style: {
       'line-color': 'data(colour)',
       'target-arrow-color': 'data(colour)',
       'target-arrow-shape': 'data(arrow)',
+      'curve-style': 'bezier',
+      'control-point-step-size': 30,
     },
+  },
+  {
+    selector: 'edge[?cross].all, edge[?cross].lit, edge[?cross].hl, edge[?cross].focus',
+    style: { 'line-fill': 'linear-gradient' },
   },
   { selector: 'edge.all', style: { opacity: EXPLORER.edges.allAlpha } },
   { selector: 'edge.focus', style: { opacity: 0.9, 'z-index': 18 } },
@@ -625,11 +634,7 @@ export function createMap2D(opts: Map2DOptions) {
   };
   const graphFamily = (e: cytoscape.EdgeSingular) => graph.links[Number(e.id().slice(1))].family;
 
-  /**
-   * Bundled routes for every cross-cluster edge in the force layout: edges between the
-   * same two islands share a path, so the strong links between clusters read as a few
-   * strands, not a hairball (A86).
-   */
+  /** Bundled routes for cross-cluster edges drawn in full ("show all", force layout). */
   let bundled = false;
   const setBundledRoutes = (on: boolean, centre?: Record<string, Point>) => {
     // Clearing routes that were never set restyles every cross-cluster edge for nothing.
@@ -707,7 +712,12 @@ export function createMap2D(opts: Map2DOptions) {
     });
     opts.container.style.cursor = 'pointer';
   };
+  // No hover while a button is down: restyling mid-pan throws away the viewport snapshot.
+  let pressing = false;
+  cy.on('tapstart', () => void (pressing = true));
+  cy.on('tapend', () => void (pressing = false));
   cy.on('mouseover', 'node[size]', (e) => {
+    if (pressing) return;
     const n = e.target as cytoscape.NodeSingular;
     opts.onHover?.(n.id());
     window.clearTimeout(hoverTimer);
@@ -768,7 +778,7 @@ export function createMap2D(opts: Map2DOptions) {
     const move = terms.filter((n) => !!t.positions[n.id()]);
     const done = () => {
       moving = false;
-      setBundledRoutes(v.layout === 'force', t.centre);
+      setBundledRoutes(v.layout === 'force' && v.showAll, t.centre);
       recull(true);
       frame();
     };
@@ -887,7 +897,8 @@ export function createMap2D(opts: Map2DOptions) {
               },
             );
           });
-      if (layoutChanged) setBundledRoutes(next.layout === 'force', centreNow);
+      if (prev?.showAll !== next.showAll || layoutChanged)
+        setBundledRoutes(next.layout === 'force' && next.showAll, centreNow);
       cy.batch(() => {
         cy.elements('.sel, .hl, .dim, .nb').removeClass('sel hl dim nb');
         const tags = cy.nodes('.tag');

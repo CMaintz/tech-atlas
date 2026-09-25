@@ -107,6 +107,11 @@ export function startDots(
   };
   const markDirty = () => void (dirty = true);
   cy.on('class style position add remove', markDirty);
+  // Pan and zoom move a snapshot of the map (textureOnViewport); the dots rest until the
+  // gesture settles, so the frame budget goes to the gesture.
+  let movedAt = -Infinity;
+  const onViewport = () => void (movedAt = performance.now());
+  cy.on('viewport', onViewport);
 
   let raf = 0;
   let last = 0;
@@ -120,7 +125,7 @@ export function startDots(
   };
   const draw = (t: number) => {
     clear();
-    if (paused() || !container.offsetParent) return;
+    if (paused() || !container.offsetParent || t - movedAt < cfg.settleMs) return;
     if (dirty) rebuild();
     const zoom = cy.zoom();
     const pan = cy.pan();
@@ -179,6 +184,7 @@ export function startDots(
       stopped = true;
       cancelAnimationFrame(raf);
       cy.removeListener('class style position add remove', markDirty);
+      cy.removeListener('viewport', onViewport);
       motion?.removeEventListener?.('change', wake);
       canvas.remove();
     },

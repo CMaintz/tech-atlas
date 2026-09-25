@@ -306,10 +306,10 @@ real, statically rendered page ("the canvas is an index, not a container").
   one hop at a time, or open the whole map.
 - **The Explorer overview draws a backbone, not the hairball** (A86): every
   `requires` and `strength: primary` relationship, plus each term's strongest
-  relationships to terms sharing a domain (any cluster); edges between clusters bundle
-  through their islands, with one faint ribbon per pair of related clusters (their
-  count sets its width); hovering or selecting a term shows all its relationships,
-  and a legend switch shows every relationship. Node size is PageRank; no two terms
+  relationships to terms sharing a domain (any cluster), with one faint ribbon per pair
+  of related clusters (their count sets its width); hovering or selecting a term shows
+  all its relationships, and a legend switch shows every relationship (edges between
+  clusters then bundle through their islands). Node size is PageRank; no two terms
   sit closer than a click target plus a label, so clusters grow instead of stacking.
   A term shared by several domains sits in its own cluster like any other.
 - **The map is stable** (A86): layouts are computed once from the whole graph;
