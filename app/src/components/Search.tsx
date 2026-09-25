@@ -169,7 +169,7 @@ export default function Search({
         onInput={(e) => setQuery((e.target as HTMLInputElement).value)}
         placeholder={placeholder}
         aria-label={placeholder}
-        class="w-full rounded border border-border-strong bg-surface px-3 py-2 text-fg placeholder:text-subtle focus:border-border-hover focus:outline-none"
+        class="w-full rounded border border-border-strong bg-surface px-3 py-2.5 text-base sm:py-2 text-fg placeholder:text-subtle focus:border-border-hover focus:outline-none"
       />
       {q && !engine && (
         <p
@@ -181,7 +181,7 @@ export default function Search({
       )}
       {q && engine && (
         <ul
-          class="absolute z-10 mt-1 w-full overflow-hidden rounded border border-border bg-surface shadow-lg"
+          class="absolute z-10 mt-1 max-h-[70dvh] w-full overflow-y-auto overscroll-contain rounded border border-border bg-surface shadow-lg"
           aria-live="polite"
         >
           {action && (
@@ -227,7 +227,8 @@ export default function Search({
           )}
         </ul>
       )}
-      {hint && <p class="mt-2 text-xs text-subtle">{hint}</p>}
+      {/* The "/" shortcut means nothing without a keyboard. */}
+      {hint && <p class="mt-2 text-xs text-subtle pointer-coarse:hidden">{hint}</p>}
     </div>
   );
 }

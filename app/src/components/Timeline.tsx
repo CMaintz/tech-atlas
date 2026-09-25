@@ -65,7 +65,7 @@ const SSR_WIDTH = 1280;
 const SSR_BUDGET = 560;
 // Vertical (small screens) geometry, px.
 const V_ZOOM = [4, 6, 10, 16, 22];
-const V_ITEM = 20;
+const V_ITEM = 24; // one phone row (h-6): a 24px tap target, the WCAG 2.5.8 minimum
 const AXIS_COL = 44;
 const DEFAULT_ZOOM = 0;
 
@@ -329,7 +329,7 @@ export default function Timeline(props: Props) {
   }, [more?.pinned]);
 
   const chip =
-    'rounded-full border px-3 py-1 text-xs transition-colors hover:border-border-hover aria-pressed:text-fg';
+    'min-h-11 min-w-11 rounded-full border px-3 py-1 text-xs transition-colors sm:min-h-0 sm:min-w-0 hover:border-border-hover aria-pressed:text-fg';
   const selItem = sel ? byId.get(sel.id) : undefined;
   const single = shown.length === 1;
 
@@ -368,7 +368,7 @@ export default function Timeline(props: Props) {
         <span class="ml-auto flex items-center gap-1" role="group" aria-label={text.zoom}>
           <button
             type="button"
-            class="h-7 w-7 rounded border border-border-strong text-fg-soft hover:border-border-hover disabled:opacity-40"
+            class="h-11 w-11 rounded border border-border-strong text-fg-soft hover:border-border-hover disabled:opacity-40 sm:h-7 sm:w-7"
             aria-label={text.zoomOut}
             title={text.zoomOut}
             disabled={zoom === 0}
@@ -378,7 +378,7 @@ export default function Timeline(props: Props) {
           </button>
           <button
             type="button"
-            class="h-7 w-7 rounded border border-border-strong text-fg-soft hover:border-border-hover disabled:opacity-40"
+            class="h-11 w-11 rounded border border-border-strong text-fg-soft hover:border-border-hover disabled:opacity-40 sm:h-7 sm:w-7"
             aria-label={text.zoomIn}
             title={text.zoomIn}
             disabled={zoom === H_ZOOM.length - 1}
@@ -594,7 +594,7 @@ export default function Timeline(props: Props) {
           <span style={{ width: AXIS_COL }} class="shrink-0" />
           {[...lanes.keys()].map((lane) => (
             <h2
-              class="map-ink min-w-0 flex-1 truncate px-1 py-2 text-[11px] font-medium"
+              class="map-ink min-w-0 flex-1 truncate px-1 py-2 text-xs font-medium"
               style={`${inkVars(ink(lane))}color:var(--ink)`}
             >
               {domainLabels[lane] ?? lane}
@@ -624,7 +624,7 @@ export default function Timeline(props: Props) {
                 }}
               >
                 <span
-                  class="absolute top-1 left-0.5 text-[9px] tracking-widest whitespace-nowrap text-subtle uppercase"
+                  class="absolute top-1 left-0.5 text-[10px] tracking-widest whitespace-nowrap text-subtle uppercase"
                   style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
                 >
                   {eraLabels[b.id]}
@@ -650,13 +650,13 @@ export default function Timeline(props: Props) {
             <ul class="relative min-w-0 flex-1 border-l border-border">
               {list.map((it) => (
                 <li
-                  class="absolute right-0 left-0 flex h-5 items-center px-1"
+                  class="absolute right-0 left-0 flex h-6 items-center px-1"
                   style={{ top: v.pos.get(it.id) }}
                 >
                   <a
                     href={it.href}
                     data-tl-item
-                    class={`flex min-w-0 items-center gap-1 ${it.hub ? 'font-semibold text-fg' : 'text-fg-soft'} ${single ? 'text-xs' : 'text-[10px]'}`}
+                    class={`flex h-6 min-w-0 items-center gap-1 ${it.hub ? 'font-semibold text-fg' : 'text-fg-soft'} ${single ? 'text-sm' : 'text-[11px]'}`}
                     aria-label={`${it.name}, ${it.year}`}
                     {...handlers(it)}
                   >
@@ -693,7 +693,7 @@ export default function Timeline(props: Props) {
           ref={popRef}
           role={sel.pinned ? 'dialog' : 'tooltip'}
           aria-label={selItem.name}
-          class="fixed inset-x-4 bottom-4 z-50 rounded-lg border border-border-strong bg-surface/95 p-4 text-sm shadow-xl shadow-black/20 dark:shadow-black/50 backdrop-blur sm:inset-x-auto sm:bottom-auto sm:w-80"
+          class="fixed inset-x-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-50 rounded-lg border border-border-strong bg-surface/95 p-4 text-sm shadow-xl shadow-black/20 dark:shadow-black/50 backdrop-blur sm:inset-x-auto sm:bottom-auto sm:w-80"
           style={popStyle(sel.x, sel.y)}
         >
           <div class="mb-1 flex items-baseline gap-2">
@@ -709,13 +709,16 @@ export default function Timeline(props: Props) {
           </p>
           {selItem.summary && <p class="mb-3 text-fg-soft">{selItem.summary}</p>}
           <div class="flex items-center justify-between">
-            <a class="text-accent hover:underline" href={selItem.href}>
+            <a
+              class="inline-flex min-h-11 items-center text-accent hover:underline sm:min-h-0"
+              href={selItem.href}
+            >
               {text.openTerm} →
             </a>
             {sel.pinned && (
               <button
                 type="button"
-                class="text-xs text-muted hover:text-fg"
+                class="min-h-11 px-2 text-sm text-muted hover:text-fg sm:min-h-0 sm:px-0 sm:text-xs"
                 onClick={() => setSel(null)}
               >
                 {text.close}

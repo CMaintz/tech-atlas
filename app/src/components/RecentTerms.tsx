@@ -31,7 +31,11 @@ export default function RecentTerms({ names, termBase, ui }: Props) {
     <div class="mt-6">
       <div class="mb-2 flex items-baseline gap-3">
         <h3 class="text-xs tracking-widest text-subtle uppercase">{ui.recentlyViewed}</h3>
-        <button type="button" class="text-xs text-subtle hover:text-fg-soft" onClick={clear}>
+        <button
+          type="button"
+          class="min-h-11 text-xs text-subtle hover:text-fg-soft sm:min-h-0"
+          onClick={clear}
+        >
           {ui.clearRecent}
         </button>
       </div>
@@ -39,7 +43,7 @@ export default function RecentTerms({ names, termBase, ui }: Props) {
         {ids.map((id) => (
           <li key={id}>
             <a
-              class="inline-block rounded border border-border px-2 py-1 text-sm text-fg-soft hover:border-border-hover hover:text-fg"
+              class="inline-flex min-h-11 items-center rounded border border-border px-2 py-1 text-sm sm:min-h-0 text-fg-soft hover:border-border-hover hover:text-fg"
               href={`${termBase}${id}/`}
             >
               {names[id]}

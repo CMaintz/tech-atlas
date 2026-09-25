@@ -91,25 +91,25 @@ const ids = terms.map((t) => t.id);
         id="random-term"
         href={termUrl(lang, ids[0])}
         data-ids={JSON.stringify(ids)}
-        class="rounded border border-border-strong px-3 py-1.5 text-fg-soft hover:border-border-hover hover:text-fg"
+        class="inline-flex min-h-11 items-center rounded border border-border-strong px-3 py-1.5 text-fg-soft hover:border-border-hover hover:text-fg sm:min-h-0"
       >
         ⚄ {ui.randomTerm}
       </a>
       <a
         href={url(`${lang}/explorer/`)}
-        class="rounded border border-border-strong px-3 py-1.5 text-fg-soft hover:border-border-hover hover:text-fg"
+        class="inline-flex min-h-11 items-center rounded border border-border-strong px-3 py-1.5 text-fg-soft hover:border-border-hover hover:text-fg sm:min-h-0"
       >
         {ui.explorer} →
       </a>
       <a
         href={url(`${lang}/study/`)}
-        class="rounded border border-border-strong px-3 py-1.5 text-fg-soft hover:border-border-hover hover:text-fg"
+        class="inline-flex min-h-11 items-center rounded border border-border-strong px-3 py-1.5 text-fg-soft hover:border-border-hover hover:text-fg sm:min-h-0"
       >
         {ui.study} →
       </a>
       <a
         href={url(`${lang}/terms/`)}
-        class="rounded border border-border-strong px-3 py-1.5 text-fg-soft hover:border-border-hover hover:text-fg"
+        class="inline-flex min-h-11 items-center rounded border border-border-strong px-3 py-1.5 text-fg-soft hover:border-border-hover hover:text-fg sm:min-h-0"
       >
         {UI_EXTRA[lang].azTitle} →
       </a>

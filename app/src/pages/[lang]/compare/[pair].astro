@@ -34,7 +34,10 @@ const title = `${pair.a.data.term[lang]} ${ui.versus} ${pair.b.data.term[lang]}`
 <Base lang={lang} title={title}>
   <div id="compare">
     <p class="mb-1 text-xs tracking-widest text-subtle uppercase">
-      <a class="hover:text-fg-soft" href={url(`${lang}/compare/`)}>
+      <a
+        class="inline-flex min-h-11 items-center hover:text-fg-soft sm:min-h-0"
+        href={url(`${lang}/compare/`)}
+      >
         {ui.compareTitle}
       </a>
     </p>
@@ -44,7 +47,7 @@ const title = `${pair.a.data.term[lang]} ${ui.versus} ${pair.b.data.term[lang]}`
         type="button"
         data-copy-link
         data-copied={ui.linkCopied}
-        class="mt-1.5 rounded border border-border px-2 py-1 text-xs text-muted hover:border-border-hover hover:text-fg print:hidden"
+        class="mt-1.5 min-h-11 rounded border border-border px-3 py-1 text-sm text-muted sm:min-h-0 sm:px-2 sm:text-xs hover:border-border-hover hover:text-fg print:hidden"
       >
         <span data-label>{ui.copyLink}</span>
       </button>
@@ -84,7 +87,7 @@ const title = `${pair.a.data.term[lang]} ${ui.versus} ${pair.b.data.term[lang]}`
       <div class="flex flex-wrap gap-2">
         {shared.map((t) => (
           <a
-            class="rounded border border-border px-2 py-1 text-sm text-fg-soft hover:border-border-hover"
+            class="inline-flex min-h-11 items-center rounded border border-border px-2 py-1 text-sm text-fg-soft hover:border-border-hover sm:min-h-0"
             href={termUrl(lang, t.id)}
           >
             {t.data.term[lang]}

@@ -43,10 +43,16 @@ const editUrl = (id: string) => `${REPO}/edit/main/app/src/content/terms/${id}.y
           .sort((a, b) => a.data.term[lang].localeCompare(b.data.term[lang], lang))
           .map((t) => (
             <li class="flex flex-wrap items-baseline gap-x-3">
-              <a class="text-fg hover:underline" href={termUrl(lang, t.id)}>
+              <a
+                class="inline-flex min-h-11 items-center text-fg hover:underline sm:min-h-0"
+                href={termUrl(lang, t.id)}
+              >
                 {t.data.term[lang]}
               </a>
-              <a class="text-xs text-subtle hover:text-fg-soft" href={editUrl(t.id)}>
+              <a
+                class="inline-flex min-h-11 items-center text-xs text-subtle hover:text-fg-soft sm:min-h-0"
+                href={editUrl(t.id)}
+              >
                 {ui.editOnGitHub}
               </a>
             </li>

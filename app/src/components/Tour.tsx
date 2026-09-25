@@ -461,16 +461,20 @@ export default function Tour({ steps, langBase, autoStart = true, ui }: Props) {
 
   if (view.kind === 'resume') {
     return (
-      <div class="tour-pill fixed bottom-4 left-4 flex items-center gap-2 rounded border border-border-strong bg-surface px-3 py-2 text-sm shadow-lg print:hidden">
+      <div class="tour-pill fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-[max(1rem,env(safe-area-inset-left))] flex items-center gap-2 rounded border border-border-strong bg-surface px-3 py-2 text-sm shadow-lg print:hidden">
         <button
           type="button"
-          class="text-accent hover:underline"
+          class="min-h-11 text-accent hover:underline sm:min-h-0"
           onClick={() => go(view.step)}
           data-tour-resume
         >
           {fillCount(ui.tourContinue, view.step, total)} →
         </button>
-        <button type="button" class="text-subtle hover:text-fg-soft" onClick={() => finish(false)}>
+        <button
+          type="button"
+          class="min-h-11 text-subtle hover:text-fg-soft sm:min-h-0"
+          onClick={() => finish(false)}
+        >
           {ui.tourEnd}
         </button>
       </div>
@@ -480,7 +484,7 @@ export default function Tour({ steps, langBase, autoStart = true, ui }: Props) {
 
   const titleId = 'tour-title';
   const bodyId = 'tour-body';
-  const btn = 'rounded border px-3 py-1.5 text-sm';
+  const btn = 'min-h-11 rounded border px-3 py-1.5 text-sm sm:min-h-0';
   const primary = `${btn} border-amber-400 bg-amber-400 font-medium text-on-accent hover:bg-amber-300`;
   const secondary = `${btn} border-border-strong text-fg-soft hover:border-border-hover`;
   const sv = shown?.view;
@@ -501,7 +505,7 @@ export default function Tour({ steps, langBase, autoStart = true, ui }: Props) {
         aria-labelledby={titleId}
         aria-describedby={bodyId}
         tabIndex={-1}
-        class="tour-card max-h-[60vh] overflow-y-auto rounded border border-border-strong bg-surface p-4 text-fg shadow-2xl focus:outline-none"
+        class="tour-card max-h-[60dvh] overflow-y-auto rounded border border-border-strong bg-surface p-4 text-fg shadow-2xl focus:outline-none"
       >
         <div class="mb-1 flex items-start justify-between gap-4">
           <h2 id={titleId} class="text-base font-semibold">
@@ -511,7 +515,7 @@ export default function Tour({ steps, langBase, autoStart = true, ui }: Props) {
             type="button"
             aria-label={ui.tourClose}
             title={ui.tourClose}
-            class="-mt-1 -mr-1 px-1 text-lg leading-none text-subtle hover:text-fg"
+            class="-mt-3 -mr-3 flex h-11 w-11 shrink-0 items-center justify-center text-lg leading-none text-subtle hover:text-fg sm:-mt-1 sm:-mr-1 sm:h-auto sm:w-auto sm:px-1"
             onClick={() => finish(welcome ? dontShow : false)}
           >
             ×
@@ -530,7 +534,7 @@ export default function Tour({ steps, langBase, autoStart = true, ui }: Props) {
                 {ui.tourNotNow}
               </button>
             </div>
-            <label class="flex items-center gap-2 text-xs text-muted">
+            <label class="flex min-h-11 items-center gap-2 text-sm text-muted sm:min-h-0 sm:text-xs">
               <input
                 type="checkbox"
                 checked={dontShow}

@@ -143,7 +143,7 @@ export default function AboutButton({ ui, links, people, variant = 'circle' }: P
             aria-label={ui.close}
             title={ui.close}
             onClick={close}
-            class="absolute top-5 right-5 flex h-9 w-9 items-center justify-center rounded-full border border-border-strong text-muted hover:border-border-hover hover:text-fg"
+            class="absolute top-4 right-4 flex h-11 w-11 items-center justify-center rounded-full border border-border-strong text-muted hover:border-border-hover hover:text-fg"
           >
             <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none">
               <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" />
@@ -169,7 +169,7 @@ export default function AboutButton({ ui, links, people, variant = 'circle' }: P
                     href={l.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="inline-flex items-center gap-1.5 rounded-full border border-border-strong px-3 py-1 text-sm text-fg-soft hover:border-border-hover hover:text-fg"
+                    class="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-border-strong px-3 py-1 text-sm sm:min-h-0 text-fg-soft hover:border-border-hover hover:text-fg"
                   >
                     {l.label}
                     <ExternalIcon />

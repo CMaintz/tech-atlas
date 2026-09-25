@@ -79,7 +79,7 @@ export default function StudyHub({
           {next.map((n) => (
             <li>
               <a
-                class="rounded border border-border-strong px-2 py-1 text-sm hover:border-border-hover"
+                class="inline-flex min-h-11 items-center rounded border border-border-strong px-2 py-1 text-sm hover:border-border-hover sm:min-h-0"
                 href={`${termBase}${n.id}/`}
               >
                 {n.term[lang]}
@@ -94,7 +94,7 @@ export default function StudyHub({
         <label class="mb-4 flex flex-wrap items-center gap-2 text-sm text-muted">
           {ui.quizMeOn}
           <select
-            class="rounded border border-border-strong bg-surface px-2 py-1 text-sm text-fg"
+            class="min-h-11 rounded border border-border-strong bg-surface px-2 py-1 text-base text-fg sm:min-h-0 sm:text-sm"
             value={scope}
             onChange={(e) => {
               setScope((e.target as HTMLSelectElement).value as Scope);

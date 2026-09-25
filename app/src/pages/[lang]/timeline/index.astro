@@ -115,7 +115,9 @@ const panel = {
           />
         </div>
         <details class="mt-8 rounded-lg border border-border p-4">
-          <summary class="cursor-pointer text-sm text-fg-soft">{tl.listView}</summary>
+          <summary class="flex min-h-11 cursor-pointer items-center text-sm text-fg-soft sm:block sm:min-h-0">
+            {tl.listView}
+          </summary>
           <ol class="mt-4 space-y-6">
             {decades.map(({ decade, items: list }) => (
               <li class="list-none">

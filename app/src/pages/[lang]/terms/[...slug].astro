@@ -162,7 +162,10 @@ const crumbs = [
           {crumbs.map((c, i) => (
             <li class="flex items-center gap-x-1.5">
               {i > 0 && <span aria-hidden="true">›</span>}
-              <a class="hover:text-fg-soft" href={c.href}>
+              <a
+                class="inline-flex min-h-11 items-center hover:text-fg-soft sm:min-h-0"
+                href={c.href}
+              >
                 {c.label}
               </a>
             </li>
@@ -175,7 +178,7 @@ const crumbs = [
           type="button"
           data-copy-link
           data-copied={ui.linkCopied}
-          class="mt-1.5 rounded border border-border px-2 py-1 text-xs text-muted hover:border-border-hover hover:text-fg print:hidden"
+          class="mt-1.5 min-h-11 rounded border border-border px-3 py-1 text-sm text-muted sm:min-h-0 sm:px-2 sm:text-xs hover:border-border-hover hover:text-fg print:hidden"
         >
           <span data-label>{ui.copyLink}</span>
         </button>
@@ -203,7 +206,10 @@ const crumbs = [
 
       {d.article?.[lang] && (
         <p class="mt-6">
-          <a class="text-fg underline hover:text-fg" href={url(`${lang}/articles/${term.id}/`)}>
+          <a
+            class="inline-flex min-h-11 items-center text-fg underline hover:text-fg sm:min-h-0"
+            href={url(`${lang}/articles/${term.id}/`)}
+          >
             {ui.readArticle}
           </a>
         </p>
@@ -242,7 +248,7 @@ const crumbs = [
               <li class="flex items-center gap-1">
                 {i > 0 && <span class="text-subtle">→</span>}
                 <a
-                  class="rounded border border-border px-2 py-1 text-fg-soft hover:border-border-hover"
+                  class="inline-flex min-h-11 items-center rounded border border-border px-2 py-1 text-fg-soft hover:border-border-hover sm:min-h-0"
                   href={termUrl(lang, n.id)}
                 >
                   {n.term[lang]}
@@ -276,7 +282,7 @@ const crumbs = [
                       }
                       title={r.why?.[lang]}
                       class:list={[
-                        'rounded border px-2 py-1 text-sm hover:border-border-hover',
+                        'inline-flex min-h-11 items-center rounded border px-2 py-1 text-sm hover:border-border-hover sm:min-h-0',
                         r.strength === 'primary'
                           ? 'border-border-hover text-fg'
                           : 'border-border text-fg-soft',
@@ -316,7 +322,7 @@ const crumbs = [
         <div class="mt-5 border-t border-border pt-3 text-muted" id="provenance">
           <h3 class="text-xs tracking-widest text-subtle uppercase">{deep.provenanceTitle}</h3>
           <p class="mt-1">{d.draft ? deep.provenanceDraft : deep.provenanceReviewed}</p>
-          <p class="mt-2 flex flex-wrap gap-x-4 gap-y-1 print:hidden">
+          <p class="mt-2 flex flex-wrap gap-x-4 gap-y-1 print:hidden [&>a]:inline-flex [&>a]:min-h-11 [&>a]:items-center sm:[&>a]:min-h-0">
             <a class="hover:text-fg-soft hover:underline" href={url(`${lang}/review/`)}>
               {deep.reviewQueue}
             </a>
@@ -335,7 +341,7 @@ const crumbs = [
           <div class="flex flex-wrap gap-2">
             {mentionedIn.map((n) => (
               <a
-                class="rounded border border-dashed border-border px-2 py-1 text-sm text-muted hover:border-border-hover"
+                class="inline-flex min-h-11 items-center rounded border border-dashed border-border px-2 py-1 text-sm text-muted hover:border-border-hover sm:min-h-0"
                 href={termUrl(lang, n.id)}
               >
                 {n.term[lang]}
@@ -384,7 +390,7 @@ const crumbs = [
       </div>
 
       <a
-        class="mt-2 inline-block text-sm text-muted hover:text-fg"
+        class="mt-2 inline-flex min-h-11 items-center text-sm text-muted hover:text-fg sm:min-h-0"
         href={url(`${lang}/explorer/?focus=${encodeURIComponent(term.id)}`)}
       >
         {ui.openExplorer}

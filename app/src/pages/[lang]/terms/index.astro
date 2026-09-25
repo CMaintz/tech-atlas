@@ -38,7 +38,7 @@ const anchor = (l: string) => `letter-${l === '#' ? 'other' : encodeURIComponent
   <nav class="mb-10 flex flex-wrap gap-2 text-sm" aria-label={x.azTitle}>
     {[...groups.keys()].map((l) => (
       <a
-        class="rounded border border-border px-2 py-1 text-fg-soft hover:border-border-hover"
+        class="inline-flex min-h-11 min-w-11 items-center justify-center rounded border border-border px-2 py-1 text-fg-soft hover:border-border-hover sm:min-h-0 sm:min-w-0"
         href={`#${anchor(l)}`}
       >
         {l}
