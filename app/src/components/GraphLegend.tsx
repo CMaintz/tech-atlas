@@ -155,9 +155,7 @@ export default function GraphLegend(props: Props) {
           {text.crossDomain}
         </li>
       </ul>
-      {props.hint && (
-        <p class="mt-3 border-t border-border pt-2 text-subtle">{props.hint}</p>
-      )}
+      {props.hint && <p class="mt-3 border-t border-border pt-2 text-subtle">{props.hint}</p>}
     </details>
   );
 }
