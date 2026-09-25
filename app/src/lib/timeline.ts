@@ -150,6 +150,22 @@ export function packCapped(
 }
 
 /**
+ * Shares `total` rows between lanes that need `need[i]` rows each: a lane that needs
+ * less than an equal share keeps only what it needs, and the rest is split among the
+ * others (water-filling), so a sparse lane doesn't waste the screen a busy one could use.
+ */
+export function shareRows(need: number[], total: number): number[] {
+  const out = need.map(() => 0);
+  let left = Math.max(0, total);
+  const order = need.map((n, i) => ({ n, i })).sort((a, b) => a.n - b.n);
+  order.forEach(({ n, i }, k) => {
+    out[i] = Math.min(n, Math.floor(left / (order.length - k)));
+    left -= out[i];
+  });
+  return out;
+}
+
+/**
  * The per-year width that fits the whole axis into `avail` px. `densityScale` is linear
  * in its per-year unit, so one unit-scale measurement gives the answer.
  */

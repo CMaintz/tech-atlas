@@ -9,6 +9,7 @@ import {
   milestones,
   packTracks,
   packCapped,
+  shareRows,
   fitPerYear,
   stretchScale,
   type Span,
@@ -215,5 +216,16 @@ describe('fitPerYear', () => {
     ]);
     const p = fitPerYear(1990, 2020, 900, load);
     expect(densityScale(1990, 2020, p, load).length).toBeCloseTo(900);
+  });
+});
+
+describe('shareRows', () => {
+  it('gives sparse lanes what they need and the rest to busy ones', () => {
+    expect(shareRows([2, 20, 3, 20], 24)).toEqual([2, 9, 3, 10]);
+  });
+
+  it('never hands out more than the total', () => {
+    const out = shareRows([5, 5, 5], 7);
+    expect(out.reduce((a, b) => a + b, 0)).toBeLessThanOrEqual(7);
   });
 });

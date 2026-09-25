@@ -9,6 +9,7 @@ import {
   lanesOf,
   densityScale,
   packCapped,
+  shareRows,
   stretchScale,
   yearLoad,
   type TimelineItem,
@@ -167,9 +168,7 @@ export default function Timeline(props: Props) {
     const scale = densityScale(start, end, fitPerYear(start, end, axis, load) * H_ZOOM[zoom], load);
     const row = zoom === 0 ? ROW_FIT : ROW;
     const font = zoom === 0 ? 11 : 12;
-    const perLane = budget / Math.max(1, lanes.size);
-    const rows = Math.max(2, Math.floor((perLane - LANE_PAD * 2) / row));
-    const out = [...lanes].map(([lane, list]) => {
+    const laneSpans = [...lanes].map(([lane, list]) => {
       const flip = new Set<string>();
       const spans = list.map((it) => {
         const x = scale.at(it.year + 0.5);
@@ -182,6 +181,14 @@ export default function Timeline(props: Props) {
         }
         return { id: it.id, start: x - 7, end: x + 16 + w, rank };
       });
+      return { lane, list, flip, spans, need: packCapped(spans, Infinity, 6).tracks };
+    });
+    const rowsOf = shareRows(
+      laneSpans.map((l) => l.need),
+      Math.floor((budget - lanes.size * LANE_PAD * 2) / row),
+    );
+    const out = laneSpans.map(({ lane, list, flip, spans }, i) => {
+      const rows = Math.max(2, rowsOf[i]);
       let packed = packCapped(spans, rows, 6);
       // A lane that overflows gives its last row to the chips.
       if (packed.overflow.length) packed = packCapped(spans, rows - 1, 6);
