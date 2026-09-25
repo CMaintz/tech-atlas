@@ -130,7 +130,8 @@ export const isKnown = (s: TermState | undefined) => s?.status === 'know' || (s?
 
 /**
  * A weak term: the learner says they are still learning it or don't understand it,
- * or their last quiz answer on it was wrong (a wrong answer resets it to box 1).
+ * or they have got it wrong and it is still in box 1: a wrong answer resets it to box 1, and
+ * it only leaves the weak list once a right answer at its next due review promotes it.
  */
 export const isWeak = (s: TermState | undefined) =>
   !!s && (s.status === 'learning' || s.status === 'unknown' || (s.wrong > 0 && s.box <= 1));
