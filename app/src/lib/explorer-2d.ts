@@ -34,16 +34,19 @@ import {
   depthLanes,
   effectiveHome,
   levelAngle,
+  linkVisible,
   pageRank,
+  pairKey,
   rotateAbout,
   separate,
   sizeForRank,
   timeLanes,
+  visibleBundleCounts,
   type LaneLayout,
 } from './graph-layout';
 import { edgeData, graphStyle, reducedMotion, smoothFit } from './graph-cytoscape';
 import { createDragFeedback } from './drag-feedback';
-import { startDots } from './explorer-flow';
+import { startDots, type DotsConfig } from './explorer-flow';
 
 cytoscape.use(fcose);
 
@@ -282,6 +285,41 @@ export function createMap2D(opts: Map2DOptions) {
   /** Each term's offset from its island's centre. */
   const offset = new Map<string, Point>();
   const islandR = new Map<string, number>();
+  /** Each island's own layout before spacing (kept so the lab can re-space it, A96). */
+  const raw = new Map<string, Point[]>();
+  /**
+   * Space each island's terms (no two closer than a click target and a label apart; the
+   * island grows) and measure it. The hidden visual lab (A96) re-runs this with a larger
+   * minimum distance (`spacing` ×), tighter islands (`tight` ×) and wider gaps (`gap` px).
+   */
+  const shapeIslands = (tune = { spacing: 1, tight: 1, gap: 0 }) => {
+    for (const c of clusterIds) {
+      const members = clusters.get(c)!;
+      const ps = raw.get(c)!.map((p) => ({ ...p }));
+      const sizes = members.map((n) => cy.getElementById(n.id).data('size') as number);
+      const mx = ps.reduce((a, p) => a + p.x, 0) / ps.length;
+      const my = ps.reduce((a, p) => a + p.y, 0) / ps.length;
+      if (tune.tight !== 1)
+        for (const p of ps) {
+          p.x = mx + (p.x - mx) * tune.tight;
+          p.y = my + (p.y - my) * tune.tight;
+        }
+      const { factor, labelClearance } = EXPLORER.spacing;
+      separate(
+        ps,
+        (i, j) => tune.spacing * ((factor * (sizes[i] + sizes[j])) / 4 + labelClearance),
+      );
+      const cx = ps.reduce((a, p) => a + p.x, 0) / ps.length;
+      const cyy = ps.reduce((a, p) => a + p.y, 0) / ps.length;
+      let r = 0;
+      members.forEach((n, k) => {
+        const o = { x: ps[k].x - cx, y: ps[k].y - cyy };
+        offset.set(n.id, o);
+        r = Math.max(r, Math.hypot(o.x, o.y) + sizes[k] / 2);
+      });
+      islandR.set(c, r + 16 + tune.gap / 2);
+    }
+  };
   withSeededRandom(LAYOUT_SEED, () => {
     for (const c of clusterIds) {
       const members = cy.collection(clusters.get(c)!.map((n) => cy.getElementById(n.id)));
@@ -306,21 +344,12 @@ export function createMap2D(opts: Map2DOptions) {
             nodeSeparation: 60,
           } as cytoscape.LayoutOptions)
           .run();
-      // No two terms closer than a click target and a label apart; the island grows.
-      const ps = members.map((m) => ({ ...m.position() }));
-      const sizes = members.map((m) => m.data('size') as number);
-      const { factor, labelClearance } = EXPLORER.spacing;
-      separate(ps, (i, j) => (factor * (sizes[i] + sizes[j])) / 4 + labelClearance);
-      const cx = ps.reduce((a, p) => a + p.x, 0) / ps.length;
-      const cyy = ps.reduce((a, p) => a + p.y, 0) / ps.length;
-      let r = 0;
-      members.forEach((m, k) => {
-        const o = { x: ps[k].x - cx, y: ps[k].y - cyy };
-        offset.set(m.id(), o);
-        r = Math.max(r, Math.hypot(o.x, o.y) + m.data('size') / 2);
-      });
-      islandR.set(c, r + 16);
+      raw.set(
+        c,
+        members.map((m) => ({ ...m.position() })),
+      );
     }
+    shapeIslands();
   });
 
   /** Pack the given islands (only their visible members count) into domain regions. */
@@ -351,17 +380,7 @@ export function createMap2D(opts: Map2DOptions) {
           ) + 26;
       return { id: c, domain: domainOfIsland.get(c)!, r };
     });
-    const between = new Map<string, number>();
-    const add = (a: string, b: string, w: number) => {
-      const k = a < b ? `${a}\u0000${b}` : `${b}\u0000${a}`;
-      between.set(k, (between.get(k) ?? 0) + w);
-    };
-    for (const l of graph.links) {
-      if (!visible.has(l.source) || !visible.has(l.target)) continue;
-      const a = byId.get(l.source)!.cluster;
-      const b = byId.get(l.target)!.cluster;
-      if (a !== b) add(a, b, 1);
-    }
+    const between = visibleBundleCounts(graph.links, clusterOf, visible);
     const links: IslandLink[] = [...between.entries()].map(([k, w]) => {
       const [a, b] = k.split('\u0000');
       return { a, b, w };
@@ -627,7 +646,7 @@ export function createMap2D(opts: Map2DOptions) {
         const s = e.data('source');
         const t = e.data('target');
         if (spine) e.toggleClass('bb', spine.has(Number(e.id().slice(1))));
-        const shown = v.nodes.has(s) && v.nodes.has(t);
+        const shown = linkVisible({ source: s, target: t }, v.nodes);
         const ends = shown && v.families.has(graphFamily(e));
         const focus = (shown && (s === sel || t === sel)) || (ends && hl.has(s) && hl.has(t));
         const on = focus || (ends && (v.showAll || e.hasClass('bb')));
@@ -636,24 +655,20 @@ export function createMap2D(opts: Map2DOptions) {
         e.toggleClass('focus', focus);
       });
       // Bundles summarise the visible cross-cluster relationships in the force overview.
-      const counts = new Map<string, number>();
-      if (v.layout === 'force' && !v.showAll)
-        links.forEach((e) => {
-          if (!e.hasClass('xc')) return;
-          const s = e.data('source');
-          const t = e.data('target');
-          if (!v.nodes.has(s) || !v.nodes.has(t) || !v.families.has(graphFamily(e))) return;
-          const a = byId.get(s)!.cluster;
-          const b = byId.get(t)!.cluster;
-          const k = a < b ? `${a}\u0000${b}` : `${b}\u0000${a}`;
-          counts.set(k, (counts.get(k) ?? 0) + 1);
-        });
+      const counts =
+        v.layout === 'force' && !v.showAll
+          ? visibleBundleCounts(
+              graph.links.filter((l) => v.families.has(l.family)),
+              clusterOf,
+              v.nodes,
+            )
+          : new Map<string, number>();
       const top = Math.max(1, ...counts.values());
       const [aMin, aMax] = EXPLORER.edges.bundleAlpha;
       bundleEdges.forEach((e) => {
         const a = e.data('a');
         const b = e.data('b');
-        const c = counts.get(a < b ? `${a}\u0000${b}` : `${b}\u0000${a}`) ?? 0;
+        const c = counts.get(pairKey(a, b)) ?? 0;
         const on = c >= EXPLORER.edges.minBundle;
         e.toggleClass('off', !on);
         if (on) {
@@ -718,8 +733,7 @@ export function createMap2D(opts: Map2DOptions) {
       .connectedEdges('.off')
       .filter(
         (e) =>
-          v.nodes.has(e.data('source')) &&
-          v.nodes.has(e.data('target')) &&
+          linkVisible({ source: e.data('source'), target: e.data('target') }, v.nodes) &&
           v.families.has(graphFamily(e)),
       );
     const hood = n.closedNeighborhood().filter((el) => !el.hasClass('off') || extra.contains(el));
@@ -787,11 +801,15 @@ export function createMap2D(opts: Map2DOptions) {
   cy.on('dbltap', 'node[size]', (e) => opts.onOpen(e.target.id()));
   /** True while nodes glide to a new layout: the flow dots wait for them to land. */
   let moving = false;
+  // The hidden visual lab (A96) tunes a copy of the dot settings live and can pause them.
+  const dotCfg: { -readonly [K in keyof DotsConfig]: number } = { ...EXPLORER.dots };
+  let dotsOn = true;
   const dots = startDots(
     cy,
     links,
-    () => moving,
+    () => moving || !dotsOn,
     () => MAP_INK[theme].dotAlpha,
+    dotCfg,
   );
 
   // ---- 6. Positions ------------------------------------------------------------------
@@ -1057,6 +1075,19 @@ export function createMap2D(opts: Map2DOptions) {
     resize() {
       cy.resize();
       dots.resize();
+    },
+    /** Hooks for the hidden visual lab only (A96); the Explorer never uses them. */
+    lab: {
+      dots: dotCfg,
+      setDots(on: boolean) {
+        dotsOn = on;
+      },
+      /** Re-space the island map (see `shapeIslands`) and glide the terms there. */
+      relayout(tune: { spacing: number; tight: number; gap: number }) {
+        withSeededRandom(LAYOUT_SEED, () => shapeIslands(tune));
+        base.force = islandMap(everyone);
+        if (view) place(view, true);
+      },
     },
     destroy() {
       dots.stop();
