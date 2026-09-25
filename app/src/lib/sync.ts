@@ -52,16 +52,22 @@ export function mergeTerm(a: TermState, b: TermState): TermState {
   return out;
 }
 
-/** Union of both copies' terms, merged per term, ids sorted. */
+/** Union of two keyed records, merged per key, keys sorted. */
+function mergeStates(
+  a: Record<string, TermState>,
+  b: Record<string, TermState>,
+): Record<string, TermState> {
+  const ids = [...new Set([...Object.keys(a), ...Object.keys(b)])].sort();
+  const out: Record<string, TermState> = {};
+  for (const id of ids) out[id] = mergeTerm(a[id] ?? b[id], b[id] ?? a[id]);
+  return out;
+}
+
+/** Union of both copies' terms (and hand-written questions, A83), merged per key. */
 export function mergeLearner(a: Learner, b: Learner): Learner {
-  const ids = [...new Set([...Object.keys(a.terms), ...Object.keys(b.terms)])].sort();
-  const terms: Record<string, TermState> = {};
-  for (const id of ids) {
-    const x = a.terms[id] ?? b.terms[id];
-    const y = b.terms[id] ?? a.terms[id];
-    terms[id] = mergeTerm(x, y);
-  }
-  return { terms };
+  const terms = mergeStates(a.terms, b.terms);
+  if (!a.questions && !b.questions) return { terms };
+  return { terms, questions: mergeStates(a.questions ?? {}, b.questions ?? {}) };
 }
 
 /** True when two states hold the same data, whatever their key order. */

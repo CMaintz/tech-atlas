@@ -139,3 +139,80 @@ article:
 ```
 
 Lint E9 fails the build if a referenced article file does not exist.
+
+# Authoring questions (the question bank)
+
+Hand-written questions sit beside the quizzes generated from the graph (A83). Schema:
+`Question` / `QuestionFile` in `src/schema.ts`; rules: `src/lib/question-rules.ts`.
+
+## File
+
+- Path: `src/content/questions/<folder>/<cluster>.yaml` — `<folder>` is the folder
+  the cluster's terms live in (`security`, `cs`, `ai`, `platform`); `<cluster>` is the
+  manifest cluster. One file per cluster, a top-level `questions:` list.
+- Block-style YAML, as for terms. Use folded scalars (`en: >-`) for long text.
+- Questions are **exempt from Closed Vocabulary** — write as a practitioner would.
+
+## Fields (all required)
+
+```yaml
+questions:
+  - id: gdpr-breach-72-hours # kebab-case, unique across the whole bank, never reused
+    terms: # what it tests (≥ 1), always `domain/id`; the answer updates each one
+      - security/incident-reporting
+      - security/gdpr
+    kind: scenario # scenario | concept | compare | order | true-false
+    stem: { en, da } # the question
+    options: # exactly 4 — or exactly 2 for true-false: True/Sandt, then False/Falsk
+      - en: ...
+        da: ...
+    answer: 0 # index of the single best option (0-based); the UI shuffles options
+    explanation: { en, da } # why it is right AND why the tempting wrong ones are wrong
+    difficulty: 2 # 1 = basic, 2 = applied, 3 = expert
+    sources: # at least one, same tiers as terms; real sources you have checked
+      - title: GDPR (Regulation (EU) 2016/679), Article 33
+        url: https://eur-lex.europa.eu/eli/reg/2016/679/oj
+        tier: standard
+    draft: true # ALWAYS true — a human flips it after review
+```
+
+See `src/content/questions/security/incident-response.yaml` for a full example.
+
+## Writing good questions
+
+- **Test understanding, not the wording of a definition.** Prefer `scenario`: a
+  concrete situation in a Danish workplace ("En medarbejder i kommunen modtager …",
+  "A clerk at a Danish municipality …") where the learner must apply the idea.
+- **One unambiguous best answer.** No trick questions, no "all of the above", no
+  double negatives. If an expert could argue for two options, rewrite.
+- **Plausible distractors**: common misconceptions, a neighbouring concept, the
+  right idea with the wrong number. Keep options similar in length and form.
+- **Explain**: say why the answer is right, then why each tempting option is wrong.
+- **Research every fact** — article numbers, deadlines, amounts, control counts —
+  and cite where you checked it. Prefer the law text (EUR-Lex, retsinformation.dk),
+  the standard, or an official authority (Datatilsynet, Styrelsen for
+  Samfundssikkerhed, ENISA, NIST) over secondary sources.
+- **Danish is natural Danish**, not a word-for-word translation; both languages ask
+  the same question with the same answer.
+- `order` questions: each option is a whole sequence ("Identify → Analyse → …").
+- `compare` questions: tag both terms being compared.
+
+## How questions are used
+
+- A term page's and the Explorer panel's **Check yourself** show hand-written
+  questions tagged with the term first, then generated ones — **except** a question
+  whose correct option _is_ that term's name (or alias): a question answered by the
+  page's own term tests nothing there (A79). It still appears on the other tagged
+  terms' pages and in study sessions. So tag the terms a question is _about_; when the
+  answer is a term name, also tag a term the scenario is about, or no page shows it
+  (lint W10).
+- **Study sessions** prefer a term's hand-written question when it is new or due
+  (each question keeps its own spaced-repetition record, by `id`), else a generated one.
+
+## Lint
+
+Errors: Q1 schema (shape, 4/2 options, answer in range, both languages) · Q2 duplicate
+id · Q3 unknown or repeated term id · Q4 answer index · Q5 blank text · Q6 two options
+read the same · Q7 the stem names the correct option · Q8 explanation under 80
+characters · Q9 true-false options not True/Sandt, False/Falsk. Warnings: W9 file not
+named after a cluster · W10 no term page can show the question.

@@ -174,3 +174,51 @@ export type TermFrontmatter = z.infer<typeof TermFrontmatter>;
  */
 export const TermData = TermFrontmatter.omit({ id: true });
 export type TermData = z.infer<typeof TermData>;
+
+/* ---- Hand-written questions (the question bank, A83) --------------- */
+
+/** A namespaced term id, as the graph, the learner and the collections key terms. */
+export const TermKey = z
+  .string()
+  .regex(/^(security|cs|ai|platform)\/[a-z0-9]+(-[a-z0-9]+)*$/, 'must be `domain/id`, kebab-case');
+
+export const QUESTION_KINDS = ['scenario', 'concept', 'compare', 'order', 'true-false'] as const;
+
+export const Question = z
+  .object({
+    id: TermId,
+    /** What the question tests: its answer updates each of these terms' repetition record. */
+    terms: z.array(TermKey).min(1),
+    kind: z.enum(QUESTION_KINDS),
+    stem: LocalizedMax(1200),
+    /** Four options; two (true, then false) for a true-false question. */
+    options: z.array(LocalizedMax(300)).min(2).max(4),
+    /** Index into `options` of the single best answer. */
+    answer: z.number().int().min(0),
+    /** Why the answer is right, and why the tempting wrong ones are wrong. */
+    explanation: LocalizedMax(2000),
+    difficulty: z.number().int().min(1).max(3),
+    sources: z.array(Source).min(1),
+    draft: z.boolean().default(false),
+  })
+  .strict()
+  .superRefine((q, ctx) => {
+    const want = q.kind === 'true-false' ? 2 : 4;
+    if (q.options.length !== want)
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['options'],
+        message: `a ${q.kind} question has ${want} options`,
+      });
+    if (q.answer >= q.options.length)
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['answer'],
+        message: 'answer must index an option',
+      });
+  });
+export type Question = z.infer<typeof Question>;
+
+/** One question file: `src/content/questions/<domain>/<cluster>.yaml`. */
+export const QuestionFile = z.object({ questions: z.array(Question).min(1) }).strict();
+export type QuestionFile = z.infer<typeof QuestionFile>;

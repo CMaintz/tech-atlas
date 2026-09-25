@@ -1,0 +1,59 @@
+questions:
+  - id: gdpr-breach-72-hours
+    terms:
+      - security/incident-reporting
+      - security/gdpr
+      - security/data-breach
+    kind: scenario
+    stem:
+      en: >-
+        On Monday at 09:00 an IT supporter at a Danish municipality confirms that a
+        laptop holding unencrypted citizen case files was stolen from a car over the
+        weekend. The files could expose citizens' health information. Under the GDPR,
+        what is the latest the municipality should normally notify Datatilsynet?
+      da: >-
+        Mandag kl. 9.00 bekræfter en it-supporter i en dansk kommune, at en bærbar
+        computer med ukrypterede borgersager blev stjålet fra en bil i weekenden.
+        Filerne kan afsløre borgeres helbredsoplysninger. Hvornår skal kommunen efter
+        GDPR normalt senest have anmeldt bruddet til Datatilsynet?
+    options:
+      - en: Thursday at 09:00 — 72 hours after it became aware of the breach
+        da: Torsdag kl. 9.00 — 72 timer efter, at den blev bekendt med bruddet
+      - en: Within 24 hours, because health data is involved
+        da: Inden for 24 timer, fordi der er tale om helbredsoplysninger
+      - en: 72 hours after the laptop was stolen, whenever that was
+        da: 72 timer efter, at computeren blev stjålet, uanset hvornår det var
+      - en: Within one month, when the internal investigation is complete
+        da: Inden for en måned, når den interne undersøgelse er afsluttet
+    answer: 0
+    explanation:
+      en: >-
+        GDPR Article 33(1) requires the controller to notify the supervisory authority
+        without undue delay and, where feasible, within 72 hours of becoming aware of
+        a personal data breach — the clock starts when the municipality is reasonably
+        certain a breach happened (Monday 09:00), not when the theft took place. The
+        24-hour deadline is NIS2's early warning for significant incidents, not the
+        GDPR rule, and sensitive data does not shorten it. One month is the NIS2 final
+        report; a GDPR notification may be sent in phases instead of waiting for the
+        investigation to finish.
+      da: >-
+        GDPR artikel 33, stk. 1, kræver, at den dataansvarlige anmelder bruddet til
+        tilsynsmyndigheden uden unødig forsinkelse og om muligt senest 72 timer efter
+        at være blevet bekendt med det — fristen løber fra det tidspunkt, hvor kommunen
+        med rimelig sikkerhed ved, at der er sket et brud (mandag kl. 9.00), ikke fra
+        selve tyveriet. Fristen på 24 timer er NIS2's tidlige varsling om væsentlige
+        hændelser, ikke GDPR-reglen, og følsomme oplysninger forkorter den ikke. En
+        måned er NIS2's endelige rapport; en GDPR-anmeldelse kan gives i etaper i
+        stedet for at vente på, at undersøgelsen er færdig.
+    difficulty: 2
+    sources:
+      - title: GDPR (Regulation (EU) 2016/679), Article 33
+        url: https://eur-lex.europa.eu/eli/reg/2016/679/oj
+        tier: standard
+      - title: EDPB Guidelines 9/2022 on personal data breach notification under GDPR
+        url: https://www.edpb.europa.eu/our-work-tools/our-documents/guidelines/guidelines-92022-personal-data-breach-notification-under_en
+        tier: official-doc
+      - title: Datatilsynet — Anmeld brud på persondatasikkerheden
+        url: https://www.datatilsynet.dk/hvad-siger-reglerne/vejledning/sikkerhed/brud-paa-persondatasikkerheden
+        tier: official-doc
+    draft: true
