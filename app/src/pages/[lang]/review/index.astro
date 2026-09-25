@@ -23,9 +23,7 @@ const editUrl = (id: string) => `${REPO}/edit/main/app/src/content/terms/${id}.y
 <Base lang={lang} title={ui.review}>
   <h1 class="mb-2 text-3xl font-semibold">{ui.review}</h1>
   <p class="mb-6 max-w-2xl text-muted">{ui.reviewIntro}</p>
-  <p class="mb-2 text-sm text-fg-soft">
-    {`${reviewed} / ${terms.length} ${ui.reviewed}`}
-  </p>
+  <p class="mb-2 text-sm text-fg-soft">{`${reviewed} / ${terms.length} ${ui.reviewed}`}</p>
   <div class="mb-10 h-1.5 w-full max-w-md rounded bg-surface-2">
     <div
       class="h-1.5 rounded bg-green-600"
