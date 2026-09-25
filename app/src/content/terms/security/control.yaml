@@ -32,6 +32,7 @@ edges:
         da: En kontrol lukker eller beskytter en svaghed, så en trussel ikke længere så let kan udnytte den.
       strength: primary
       confidence: high
+    - risk
   contrasts-with:
     - to: security-policy
       why:

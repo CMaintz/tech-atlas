@@ -11,7 +11,7 @@ status: emerging
 era: 2025
 summary:
   en: Choosing all a language model gets to see for a task — instructions, fetched documents, tool results, notes — not just the wording.
-  da: At vælge alt, en sprogmodel ser til en opgave — instruktioner, hentede dokumenter, værktøjsresultater, noter — ikke kun ordlyden.
+  da: At vælge alt, hvad en LLM får at se til en opgave — instruktioner, hentede dokumenter, værktøjsresultater og noter — og ikke kun ordlyden.
 body:
   formal:
     en: The practice of deciding, for each step of an AI system, what goes into the context window and in what order — system prompt, retrieved documents, tool results, saved memory and chat history — within the limit on tokens.

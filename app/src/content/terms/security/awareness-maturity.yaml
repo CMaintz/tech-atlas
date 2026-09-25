@@ -39,6 +39,8 @@ edges:
         da: At gentage målingen hver runde er måden, check-trinnet i kontinuerlig forbedring udføres på for awareness.
       strength: normal
       confidence: medium
+    - security-metrics
+  kind-of: [security-maturity]
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

@@ -27,7 +27,7 @@ body:
 edges:
   requires: [risk]
   part-of: [risk-management]
-  used-with: [risk-appetite, risk-treatment, risk-assessment]
+  used-with: [risk-appetite, risk-treatment, risk-assessment, qualitative-risk-analysis]
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

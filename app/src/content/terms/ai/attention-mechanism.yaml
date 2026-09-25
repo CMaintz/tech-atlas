@@ -17,8 +17,8 @@ body:
     en: A method in a neural network where each token's embedding is compared with every other token's, the match scores are turned into shares that add up to one, and the token takes on a mix of the others weighted by those shares.
     da: En metode i et neuralt netværk, hvor hvert tokens embedding sammenlignes med alle andre tokens, matchscorerne laves om til andele, der tilsammen giver én, og tokenet optager en blanding af de andre vægtet efter de andele.
   plain:
-    en: Like reading "she put the cup on the table and it broke" and looking back to work out whether "it" means the cup or the table before you go on.
-    da: Som når du læser "hun satte koppen på bordet, og den gik i stykker" og kigger tilbage for at finde ud af, om "den" er koppen eller bordet, før du læser videre.
+    en: Like a reader with a pen who, for each word in a sentence, marks the few other words that help explain it and skims past the rest.
+    da: Som en læser med en blyant, der for hvert ord i en sætning understreger de få andre ord, der hjælper med at forklare det, og skimmer resten.
   inPractice:
     en: When a chat assistant answers a question about a long contract, attention lets the words of the question pull directly on the one clause, many pages back, that holds the answer.
     da: Når en chatassistent besvarer et spørgsmål om en lang kontrakt, lader attention spørgsmålets ord trække direkte på den ene klausul mange sider tilbage, der rummer svaret.

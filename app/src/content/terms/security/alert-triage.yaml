@@ -36,6 +36,7 @@ edges:
       confidence: high
     - soc
     - incident-reporting
+    - escalation-procedure
     - to: precision
       why:
         en: Precision measures how many alerts sent to triage were real, so low precision is felt directly as wasted triage time.

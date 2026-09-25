@@ -1,0 +1,42 @@
+term:
+  en: ISO 27001 Annex A
+  da: ISO 27001 Annex A (bilag A)
+aka:
+  en: [Annex A, Annex A controls]
+  da: [bilag A, Annex A]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: The list of 93 reference controls at the back of ISO 27001 that every certified organisation must check itself against.
+  da: Listen over 93 referencekontroller bagerst i ISO 27001, som enhver certificeret organisation skal holde sig op imod.
+body:
+  formal:
+    en: The annex of ISO 27001:2022 listing 93 controls in four themes (organisational, people, physical, technological); the organisation compares its risk treatment with the list and records in its Statement of Applicability which controls apply and why.
+    da: Bilaget til ISO 27001:2022, der oplister 93 kontroller i fire temaer (organisatoriske, menneskelige, fysiske og teknologiske); organisationen sammenholder sin risikohåndtering med listen og noterer i sin Statement of Applicability, hvilke kontroller der gælder og hvorfor.
+  plain:
+    en: Like the packing list at the back of a travel guide — you do not need everything on it, but you tick through it so nothing important is forgotten.
+    da: Som pakkelisten bagerst i en rejseguide — man har ikke brug for alt på den, men man går den igennem, så intet vigtigt bliver glemt.
+  inPractice:
+    en: A software firm goes through all 93 controls, marks the physical ones for its office as needed and leaves out the control for secure development only after writing why.
+    da: Et softwarefirma gennemgår alle 93 kontroller, markerer de fysiske kontroller for kontoret som nødvendige og udelader kun en kontrol, når det har skrevet ned hvorfor.
+  whyItMatters:
+    en: The list stops organisations from quietly skipping whole areas, and the ISO 27002 guide explains how to carry out each item.
+    da: Listen forhindrer organisationer i stille og roligt at springe hele områder over, og ISO 27002 forklarer, hvordan hvert punkt gennemføres.
+edges:
+  part-of: [iso-27001]
+  requires: [control]
+  used-with:
+    - to: iso-27002
+      why:
+        en: Annex A names each control in one line; ISO 27002 gives the guidance for the same 93 controls.
+        da: Annex A nævner hver kontrol på én linje; ISO 27002 giver vejledningen til de samme 93 kontroller.
+      strength: primary
+      confidence: high
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 3 (ISO 27001 — appendix)
+    tier: course-material
+  - title: ISO/IEC 27001:2022, Annex A
+    tier: standard
+draft: true

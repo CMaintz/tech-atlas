@@ -70,6 +70,7 @@ edges:
         da: Personoplysninger, der lækkes via et AI-svar, er et brud på persondatasikkerheden, der kan skulle anmeldes efter GDPR.
       strength: normal
       confidence: medium
+  kind-of: [eu-regulation]
 article:
   en: src/content/articles/security/gdpr.en.md
   da: src/content/articles/security/gdpr.da.md

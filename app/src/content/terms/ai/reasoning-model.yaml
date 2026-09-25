@@ -11,7 +11,7 @@ status: emerging
 era: 2024
 summary:
   en: A language model trained to work through a problem step by step in hidden notes before it answers, trading time and cost for better answers.
-  da: En sprogmodel trænet til at arbejde sig gennem et problem trin for trin i skjulte noter, før den svarer — langsommere og dyrere, men bedre.
+  da: En LLM, der er trænet til at regne en opgave igennem trin for trin i skjulte noter, før den svarer — langsommere og dyrere, men bedre.
 body:
   formal:
     en: A large language model trained to produce a long run of working-out tokens before its final answer, so that it spends more inference on hard tasks such as math, code and planning.
