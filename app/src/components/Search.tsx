@@ -50,7 +50,7 @@ const DEBOUNCE_MS = 300;
  * Client-side bilingual search: typo-tolerant over names and aliases in both
  * languages, plus intents — "X vs Y" (compare), "from X to Y" (route) and
  * "before X" (prerequisites) — and, for questions and descriptions, search by meaning
- * (A74): the `semantic-search` Edge Function ranks terms server-side, fused with the
+ * (A75): the `semantic-search` Edge Function ranks terms server-side, fused with the
  * lexical ranking by RRF. Without a backend, or when it fails or is slow, the lexical
  * results simply stand.
  */

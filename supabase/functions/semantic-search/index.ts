@@ -1,12 +1,12 @@
 /**
- * `semantic-search` — Atlas's search by meaning (A74). POST `{ q, lang, k? }` →
+ * `semantic-search` — Atlas's search by meaning (A75). POST `{ q, lang, k? }` →
  * `{ hits: [{ id, score }] }`, best first. The query is embedded with bge-m3 on
- * Cloudflare Workers AI (the model is too large for an Edge Function isolate, see A74),
+ * Cloudflare Workers AI (the model is too large for an Edge Function isolate, see A75),
  * then ranked against the term vectors in Postgres (pgvector, `match_terms`), each term
  * scoring its better language so Danish questions find English-named terms. The stored
- * vectors were embedded by the same Workers AI call (seed-vectors.ts, A75).
+ * vectors were embedded by the same Workers AI call (seed-vectors.ts, A76).
  *
- * Public and anonymous (deployed with --no-verify-jwt). Abuse limits (A76): CORS for the
+ * Public and anonymous (deployed with --no-verify-jwt). Abuse limits (A77): CORS for the
  * site and localhost; body ≤ MAX_BODY_BYTES, counted while reading; q ≤ MAX_QUERY_CHARS;
  * per-IP per-minute and global per-day limits in Postgres (`search_allow`, service role
  * only), after a cheap in-isolate filter; one UPSTREAM_DEADLINE_MS deadline for the

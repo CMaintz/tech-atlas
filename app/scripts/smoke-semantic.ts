@@ -1,6 +1,6 @@
 /**
  * `npm run smoke:semantic` — ask the deployed `semantic-search` function the
- * SMOKE_QUERIES and fail unless each expected term is in its top 3 (A75). Run by
+ * SMOKE_QUERIES and fail unless each expected term is in its top 3 (A76). Run by
  * .github/workflows/backend.yml after seeding; needs SEMANTIC_SEARCH_URL.
  */
 import { SMOKE_QUERIES } from './semantic-inputs';

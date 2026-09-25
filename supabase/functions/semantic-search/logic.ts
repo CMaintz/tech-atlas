@@ -1,5 +1,5 @@
 /**
- * The pure half of the `semantic-search` Edge Function (A74): request validation, CORS,
+ * The pure half of the `semantic-search` Edge Function (A75): request validation, CORS,
  * a per-IP rate limit and the Cloudflare Workers AI embedding call. No Deno APIs, so
  * the app's Vitest suite tests it and `npm run embed` reuses the same Cloudflare client
  * (app/src/lib/semantic-function.test.ts, app/scripts/embed.ts).

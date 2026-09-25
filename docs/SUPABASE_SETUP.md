@@ -7,7 +7,7 @@ names and aliases. One Supabase project adds two optional features:
   progress follows them across devices (A44–A50 in `design/AUTONOMOUS_DECISIONS.md`):
   steps 1–6. Until both repository variables in step 5 are set, the site has no account UI.
 - **Search by meaning** — questions like "how do I stop people reusing leaked passwords"
-  find _Credential stuffing_, in English or Danish (A74–A77): steps 1, 2 and 7.
+  find _Credential stuffing_, in English or Danish (A75–A78): steps 1, 2 and 7.
   The language model runs on the backend; visitors download nothing.
 
 Everything below is on free tiers. Roughly 15 minutes per feature.
@@ -112,7 +112,7 @@ They must be **variables**, not secrets — `deploy.yml` reads `vars.*`.
 How it fits together: after every push to `main` that passes the gate, the `backend`
 workflow applies the migrations, deploys the `semantic-search` Edge Function, **embeds every
 term through Cloudflare Workers AI** (bge-m3 — too large to run inside a Supabase Edge
-Function, A74) into `public.term_vectors`, and finally runs a **smoke test** that fails the
+Function, A75) into `public.term_vectors`, and finally runs a **smoke test** that fails the
 workflow unless three known questions (one Danish, two English) find their terms. The site
 calls the function; the function embeds the query with the very same Workers AI call and
 ranks terms in Postgres. Stored and query vectors therefore always come from one service.
@@ -181,7 +181,7 @@ secrets it applies the migrations only and leaves search by meaning undeployed.
 4. On the site, type `how do I stop people reusing leaked passwords`: _Credential
    stuffing_ appears, labelled **by meaning**.
 
-**Limits and budget (A76).** The function is public (no key needed). It reads at most
+**Limits and budget (A77).** The function is public (no key needed). It reads at most
 2 KB of request body, accepts queries up to 200 characters, and — in Postgres, shared by
 every instance — allows **30 searches a minute per client** (keyed by a hash of the IP,
 never the address) and **50,000 a day in total**, answering 429 beyond that. CORS answers

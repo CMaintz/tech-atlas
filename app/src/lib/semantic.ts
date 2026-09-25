@@ -1,9 +1,9 @@
 /**
- * Semantic (vector) search — the pure half (A74, superseding A51–A55). CI embeds every
+ * Semantic (vector) search — the pure half (A75, superseding A51–A55). CI embeds every
  * term through Workers AI into Postgres (pgvector) next to the learner data
  * (scripts/seed-vectors.ts), and the `semantic-search` Supabase Edge Function embeds each
  * query with the same call and returns the nearest terms; `npm run embed` keeps a
- * committed copy for the lint's hashes and the offline ranking tests (A75). The
+ * committed copy for the lint's hashes and the offline ranking tests (A76). The
  * browser never downloads a model: it calls the function (fetchSemantic) and merges its
  * ranking with the lexical one (MiniSearch) by reciprocal rank fusion. Pure, unit-tested.
  */

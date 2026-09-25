@@ -20,7 +20,7 @@ export const SUPABASE_ANON_KEY: string = import.meta.env.PUBLIC_SUPABASE_ANON_KE
 export const ACCOUNTS = !!SUPABASE_URL && !!SUPABASE_ANON_KEY;
 
 /**
- * Search by meaning (A74) is switched on separately, by the full URL of the
+ * Search by meaning (A75) is switched on separately, by the full URL of the
  * `semantic-search` Edge Function, so a build with only sync configured never calls a
  * function that isn't deployed. Empty = name search only.
  */
@@ -413,46 +413,8 @@ export const CLUSTER_LABELS: Record<string, Record<Lang, string>> = {
   observability: { en: 'Observability', da: 'Observerbarhed' },
 };
 
-export const CLUSTER_COLOURS: Record<string, string> = {
-  fundamentals: '#f59e0b',
-  awareness: '#ec4899',
-  controls: '#22c55e',
-  'risk-management': '#ef4444',
-  compliance: '#a855f7',
-  'incident-response': '#f97316',
-  'application-security': '#e11d48',
-  'security-operations': '#65a30d',
-  networking: '#3b82f6',
-  os: '#06b6d4',
-  identity: '#14b8a6',
-  cryptography: '#6366f1',
-  web: '#a16207',
-  'ml-fundamentals': '#e879f9',
-  llm: '#d946ef',
-  'ai-risk': '#be185d',
-  training: '#c026d3',
-  evaluation: '#a21caf',
-  'model-architecture': '#f0abfc',
-  prompting: '#8b5cf6',
-  'ai-infrastructure': '#7c3aed',
-  retrieval: '#c084fc',
-  agents: '#db2777',
-  'ai-coding': '#f472b6',
-  cloud: '#38bdf8',
-  containers: '#0ea5e9',
-  delivery: '#84cc16',
-  observability: '#eab308',
-};
-
-export const FAMILY_COLOURS: Record<string, string> = {
-  structure: '#a3a3a3',
-  dependency: '#fbbf24',
-  contrast: '#f472b6',
-  security: '#f87171',
-  regulation: '#c084fc',
-  lineage: '#94a3b8',
-  association: '#60a5fa',
-};
+/** Cluster and relationship-family colours live with the rest of the graph style (A74). */
+export { CLUSTER_COLOURS, FAMILY_COLOURS } from './graph-style';
 
 export const FAMILY_LABELS: Record<string, Record<Lang, string>> = {
   structure: { en: 'Structure (kind of, part of)', da: 'Struktur (slags, del af)' },
@@ -463,6 +425,32 @@ export const FAMILY_LABELS: Record<string, Record<Lang, string>> = {
   lineage: { en: 'Lineage', da: 'Afstamning' },
   association: { en: 'Used together', da: 'Bruges sammen' },
 };
+
+/** Graph legend and canvas controls (Explorer + term-page graph, A74). */
+export const GRAPH_UI = {
+  en: {
+    legend: 'Legend',
+    nodes: 'Terms — colour = domain, shade = cluster',
+    ring: 'Ring: the term belongs to a second domain',
+    edges: 'Relationships — colour = family',
+    oneWay:
+      'One-way: the arrow (and moving dashes) point from a term to what it requires, mitigates, causes …',
+    twoWay: 'Two-way: contrasts, alternatives and “used with” — no arrow',
+    crossDomain: 'Fades between two domain colours: crosses domains',
+    fit: 'Fit to view',
+  },
+  da: {
+    legend: 'Forklaring',
+    nodes: 'Begreber — farve = domæne, nuance = klynge',
+    ring: 'Ring: begrebet hører også til et andet domæne',
+    edges: 'Relationer — farve = familie',
+    oneWay:
+      'Envejs: pilen (og de bevægelige streger) peger fra et begreb mod det, det forudsætter, afbøder, forårsager …',
+    twoWay: 'Tovejs: kontraster, alternativer og “bruges sammen med” — ingen pil',
+    crossDomain: 'Glider mellem to domænefarver: krydser domæner',
+    fit: 'Tilpas visning',
+  },
+} as const;
 
 /** Where the source lives — used for 'Edit on GitHub' links in the review queue. */
 export const REPO = 'https://github.com/CMaintz/tech-atlas';

@@ -2,11 +2,11 @@
 import Base from '../../../layouts/Base.astro';
 import Explorer from '../../../components/Explorer';
 import {
-  CLUSTER_COLOURS,
   CLUSTER_LABELS,
   DOMAIN_LABELS,
   FAMILY_COLOURS,
   FAMILY_LABELS,
+  GRAPH_UI,
   LANGS,
   UI,
   url,
@@ -32,7 +32,7 @@ const localise = (m: Record<string, Record<Lang, string>>) =>
       termBase={url(`${lang}/terms/`)}
       ui={{ ...ui }}
       clusterLabels={localise(CLUSTER_LABELS)}
-      clusterColours={CLUSTER_COLOURS}
+      graphUi={{ ...GRAPH_UI[lang] }}
       familyLabels={localise(FAMILY_LABELS)}
       familyColours={FAMILY_COLOURS}
       domainLabels={localise(DOMAIN_LABELS)}

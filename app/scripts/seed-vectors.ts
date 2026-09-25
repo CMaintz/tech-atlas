@@ -1,5 +1,5 @@
 /**
- * `npm run seed:vectors` — fill Postgres `public.term_vectors` (A75): embed every term's
+ * `npm run seed:vectors` — fill Postgres `public.term_vectors` (A76): embed every term's
  * passages through Cloudflare Workers AI with **the same `cloudflareEmbed` call the
  * `semantic-search` function uses for queries**, upsert every (term, language) row, then
  * delete rows for terms that no longer exist. The stored and query vectors therefore

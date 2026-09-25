@@ -1,5 +1,5 @@
 /**
- * The exact inputs of the semantic vectors (A74), shared by `npm run embed` (which
+ * The exact inputs of the semantic vectors (A75), shared by `npm run embed` (which
  * writes them) and the content lint (which checks they are still in sync — E11/W8).
  */
 import { createHash } from 'node:crypto';
@@ -14,7 +14,7 @@ import {
 } from '../src/lib/semantic';
 import type { Term } from './load-terms';
 
-/** Outside the site (never shipped to the browser): the lint's hash source (A75). */
+/** Outside the site (never shipped to the browser): the lint's hash source (A76). */
 export const VECTORS_PATH = '../supabase/seed/term-vectors.json';
 export const FIXTURE_PATH = 'src/lib/semantic.fixture.json';
 

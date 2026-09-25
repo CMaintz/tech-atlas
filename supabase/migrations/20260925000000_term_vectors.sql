@@ -1,4 +1,4 @@
--- Atlas: semantic search vectors (A74). One bge-m3 vector (1024 dimensions, unit length)
+-- Atlas: semantic search vectors (A75). One bge-m3 vector (1024 dimensions, unit length)
 -- per term and language, embedded offline by `npm run embed` and seeded by CI
 -- (app/scripts/seed-vectors.ts) — the `semantic-search` Edge Function embeds the query
 -- with the same model and calls match_terms. Content is public (it is on the site), so
@@ -54,7 +54,7 @@ $$;
 revoke all on function public.match_terms(extensions.vector, integer) from public;
 grant execute on function public.match_terms(extensions.vector, integer) to anon, authenticated;
 
--- Abuse limits for the `semantic-search` function (A76), shared by every isolate:
+-- Abuse limits for the `semantic-search` function (A77), shared by every isolate:
 -- at most 30 searches per client per minute and 50,000 per day overall. Counters live
 -- in a schema the Data API does not expose; clients are keyed by a hash of their IP
 -- (computed in the function), never the address. Only the service role — the function —

@@ -1,6 +1,6 @@
 /**
  * `npm run embed` — embed every Term (name + aliases + summary + plain facet, per
- * language) with bge-m3 and write the committed vector file (A75): the source of the
+ * language) with bge-m3 and write the committed vector file (A76): the source of the
  * content lint's per-term hashes (E11/W8) and of the offline ranking test (with the
  * FIXTURE_QUERIES it also embeds). The database is NOT seeded from this file — CI
  * re-embeds every passage through Workers AI (scripts/seed-vectors.ts), so stored and

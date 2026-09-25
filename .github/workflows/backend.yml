@@ -1,5 +1,5 @@
 name: backend
-# Deploys the Supabase side of search by meaning (A74–A77): migrations, the
+# Deploys the Supabase side of search by meaning (A75–A78): migrations, the
 # `semantic-search` Edge Function + its Cloudflare secrets, the term vectors (re-embedded
 # through Workers AI, the same call the function makes), then a smoke test that fails the
 # job unless known questions find their terms.
