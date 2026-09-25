@@ -851,13 +851,16 @@ export const ABOUT_PEOPLE: AboutPerson[] = [
   {
     section: 'credits',
     name: 'Christoffer Maintz',
-    role: { en: 'Atlas author · Chief term-wrangler', da: 'Forfatter til Atlas · Chefordkløver' },
+    role: { en: 'Atlas author · Tech wizard', da: 'Forfatter til Atlas · Tech-troldmand' },
     photo: 'christoffer.jpg',
   },
   {
     section: 'thanks',
     name: 'Christina Jakobsen',
-    role: { en: 'Partner in crime', da: 'Makker i ugerningen' },
+    role: {
+      en: 'Partner in crime · Chief term-wrangler',
+      da: 'Makker i ugerningen · Chefordkløver',
+    },
     photo: 'christina.jpg',
   },
 ];
