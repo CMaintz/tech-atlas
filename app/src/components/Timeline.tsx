@@ -556,7 +556,7 @@ export default function Timeline(props: Props) {
         <div
           data-tl-more
           role={more.pinned ? 'dialog' : 'tooltip'}
-          class="fixed z-50 max-h-80 w-64 overflow-y-auto rounded-lg border border-border-strong bg-surface/95 p-2 text-xs shadow-xl shadow-black/20 dark:shadow-black/20 dark:shadow-black/50 backdrop-blur"
+          class="fixed z-50 max-h-80 w-64 overflow-y-auto rounded-lg border border-border-strong bg-surface/95 p-2 text-xs shadow-xl shadow-black/20 dark:shadow-black/50 backdrop-blur"
           style={popStyle(more.x, more.y)}
           onMouseEnter={() => clearTimeout(moreTimer.current)}
           onMouseLeave={leaveMore}
@@ -693,7 +693,7 @@ export default function Timeline(props: Props) {
           ref={popRef}
           role={sel.pinned ? 'dialog' : 'tooltip'}
           aria-label={selItem.name}
-          class="fixed inset-x-4 bottom-4 z-50 rounded-lg border border-border-strong bg-surface/95 p-4 text-sm shadow-xl shadow-black/20 dark:shadow-black/20 dark:shadow-black/50 backdrop-blur sm:inset-x-auto sm:bottom-auto sm:w-80"
+          class="fixed inset-x-4 bottom-4 z-50 rounded-lg border border-border-strong bg-surface/95 p-4 text-sm shadow-xl shadow-black/20 dark:shadow-black/50 backdrop-blur sm:inset-x-auto sm:bottom-auto sm:w-80"
           style={popStyle(sel.x, sel.y)}
         >
           <div class="mb-1 flex items-baseline gap-2">

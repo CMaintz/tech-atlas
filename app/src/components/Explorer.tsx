@@ -423,7 +423,7 @@ export default function Explorer(props: Props) {
 
   // Styles after the canvas lab's floating toolbar (the owner's reference).
   const glass =
-    'border border-border bg-bg/85 shadow-lg shadow-black/15 dark:shadow-black/15 dark:shadow-black/40 backdrop-blur';
+    'border border-border bg-bg/85 shadow-lg shadow-black/15 dark:shadow-black/40 backdrop-blur';
   const pill = (active: boolean) =>
     `inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs whitespace-nowrap focus-visible:outline-2 focus-visible:outline-(--focus) ${active ? 'border-border-hover bg-surface-2/80 text-fg' : 'border-border-strong text-muted hover:border-border-hover hover:text-fg-soft'}`;
   const seg = (active: boolean) =>

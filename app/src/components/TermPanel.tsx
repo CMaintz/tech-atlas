@@ -344,7 +344,7 @@ export default function TermPanel(props: Props) {
       data-term-panel={id}
       data-expanded={expanded ? '' : undefined}
       onKeyDown={onPanelKey}
-      class={`absolute top-0 right-0 bottom-0 z-20 flex w-full flex-col border-l border-border bg-bg/97 shadow-2xl shadow-black/60 backdrop-blur transition-[width] duration-300 ease-out motion-reduce:transition-none ${expanded ? '' : 'lg:w-[26rem]'}`}
+      class={`absolute top-0 right-0 bottom-0 z-20 flex w-full flex-col border-l border-border bg-bg/97 shadow-2xl shadow-black/20 dark:shadow-black/60 backdrop-blur transition-[width] duration-300 ease-out motion-reduce:transition-none ${expanded ? '' : 'lg:w-[26rem]'}`}
     >
       <div class="flex shrink-0 flex-wrap items-center gap-2 border-b border-border px-4 py-2">
         <div class="flex gap-1">
