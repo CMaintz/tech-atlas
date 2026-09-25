@@ -288,14 +288,23 @@ real, statically rendered page ("the canvas is an index, not a container").
   the bottom.
 - Edge *family* drives colour and filtering — seven readable groups (structure,
   prerequisites, contrasts, attacks & defences, regulation, lineage, used together)
-  instead of twelve raw types (A29); the exact type is shown in edge labels. *Cluster*
-  drives node colour; *domain* drives filtering. Progressive: arriving from a term
+  instead of twelve raw types (A29); the exact type is shown in edge labels. *Domain*
+  owns a colour family and *cluster* is a shade within it; a term in two domains wears
+  a ring in the other domain's colour; *domain* drives filtering (A74). One-way
+  relationships carry an arrow and a gentle animated flow towards their target
+  (still under `prefers-reduced-motion`); symmetric ones (contrasts, alternatives,
+  used-with) have neither; an edge crossing domains fades between the two domain
+  colours. Edges curve; hovering a term lights its neighbourhood and fades the rest;
+  a legend explains colours, rings and arrows. Progressive: arriving from a term
   starts at the focal node + direct edges; expand one hop at a time, or open the
   whole map.
 - The full-screen Explorer (`/[lang]/explorer/`) offers 2D (force, layered by
   Depth, or laid out by Time — x = `era`, undated terms in a side lane) and 3D
   (height = Depth), a route finder between any two terms, and prerequisite
-  highlighting.
+  highlighting. The 2D force layout is deterministic and cluster-aware: clusters
+  settle into named systems, domains into loose regions (A74). 3D uses the same
+  colours, curved links, flowing particles on one-way links and a pull towards
+  each cluster.
 
 ### Timeline (era view)
 `/[lang]/timeline/` lists every Term with an `era` by decade, oldest first, coloured
