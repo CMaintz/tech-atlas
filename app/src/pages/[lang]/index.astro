@@ -7,13 +7,13 @@ import {
   CLUSTER_LABELS,
   DOMAIN_LABELS,
   LANGS,
-  SUPABASE_URL,
+  SEMANTIC_SEARCH_URL,
   UI,
   termUrl,
   url,
   type Lang,
 } from '../../lib/site';
-import { semanticEndpoint } from '../../lib/semantic';
+import { UI_EXTRA } from '../../lib/ui-extra';
 
 export function getStaticPaths() {
   return LANGS.map((lang) => ({ params: { lang } }));
@@ -49,7 +49,7 @@ const ids = terms.map((t) => t.id);
         client:load
         lang={lang}
         indexUrl={url('search-index.json')}
-        semanticUrl={semanticEndpoint(SUPABASE_URL)}
+        semanticUrl={SEMANTIC_SEARCH_URL}
         langBase={url(`${lang}/`)}
         placeholder={ui.search}
         noResults={ui.noResults}
@@ -104,6 +104,12 @@ const ids = terms.map((t) => t.id);
         class="rounded border border-neutral-700 px-3 py-1.5 text-neutral-300 hover:border-neutral-400 hover:text-neutral-100"
       >
         {ui.study} →
+      </a>
+      <a
+        href={url(`${lang}/terms/`)}
+        class="rounded border border-neutral-700 px-3 py-1.5 text-neutral-300 hover:border-neutral-400 hover:text-neutral-100"
+      >
+        {UI_EXTRA[lang].azTitle} →
       </a>
     </div>
     <RecentTerms

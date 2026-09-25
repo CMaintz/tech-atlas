@@ -1,7 +1,7 @@
 /**
- * `semantic-search` — Atlas's search by meaning (A65). POST `{ q, lang, k? }` →
+ * `semantic-search` — Atlas's search by meaning (A74). POST `{ q, lang, k? }` →
  * `{ hits: [{ id, score }] }`, best first. The query is embedded with bge-m3 on
- * Cloudflare Workers AI (the model is too large for an Edge Function isolate, see A65),
+ * Cloudflare Workers AI (the model is too large for an Edge Function isolate, see A74),
  * then ranked against the term vectors in Postgres (pgvector, `match_terms`), each term
  * scoring its better language so Danish questions find English-named terms.
  *

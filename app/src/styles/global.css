@@ -51,4 +51,18 @@ main:focus {
   #learn-first li {
     break-inside: avoid;
   }
+  /* Chrome is print:hidden in the markup; islands (tour, quiz) never print. */
+  astro-island {
+    display: none !important;
+  }
+  main {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+  /* Sources and other outside links print their address (A73). */
+  main a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    word-break: break-all;
+  }
 }

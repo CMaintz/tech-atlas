@@ -19,6 +19,15 @@ export const SUPABASE_URL: string = import.meta.env.PUBLIC_SUPABASE_URL ?? '';
 export const SUPABASE_ANON_KEY: string = import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? '';
 export const ACCOUNTS = !!SUPABASE_URL && !!SUPABASE_ANON_KEY;
 
+/**
+ * Search by meaning (A74) is switched on separately, by the full URL of the
+ * `semantic-search` Edge Function, so a build with only sync configured never calls a
+ * function that isn't deployed. Empty = name search only.
+ */
+export const SEMANTIC_SEARCH_URL: string = (import.meta.env.PUBLIC_SEMANTIC_SEARCH_URL ?? '')
+  .trim()
+  .replace(/\/+$/, '');
+
 export const termUrl = (lang: Lang, id: string) => url(`${lang}/terms/${id}/`);
 
 /** Swap the language segment of the current pathname. */

@@ -1,18 +1,6 @@
 ---
+import Redirect from '../components/Redirect.astro';
 import { url } from '../lib/site';
-
-const target = url('en/');
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="refresh" content={`0; url=${target}`} />
-    <link rel="canonical" href={target} />
-    <title>Atlas</title>
-  </head>
-  <body>
-    <a href={target}>Atlas</a>
-  </body>
-</html>
+<Redirect lang="en" to={url('en/')} title="Atlas" />

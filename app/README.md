@@ -9,7 +9,7 @@ relationships make it a navigable knowledge graph. See the full design in
 ## Stack
 
 - **Astro** (static-first, ADR-0008), route-based i18n (`/en/`, `/da/`, ADR-0007)
-- **Preact** islands; **Cytoscape.js** for the 2D graph (3D via 3d-force-graph later)
+- **Preact** islands; **Cytoscape.js** for the 2D graph and **3d-force-graph** for the 3D Explorer mode
 - **Tailwind v4**; content authored as **YAML** validated by **Zod** (`src/schema.ts`)
 - Custom build/lint scripts (`scripts/`) — the content-quality engine
 
@@ -18,7 +18,7 @@ relationships make it a navigable knowledge graph. See the full design in
 ```
 src/schema.ts                   the authored Term schema (Zod) — the single source of truth
 src/content.config.ts           Astro content collection (glob loader over the YAML)
-src/content/terms/<domain>/     authored bilingual Term files (security/, cs/)
+src/content/terms/<domain>/     authored bilingual Term files (security/, cs/, ai/, platform/)
 src/lib/site.ts                 base-path-aware URLs, UI strings (EN/DA), cluster labels
 src/lib/terms.ts                relationship resolution, inverse edges, compare pairs
 src/pages/[lang]/               index (+ search), terms/<id>, compare/ and compare/<a>-vs-<b>
@@ -38,7 +38,7 @@ npm run dev            # astro dev server
 npm run lint:content   # the content lint (E1–E11, W1–W8)
 npx tsx scripts/vocab-report.ts   # which unknown words recur (Closed Vocabulary triage)
 npm run build:graph    # regenerate src/generated/graph.json
-npm run embed          # re-embed terms for semantic search (after editing a name, alias, summary or plain facet; lint E11/W8; see A66)
+npm run embed          # re-embed terms for semantic search (after editing a name, alias, summary or plain facet; lint E11/W8; see A75)
 npm run seed:vectors   # load the vectors into Supabase (CI does this; needs SUPABASE_URL + SUPABASE_SERVICE_KEY)
 npm run check          # astro check (typecheck)
 npm run build          # lint -> build:graph -> astro build

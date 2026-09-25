@@ -4,6 +4,7 @@ import AccountMenu from '../components/AccountMenu';
 import Tour from '../components/Tour';
 import { ACCOUNTS, REPO, TOUR_STEPS, UI, swapLang, url, type Lang } from '../lib/site';
 import { isCurrentNav } from '../lib/prefs';
+import { UI_EXTRA } from '../lib/ui-extra';
 
 interface Props {
   lang?: Lang;
@@ -15,6 +16,10 @@ interface Props {
   tourAutoStart?: boolean;
   /** og:type — 'article' for entries. */
   ogType?: 'website' | 'article';
+  /** Keep out of search engines (the 404 page); also drops canonical + og:url. */
+  noindex?: boolean;
+  /** Structured data for this page (schema.org JSON-LD), e.g. a DefinedTerm (A68). */
+  jsonLd?: Record<string, unknown>;
 }
 const {
   lang = 'en',
@@ -23,7 +28,10 @@ const {
   wide = false,
   tourAutoStart = true,
   ogType = 'website',
+  noindex = false,
+  jsonLd,
 } = Astro.props;
+const extra = UI_EXTRA[lang];
 const ui = UI[lang];
 const other: Lang = lang === 'en' ? 'da' : 'en';
 const path = Astro.url.pathname;
@@ -67,16 +75,33 @@ const tourUi = {
     <link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
     <meta name="description" content={desc} />
     <meta name="theme-color" content="#0a0a0a" />
-    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    {!noindex && <link rel="canonical" href={canonical} />}
     {alternates.map((a) => <link rel="alternate" hreflang={a.lang} href={a.href} />)}
+    <link rel="alternate" hreflang="x-default" href={alternates[0].href} />
+    <link rel="sitemap" href={url('sitemap-index.xml')} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={extra.feedTitle}
+      href={url(`${lang}/feed.xml`)}
+    />
     <meta property="og:site_name" content="Atlas" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={desc} />
     <meta property="og:type" content={ogType} />
-    <meta property="og:url" content={canonical} />
+    {!noindex && <meta property="og:url" content={canonical} />}
     <meta property="og:locale" content={lang === 'da' ? 'da_DK' : 'en_GB'} />
     <meta property="og:locale:alternate" content={lang === 'da' ? 'en_GB' : 'da_DK'} />
     <meta name="twitter:card" content="summary" />
+    {
+      jsonLd && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')}
+        />
+      )
+    }
     <noscript
       ><style>
         #site-nav {
@@ -189,8 +214,18 @@ const tourUi = {
           <a class="hover:text-neutral-300" href={url(`${lang}/review/`)}>
             {ui.review}
           </a>
+          <a class="hover:text-neutral-300" href={url(`${lang}/data/`)}>
+            {extra.data}
+          </a>
           <a class="hover:text-neutral-300" href={REPO}>
             {ui.sourceCode}
+          </a>
+          <a
+            class="hover:text-neutral-300"
+            href={`${REPO}/blob/main/CONTENT-LICENSE.md`}
+            rel="license"
+          >
+            {extra.licenceFooter}
           </a>
           <button type="button" class="hover:text-neutral-300" data-tour-start>
             {ui.tourStart}

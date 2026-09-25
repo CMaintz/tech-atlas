@@ -1,5 +1,5 @@
 name: backend
-# Deploys the Supabase side of search by meaning (A65): migrations, the `semantic-search`
+# Deploys the Supabase side of search by meaning (A74): migrations, the `semantic-search`
 # Edge Function (+ its Cloudflare secrets) and the committed term vectors.
 # Skipped entirely until the repository variable SUPABASE_PROJECT_REF is set; its steps
 # are skipped (not failed) until the secrets SUPABASE_ACCESS_TOKEN and

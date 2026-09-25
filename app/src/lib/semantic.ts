@@ -1,5 +1,5 @@
 /**
- * Semantic (vector) search — the pure half (A65, superseding A51–A55). Terms are embedded
+ * Semantic (vector) search — the pure half (A74, superseding A51–A55). Terms are embedded
  * at author time by `npm run embed` (scripts/embed.ts); the vectors are seeded into
  * Postgres (pgvector) next to the learner data, and the `semantic-search` Supabase Edge
  * Function embeds each query with the same model and returns the nearest terms. The

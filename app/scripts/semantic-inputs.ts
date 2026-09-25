@@ -1,5 +1,5 @@
 /**
- * The exact inputs of the semantic vectors (A65), shared by `npm run embed` (which
+ * The exact inputs of the semantic vectors (A74), shared by `npm run embed` (which
  * writes them) and the content lint (which checks they are still in sync — E11/W8).
  */
 import { createHash } from 'node:crypto';

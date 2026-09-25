@@ -1,7 +1,7 @@
 /**
  * `npm run embed` — embed every Term (name + aliases + summary + plain facet, per
  * language) with bge-m3 and write the committed vector file that CI seeds into Postgres
- * for the `semantic-search` Edge Function (A65). Also embeds FIXTURE_QUERIES for the
+ * for the `semantic-search` Edge Function (A74). Also embeds FIXTURE_QUERIES for the
  * offline ranking test.
  *
  * Backend: with CLOUDFLARE_ACCOUNT_ID + CLOUDFLARE_API_TOKEN set it calls Workers AI —

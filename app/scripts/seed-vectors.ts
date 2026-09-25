@@ -1,6 +1,6 @@
 /**
  * `npm run seed:vectors` — load the committed term vectors (supabase/seed/term-vectors.json)
- * into Postgres `public.term_vectors` (A65): upsert every (term, language) row, then
+ * into Postgres `public.term_vectors` (A74): upsert every (term, language) row, then
  * delete rows for terms that no longer exist. Idempotent; run by
  * .github/workflows/backend.yml after the migrations.
  *
