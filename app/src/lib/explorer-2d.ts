@@ -647,7 +647,11 @@ export function createMap2D(opts: Map2DOptions) {
   const graphFamily = (e: cytoscape.EdgeSingular) => graph.links[Number(e.id().slice(1))].family;
 
   /** Bundled routes for cross-cluster edges drawn in full ("show all", force layout). */
-  const setBundledRoutes = (on: boolean, centre?: Record<string, Point>) =>
+  let bundled = false;
+  const setBundledRoutes = (on: boolean, centre?: Record<string, Point>) => {
+    // Clearing routes that were never set restyles every cross-cluster edge for nothing.
+    if (!on && !bundled) return;
+    bundled = on && !!centre;
     cy.batch(() => {
       links.filter('.xc').forEach((e) => {
         if (!on || !centre) {
@@ -669,6 +673,7 @@ export function createMap2D(opts: Map2DOptions) {
         });
       });
     });
+  };
 
   // ---- 5. Hover: light the neighbourhood, fade the rest (with a little intent) --------
   let hoverTimer = 0;
