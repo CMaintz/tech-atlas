@@ -16,3 +16,6 @@ Technical glossary with 3D visualization/
 # os
 .DS_Store
 Thumbs.db
+
+# Supabase CLI state (supabase link)
+supabase/.temp/

@@ -21,7 +21,7 @@ jobs:
           version: 2026.8.5
       - name: Install dependencies
         working-directory: app
-        # onnxruntime-node (used only by `npm run embed`) otherwise downloads CUDA binaries (A55).
+        # onnxruntime-node (used only by a local `npm run embed`) otherwise downloads CUDA binaries (A75).
         env:
           ONNXRUNTIME_NODE_INSTALL: skip
         run: npm ci

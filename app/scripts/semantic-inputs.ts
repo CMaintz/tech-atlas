@@ -1,5 +1,5 @@
 /**
- * The exact inputs of the semantic vectors (A51), shared by `npm run embed` (which
+ * The exact inputs of the semantic vectors (A75), shared by `npm run embed` (which
  * writes them) and the content lint (which checks they are still in sync — E11/W8).
  */
 import { createHash } from 'node:crypto';
@@ -7,14 +7,26 @@ import {
   EMBED_LANGS,
   EMBED_OPTIONS,
   MODEL,
+  PASSAGE_FORMAT,
   QUANTIZE_VERSION,
   passageText,
   type ExpectedVectors,
 } from '../src/lib/semantic';
 import type { Term } from './load-terms';
 
-export const VECTORS_PATH = 'public/semantic/vectors.json';
+/** Outside the site (never shipped to the browser): the lint's hash source (A76). */
+export const VECTORS_PATH = '../supabase/seed/term-vectors.json';
 export const FIXTURE_PATH = 'src/lib/semantic.fixture.json';
+
+/**
+ * Checked against the deployed function after every backend deploy
+ * (scripts/smoke-semantic.ts): each query must return its term in the top 3.
+ */
+export const SMOKE_QUERIES: [query: string, lang: 'en' | 'da', expected: string][] = [
+  ['hvem har ansvaret for persondata', 'da', 'security/data-controller'],
+  ['a program that locks your files and demands money', 'en', 'security/ransomware'],
+  ['sneaking database commands into a login form', 'en', 'security/sql-injection'],
+];
 
 /** Queries embedded alongside the terms, so a unit test can check real rankings offline. */
 export const FIXTURE_QUERIES = [
@@ -44,8 +56,12 @@ export function semanticInputs(terms: Map<string, Term>) {
   const perTerm = ids.map((id) => EMBED_LANGS.map((l) => passageText(terms.get(id)!, l)));
   const expected: ExpectedVectors = {
     settingsHash: sha({
-      model: MODEL,
+      // The model's identity, not where it ran: Workers AI and the local ONNX export are
+      // the same weights, so either may (re-)embed without invalidating the other.
+      model: MODEL.id,
+      dim: MODEL.dim,
       embed: EMBED_OPTIONS,
+      passage: PASSAGE_FORMAT,
       quantize: QUANTIZE_VERSION,
       langs: EMBED_LANGS,
     }),

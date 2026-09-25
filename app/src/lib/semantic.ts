@@ -1,35 +1,38 @@
 /**
- * Semantic (vector) search — the pure half (A51). Terms are embedded at author time
- * by `npm run embed` (scripts/embed.ts) with a small multilingual model; the browser
- * embeds the query with the same model in a worker (src/components/semantic.worker.ts)
- * and ranks terms by cosine similarity. Lexical (MiniSearch) and semantic rankings are
- * merged by reciprocal rank fusion. Everything here is pure and unit-tested.
+ * Semantic (vector) search — the pure half (A75, superseding A51–A55). CI embeds every
+ * term through Workers AI into Postgres (pgvector) next to the learner data
+ * (scripts/seed-vectors.ts), and the `semantic-search` Supabase Edge Function embeds each
+ * query with the same call and returns the nearest terms; `npm run embed` keeps a
+ * committed copy for the lint's hashes and the offline ranking tests (A76). The
+ * browser never downloads a model: it calls the function (fetchSemantic) and merges its
+ * ranking with the lexical one (MiniSearch) by reciprocal rank fusion. Pure, unit-tested.
  */
 
 /**
- * The model — pinned to a Hugging Face commit so the browser's query vectors always come
- * from the exact weights the terms were embedded with — its quantisation and the e5
- * prefixes. Changing any of these (or EMBED_OPTIONS / QUANTIZE_VERSION) re-embeds.
+ * The model: BAAI's bge-m3 (dense output = unit-length [CLS] vector; no query/passage
+ * prefixes). The Edge Function runs it on Cloudflare Workers AI; `npm run embed` uses
+ * the same Workers AI model when Cloudflare credentials are set, otherwise the
+ * full-precision ONNX export of the same weights (pinned revision) on this machine.
+ * Changing any of these (or QUANTIZE_VERSION / PASSAGE_FORMAT) re-embeds.
  */
 export const MODEL = {
-  id: 'Xenova/multilingual-e5-small',
-  revision: '761b726dd34fb83930e26aab4e9ac3899aa1fa78',
-  dtype: 'q8',
-  passagePrefix: 'passage: ',
-  queryPrefix: 'query: ',
+  id: 'BAAI/bge-m3',
+  cloudflare: '@cf/baai/bge-m3',
+  onnx: {
+    id: 'Xenova/bge-m3',
+    revision: '4de13258303883538bd53b696b452bf8099f0858',
+    dtype: 'fp32',
+  },
+  dim: 1024,
 } as const;
 
-/** Options for the feature-extraction pipeline, identical at embed time and query time. */
-export const EMBED_OPTIONS = { pooling: 'mean', normalize: true } as const;
+/** The dense bge-m3 output, as the ONNX feature-extraction pipeline computes it. */
+export const EMBED_OPTIONS = { pooling: 'cls', normalize: true } as const;
 
 /** Bump when the vector encoding (quantize/toBase64) changes. */
 export const QUANTIZE_VERSION = 1;
-
-/** The q8 weights file, as transformers.js requests it (and keys it in the Cache API). */
-export const MODEL_FILE_URL = `https://huggingface.co/${MODEL.id}/resolve/${MODEL.revision}/onnx/model_quantized.onnx`;
-
-/** The Cache API store transformers.js keeps model files in (its `env.cacheKey` default). */
-export const MODEL_CACHE = 'transformers-cache';
+/** Bump when passageText changes shape. */
+export const PASSAGE_FORMAT = 2;
 
 export type Lang = 'en' | 'da';
 export const EMBED_LANGS: readonly Lang[] = ['en', 'da'];
@@ -45,19 +48,23 @@ export interface EmbeddableTerm {
 /** The passage embedded for one term in one language: name, aliases, summary, plain facet. */
 export function passageText(t: EmbeddableTerm, lang: Lang): string {
   const aka = t.aka[lang].length ? ` (${t.aka[lang].join(', ')})` : '';
-  return `${MODEL.passagePrefix}${t.term[lang]}${aka}. ${t.summary[lang]} ${t.body.plain[lang]}`;
+  return `${t.term[lang]}${aka}. ${t.summary[lang]} ${t.body.plain[lang]}`;
 }
 
-export const queryText = (q: string) => MODEL.queryPrefix + q.trim();
+/** bge-m3 embeds a query as it is (no instruction prefix). */
+export const queryText = (q: string) => q.trim();
 
-/** The committed vector file (public/semantic/vectors.json). */
+/**
+ * The committed vector file (supabase/seed/term-vectors.json): the lint's per-term hash
+ * source and the offline ranking tests' index. The database is seeded by re-embedding.
+ */
 export interface VectorFile {
   model: string;
-  revision: string;
-  dtype: string;
+  /** Where the vectors were computed (Workers AI, or the ONNX export on the author's machine). */
+  backend: string;
   dim: number;
   langs: Lang[];
-  /** Hash of MODEL, EMBED_OPTIONS, QUANTIZE_VERSION and the languages (lint E11). */
+  /** Hash of the model, pooling, dimension, passage format, quantisation, languages (E11). */
   settingsHash: string;
   /** Per term, a hash of its embedded passages (lint W8 when one changes). */
   passageHashes: Record<string, string>;
@@ -165,6 +172,37 @@ export function loadIndex(file: VectorFile): SemanticIndex {
   return { ids: file.ids, vectors: file.ids.map((_, i) => flat.slice(i * n, (i + 1) * n)) };
 }
 
+/** One `public.term_vectors` row: the vector in pgvector's text form. */
+export interface VectorRow {
+  id: string;
+  lang: Lang;
+  embedding: string;
+  passage_hash: string;
+}
+
+/**
+ * The rows the seed script upserts: vector `i * langs.length + j` belongs to term `i` in
+ * language `j` (the order semanticInputs emits passages in), normalised to unit length.
+ */
+export function toVectorLiteralRows(
+  ids: readonly string[],
+  langs: readonly Lang[],
+  vectors: readonly ArrayLike<number>[],
+  passageHashes: Record<string, string>,
+): VectorRow[] {
+  if (vectors.length !== ids.length * langs.length) {
+    throw new Error(`expected ${ids.length * langs.length} vectors, got ${vectors.length}`);
+  }
+  return ids.flatMap((id, i) =>
+    langs.map((lang, j) => ({
+      id,
+      lang,
+      embedding: `[${Array.from(normalize(vectors[i * langs.length + j]), (x) => +x.toFixed(6)).join(',')}]`,
+      passage_hash: passageHashes[id],
+    })),
+  );
+}
+
 export interface Scored {
   id: string;
   score: number;
@@ -223,13 +261,58 @@ export function looksNaturalLanguage(query: string, lexicalHits: number): boolea
 }
 
 /**
- * Keep only the semantic hits close to the best one. e5 similarities sit in a narrow
- * band (about 0.8–0.9), so an absolute threshold is meaningless; a margin below the
- * top hit drops the long tail that every query, even nonsense, would otherwise get.
+ * Keep only the semantic hits close to the best one. bge-m3's best matches for the
+ * fixture questions score 0.59–0.71, with the right answer always within 0.03 of the
+ * top hit; the absolute level varies by query, so a margin below the top hit (not a
+ * threshold) drops the long tail that every query, even nonsense, would otherwise get.
  */
-export function nearBest(scored: Scored[], margin = 0.03): Scored[] {
+export function nearBest(scored: Scored[], margin = 0.06): Scored[] {
   const top = scored[0]?.score ?? 0;
   return scored.filter((s) => s.score >= top - margin);
+}
+
+/** How long the browser waits for the function before showing lexical results only. */
+export const SEMANTIC_TIMEOUT_MS = 2000;
+
+type FetchLike = (url: string, init: RequestInit) => Promise<Response>;
+
+/**
+ * Ask the `semantic-search` function for the terms nearest a query. Rejects on an HTTP
+ * error, a malformed body, the caller's abort, or after `timeoutMs` — the caller then
+ * simply keeps the lexical results.
+ */
+export async function fetchSemantic(
+  url: string,
+  q: string,
+  lang: Lang,
+  opts: { signal?: AbortSignal; timeoutMs?: number; fetch?: FetchLike; k?: number } = {},
+): Promise<Scored[]> {
+  const ctrl = new AbortController();
+  const abort = () => ctrl.abort();
+  if (opts.signal?.aborted) abort();
+  opts.signal?.addEventListener('abort', abort);
+  const timer = setTimeout(abort, opts.timeoutMs ?? SEMANTIC_TIMEOUT_MS);
+  try {
+    const res = await (opts.fetch ?? fetch)(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ q, lang, k: opts.k ?? 8 }),
+      signal: ctrl.signal,
+    });
+    if (!res.ok) throw new Error(`semantic search: HTTP ${res.status}`);
+    const body = (await res.json()) as { hits?: unknown };
+    if (!Array.isArray(body?.hits)) throw new Error('semantic search: malformed response');
+    return body.hits.map((h) => {
+      const { id, score } = (h ?? {}) as Record<string, unknown>;
+      if (typeof id !== 'string' || typeof score !== 'number') {
+        throw new Error('semantic search: malformed hit');
+      }
+      return { id, score };
+    });
+  } finally {
+    clearTimeout(timer);
+    opts.signal?.removeEventListener('abort', abort);
+  }
 }
 
 // Function words (English + Danish) dropped from natural-language queries before the

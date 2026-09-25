@@ -19,6 +19,15 @@ export const SUPABASE_URL: string = import.meta.env.PUBLIC_SUPABASE_URL ?? '';
 export const SUPABASE_ANON_KEY: string = import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? '';
 export const ACCOUNTS = !!SUPABASE_URL && !!SUPABASE_ANON_KEY;
 
+/**
+ * Search by meaning (A75) is switched on separately, by the full URL of the
+ * `semantic-search` Edge Function, so a build with only sync configured never calls a
+ * function that isn't deployed. Empty = name search only.
+ */
+export const SEMANTIC_SEARCH_URL: string = (import.meta.env.PUBLIC_SEMANTIC_SEARCH_URL ?? '')
+  .trim()
+  .replace(/\/+$/, '');
+
 export const termUrl = (lang: Lang, id: string) => url(`${lang}/terms/${id}/`);
 
 /** Swap the language segment of the current pathname. */
@@ -93,15 +102,7 @@ export const UI = {
     loading: 'Loading…',
     search: 'Search terms, aliases, definitions…',
     noResults: 'No matches',
-    semanticEnable:
-      'Search by meaning (downloads a ~135 MB language model from Hugging Face the first time)',
-    semanticSource:
-      "The model is fetched from huggingface.co and kept in your browser's cache; your searches stay in your browser.",
-    semanticRetry: 'Try again',
-    semanticOff: 'Turn off search by meaning',
-    semanticLoading: 'Loading the language model… {p}',
     semanticByMeaning: 'by meaning',
-    semanticFailed: 'Search by meaning is unavailable right now.',
     connections: 'Connections',
     relationships: 'Relationships',
     mentionedIn: 'Mentioned in',
@@ -268,15 +269,7 @@ export const UI = {
     loading: 'Indlæser…',
     search: 'Søg i begreber, synonymer, definitioner…',
     noResults: 'Ingen resultater',
-    semanticEnable:
-      'Søg efter betydning (henter første gang en sprogmodel på ca. 135 MB fra Hugging Face)',
-    semanticSource:
-      'Modellen hentes fra huggingface.co og gemmes i din browsers cache; dine søgninger bliver i din browser.',
-    semanticRetry: 'Prøv igen',
-    semanticOff: 'Slå søgning efter betydning fra',
-    semanticLoading: 'Indlæser sprogmodellen… {p}',
     semanticByMeaning: 'efter betydning',
-    semanticFailed: 'Søgning efter betydning er ikke tilgængelig lige nu.',
     connections: 'Forbindelser',
     relationships: 'Relationer',
     mentionedIn: 'Nævnt i',
