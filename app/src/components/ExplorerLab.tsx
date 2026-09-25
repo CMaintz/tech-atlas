@@ -368,7 +368,7 @@ export default function ExplorerLab(props: Props) {
         <div class="mt-1.5 flex items-center gap-2">
           <button
             type="button"
-            class="rounded-full border border-neutral-500 bg-neutral-800/80 px-2.5 py-1 text-neutral-100 disabled:opacity-50"
+            class="rounded-full border border-neutral-500 bg-neutral-800/80 shrink-0 px-2.5 py-1 whitespace-nowrap text-neutral-100 disabled:opacity-50"
             disabled={running || !ready}
             title={view === '2d' ? t.benchPan : t.benchOrbit}
             onClick={runBench}
@@ -481,7 +481,7 @@ function Controls2D(p: { s: Lab2D; set: (s: Lab2D) => void; t: Text }) {
         ]}
         on={up('curve')}
       />
-      <Slide label={t.strength} value={s.strength} min={0} max={3} step={0.1} on={up('strength')} />
+      <Slide label={t.strength} value={s.strength} min={0} max={4} step={0.1} on={up('strength')} />
       <Check label={t.gradient} value={s.gradient} on={up('gradient')} />
       <Pick
         label={t.flow}
@@ -663,7 +663,10 @@ type Fg = {
 async function setup3D(m: Map3D): Promise<Lab3DRuntime> {
   const L = m.lab;
   const THREE = L.THREE;
-  const { UnrealBloomPass } = await import('three/examples/jsm/postprocessing/UnrealBloomPass.js');
+  const [{ UnrealBloomPass }, { OutputPass }] = await Promise.all([
+    import('three/examples/jsm/postprocessing/UnrealBloomPass.js'),
+    import('three/examples/jsm/postprocessing/OutputPass.js'),
+  ]);
   const fg = L.fg as unknown as Fg;
   const drawn = L.drawn as unknown as Acc<boolean>;
   const focusOf = L.focusOf as unknown as Acc<boolean>;
@@ -762,16 +765,22 @@ async function setup3D(m: Map3D): Promise<Lab3DRuntime> {
     L.scene.add(g);
   };
 
-  // Bloom: one UnrealBloomPass on 3d-force-graph's composer.
+  // Bloom: an UnrealBloomPass on 3d-force-graph's composer, an OutputPass for the colour
+  // space and an opaque scene background (the canvas is transparent; bloom lifts it).
   let bloom: InstanceType<typeof UnrealBloomPass> | null = null;
+  const output = new OutputPass();
   const setBloom = (on: boolean) => {
     if (on === !!bloom) return;
     const composer = fg.postProcessingComposer();
     if (on) {
       bloom = new UnrealBloomPass(new THREE.Vector2(fg.width(), fg.height()), 0.9, 0.5, 0.55);
       composer.addPass(bloom);
+      composer.addPass(output);
+      L.scene.background = new THREE.Color(cfg.background);
     } else {
       composer.removePass(bloom);
+      composer.removePass(output);
+      L.scene.background = null;
       bloom!.dispose();
       bloom = null;
     }
