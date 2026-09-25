@@ -533,6 +533,11 @@ export const GRAPH_UI = {
       'The overview draws each term’s strongest links; faint ribbons bundle the links between clusters. Click a term for all its relationships.',
     typesNote:
       'The overview starts with structure, prerequisites, attacks & defences, regulation and lineage; tick contrasts or “used together” to add them. A selected term always shows all its relationships.',
+    mapLabel: 'Map. Use W A S D or the arrow keys to move',
+    keys2d:
+      'Keys: W A S D or arrows pan, Q / E or - / + zoom, Shift for faster (click the map first).',
+    keys3d:
+      'Keys: W / S forward and back, A / D sideways, Q / E down and up, arrows orbit, Shift for faster (click the map first).',
   },
   da: {
     legend: 'Forklaring',
@@ -548,6 +553,11 @@ export const GRAPH_UI = {
       'Overblikket viser hvert begrebs stærkeste forbindelser; svage bånd samler forbindelserne mellem klynger. Klik på et begreb for at se alle dets relationer.',
     typesNote:
       'Overblikket starter med struktur, forudsætninger, angreb og forsvar, regulering og afstamning; sæt flueben ved kontraster eller “bruges sammen” for at tilføje dem. Et valgt begreb viser altid alle sine relationer.',
+    mapLabel: 'Kort. Brug W A S D eller piletasterne til at bevæge dig',
+    keys2d:
+      'Taster: W A S D eller pile flytter, Q / E eller - / + zoomer, Shift for hurtigere (klik først på kortet).',
+    keys3d:
+      'Taster: W / S frem og tilbage, A / D til siden, Q / E ned og op, pile drejer, Shift for hurtigere (klik først på kortet).',
   },
 } as const;
 

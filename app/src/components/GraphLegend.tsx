@@ -20,6 +20,8 @@ interface Props {
   /** Explorer only: the overview/all-relationships toggle (A86). */
   showAll?: boolean;
   onShowAll?: (on: boolean) => void;
+  /** Explorer only: a one-line keyboard hint at the foot (A96). */
+  hint?: string;
 }
 
 /** The graph legend (A74): domains and their cluster shades, edge families, arrow meaning. */
@@ -147,6 +149,9 @@ export default function GraphLegend(props: Props) {
           {text.crossDomain}
         </li>
       </ul>
+      {props.hint && (
+        <p class="mt-3 border-t border-neutral-800 pt-2 text-neutral-500">{props.hint}</p>
+      )}
     </details>
   );
 }

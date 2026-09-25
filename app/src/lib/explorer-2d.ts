@@ -41,6 +41,7 @@ import {
 } from './graph-layout';
 import { GRAPH_STYLE, edgeData, reducedMotion, smoothFit } from './graph-cytoscape';
 import { createDragFeedback } from './drag-feedback';
+import type { Axes } from './explorer-keys';
 import { startDots } from './explorer-flow';
 
 cytoscape.use(fcose);
@@ -992,6 +993,17 @@ export function createMap2D(opts: Map2DOptions) {
     apply,
     /** Bring a term into view (Find a term, even when it is already selected). */
     focus: (id: string) => void centreOn(id, [0.9, 1.2]),
+    /** Keyboard navigation (A96): pan and zoom about the clear part's centre, for dt s. */
+    nudge(v: Axes, dt: number) {
+      const k = EXPLORER.keys;
+      cy.stop(true);
+      if (v.x || v.y) cy.panBy({ x: -v.x * k.panPx * dt, y: -v.y * k.panPx * dt });
+      if (v.zoom)
+        cy.zoom({
+          level: cy.zoom() * Math.exp(v.zoom * k.zoomRate * dt),
+          renderedPosition: { x: (cy.width() - opts.centreReserve()) / 2, y: cy.height() / 2 },
+        });
+    },
     resize() {
       cy.resize();
       dots.resize();

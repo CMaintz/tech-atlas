@@ -12,6 +12,7 @@ import { FAMILY_COLOURS, clusterColour, homeDomain, isDirected } from './graph-s
 import { backboneOf, galaxyLayout, pageRank, separate } from './graph-layout';
 import { reducedMotion } from './graph-cytoscape';
 import { createDragFeedback, orbitDragKind } from './drag-feedback';
+import type { Axes } from './explorer-keys';
 
 export type View3D = {
   nodes: ReadonlySet<string>;
@@ -59,6 +60,7 @@ export async function createMap3D(opts: {
     import('3d-force-graph'),
     import('three'),
   ]);
+  type Vec3 = InstanceType<typeof THREE.Vector3>;
   const cfg = EXPLORER.three;
   const { graph, lang, container: el } = opts;
   const rank = pageRank(
@@ -619,6 +621,36 @@ export async function createMap3D(opts: {
     },
     /** Bring a term into view (Find a term, even when it is already selected). */
     focus: (id: string) => flyTo(id),
+    /**
+     * Keyboard navigation (A96), for dt seconds: fly (the orbit centre travels with the
+     * camera, so a mouse orbit afterwards turns about what is in front) and orbit.
+     */
+    nudge(v: Axes, dt: number) {
+      const k = EXPLORER.keys;
+      const camera = fg.camera();
+      const target = (fg.controls() as unknown as { target: Vec3 }).target;
+      const offset = camera.position.clone().sub(target);
+      if (v.yaw || v.pitch) {
+        const s = new THREE.Spherical().setFromVector3(offset);
+        s.theta += v.yaw * k.orbitRad * dt;
+        s.phi = Math.min(Math.PI - 0.05, Math.max(0.05, s.phi - v.pitch * k.orbitRad * dt));
+        offset.setFromSpherical(s);
+        camera.position.copy(target).add(offset);
+      }
+      const dist = offset.length();
+      const speed = Math.max(k.moveMin, dist * k.moveRel) * dt;
+      const ahead = camera.getWorldDirection(new THREE.Vector3());
+      const right = ahead.clone().cross(camera.up).normalize();
+      // Sideways and up/down move camera and orbit centre together (a pan) ...
+      const pan = right.multiplyScalar(v.x * speed).addScaledVector(camera.up, v.y * speed);
+      camera.position.add(pan);
+      target.add(pan);
+      // ... forward closes in on the centre, and pushes it on ahead once near it.
+      const fwd = v.z * speed;
+      camera.position.addScaledVector(ahead, fwd);
+      if (dist - fwd < k.near) target.addScaledVector(ahead, k.near - (dist - fwd));
+      camera.lookAt(target);
+    },
     /** Slow auto-rotation about the scene centre (off under reduced motion). */
     spin(on: boolean) {
       spinning = on && motion;
