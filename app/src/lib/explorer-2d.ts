@@ -34,11 +34,14 @@ import {
   depthLanes,
   effectiveHome,
   levelAngle,
+  linkVisible,
   pageRank,
+  pairKey,
   rotateAbout,
   separate,
   sizeForRank,
   timeLanes,
+  visibleBundleCounts,
   type LaneLayout,
 } from './graph-layout';
 import { edgeData, graphStyle, reducedMotion, smoothFit } from './graph-cytoscape';
@@ -377,17 +380,7 @@ export function createMap2D(opts: Map2DOptions) {
           ) + 26;
       return { id: c, domain: domainOfIsland.get(c)!, r };
     });
-    const between = new Map<string, number>();
-    const add = (a: string, b: string, w: number) => {
-      const k = a < b ? `${a}\u0000${b}` : `${b}\u0000${a}`;
-      between.set(k, (between.get(k) ?? 0) + w);
-    };
-    for (const l of graph.links) {
-      if (!visible.has(l.source) || !visible.has(l.target)) continue;
-      const a = byId.get(l.source)!.cluster;
-      const b = byId.get(l.target)!.cluster;
-      if (a !== b) add(a, b, 1);
-    }
+    const between = visibleBundleCounts(graph.links, clusterOf, visible);
     const links: IslandLink[] = [...between.entries()].map(([k, w]) => {
       const [a, b] = k.split('\u0000');
       return { a, b, w };
@@ -653,7 +646,7 @@ export function createMap2D(opts: Map2DOptions) {
         const s = e.data('source');
         const t = e.data('target');
         if (spine) e.toggleClass('bb', spine.has(Number(e.id().slice(1))));
-        const shown = v.nodes.has(s) && v.nodes.has(t);
+        const shown = linkVisible({ source: s, target: t }, v.nodes);
         const ends = shown && v.families.has(graphFamily(e));
         const focus = (shown && (s === sel || t === sel)) || (ends && hl.has(s) && hl.has(t));
         const on = focus || (ends && (v.showAll || e.hasClass('bb')));
@@ -662,24 +655,20 @@ export function createMap2D(opts: Map2DOptions) {
         e.toggleClass('focus', focus);
       });
       // Bundles summarise the visible cross-cluster relationships in the force overview.
-      const counts = new Map<string, number>();
-      if (v.layout === 'force' && !v.showAll)
-        links.forEach((e) => {
-          if (!e.hasClass('xc')) return;
-          const s = e.data('source');
-          const t = e.data('target');
-          if (!v.nodes.has(s) || !v.nodes.has(t) || !v.families.has(graphFamily(e))) return;
-          const a = byId.get(s)!.cluster;
-          const b = byId.get(t)!.cluster;
-          const k = a < b ? `${a}\u0000${b}` : `${b}\u0000${a}`;
-          counts.set(k, (counts.get(k) ?? 0) + 1);
-        });
+      const counts =
+        v.layout === 'force' && !v.showAll
+          ? visibleBundleCounts(
+              graph.links.filter((l) => v.families.has(l.family)),
+              clusterOf,
+              v.nodes,
+            )
+          : new Map<string, number>();
       const top = Math.max(1, ...counts.values());
       const [aMin, aMax] = EXPLORER.edges.bundleAlpha;
       bundleEdges.forEach((e) => {
         const a = e.data('a');
         const b = e.data('b');
-        const c = counts.get(a < b ? `${a}\u0000${b}` : `${b}\u0000${a}`) ?? 0;
+        const c = counts.get(pairKey(a, b)) ?? 0;
         const on = c >= EXPLORER.edges.minBundle;
         e.toggleClass('off', !on);
         if (on) {
@@ -744,8 +733,7 @@ export function createMap2D(opts: Map2DOptions) {
       .connectedEdges('.off')
       .filter(
         (e) =>
-          v.nodes.has(e.data('source')) &&
-          v.nodes.has(e.data('target')) &&
+          linkVisible({ source: e.data('source'), target: e.data('target') }, v.nodes) &&
           v.families.has(graphFamily(e)),
       );
     const hood = n.closedNeighborhood().filter((el) => !el.hasClass('off') || extra.contains(el));
