@@ -39,3 +39,20 @@ export function parseIntent(query: string): Intent | null {
   }
   return null;
 }
+
+type Named = { term: Record<string, string>; aka: Record<string, string[]> };
+
+/**
+ * The term whose name or alias (any language) is exactly `phrase`, ignoring case and
+ * surrounding space — so "threat" in "risk vs threat" means Threat, not the
+ * higher-ranked fuzzy/prefix hit "Threat hunting".
+ */
+export function exactName<T extends Named>(docs: readonly T[], phrase: string): T | undefined {
+  const p = phrase.trim().toLocaleLowerCase();
+  if (!p) return undefined;
+  return docs.find((d) =>
+    [...Object.values(d.term), ...Object.values(d.aka).flat()].some(
+      (n) => n.toLocaleLowerCase() === p,
+    ),
+  );
+}

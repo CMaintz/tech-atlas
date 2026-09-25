@@ -11,4 +11,44 @@ html {
     -apple-system,
     'Segoe UI',
     sans-serif;
+  scroll-padding-top: 1rem;
+}
+
+/* Keyboard focus is always visible (A64); amber = the site's one accent. */
+:focus-visible {
+  outline: 2px solid #f59e0b;
+  outline-offset: 2px;
+}
+main:focus {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print: an entry on white paper — no chrome, islands or dark backgrounds. */
+@media print {
+  :root {
+    color-scheme: light;
+  }
+  body,
+  body * {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+  }
+  body * {
+    border-color: #bbb !important;
+  }
+  #relationships a,
+  #mentions a,
+  #learn-first li {
+    break-inside: avoid;
+  }
 }
