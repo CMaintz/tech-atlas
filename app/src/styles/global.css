@@ -1,7 +1,101 @@
 @import 'tailwindcss';
 
-:root {
+/*
+ * Themes (A92). Semantic colour tokens, one set per theme. The resolved theme is a
+ * `data-theme` attribute on <html>, set before first paint by public/theme-init.js
+ * (the reader's choice, else the OS preference). Tokens hang off the attribute
+ * *selector*, so a nested `data-theme="dark"` re-scopes a subtree: the Explorer map
+ * and the timeline chart stay a dark "night map" in the light theme.
+ * Without JavaScript there is no attribute and the OS preference decides.
+ * Every text token meets WCAG AA (4.5:1) on bg, surface and surface-2 in its theme.
+ */
+:root,
+[data-theme='dark'] {
   color-scheme: dark;
+  --bg: #0a0a0a;
+  --surface: #171717;
+  --surface-2: #262626;
+  --border: #262626;
+  --border-strong: #404040;
+  --border-hover: #a3a3a3;
+  --fg: #f5f5f5;
+  --fg-soft: #d4d4d4;
+  --muted: #a3a3a3;
+  --subtle: #909090;
+  --accent: #fcd34d;
+  --focus: #f59e0b;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --bg: #ffffff;
+    --surface: #f5f5f5;
+    --surface-2: #e5e5e5;
+    --border: #e5e5e5;
+    --border-strong: #d4d4d4;
+    --border-hover: #737373;
+    --fg: #171717;
+    --fg-soft: #404040;
+    --muted: #525252;
+    --subtle: #616161;
+    --accent: #92400e;
+    --focus: #b45309;
+  }
+}
+[data-theme='light'] {
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: #f5f5f5;
+  --surface-2: #e5e5e5;
+  --border: #e5e5e5;
+  --border-strong: #d4d4d4;
+  --border-hover: #737373;
+  --fg: #171717;
+  --fg-soft: #404040;
+  --muted: #525252;
+  --subtle: #616161;
+  --accent: #92400e;
+  --focus: #b45309;
+}
+
+/* `inline`: utilities read the variable where they are used, so nesting re-scopes them. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-border-hover: var(--border-hover);
+  --color-fg: var(--fg);
+  --color-fg-soft: var(--fg-soft);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-accent: var(--accent);
+  --color-on-accent: #0a0a0a;
+}
+
+/* A night-map panel (the term page's graph, the timeline chart) set into a light page. */
+:root[data-theme='light'] .night-map {
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .night-map {
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+  }
+}
+
+/* `dark:` = the dark theme (or a night-map subtree); with no JavaScript, the OS preference. */
+@custom-variant dark {
+  &:where([data-theme='dark'], [data-theme='dark'] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme]), :root:not([data-theme]) *) {
+      @slot;
+    }
+  }
 }
 
 html {
@@ -16,7 +110,7 @@ html {
 
 /* Keyboard focus is always visible (A64); amber = the site's one accent. */
 :focus-visible {
-  outline: 2px solid #f59e0b;
+  outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
 main:focus,

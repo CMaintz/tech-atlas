@@ -30,19 +30,22 @@ const localise = (m: Record<string, Record<Lang, string>>) => localiseIn(m, lang
 ---
 
 <Base lang={lang} title="Canvas lab" wide noindex tourAutoStart={false}>
-  <CanvasExplorer
-    client:only="preact"
-    lang={lang}
-    graphUrl={url('graph.json')}
-    termBase={url(`${lang}/terms/`)}
-    explorerUrl={url(`${lang}/explorer/`)}
-    ui={{ ...ui }}
-    clusterLabels={localise(CLUSTER_LABELS)}
-    graphUi={{ ...GRAPH_UI[lang] }}
-    familyLabels={localise(FAMILY_LABELS)}
-    familyColours={FAMILY_COLOURS}
-    domainLabels={localise(DOMAIN_LABELS)}
-    panel={panelConfig(lang)}
-    about={aboutProps(lang)}
-  />
+  {/* The map stays a dark "night map" in the light theme (A92). */}
+  <div data-theme="dark" class="bg-bg text-fg">
+    <CanvasExplorer
+      client:only="preact"
+      lang={lang}
+      graphUrl={url('graph.json')}
+      termBase={url(`${lang}/terms/`)}
+      explorerUrl={url(`${lang}/explorer/`)}
+      ui={{ ...ui }}
+      clusterLabels={localise(CLUSTER_LABELS)}
+      graphUi={{ ...GRAPH_UI[lang] }}
+      familyLabels={localise(FAMILY_LABELS)}
+      familyColours={FAMILY_COLOURS}
+      domainLabels={localise(DOMAIN_LABELS)}
+      panel={panelConfig(lang)}
+      about={aboutProps(lang)}
+    />
+  </div>
 </Base>

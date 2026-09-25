@@ -60,6 +60,14 @@ export const STORAGE: StorageItem[] = [
     },
   },
   {
+    key: 'atlas.theme',
+    store: 'localStorage',
+    purpose: {
+      en: 'The colour theme you picked (light or dark). Not set while you follow your system setting.',
+      da: 'Det farvetema, du har valgt (lyst eller mørkt). Sættes ikke, så længe du følger din systemindstilling.',
+    },
+  },
+  {
     key: 'atlas.explorer.legend',
     store: 'localStorage',
     purpose: {

@@ -34,11 +34,11 @@ const anchor = (l: string) => `letter-${l === '#' ? 'other' : encodeURIComponent
 
 <Base lang={lang} title={x.azTitle} description={x.azIntro.replace('{n}', String(terms.length))}>
   <h1 class="mb-2 text-3xl font-semibold">{x.azTitle}</h1>
-  <p class="mb-6 text-neutral-400">{x.azIntro.replace('{n}', String(terms.length))}</p>
+  <p class="mb-6 text-muted">{x.azIntro.replace('{n}', String(terms.length))}</p>
   <nav class="mb-10 flex flex-wrap gap-2 text-sm" aria-label={x.azTitle}>
     {[...groups.keys()].map((l) => (
       <a
-        class="rounded border border-neutral-800 px-2 py-1 text-neutral-300 hover:border-neutral-400"
+        class="rounded border border-border px-2 py-1 text-fg-soft hover:border-border-hover"
         href={`#${anchor(l)}`}
       >
         {l}
@@ -51,14 +51,14 @@ const anchor = (l: string) => `letter-${l === '#' ? 'other' : encodeURIComponent
       <ul class="space-y-2">
         {items.map((t) => (
           <li>
-            <a class="text-neutral-100 hover:underline" href={termUrl(lang, t.id)}>
+            <a class="text-fg hover:underline" href={termUrl(lang, t.id)}>
               {t.data.term[lang]}
             </a>
-            <span class="text-xs text-neutral-500">
+            <span class="text-xs text-subtle">
               {' '}
               · {CLUSTER_LABELS[t.data.cluster]?.[lang] ?? t.data.cluster}
             </span>
-            <span class="text-neutral-500"> — {t.data.summary[lang]}</span>
+            <span class="text-subtle"> — {t.data.summary[lang]}</span>
           </li>
         ))}
       </ul>

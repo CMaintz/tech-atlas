@@ -42,8 +42,8 @@ const ids = terms.map((t) => t.id);
 <Base lang={lang}>
   <section class="mb-12">
     <h1 class="mb-2 text-4xl font-semibold tracking-tight">Atlas</h1>
-    <p class="text-lg text-neutral-300">{ui.tagline}</p>
-    <p class="mt-3 max-w-2xl text-neutral-400">{ui.heroLead}</p>
+    <p class="text-lg text-fg-soft">{ui.tagline}</p>
+    <p class="mt-3 max-w-2xl text-muted">{ui.heroLead}</p>
     <div class="mt-8">
       <Search
         client:load
@@ -63,18 +63,18 @@ const ids = terms.map((t) => t.id);
   </section>
 
   <section id="browse" class="mb-14">
-    <h2 class="mb-4 text-xs tracking-widest text-neutral-500 uppercase">{ui.browseDomains}</h2>
+    <h2 class="mb-4 text-xs tracking-widest text-subtle uppercase">{ui.browseDomains}</h2>
     <ul class="grid grid-cols-2 gap-3 lg:grid-cols-4">
       {[...domains.entries()].map(([domain, clusters]) => (
         <li>
           <a
             href={`#domain-${domain}`}
-            class="block h-full rounded border border-neutral-800 p-4 hover:border-neutral-500"
+            class="block h-full rounded border border-border p-4 hover:border-border-hover"
           >
-            <span class="block text-lg font-medium text-neutral-100">
+            <span class="block text-lg font-medium text-fg">
               {DOMAIN_LABELS[domain]?.[lang] ?? domain}
             </span>
-            <span class="mt-1 block text-sm text-neutral-500">
+            <span class="mt-1 block text-sm text-subtle">
               {ui.termCount.replace('{n}', String(count(clusters)))} ·{' '}
               {ui.clusterCount.replace('{n}', String(clusters.size))}
             </span>
@@ -87,25 +87,25 @@ const ids = terms.map((t) => t.id);
         id="random-term"
         href={termUrl(lang, ids[0])}
         data-ids={JSON.stringify(ids)}
-        class="rounded border border-neutral-700 px-3 py-1.5 text-neutral-300 hover:border-neutral-400 hover:text-neutral-100"
+        class="rounded border border-border-strong px-3 py-1.5 text-fg-soft hover:border-border-hover hover:text-fg"
       >
         ⚄ {ui.randomTerm}
       </a>
       <a
         href={url(`${lang}/explorer/`)}
-        class="rounded border border-neutral-700 px-3 py-1.5 text-neutral-300 hover:border-neutral-400 hover:text-neutral-100"
+        class="rounded border border-border-strong px-3 py-1.5 text-fg-soft hover:border-border-hover hover:text-fg"
       >
         {ui.explorer} →
       </a>
       <a
         href={url(`${lang}/study/`)}
-        class="rounded border border-neutral-700 px-3 py-1.5 text-neutral-300 hover:border-neutral-400 hover:text-neutral-100"
+        class="rounded border border-border-strong px-3 py-1.5 text-fg-soft hover:border-border-hover hover:text-fg"
       >
         {ui.study} →
       </a>
       <a
         href={url(`${lang}/terms/`)}
-        class="rounded border border-neutral-700 px-3 py-1.5 text-neutral-300 hover:border-neutral-400 hover:text-neutral-100"
+        class="rounded border border-border-strong px-3 py-1.5 text-fg-soft hover:border-border-hover hover:text-fg"
       >
         {UI_EXTRA[lang].azTitle} →
       </a>
@@ -118,22 +118,22 @@ const ids = terms.map((t) => t.id);
     />
   </section>
 
-  <h2 class="mb-8 border-t border-neutral-800 pt-10 text-2xl font-semibold">{ui.indexTitle}</h2>
+  <h2 class="mb-8 border-t border-border pt-10 text-2xl font-semibold">{ui.indexTitle}</h2>
   {[...domains.entries()].map(([domain, clusters]) => (
     <section class="mb-12 scroll-mt-6" id={`domain-${domain}`}>
       <h3 class="mb-6 text-xl font-semibold">{DOMAIN_LABELS[domain]?.[lang] ?? domain}</h3>
       {[...clusters.entries()].map(([cluster, items]) => (
         <div class="mb-8 scroll-mt-6" id={`cluster-${domain}-${cluster}`}>
-          <h4 class="mb-3 text-xs tracking-widest text-neutral-500 uppercase">
+          <h4 class="mb-3 text-xs tracking-widest text-subtle uppercase">
             {CLUSTER_LABELS[cluster]?.[lang] ?? cluster} · {items.length}
           </h4>
           <ul class="space-y-2">
             {items.sort(byName).map((t) => (
               <li>
-                <a class="text-neutral-100 hover:underline" href={termUrl(lang, t.id)}>
+                <a class="text-fg hover:underline" href={termUrl(lang, t.id)}>
                   {t.data.term[lang]}
                 </a>
-                <span class="text-neutral-500"> — {t.data.summary[lang]}</span>
+                <span class="text-subtle"> — {t.data.summary[lang]}</span>
               </li>
             ))}
           </ul>

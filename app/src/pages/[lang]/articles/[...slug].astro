@@ -17,13 +17,10 @@ const { Content } = await render(article);
 ---
 
 <Base lang={lang} title={article.data.title}>
-  <a
-    class="text-sm text-neutral-400 hover:text-neutral-100"
-    href={termUrl(lang, article.data.term)}
-  >
+  <a class="text-sm text-muted hover:text-fg" href={termUrl(lang, article.data.term)}>
     {UI[lang].backToTerm}
   </a>
-  <article class="prose-atlas mt-6 space-y-4 leading-relaxed text-neutral-200 [&_a]:underline [&_h1]:text-3xl [&_h1]:font-semibold [&_h1]:text-neutral-100 [&_h2]:mt-8 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-neutral-100 [&_h3]:mt-6 [&_h3]:font-semibold [&_li]:ml-5 [&_ol]:list-decimal [&_table]:w-full [&_td]:border [&_td]:border-neutral-800 [&_td]:px-2 [&_td]:py-1 [&_th]:border [&_th]:border-neutral-800 [&_th]:px-2 [&_th]:py-1 [&_th]:text-left [&_ul]:list-disc">
+  <article class="prose-atlas mt-6 space-y-4 leading-relaxed text-fg-soft [&_a]:underline [&_h1]:text-3xl [&_h1]:font-semibold [&_h1]:text-fg [&_h2]:mt-8 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-fg [&_h3]:mt-6 [&_h3]:font-semibold [&_li]:ml-5 [&_ol]:list-decimal [&_table]:w-full [&_td]:border [&_td]:border-border [&_td]:px-2 [&_td]:py-1 [&_th]:border [&_th]:border-border [&_th]:px-2 [&_th]:py-1 [&_th]:text-left [&_ul]:list-disc">
     <Content />
   </article>
 </Base>

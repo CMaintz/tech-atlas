@@ -15,14 +15,14 @@ const ui = UI[lang];
   <h1 class="mb-2 text-3xl font-semibold">{ui.account}</h1>
   {ACCOUNTS ? (
     <>
-      <p class="mb-10 text-neutral-400">{ui.accountIntro}</p>
+      <p class="mb-10 text-muted">{ui.accountIntro}</p>
       <Account client:only="preact" lang={lang} ui={{ ...ui }} />
     </>
   ) : (
-    <p class="text-neutral-400">{ui.accountsOff}</p>
+    <p class="text-muted">{ui.accountsOff}</p>
   )}
-  <p class="mt-10 text-sm text-neutral-500">
-    <a class="underline hover:text-neutral-300" href={url(`${lang}/privacy/`)}>
+  <p class="mt-10 text-sm text-subtle">
+    <a class="underline hover:text-fg-soft" href={url(`${lang}/privacy/`)}>
       {ui.privacyLink}
     </a>
   </p>

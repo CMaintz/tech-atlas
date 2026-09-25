@@ -2,7 +2,7 @@ import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { LEARNER_KEY, learnerExport } from './learner';
-import { LANG_SUGGEST_KEY, RECENT_KEY } from './prefs';
+import { LANG_SUGGEST_KEY, RECENT_KEY, THEME_KEY } from './prefs';
 import { CONTROLLER, DATA, PRIVACY_UI, PROCESSORS, STORAGE } from './privacy';
 import { TOUR_DONE_KEY, TOUR_KEY, TOUR_SNOOZE_KEY } from './tour';
 
@@ -22,6 +22,7 @@ describe('privacy page: browser storage inventory', () => {
       LEARNER_KEY,
       RECENT_KEY,
       LANG_SUGGEST_KEY,
+      THEME_KEY,
       TOUR_KEY,
       TOUR_DONE_KEY,
       TOUR_SNOOZE_KEY,

@@ -27,7 +27,7 @@ const ExternalIcon = () => (
 );
 
 /** The small uppercase label above a title or section ("ABOUT", "CREDITS"). */
-const EYEBROW = 'text-[11px] font-semibold tracking-[0.14em] text-neutral-500 uppercase';
+const EYEBROW = 'text-[11px] font-semibold tracking-[0.14em] text-subtle uppercase';
 
 const Avatar = ({ name, photo, position }: { name: string; photo?: string; position: string }) =>
   photo ? (
@@ -38,12 +38,12 @@ const Avatar = ({ name, photo, position }: { name: string; photo?: string; posit
       height={48}
       loading="lazy"
       style={{ objectPosition: position }}
-      class="h-12 w-12 shrink-0 rounded-full border border-neutral-700 bg-neutral-800 object-cover"
+      class="h-12 w-12 shrink-0 rounded-full border border-border-strong bg-surface-2 object-cover"
     />
   ) : (
     <span
       aria-hidden="true"
-      class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-neutral-700 bg-gradient-to-br from-amber-400/30 to-neutral-800 text-sm font-semibold tracking-wide text-amber-50"
+      class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-border-strong bg-gradient-to-br from-amber-400/30 to-surface-2 text-sm font-semibold tracking-wide text-amber-900 dark:text-amber-50"
     >
       {initials(name)}
     </span>
@@ -75,8 +75,8 @@ export default function AboutButton({ ui, links, people, variant = 'circle' }: P
             <li key={p.name} class="flex items-center gap-3">
               <Avatar name={p.name} photo={p.photo} position={p.photoPosition} />
               <div>
-                <div class="leading-snug font-semibold text-neutral-50">{p.name}</div>
-                <div class="text-sm leading-snug text-neutral-400">{p.role}</div>
+                <div class="leading-snug font-semibold text-fg">{p.name}</div>
+                <div class="text-sm leading-snug text-muted">{p.role}</div>
               </div>
             </li>
           ))}
@@ -95,13 +95,13 @@ export default function AboutButton({ ui, links, people, variant = 'circle' }: P
             aria-label={ui.about}
             aria-haspopup="dialog"
             onClick={open}
-            class="flex h-9 w-9 items-center justify-center rounded-full border border-neutral-600 bg-neutral-950/85 font-serif text-lg leading-none text-neutral-200 italic shadow-lg shadow-black/40 backdrop-blur transition-colors hover:border-neutral-300 hover:text-neutral-50"
+            class="flex h-9 w-9 items-center justify-center rounded-full border border-border-strong bg-bg/85 font-serif text-lg leading-none text-fg-soft italic shadow-lg shadow-black/40 backdrop-blur transition-colors hover:border-border-hover hover:text-fg"
           >
             <span aria-hidden="true">i</span>
           </button>
           <span
             aria-hidden="true"
-            class="pointer-events-none absolute top-full mt-1.5 rounded bg-neutral-800 px-2 py-0.5 text-xs whitespace-nowrap text-neutral-200 opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100"
+            class="pointer-events-none absolute top-full mt-1.5 rounded bg-surface-2 px-2 py-0.5 text-xs whitespace-nowrap text-fg-soft opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100"
           >
             {ui.about}
           </span>
@@ -112,7 +112,7 @@ export default function AboutButton({ ui, links, people, variant = 'circle' }: P
           type="button"
           aria-haspopup="dialog"
           onClick={open}
-          class="hover:text-neutral-300"
+          class="hover:text-fg-soft"
         >
           {ui.about}
         </button>
@@ -123,7 +123,7 @@ export default function AboutButton({ ui, links, people, variant = 'circle' }: P
         aria-labelledby={titleId}
         aria-describedby={bodyId}
         data-about-dialog
-        class="about-dialog m-auto w-[calc(100%-2rem)] max-w-[30rem] rounded-2xl border border-neutral-800 bg-neutral-950 p-0 text-neutral-100 shadow-2xl shadow-black/70"
+        class="about-dialog m-auto w-[calc(100%-2rem)] max-w-[30rem] rounded-2xl border border-border bg-bg p-0 text-fg shadow-2xl shadow-black/70"
         onClick={(e) => {
           // A click on the dialog box itself (not its content) is a click on the backdrop.
           if (e.target === dialog.current) close();
@@ -143,7 +143,7 @@ export default function AboutButton({ ui, links, people, variant = 'circle' }: P
             aria-label={ui.close}
             title={ui.close}
             onClick={close}
-            class="absolute top-5 right-5 flex h-9 w-9 items-center justify-center rounded-full border border-neutral-700 text-neutral-400 hover:border-neutral-400 hover:text-neutral-100"
+            class="absolute top-5 right-5 flex h-9 w-9 items-center justify-center rounded-full border border-border-strong text-muted hover:border-border-hover hover:text-fg"
           >
             <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none">
               <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" />
@@ -157,7 +157,7 @@ export default function AboutButton({ ui, links, people, variant = 'circle' }: P
               </h2>
             </div>
           </div>
-          <div id={bodyId} class="-mt-2 space-y-3 text-[15px] leading-relaxed text-neutral-300">
+          <div id={bodyId} class="-mt-2 space-y-3 text-[15px] leading-relaxed text-fg-soft">
             <p>{ui.aboutBody}</p>
             <p>{ui.aboutBeta}</p>
           </div>
@@ -169,7 +169,7 @@ export default function AboutButton({ ui, links, people, variant = 'circle' }: P
                     href={l.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="inline-flex items-center gap-1.5 rounded-full border border-neutral-700 px-3 py-1 text-sm text-neutral-200 hover:border-neutral-400 hover:text-neutral-50"
+                    class="inline-flex items-center gap-1.5 rounded-full border border-border-strong px-3 py-1 text-sm text-fg-soft hover:border-border-hover hover:text-fg"
                   >
                     {l.label}
                     <ExternalIcon />
@@ -179,7 +179,7 @@ export default function AboutButton({ ui, links, people, variant = 'circle' }: P
               ))}
             </ul>
           )}
-          <hr class="border-neutral-800" />
+          <hr class="border-border" />
           {section('credits', ui.credits)}
           {section('thanks', ui.thanks)}
         </div>

@@ -161,6 +161,14 @@ export const UI = {
     timeNote: 'Left to right = the year a term entered use; one lane per domain.',
     account: 'Account',
     signIn: 'Sign in',
+    signInTitle: 'Sign in to Atlas',
+    signInWhy:
+      'Signing in keeps your study progress in step across your devices. Everything else works without an account.',
+    theme: 'Theme',
+    themeSystem: 'System',
+    themeLight: 'Light',
+    themeDark: 'Dark',
+    language: 'Language',
     signOut: 'Sign out',
     accountIntro:
       'Sign in to keep your progress in step across devices. Everything works without an account too.',
@@ -354,6 +362,14 @@ export const UI = {
     timeNote: 'Fra venstre mod højre = året, et begreb kom i brug; én bane pr. domæne.',
     account: 'Konto',
     signIn: 'Log ind',
+    signInTitle: 'Log ind på Atlas',
+    signInWhy:
+      'Når du logger ind, følger dine fremskridt med dig mellem dine enheder. Alt andet virker uden en konto.',
+    theme: 'Tema',
+    themeSystem: 'System',
+    themeLight: 'Lyst',
+    themeDark: 'Mørkt',
+    language: 'Sprog',
     signOut: 'Log ud',
     accountIntro:
       'Log ind for at holde dine fremskridt ens på tværs af enheder. Alt virker også uden en konto.',

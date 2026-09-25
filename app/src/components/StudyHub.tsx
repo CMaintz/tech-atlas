@@ -51,35 +51,35 @@ export default function StudyHub({
   return (
     <div class="space-y-10">
       <section>
-        <h2 class="mb-3 text-xs tracking-widest text-neutral-500 uppercase">{ui.progress}</h2>
+        <h2 class="mb-3 text-xs tracking-widest text-subtle uppercase">{ui.progress}</h2>
         <dl class="grid grid-cols-3 gap-4">
           {[
             [ui.practised, practised],
             [ui.known, known],
             [ui.dueNow, due],
           ].map(([label, value]) => (
-            <div class="rounded border border-neutral-800 p-3">
-              <dt class="text-xs text-neutral-500">{label}</dt>
+            <div class="rounded border border-border p-3">
+              <dt class="text-xs text-subtle">{label}</dt>
               <dd class="text-2xl font-semibold">
                 {value}
                 {label === ui.known && total ? (
-                  <span class="text-sm text-neutral-500"> / {total}</span>
+                  <span class="text-sm text-subtle"> / {total}</span>
                 ) : null}
               </dd>
             </div>
           ))}
         </dl>
-        <p class="mt-2 text-xs text-neutral-500">{ui.localNote}</p>
+        <p class="mt-2 text-xs text-subtle">{ui.localNote}</p>
       </section>
 
       <section>
-        <h2 class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">{ui.recommended}</h2>
-        <p class="mb-3 text-sm text-neutral-500">{ui.recommendedIntro}</p>
+        <h2 class="mb-1 text-xs tracking-widest text-subtle uppercase">{ui.recommended}</h2>
+        <p class="mb-3 text-sm text-subtle">{ui.recommendedIntro}</p>
         <ul class="flex flex-wrap gap-2">
           {next.map((n) => (
             <li>
               <a
-                class="rounded border border-neutral-700 px-2 py-1 text-sm hover:border-neutral-400"
+                class="rounded border border-border-strong px-2 py-1 text-sm hover:border-border-hover"
                 href={`${termBase}${n.id}/`}
               >
                 {n.term[lang]}
@@ -90,11 +90,11 @@ export default function StudyHub({
       </section>
 
       <section>
-        <h2 class="mb-3 text-xs tracking-widest text-neutral-500 uppercase">{ui.practise}</h2>
-        <label class="mb-4 flex flex-wrap items-center gap-2 text-sm text-neutral-400">
+        <h2 class="mb-3 text-xs tracking-widest text-subtle uppercase">{ui.practise}</h2>
+        <label class="mb-4 flex flex-wrap items-center gap-2 text-sm text-muted">
           {ui.quizMeOn}
           <select
-            class="rounded border border-neutral-700 bg-neutral-900 px-2 py-1 text-sm text-neutral-100"
+            class="rounded border border-border-strong bg-surface px-2 py-1 text-sm text-fg"
             value={scope}
             onChange={(e) => {
               setScope((e.target as HTMLSelectElement).value as Scope);
