@@ -9,6 +9,7 @@ import type { EdgeType } from '../schema';
 import { EXPLORER } from '../lib/explorer-config';
 import { useTheme } from '../lib/use-theme';
 import { FADE_TRANSITIONS, attachHover } from '../lib/graph-cytoscape';
+import { separate } from '../lib/graph-layout';
 import {
   FAMILY_COLOURS,
   clusterColour,
@@ -18,6 +19,7 @@ import {
   domainColour,
   homeDomain,
   isDirected,
+  MAP_INK,
 } from '../lib/graph-style';
 import {
   DEFAULT_2D,
@@ -27,7 +29,10 @@ import {
   frameStats,
   fromQuery,
   rules2D,
-  edgeStateRules,
+  stateRules,
+  toneRules,
+  toneValues,
+  tone,
   importance,
   intensity,
   alphaGain,
@@ -37,6 +42,19 @@ import {
   type Lab2D,
   type Lab3D,
 } from '../lib/explorer-lab';
+
+/**
+ * Sub-domain clustering: 2D islands shrink to `tight2d` × and sit `gap2d` px further
+ * apart; 3D clusters move `spread3d` × away from their domain's centre and shrink to
+ * `tight3d` ×, so each domain galaxy becomes a group of sub-galaxies.
+ */
+const SUB = { tight2d: 0.8, gap2d: 70, spread3d: 1.4, tight3d: 0.7 };
+
+/** Whether any cream-map tone value differs from today's. */
+const toneActive = (s: Record<string, unknown>) =>
+  (
+    ['nodeSat', 'nodeLight', 'edgeDark', 'edgeAlpha', 'shadow', 'labelWeight', 'labelHalo'] as const
+  ).some((k) => k in s && s[k] !== (DEFAULT_2D as Record<string, unknown>)[k]);
 
 /** A base stylesheet entry, re-laid as a lab rule. */
 const asRule = (r: { selector: string }) => r as ReturnType<typeof rules2D>[number];
@@ -111,6 +129,21 @@ const TEXT = {
       'Importance = type rank (requires, kind of, part of first; used with last) × the edge weight.',
     emphNote3d: 'Lines are one pixel wide: width shows on tubes only.',
     bloomLight: 'Bloom applies to the night map only.',
+    layout: 'Layout (relayout)',
+    mindist: 'Minimum node distance',
+    sub: 'Sub-domain clusters',
+    clabels: 'Faint cluster names',
+    toneTitle: 'Cream map contrast',
+    toneNote: 'Applies on the light theme (switch it in the header); live preview.',
+    nodeSat: 'Term saturation',
+    nodeLight: 'Term lightness',
+    edgeDark: 'Edge darkness',
+    edgeAlpha: 'Edge opacity',
+    shadow: 'Shadow strength',
+    labelWeight: 'Label weight',
+    labelHalo: 'Label halo',
+    copy: 'Copy values',
+    copied: 'Copied',
   },
   da: {
     title: 'Visuelt laboratorium',
@@ -174,6 +207,21 @@ const TEXT = {
       'Vigtighed = typens rang (kræver, er en slags, er del af først; bruges med sidst) × kantens vægt.',
     emphNote3d: 'Linjer er én pixel brede: bredde ses kun på rør.',
     bloomLight: 'Bloom virker kun på natkortet.',
+    layout: 'Layout (nyt layout)',
+    mindist: 'Mindste nodeafstand',
+    sub: 'Underdomæne-klynger',
+    clabels: 'Svage klyngenavne',
+    toneTitle: 'Kontrast på det lyse kort',
+    toneNote: 'Gælder det lyse tema (skift det i sidehovedet); vises med det samme.',
+    nodeSat: 'Begrebsmætning',
+    nodeLight: 'Begrebslyshed',
+    edgeDark: 'Kantmørke',
+    edgeAlpha: 'Kantgennemsigtighed',
+    shadow: 'Skyggestyrke',
+    labelWeight: 'Etiketvægt',
+    labelHalo: 'Etiketkant',
+    copy: 'Kopiér værdier',
+    copied: 'Kopieret',
   },
 };
 type Text = (typeof TEXT)['en'];
@@ -301,11 +349,26 @@ export default function ExplorerLab(props: Props) {
         .not('.bundle')
         .forEach((e) => void e.data('labCurve', Number(e.data('curve')) * s2.strength)),
     );
-    const extra = [...rules2D(s2, FLOW_DASH)];
+    // The cream map's tone first, then the toggles (emphasis wins over tone).
+    const toned = theme === 'light' && toneActive(s2);
+    const extra = [
+      ...(toned
+        ? toneRules(
+            s2,
+            {
+              rest: EXPLORER.edges.restAlpha,
+              cross: EXPLORER.edges.crossAlpha,
+              all: EXPLORER.edges.allAlpha,
+            },
+            MAP_INK.light.underlayAlpha,
+          ).map(asRule)
+        : []),
+      ...rules2D(s2, FLOW_DASH),
+    ];
     if (s2.hover === 'old') extra.push(...(FADE_TRANSITIONS as unknown as typeof extra));
-    // Hover, selection and route states still win over the emphasis.
-    if (s2.emph !== 'off')
-      extra.push(...edgeStateRules(base2d.current as { selector: string }[]).map(asRule));
+    // Hover, selection and route states still win over the emphasis and the tone.
+    if (s2.emph !== 'off' || toned)
+      extra.push(...stateRules(base2d.current as { selector: string }[]).map(asRule));
     cy.style()
       .fromJson([...base2d.current, ...extra] as cytoscape.StylesheetJson)
       .update();
@@ -314,6 +377,20 @@ export default function ExplorerLab(props: Props) {
     (cy as unknown as { renderer(): { textureOnViewport: boolean } }).renderer().textureOnViewport =
       s2.texture;
   }, [maps, cy, graph, s2, view, theme]);
+
+  // Relayout (lab only): minimum distance and sub-domain clustering re-space the islands.
+  const laid2d = useRef('1|false');
+  useEffect(() => {
+    const m = maps.map2d;
+    const key = `${s2.mindist}|${s2.sub}`;
+    if (!m || key === laid2d.current) return;
+    laid2d.current = key;
+    m.lab.relayout({
+      spacing: s2.mindist,
+      tight: s2.sub ? SUB.tight2d : 1,
+      gap: s2.sub ? SUB.gap2d : 0,
+    });
+  }, [maps, s2.mindist, s2.sub]);
 
   // The old hover: every element restyled on each hover (graph-cytoscape `attachHover`).
   useEffect(() => {
@@ -354,7 +431,7 @@ export default function ExplorerLab(props: Props) {
     const m = maps.map3d;
     if (!m) return;
     let cancelled = false;
-    void setup3D(m).then((rt) => {
+    void setup3D(m, props.clusterLabels).then((rt) => {
       if (cancelled) return rt.dispose();
       three.current = rt;
       rt.apply(s3, theme);
@@ -588,7 +665,116 @@ function Controls2D(p: { s: Lab2D; set: (s: Lab2D) => void; t: Text }) {
       <Emph s={s} set={p.set} t={t} />
       <Check label={t.texture} value={s.texture} on={up('texture')} />
       <p class="text-muted">{t.textureNote}</p>
+      <LayoutControls s={s} set={p.set} t={t} />
+      <ToneControls s={s} set={p.set} t={t}>
+        <Slide
+          label={t.labelWeight}
+          value={s.labelWeight}
+          min={3}
+          max={8}
+          step={1}
+          on={up('labelWeight')}
+        />
+        <Slide
+          label={t.labelHalo}
+          value={s.labelHalo}
+          min={0}
+          max={5}
+          step={0.5}
+          on={up('labelHalo')}
+        />
+      </ToneControls>
     </>
+  );
+}
+
+/** Relayout: minimum distance and sub-domain clustering (2D and 3D). */
+function LayoutControls<S extends Lab2D | Lab3D>(p: { s: S; set: (s: S) => void; t: Text }) {
+  const { s, t } = p;
+  return (
+    <section class="space-y-2 border-t border-border pt-2">
+      <h3 class="text-[11px] tracking-widest text-muted uppercase">{t.layout}</h3>
+      <Slide
+        label={t.mindist}
+        value={s.mindist}
+        min={0.8}
+        max={1.4}
+        step={0.05}
+        on={(v) => p.set({ ...s, mindist: v })}
+      />
+      <Check label={t.sub} value={s.sub} on={(v) => p.set({ ...s, sub: v })} />
+    </section>
+  );
+}
+
+/** Cream-map contrast sliders and "copy values" (2D and 3D). */
+function ToneControls<S extends Lab2D | Lab3D>(p: {
+  s: S;
+  set: (s: S) => void;
+  t: Text;
+  children?: ComponentChildren;
+}) {
+  const { s, t } = p;
+  const [copied, setCopied] = useState('');
+  const set = (k: 'nodeSat' | 'nodeLight' | 'edgeDark' | 'edgeAlpha' | 'shadow') => (v: number) =>
+    p.set({ ...s, [k]: v });
+  const copy = () => {
+    const text = JSON.stringify(toneValues(s), null, 2);
+    setCopied(text);
+    void navigator.clipboard?.writeText(text).catch(() => undefined);
+  };
+  return (
+    <section class="space-y-2 border-t border-border pt-2">
+      <h3 class="text-[11px] tracking-widest text-muted uppercase">{t.toneTitle}</h3>
+      <p class="text-muted">{t.toneNote}</p>
+      <Slide
+        label={t.nodeSat}
+        value={s.nodeSat}
+        min={0.4}
+        max={1.8}
+        step={0.05}
+        on={set('nodeSat')}
+      />
+      <Slide
+        label={t.nodeLight}
+        value={s.nodeLight}
+        min={-0.3}
+        max={0.3}
+        step={0.01}
+        on={set('nodeLight')}
+      />
+      <Slide
+        label={t.edgeDark}
+        value={s.edgeDark}
+        min={0}
+        max={0.4}
+        step={0.01}
+        on={set('edgeDark')}
+      />
+      <Slide
+        label={t.edgeAlpha}
+        value={s.edgeAlpha}
+        min={0.4}
+        max={3}
+        step={0.05}
+        on={set('edgeAlpha')}
+      />
+      <Slide label={t.shadow} value={s.shadow} min={0} max={4} step={0.1} on={set('shadow')} />
+      {p.children}
+      <button
+        type="button"
+        class="rounded-full border border-border-strong px-2.5 py-1 text-fg hover:border-border-hover"
+        onClick={copy}
+        data-lab-copy
+      >
+        {copied ? t.copied : t.copy}
+      </button>
+      {copied && (
+        <pre class="overflow-x-auto rounded bg-surface p-2 font-mono text-[11px] select-all">
+          {copied}
+        </pre>
+      )}
+    </section>
   );
 }
 
@@ -645,6 +831,9 @@ function Controls3D(p: { s: Lab3D; set: (s: Lab3D) => void; t: Text }) {
       <Check label={t.all} value={s.all} on={up('all')} />
       <Emph s={s} set={p.set} t={t} />
       {s.emph !== 'off' && <p class="text-muted">{t.emphNote3d}</p>}
+      <LayoutControls s={s} set={p.set} t={t} />
+      <Check label={t.clabels} value={s.clabels} on={up('clabels')} />
+      <ToneControls s={s} set={p.set} t={t} />
     </>
   );
 }
@@ -756,6 +945,8 @@ type Fg = {
   linkVisibility(f: Acc<boolean>): Fg;
   linkColor(): Acc<string>;
   linkColor(f: Acc<string>): Fg;
+  nodeColor(): (n: NodeLike) => string;
+  nodeColor(f: (n: NodeLike) => string): Fg;
   linkDirectionalArrowLength(): Acc<number>;
   linkDirectionalArrowLength(f: Acc<number>): Fg;
   linkWidth(w: number | Acc<number>): Fg;
@@ -773,7 +964,7 @@ type Fg = {
   d3ReheatSimulation(): Fg;
 };
 
-async function setup3D(m: Map3D): Promise<Lab3DRuntime> {
+async function setup3D(m: Map3D, clusterLabels: Record<string, string>): Promise<Lab3DRuntime> {
   const L = m.lab;
   const THREE = L.THREE;
   const [{ UnrealBloomPass }, { OutputPass }] = await Promise.all([
@@ -787,6 +978,7 @@ async function setup3D(m: Map3D): Promise<Lab3DRuntime> {
     vis: fg.linkVisibility(),
     colour: fg.linkColor(),
     arrow: fg.linkDirectionalArrowLength(),
+    node: fg.nodeColor(),
   };
   const { nodes, links } = fg.graphData();
   const endOf = (x: LinkLike['source']) => (typeof x === 'string' ? x : x.id);
@@ -927,21 +1119,152 @@ async function setup3D(m: Map3D): Promise<Lab3DRuntime> {
   const imp = importance(links);
   const indexOf = new Map(links.map((l, i) => [l, i]));
   let kOf = new Float32Array(links.length).fill(1);
+  /** Emphasis and the cream map's edge tone, through explorer-3d's web gain / tint hooks. */
   const emphasis = (s: Lab3D, theme: MapTheme) => {
     const on = s.emph !== 'off';
     const alpha = s.emph === 'opacity' || s.emph === 'combined';
     const colour = s.emph === 'colour' || s.emph === 'combined';
+    const light = theme === 'light';
+    const toned = light && toneActive(s);
     kOf = new Float32Array(imp.map((v) => (on ? intensity(v, s.spread) : 1)));
     links.forEach((l, i) => {
-      L.webGain[i] = alpha ? alphaGain(kOf[i]) : 1;
-      if (!colour) L.webTint[i] = null;
+      L.webGain[i] = (alpha ? alphaGain(kOf[i]) : 1) * (toned ? s.edgeAlpha : 1);
+      if (!colour && !toned) L.webTint[i] = null;
       else {
         const src = typeof l.source === 'string' ? byId.get(l.source)! : l.source;
-        const base = clusterColour(src.cluster, homeDomain(src), theme);
-        L.webTint[i] = new THREE.Color(emphasise(base, kOf[i], theme === 'light'));
+        let c = clusterColour(src.cluster, homeDomain(src), theme);
+        if (colour) c = emphasise(c, kOf[i], light);
+        if (toned) c = tone(c, 1, -s.edgeDark);
+        L.webTint[i] = new THREE.Color(c);
       }
     });
+    // Terms: saturation and lightness over the Explorer's own colour; glow / shadow strength.
+    fg.nodeColor(toned ? (n) => tone(prod.node(n), s.nodeSat, s.nodeLight) : prod.node);
+    L.glowMat.uniforms.opacity.value = cfg.glowOpacity * (light ? 0.7 : 1) * (toned ? s.shadow : 1);
     L.repaint();
+  };
+
+  // Relayout (lab only): sub-domain clusters (each cluster pulled out from its domain's
+  // centre and drawn in) and a minimum distance between terms, from the original layout.
+  const orig = nodes.map((n) => ({ x: n.x, y: n.y, z: n.z }));
+  const glowPos = L.glow.geometry.getAttribute('position');
+  const hubH = cfg.hubLabelHeight;
+  const centroid = (ids: number[], ps: { x: number; y: number; z: number }[]) => {
+    const c = { x: 0, y: 0, z: 0 };
+    for (const i of ids) {
+      c.x += ps[i].x / ids.length;
+      c.y += ps[i].y / ids.length;
+      c.z += ps[i].z / ids.length;
+    }
+    return c;
+  };
+  const group = (key: (n: NodeLike) => string) => {
+    const out = new Map<string, number[]>();
+    nodes.forEach((n, i) => out.set(key(n), [...(out.get(key(n)) ?? []), i]));
+    return out;
+  };
+  const byCluster = group((n) => n.cluster);
+  const byDomain = group((n) => homeDomain(n));
+  let laid = '1|false';
+  const relayout = (s: Lab3D) => {
+    const key = `${s.mindist}|${s.sub}`;
+    if (key === laid) return;
+    laid = key;
+    const ps = orig.map((p) => ({ ...p }));
+    if (s.sub) {
+      const domC = new Map([...byDomain].map(([d, ids]) => [d, centroid(ids, orig)]));
+      for (const ids of byCluster.values()) {
+        const c = centroid(ids, orig);
+        const d = domC.get(homeDomain(nodes[ids[0]]))!;
+        for (const i of ids)
+          for (const a of ['x', 'y', 'z'] as const)
+            ps[i][a] = d[a] + (c[a] - d[a]) * SUB.spread3d + (orig[i][a] - c[a]) * SUB.tight3d;
+      }
+    }
+    if (s.mindist !== 1 || s.sub) {
+      const r = nodes.map((n) => L.radius(n as unknown as Parameters<typeof L.radius>[0]));
+      separate(
+        ps,
+        (i, j) => s.mindist * ((EXPLORER.spacing.factor * (r[i] + r[j])) / 2 + cfg.labelClearance),
+        60,
+      );
+    }
+    nodes.forEach((n, i) => {
+      const p = ps[i] as NodeLike & { fx?: number; fy?: number; fz?: number };
+      Object.assign(n, { x: p.x, y: p.y, z: p.z, fx: p.x, fy: p.y, fz: p.z });
+      glowPos.setXYZ(i, p.x, p.y, p.z);
+      sprites?.children[i]?.position.set(p.x, p.y, p.z);
+    });
+    glowPos.needsUpdate = true;
+    for (const [id, sprite] of L.labels) {
+      const n = byId.get(id);
+      if (n)
+        sprite.position.set(
+          n.x,
+          n.y + L.radius(n as unknown as Parameters<typeof L.radius>[0]) + hubH * 0.7,
+          n.z,
+        );
+    }
+    bentAt = NaN;
+    bend(last?.curvature ?? DEFAULT_3D.curvature);
+    links.forEach((_, i) => {
+      const o = i * 9;
+      L.linkLength[i] = Math.hypot(
+        L.curve[o + 6] - L.curve[o],
+        L.curve[o + 7] - L.curve[o + 1],
+        L.curve[o + 8] - L.curve[o + 2],
+      );
+    });
+    placeClusterLabels();
+    fg.d3ReheatSimulation();
+  };
+
+  // Faint cluster names, one sprite at each cluster's centre.
+  const clusterNames = new Map<string, InstanceType<typeof THREE.Sprite>>();
+  const placeClusterLabels = () => {
+    for (const [c, sprite] of clusterNames) {
+      const ids = byCluster.get(c)!;
+      const p = centroid(ids, nodes);
+      const top = Math.max(...ids.map((i) => nodes[i].y));
+      sprite.position.set(p.x, top + 30, p.z);
+    }
+  };
+  const setClusterLabels = (on: boolean, theme: MapTheme) => {
+    for (const s of clusterNames.values()) {
+      L.scene.remove(s);
+      s.material.map?.dispose();
+      s.material.dispose();
+    }
+    clusterNames.clear();
+    if (!on) return;
+    for (const c of byCluster.keys()) {
+      const text = clusterLabels[c] ?? c;
+      const canvas = document.createElement('canvas');
+      const g = canvas.getContext('2d')!;
+      const px = 40;
+      g.font = `500 ${px}px system-ui, sans-serif`;
+      canvas.width = Math.ceil(g.measureText(text).width) + 16;
+      canvas.height = px + 16;
+      g.font = `500 ${px}px system-ui, sans-serif`;
+      g.textAlign = 'center';
+      g.textBaseline = 'middle';
+      g.fillStyle = MAP_INK[theme].tick;
+      g.fillText(text, canvas.width / 2, canvas.height / 2);
+      const sprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+          map: new THREE.CanvasTexture(canvas),
+          transparent: true,
+          opacity: 0.45,
+          depthWrite: false,
+          fog: true,
+        }),
+      );
+      const h = 20;
+      sprite.scale.set((h * canvas.width) / canvas.height, h, 1);
+      clusterNames.set(c, sprite);
+      L.scene.add(sprite);
+    }
+    placeClusterLabels();
   };
   const tubeColour = (s: Lab3D, theme: MapTheme) => {
     const colour = s.emph === 'colour' || s.emph === 'combined';
@@ -960,9 +1283,17 @@ async function setup3D(m: Map3D): Promise<Lab3DRuntime> {
       const tubes = s.links === 'tubes';
       const particles = s.flow === 'particles';
       const perLink = tubes || particles;
+      const toneKeys = ['nodeSat', 'nodeLight', 'edgeDark', 'edgeAlpha', 'shadow'] as const;
       const emphChanged =
-        !last || last.emph !== s.emph || last.spread !== s.spread || lastTheme !== theme;
+        !last ||
+        last.emph !== s.emph ||
+        last.spread !== s.spread ||
+        lastTheme !== theme ||
+        toneKeys.some((k) => last![k] !== s[k]);
       if (emphChanged) emphasis(s, theme);
+      relayout(s);
+      if (!last || last.clabels !== s.clabels || lastTheme !== theme)
+        setClusterLabels(s.clabels, theme);
       const wide = s.emph === 'width' || s.emph === 'combined';
       if (
         !last ||
@@ -1012,6 +1343,7 @@ async function setup3D(m: Map3D): Promise<Lab3DRuntime> {
     },
     dispose() {
       window.clearInterval(syncTimer);
+      setClusterLabels(false, 'dark');
     },
   };
 }

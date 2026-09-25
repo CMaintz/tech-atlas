@@ -7,7 +7,7 @@ import {
   frameStats,
   fromQuery,
   rules2D,
-  edgeStateRules,
+  stateRules,
   emphasise,
   importance,
   intensity,
@@ -40,22 +40,22 @@ describe('visual lab: emphasis by importance', () => {
   it('adds the emphasis rules only when on, and keeps the state rules', () => {
     expect(rules2D({ ...DEFAULT_2D, emph: 'combined' }, [3, 9])).toHaveLength(6);
     expect(
-      edgeStateRules([{ selector: 'edge.faded' }, { selector: 'node.dim' }, { selector: 'edge' }]),
-    ).toEqual([{ selector: 'edge.faded' }]);
+      stateRules([{ selector: 'edge.faded' }, { selector: 'node.dim' }, { selector: 'edge' }]),
+    ).toEqual([{ selector: 'edge.faded' }, { selector: 'node.dim' }]);
   });
 });
 
 describe('visual lab: toggles from the address', () => {
   it('reads booleans, clamped numbers and known choices; ignores the rest', () => {
     const s = fromQuery(
-      '?curve=bezier&gradient=1&glow=0&strength=9&speed=abc&labels=nope&bench=1',
+      '?curve=bezier&gradient=1&glow=0&strength=99&speed=abc&labels=nope&bench=1',
       DEFAULT_2D,
       { curve: ['haystack', 'bezier', 'unbundled'], labels: ['none', 'hubs', 'current', 'all'] },
     );
     expect(s.curve).toBe('bezier');
     expect(s.gradient).toBe(true);
     expect(s.glow).toBe(false);
-    expect(s.strength).toBe(4);
+    expect(s.strength).toBe(9);
     expect(s.speed).toBe(1);
     expect(s.labels).toBe('current');
   });

@@ -675,6 +675,10 @@ export async function createMap3D(opts: {
       flow,
       flowMat,
       flowCfg: fl,
+      /** Each link's length along its curve (the comets wrap at it), term radius, hub labels. */
+      linkLength,
+      radius,
+      labels,
       webGain,
       webTint,
       /** Repaint the resting web (after changing `webGain` / `webTint`). */

@@ -26,7 +26,31 @@ export type Lab2D = {
   emph: Emphasis;
   /** Contrast between important and unimportant edges (0 = none). */
   spread: number;
+  /** Cream-map label weight (hundreds: 4 = 400, today) and halo width (px). */
+  labelWeight: number;
+  labelHalo: number;
+} & Layout &
+  Tone;
+
+/**
+ * Relayout (lab only): the minimum distance between terms (× today's, re-running the
+ * spacing pass) and sub-domain clustering (tighter clusters, wider gaps between them).
+ */
+export type Layout = { mindist: number; sub: boolean };
+
+/**
+ * Light-theme contrast (applied on the cream map only): term saturation (×) and lightness
+ * (+/-), edge darkness (+ darker) and opacity (×), glow / shadow strength (×).
+ */
+export type Tone = {
+  nodeSat: number;
+  nodeLight: number;
+  edgeDark: number;
+  edgeAlpha: number;
+  shadow: number;
 };
+const TONE: Tone = { nodeSat: 1, nodeLight: 0, edgeDark: 0, edgeAlpha: 1, shadow: 1 };
+const LAYOUT: Layout = { mindist: 1, sub: false };
 
 export type Lab3D = {
   /** One merged line geometry (today) or a tube per link with arrow cones (old). */
@@ -45,7 +69,10 @@ export type Lab3D = {
   all: boolean;
   emph: Emphasis;
   spread: number;
-};
+  /** Faint cluster names at each cluster's centre. */
+  clabels: boolean;
+} & Layout &
+  Tone;
 
 export const DEFAULT_2D: Lab2D = {
   curve: 'haystack',
@@ -60,6 +87,10 @@ export const DEFAULT_2D: Lab2D = {
   texture: true,
   emph: 'off',
   spread: 1.5,
+  labelWeight: 4,
+  labelHalo: 2,
+  ...LAYOUT,
+  ...TONE,
 };
 
 export const DEFAULT_3D: Lab3D = {
@@ -75,7 +106,24 @@ export const DEFAULT_3D: Lab3D = {
   all: false,
   emph: 'off',
   spread: 1.5,
+  clabels: false,
+  ...LAYOUT,
+  ...TONE,
 };
+
+/** The tone values chosen, as the numbers to adopt ("copy values"). */
+export function toneValues(s: Tone & Partial<Pick<Lab2D, 'labelWeight' | 'labelHalo'>>) {
+  const out: Record<string, number> = {
+    nodeSaturation: s.nodeSat,
+    nodeLightness: s.nodeLight,
+    edgeDarken: s.edgeDark,
+    edgeOpacity: s.edgeAlpha,
+    shadowStrength: s.shadow,
+  };
+  if (s.labelWeight !== undefined) out.labelWeight = s.labelWeight * 100;
+  if (s.labelHalo !== undefined) out.labelHaloPx = s.labelHalo;
+  return out;
+}
 
 /**
  * Toggle state from a query string: each key of `defaults` may appear with a value of
@@ -94,7 +142,7 @@ export function fromQuery<T extends Record<string, string | number | boolean>>(
     if (typeof fallback === 'boolean') out[key] = raw === '1' || raw === 'true';
     else if (typeof fallback === 'number') {
       const n = Number(raw);
-      if (Number.isFinite(n)) out[key] = Math.min(4, Math.max(0, n));
+      if (Number.isFinite(n)) out[key] = Math.min(9, Math.max(-1, n));
     } else if (choices[key]?.includes(raw)) out[key] = raw;
   }
   return out as T;
@@ -205,11 +253,45 @@ export function rules2D(s: Lab2D, dash: readonly [number, number]): Rule[] {
 }
 
 /**
- * The base stylesheet's edge state rules (hover fade, selection dim, focus, highlight),
- * to lay again after the emphasis rules so those states still win.
+ * The base stylesheet's state rules (hover fade, selection dim, focus, highlight, the
+ * selected term and its neighbours), to lay again after the emphasis and tone rules so
+ * those states still win.
  */
-export function edgeStateRules<T extends { selector: string }>(base: readonly T[]): T[] {
-  return base.filter((r) => /edge[^,]*\.(faded|dim|lit|focus|hl)\b/.test(r.selector));
+export function stateRules<T extends { selector: string }>(base: readonly T[]): T[] {
+  return base.filter((r) => /(edge|node)[^,]*\.(faded|dim|lit|focus|hl|sel|nb)\b/.test(r.selector));
+}
+
+/**
+ * The cream map's tone rules (function values read each element's own colour), laid
+ * after the Explorer's; `alpha` gives each edge class its resting opacity.
+ */
+export function toneRules(
+  s: Tone & Pick<Lab2D, 'labelWeight' | 'labelHalo'>,
+  alpha: { rest: number; cross: number; all: number },
+  underlay: number,
+): { selector: string; style: Record<string, unknown> }[] {
+  type El = { data(k: string): unknown };
+  const fill = (e: El) => tone(String(e.data('colour')), s.nodeSat, s.nodeLight);
+  const ink = (key: string) => (e: El) => tone(String(e.data(key)), 1, -s.edgeDark);
+  const a = (v: number) => Math.min(1, v * s.edgeAlpha);
+  return [
+    {
+      selector: 'node[size]',
+      style: {
+        'background-color': fill,
+        'font-weight': s.labelWeight * 100,
+        'text-outline-width': s.labelHalo,
+        'underlay-opacity': Math.min(1, underlay * s.shadow),
+      },
+    },
+    { selector: 'edge.bb', style: { 'line-color': ink('tint'), opacity: a(alpha.rest) } },
+    { selector: 'edge.bb.xc', style: { opacity: a(alpha.cross) } },
+    {
+      selector: 'edge.all, edge.lit, edge.focus',
+      style: { 'line-color': ink('colour'), 'target-arrow-color': ink('colour') },
+    },
+    { selector: 'edge.all', style: { opacity: a(alpha.all) } },
+  ];
 }
 
 // ---- Emphasis by importance ---------------------------------------------------------
@@ -260,26 +342,27 @@ export const alphaGain = (k: number) => 0.15 + 1.65 * k;
 /** A line width multiplier for an intensity: 0.4 × at the bottom, 2.2 × at the top. */
 export const widthGain = (k: number) => 0.4 + 1.8 * k;
 
-/**
- * A colour faded by intensity: saturation falls and lightness drifts towards the map's
- * background (night map: darker; cream map: lighter), so unimportant edges recede.
- */
-export function emphasise(hex: string, k: number, light: boolean): string {
+/**  as hue (0 to 6), saturation and lightness (0 to 1). */
+function toHsl(hex: string): [number, number, number] {
   const v = parseInt(hex.slice(1, 7), 16);
-  const [r0, g0, b0] = [(v >> 16) & 255, (v >> 8) & 255, v & 255].map((c) => c / 255);
-  const max = Math.max(r0, g0, b0);
-  const min = Math.min(r0, g0, b0);
+  const [r, g, b] = [(v >> 16) & 255, (v >> 8) & 255, v & 255].map((c) => c / 255);
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
   const d = max - min;
-  const l0 = (max + min) / 2;
-  const s0 = d === 0 ? 0 : d / (1 - Math.abs(2 * l0 - 1));
+  const l = (max + min) / 2;
+  const s = d === 0 ? 0 : d / (1 - Math.abs(2 * l - 1));
   let h = 0;
   if (d) {
-    if (max === r0) h = ((g0 - b0) / d + 6) % 6;
-    else if (max === g0) h = (b0 - r0) / d + 2;
-    else h = (r0 - g0) / d + 4;
+    if (max === r) h = ((g - b) / d + 6) % 6;
+    else if (max === g) h = (b - r) / d + 2;
+    else h = (r - g) / d + 4;
   }
-  const s = s0 * (0.15 + 0.85 * k);
-  const l = l0 + ((light ? 0.92 : 0.1) - l0) * (1 - k) * 0.75;
+  return [h, s, l];
+}
+
+function fromHsl(h: number, s0: number, l0: number): string {
+  const s = Math.min(1, Math.max(0, s0));
+  const l = Math.min(1, Math.max(0, l0));
   const c = (1 - Math.abs(2 * l - 1)) * s;
   const x = c * (1 - Math.abs((h % 2) - 1));
   const m = l - c / 2;
@@ -296,4 +379,23 @@ export function emphasise(hex: string, k: number, light: boolean): string {
       .toString(16)
       .padStart(2, '0');
   return `#${sextant[Math.min(5, Math.floor(h))].map(hex2).join('')}`;
+}
+
+const isHex = (c: string) => /^#[0-9a-f]{6}$/i.test(c);
+
+/**
+ * A colour faded by intensity: saturation falls and lightness drifts towards the map's
+ * background (night map: darker; cream map: lighter), so unimportant edges recede.
+ */
+export function emphasise(hex: string, k: number, light: boolean): string {
+  if (!isHex(hex)) return hex;
+  const [h, s, l] = toHsl(hex);
+  return fromHsl(h, s * (0.15 + 0.85 * k), l + ((light ? 0.92 : 0.1) - l) * (1 - k) * 0.75);
+}
+
+/** A colour with its saturation scaled and its lightness shifted (non-hex passes through). */
+export function tone(hex: string, sat: number, light: number): string {
+  if (!isHex(hex) || (sat === 1 && light === 0)) return hex;
+  const [h, s, l] = toHsl(hex);
+  return fromHsl(h, s * sat, l + light);
 }
