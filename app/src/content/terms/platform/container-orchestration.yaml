@@ -9,18 +9,18 @@ cluster: containers
 layer: orchestration
 status: current
 summary:
-  en: Automatically starting, spreading, restarting and scaling many containers across a group of machines.
-  da: At starte, fordele, genstarte og skalere mange containere automatisk på tværs af en gruppe maskiner.
+  en: Letting software run many containers across a group of machines automatically, so nobody has to start and place them by hand.
+  da: At lade software drive mange containere automatisk på tværs af en gruppe maskiner, så ingen skal starte og placere dem i hånden.
 body:
   formal:
-    en: The automated running of containers across many hosts — deciding where each one runs, replacing those that fail, adding or removing copies as load changes, connecting them over the network and rolling out new versions — from a written description of the wanted state.
-    da: Den automatiske drift af containere på tværs af mange værter — at bestemme, hvor hver kører, erstatte dem, der fejler, tilføje eller fjerne kopier, når belastningen ændrer sig, forbinde dem over netværket og rulle nye versioner ud — ud fra en skriftlig beskrivelse af den ønskede tilstand.
+    en: The automated running of containers across many hosts from a written description of the wanted state — choosing where each one runs, replacing failed ones, adding copies under load and rolling out new versions.
+    da: Automatisk drift af containere på tværs af mange værter ud fra en skriftlig beskrivelse af den ønskede tilstand — at vælge, hvor hver kører, erstatte dem, der fejler, tilføje kopier under belastning og rulle nye versioner ud.
   plain:
     en: Like the conductor of an orchestra — the musicians play their own parts, but someone decides who plays when, and brings in a stand-in if one falls ill.
     da: Som dirigenten i et orkester — musikerne spiller deres egne stemmer, men nogen bestemmer, hvem der spiller hvornår, og sætter en afløser ind, hvis én bliver syg.
   inPractice:
-    en: When a web shop gets a rush of Black Friday visitors, the orchestration system starts ten more copies of the shop's container and removes them again when traffic drops.
-    da: Når en webshop får et ryk af besøgende på Black Friday, starter orkestreringssystemet ti ekstra kopier af shoppens container og fjerner dem igen, når trafikken falder.
+    en: When a Danish web shop gets a rush of Black Friday visitors, the orchestration system starts ten more copies of the shop's container and removes them again when traffic drops, while the operations engineer on call sleeps.
+    da: Når en dansk webshop får en bølge af besøgende på Black Friday, starter orkestreringssystemet ti ekstra kopier af shoppens container og fjerner dem igen, når trafikken falder, mens driftsvagten sover.
   whyItMatters:
     en: Without it, running hundreds of containers by hand is not possible; with it, the control system becomes a high-value target whose access must be tightly guarded.
     da: Uden den er det umuligt at drive hundredvis af containere i hånden; med den bliver styringssystemet et værdifuldt mål, hvis adgang skal bevogtes nøje.

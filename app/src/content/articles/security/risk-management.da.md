@@ -6,7 +6,7 @@ lang: da
 
 ## Hvorfor en fast proces?
 
-Uden en fast proces ender budgettet hos den, der råber højest. Risikostyring erstatter mavefornemmelsen med en proces, der kan gentages, så beslutningerne kan forklares og forsvares over for revisor eller tilsynsmyndighed. NIS2 artikel 21 kræver "passende og forholdsmæssige" foranstaltninger ud fra en tilgang, der dækker alle typer farer, og ISO/IEC 27001 (afsnit 6.1 og 8) kræver en dokumenteret risikovurdering og en plan for risikohåndtering.
+Alle organisationer styrer allerede risici uformelt: Nogen bekymrer sig om backup, en anden om phishing, og budgettet ender hos den, der råber højest. Risikostyring erstatter mavefornemmelsen med en proces, der kan gentages, så beslutningerne kan forklares, sammenlignes fra år til år og forsvares over for revisor eller tilsynsmyndighed. NIS2 artikel 21 kræver "passende og forholdsmæssige" foranstaltninger ud fra en tilgang, der dækker alle typer farer, og ISO/IEC 27001 (afsnit 6.1 og 8) kræver en dokumenteret risikovurdering og en plan for risikohåndtering.
 
 De to standarder, man oftest støder på, er **ISO 31000**, som beskriver risikostyring for enhver type organisation, og **ISO/IEC 27005**, som anvender den samme proces specifikt på informationssikkerhed. Grundlæggende følger de samme cyklus.
 
@@ -21,7 +21,7 @@ De to standarder, man oftest støder på, er **ISO 31000**, som beskriver risiko
 | Håndtering                 | Hvad gør vi ved hver enkelt?                             | Handlingsplan med ejere, frister og budget               |
 | Monitorering og opfølgning | Virker det, og har noget ændret sig?                     | Opdateret register, nøgletal, næste gennemgang           |
 
-Hele vejen igennem løber **kommunikation og inddragelse**. Det er procesejerne ude i forretningen, ikke kun sikkerhedsfolkene, der ved, hvad der rent faktisk kan gå galt. Uden dem kommer registret til at beskrive en organisation, der ikke findes.
+Hele vejen igennem løber **kommunikation og inddragelse**. Det er procesejerne ude i forretningen, ikke kun sikkerhedsfolkene, der ved, hvad der rent faktisk kan gå galt. Uden dem kommer registeret til at beskrive en organisation, der ikke findes.
 
 ### Kontekst
 
@@ -49,14 +49,14 @@ For hver risiko over acceptgrænsen vælger man én eller flere af fire mulighed
 
 - **Reduktion** – indfør eller forbedr kontroller: patching, MFA, backup, uddannelse. Det er det mest almindelige valg.
 - **Overførsel** – flyt en del af konsekvensen over på andre, typisk via en forsikring eller en kontrakt med en leverandør. Ansvaret bliver dog hos jer selv.
-- **Undgåelse** (i kompendiet kaldet _afvisning_) – stop den aktivitet, der skaber risikoen, fx ved at udfase et forældet system.
-- **Accept** – lev bevidst med risikoen, fordi håndteringen koster mere end den skade, den forhindrer. Accept skal være en dokumenteret beslutning truffet af en person med den rette myndighed.
+- **Undgåelse** – stop den aktivitet, der skaber risikoen, fx ved at udfase et system, der ikke længere understøttes, eller lade være med at lancere en tjeneste.
+- **Accept** – lev bevidst med risikoen, fordi håndteringen koster mere end den skade, den forhindrer. Accept skal være en dokumenteret beslutning truffet af en person med den rette myndighed – ikke noget, der sker af sig selv.
 
 Hvert tiltag får en ejer, en frist og et budget, og det hele samles i en plan for risikohåndtering.
 
 ### Monitorering og opfølgning
 
-Trusler, systemer og leverandører ændrer sig, så registret gennemgås efter en fast plan – ofte årligt og kvartalsvis for de største risici – og desuden, når der sker noget væsentligt: en alvorlig hændelse, et nyt system, en fusion eller ny lovgivning.
+Trusler, systemer og leverandører ændrer sig, så registeret gennemgås efter en fast plan – ofte årligt og kvartalsvis for de største risici – og desuden, når der sker noget væsentligt: en alvorlig hændelse, et nyt system, en fusion eller ny lovgivning.
 
 ## Risikoappetit og restrisiko
 
@@ -66,10 +66,10 @@ Trusler, systemer og leverandører ændrer sig, så registret gennemgås efter e
 
 ## Sådan præsenterer du risici for ledelsen
 
-Efter NIS2 skal ledelsen godkende foranstaltningerne til styring af cybersikkerhedsrisici, og ledelsesmedlemmer kan gøres personligt ansvarlige. Bestyrelse og direktion er altså ikke bare tilhørere, men beslutningstagere. Nogle gode vaner:
+Efter NIS2 skal ledelsen godkende foranstaltningerne til styring af cybersikkerhedsrisici, og ledelsen kan drages til ansvar for overtrædelser. Bestyrelse og direktion er altså ikke bare tilhørere, men beslutningstagere. Nogle gode vaner:
 
 - **Start med konsekvensen for forretningen**, ikke med teknikken: "ordrerne står stille i tre dage", ikke "sårbarhed i VPN-gatewayen".
-- **Vis de fem til ti største risici**, ikke hele registret – gerne med et heat-map og en pil, der viser udviklingen siden sidst.
+- **Vis de fem til ti største risici**, ikke hele registeret – gerne med et heat-map og en pil, der viser udviklingen siden sidst.
 - **Bed om en beslutning.** Præsentér for hver større risiko mulighederne, hvad de koster, og hvilken restrisiko de efterlader, og lad ledelsen vælge – også udtrykkeligt at acceptere.
 - **Vær ærlig om usikkerheden.** Et spænd ("mellem én og tre dage") virker mere troværdigt end et skinpræcist tal.
 - **Følg op** næste gang: Hvad blev der gjort, og har scorerne flyttet sig?

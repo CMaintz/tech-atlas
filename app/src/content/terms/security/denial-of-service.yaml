@@ -15,13 +15,13 @@ summary:
 body:
   formal:
     en: An attack that aims to make a system unavailable by using up its capacity, often by sending huge numbers of requests from many machines at once (a distributed attack, DDoS).
-    da: Et angreb, der skal gøre et system utilgængeligt ved at opbruge dets kapacitet — ofte ved at sende enorme mængder forespørgsler fra mange maskiner på én gang (et distribueret angreb, DDoS).
+    da: Et angreb, der skal sætte et system ud af drift ved at bruge al dets kapacitet — ofte ved at sende enorme mængder forespørgsler fra mange maskiner på én gang (et distribueret angreb, DDoS).
   plain:
     en: Thousands of fake customers crowding a shop's doorway so the real ones cannot get in.
-    da: Tusindvis af falske kunder, der stimler sammen i butiksdøren, så de rigtige ikke kan komme ind.
+    da: Tusindvis af falske kunder, der fylder hele butiksdøren, så de rigtige ikke kan komme ind.
   inPractice:
-    en: On election day, a council's website is hit by traffic from thousands of hacked devices and stays down for hours.
-    da: På valgdagen bliver en kommunes hjemmeside ramt af trafik fra tusindvis af hackede enheder og er nede i flere timer.
+    en: On election day, a municipality's website is hit by traffic from thousands of hacked devices and stays down for hours, until its hosting provider turns on filtering that drops the fake requests.
+    da: På valgdagen bliver en kommunes hjemmeside ramt af trafik fra tusindvis af hackede enheder og er nede i flere timer, indtil hostingudbyderen slår en filtrering til, der sorterer de falske forespørgsler fra.
   whyItMatters:
     en: No data needs to be stolen for the damage to be real — a business that cannot serve its customers loses money and trust.
     da: Der behøver ikke blive stjålet data, før skaden er reel — en virksomhed, der ikke kan betjene sine kunder, mister penge og tillid.

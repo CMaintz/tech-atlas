@@ -20,11 +20,11 @@ body:
     en: Like the passport system — a few governments everyone trusts issue passports, border guards know what a real one looks like, and lost ones are reported as no longer valid.
     da: Som passystemet — nogle få stater, som alle stoler på, udsteder pas, grænsevagter ved, hvordan et ægte pas ser ud, og bortkomne pas meldes ugyldige.
   inPractice:
-    en: A company runs its own PKI so every work laptop gets a certificate; the office wifi and VPN let in only laptops whose certificate the company issued and has not cancelled.
-    da: En virksomhed driver sin egen PKI, så hver arbejdscomputer får et certifikat; kontorets wifi og VPN lukker kun computere ind, hvis certifikat virksomheden har udstedt og ikke tilbagekaldt.
+    en: A region runs its own PKI so every hospital laptop gets a certificate; the hospital wifi and VPN let in only laptops whose certificate the region issued and has not cancelled.
+    da: En region driver sin egen PKI, så hver bærbar på hospitalerne får et certifikat; hospitalets wifi og VPN lukker kun computere ind, hvis certifikat regionen har udstedt og ikke tilbagekaldt.
   whyItMatters:
     en: Public keys are only useful if you know whose they are; PKI is what makes that answer trustworthy at the scale of the whole internet.
-    da: Offentlige nøgler er kun nyttige, hvis man ved, hvis de er; PKI er det, der gør det svar troværdigt i hele internettets skala.
+    da: Offentlige nøgler er kun nyttige, hvis man ved, hvem de tilhører; PKI er det, der gør det svar troværdigt i hele internettets skala.
 edges:
   requires: [digital-certificate, digital-signature, public-key-cryptography]
   implements: [authentication]

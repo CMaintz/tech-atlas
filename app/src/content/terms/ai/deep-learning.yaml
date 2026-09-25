@@ -20,11 +20,11 @@ body:
     en: Like a line of workers where the first notices edges, the next shapes, the next faces — each passes a richer picture up the line.
     da: Som en række arbejdere, hvor den første ser kanter, den næste former og den næste ansigter — hver giver et rigere billede videre op ad rækken.
   inPractice:
-    en: A phone unlocks by recognising its owner's face, using a deep learning model trained on millions of face images.
-    da: En telefon låses op ved at genkende ejerens ansigt med en deep learning-model, der er trænet på millioner af ansigtsbilleder.
+    en: A region's hospitals use a deep learning model, trained on hundreds of thousands of X-ray images, to mark possible fractures for a doctor to check.
+    da: En regions hospitaler bruger en deep learning-model, der er trænet på hundredtusindvis af røntgenbilleder, til at markere mulige knoglebrud, som en læge derefter tjekker.
   whyItMatters:
-    en: It made AI far more capable after about 2012, but the models need huge amounts of data and computing power and are very hard to explain.
-    da: Det gjorde AI langt mere kraftfuld fra omkring 2012, men modellerne kræver enorme mængder data og regnekraft og er meget svære at forklare.
+    en: It brought a large jump in what AI can do from about 2012, but the models need huge amounts of data and computing power, and their reasoning is very hard to explain.
+    da: Det gav et stort spring i, hvad AI kan, fra omkring 2012, men modellerne kræver enorme mængder data og regnekraft, og deres ræsonnementer er meget svære at forklare.
 edges:
   kind-of: [machine-learning]
   requires: [neural-network]

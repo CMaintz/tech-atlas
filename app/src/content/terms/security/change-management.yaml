@@ -19,11 +19,11 @@ body:
     en: Like a building project where no wall comes down until the plans are approved, the neighbours are told, and there is a way to put it back up.
     da: Som et byggeprojekt, hvor ingen væg rives ned, før tegningerne er godkendt, naboerne er orienteret, og der er en plan for at sætte den op igen.
   inPractice:
-    en: A new firewall rule is requested on a form, checked by a colleague, approved at Tuesday's change meeting, put in place on Thursday night and logged with a note on how to undo it.
-    da: En ny firewall-regel bestilles på en formular, tjekkes af en kollega, godkendes på tirsdagens ændringsmøde, sættes i drift torsdag aften og registreres med en note om, hvordan den rulles tilbage.
+    en: At a regional hospital, a network technician requests a new firewall rule on a form; a colleague checks it, Tuesday's change meeting approves it, and it goes live on Thursday night with a note on how to undo it.
+    da: På et regionshospital bestiller en netværkstekniker en ny firewall-regel via en formular; en kollega tjekker den, tirsdagens ændringsmøde godkender den, og den sættes i drift torsdag aften med en note om, hvordan den rulles tilbage.
   whyItMatters:
     en: Many outages and security holes come from well-meant changes that nobody checked; a clear process catches mistakes early and shows who changed what if something breaks.
-    da: Mange nedbrud og sikkerhedshuller skyldes velmente, men ukontrollerede ændringer; en klar proces fanger fejl tidligt og viser, hvem der ændrede hvad, hvis noget går galt.
+    da: Mange nedbrud og sikkerhedshuller skyldes velmente ændringer, som ingen har tjekket; en klar proces fanger fejl tidligt og viser, hvem der ændrede hvad, hvis noget går galt.
 edges:
   kind-of: [control]
   requires: [asset-inventory]

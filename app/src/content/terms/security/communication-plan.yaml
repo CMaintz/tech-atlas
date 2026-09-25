@@ -13,17 +13,17 @@ summary:
   da: En plan for, hvem der siger hvad til hvem under en krise — medarbejdere, kunder, myndigheder og presse.
 body:
   formal:
-    en: The part of the contingency plan that fixes who may speak for the company, approval steps, prepared messages, contact lists and reporting deadlines for internal and external communication during an incident.
-    da: Den del af beredskabsplanen, der fastlægger talspersoner, godkendelsesgange, forberedte budskaber, kontaktlister og frister for indberetning ved intern og ekstern kommunikation under en hændelse.
+    en: The part of the contingency plan that names who may speak for the organisation and sets approval steps, prepared messages, contact lists and reporting deadlines for internal and external communication during an incident.
+    da: Den del af beredskabsplanen, der udpeger talspersoner og fastlægger godkendelsesgange, forberedte budskaber, kontaktlister og frister for indberetning ved intern og ekstern kommunikation under en hændelse.
   plain:
     en: Like agreeing in advance who in the family calls grandma with bad news, so she does not hear it first from the neighbours.
     da: Ligesom at aftale på forhånd, hvem i familien der ringer til bedstemor med dårlige nyheder, så hun ikke hører det fra naboerne først.
   inPractice:
-    en: When customer data leaks, the plan says the director gives the only statement, customers get a prepared email, and the authorities are told within the legal deadline.
-    da: Da kundedata lækker, siger planen, at direktøren giver den eneste udtalelse, kunderne får en forberedt mail, og myndighederne underrettes inden for lovens frist.
+    en: When member data leaks from a pension fund, the plan says only the director speaks to the press, members get a prepared message in e-Boks, and Datatilsynet is notified within 72 hours.
+    da: Da medlemsdata lækker fra en pensionskasse, siger planen, at kun direktøren udtaler sig til pressen, medlemmerne får en forberedt besked i e-Boks, og Datatilsynet får besked inden for 72 timer.
   whyItMatters:
-    en: Confused or late messages can do more harm to trust than the incident itself, and some reports are required by law.
-    da: Forvirrende eller sene budskaber kan skade tilliden mere end selve hændelsen, og nogle indberetninger er lovpligtige.
+    en: Confused or late messages can do more harm to trust than the incident itself, and missing a reporting deadline set by law can bring fines.
+    da: Forvirrende eller sene budskaber kan skade tilliden mere end selve hændelsen, og en overskredet frist for indberetning, som loven kræver, kan give bøder.
 edges:
   part-of: [contingency-plan]
   used-with: [data-breach, incident-response, crisis-management]

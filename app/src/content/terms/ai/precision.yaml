@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: The number of true positives divided by all cases the model marked positive (true positives plus false positives), taken from a confusion matrix for one class.
-    da: Antallet af sande positive divideret med alle tilfælde, modellen markerede som positive (sande positive plus falske positive), hentet fra en forvekslingsmatrix for én klasse.
+    da: Antallet af sande positive delt med alle tilfælde, modellen markerede som positive (sande positive plus falske positive), hentet fra en forvekslingsmatrix for én klasse.
   plain:
     en: Like a mushroom picker whose basket holds only good mushrooms — every one they chose was safe, even if they walked past plenty of others.
     da: Som en svampeplukker, hvis kurv kun rummer gode svampe — hver eneste, de valgte, var spiselig, selv om de gik forbi masser af andre.
   inPractice:
-    en: A phishing filter sends 200 emails to quarantine and 180 of them are truly phishing, so its precision is 90%; the other 20 are false positives someone has to release by hand.
-    da: Et phishingfilter sender 200 mails i karantæne, og 180 af dem er reelt phishing, så præcisionen er 90 %; de øvrige 20 er falske positive, som nogen skal frigive manuelt.
+    en: At a small engineering firm, the office manager who looks after IT sees the phishing filter hold back 200 emails in a month; 180 really are phishing, so its precision is 90%, and she releases the other 20 by hand.
+    da: I en mindre ingeniørvirksomhed ser kontorchefen, der også passer IT, at phishingfilteret holder 200 mails tilbage på en måned; 180 er reelt phishing, så præcisionen er 90 %, og hun frigiver selv de øvrige 20.
   whyItMatters:
     en: Low precision buries staff in wrong alerts and teaches them to ignore the tool, so it is the number to raise when the cost of a wrong flag is high.
     da: Lav præcision begraver medarbejderne i forkerte alarmer og lærer dem at ignorere værktøjet, så det er tallet, man skal hæve, når en forkert markering koster meget.

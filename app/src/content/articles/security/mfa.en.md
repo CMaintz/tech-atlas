@@ -8,7 +8,7 @@ lang: en
 
 **Multi-factor authentication (MFA)** means that logging in requires at least two pieces of evidence from _different categories_. The password alone is no longer the key to the door; an attacker who steals or guesses it still lacks the second proof.
 
-The idea is old — a bank card plus a PIN is two-factor authentication — but it has become one of the most important controls in modern IT security, because stolen passwords are the raw material of so many attacks. It is also one of the few controls mentioned by name in the EU's NIS2 directive.
+The idea is old — a bank card plus a PIN is two-factor authentication — and most people in Denmark use MFA every day through **MitID**: the MitID app on a phone or a code display is something you have, and the app is itself unlocked with something you know or are (a PIN or a fingerprint), while the code display is combined with a password. In an organisation, MFA brings the same protection to email, cloud services, remote access and business systems. It has become one of the most important controls in modern IT security, because stolen passwords are the raw material of so many attacks, and it is one of the few controls the EU's NIS2 directive mentions by name.
 
 ## How it works
 

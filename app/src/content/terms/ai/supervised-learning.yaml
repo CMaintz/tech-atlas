@@ -19,8 +19,8 @@ body:
     en: Like learning with an answer key — you try each exercise, check the key, and correct yourself.
     da: Som at lære med en facitliste — du prøver hver opgave, tjekker facit og retter dig selv.
   inPractice:
-    en: A security team labels thousands of past alerts as real attacks or false alarms, and a model learns to sort new alerts the same way.
-    da: Et sikkerhedsteam mærker tusindvis af tidligere alarmer som ægte angreb eller falske alarmer, og en model lærer at sortere nye alarmer på samme måde.
+    en: A region's security team labels thousands of past alerts as real attacks or false alarms, and a model trained on them learns to sort new alerts the same way.
+    da: En regions sikkerhedsteam mærker tusindvis af tidligere alarmer som ægte angreb eller falske alarmer, og en model, der trænes på dem, lærer at sortere nye alarmer på samme måde.
   whyItMatters:
     en: The model can only be as good as its labels; labels are often made by people paid per item, and their mistakes and biases become the model's.
     da: Modellen kan kun blive så god som sine mærkater; de laves ofte af mennesker betalt per stk., og deres fejl og fordomme bliver modellens.

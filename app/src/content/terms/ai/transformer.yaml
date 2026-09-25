@@ -20,8 +20,8 @@ body:
     en: Like reading a whole page at a glance and drawing lines between the words that belong together, instead of reading one word at a time.
     da: Som at læse en hel side på én gang og tegne streger mellem de ord, der hører sammen, i stedet for at læse ét ord ad gangen.
   inPractice:
-    en: In "the bank refused the loan because it was too risky", a transformer links "it" to "the loan", which helps it translate the sentence correctly.
-    da: I "banken afviste lånet, fordi det var for risikabelt" kobler en transformer "det" til "lånet", hvilket hjælper den med at oversætte sætningen korrekt.
+    en: When a ministry's translation tool handles “the bank refused the loan because it was too risky”, the transformer links “it” to “the loan”, so the Danish translation uses the word for “it” that fits the loan, not the bank.
+    da: Når et ministeriums oversættelsesværktøj får en engelsk sætning om en bank, der afviste et lån, fordi “it” var for risikabelt, kobler transformeren “it” til lånet og ikke til banken, så det på dansk bliver “det” og ikke “den”.
   whyItMatters:
     en: Because it can be trained quickly on huge amounts of text, it made large language models possible — and with them most of today's AI tools.
     da: Fordi den kan trænes hurtigt på enorme mængder tekst, gjorde den store sprogmodeller mulige — og dermed de fleste af nutidens AI-værktøjer.

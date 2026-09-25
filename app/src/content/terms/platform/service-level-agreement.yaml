@@ -19,8 +19,8 @@ body:
     en: Like a pizza place that promises delivery in thirty minutes or the pizza is free; the promise only means something because breaking it costs them.
     da: Som et pizzeria, der lover levering inden for 30 minutter, ellers er pizzaen gratis; løftet betyder kun noget, fordi det koster dem at bryde det.
   inPractice:
-    en: A hosting company promises 99.9% availability each month; after a four-hour stop, the customer gets a tenth of the monthly bill back as agreed.
-    da: Et hostingfirma lover 99,9 % tilgængelighed hver måned; efter et nedbrud på fire timer får kunden en tiendedel af månedsregningen tilbage, som aftalt.
+    en: A Danish shipping company's contract with its hosting supplier promises 99.9% availability each month; after a four-hour outage, the company gets a tenth of the monthly bill back as agreed.
+    da: Et rederis kontrakt med dets hostingleverandør lover 99,9 % tilgængelighed hver måned; efter et nedbrud på fire timer får rederiet en tiendedel af månedsregningen tilbage, som aftalt.
   whyItMatters:
     en: When you depend on a supplier, the SLA is what you can actually hold them to, so it must match what your own business and your own promises to others need.
     da: Når man er afhængig af en leverandør, er SLA'en det, man reelt kan holde dem op på, så den skal passe til det, ens egen forretning og egne løfter over for andre kræver.

@@ -19,8 +19,8 @@ body:
     en: Like a store detective who walks the floor looking for known tricks, instead of only waiting for the alarm at the door to beep.
     da: Som en butiksdetektiv, der går rundt i butikken og kigger efter kendte kneb, i stedet for kun at vente på, at alarmen ved døren bipper.
   inPractice:
-    en: After reading that a gang steals passwords with a certain admin tool, a hunter searches three months of endpoint data for that tool, finds it on one server, and hands the case to incident response.
-    da: Efter at have læst, at en bande stjæler adgangskoder med et bestemt administratorværktøj, søger en trusselsjæger tre måneders data fra endpoints igennem efter værktøjet, finder det på én server og sender sagen videre til hændelseshåndteringen.
+    en: After reading a CFCS report that a criminal group steals passwords with a certain admin tool, a hunter at a pension fund searches three months of endpoint data for it, finds it on one server and hands the case to incident response.
+    da: Efter at have læst i en rapport fra CFCS, at en kriminel gruppe stjæler adgangskoder med et bestemt administratorværktøj, gennemsøger en trusselsjæger i en pensionskasse tre måneders data fra endpoints, finder værktøjet på én server og sender sagen videre til hændelseshåndteringen.
   whyItMatters:
     en: Skilled attackers avoid setting off alarms and can stay hidden for months; hunting cuts that time short, and each hunt that works can become a new detection rule.
     da: Dygtige angribere undgår at udløse alarmer og kan holde sig skjult i månedsvis; trusselsjagt forkorter den tid, og hver jagt, der lykkes, kan blive til en ny detektionsregel.

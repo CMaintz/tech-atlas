@@ -90,8 +90,52 @@ describe('makeLinker', () => {
       },
     ];
     expect(ids(makeLinker(t, 'da').link('på et kontor med en konto'))).toEqual(['cs/account']);
+    // DA "samle/samlet" (gather/total) must not become SAML + a Danish suffix.
+    const saml: LinkableTerm[] = [{ id: 'cs/saml', term: { en: 'SAML', da: 'SAML' } }];
+    expect(ids(makeLinker(saml, 'da').link('de samlede tal, samlet set; SAML bruges'))).toEqual([
+      'cs/saml',
+    ]);
+    expect(ids(makeLinker(saml, 'da').link('vi samler data og samle dem'))).toEqual([]);
     expect(ids(makeLinker(t, 'en').link('a house key, not a cryptographic key'))).toEqual([
       'cs/cryptographic-key',
     ]);
+  });
+
+  it('links ambiguous AI names only on pages in their own domain', () => {
+    const t: LinkableTerm[] = [
+      { id: 'ai/token', term: { en: 'Token', da: 'Token' } },
+      {
+        id: 'ai/recall',
+        term: { en: 'Recall', da: 'Genkaldelse (recall)' },
+        aka: { en: ['sensitivity', 'true positive rate'], da: [] },
+      },
+      {
+        id: 'ai/attention-mechanism',
+        term: { en: 'Attention mechanism', da: 'Attention-mekanisme' },
+        aka: { en: ['attention'], da: [] },
+      },
+    ];
+    const en = makeLinker(t, 'en');
+    const da = makeLinker(t, 'da');
+    // Real false links from security/cs/platform prose: an OAuth token, a car recall,
+    // human attention, data sensitivity.
+    expect(ids(en.link('the app gets a token', { self: 'cs/oauth' }))).toEqual([]);
+    expect(
+      ids(da.link('shoppen modtager et signeret token', { self: 'cs/openid-connect' })),
+    ).toEqual([]);
+    expect(ids(en.link('Like a car recall', { self: 'security/patch-management' }))).toEqual([]);
+    expect(ids(en.link('limits of attention', { self: 'security/human-factor' }))).toEqual([]);
+    expect(ids(en.link('sorted by sensitivity', { self: 'security/security-policy' }))).toEqual([]);
+    // Same domain: still a link.
+    expect(ids(en.link('predict the next token', { self: 'ai/embedding' }))).toEqual(['ai/token']);
+    expect(ids(en.link('precision and recall', { self: 'ai/f1-score' }))).toEqual(['ai/recall']);
+    expect(ids(da.link('tokens i konteksten', { self: 'ai/context-window' }))).toEqual([
+      'ai/token',
+    ]);
+    // Fuller names link anywhere.
+    expect(ids(en.link('the attention mechanism', { self: 'cs/kernel' }))).toEqual([
+      'ai/attention-mechanism',
+    ]);
+    expect(ids(en.link('its true positive rate', { self: 'security/ids' }))).toEqual(['ai/recall']);
   });
 });

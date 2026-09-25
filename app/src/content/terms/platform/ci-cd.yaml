@@ -9,18 +9,18 @@ cluster: delivery
 layer: delivery
 status: current
 summary:
-  en: The habit of joining, testing and releasing small changes to software automatically and often, instead of in rare large batches.
-  da: Praksissen at samle, teste og frigive små ændringer i software automatisk og ofte i stedet for i sjældne, store portioner.
+  en: Merging, testing and releasing small software changes automatically and often, instead of in rare, large batches.
+  da: At samle, teste og frigive små ændringer i software automatisk og ofte i stedet for i få, store leverancer.
 body:
   formal:
-    en: Continuous integration merges each developer's changes into a shared main line several times a day and checks them with automatic builds and tests; continuous delivery then keeps every passing version ready to release, and continuous deployment releases it without a human step.
-    da: Kontinuerlig integration fletter hver udviklers ændringer ind i en fælles hovedlinje flere gange om dagen og kontrollerer dem med automatiske builds og tests; kontinuerlig levering holder derefter hver godkendt version klar til frigivelse, og kontinuerlig udrulning frigiver den uden et menneskeligt trin.
+    en: Continuous integration merges each developer's changes into a shared main branch several times a day and checks them with automatic builds and tests; continuous delivery keeps every passing version ready to release, and continuous deployment releases it without a human step.
+    da: Kontinuerlig integration fletter hver udviklers ændringer ind i en fælles hovedgren flere gange om dagen og kontrollerer dem med automatiske builds og tests; ved kontinuerlig levering er hver godkendt version klar til frigivelse, og ved kontinuerlig udrulning sættes den i drift uden et menneskeligt trin.
   plain:
     en: Like a bakery that checks and ships each tray as soon as it leaves the oven, rather than baking for a month and discovering on delivery day that the recipe was wrong.
     da: Som et bageri, der tjekker og sender hver plade ud, så snart den kommer ud af ovnen, i stedet for at bage i en måned og først på leveringsdagen opdage, at opskriften var forkert.
   inPractice:
-    en: A developer saves a small fix; within minutes the change is built, tested, scanned for known weaknesses and, if all checks pass, put live for customers.
-    da: En udvikler gemmer en lille rettelse; inden for få minutter bliver ændringen bygget, testet, scannet for kendte svagheder og, hvis alle tjek består, sat i drift for kunderne.
+    en: A developer at a Danish web shop fixes a fault in the discount code field; within minutes the change is built, tested and scanned, and it is live before lunch instead of waiting for the monthly release.
+    da: En udvikler i en dansk webshop retter en fejl i feltet til rabatkoder; få minutter senere er ændringen bygget, testet og scannet, og den er i drift før frokost i stedet for at vente på den månedlige frigivelse.
   whyItMatters:
     en: Small, frequent, automatically checked changes are easier to review and to undo, and they let security fixes reach production in hours instead of weeks.
     da: Små, hyppige og automatisk kontrollerede ændringer er lettere at gennemgå og at rulle tilbage, og de lader sikkerhedsrettelser nå driften på timer i stedet for uger.

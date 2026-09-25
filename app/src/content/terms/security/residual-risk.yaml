@@ -19,11 +19,11 @@ body:
     en: Even with a seat belt, driving still carries some chance of getting hurt.
     da: Selv med sikkerhedssele er der stadig en vis risiko for at komme til skade, når man kører bil.
   inPractice:
-    en: After adding MFA and awareness training, phishing drops from red to yellow, and the manager signs off that yellow is acceptable.
-    da: Efter indførelse af MFA og awareness-træning falder phishing fra rød til gul, og lederen skriver under på, at gul er acceptabelt.
+    en: After a municipality adds MFA and awareness training, phishing drops from red to yellow on its heat map, and the municipal director signs off that the yellow level left over is acceptable.
+    da: Efter at en kommune har indført MFA og awareness-træning, falder phishing fra rødt til gult på heat-mappet, og kommunaldirektøren skriver under på, at det gule niveau, der er tilbage, er acceptabelt.
   whyItMatters:
-    en: Pretending controls make risk vanish hides the danger that remains, while naming it forces someone to own it.
-    da: At lade som om kontroller får risikoen til at forsvinde, skjuler den fare, der er tilbage, mens det at navngive den tvinger nogen til at eje den.
+    en: Pretending controls make risk vanish hides the danger that remains; naming it forces a named person to accept it or pay to reduce it further.
+    da: At lade som om kontroller får risikoen til at forsvinde, skjuler den fare, der er tilbage; når den bliver sat ord på, må en navngiven person enten acceptere den eller betale for at mindske den yderligere.
 edges:
   kind-of: [risk]
   requires: [control]

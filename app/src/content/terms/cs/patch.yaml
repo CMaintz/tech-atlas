@@ -16,11 +16,11 @@ body:
     en: A change published by a software vendor that replaces part of an installed program or operating system to correct a fault, close a vulnerability or add a small improvement, without installing everything again.
     da: En ændring, som en softwareleverandør udgiver, og som erstatter en del af et installeret program eller styresystem for at rette en fejl, lukke en sårbarhed eller tilføje en lille forbedring uden at geninstallere det hele.
   plain:
-    en: Like a car maker's recall where the garage swaps one faulty part — the car stays the same, but the known defect is gone.
+    en: Like a car maker calling cars back so the garage can swap one faulty part — the car stays the same, but the known defect is gone.
     da: Som når en bilproducent kalder biler tilbage, og værkstedet udskifter en enkelt defekt del — bilen er den samme, men den kendte fejl er væk.
   inPractice:
-    en: On the second Tuesday of each month Microsoft releases patches for Windows; a laptop downloads them and asks the user to restart so they take effect.
-    da: Den anden tirsdag i hver måned udgiver Microsoft patches til Windows; en bærbar henter dem og beder brugeren genstarte, så de træder i kraft.
+    en: Microsoft releases patches on the second Tuesday of each month. A region's IT operations team tries them on a small group of computers first, then rolls them out to the hospitals' other machines within a week.
+    da: Microsoft udgiver patches den anden tirsdag i hver måned. En regions IT-drift afprøver dem først på en lille gruppe computere og ruller dem derefter ud til hospitalernes øvrige maskiner inden for en uge.
   whyItMatters:
     en: Once a patch is out, attackers study it to learn the flaw, so machines left without the patch become easy targets — a common way in for ransomware.
     da: Når en patch er udgivet, studerer angribere den for at finde fejlen, så maskiner uden patchen bliver lette mål — en almindelig vej ind for ransomware.

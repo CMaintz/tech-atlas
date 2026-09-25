@@ -20,8 +20,8 @@ body:
     en: Like a general education that takes years to get, after which a person can learn to be a nurse, a lawyer or a cook in far less time.
     da: Som en almen uddannelse, der tager år at få, hvorefter en person langt hurtigere kan lære at blive sygeplejerske, jurist eller kok.
   inPractice:
-    en: A bank does not build its own model from scratch; it takes a foundation model from a vendor and adapts it to answer customer questions and sum up loan files.
-    da: En bank bygger ikke sin egen model fra bunden; den tager en grundmodel fra en leverandør og tilpasser den til at besvare kundespørgsmål og opsummere lånesager.
+    en: An insurance company's AI lead does not train a model from scratch; she takes a foundation model from a provider and adapts it both to answer customers about their policies and to sum up claim files.
+    da: Den AI-ansvarlige i et forsikringsselskab træner ikke en model fra bunden; hun tager en grundmodel fra en udbyder og tilpasser den både til at besvare kundernes spørgsmål om deres police og til at opsummere skadesager.
   whyItMatters:
     en: Many products rest on the same few foundation models, so a flaw, bias or weakness in one of them spreads to every system built on top of it.
     da: Mange produkter hviler på de samme få grundmodeller, så en fejl, bias eller svaghed i én af dem spreder sig til alle systemer bygget ovenpå.

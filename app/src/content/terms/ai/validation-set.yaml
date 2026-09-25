@@ -16,14 +16,14 @@ body:
     en: A part of the labelled data kept out of the training data and used during model training to compare hyperparameter choices and pick the best round to stop; because choices are tuned to it, its scores are not a fair final result.
     da: En del af de mærkede data, der holdes uden for træningsdata og bruges under modeltræningen til at sammenligne valg af hyperparametre og vælge den bedste runde at stoppe i; da valgene tilpasses til den, er dens resultater ikke et retfærdigt slutresultat.
   plain:
-    en: Like the practice papers a teacher hands out during the term to decide what to go over again — useful for steering, but not the real final exam.
-    da: Som de øveopgaver, en lærer deler ud i løbet af semestret for at beslutte, hvad der skal gennemgås igen — nyttige til at styre efter, men ikke den rigtige afsluttende eksamen.
+    en: Like a cook tasting the sauce again and again while it simmers, adjusting salt and time — useful for steering, but not the guests' honest verdict on the finished dish.
+    da: Som en kok, der smager på saucen igen og igen, mens den simrer, og justerer salt og tid — nyttigt at styre efter, men ikke gæsternes ærlige dom over den færdige ret.
   inPractice:
-    en: A team splits 100,000 labelled images 80/10/10, trains on the first part, and after each epoch checks the next 10% to see whether to keep going or to try a smaller step size.
-    da: Et team deler 100.000 mærkede billeder 80/10/10, træner på den første del og tjekker efter hver epoke de næste 10 % for at se, om de skal fortsætte eller prøve en mindre skridtstørrelse.
+    en: A data analyst in a ministry tries five settings for a model that sorts public consultation responses by topic and keeps the one that scores best on 1,500 responses held back from training; the test set stays closed until then.
+    da: En dataanalytiker i et ministerium afprøver fem indstillinger for en model, der sorterer høringssvar efter emne, og beholder den, der scorer bedst på 1.500 høringssvar holdt uden for træningen; testsættet forbliver lukket indtil da.
   whyItMatters:
     en: Without it, settings get chosen by looking at the test set, and the final score quietly stops being honest.
-    da: Uden det vælges indstillinger ved at kigge på testsættet, og slutresultatet holder stille og roligt op med at være ærligt.
+    da: Uden det vælges indstillinger ved at kigge på testsættet, og slutresultatet holder ubemærket op med at være ærligt.
 edges:
   requires: [hyperparameter]
   part-of:
@@ -36,7 +36,7 @@ edges:
   mitigates:
     - to: overfitting
       why:
-        en: When the score on held-back examples stops rising while the training score keeps climbing, training is stopped before the model memorizes its examples.
+        en: When the score on held-back examples stops rising while the training score keeps climbing, training is stopped before the model learns its examples by heart.
         da: Når resultatet på de tilbageholdte eksempler holder op med at stige, mens træningsresultatet bliver ved med at klatre, stoppes træningen, før modellen lærer sine eksempler udenad.
       strength: normal
       confidence: medium

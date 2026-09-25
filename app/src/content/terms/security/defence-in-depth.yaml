@@ -17,11 +17,11 @@ body:
     en: A design principle that combines several different controls — technical, organisational and physical — at different points, so that no single failure leaves an asset unprotected.
     da: Et designprincip, der kombinerer flere forskellige kontroller — tekniske, organisatoriske og fysiske — på forskellige steder, så ingen enkelt fejl efterlader et aktiv ubeskyttet.
   plain:
-    en: A castle with a moat, a wall, locked gates and guards — getting past one still leaves the others.
-    da: En borg med voldgrav, mur, låste porte og vagter — kommer man forbi det ene, er de andre der stadig.
+    en: Like protecting a home with a locked gate, a locked door, an alarm and a safe for the valuables — a thief who gets past one still meets the next.
+    da: Som at beskytte et hjem med en låst låge, en låst dør, en alarm og et pengeskab til smykkerne — en tyv, der kommer forbi det ene, møder stadig det næste.
   inPractice:
-    en: A phishing mail slips past the spam filter and the employee clicks, but the second login step and the laptop's security software still block the attacker.
-    da: En phishingmail slipper forbi spamfilteret, og medarbejderen klikker, men login-trin nummer to og sikkerhedssoftwaren på den bærbare blokerer stadig angriberen.
+    en: At a Danish shipping company, a phishing mail slips past the mail filter and a clerk clicks the link, but MFA stops the stolen password from being used and EDR on the laptop blocks the download.
+    da: Hos et rederi slipper en phishingmail forbi mailfilteret, og en medarbejder klikker på linket — men MFA forhindrer, at den stjålne adgangskode kan bruges, og EDR på den bærbare blokerer downloaden.
   whyItMatters:
     en: Every control fails sometimes, so relying on just one means a single mistake is enough for a breach.
     da: Enhver kontrol svigter en gang imellem, så hvis man kun har én, er en enkelt fejl nok til et brud.

@@ -14,17 +14,17 @@ summary:
   da: Et signeret digitalt dokument, der knytter en offentlig nøgle til et navn, fx en webadresse, så andre kan stole på, hvis nøgle det er.
 body:
   formal:
-    en: A data record holding a public key, the identity it belongs to and a validity period, signed by a trusted body whose own signature can in turn be checked, forming a chain back to a body the device already trusts.
-    da: En datapost med en offentlig nøgle, den identitet, den tilhører, og en gyldighedsperiode, signeret af en betroet udsteder, hvis egen signatur igen kan tjekkes, så der dannes en kæde tilbage til en udsteder, enheden allerede stoler på.
+    en: A data record, usually in the X.509 format, holding a public key, the identity it belongs to and a validity period, signed by a certificate authority whose own certificate can in turn be checked, forming a chain back to a root the device already trusts.
+    da: En datapost, som regel i X.509-format, med en offentlig nøgle, den identitet, den tilhører, og en gyldighedsperiode, signeret af en certifikatudsteder, hvis eget certifikat igen kan tjekkes, så der dannes en kæde tilbage til et rodcertifikat, enheden allerede stoler på.
   plain:
-    en: Like a passport — the photo and name are vouched for by a government you trust, so a stranger can accept that you are who you say.
-    da: Som et pas — billede og navn er bekræftet af en stat, du stoler på, så en fremmed kan godtage, at du er den, du siger.
+    en: Like a letter of introduction stamped by an authority both sides trust — the reader accepts the stranger because of the stamp, and only until the date written on it.
+    da: Som et anbefalingsbrev stemplet af en myndighed, begge parter stoler på — modtageren godtager den fremmede på grund af stemplet, og kun indtil den dato, der står på brevet.
   inPractice:
-    en: A company forgets to renew its website certificate; the next morning customers' browsers show a full-page warning and many leave the shop.
-    da: En virksomhed glemmer at forny certifikatet til sit websted; næste morgen viser kundernes browsere en helsides advarsel, og mange forlader butikken.
+    en: A municipality forgets to renew the certificate for its self-service portal; the next morning citizens' browsers show a full-page warning, and the citizen service desk is flooded with calls.
+    da: En kommune glemmer at forny certifikatet til sin selvbetjeningsportal; næste morgen viser borgernes browsere en helsides advarsel, og borgerservice bliver overhældt med opkald.
   whyItMatters:
-    en: Encryption is useless if you are talking privately to the wrong party; certificates are what prove a website or server is the real one.
-    da: Kryptering er værdiløs, hvis man taler fortroligt med den forkerte; certifikater er det, der beviser, at et websted eller en server er den ægte.
+    en: Encryption is useless if the private conversation is with the wrong party; certificates are what prove a website or server is the real one.
+    da: Kryptering er værdiløs, hvis den fortrolige samtale foregår med den forkerte; certifikater er det, der beviser, at et websted eller en server er den ægte.
 edges:
   requires:
     - public-key-cryptography

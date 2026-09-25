@@ -13,17 +13,17 @@ summary:
   da: Den øverste ledelses pligt til at eje, godkende og kunne dokumentere virksomhedens sikkerhedsarbejde.
 body:
   formal:
-    en: A requirement that the management body approves security measures, oversees their use, takes part in training and answers personally for failures, as set out in NIS2 Article 20.
-    da: Et krav om, at ledelsen godkender sikkerhedstiltag, fører tilsyn med dem, deltager i træning og står personligt til ansvar for svigt, som fastsat i NIS2's artikel 20.
+    en: The duty in NIS2 Article 20 for the management body to approve the security measures, oversee how they are carried out and take part in training, with members liable if they fail; ISO 27001 clause 5 sets a similar leadership duty.
+    da: Pligten i NIS2's artikel 20 for ledelsesorganet til at godkende sikkerhedstiltagene, føre tilsyn med, at de gennemføres, og deltage i uddannelse, så medlemmerne kan holdes ansvarlige, hvis de svigter; ISO 27001 afsnit 5 stiller et lignende krav til ledelsen.
   plain:
-    en: The captain answers for the ship — even if the crew does the work, the person in charge cannot say "that was not my job".
-    da: Kaptajnen står til ansvar for skibet — selv om besætningen udfører arbejdet, kan den ansvarlige ikke sige "det var ikke min opgave".
+    en: The captain answers for the ship — the crew may do the work, but when it hits the rocks the captain cannot say "that was not my job".
+    da: Kaptajnen står til ansvar for skibet — besætningen udfører arbejdet, men når skibet går på grund, kan kaptajnen ikke sige "det var ikke min opgave".
   inPractice:
-    en: A CEO signs off the yearly risk assessment, attends a half-day security course and gets a quarterly status report from the security coordinator.
-    da: En direktør godkender den årlige risikovurdering, deltager i et halvdags sikkerhedskursus og får en kvartalsvis statusrapport fra sikkerhedskoordinatoren.
+    en: The chief executive of a Danish municipality signs off the risk assessment each year, attends a half-day course on cyber risk with the rest of the management team and gets a status report from the security lead every quarter.
+    da: Den øverste direktør i en dansk kommune godkender hvert år risikoanalysen, deltager sammen med resten af topledelsen i et halvdagskursus om cyberrisici og får hvert kvartal en statusrapport fra den sikkerhedsansvarlige.
   whyItMatters:
-    en: Without leaders who own security, it lacks money and priority; making them answer for it moves it from the server room to the boardroom.
-    da: Uden en ledelse, der ejer sikkerheden, mangler den penge og prioritet; når ledelsen holdes ansvarlig, flytter sikkerhed fra serverrummet til bestyrelseslokalet.
+    en: When leaders do not own security, it loses out in every budget round; making them personally answerable moves it from the server room to the boardroom.
+    da: Når ledelsen ikke ejer sikkerheden, taber den i hver budgetforhandling; når ledelsen holdes personligt ansvarlig, flytter sikkerhed fra serverrummet til bestyrelseslokalet.
 edges:
   part-of: [governance]
   requires: [risk-management]

@@ -19,8 +19,8 @@ body:
     en: Like a lifeguard who calls out to each swimmer now and then; anyone who does not answer gets pulled out of the water.
     da: Som en livredder, der råber til hver svømmer en gang imellem; den, der ikke svarer, bliver hevet op af vandet.
   inPractice:
-    en: Kubernetes asks each copy of the order service for a status page every ten seconds; one copy stops answering after running out of memory, so it is restarted and gets no customers until it answers again.
-    da: Kubernetes beder hver kopi af ordretjenesten om en statusside hvert tiende sekund; én kopi holder op med at svare efter at være løbet tør for hukommelse, så den genstartes og får ingen kunder, før den svarer igen.
+    en: On the first day of term, Kubernetes checks each copy of a school portal's login service every ten seconds; one copy runs out of memory and stops answering, so it is restarted and gets no users until it answers again.
+    da: På første skoledag tjekker Kubernetes hver kopi af skoleportalens login-tjeneste hvert tiende sekund; én kopi løber tør for hukommelse og holder op med at svare, så den genstartes og får ingen brugere, før den svarer igen.
   whyItMatters:
     en: Machines fail all the time; health checks let the platform send traffic around a broken copy within seconds, before users notice and before anyone is woken up.
     da: Maskiner fejler hele tiden; sundhedstjek lader platformen lede trafikken uden om en defekt kopi på få sekunder, før brugerne mærker det, og før nogen bliver vækket.

@@ -16,11 +16,11 @@ body:
     en: A neural network, usually a transformer, trained so that texts close in meaning come out as embeddings that score high on cosine similarity; it turns both stored documents and incoming questions into embeddings.
     da: Et neuralt netværk, som regel en transformer, der er trænet, så tekster med nær betydning kommer ud som embeddings, der scorer højt på cosinuslighed; det laver både gemte dokumenter og indkommende spørgsmål om til embeddings.
   plain:
-    en: Like a librarian who reads each new book and writes a short code on its spine for where it belongs — they never tell you what is inside, only which shelf it goes on.
-    da: Som en bibliotekar, der læser hver ny bog og skriver en kort kode på ryggen om, hvor den hører hjemme — vedkommende fortæller aldrig, hvad der står i den, kun hvor den skal stå.
+    en: Like a wine taster who marks every wine on the same flavour chart — light to heavy, sweet to dry — without ever telling you what the label says.
+    da: Som en vinsmager, der sætter et kryds for hver vin på det samme smagsskema — let til tung, sød til tør — uden nogensinde at fortælle, hvad der står på etiketten.
   inPractice:
-    en: A team runs every support article through an embedding model once, stores the results, and runs each customer question through the same model at search time.
-    da: Et team kører alle supportartikler gennem en embedding-model én gang, gemmer resultaterne og kører hvert kundespørgsmål gennem samme model, når der søges.
+    en: A developer at a Danish software house runs a pension fund's 3,000 help pages through an embedding model once, stores the results, and runs each member's question through the same model when they search.
+    da: En udvikler i et dansk softwarehus kører en pensionskasses 3.000 hjælpesider gennem en embedding-model én gang, gemmer resultaterne og kører hvert medlems spørgsmål gennem samme model, når der søges.
   whyItMatters:
     en: Switching to a new one means redoing every stored embedding, since the numbers from two different models cannot be compared — and a model weak in Danish gives weak Danish search.
     da: Skifter man til en ny, skal alle gemte embeddings laves om, da tallene fra to forskellige modeller ikke kan sammenlignes — og en model, der er svag i dansk, giver svag dansk søgning.

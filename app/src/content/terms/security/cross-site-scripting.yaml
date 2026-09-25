@@ -14,17 +14,17 @@ summary:
   da: Et angreb, der smugler et skadeligt script ind på en webside, så det kører i browseren hos alle, der besøger siden.
 body:
   formal:
-    en: A flaw in a web application that places user input into its pages without making it harmless first; the web browser then runs the input as a script with the same rights as the site's own code, able to read its cookie data and act as the user.
-    da: En fejl i en webapplikation, der sætter brugerens input ind i sine sider uden først at gøre det uskadeligt; webbrowseren kører så inputtet som et script med de samme rettigheder som sidens egen kode og kan læse dens cookies og handle som brugeren.
+    en: A flaw in a web application that places untrusted input into its pages without making it safe first; the web browser then runs that input as code with the same rights as the site's own code, so it can read what the user sees and act in their name.
+    da: En fejl i en webapplikation, der sætter input udefra ind i sine sider uden først at gøre det ufarligt; webbrowseren kører så inputtet som kode med samme rettigheder som sitets egen kode og kan dermed læse, hvad brugeren ser, og handle i brugerens navn.
   plain:
     en: Like a notice board where someone pins up a note that, when read aloud, makes the reader hand over their house keys — the board itself never checks what is pinned to it.
     da: Som en opslagstavle, hvor nogen hænger en seddel op, der får den, der læser den højt, til at udlevere sine husnøgler — tavlen tjekker aldrig, hvad der bliver hængt op.
   inPractice:
-    en: An attacker posts a product review with a hidden script; every shopper who opens the review page quietly sends their login cookie to the attacker.
-    da: En angriber skriver en produktanmeldelse med et skjult script; hver kunde, der åbner anmeldelsessiden, sender i al stilhed sin login-cookie til angriberen.
+    en: An attacker posts a comment with a hidden script on a municipality's public consultation page; every resident who opens the page while logged in unknowingly hands the attacker their session.
+    da: En angriber skriver en kommentar med et skjult script på en kommunes høringsside; hver borger, der åbner siden, mens vedkommende er logget ind, giver uden at vide det angriberen sin session.
   whyItMatters:
-    en: The harmful code runs inside a site the visitor trusts, so the browser gives it the visitor's session and data; it is one of the most often reported web flaws.
-    da: Den skadelige kode kører inde på et site, som besøgende stoler på, så browseren giver den adgang til den besøgendes session og data; det er en af de oftest rapporterede webfejl.
+    en: The harmful code runs inside a site the visitor trusts, so the browser gives it the visitor's session and data; it remains one of the most often reported flaws in web applications.
+    da: Den skadelige kode kører inde på et site, som den besøgende stoler på, så browseren giver den adgang til den besøgendes session og data; det er fortsat en af de oftest rapporterede fejl i webapplikationer.
 edges:
   requires: [web-browser, web-application]
   causes:

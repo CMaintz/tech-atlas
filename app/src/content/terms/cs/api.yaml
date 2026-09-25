@@ -19,8 +19,8 @@ body:
     en: Like the menu and the waiter in a restaurant — you order from a fixed list, the kitchen does the work, and you never need to know how it is cooked.
     da: Som menukortet og tjeneren på en restaurant — du bestiller fra en fast liste, køkkenet gør arbejdet, og du behøver aldrig vide, hvordan maden laves.
   inPractice:
-    en: A weather app on a phone sends a request with the user's town to a weather service's API and gets back the temperature and forecast as plain data, which the app then draws.
-    da: En vejrapp på telefonen sender en forespørgsel med brugerens by til en vejrtjenestes API og får temperatur og prognose tilbage som rene data, som appen derefter viser.
+    en: Every night a municipality's payroll system asks the HR system's API for new and departing staff, and gets back names, start dates and pay grades, so nobody has to type them in twice.
+    da: Hver nat spørger kommunens lønsystem HR-systemets API om nye og fratrådte medarbejdere og får navne, startdatoer og løntrin tilbage, så ingen skal taste dem ind to gange.
   whyItMatters:
     en: APIs let separate systems be built and changed on their own and still work together, but each one is also a door that must check who is knocking and what they ask for.
     da: API'er lader adskilte systemer blive bygget og ændret hver for sig og stadig arbejde sammen, men hvert API er også en dør, der skal tjekke, hvem der banker på, og hvad de beder om.

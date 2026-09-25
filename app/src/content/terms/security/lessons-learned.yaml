@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: The closing step of incident response, in which the people involved review the timeline and decisions without blame and turn findings into owned, dated changes to plans and controls.
-    da: Det afsluttende trin i hændelseshåndteringen, hvor de involverede gennemgår forløb og beslutninger uden at placere skyld og omsætter fundene til ændringer i planer og kontroller med ejer og dato.
+    da: Det afsluttende trin i hændelseshåndteringen, hvor de involverede gennemgår forløb og beslutninger uden at placere skyld og gør fundene til ændringer i planer og kontroller, hver med en ansvarlig og en frist.
   plain:
-    en: Like a team watching the replay after a match to see why they conceded that goal.
-    da: Ligesom et hold, der ser gengivelsen efter en kamp for at forstå, hvorfor de lukkede det mål ind.
+    en: Like a football team watching the match again on video to see why they let in that goal.
+    da: Ligesom et fodboldhold, der ser kampen igen på video for at forstå, hvorfor de lukkede det mål ind.
   inPractice:
-    en: A week after the outage the team meets for an hour, notes that the backup key was stored on the locked server, and assigns someone to move it by Friday.
-    da: En uge efter nedbruddet mødes teamet en time, noterer at nøglen til backuppen lå på den låste server, og udpeger en, der skal flytte den inden fredag.
+    en: A week after a ransomware outage, staff at an accounting firm meet for an hour, note that the backup key sat on the very server that was locked, and task the IT manager with moving it by Friday.
+    da: En uge efter et ransomware-nedbrud mødes medarbejderne i et revisionsfirma en time og finder ud af, at nøglen til backuppen lå på netop den server, der blev låst, og giver IT-chefen til opgave at flytte den inden fredag.
   whyItMatters:
     en: Without it the same mistakes return in the next incident, and the organisation pays twice for the same lesson.
     da: Uden den vender de samme fejl tilbage ved næste hændelse, og organisationen betaler to gange for den samme lærdom.

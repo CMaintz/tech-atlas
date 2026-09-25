@@ -13,14 +13,14 @@ summary:
   da: En angriber, der i det skjulte sidder mellem to parter og læser eller ændrer deres beskeder, mens begge tror, de taler direkte sammen.
 body:
   formal:
-    en: An attack in which the attacker takes a position on the network path between two communicating parties, so that traffic passes through them and can be read, recorded or altered before it is passed on.
-    da: Et angreb, hvor angriberen placerer sig på netværksvejen mellem to kommunikerende parter, så trafikken passerer igennem dem og kan læses, gemmes eller ændres, før den sendes videre.
+    en: An attack in which the attacker takes a position on the network path between two parties, so that their traffic passes through the attacker and can be read, recorded or altered before it is passed on.
+    da: Et angreb, hvor angriberen placerer sig på netværksvejen mellem to parter, så deres trafik passerer gennem angriberen og kan læses, gemmes eller ændres, før den sendes videre.
   plain:
     en: Like a postman who steams open your letters, reads them, maybe changes a line, and seals them again before delivery — neither you nor your friend notice.
-    da: Som et postbud, der damper dine breve op, læser dem, måske ændrer en linje og lukker dem igen før omdelingen — hverken du eller din ven opdager noget.
+    da: Som et postbud, der damper dine breve op, læser dem, måske ændrer en linje og lukker dem igen, før de bliver leveret — hverken du eller din ven opdager noget.
   inPractice:
-    en: In a café, an attacker sets up a free wifi network with the café's name; guests who join send all their web traffic through the attacker's laptop, which picks out any login that is not protected by HTTPS.
-    da: På en café opretter en angriber et gratis wifi-netværk med caféens navn; gæster, der kobler sig på, sender al deres webtrafik gennem angriberens bærbare, som fisker ethvert login ud, der ikke er beskyttet af HTTPS.
+    en: A consultant from a Danish municipality working in a station café joins a free wifi network named after the café; it belongs to an attacker whose laptop passes on all her traffic and picks out any login not protected by HTTPS.
+    da: En konsulent fra en kommune, der arbejder på en café på banegården, kobler sig på et gratis wifi med caféens navn; det tilhører en angriber, hvis bærbare sender al hendes trafik videre og fisker ethvert login ud, der ikke er beskyttet af HTTPS.
   whyItMatters:
     en: Data sent in the clear can be stolen or quietly changed on the way, which is why checking who is at the other end and locking the connection matters.
     da: Data, der sendes ubeskyttet, kan stjæles eller ændres i det stille undervejs; derfor er det vigtigt at kontrollere, hvem der er i den anden ende, og at kryptere forbindelsen.

@@ -11,34 +11,34 @@ status: current
 era: 2009
 summary:
   en: The GDPR principle that protection of personal data must be built into systems from the start.
-  da: GDPR-princippet om, at beskyttelse af persondata skal indbygges i systemer fra starten.
+  da: GDPR-princippet om, at beskyttelse af personoplysninger skal bygges ind i systemer fra starten.
 body:
   formal:
-    en: A duty under GDPR Article 25 to build data protection into systems and processes when they are designed, and to make the most private setting the default — collecting only what is needed.
-    da: En pligt efter GDPR's artikel 25 til at bygge databeskyttelse ind i systemer og processer, når de designes, og at gøre den mest private indstilling til standard — så kun det nødvendige indsamles.
+    en: The duty in GDPR Article 25 to build data protection into systems and processes from the design stage — for example by collecting less and hiding identities — and to make the most privacy-friendly setting the default.
+    da: Pligten i GDPR artikel 25 til at bygge databeskyttelse ind i systemer og processer, allerede mens de designes — fx ved at indsamle mindre og skjule identiteter — og til at gøre den mest privatlivsvenlige indstilling til standard.
   plain:
-    en: Putting curtains in the plans for a new house, rather than taping newspaper over the windows after moving in.
-    da: At tegne gardiner ind i planerne til et nyt hus i stedet for at tape aviser for vinduerne, efter man er flyttet ind.
+    en: Drawing curtains into the plans for a new house, rather than taping newspaper over the windows after moving in.
+    da: At tegne gardiner ind i planerne til et nyt hus i stedet for at tape aviser for vinduerne, når man er flyttet ind.
   inPractice:
-    en: A team building a sign-up form drops the birth-date field it does not need and sets newsletter consent to off by default.
-    da: Et team, der bygger en tilmeldingsformular, fjerner feltet til fødselsdato, som ikke skal bruges, og sætter samtykke til nyhedsbrev som fravalgt som standard.
+    en: Developers building a Danish municipality's booking form for sports halls drop the CPR number field the task does not need and leave the newsletter box unticked by default.
+    da: Udviklerne, der bygger en dansk kommunes bookingformular til idrætshaller, fjerner feltet til CPR-nummer, som opgaven ikke kræver, og lader feltet til nyhedsbrev være fravalgt som standard.
   whyItMatters:
-    en: Data you never collect cannot leak, and fixing privacy after launch costs far more than planning it in.
-    da: Data, man aldrig indsamler, kan ikke lække, og at rette op på privatliv efter lancering koster langt mere end at planlægge det ind.
+    en: Data never collected cannot leak, and fixing privacy after launch costs far more than planning it in; it also makes the system easier to defend when Datatilsynet asks.
+    da: Data, der aldrig indsamles, kan ikke lække, og at rette op på privatlivet efter lancering koster langt mere end at planlægge det ind; det gør også systemet lettere at forsvare, når Datatilsynet spørger.
 edges:
   requires: [confidentiality]
   contrasts-with:
     - to: security-by-design
       why:
         en: Security by design protects all systems and data; privacy by design is the GDPR principle focused on people's personal data and collecting less.
-        da: Security by design beskytter alle systemer og data; privacy by design er GDPR-princippet med fokus på menneskers persondata og at indsamle mindre.
+        da: Security by design beskytter alle systemer og data; privacy by design er GDPR-princippet med fokus på menneskers personoplysninger og at indsamle mindre.
       strength: primary
       confidence: high
   mitigates:
     - to: data-breach
       why:
         en: Collecting and keeping less personal data shrinks what a breach can expose.
-        da: At indsamle og gemme færre persondata mindsker, hvad et brud kan afsløre.
+        da: At indsamle og gemme færre personoplysninger mindsker, hvad et brud kan afsløre.
       strength: normal
       confidence: medium
 sources:

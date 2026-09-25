@@ -13,14 +13,14 @@ summary:
   da: En hel computer lavet i software med sit eget styresystem, der kører side om side med andre på én fysisk maskine.
 body:
   formal:
-    en: A software copy of a complete computer — processor, memory, disk and network card — created by a hypervisor, which runs its own full operating system kept apart from the other virtual machines on the same hardware.
-    da: En softwarekopi af en hel computer — processor, hukommelse, disk og netkort — skabt af en hypervisor, som kører sit eget fulde styresystem adskilt fra de andre virtuelle maskiner på samme hardware.
+    en: A software copy of a complete computer — processor, memory, disk and network card — created by a hypervisor; it runs its own full operating system, kept apart from the other virtual machines on the same hardware.
+    da: En softwarekopi af en hel computer — processor, hukommelse, disk og netkort — skabt af en hypervisor; den kører sit eget fulde styresystem, adskilt fra de andre virtuelle maskiner på samme hardware.
   plain:
-    en: Like flats in one apartment block — each has its own front door, kitchen and bathroom, even though they share the same foundations.
-    da: Som lejligheder i én opgang — hver har sin egen hoveddør, sit eget køkken og badeværelse, selvom de deler samme fundament.
+    en: Like flats in one building — each has its own front door, kitchen and bathroom, even though they share the same foundations.
+    da: Som lejligheder i én ejendom — hver har sin egen hoveddør, sit eget køkken og badeværelse, selvom de deler samme fundament.
   inPractice:
-    en: A company runs its payroll system, file server and test environment as three virtual machines on one powerful server, each with its own Windows or Linux.
-    da: En virksomhed kører sit lønsystem, sin filserver og sit testmiljø som tre virtuelle maskiner på én kraftig server, hver med sin egen Windows eller Linux.
+    en: The IT operations manager at a water utility runs the payroll system, the file server and a test environment as three virtual machines on one large server, each with its own Windows or Linux.
+    da: Den IT-driftsansvarlige på et vandværk kører lønsystemet, filserveren og et testmiljø som tre virtuelle maskiner på én kraftig server, hver med sin egen Windows eller Linux.
   whyItMatters:
     en: It is the basic building block of most cloud services; strong separation between machines is what lets strangers safely share the same hardware.
     da: Den er den grundlæggende byggesten i de fleste cloudtjenester; stærk adskillelse mellem maskinerne er det, der gør, at fremmede trygt kan dele den samme hardware.

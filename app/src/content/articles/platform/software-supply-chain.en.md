@@ -8,7 +8,7 @@ lang: en
 
 The **software supply chain** is everything and everyone involved in getting software from idea to running system: the developers, the open-source libraries and commercial components they reuse, the tools that compile and package the code, the **CI/CD pipelines** that test and ship it, the registries and update servers that distribute it, and the people and systems that install it. A weakness at any link can be passed on to everyone further down the chain.
 
-Modern software is assembled more than it is written. A typical application consists mainly of third-party components, each with its own dependencies, often several layers deep. That brings enormous productivity, but it also means an organisation implicitly trusts thousands of people it has never met.
+Modern software is assembled more than it is written. A typical application consists mainly of third-party components, each with its own dependencies, often several layers deep. That saves a great deal of work, but it also means an organisation implicitly trusts thousands of people it has never met.
 
 Several incidents made the term a boardroom topic:
 
@@ -16,7 +16,7 @@ Several incidents made the term a boardroom topic:
 - **Log4Shell (December 2021).** A critical vulnerability in Log4j, a small, free logging library maintained by volunteers, turned out to be present in a huge share of Java software worldwide. Many organisations spent weeks just finding out where they used it.
 - **xz Utils (2024).** An attacker spent about two years gaining the trust of the maintainer of a compression library used in Linux distributions, then hid a backdoor in it. It was caught by chance, shortly before reaching mainstream releases.
 
-Governments responded. A 2021 US executive order pushed software bills of materials and secure development requirements for suppliers to the federal government, and NIST published guidance such as SP 800-218 (the Secure Software Development Framework) and SP 800-204D on securing CI/CD pipelines. In the EU, **NIS2** explicitly requires supply chain security, and the **Cyber Resilience Act** sets security requirements for products with digital elements sold on the EU market, with obligations phasing in over the coming years.
+Governments responded. A 2021 US executive order pushed software bills of materials and secure development requirements for suppliers to the federal government, and NIST published guidance such as SP 800-218 (the Secure Software Development Framework) and SP 800-204D on securing CI/CD pipelines. In the EU, **NIS2** explicitly requires supply chain security, and the **Cyber Resilience Act** sets security requirements for products with digital elements sold on the EU market: manufacturers' duty to report actively exploited vulnerabilities and severe incidents applies from 11 September 2026, and the full requirements from 11 December 2027.
 
 ## How it works
 

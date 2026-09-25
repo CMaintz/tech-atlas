@@ -10,20 +10,20 @@ layer: governance
 status: current
 summary:
   en: Rating risks with words or simple scales, such as low, medium and high, based on judgement rather than exact figures.
-  da: At vurdere risici med ord eller enkle skalaer, fx lav, mellem og høj, ud fra skøn frem for præcise tal.
+  da: At vurdere risici med ord eller enkle skalaer, fx lav, middel og høj, ud fra skøn frem for præcise tal.
 body:
   formal:
-    en: A risk assessment method that scores likelihood and impact on ordered scales (for example 1–5 or low–high), usually by expert judgement in workshops, and often shows the result in a heat map.
-    da: En metode til risikoanalyse, der vurderer sandsynlighed og konsekvens på ordnede skalaer (fx 1–5 eller lav–høj), typisk ud fra eksperters skøn på workshops, og ofte viser resultatet i et heat-map.
+    en: A risk assessment method that scores likelihood and impact on ordered scales (for example 1–5 or low–high), usually by the judgement of people who know the systems, and often shows the result in a heat map.
+    da: En metode til risikoanalyse, der vurderer sandsynlighed og konsekvens på ordnede skalaer (fx 1–5 eller lav–høj), typisk ud fra skøn fra folk, der kender systemerne, og ofte viser resultatet i et heat-map.
   plain:
-    en: Like a doctor saying "a small chance, but serious if it happens" — useful and quick, even without an exact percentage.
-    da: Som når en læge siger "en lille risiko, men alvorlig hvis det sker" — brugbart og hurtigt, selv uden en præcis procentsats.
+    en: Like a mountain guide calling a slope "probably fine, but deadly if it slides" — quick and useful, even without an exact percentage.
+    da: Som når en bjergfører kalder en skråning "nok i orden, men livsfarlig hvis den skrider" — hurtigt og brugbart, selv uden en præcis procentsats.
   inPractice:
-    en: A team rates "ransomware on the file server" as likely 4 and impact 5, puts it in the red corner of the chart, and moves it to the top of the list.
-    da: Et team vurderer "ransomware på filserveren" til sandsynlighed 4 og konsekvens 5, placerer den i det røde hjørne af skemaet og flytter den øverst på listen.
+    en: The partners of an architect firm rate "a laptop with client drawings is left on the train" as medium likelihood and high impact, colour it orange on the chart and add one line on why.
+    da: Partnerne i en arkitektvirksomhed vurderer "en bærbar med kundernes tegninger bliver glemt i toget" til middel sandsynlighed og høj konsekvens, farver den orange i skemaet og skriver én linje om hvorfor.
   whyItMatters:
     en: It is fast, cheap and easy for leaders to read, but scores can hide guessing, so the reasons behind each rating should be written down.
-    da: Den er hurtig, billig og let for ledelsen at læse, men tallene kan skjule gætværk, så begrundelsen for hver vurdering bør skrives ned.
+    da: Den er hurtig, billig og let for ledelsen at læse, men tallene kan skjule gætværk, så det bør skrives ned, hvorfor hver vurdering er givet.
 edges:
   kind-of: [risk-assessment]
   requires: [likelihood, impact]

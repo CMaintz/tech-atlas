@@ -19,11 +19,11 @@ body:
     en: Like a fitness plan rather than a single gym visit — small, regular sessions matched to each person, with progress checked along the way.
     da: Som en træningsplan frem for et enkelt besøg i fitnesscentret — små, faste pas tilpasset den enkelte, hvor fremskridtet tjekkes undervejs.
   inPractice:
-    en: A municipality plans a year of short monthly topics, a phishing test each quarter and a separate session for managers, and reports how many staff report suspicious emails.
-    da: En kommune planlægger et år med korte månedlige temaer, en phishing-test hvert kvartal og en særskilt session for ledere og rapporterer, hvor mange medarbejdere der melder mistænkelige mails.
+    en: A municipality plans a year of short monthly topics, a phishing test each quarter and a separate session for managers, and each quarter tells the management team what share of staff report suspicious emails.
+    da: En kommune planlægger et år med korte månedlige temaer, en phishing-test hvert kvartal og en særskilt session for ledere, og hvert kvartal orienterer den direktionen om, hvor stor en andel af medarbejderne der melder mistænkelige mails.
   whyItMatters:
-    en: One yearly talk changes little; lasting behaviour change needs repetition, relevance and measurement, and NIS2 expects training to be part of the security work.
-    da: Én årlig præsentation ændrer ikke meget; varig adfærdsændring kræver gentagelse, relevans og måling, og NIS2 forventer, at træning er en del af sikkerhedsarbejdet.
+    en: One talk a year changes little; lasting change in behaviour needs repetition, relevance and measurement, and NIS2 expects training to be part of the security work.
+    da: Ét foredrag om året ændrer ikke meget; varig adfærdsændring kræver gentagelse, relevans og måling, og NIS2 forventer, at træning er en del af sikkerhedsarbejdet.
 edges:
   requires: [security-awareness]
   used-with: [nudging, security-metrics]

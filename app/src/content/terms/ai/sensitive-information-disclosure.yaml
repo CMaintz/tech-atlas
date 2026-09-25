@@ -14,23 +14,23 @@ summary:
 body:
   formal:
     en: A weakness, listed as LLM02 in the OWASP Top 10 for LLM Applications 2025, in which a large language model or the application around it exposes personal data, confidential business data, credentials or its system prompt through its output, whether taken from training data, retrieved documents or the conversation.
-    da: En svaghed, opført som LLM02 i OWASP Top 10 for LLM Applications 2025, hvor en stor sprogmodel eller applikationen omkring den udleverer personoplysninger, fortrolige forretningsdata, loginoplysninger eller sin systemprompt i sit output, hvad enten de stammer fra træningsdata, hentede dokumenter eller samtalen.
+    da: En svaghed, opført som LLM02 i OWASP Top 10 for LLM Applications 2025, hvor en stor sprogmodel eller systemet omkring den udleverer personoplysninger, fortrolige forretningsdata, loginoplysninger eller sin systemprompt i sit output, hvad enten de stammer fra træningsdata, hentede dokumenter eller samtalen.
   plain:
     en: Like a chatty receptionist who has overheard everything in the office and, asked the right question in a friendly way, repeats a colleague's home address or salary to a stranger.
     da: Som en snakkesalig receptionist, der har overhørt alt på kontoret og, når man spørger venligt på den rigtige måde, gentager en kollegas hjemmeadresse eller løn over for en fremmed.
   inPractice:
-    en: An internal AI assistant searches all shared drives, so a junior employee who asks "what did the managers earn last year?" gets figures from a payroll file they were never meant to open.
-    da: En intern AI-assistent søger i alle fællesdrev, så en ny medarbejder, der spørger "hvad tjente cheferne sidste år?", får tal fra en lønfil, vedkommende aldrig skulle have kunnet åbne.
+    en: A municipality connects its new AI assistant to every shared drive; a trainee in citizen services asks what the managers earned last year and gets figures from a payroll file she has no right to open.
+    da: En kommune kobler sin nye AI-assistent til alle fællesdrev; en elev i borgerservice spørger, hvad cheferne tjente sidste år, og får tal fra en lønfil, hun ikke har ret til at åbne.
   whyItMatters:
-    en: One careless answer can become a data breach that must be reported under GDPR, and once text has left the system it cannot be taken back.
-    da: Ét uforsigtigt svar kan blive et brud på persondatasikkerheden, der skal anmeldes efter GDPR, og når teksten først har forladt systemet, kan den ikke kaldes tilbage.
+    en: One careless answer can be a personal data breach that may have to be reported to the authorities within 72 hours under GDPR, and text that has left the system cannot be recalled.
+    da: Ét uforsigtigt svar kan være et brud på persondatasikkerheden, som efter GDPR kan skulle anmeldes til myndighederne inden for 72 timer, og tekst, der har forladt systemet, kan ikke kaldes tilbage.
 edges:
   requires: [large-language-model, personal-data, training-data]
   causes:
     - to: data-breach
       why:
         en: Personal or confidential data handed to the wrong person through an AI answer is a data breach like any other leak.
-        da: Personoplysninger eller fortrolige data, der via et AI-svar havner hos den forkerte, er et brud på datasikkerheden som ethvert andet læk.
+        da: Personoplysninger eller fortrolige data, der via et AI-svar havner hos den forkerte, er et databrud som ethvert andet læk.
       strength: primary
       confidence: high
 sources:

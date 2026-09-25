@@ -6,7 +6,7 @@ lang: en
 
 ## Why a process at all
 
-Every organisation already manages risk informally: someone worries about backups, someone else about phishing, and the budget goes to whoever argues loudest. Risk management replaces that with a repeatable process, so decisions can be explained, compared year on year and defended to an auditor or a supervisory authority. NIS2 Article 21 requires "appropriate and proportionate" measures based on an all-hazards approach, and ISO/IEC 27001 (clauses 6.1 and 8) requires a documented risk assessment and treatment plan. Both assume you have a process like the one below.
+Every organisation already manages risk informally: someone worries about backups, someone else about phishing, and the budget goes to whoever argues loudest. Risk management replaces that with a repeatable process, so decisions can be explained, compared year on year and defended to an auditor or a supervisory authority. NIS2 Article 21 requires "appropriate and proportionate" measures based on an all-hazards approach, and ISO/IEC 27001 (clauses 6.1 and 8) requires a documented risk assessment and treatment plan.
 
 The two standards you will meet most often are **ISO 31000**, which describes risk management for any kind of organisation, and **ISO/IEC 27005**, which applies the same process to information security. They share one cycle.
 
@@ -60,13 +60,13 @@ Threats, systems and suppliers change, so the register is revisited on a fixed s
 
 ## Risk appetite and residual risk
 
-**Risk appetite** is how much risk management is willing to take on in pursuit of its goals. It should be set by the leadership, not by the security team, and expressed in terms they recognise: "We accept no more than a day's outage of order handling" is more useful than "we accept medium risks."
+**Risk appetite** is how much risk the leadership is willing to take on in pursuit of its goals. It should be set by the leadership, not by the security team, and expressed in terms they recognise: "We accept no more than a day's outage of order handling" is more useful than "we accept medium risks."
 
 **Residual risk** is what remains after treatment. No control removes risk entirely, so the question is always whether the residual risk sits within the appetite. If it does not, either more treatment is needed or management must formally accept the gap. Recording both the inherent (before) and residual (after) score shows the value of the controls you paid for.
 
 ## Presenting risk to management
 
-Under NIS2, management bodies must approve the risk-management measures and can be held personally liable, so the board is not just an audience but a decision-maker. A few habits help:
+Under NIS2, management bodies must approve the risk-management measures and can be held liable for infringements, so the board is not just an audience but a decision-maker. A few habits help:
 
 - **Lead with the business consequence**, not the technology: "orders stop for three days", not "CVE in the VPN gateway".
 - **Show the top five to ten risks**, not the whole register, with a heat map and a trend arrow since the last report.

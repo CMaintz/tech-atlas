@@ -14,16 +14,16 @@ summary:
 body:
   formal:
     en: The step in risk management that finds each risk by pairing an asset with a threat and a vulnerability, then rates it by likelihood and impact. It can be done with numbers or with scales such as low, medium and high.
-    da: Det trin i risikostyringen, hvor hver risiko findes ved at koble et aktiv med en trussel og en sårbarhed, hvorefter den vurderes ud fra sandsynlighed og konsekvens. Det kan gøres kvantitativt med tal eller kvalitativt med skalaer som lav, middel og høj.
+    da: Det trin i risikostyringen, hvor hver risiko findes ved at koble et aktiv med en trussel og en sårbarhed, hvorefter den vurderes ud fra sandsynlighed og konsekvens. Det kan gøres med tal eller med skalaer som lav, middel og høj.
   plain:
-    en: Before a long drive you ask what could break, how likely it is and how bad it would be — then you check the tyres, not the radio.
-    da: Før en lang køretur spørger du, hvad der kan gå i stykker, hvor sandsynligt det er, og hvor slemt det vil være — og så tjekker du dækkene, ikke radioen.
+    en: Before a picnic you ask what could spoil it, how likely that is and how bad it would be — then you bring an umbrella rather than worrying about bears.
+    da: Før en skovtur spørger man, hvad der kan ødelægge den, hvor sandsynligt det er, og hvor slemt det vil være — og så tager man en paraply med i stedet for at bekymre sig om bjørne.
   inPractice:
-    en: A small web shop lists its payment system, customer data and warehouse, scores each threat from 1 to 5 for likelihood and impact, and puts the results on a heat map for the board.
-    da: En lille webshop opstiller sit betalingssystem, sine kundedata og sit lager, giver hver trussel point fra 1 til 5 for sandsynlighed og konsekvens og samler resultatet i et heat-map til bestyrelsen.
+    en: The owner of a small Danish web shop lists its payment system, customer data and warehouse, scores each threat from 1 to 5 for likelihood and impact, and puts the results on a heat map for the board.
+    da: Ejeren af en lille dansk webshop skriver betalingssystemet, kundedata og lageret op, giver hver trussel point fra 1 til 5 for sandsynlighed og konsekvens og samler resultatet i et heat-map til bestyrelsen.
   whyItMatters:
-    en: No organisation can protect everything equally; the assessment is what turns worry into a ranked list that tells people where to spend money and time.
-    da: Ingen organisation kan beskytte alt lige meget; analysen gør bekymring til en prioriteret liste, der viser, hvor penge og tid skal bruges.
+    en: Without it, decisions rest on gut feeling and the latest headline; a written assessment also shows auditors and authorities that the choices were made on purpose.
+    da: Uden den bygger beslutninger på mavefornemmelse og den seneste overskrift; en skriftlig analyse viser også revisorer og myndigheder, at valgene er truffet bevidst.
 edges:
   part-of: [risk-management]
   requires: [risk, likelihood, impact, asset]
@@ -33,7 +33,7 @@ edges:
     - to: threat-modelling
       why:
         en: A threat model lists what could go wrong in a design; a risk assessment weighs how likely and how costly each of those things is.
-        da: En trusselsmodel oplister, hvad der kan gå galt i et design; en risikoanalyse vurderer, hvor sandsynligt og hvor dyrt hver af de ting er.
+        da: En trusselsmodel viser, hvad der kan gå galt i et design; en risikoanalyse vurderer, hvor sandsynligt og hvor dyrt hver af de ting er.
       strength: normal
       confidence: high
 sources:

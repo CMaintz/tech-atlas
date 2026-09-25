@@ -14,16 +14,16 @@ summary:
 body:
   formal:
     en: A feature that, after each pause in typing, sends the code before and after the editing point to a model trained with fill-in-the-middle and shows the most likely continuation inline; older forms only listed matching names from the project.
-    da: En funktion, der efter hver pause i skrivningen sender koden før og efter redigeringsstedet til en model trænet med fill-in-the-middle og viser den mest sandsynlige fortsættelse i linjen; ældre former viste kun passende navne fra projektet.
+    da: En funktion, der hver gang man holder pause med at skrive, sender koden før og efter redigeringsstedet til en model trænet med fill-in-the-middle og viser den mest sandsynlige fortsættelse i linjen; ældre former viste kun passende navne fra projektet.
   plain:
-    en: Like a phone keyboard guessing your next word — except it guesses whole lines, and you press a key to take its guess or keep typing to ignore it.
-    da: Som mobilens tastatur, der gætter dit næste ord — bare med hele linjer, og du trykker på en tast for at tage gættet eller skriver videre for at ignorere det.
+    en: Like a friend who finishes your sentences as you talk — nod and their ending is yours, or just keep talking and it is forgotten.
+    da: Som en ven, der gør dine sætninger færdige, mens du taler — nikker du, er slutningen din, og taler du bare videre, er den glemt.
   inPractice:
-    en: A developer types the name of a function that checks email addresses; before she writes the body, a full ten-line version appears in grey and she presses Tab.
-    da: En udvikler skriver navnet på en funktion, der tjekker mailadresser; før hun skriver indholdet, dukker en hel version på ti linjer op i gråt, og hun trykker Tab.
+    en: A developer at a Danish web shop types the name of a function that checks phone numbers; before she writes the body, a ten-line version appears in grey and she presses Tab.
+    da: En udvikler i en dansk webshop skriver navnet på en funktion, der tjekker telefonnumre; før hun skriver indholdet, dukker en version på ti linjer op i gråt, og hun trykker Tab.
   whyItMatters:
-    en: It is the most used AI feature in programming, and because accepting is a single key press, weak or unsafe lines slip in easily unless someone reads them.
-    da: Det er den mest brugte AI-funktion i programmering, og fordi det kun kræver ét tastetryk at tage imod, glider svage eller usikre linjer let ind, medmindre nogen læser dem.
+    en: Suggestions arrive many times an hour and each takes one key press to accept, so weak or unsafe lines slip in easily unless someone reads them.
+    da: Forslagene kommer mange gange i timen, og hvert kræver kun ét tastetryk at tage imod, så svage eller usikre linjer glider let ind, medmindre nogen læser dem.
 edges:
   part-of:
     - to: ai-coding-assistant

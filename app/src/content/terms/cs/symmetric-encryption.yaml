@@ -13,17 +13,17 @@ summary:
   da: Kryptering, hvor den samme hemmelige nøgle både låser og låser data op, så afsender og modtager skal dele den på forhånd.
 body:
   formal:
-    en: A class of methods, such as the Advanced Encryption Standard, in which one cryptographic key is used both to turn readable data into scrambled data and to turn it back; it is fast enough for large amounts of data but gives no answer to how the key is shared safely.
-    da: En klasse af metoder, fx AES, hvor én kryptografisk nøgle bruges både til at gøre læsbare data ulæselige og til at gøre dem læsbare igen; den er hurtig nok til store datamængder, men løser ikke, hvordan nøglen deles sikkert.
+    en: A class of methods, such as the Advanced Encryption Standard, in which one cryptographic key both turns readable data into scrambled data and turns it back. It is fast enough for large amounts of data but does not solve how the key is shared safely.
+    da: En klasse af metoder, fx AES, hvor én og samme kryptografiske nøgle både gør læsbare data umulige at læse og gør dem læsbare igen. Den er hurtig nok til store datamængder, men løser ikke, hvordan nøglen deles sikkert.
   plain:
     en: Like a padlocked box where you and a friend each hold a copy of the same key — easy to use, but you had to hand the copy over in person first.
     da: Som en kasse med hængelås, hvor du og en ven har hver sin kopi af samme nøgle — let at bruge, men du skulle først give ham kopien personligt.
   inPractice:
-    en: A laptop's full-disk protection uses symmetric encryption with a key unlocked by the user's password, so a stolen laptop shows only noise.
-    da: En bærbars fuld diskkryptering bruger symmetrisk kryptering med en nøgle, der låses op af brugerens adgangskode, så en stjålen bærbar kun viser støj.
+    en: A home-care worker's laptop is stolen from a car in a municipality. Its disk is protected with symmetric encryption, unlocked only at login, so the thief cannot read the citizens' data on it.
+    da: En bærbar fra hjemmeplejen i en kommune bliver stjålet fra en bil. Disken er beskyttet med symmetrisk kryptering, der først låses op ved login, så tyven kan ikke læse borgernes oplysninger på den.
   whyItMatters:
     en: It does the heavy lifting of protecting almost all stored and sent data, so the whole protection is only as strong as how well the shared key is kept secret.
-    da: Den står for det tunge arbejde med at beskytte næsten alle gemte og sendte data, så beskyttelsen er kun så stærk, som nøglen holdes hemmelig.
+    da: Den står for det tunge arbejde med at beskytte næsten alle gemte og sendte data, så beskyttelsen er aldrig bedre end den måde, den fælles nøgle holdes hemmelig på.
 edges:
   kind-of: [encryption]
   requires: [cryptographic-key]

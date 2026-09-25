@@ -13,17 +13,17 @@ summary:
   da: Kontroller rundt om et AI-system, der stopper usikre forespørgsler på vej ind og skadelige eller lækkende svar på vej ud.
 body:
   formal:
-    en: Rules, classifiers and filters that run before and after a large language model, screening its input and output against a policy — for example blocking jailbreak attempts, removing personal data or forcing answers into an allowed shape — independently of how the model itself was trained.
-    da: Regler, klassificeringsmodeller og filtre, der kører før og efter en stor sprogmodel og tjekker input og output mod en politik — for eksempel ved at blokere jailbreak-forsøg, fjerne personoplysninger eller tvinge svar ind i en tilladt form — uafhængigt af, hvordan selve modellen er trænet.
+    en: Rules, filters and small checking models that run before and after a large language model, screening input and output against a policy — blocking jailbreak attempts, removing personal data, forcing an allowed format — independently of how the model was trained.
+    da: Regler, filtre og små kontrolmodeller, der kører før og efter en stor sprogmodel og tjekker input og output mod en politik — blokerer jailbreak-forsøg, fjerner personoplysninger, tvinger et tilladt format — uafhængigt af, hvordan modellen er trænet.
   plain:
     en: Like the barriers along a mountain road — they do not steer the car, but they stop it from going over the edge when the driver makes a mistake.
     da: Som autoværnet langs en bjergvej — det styrer ikke bilen, men det forhindrer den i at køre ud over kanten, når føreren laver en fejl.
   inPractice:
-    en: A bank's AI support assistant passes every customer message through a filter that flags jailbreak phrasing, and every reply through a second one that masks account numbers before the answer is shown.
-    da: En banks support-chatbot sender hver kundebesked gennem et filter, der markerer jailbreak-formuleringer, og hvert svar gennem et andet, der skjuler kontonumre, før svaret vises.
+    en: A webshop's customer service manager has every chat message pass a filter that flags jailbreak wording, and every reply pass a second one that hides card numbers before the customer sees it.
+    da: Kundeservicechefen i en webshop lader hver chatbesked passere et filter, der markerer jailbreak-formuleringer, og hvert svar passere et andet, der skjuler kortnumre, før kunden ser det.
   whyItMatters:
-    en: No model is perfectly aligned, so outside checks give a second, testable line of defence that the owner can change quickly without training the model again.
-    da: Ingen model er perfekt afstemt, så eksterne kontroller giver en ekstra forsvarslinje, der kan testes, og som ejeren hurtigt kan ændre uden at træne modellen igen.
+    en: Training never makes a model fully safe, so outside checks give a second, testable line of defence that the owner can change quickly without training the model again.
+    da: Træning gør aldrig en model helt sikker, så eksterne kontroller giver en ekstra forsvarslinje, der kan testes, og som ejeren hurtigt kan ændre uden at træne modellen igen.
 edges:
   requires: [large-language-model]
   mitigates:

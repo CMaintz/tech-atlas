@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: Software that receives alarms, mostly from a SIEM, and runs stored step-by-step plans across other tools, such as looking up an address in threat intelligence, locking an account or isolating a laptop, while keeping one case record for the analysts.
-    da: Software, der modtager alarmer, oftest fra en SIEM, og kører gemte trin-for-trin-forløb på tværs af andre værktøjer, fx slår en adresse op i trusselsefterretninger, spærrer en konto eller isolerer en bærbar, mens den fører én samlet sag for analytikerne.
+    da: Software, der modtager alarmer, oftest fra en SIEM, og kører gemte trin-for-trin-forløb på tværs af andre værktøjer, fx slår en adresse op i threat intelligence, spærrer en konto eller isolerer en bærbar, mens den fører én samlet sag for analytikerne.
   plain:
     en: Like a kitchen where the prep cook does all the chopping and measuring from the recipe, so the chef only has to make the real decisions.
     da: Som et køkken, hvor kokkeassistenten klarer alt forarbejdet efter opskriften, så kokken kun skal træffe de egentlige beslutninger.
   inPractice:
-    en: When a staff member reports a phishing mail, SOAR pulls out the links, checks them against known bad sites, deletes the same mail from every inbox and hands the analyst a finished summary.
-    da: Når en medarbejder melder en phishingmail, trækker SOAR linkene ud, tjekker dem mod kendte skadelige sider, sletter den samme mail fra alle indbakker og giver analytikeren et færdigt sammendrag.
+    en: When a clerk at a municipality reports a phishing email, SOAR pulls out the links, checks them against known bad sites, deletes the same email from every inbox and hands the analyst a finished summary.
+    da: Når en sagsbehandler i en kommune melder en phishing-mail, trækker SOAR linkene ud, tjekker dem mod kendte skadelige sider, sletter den samme mail fra alle indbakker og giver analytikeren et færdigt sammendrag.
   whyItMatters:
     en: Teams get far more alarms than people can handle by hand; taking the routine steps off their hands answers attacks in minutes instead of hours.
     da: Teams får langt flere alarmer, end mennesker kan klare i hånden; når de faste trin klares automatisk, besvares angreb på minutter i stedet for timer.

@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: The number of examples from the training data grouped into one batch; the loss is averaged over the batch and gradient descent makes one update per batch, so it sets both memory use and how noisy each step is.
-    da: Antallet af eksempler fra træningsdata, der samles i ét parti; man tager gennemsnittet af tabet over partiet, og gradientnedstigning laver én opdatering pr. parti, så det styrer både hukommelsesforbrug og hvor støjende hvert skridt er.
+    da: Antallet af eksempler fra træningsdata, der samles i én batch; tabet beregnes som gennemsnit over batchen, og gradientnedstigning laver én opdatering pr. batch, så værdien styrer både hukommelsesforbrug og hvor ujævnt hvert skridt er.
   plain:
     en: Like a teacher marking homework — correcting after every single sheet is slow and jumpy, waiting for the whole class is steady but needs a big desk.
     da: Som en lærer, der retter lektier — at rette efter hvert eneste ark er langsomt og hoppende, at vente på hele klassen er roligt, men kræver et stort bord.
   inPractice:
-    en: Model training crashes with an out-of-memory error on a small GPU, so the engineer halves the batch size and lowers the step size to match.
-    da: Modeltræningen går ned med en fejl om for lidt hukommelse på en lille GPU, så ingeniøren halverer batchstørrelsen og sænker skridtstørrelsen tilsvarende.
+    en: A data analyst at a water utility trains a leak-spotting model on years of meter readings; the run stops with an out-of-memory error on the utility's only GPU, so she halves the batch size and lowers the step size to match.
+    da: En dataanalytiker på et vandværk træner en model, der skal finde lækager, på flere års målerdata; kørslen stopper med en fejl om for lidt hukommelse på vandværkets eneste GPU, så hun halverer batchstørrelsen og sænker skridtstørrelsen tilsvarende.
   whyItMatters:
     en: It decides how much hardware a run needs and how fast and stable learning is, which drives both cost and final quality.
     da: Den afgør, hvor meget hardware en kørsel kræver, og hvor hurtig og stabil læringen er, hvilket styrer både pris og endelig kvalitet.
@@ -32,7 +32,7 @@ edges:
     - to: gradient-descent
       why:
         en: Gradient descent makes one step per batch, so the batch size decides how many steps an epoch contains.
-        da: Gradientnedstigning tager ét skridt pr. parti, så batchstørrelsen afgør, hvor mange skridt en epoke indeholder.
+        da: Gradientnedstigning tager ét skridt pr. batch, så batchstørrelsen afgør, hvor mange skridt en epoke indeholder.
       strength: primary
       confidence: high
 sources:

@@ -19,8 +19,8 @@ body:
     en: Like a security guard's desk with screens from every camera in the building, plus a helper who points out when the same stranger shows up at three doors.
     da: Som en vagts skrivebord med skærme fra alle bygningens kameraer, plus en hjælper, der gør opmærksom på, når den samme fremmede dukker op ved tre døre.
   inPractice:
-    en: The SIEM notices five failed attempts to log in to one account, followed by a successful one from another country ten minutes later, and opens an alarm for the on-call analyst.
-    da: SIEM'en ser fem mislykkede login på én konto efterfulgt af et vellykket login fra et andet land ti minutter senere og opretter en alarm til den vagthavende analytiker.
+    en: At an accounting firm, the SIEM notices five failed attempts to log in to a partner's account, followed by a successful one from another country ten minutes later, and opens an alarm for the on-call analyst.
+    da: Hos et revisionsfirma ser SIEM'en fem mislykkede login på en partners konto efterfulgt af et vellykket login fra et andet land ti minutter senere og opretter en alarm til den vagthavende analytiker.
   whyItMatters:
     en: One odd event rarely means much; seeing events from many systems side by side is what turns scattered clues into an attack spotted in time.
     da: Én enkelt underlig hændelse betyder sjældent meget; det er, når man ser hændelser fra mange systemer side om side, at spredte spor bliver til et angreb opdaget i tide.

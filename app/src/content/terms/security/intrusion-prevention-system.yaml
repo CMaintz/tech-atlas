@@ -20,8 +20,8 @@ body:
     en: Like a bouncer at the door who turns away anyone matching a description, instead of just phoning the police.
     da: Som en dørmand, der afviser enhver, der passer på en efterlysning, i stedet for bare at ringe til politiet.
   inPractice:
-    en: An outside server sends a request built to abuse a known flaw in the company website; the IPS recognises the pattern and drops it, so the request never reaches the site.
-    da: En fremmed server sender en forespørgsel lavet til at misbruge en kendt fejl på firmaets hjemmeside; IPS'en genkender mønstret og kasserer den, så den aldrig når frem.
+    en: An outside server sends a request built to abuse a known flaw in a municipality's self-service site for citizens; the IPS recognises the pattern and drops it, and the network team sees only a blocked entry in the log.
+    da: En fremmed server sender en forespørgsel, der er lavet til at misbruge en kendt fejl i kommunens selvbetjening for borgere; IPS'en genkender mønstret og kasserer den, og netværksteamet ser kun en blokering i loggen.
   whyItMatters:
     en: It stops attacks without waiting for a human, but a wrong judgement blocks real users too — so rules must be tuned to balance safety against availability.
     da: Den stopper angreb uden at vente på et menneske, men en forkert vurdering blokerer også rigtige brugere — så reglerne skal justeres, så sikkerhed og tilgængelighed balancerer.

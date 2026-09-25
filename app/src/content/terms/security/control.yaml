@@ -12,17 +12,17 @@ summary:
   da: Et tiltag, der mindsker risikoen — teknisk som en lås på et system, eller organisatorisk som en regel eller træning.
 body:
   formal:
-    en: Any technical, organisational, physical or human measure put in place to reduce the likelihood or the impact of a risk.
-    da: Ethvert teknisk, organisatorisk, fysisk eller menneskeligt tiltag, der indføres for at mindske sandsynligheden for eller konsekvensen af en risiko.
+    en: Any technical, organisational, physical or human measure put in place to reduce the likelihood or the impact of a risk. Controls are often sorted by what they do — prevent, detect or correct.
+    da: Ethvert teknisk, organisatorisk, fysisk eller menneskeligt tiltag, der indføres for at mindske sandsynligheden for eller konsekvensen af en risiko. Kontroller inddeles ofte efter, om de forebygger, opdager eller retter op.
   plain:
     en: Like a smoke alarm, a fire door and a fire drill — three different kinds of measure against the same danger.
     da: Som en røgalarm, en branddør og en brandøvelse — tre forskellige slags tiltag mod den samme fare.
   inPractice:
-    en: To cut the risk of stolen logins, a firm turns on MFA (technical), writes a password rule (organisational) and runs a short training (human).
-    da: For at mindske risikoen for stjålne logins slår en virksomhed MFA til (teknisk), skriver en regel for adgangskoder (organisatorisk) og holder et kort kursus (menneskelig).
+    en: To cut the risk of stolen logins, the IT manager at a small Danish manufacturer turns on MFA (technical), writes a password rule (organisational) and gives staff a short course (human).
+    da: For at mindske risikoen for stjålne logins slår IT-chefen i en mindre produktionsvirksomhed MFA til (teknisk), skriver en regel for adgangskoder (organisatorisk) og holder et kort kursus for medarbejderne (menneskelig).
   whyItMatters:
-    en: Controls are how security decisions become real; each one should answer a named risk, or it is just cost.
-    da: Kontroller er det, der gør sikkerhedsbeslutninger til virkelighed; hver kontrol bør svare på en navngiven risiko — ellers er den bare en udgift.
+    en: Controls are how security decisions become real; each one should answer a named risk, or it only costs money and effort.
+    da: Kontroller er det, der gør sikkerhedsbeslutninger til virkelighed; hver kontrol bør svare på en navngiven risiko — ellers koster den bare penge og besvær.
 edges:
   requires: [risk]
   mitigates:

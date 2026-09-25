@@ -6,7 +6,7 @@ lang: en
 
 ## What NIS2 is and who it applies to
 
-NIS2 is Directive (EU) 2022/2555 on measures for a high common level of cybersecurity across the Union. It replaces the first NIS Directive (2016/1148), which covered a narrow set of "operators of essential services" and was applied very unevenly between member states. As a _directive_, NIS2 does not apply directly: each member state writes it into national law. In Denmark this is the NIS2 law (_NIS2-loven_), in force since 1 July 2025, with _Styrelsen for Samfundssikkerhed_, the Danish agency for societal security, as the coordinating authority and sector authorities supervising their own sectors. Finance is largely governed by DORA instead.
+NIS2 is Directive (EU) 2022/2555 on measures for a high common level of cybersecurity across the Union. It replaces the first NIS Directive (2016/1148), which covered a narrow set of "operators of essential services" and was applied very unevenly between member states. As a _directive_, NIS2 does not apply directly: each member state writes it into national law. In Denmark this is the NIS2 law (_NIS2-loven_), in force since 1 July 2025, with _Styrelsen for Samfundssikkerhed_ (SAMSIK, the Danish Resilience Agency), as the coordinating authority and sector authorities supervising their own sectors. Incident reports are made via Virk.dk and handled by the Danish Defence Intelligence Service (_Forsvarets Efterretningstjeneste_) as national CSIRT; Center for Cybersikkerhed (CFCS), whose advisory work moved into the agency in January 2025, publishes threat assessments and guidance. Finance is largely governed by DORA instead.
 
 Scope is decided by **sector** and **size**:
 
@@ -35,7 +35,7 @@ In-scope organisations are either **essential** or **important** entities. Both 
 | i   | Human resources security, access control policies and asset management                            |
 | j   | Multi-factor or continuous authentication, secured voice/video/text and emergency communications  |
 
-**Article 23 – reporting.** A _significant incident_ (one causing severe operational disruption or financial loss, or considerable damage to others) must be reported to the CSIRT or competent authority in stages:
+**Article 23 – reporting.** A _significant incident_ (one that has caused or can cause severe operational disruption or financial loss, or considerable damage to others) must be reported to the CSIRT or competent authority in stages:
 
 | Deadline                             | Report                                                                                              |
 | ------------------------------------ | --------------------------------------------------------------------------------------------------- |
@@ -52,7 +52,7 @@ NIS2 says _what_ must be achieved, not _how_. That is where the voluntary framew
 
 - **ISO 27001** gives the management system: risk assessment, policies, internal audit and management review. Its Annex A controls map well onto the ten areas of Article 21. A certificate is strong evidence, but it is not automatic NIS2 compliance – the scope of the certificate may not cover the relevant services, and ISO does not include the Article 23 reporting deadlines.
 - **CIS Controls** give a prioritised, technical to-do list. Implementation Group 1 is a realistic starting point for "basic cyber hygiene" (Art. 21(2)(g)) in a smaller organisation.
-- **D-mærket**, the Danish label for IT security and responsible data use, can be used as a structured self-assessment to see how far an organisation is from the NIS2 requirements.
+- **D-mærket**, the Danish label for IT security and responsible data use, can be used as a structured self-assessment to see how far an organisation is from the NIS2 requirements, and to show maturity to customers and partners.
 - **GDPR** runs in parallel: a single breach involving personal data may require a 24-hour NIS2 early warning _and_ a 72-hour GDPR notification to Datatilsynet – two reports to two different authorities.
 
 ## What a coordinator actually does with it

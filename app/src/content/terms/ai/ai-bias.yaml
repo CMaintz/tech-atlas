@@ -14,23 +14,23 @@ summary:
 body:
   formal:
     en: A systematic error in which a model's results favour or harm certain groups, usually because the training data under-represents them or reflects past unfair decisions, or because of how the goal was defined.
-    da: En systematisk fejl, hvor en models resultater favoriserer eller skader bestemte grupper, som regel fordi træningsdataene underrepræsenterer dem eller afspejler tidligere uretfærdige beslutninger, eller på grund af den måde, målet blev defineret på.
+    da: En systematisk fejl, hvor en models resultater stiller bestemte grupper bedre eller dårligere, som regel fordi træningsdataene underrepræsenterer dem eller afspejler tidligere uretfærdige beslutninger, eller fordi målet er defineret skævt.
   plain:
     en: Like a new manager who only ever learned from one old boss's hiring records — they copy every habit, fair or not, and do it at speed.
     da: Som en ny leder, der kun har lært af én gammel chefs ansættelser — vedkommende kopierer alle vanerne, fair eller ej, og gør det i højt tempo.
   inPractice:
-    en: A bank's loan tool trained on twenty years of past decisions scores applicants from certain neighbourhoods lower, even though where people live was never meant to count.
-    da: En banks låneværktøj, der er trænet på tyve års tidligere afgørelser, giver ansøgere fra bestemte postnumre en lavere score, selvom postnummeret aldrig skulle tælle med.
+    en: A municipality tests an AI tool, trained on years of past case decisions, that ranks unemployed citizens for extra help, and finds it places people from certain areas lower although where they live was never meant to count.
+    da: En kommune afprøver et AI-værktøj, der er trænet på mange års tidligere afgørelser og skal prioritere ledige til ekstra indsats, og opdager, at borgere fra bestemte postnumre havner lavere, selvom bopæl aldrig skulle tælle med.
   whyItMatters:
-    en: Unfair automated decisions can break equal-treatment and data protection law, harm people at scale and damage trust, and they are easy to miss without deliberate testing.
-    da: Uretfærdige automatiske afgørelser kan bryde ligebehandlings- og databeskyttelsesregler, skade mange mennesker på én gang og ødelægge tillid, og de overses let uden bevidst test.
+    en: An unfair pattern repeats in every automated decision until someone looks for it, so it can break equal-treatment and data protection law for thousands of people before anyone notices.
+    da: En uretfærdig skævhed gentages i hver eneste automatiske afgørelse, indtil nogen leder efter den, så den kan bryde ligebehandlings- og databeskyttelsesreglerne for tusindvis af mennesker, før nogen opdager det.
 edges:
   requires: [training-data, machine-learning]
   contrasts-with:
     - to: hallucination
       why:
         en: Bias is a steady tilt in results for certain groups; a hallucination is a confident answer that is simply made up.
-        da: Bias er en fast skævhed i resultaterne for bestemte grupper; en hallucination er et selvsikkert svar, der simpelthen er opdigtet.
+        da: Bias er en fast skævhed i resultaterne for bestemte grupper; en hallucination er et selvsikkert svar, der simpelthen er fundet på.
       strength: normal
       confidence: high
   causes:

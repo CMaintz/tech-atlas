@@ -10,17 +10,17 @@ layer: infrastructure
 status: current
 summary:
   en: The cloud model where the provider runs the machines and operating system, and you only bring your own program and its data.
-  da: Cloud-modellen, hvor udbyderen driver maskiner og styresystem, og du kun leverer dit eget program og dets data.
+  da: Cloudmodellen, hvor udbyderen driver maskiner og styresystem, og du kun leverer dit eget program og dets data.
 body:
   formal:
     en: A cloud service model in which the customer places its own programs on a platform the provider manages, without control over the underlying servers, operating system or storage, but with control over the programs and their settings.
     da: En cloud-servicemodel, hvor kunden lægger sine egne programmer på en platform, som udbyderen driver, uden kontrol over de underliggende servere, styresystem eller lager, men med kontrol over programmerne og deres indstillinger.
   plain:
     en: Like renting a fully equipped restaurant kitchen — ovens, gas and cleaning are handled, and you just bring your recipes and ingredients.
-    da: Som at leje et fuldt udstyret restaurantkøkken — ovne, gas og rengøring er klaret, og du kommer bare med dine opskrifter og råvarer.
+    da: Som at leje et fuldt udstyret restaurantkøkken — ovne, gas og rengøring er klaret, og du kommer bare med dine opskrifter og ingredienser.
   inPractice:
-    en: A developer uploads a web shop to a managed platform; the provider keeps the servers updated, but the developer still decides who can log in and what the program shows to the outside world.
-    da: En udvikler lægger en webshop op på en administreret platform; udbyderen holder serverne opdateret, men udvikleren bestemmer stadig, hvem der kan logge ind, og hvad programmet viser udadtil.
+    en: A developer at a municipality puts the booking site for its sports halls on a managed platform; the provider keeps the servers patched, but the developer still decides who can log in and what the site shows the public.
+    da: En udvikler i en kommune lægger bookingsiden til kommunens idrætshaller på en færdig platform hos en cloududbyder; udbyderen holder serverne patchede, men udvikleren bestemmer stadig, hvem der kan logge ind, og hvad siden viser offentligt.
   whyItMatters:
     en: It moves the patching of servers to the provider, but flaws in your own program and its settings remain yours to fix.
     da: Den flytter patching af servere over til udbyderen, men fejl i dit eget program og dets indstillinger er stadig dine at rette.

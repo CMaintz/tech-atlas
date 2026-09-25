@@ -14,14 +14,14 @@ summary:
   da: Overtagelse af en brugers session efter login, så angriberen behandles som brugeren uden at kende adgangskoden.
 body:
   formal:
-    en: An attack in which the secret marker that proves a user has already logged in is stolen or guessed and then reused from the attacker's own machine. Because the check happened at login, the system accepts the attacker as the real user.
-    da: Et angreb, hvor det hemmelige kendetegn, der viser, at en bruger allerede er logget ind, bliver stjålet eller gættet og derefter genbrugt fra angriberens egen maskine. Fordi kontrollen skete ved login, accepterer systemet angriberen som den rigtige bruger.
+    en: An attack in which the session token or cookie that proves a user has already logged in is stolen or guessed and then reused from the attacker's own machine. Because the check happened at login, the system accepts the attacker as the real user.
+    da: Et angreb, hvor den session-token eller cookie, der viser, at en bruger allerede er logget ind, bliver stjålet eller gættet og derefter genbrugt fra angriberens egen maskine. Fordi kontrollen skete ved login, accepterer systemet angriberen som den rigtige bruger.
   plain:
     en: Someone copies the stamp on your hand outside the club and walks in as if they had shown ID at the door.
     da: En person kopierer stemplet på din hånd uden for diskoteket og går ind, som om vedkommende havde vist ID ved døren.
   inPractice:
-    en: A harmful add-on in an employee's browser quietly copies her live login to the company's online email; the attacker opens her inbox from abroad without ever seeing an MFA prompt.
-    da: En skadelig browserudvidelse kopierer i det skjulte en medarbejders aktive login til firmaets cloud-mail; angriberen åbner indbakken fra udlandet uden nogensinde at møde en MFA-godkendelse.
+    en: A harmful browser extension on a case worker's PC in a Danish region copies her live session cookie for the cloud mail service; the attacker opens her inbox from abroad without ever meeting an MFA prompt.
+    da: En skadelig browserudvidelse på en sagsbehandlers pc i en region kopierer i det skjulte hendes aktive sessionscookie til cloud-mailen; angriberen åbner indbakken fra udlandet uden nogensinde at blive bedt om MFA.
   whyItMatters:
     en: It gets around strong passwords and even MFA, because it steals what the system hands out after those checks have passed.
     da: Det går uden om stærke adgangskoder og endda MFA, fordi det stjæler det, systemet udleverer, efter at kontrollerne er bestået.

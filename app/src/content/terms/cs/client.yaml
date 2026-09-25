@@ -9,21 +9,21 @@ cluster: networking
 layer: network
 status: current
 summary:
-  en: The program or device that starts a conversation over a network by sending a request, such as a web browser asking for a page.
-  da: Det program eller den enhed, der starter en samtale over et netværk ved at sende en forespørgsel, fx en browser, der beder om en side.
+  en: The program or device that starts a network exchange by sending a request, such as a web browser asking for a page.
+  da: Det program eller den enhed, der starter en udveksling over et netværk ved at sende en forespørgsel, fx en browser, der beder om en side.
 body:
   formal:
-    en: The side of a network exchange that opens the connection and sends requests, following a protocol, to a server that answers them.
-    da: Den side af en udveksling over netværket, der åbner forbindelsen og sender forespørgsler efter en protokol til en server, som besvarer dem.
+    en: The party in a network exchange that opens the connection and sends requests, following a shared protocol, to a server that waits and replies. The role is defined by who starts the exchange, not by the kind of machine.
+    da: Den part i en udveksling over netværket, der åbner forbindelsen og sender forespørgsler efter en fælles protokol til en server, som venter og svarer. Rollen afgøres af, hvem der tager initiativet, ikke af, hvilken slags maskine det er.
   plain:
     en: Like a customer walking up to a shop counter — the customer asks, the shop answers, and it is always the customer who starts.
     da: Som en kunde, der går hen til disken i en butik — kunden spørger, butikken svarer, og det er altid kunden, der begynder.
   inPractice:
-    en: The mail app on an employee's phone is a client that contacts the company's mail server every few minutes to check for new messages.
-    da: Mail-appen på en medarbejders telefon er en klient, der kontakter virksomhedens mailserver med få minutters mellemrum for at se efter nye beskeder.
+    en: In a municipality's citizen service, the program on a clerk's PC is a client — each time she looks up a citizen, it sends a request to the central case system and shows the reply.
+    da: I en kommunes borgerservice er programmet på sagsbehandlerens pc en klient — hver gang hun slår en borger op, sender det en forespørgsel til det centrale sagssystem og viser svaret.
   whyItMatters:
-    en: Clients run on the devices people use every day, so a tricked or outdated client is often how an attacker first gets inside.
-    da: Klienter kører på de enheder, folk bruger hver dag, så en narret eller forældet klient er ofte den vej, en angriber først kommer ind ad.
+    en: Clients run on the devices people use every day and process whatever comes back to them, so a tricked or outdated client is often how an attacker first gets inside.
+    da: Klienter kører på de enheder, folk bruger hver dag, og behandler alt, hvad der kommer tilbage til dem, så en narret eller forældet klient er ofte angriberens første vej ind.
 edges:
   requires: [network, protocol]
   contrasts-with:

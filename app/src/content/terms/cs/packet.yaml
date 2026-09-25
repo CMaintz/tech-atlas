@@ -14,17 +14,17 @@ summary:
   da: En lille, mærket bid data, der rejser selvstændigt over et netværk og samles igen ved modtageren.
 body:
   formal:
-    en: A unit of data carried across a network, made of a label part holding control details such as sender and receiver addresses, followed by the content itself.
-    da: En enhed af data, der sendes over et netværk, bestående af en mærkat-del med styreoplysninger som afsender- og modtageradresse efterfulgt af selve indholdet.
+    en: A unit of data carried across a network, made of a header holding control details such as sender and receiver addresses, followed by the content itself. Each packet is routed separately, so packets from one message may take different paths.
+    da: En enhed af data, der sendes over et netværk, bestående af et hoved med styreoplysninger som afsender- og modtageradresse efterfulgt af selve indholdet. Hver pakke sendes af sted for sig, så pakker fra samme besked kan tage forskellige veje.
   plain:
     en: Like sending a book by post one page at a time, each page in its own addressed envelope, and reassembling the book when all envelopes arrive.
     da: Som at sende en bog med posten én side ad gangen, hver side i sin egen adresserede kuvert, og samle bogen igen, når alle kuverterne er kommet frem.
   inPractice:
-    en: A video call is split into thousands of packets per second, and each one may take a different route before reaching the other person.
-    da: Et videoopkald deles op i tusindvis af pakker i sekundet, og hver af dem kan tage en anden vej, før den når den anden person.
+    en: During a video consultation between a doctor and a patient, the call is split into thousands of packets per second; if some are lost on the way, the picture freezes for a moment but the call carries on.
+    da: Under en videokonsultation mellem en læge og en patient deles samtalen op i tusindvis af pakker i sekundet; går nogle tabt undervejs, fryser billedet et øjeblik, men samtalen fortsætter.
   whyItMatters:
-    en: Firewalls and intrusion systems inspect traffic packet by packet, so the packet is the unit most network controls actually see and judge.
-    da: Firewalls og indtrængningssystemer undersøger trafikken pakke for pakke, så pakken er den enhed, de fleste netværkskontroller faktisk ser og vurderer.
+    en: Firewalls and intrusion detection systems inspect traffic packet by packet, so the packet is the unit most network controls actually see and judge.
+    da: Firewalls og IDS'er undersøger trafikken pakke for pakke, så pakken er den enhed, de fleste netværkskontroller faktisk ser og vurderer.
 edges:
   requires: [network, protocol]
 sources:

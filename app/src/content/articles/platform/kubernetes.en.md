@@ -33,11 +33,11 @@ All changes go through the **API server**. Humans use the `kubectl` tool or a pi
 
 ### Security building blocks
 
-Kubernetes has strong security features, but many are optional or loosely configured by default:
+Kubernetes has extensive security features, but many are optional or loosely configured by default:
 
 - **Role-based access control (RBAC)** decides who and what may read or change which objects. Overly broad roles — "cluster-admin for everyone" — are common.
 - **Network policies** limit which pods may talk to each other. Without them, every pod can typically reach every other pod.
-- **Pod security standards** prevent containers from running as root, mounting the host's file system or gaining extra privileges.
+- **Pod security standards**, enforced per namespace through admission control, prevent containers from running as root, mounting the host's file system or gaining extra privileges.
 - **Secrets** are only base64-encoded by default, not encrypted; encryption at rest and an external **secrets management** solution are separate choices.
 - **Audit logs** record API calls, but must be turned on and collected.
 
@@ -62,6 +62,6 @@ Using a short checklist based on NIST SP 800-190, he asks the team five question
 
 - **"Kubernetes is secure by default."** It has good security features, but many are off or permissive out of the box. Security depends on configuration.
 - **"Containers are isolated like virtual machines."** Containers share the host's kernel. Isolation is weaker, which is why pod security settings matter.
-- **"Kubernetes Secrets are encrypted."** By default they are only encoded. Encryption at rest must be enabled, and access to secrets restricted.
+- **"Kubernetes Secrets are encrypted."** In upstream Kubernetes they are by default only encoded. Encryption at rest must be enabled (some managed services now do this by default), and access to secrets restricted.
 - **"A managed service means the provider handles security."** The provider secures the control plane; workloads, RBAC, network policies and images are the customer's.
-- **"We need Kubernetes to be modern."** It is powerful but complex. For a few simple applications, a PaaS offering may give the same benefits with far less to secure.
+- **"We need Kubernetes to be modern."** It solves real problems but adds complexity. For a few simple applications, a PaaS offering may give the same benefits with far less to secure.

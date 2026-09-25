@@ -11,20 +11,20 @@ status: current
 era: 2016
 summary:
   en: A written contract that sets how a supplier may handle personal data on your behalf.
-  da: En skriftlig aftale, der fastlægger, hvordan en leverandør må håndtere persondata på ens vegne.
+  da: En skriftlig aftale, der fastlægger, hvordan en leverandør må håndtere personoplysninger på ens vegne.
 body:
   formal:
-    en: A binding contract required by GDPR Article 28 between the organisation that decides why personal data is used and the supplier that handles it, covering purpose, security, sub-suppliers, breach notice and removing the data at the end.
-    da: En bindende aftale, som GDPR's artikel 28 kræver mellem den, der bestemmer, hvorfor persondata bruges, og den leverandør, der behandler dem, og som dækker formål, sikkerhed, underleverandører, varsling ved brud og sletning.
+    en: The binding contract GDPR Article 28 requires between a data controller and a data processor, setting the subject, duration and purpose of the processing, the security measures, the use of sub-processors, help after a breach and whether data is returned or deleted at the end.
+    da: Den bindende aftale, som GDPR artikel 28 kræver mellem en dataansvarlig og en databehandler, og som fastlægger behandlingens genstand, varighed og formål, sikkerhedstiltagene, brugen af underdatabehandlere, bistand ved brud og at oplysningerne leveres tilbage eller slettes, når aftalen slutter.
   plain:
-    en: Like the rules you give a house-sitter — what they may touch, who else may come in, and what to do if something goes missing.
-    da: Som de regler, du giver en huspasser — hvad de må røre, hvem der ellers må komme ind, og hvad de skal gøre, hvis noget forsvinder.
+    en: Like the written rules you leave for a house-sitter — which rooms they may enter, who else may come in, and what to do if something goes missing.
+    da: Som de skrevne regler, du efterlader til en huspasser — hvilke rum de må gå ind i, hvem der ellers må komme ind, og hvad de skal gøre, hvis noget forsvinder.
   inPractice:
-    en: A dental clinic signs a DPA with its booking-system provider stating that patient data stays in the EU and is deleted when the contract ends.
-    da: En tandlægeklinik indgår en databehandleraftale med udbyderen af sit bookingsystem om, at patientdata bliver i EU og slettes, når aftalen ophører.
+    en: A Danish accounting firm moving client files to a cloud document system signs a DPA with the supplier stating that the files stay in the EU, that sub-suppliers need approval and that everything is deleted when the contract ends.
+    da: Et dansk revisionsfirma, der flytter klientfiler til et dokumentsystem i skyen, indgår en databehandleraftale med leverandøren om, at filerne bliver i EU, at underleverandører skal godkendes, og at alt slettes, når aftalen ophører.
   whyItMatters:
-    en: Handing data to a supplier without one breaks GDPR, and it leaves you blind to how your customers' data is actually treated.
-    da: At give data til en leverandør uden en sådan aftale er et brud på GDPR og efterlader en uden indsigt i, hvordan kundernes data faktisk behandles.
+    en: Handing personal data to a supplier without one is itself a GDPR breach, and without the agreed terms there is no way to demand audits, the removal of data or a warning after a leak.
+    da: At give personoplysninger til en leverandør uden en sådan aftale er i sig selv en overtrædelse af GDPR, og uden aftalte vilkår kan man hverken kræve kontrol, at data bliver slettet, eller besked efter et læk.
 edges:
   requires: [gdpr, personal-data]
   used-with:
@@ -32,7 +32,7 @@ edges:
     - to: supplier-management
       why:
         en: The DPA is the contract tool supplier management uses whenever personal data is involved.
-        da: Databehandleraftalen er det aftaleværktøj, leverandørstyring bruger, når der er persondata involveret.
+        da: Databehandleraftalen er det aftaleværktøj, leverandørstyring bruger, når der er personoplysninger involveret.
       strength: primary
       confidence: high
     - data-processor

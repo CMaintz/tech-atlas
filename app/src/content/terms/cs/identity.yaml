@@ -10,16 +10,16 @@ layer: identity
 status: current
 summary:
   en: The set of facts that lets a computer system tell one person, device or program apart from all others.
-  da: De oplysninger, der gør det muligt for et it-system at skelne én person, enhed eller ét program fra alle andre.
+  da: De oplysninger, der gør det muligt for et IT-system at skelne én person, enhed eller ét program fra alle andre.
 body:
   formal:
-    en: The unique representation of a subject — a person, device or program — within a system, made up of details such as a name, an email address or an employee number.
-    da: Den entydige repræsentation af et subjekt — en person, en enhed eller et program — i et system, bestående af oplysninger som navn, e-mailadresse eller medarbejdernummer.
+    en: The details a system records about one person, device or program — such as a name, an email address or an employee number — within a given context. It describes who a person or thing is said to be; proving that claim is a separate step, and one person may hold several identities.
+    da: De oplysninger, et system registrerer om én person, enhed eller ét program i en bestemt sammenhæng — fx navn, mailadresse eller medarbejdernummer. Den beskriver, hvem der er tale om; at bevise det er et særskilt trin, og én person kan have flere identiteter.
   plain:
     en: Like the details in a passport — name, birth date, photo — which together say who you are, before anyone has checked that it is really you.
     da: Som oplysningerne i et pas — navn, fødselsdato, foto — der tilsammen siger, hvem du er, før nogen har tjekket, at det faktisk er dig.
   inPractice:
-    en: In Denmark, the national login every citizen uses ties a person's CPR number to one digital identity that banks, the tax authority and the municipality all recognise.
+    en: In Denmark, MitID ties a person's CPR number to one digital identity that banks, the tax authority and the municipality all recognise.
     da: I Danmark knytter MitID en persons CPR-nummer til én digital identitet, som banker, Skattestyrelsen og kommunen alle genkender.
   whyItMatters:
     en: Every access decision and every audit log entry points back to an identity; if identities are muddled or shared, no one can be held accountable.

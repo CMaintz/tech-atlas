@@ -8,7 +8,7 @@ lang: da
 
 **Retrieval-augmented generation (RAG)** er en måde at bygge AI-assistenter på, hvor et søgetrin først finder afsnit, der er relevante for et spørgsmål, i en udvalgt samling dokumenter, hvorefter en **stor sprogmodel (LLM)** skriver sit svar ud fra de afsnit. I stedet for at svare ud fra det, modellen tilfældigvis opsugede under træningen, svarer den ud fra materiale, I selv leverer – som en studerende til en eksamen med alle hjælpemidler.
 
-Begrebet stammer fra en artikel fra 2020 af Patrick Lewis og kolleger hos Facebook AI Research, "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks", som kombinerede en søgekomponent med en tekstgenerator og viste bedre resultater på spørgsmålsbesvarelse end hver af dem alene. Idéen tog fart efter 2022, da organisationer ønskede chatassistenter, der kendte _deres_ politikker, produkter og sager. RAG viste sig at være langt billigere og mere fleksibelt end at gentræne en model, hver gang et dokument ændrede sig, og det er blevet standarddesignet for interne "chat med jeres dokumenter"-værktøjer.
+Begrebet stammer fra en artikel fra 2020 af Patrick Lewis og kolleger hos Facebook AI Research, "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks", som kombinerede en søgekomponent med en tekstgenerator og viste bedre resultater på spørgsmålsbesvarelse end hver af dem alene. Ideen tog fart efter 2022, da organisationer ønskede chatassistenter, der kendte _deres_ politikker, produkter og sager. RAG viste sig at være langt billigere og mere fleksibelt end at gentræne en model, hver gang et dokument ændrede sig, og det er blevet standarddesignet for interne "chat med jeres dokumenter"-værktøjer.
 
 ## Hvordan virker det?
 
@@ -34,7 +34,7 @@ RAG holder svarene **opdaterede** (opdater et dokument, og næste svar afspejler
 
 ### RAG over for finjustering
 
-Det vigtigste alternativ til at tilpasse en model til en organisation er **finjustering**, hvor modellen får ekstra træning på jeres egne eksempler. Finjustering er god til at ændre, _hvordan_ en model skriver – tone, format, fagsprog – men den bager viden ind i modellen, hvor den er svær at opdatere, svær at begrænse per bruger og næsten umulig at slette. RAG holder viden _uden for_ modellen, hvor almindelig adgangsstyring og sletning virker. Mange systemer i praksis bruger begge dele.
+Det vigtigste alternativ til at tilpasse en model til en organisation er **finjustering**, hvor modellen får ekstra træning på jeres egne eksempler. Finjustering er god til at ændre, _hvordan_ en model skriver – tone, format, fagsprog – men den bager viden ind i modellen, hvor den er svær at opdatere, svær at begrænse per bruger og næsten umulig at slette. RAG holder viden _uden for_ modellen, hvor almindelig adgangsstyring og sletning virker. Mange systemer bruger i praksis begge dele.
 
 ## Hvad betyder det for en organisation og en koordinator?
 
@@ -45,7 +45,7 @@ RAG gør en AI-assistent til en ny vej ind til jeres dokumenter. Det gør det li
 - **Upålideligt indhold.** Dokumenter udefra – kundemails, leverandørfiler, hjemmesider – kan indeholde **prompt injection**. Hentet tekst skal behandles som data, ikke som instruktioner.
 - **Persondata.** Indekset er en kopi af jeres dokumenter. Det skal være omfattet af slettefrister og de registreredes rettigheder efter GDPR; det er ikke nok at slette originalen, hvis bidden stadig ligger i indekset.
 
-### Et gennemregnet eksempel
+### Et eksempel fra praksis
 
 Ida er GRC-studerende i en dansk ingeniørvirksomhed med 400 ansatte. IT har bygget en intern hjælpebot, der besvarer spørgsmål som "hvor mange feriedage har jeg?" ved at finde den gældende HR-politik, citere den og linke til kilden – eksemplet fra begrebets definition. Det fungerer godt i piloten, og IT vil gerne tilføje hele HR-drevet.
 

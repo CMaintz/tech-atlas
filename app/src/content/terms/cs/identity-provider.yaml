@@ -14,14 +14,14 @@ summary:
   da: En betroet tjeneste, der gemmer brugernes identiteter, kontrollerer deres login og går i god for dem over for andre programmer.
 body:
   formal:
-    en: A system that creates and maintains digital identities, performs authentication, and then sends sealed statements about the user to other applications that have agreed to trust it.
-    da: Et system, der opretter og vedligeholder digitale identiteter, udfører autentificering og derefter sender forseglede erklæringer om brugeren til andre programmer, der har aftalt at stole på det.
+    en: A system that creates and maintains digital identities, performs authentication, and then sends signed statements about the user to other applications that have agreed to trust it.
+    da: Et system, der opretter og vedligeholder digitale identiteter, udfører autentificering og derefter sender signerede erklæringer om brugeren til andre programmer, der har sagt ja til at stole på det.
   plain:
     en: Like the passport office — it checks who you are once and issues a document that airlines and hotels accept without checking you from scratch.
     da: Som paskontoret — det kontrollerer én gang, hvem du er, og udsteder et dokument, som flyselskaber og hoteller godtager uden at tjekke dig forfra.
   inPractice:
-    en: A company runs one central identity provider for all staff; when an employee leaves, switching off their identity there cuts off email, files and every connected app together.
-    da: En virksomhed bruger Microsoft Entra ID som identitetsudbyder; når en medarbejder stopper, lukker én deaktivering dér for mail, filer og alle tilknyttede apps på én gang.
+    en: A municipality runs one central identity provider for all staff; when a case officer leaves, disabling her identity there cuts off email, files and every connected app at once.
+    da: En kommune bruger én central identitetsudbyder til alle medarbejdere; når en sagsbehandler stopper, lukkes hun ude af mail, filer og alle tilknyttede apps på én gang, så snart hendes identitet spærres dér.
   whyItMatters:
     en: It gathers all logins in one place where MFA and monitoring can be enforced — and makes that place a prime target that must be guarded closely.
     da: Den samler alle login ét sted, hvor MFA og overvågning kan håndhæves — og gør det sted til et oplagt mål, der skal beskyttes nøje.

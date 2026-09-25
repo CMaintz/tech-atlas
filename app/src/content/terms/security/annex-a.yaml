@@ -9,18 +9,18 @@ cluster: compliance
 layer: governance
 status: current
 summary:
-  en: The list of 93 reference controls at the back of ISO 27001 that every certified organisation must check itself against.
-  da: Listen over 93 referencekontroller bagerst i ISO 27001, som enhver certificeret organisation skal holde sig op imod.
+  en: The list of 93 reference controls at the back of ISO 27001 that every organisation using the standard must hold its own controls up against.
+  da: De 93 referencekontroller bagerst i ISO 27001, som enhver organisation, der følger standarden, skal holde sine kontroller op imod.
 body:
   formal:
     en: The annex of ISO 27001:2022 listing 93 controls in four themes (organisational, people, physical, technological); the organisation compares its risk treatment with the list and records in its Statement of Applicability which controls apply and why.
-    da: Bilaget til ISO 27001:2022, der oplister 93 kontroller i fire temaer (organisatoriske, menneskelige, fysiske og teknologiske); organisationen sammenholder sin risikohåndtering med listen og noterer i sin Statement of Applicability, hvilke kontroller der gælder og hvorfor.
+    da: Anneks A til ISO 27001:2022 rummer 93 kontroller i fire temaer (organisatoriske, menneskelige, fysiske og teknologiske); organisationen sammenholder sin risikohåndtering med listen og noterer i sin Statement of Applicability, hvilke kontroller der gælder, og hvorfor.
   plain:
-    en: Like the packing list at the back of a travel guide — you do not need everything on it, but you tick through it so nothing important is forgotten.
-    da: Som pakkelisten bagerst i en rejseguide — man har ikke brug for alt på den, men man går den igennem, så intet vigtigt bliver glemt.
+    en: Like planning a set dinner from a restaurant's full menu — you read every dish, pick the ones that suit your guests, and can say why the rest were left off.
+    da: Som at sammensætte en festmiddag ud fra restaurantens fulde menukort — man læser hver ret, vælger dem, der passer til gæsterne, og kan forklare, hvorfor resten blev fravalgt.
   inPractice:
-    en: A software firm goes through all 93 controls, marks the physical ones for its office as needed and leaves out the control for secure development only after writing why.
-    da: Et softwarefirma gennemgår alle 93 kontroller, markerer de fysiske kontroller for kontoret som nødvendige og udelader kun en kontrol, når det har skrevet ned hvorfor.
+    en: A Danish software firm with 40 staff works through all 93 controls; it keeps the ones for secure coding and access, and marks the controls for server rooms as not needed, writing down why — it has no server room of its own.
+    da: Et dansk softwarefirma med 40 ansatte gennemgår alle 93 kontroller; det beholder dem om sikker udvikling og adgangsstyring og markerer kontrollerne for serverrum som ikke relevante med en skriftlig begrundelse — firmaet har intet serverrum.
   whyItMatters:
     en: The list stops organisations from quietly skipping whole areas, and the ISO 27002 guide explains how to carry out each item.
     da: Listen forhindrer organisationer i stille og roligt at springe hele områder over, og ISO 27002 forklarer, hvordan hvert punkt gennemføres.

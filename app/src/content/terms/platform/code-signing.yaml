@@ -14,17 +14,17 @@ summary:
   da: At sætte en digital signatur på software, så brugere og systemer kan tjekke, hvem der har lavet den, og at ingen har ændret den bagefter.
 body:
   formal:
-    en: The use of digital signatures on programs, updates, scripts and container images, made with the publisher's private key and tied to a digital certificate, so the system installing them can check who published them and that they are unchanged.
-    da: Brug af digitale signaturer på programmer, opdateringer, scripts og container-images, lavet med udgiverens private nøgle og knyttet til et digitalt certifikat, så det system, der installerer dem, kan tjekke udgiveren, og at de er uændrede.
+    en: The publisher computes a hash of a program, update, script or container image and signs it with a private key tied to a digital certificate; before installing or running it, the system checks the signature and certificate and refuses the file on any mismatch.
+    da: Udgiveren beregner en hash af et program, en opdatering, et script eller et container-image og signerer den med en privat nøgle knyttet til et digitalt certifikat; før systemet installerer eller kører filen, tjekker det signaturen og certifikatet og afviser filen, hvis noget ikke stemmer.
   plain:
     en: Like the seal on a medicine bottle printed with the maker's name — if the seal is broken or the name is wrong, you do not swallow what is inside.
     da: Som forseglingen på et medicinglas med producentens navn — er forseglingen brudt eller navnet forkert, sluger man ikke indholdet.
   inPractice:
-    en: The last step of a team's CI/CD pipeline signs each release; the servers that run it are set to accept only software carrying that team's signature.
-    da: Det sidste trin i et teams CI/CD-pipeline signerer hver udgivelse; de servere, der kører den, er sat op til kun at godtage software med teamets signatur.
+    en: A municipality's IT operations team lets staff computers run only software signed by approved publishers; when a fake “update” arrives by email, Windows refuses to start it because the signature is missing.
+    da: En kommunes IT-drift lader kun medarbejdernes computere køre software, der er signeret af godkendte udgivere; da en falsk “opdatering” kommer ind med en mail, nægter Windows at starte den, fordi signaturen mangler.
   whyItMatters:
-    en: Attackers love to slip malware into real-looking updates; a signature check stops a changed file, though it cannot help if the signing key itself is stolen.
-    da: Angribere elsker at smugle malware ind i ægte udseende opdateringer; et signaturtjek stopper en ændret fil, men hjælper ikke, hvis selve signeringsnøglen bliver stjålet.
+    en: Attackers often hide malware in updates that look genuine; a signature check stops any file changed after signing, though it cannot help if the signing key itself is stolen.
+    da: Angribere gemmer ofte malware i opdateringer, der ser ægte ud; et signaturtjek stopper enhver fil, der er ændret efter signeringen, men hjælper ikke, hvis selve signeringsnøglen bliver stjålet.
 edges:
   requires: [digital-signature, digital-certificate]
   part-of: [software-supply-chain]

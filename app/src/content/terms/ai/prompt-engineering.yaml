@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: The practice of designing a prompt — its instructions, examples, layout and requested answer format — and changing it step by step against test cases, to steer a large language model without changing its weights.
-    da: Praksissen at udforme en prompt — dens instruktioner, eksempler, opbygning og ønskede svarformat — og ændre den trin for trin mod testtilfælde for at styre en stor sprogmodel uden at ændre dens vægte.
+    da: Praksissen at skrive en prompt — dens instruktioner, eksempler, opbygning og ønskede svarformat — og ændre den trin for trin mod testtilfælde for at styre en stor sprogmodel uden at ændre dens vægte.
   plain:
-    en: Like learning how to brief a very literal new colleague — the same job goes much better once you know which details to spell out and in what order.
-    da: Som at lære at instruere en meget bogstavelig ny kollega — samme opgave går meget bedre, når man ved, hvilke detaljer der skal siges højt og i hvilken rækkefølge.
+    en: Like giving a visitor directions over the phone — you learn which landmarks to mention and in what order, and after each change you check whether the next visitor finds the way.
+    da: Som at forklare en gæst vejen over telefonen — man lærer, hvilke kendetegn man skal nævne og i hvilken rækkefølge, og efter hver ændring ser man, om den næste gæst finder frem.
   inPractice:
-    en: A support team rewrites its assistant's instructions three times, adding two sample replies and "answer in under 80 words", then re-runs fifty saved customer questions to check each version.
-    da: Et supportteam omskriver sin assistents instruktioner tre gange, tilføjer to eksempelsvar og "svar med under 80 ord" og kører derefter halvtreds gemte kundespørgsmål igen for at tjekke hver version.
+    en: A librarian at a public library rewrites the instructions for its book-tip assistant three times, adding two sample replies and “answer in under 80 words”, then reruns fifty saved questions from borrowers to check each version.
+    da: En bibliotekar på et folkebibliotek omskriver instruktionerne til bibliotekets assistent for boganbefalinger tre gange, tilføjer to eksempelsvar og “svar med under 80 ord” og kører derefter halvtreds gemte spørgsmål fra lånerne igen for at tjekke hver version.
   whyItMatters:
     en: It is the cheapest and fastest way to change how an AI feature behaves, but a small change in wording can quietly break cases that used to work, so changes need testing.
     da: Det er den billigste og hurtigste måde at ændre, hvordan en AI-funktion opfører sig, men en lille ændring i ordlyden kan stille og roligt ødelægge tilfælde, der plejede at virke, så ændringer skal testes.
@@ -29,8 +29,8 @@ edges:
   used-with:
     - to: system-prompt
       why:
-        en: Much of the work goes into the system prompt, since it shapes every conversation an application has.
-        da: Meget af arbejdet lægges i systemprompten, fordi den former hver samtale, en applikation fører.
+        en: Much of the work goes into the system prompt, since it shapes every conversation an app has.
+        da: Meget af arbejdet lægges i systemprompten, fordi den former hver samtale, en app fører.
       strength: primary
       confidence: high
 sources:

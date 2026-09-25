@@ -10,7 +10,7 @@ layer: application
 status: current
 summary:
   en: A secret, hard-to-guess value a site puts in its own forms and checks on every change, so requests started by other sites fail.
-  da: En hemmelig værdi, som et site lægger i sine egne formularer og tjekker ved hver ændring, så forespørgsler fra andre sites fejler.
+  da: En hemmelig værdi, som et site lægger i sine egne formularer og tjekker ved hver ændring, så forespørgsler fra andre sites afvises.
 body:
   formal:
     en: A random value the server ties to the user's session and places in each page or form it sends; any request that changes data must return the value, and the server refuses requests where it is missing or wrong.
@@ -19,11 +19,11 @@ body:
     en: Like a shop that stamps a one-off number on every order form it hands out, and only accepts forms that come back with the number it gave you.
     da: Som en butik, der stempler et engangsnummer på hver bestillingsseddel, den udleverer, og kun godtager sedler, der kommer tilbage med det nummer, den gav dig.
   inPractice:
-    en: An online bank adds a hidden field with a fresh value to its transfer form; a forged transfer sent from another site carries the login cookie but not the value, so the bank refuses it.
-    da: En netbank tilføjer et skjult felt med en ny værdi til sin overførselsformular; en forfalsket overførsel sendt fra et andet site har login-cookien med, men ikke værdien, så banken afviser den.
+    en: A pension fund's member portal puts a hidden field with a fresh value in its form for changing the payout account; a forged change sent from another site carries the login cookie but not the value, so the portal rejects it.
+    da: En pensionskasses medlemsportal lægger et skjult felt med en ny værdi i formularen til at ændre udbetalingskonto; en forfalsket ændring fra et andet site har cookien fra login med, men ikke værdien, så portalen afviser den.
   whyItMatters:
-    en: The browser sends cookies by itself, so a cookie alone cannot prove the user meant to act; a value that only the site's own pages can read closes that gap.
-    da: Browseren sender selv cookies med, så en cookie alene kan ikke bevise, at brugeren ville handle; en værdi, som kun sitets egne sider kan læse, lukker det hul.
+    en: The browser sends cookies by itself, so a cookie alone cannot prove the user meant to act; without a second proof, any site the user visits can act in their name.
+    da: Browseren sender selv cookies med, så en cookie alene beviser ikke, at brugeren ville handle; uden et ekstra bevis kan ethvert site, brugeren besøger, handle i vedkommendes navn.
 edges:
   requires: [session, web-application]
   mitigates:

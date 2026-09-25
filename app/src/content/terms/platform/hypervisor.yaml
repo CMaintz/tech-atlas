@@ -13,17 +13,17 @@ summary:
   da: Det lag software, der deler én fysisk computer op i flere virtuelle maskiner og holder dem adskilt.
 body:
   formal:
-    en: Software that creates and runs virtual machines, handing each a share of the real processor, memory and devices while preventing one machine from reading or changing another; it either runs straight on the hardware or on top of an operating system.
-    da: Software, der skaber og kører virtuelle maskiner, giver hver en del af den rigtige processor, hukommelse og enheder og forhindrer, at én maskine kan læse eller ændre en anden; den kører enten direkte på hardwaren eller oven på et styresystem.
+    en: Software that creates and runs virtual machines, handing each a share of the real processor, memory and devices while stopping one from reading or changing another; a type 1 hypervisor runs straight on the hardware, a type 2 on top of an operating system.
+    da: Software, der skaber og kører virtuelle maskiner, giver hver en del af den rigtige processor, hukommelse og enheder og forhindrer, at én maskine kan læse eller ændre en anden; en type 1-hypervisor kører direkte på hardwaren, en type 2 oven på et styresystem.
   plain:
     en: Like the caretaker of an apartment block who divides up the space, water and heat between the flats and makes sure no tenant can walk into a neighbour's home.
-    da: Som viceværten i en opgang, der fordeler plads, vand og varme mellem lejlighederne og sørger for, at ingen lejer kan gå ind hos naboen.
+    da: Som viceværten i en ejendom, der fordeler plads, vand og varme mellem lejlighederne og sørger for, at ingen lejer kan gå ind hos naboen.
   inPractice:
-    en: A cloud provider's hypervisor runs virtual machines for hundreds of customers on the same server; when a flaw in it is found, the provider patches every host quickly.
-    da: En cloududbyders hypervisor kører virtuelle maskiner for hundredvis af kunder på den samme server; når der findes en fejl i den, patcher udbyderen alle værter hurtigt.
+    en: A hospital region runs two hundred virtual machines on a handful of servers; when a flaw in the hypervisor is announced, the IT operations manager moves machines aside and patches every host within the week.
+    da: En region kører to hundrede virtuelle maskiner på en håndfuld servere; når der offentliggøres en fejl i hypervisoren, flytter den IT-driftsansvarlige maskinerne til side og patcher alle værter inden for ugen.
   whyItMatters:
-    en: Every virtual machine on a host trusts it completely, so one break in the hypervisor could let an attacker reach all of them at once.
-    da: Alle virtuelle maskiner på en vært stoler fuldt på den, så ét brud i hypervisoren kan give en angriber adgang til dem alle på én gang.
+    en: Every virtual machine on a host depends on it to stay separate, so a single hole in the hypervisor can hand an attacker all of them at once.
+    da: Alle virtuelle maskiner på en vært er afhængige af den for at holde sig adskilt, så ét hul i hypervisoren kan give en angriber adgang til dem alle på én gang.
 edges:
   requires: [operating-system]
   used-with: [iaas]

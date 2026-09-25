@@ -9,21 +9,21 @@ cluster: incident-response
 layer: governance
 status: current
 summary:
-  en: A plan for keeping the most important work going during and after a crisis, even if systems are down.
-  da: En plan for at holde det vigtigste arbejde i gang under og efter en krise, også selvom systemerne er nede.
+  en: A plan for keeping the most important work going during and after a crisis, even while the systems are down.
+  da: En plan for at holde det vigtigste arbejde i gang under og efter en krise, også mens systemerne er nede.
 body:
   formal:
-    en: A documented set of procedures that keeps critical business activities running at an agreed minimum level during a disruption, based on the priorities set by the business impact analysis.
-    da: Et dokumenteret sæt procedurer, der holder kritiske forretningsaktiviteter kørende på et aftalt minimumsniveau under en afbrydelse, ud fra de prioriteter, konsekvensanalysen har fastlagt.
+    en: A documented set of procedures that keeps critical activities running at an agreed minimum level during a disruption, falling back on manual routines where needed, in the order of priority set by the business impact analysis.
+    da: Et dokumenteret sæt procedurer, der holder kritiske aktiviteter kørende på et aftalt minimumsniveau under en afbrydelse, om nødvendigt med manuelle rutiner, i den prioritering, konsekvensanalysen har fastlagt.
   plain:
     en: Like a shop that keeps selling with a paper notebook and cash when the card terminal dies.
     da: Ligesom en butik, der bliver ved med at sælge med en notesblok og kontanter, når kortterminalen går ned.
   inPractice:
-    en: During a week-long outage, a care home follows its BCP — paper medicine charts, phone lists printed in advance, and a backup site for the kitchen orders.
-    da: Under et ugelangt nedbrud følger et plejehjem sin BCP — medicinskemaer på papir, telefonlister printet på forhånd og et andet sted at sende køkkenets bestillinger fra.
+    en: When an attack takes a municipality's systems down for a week, its care homes follow the BCP — medicine charts on paper, phone lists printed in advance and meal orders phoned through to the central kitchen.
+    da: Da et cyberangreb lægger en kommunes systemer ned i en uge, følger plejehjemmene BCP'en — medicinskemaer på papir, telefonlister printet på forhånd og madbestillinger ringet ind til centralkøkkenet.
   whyItMatters:
-    en: Customers and patients do not stop needing the service while IT is fixed, so the business must survive the gap.
-    da: Kunder og patienter holder ikke op med at have brug for ydelsen, mens IT bliver repareret, så forretningen skal overleve i mellemtiden.
+    en: Citizens and patients still need help while IT is being repaired; without an agreed plan B, staff improvise and the most urgent tasks may be the ones that stop.
+    da: Borgere og patienter har stadig brug for hjælp, mens IT bliver repareret; uden en aftalt plan B improviserer medarbejderne, og de mest presserende opgaver kan være dem, der går i stå.
 edges:
   requires: [business-impact-analysis]
   part-of: [contingency-plan]

@@ -13,14 +13,14 @@ summary:
   da: At sikre, at information og systemer kan bruges af de rette personer, når der er brug for dem.
 body:
   formal:
-    en: The property that information and systems can be reached and used on demand by those allowed to use them, within agreed times.
-    da: Egenskaben, at information og systemer kan nås og bruges efter behov af dem, der har lov til at bruge dem, inden for aftalte tidsrammer.
+    en: The property that information and systems can be reached and used on demand by those allowed to use them, within agreed times. It is lost through faults, overload, power cuts and attacks alike.
+    da: Egenskaben, at information og systemer kan nås og bruges efter behov af dem, der har lov til det, inden for aftalte tidsrammer. Den kan gå tabt ved fejl, overbelastning, strømsvigt og angreb.
   plain:
     en: Like a shop's opening hours — the goods are no use to anyone if the door is locked when customers arrive.
     da: Som en butiks åbningstider — varerne gavner ingen, hvis døren er låst, når kunderne kommer.
   inPractice:
-    en: A power cut takes down a hospital's patient record system, so doctors must work from paper until it is back.
-    da: En strømafbrydelse lægger et hospitals patientjournalsystem ned, så lægerne må arbejde på papir, indtil det kører igen.
+    en: A power cut takes down the patient record system at a Danish regional hospital; for three hours doctors and nurses work from paper lists and phone calls until it is running again.
+    da: Et strømsvigt lægger patientjournalsystemet ned på et hospital i en af regionerne; i tre timer arbejder læger og sygeplejersker ud fra papirlister og telefonopkald, indtil systemet kører igen.
   whyItMatters:
     en: Every hour a key system is down can stop sales, delay care or halt production — which is exactly what attacks like ransomware aim for.
     da: Hver time et vigtigt system er nede, kan salget stoppe, behandlinger blive forsinket eller produktionen gå i stå — og det er netop, hvad angreb som ransomware går efter.

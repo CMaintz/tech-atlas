@@ -19,11 +19,11 @@ body:
     en: Like comparing two arrows by which way they point, not how long they are — two people walking north are going the same way even if one walks much further.
     da: Som at sammenligne to pile efter, hvilken vej de peger, ikke hvor lange de er — to personer, der går mod nord, går samme vej, selvom den ene går meget længere.
   inPractice:
-    en: A search tool compares the embedding of "reset my password" with stored help texts; one about "forgot login" scores 0.86 and one about "office parking" scores 0.12.
-    da: Et søgeværktøj sammenligner embeddingen af "nulstil min adgangskode" med gemte hjælpetekster; en om "glemt login" scorer 0,86, og en om "parkering ved kontoret" scorer 0,12.
+    en: An IT supporter in a municipality tests the new help search; the embedding of “reset my password” scores 0.86 against the article “forgot your login” and 0.12 against “parking at the town hall”.
+    da: En IT-supporter i en kommune tester den nye hjælpesøgning; embeddingen af “nulstil min adgangskode” scorer 0,86 mod artiklen “glemt dit login” og 0,12 mod “parkering ved rådhuset”.
   whyItMatters:
-    en: It is the everyday ruler of meaning-based search, but a high score only means "sounds alike", not "is correct" or "answers the question".
-    da: Det er den daglige målestok for betydningsbaseret søgning, men en høj score betyder kun "lyder ens", ikke "er korrekt" eller "besvarer spørgsmålet".
+    en: It is the usual measure in meaning-based search, but a high score only means “is about the same thing”, not “is correct” or “answers the question”.
+    da: Det er den sædvanlige målestok i betydningsbaseret søgning, men en høj score betyder kun “handler om det samme”, ikke “er korrekt” eller “besvarer spørgsmålet”.
 edges:
   requires:
     - to: embedding

@@ -20,8 +20,8 @@ body:
     en: Like the next-word suggestions on a phone keyboard, but trained on a large part of the internet — it knows how answers usually sound, not whether they are true.
     da: Som ordforslagene på en mobiltelefons tastatur, bare trænet på en stor del af internettet — den ved, hvordan svar plejer at lyde, ikke om de er sande.
   inPractice:
-    en: Staff use a chat assistant built on an LLM to draft emails and sum up meeting notes, and the company must decide which data they may paste into it.
-    da: Medarbejdere bruger en chatassistent bygget på en LLM til at skrive udkast til mails og opsummere mødenoter, og virksomheden må beslutte, hvilke data de må indsætte.
+    en: Staff in a municipality get a chat assistant built on an LLM to draft replies to citizens and sum up meeting notes, and the IT department must decide which data they may paste into it.
+    da: Medarbejderne i en kommune får en chatassistent bygget på en LLM til at skrive udkast til svar til borgere og opsummere mødenoter, og IT-afdelingen må beslutte, hvilke data de må indsætte i den.
   whyItMatters:
     en: LLMs sound confident even when wrong, can be steered by hidden text, and send your input to whoever runs them — all real risks to weigh before use.
     da: LLM'er lyder sikre, selv når de tager fejl, kan styres af skjult tekst og sender dit input til den, der driver dem — alt sammen reelle risici, der skal vejes før brug.

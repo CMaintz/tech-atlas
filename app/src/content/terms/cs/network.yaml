@@ -16,14 +16,14 @@ body:
     en: A collection of devices joined by links, where each device can exchange data with the others by following shared rules for how messages are sent and delivered.
     da: En samling enheder forbundet af forbindelser, hvor hver enhed kan udveksle data med de andre ved at følge fælles regler for, hvordan beskeder sendes og leveres.
   plain:
-    en: Like a road system between houses — once the roads exist, anyone can drive a letter from one house to another.
-    da: Som et vejnet mellem huse — når vejene først findes, kan man køre et brev fra ét hus til et andet.
+    en: Like the roads between the houses in a town — once the roads are there, anyone can carry a letter from one door to another.
+    da: Som vejene mellem husene i en by — når vejene først er der, kan hvem som helst bringe et brev fra én dør til en anden.
   inPractice:
-    en: In an office, every laptop, printer and phone joins the same network, so staff can print, share files and reach the outside world.
-    da: På et kontor er alle bærbare, printere og telefoner på det samme netværk, så medarbejderne kan printe, dele filer og nå omverdenen.
+    en: At a small accounting firm, the ten computers, the shared printer and the file server all sit on one office network, so staff can print, share client files and reach the internet through a single router.
+    da: Hos et lille revisionsfirma er de ti computere, den fælles printer og filserveren på ét kontornetværk, så medarbejderne kan printe, dele kundemapper og komme på internettet gennem én router.
   whyItMatters:
-    en: Almost every security control is about who may travel on which roads, so you cannot judge those controls without knowing what a network is.
-    da: Næsten alle sikkerhedskontroller handler om, hvem der må færdes på hvilke veje, så man kan ikke vurdere dem uden at vide, hvad et netværk er.
+    en: Almost every security control decides who may travel on which roads, so network boundaries are where most defences sit — and a flat network with no inner walls lets one attacker reach everything.
+    da: Næsten alle sikkerhedskontroller afgør, hvem der må færdes på hvilke veje, så netværkets grænser er dér, hvor det meste forsvar sidder — og et netværk uden indre vægge lader én angriber nå alt.
 edges:
   used-with: [protocol]
 sources:

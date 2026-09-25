@@ -19,17 +19,17 @@ body:
     en: Like a bank that needs a second signature for large payments — the clerk prepares everything, but the money only moves once a manager signs.
     da: Som en bank, der kræver en ekstra underskrift på store betalinger — ekspedienten forbereder det hele, men pengene flyttes først, når en chef skriver under.
   inPractice:
-    en: An AI agent may read and sort a shared inbox freely, but before it sends a reply, deletes anything or pays an invoice, it shows the planned action and waits for a staff member to click "approve".
-    da: En AI-agent må frit læse og sortere en fælles indbakke, men før den sender et svar, sletter noget eller betaler en faktura, viser den den planlagte handling og venter på, at en medarbejder klikker "godkend".
+    en: At a regional hospital, an AI agent drafts replies to patients' messages about appointments, but nothing is sent until a medical secretary has read the draft and clicked “approve”, or edited or rejected it.
+    da: På et regionshospital skriver en AI-agent udkast til svar på patienters beskeder om aftaler, men intet sendes, før en lægesekretær har læst udkastet og klikket “godkend” — eller rettet eller afvist det.
   whyItMatters:
     en: It keeps a person responsible for actions that are costly or hard to undo, though if approvals come too often people start clicking yes without reading.
-    da: Det holder en person ansvarlig for handlinger, der er dyre eller svære at gøre om, men hvis godkendelser kommer for tit, begynder folk at klikke ja uden at læse.
+    da: Det holder en person ansvarlig for handlinger, der er dyre eller svære at gøre om, men skal der godkendes for tit, begynder folk at klikke ja uden at læse.
 edges:
   mitigates:
     - to: excessive-agency
       why:
         en: Requiring approval for risky actions means an agent cannot do real damage on its own, even if it has been given too much power.
-        da: Krav om godkendelse af risikable handlinger betyder, at en agent ikke kan gøre reel skade på egen hånd, selv hvis den har fået for meget magt.
+        da: Når risikable handlinger skal godkendes af et menneske, kan en agent ikke gøre reel skade på egen hånd, selv hvis den har fået for meget magt.
       strength: primary
       confidence: high
     - to: prompt-injection

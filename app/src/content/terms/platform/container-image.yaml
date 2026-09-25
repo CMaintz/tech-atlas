@@ -13,14 +13,14 @@ summary:
   da: Den frosne, skrivebeskyttede pakke med et program og dets filer, som ens containere startes ud fra.
 body:
   formal:
-    en: A read-only bundle of stacked file layers plus settings — which program to start, which ports it listens on — that is stored in a shared library of images and used as the pattern for starting containers.
-    da: En skrivebeskyttet pakke af lag med filer oven på hinanden plus indstillinger — hvilket program der skal startes, og hvilke porte det lytter på — som gemmes i et fælles bibliotek af images og bruges som skabelon til at starte containere.
+    en: A read-only bundle of stacked file layers plus settings — which program to start, which ports it listens on — that is usually kept in a container registry and used as the pattern for starting containers.
+    da: En skrivebeskyttet pakke af lag med filer oven på hinanden plus indstillinger — hvilket program der skal startes, og hvilke porte det lytter på — som typisk ligger i et container-register og bruges som skabelon til at starte containere.
   plain:
     en: Like a cake recipe with the ingredients already measured out — every cake baked from it comes out the same, and the recipe itself is never eaten.
     da: Som en kageopskrift med ingredienserne allerede afvejet — hver kage bagt ud fra den bliver ens, og selve opskriften bliver aldrig spist.
   inPractice:
-    en: Before an image is allowed into production, a pipeline scans it for known vulnerabilities and rejects one built on an old base with an unpatched library.
-    da: Før et image må komme i drift, scanner en pipeline det for kendte sårbarheder og afviser et, der er bygget på en gammel base med et upatchet bibliotek.
+    en: Before a new image of a hospital region's patient portal may go into production, the pipeline scans it for known vulnerabilities and rejects it because it is built on an old base with an unpatched library.
+    da: Før et nyt image af en regions patientportal må komme i drift, scanner pipelinen det for kendte sårbarheder og afviser det, fordi det er bygget på en gammel base med et bibliotek, der mangler sikkerhedsopdateringer.
   whyItMatters:
     en: Every container inherits whatever is inside its image — including old flaws, hidden malware or forgotten passwords — so trusting the source of images is a supply chain question.
     da: Hver container arver alt, hvad der ligger i dens image — også gamle fejl, skjult malware eller glemte adgangskoder — så tillid til, hvor images kommer fra, er et spørgsmål om forsyningskæden.

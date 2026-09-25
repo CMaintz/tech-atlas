@@ -20,8 +20,8 @@ body:
     en: Like showing a new cashier three filled-in receipts before asking them to write the fourth — they copy the layout without a lesson.
     da: Som at vise en ny kassemedarbejder tre udfyldte kvitteringer, før de skal skrive den fjerde — de kopierer opsætningen uden undervisning.
   inPractice:
-    en: To sort support emails, a team puts five sample emails, each followed by its right label, above the new email, and the assistant replies with just a label in the same style.
-    da: For at sortere supportmails sætter et team fem eksempelmails, hver efterfulgt af den rigtige kategori, over den nye mail, og assistenten svarer med blot en kategori i samme stil.
+    en: A customer service lead at a Danish webshop puts five old return notes, each followed by its reason code, above every new note, and the assistant replies with just a code in the same style.
+    da: En kundeserviceleder i en dansk webshop sætter fem gamle returbeskeder, hver efterfulgt af sin årsagskode, over hver ny besked, og assistenten svarer med blot en kode i samme stil.
   whyItMatters:
     en: It lets a team get a new task working in minutes without fine-tuning, but the examples use up space in the context window and the model may copy their odd habits too closely.
     da: Det lader et team få en ny opgave til at virke på få minutter uden finjustering, men eksemplerne optager plads i kontekstvinduet, og modellen kan efterligne deres særheder for tæt.

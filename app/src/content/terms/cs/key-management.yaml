@@ -13,14 +13,14 @@ summary:
   da: At passe på kryptografiske nøgler gennem hele deres levetid — at skabe, gemme, udlevere, skifte og til sidst destruere dem.
 body:
   formal:
-    en: The rules, roles and tools that cover every stage of a cryptographic key's life, from creation with a good random source, through safe storage, sharing and use, to planned replacement, cancelling a leaked key and destroying old ones.
-    da: De regler, roller og værktøjer, der dækker hvert trin i en kryptografisk nøgles liv, fra skabelse med en god tilfældighedskilde over sikker opbevaring, deling og brug til planlagt udskiftning, tilbagekaldelse af en lækket nøgle og destruktion af gamle nøgler.
+    en: The rules, roles and tools that govern each stage of a key's life — creation from a good random source, protected storage, controlled sharing and use, planned replacement, cancelling a leaked key and destroying retired ones — including who may do each step.
+    da: De regler, roller og værktøjer, der styrer hvert trin i en nøgles liv — skabelse fra en god tilfældighedskilde, beskyttet opbevaring, kontrolleret deling og brug, planlagt udskiftning, tilbagekaldelse af en lækket nøgle og destruktion af nøgler, der er taget ud af brug — herunder hvem der må udføre hvert trin.
   plain:
     en: Like a building manager's key cabinet — keys are cut, numbered, signed out, changed when a tenant moves and melted down when a lock is replaced.
-    da: Som viceværtens nøgleskab — nøgler bliver slebet, nummereret, kvitteret for, skiftet, når en lejer flytter, og smeltet om, når en lås udskiftes.
+    da: Som viceværtens nøgleskab — nøgler bliver lavet, nummereret, kvitteret for, skiftet, når en lejer flytter, og smeltet om, når en lås udskiftes.
   inPractice:
-    en: A bank keeps its signing keys inside sealed hardware that never lets them out, changes them every year on a set date, and has a written plan for what to do if one is ever exposed.
-    da: En bank opbevarer sine signeringsnøgler i forseglet hardware, der aldrig slipper dem ud, skifter dem hvert år på en fast dato og har en skriftlig plan for, hvad der skal ske, hvis én nogensinde bliver afsløret.
+    en: The IT security manager at a pension fund keeps its signing keys in sealed hardware that never lets them out, replaces them every year on a set date, and has a written plan for what to do if one is exposed.
+    da: IT-sikkerhedschefen i en pensionskasse opbevarer signeringsnøglerne i forseglet hardware, der aldrig slipper dem ud, skifter dem hvert år på en fast dato og har en skriftlig plan for, hvad der skal ske, hvis én bliver afsløret.
   whyItMatters:
     en: Strong encryption fails the moment a key is stolen, lost or kept in use for too long, and most real failures come from careless handling of keys rather than from weak maths.
     da: Stærk kryptering svigter i det øjeblik, en nøgle bliver stjålet, mistet eller brugt for længe, og de fleste virkelige svigt skyldes sjusket håndtering af nøgler snarere end svag matematik.

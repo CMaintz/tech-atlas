@@ -19,8 +19,8 @@ body:
     en: Like a hospital emergency room — a nurse handles small cuts, but chest pain goes straight to the senior doctor, and everyone knows the rule.
     da: Som en skadestue — en sygeplejerske tager sig af små snitsår, men brystsmerter går direkte til overlægen, og alle kender reglen.
   inPractice:
-    en: An analyst sees one account logging in from two countries; under the procedure a single case goes to IT, but ten cases in an hour call the security lead and then the director.
-    da: En analytiker ser én konto logge ind fra to lande; efter proceduren går et enkelt tilfælde til IT, men ti tilfælde på en time udløser et opkald til sikkerhedschefen og derefter direktøren.
+    en: An analyst at a Danish pharmacy chain sees one account logging in from two countries at once; under the procedure a single case goes to the IT department, but ten cases in an hour mean a call to the security manager and then to the director.
+    da: En analytiker i en dansk apotekskæde ser én konto logge ind fra to lande på samme tid; efter proceduren går et enkelt tilfælde til IT-afdelingen, men ti tilfælde på en time betyder et opkald til den sikkerhedsansvarlige og derefter til direktøren.
   whyItMatters:
     en: In an incident minutes count, and NIS2 sets short deadlines for reporting, so no one should have to guess who to wake up.
     da: Under en hændelse tæller minutterne, og NIS2 sætter korte frister for indberetning, så ingen skal gætte på, hvem der skal vækkes.

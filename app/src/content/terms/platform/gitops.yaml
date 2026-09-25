@@ -10,8 +10,8 @@ layer: delivery
 era: 2017
 status: current
 summary:
-  en: Running systems so that a shared file store holds the only true description, and software keeps the live setup matching it.
-  da: At drive systemer, så et fælles fillager rummer den eneste gyldige beskrivelse, og software hele tiden får driften til at matche den.
+  en: Running systems so that files under version control hold the only true description, and software keeps the live setup matching them.
+  da: At drive systemer, så filer under versionsstyring er den eneste gyldige beskrivelse, og software hele tiden retter driften ind efter dem.
 body:
   formal:
     en: An operating model where the wanted state of a system is written as files under version control, a change is made only by changing those files, and an agent inside the system keeps pulling the files and correcting any difference it finds.
@@ -20,8 +20,8 @@ body:
     en: Like a shop where the price list on the wall is the rule; if someone changes a price tag on the shelf, staff put it back to match the wall.
     da: Som en butik, hvor prislisten på væggen er reglen; hvis nogen ændrer et prismærke på hylden, sætter personalet det tilbage, så det passer med væggen.
   inPractice:
-    en: An engineer asks for one more copy of a web service by editing a file and getting it approved; minutes later the system notices the change and starts the extra copy on its own.
-    da: En tekniker beder om en ekstra kopi af en webtjeneste ved at rette en fil og få den godkendt; få minutter senere opdager systemet ændringen og starter selv den ekstra kopi.
+    en: Before flu vaccine booking opens, an engineer in a region's IT department asks for two more copies of the booking service by editing a file; once it is approved, the system starts them on its own within minutes.
+    da: Før der åbnes for booking af influenzavaccine, beder en driftsmedarbejder i regionens IT-afdeling om to ekstra kopier af bookingtjenesten ved at rette en fil; når ændringen er godkendt, starter systemet selv kopierne inden for få minutter.
   whyItMatters:
     en: Every change passes through review and leaves a trail, people need less direct access to live systems, and hand-made changes are undone automatically instead of lingering unseen.
     da: Hver ændring går gennem en gennemgang og efterlader et spor, folk har mindre brug for direkte adgang til driften, og håndlavede ændringer rulles automatisk tilbage i stedet for at ligge ubemærket hen.

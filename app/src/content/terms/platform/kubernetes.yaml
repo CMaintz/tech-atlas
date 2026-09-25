@@ -11,20 +11,20 @@ era: 2014
 status: current
 summary:
   en: The most widely used open-source system for container orchestration, first built at Google and released in 2014.
-  da: Det mest udbredte open source-system til container-orkestrering, oprindeligt bygget hos Google og nu drevet af en open source-fond.
+  da: Det mest udbredte open source-system til container-orkestrering, oprindeligt bygget hos Google og udgivet i 2014.
 body:
   formal:
-    en: An open-source system, released in 2014, that runs containers across a group of machines; users describe the wanted state in files, and a control layer keeps working to make the real state match, with pods as the smallest unit it places and runs.
-    da: Et open source-system, udgivet i 2014, der kører containere på tværs af en gruppe maskiner; brugerne beskriver den ønskede tilstand i filer, og et styringslag arbejder hele tiden på at få den faktiske tilstand til at passe, med pods som den mindste enhed, det placerer og kører.
+    en: An open-source system that runs containers across a group of machines; users describe the wanted state in files, a control layer keeps working to make the real state match, and pods are the smallest unit it places and runs.
+    da: Et open source-system, der kører containere på tværs af en gruppe maskiner; brugerne beskriver den ønskede tilstand i filer, et styringslag arbejder hele tiden på at få den faktiske tilstand til at passe, og pods er den mindste enhed, det placerer og kører.
   plain:
     en: Like a thermostat for software — you set how many copies should be running, and it keeps adding or removing them until reality matches.
     da: Som en termostat for software — du indstiller, hvor mange kopier der skal køre, og den bliver ved med at tilføje eller fjerne dem, til virkeligheden passer.
   inPractice:
-    en: An operations team asks for three copies of the web shop; when one machine dies at night, Kubernetes restarts the lost copy on another machine before anyone wakes up.
-    da: Et driftsteam beder om tre kopier af webshoppen; når én maskine dør om natten, genstarter Kubernetes den tabte kopi på en anden maskine, før nogen er vågnet.
+    en: The operations team at a hospital region asks for three copies of the appointment booking service; when one machine dies at night, Kubernetes restarts the lost copy on another machine before anyone on call wakes up.
+    da: Driftsteamet i en region beder om tre kopier af tidsbestillingen; når én maskine dør om natten, genstarter Kubernetes den tabte kopi på en anden maskine, før nogen på vagt er vågnet.
   whyItMatters:
     en: Many cloud platforms now run on it, and its many settings for access and network are a frequent source of cloud misconfiguration.
-    da: Mange cloudplatforme kører nu på det, og dets mange indstillinger for adgang og netværk er en hyppig kilde til fejlkonfiguration i skyen.
+    da: Mange cloudplatforme kører nu på det, og dets mange indstillinger for adgang og netværk er en almindelig kilde til fejlkonfiguration i skyen.
 edges:
   implements: [container-orchestration]
   requires: [container]

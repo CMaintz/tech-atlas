@@ -14,17 +14,17 @@ summary:
   da: En LLM, der er trænet til at regne en opgave igennem trin for trin i skjulte noter, før den svarer — langsommere og dyrere, men bedre.
 body:
   formal:
-    en: A large language model trained to produce a long run of working-out tokens before its final answer, so that it spends more inference on hard tasks such as math, code and planning.
+    en: A large language model trained to produce a long run of working-out tokens before its final answer, so that it spends more inference on hard tasks such as maths, code and planning.
     da: En stor sprogmodel, der er trænet til at skrive en lang række mellemregnings-tokens før sit endelige svar, så den bruger mere inferens på svære opgaver som matematik, kode og planlægning.
   plain:
-    en: Like a student who fills a page with rough work before writing the answer in the box — slower, but they catch more of their own slips.
-    da: Som en elev, der fylder en side med kladde, før svaret skrives i feltet — langsommere, men eleven fanger flere af sine egne fejl.
+    en: Like a navigator who plots the whole route on the chart before the ship leaves port — slower to get going, but with fewer wrong turns at sea.
+    da: Som en navigatør, der tegner hele ruten ind på søkortet, før skibet forlader havnen — langsommere i gang, men med færre fejl undervejs.
   inPractice:
-    en: A developer asks a reasoning model to find a bug across several files; it "thinks" for a minute, tries and drops two ideas, then points to the right line.
-    da: En udvikler beder en ræsonnementsmodel finde en fejl på tværs af flere filer; den "tænker" et minut, prøver og dropper to idéer og peger så på den rigtige linje.
+    en: A developer at a Danish webshop asks a reasoning model why some customers are charged twice at checkout; it “thinks” for a minute, tries and drops two ideas, then points to the faulty line.
+    da: En udvikler i en dansk webshop spørger en ræsonnementsmodel, hvorfor nogle kunder bliver trukket to gange ved betalingen; den “tænker” et minut, prøver og dropper to idéer og peger så på den fejlbehæftede linje.
   whyItMatters:
-    en: Better answers on hard tasks cost more and take longer, and the shown working-out is not a reliable record of how the answer was really reached.
-    da: Bedre svar på svære opgaver koster mere og tager længere tid, og den viste mellemregning er ikke en pålidelig optegnelse af, hvordan svaret reelt blev nået.
+    en: Used for simple questions it only wastes time and money, and its shown working-out is not a reliable record of how the answer was reached, so it proves nothing about whether the answer is right.
+    da: Brugt til enkle spørgsmål spilder den blot tid og penge, og den viste mellemregning er ikke et pålideligt billede af, hvordan svaret blev nået, så den beviser intet om, hvorvidt svaret er rigtigt.
 edges:
   kind-of: [large-language-model]
   requires:

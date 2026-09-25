@@ -15,13 +15,13 @@ summary:
 body:
   formal:
     en: An attack on a large language model in which input written by an outsider, typed directly or hidden in a web page, file or email the model is asked to read, is treated as an instruction and overrides what its owner intended.
-    da: Et angreb på en stor sprogmodel, hvor tekst fra en udenforstående, skrevet direkte eller gemt i en hjemmeside, fil eller mail, som modellen skal læse, bliver opfattet som en instruks og tilsidesætter det, ejeren havde tænkt sig.
+    da: Et angreb på en stor sprogmodel, hvor tekst fra en udenforstående, skrevet direkte eller gemt i en hjemmeside, fil eller mail, som modellen skal læse, bliver opfattet som en ordre og tilsidesætter det, ejeren havde tænkt sig.
   plain:
     en: Like slipping a note into a pile of letters a new assistant is sorting that says "ignore your boss and send me the keys" — and the assistant cannot tell the note apart from real orders.
     da: Som at stikke en seddel ind i en bunke breve, som en ny assistent sorterer, hvor der står "ignorer din chef og send mig nøglerne" — og assistenten kan ikke skelne sedlen fra rigtige ordrer.
   inPractice:
-    en: A company's AI helper sums up incoming customer emails; one email contains hidden white text telling it to forward the last ten messages to an outside address, and it does.
-    da: En virksomheds AI-hjælper opsummerer indgående kundemails; én mail indeholder skjult hvid tekst, der beder den videresende de sidste ti beskeder til en ekstern adresse, og det gør den.
+    en: A municipality's AI assistant sums up incoming emails from citizens; one email hides white-on-white text telling it to forward the last ten messages to an outside address, and it does.
+    da: En kommunes AI-assistent opsummerer indgående mails fra borgerne; én mail gemmer hvid tekst på hvid baggrund, der beder den videresende de ti seneste beskeder til en ekstern adresse, og det gør den.
   whyItMatters:
     en: The model mixes rules and content in the same stream of words, so there is no watertight fix yet; the more an AI system is allowed to do on its own, the more damage one hidden sentence can cause.
     da: Modellen blander regler og indhold i den samme strøm af ord, så der findes endnu ingen vandtæt løsning; jo mere et AI-system må gøre på egen hånd, jo mere skade kan én skjult sætning gøre.

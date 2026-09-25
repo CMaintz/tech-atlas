@@ -43,7 +43,7 @@ Moving to the cloud does not remove security work; it changes its shape. Physica
 - **Contracts and data protection.** A cloud provider handling personal data is a **data processor** under GDPR, so a **data processing agreement** is required, including where data is stored and which sub-processors are used. Transfers outside the EU/EEA need a legal basis.
 - **Configuration.** Many cloud incidents are not provider failures but customer settings: a storage bucket left public, an admin account without MFA. **Cloud misconfiguration** is one of the most common causes of cloud data leaks.
 - **Dependency and exit.** What happens if the provider has an outage, raises prices or goes out of business? An exit plan and backups outside the provider belong in business continuity planning.
-- **Regulation.** For NIS2 entities, supply chain security (Article 21(2)(d)) explicitly covers cloud providers, and the financial sector's DORA sets detailed rules for ICT third parties.
+- **Regulation.** For NIS2 entities, supply chain security (Article 21(2)(d)) covers relationships with suppliers and service providers, cloud providers included; cloud providers are also in scope of NIS2 themselves. The financial sector's DORA sets detailed rules for ICT third parties.
 
 ### A worked scenario
 

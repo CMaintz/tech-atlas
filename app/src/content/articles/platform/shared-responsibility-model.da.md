@@ -8,7 +8,7 @@ lang: da
 
 **Modellen for delt ansvar** beskriver, hvordan sikkerheds- og driftsopgaver fordeles mellem en cloududbyder og kunden. Udbyderen har ansvaret for sikkerheden _af_ skyen – datacentre, hardware, netværk og de softwarelag, den driver – mens kunden har ansvaret for sikkerheden _i_ skyen: sine data, sine brugere og adgangsrettigheder og den måde, den konfigurerer de tjenester, den køber.
 
-Udtrykket blev udbredt af Amazon Web Services i begyndelsen af 2010'erne, da kunder, der flyttede i skyen, gik ud fra, at "udbyderen tager sig af sikkerheden nu". AWS offentliggjorde diagrammer med en streg mellem udbyder og kunde, og Microsoft, Google og andre fulgte med deres egne versioner. Idéen er siden taget op af Cloud Security Alliance, hvis Cloud Controls Matrix (CCM) for hver kontrol angiver, om den typisk ejes af udbyderen, kunden eller begge. Modellen er ikke i sig selv en lov eller en standard, men det er det sprog, kontrakter, revisioner og tilsynsmyndigheder bruger, når de spørger, hvem der gør hvad.
+Udtrykket blev udbredt af Amazon Web Services i begyndelsen af 2010'erne, da kunder, der flyttede til skyen, gik ud fra, at "udbyderen tager sig af sikkerheden nu". AWS offentliggjorde diagrammer med en streg mellem udbyder og kunde, og Microsoft, Google og andre fulgte med deres egne versioner. Ideen er siden taget op af Cloud Security Alliance, hvis Cloud Controls Matrix (CCM) for hver kontrol angiver, om den typisk ejes af udbyderen, kunden eller begge. Modellen er ikke i sig selv en lov eller en standard, men det er det sprog, kontrakter, revisioner og tilsynsmyndigheder bruger, når de spørger, hvem der gør hvad.
 
 ## Hvordan virker det?
 
@@ -35,7 +35,7 @@ Nogle kontroller er reelt delte. Kryptering er et typisk eksempel: Udbyderen kan
 
 ### Hvor det går galt
 
-De fleste cloudhændelser skyldes ikke, at udbyderen bliver brudt ind i. De kommer fra kundens side af stregen: en lagerbeholder, der står åben mod internettet, en administratorkonto uden MFA, for brede API-nøgler, logs der aldrig blev slået til. Det er former for **fejlkonfiguration i skyen**, og de opstår oftest dér, hvor hver part troede, at den anden havde ansvaret.
+De fleste cloudhændelser skyldes ikke, at udbyderen bliver kompromitteret. De kommer fra kundens side af stregen: en lagerbeholder, der står åben mod internettet, en administratorkonto uden MFA, for brede API-nøgler, logs der aldrig blev slået til. Det er former for **fejlkonfiguration i skyen**, og de opstår oftest dér, hvor hver part troede, at den anden havde ansvaret.
 
 Backup er det klassiske hul. Mange SaaS-udbydere garanterer tjenestens _tilgængelighed_ og beskytter mod deres egne hardwarefejl, men ikke mod, at kunden sletter data ved en fejl, en ondsindet medarbejder eller ransomware, der krypterer synkroniserede filer. At gendanne en brugers postkasse fra for seks måneder siden er måske slet ikke muligt, medmindre kunden selv har sørget for backup.
 
@@ -43,12 +43,12 @@ Backup er det klassiske hul. Mange SaaS-udbydere garanterer tjenestens _tilgæng
 
 Modellen er kun nyttig, når den er skrevet ned for hver enkelt tjeneste. Udbydernes generelle diagrammer er et udgangspunkt; den faktiske fordeling afhænger af kontrakten, abonnementsniveauet og de funktioner, man har slået til.
 
-- **Fordel kontrollerne på ejere.** Gå for hver vigtig cloudtjeneste jeres kontrolsæt igennem – ISO 27001 Anneks A, CSA CCM eller NIS2's minimumskrav – og markér hver kontrol som udbyder, kunde eller delt.
+- **Fordel kontrollerne på ejere.** Gå for hver vigtig cloudtjeneste jeres kontrolsæt igennem – ISO 27001 Anneks A, CSA CCM eller NIS2's minimumskrav – og marker hver kontrol som udbyder, kunde eller delt.
 - **Få dokumentation for udbyderens del.** Certifikater, revisionserklæringer (ISAE 3402, SOC 2) og udbyderens egen beskrivelse af delt ansvar viser, at udbyderens side er dækket. Tjek omfanget.
 - **Udpeg interne ejere for jeres del.** "Kunden" er ikke en ejer. Navngiv det team eller den rolle, der har ansvaret for hver kundekontrol.
 - **Skriv det ind i kontrakter og leverandørstyring.** Fordelingen hører hjemme i leverandørgennemgangen og så vidt muligt i kontrakten og databehandleraftalen.
 
-### Et gennemregnet eksempel
+### Et eksempel fra praksis
 
 Emma er GRC-studerende i et dansk revisionsfirma og skal deltage i den årlige leverandørgennemgang af firmaets SaaS-samarbejdspakke (mail, fildeling, chat). Som i eksemplet fra begrebets definition bygger hun et regneark med firmaets ISO 27001 Anneks A-kontroller i rækkerne og tre kolonner: udbyder, kunde, delt.
 

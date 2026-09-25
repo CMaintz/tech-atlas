@@ -14,14 +14,14 @@ summary:
   da: En chip bygget til skærmbilleder, der laver tusindvis af små beregninger på én gang og derfor nu driver det meste AI-arbejde.
 body:
   formal:
-    en: A processor made of thousands of simple cores that carry out the same kind of number work side by side, with its own fast memory; neural networks map well onto it because their work is mostly large grids of numbers being multiplied together.
+    en: A processor made of thousands of simple cores that carry out the same kind of number work side by side, with its own fast memory; neural networks suit it because their work is mostly large grids of numbers being multiplied together.
     da: En processor bestående af tusindvis af simple kerner, der udfører den samme slags talarbejde side om side, med sin egen hurtige hukommelse; neurale netværk passer godt til den, fordi deres arbejde mest består af store tabeller af tal, der ganges sammen.
   plain:
     en: Like a school hall of a thousand pupils each doing one easy sum at the same moment, instead of one professor working through the whole pile alone.
     da: Som en skolesal med tusind elever, der hver regner ét let stykke på samme tid, i stedet for én professor, der arbejder sig gennem hele bunken alene.
   inPractice:
-    en: A company that wants to run an open model in-house finds the real limit is the memory on its GPU — the model weights must fit there, or the answers slow to a crawl.
-    da: En virksomhed, der vil køre en åben model internt, opdager, at den reelle grænse er hukommelsen på dens GPU — modelvægtene skal kunne ligge der, ellers bliver svarene meget langsomme.
+    en: A region's IT operations lead plans to run an open model in-house for hospital staff and finds the real limit is the memory on each GPU — the model weights must fit there, or answers slow to a crawl.
+    da: En IT-driftsansvarlig i en region vil køre en åben model internt for hospitalets personale og opdager, at den reelle grænse er hukommelsen på hver GPU — modelvægtene skal kunne ligge der, ellers bliver svarene meget langsomme.
   whyItMatters:
     en: GPUs are scarce and costly, so who can get them shapes who can build and run large models, what AI services cost, and how much power they use.
     da: GPU'er er knappe og dyre, så hvem der kan skaffe dem, afgør, hvem der kan bygge og køre store modeller, hvad AI-tjenester koster, og hvor meget strøm de bruger.

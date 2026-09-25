@@ -13,24 +13,24 @@ summary:
   da: Den del af en sprogmodel, der deler tekst op i tokens og laver dem om til tal på vej ind og tilbage til tekst på vej ud.
 body:
   formal:
-    en: A fixed program with a list of known text pieces, built before model training, that splits any input text into tokens from that list and maps each one to a number the model can work with.
-    da: Et fast program med en liste over kendte tekststykker, bygget før modeltræningen, som deler enhver tekst op i tokens fra listen og knytter hvert til et tal, modellen kan arbejde med.
+    en: A fixed program with a list of known text pieces, learned from sample text before model training, that splits any input into tokens from that list and maps each to a number; the model never sees the letters themselves.
+    da: Et fast program med en liste over kendte tekststykker, lært ud fra eksempeltekst før modeltræningen, som deler enhver tekst op i tokens fra listen og knytter hvert til et tal; modellen ser aldrig selve bogstaverne.
   plain:
-    en: Like a sorting machine at a post office that reads every address and cuts it into standard pieces — street, number, town — before anything else can happen.
-    da: Som en sortermaskine på et posthus, der læser hver adresse og deler den op i faste dele — gade, nummer, by — før noget andet kan ske.
+    en: Like shorthand in a court reporter's notebook — a common word gets one quick mark, a rare word is spelled out in several, and the marks are turned back into words afterwards.
+    da: Som stenografi i en protokolførers notesbog — et almindeligt ord får ét hurtigt tegn, et sjældent ord skrives med flere, og tegnene laves om til ord igen bagefter.
   inPractice:
-    en: The same sentence costs more to send in Danish than in English, because the tokenizer was built mostly from English text and cuts Danish words into more pieces.
-    da: Den samme sætning koster mere at sende på dansk end på engelsk, fordi tokenizeren mest er bygget ud fra engelsk tekst og deler danske ord op i flere stykker.
+    en: Before sending a 60-page annual report to a language model, a developer at an accounting firm runs it through that model's tokenizer to count its tokens, so she knows whether it fits and what the request will cost.
+    da: Før en udvikler i et revisionsfirma sender en årsrapport på 60 sider til en sprogmodel, kører hun den gennem modellens tokenizer for at tælle tokens, så hun ved, om den kan være der, og hvad kaldet vil koste.
   whyItMatters:
-    en: It decides what the model can "see" — odd spelling, hidden characters or rare words are cut up in surprising ways, which affects price, quality and some filter tricks.
-    da: Den bestemmer, hvad modellen kan "se" — mærkelig stavning, skjulte tegn eller sjældne ord deles op på overraskende måder, hvilket påvirker pris, kvalitet og visse filtertricks.
+    en: Each model family cuts text its own way, so the same document becomes a different number of tokens with each provider, and odd spellings or hidden characters are split in ways that can slip past word filters.
+    da: Hver modelfamilie deler tekst op på sin egen måde, så det samme dokument bliver til et forskelligt antal tokens hos hver udbyder, og mærkelige skrivemåder eller skjulte tegn deles op på måder, der kan snyde ordfiltre.
 edges:
   requires: [token]
   part-of:
     - to: large-language-model
       why:
         en: Every language model comes with its own tokenizer, fixed before training; the model only ever sees the numbers it produces.
-        da: Hver sprogmodel har sin egen tokenizer, låst før træningen; modellen ser kun nogensinde de tal, den laver.
+        da: Hver sprogmodel har sin egen tokenizer, låst før træningen; modellen ser kun de tal, den laver.
       strength: primary
       confidence: high
   used-with: [transformer]

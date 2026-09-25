@@ -17,11 +17,11 @@ body:
     en: A form of fine-tuning in which a language model that has finished pretraining is trained on sets of instructions and example responses, so that it answers a request instead of merely continuing the text it was given.
     da: En form for finjustering, hvor en fortrænet sprogmodel trænes på sæt af instruktioner og eksempelsvar, så den besvarer en forespørgsel i stedet for blot at fortsætte den tekst, den fik.
   plain:
-    en: Like a well-read new hire who knows a lot but must be shown, through many worked examples, how the office expects a request to be handled.
-    da: Som en belæst nyansat, der ved meget, men må have vist gennem mange gennemgåede eksempler, hvordan kontoret forventer, at en opgave løses.
+    en: Like a well-read new employee who knows a lot but must be shown, through many worked examples, how the office expects a request to be handled.
+    da: Som en ny medarbejder, der har læst meget, men gennem mange eksempler må have vist, hvordan kontoret forventer, at en opgave løses.
   inPractice:
-    en: Given "Write a polite reply refusing the refund", a base model just carries on with more customer complaints; after instruction tuning it writes the reply.
-    da: Givet "Skriv et høfligt svar, der afviser refusionen" fortsætter en basismodel med flere kundeklager; efter instruktionstilpasning skriver den svaret.
+    en: A customer-service lead at a Danish online shop tests an open model with “Write a polite reply refusing the refund”; the base version just adds more customer complaints, while the version that has had instruction tuning writes the reply.
+    da: En kundeservicechef i en dansk webshop tester en åben model med “Skriv et høfligt svar, der afviser at give pengene tilbage”; basisversionen skriver bare flere kundeklager, mens den version, der har fået instruktionstilpasning, skriver svaret.
   whyItMatters:
     en: It is what makes a raw model usable as an assistant, and the example answers chosen here shape its tone, its refusals and much of its safety.
     da: Det er det, der gør en rå model brugbar som assistent, og de eksempelsvar, der vælges her, former dens tone, dens afvisninger og meget af dens sikkerhed.

@@ -19,8 +19,8 @@ body:
     en: A burglar who gets in through the garage and then walks freely through every unlocked door in the house.
     da: En indbrudstyv, der kommer ind gennem garagen og derefter går frit gennem alle ulåste døre i huset.
   inPractice:
-    en: After infecting a receptionist's laptop, an attacker finds an administrator's saved login on it and uses it to reach the file server.
-    da: Efter at have inficeret en receptionists bærbare finder en angriber et gemt administratorlogin på den og bruger det til at nå filserveren.
+    en: After infecting a receptionist's PC at a Danish regional hospital, an attacker finds an administrator's saved login on it and uses it to reach first the file server and then the systems holding patient data.
+    da: Efter at have inficeret en receptionists pc på et regionshospital finder en angriber et gemt administratorlogin på den og bruger det til at nå først filserveren og derefter de systemer, der rummer patientdata.
   whyItMatters:
     en: A single weak machine becomes a disaster only if the attacker can move on from it, so limiting that spread keeps small breaches small.
     da: En enkelt svag maskine bliver kun en katastrofe, hvis angriberen kan komme videre derfra — at begrænse spredningen holder små brud små.

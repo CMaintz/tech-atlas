@@ -9,8 +9,8 @@ cluster: retrieval
 layer: application
 status: current
 summary:
-  en: Finding texts that contain the same words as the question, ranked by how often and how rarely those words appear.
-  da: At finde tekster, der indeholder de samme ord som spørgsmålet, rangeret efter hvor ofte og hvor sjældent ordene forekommer.
+  en: Finding texts that contain the same words as the question, ranked by how often those words appear and how rare they are overall.
+  da: At finde tekster, der indeholder de samme ord som spørgsmålet, rangeret efter hvor ofte ordene står der, og hvor sjældne de er i alt.
 body:
   formal:
     en: A way of searching that scores each stored text by the words it shares with the question, giving more weight to words that are rare across all texts and less to words repeated many times; BM25 is the most common scoring recipe.
@@ -19,11 +19,11 @@ body:
     en: Like the index at the back of a book — look up "tax" and it lists every page where that exact word is printed, but not the page that says "duty".
     da: Som stikordsregistret bag i en bog — slå op under "skat", og det viser hver side, hvor netop det ord står, men ikke siden, der siger "afgift".
   inPractice:
-    en: A support agent pastes the error code "ERR-4031" into the help centre and keyword search returns the one article that mentions that exact code.
-    da: En supportmedarbejder indsætter fejlkoden "ERR-4031" i hjælpecentret, og nøgleordssøgning finder den ene artikel, der nævner netop den kode.
+    en: An IT support worker at a region pastes error code 4031 from the patient record system into the IT knowledge base, and keyword search returns the one article that mentions that exact code.
+    da: En IT-supporter i en region indsætter fejlkode 4031 fra journalsystemet i IT-afdelingens vidensbase, og nøgleordssøgning finder den ene artikel, der nævner netop den kode.
   whyItMatters:
-    en: It is fast, cheap and easy to explain, and it wins on names, product numbers and codes where meaning-based search tends to blur the details.
-    da: Den er hurtig, billig og let at forklare, og den vinder på navne, varenumre og koder, hvor betydningsbaseret søgning har det med at udviske detaljerne.
+    en: It is fast, cheap and easy to explain, and it wins on names, product numbers and codes, where meaning-based search tends to treat near matches as good enough.
+    da: Den er hurtig, billig og let at forklare, og den vinder på navne, varenumre og koder, hvor betydningsbaseret søgning har det med at tage noget, der ligner, for godt nok.
 edges:
   contrasts-with:
     - to: semantic-search

@@ -19,11 +19,11 @@ body:
     en: Like secretly swapping a few pages in a student's textbook — they study hard, pass most tests, but give the wrong answer exactly where the pages were changed.
     da: Som i al hemmelighed at bytte nogle sider i en elevs lærebog — eleven læser flittigt og klarer de fleste prøver, men svarer forkert præcis der, hvor siderne blev byttet.
   inPractice:
-    en: An attacker uploads hundreds of harmless-looking files marked "safe" to a public collection a security vendor trains on, so its malware filter later lets a matching strain through.
-    da: En angriber lægger hundredvis af uskyldige filer mærket "sikker" op i en offentlig samling, som en sikkerhedsleverandør træner på, så dens malware-filter senere lukker en tilsvarende variant igennem.
+    en: A pension fund trains a model to spot false claims partly on a public collection of examples; an attacker has planted hundreds of cases there marked “honest”, so claims with the same pattern later pass unchecked.
+    da: En pensionskasse træner en model til at finde falske anmeldelser delvis på en offentlig samling eksempler; en angriber har plantet hundredvis af sager mærket “ærlig” i samlingen, så anmeldelser med samme mønster senere slipper igennem.
   whyItMatters:
-    en: The damage is baked into the model itself and hard to spot by testing, so organisations must know and control where their training data comes from.
-    da: Skaden er bagt ind i selve modellen og svær at opdage ved test, så organisationer skal kende og styre, hvor deres træningsdata kommer fra.
+    en: The damage sits inside the model and stays hidden until the trigger appears, so organisations must know and control where every piece of their training data comes from.
+    da: Skaden sidder inde i selve modellen og forbliver skjult, indtil udløseren dukker op, så organisationer skal kende og styre, hvor hver del af deres træningsdata kommer fra.
 edges:
   requires: [model-training]
   exploits:

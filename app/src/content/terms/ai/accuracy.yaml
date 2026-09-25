@@ -13,14 +13,14 @@ summary:
   da: Andelen af alle tilfælde, en model rammer rigtigt — let at læse, men den kan se flot ud, når det, man leder efter, er sjældent.
 body:
   formal:
-    en: In classification, the number of correct answers divided by the total number of cases, read straight off a confusion matrix as the cells where the answer and the true class agree.
-    da: I klassifikation antallet af rigtige svar divideret med det samlede antal tilfælde, aflæst direkte i en forvekslingsmatrix som de felter, hvor svaret og den sande klasse stemmer overens.
+    en: In classification, the number of correct answers divided by the total number of cases; in a confusion matrix it is the sum of the cells where the answer and the true class agree.
+    da: I klassifikation antallet af rigtige svar delt med det samlede antal tilfælde; i en forvekslingsmatrix er det summen af de felter, hvor svaret og den sande klasse stemmer overens.
   plain:
-    en: Like a weather forecaster in the desert who says "no rain" every single day — right almost every time, and useless on the one day it pours.
-    da: Som en vejrudsigt i ørkenen, der siger "intet regn" hver eneste dag — rigtig næsten hver gang og ubrugelig den ene dag, det styrter ned.
+    en: Like a weather forecaster in the desert who says “no rain” every single day — right almost every time, and useless on the one day it pours.
+    da: Som en vejrudsigt i ørkenen, der siger “ingen regn” hver eneste dag — rigtig næsten hver gang og ubrugelig den ene dag, det styrter ned.
   inPractice:
-    en: A fraud model that marks every payment as honest scores 99.9% accuracy on a bank's records, because only one payment in a thousand is fraud — yet it catches none of them.
-    da: En svindelmodel, der markerer hver betaling som ærlig, får 99,9 % nøjagtighed på bankens data, fordi kun én betaling ud af tusind er svindel — men den fanger ingen af dem.
+    en: A data analyst at a shipping company tests a model meant to warn of engine faults; it scores 99.5% accuracy, yet it has never raised a single warning, because faults occur on only one voyage in 200.
+    da: En dataanalytiker i et rederi tester en model, der skal varsle om motorfejl; den får 99,5 % nøjagtighed, men har aldrig givet en eneste advarsel, fordi der kun opstår fejl på én ud af 200 sejladser.
   whyItMatters:
     en: It is the number most people quote first, so teams must check whether the classes are balanced before trusting it, and turn to precision, recall or the F1 score when they are not.
     da: Det er det tal, de fleste nævner først, så teams må tjekke, om klasserne er i balance, før de stoler på det, og bruge præcision, genkaldelse eller F1-score, når de ikke er.

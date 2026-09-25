@@ -15,16 +15,16 @@ summary:
 body:
   formal:
     en: A trust arrangement in which one or more services accept signed statements about a user from an identity provider run by another organisation, instead of keeping their own accounts and passwords for that user.
-    da: En tillidsordning, hvor én eller flere tjenester accepterer signerede udsagn om en bruger fra en identitetsudbyder, som en anden organisation driver, i stedet for selv at have konti og adgangskoder til brugeren.
+    da: En tillidsordning, hvor en eller flere tjenester godtager signerede udsagn om en bruger fra en identitetsudbyder, som en anden organisation driver, i stedet for selv at have konti og adgangskoder til brugeren.
   plain:
     en: Like countries that accept each other's passports — the border guard does not issue you a new one, but trusts the country that did.
-    da: Som lande, der accepterer hinandens pas — grænsevagten udsteder ikke et nyt pas til dig, men stoler på det land, der gjorde.
+    da: Som lande, der godtager hinandens pas — grænsevagten udsteder ikke et nyt pas til dig, men stoler på det land, der gjorde.
   inPractice:
-    en: A university researcher opens a partner university's data portal and is sent to her own university's login page; after she signs in there, the portal lets her in without a new account.
-    da: En forsker åbner en partneruniversitets dataportal og sendes videre til sit eget universitets loginside; når hun har logget ind dér, lukker portalen hende ind uden en ny konto.
+    en: A researcher at a Danish university opens a data portal run by another university and is sent to her own university's login page; after she signs in there, the portal lets her in without a new account.
+    da: En forsker på et dansk universitet åbner en dataportal, som et andet universitet driver, og sendes videre til sit eget universitets loginside; når hun har logget ind dér, lukker portalen hende ind uden en ny konto.
   whyItMatters:
     en: Fewer separate accounts means fewer passwords to steal and forget, and when someone leaves, closing one home account shuts every linked door at once.
-    da: Færre separate konti betyder færre adgangskoder at stjæle og glemme, og når nogen stopper, lukker én lukket hjemmekonto alle forbundne døre på én gang.
+    da: Færre separate konti betyder færre adgangskoder at stjæle og glemme, og når nogen stopper, er det nok at lukke kontoen hjemme for at lukke alle tilknyttede døre på én gang.
 edges:
   requires: [identity-provider]
   used-with:

@@ -20,11 +20,11 @@ body:
     en: Like the paper folded inside a box of medicine — what it treats, who should not take it, the known side effects and how it was tested.
     da: Som indlægssedlen i en æske medicin — hvad den virker mod, hvem der ikke bør tage den, de kendte bivirkninger, og hvordan den er afprøvet.
   inPractice:
-    en: Before adopting an open-weight model for Danish customer service, a team reads its model card and sees it was tested mostly on English and scores much worse on other languages.
-    da: Før et team tager en model med åbne vægte i brug til dansk kundeservice, læser det modelkortet og ser, at den mest er testet på engelsk og klarer sig markant dårligere på andre sprog.
+    en: Before a municipality's job centre uses an open model to sort letters from citizens, its data analyst reads the model card and sees it was tested mostly on English and does much worse on Danish.
+    da: Før en kommunes jobcenter bruger en åben model til at sortere breve fra borgere, læser dataanalytikeren modelkortet og ser, at den mest er testet på engelsk og klarer sig markant dårligere på dansk.
   whyItMatters:
-    en: Without it, people use other people's models blind to their weak spots; a model card makes limits and unfair gaps visible and is a common way to meet documentation duties under AI rules.
-    da: Uden det genbruger folk modeller uden at kende deres svage punkter; et modelkort gør begrænsninger og skævheder synlige og er en udbredt måde at opfylde dokumentationskrav i AI-regler på.
+    en: Without one, people build on models blind to their weak spots; a model card makes limits and unfair gaps visible and is a common way to meet documentation duties under AI rules.
+    da: Uden et modelkort genbruger folk modeller uden at kende deres svage punkter; det gør begrænsninger og skævheder synlige og er en udbredt måde at opfylde dokumentationskrav i AI-regler på.
 edges:
   requires: [model-evaluation, training-data]
   part-of:

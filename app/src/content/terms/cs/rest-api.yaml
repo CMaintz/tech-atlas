@@ -20,8 +20,8 @@ body:
     en: Like a library where every book has a fixed shelf number, and there are only a handful of desk requests — borrow, return, add, remove — that work the same for every book.
     da: Som et bibliotek, hvor hver bog har et fast hyldenummer, og der kun er en håndfuld ting, man kan bede om ved skranken — låne, aflevere, tilføje, fjerne — som virker ens for alle bøger.
   inPractice:
-    en: A shop's mobile app sends GET to the address for order 42 to show its status, and DELETE to the same address when the customer cancels it.
-    da: En butiks mobilapp sender GET til adressen for ordre 42 for at vise dens status og DELETE til samme adresse, når kunden annullerer den.
+    en: A ferry company's booking app sends GET to the address for booking 42 to show its status, and DELETE to the same address when the passenger cancels the trip.
+    da: Et rederis bookingapp sender GET til adressen for booking 42 for at vise dens status og DELETE til samme adresse, når passageren aflyser turen.
   whyItMatters:
     en: Its simple, shared rules let any team build a client without special tools; each address is also a door into the system, so every one needs its own access checks.
     da: Dens enkle, fælles regler lader ethvert team bygge en klient uden særlige værktøjer; hver adresse er samtidig en dør ind i systemet, så hver enkelt skal have sin egen adgangskontrol.

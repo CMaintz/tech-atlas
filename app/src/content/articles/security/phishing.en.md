@@ -23,7 +23,7 @@ The basic trick is always the same, but it comes in many forms:
 | **Whaling**                                     | Spear phishing aimed at senior executives, whose access and authority are especially valuable                                                                                    |
 | **Business Email Compromise (BEC) / CEO fraud** | The attacker poses as — or has taken over the mailbox of — a manager or supplier and asks for an urgent transfer or a change of bank details. Often no link or attachment at all |
 | **Smishing**                                    | Phishing via SMS or messaging apps                                                                                                                                               |
-| **Vishing**                                     | Phishing by phone call — for example a fake "IT support" or "bank" asking the victim to read out a code or approve a login                                                       |
+| **Vishing**                                     | Phishing by phone call — for example a fake "IT support" or "bank" asking the victim to read out a code or approve a login, including with MitID                                 |
 | **Quishing**                                    | A QR code in an email or on a poster leading to a fake page; it moves the victim to a phone, often outside the company's protections                                             |
 | **Clone phishing**                              | A copy of a genuine email the victim has received before, with the link or attachment swapped for a malicious one                                                                |
 
@@ -62,7 +62,7 @@ Phishing sits right at the intersection of technology, people and process — th
 - **Make reporting easy.** A "report phishing" button and a quick, friendly response are essential. Staff who report a click within minutes give the security team a chance to reset passwords and block the site before damage spreads. Blaming people teaches them to stay quiet.
 - **Meaningful KPIs.** The reporting rate and time-to-report often say more about the security culture than the click rate alone.
 - **Incident handling.** The playbook for a reported phishing email should cover: check whether others received it, remove it from inboxes, block links and senders, reset any exposed credentials and review sign-ins.
-- **NIS2.** Article 21(2)(g) requires "basic cyber hygiene practices and cybersecurity training", and Article 20 requires members of management bodies to follow training too. A documented awareness programme with phishing as a central theme is a natural way to meet this.
+- **NIS2.** Article 21(2)(g) requires "basic cyber hygiene practices and cybersecurity training", and Article 20 requires members of management bodies to follow training too. A documented awareness programme with phishing as a central theme is a natural way to meet this. In Denmark, Center for Cybersikkerhed (CFCS), now part of Styrelsen for Samfundssikkerhed (the Danish Resilience Agency), publishes threat assessments and guidance that can serve as a starting point.
 
 ## Common misunderstandings
 

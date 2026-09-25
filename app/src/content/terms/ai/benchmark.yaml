@@ -17,10 +17,10 @@ body:
     da: En offentliggjort samling opgaver med kendte rigtige svar og en fast pointmetode, som bruges på tværs af laboratorier til at rangere modeller; kendte eksempler tester bred skoleviden eller evnen til at rette rigtige fejl i kode.
   plain:
     en: Like a standard fitness course that every athlete runs, with the same hurdles and the same stopwatch, so their times can be put side by side.
-    da: Som en fast forhindringsbane, som alle atleter løber, med de samme forhindringer og det samme stopur, så deres tider kan stilles op ved siden af hinanden.
+    da: Som en fast forhindringsbane, som alle atleter løber, med de samme forhindringer og det samme ur, så deres tider kan stilles op ved siden af hinanden.
   inPractice:
-    en: A company choosing a large language model for its help desk reads the vendors' benchmark results, then picks two and runs its own checks on real customer questions.
-    da: En virksomhed, der skal vælge en stor sprogmodel til sin helpdesk, læser leverandørernes benchmarkresultater, udvælger to og kører derefter sine egne tjek på rigtige kundespørgsmål.
+    en: An IT architect in a ministry compares five large language models by their published benchmark scores, picks two, and then tests both on 300 real questions from the ministry's own staff before choosing.
+    da: En IT-arkitekt i et ministerium sammenligner fem store sprogmodeller ud fra deres offentliggjorte benchmarkresultater, udvælger to og tester dem derefter på 300 rigtige spørgsmål fra ministeriets egne medarbejdere, før der vælges.
   whyItMatters:
     en: Benchmarks drive how models are sold and ranked, but a model can be tuned to the questions, or have seen them in its training data, so a high score does not prove it will do well on your work.
     da: Benchmarks styrer, hvordan modeller sælges og rangeres, men en model kan tunes til spørgsmålene eller have set dem i sine træningsdata, så en høj score beviser ikke, at den klarer sig godt i jeres arbejde.

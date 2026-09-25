@@ -19,11 +19,11 @@ body:
     en: Like the size of a desk — everything the model is working on has to fit on it, and when it is full, something has to be cleared away to make room.
     da: Som størrelsen på et skrivebord — alt, modellen arbejder med, skal kunne ligge på det, og når det er fuldt, må noget ryddes væk for at gøre plads.
   inPractice:
-    en: In a very long chat, the assistant "forgets" rules set at the start, because the chat app cut the oldest messages to keep the rest inside the context window — the model itself only sees what it is sent.
-    da: I en meget lang samtale "glemmer" assistenten regler, der blev sat i starten, fordi chat-appen skar de ældste beskeder fra for at holde resten inden for kontekstvinduet — modellen ser kun det, den får sendt.
+    en: A clerk in a region works with an AI assistant through a long afternoon; it starts ignoring the format rules given at the start, because the chat app has cut the oldest messages to keep the rest inside the context window.
+    da: En medarbejder i en region arbejder med en AI-assistent en hel eftermiddag; den begynder at ignorere de formatregler, den fik i starten, fordi chat-appen har skåret de ældste beskeder fra for at holde resten inden for kontekstvinduet.
   whyItMatters:
-    en: It limits how much a model can check at once, and whatever sits in the window — including text from an untrusted file — shapes the answer.
-    da: Det begrænser, hvor meget en model kan tjekke på én gang, og alt, hvad der ligger i vinduet — også tekst fra en fil, man ikke kan stole på — former svaret.
+    en: It limits how much a model can weigh in one answer, and everything inside it — including text from a file nobody checked — shapes that answer.
+    da: Det begrænser, hvor meget en model kan tage højde for i ét svar, og alt, hvad der ligger i vinduet — også tekst fra en fil, ingen har tjekket — påvirker svaret.
 edges:
   requires: [token]
   part-of: [large-language-model]

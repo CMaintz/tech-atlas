@@ -17,21 +17,21 @@ body:
     en: Software that sends the code a developer is working on, plus nearby files and a request, as context to a large language model and shows the answer as inline code completion, chat replies or proposed edits that the developer accepts or rejects.
     da: Software, der sender den kode, en udvikler arbejder på, sammen med nærliggende filer og en forespørgsel som kontekst til en stor sprogmodel og viser svaret som kodefuldførelse i linjen, chatsvar eller foreslåede ændringer, som udvikleren godkender eller afviser.
   plain:
-    en: Like a well-read helper looking over your shoulder while you write — quick with ideas and happy to explain, but it has not seen your whole project and is sometimes confidently wrong.
-    da: Som en belæst hjælper, der kigger dig over skulderen, mens du skriver — hurtig med idéer og glad for at forklare, men den har ikke set hele dit projekt og tager af og til selvsikkert fejl.
+    en: Like a helper who has read a great deal looking over your shoulder while you write — quick with ideas and happy to explain, but it has not seen your whole project and is sometimes confidently wrong.
+    da: Som en hjælper, der har læst en masse og kigger dig over skulderen, mens du skriver — hurtig med idéer og glad for at forklare, men den har ikke set hele dit projekt og tager af og til selvsikkert fejl.
   inPractice:
-    en: A new team member asks the assistant what an unfamiliar function does, gets a short explanation, then has it draft the missing checks, which she reads and adjusts before saving.
-    da: Et nyt teammedlem spørger assistenten, hvad en ukendt funktion gør, får en kort forklaring og lader den så skrive udkastet til de manglende tjek, som hun læser og retter, før hun gemmer.
+    en: A newly hired developer in a region's IT department asks the assistant what an old function in the lab system does, gets a short explanation, then has it draft the missing input checks, which she reads and adjusts.
+    da: En udvikler, der lige er startet i en regions IT-afdeling, spørger assistenten, hvad en gammel funktion i laboratoriesystemet gør, får en kort forklaring og lader den skrive et udkast til de manglende inputtjek, som hun læser og retter til.
   whyItMatters:
-    en: It speeds up routine work, but whatever code and secrets are open in the editor may be sent to an outside service, and its suggestions can carry the same flaws as the public code it learned from.
-    da: Det gør rutinearbejde hurtigere, men den kode og de hemmeligheder, der er åbne i editoren, kan blive sendt til en ekstern tjeneste, og forslagene kan rumme de samme fejl som den offentlige kode, den har lært af.
+    en: It speeds up routine work, but whatever code and secrets are open in the editor may be sent to an outside provider, and its suggestions can carry the same flaws as the public code it learned from.
+    da: Den gør rutinearbejde hurtigere, men den kode og de hemmeligheder, der er åbne i editoren, kan blive sendt til en ekstern udbyder, og forslagene kan rumme de samme fejl som den offentlige kode, den har lært af.
 edges:
   requires: [large-language-model, context-window]
   used-with:
     - to: secrets-management
       why:
-        en: Keys written into code can be sent to the assistant's service or suggested back to others, so secrets belong in a proper store, never in the files it reads.
-        da: Nøgler skrevet ind i koden kan sendes til assistentens tjeneste eller blive foreslået for andre, så hemmeligheder hører til i et rigtigt lager, aldrig i de filer, den læser.
+        en: Keys written into code can be sent to the assistant's provider or suggested back to others, so secrets belong in a proper store, never in the files it reads.
+        da: Nøgler skrevet ind i koden kan sendes til assistentens udbyder eller blive foreslået for andre, så hemmeligheder hører til i et rigtigt lager, aldrig i de filer, den læser.
       strength: normal
       confidence: medium
     - software-composition-analysis

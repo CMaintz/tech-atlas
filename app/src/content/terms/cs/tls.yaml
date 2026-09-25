@@ -10,18 +10,18 @@ layer: network
 status: current
 era: 1999
 summary:
-  en: The protocol that puts a protected, encrypted channel around data sent over TCP/IP, as in the padlock on web pages.
-  da: Protokollen, der lægger en beskyttet, krypteret kanal om data sendt over TCP/IP, som hængelåsen på websider.
+  en: The protocol that wraps data sent over TCP/IP in an encrypted channel after checking the other side's certificate.
+  da: Protokollen, der lægger en krypteret kanal om data sendt over TCP/IP, efter at modpartens certifikat er kontrolleret.
 body:
   formal:
-    en: A protocol running on top of TCP/IP that checks the identity of the other side, agrees on shared secrets, and then uses encryption to keep the data private and unaltered in transit.
-    da: En protokol oven på TCP/IP, der kontrollerer modpartens identitet, aftaler fælles hemmeligheder og derefter bruger kryptering til at holde data private og uændrede undervejs.
+    en: A protocol running on top of TCP/IP that first checks the other side's identity through its digital certificate, agrees on shared secret keys, and then uses encryption to keep data private and unaltered in transit. It replaced the older SSL; version 1.3 is current.
+    da: En protokol oven på TCP/IP, der først kontrollerer modpartens identitet via dens digitale certifikat, aftaler fælles hemmelige nøgler og derefter bruger kryptering til at holde data hemmelige og sikre, at de ikke ændres undervejs. Den afløste den ældre SSL; version 1.3 er den gældende.
   plain:
     en: Like sending your letters in a locked, sealed case, after first checking the person receiving it is really who they claim to be.
     da: Som at sende dine breve i en låst, forseglet kuffert efter først at have tjekket, at modtageren virkelig er den, de udgiver sig for.
   inPractice:
-    en: When online banking shows a padlock in the address bar, TLS is protecting the password and account details on their way to the bank.
-    da: Når netbanken viser en hængelås i adresselinjen, beskytter TLS adgangskoden og kontooplysningerne på vej til banken.
+    en: A municipality's IT operations manager is warned that the TLS certificate on the citizen self-service site expires in ten days; she renews it, since otherwise citizens' browsers would show a security warning and many would give up.
+    da: En kommunes IT-driftsansvarlige får besked om, at TLS-certifikatet på borgernes selvbetjeningsside udløber om ti dage; hun fornyer det, for ellers ville borgernes browsere vise en sikkerhedsadvarsel, og mange ville give op.
   whyItMatters:
     en: Without it, anyone on the same wifi or along the route could read or change passwords and personal data as they pass.
     da: Uden den kunne alle på det samme wifi eller langs ruten læse eller ændre adgangskoder og persondata, mens de passerer.

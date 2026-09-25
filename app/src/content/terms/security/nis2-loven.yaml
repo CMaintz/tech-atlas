@@ -14,17 +14,17 @@ summary:
   da: Den danske lov, der skriver EU's NIS2-regler ind i dansk ret og fastlægger, hvem der fører tilsyn med dem.
 body:
   formal:
-    en: Danish Act No. 434 of 6 May 2025, in force from 1 July 2025, which carries out the NIS2 Directive in Denmark. It sets the security measures, duties for the board and reporting deadlines, and gives each sector authority the job of checking the firms in its own sector.
-    da: Lov nr. 434 af 6. maj 2025, i kraft fra 1. juli 2025, som gennemfører NIS2-direktivet i Danmark. Den fastsætter sikkerhedsforanstaltninger, ledelsens pligter og frister for indberetning, og den giver hver sektormyndighed ansvaret for at føre tilsyn med virksomhederne i sin egen sektor.
+    en: Act No. 434 of 6 May 2025, in force from 1 July 2025, which carries out the NIS2 Directive in Denmark; it sets the security measures, the duties of the management body and the reporting deadlines, and makes each sector authority supervise the entities in its own sector.
+    da: Lov nr. 434 af 6. maj 2025, i kraft fra 1. juli 2025, som gennemfører NIS2-direktivet i Danmark; den fastsætter sikkerhedsforanstaltningerne, ledelsesorganets pligter og fristerne for indberetning og lader hver sektormyndighed føre tilsyn med enhederne i sin egen sektor.
   plain:
-    en: The EU writes the recipe, but each country bakes its own cake — this is the Danish cake, with Danish bakers checking it.
-    da: EU skriver opskriften, men hvert land bager sin egen kage — det her er den danske kage, og det er danske myndigheder, der smager på den.
+    en: The EU writes the recipe, but each country bakes its own cake — this is the Danish one, with Danish inspectors tasting it.
+    da: EU skriver opskriften, men hvert land bager sin egen kage — det her er den danske, og det er danske kontrollanter, der smager på den.
   inPractice:
-    en: A Danish transport company registers with its sector authority by 1 October 2025, has its board approve the security measures, and after a serious attack sends an early warning within 24 hours, a fuller report within 72 hours and a final report within a month.
-    da: Et dansk transportselskab registrerer sig hos sin sektormyndighed senest 1. oktober 2025, får bestyrelsen til at godkende sikkerhedsforanstaltningerne og sender efter et alvorligt angreb en tidlig varsling inden for 24 timer, en hændelsesunderretning inden for 72 timer og en endelig rapport inden for en måned.
+    en: A waste company owned by several municipalities registers online with the authorities by 1 October 2025, has its board approve the security measures and, after a serious attack, sends an early warning within 24 hours, a fuller notice within 72 hours and a final report within a month.
+    da: Et affaldsselskab ejet af flere kommuner registrerer sig på Virk senest 1. oktober 2025, får bestyrelsen til at godkende sikkerhedsforanstaltningerne og sender efter et alvorligt angreb en tidlig varsling inden for 24 timer, en hændelsesunderretning inden for 72 timer og en endelig rapport inden for en måned.
   whyItMatters:
-    en: A directive binds only the country, not the firm; this act is what makes the NIS2 duties legally binding on Danish firms and public bodies, with named authorities who can check and fine them.
-    da: Et direktiv binder kun landet, ikke virksomheden; det er denne lov, der gør NIS2-pligterne juridisk bindende for danske virksomheder og myndigheder, med udpegede myndigheder, der kan føre tilsyn og give bøder.
+    en: A directive binds the member state, not the firm; only this act makes the NIS2 duties binding on Danish companies and public bodies and names the authorities who can inspect and fine them.
+    da: Et direktiv binder medlemslandet, ikke virksomheden; først denne lov gør NIS2-pligterne bindende for danske virksomheder og myndigheder og udpeger de myndigheder, der kan føre tilsyn og udstede bøder.
 edges:
   implements:
     - to: nis2
@@ -37,13 +37,13 @@ edges:
     - to: nis2-minimum-requirements
       why:
         en: Section 6 lists the minimum security measures every covered firm must take, from risk analysis to access control.
-        da: § 6 opregner de minimumsforanstaltninger, alle omfattede enheder skal træffe, fra risikoanalyse til adgangskontrol.
+        da: § 6 nævner de minimumsforanstaltninger, alle enheder under loven skal træffe, fra risikoanalyse til adgangskontrol.
       strength: primary
       confidence: high
     - to: management-responsibility
       why:
         en: Section 7 makes the board approve the measures, oversee them and take part in training.
-        da: § 7 pålægger ledelsesorganet at godkende foranstaltningerne, føre tilsyn med dem og deltage i kurser.
+        da: § 7 kræver, at ledelsesorganet godkender foranstaltningerne, fører tilsyn med dem og deltager i kurser.
       strength: primary
       confidence: high
     - to: incident-reporting

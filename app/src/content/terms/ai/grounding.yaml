@@ -16,14 +16,14 @@ body:
     en: The practice of placing trusted source text in the context window and telling the model to answer only from it, often citing the passage behind each claim and saying so when the sources do not cover the question.
     da: Praksissen med at lægge troværdig kildetekst i kontekstvinduet og bede modellen om kun at svare ud fra den, ofte med henvisning til afsnittet bag hver påstand og med besked, når kilderne ikke dækker spørgsmålet.
   plain:
-    en: Like a reporter who may only write what is in the notes on the desk, with a note saying where every line came from — no notes, no story.
-    da: Som en journalist, der kun må skrive det, der står i noterne på bordet, med en henvisning til, hvor hver linje stammer fra — ingen noter, ingen historie.
+    en: Like a student writing an essay where every claim must name the book and page it came from — if no book says it, it does not go in.
+    da: Som en studerende, der skriver en opgave, hvor hver påstand skal nævne den bog og side, den stammer fra — står det ikke i nogen bog, kommer det ikke med.
   inPractice:
-    en: An insurance bot answers a claims question by quoting clause 4.2 of the customer's own policy with a link, and replies "not covered in your documents" when nothing fits.
-    da: En forsikringsbot besvarer et skadespørgsmål ved at citere punkt 4.2 i kundens egen police med et link og svarer "ikke dækket af dine dokumenter", når intet passer.
+    en: An unemployment insurance fund's member chat answers a question about holiday benefit by quoting section 4.2 of the fund's rules with a link, and says “the rules do not cover this” when nothing fits, passing it to a case officer.
+    da: En a-kasses medlemschat besvarer et spørgsmål om feriedagpenge ved at citere punkt 4.2 i a-kassens regler med et link og svarer “det dækker reglerne ikke”, når intet passer, og sender sagen videre til en sagsbehandler.
   whyItMatters:
-    en: Answers a person can check against a named source are far easier to trust and audit, though the model can still misread or stretch a source.
-    da: Svar, som en person kan tjekke op mod en navngiven kilde, er langt lettere at stole på og revidere, selvom modellen stadig kan misforstå eller strække en kilde.
+    en: Answers a person can trace to a named source are far easier to trust and review, though the model can still misread or stretch a source.
+    da: Svar, som en person kan føre tilbage til en navngiven kilde, er langt lettere at stole på og efterprøve, selvom modellen stadig kan misforstå eller strække en kilde.
 edges:
   mitigates:
     - to: hallucination

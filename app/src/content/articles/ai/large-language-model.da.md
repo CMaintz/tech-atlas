@@ -6,9 +6,9 @@ lang: da
 
 ## Hvad er det?
 
-En **stor sprogmodel (LLM)** er en deep learning-model, der er trænet på meget store mængder tekst til at gøre én ting: forudsige det næste token (et ord eller en del af et ord) ud fra teksten indtil nu. Gentager man den ene forudsigelse tusindvis af gange i træk, får man afsnit, opsummeringer, oversættelser, kode og svar på spørgsmål. Chatassistenter, skrivehjælpere i kontorpakker og mange "AI-funktioner" i forretningssoftware er tynde lag oven på en LLM.
+En **stor sprogmodel (LLM)** er en deep learning-model, der er trænet på meget store mængder tekst til at gøre én ting: forudsige det næste token (et ord eller en del af et ord) ud fra teksten indtil nu. Gentager man den ene forudsigelse tusindvis af gange i træk, får man afsnit, opsummeringer, oversættelser, kode og svar på spørgsmål. Chatassistenter, skriveassistenter i kontorpakker og mange "AI-funktioner" i forretningssoftware er tynde lag oven på en LLM.
 
-Idéen om statistiske sprogmodeller er gammel, men tre udviklinger gjorde den nuværende generation mulig:
+Ideen om statistiske sprogmodeller er gammel, men tre udviklinger gjorde den nuværende generation mulig:
 
 - **Transformeren (2017).** Artiklen "Attention Is All You Need" introducerede en arkitektur, der kan se på alle dele af en lang tekst på én gang i stedet for at læse ord for ord. Den kan trænes effektivt på mange grafikprocessorer, hvilket gjorde langt større modeller praktisk mulige.
 - **Skala (2018–2020).** Forskerne fandt ud af, at større modeller og mere tekst blev ved med at gøre modellerne bedre på en nogenlunde forudsigelig måde. GPT-3 (Brown m.fl., 2020, "Language Models are Few-Shot Learners") havde 175 milliarder vægte og kunne løse nye opgaver ud fra en håndfuld eksempler i prompten – uden gentræning.
@@ -28,7 +28,7 @@ Når du sender en **prompt**, deler modellen den op i tokens, beregner en sandsy
 
 ### Hvorfor den hallucinerer
 
-Fordi modellen er optimeret til at skrive _sandsynlig_ tekst frem for _efterprøvet_ tekst, producerer den nogle gange flydende, selvsikre udsagn, der er forkerte: opdigtede kilder, forkerte tal, domme der ikke findes. Det kaldes **hallucination**, og det er en direkte følge af, hvordan modellen er bygget – ikke en fejl, der bliver rettet med næste opdatering. Teknikker som **retrieval-augmented generation (RAG)** gør det sjældnere og lettere at opdage, men fjerner det ikke.
+Fordi modellen er optimeret til at skrive _sandsynlig_ tekst frem for _efterprøvet_ tekst, producerer den nogle gange flydende, selvsikre udsagn, der er forkerte: opdigtede kilder, forkerte tal, retsafgørelser, der ikke findes. Det kaldes **hallucination**, og det er en direkte følge af, hvordan modellen er bygget – ikke en fejl, der bliver rettet med næste opdatering. Teknikker som **retrieval-augmented generation (RAG)** gør det sjældnere og lettere at opdage, men fjerner det ikke.
 
 ### Hvad den ikke har
 
@@ -41,18 +41,18 @@ LLM'er kommer ind i organisationer fra to sider: officielt gennem en licenseret 
 - **Data.** Hvad sker der med den tekst, man sender? Bliver den gemt, brugt til videre træning, behandlet uden for EU? For persondata er det et GDPR-spørgsmål, og udbyderen er typisk **databehandler**, hvilket kræver en **databehandleraftale**.
 - **Korrekthed.** Hvem tjekker output, før det bruges i en afgørelse, et brev til en borger eller en kontrakt?
 - **Adgang.** Hvis assistenten kan læse postkasser, filer eller systemer, arver den alle de adgangsproblemer, de systemer har – og lægger prompt injection oveni.
-- **Regulering.** **EU's AI-forordning** pålægger udbydere af AI-modeller til almen brug forpligtelser og, afhængigt af anvendelsen, også de organisationer, der tager dem i brug. Forordningen tilskynder desuden organisationer til at understøtte AI-kompetencer, så medarbejdere, der arbejder med AI, forstår dens styrker og begrænsninger.
+- **Regulering.** **EU's AI-forordning** pålægger udbydere af AI-modeller til almen brug forpligtelser og, afhængigt af anvendelsen, også de organisationer, der tager dem i brug. Den kræver desuden, at udbydere og idriftsættere træffer foranstaltninger, der understøtter AI-færdigheder, så medarbejdere, der arbejder med AI, forstår dens styrker og begrænsninger.
 
-### Et gennemregnet eksempel
+### Et eksempel fra praksis
 
 Freja er GRC-studerende i praktik hos en dansk boligforening. Medarbejderne er begyndt at bruge en chatassistent bygget på en LLM til at skrive udkast til mails til lejere og opsummere bestyrelsesreferater – præcis den situation, begrebets korte definition beskriver. Hendes leder beder hende skrive en retningslinje for brugen.
 
-Hun starter med en enkel dataklassifikation: offentlig information (offentliggjorte regler, generelle meddelelser) må bruges frit; intern information (referater uden persondata) kun i virksomhedens licenserede assistent, hvor kontrakten udelukker træning på kundedata; fortrolige data og persondata (klager fra lejere, restancer, helbredsoplysninger) slet ikke uden en konkret vurdering. Hun tjekker, at udbyderen har en databehandleraftale og oplyser, hvor data behandles. Hun tilføjer to regler for output: Et menneske læser altid og står inde for den endelige tekst, og tal eller juridiske udsagn tjekkes mod kilden. Til sidst registrerer hun assistenten som et aktiv i risikoregistret med hallucination og datalæk som navngivne risici og foreslår en kort awareness-session, så medarbejderne forstår, _hvorfor_ reglerne findes.
+Hun starter med en enkel dataklassifikation: offentlig information (offentliggjorte regler, generelle meddelelser) må bruges frit; intern information (referater uden persondata) kun i organisationens licenserede assistent, hvor kontrakten udelukker træning på kundedata; fortrolige data og persondata (klager fra lejere, restancer, helbredsoplysninger) slet ikke uden en konkret vurdering. Hun tjekker, at udbyderen har en databehandleraftale og oplyser, hvor data behandles. Hun tilføjer to regler for output: Et menneske læser altid og står inde for den endelige tekst, og tal eller juridiske udsagn tjekkes mod kilden. Til sidst registrerer hun assistenten som et aktiv i risikoregistret med hallucination og datalæk som navngivne risici og foreslår en kort awareness-session, så medarbejderne forstår, _hvorfor_ reglerne findes.
 
 ## Typiske misforståelser
 
-- **"Den slår ting op."** En ren LLM søger ikke i noget; den genererer tekst ud fra mønstre fra træningen. Kun systemer, der tilføjer søgning eller RAG, bruger kilder.
+- **"Den slår ting op."** En ren LLM søger ikke i noget; den genererer tekst ud fra mønstre fra træningen. Kun systemer, der tilføjer søgning eller RAG, slår op i kilder.
 - **"Hvis den lyder sikker, har den nok ret."** En selvsikker tone siger intet om korrekthed. Hallucinationer er ofte de mest flydende sætninger i et svar.
 - **"Den lærer af vores samtale."** Modellens vægte ændrer sig ikke, mens man chatter. Om dit input bliver _gemt_ og _senere brugt_ til træning, afhænger af udbyderen og kontrakten – og det er netop derfor, det skal tjekkes.
 - **"Det er bare autofuldførelse, så det er ufarligt."** Mekanismen er enkel, men koblet til mail, filer eller værktøjer kan en LLM udføre handlinger med reelle konsekvenser.
-- **"AI-forordningen forbyder ChatGPT-lignende værktøjer."** Det gør den ikke. Den regulerer anvendelser efter risikoniveau og pålægger udbydere krav om åbenhed og dokumentation; det meste almindelige kontorbrug er ikke højrisiko.
+- **"AI-forordningen forbyder ChatGPT-lignende værktøjer."** Det gør den ikke. Den regulerer anvendelser efter risikoniveau og pålægger udbydere krav om gennemsigtighed og dokumentation; det meste almindelige kontorbrug er ikke højrisiko.

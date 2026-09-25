@@ -8,7 +8,7 @@ lang: da
 
 Transport Layer Security (TLS) er protokollen bag hængelåsen i browseren og "s'et" i https. Den beskytter også mail mellem mailservere, forbindelser fra apps til deres bagvedliggende systemer, API-kald mellem systemer og mange VPN- og fjernadgangsløsninger. TLS ligger mellem applikationen (websiden, mailen) og netværket. Applikationen sender sine data, som den plejer, og TLS sørger for at beskytte dem undervejs.
 
-Man behøver ikke forstå matematikken for at styre TLS godt. Man skal vide, hvad TLS beskytter, hvad den ikke beskytter, og hvilke indstillinger man skal kræve af it-afdelingen og leverandørerne.
+Man behøver ikke forstå matematikken for at styre TLS godt. Man skal vide, hvad TLS beskytter, hvad den ikke beskytter, og hvilke indstillinger man skal kræve af IT-afdelingen og leverandørerne.
 
 ## Hvad TLS beskytter – og hvad den ikke gør
 
@@ -32,7 +32,7 @@ Lige så vigtigt er det, TLS **ikke** gør:
 
 Før der sendes data, gennemfører klient og server et kort håndtryk:
 
-1. **Goddag.** Klienten fortæller, hvilke TLS-versioner og cipher suites (kombinationer af algoritmer) den understøtter. Serveren vælger den stærkeste mulighed, som begge kan.
+1. **Goddag.** Klienten fortæller, hvilke TLS-versioner og cipher suites (kombinationer af algoritmer) den understøtter. Serveren vælger den stærkeste mulighed, som begge understøtter.
 2. **Bevis for identitet.** Serveren sender sit certifikat. Klienten kontrollerer, at det er udstedt af en betroet certifikatudsteder, at det ikke er udløbet, og at navnet passer til den side, den bad om.
 3. **Nøgleaftale.** Ved hjælp af asymmetrisk kryptografi bliver de to parter enige om nye sessionsnøgler, uden at selve nøglerne nogensinde sendes over netværket. I TLS 1.3 sker det altid på en måde, der giver _forward secrecy_: Hvis serverens langtidsnøgle senere bliver stjålet, kan den ikke bruges til at låse optagelser af tidligere sessioner op.
 4. **Beskyttet session.** Herefter krypteres og integritetsbeskyttes alle data med hurtig symmetrisk kryptering baseret på sessionsnøglerne.
@@ -45,7 +45,7 @@ Et certifikat er et digitalt dokument, der knytter en offentlig nøgle til et na
 
 Det, der går galt i praksis, er som regel administrativt og ikke kryptografisk:
 
-- **Udløbne certifikater** lægger tjenester ned uden varsel. Hav en oversigt med udløbsdatoer, og automatisér fornyelsen, hvor det er muligt (fx med ACME-protokollen). Den maksimale levetid for offentlige certifikater bliver gradvist kortere, så automatisering bliver mere og mere nødvendig.
+- **Udløbne certifikater** lægger tjenester ned uden varsel. Hav en oversigt med udløbsdatoer, og automatiser fornyelsen, hvor det er muligt (fx med ACME-protokollen). Den maksimale levetid for offentlige certifikater bliver gradvist kortere – fra 398 til 200 dage i marts 2026 og til 47 dage i 2029 – så automatisering bliver en nødvendighed.
 - **Selvsignerede certifikater eller certifikater fra en intern CA** giver advarsler, og brugerne lærer at klikke dem væk – en vane, som en angriber kan udnytte.
 - **De private nøgler**, der hører til certifikaterne, skal beskyttes. Den, der har dem, kan udgive sig for at være tjenesten.
 

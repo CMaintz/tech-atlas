@@ -15,13 +15,13 @@ summary:
 body:
   formal:
     en: A text format built from just a few pieces — objects of name and value pairs in curly brackets, lists in square brackets, and values that are text, numbers, true, false or null — that can be nested inside each other.
-    da: Et tekstformat bygget af ganske få dele — objekter med par af navn og værdi i krøllede parenteser, lister i firkantede parenteser og værdier, der er tekst, tal, true, false eller null — som kan lægges inden i hinanden.
+    da: Et tekstformat bygget af ganske få dele — objekter med par af navn og værdi i { }, lister i [ ] og værdier, der er tekst, tal, true, false eller null — som kan lægges inden i hinanden.
   plain:
     en: Like a neatly filled-in form where every box has a label, so anyone picking it up knows which answer belongs to which question.
     da: Som en pænt udfyldt blanket, hvor hvert felt har en overskrift, så enhver, der samler den op, ved, hvilket svar der hører til hvilket spørgsmål.
   inPractice:
-    en: A weather app asks a server for today's forecast and gets back a short JSON text with the city, the temperature and a list of hourly values, which it turns into a chart.
-    da: En vejr-app beder en server om dagens udsigt og får en kort JSON-tekst tilbage med byen, temperaturen og en liste over timeværdier, som den gør til en graf.
+    en: A developer at a region looks into a fault in a patient app and sees that the server's JSON reply for a booking has the field for the appointment time left empty, so the app shows no time.
+    da: En udvikler i en region undersøger en fejl i en patientapp og ser, at serverens JSON-svar for en booking har feltet med aftaletidspunktet tomt, så appen ikke viser noget tidspunkt.
   whyItMatters:
     en: Because almost every language can read and write it, it has become the common way programs swap data over the web; reading untrusted JSON carelessly is also a known source of flaws.
     da: Fordi næsten alle sprog kan læse og skrive det, er det blevet den almindelige måde, programmer udveksler data på over nettet; at læse JSON fra ukendte kilder uden omtanke er også en kendt kilde til fejl.

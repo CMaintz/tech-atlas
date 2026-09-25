@@ -14,14 +14,14 @@ summary:
   da: En portvagt, der tjekker netværkstrafik mod regler og kun lukker det igennem, der er tilladt.
 body:
   formal:
-    en: A device or program placed between networks that inspects each packet — its IP addresses, ports and protocol — and allows or blocks it according to a set of rules.
-    da: En enhed eller et program placeret mellem netværk, som undersøger hver pakke — dens IP-adresser, porte og protokol — og tillader eller blokerer den efter et regelsæt.
+    en: A device or program placed between networks that inspects each packet — its IP addresses, ports and protocol — and allows or blocks it according to a set of rules. Most firewalls also track open connections, so replies to allowed traffic are let back in.
+    da: En enhed eller et program placeret mellem netværk, som undersøger hver pakke — dens IP-adresser, porte og protokol — og tillader eller blokerer den efter et regelsæt. De fleste firewalls holder også styr på åbne forbindelser, så svar på tilladt trafik lukkes ind igen.
   plain:
     en: Like a guard at the gate of a building with a list of who may come in and which doors they may use; anyone not on the list is turned away.
     da: Som en vagt ved porten til en bygning med en liste over, hvem der må komme ind, og hvilke døre de må bruge; alle andre bliver afvist.
   inPractice:
-    en: A company firewall allows outside traffic only to its web service on port 443 and blocks attempts to reach its internal file shares.
-    da: En virksomheds firewall tillader kun udefrakommende trafik til webtjenesten på port 443 og blokerer forsøg på at nå de interne fildrev.
+    en: At a local water utility, the IT operations manager sets the firewall so the system that controls the pumps can be reached only from two computers in the control room; all traffic from the office network is blocked.
+    da: På et vandværk sætter den IT-driftsansvarlige firewallen op, så anlægget, der styrer pumperne, kun kan nås fra to computere i kontrolrummet; al trafik fra kontornetværket blokeres.
   whyItMatters:
     en: It is one of the oldest and most basic network controls, shrinking what an outsider can reach — but it cannot stop threats that come through allowed doors.
     da: Den er en af de ældste og mest grundlæggende netværkskontroller og mindsker, hvad en udefrakommende kan nå — men den kan ikke stoppe trusler, der kommer gennem tilladte døre.

@@ -19,11 +19,11 @@ body:
     en: Like a car's road trials before sale — speed runs on the track, crash checks, drivers' opinions and people trying hard to make it fail.
     da: Som en bils prøvekørsler før salg — fartløb på banen, kollisionsforsøg, førernes meninger og folk, der gør alt for at få den til at svigte.
   inPractice:
-    en: Before switching its support bot to a newer large language model, a team reruns 500 saved customer questions, has staff grade a sample of answers and only switches if nothing gets worse.
-    da: Før supportbotten skiftes til en nyere stor sprogmodel, kører et team 500 gemte kundespørgsmål igen, lader medarbejdere bedømme et udvalg af svarene og skifter kun, hvis intet bliver dårligere.
+    en: Before moving its tenant chat to a newer large language model, a housing association's IT lead reruns 500 saved tenant questions, has staff grade a sample of the answers, and switches only if nothing gets worse.
+    da: Før lejerchatten flyttes til en nyere stor sprogmodel, kører et boligselskabs IT-ansvarlige 500 gemte spørgsmål fra lejere igen, lader medarbejdere bedømme et udvalg af svarene og skifter kun, hvis intet bliver dårligere.
   whyItMatters:
-    en: Without regular checks nobody knows whether a change made the system better, worse or unsafe, and rules such as the EU AI Act expect proof that high-risk systems were tested.
-    da: Uden faste kontroller ved ingen, om en ændring gjorde systemet bedre, dårligere eller usikkert, og regler som EU's AI-forordning forventer bevis for, at højrisikosystemer er testet.
+    en: Without regular checks nobody knows whether a change made the system better, worse or unsafe, and the EU AI Act demands documented testing for systems used in areas such as hiring, credit scoring or welfare decisions.
+    da: Uden faste kontroller ved ingen, om en ændring gjorde systemet bedre, dårligere eller usikkert, og EU's AI-forordning kræver dokumenteret test af systemer, der bruges til fx ansættelse, kreditvurdering eller afgørelser om sociale ydelser.
 edges:
   requires: [machine-learning]
   contrasts-with:

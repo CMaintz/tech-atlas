@@ -13,14 +13,14 @@ summary:
   da: At lære en computer at gætte et tal på en skala — en pris, en tid, en størrelse — ud fra tidligere eksempler med kendte tal.
 body:
   formal:
-    en: A task in machine learning where the model learns from labeled examples to map an input to a number that can take any value in a range, and is judged by how far its guesses land from the real values.
-    da: En opgave i maskinlæring, hvor modellen lærer af mærkede eksempler at knytte et input til et tal, der kan antage enhver værdi i et interval, og bedømmes på, hvor langt dens gæt ligger fra de rigtige værdier.
+    en: A task in machine learning where the model learns from labelled examples to map an input to a number that can take any value within a range, and is judged by how far its guesses land from the real values.
+    da: En opgave i maskinlæring, hvor modellen lærer af mærkede eksempler at knytte et input til et tal, der kan have enhver værdi mellem to grænser, og bedømmes på, hvor langt dens gæt ligger fra de rigtige værdier.
   plain:
     en: Like guessing a house's price from its size, age and street after seeing what many other houses sold for — the answer is an amount, not a yes or no.
     da: Som at gætte en boligs pris ud fra størrelse, alder og gade efter at have set, hvad mange andre boliger blev solgt for — svaret er et beløb, ikke et ja eller nej.
   inPractice:
-    en: An IT team learns from a year of usage figures how much disk space each server will need next quarter, so it can buy storage before it runs out.
-    da: Et IT-team lærer ud fra et års forbrugstal, hvor meget diskplads hver server får brug for i næste kvartal, så der kan købes lagerplads, før den løber tør.
+    en: An operations planner at a water utility uses a model trained on five years of readings to predict tomorrow's water use hour by hour from the weather forecast and the day of the week.
+    da: En driftsplanlægger på et vandværk bruger en model, der er trænet på fem års målinger, til at forudsige morgendagens vandforbrug time for time ud fra vejrudsigten og ugedagen.
   whyItMatters:
     en: Many business questions are "how much" or "how long", not "which one"; the guess always has a margin of error that must be shown, not hidden.
     da: Mange forretningsspørgsmål handler om "hvor meget" eller "hvor længe", ikke "hvilken"; gættet har altid en fejlmargin, der skal vises, ikke skjules.

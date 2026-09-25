@@ -16,14 +16,14 @@ body:
     en: A stack of neural network layers that takes a full sequence of tokens and, letting every token look both forwards and backwards, produces one embedding per token for later steps to use.
     da: En stak af lag i et neuralt netværk, der tager en hel række tokens og, ved at lade hvert token kigge både frem og tilbage, laver én embedding pr. token til brug i de næste trin.
   plain:
-    en: Like a reader who takes in the whole letter first and jots down what each sentence really means before anyone writes a reply.
-    da: Som en læser, der først læser hele brevet og noterer, hvad hver sætning egentlig betyder, før nogen skriver et svar.
+    en: Like an interpreter who hears the whole sentence before saying anything, because a word at the very end can change what the first one meant.
+    da: Som en tolk, der hører hele sætningen, før hun siger noget, fordi et ord helt til sidst kan ændre, hvad det første betød.
   inPractice:
-    en: A support team sorts incoming emails with an encoder-only model such as BERT, which reads each message whole and labels it "billing", "bug" or "sales".
-    da: Et supportteam sorterer indgående mails med en ren encoder-model som BERT, der læser hver besked i sin helhed og mærker den "regning", "fejl" eller "salg".
+    en: At a district heating company, an IT developer sorts incoming customer emails with an encoder-only model such as BERT, which reads each message whole and labels it “bill”, “fault” or “moving house”.
+    da: Hos et fjernvarmeselskab sorterer en IT-udvikler indgående kundemails med en ren encoder-model som BERT, der læser hver besked i sin helhed og mærker den “regning”, “fejl” eller “flytning”.
   whyItMatters:
-    en: Encoders power search, sorting and embedding tasks cheaply, yet they cannot write new text — knowing the difference helps you pick a smaller, faster tool when you only need to understand text.
-    da: Encodere driver søgning, sortering og embeddings billigt, men kan ikke skrive ny tekst — kender man forskellen, kan man vælge et mindre og hurtigere værktøj, når man kun skal forstå tekst.
+    en: Encoders handle search and sorting cheaply but cannot write new text, so knowing the difference lets you pick a smaller, faster tool when the job is only to understand text.
+    da: Encodere klarer søgning og sortering billigt, men kan ikke skrive ny tekst, så kender man forskellen, kan man vælge et mindre og hurtigere værktøj, når opgaven kun er at forstå tekst.
 edges:
   requires: [token, embedding, attention-mechanism]
   part-of:

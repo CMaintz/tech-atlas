@@ -16,21 +16,21 @@ body:
     en: A failure of model training in which a model fits the training data too closely, so it scores well on that data but poorly on new data; found by testing on data held back from training.
     da: En fejl i modeltræningen, hvor en model tilpasser sig træningsdata for tæt, så den scorer godt på de data, men dårligt på nye; opdages ved at teste på data, der er holdt uden for træningen.
   plain:
-    en: Like a student who memorizes last year's exam answers word for word and then fails when the questions are slightly changed.
+    en: Like a student who learns last year's exam answers by heart, word for word, and then fails when the questions are slightly changed.
     da: Som en studerende, der lærer sidste års eksamenssvar udenad ord for ord og så dumper, når spørgsmålene er en smule ændret.
   inPractice:
-    en: A model that spotted fraud perfectly in testing misses most real fraud once live, because it had learned details unique to the old examples.
-    da: En model, der fandt svindel perfekt under test, overser det meste rigtige svindel i drift, fordi den havde lært detaljer, der kun fandtes i de gamle eksempler.
+    en: A pension fund's fraud model finds almost every false claim among the cases it was trained on, but misses most real fraud once live, because it learned details found only in those old cases.
+    da: En pensionskasses svindelmodel finder næsten alle falske anmeldelser blandt de sager, den er trænet på, men overser det meste rigtige svindel i drift, fordi den har lært detaljer, der kun fandtes i de gamle sager.
   whyItMatters:
-    en: It makes a model look better on paper than in real use, and a model that memorizes can later repeat private details from its training data.
-    da: Det får en model til at se bedre ud på papiret end i virkeligheden, og en model, der lærer udenad, kan senere gentage private oplysninger fra sine træningsdata.
+    en: It makes a model look better on paper than in real use, and a model that has learned examples by heart can later repeat private details from its training data.
+    da: Det får en model til at se bedre ud på papiret end i virkeligheden, og en model, der har lært eksempler udenad, kan senere gentage private oplysninger fra sine træningsdata.
 edges:
   requires: [model-training, training-data]
   causes:
     - to: data-breach
       why:
-        en: A model that has memorized its examples can be made to repeat personal data from them word for word.
-        da: En model, der har lært sine eksempler udenad, kan bringes til at gentage persondata fra dem ordret.
+        en: A model that has learned its examples by heart can be made to repeat personal data from them word for word.
+        da: En model, der har lært sine eksempler udenad, kan bringes til at gentage personoplysninger fra dem ordret.
       strength: minor
       confidence: medium
   contrasts-with:

@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: A written description of ordered stages, such as build, test, security scan, package and deploy, that a CI/CD system runs on every change, where each stage must pass before the next one starts.
-    da: En skreven beskrivelse af ordnede faser, fx byg, test, sikkerhedsscanning, pakning og udrulning, som et CI/CD-system kører for hver ændring, hvor hver fase skal bestå, før den næste går i gang.
+    da: En skriftlig beskrivelse af faser i fast rækkefølge — fx at bygge, teste, scanne og pakke softwaren og rulle den ud — som et CI/CD-system kører for hver ændring, og hvor hver fase skal bestå, før den næste går i gang.
   plain:
     en: Like a car factory's assembly line, where each station does one job and a car that fails the brake test never reaches the showroom.
     da: Som samlebåndet på en bilfabrik, hvor hver station udfører én opgave, og en bil, der dumper bremsetesten, aldrig når ud i forretningen.
   inPractice:
-    en: A team's pipeline stops a release because the scan step finds a library with a known weakness, and the developer must update it before the change can go live.
-    da: Et teams pipeline stopper en frigivelse, fordi scanningstrinnet finder et bibliotek med en kendt svaghed, og udvikleren skal opdatere det, før ændringen kan gå i drift.
+    en: At a ferry company, the pipeline for the ticket booking site stops a Friday release because a test finds child fares priced as adult fares; nothing reaches customers until the fault is fixed.
+    da: Hos et færgeselskab stopper pipelinen for billetbookingen en frigivelse om fredagen, fordi en test viser, at børnebilletter bliver prissat som voksenbilletter; intet når ud til kunderne, før fejlen er rettet.
   whyItMatters:
     en: The pipeline is where rules become automatic and hard to skip, but it also holds keys to production, so an attacker who takes it over can ship harmful code to every user.
     da: Pipelinen er stedet, hvor regler bliver automatiske og svære at springe over, men den har også nøglerne til driften, så en angriber, der overtager den, kan sende skadelig kode ud til alle brugere.

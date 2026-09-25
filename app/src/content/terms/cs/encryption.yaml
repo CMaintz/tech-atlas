@@ -9,28 +9,28 @@ cluster: networking
 layer: data
 status: current
 summary:
-  en: Scrambling data with a secret so only someone holding the matching secret can read it.
-  da: At forvrænge data med en hemmelighed, så kun den, der har den tilsvarende hemmelighed, kan læse dem.
+  en: Scrambling data with a secret key so only someone holding the matching key can read it.
+  da: At kode data med en hemmelig nøgle, så kun den, der har den tilsvarende nøgle, kan læse dem.
 body:
   formal:
-    en: A mathematical process that transforms readable data into unreadable form using a secret value, such that only a holder of the right secret value can reverse it.
-    da: En matematisk proces, der omdanner læsbare data til ulæselig form ved hjælp af en hemmelig værdi, så kun den, der har den rette hemmelige værdi, kan vende processen om.
+    en: A mathematical process that uses a key to transform readable data into a form that cannot be read, such that only a holder of the matching key can turn it back. The key may be shared by both sides (symmetric) or split into a public and a private part.
+    da: En matematisk proces, der ved hjælp af en nøgle omdanner læsbare data til en form, der ikke kan læses, så kun den, der har den tilsvarende nøgle, kan vende processen om. Nøglen kan være fælles for begge parter (symmetrisk) eller delt i en offentlig og en privat del.
   plain:
     en: Like writing a letter in a secret code only you and a friend know — anyone who steals the letter sees only gibberish.
     da: Som at skrive et brev i en hemmelig kode, kun du og en ven kender — enhver, der stjæler brevet, ser kun volapyk.
   inPractice:
-    en: A lost company laptop has an encrypted disk, so the finder cannot read the customer files on it without the owner's password.
-    da: En tabt firmabærbar har en krypteret disk, så finderen ikke kan læse kundefilerne på den uden ejerens adgangskode.
+    en: A nurse in a municipality's home care leaves her work laptop on the bus; its disk is encrypted, so whoever finds it cannot read the citizens' care notes without her password.
+    da: En sygeplejerske i kommunens hjemmepleje glemmer sin arbejdsbærbar i bussen; disken er krypteret, så finderen ikke kan læse borgernes plejenotater uden hendes adgangskode.
   whyItMatters:
-    en: It keeps data confidential even after it is stolen or overheard, which can turn a serious data breach into a minor incident.
-    da: Den holder data fortrolige, selv efter de er stjålet eller aflyttet, hvilket kan gøre et alvorligt databrud til en mindre hændelse.
+    en: Data is copied, lost and overheard all the time; with encryption a stolen disk or tapped connection reveals nothing readable, which can turn a serious data breach into a minor incident — as long as the key stays safe.
+    da: Data bliver kopieret, tabt og aflyttet hele tiden; med kryptering afslører en stjålet disk eller en aflyttet forbindelse intet læsbart, og et alvorligt databrud kan blive til en mindre hændelse — så længe nøglen holdes sikker.
 edges:
   kind-of: [control]
   implements:
     - to: confidentiality
       why:
         en: Encrypted data stays unreadable to anyone without the secret, which is exactly what confidentiality asks for.
-        da: Krypterede data forbliver ulæselige for alle uden hemmeligheden, hvilket netop er, hvad fortrolighed kræver.
+        da: Krypterede data kan ikke læses af nogen uden hemmeligheden, hvilket netop er, hvad fortrolighed kræver.
       strength: primary
       confidence: high
   mitigates:

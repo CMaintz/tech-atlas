@@ -19,8 +19,8 @@ body:
     en: Like a car recall — the fault is known and a fix exists, but it only helps once each car is actually brought in.
     da: Som når en bilfabrik kalder biler tilbage — fejlen er kendt, og der findes en løsning, men den hjælper først, når hver bil faktisk kommer ind.
   inPractice:
-    en: A serious weakness in the company's VPN is announced on Tuesday; IT tests the fix that night and has every VPN box updated by Thursday, as the policy's 72-hour rule demands.
-    da: En alvorlig svaghed i firmaets VPN offentliggøres tirsdag; IT tester rettelsen samme aften og har opdateret alle VPN-bokse torsdag, som politikkens 72-timers regel kræver.
+    en: A serious weakness in the VPN used by a pension fund is announced on Tuesday; the IT operations manager tests the fix that night and has every VPN device updated by Thursday, as the fund's 72-hour rule demands.
+    da: En alvorlig svaghed i den VPN, en pensionskasse bruger, offentliggøres tirsdag; den IT-driftsansvarlige tester rettelsen samme aften og har opdateret alle VPN-enheder torsdag, som pensionskassens 72-timersregel kræver.
   whyItMatters:
     en: Once a weakness is made public, attackers race to use it; many real attacks, including ransomware, succeed simply because a fix was available but never installed.
     da: Når en svaghed bliver offentlig, skynder angribere sig at udnytte den; mange reelle angreb, også ransomware, lykkes blot fordi en rettelse fandtes, men aldrig blev installeret.

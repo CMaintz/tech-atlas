@@ -10,17 +10,17 @@ layer: application
 status: current
 summary:
   en: Cutting long documents into smaller passages before storing them, so a search can return just the part that answers a question.
-  da: At skære lange dokumenter op i mindre afsnit, før de gemmes, så en søgning kan returnere netop den del, der besvarer et spørgsmål.
+  da: At skære lange dokumenter op i mindre afsnit, før de gemmes, så en søgning kan hente netop den del, der besvarer et spørgsmål.
 body:
   formal:
-    en: The step that splits source documents into pieces of a chosen size, counted in tokens and often with some overlap, each of which gets its own embedding and is stored and found on its own.
-    da: Det trin, der deler kildedokumenter op i stykker af en valgt størrelse, målt i tokens og ofte med et vist overlap, hvor hvert stykke får sin egen embedding og gemmes og findes for sig.
+    en: The step that splits source documents into pieces of a chosen size, counted in tokens and often overlapping a little, each of which gets its own embedding and is stored and found on its own.
+    da: Det trin, der deler kildedokumenter op i stykker af en valgt størrelse, målt i tokens og ofte med lidt overlap, hvor hvert stykke får sin egen embedding og gemmes og findes for sig.
   plain:
-    en: Like cutting a cookbook into recipe cards — easier to find the one you need, but cut in the wrong place and a card starts halfway through the steps.
-    da: Som at klippe en kogebog op i opskriftskort — lettere at finde det kort, man skal bruge, men klip det forkerte sted, og et kort starter midt i fremgangsmåden.
+    en: Like cutting a long newspaper story into clippings for a folder — each clipping is quick to find, but cut in the wrong place and one clipping loses the ending.
+    da: Som at klippe en lang avisartikel i stykker til en mappe — hvert stykke er hurtigt at finde, men klip det forkerte sted, og ét stykke mister slutningen.
   inPractice:
-    en: A 200-page staff handbook is split into sections of about 500 tokens along its headings, so a leave question pulls in the leave rules instead of the whole book.
-    da: En personalehåndbog på 200 sider deles i afsnit på cirka 500 tokens langs overskrifterne, så et spørgsmål om ferie henter ferieregler i stedet for hele bogen.
+    en: An IT employee in a municipality splits the 200-page staff handbook along its headings into pieces of about 500 tokens, so a question about holiday brings up the holiday rules, not the whole book.
+    da: En IT-medarbejder i en kommune deler den 200 sider lange personalehåndbog op langs overskrifterne i stykker på cirka 500 tokens, så et spørgsmål om ferie henter feriereglerne og ikke hele bogen.
   whyItMatters:
     en: Bad cuts are a quiet, common reason for poor answers — a rule split from its exceptions reads as the full truth, and pieces that are too big waste the context window.
     da: Dårlige snit er en stille og almindelig årsag til dårlige svar — en regel, der er skilt fra sine undtagelser, læses som hele sandheden, og for store stykker spilder kontekstvinduet.

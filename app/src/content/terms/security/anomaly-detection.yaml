@@ -20,8 +20,8 @@ body:
     en: Like a bank teller who knows a regular customer so well that she notices at once when he asks to move all his savings abroad on a Sunday.
     da: Som en bankassistent, der kender en fast kunde så godt, at hun straks lægger mærke til det, når han en søndag vil flytte hele sin opsparing til udlandet.
   inPractice:
-    en: A finance clerk's account, which normally reads a few files a day, suddenly copies ten thousand files at night; no rule covers this, but the model flags it and the SOC finds malware.
-    da: En bogholders konto, der normalt læser nogle få filer om dagen, kopierer pludselig ti tusind filer om natten; ingen regel dækker det, men modellen markerer det, og SOC'en finder malware.
+    en: A municipal finance clerk's account, which normally opens a few files a day, suddenly copies ten thousand files one night; no rule covers this, but the model flags it and the SOC finds malware.
+    da: En bogholder i en kommune har en konto, der normalt åbner nogle få filer om dagen, men som pludselig kopierer ti tusind filer en nat; ingen regel dækker det, men modellen markerer det, og SOC'en finder malware.
   whyItMatters:
     en: It can catch new attacks that no one has written a rule for yet, but unusual is not the same as harmful, so it brings many false alarms that people must judge.
     da: Den kan fange nye angreb, som ingen endnu har skrevet en regel for, men usædvanligt er ikke det samme som skadeligt, så den giver mange falske alarmer, som mennesker må vurdere.

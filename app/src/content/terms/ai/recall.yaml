@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: The number of true positives divided by all cases that truly belong to the class (true positives plus false negatives), taken from a confusion matrix for one class.
-    da: Antallet af sande positive divideret med alle tilfælde, der reelt hører til klassen (sande positive plus falske negative), hentet fra en forvekslingsmatrix for én klasse.
+    da: Antallet af sande positive delt med alle tilfælde, der reelt hører til klassen (sande positive plus falske negative), hentet fra en forvekslingsmatrix for én klasse.
   plain:
     en: Like a fishing net with small holes — it brings up nearly every fish in the lake, along with plenty of weed and old boots.
     da: Som et fiskenet med små masker — det fanger næsten hver fisk i søen, sammen med masser af tang og gamle støvler.
   inPractice:
-    en: A red team runs 50 attacks against a company, and the anomaly detection tool raises an alert for 40 of them, so its recall on that exercise is 80%; the 10 it missed become the first things to fix.
-    da: Et red team kører 50 angreb mod en virksomhed, og anomalidetektionen slår alarm ved 40 af dem, så genkaldelsen i den øvelse er 80 %; de 10, den overså, er det første, der skal rettes.
+    en: A hospital's IT security officer has an outside firm run 50 test attacks, and the anomaly detection tool raises an alert for 40 of them, so its recall is 80%; the 10 it missed are fixed first.
+    da: En IT-sikkerhedsansvarlig på et hospital lader et eksternt firma køre 50 testangreb, og anomalidetektionen slår alarm ved 40 af dem, så genkaldelsen er 80 %; de 10, den overså, rettes først.
   whyItMatters:
     en: A missed attack or a missed cancer costs far more than an extra check, so recall is the number to raise when missing a real case is the worst outcome.
     da: Et overset angreb eller en overset kræftsygdom koster langt mere end en ekstra kontrol, så genkaldelse er tallet, man skal hæve, når det værste er at overse et ægte tilfælde.

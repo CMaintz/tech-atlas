@@ -10,21 +10,21 @@ layer: model
 era: 1989
 status: current
 summary:
-  en: A neural network built to see — it slides small pattern checkers across a picture to find edges, then shapes, then whole objects.
-  da: Et neuralt netværk bygget til at se — små mønstertjek glider hen over et billede og finder kanter, så former, så hele ting.
+  en: A neural network built for pictures — it slides small pattern checks across an image to find edges, then shapes, then whole objects.
+  da: Et neuralt netværk bygget til billeder — små mønstertjek glider hen over billedet og finder kanter, så former, så hele genstande.
 body:
   formal:
     en: A neural network whose early layers apply the same small set of learned checks at every position of a grid-like input such as an image, so a pattern is found wherever it appears; later layers combine these into larger features.
     da: Et neuralt netværk, hvis tidlige lag anvender det samme lille sæt lærte tjek på hver position i et input opbygget i rækker og kolonner, fx et billede, så et mønster findes, uanset hvor det optræder; senere lag kombinerer dem til større træk.
   plain:
-    en: Like sweeping a small magnifying glass over a photo, first spotting lines, then eyes and noses, and finally saying "that is a face".
-    da: Som at føre et lille forstørrelsesglas hen over et foto, først få øje på streger, så øjne og næser og til sidst sige "det er et ansigt".
+    en: Like sweeping a small magnifying glass over a photo, first spotting lines, then eyes and noses, and finally saying “that is a face”.
+    da: Som at føre et lille forstørrelsesglas hen over et foto, først få øje på streger, så øjne og næser og til sidst sige “det er et ansigt”.
   inPractice:
-    en: A factory camera checks every bottle on the line, and a CNN flags the ones with cracks or missing caps within a split second.
-    da: Et kamera på en fabrik tjekker hver flaske på båndet, og et CNN markerer dem med revner eller manglende låg på et splitsekund.
+    en: A municipality's roads department fits cameras to its refuse lorries; a CNN picks out potholes and cracks in the images, so the road inspector gets a daily list of spots to repair.
+    da: En kommunes vejafdeling sætter kameraer på skraldebilerne; et CNN finder huller og revner i billederne, så vejinspektøren hver dag får en liste over steder, der skal repareres.
   whyItMatters:
-    en: CNNs made computers good at reading images, from phone face unlock to medical scans, and they remain a cheap, fast choice where a transformer would be overkill.
-    da: CNN'er gjorde computere gode til at aflæse billeder, fra ansigtsgenkendelse på telefonen til medicinske scanninger, og de er stadig et billigt og hurtigt valg, hvor en transformer ville være overkill.
+    en: CNNs made computers good at reading images, from phone face unlock to medical scans, and they remain a cheap, fast choice where a transformer would be more than the task needs.
+    da: CNN'er gjorde computere gode til at aflæse billeder, fra ansigtsgenkendelse på telefonen til medicinske scanninger, og de er stadig et billigt og hurtigt valg, hvor en transformer ville være mere, end opgaven kræver.
 edges:
   kind-of: [neural-network]
   requires: [backpropagation]

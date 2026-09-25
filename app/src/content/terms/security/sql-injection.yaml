@@ -14,17 +14,17 @@ summary:
   da: Et angreb, hvor tekst skrevet i en formular læses af databasen som en kommando, så en udefrakommende kan læse eller ændre dens data.
 body:
   formal:
-    en: An attack on a web application that builds database commands by pasting user input straight into the command text; crafted input changes the meaning of the command, so the database runs instructions the builder never meant it to.
+    en: An attack on a web application that builds database commands by pasting user input straight into the command text; crafted input changes the meaning of the command, so the database runs instructions the developer never intended.
     da: Et angreb på en webapplikation, der bygger databasekommandoer ved at sætte brugerens input direkte ind i kommandoteksten; særligt udformet input ændrer kommandoens betydning, så databasen udfører instruktioner, udvikleren aldrig havde tænkt sig.
   plain:
     en: Like a form that says "Pay the sum of ___ to Anna", where someone writes "10 kroner, and also pay everything to me" in the blank — and the clerk simply does all of it.
     da: Som en blanket, hvor der står "Betal beløbet ___ til Anna", og nogen skriver "10 kroner, og betal også alt til mig" i feltet — og ekspedienten gør bare det hele.
   inPractice:
-    en: A shop's search box passes whatever is typed on to its database; an attacker types a short piece of SQL instead of a product name, and the page lists every customer's email and password hash.
-    da: En webshops søgefelt sender det indtastede direkte videre til databasen; en angriber skriver et lille stykke SQL i stedet for et produktnavn, og siden viser alle kunders mail og password-hash.
+    en: A small Danish online shop passes whatever is typed into its search box straight to its database; an attacker types a short piece of SQL instead of a product name, and the page lists every customer's email address and hashed password.
+    da: En lille dansk webshop sender det, der tastes i søgefeltet, direkte videre til databasen; en angriber skriver et lille stykke SQL i stedet for et produktnavn, og siden viser alle kunders mailadresser og hashede adgangskoder.
   whyItMatters:
-    en: One weak form field can hand over a whole database, and the flaw is still found in new code decades after it was first described — even though a simple coding habit prevents it.
-    da: Ét svagt formularfelt kan udlevere en hel database, og fejlen findes stadig i ny kode årtier efter, den første gang blev beskrevet — selvom en enkel kodevane forhindrer den.
+    en: One weak form field can hand over a whole database, and the flaw still turns up in new code decades after it was first described — even though a simple habit, keeping input apart from the command, prevents it.
+    da: Ét svagt formularfelt kan udlevere en hel database, og fejlen dukker stadig op i ny kode årtier efter, at den første gang blev beskrevet — selvom en enkel vane, at holde input adskilt fra kommandoen, forhindrer den.
 edges:
   requires: [database, web-application]
   exploits:

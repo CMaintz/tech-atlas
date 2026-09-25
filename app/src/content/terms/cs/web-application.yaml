@@ -17,13 +17,13 @@ body:
     da: Software delt mellem kode, der kører i browseren, og kode, der kører på en eller flere servere, som taler sammen over HTTP; serversiden står typisk for reglerne, de gemte data og kontrollen af, hvem brugeren er.
   plain:
     en: Like a bank counter seen through a window — you fill in slips and get answers at the glass, while the safe, the ledgers and the staff doing the work stay out of sight behind it.
-    da: Som en bankskranke bag en glasrude — du udfylder blanketter og får svar ved ruden, mens boksen, regnskabsbøgerne og de ansatte, der gør arbejdet, er skjult bag den.
+    da: Som skranken i en bank bag en glasrude — du udfylder blanketter og får svar ved ruden, mens boksen, regnskabsbøgerne og de ansatte, der gør arbejdet, er skjult bag den.
   inPractice:
-    en: A team writes shared documents in an online office suite; nothing is installed on their laptops, and every change is saved on the provider's servers as they type.
-    da: Et team skriver fælles dokumenter i en online kontorpakke; intet er installeret på deres bærbare, og hver ændring gemmes på udbyderens servere, mens de skriver.
+    en: Citizens apply for a parking permit in their municipality's web application; they install nothing, and the forms, the rules and the case handling all live on the municipality's servers.
+    da: Borgerne søger om parkeringstilladelse i kommunens webapplikation; de installerer intet, og blanketter, regler og sagsbehandling ligger alt sammen på kommunens servere.
   whyItMatters:
-    en: Anyone on the internet can reach it and send it whatever they like, which makes it one of the most common ways into a company's data.
-    da: Alle på internettet kan nå den og sende den, hvad de vil, hvilket gør den til en af de mest almindelige veje ind til en virksomheds data.
+    en: Anyone on the internet can reach it and send it whatever they like, which makes it one of the most common ways into an organisation's data.
+    da: Alle på internettet kan nå den og sende den, hvad de vil, hvilket gør den til en af de mest almindelige veje ind til en organisations data.
 edges:
   requires: [http, server]
   used-with:

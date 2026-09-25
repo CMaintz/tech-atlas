@@ -9,8 +9,8 @@ cluster: fundamentals
 layer: people
 status: current
 summary:
-  en: How people's habits, stress, trust and attention shape security — often the weakest link, and also the strongest defence.
-  da: Hvordan menneskers vaner, stress, tillid og opmærksomhed påvirker sikkerheden — ofte det svageste led, men også det stærkeste forsvar.
+  en: How people's habits, stress, trust and attention shape security — a common way in for attackers, but also a line of defence.
+  da: Hvordan menneskers vaner, stress, tillid og opmærksomhed påvirker sikkerheden — en almindelig vej ind for angribere, men også et forsvar.
 body:
   formal:
     en: The study and handling of human behaviour as part of security — limits of attention and memory, reactions to time pressure and authority, and habits — which attackers use and which awareness and design try to support.
@@ -19,11 +19,11 @@ body:
     en: Like a road built for real drivers — tired, hurried and distracted — rather than for perfect ones; good safety plans for how people actually behave.
     da: Som en vej bygget til rigtige bilister — trætte, travle og distraherede — frem for perfekte; god sikkerhed planlægger efter, hvordan folk faktisk opfører sig.
   inPractice:
-    en: After staff keep writing passwords on notes, the company adds a password manager and single sign-on instead of just repeating the rule.
-    da: Da medarbejderne bliver ved med at skrive adgangskoder på sedler, indfører firmaet en adgangskodemanager og single sign-on i stedet for bare at gentage reglen.
+    en: When staff at a Danish architects' office keep writing passwords on sticky notes, the office brings in a password manager and single sign-on instead of just repeating the rule.
+    da: Da medarbejderne på en dansk arkitekttegnestue bliver ved med at skrive adgangskoder på gule sedler, indfører tegnestuen en adgangskodemanager og single sign-on i stedet for bare at gentage reglen.
   whyItMatters:
     en: Technology can be perfect and still fail if people cannot use it, so security that ignores human limits invites both mistakes and manipulation.
-    da: Teknologien kan være perfekt og alligevel fejle, hvis folk ikke kan bruge den, så sikkerhed der ignorerer menneskelige grænser inviterer til både fejl og manipulation.
+    da: Teknologien kan være perfekt og alligevel fejle, hvis folk ikke kan bruge den, så sikkerhed, der ignorerer menneskelige grænser inviterer til både fejl og manipulation.
 edges:
   used-with: [human-firewall, nudging, security-culture, vulnerability]
 sources:

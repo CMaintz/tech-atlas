@@ -19,8 +19,8 @@ body:
     en: Like leaving the front door unlocked by accident — nobody planned a break-in, but the house is open all the same.
     da: Som at glemme at låse hoveddøren — ingen havde planlagt et indbrud, men huset står åbent alligevel.
   inPractice:
-    en: An HR assistant sends a file of salaries to an outside email address with a similar name; the organisation must treat it as a data breach and report it.
-    da: En HR-assistent sender et regneark med lønninger til en ekstern mailadresse med et lignende navn; organisationen skal behandle det som et databrud og anmelde det.
+    en: An HR assistant at a Danish engineering firm sends a file of salaries to an outside email address with a similar name; the firm must handle it as a data breach and, given the risk to staff, report it to the authority within 72 hours.
+    da: En HR-assistent i en dansk ingeniørvirksomhed sender et regneark med lønninger til en ekstern mailadresse med et lignende navn; virksomheden skal håndtere det som et databrud og, fordi det udgør en risiko for medarbejderne, anmelde det til Datatilsynet inden for 72 timer.
   whyItMatters:
     en: Many incidents start with a mistake, not an attacker, so good design, training and simple routines prevent a large share of harm.
     da: Mange hændelser starter med en fejl og ikke en angriber, så godt design, træning og enkle rutiner forhindrer en stor del af skaderne.

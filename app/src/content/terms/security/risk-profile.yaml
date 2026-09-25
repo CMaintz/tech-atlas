@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: A description of the full set of risks an organisation carries at a point in time — shaped by its sector, size, critical assets, the outside services it relies on and its threat landscape — used to decide which controls come first.
-    da: En beskrivelse af alle de risici, en organisation bærer på et givet tidspunkt — formet af dens branche, størrelse, kritiske aktiver, afhængigheder og trusselsbillede — som bruges til at afgøre, hvilke kontroller der skal prioriteres.
+    da: En beskrivelse af alle de risici, en organisation bærer på et givet tidspunkt — formet af dens branche, størrelse, kritiske aktiver, de eksterne tjenester, den er afhængig af, og dens trusselsbillede — som bruges til at afgøre, hvilke kontroller der skal prioriteres.
   plain:
-    en: Like a health check that sums up your age, job, habits and family history — two people can need very different advice.
-    da: Som et helbredstjek, der opsummerer alder, job, vaner og familiehistorie — to mennesker kan have brug for helt forskellige råd.
+    en: Like packing for a trip — a week of camping by the sea and a weekend in a city hotel call for very different bags, even for the same traveller.
+    da: Som at pakke til en rejse — en uges camping ved havet og en weekend på hotel i en storby kræver vidt forskellig bagage, selv for den samme rejsende.
   inPractice:
-    en: A dental clinic with patient records and one server has a different profile from a shipping firm with ships and suppliers worldwide, so they start with different CIS Controls.
-    da: En tandklinik med patientjournaler og én server har en anden profil end et rederi med skibe og leverandører i hele verden, så de starter med forskellige CIS-kontroller.
+    en: A small dental clinic with patient records and one server has a very different profile from a wind turbine maker with factories and suppliers worldwide, so the two start with different CIS Controls.
+    da: En lille tandklinik med patientjournaler og én server har en helt anden profil end en vindmølleproducent med fabrikker og leverandører i hele verden, så de to starter med forskellige CIS-kontroller.
   whyItMatters:
     en: Copying another organisation's plan wastes money; knowing your own profile lets limited resources go where they matter most.
     da: At kopiere en anden organisations plan spilder penge; at kende sin egen profil lader begrænsede ressourcer gå derhen, hvor de betyder mest.

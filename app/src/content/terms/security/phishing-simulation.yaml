@@ -11,20 +11,20 @@ status: current
 era: 2008
 summary:
   en: Sending staff harmless fake phishing mails to see who clicks and to teach them to spot the real thing.
-  da: Man sender medarbejderne harmløse falske phishingmails for at se, hvem der klikker, og lære dem at genkende de ægte.
+  da: At sende medarbejderne harmløse falske phishingmails for at se, hvem der klikker, og lære dem at genkende de ægte.
 body:
   formal:
-    en: A planned training exercise in which the organisation sends realistic but safe phishing messages to its own staff, measures how many click or report them, and follows up with short lessons.
-    da: En planlagt træningsøvelse, hvor organisationen sender realistiske, men ufarlige phishingbeskeder til sine egne medarbejdere, måler hvor mange der klikker eller indberetter dem, og følger op med korte lektioner.
+    en: A planned training exercise in which an organisation sends realistic but safe phishing messages to its own staff, measures how many click or report them, and follows up with short lessons.
+    da: En planlagt træningsøvelse, hvor organisationen sender realistiske, men ufarlige phishingbeskeder til sine egne medarbejdere, måler, hvor mange der klikker eller melder dem, og følger op med korte lektioner.
   plain:
-    en: A fire drill for your inbox — practising the right reaction when nothing is really burning.
-    da: En brandøvelse for indbakken — man øver den rigtige reaktion, mens intet brænder.
+    en: Like a fire drill for the inbox — practising the right reaction while nothing is really burning.
+    da: Som en brandøvelse for indbakken — man øver den rigtige reaktion, mens intet brænder.
   inPractice:
-    en: The security team sends a fake "your parcel is waiting" mail; those who click see a friendly page explaining the warning signs they missed.
-    da: Sikkerhedsteamet sender en falsk "din pakke venter"-mail; de, der klikker, ser en venlig side, der forklarer de advarselstegn, de overså.
+    en: The IT security officer at an audit firm sends a fake “You have new digital post” mail; staff who click see a friendly page pointing out the warning signs they missed.
+    da: Den IT-sikkerhedsansvarlige i et revisionsfirma sender en falsk mail om, at “Du har fået ny digital post”; de, der klikker, ser en venlig side, der peger på de advarselstegn, de overså.
   whyItMatters:
-    en: It turns awareness into a number that can be tracked over time, and gives people safe practice before a real attacker tests them.
-    da: Det gør awareness til et tal, der kan følges over tid, og giver folk sikker øvelse, før en rigtig angriber tester dem.
+    en: It turns awareness into a number that can be followed over time and gives safe practice before a real attacker tests people — as long as it is used to teach rather than to shame.
+    da: Det gør awareness til et tal, der kan følges over tid, og giver sikker øvelse, før en rigtig angriber prøver folk af — så længe det bruges til at lære og ikke til at udstille nogen.
 edges:
   kind-of: [control]
   requires: [phishing]
@@ -32,7 +32,7 @@ edges:
     - to: phishing
       why:
         en: Staff who have practised spotting fake mails are less likely to fall for real ones and more likely to report them.
-        da: Medarbejdere, der har øvet sig i at spotte falske mails, falder sjældnere for de ægte og indberetter dem oftere.
+        da: Medarbejdere, der har øvet sig i at spotte falske mails, falder sjældnere for de ægte og melder dem oftere.
       strength: primary
       confidence: medium
     - smishing

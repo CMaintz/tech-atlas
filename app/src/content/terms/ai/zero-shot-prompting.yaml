@@ -9,21 +9,21 @@ cluster: prompting
 layer: inference
 status: current
 summary:
-  en: Asking a language model to do a task from a plain instruction alone, with no worked examples to copy.
-  da: At bede en sprogmodel løse en opgave ud fra en ren instruktion alene, uden løste eksempler at efterligne.
+  en: Asking a language model to do a task from an instruction alone, with no worked examples to copy.
+  da: At bede en sprogmodel løse en opgave kun ud fra en beskrivelse af den, uden løste eksempler at efterligne.
 body:
   formal:
     en: A way of using a large language model in which the prompt describes the task but contains no input–answer examples, so the model must rely only on what it learned during pretraining and instruction tuning.
     da: En måde at bruge en stor sprogmodel på, hvor prompten beskriver opgaven, men ikke indeholder eksempler på input og svar, så modellen udelukkende må trække på det, den lærte under fortræning og instruktionstilpasning.
   plain:
-    en: Like asking a skilled cook to "make something with these leftovers" without showing a recipe — you trust what they already know.
-    da: Som at bede en dygtig kok om at "lave noget af de her rester" uden at vise en opskrift — man stoler på det, de allerede kan.
+    en: Like asking an experienced florist for “something for a retirement party” without pointing at any bouquets — you rely on what they already know about such occasions.
+    da: Som at bede en erfaren blomsterhandler om “noget til en afskedsreception” uden at pege på nogen buketter — man stoler på det, de allerede ved om den slags.
   inPractice:
-    en: A user types "Translate this paragraph into Danish and keep the headings" and gets a usable translation without giving any sample translations.
-    da: En bruger skriver "Oversæt dette afsnit til dansk, og behold overskrifterne" og får en brugbar oversættelse uden at give nogen eksempeloversættelser.
+    en: A secretary at a Danish primary school asks a chat assistant to “translate this letter to parents into English and Ukrainian, keeping the headings” and gets usable drafts without giving any sample translations.
+    da: En skolesekretær på en folkeskole beder en chatassistent om at “oversætte dette forældrebrev til engelsk og ukrainsk og beholde overskrifterne” og får brugbare udkast uden at give nogen eksempeloversættelser.
   whyItMatters:
-    en: It is the everyday way people use chat assistants and the cheapest starting point, but when the output format or judgement must be exact, adding examples usually helps.
-    da: Det er den almindelige måde, folk bruger chatassistenter på, og det billigste udgangspunkt, men når svarformatet eller vurderingen skal være præcis, hjælper eksempler som regel.
+    en: It is how most people use chat assistants and the cheapest place to start, but when the output format or judgement must be exactly right, adding examples usually helps.
+    da: Det er sådan, de fleste bruger chatassistenter, og det billigste sted at starte, men når svarformen eller vurderingen skal ramme helt rigtigt, hjælper eksempler som regel.
 edges:
   requires: [instruction-tuning]
   kind-of:

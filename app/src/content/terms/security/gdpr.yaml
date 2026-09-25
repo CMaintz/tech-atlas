@@ -14,17 +14,17 @@ summary:
   da: EU's databeskyttelseslov, der beskytter personoplysninger og giver folk rettigheder over, hvordan de bruges.
 body:
   formal:
-    en: An EU regulation, applied directly in every member state since 2018, that sets principles, legal grounds and security duties for handling data about people who can be named or traced, with fines up to 4% of global turnover.
-    da: En EU-forordning, der har gældt direkte i alle medlemslande siden 2018, og som fastsætter principper, lovligt grundlag og sikkerhedspligter for behandling af oplysninger om personer, der kan identificeres, med bøder på op til 4 % af den globale omsætning.
+    en: Regulation (EU) 2016/679, applying directly in every member state since 25 May 2018, which sets principles, legal grounds, rights and security duties for processing data about identifiable people, with fines of up to 20 million euro or 4% of global turnover.
+    da: Forordning (EU) 2016/679, der har gældt direkte i alle medlemslande siden 25. maj 2018 og fastsætter principper, lovligt grundlag, rettigheder og sikkerhedspligter for behandling af oplysninger om personer, der kan identificeres, med bøder på op til 20 mio. euro eller 4 % af den globale omsætning.
   plain:
     en: Information about you is treated as yours — others may borrow it only for a fair reason, must look after it and must tell you what they do with it.
-    da: Oplysninger om dig betragtes som dine — andre må kun låne dem af en rimelig grund, skal passe på dem og skal fortælle dig, hvad de gør med dem.
+    da: Oplysninger om dig betragtes som dine — andre må kun låne dem af en god grund, skal passe på dem og skal fortælle dig, hvad de gør med dem.
   inPractice:
-    en: After a laptop with customer lists is stolen, a shop has 72 hours to tell the Danish data protection authority and must judge whether customers need to be told too.
-    da: Efter at en bærbar med kundelister er stjålet, har en butik 72 timer til at anmelde det til Datatilsynet og skal vurdere, om kunderne også skal underrettes.
+    en: When a laptop holding customer lists is stolen from the owner's car, a Danish web shop has 72 hours to report the breach to Datatilsynet and must decide whether the customers themselves need to be told.
+    da: Da en bærbar med kundelister bliver stjålet fra indehaverens bil, har en dansk webshop 72 timer til at anmelde bruddet til Datatilsynet og skal vurdere, om kunderne selv skal have besked.
   whyItMatters:
-    en: It makes privacy a legal duty with real penalties, and it overlaps with NIS2 so one data breach can trigger reports under both laws.
-    da: Den gør privatliv til en juridisk pligt med reelle sanktioner, og den overlapper med NIS2, så ét databrud kan udløse anmeldelser efter begge love.
+    en: Before it, data protection rules differed from country to country and were weakly enforced; GDPR gave people the same rights across the EU and made breaking them costly.
+    da: Før GDPR var reglerne for databeskyttelse forskellige fra land til land og blev kun svagt håndhævet; forordningen gav borgerne de samme rettigheder i hele EU og gjorde det dyrt at overtræde dem.
 edges:
   requires:
     - confidentiality
@@ -39,7 +39,7 @@ edges:
     - to: data-processing-agreement
       why:
         en: Article 28 requires a written contract whenever a supplier handles personal data for you.
-        da: Artikel 28 kræver en skriftlig aftale, når en leverandør behandler persondata for en.
+        da: Artikel 28 kræver en skriftlig aftale, når en leverandør behandler personoplysninger for en.
       strength: primary
       confidence: high
     - to: incident-response
@@ -59,7 +59,7 @@ edges:
     - to: nis2
       why:
         en: GDPR protects people's personal data; NIS2 protects the services society depends on.
-        da: GDPR beskytter menneskers persondata; NIS2 beskytter de tjenester, samfundet er afhængigt af.
+        da: GDPR beskytter menneskers personoplysninger; NIS2 beskytter de tjenester, samfundet er afhængigt af.
       strength: primary
       confidence: high
   used-with:

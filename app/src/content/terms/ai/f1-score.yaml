@@ -11,17 +11,17 @@ era: 1979
 status: current
 summary:
   en: One number that blends precision and recall, so it stays low unless a model both finds the real cases and avoids wrong flags.
-  da: Ét tal, der samler præcision og genkaldelse og kun bliver højt, når modellen både finder de ægte tilfælde og undgår fejlmarkeringer.
+  da: Ét tal, der vejer præcision og genkaldelse sammen og kun bliver højt, når modellen både finder de ægte tilfælde og undgår fejlmarkeringer.
 body:
   formal:
     en: Two times precision times recall, divided by precision plus recall — a balanced average that is pulled down by whichever of the two is lower, computed for one class.
-    da: To gange præcision gange genkaldelse divideret med præcision plus genkaldelse — et afbalanceret gennemsnit, der trækkes ned af den laveste af de to, beregnet for én klasse.
+    da: To gange præcision gange genkaldelse delt med præcision plus genkaldelse — et afbalanceret gennemsnit, der trækkes ned af den laveste af de to, beregnet for én klasse.
   plain:
     en: Like judging a goalkeeper on both saves and clean kicks — being perfect at one and hopeless at the other still earns a poor mark.
     da: Som at bedømme en målmand på både redninger og rene udspark — at være perfekt til det ene og håbløs til det andet giver stadig en dårlig karakter.
   inPractice:
-    en: A team comparing two spam filters sees one with 95% precision and 40% recall and another with 80% and 78%; the F1 score, about 56% against 79%, makes the second the clear choice.
-    da: Et team, der sammenligner to spamfiltre, ser ét med 95 % præcision og 40 % genkaldelse og et andet med 80 % og 78 %; F1-score, cirka 56 % mod 79 %, gør det andet til det klare valg.
+    en: The IT operations lead at an accounting firm compares two spam filters, one with 95% precision and 40% recall, the other with 80% and 78%; their F1 scores, about 56% against 79%, make the second the clear choice.
+    da: Den IT-driftsansvarlige i et revisionsfirma sammenligner to filtre mod spam, ét med 95 % præcision og 40 % genkaldelse og et andet med 80 % og 78 %; deres F1-score, cirka 56 % mod 79 %, gør det andet til det klare valg.
   whyItMatters:
     en: It gives one fair number for comparing models on rare classes, where accuracy misleads, though it hides which of the two errors is growing.
     da: Den giver ét retfærdigt tal til at sammenligne modeller på sjældne klasser, hvor nøjagtighed vildleder, men den skjuler, hvilken af de to fejltyper der vokser.

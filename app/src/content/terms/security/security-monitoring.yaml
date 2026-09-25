@@ -19,8 +19,8 @@ body:
     en: Like a night watchman walking the same rounds every hour — not to stop every break-in on the spot, but to notice the broken window before morning.
     da: Som en nattevagt, der går de samme runder hver time — ikke for at stoppe hvert indbrud på stedet, men for at opdage den knuste rude før morgenen.
   inPractice:
-    en: A shop chain sends logs from its tills, web shop and firewall to one place and sets alarms for odd patterns, such as card data being copied at night.
-    da: En butikskæde sender logs fra kasseapparater, webshop og firewall til ét sted og sætter alarmer op for usædvanlige mønstre, fx at kortdata kopieres om natten.
+    en: A water utility sends logs from its pump controls, website and firewall to one place, and the operations manager sets alarms for odd patterns, such as someone logging in to the pumps from outside at night.
+    da: Et vandværk sender logs fra pumpestyringen, hjemmesiden og firewallen til ét sted, og driftslederen sætter alarmer op for usædvanlige mønstre, fx at nogen logger ind på pumperne udefra om natten.
   whyItMatters:
     en: No defence stops everything, so the time between an attacker getting in and someone noticing decides how much harm is done.
     da: Intet forsvar stopper alt, så tiden fra en angriber kommer ind, til nogen opdager det, afgør, hvor stor skaden bliver.

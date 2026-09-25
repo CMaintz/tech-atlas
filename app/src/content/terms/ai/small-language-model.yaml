@@ -10,20 +10,20 @@ layer: model
 status: emerging
 summary:
   en: A language model small enough to run cheaply on a laptop or phone, trading some broad skill for speed, privacy and low cost.
-  da: En sprogmodel lille nok til at køre billigt på en bærbar eller telefon — lidt mindre kunnen for fart, privatliv og lav pris.
+  da: En sprogmodel, der er lille nok til at køre billigt på en bærbar eller telefon og bytter lidt kunnen for fart, privatliv og lav pris.
 body:
   formal:
-    en: A transformer built on the same ideas as a large language model but with far fewer model parameters — roughly a few hundred million to a few billion — usually made by careful choice of training data and by learning from a larger model.
-    da: En transformer bygget på de samme idéer som en stor sprogmodel, men med langt færre modelparametre — groft sagt fra nogle hundrede millioner til nogle få milliarder — typisk skabt gennem omhyggeligt valg af træningsdata og ved at lære af en større model.
+    en: A transformer built like a large language model but with far fewer model parameters — from a few hundred million up to around ten billion — often trained on carefully chosen data or through knowledge distillation from a larger model.
+    da: En transformer bygget som en stor sprogmodel, men med langt færre modelparametre — fra nogle hundrede millioner op til omkring ti milliarder — ofte trænet på omhyggeligt udvalgte data eller gennem vidensdestillation fra en større model.
   plain:
     en: Like a pocket dictionary next to a full encyclopedia — it will not know everything, but it fits in your bag and answers the common questions right away.
     da: Som en lommeordbog ved siden af et helt leksikon — den ved ikke alt, men den passer i tasken og svarer med det samme på de almindelige spørgsmål.
   inPractice:
-    en: A phone maker puts a small language model on the device to sort notifications and suggest replies without sending messages to the cloud.
-    da: En telefonproducent lægger en lille sprogmodel på selve enheden til at sortere beskeder og foreslå svar uden at sende noget til skyen.
+    en: A home-care nurse in a municipality dictates visit notes into a tablet that runs a small language model; it drafts the record entry even where there is no mobile signal, and nothing leaves the device.
+    da: En sygeplejerske i en kommunes hjemmepleje indtaler besøgsnotater på en tablet, der kører en lille sprogmodel; den skriver et udkast til journalnotatet, også uden mobildækning, og intet forlader enheden.
   whyItMatters:
-    en: For narrow, repeated tasks it can match a bigger model at a small share of the cost and delay, and keeping data on the device can make privacy far easier.
-    da: Til smalle, gentagne opgaver kan den matche en større model for en brøkdel af prisen og ventetiden, og når data bliver på enheden, bliver privatlivet langt nemmere.
+    en: For narrow, repeated tasks it can match a bigger model at a small share of the cost and delay, and keeping data on the device makes data protection far simpler.
+    da: Til smalle, gentagne opgaver kan den matche en større model for en brøkdel af prisen og ventetiden, og når data bliver på enheden, bliver databeskyttelsen langt enklere.
 edges:
   requires:
     - to: model-parameter

@@ -16,11 +16,11 @@ body:
     en: A system in which large language model calls and tool calls follow paths set in advance by the developer — in a line, in branches chosen by rules, or side by side — rather than the model deciding its own next step as an AI agent does.
     da: Et system, hvor kald til store sprogmodeller og værktøjskald følger veje, som udvikleren har lagt på forhånd — i række, i forgreninger valgt ud fra regler eller side om side — i stedet for at modellen selv bestemmer næste trin, som en AI-agent gør.
   plain:
-    en: Like a factory line where some stations have a clever worker — each worker does their part well, but the belt, not the workers, decides where things go next.
-    da: Som et samlebånd, hvor nogle stationer har en dygtig arbejder — hver arbejder gør sin del godt, men båndet, ikke arbejderne, bestemmer, hvor tingene skal hen.
+    en: Like a relay race on a fixed route — each runner is fast and skilled, but where they run and whom they hand the baton to was settled before the start.
+    da: Som et stafetløb på en fast rute — hver løber er hurtig og dygtig, men hvor de løber, og hvem de giver stafetten videre til, blev bestemt før start.
   inPractice:
-    en: A support system first asks a model to sort each incoming email by topic, then sends it to a second prompt written for that topic, and finally checks the draft reply against company rules before a person sends it.
-    da: Et supportsystem beder først en model sortere hver indkommende mail efter emne, sender den derefter til en anden prompt skrevet til det emne og tjekker til sidst svarudkastet mod virksomhedens regler, før en person sender det.
+    en: At a water utility, each customer email passes a fixed chain — a model sorts it by topic, a prompt written for that topic drafts a reply, code checks the draft against the price rules, and a customer adviser sends it.
+    da: Hos et vandværk går hver kundemail gennem en fast kæde — en model sorterer den efter emne, en prompt skrevet til det emne laver et svarudkast, kode tjekker udkastet mod prisreglerne, og en kunderådgiver sender det.
   whyItMatters:
     en: For most business tasks a fixed path is cheaper, easier to test and harder to lead astray than a free-acting agent, so it is often the better first choice.
     da: Til de fleste forretningsopgaver er en fast vej billigere, lettere at teste og sværere at lede på afveje end en agent, der handler frit, så den er ofte det bedste første valg.
@@ -43,7 +43,7 @@ edges:
     - to: human-in-the-loop
       why:
         en: Because the steps are known in advance, it is easy to place a person's approval at exactly the risky step.
-        da: Fordi trinene er kendt på forhånd, er det let at placere en persons godkendelse præcis ved det risikable trin.
+        da: Fordi trinene er kendt på forhånd, er det let at lade en person godkende netop det risikable trin.
       strength: normal
       confidence: medium
     - multi-agent-system

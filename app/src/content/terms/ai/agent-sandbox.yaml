@@ -10,20 +10,20 @@ layer: agent
 status: emerging
 summary:
   en: A walled-off space where an AI agent runs code and uses tools, so a mistake or trick cannot reach the rest of your systems.
-  da: Et afgrænset rum, hvor en AI-agent kører kode og bruger værktøjer, så en fejl eller et trick ikke kan nå resten af ens systemer.
+  da: Et lukket rum, hvor en AI-agent kører kode og bruger værktøjer, så en fejl eller et trick ikke kan nå resten af ens systemer.
 body:
   formal:
-    en: A limited place to run things — often a container or small virtual machine — in which an agent's commands execute with only chosen folders, network targets and rights, and which can be thrown away after the task.
-    da: Et begrænset sted at køre ting — ofte en container eller en lille virtuel maskine — hvor en agents kommandoer udføres med kun udvalgte mapper, netværksmål og rettigheder, og som kan smides væk efter opgaven.
+    en: A closed-off place to run code — often a container or small virtual machine — in which an agent's commands execute with only chosen folders, network destinations and rights, and which is thrown away after the task.
+    da: Et lukket sted at køre kode — ofte en container eller en lille virtuel maskine — hvor en agents kommandoer udføres med kun udvalgte mapper, netværksmål og rettigheder, og som smides væk efter opgaven.
   plain:
     en: Like letting a new cook practise in a test kitchen instead of the restaurant — if they set the pan on fire, only the test kitchen gets burnt.
     da: Som at lade en ny kok øve sig i et prøvekøkken i stedet for i restauranten — hvis panden bryder i brand, er det kun prøvekøkkenet, der brænder.
   inPractice:
-    en: A coding assistant runs tests and shell commands inside a fresh container that can see only the project folder and cannot reach the internet, then the container is deleted.
-    da: En kodeassistent kører tests og kommandoer i en frisk container, der kun kan se projektmappen og ikke kan nå internettet, hvorefter containeren slettes.
+    en: A developer in a region's IT department lets a coding agent run tests inside a fresh container that sees only the booking app's folder and cannot reach the internet; when the task ends, the container is deleted.
+    da: En udvikler i en regions IT-afdeling lader en kodeagent køre tests i en frisk container, der kun kan se bookingappens mappe og ikke kan nå internettet; når opgaven er løst, slettes containeren.
   whyItMatters:
-    en: No one can promise an agent will never be tricked or wrong, so limiting what it can touch is what turns a possible disaster into a small, contained failure.
-    da: Ingen kan love, at en agent aldrig bliver narret eller tager fejl, så det at begrænse, hvad den kan røre, er det, der gør en mulig katastrofe til en lille, afgrænset fejl.
+    en: No one can promise an agent will never be tricked or wrong, so limiting what it can touch is what turns a possible disaster into a small failure that goes no further.
+    da: Ingen kan love, at en agent aldrig bliver narret eller tager fejl, så det at begrænse, hvad den kan røre, er det, der gør en mulig katastrofe til et lille uheld, der ikke breder sig.
 edges:
   requires: [ai-agent]
   mitigates:

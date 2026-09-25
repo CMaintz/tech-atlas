@@ -19,8 +19,8 @@ body:
     en: Like keeping till receipts; throw them out after a day and you cannot handle a return, keep them forever and the back room fills with paper about people who shopped years ago.
     da: Som at gemme kassebonner; smider man dem ud efter en dag, kan man ikke tage imod en returvare, gemmer man dem for evigt, fyldes baglokalet med papir om folk, der handlede for mange år siden.
   inPractice:
-    en: An attack is found in March but began five months earlier; because login logs are kept for twelve months, the company can trace the first break-in, while web logs holding customer data are deleted after ninety days.
-    da: Et angreb opdages i marts, men begyndte fem måneder tidligere; fordi login-logs gemmes i tolv måneder, kan virksomheden spore det første indbrud, mens weblogs med kundedata slettes efter halvfems dage.
+    en: An attack on a pension fund is found in March but began five months earlier; because login logs are kept for twelve months, the fund can trace the first break-in, while web logs holding member data are deleted after ninety days.
+    da: Et angreb på en pensionskasse opdages i marts, men begyndte fem måneder tidligere; fordi login-logs gemmes i tolv måneder, kan pensionskassen spore det første indbrud, mens weblogs med medlemsdata slettes efter 90 dage.
   whyItMatters:
     en: Attackers often go unseen for months, so logs deleted too soon leave no trail; NIS2 and DORA rules expect a documented period, while GDPR forbids keeping personal data longer than needed.
     da: Angribere går ofte uopdaget i månedsvis, så logs, der slettes for tidligt, efterlader intet spor; NIS2- og DORA-reglerne forventer en dokumenteret periode, mens GDPR forbyder at gemme persondata længere end nødvendigt.

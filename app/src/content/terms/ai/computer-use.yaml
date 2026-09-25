@@ -20,8 +20,8 @@ body:
     en: Like a stand-in sitting at your desk while you are away — they see the same screen, press the same buttons, and can do anything you could do from that chair.
     da: Som en afløser, der sidder ved dit skrivebord, mens du er væk — vedkommende ser den samme skærm, trykker på de samme knapper og kan gøre alt, hvad du kunne fra den stol.
   inPractice:
-    en: An agent is asked to copy invoice totals from an old office program that has no API into a table in another app; it opens each invoice, reads the numbers off the screen and types them in.
-    da: En agent bliver bedt om at kopiere fakturabeløb fra et gammelt kontorprogram uden API over i et regneark; den åbner hver faktura, aflæser tallene på skærmen og taster dem ind.
+    en: A finance clerk at a shipping company has an agent copy freight totals from an old booking program with no API into the finance system; it opens each booking, reads the figures off the screen and types them in.
+    da: En bogholder i et rederi lader en agent kopiere fragtbeløb fra et gammelt bookingprogram uden API over i økonomisystemet; den åbner hver booking, aflæser tallene på skærmen og taster dem ind.
   whyItMatters:
     en: It reaches any program a person can use, even without an API, but anything shown on screen — a web page, a pop-up — can carry hidden orders, and every click is a real action.
     da: Det når ethvert program, et menneske kan bruge, også uden API, men alt, der vises på skærmen — en webside, et pop op-vindue — kan bære skjulte ordrer, og hvert klik er en rigtig handling.

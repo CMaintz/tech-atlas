@@ -18,13 +18,13 @@ body:
     da: Et lager, der registrerer hver ændring i en samling filer som et nummereret eller navngivet trin med forfatter, tidspunkt og begrundelse, lader flere arbejde i hver sin gren og fletter arbejdet sammen igen.
   plain:
     en: Like the full edit history of a shared document, where you can see every earlier draft, who wrote each line, and go back to last Tuesday's copy with one click.
-    da: Som den fulde redigeringshistorik i et delt dokument, hvor du kan se alle tidligere udkast, hvem der skrev hver linje, og hente tirsdagens udgave frem med ét klik.
+    da: Som den fulde liste over rettelser i et delt dokument, hvor man kan se alle tidligere udkast, hvem der skrev hver linje, og hente tirsdagens udgave frem med ét klik.
   inPractice:
-    en: A developer changes a firewall setting in a file, asks a colleague to review it before it is merged, and months later an auditor can see exactly who approved the change and why.
-    da: En udvikler ændrer en firewall-indstilling i en fil og beder en kollega gennemgå den, før den flettes ind; måneder senere kan en revisor se præcis, hvem der godkendte ændringen og hvorfor.
+    en: An operations engineer at a pension fund changes a firewall setting in a file and asks a colleague to review it before it is merged; months later the fund's IT auditor can see exactly who approved the change and why.
+    da: En driftsmedarbejder i en pensionskasse ændrer en firewall-indstilling i en fil og beder en kollega gennemgå den, før den flettes ind; måneder senere kan pensionskassens IT-revisor se præcis, hvem der godkendte ændringen og hvorfor.
   whyItMatters:
     en: Without a trusted history, nobody can prove what was running at a given time or quickly undo a bad change, and both are basic needs for security and audits.
-    da: Uden en pålidelig historik kan ingen bevise, hvad der kørte på et givet tidspunkt, eller hurtigt fortryde en dårlig ændring, og begge dele er grundkrav for sikkerhed og revision.
+    da: Uden et pålideligt spor af ændringerne kan ingen bevise, hvad der kørte på et givet tidspunkt, eller hurtigt fortryde en dårlig ændring, og begge dele er grundkrav for sikkerhed og revision.
 edges:
   part-of: [software-supply-chain]
 sources:

@@ -15,13 +15,13 @@ summary:
 body:
   formal:
     en: A text string with fixed parts in a fixed order — the protocol to use, such as https, then the host name, an optional port, a path, an optional query and an optional fragment — that together point to one thing on a network.
-    da: En tekststreng med faste dele i fast rækkefølge — protokollen, fx https, derefter værtsnavnet, en valgfri port, en sti, en valgfri forespørgsel og et valgfrit fragment — som tilsammen peger på én ting på et netværk.
+    da: En tekststreng med faste dele i fast rækkefølge — protokollen, fx https, derefter værtsnavnet, en valgfri port, en sti, en valgfri forespørgsel og en valgfri henvisning til et sted på siden — som tilsammen peger på én ting på et netværk.
   plain:
     en: Like a postal address with a delivery note — the town and street get you to the building, and the rest says which flat and which letter box.
     da: Som en postadresse med en leveringsbesked — by og gade fører dig til bygningen, og resten siger, hvilken lejlighed og hvilken postkasse.
   inPractice:
-    en: A support worker pastes a link into a chat; the browser reads the host name, asks DNS where that host is, then asks the server for the exact page named in the path.
-    da: En supportmedarbejder indsætter et link i en chat; browseren læser værtsnavnet, spørger DNS, hvor værten er, og beder så serveren om præcis den side, stien nævner.
+    en: A clerk at an accounting firm holds the mouse over a link in a mail that claims to come from the tax authority, sees that the host name belongs to an unknown site, and reports the mail instead of clicking.
+    da: En medarbejder i et revisionsfirma holder musen over et link i en mail, der påstår at komme fra Skattestyrelsen, ser, at værtsnavnet tilhører et ukendt site, og anmelder mailen i stedet for at klikke.
   whyItMatters:
     en: Every link, saved page and API call depends on it, and attackers copy it closely with look-alike names, so reading it carefully is a basic safety skill.
     da: Hvert link, bogmærke og API-kald afhænger af den, og angribere efterligner den tæt med navne, der ligner, så det er en grundlæggende sikkerhedsvane at læse den omhyggeligt.

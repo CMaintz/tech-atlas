@@ -15,16 +15,16 @@ summary:
 body:
   formal:
     en: Harmful software that uses encryption to make files or whole systems unreadable to their owner, then demands a ransom for the key — often while also threatening to publish stolen copies.
-    da: Skadelig software, der bruger kryptering til at gøre filer eller hele systemer ulæselige for ejeren og derefter kræver løsepenge for nøglen — ofte samtidig med en trussel om at offentliggøre stjålne kopier.
+    da: Skadelig software, der bruger kryptering til at låse filer eller hele systemer, så ejeren ikke kan læse dem, og derefter kræver løsepenge for nøglen — ofte med en trussel om også at offentliggøre stjålne kopier.
   plain:
-    en: A burglar who does not take your things but changes all the locks in your house and sells you the new keys.
-    da: En indbrudstyv, der ikke tager dine ting, men skifter alle låsene i dit hus og sælger dig de nye nøgler.
+    en: Like a burglar who takes nothing but changes all the locks in your house and sells you the new keys.
+    da: Som en indbrudstyv, der ikke tager noget, men skifter alle låsene i dit hus og sælger dig de nye nøgler.
   inPractice:
-    en: On a Monday morning a hospital finds every shared drive replaced by unreadable files and a note demanding payment within 72 hours.
-    da: En mandag morgen opdager et hospital, at alle fælles drev er erstattet af ulæselige filer og en besked, der kræver betaling inden for 72 timer.
+    en: On a Monday morning, staff at a regional hospital find every shared drive full of files that will not open and a note demanding payment within 72 hours; wards fall back on paper.
+    da: En mandag morgen opdager personalet på et regionshospital, at alle fælles drev er fyldt med filer, der ikke kan åbnes, og en besked, der kræver betaling inden for 72 timer; afdelingerne må gå over til papir.
   whyItMatters:
-    en: It can stop an entire business at once, and paying gives no guarantee the data comes back — only tested backups do.
-    da: Det kan lamme en hel virksomhed på én gang, og betaling giver ingen garanti for at få data tilbage — det gør kun testede backups.
+    en: It can halt an entire organisation at once, and paying gives no guarantee the data comes back — only tested backups kept out of the attacker's reach do.
+    da: Det kan lamme en hel organisation på én gang, og betaling giver ingen garanti for at få data tilbage — det gør kun testede backups, som angriberen ikke kan nå.
 edges:
   kind-of: [threat, malware]
   requires: [encryption, availability]
@@ -32,7 +32,7 @@ edges:
     - to: vulnerability
       why:
         en: It usually gets in and spreads through unpatched weaknesses or stolen logins.
-        da: Det kommer typisk ind og spreder sig via ikke-rettede svagheder eller stjålne logins.
+        da: Det kommer typisk ind og spreder sig via svagheder, der ikke er rettet, eller stjålne logins.
       strength: normal
       confidence: high
   causes:

@@ -19,11 +19,11 @@ body:
     en: Like the counter at a library — it stays open, waits for people to ask for a book, and hands over what they asked for.
     da: Som skranken på et bibliotek — den holder åbent, venter på, at folk spørger efter en bog, og udleverer det, de bad om.
   inPractice:
-    en: A company runs its email on a server in a data centre; every employee's phone and laptop contacts that server to fetch and send messages.
-    da: En virksomhed kører sin e-mail på en server i et datacenter; alle medarbejderes telefoner og bærbare kontakter den server for at hente og sende beskeder.
+    en: A region runs its patient record system on servers in two data centres; thousands of computers at its hospitals send requests to them all day, and if one centre fails, the other takes over.
+    da: En region kører sit patientjournalsystem på servere i to datacentre; tusindvis af computere på regionens hospitaler sender forespørgsler til dem hele dagen, og hvis det ene center svigter, overtager det andet.
   whyItMatters:
-    en: Servers hold the shared data and services everyone depends on and can always be reached, so they are prime targets and usually count among the critical assets.
-    da: Servere rummer de fælles data og tjenester, alle er afhængige af, og kan altid nås, så de er oplagte mål og hører typisk til de kritiske aktiver.
+    en: Servers hold the shared data and services everyone depends on and can be reached at all times, which makes them prime targets; they usually count among an organisation's critical assets.
+    da: Servere rummer de fælles data og tjenester, alle er afhængige af, og kan nås døgnet rundt, hvilket gør dem til oplagte mål; de hører typisk til organisationens kritiske aktiver.
 edges:
   requires: [network, port]
   used-with: [service]

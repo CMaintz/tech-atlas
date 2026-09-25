@@ -16,14 +16,14 @@ body:
     en: An internal value of a model — mostly the model weights plus small offset values — that model training adjusts to reduce the loss; a large language model can have billions of them.
     da: En intern værdi i en model — mest modelvægtene plus små forskydningsværdier — som modeltræning justerer for at mindske tabet; en stor sprogmodel kan have milliarder af dem.
   plain:
-    en: Like the thousands of tiny screws on a huge sound desk — nobody sets them by hand; they are turned bit by bit until the sound comes out right.
-    da: Som de tusindvis af små skruer på et kæmpe mixerbord — ingen sætter dem i hånden; de drejes lidt ad gangen, til lyden bliver rigtig.
+    en: Like the tiles in a huge mosaic — no single tile means much, but together their colours make the picture, and more tiles allow finer detail.
+    da: Som stenene i en kæmpe mosaik — ingen enkelt sten betyder meget, men tilsammen danner deres farver billedet, og flere sten giver finere detaljer.
   inPractice:
-    en: A buyer compares a "7B" and a "70B" model; the numbers are billions of model parameters, which roughly predict memory needs, running cost and ability.
-    da: En indkøber sammenligner en "7B"- og en "70B"-model; tallene er milliarder af modelparametre, som groft forudsiger hukommelsesbehov, driftspris og evner.
+    en: An IT buyer in a municipality compares a “7B” and a “70B” model for an internal assistant; the figures are billions of model parameters and give a rough guide to memory needs, running cost and ability.
+    da: En IT-indkøber i en kommune sammenligner en “7B”- og en “70B”-model til en intern assistent; tallene er milliarder af modelparametre og giver et groft bud på hukommelsesbehov, driftspris og evner.
   whyItMatters:
-    en: Parameter count drives how much hardware and energy a model needs, and the learned values are the model itself — whoever holds them holds the model.
-    da: Antallet af parametre styrer, hvor meget hardware og energi en model kræver, og de lærte værdier er selve modellen — den, der har dem, har modellen.
+    en: Parameter count drives how much hardware, energy and money a model needs to train and run, and a larger count is no guarantee of a better result on a given task.
+    da: Antallet af parametre styrer, hvor meget hardware, energi og penge en model kræver at træne og køre, og flere parametre er ingen garanti for et bedre resultat på en given opgave.
 edges:
   requires: [machine-learning]
   part-of:

@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: The degree to which the reasons behind a model's output can be shown in terms a person can follow, for example which inputs weighed most, so that the result can be checked, challenged or corrected.
-    da: I hvilken grad grundene bag en models resultat kan vises på en måde, et menneske kan følge, for eksempel hvilke oplysninger der vejede tungest, så resultatet kan kontrolleres, anfægtes eller rettes.
+    da: I hvilken grad grundene bag en models resultat kan vises på en måde, et menneske kan følge, for eksempel hvilke oplysninger der vejede tungest, så man kan kontrollere resultatet, klage over det eller rette det.
   plain:
     en: Like a doctor who does not just say "take these pills" but tells you what they saw in your tests and why that led to the choice.
     da: Som en læge, der ikke bare siger "tag de her piller", men fortæller, hvad hun så i dine prøver, og hvorfor det førte til valget.
   inPractice:
-    en: A job applicant is turned down by a screening tool and asks why; the company can show that missing certificates, not age or gender, drove the score.
-    da: En jobansøger bliver fravalgt af et screeningsværktøj og spørger hvorfor; virksomheden kan vise, at manglende certifikater og ikke alder eller køn var årsag til scoren.
+    en: A citizen whose application for housing support is flagged for rejection by a municipality's AI tool asks why; the municipality can show that missing income papers, not age or nationality, drove the result.
+    da: En borger, hvis ansøgning om boligstøtte bliver indstillet til afslag af kommunens AI-værktøj, spørger hvorfor; kommunen kan vise, at manglende indkomstoplysninger og ikke alder eller nationalitet afgjorde resultatet.
   whyItMatters:
     en: Without it, nobody can spot hidden unfairness, answer an auditor or give an affected person a real reason, so trust and accountability break down.
     da: Uden den kan ingen opdage skjult uretfærdighed, svare en revisor eller give en berørt person en reel begrundelse, og så bryder tillid og ansvarlighed sammen.

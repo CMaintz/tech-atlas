@@ -11,20 +11,20 @@ era: 2021
 status: current
 summary:
   en: A cheap way to fine-tune a big model — freeze the original weights and train only a small add-on that nudges its behaviour.
-  da: En billig måde at finjustere en stor model på — frys de oprindelige vægte og træn kun et lille tilføjet stykke, der justerer dens adfærd.
+  da: En billig måde at finjustere en stor model på — frys de oprindelige vægte og træn kun en lille adapter, der justerer dens adfærd.
 body:
   formal:
     en: A fine-tuning method that keeps the model weights fixed and learns, for chosen layers, a pair of small extra weight tables whose product is added to the original; only a tiny share of the model parameters is trained and the add-on can be stored and swapped separately.
-    da: En finjusteringsmetode, der holder modelvægtene faste og for udvalgte lag lærer et par små ekstra vægttabeller, hvis produkt lægges til de oprindelige; kun en lille del af modelparametrene trænes, og tilføjelsen kan gemmes og udskiftes for sig.
+    da: En finjusteringsmetode, der holder modelvægtene faste og for udvalgte lag lærer et par små ekstra vægttabeller, hvis produkt lægges til de oprindelige; kun en lille del af modelparametrene trænes, og adapteren kan gemmes og udskiftes for sig.
   plain:
     en: Like clipping a thin lens over a camera instead of rebuilding it — the camera stays the same, the pictures change, and you can swap lenses in seconds.
     da: Som at klipse en tynd linse på et kamera i stedet for at bygge det om — kameraet er det samme, billederne ændrer sig, og man kan skifte linse på sekunder.
   inPractice:
-    en: A small firm adapts an open model to its standard contracts on a single rented GPU; the result is a small add-on file loaded on top of the unchanged base model.
-    da: Et lille firma tilpasser en åben model til sine standardkontrakter på en enkelt lejet GPU; resultatet er en lille tilføjelsesfil, der indlæses oven på den uændrede basismodel.
+    en: A developer at a Danish accounting firm adapts an open model to the firm's standard reports on a single rented GPU; the result is a small adapter file loaded on top of the untouched base model.
+    da: En udvikler i et revisionsfirma tilpasser en åben model til firmaets standardrapporter på en enkelt lejet GPU; resultatet er en lille adapterfil, der indlæses oven på den urørte basismodel.
   whyItMatters:
-    en: It puts fine-tuning within reach of small teams, but add-on files shared online are a new, easily overlooked thing to vet before loading.
-    da: Det gør finjustering tilgængelig for små teams, men tilføjelsesfiler delt online er en ny, let overset ting, der skal tjekkes, før de indlæses.
+    en: It puts fine-tuning within reach of small teams, but adapter files shared online are a new, easily overlooked thing to vet, because one small file can quietly change how a trusted model behaves.
+    da: Det gør finjustering mulig for små teams, men adapterfiler delt online er en ny, let overset ting at tjekke, fordi én lille fil stille og roligt kan ændre, hvordan en betroet model opfører sig.
 edges:
   kind-of: [fine-tuning]
   requires:
@@ -37,8 +37,8 @@ edges:
   used-with:
     - to: quantization
       why:
-        en: Training a LoRA add-on on top of a quantized base model (known as QLoRA) lets large models be adapted on one ordinary GPU.
-        da: At træne en LoRA-tilføjelse oven på en kvantiseret basismodel (kendt som QLoRA) gør det muligt at tilpasse store modeller på én almindelig GPU.
+        en: Training a LoRA add-on on top of a quantized base model (known as QLoRA) lets very large models be adapted on a single GPU.
+        da: At træne en LoRA-adapter oven på en kvantiseret basismodel (kendt som QLoRA) gør det muligt at tilpasse meget store modeller på en enkelt GPU.
       strength: normal
       confidence: high
 sources:

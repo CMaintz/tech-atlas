@@ -19,8 +19,8 @@ body:
     en: Like the automatic lock on a car that clicks shut when you walk away — it protects you whether or not you remember.
     da: Som den automatiske lås på en bil, der klikker i, når man går fra den — den beskytter, uanset om man husker det.
   inPractice:
-    en: Instead of only telling staff not to plug in unknown USB sticks, IT blocks USB storage on every laptop through a central setting.
-    da: I stedet for kun at sige til medarbejderne, at de ikke må sætte ukendte USB-nøgler i, blokerer IT USB-lagring på alle bærbare via en central indstilling.
+    en: At a Danish university, the IT department no longer just asks staff not to plug in unknown USB sticks; it blocks them on every staff laptop through one central setting.
+    da: På et dansk universitet nøjes IT-afdelingen ikke længere med at bede de ansatte om ikke at sætte ukendte USB-nøgler i; den blokerer dem på alle de ansattes bærbare med én central indstilling.
   whyItMatters:
     en: Machines apply a rule the same way every time, but a technical control set up wrongly gives false comfort, so it still needs rules and people around it.
     da: Maskiner håndhæver en regel ens hver gang, men en teknisk kontrol, der er sat forkert op, giver falsk tryghed, så den har stadig brug for regler og mennesker omkring sig.

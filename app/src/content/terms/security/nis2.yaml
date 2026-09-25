@@ -11,20 +11,20 @@ status: current
 era: 2022
 summary:
   en: The EU cybersecurity law that sets shared security duties for organisations in important and critical sectors.
-  da: EU's cybersikkerhedslov, der pålægger organisationer i vigtige og kritiske sektorer fælles sikkerhedskrav.
+  da: EU's cybersikkerhedslov, der stiller fælles sikkerhedskrav til organisationer i vigtige og kritiske sektorer.
 body:
   formal:
-    en: An EU directive, adopted in 2022 and written into each member state's own law, that obliges essential and important organisations to manage cyber risk, report serious incidents and hold management accountable.
-    da: Et EU-direktiv fra 2022, som hvert medlemsland skriver ind i sin egen lovgivning, og som forpligter væsentlige og vigtige virksomheder til at styre cyberrisici, indberette alvorlige hændelser og holde ledelsen ansvarlig.
+    en: Directive (EU) 2022/2555, to be written into national law by 17 October 2024, which obliges essential and important entities in 18 sectors to manage cyber risk, report significant incidents in stages and make their management body answerable.
+    da: Direktiv (EU) 2022/2555, som skulle være skrevet ind i national lovgivning senest 17. oktober 2024, og som forpligter væsentlige og vigtige enheder i 18 sektorer til at styre cyberrisici, indberette væsentlige hændelser i trin og gøre ledelsesorganet ansvarligt.
   plain:
-    en: A shared set of rules for the whole EU, like common building safety rules — every country must adopt it, and firms that keep society running must follow it.
-    da: En fælles regelbog for hele EU, lidt som fælles byggeregler — hvert land skal indføre den, og de virksomheder, der holder samfundet kørende, skal følge den.
+    en: Like common building safety rules for the whole EU — every country must write them into its own law, and those who keep society running must build by them.
+    da: Som fælles byggeregler for hele EU — hvert land skal skrive dem ind i sin egen lov, og de, der holder samfundet kørende, skal bygge efter dem.
   inPractice:
-    en: A mid-sized Danish water utility learns it falls under NIS2, so its board approves a risk assessment, a plan for reporting incidents within 24 hours, and security terms for its suppliers.
-    da: Et mellemstort dansk vandværk finder ud af, at det er omfattet af NIS2, så bestyrelsen godkender en risikovurdering, en plan for at indberette hændelser inden for 24 timer og sikkerhedskrav til leverandørerne.
+    en: The board of a mid-sized Danish shipping company learns it falls under NIS2, so it approves a risk assessment, a routine for reporting incidents within 24 hours and security terms for its suppliers.
+    da: Bestyrelsen i et mellemstort dansk rederi finder ud af, at rederiet hører under NIS2, og godkender derfor en risikoanalyse, en procedure for at indberette hændelser inden for 24 timer og sikkerhedskrav til leverandørerne.
   whyItMatters:
-    en: It widens the first NIS rules to many more sectors and adds large fines and personal accountability for leaders, so security becomes a board-level duty.
-    da: Det udvider de første NIS-regler til mange flere sektorer og tilføjer store bøder og personligt ansvar for ledelsen, så sikkerhed bliver en opgave for bestyrelsen.
+    en: The first NIS rules covered too few sectors and were applied unevenly; NIS2 brings in thousands more organisations, fines of up to 10 million euro or 2% of turnover, and personal liability for leaders.
+    da: De første NIS-regler dækkede for få sektorer og blev anvendt ujævnt; NIS2 omfatter tusindvis flere organisationer og indfører bøder på op til 10 mio. euro eller 2 % af omsætningen samt personligt ansvar for ledelsen.
 edges:
   requires: [cyber-and-information-security]
   supersedes:

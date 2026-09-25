@@ -10,7 +10,7 @@ layer: application
 status: current
 summary:
   en: Scrambling a message on the sender's device so that only the receiver's device can read it, not even the service carrying it.
-  da: At forvrænge en besked på afsenderens enhed, så kun modtagerens enhed kan læse den — heller ikke tjenesten, der bringer den frem.
+  da: At kryptere en besked på afsenderens enhed, så kun modtagerens enhed kan læse den — heller ikke tjenesten, der bringer den frem.
 body:
   formal:
     en: A design in which data is encrypted on the sending device with keys held only by the people talking, so every server in between, including the provider's own, passes along data it has no key to read.
@@ -19,11 +19,11 @@ body:
     en: Like posting a locked box that only your friend has the key to — the postal service carries it all the way but can never open it.
     da: Som at sende en aflåst kasse, som kun din ven har nøglen til — posten bringer den hele vejen, men kan aldrig åbne den.
   inPractice:
-    en: When a chat app uses end-to-end encryption, a court order to the company cannot produce readable messages, because the company never had the keys.
-    da: Når en chatapp bruger end-to-end-kryptering, kan en retskendelse mod firmaet ikke give læsbare beskeder, fordi firmaet aldrig har haft nøglerne.
+    en: A ministry lets staff use a chat app with end-to-end encryption on their work phones. IT can manage the phones, but a request to the app's provider for the chats would return nothing readable.
+    da: Et ministerium lader medarbejderne bruge en chatapp med end-to-end-kryptering på arbejdstelefonerne. IT kan administrere telefonerne, men beder man appens udbyder om samtalerne, får man intet læsbart.
   whyItMatters:
-    en: It removes the need to trust the service provider, so a break-in at the provider or a curious member of its staff cannot expose what users say.
-    da: Den fjerner behovet for at stole på tjenesteudbyderen, så et indbrud hos udbyderen eller en nysgerrig medarbejder ikke kan afsløre, hvad brugerne siger.
+    en: Without it, every message can be read at the provider, so one break-in or one curious member of staff exposes everyone; the trade-off is that lost keys mean lost messages.
+    da: Uden den kan alle beskeder læses hos udbyderen, så ét indbrud eller én nysgerrig medarbejder afslører alle; bagsiden er, at mistede nøgler betyder mistede beskeder.
 edges:
   requires: [public-key-cryptography, encryption]
   implements: [confidentiality]
@@ -38,7 +38,7 @@ edges:
     - to: data-breach
       why:
         en: A break-in at the provider's servers finds only scrambled messages, because the keys live on the users' devices.
-        da: Et indbrud på udbyderens servere finder kun forvrængede beskeder, fordi nøglerne ligger på brugernes enheder.
+        da: Et indbrud på udbyderens servere finder kun krypterede beskeder, fordi nøglerne ligger på brugernes enheder.
       strength: normal
       confidence: medium
 sources:

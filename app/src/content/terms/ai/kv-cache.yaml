@@ -13,14 +13,14 @@ summary:
   da: Hukommelse, hvor en sprogmodel gemmer arbejdet med tidligere tokens, så hvert nyt ord ikke kræver, at alt læses forfra.
 body:
   formal:
-    en: During inference in a transformer, the stored per-token numbers that the attention mechanism compares against (called keys and values) for every token read so far; each new token adds its own and reuses the rest, so its size grows with the length of the text.
-    da: Under inferens i en transformer de gemte tal per token, som attention-mekanismen sammenligner med (kaldet keys og values), for hvert token læst indtil nu; hvert nyt token tilføjer sine egne og genbruger resten, så størrelsen vokser med tekstens længde.
+    en: During inference in a transformer, the stored per-token numbers (called keys and values) that the attention mechanism compares against, for every token read so far; each new token adds its own and reuses the rest, so the store grows with the text.
+    da: Under inferens i en transformer de gemte tal pr. token (kaldet keys og values), som attention-mekanismen sammenligner med, for hvert token læst indtil nu; hvert nyt token tilføjer sine egne og genbruger resten, så lageret vokser med teksten.
   plain:
     en: Like keeping notes while reading a long book aloud — to say the next sentence you glance at your notes instead of starting again from page one.
     da: Som at tage noter, mens man læser en lang bog højt — for at sige næste sætning kigger man i noterne i stedet for at begynde forfra fra side ét.
   inPractice:
-    en: A service that allows very long chats finds the GPU fills up not with the model weights but with the KV caches of all the users talking at once, which caps how many it can serve.
-    da: En tjeneste, der tillader meget lange samtaler, opdager, at GPU'en ikke fyldes af modelvægtene, men af KV-cachen for alle de brugere, der taler samtidig, hvilket begrænser, hvor mange den kan betjene.
+    en: A Danish software house runs a legal chat tool for law firms; its operations engineer finds the GPU fills up not with model weights but with the KV cache of lawyers' long chats, which limits how many can use it at once.
+    da: Et dansk softwarehus driver et juridisk chatværktøj for advokatfirmaer; driftsingeniøren opdager, at GPU'en ikke fyldes af modelvægte, men af KV-cache fra advokaternes lange samtaler, hvilket begrænser, hvor mange der kan bruge den samtidig.
   whyItMatters:
     en: It is what makes writing long answers fast enough to use, and its memory cost is often the real limit on context length, speed and price.
     da: Den er det, der gør det hurtigt nok at skrive lange svar, og dens hukommelsesforbrug er ofte den reelle grænse for kontekstlængde, hastighed og pris.
@@ -36,8 +36,8 @@ edges:
   used-with:
     - to: model-serving
       why:
-        en: Serving systems spend much of their effort packing and sharing KV cache memory so more users fit on each GPU.
-        da: Serving-systemer bruger en stor del af deres kræfter på at pakke og dele KV-cache-hukommelse, så flere brugere kan være på hver GPU.
+        en: Serving systems spend much of their effort fitting and sharing KV cache memory so more users fit on each GPU.
+        da: Serving-systemer bruger en stor del af deres kræfter på at udnytte og dele KV-cache-hukommelse, så flere brugere kan være på hver GPU.
       strength: normal
       confidence: high
     - quantization

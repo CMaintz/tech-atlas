@@ -14,14 +14,14 @@ summary:
   da: En loginstandard bygget oven på OAuth, der fortæller en app, hvem brugeren er, og ikke kun hvad den må.
 body:
   formal:
-    en: An identity layer on OAuth 2.0 in which the identity provider, after the user signs in, returns a signed ID token stating who the user is, when and how they logged in, which the app checks before starting its own session.
-    da: Et identitetslag oven på OAuth 2.0, hvor identitetsudbyderen, efter at brugeren er logget ind, returnerer et signeret ID-token, der angiver, hvem brugeren er, og hvornår og hvordan vedkommende loggede ind, som appen kontrollerer, før den starter sin egen session.
+    en: An identity layer on OAuth 2.0 in which the identity provider, after the user signs in, returns a signed ID token stating who the user is and when and how they logged in; the app checks it before starting its own session.
+    da: Et identitetslag oven på OAuth 2.0, hvor identitetsudbyderen, når brugeren er logget ind, returnerer et signeret ID-token med oplysninger om, hvem brugeren er, og hvornår og hvordan vedkommende loggede ind. Appen kontrollerer tokenet, før den starter sin egen session.
   plain:
-    en: If OAuth is a valet key that says what the holder may do, OpenID Connect adds a signed name badge saying who the holder is.
-    da: Hvis OAuth er en parkeringsnøgle, der siger, hvad indehaveren må, tilføjer OpenID Connect et signeret navneskilt, der siger, hvem indehaveren er.
+    en: Like a valet key handed over together with a signed name badge — the key says what the holder may do with the car, the badge says who the holder is.
+    da: Som en parkeringsnøgle, der udleveres sammen med et underskrevet navneskilt — nøglen siger, hvad indehaveren må gøre med bilen, skiltet siger, hvem indehaveren er.
   inPractice:
-    en: A new web shop offers "Sign in with Google"; the shop is sent a signed token with the customer's name and email and never handles a password at all.
-    da: En ny webshop tilbyder "Log ind med Google"; shoppen får et signeret token med kundens navn og mailadresse og håndterer aldrig selv en adgangskode.
+    en: A small Danish web shop offers “Sign in with Google”; the shop receives a signed token with the customer's name and email address and never handles a password at all.
+    da: En lille dansk webshop tilbyder “Log ind med Google”; shoppen modtager et signeret token med kundens navn og mailadresse og håndterer aldrig selv en adgangskode.
   whyItMatters:
     en: Using OAuth alone for login led to serious mistakes; a shared, checked way to state identity lets small apps offer safe login and single sign-on without building their own.
     da: At bruge OAuth alene til login førte til alvorlige fejl; en fælles, kontrolleret måde at angive identitet på lader små apps tilbyde sikkert login og single sign-on uden at bygge deres eget.
@@ -32,7 +32,7 @@ edges:
     - to: saml
       why:
         en: Both let an identity provider vouch for a user to another app; OIDC uses light web tokens suited to mobile and modern apps, SAML older signed documents common in enterprise systems.
-        da: Begge lader en identitetsudbyder gå i god for en bruger over for en anden app; OIDC bruger lette webtokens egnet til mobil og moderne apps, SAML ældre signerede dokumenter, der er udbredt i virksomhedssystemer.
+        da: Begge lader en identitetsudbyder gå i god for en bruger over for en anden app; OIDC bruger lette webtokens, der passer til mobil og moderne apps, SAML ældre signerede dokumenter, der er udbredt i virksomhedssystemer.
       strength: primary
       confidence: high
 sources:

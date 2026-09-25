@@ -14,14 +14,14 @@ summary:
   da: Den organiserede måde, en virksomhed opdager, stopper og rydder op efter et sikkerhedsangreb eller uheld og vender tilbage til normal drift.
 body:
   formal:
-    en: A set of prepared steps — get ready, detect and analyse, contain, remove the cause, recover, and review afterwards — carried out by named people when a security event happens.
-    da: Et sæt forberedte trin — forberedelse, opdagelse og analyse, inddæmning, fjernelse af årsagen, genopretning og efterfølgende evaluering — som udføres af navngivne personer, når en sikkerhedshændelse sker.
+    en: A prepared cycle of phases — preparation, detection and analysis, containment, removal of the cause, recovery, and review afterwards — carried out by named people with agreed authority when a security incident occurs.
+    da: Et forberedt forløb i faser — forberedelse, opdagelse og analyse, inddæmning, fjernelse af årsagen, genopretning og efterfølgende evaluering — som udføres af navngivne personer med aftalte beføjelser, når en sikkerhedshændelse indtræffer.
   plain:
     en: Like a fire drill that turns into the real thing — everyone knows who calls for help, who closes the doors and who counts heads.
-    da: Ligesom en brandøvelse, der bliver til virkelighed — alle ved, hvem der ringer efter hjælp, hvem der lukker dørene, og hvem der tæller op.
+    da: Ligesom en brandøvelse, der bliver til virkelighed — alle ved, hvem der ringer efter hjælp, hvem der lukker dørene, og hvem der tæller, om alle er kommet ud.
   inPractice:
-    en: The SIEM raises an alarm about a strange sign-in at night; the on-call person locks the account, cuts the laptop off the network and calls the incident lead.
-    da: SIEM giver alarm om et mærkeligt login om natten; vagten spærrer kontoen, kobler den bærbare fra netværket og ringer til den ansvarlige for hændelsen.
+    en: At three in the morning the SIEM at a municipality flags a strange login; the on-call technician locks the account, cuts the laptop off the network and calls the incident lead.
+    da: Klokken tre om natten slår en kommunes SIEM alarm over et mærkeligt login; den vagthavende tekniker spærrer kontoen, kobler den bærbare fra netværket og ringer til den ansvarlige for hændelsen.
   whyItMatters:
     en: Minutes count during an attack, and a team that improvises loses time, evidence and money that a prepared team keeps.
     da: Minutter tæller under et angreb, og et team, der improviserer, mister tid, spor og penge, som et forberedt team bevarer.

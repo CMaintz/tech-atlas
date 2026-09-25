@@ -19,11 +19,11 @@ body:
     en: Like a detailed recipe instead of a chef's memory; anyone can cook the same dish again, and you can see exactly which ingredient changed since last time.
     da: Som en detaljeret opskrift i stedet for kokkens hukommelse; alle kan lave den samme ret igen, og man kan se præcis, hvilken ingrediens der er ændret siden sidst.
   inPractice:
-    en: A company rebuilds its whole test setup in the cloud in twenty minutes from files, and a reviewer spots that one storage area was about to be opened to the internet before it goes live.
-    da: En virksomhed genopbygger hele sit testmiljø i skyen på tyve minutter ud fra filer, og en kollega opdager ved gennemgangen, at et lagerområde var ved at blive åbnet mod internettet, før det går i drift.
+    en: A developer at a small Danish software firm rebuilds the firm's whole test setup in the cloud from files in twenty minutes; at review, a colleague spots that one storage area was about to be opened to the internet.
+    da: En udvikler i en mindre dansk softwarevirksomhed genopbygger hele firmaets testmiljø i skyen ud fra filer på tyve minutter; ved gennemgangen opdager en kollega, at et lagerområde var ved at blive åbnet mod internettet.
   whyItMatters:
     en: Settings made by hand drift, get forgotten and cannot be checked; written settings can be reviewed, tested for known mistakes and rebuilt the same way after a disaster.
-    da: Indstillinger lavet i hånden glider, bliver glemt og kan ikke efterprøves; skrevne indstillinger kan gennemgås, testes for kendte fejl og genopbygges ens efter en katastrofe.
+    da: Indstillinger lavet i hånden skrider, bliver glemt og kan ikke efterprøves; skrevne indstillinger kan gennemgås, testes for kendte fejl og genopbygges ens efter en katastrofe.
 edges:
   requires: [version-control]
   mitigates:

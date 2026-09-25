@@ -13,14 +13,14 @@ summary:
   da: Den person eller gruppe, der står bag et angreb — fx en kriminel bande, en fremmed stat, en aktivist eller en uforsigtig medarbejder.
 body:
   formal:
-    en: An individual or group that has the intent and the means to harm an organisation, described by its goals, skills and resources, such as crime for money, spying or protest.
-    da: En person eller gruppe, der har både vilje og midler til at skade en organisation, og som beskrives ud fra sine mål, evner og ressourcer — fx kriminalitet for penge, spionage eller protest.
+    en: An individual or group that causes, or could cause, harm to an organisation, described by its motive, skills and resources — for example crime for money, spying for a state, or protest.
+    da: En person eller gruppe, der forvolder eller kan forvolde skade på en organisation, og som beskrives ud fra sit motiv, sine evner og ressourcer — fx kriminalitet for penge, spionage for en stat eller protest.
   plain:
-    en: If a threat is "a break-in could happen", the threat actor is the burglar — with their own reasons, tools and patience.
-    da: Hvis truslen er "der kan ske et indbrud", er trusselsaktøren indbrudstyven — med sine egne motiver, værktøjer og tålmodighed.
+    en: Knowing that bikes get stolen in your area is one thing; knowing it is the same two teenagers every Friday night tells you when and how to lock up.
+    da: At vide, at der bliver stjålet cykler i dit område, er én ting; at vide, at det er de samme to teenagere hver fredag aften, fortæller dig, hvornår og hvordan du skal låse.
   inPractice:
-    en: A risk team notes that a criminal gang seeking payment is the most likely attacker of their shop, while spying by a foreign state is far less likely.
-    da: Et risikoteam noterer, at en kriminel bande, der vil have penge, er den mest sandsynlige angriber mod deres butik, mens spionage fra en fremmed stat er langt mindre sandsynlig.
+    en: CFCS rates the threat from cyber crime against Denmark as very high, so the IT lead at a Danish online shop plans mainly for criminal gangs after payment, not for spying by a foreign state.
+    da: CFCS vurderer truslen fra cyberkriminalitet mod Danmark som meget høj, så den IT-ansvarlige i en dansk webshop planlægger primært efter kriminelle bander, der vil have penge — ikke efter spionage fra en fremmed stat.
   whyItMatters:
     en: Knowing who is likely to attack, and why, tells you which defences matter most for your organisation.
     da: Når man ved, hvem der sandsynligvis angriber og hvorfor, ved man også, hvilke forsvar der betyder mest for ens organisation.

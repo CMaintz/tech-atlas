@@ -19,8 +19,8 @@ body:
     en: Like a smoke alarm; it must go off for a real fire, but if it screams every time someone makes toast, people start taking the battery out.
     da: Som en røgalarm; den skal gå i gang ved en rigtig brand, men hvis den hyler, hver gang nogen rister brød, begynder folk at tage batteriet ud.
   inPractice:
-    en: At 3 a.m. the error rate on the payment service stays above five percent for ten minutes, and the on-call engineer's phone rings with a link to the right dashboard.
-    da: Klokken tre om natten ligger fejlraten på betalingstjenesten over fem procent i ti minutter, og den vagthavende teknikers telefon ringer med et link til det rette dashboard.
+    en: At 3 a.m. the error rate on a pension fund's payout service stays above five percent for ten minutes, and the on-call operations engineer's phone rings with a link to the right dashboard.
+    da: Klokken tre om natten ligger fejlraten på en pensionskasses udbetalingstjeneste over fem procent i ti minutter, og den vagthavende driftsmedarbejders telefon ringer med et link til det rette dashboard.
   whyItMatters:
     en: Alerts are how problems and attacks reach people in time; too few and incidents go unseen, too many and staff learn to ignore them.
     da: Alarmer er den måde, problemer og angreb når frem til mennesker i tide; for få, og hændelser går ubemærket hen, for mange, og medarbejderne lærer at ignorere dem.

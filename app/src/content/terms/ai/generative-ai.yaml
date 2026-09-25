@@ -19,11 +19,11 @@ body:
     en: Like a street painter who has studied thousands of paintings and can paint you a new one in any style you name — though never one they saw exactly.
     da: Som en gademaler, der har studeret tusindvis af malerier og kan male dig et nyt i hvilken som helst stil, du nævner — dog aldrig ét, de har set præcis.
   inPractice:
-    en: A marketing team asks a chat assistant for ten versions of a product text and an image tool for a matching picture, then picks and edits the best.
-    da: Et marketingteam beder en chatassistent om ti udgaver af en produkttekst og et billedværktøj om et matchende billede og vælger og retter så de bedste.
+    en: A communications officer in a municipality has a chat assistant draft a plain-language version of the new waste-sorting rules and an image tool draw a matching picture, then checks both before publishing.
+    da: En kommunikationsmedarbejder i en kommune får en chatassistent til at skrive et udkast til de nye affaldsregler i et enkelt sprog og et billedværktøj til at tegne et billede, og tjekker begge, før de bliver lagt ud.
   whyItMatters:
-    en: It makes content cheap and fast for everyone, including attackers, and raises new questions about copyright, leaked company data and what can be trusted.
-    da: Det gør indhold billigt og hurtigt for alle, også angribere, og rejser nye spørgsmål om ophavsret, lækkede virksomhedsdata og hvad man kan stole på.
+    en: It makes content cheap and fast for everyone, including attackers, and raises new questions about who owns the output, leaked company data and what can be trusted.
+    da: Det gør indhold billigt og hurtigt for alle, også angribere, og rejser nye spørgsmål om, hvem der ejer resultatet, om lækkede virksomhedsdata og om, hvad man kan stole på.
 edges:
   kind-of: [artificial-intelligence]
   requires: [deep-learning]

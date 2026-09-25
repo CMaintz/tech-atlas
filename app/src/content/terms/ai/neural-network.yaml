@@ -18,10 +18,10 @@ body:
     da: En matematisk model af forbundne enheder ordnet i lag; hver enhed ganger sine input med lærte vægte, lægger dem sammen og sender resultatet videre, og træningen justerer vægtene.
   plain:
     en: Like a huge mixing desk with millions of sliders; training slowly nudges each slider until the sound that comes out is right.
-    da: Som et kæmpe mixerpult med millioner af skydere; træningen skubber langsomt til hver skyder, indtil lyden, der kommer ud, er rigtig.
+    da: Som et kæmpe lydbord med millioner af skydere; træningen skubber langsomt til hver skyder, indtil lyden, der kommer ud, er rigtig.
   inPractice:
-    en: An email service passes each new message through a neural network that outputs a score for how likely it is to be spam or phishing.
-    da: En mailtjeneste sender hver ny besked gennem et neuralt netværk, der giver en score for, hvor sandsynligt det er, at den er spam eller phishing.
+    en: A municipality's email system passes each incoming message through a neural network that gives a score for how likely it is to be phishing, and holds back messages above a set limit.
+    da: En kommunes mailsystem sender hver indgående besked gennem et neuralt netværk, der giver en score for, hvor sandsynligt det er, at den er phishing, og holder beskeder over en fastsat grænse tilbage.
   whyItMatters:
     en: Its knowledge is spread across millions of numbers rather than readable rules, so it is hard to see why it gave a certain answer.
     da: Dens viden er spredt ud over millioner af tal i stedet for læsbare regler, så det er svært at se, hvorfor den gav et bestemt svar.

@@ -45,7 +45,7 @@ A certificate is a digital document that binds a public key to a name, such as `
 
 Things that go wrong in practice are usually administrative, not cryptographic:
 
-- **Expired certificates** take services down without warning. Keep an inventory with expiry dates and automate renewal where possible (for example with the ACME protocol). Maximum certificate lifetimes for public certificates are being shortened step by step, which makes automation increasingly necessary.
+- **Expired certificates** take services down without warning. Keep an inventory with expiry dates and automate renewal where possible (for example with the ACME protocol). The maximum lifetime of public certificates is being shortened in steps — from 398 days to 200 days in March 2026, and to 47 days by 2029 — which makes automation a necessity.
 - **Self-signed or internal CA certificates** trigger warnings, and users learn to click past warnings — a habit an attacker can exploit.
 - **Private keys** belonging to certificates must be protected; anyone holding them can impersonate the service.
 

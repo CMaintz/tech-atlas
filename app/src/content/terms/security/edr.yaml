@@ -20,8 +20,8 @@ body:
     en: Like a guard posted inside every room of a building rather than only at the front door — they notice odd behaviour and can lock the room at once.
     da: Som en vagt i hvert eneste rum i bygningen i stedet for kun ved hoveddøren — vagten opdager mærkelig adfærd og kan låse rummet med det samme.
   inPractice:
-    en: A laptop in sales suddenly starts locking hundreds of files; the EDR tool spots the pattern, stops the process and takes the laptop off the network before the damage spreads.
-    da: En bærbar i salgsafdelingen begynder pludselig at låse hundredvis af filer; EDR-værktøjet genkender mønstret, stopper processen og tager maskinen af netværket, før skaden breder sig.
+    en: A laptop in a pension fund's customer department suddenly starts locking hundreds of files; the EDR tool spots the pattern, stops the process and cuts the laptop off the network before the IT operations manager has even seen the alarm.
+    da: En bærbar i en pensionskasses kundeafdeling begynder pludselig at låse hundredvis af filer; EDR-værktøjet genkender mønstret, stopper processen og isolerer maskinen fra netværket, før den IT-driftsansvarlige overhovedet har set alarmen.
   whyItMatters:
     en: Attackers who slip past the outer defences still have to act on some device, so watching every device closely is often the last real chance to catch them early.
     da: Angribere, der slipper forbi de ydre forsvar, skal stadig handle på en enhed, så tæt overvågning af hver enhed er ofte den sidste reelle chance for at fange dem tidligt.

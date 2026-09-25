@@ -18,8 +18,8 @@ body:
     en: Like telling a shop guard exactly what to watch for — "anyone who tries three card terminals in a row" — instead of asking him to watch for anything strange.
     da: Som at fortælle en butiksvagt præcis, hvad han skal holde øje med — "enhver, der prøver tre kortterminaler i træk" — i stedet for at bede ham kigge efter alt mærkeligt.
   inPractice:
-    en: After a sector warning about a new phishing wave, the SOC writes a rule that fires when any staff member's browser reaches one of the listed web addresses.
-    da: Efter en advarsel fra sektoren om en ny phishing-bølge skriver SOC'en en regel, der slår alarm, når en medarbejders browser rammer en af de oplyste webadresser.
+    en: After CFCS warns of a new phishing wave aimed at municipalities, a municipal SOC writes a rule that fires when any staff member's browser visits one of the web addresses in the warning.
+    da: Efter at CFCS har advaret om en ny phishing-bølge mod kommuner, skriver en kommunes SOC en regel, der slår alarm, når en medarbejders browser besøger en af webadresserne i advarslen.
   whyItMatters:
     en: Rules turn a flood of logs into a few alarms worth reading; too loose and staff drown in noise, too tight and a real attack passes unseen.
     da: Regler forvandler en strøm af logs til nogle få alarmer, der er værd at læse; for løse, og medarbejderne drukner i støj, for stramme, og et reelt angreb glider forbi.

@@ -11,20 +11,20 @@ status: current
 era: 2005
 summary:
   en: The international standard for running an information security management system that can be certified.
-  da: Den internationale standard for at drive et ledelsessystem for informationssikkerhed, som kan certificeres.
+  da: Den internationale standard for at drive et ledelsessystem for informationssikkerhed, som man kan opnå certificering efter.
 body:
   formal:
-    en: A standard (current edition 2022) that sets requirements for an information security management system — context, leadership, risk assessment, operation, review and improvement — plus an annex of 93 controls to choose from.
-    da: En standard (nuværende udgave fra 2022), der stiller krav til et ledelsessystem for informationssikkerhed — kontekst, ledelse, risikovurdering, drift, evaluering og forbedring — samt et anneks med 93 kontroller at vælge imellem.
+    en: An international standard, current edition 2022, whose clauses 4–10 set the requirements for an information security management system — context, leadership, planning, support, operation, performance evaluation and improvement — with Annex A listing 93 controls to choose from.
+    da: En international standard, nuværende udgave fra 2022, hvis afsnit 4–10 stiller kravene til et ledelsessystem for informationssikkerhed — kontekst, ledelse, planlægning, støtte, drift, evaluering og forbedring — mens anneks A rummer 93 kontroller at vælge imellem.
   plain:
-    en: A recipe for how to run security as a routine, not a one-off — and an outside inspector can check that you follow it.
-    da: En opskrift på at drive sikkerhed som en fast rutine frem for en engangsindsats — og en ekstern inspektør kan kontrollere, at man følger den.
+    en: A set of house rules for running security as a daily routine rather than a one-off clean-up — written so that an outside inspector can check it is really followed.
+    da: En husorden for at drive sikkerhed som fast rutine frem for en engangsoprydning — skrevet, så en udefrakommende kan kontrollere, at den faktisk bliver fulgt.
   inPractice:
-    en: A software house spends a year setting up its risk process and policies, passes an external audit and shows the certificate to win a bank as customer.
-    da: Et softwarehus bruger et år på at etablere sin risikoproces og sine politikker, består en ekstern audit og viser certifikatet frem for at vinde en bank som kunde.
+    en: Danish state bodies must follow ISO 27001, so the security lead at a ministry uses its clauses to set the scope, run the risk assessment, pick controls from Annex A and report maturity each year — without seeking a certificate.
+    da: Danske statslige myndigheder skal følge ISO 27001, så den sikkerhedsansvarlige i et ministerium bruger standarden til at fastlægge omfanget, lave risikoanalysen, vælge kontroller fra anneks A og indberette modenhed hvert år — uden at søge om certifikat.
   whyItMatters:
-    en: It is voluntary, but it gives a proven structure for meeting laws such as NIS2 and a certificate customers trust.
-    da: Den er frivillig, men giver en afprøvet struktur til at opfylde love som NIS2 og et certifikat, som kunder har tillid til.
+    en: Without a common measure every customer, auditor and authority would ask for security to be shown in a different way; ISO 27001 gives one structure that can be recognised, audited and mapped to laws such as NIS2.
+    da: Uden en fælles målestok ville hver kunde, revisor og myndighed kræve sikkerheden dokumenteret på sin egen måde; ISO 27001 giver én struktur, der kan genkendes, auditeres og kobles til love som NIS2.
 edges:
   kind-of: [security-framework]
   mandates:
@@ -71,7 +71,7 @@ edges:
     - to: nist-csf
       why:
         en: ISO 27001 is a management system a firm can be certified against; the NIST CSF is a free, voluntary framework of outcomes with no certificate.
-        da: ISO 27001 er et ledelsessystem, man kan certificeres efter; NIST CSF er et gratis, frivilligt rammeværk af mål uden certifikat.
+        da: ISO 27001 er et ledelsessystem, man kan opnå certificering efter; NIST CSF er et gratis, frivilligt rammeværk af mål uden certifikat.
       strength: normal
       confidence: high
   part-of: [iso-27000-series]

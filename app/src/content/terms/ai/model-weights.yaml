@@ -16,14 +16,14 @@ body:
     en: The main kind of model parameter in a neural network, one number per connection, adjusted by gradient descent during model training and stored in files that are loaded again at inference.
     da: Den vigtigste slags modelparameter i et neuralt netværk, ét tal pr. forbindelse, justeret med gradientnedstigning under modeltræning og gemt i filer, der indlæses igen ved inferens.
   plain:
-    en: Like the volume sliders between every pair of speakers in a huge hall — the whole performance lives in how each slider is set.
-    da: Som lydskyderne mellem hvert par højttalere i en kæmpe sal — hele forestillingen ligger i, hvordan hver skyder står.
+    en: Like the paths worn across a park lawn — every walk wears a route a little deeper, and together the worn paths decide where the next walker goes.
+    da: Som stierne, der bliver trådt hen over en græsplæne i en park — hver tur gør en rute lidt tydeligere, og tilsammen afgør stierne, hvor den næste går.
   inPractice:
-    en: A developer downloads a folder of weight files from a public model hub and loads them on a laptop to run the model offline.
-    da: En udvikler henter en mappe med vægtfiler fra et offentligt modelbibliotek og indlæser dem på en bærbar for at køre modellen offline.
+    en: A developer at a Danish software house downloads a folder of weight files from a public model hub and runs the model on the company's own machine, so customer text never leaves the building.
+    da: En udvikler i et dansk softwarehus henter en mappe med vægtfiler fra et offentligt modelbibliotek og kører modellen på firmaets egen maskine, så kundernes tekst aldrig forlader huset.
   whyItMatters:
-    en: Weights are expensive to produce and are the model itself, so leaked weights mean a stolen model, and weights downloaded from strangers can hide harmful code or behaviour.
-    da: Vægte er dyre at fremstille og er selve modellen, så lækkede vægte betyder en stjålet model, og vægte hentet fra fremmede kan skjule skadelig kode eller adfærd.
+    en: Weights are expensive to produce and are the model itself, so leaked weights mean a stolen model, and weight files from unknown sources can hide harmful code or behaviour.
+    da: Vægte er dyre at fremstille og er selve modellen, så lækkede vægte betyder en stjålet model, og vægtfiler fra ukendte kilder kan skjule skadelig kode eller adfærd.
 edges:
   kind-of:
     - to: model-parameter

@@ -15,13 +15,13 @@ summary:
 body:
   formal:
     en: A client program that requests resources over HTTP or HTTPS, draws the returned pages on screen, runs the code they contain in a closed-off space, and stores cookies and other data for each website separately.
-    da: Et klientprogram, der henter ressourcer over HTTP eller HTTPS, tegner de modtagne sider på skærmen, kører den kode, de indeholder, i et afgrænset rum og gemmer cookies og andre data adskilt for hvert websted.
+    da: Et klientprogram, der henter ressourcer over HTTP eller HTTPS, tegner de modtagne sider på skærmen, kører den kode, de indeholder, i et lukket rum og gemmer cookies og andre data adskilt for hvert websted.
   plain:
     en: Like a television set for the web — the shows are made and sent elsewhere, and the set just tunes in and plays them for you.
     da: Som et fjernsyn til nettet — programmerne laves og sendes et andet sted fra, og apparatet stiller bare ind og viser dem for dig.
   inPractice:
-    en: An office worker opens the company's time-sheet system, the online bank and a news site in three tabs of the same browser, and each site sees only its own data.
-    da: En kontormedarbejder åbner firmaets timeregistrering, netbanken og en nyhedsside i tre faner i samme browser, og hvert websted ser kun sine egne data.
+    en: A finance clerk in a municipality opens the finance system, the online bank and a news site in three tabs of the same browser, and each site sees only its own data.
+    da: En økonomimedarbejder i en kommune åbner økonomisystemet, netbanken og en nyhedsside i tre faner i samme browser, og hvert websted ser kun sine egne data.
   whyItMatters:
     en: For most people the browser is the front door to their work, money and private life, so an out-of-date browser or a harmful add-on puts all of it at risk.
     da: For de fleste er browseren hoveddøren til arbejde, økonomi og privatliv, så en forældet browser eller en skadelig udvidelse sætter det hele på spil.

@@ -9,21 +9,21 @@ cluster: ml-fundamentals
 layer: training
 status: current
 summary:
-  en: Teaching a computer to sort each new case into one of a fixed set of groups, such as spam or not spam, or real attack or false alarm.
-  da: At lære en computer at sortere hvert nyt tilfælde i én af nogle faste grupper, fx spam eller ikke spam, ægte angreb eller falsk alarm.
+  en: Teaching a computer to sort each new case into one of a fixed set of groups, such as approve or reject, or real attack or false alarm.
+  da: At lære en computer at sortere hvert nyt tilfælde i én af nogle faste grupper, fx godkend eller afvis, ægte angreb eller falsk alarm.
 body:
   formal:
-    en: A task in machine learning where the model learns from labeled examples to give each new input one label from a known, fixed list, often together with a score for how sure it is.
+    en: A task in machine learning where the model learns from labelled examples to give each new input one label from a known, fixed list, often together with a score for how sure it is.
     da: En opgave i maskinlæring, hvor modellen lærer af mærkede eksempler at give hvert nyt input én mærkat fra en kendt, fast liste, ofte sammen med en score for, hvor sikker den er.
   plain:
-    en: Like a post office worker who drops each letter into the right box — there are only so many boxes, and every letter must go in one of them.
-    da: Som en postmedarbejder, der lægger hvert brev i den rigtige kasse — der er kun et bestemt antal kasser, og hvert brev skal i én af dem.
+    en: Like a coin-sorting machine at a bank — every coin drops into the slot for its value, and there is no slot for a coin it has never seen.
+    da: Som en møntsorteringsmaskine i banken — hver mønt falder ned i hullet for sin værdi, og der er intet hul til en mønt, den aldrig har set.
   inPractice:
-    en: A mail filter looks at each incoming email and marks it as phishing, spam or normal, based on thousands of earlier emails that people had already sorted.
-    da: Et mailfilter ser på hver indkommende mail og markerer den som phishing, spam eller normal ud fra tusindvis af tidligere mails, som mennesker allerede havde sorteret.
+    en: At a shipping company, a model trained on thousands of invoices a bookkeeper had already sorted puts each new invoice into one of 40 cost types, such as fuel or harbour fees, and sends the unsure ones back to her.
+    da: I et rederi sætter en model, der er trænet på tusindvis af fakturaer, som en bogholder allerede havde sorteret, hver ny faktura i én af 40 slags udgifter, fx brændstof eller havneafgifter, og sender de usikre tilbage til hende.
   whyItMatters:
-    en: Much of AI in security is this kind of sorting, and every wrong call is either a missed attack or a false alarm, so someone has to choose which mistake is cheaper.
-    da: Meget af AI i sikkerhed er denne slags sortering, og hver forkert afgørelse er enten et overset angreb eller en falsk alarm, så nogen må vælge, hvilken fejl der er billigst.
+    en: No model sorts every case right, and wrong calls differ in cost — a missed attack usually costs more than a false alarm — so someone must decide which mistakes to accept and where a person checks.
+    da: Ingen model sorterer alle tilfælde rigtigt, og forkerte afgørelser koster forskelligt — et overset angreb koster som regel mere end en falsk alarm — så nogen må beslutte, hvilke fejl man accepterer, og hvor et menneske tjekker.
 edges:
   kind-of: [supervised-learning]
   contrasts-with:
@@ -47,7 +47,7 @@ edges:
       confidence: high
     - to: data-classification
       why:
-        en: Same word, different job — data classification is people labeling files by how secret they are, not a machine sorting inputs.
+        en: Same word, different job — data classification is people labelling files by how secret they are, not a machine sorting inputs.
         da: Samme ord, forskelligt arbejde — dataklassifikation er, at mennesker mærker filer efter, hvor fortrolige de er, ikke at en maskine sorterer input.
       strength: normal
       confidence: high

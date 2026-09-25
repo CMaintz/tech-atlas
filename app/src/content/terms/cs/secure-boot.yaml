@@ -14,14 +14,14 @@ summary:
   da: Et tjek ved opstart, der kun lader en computer køre opstartssoftware og en kerne med en betroet digital signatur.
 body:
   formal:
-    en: A chain of checks at start-up — the machine's built-in start-up software checks the digital signature of the start-up program and its own add-on drivers against keys stored in the machine, and that signed start-up program then checks the kernel before handing over; any failed check stops the start.
-    da: En kæde af tjek ved opstart — maskinens indbyggede opstartssoftware tjekker den digitale signatur på opstartsprogrammet og sine egne tilføjede drivere mod nøgler gemt i maskinen, og det signerede opstartsprogram tjekker derefter kernen, før det overlader styringen; et fejlet tjek stopper opstarten.
+    en: A chain of checks at start-up. The machine's built-in start-up software checks the digital signature of each start-up program and add-on driver against keys stored in the machine, and the signed start-up program then checks the kernel; any failed check stops the start.
+    da: En kæde af tjek ved opstart. Maskinens indbyggede opstartssoftware tjekker den digitale signatur på hvert opstartsprogram og hver tilføjet driver mod nøgler gemt i maskinen, og det signerede opstartsprogram tjekker derefter kernen; et fejlet tjek stopper opstarten.
   plain:
     en: Like a guard at the factory gate who checks every driver's badge before the working day starts, so nobody can slip in while the lights are still off.
     da: Som en vagt ved fabriksporten, der tjekker hver chaufførs adgangskort, før arbejdsdagen går i gang, så ingen kan snige sig ind, mens lyset endnu er slukket.
   inPractice:
-    en: An attacker swaps the start-up program on a laptop for a tampered copy; with secure boot on, the laptop refuses to start it and shows a warning instead.
-    da: En angriber udskifter opstartsprogrammet på en bærbar med en manipuleret kopi; med secure boot slået til nægter computeren at starte den og viser i stedet en advarsel.
+    en: A municipality gets laptops back from an outside repair shop. One refuses to start and shows a secure boot warning because its start-up program has been swapped, so IT takes it out of use and investigates.
+    da: En kommune får bærbare retur fra et eksternt reparationsværksted. Én af dem nægter at starte og viser en secure boot-advarsel, fordi opstartsprogrammet er blevet udskiftet, så IT tager den ud af drift og undersøger den.
   whyItMatters:
     en: Malware that loads before the operating system can hide from every protection that starts later, so the only safe place to stop it is at the very first step.
     da: Malware, der indlæses før styresystemet, kan gemme sig for al beskyttelse, der starter senere, så det eneste sikre sted at stoppe den er ved allerførste trin.

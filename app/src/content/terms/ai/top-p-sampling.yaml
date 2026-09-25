@@ -15,16 +15,16 @@ summary:
 body:
   formal:
     en: A form of sampling that sorts candidate tokens by chance, keeps the smallest group whose chances add up to at least p, and draws the next token from that group only, so the number of options grows or shrinks with how sure the model is.
-    da: En form for sampling, der sorterer kandidat-tokens efter chance, beholder den mindste gruppe, hvis chancer tilsammen når mindst p, og kun trækker næste token fra den gruppe, så antallet af muligheder vokser eller skrumper med, hvor sikker modellen er.
+    da: En form for sampling, der sorterer kandidat-tokens efter chance, beholder den mindste gruppe, hvis chancer tilsammen når mindst p, og kun trækker næste token fra den gruppe, så antallet af muligheder vokser eller bliver færre alt efter, hvor sikker modellen er.
   plain:
-    en: Like a panel that draws up a short list of the top applicants until they cover most of the votes, then draws the winner only from that list — long-shot names never get in.
-    da: Som et udvalg, der sætter de bedste ansøgere på en kortliste, til de dækker de fleste stemmer, og kun trækker vinderen fra listen — outsidere kommer aldrig med.
+    en: Like a quiz team that only considers answers they are fairly sure of — when one is obvious they go with it, when unsure they weigh several, and wild guesses never make the table.
+    da: Som et quizhold, der kun overvejer svar, de er rimelig sikre på — når ét er oplagt, tager de det, når de er i tvivl, vejer de flere, og vilde gæt kommer aldrig på bordet.
   inPractice:
-    en: With p set to 0.9, when the model is sure the next word is "Paris" the choice has one or two options, but in an open-ended story it may have hundreds to choose from.
-    da: Med p sat til 0,9 har valget én eller to muligheder, når modellen er sikker på, at næste ord er "Paris", men i en åben historie kan der være hundredvis at vælge imellem.
+    en: A developer in a municipality's IT department sees the letter-drafting assistant slip odd, off-topic phrases into letters; top-p is at 1, which lets any token be picked, so she lowers it to 0.9 and the stray phrases become rare.
+    da: En udvikler i en kommunes IT-afdeling ser brevassistenten snige mærkelige, uvedkommende vendinger ind i breve; top-p står på 1, så ethvert token kan vælges, og hun sænker den til 0,9, hvorefter de skæve vendinger bliver sjældne.
   whyItMatters:
-    en: It cuts off the long tail of unlikely tokens that makes text drift into nonsense, while still leaving room for variety, which is why it is a default setting in many services.
-    da: Det skærer den lange hale af usandsynlige tokens væk, som får tekst til at glide ud i vrøvl, men giver stadig plads til variation, hvilket er grunden til, at det er standard i mange tjenester.
+    en: It is a main guard against the rare, odd word choices that make long text drift into nonsense; set badly, it gives either flat, repetitive text or stray words in letters sent to real people.
+    da: Det er et af de vigtigste værn mod de sjældne, skæve ordvalg, der får lang tekst til at glide ud i vrøvl; sat forkert giver det enten flad, gentagende tekst eller vildfarne ord i breve til rigtige mennesker.
 edges:
   requires: [token]
   kind-of:

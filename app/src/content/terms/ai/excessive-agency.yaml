@@ -13,16 +13,16 @@ summary:
   da: At give et AI-system flere værktøjer, rettigheder eller mere frihed, end opgaven kræver, så ét forkert skridt kan gøre reel skade.
 body:
   formal:
-    en: A weakness, listed as LLM06 in the OWASP Top 10 for LLM Applications 2025, in which an application built on a large language model has too many functions, too many permissions or too much independence, letting unexpected, manipulated or made-up model output trigger harmful actions.
-    da: En svaghed, opført som LLM06 i OWASP Top 10 for LLM Applications 2025, hvor en applikation bygget på en stor sprogmodel har for mange funktioner, for mange tilladelser eller for stor selvstændighed, så uventet, manipuleret eller opdigtet output fra modellen kan udløse skadelige handlinger.
+    en: A weakness (OWASP LLM06:2025) in which a system built on a large language model has too many functions, permissions or independence, so unexpected, manipulated or made-up model output can trigger harmful actions.
+    da: En svaghed (OWASP LLM06:2025), hvor et system bygget på en stor sprogmodel har for mange funktioner, tilladelser eller for stor selvstændighed, så uventet, manipuleret eller opdigtet output fra modellen kan udløse skadelige handlinger.
   plain:
     en: Like giving a new intern the master key, the company card and the power to sign contracts on day one, when all they were hired to do is sort the post.
     da: Som at give en ny praktikant hovednøglen, firmakortet og ret til at skrive under på kontrakter den første dag, selv om vedkommende kun er ansat til at sortere posten.
   inPractice:
-    en: An email AI agent only needs to read and sum up messages, but it was connected with full mailbox rights; a planted email tells it to delete the inbox and it does.
-    da: En AI-agent til mail skal kun læse og opsummere beskeder, men den er koblet på med fulde rettigheder til postkassen; en plantet mail beder den slette indbakken, og det gør den.
+    en: A shipping company's booking agent only needs to read the sailing schedule, but was given rights to change it; it misreads one customer's email and cancels forty bookings before an operations planner notices.
+    da: Et rederis bookingagent skal kun kunne læse sejlplanen, men har fået ret til at ændre den; den misforstår én kundes mail og aflyser fyrre bookinger, før en driftsplanlægger opdager det.
   whyItMatters:
-    en: No model can be made fully trustworthy, so limiting what it is allowed to do caps the damage when it is wrong or hijacked; the risk grows with every tool an agent gets.
+    en: No model can be made fully trustworthy, so limiting what it may do caps the damage when it is wrong or hijacked; the risk grows with every tool an agent gets.
     da: Ingen model kan gøres helt pålidelig, så det at begrænse, hvad den må, sætter et loft over skaden, når den tager fejl eller bliver kapret; risikoen vokser med hvert værktøj, en agent får.
 edges:
   requires: [ai-agent, tool-calling]

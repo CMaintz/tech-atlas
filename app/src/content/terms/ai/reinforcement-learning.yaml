@@ -19,8 +19,8 @@ body:
     en: Like teaching a dog a trick with treats — nobody explains the trick, the dog just learns which moves earn a treat.
     da: Som at lære en hund et trick med godbidder — ingen forklarer tricket, hunden lærer bare, hvilke bevægelser der giver en godbid.
   inPractice:
-    en: A chat assistant is improved by letting people score its answers; answers they rate higher are rewarded, so the assistant drifts toward the style people prefer.
-    da: En chatassistent forbedres ved at lade mennesker score dens svar; svar, de vurderer højere, belønnes, så assistenten glider mod den stil, folk foretrækker.
+    en: A region's energy manager tests a system that adjusts the ventilation in a hospital wing; it earns a reward for using less power and a penalty each time a ward gets too warm or too cold.
+    da: En energiansvarlig i en region tester et system, der styrer ventilationen i en hospitalsfløj; det får belønning for at bruge mindre strøm og straf, hver gang en afdeling bliver for varm eller for kold.
   whyItMatters:
     en: The system learns exactly what the reward measures, not what you meant, so a badly chosen reward can teach it to cheat or to please instead of to be right.
     da: Systemet lærer præcis det, belønningen måler, ikke det, man mente, så en dårligt valgt belønning kan lære det at snyde eller at behage frem for at have ret.

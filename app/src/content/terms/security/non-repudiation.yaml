@@ -14,17 +14,17 @@ summary:
   da: Så stærkt bevis for, hvem der gjorde noget, at vedkommende ikke senere kan nægte at have gjort det.
 body:
   formal:
-    en: The assurance that the sender of a message gets proof it was delivered and the receiver gets proof of who sent it, so neither can later deny their part. It usually rests on public-key cryptography, where only the holder of a private cryptographic key could have signed.
-    da: Sikkerheden for, at afsenderen af en besked får bevis for levering, og modtageren får bevis for, hvem der sendte den, så ingen af dem senere kan benægte deres del. Det bygger typisk på asymmetrisk kryptografi, hvor kun indehaveren af en privat kryptografisk nøgle kan have underskrevet.
+    en: The assurance that the sender of a message gets proof of delivery and the receiver gets proof of who sent it, so neither can later deny their part. It usually rests on digital signatures, which only the holder of a private key could have made.
+    da: Sikkerheden for, at afsenderen af en besked får bevis for levering, og modtageren får bevis for, hvem der sendte den, så ingen af dem senere kan benægte deres del. Den bygger typisk på digitale signaturer, som kun indehaveren af en privat nøgle kan have lavet.
   plain:
     en: Like signing for a parcel in front of a witness — you cannot later claim it never came, and the courier cannot claim to have left it with you if they did not.
     da: Som at kvittere for en pakke med et vidne til stede — du kan ikke senere påstå, at den aldrig kom, og budet kan ikke påstå at have afleveret den, hvis det ikke skete.
   inPractice:
-    en: A supplier signs a contract using its digital certificate; when it later claims it never agreed to the price, the signature shows that only its key could have signed.
-    da: En leverandør underskriver en kontrakt med sit digitale certifikat; da den senere påstår aldrig at have accepteret prisen, viser signaturen, at kun dens nøgle kan have underskrevet.
+    en: A supplier signs a contract with a Danish region using a digital signature; when it later disputes the agreed price, the region can show that only the supplier's own key could have produced that signature.
+    da: En leverandør skriver under på en kontrakt med en region med en digital signatur; da leverandøren senere sætter spørgsmål ved den aftalte pris, kan regionen vise, at kun leverandørens egen nøgle kan have lavet signaturen.
   whyItMatters:
-    en: Contracts, payments and audit records are only worth something if people cannot simply say "that was not me" afterwards.
-    da: Kontrakter, betalinger og revisionsspor er kun noget værd, hvis folk ikke bare kan sige "det var ikke mig" bagefter.
+    en: Contracts, payments and audit records are only worth something if people cannot simply say “that was not me” afterwards.
+    da: Kontrakter, betalinger og revisionsspor er kun noget værd, hvis folk ikke bare kan sige “det var ikke mig” bagefter.
 edges:
   requires: [authentication, integrity, public-key-cryptography]
 sources:

@@ -9,18 +9,18 @@ cluster: model-architecture
 layer: model
 status: current
 summary:
-  en: A model that can take in, and sometimes produce, more than one kind of input — such as text, photos and speech — in the same conversation.
-  da: En model, der kan modtage og nogle gange lave mere end én slags input — fx tekst, fotos og tale — i den samme samtale.
+  en: A model that can take in, and sometimes produce, more than one kind of content — such as text, photos and speech — in one conversation.
+  da: En model, der kan tage imod — og nogle gange selv skabe — flere slags indhold, fx tekst, fotos og tale, i den samme samtale.
 body:
   formal:
     en: A foundation model that turns different kinds of input — text, images, sound — into embeddings in one shared space, usually with a separate encoder for each kind, so a single transformer can reason across them together.
     da: En grundmodel, der laver forskellige slags input — tekst, billeder, lyd — om til embeddings i ét fælles rum, typisk med en separat encoder for hver slags, så en enkelt transformer kan ræsonnere på tværs af dem samlet.
   plain:
-    en: Like a friend you can show a photo, play a song to, and talk with — all in one chat — instead of three separate friends who each only read, look or listen.
-    da: Som en ven, du kan vise et foto, spille en sang for og snakke med — alt i én samtale — i stedet for tre forskellige venner, der hver kun læser, ser eller lytter.
+    en: Like a colleague you can hand a photo, play a voice message to and write to, all in one conversation — instead of three helpers who can each only read, look or listen.
+    da: Som en kollega, du kan række et foto, afspille en talebesked for og skrive til — alt i én samtale — i stedet for tre hjælpere, der hver kun kan læse, se eller lytte.
   inPractice:
-    en: A field engineer photographs a warning light on a machine and asks "what does this mean?"; the multimodal model reads the photo and the question together and answers.
-    da: En servicetekniker fotograferer en advarselslampe på en maskine og spørger "hvad betyder det?"; den multimodale model læser foto og spørgsmål samlet og svarer.
+    en: A building inspector in a municipality photographs a hand-drawn floor plan sent with an application and asks the assistant for the total floor area; the model reads the measurements off the drawing, and she checks the sum.
+    da: En byggesagsbehandler i en kommune fotograferer en håndtegnet plantegning, der fulgte med en ansøgning, og beder assistenten om det samlede antal kvadratmeter; modellen aflæser målene på tegningen, og hun tjekker summen.
   whyItMatters:
     en: Every new kind of input is a new way in — text hidden inside a picture can carry instructions the user never sees, so images and audio need the same care as typed text.
     da: Hver ny slags input er en ny vej ind — tekst gemt i et billede kan bære instruktioner, brugeren aldrig ser, så billeder og lyd kræver samme omhu som indtastet tekst.

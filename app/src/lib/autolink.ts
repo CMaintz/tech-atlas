@@ -44,7 +44,24 @@ const STOP: Record<Lang, Set<string>> = {
     'kontor',
     'evaluering',
     'evalueringen',
+    'samle',
+    'samler',
+    'samles',
+    'samlet',
   ]),
+};
+
+/**
+ * Names that are the term inside its own domain but an everyday word, or a
+ * different concept, outside it: an AI "token" vs an OAuth access token, a
+ * car "recall", paying "attention", data "sensitivity". They link only on
+ * pages in the same domain as the term. Fuller names ("attention mechanism",
+ * "true positive rate") are unaffected. Each entry is backed by a real false
+ * link found in the content (see autolink.test.ts).
+ */
+const SAME_DOMAIN_ONLY: Record<Lang, Set<string>> = {
+  en: new Set(['attention', 'recall', 'sensitivity', 'token']),
+  da: new Set(['token']),
 };
 
 const domainOf = (id: string) => id.split('/')[0];
@@ -96,6 +113,8 @@ export function makeLinker(terms: LinkableTerm[], lang: Lang) {
       if (STOP[lang].has(m[0].toLowerCase())) continue;
       const id = resolve(m[1], opts.self);
       if (!id || id === opts.self || opts.seen?.has(id)) continue;
+      const sameDomain = opts.self !== undefined && domainOf(opts.self) === domainOf(id);
+      if (SAME_DOMAIN_ONLY[lang].has(m[1].toLowerCase()) && !sameDomain) continue;
       opts.seen?.add(id);
       if (m.index > last) out.push({ text: text.slice(last, m.index) });
       out.push({ text: m[0], id });

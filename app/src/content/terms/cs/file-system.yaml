@@ -16,11 +16,11 @@ body:
     en: The part of the operating system that arranges data on a storage device into named files inside folders, and records for each file details such as its owner, its size, when it last changed and who may read or change it.
     da: Den del af styresystemet, der ordner data på et lagermedie i navngivne filer i mapper og for hver fil registrerer oplysninger som ejer, størrelse, hvornår den sidst blev ændret, og hvem der må læse eller ændre den.
   plain:
-    en: Like a library's shelves and catalogue — books have names and places, and the catalogue records who owns each one and who may borrow it.
-    da: Som bibliotekets reoler og kartotek — bøgerne har navne og pladser, og kartoteket noterer, hvem der ejer hver bog, og hvem der må låne den.
+    en: Like a filing cabinet with labelled drawers and folders, where each folder carries a note saying who owns it and who may take it out.
+    da: Som et arkivskab med mærkede skuffer og mapper, hvor hver mappe har en seddel om, hvem der ejer den, og hvem der må tage den ud.
   inPractice:
-    en: A shared drive at work holds a folder for HR. The file system lets HR staff open the folder, while everyone else gets 'access denied'.
-    da: Et fælles drev på arbejdet har en mappe til HR. Filsystemet lader HR-medarbejderne åbne mappen, mens alle andre får 'adgang nægtet'.
+    en: A municipality's shared drive holds a folder for HR. The file system lets the HR staff open it, while a case officer who clicks on it gets 'access denied'.
+    da: Kommunens fælles drev har en mappe til HR. Filsystemet lader HR-medarbejderne åbne den, mens en sagsbehandler, der klikker på den, får 'adgang nægtet'.
   whyItMatters:
     en: Most of an organisation's sensitive data sits in files, so the file system's permissions are often the last barrier between that data and a data breach.
     da: De fleste af en organisations følsomme data ligger i filer, så filsystemets rettigheder er ofte den sidste barriere mellem de data og et databrud.

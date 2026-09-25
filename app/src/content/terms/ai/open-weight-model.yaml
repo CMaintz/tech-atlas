@@ -16,14 +16,14 @@ body:
     en: A foundation model whose model weights are released publicly, often under a licence with use limits, so it can be run, inspected and fine-tuned on one's own hardware; the training data and code are usually not released.
     da: En grundmodel, hvis modelvægte offentliggøres, ofte under en licens med begrænsninger, så den kan køres, undersøges og finjusteres på egen hardware; træningsdata og kode frigives som regel ikke.
   plain:
-    en: Like buying a finished cake with the exact recipe card inside — you can bake it yourself and change it, but you still do not know how the recipe was worked out.
-    da: Som at købe en færdig kage med det nøjagtige opskriftskort indeni — du kan selv bage og ændre den, men du ved stadig ikke, hvordan opskriften blev fundet frem til.
+    en: Like buying a car you can keep in your own garage, service and modify, instead of only paying for rides — though the factory's drawings stay secret.
+    da: Som at købe en bil, du kan have i din egen garage, servicere og bygge om, i stedet for kun at betale for ture — men fabrikkens tegninger forbliver hemmelige.
   inPractice:
-    en: A hospital downloads an open-weight model and runs it on its own servers, so patient notes never leave the building.
-    da: Et hospital henter en model med åbne vægte og kører den på sine egne servere, så patientnotater aldrig forlader huset.
+    en: A shipping company's IT lead picks an open-weight model to run on a server aboard each ship, so the crew can ask about the technical manuals mid-ocean without a satellite link.
+    da: IT-chefen i et rederi vælger en model med åbne vægte, der kan køre på en server om bord på hvert skib, så besætningen kan spørge til de tekniske manualer midt på havet uden satellitforbindelse.
   whyItMatters:
-    en: Running it yourself keeps data in-house and removes vendor lock-in, but a downloaded file can be tampered with, and safety limits removed by one user cannot be taken back.
-    da: At køre den selv holder data internt og fjerner leverandørbinding, men en hentet fil kan være manipuleret, og sikkerhedsgrænser, én bruger har fjernet, kan ikke trækkes tilbage.
+    en: Running it yourself keeps data in-house and avoids depending on one provider, but a downloaded file may have been tampered with, and once weights are public, anyone can strip out their safety limits and nobody can recall them.
+    da: At køre den selv holder data internt og undgår afhængighed af én udbyder, men en hentet fil kan være manipuleret, og når vægtene først er offentlige, kan enhver fjerne deres sikkerhedsgrænser, og ingen kan kalde dem tilbage.
 edges:
   kind-of: [foundation-model]
   requires:

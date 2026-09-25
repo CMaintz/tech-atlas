@@ -11,27 +11,27 @@ status: current
 era: 2022
 summary:
   en: The baseline list of security measures every organisation under NIS2 must have in place.
-  da: Den grundliste af sikkerhedstiltag, som alle virksomheder omfattet af NIS2 skal have på plads.
+  da: Den grundliste af sikkerhedstiltag, som alle organisationer under NIS2 skal have på plads.
 body:
   formal:
-    en: The set of measures listed in Article 21 of NIS2 — among them risk analysis, incident handling, business continuity, supply-chain security, training, encryption and multi-factor authentication — which must fit the organisation's risk.
-    da: De tiltag, der er opregnet i NIS2's artikel 21 — bl.a. risikoanalyse, hændelseshåndtering, driftskontinuitet, sikkerhed i forsyningskæden, træning, kryptering og login med flere faktorer — og som skal stå i forhold til virksomhedens risiko.
+    en: The ten areas of measures in NIS2 Article 21(2) — among them risk analysis, incident handling, business continuity, supply-chain security, training, encryption and multi-factor authentication — to be applied in proportion to the entity's size and exposure to risk.
+    da: De ti områder af tiltag i NIS2 artikel 21, stk. 2 — blandt andet risikoanalyse, hændelseshåndtering, beredskab for at holde driften i gang, sikkerhed i forsyningskæden, uddannelse, kryptering og multifaktorgodkendelse — som skal stå i forhold til enhedens størrelse og risiko.
   plain:
-    en: A checklist of must-haves, like the safety equipment every car needs before it may drive on the road.
-    da: En tjekliste over det, man skal have, ligesom det sikkerhedsudstyr, en bil skal have, før den må køre på vejen.
+    en: Like the equipment every car must have before it may use the road — lights, brakes, seat belts — however big or small the car.
+    da: Som det udstyr, enhver bil skal have, før den må køre på vejen — lys, bremser, seler — uanset hvor stor eller lille bilen er.
   inPractice:
-    en: A logistics firm maps each item on the list to what it already does and finds that backups exist but have never been restored in a test.
-    da: En logistikvirksomhed holder hvert punkt på listen op mod det, den allerede gør, og opdager, at der er backup, men at den aldrig er blevet testet med en gendannelse.
+    en: The IT operations manager at a Danish freight company holds each point on the list against what the firm already does and finds that backups exist but have never been restored in a test.
+    da: Driftschefen for IT i en dansk fragtvirksomhed holder hvert punkt på listen op mod det, virksomheden allerede gør, og opdager, at der tages backup, men at den aldrig er blevet gendannet i en test.
   whyItMatters:
-    en: The list turns a broad law into concrete work, and a missing item can lead to orders or fines from the authority.
-    da: Listen gør en bred lov til konkret arbejde, og et manglende punkt kan føre til påbud eller bøder fra myndigheden.
+    en: A broad duty to “manage cyber risk” is easy to claim and hard to check; the list gives the authority concrete points to inspect, and a missing one can bring orders or fines.
+    da: En bred pligt til at “styre cyberrisici” er let at påstå og svær at kontrollere; listen giver myndigheden konkrete punkter at efterprøve, og et manglende punkt kan give krav om at rette op eller bøder.
 edges:
   part-of: [nis2]
   mandates:
     - to: business-continuity-plan
       why:
         en: Business continuity, including backup and crisis management, is a listed measure.
-        da: Driftskontinuitet, herunder backup og krisestyring, er et af de opregnede tiltag.
+        da: Evnen til at holde driften i gang, herunder backup og krisestyring, er et af de nævnte tiltag.
       strength: primary
       confidence: high
     - to: backup
@@ -40,7 +40,7 @@ edges:
     - to: mfa
       why:
         en: Multi-factor authentication is named explicitly as a measure to use where appropriate.
-        da: Login med flere faktorer er nævnt direkte som et tiltag, der skal bruges, hvor det er relevant.
+        da: Multifaktorgodkendelse er nævnt direkte som et tiltag, der skal bruges, hvor det er relevant.
       strength: normal
       confidence: high
     - to: encryption

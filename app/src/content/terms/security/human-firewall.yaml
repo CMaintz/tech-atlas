@@ -13,17 +13,17 @@ summary:
   da: En medarbejderstab, der fungerer som første forsvarslinje ved at opdage og stoppe angreb rettet mod mennesker.
 body:
   formal:
-    en: A security culture in which employees reliably recognise, resist and report attempts at manipulation, so that people work as a filter in the same way a firewall filters network traffic.
+    en: A security culture in which employees reliably recognise, resist and report attempts at manipulation, so that people act as a filter in the same way a firewall filters network traffic.
     da: En sikkerhedskultur, hvor medarbejderne pålideligt genkender, modstår og melder forsøg på manipulation, så mennesker fungerer som et filter, ligesom en firewall filtrerer netværkstrafik.
   plain:
     en: Like a neighbourhood where everyone notices a stranger trying door handles and calls it in — the street itself becomes the alarm.
     da: Som et kvarter, hvor alle lægger mærke til en fremmed, der prøver dørhåndtag, og ringer det ind — selve gaden bliver alarmen.
   inPractice:
-    en: Within minutes of a fake invoice email arriving, three staff press the "report" button; IT pulls the email from every inbox before anyone pays.
-    da: Få minutter efter at en falsk faktura-mail er landet, trykker tre medarbejdere på "rapportér"-knappen, og IT fjerner mailen fra alle indbakker, før nogen betaler.
+    en: At a regional hospital, three staff press the “Report” button within minutes of a fake mail about pay slips arriving, and IT removes it from every inbox before anyone else clicks the link.
+    da: På et regionshospital trykker tre medarbejdere på “Rapportér”-knappen få minutter efter, at en falsk mail om lønsedler er landet, og IT fjerner den fra alle indbakker, før andre når at klikke på linket.
   whyItMatters:
-    en: Some attacks will always get past technical filters, so the last check is a person — and it helps to treat people as a strength, not only a weakness.
-    da: Nogle angreb vil altid slippe forbi de tekniske filtre, så det sidste tjek er et menneske — og det hjælper at se mennesker som en styrke, ikke kun en svaghed.
+    en: Some attacks will always get past technical filters, so the last check is a person — and treating staff as a strength rather than only a weakness makes them more willing to speak up.
+    da: Nogle angreb vil altid slippe forbi de tekniske filtre, så det sidste tjek er et menneske — og når medarbejderne ses som en styrke og ikke kun som en svaghed, siger de oftere til.
 edges:
   kind-of: [security-culture]
   requires: [security-awareness]

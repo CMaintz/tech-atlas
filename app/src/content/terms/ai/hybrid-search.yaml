@@ -19,11 +19,11 @@ body:
     en: Like asking both a strict clerk who only checks exact labels and a helpful friend who gets the gist — then trusting most what both of them point to.
     da: Som at spørge både en pertentlig ekspedient, der kun tjekker præcise etiketter, og en hjælpsom ven, der forstår essensen — og så stole mest på det, de begge peger på.
   inPractice:
-    en: A parts supplier's chat bot finds "gasket for model X-200" by the exact product code and also finds the manual page that only says "rubber seal".
-    da: En reservedelsleverandørs chatbot finder "pakning til model X-200" via den præcise varekode og finder også manualsiden, der kun siger "gummitætning".
+    en: A technician at a regional hospital searches the equipment manuals for “V-310 dripping”; the word match finds the spare-parts list with the exact code V-310, and the meaning match finds the page headed “if water leaks from the valve”.
+    da: En tekniker på et regionshospital søger i udstyrsmanualerne efter “V-310 drypper”; ordmatchet finder reservedelslisten med den nøjagtige kode V-310, og betydningsmatchet finder siden med overskriften “hvis der løber vand fra ventilen”.
   whyItMatters:
-    en: Neither kind of search is reliable alone on real company documents, and mixing them is a common, cheap way to find the right passage more often.
-    da: Ingen af de to søgetyper er pålidelig alene på rigtige virksomhedsdokumenter, og at blande dem er en udbredt og billig måde at ramme det rigtige afsnit oftere.
+    en: Neither kind of search is reliable alone on real workplace documents, and mixing them is a common, cheap way to find the right passage more often.
+    da: Ingen af de to søgetyper er pålidelig alene på en arbejdsplads’ egne dokumenter, og at blande dem er en udbredt og billig måde at ramme det rigtige afsnit oftere.
 edges:
   requires:
     - keyword-search

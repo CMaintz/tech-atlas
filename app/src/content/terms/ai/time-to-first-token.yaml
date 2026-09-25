@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: The latency from a request reaching a language model service until the first token of the reply is returned; it is mostly the time spent waiting in line and reading the whole prompt, and grows with prompt length.
-    da: Latensen fra en forespørgsel når en sprogmodeltjeneste, til det første token i svaret sendes tilbage; den består mest af ventetid i kø og læsning af hele prompten og vokser med promptens længde.
+    da: Latensen fra en forespørgsel når frem til en sprogmodeltjeneste, til det første token i svaret sendes tilbage; den består mest af ventetid i kø og læsning af hele prompten og vokser med promptens længde.
   plain:
     en: Like the pause after you ask someone a question and before they say their first word — a long pause feels slow even if they then talk quickly.
     da: Som pausen efter du har stillet nogen et spørgsmål, og før de siger deres første ord — en lang pause føles langsom, selv om de derefter taler hurtigt.
   inPractice:
-    en: A team that pastes a 200-page manual into every prompt sees the chat sit silent for several seconds before replying; shortening or caching that shared start brings the first words back in under a second.
-    da: Et team, der indsætter en manual på 200 sider i hver prompt, ser chatten stå tavs i flere sekunder, før den svarer; at forkorte eller cache den fælles begyndelse får de første ord tilbage på under et sekund.
+    en: A product owner in a municipality tests a voice assistant for the citizen phone line; callers hang up when the silence after they speak lasts more than about a second, so she tracks time to first token on every test call.
+    da: En produktejer i en kommune tester en stemmeassistent til borgertelefonen; borgerne lægger på, når tavsheden, efter at de har talt, varer mere end cirka et sekund, så hun følger tiden til første token på hvert testopkald.
   whyItMatters:
     en: Because answers stream in word by word, this first wait is what people feel most, so it is the speed number chat products watch closest.
     da: Fordi svar strømmer ind ord for ord, er denne første ventetid det, folk mærker mest, og derfor er det det hastighedstal, chatprodukter holder nøjest øje med.

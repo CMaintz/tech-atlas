@@ -10,21 +10,21 @@ layer: governance
 status: current
 era: 2019
 summary:
-  en: A Danish label for responsible digital behaviour and cybersecurity, with a free self-check tool.
-  da: En dansk mærkningsordning for ansvarlig digital adfærd og cybersikkerhed med et gratis selvevalueringsværktøj.
+  en: A Danish label showing that a company takes care of IT security and data, starting with a free self-check.
+  da: Et dansk mærke, der viser, at en virksomhed håndterer IT-sikkerhed og data ansvarligt, med en gratis selvevaluering som første skridt.
 body:
   formal:
-    en: A Danish label scheme whose criteria cover data security, responsible use of data, being open with users and involving users; firms rate themselves with a digital tool and can then apply for the label.
-    da: En dansk mærkningsordning, hvis kriterier dækker datasikkerhed, ansvarlig dataanvendelse, transparens og brugerinddragelse; virksomheder vurderer sig selv med et digitalt værktøj og kan derefter søge om mærket.
+    en: A Danish label scheme, first presented in 2019, with eight criteria spanning management, staff behaviour, technical IT security, supplier demands, openness about data, security built in, reliable AI and data ethics; every firm must meet the first five, the rest depending on its activities.
+    da: Et dansk mærke, første gang præsenteret i 2019, med otte kriterier om ledelse, sikker adfærd, teknisk IT-sikkerhed, krav til leverandører, åbenhed om data, indbygget sikkerhed, pålidelige algoritmer og AI samt dataetik; alle virksomheder skal opfylde de første fem, resten afhænger af deres aktiviteter.
   plain:
-    en: Like a food-hygiene smiley on a restaurant door, but for how carefully a company treats data and security.
-    da: Som en kontrol-smiley på en restaurants dør, men for hvor omhyggeligt en virksomhed behandler data og sikkerhed.
+    en: Like the hygiene smiley on a restaurant door, but for how carefully a company treats the information and computers in its care.
+    da: Som kontrol-smileyen på en restaurants dør, men for hvor omhyggeligt en virksomhed passer på de oplysninger og computere, den har ansvar for.
   inPractice:
-    en: A 30-person web shop runs the self-check, sees it lacks a backup test and a privacy notice, fixes both and shows the label on its site.
-    da: En webshop med 30 ansatte gennemfører selvevalueringen, ser at den mangler en test af backup og en privatlivserklæring, retter begge dele og viser mærket på sin hjemmeside.
+    en: The owner of a heating installer with 30 staff runs the free self-check, learns that backups have never been tested and that suppliers were never asked about security, fixes both and applies for the label.
+    da: Ejeren af et VVS-firma med 30 ansatte gennemfører den gratis selvevaluering, finder ud af, at backuppen aldrig er testet, og at leverandørerne aldrig er spurgt om sikkerhed, retter begge dele og søger om mærket.
   whyItMatters:
-    en: It gives small firms a simple, low-cost way to see where they stand against NIS2-like demands and to show maturity to customers.
-    da: Det giver små virksomheder en enkel og billig måde at se, hvor de står i forhold til NIS2-lignende krav, og at vise modenhed over for kunder.
+    en: Small firms rarely have a security team or budget for a full standard; the label gives them a plain starting point and a visible way to show customers they take data seriously.
+    da: Små virksomheder har sjældent et sikkerhedsteam eller råd til en fuld standard; mærket giver dem et enkelt udgangspunkt og en synlig måde at vise kunderne, at de tager data alvorligt.
 edges:
   requires: [compliance]
   used-with:

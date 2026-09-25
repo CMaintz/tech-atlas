@@ -15,13 +15,13 @@ summary:
 body:
   formal:
     en: A form of model evaluation in which a large language model receives a question, one or more answers and grading instructions, and returns a score or a preference; it is checked against human grades for agreement.
-    da: En form for modelevaluering, hvor en stor sprogmodel får et spørgsmål, et eller flere svar og bedømmelsesinstruktioner og returnerer en score eller en foretrukken kandidat; den kontrolleres mod menneskelige bedømmelser for enighed.
+    da: En form for modelevaluering, hvor en stor sprogmodel får et spørgsmål, et eller flere svar og bedømmelsesinstruktioner og returnerer en score eller udpeger det bedste svar; den kontrolleres mod menneskelige bedømmelser for enighed.
   plain:
-    en: Like asking an experienced teaching assistant to mark a stack of essays with the teacher's guide — fast and mostly fair, but with habits of their own.
-    da: Som at bede en erfaren hjælpelærer rette en bunke stile efter lærerens vejledning — hurtigt og for det meste retfærdigt, men med sine egne vaner.
+    en: Like a talent show where one seasoned judge scores every act from a printed sheet — quick and mostly fair, but the judge has favourites of their own.
+    da: Som et talentshow, hvor én erfaren dommer giver point til hvert indslag efter et trykt skema — hurtigt og for det meste retfærdigt, men dommeren har sine egne favoritter.
   inPractice:
-    en: A team changes its system prompt and has a judge model compare 1,000 old and new answers side by side, sending only the cases where the judge is unsure to a human reviewer.
-    da: Et team ændrer sin systemprompt og lader en dommermodel sammenligne 1.000 gamle og nye svar side om side og sender kun de tilfælde, hvor dommeren er usikker, videre til en menneskelig bedømmer.
+    en: A product owner at an unemployment insurance fund changes the member chat's system prompt, has a judge model compare 1,000 old and new answers side by side, and reads only the cases where the judge is unsure.
+    da: En produktejer i en a-kasse ændrer medlemschattens systemprompt, lader en dommermodel sammenligne 1.000 gamle og nye svar side om side og læser kun selv de tilfælde, hvor dommeren er usikker.
   whyItMatters:
     en: It makes checking open answers cheap enough to do on every change, but judges favour longer answers, the first answer shown and their own style, and can be fooled by instructions hidden in an answer.
     da: Det gør det billigt nok at kontrollere åbne svar ved hver ændring, men dommere foretrækker længere svar, det først viste svar og deres egen stil og kan narres af instruktioner skjult i et svar.

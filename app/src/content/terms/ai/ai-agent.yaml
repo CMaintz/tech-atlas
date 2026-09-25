@@ -19,11 +19,11 @@ body:
     en: Like an assistant given your keys and a to-do list rather than a chat window — useful, but only as safe as the keys you hand over.
     da: Som en assistent, der får dine nøgler og en huskeliste i stedet for et chatvindue — nyttig, men kun så sikker som de nøgler, du giver fra dig.
   inPractice:
-    en: An agent is told to "book travel for the sales trip"; it reads the calendar, searches flights, and pays with the company card, logging each step.
-    da: En agent får besked på at "booke rejse til salgsturen"; den læser kalenderen, søger fly og betaler med firmakortet og logger hvert trin.
+    en: A ministry tests an agent that arranges meetings — it reads officials' calendars, books rooms and sends invitations under its own account, and every action it takes is logged for review.
+    da: Et ministerium afprøver en agent, der arrangerer møder — den læser medarbejdernes kalendere, booker lokaler og sender invitationer fra sin egen konto, og hver handling logges, så den kan gennemgås.
   whyItMatters:
-    en: An agent that reads untrusted text can be tricked into acting against you, so what it may reach and do matters far more than for a plain chat assistant.
-    da: En agent, der læser tekst, man ikke kan stole på, kan narres til at handle imod en, så det, den har adgang til og lov til, betyder langt mere end for en almindelig chatassistent.
+    en: An agent that reads untrusted text can be tricked into acting against its owner, so the harm it can do is set by what it may reach and do, not by how well it chats.
+    da: En agent, der læser tekst, man ikke kan stole på, kan narres til at handle imod sin ejer, så den skade, den kan gøre, afhænger af, hvad den har adgang til og lov til — ikke af, hvor godt den svarer.
 edges:
   requires: [large-language-model, prompt]
   used-with:

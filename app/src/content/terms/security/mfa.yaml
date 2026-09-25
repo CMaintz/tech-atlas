@@ -11,17 +11,17 @@ status: current
 era: 2011
 summary:
   en: A way to log in that asks for two or more separate kinds of proof, such as a password plus a code or an approval in a phone app.
-  da: Et login, der kræver to eller flere forskellige slags bevis, fx en adgangskode plus en SMS-kode eller en godkendelse i en app.
+  da: Et login, der kræver to eller flere forskellige slags bevis, fx en adgangskode plus en kode eller en godkendelse i en app.
 body:
   formal:
     en: An authentication method that grants access only after the user presents at least two factors from different categories — something they know, something they have, or something they are.
     da: En autentificeringsmetode, der kun giver adgang, når brugeren fremviser mindst to faktorer fra forskellige kategorier — noget man ved, noget man har, eller noget man er.
   plain:
-    en: Like a bank box that needs both your key and your signature — a thief who copies one still cannot open it.
+    en: Like a safe-deposit box that needs both your key and your signature — a thief who copies one still cannot open it.
     da: Som en bankboks, der kræver både din nøgle og din underskrift — en tyv, der kopierer den ene, kan stadig ikke åbne den.
   inPractice:
-    en: After typing her password, an accountant must approve a prompt in an app on her phone before the email system lets her in.
-    da: Efter at have tastet sin adgangskode skal en bogholder godkende en besked i en app på sin telefon, før mailsystemet lukker hende ind.
+    en: A finance clerk in a municipality logs in to the payment system with MitID; she types her user ID, then approves the request in the MitID app on her phone, which she unlocks with her PIN.
+    da: En bogholder i en kommune logger ind i betalingssystemet med MitID; hun taster sit bruger-ID og godkender derefter i MitID-appen på sin telefon, som hun låser op med sin pinkode.
   whyItMatters:
     en: Passwords are stolen and guessed every day; asking for a second, different proof makes a stolen password worth far less to an attacker.
     da: Adgangskoder bliver stjålet og gættet hver dag; et ekstra, anderledes bevis gør en stjålet adgangskode langt mindre værd for en angriber.
@@ -32,8 +32,8 @@ edges:
   mitigates:
     - to: phishing
       why:
-        en: Even if phishing captures a password, the extra factor still stops the attacker from getting in.
-        da: Selv hvis phishing opsnapper en adgangskode, blokerer den ekstra faktor login.
+        en: Even if phishing captures a password, the extra factor in most cases still stops the attacker from logging in.
+        da: Selv hvis phishing opsnapper en adgangskode, forhindrer den ekstra faktor i de fleste tilfælde angriberen i at logge ind.
       strength: primary
       confidence: high
       sources:

@@ -13,14 +13,14 @@ summary:
   da: At sikre, at information forbliver korrekt og fuldstændig og ikke ændres ved et uheld eller uden tilladelse.
 body:
   formal:
-    en: The property that information is accurate and complete, and that any change to it is made only by those allowed to, in a way that can be noticed.
-    da: Egenskaben, at information er nøjagtig og fuldstændig, og at enhver ændring kun foretages af dem, der har lov, og på en måde, der kan opdages.
+    en: The property that information is accurate and complete, and that any change to it is made only by those allowed to, in a way that can be noticed. Hashing and digital signatures are common ways to show that nothing has been altered.
+    da: Egenskaben, at information er nøjagtig og fuldstændig, og at enhver ændring kun foretages af dem, der har lov, og på en måde, der kan opdages. Hashing og digitale signaturer bruges ofte til at vise, at intet er ændret.
   plain:
-    en: Like a signed contract — if someone quietly changes a number after signing, the contract can no longer be trusted.
-    da: Som en underskrevet kontrakt — hvis nogen i al stilhed ændrer et tal efter underskriften, kan kontrakten ikke længere stoles på.
+    en: Like a recipe card — if someone quietly changes “one teaspoon of salt” to “one cup”, everyone who follows it ruins the dish without knowing why.
+    da: Som et opskriftskort — hvis nogen i al stilhed retter “lidt salt” til “en hel kop salt”, ødelægger alle, der følger det, retten uden at vide hvorfor.
   inPractice:
-    en: An attacker who gets into a supplier's email changes the bank account number on an invoice, and the customer pays the wrong account.
-    da: En angriber, der får adgang til en leverandørs mail, ændrer kontonummeret på en faktura, og kunden betaler til den forkerte konto.
+    en: An attacker inside a supplier's mailbox changes the account number on an invoice sent to a municipality, and a finance clerk pays a large sum to the wrong account.
+    da: En angriber, der har fået adgang til en leverandørs mailboks, ændrer kontonummeret på en faktura til en kommune, og en medarbejder i økonomiafdelingen betaler et stort beløb til den forkerte konto.
   whyItMatters:
     en: Decisions, payments and even medical treatment rely on data being right; wrong data can do more harm than missing data because nobody questions it.
     da: Beslutninger, betalinger og selv medicinsk behandling bygger på, at data er rigtige; forkerte data kan gøre mere skade end manglende data, fordi ingen stiller spørgsmål ved dem.

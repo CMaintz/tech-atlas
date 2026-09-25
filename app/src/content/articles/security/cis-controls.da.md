@@ -65,9 +65,9 @@ Koordinatoren er sjældent den, der konfigurerer firewalls, men spiller en centr
 1. **Vælg den rette implementeringsgruppe** sammen med IT og ledelsen ud fra risikoprofil, data og ressourcer.
 2. **Gennemfør en selvevaluering** af de valgte safeguards – CIS stiller gratis værktøjer til rådighed – og notér for hver: gennemført, delvist gennemført eller ikke gennemført.
 3. **Prioritér og planlæg**: Luk hullerne i IG1, før I går i gang med IG2, og gør listen til en køreplan med ejere og datoer.
-4. **Håndtér barriererne**: gamle systemer, der ikke kan opdateres, mangel på hænder, modstand mod MFA. Det er lige så meget organisatoriske som tekniske problemer.
+4. **Håndtér barriererne**: gamle systemer, der ikke kan opdateres, mangel på medarbejdere, modstand mod MFA. Det er lige så meget organisatoriske som tekniske problemer.
 5. **Rapportér fremdriften** til ledelsen i et klart sprog, fx "vi opfylder nu 48 af 56 safeguards i IG1; resten afhænger af, at det gamle ERP-system bliver udskiftet".
-6. **Tag selv ejerskab for de ikke-tekniske kontroller**: awareness-træning (14), opfølgning på leverandører (15) og planen for hændelseshåndtering (17).
+6. **Tag selv ejerskab over de ikke-tekniske kontroller**: awareness-træning (14), opfølgning på leverandører (15) og planen for hændelseshåndtering (17).
 
 ## Typiske misforståelser
 

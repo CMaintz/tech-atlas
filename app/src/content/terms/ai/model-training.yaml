@@ -19,8 +19,8 @@ body:
     en: Like a darts player throwing thousands of darts, checking how far each lands from the centre, and adjusting their arm a little each time.
     da: Som en dartspiller, der kaster tusindvis af pile, ser hvor langt hver lander fra midten og justerer armen en smule hver gang.
   inPractice:
-    en: An AI supplier spends weeks and a room full of special chips training a model once; customers then only use the finished result.
-    da: En AI-leverandør bruger uger og et rum fyldt med særlige chips på at træne en model én gang; kunderne bruger derefter kun det færdige resultat.
+    en: A Danish university books weeks of time at a national computing centre to train a Danish language model once; municipalities and firms that adopt it then only use the finished result.
+    da: Et dansk universitet bruger uger på et nationalt regnecenter på at træne en dansk sprogmodel én gang; kommuner og virksomheder, der tager den i brug, bruger derefter kun det færdige resultat.
   whyItMatters:
     en: What happens here decides what the model knows and how it behaves; it is also where poisoned or unlawful data gets built in for good.
     da: Det, der sker her, afgør, hvad modellen ved, og hvordan den opfører sig; det er også her, forgiftede eller ulovlige data bliver bygget ind for altid.
