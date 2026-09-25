@@ -38,6 +38,8 @@ export type ExportTerm = {
   era?: number;
   summary: { en: string; da: string };
   body: TermData['body'];
+  /** Optional long technical explanation, plain text, paragraphs split by blank lines. */
+  deepDive?: { en: string; da: string };
   /** Authored edges, targets resolved to full ids. Inverses are left to the reader. */
   edges: ExportEdge[];
   /** Derived (ADR-0001): longest `requires` chain below this Term. */
@@ -92,6 +94,7 @@ export function exportTerms(terms: ExportInput[], siteUrl: string): ExportTerm[]
         ...(d.era !== undefined ? { era: d.era } : {}),
         summary: d.summary,
         body: d.body,
+        ...(d.deepDive ? { deepDive: d.deepDive } : {}),
         edges,
         depth,
         sources: d.sources,

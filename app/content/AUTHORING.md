@@ -32,6 +32,13 @@ body: # four facets, 1–3 sentences each, per language
   plain: { en/da } # an everyday analogy a layperson gets
   inPractice: { en/da } # one concrete scenario ("A finance clerk receives...")
   whyItMatters: { en/da } # the stakes — why the concept exists
+deepDive: # optional — see "Technical deep dive" below
+  en: |
+    First paragraph …
+
+    Second paragraph …
+  da: |
+    …
 edges: { ... }
 sources: # at least one
   - title: Cyber Security Fast Track — Ordliste
@@ -90,6 +97,22 @@ edges:
       strength: primary # primary | normal | minor
       confidence: high # high | medium | low
 ```
+
+## Technical deep dive (optional)
+
+`deepDive: { en, da }` is the expert-level explanation shown as **Technical deep
+dive** on the term page, after the four facets (A80). Both languages are required
+when the field is present.
+
+- **Plain text**, no Markdown or HTML. Separate paragraphs with a blank line (use a
+  YAML block scalar, `en: |`); single line breaks inside a paragraph are joined.
+- **Exempt from Closed Vocabulary** (like an Article): name protocols, standards,
+  algorithms and products precisely. Terms it names are still auto-linked.
+- Go deeper than the facets — mechanisms, variants, failure modes, the specifics a
+  practitioner needs — and keep every claim traceable to the term's `sources` (add a
+  source rather than state something unsourced).
+- Usually 2–5 paragraphs. Longer narrative with history and worked scenarios belongs in
+  an Article.
 
 ## Articles (optional long-form)
 

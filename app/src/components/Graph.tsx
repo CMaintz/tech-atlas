@@ -21,6 +21,8 @@ interface Props {
   clusterLabels: Dict;
   /** Legend strings (site.ts GRAPH_UI). */
   text: Dict;
+  /** When set, a tapped neighbour is handed here instead of opening its page (term panel). */
+  onSelect?: (id: string) => void;
 }
 
 /**
@@ -28,8 +30,10 @@ interface Props {
  * language (A74): the focal term at the centre, its neighbours on a ring grouped by
  * relationship family, one-way edges flowing towards what they point at.
  */
-export default function Graph({ nodes, edges, termBase, ...props }: Props) {
+export default function Graph({ nodes, edges, termBase, onSelect, ...props }: Props) {
   const ref = useRef<HTMLDivElement>(null);
+  const select = useRef(onSelect);
+  select.current = onSelect;
 
   useEffect(() => {
     if (!ref.current) return;
@@ -138,7 +142,9 @@ export default function Graph({ nodes, edges, termBase, ...props }: Props) {
     smoothFit(cy, 24, 1.4);
     cy.on('tap', 'node', (evt) => {
       const id = evt.target.id();
-      if (!evt.target.data('focus')) window.location.href = `${termBase}${id}/`;
+      if (evt.target.data('focus')) return;
+      if (select.current) select.current(id);
+      else window.location.href = `${termBase}${id}/`;
     });
     attachHover(cy);
     const stop = startFlow(cy);

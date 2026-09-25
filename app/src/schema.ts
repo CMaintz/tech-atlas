@@ -146,6 +146,14 @@ export const TermFrontmatter = z
     status: z.enum(['current', 'legacy', 'emerging']).default('current'),
     summary: LocalizedMax(140),
     body: Body,
+    /**
+     * Optional technical deep dive for the term page (A80): plain text, paragraphs
+     * separated by a blank line. Exempt from Closed Vocabulary, like an Article.
+     */
+    deepDive: z
+      .object({ en: z.string().min(1), da: z.string().min(1) })
+      .strict()
+      .optional(),
     edges: Edges.default({}),
     article: z.object({ en: z.string().optional(), da: z.string().optional() }).strict().optional(),
     sources: z.array(Source).min(1),
