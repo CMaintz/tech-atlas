@@ -720,7 +720,7 @@ export default function Explorer(props: Props) {
       >
         <div
           ref={bar}
-          role="toolbar"
+          role="group"
           aria-label={ui.mapControls}
           data-explorer-bar
           class={`pointer-events-auto relative flex max-w-full flex-wrap items-center justify-center gap-x-2 gap-y-1.5 rounded-2xl px-2 py-1.5 text-sm ${glass}`}

@@ -44,7 +44,7 @@ export const EXPLORER = {
   /** Hover intent: the pointer must rest this long before the map re-styles. */
   hoverDelayMs: 45,
 
-  /** The pointer must rest on a term this long before its hover card appears (A86). */
+  /** The pointer must rest on a term this long before its hover card appears (A93). */
   hoverCardMs: 1200,
 
   /** Marching dashes on the term page's hovered edges (graph-cytoscape `startFlow`). */
