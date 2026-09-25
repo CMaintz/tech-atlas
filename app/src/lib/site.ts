@@ -456,7 +456,7 @@ export const GRAPH_UI = {
   en: {
     legend: 'Legend',
     nodes: 'Terms — colour = domain, shade = cluster',
-    ring: 'Ring: the term belongs to a second domain',
+    ring: 'Split colours: the term belongs to several domains, one band each',
     edges: 'Relationships — colour = family',
     oneWay:
       'One-way: the arrow (and moving dashes) point from a term to what it requires, mitigates, causes …',
@@ -471,7 +471,7 @@ export const GRAPH_UI = {
   da: {
     legend: 'Forklaring',
     nodes: 'Begreber — farve = domæne, nuance = klynge',
-    ring: 'Ring: begrebet hører også til et andet domæne',
+    ring: 'Delte farver: begrebet hører til flere domæner, én stribe for hvert',
     edges: 'Relationer — farve = familie',
     oneWay:
       'Envejs: pilen (og de bevægelige streger) peger fra et begreb mod det, det forudsætter, afbøder, forårsager …',

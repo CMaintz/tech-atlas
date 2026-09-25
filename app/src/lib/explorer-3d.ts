@@ -18,6 +18,7 @@ export type View3D = {
   selected: string | null;
   highlight: ReadonlySet<string>;
   colour: (n: GraphNode) => string;
+  bands: (n: GraphNode) => string[];
 };
 
 type Node3 = GraphNode & { x: number; y: number; z: number; fx: number; fy: number; fz: number };
@@ -95,6 +96,11 @@ export async function createMap3D(opts: {
   const linkShown = (l: Link3) => endsShown(l) && focusOf(l);
   const linkColour = (l: Link3) => rgba(FAMILY_COLOURS[l.family], 0.9);
   const motion = !reducedMotion();
+  const bandTextures = new Map<string, InstanceType<typeof THREE.CanvasTexture>>();
+  const bandMeshes = new Map<
+    string,
+    InstanceType<typeof THREE.Mesh> & { material: InstanceType<typeof THREE.MeshLambertMaterial> }
+  >();
 
   const fg = new ForceGraph3D(el, { controlType: 'orbit' })
     .width(el.clientWidth)
@@ -123,6 +129,30 @@ export async function createMap3D(opts: {
     .linkDirectionalParticleSpeed(cfg.particleSpeed)
     .linkDirectionalParticleWidth(cfg.particleWidth)
     .linkDirectionalParticleColor((l: Link3) => FAMILY_COLOURS[l.family])
+    // A shared term is a sphere split into vertical bands, one per domain (A85): one
+    // canvas texture per colour combination, shared by every sphere that uses it.
+    .nodeThreeObject((n: GraphNode) => {
+      const bands = view?.bands(n) ?? [];
+      if (bands.length < 2) return undefined as never;
+      const key = bands.join('|');
+      if (!bandTextures.has(key)) {
+        const c = document.createElement('canvas');
+        c.width = 64;
+        c.height = 8;
+        const g = c.getContext('2d')!;
+        bands.forEach((col, i) => {
+          g.fillStyle = col;
+          g.fillRect((i * 64) / bands.length, 0, 64 / bands.length, 8);
+        });
+        bandTextures.set(key, new THREE.CanvasTexture(c));
+      }
+      const mesh = new THREE.Mesh(
+        new THREE.SphereGeometry(radius(n), 16, 12),
+        new THREE.MeshLambertMaterial({ map: bandTextures.get(key)!, transparent: true }),
+      );
+      bandMeshes.set(n.id, mesh);
+      return mesh as never;
+    })
     .onNodeClick((n: GraphNode) => opts.onSelect(n.id))
     .onBackgroundClick(() => opts.onSelect(null));
 
@@ -310,6 +340,7 @@ export async function createMap3D(opts: {
       s.visible = !!view?.nodes.has(id);
       s.material.opacity = faded(id) ? 0.12 : 1;
     }
+    for (const [id, m] of bandMeshes) m.material.opacity = faded(id) ? 0.25 : 0.95;
   };
 
   /** Re-evaluate the accessors (3d-force-graph's idiom) and land any new objects. */
@@ -375,6 +406,10 @@ export async function createMap3D(opts: {
       view = next;
       const nodesChanged = !prev || prev.nodes !== next.nodes;
       if (nodesChanged) fg.nodeVisibility(fg.nodeVisibility());
+      if (prev?.bands !== next.bands) {
+        bandMeshes.clear();
+        fg.nodeThreeObject(fg.nodeThreeObject());
+      }
       refresh();
       // Opening or closing the term panel changes the part of the canvas left clear.
       if (!!next.selected !== !!prev?.selected) resize();

@@ -1,9 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import {
   backbone,
+  bandGradient,
   bundleControls,
   clusterBundles,
   depthLanes,
+  domainBands,
   effectiveHome,
   effectivePaint,
   facingAngle,
@@ -48,6 +50,33 @@ describe('effectiveHome / effectivePaint', () => {
     expect(effectivePaint({ domain: ['ai', 'security'], cluster: 'ai-risk' }, on('ai')).ring).toBe(
       null,
     );
+  });
+});
+
+describe('domainBands / bandGradient (A84)', () => {
+  const firewall = { domain: ['cs', 'security'], cluster: 'networking' };
+  it('gives a shared term one band per enabled domain, home first', () => {
+    expect(domainBands(firewall)).toEqual([domainColour('cs'), domainColour('security')]);
+    expect(domainBands(firewall, on('security', 'cs'))).toEqual([
+      domainColour('cs'),
+      domainColour('security'),
+    ]);
+    expect(domainBands(firewall, on('security'))).toEqual([]);
+    expect(domainBands({ domain: ['ai'], cluster: 'llm' })).toEqual([]);
+  });
+  it('re-homes the first band when the home domain is off', () => {
+    const t = { domain: ['cs', 'security', 'ai'], cluster: 'networking' };
+    expect(domainBands(t, on('security', 'ai'))).toEqual([
+      domainColour('security'),
+      domainColour('ai'),
+    ]);
+  });
+  it('makes hard-edged bands: halves for two, thirds for three', () => {
+    expect(bandGradient(['#a', '#b'])).toEqual({
+      colours: '#a #a #b #b',
+      stops: '0% 50% 50% 100%',
+    });
+    expect(bandGradient(['#a', '#b', '#c']).stops).toBe('0% 33.333% 33.333% 66.667% 66.667% 100%');
   });
 });
 

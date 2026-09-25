@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { prerequisitesOf, shortestPath, type Graph, type GraphNode } from '../lib/graph-model';
 import { loadLearner, type Learner } from '../lib/learner';
 import { domainColour, homeDomain } from '../lib/graph-style';
-import { effectiveHome, effectivePaint, termVisible } from '../lib/graph-layout';
+import { domainBands, effectiveHome, effectivePaint, termVisible } from '../lib/graph-layout';
 import { createMap2D, type Layout, type Map2D } from '../lib/explorer-2d';
 import type { Map3D } from '../lib/explorer-3d';
 import GraphLegend from './GraphLegend';
@@ -167,8 +167,9 @@ export default function Explorer(props: Props) {
     },
     [colourMode, learner, domains],
   );
-  const ringOf = useMemo(
-    () => (n: GraphNode) => (colourMode === 'cluster' ? effectivePaint(n, domains).ring : null),
+  /** A shared term's split fill, one band per enabled domain (cluster colouring only). */
+  const bandsOf = useMemo(
+    () => (n: GraphNode) => (colourMode === 'cluster' ? domainBands(n, domains) : []),
     [colourMode, domains],
   );
   const hl = useMemo(() => new Set(highlight), [highlight]);
@@ -213,9 +214,9 @@ export default function Explorer(props: Props) {
       selected,
       highlight: hl,
       colour: colourOf,
-      ring: ringOf,
+      bands: bandsOf,
     });
-  }, [graph, layout, visibleIds, domains, families, showAll, selected, hl, colourOf, ringOf]);
+  }, [graph, layout, visibleIds, domains, families, showAll, selected, hl, colourOf, bandsOf]);
 
   // ---- 3D: built the first time it is opened, then kept (paused while hidden) ---------
   useEffect(() => {
@@ -255,8 +256,9 @@ export default function Explorer(props: Props) {
       selected,
       highlight: hl,
       colour: colourOf,
+      bands: bandsOf,
     });
-  }, [map3d, visibleIds, families, showAll, selected, hl, colourOf]);
+  }, [map3d, visibleIds, families, showAll, selected, hl, colourOf, bandsOf]);
 
   // ---- Tools -----------------------------------------------------------
   const findRoute = () => {

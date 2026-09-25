@@ -73,10 +73,15 @@ export const GRAPH_STYLE = [
       'underlay-shape': 'ellipse',
     },
   },
-  // A term in two domains wears a ring in the other domain's colour.
+  // A term in several domains is split into vertical bands, one per domain (A84).
   {
-    selector: 'node[ring]',
-    style: { 'border-width': 3, 'border-color': 'data(ring)', 'border-opacity': 0.95 },
+    selector: 'node[bandColours]',
+    style: {
+      'background-fill': 'linear-gradient',
+      'background-gradient-direction': 'to-right',
+      'background-gradient-stop-colors': 'data(bandColours)',
+      'background-gradient-stop-positions': 'data(bandStops)',
+    },
   },
   {
     selector: 'edge',

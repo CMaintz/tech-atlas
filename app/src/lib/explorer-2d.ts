@@ -26,6 +26,7 @@ import {
 } from './graph-style';
 import {
   backbone,
+  bandGradient,
   bundleControls,
   clusterBundles,
   depthLanes,
@@ -71,7 +72,8 @@ export type View = {
   selected: string | null;
   highlight: ReadonlySet<string>;
   colour: (n: GraphNode) => string;
-  ring: (n: GraphNode) => string | null;
+  /** Domain colours of a shared term's split fill; empty for a single-domain term. */
+  bands: (n: GraphNode) => string[];
 };
 
 /** Below this zoom only hubs keep a (larger) label. */
@@ -853,14 +855,16 @@ export function createMap2D(opts: Map2DOptions) {
       if (layoutChanged || retidy) place(next, false, !!prev);
       else refreshTags(next);
     }
-    if (!prev || prev.colour !== next.colour || prev.ring !== next.ring)
+    if (!prev || prev.colour !== next.colour || prev.bands !== next.bands)
       cy.batch(() =>
         terms.forEach((n) => {
           const g = byId.get(n.id())!;
           n.data('colour', next.colour(g));
-          const ring = next.ring(g);
-          if (ring) n.data('ring', ring);
-          else n.removeData('ring');
+          const bands = next.bands(g);
+          if (bands.length) {
+            const b = bandGradient(bands);
+            n.data({ bandColours: b.colours, bandStops: b.stops });
+          } else if (n.data('bandColours')) n.removeData('bandColours bandStops');
         }),
       );
     // Relationship families fade out / in rather than blink.

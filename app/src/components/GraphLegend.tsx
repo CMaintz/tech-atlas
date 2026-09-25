@@ -64,8 +64,10 @@ export default function GraphLegend(props: Props) {
       {hasRing && (
         <p class="mt-2 flex items-center gap-2 text-neutral-400">
           <span
-            class="inline-block h-3 w-3 shrink-0 rounded-full border-2"
-            style={{ background: domainColour('cs'), borderColor: domainColour('security') }}
+            class="inline-block h-3 w-3 shrink-0 rounded-full"
+            style={{
+              background: `linear-gradient(90deg, ${domainColour('cs')} 50%, ${domainColour('security')} 50%)`,
+            }}
           />
           {text.ring}
         </p>

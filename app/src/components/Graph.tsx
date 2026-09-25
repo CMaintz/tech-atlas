@@ -3,6 +3,7 @@ import cytoscape from 'cytoscape';
 import type { EdgeType } from '../schema';
 import type { Family } from '../lib/graph-model';
 import { FAMILY_COLOURS, nodePaint } from '../lib/graph-style';
+import { bandGradient, domainBands } from '../lib/graph-layout';
 import {
   FADE_TRANSITIONS,
   GRAPH_STYLE,
@@ -66,13 +67,19 @@ export default function Graph({ nodes, edges, termBase, onSelect, ...props }: Pr
       elements: [
         ...[...(focus ? [focus] : []), ...ring].map((n) => {
           const paint = nodePaint(n);
+          const bands = domainBands(n);
           return {
             data: {
               id: n.id,
               label: n.label,
               focus: n.focus ? 1 : 0,
               colour: paint.fill,
-              ring: paint.ring ?? undefined,
+              ...(bands.length
+                ? {
+                    bandColours: bandGradient(bands).colours,
+                    bandStops: bandGradient(bands).stops,
+                  }
+                : {}),
               size: n.focus ? 26 : 15,
               font: n.focus ? 12 : 10,
             },
