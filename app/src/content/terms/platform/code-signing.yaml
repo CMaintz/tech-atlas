@@ -35,6 +35,12 @@ edges:
         da: Software, der er ændret efter signeringen eller signeret af den forkerte part, fejler tjekket og bliver ikke installeret.
       strength: primary
       confidence: high
+    - to: ai-supply-chain-attack
+      why:
+        en: Checking a signature on model files and add-ons shows they come from the claimed publisher and were not changed on the way.
+        da: Kontrol af signaturen på modelfiler og tilføjelser viser, at de kommer fra den påståede udgiver og ikke er ændret undervejs.
+      strength: normal
+      confidence: medium
   used-with:
     - pipeline
     - to: sbom

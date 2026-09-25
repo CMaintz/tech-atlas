@@ -40,6 +40,12 @@ edges:
         da: Pipelinens sidste trin signerer hver udgivelse, så serverne kan tjekke, at den kom uændret fra pipelinen.
       strength: normal
       confidence: high
+    - to: coding-agent
+      why:
+        en: Agents are more and more often started from the pipeline itself, and their output must pass the same automatic build and tests as human code.
+        da: Agenter startes i stigende grad fra selve pipelinen, og deres output skal gennem samme automatiske bygning og tests som menneskers kode.
+      strength: normal
+      confidence: medium
 sources:
   - title: NIST SP 800-204D — Strategies for the Integration of Software Supply Chain Security in DevSecOps CI/CD Pipelines
     url: https://csrc.nist.gov/pubs/sp/800/204/d/final

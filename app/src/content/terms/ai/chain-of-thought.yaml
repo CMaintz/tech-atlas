@@ -1,0 +1,57 @@
+term:
+  en: Chain-of-thought (CoT)
+  da: Tankekæde (chain-of-thought)
+aka:
+  en: [CoT, chain-of-thought prompting]
+  da: [CoT, chain-of-thought]
+domain: [ai]
+cluster: prompting
+layer: inference
+status: current
+era: 2022
+summary:
+  en: Getting a language model to write out its steps before the final answer, which tends to help on sums, logic and planning.
+  da: At få en sprogmodel til at skrive sine mellemregninger ud før det endelige svar, hvilket ofte hjælper på regnestykker, logik og planlægning.
+body:
+  formal:
+    en: A prompting method in which a large language model is led — by worked examples or an instruction such as "think step by step" — to produce steps in between before its answer; because each written step becomes input for the next, harder problems can be broken down.
+    da: En promptmetode, hvor en stor sprogmodel ledes — med løste eksempler eller en instruktion som "tænk trin for trin" — til at skrive mellemtrin før sit svar; fordi hvert nedskrevet trin bliver input til det næste, kan sværere problemer brydes ned.
+  plain:
+    en: Like a teacher who makes pupils show their working on a maths test — writing each step down makes fewer slips and lets you see where one went wrong.
+    da: Som en lærer, der kræver, at eleverne viser deres mellemregninger til matematikprøven — at skrive hvert trin ned giver færre fejl og viser, hvor noget gik galt.
+  inPractice:
+    en: Asked how many meeting rooms a 40-person workshop needs, the assistant first lists group sizes and room capacities line by line, then gives the total, instead of guessing a number at once.
+    da: Spurgt om, hvor mange mødelokaler en workshop for 40 personer kræver, opstiller assistenten først gruppestørrelser og lokalekapacitet linje for linje og giver så totalen i stedet for at gætte et tal med det samme.
+  whyItMatters:
+    en: It often makes answers to multi-step problems better, but the written steps cost time and money and are not a faithful record of how the model really reached its answer.
+    da: Det gør ofte svar på problemer i flere trin bedre, men de nedskrevne trin koster tid og penge og er ikke en tro gengivelse af, hvordan modellen reelt nåede sit svar.
+edges:
+  requires: [next-token-prediction]
+  kind-of: [prompt-engineering]
+  used-with:
+    - to: reasoning-model
+      why:
+        en: A reasoning model is trained to produce a long chain of thought by itself, so the technique moves from the prompt into the model.
+        da: En ræsonnementsmodel er trænet til selv at skrive en lang tankekæde, så teknikken flytter fra prompten ind i modellen.
+      strength: primary
+      confidence: high
+    - to: few-shot-prompting
+      why:
+        en: The original method showed the model a few examples with their steps written out, so it copied that style.
+        da: Den oprindelige metode viste modellen nogle eksempler med trinene skrevet ud, så den efterlignede den stil.
+      strength: normal
+      confidence: high
+    - to: zero-shot-prompting
+      why:
+        en: Adding just "let's think step by step" to a plain instruction was later shown to bring much of the same gain with no examples.
+        da: Blot at tilføje "lad os tænke trin for trin" til en ren instruktion viste sig senere at give meget af den samme gevinst uden eksempler.
+      strength: normal
+      confidence: high
+sources:
+  - title: Wei et al. (2022), Chain-of-Thought Prompting Elicits Reasoning in Large Language Models
+    tier: reference
+    url: https://arxiv.org/abs/2201.11903
+  - title: Kojima et al. (2022), Large Language Models are Zero-Shot Reasoners
+    tier: reference
+    url: https://arxiv.org/abs/2205.11916
+draft: true

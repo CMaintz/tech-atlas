@@ -34,6 +34,12 @@ edges:
         da: At svare ud fra fundne kilder med links gør opdigtede svar sjældnere og lettere at opdage, men fjerner dem ikke.
       strength: primary
       confidence: medium
+    - to: knowledge-cutoff
+      why:
+        en: Looking up current documents at answer time gives the model facts from after its cutoff date.
+        da: At slå aktuelle dokumenter op, når der svares, giver modellen fakta fra efter dens skæringsdato.
+      strength: normal
+      confidence: medium
 article:
   en: src/content/articles/ai/retrieval-augmented-generation.en.md
   da: src/content/articles/ai/retrieval-augmented-generation.da.md

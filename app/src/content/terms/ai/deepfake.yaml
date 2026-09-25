@@ -26,7 +26,14 @@ body:
     en: Seeing and hearing someone is no longer proof it is them, so payment and approval steps must be checked another way; the EU AI Act also requires deepfakes to be labelled.
     da: At se og høre en person er ikke længere bevis for, at det er dem, så betalinger og godkendelser skal bekræftes ad en anden vej; EU's AI-forordning kræver også, at deepfakes mærkes.
 edges:
-  requires: [deep-learning]
+  requires:
+    - deep-learning
+    - to: generative-ai
+      why:
+        en: Deepfakes are made with generative AI.
+        da: Deepfakes laves med generativ AI.
+      strength: normal
+      confidence: medium
   used-with:
     - to: vishing
       why:
@@ -46,6 +53,12 @@ edges:
         da: En deepfake er et nyt og overbevisende redskab til at udgive sig for at være en, offeret stoler på.
       strength: normal
       confidence: high
+    - to: diffusion-model
+      why:
+        en: Most realistic fake images and videos today are made with diffusion models.
+        da: De fleste realistiske falske billeder og videoer i dag laves med diffusionsmodeller.
+      strength: normal
+      confidence: medium
 sources:
   - title: Regulation (EU) 2024/1689 (AI Act), Article 50 — transparency obligations
     tier: standard

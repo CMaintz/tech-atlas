@@ -1,0 +1,49 @@
+term:
+  en: Small language model (SLM)
+  da: Lille sprogmodel (SLM)
+aka:
+  en: [SLM]
+  da: [SLM]
+domain: [ai]
+cluster: model-architecture
+layer: model
+status: emerging
+summary:
+  en: A language model small enough to run cheaply on a laptop or phone, trading some broad skill for speed, privacy and low cost.
+  da: En sprogmodel lille nok til at køre billigt på en bærbar eller telefon — lidt mindre kunnen for fart, privatliv og lav pris.
+body:
+  formal:
+    en: A transformer built on the same ideas as a large language model but with far fewer model parameters — roughly a few hundred million to a few billion — usually made by careful choice of training data and by learning from a larger model.
+    da: En transformer bygget på de samme idéer som en stor sprogmodel, men med langt færre modelparametre — groft sagt fra nogle hundrede millioner til nogle få milliarder — typisk skabt gennem omhyggeligt valg af træningsdata og ved at lære af en større model.
+  plain:
+    en: Like a pocket dictionary next to a full encyclopedia — it will not know everything, but it fits in your bag and answers the common questions right away.
+    da: Som en lommeordbog ved siden af et helt leksikon — den ved ikke alt, men den passer i tasken og svarer med det samme på de almindelige spørgsmål.
+  inPractice:
+    en: A phone maker puts a small language model on the device to sort notifications and suggest replies without sending messages to the cloud.
+    da: En telefonproducent lægger en lille sprogmodel på selve enheden til at sortere beskeder og foreslå svar uden at sende noget til skyen.
+  whyItMatters:
+    en: For narrow, repeated tasks it can match a bigger model at a small share of the cost and delay, and keeping data on the device can make privacy far easier.
+    da: Til smalle, gentagne opgaver kan den matche en større model for en brøkdel af prisen og ventetiden, og når data bliver på enheden, bliver privatlivet langt nemmere.
+edges:
+  requires:
+    - to: model-parameter
+      why:
+        en: '"Small" is measured in model parameters: fewer parameters mean less memory and faster answers, but less stored knowledge.'
+        da: '"Lille" måles i modelparametre: færre parametre betyder mindre hukommelse og hurtigere svar, men mindre lagret viden.'
+      strength: primary
+      confidence: high
+    - transformer
+    - token
+  used-with:
+    - to: time-to-first-token
+      why:
+        en: A smaller model starts answering sooner, which is often the reason to choose one for live, on-device use.
+        da: En mindre model begynder hurtigere at svare, hvilket ofte er grunden til at vælge den til brug direkte på enheden.
+      strength: normal
+      confidence: medium
+sources:
+  - title: Abdin et al. (2024), Phi-3 Technical Report — A Highly Capable Language Model Locally on Your Phone
+    tier: reference
+  - title: Gunasekar et al. (2023), Textbooks Are All You Need
+    tier: reference
+draft: true

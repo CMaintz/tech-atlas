@@ -1,0 +1,52 @@
+term:
+  en: Diffusion model
+  da: Diffusionsmodel
+aka:
+  en: [denoising diffusion model]
+  da: [støjfjernende diffusionsmodel]
+domain: [ai]
+cluster: model-architecture
+layer: model
+era: 2020
+status: current
+summary:
+  en: The kind of generative AI behind most image makers, which starts from random static and cleans it up step by step into a picture.
+  da: Den slags generativ AI bag de fleste billedgeneratorer, der starter fra tilfældig sne og renser den trin for trin til et billede.
+body:
+  formal:
+    en: A deep learning model taught to undo a process that slowly adds random static to real examples; to create something new it begins with pure static and removes a little at each of many steps, guided by a prompt.
+    da: En deep learning-model, der er lært at fortryde en proces, som langsomt lægger tilfældig sne over rigtige eksempler; for at skabe noget nyt starter den med ren sne og fjerner lidt i hvert af mange trin, styret af en prompt.
+  plain:
+    en: Like a sculptor who sees a figure in a rough block of stone and chips away a little at a time until only the figure is left.
+    da: Som en billedhugger, der ser en figur i en grov stenblok og hugger lidt væk ad gangen, til kun figuren er tilbage.
+  inPractice:
+    en: A marketing team types "a red bicycle on a snowy street at dusk" and in a few seconds a diffusion model returns four finished pictures to choose from.
+    da: Et marketingteam skriver "en rød cykel på en snedækket gade i skumringen", og på få sekunder giver en diffusionsmodel fire færdige billeder at vælge imellem.
+  whyItMatters:
+    en: It made realistic pictures, video and voices cheap for anyone to create, which is useful for design but also feeds fake evidence and deepfakes.
+    da: Den har gjort realistiske billeder, video og stemmer billige for alle at skabe, hvilket er nyttigt til design, men også giver næring til falske beviser og deepfakes.
+edges:
+  kind-of: [generative-ai]
+  requires: [deep-learning]
+  contrasts-with:
+    - to: large-language-model
+      why:
+        en: A diffusion model shapes the whole output at once over many cleaning steps; a large language model writes one token after another.
+        da: En diffusionsmodel former hele outputtet på én gang over mange rensningstrin; en stor sprogmodel skriver ét token efter det andet.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: synthetic-data
+      why:
+        en: Diffusion models are used to make extra realistic images to train other models when real examples are scarce.
+        da: Diffusionsmodeller bruges til at lave ekstra realistiske billeder til at træne andre modeller, når rigtige eksempler er få.
+      strength: normal
+      confidence: medium
+    - prompt
+    - gpu
+sources:
+  - title: Ho, Jain & Abbeel (2020), Denoising Diffusion Probabilistic Models
+    tier: reference
+  - title: Sohl-Dickstein et al. (2015), Deep Unsupervised Learning using Nonequilibrium Thermodynamics
+    tier: reference
+draft: true

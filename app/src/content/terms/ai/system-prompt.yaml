@@ -1,0 +1,50 @@
+term:
+  en: System prompt
+  da: Systemprompt
+aka:
+  en: [system message, developer message]
+  da: [systembesked, udviklerbesked]
+domain: [ai]
+cluster: prompting
+layer: inference
+status: current
+summary:
+  en: Standing orders the maker of an AI service places ahead of every chat, setting the assistant's role, rules and tone before the user types.
+  da: Faste instruktioner fra udbyderen af en AI-tjeneste, lagt foran hver samtale, der sætter assistentens rolle, regler og tone.
+body:
+  formal:
+    en: The part of a prompt, marked with its own role, that carries instructions from the builder of the application rather than from the end user; the large language model is taught during instruction tuning to give it more weight than user text, but nothing enforces that.
+    da: Den del af en prompt, markeret med sin egen rolle, der bærer instruktioner fra den, der har bygget applikationen, frem for fra slutbrugeren; den store sprogmodel lærer under instruktionstilpasning at vægte den højere end brugerens tekst, men intet håndhæver det.
+  plain:
+    en: Like the house rules a manager pins up in the staff room before a shift — every new worker reads them first, but a clever customer may still talk them round.
+    da: Som de husregler, en leder hænger op i personalerummet før en vagt — hver ny medarbejder læser dem først, men en snu kunde kan stadig tale dem rundt.
+  inPractice:
+    en: A bank's support chat starts every conversation with hidden text saying "You are a polite helper for this bank; answer only questions about our accounts; never give investment advice."
+    da: En banks supportchat indleder hver samtale med skjult tekst, der siger "Du er en høflig hjælper for denne bank; svar kun på spørgsmål om vores konti; giv aldrig investeringsråd."
+  whyItMatters:
+    en: Users can often coax the assistant into repeating its system prompt, and prompt injection can override it, so it must never hold passwords or keys, and it is no substitute for real access control.
+    da: Brugere kan ofte lokke assistenten til at gentage sin systemprompt, og prompt injection kan tilsidesætte den, så den må aldrig indeholde adgangskoder eller nøgler og kan ikke erstatte rigtig adgangskontrol.
+edges:
+  requires: [instruction-tuning]
+  part-of:
+    - to: prompt
+      why:
+        en: It is the first, builder-written section of the full prompt the model receives, placed before the user's messages.
+        da: Den er den første, udviklerskrevne del af den samlede prompt, modellen modtager, placeret før brugerens beskeder.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: tool-calling
+      why:
+        en: The system prompt usually lists which tools the assistant may use and when, so tool use is steered from there.
+        da: Systemprompten angiver som regel, hvilke værktøjer assistenten må bruge og hvornår, så værktøjsbrugen styres derfra.
+      strength: normal
+      confidence: high
+sources:
+  - title: OWASP Top 10 for LLM Applications 2025 — LLM07 System Prompt Leakage
+    tier: reference
+    publisher: OWASP
+  - title: Anthropic documentation — Giving Claude a role with a system prompt
+    tier: official-doc
+    publisher: Anthropic
+draft: true

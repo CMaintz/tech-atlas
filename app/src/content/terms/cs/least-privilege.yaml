@@ -35,6 +35,12 @@ edges:
         en: Services often run all the time with wide rights, so each should get its own account with only the rights it needs.
         da: Tjenester kører ofte hele tiden med vide rettigheder, så hver bør have sin egen konto med kun de rettigheder, den skal bruge.
     - service-account
+    - to: mcp-server
+      why:
+        en: Give each MCP server only the accounts, folders and rights its tools need, so a careless or hostile one can reach little.
+        da: Giv hver MCP-server kun de konti, mapper og rettigheder, dens værktøjer kræver, så en skødesløs eller ondsindet en kan nå lidt.
+      strength: normal
+      confidence: medium
   mitigates:
     - to: ransomware
       why:
@@ -54,6 +60,12 @@ edges:
         da: En container, der kun har de rettigheder, den har brug for, har langt færre redskaber at bryde ud med og vinder ikke meget, hvis den gør.
       strength: normal
       confidence: high
+    - to: excessive-agency
+      why:
+        en: Giving an AI agent only the tools and rights its task needs caps the damage when it is wrong or hijacked.
+        da: At give en AI-agent kun de værktøjer og rettigheder, opgaven kræver, sætter et loft over skaden, når den tager fejl eller bliver kapret.
+      strength: normal
+      confidence: medium
 sources:
   - title: NIST SP 800-207, Zero Trust Architecture
     url: https://doi.org/10.6028/NIST.SP.800-207

@@ -34,7 +34,15 @@ edges:
         da: Adgangskontrol er mekanismen, der tillader eller afviser hver anmodning; adgangsstyring er den løbende proces med at tildele, gennemgå og fjerne adgangen.
       strength: primary
       confidence: high
-  used-with: [least-privilege, ai-agent]
+  used-with:
+    - least-privilege
+    - ai-agent
+    - to: vector-database
+      why:
+        en: "Retrieval must respect who may see which document: a vector database often holds copies of private files, so each lookup has to be filtered by the asking user's rights."
+        da: 'Søgningen skal respektere, hvem der må se hvilket dokument: en vektordatabase rummer ofte kopier af fortrolige filer, så hvert opslag skal filtreres efter den spørgende brugers rettigheder.'
+      strength: normal
+      confidence: medium
 sources:
   - title: NIST SP 800-162, Guide to Attribute Based Access Control (ABAC) Definition and Considerations
     url: https://doi.org/10.6028/NIST.SP.800-162

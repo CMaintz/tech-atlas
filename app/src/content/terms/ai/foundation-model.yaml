@@ -1,0 +1,52 @@
+term:
+  en: Foundation model
+  da: Grundmodel (foundation model)
+aka:
+  en: []
+  da: [foundation model]
+domain: [ai]
+cluster: model-architecture
+layer: model
+era: 2021
+status: current
+summary:
+  en: A large model built once on huge amounts of broad data and then reused as the starting point for many different tasks.
+  da: En stor model, der bygges én gang på enorme mængder bred data og derefter genbruges som udgangspunkt for mange forskellige opgaver.
+body:
+  formal:
+    en: A deep learning model given pretraining on broad data at scale, usually by self-supervised learning, so that it can be adapted — by fine-tuning, prompts or tools — to a wide range of tasks it was not built for.
+    da: En deep learning-model, der har fået fortræning på bred data i stor skala, typisk ved selvsuperviseret læring, så den kan tilpasses — med finjustering, prompts eller værktøjer — til en lang række opgaver, den ikke blev bygget til.
+  plain:
+    en: Like a general education that takes years to get, after which a person can learn to be a nurse, a lawyer or a cook in far less time.
+    da: Som en almen uddannelse, der tager år at få, hvorefter en person langt hurtigere kan lære at blive sygeplejerske, jurist eller kok.
+  inPractice:
+    en: A bank does not build its own model from scratch; it takes a foundation model from a vendor and adapts it to answer customer questions and sum up loan files.
+    da: En bank bygger ikke sin egen model fra bunden; den tager en grundmodel fra en leverandør og tilpasser den til at besvare kundespørgsmål og opsummere lånesager.
+  whyItMatters:
+    en: Many products rest on the same few foundation models, so a flaw, bias or weakness in one of them spreads to every system built on top of it.
+    da: Mange produkter hviler på de samme få grundmodeller, så en fejl, bias eller svaghed i én af dem spreder sig til alle systemer bygget ovenpå.
+edges:
+  kind-of: [deep-learning]
+  requires: [pretraining, self-supervised-learning]
+  contrasts-with:
+    - to: general-purpose-ai-model
+      why:
+        en: A foundation model is the research name for the idea; a general-purpose AI model is the legal category in the EU AI Act, with its own tests and duties.
+        da: En grundmodel er forskningens navn for idéen; en AI-model til almen brug er den juridiske kategori i EU's AI-forordning med egne kriterier og pligter.
+      strength: primary
+      confidence: high
+  used-with:
+    - to: transfer-learning
+      why:
+        en: A foundation model is useful because what it learned in pretraining carries over to new tasks.
+        da: En grundmodel er nyttig, fordi det, den lærte under fortræningen, kan overføres til nye opgaver.
+      strength: normal
+      confidence: high
+sources:
+  - title: Bommasani et al. (2021), On the Opportunities and Risks of Foundation Models
+    tier: reference
+    publisher: Stanford CRFM
+  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework — Generative Artificial Intelligence Profile
+    tier: standard
+    publisher: NIST
+draft: true

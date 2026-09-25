@@ -1,0 +1,64 @@
+term:
+  en: MCP server
+  da: MCP-server
+aka:
+  en: []
+  da: []
+domain: [ai]
+cluster: agents
+layer: agent
+era: 2024
+status: emerging
+summary:
+  en: A small program that offers tools or data to AI apps through the Model Context Protocol, such as reading mail or searching files.
+  da: Et lille program, der tilbyder værktøjer eller data til AI-apps via Model Context Protocol, fx at læse mail eller søge i filer.
+body:
+  formal:
+    en: A program that speaks the Model Context Protocol and tells a connected AI app which tools, data and prompts it offers, each with a name and a text description; it runs the tool calls it receives, either on the same machine or over the internet.
+    da: Et program, der taler Model Context Protocol og fortæller en tilsluttet AI-app, hvilke værktøjer, data og prompts det tilbyder, hver med et navn og en tekstbeskrivelse; det udfører de værktøjskald, det modtager, enten på samme maskine eller over internettet.
+  plain:
+    en: Like a shop counter with a printed menu — anyone who walks up can read what is on offer and order it, so the menu and the staff behind it had better be honest.
+    da: Som en butiksdisk med et trykt menukort — alle, der kommer forbi, kan læse, hvad der tilbydes, og bestille det, så menukortet og personalet bag disken må hellere være ærlige.
+  inPractice:
+    en: A developer installs a popular MCP server from the web to let an assistant manage their calendar; it asks for their account login, and every tool description it sends lands straight in the model's view.
+    da: En udvikler installerer en populær MCP-server fra nettet, så en assistent kan styre kalenderen; den beder om kontoens login, og hver værktøjsbeskrivelse, den sender, havner direkte i modellens synsfelt.
+  whyItMatters:
+    en: Each one is outside code with real access running next to your assistant, so a careless or hostile one can leak secrets or steer the model — installing one deserves the same care as installing any software.
+    da: Hver af dem er fremmed kode med reel adgang, der kører ved siden af ens assistent, så en skødesløs eller ondsindet en kan lække hemmeligheder eller styre modellen — at installere en fortjener samme omhu som al anden software.
+edges:
+  requires: [tool-calling]
+  part-of:
+    - to: model-context-protocol
+      why:
+        en: MCP servers are the side of the protocol that offers tools; the AI app on the other side calls them.
+        da: MCP-servere er den side af protokollen, der tilbyder værktøjer; AI-appen på den anden side kalder dem.
+      strength: primary
+      confidence: high
+  kind-of: [server]
+  used-with:
+    - to: oauth
+      why:
+        en: The MCP rules for logging in to remote servers build on OAuth 2.1, so a user grants limited access instead of handing over a password.
+        da: MCP's regler for login på fjernservere bygger på OAuth 2.1, så en bruger giver begrænset adgang i stedet for at udlevere en adgangskode.
+      strength: primary
+      confidence: high
+    - to: prompt-injection
+      why:
+        en: A tool's description is read by the model as trusted text, so a hostile MCP server can hide orders in it — known as tool poisoning.
+        da: En værktøjsbeskrivelse læses af modellen som betroet tekst, så en ondsindet MCP-server kan gemme ordrer i den — kendt som tool poisoning.
+      strength: primary
+      confidence: high
+    - to: secrets-management
+      why:
+        en: Many MCP servers need API keys or tokens to reach other systems; these belong in a secrets store, not in a plain settings file.
+        da: Mange MCP-servere skal bruge API-nøgler eller tokens for at nå andre systemer; de hører hjemme i et hemmelighedslager, ikke i en almindelig indstillingsfil.
+      strength: normal
+      confidence: high
+sources:
+  - title: Model Context Protocol specification (Server features; Authorization)
+    tier: official-doc
+    publisher: Model Context Protocol project (Agentic AI Foundation, Linux Foundation)
+  - title: OWASP Top 10 for LLM Applications 2025 (LLM01 Prompt Injection; LLM06 Excessive Agency)
+    tier: reference
+    publisher: OWASP
+draft: true

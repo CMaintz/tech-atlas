@@ -35,6 +35,12 @@ edges:
         da: En leverandørs SLA sætter et loft over, hvad en intern SLO realistisk kan love, så SLO'er fastsættes med leverandørernes egne serviceniveauer for øje.
       strength: normal
       confidence: medium
+    - to: throughput
+      why:
+        en: Capacity goals for a service are often written as a minimum number of requests or tokens it must handle per second.
+        da: Kapacitetsmål for en tjeneste skrives ofte som et minimum af forespørgsler eller tokens, den skal klare per sekund.
+      strength: normal
+      confidence: medium
 sources:
   - title: Google SRE book — Chapter 4, Service Level Objectives
     url: https://sre.google/sre-book/service-level-objectives/

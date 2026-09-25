@@ -36,6 +36,12 @@ edges:
         da: Når hvert eksternt bibliotek tjekkes mod kendte fejl, findes svage eller manipulerede dele, før de sendes ud.
       strength: normal
       confidence: medium
+    - to: slopsquatting
+      why:
+        en: Checking each suggested package against known, trusted dependencies before install catches names that were never published or were registered by an attacker.
+        da: At tjekke hver foreslået pakke mod kendte, betroede afhængigheder før installation fanger navne, der aldrig er udgivet eller er registreret af en angriber.
+      strength: normal
+      confidence: medium
 sources:
   - title: OWASP — Component Analysis
     url: https://owasp.org/www-community/Component_Analysis

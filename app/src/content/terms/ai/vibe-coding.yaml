@@ -1,0 +1,51 @@
+term:
+  en: Vibe coding
+  da: Vibe coding
+aka:
+  en: []
+  da: []
+domain: [ai]
+cluster: ai-coding
+layer: application
+era: 2025
+status: emerging
+summary:
+  en: Building software by describing what you want to an AI and accepting the code it writes without reading it.
+  da: At bygge software ved at beskrive, hvad man vil have, for en AI og tage imod den kode, den skriver, uden at læse den.
+body:
+  formal:
+    en: A style of programming, named by a well-known AI researcher in February 2025, in which a person steers an AI coding assistant or coding agent only through requests and by trying the running result, accepting all changes without reviewing or understanding the code itself.
+    da: En programmeringsstil, navngivet af en kendt AI-forsker i februar 2025, hvor en person kun styrer en AI-kodeassistent eller kodeagent gennem forespørgsler og ved at prøve det kørende resultat og tager imod alle ændringer uden at gennemgå eller forstå selve koden.
+  plain:
+    en: Like having a builder put up a shed while you only glance at it from the kitchen window — if it looks fine and the door opens, you move in, never checking what holds up the roof.
+    da: Som at lade en håndværker bygge et skur, mens du kun kigger på det fra køkkenvinduet — ser det fint ud, og døren kan åbnes, flytter du ind uden nogensinde at tjekke, hvad der holder taget oppe.
+  inPractice:
+    en: A shop owner with no programming background asks an AI for a booking website, pastes in each error message until it runs, and puts it online the same evening.
+    da: En butiksejer uden programmeringsbaggrund beder en AI om en bookinghjemmeside, indsætter hver fejlbesked, indtil den kører, og lægger den online samme aften.
+  whyItMatters:
+    en: It lets almost anyone build a working first version fast, but nobody knows what the code really does — so missing checks, exposed secrets and unsafe packages go live unnoticed.
+    da: Det lader næsten alle bygge en fungerende første version hurtigt, men ingen ved, hvad koden reelt gør — så manglende tjek, blottede hemmeligheder og usikre pakker går live uden at blive opdaget.
+edges:
+  requires: [ai-coding-assistant]
+  causes:
+    - to: vulnerability
+      why:
+        en: Code that no one reads is code that no one checks, so common flaws such as missing input checks or keys left in the code ship straight to users.
+        da: Kode, som ingen læser, er kode, som ingen tjekker, så almindelige fejl som manglende inputtjek eller nøgler efterladt i koden sendes direkte ud til brugerne.
+      strength: primary
+      confidence: high
+    - to: data-breach
+      why:
+        en: Quickly built apps that store customer details without proper access checks have repeatedly leaked that data.
+        da: Hurtigt byggede apps, der gemmer kundeoplysninger uden ordentlig adgangskontrol, har gentagne gange lækket de data.
+      strength: minor
+      confidence: medium
+sources:
+  - title: Vibe coding (Wikipedia)
+    tier: reference
+  - title: Andrej Karpathy, post on X introducing "vibe coding" (2 February 2025)
+    tier: reference
+  - title: OWASP Top 10 for Large Language Model Applications 2025 (LLM05 Improper Output Handling)
+    tier: reference
+    publisher: OWASP
+draft: true

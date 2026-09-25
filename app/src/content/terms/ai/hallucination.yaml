@@ -2,8 +2,8 @@ term:
   en: Hallucination
   da: Hallucination
 aka:
-  en: [confabulation]
-  da: [konfabulering]
+  en: [confabulation, AI hallucination, LLM hallucination]
+  da: [konfabulering, AI-hallucination, sprogmodel-hallucination, opdigtede svar]
 domain: [ai]
 cluster: llm
 layer: inference

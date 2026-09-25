@@ -1,0 +1,59 @@
+term:
+  en: AI alignment
+  da: AI-alignment
+aka:
+  en: [value alignment]
+  da: [værdialignment, value alignment]
+domain: [ai]
+cluster: ai-risk
+layer: training
+status: current
+summary:
+  en: The work of making an AI system want and do what people actually intend, and refuse what they would not accept.
+  da: Arbejdet med at få et AI-system til at ville og gøre det, mennesker faktisk mener, og afvise det, de ikke vil acceptere.
+body:
+  formal:
+    en: The field and practice of steering an AI system's goals and behaviour so they match the intentions and values of its makers and users, including being helpful, honest and refusing harmful requests, even in situations it was never tested on.
+    da: Det felt og den praksis, der styrer et AI-systems mål og adfærd, så de svarer til skabernes og brugernes hensigter og værdier, herunder at være hjælpsomt og ærligt og afvise skadelige ønsker, også i situationer, det aldrig er blevet testet i.
+  plain:
+    en: Like raising a very capable apprentice so that, even when no one is watching, they do the job the way the workshop would want rather than just whatever gets the fastest pat on the back.
+    da: Som at opdrage en meget dygtig lærling, så de, også når ingen kigger, gør arbejdet sådan, som værkstedet ønsker, og ikke bare det, der hurtigst giver ros.
+  inPractice:
+    en: After pretraining, a lab runs instruction tuning and RLHF so its chat assistant follows instructions, admits when it is unsure and refuses to give step-by-step help with building weapons.
+    da: Efter pretraining kører et laboratorium instruction tuning og RLHF, så dets chatassistent følger instruktioner, indrømmer, når den er usikker, og nægter at give trinvis hjælp til at bygge våben.
+  whyItMatters:
+    en: A system that is powerful but pursues a slightly wrong goal can cause harm at scale; as AI agents act more on their own, the gap between what we asked for and what we meant matters more.
+    da: Et system, der er stærkt, men forfølger et en smule forkert mål, kan gøre skade i stor skala; jo mere AI-agenter handler på egen hånd, jo mere betyder afstanden mellem det, vi bad om, og det, vi mente.
+edges:
+  requires: [artificial-intelligence, model-training]
+  used-with:
+    - to: rlhf
+      why:
+        en: RLHF is the most widely used way to push a large language model toward the behaviour people prefer.
+        da: RLHF er den mest udbredte måde at skubbe en stor sprogmodel hen mod den adfærd, mennesker foretrækker.
+      strength: primary
+      confidence: high
+    - to: instruction-tuning
+      why:
+        en: Teaching a model to follow instructions is usually the first alignment step after pretraining.
+        da: At lære en model at følge instruktioner er som regel det første alignment-skridt efter pretraining.
+      strength: normal
+      confidence: high
+  contrasts-with:
+    - to: guardrails
+      why:
+        en: Alignment shapes what the model itself tends to do; guardrails are separate checks placed around it that catch what alignment misses.
+        da: Alignment former, hvad modellen selv er tilbøjelig til at gøre; guardrails er separate kontroller rundt om den, der fanger det, alignment overser.
+      strength: normal
+      confidence: high
+sources:
+  - title: 'Ouyang et al., Training language models to follow instructions with human feedback (2022)'
+    tier: reference
+    publisher: OpenAI / NeurIPS
+  - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach, 4th ed. (value alignment)'
+    tier: textbook
+    publisher: Pearson
+  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile
+    tier: standard
+    publisher: NIST
+draft: true

@@ -33,6 +33,13 @@ edges:
         da: En model, der har lært sine eksempler udenad, kan bringes til at gentage personoplysninger fra dem ordret.
       strength: minor
       confidence: medium
+  contrasts-with:
+    - to: underfitting
+      why:
+        en: Overfitting learns the examples too closely and fails on new cases; underfitting has not learned enough to do well even on the examples it saw.
+        da: Overtilpasning lærer eksemplerne for tæt og fejler på nye tilfælde; undertilpasning har ikke lært nok til at klare sig godt selv på de eksempler, den har set.
+      strength: normal
+      confidence: medium
 sources:
   - title: 'Goodfellow, Bengio & Courville, Deep Learning'
     tier: textbook

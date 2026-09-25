@@ -1,0 +1,42 @@
+term:
+  en: Time to first token (TTFT)
+  da: Tid til første token (TTFT)
+aka:
+  en: [TTFT]
+  da: [TTFT]
+domain: [ai]
+cluster: ai-infrastructure
+layer: inference
+status: current
+summary:
+  en: How long a user waits after sending a prompt before the first piece of the answer appears on screen.
+  da: Hvor længe en bruger venter, efter at have sendt en prompt, før den første del af svaret dukker op på skærmen.
+body:
+  formal:
+    en: The latency from a request reaching a language model service until the first token of the reply is returned; it is mostly the time spent waiting in line and reading the whole prompt, and grows with prompt length.
+    da: Latensen fra en forespørgsel når en sprogmodeltjeneste, til det første token i svaret sendes tilbage; den består mest af ventetid i kø og læsning af hele prompten og vokser med promptens længde.
+  plain:
+    en: Like the pause after you ask someone a question and before they say their first word — a long pause feels slow even if they then talk quickly.
+    da: Som pausen efter du har stillet nogen et spørgsmål, og før de siger deres første ord — en lang pause føles langsom, selv om de derefter taler hurtigt.
+  inPractice:
+    en: A team that pastes a 200-page manual into every prompt sees the chat sit silent for several seconds before replying; shortening or caching that shared start brings the first words back in under a second.
+    da: Et team, der indsætter en manual på 200 sider i hver prompt, ser chatten stå tavs i flere sekunder, før den svarer; at forkorte eller cache den fælles begyndelse får de første ord tilbage på under et sekund.
+  whyItMatters:
+    en: Because answers stream in word by word, this first wait is what people feel most, so it is the speed number chat products watch closest.
+    da: Fordi svar strømmer ind ord for ord, er denne første ventetid det, folk mærker mest, og derfor er det det hastighedstal, chatprodukter holder nøjest øje med.
+edges:
+  kind-of:
+    - to: latency
+      why:
+        en: It is latency measured only up to the first token rather than to the end of the whole answer.
+        da: Det er latens målt kun frem til det første token i stedet for til slutningen af hele svaret.
+      strength: primary
+      confidence: high
+  requires: [token, prompt]
+sources:
+  - title: Kwon et al. (2023), Efficient Memory Management for Large Language Model Serving with PagedAttention
+    tier: reference
+  - title: NVIDIA NIM for LLMs documentation — benchmarking metrics (time to first token)
+    tier: official-doc
+    publisher: NVIDIA
+draft: true

@@ -35,6 +35,18 @@ edges:
       confidence: high
     - machine-learning
     - siem
+    - to: clustering
+      why:
+        en: Items that fit no group, or form a tiny odd group, are candidates for anomalies.
+        da: Ting, der ikke passer i nogen gruppe eller danner en lille mærkelig gruppe, er kandidater til anomalier.
+      strength: normal
+      confidence: medium
+    - to: recall
+      why:
+        en: Recall measures how many real attacks the detection actually caught, which shows its blind spots.
+        da: Genkaldelse måler, hvor mange reelle angreb detektionen faktisk fangede, og viser dermed dens blinde vinkler.
+      strength: normal
+      confidence: medium
   contrasts-with:
     - to: detection-rule
       why:

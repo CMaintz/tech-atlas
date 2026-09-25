@@ -1,0 +1,43 @@
+term:
+  en: Reinforcement learning from human feedback (RLHF)
+  da: Forstærkningslæring fra menneskelig feedback (RLHF)
+aka:
+  en: [preference tuning]
+  da: [præferencetræning]
+domain: [ai]
+cluster: training
+layer: training
+era: 2017
+status: current
+summary:
+  en: Improving a model by having people rank its answers, teaching a scorer from those rankings, then training the model to earn high scores.
+  da: At forbedre en model ved at lade mennesker rangere dens svar, lære en bedømmer af rangeringerne og så træne modellen til at få høje scorer.
+body:
+  formal:
+    en: A training method in which human raters compare pairs of model outputs, a separate reward model is fitted to predict their choices, and the main model is then tuned by reinforcement learning to produce outputs the reward model rates highly.
+    da: En træningsmetode, hvor menneskelige bedømmere sammenligner par af modelsvar, en separat belønningsmodel tilpasses til at forudsige deres valg, og hovedmodellen derefter justeres med forstærkningslæring til at give svar, som belønningsmodellen vurderer højt.
+  plain:
+    en: Like a comedian trying jokes on a test audience, noting which ones get laughs, and gradually shaping the act around what the crowd prefers.
+    da: Som en komiker, der afprøver vittigheder på et prøvepublikum, noterer, hvilke der får grin, og gradvist former showet efter, hvad publikum foretrækker.
+  inPractice:
+    en: Contract workers see two answers to "How do I reset my router?" and click the clearer, safer one; millions of such clicks steer the chat assistant's style.
+    da: Kontraktarbejdere ser to svar på "Hvordan nulstiller jeg min router?" og klikker på det klareste og sikreste; millioner af den slags klik styrer chatassistentens stil.
+  whyItMatters:
+    en: It is a main tool for making models helpful and less harmful, but it rewards what raters like rather than what is true, which can teach flattery and confident-sounding errors.
+    da: Det er et centralt værktøj til at gøre modeller hjælpsomme og mindre skadelige, men det belønner, hvad bedømmerne kan lide, snarere end hvad der er sandt, og kan lære modellen smiger og selvsikre fejl.
+edges:
+  requires: [reinforcement-learning, instruction-tuning]
+  kind-of: [fine-tuning]
+  causes:
+    - to: hallucination
+      why:
+        en: Rewarding answers people prefer can favour confident-sounding replies over admitting uncertainty.
+        da: At belønne svar, folk foretrækker, kan favorisere selvsikre svar frem for at indrømme usikkerhed.
+      strength: minor
+      confidence: medium
+sources:
+  - title: Christiano et al. (2017), Deep Reinforcement Learning from Human Preferences
+    tier: reference
+  - title: Ouyang et al. (2022), Training language models to follow instructions with human feedback
+    tier: reference
+draft: true

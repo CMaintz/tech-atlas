@@ -27,6 +27,13 @@ body:
 edges:
   part-of: [machine-learning]
   requires: [training-data]
+  used-with:
+    - to: tpu
+      why:
+        en: TPUs are linked in large groups mainly to train big models.
+        da: TPU'er kobles i store grupper primært for at træne store modeller.
+      strength: normal
+      confidence: medium
 sources:
   - title: 'Goodfellow, Bengio & Courville, Deep Learning'
     tier: textbook

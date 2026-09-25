@@ -39,6 +39,13 @@ edges:
         da: Hvis eksemplerne er ensidige, lærer modellen den skævhed og gentager den.
       strength: primary
       confidence: high
+  contrasts-with:
+    - to: validation-set
+      why:
+        en: Training data is what the model learns from; the validation set is held back from it and only checked, to choose settings and when to stop.
+        da: Træningsdata er det, modellen lærer af; valideringssættet holdes uden for og bruges kun til at tjekke, vælge indstillinger og beslutte, hvornår der skal stoppes.
+      strength: normal
+      confidence: medium
 sources:
   - title: ISO/IEC 22989:2022 — Artificial intelligence concepts and terminology
     tier: standard

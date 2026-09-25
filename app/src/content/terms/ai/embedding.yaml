@@ -35,6 +35,12 @@ edges:
         da: RAG laver spørgsmålet og dokumenterne om til embeddings for at finde de tekststykker, der ligger tættest i betydning.
       strength: primary
       confidence: high
+    - to: tokenizer
+      why:
+        en: The tokenizer turns text into tokens, and each token is then looked up as an embedding.
+        da: Tokenizeren laver tekst om til tokens, og hvert token slås derefter op som en embedding.
+      strength: normal
+      confidence: medium
 sources:
   - title: Mikolov et al. (2013), Efficient Estimation of Word Representations in Vector Space
     tier: reference

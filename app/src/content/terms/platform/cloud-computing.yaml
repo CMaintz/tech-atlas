@@ -27,7 +27,15 @@ body:
     da: Organisationens data ligger nu på maskiner, den hverken ejer eller ser, så sikkerheden afhænger lige så meget af kontrakter, indstillinger og tillid til udbyderen som af egne medarbejdere.
 edges:
   requires: [internet, server]
-  used-with: [data-processing-agreement, inference]
+  used-with:
+    - data-processing-agreement
+    - inference
+    - to: gpu
+      why:
+        en: Most teams rent GPUs by the hour from cloud providers instead of buying them.
+        da: De fleste teams lejer GPU'er per time hos cloududbydere i stedet for at købe dem.
+      strength: normal
+      confidence: medium
 article:
   en: src/content/articles/platform/cloud-computing.en.md
   da: src/content/articles/platform/cloud-computing.da.md

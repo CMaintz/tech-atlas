@@ -34,6 +34,18 @@ edges:
       strength: primary
       confidence: high
     - web-application
+    - to: structured-output
+      why:
+        en: JSON is the usual shape a structured-output reply is forced into.
+        da: JSON er den sædvanlige form, et struktureret output tvinges ind i.
+      strength: normal
+      confidence: medium
+    - to: model-context-protocol
+      why:
+        en: MCP messages are written as JSON, so any app or server can read the other side's requests and answers with ordinary tools.
+        da: MCP-beskeder skrives som JSON, så enhver app eller server kan læse den anden sides anmodninger og svar med almindelige værktøjer.
+      strength: normal
+      confidence: medium
 sources:
   - title: RFC 8259 — The JavaScript Object Notation (JSON) Data Interchange Format
     tier: standard

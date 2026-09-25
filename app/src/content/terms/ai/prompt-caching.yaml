@@ -1,0 +1,54 @@
+term:
+  en: Prompt caching
+  da: Prompt caching
+aka:
+  en: [context caching]
+  da: [context caching]
+domain: [ai]
+cluster: ai-infrastructure
+layer: inference
+era: 2024
+status: current
+summary:
+  en: A service feature that saves the work done on the start of a prompt, so later requests starting the same way are faster and cheaper.
+  da: En funktion, der gemmer arbejdet med starten af en prompt, så senere forespørgsler, der starter ens, bliver hurtigere og billigere.
+body:
+  formal:
+    en: A model-serving feature that stores the KV cache for the opening part of a prompt for a short time and reuses it when a later request begins with exactly the same tokens, so only the new remainder has to be read; providers usually bill reused tokens at a lower rate.
+    da: En funktion i model serving, der gemmer KV-cachen for den første del af en prompt i kort tid og genbruger den, når en senere forespørgsel begynder med præcis de samme tokens, så kun den nye rest skal læses; udbydere tager normalt en lavere pris for genbrugte tokens.
+  plain:
+    en: Like a lawyer who has already read the thick case file — each new question about it takes minutes, not a whole day of rereading.
+    da: Som en advokat, der allerede har læst den tykke sagsmappe — hvert nyt spørgsmål om den tager minutter, ikke en hel dag med genlæsning.
+  inPractice:
+    en: A coding assistant sends the same long system prompt and project files at the start of every request, then adds the new question at the end; the provider reuses the stored start, so replies begin sooner and the bill drops.
+    da: En kodeassistent sender den samme lange systemprompt og de samme projektfiler i starten af hver forespørgsel og tilføjer det nye spørgsmål til sidst; udbyderen genbruger den gemte begyndelse, så svarene kommer hurtigere, og regningen falder.
+  whyItMatters:
+    en: It can cut cost and waiting sharply for agents and long chats, but only if the fixed part comes first and stays word-for-word the same. Big providers keep stored work for a set time — from minutes up to an hour or more, depending on the option chosen — and do not share it between customer organisations; research has shown that where it is shared, answer speed can hint what others sent.
+    da: Det kan skære kraftigt i pris og ventetid for agenter og lange samtaler, men kun hvis den faste del kommer først og forbliver ord for ord den samme. Store udbydere gemmer arbejdet i en fastsat tid — fra minutter op til en time eller mere, afhængigt af det valgte niveau — og deler det ikke mellem kundeorganisationer; forskning har vist, at hvor det deles, kan svarhastigheden afsløre, hvad andre har sendt.
+edges:
+  requires:
+    - to: kv-cache
+      why:
+        en: What is stored is the KV cache for the prompt's start — kept after one request ends so the next can pick it up.
+        da: Det, der gemmes, er KV-cachen for promptens begyndelse — bevaret efter én forespørgsel slutter, så den næste kan tage den op.
+      strength: primary
+      confidence: high
+    - prompt
+  used-with:
+    - to: time-to-first-token
+      why:
+        en: Skipping the reread of a long shared start is one of the biggest ways to shorten the wait before the first token.
+        da: At springe genlæsningen af en lang fælles begyndelse over er en af de største måder at forkorte ventetiden før det første token.
+      strength: primary
+      confidence: high
+    - system-prompt
+sources:
+  - title: Anthropic documentation — Prompt caching
+    tier: official-doc
+    publisher: Anthropic
+  - title: OpenAI API documentation — Prompt caching
+    tier: official-doc
+    publisher: OpenAI
+  - title: Gu et al. (2025), Auditing Prompt Caching in Language Model APIs
+    tier: reference
+draft: true

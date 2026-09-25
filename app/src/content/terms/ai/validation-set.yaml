@@ -1,0 +1,50 @@
+term:
+  en: Validation set
+  da: Valideringssæt
+aka:
+  en: [dev set, development set]
+  da: [udviklingssæt, dev-sæt]
+domain: [ai]
+cluster: evaluation
+layer: training
+status: current
+summary:
+  en: Examples held back from training and checked again and again while building a model, to choose its settings and decide when to stop.
+  da: Eksempler, der holdes uden for træningen og tjekkes igen og igen for at vælge en models indstillinger og hvornår der skal stoppes.
+body:
+  formal:
+    en: A part of the labelled data kept out of the training data and used during model training to compare hyperparameter choices and pick the best round to stop; because choices are tuned to it, its scores are not a fair final result.
+    da: En del af de mærkede data, der holdes uden for træningsdata og bruges under modeltræningen til at sammenligne valg af hyperparametre og vælge den bedste runde at stoppe i; da valgene tilpasses til den, er dens resultater ikke et retfærdigt slutresultat.
+  plain:
+    en: Like the practice papers a teacher hands out during the term to decide what to go over again — useful for steering, but not the real final exam.
+    da: Som de øveopgaver, en lærer deler ud i løbet af semestret for at beslutte, hvad der skal gennemgås igen — nyttige til at styre efter, men ikke den rigtige afsluttende eksamen.
+  inPractice:
+    en: A team splits 100,000 labelled images 80/10/10, trains on the first part, and after each epoch checks the next 10% to see whether to keep going or to try a smaller step size.
+    da: Et team deler 100.000 mærkede billeder 80/10/10, træner på den første del og tjekker efter hver epoke de næste 10 % for at se, om de skal fortsætte eller prøve en mindre skridtstørrelse.
+  whyItMatters:
+    en: Without it, settings get chosen by looking at the test set, and the final score quietly stops being honest.
+    da: Uden det vælges indstillinger ved at kigge på testsættet, og slutresultatet holder stille og roligt op med at være ærligt.
+edges:
+  requires: [hyperparameter]
+  part-of:
+    - to: model-training
+      why:
+        en: It is checked throughout model training to steer choices, unlike the test set, which is kept apart until the end.
+        da: Det tjekkes hele vejen gennem modeltræningen for at styre valgene, i modsætning til testsættet, der holdes adskilt til slutningen.
+      strength: primary
+      confidence: high
+  mitigates:
+    - to: overfitting
+      why:
+        en: When the score on held-back examples stops rising while the training score keeps climbing, training is stopped before the model memorizes its examples.
+        da: Når resultatet på de tilbageholdte eksempler holder op med at stige, mens træningsresultatet bliver ved med at klatre, stoppes træningen, før modellen lærer sine eksempler udenad.
+      strength: normal
+      confidence: medium
+sources:
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 5.3 and 7.8)'
+    tier: textbook
+    publisher: MIT Press
+  - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    tier: textbook
+    publisher: Pearson
+draft: true

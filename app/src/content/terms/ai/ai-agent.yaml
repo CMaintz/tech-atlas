@@ -41,6 +41,18 @@ edges:
       confidence: medium
     - log
     - prompt-injection
+    - to: reinforcement-learning
+      why:
+        en: Agents that act step by step are often improved with rewards for finishing tasks well.
+        da: Agenter, der handler trin for trin, forbedres ofte med belønning for at løse opgaver godt.
+      strength: normal
+      confidence: medium
+    - to: human-in-the-loop
+      why:
+        en: An agent that can act should pause for a person before steps that are costly or hard to undo.
+        da: En agent, der kan handle, bør stoppe og spørge en person før trin, der er dyre eller svære at gøre om.
+      strength: normal
+      confidence: medium
 sources:
   - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
     tier: textbook

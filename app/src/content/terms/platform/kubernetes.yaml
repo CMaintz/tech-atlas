@@ -28,7 +28,15 @@ body:
 edges:
   implements: [container-orchestration]
   requires: [container]
-  used-with: [role-based-access-control, microservices]
+  used-with:
+    - role-based-access-control
+    - microservices
+    - to: model-serving
+      why:
+        en: Kubernetes is commonly used to run, scale and restart model-serving containers across many GPU machines.
+        da: Kubernetes bruges ofte til at køre, skalere og genstarte model-serving-containere på tværs af mange GPU-maskiner.
+      strength: normal
+      confidence: medium
 article:
   en: src/content/articles/platform/kubernetes.en.md
   da: src/content/articles/platform/kubernetes.da.md

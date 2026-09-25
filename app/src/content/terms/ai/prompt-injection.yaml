@@ -40,6 +40,12 @@ edges:
         da: Begge smugler kommandoer ind via input, men SQL injection rammer en database, mens prompt injection rammer en sprogmodel.
       strength: normal
       confidence: high
+    - to: system-prompt
+      why:
+        en: Both are instructions to the model, but the system prompt comes from the app's builder while prompt injection smuggles in an attacker's orders that try to override it.
+        da: Begge er instruktioner til modellen, men systemprompten kommer fra den, der har bygget appen, mens prompt injection smugler en angribers ordrer ind, der forsøger at tilsidesætte den.
+      strength: normal
+      confidence: medium
   used-with:
     - to: retrieval-augmented-generation
       why:
@@ -52,6 +58,12 @@ edges:
       why:
         en: A hijacked AI system with access to files or email can be told to hand data to the attacker.
         da: Et kapret AI-system med adgang til filer eller mail kan beordres til at udlevere data til angriberen.
+      strength: normal
+      confidence: medium
+    - to: sensitive-information-disclosure
+      why:
+        en: Injected instructions can tell a model to reveal its system prompt or data it can reach.
+        da: Indsmuglede instruktioner kan få en model til at afsløre sin systemprompt eller data, den har adgang til.
       strength: normal
       confidence: medium
 article:
