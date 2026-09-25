@@ -54,6 +54,8 @@ export function startDots(
   cy: cytoscape.Core,
   edges: cytoscape.EdgeCollection,
   paused: () => boolean,
+  /** Resting opacity (the cream map needs more than the night map). */
+  restAlpha: () => number = () => EXPLORER.dots.alpha,
   /** The settings, read every frame (the hidden visual lab tunes a copy live, A96). */
   cfg: DotsConfig = EXPLORER.dots,
 ): { stop: () => void; resize: () => void } {
@@ -110,7 +112,7 @@ export function startDots(
     });
   };
   const markDirty = () => void (dirty = true);
-  cy.on('class style position add remove', markDirty);
+  cy.on('class style data position add remove', markDirty);
   // Pan and zoom: the dots follow the live viewport (cy.pan()/cy.zoom()) in the very
   // next animation frame, outside the fps throttle, so they stay locked to the map and
   // never blink out mid-gesture (A86).
@@ -140,7 +142,7 @@ export function startDots(
     const shift = ((t / 1000) * cfg.speed) % cfg.spacing;
     for (const [key, paths] of groups) {
       const lit = key.endsWith('|1');
-      ctx.globalAlpha = lit ? cfg.litAlpha : cfg.alpha;
+      ctx.globalAlpha = lit ? cfg.litAlpha : restAlpha();
       ctx.fillStyle = key.slice(0, key.lastIndexOf('|'));
       ctx.beginPath();
       for (const p of paths) {
@@ -189,7 +191,7 @@ export function startDots(
     stop() {
       stopped = true;
       cancelAnimationFrame(raf);
-      cy.removeListener('class style position add remove', markDirty);
+      cy.removeListener('class style data position add remove', markDirty);
       cy.removeListener('viewport', onViewport);
       motion?.removeEventListener?.('change', wake);
       canvas.remove();

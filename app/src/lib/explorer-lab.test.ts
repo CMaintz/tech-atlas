@@ -7,7 +7,43 @@ import {
   frameStats,
   fromQuery,
   rules2D,
+  edgeStateRules,
+  emphasise,
+  importance,
+  intensity,
 } from './explorer-lab';
+
+describe('visual lab: emphasis by importance', () => {
+  it('ranks by type first, then by the edge weight', () => {
+    const [req, used, weak] = importance([
+      { type: 'requires', weight: 2 },
+      { type: 'used-with', weight: 2 },
+      { type: 'requires', weight: 0.5 },
+    ]);
+    expect(req).toBe(1);
+    expect(used).toBeCloseTo(0.35);
+    expect(weak).toBeCloseTo(0.5);
+  });
+
+  it('spread 0 flattens the contrast; higher spreads widen it', () => {
+    expect(intensity(0.35, 0)).toBe(1);
+    expect(intensity(0.5, 2)).toBeCloseTo(0.25);
+    expect(intensity(1, 3)).toBe(1);
+  });
+
+  it('fades colours towards the map background', () => {
+    expect(emphasise('#ff0000', 1, false)).toBe('#ff0000');
+    expect(parseInt(emphasise('#ff0000', 0, false).slice(1, 3), 16)).toBeLessThan(0x80);
+    expect(parseInt(emphasise('#ff0000', 0, true).slice(3, 5), 16)).toBeGreaterThan(0x80);
+  });
+
+  it('adds the emphasis rules only when on, and keeps the state rules', () => {
+    expect(rules2D({ ...DEFAULT_2D, emph: 'combined' }, [3, 9])).toHaveLength(6);
+    expect(
+      edgeStateRules([{ selector: 'edge.faded' }, { selector: 'node.dim' }, { selector: 'edge' }]),
+    ).toEqual([{ selector: 'edge.faded' }]);
+  });
+});
 
 describe('visual lab: toggles from the address', () => {
   it('reads booleans, clamped numbers and known choices; ignores the rest', () => {

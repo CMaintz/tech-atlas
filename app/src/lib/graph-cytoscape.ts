@@ -6,11 +6,42 @@
 import type cytoscape from 'cytoscape';
 import type { EdgeType } from '../schema';
 import type { Family } from './graph-model';
-import { FLOW_DASH, curveOffsets, edgePaint, flowOffset, type Paintable } from './graph-style';
+import {
+  FLOW_DASH,
+  MAP_INK,
+  curveOffsets,
+  edgePaint,
+  flowOffset,
+  type MapTheme,
+  type Paintable,
+} from './graph-style';
 
 const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
 export const reducedMotion = () =>
   typeof window !== 'undefined' && !!window.matchMedia?.(REDUCED_MOTION).matches;
+
+/**
+ * The page's resolved theme (A92): `data-theme` on <html>, set before first paint by
+ * theme-init.js and kept in step with the menu and the OS by Base.astro; the OS
+ * preference when there is no attribute. 'dark' outside a browser.
+ */
+export function currentTheme(): MapTheme {
+  if (typeof document === 'undefined') return 'dark';
+  const t = document.documentElement.dataset.theme;
+  if (t === 'light' || t === 'dark') return t;
+  return window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+}
+
+/** Call `fn` with the new theme whenever it changes (menu or OS). Returns a stop function. */
+export function watchTheme(fn: (theme: MapTheme) => void): () => void {
+  let last = currentTheme();
+  const obs = new MutationObserver(() => {
+    const now = currentTheme();
+    if (now !== last) fn((last = now));
+  });
+  obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  return () => obs.disconnect();
+}
 
 type Endpoint = Paintable & { id: string };
 type Link = { source: string; target: string; type: EdgeType; family: Family };
@@ -22,12 +53,13 @@ export function edgeData(
   width: (l: Link, i: number) => number,
   /** Resting opacity; hover, flow and highlight raise it. */
   alpha = 0.5,
+  theme: MapTheme = 'dark',
 ) {
   const curves = curveOffsets(links);
   return links.map((l, i) => {
     const s = nodeOf(l.source)!;
     const t = nodeOf(l.target)!;
-    const p = edgePaint(l, s, t);
+    const p = edgePaint(l, s, t, theme);
     return {
       id: `e${i}`,
       source: l.source,
@@ -50,92 +82,101 @@ export function edgeData(
  * transitions here: on the full map they animate every restyled element each frame
  * (A86); small graphs add `FADE_TRANSITIONS`.
  */
-export const GRAPH_STYLE = [
-  {
-    selector: 'node[size]',
-    style: {
-      'background-color': 'data(colour)',
-      width: 'data(size)',
-      height: 'data(size)',
-      label: 'data(label)',
-      color: '#e5e5e5',
-      'font-size': 'data(font)',
-      'text-valign': 'bottom',
-      'text-margin-y': 4,
-      'text-outline-color': '#0a0a0a',
-      'text-outline-width': 2,
-      'text-outline-opacity': 0.9,
-      'min-zoomed-font-size': 8,
-      // Dark-theme glow: a soft halo in the node's own colour.
-      'underlay-color': 'data(colour)',
-      'underlay-opacity': 0.2,
-      'underlay-padding': 5,
-      'underlay-shape': 'ellipse',
+export const graphStyle = (theme: MapTheme = 'dark') => {
+  const ink = MAP_INK[theme];
+  // Underlay opacities are tuned for the night map's glow; the cream map's soft shadow
+  // scales them down.
+  const u = (a: number) => +((a * ink.underlayAlpha) / MAP_INK.dark.underlayAlpha).toFixed(3);
+  return [
+    {
+      selector: 'node[size]',
+      style: {
+        'background-color': 'data(colour)',
+        width: 'data(size)',
+        height: 'data(size)',
+        label: 'data(label)',
+        color: ink.label,
+        'font-size': 'data(font)',
+        'text-valign': 'bottom',
+        'text-margin-y': 4,
+        'text-outline-color': ink.halo,
+        'text-outline-width': 2,
+        'text-outline-opacity': 0.9,
+        'min-zoomed-font-size': 8,
+        // A glow in the node's own colour on the night map; a soft shadow on the cream one.
+        'underlay-color': ink.underlay ?? 'data(colour)',
+        'underlay-opacity': u(0.2),
+        'underlay-padding': 5,
+        'underlay-shape': 'ellipse',
+      },
     },
-  },
-  // A term in several domains: a solid fill in its own shade and a thin ring in the
-  // other domain's colour (A86; the split fill is left to the canvas lab).
-  {
-    selector: 'node[ring]',
-    style: { 'border-width': 2, 'border-color': 'data(ring)', 'border-opacity': 0.95 },
-  },
-  {
-    selector: 'edge',
-    style: {
-      width: 'data(width)',
-      'line-color': 'data(colour)',
-      'target-arrow-color': 'data(colour)',
-      'target-arrow-shape': 'data(arrow)',
-      'arrow-scale': 0.8,
-      'curve-style': 'unbundled-bezier',
-      'control-point-distances': 'data(curve)',
-      'control-point-weights': 0.5,
-      'line-cap': 'round',
-      opacity: 'data(alpha)',
+    // A term in several domains: a solid fill in its own shade and a thin ring in the
+    // other domain's colour (A86; the split fill is left to the canvas lab).
+    {
+      selector: 'node[ring]',
+      style: { 'border-width': 2, 'border-color': 'data(ring)', 'border-opacity': 0.95 },
     },
-  },
-  // Edges that bridge two domains fade from one domain's colour to the other's.
-  {
-    selector: 'edge[?cross]',
-    style: {
-      'line-fill': 'linear-gradient',
-      'line-gradient-stop-colors': 'data(gradient)',
-      'line-gradient-stop-positions': '0 50 100',
+    {
+      selector: 'edge',
+      style: {
+        width: 'data(width)',
+        'line-color': 'data(colour)',
+        'target-arrow-color': 'data(colour)',
+        'target-arrow-shape': 'data(arrow)',
+        'arrow-scale': 0.8,
+        'curve-style': 'unbundled-bezier',
+        'control-point-distances': 'data(curve)',
+        'control-point-weights': 0.5,
+        'line-cap': 'round',
+        opacity: 'data(alpha)',
+      },
     },
-  },
-  {
-    selector: 'edge.flow, edge.hflow',
-    style: { 'line-style': 'dashed', 'line-dash-pattern': FLOW_DASH, opacity: 0.95 },
-  },
-  // Hover: the neighbourhood stays lit, everything else fades back.
-  { selector: 'node.faded', style: { opacity: 0.1, 'text-opacity': 0, 'underlay-opacity': 0 } },
-  { selector: 'edge.faded', style: { opacity: 0.04 } },
-  {
-    selector: 'node.lit',
-    style: {
-      'underlay-opacity': 0.45,
-      'underlay-padding': 9,
-      'min-zoomed-font-size': 0,
-      'z-index': 20,
+    // Edges that bridge two domains fade from one domain's colour to the other's.
+    {
+      selector: 'edge[?cross]',
+      style: {
+        'line-fill': 'linear-gradient',
+        'line-gradient-stop-colors': 'data(gradient)',
+        'line-gradient-stop-positions': '0 50 100',
+      },
     },
-  },
-  { selector: 'edge.lit', style: { opacity: 0.95, 'z-index': 19 } },
-  // Route / prerequisite highlight and selection (Explorer).
-  { selector: '.dim', style: { opacity: 0.1 } },
-  { selector: 'node.hl', style: { 'underlay-opacity': 0.5, 'underlay-padding': 8 } },
-  { selector: 'edge.hl', style: { opacity: 1, width: 3 } },
-  {
-    selector: 'node.sel',
-    style: {
-      'outline-width': 3,
-      'outline-color': '#ffffff',
-      'outline-offset': 3,
-      'underlay-opacity': 0.55,
-      'underlay-padding': 10,
-      'min-zoomed-font-size': 0,
+    {
+      selector: 'edge.flow, edge.hflow',
+      style: { 'line-style': 'dashed', 'line-dash-pattern': FLOW_DASH, opacity: 0.95 },
     },
-  },
-] as unknown as cytoscape.StylesheetJson;
+    // Hover: the neighbourhood stays lit, everything else fades back.
+    { selector: 'node.faded', style: { opacity: 0.1, 'text-opacity': 0, 'underlay-opacity': 0 } },
+    { selector: 'edge.faded', style: { opacity: 0.04 } },
+    {
+      selector: 'node.lit',
+      style: {
+        'underlay-opacity': u(0.45),
+        'underlay-padding': 9,
+        'min-zoomed-font-size': 0,
+        'z-index': 20,
+      },
+    },
+    { selector: 'edge.lit', style: { opacity: 0.95, 'z-index': 19 } },
+    // Route / prerequisite highlight and selection (Explorer).
+    { selector: '.dim', style: { opacity: 0.1 } },
+    { selector: 'node.hl', style: { 'underlay-opacity': u(0.5), 'underlay-padding': 8 } },
+    { selector: 'edge.hl', style: { opacity: 1, width: 3 } },
+    {
+      selector: 'node.sel',
+      style: {
+        'outline-width': 3,
+        'outline-color': ink.selected,
+        'outline-offset': 3,
+        'underlay-opacity': u(0.55),
+        'underlay-padding': 10,
+        'min-zoomed-font-size': 0,
+      },
+    },
+  ] as unknown as cytoscape.StylesheetJson;
+};
+
+/** The night map's stylesheet (the default). */
+export const GRAPH_STYLE = graphStyle('dark');
 
 /** Soft fades for small graphs (the term page), where restyling is cheap. */
 export const FADE_TRANSITIONS = [

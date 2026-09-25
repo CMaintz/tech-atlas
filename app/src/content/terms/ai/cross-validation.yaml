@@ -1,0 +1,77 @@
+term:
+  en: Cross-validation
+  da: Krydsvalidering
+aka:
+  en: [k-fold cross-validation]
+  da: [k-fold-krydsvalidering, cross-validation]
+domain: [ai]
+cluster: evaluation
+layer: training
+status: current
+summary:
+  en: Checking a model fairly by splitting the examples into parts and letting each part in turn be the one held back for testing.
+  da: At vurdere en model retfærdigt ved at dele eksemplerne op i dele og lade hver del på skift være den, der holdes tilbage til test.
+body:
+  formal:
+    en: A way to judge a model in which the data is split into k equal parts; the model is trained k times, each time on all parts but one and scored on the part left out, and the k scores are averaged.
+    da: En måde at bedømme en model på, hvor data deles i k lige store dele; modellen trænes k gange, hver gang på alle dele undtagen én, og vurderes på den udeladte del, hvorefter de k resultater lægges sammen til et gennemsnit.
+  plain:
+    en: Like a teacher who splits a question bank into five piles and gives five mock exams, each time drawing on a pile the class did not practise, then takes the average mark.
+    da: Som en lærer, der deler en spørgsmålsbank i fem bunker og holder fem prøveeksamener, hver gang med en bunke, klassen ikke har øvet sig på, og så tager gennemsnittet af karaktererne.
+  inPractice:
+    en: A hospital has only 800 past cases to build a model that flags patients at risk of coming back within a month, so instead of giving up a fifth for one check, it runs five rounds and reports the average and the spread.
+    da: Et hospital har kun 800 tidligere forløb til at bygge en model, der markerer patienter i risiko for genindlæggelse inden for en måned, så i stedet for at ofre en femtedel på én kontrol kører det fem runder og rapporterer gennemsnit og spredning.
+  whyItMatters:
+    en: With few examples, one lucky or unlucky split can make a model look far better or worse than it is; rotating the split gives a steadier and more honest result.
+    da: Med få eksempler kan én heldig eller uheldig opdeling få en model til at se langt bedre eller dårligere ud, end den er; når opdelingen går på skift, bliver resultatet mere stabilt og ærligt.
+deepDive:
+  en: |-
+    In k-fold cross-validation, as scikit-learn describes it, the training set is split into k smaller sets; for each fold a model is trained on the other k minus 1 folds and validated on the remaining one, and the reported score is the average over folds, often with its standard deviation. The idea goes back to Stone (1974), Cross-validatory choice and assessment of statistical predictions. Kohavi (1995) compared cross-validation and bootstrap on over half a million runs and concluded that for model selection on real-world datasets like his, ten-fold stratified cross-validation was the best method, even when computation allows more folds; scikit-learn likewise notes that 5 or 10 folds are generally preferred to leave-one-out, which uses n folds of one example and gives a high-variance estimate at great computational cost.
+
+    Variants handle structure in the data. Stratified k-fold keeps each fold's class proportions close to the whole set, which matters for imbalanced classification. Group k-fold keeps all examples from one group (a patient, a customer, a document) in the same fold, so the model is never tested on a group it trained on. For time series, TimeSeriesSplit uses expanding windows in which every test fold lies after its training data, since shuffling would let the model see the future. Repeated k-fold reruns the whole procedure with different random splits to reduce the variance of the estimate.
+
+    Cross-validation is mainly a tool for model selection and hyperparameter tuning (scikit-learn's GridSearchCV and RandomizedSearchCV run it internally). If the same cross-validated score is used both to pick the best configuration and to report performance, the estimate is optimistically biased; nested cross-validation adds an outer loop for honest estimation, or a separate untouched test set is kept for the final number.
+
+    Leakage is the most common error. scikit-learn stresses that preprocessing such as standardisation or feature selection must be learnt from the training folds only and applied to the held-out fold, which a Pipeline does automatically; selecting features on the full dataset before cross-validating can produce impressive scores on pure noise. For large deep learning models, full k-fold training is usually too expensive, so a single fixed validation set is the norm there.
+  da: |-
+    Ved k-fold-krydsvalidering deles træningssættet, som scikit-learn beskriver det, i k mindre sæt; for hvert fold trænes en model på de øvrige k minus 1 fold og valideres på det resterende, og den rapporterede score er gennemsnittet over fold, ofte med standardafvigelse. Idéen går tilbage til Stone (1974), Cross-validatory choice and assessment of statistical predictions. Kohavi (1995) sammenlignede krydsvalidering og bootstrap i over en halv million kørsler og konkluderede, at ti-fold stratificeret krydsvalidering var den bedste metode til modelvalg på datasæt fra virkeligheden som hans, selv når regnekraften tillader flere fold; scikit-learn bemærker ligeledes, at 5 eller 10 fold generelt foretrækkes frem for leave-one-out, der bruger n fold med ét eksempel hver og giver et estimat med høj varians til en stor beregningsmæssig pris.
+
+    Varianter håndterer struktur i data. Stratificeret k-fold holder hvert folds klassefordeling tæt på hele sættets, hvilket betyder noget ved skæve klassefordelinger. Group k-fold holder alle eksempler fra én gruppe (en patient, en kunde, et dokument) i samme fold, så modellen aldrig testes på en gruppe, den er trænet på. Til tidsserier bruger TimeSeriesSplit voksende vinduer, hvor hvert testfold ligger efter sine træningsdata, fordi en blanding ville lade modellen se ind i fremtiden. Repeated k-fold gentager hele proceduren med forskellige tilfældige opdelinger for at mindske estimatets varians.
+
+    Krydsvalidering er først og fremmest et værktøj til modelvalg og tuning af hyperparametre (scikit-learns GridSearchCV og RandomizedSearchCV kører det internt). Bruges den samme krydsvaliderede score både til at vælge den bedste konfiguration og til at rapportere ydelsen, er estimatet for optimistisk; nested krydsvalidering tilføjer en ydre løkke til ærlig estimation, eller der holdes et separat, urørt testsæt til det endelige tal.
+
+    Lækage er den hyppigste fejl. scikit-learn understreger, at forbehandling som standardisering eller feature-udvælgelse kun må læres fra træningsfoldene og derefter anvendes på det udeladte fold, hvilket en Pipeline gør automatisk; udvælges features på hele datasættet før krydsvalideringen, kan man få imponerende resultater på ren støj. For store deep learning-modeller er fuld k-fold-træning som regel for dyr, så her er ét fast valideringssæt normen.
+edges:
+  requires: [training-data]
+  alternative-to:
+    - to: validation-set
+      why:
+        en: Instead of one fixed set of held-back examples, cross-validation lets every part of the data take a turn being held back, which suits small data sets.
+        da: I stedet for ét fast sæt tilbageholdte eksempler lader krydsvalidering alle dele af data tage en tur som tilbageholdt, hvilket passer til små datasæt.
+      strength: normal
+      confidence: high
+  used-with:
+    - to: hyperparameter
+      why:
+        en: Settings chosen before training are usually compared by their average score across the rounds.
+        da: Indstillinger, der vælges før træningen, sammenlignes som regel på deres gennemsnitlige resultat over runderne.
+      strength: primary
+      confidence: high
+sources:
+  - title: scikit-learn User Guide, Cross-validation evaluating estimator performance
+    url: https://scikit-learn.org/stable/modules/cross_validation.html
+    tier: official-doc
+    publisher: scikit-learn
+  - title: Kohavi (1995), A Study of Cross-Validation and Bootstrap for Accuracy Estimation and Model Selection
+    url: https://www.ijcai.org/Proceedings/95-2/Papers/016.pdf
+    tier: reference
+    publisher: IJCAI
+  - title: Stone (1974), Cross-Validatory Choice and Assessment of Statistical Predictions
+    url: https://doi.org/10.1111/j.2517-6161.1974.tb00994.x
+    tier: reference
+    publisher: Journal of the Royal Statistical Society, Series B
+  - title: 'Datasets: Dividing the original dataset (Machine Learning Crash Course)'
+    url: https://developers.google.com/machine-learning/crash-course/overfitting/dividing-datasets
+    tier: reference
+    publisher: Google for Developers
+draft: true

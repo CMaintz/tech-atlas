@@ -1,0 +1,89 @@
+term:
+  en: Decision tree
+  da: Beslutningstræ
+aka:
+  en: [CART, classification tree, regression tree]
+  da: [beslutningstræer, klassifikationstræ, regressionstræ]
+domain: [ai]
+cluster: ml-fundamentals
+layer: model
+status: current
+summary:
+  en: A model that reaches an answer by asking a chain of yes or no questions about the input, each answer leading to the next question.
+  da: En model, der når frem til et svar ved at stille en række ja/nej-spørgsmål om input, hvor hvert svar fører til det næste spørgsmål.
+body:
+  formal:
+    en: A model that splits the training data again and again on one feature at a time, picking each split that best separates the known answers, until each end point holds cases that mostly agree; a new case follows the splits to an end point and gets its answer.
+    da: En model, der deler træningsdata igen og igen på én feature ad gangen og vælger den opdeling, der bedst adskiller de kendte svar, indtil hvert slutpunkt rummer sager, der for det meste er ens; en ny sag følger opdelingerne ned til et slutpunkt og får dets svar.
+  plain:
+    en: Like the game where you guess an animal by asking questions such as "Does it fly?" and "Is it bigger than a cat?", with each answer ruling out part of the list.
+    da: Som legen, hvor man gætter et dyr ved at spørge "Kan det flyve?" og "Er det større end en kat?", og hvert svar udelukker en del af mulighederne.
+  inPractice:
+    en: A Danish insurance company sends claims for manual review when a short tree of rules says so, for example claim over 50,000 kroner and policy less than three months old, and staff can print the rules.
+    da: Et dansk forsikringsselskab sender skader til manuel behandling, når et lille træ af regler siger det, fx skade over 50.000 kroner og police under tre måneder gammel, og medarbejderne kan printe reglerne ud.
+  whyItMatters:
+    en: A small tree can be read and checked by a person, which helps when a decision must be explained, and trees are the building block of the strongest methods for data in tables.
+    da: Et lille træ kan læses og efterprøves af et menneske, hvilket hjælper, når en beslutning skal forklares, og træer er byggestenen i de stærkeste metoder til data i tabeller.
+deepDive:
+  en: |-
+    A decision tree partitions the feature space into axis-aligned regions by recursive binary splitting. At each node the learner searches every feature and threshold for the split that most reduces an impurity measure: Gini impurity or entropy (information gain) for classification, mean squared error for regression. Leaves predict the majority class, or class proportions, or the mean target of their training samples. Finding the optimal tree is NP-hard, so all practical algorithms are greedy and top-down.
+
+    The main algorithm families are ID3 (Quinlan, 1986), which used information gain on categorical features; its successor C4.5, which handles numeric features by thresholding and prunes with error estimates; and CART (Breiman, Friedman, Olshen and Stone, 1984), which builds strictly binary trees for both classification and regression and prunes by cost-complexity. scikit-learn implements an optimised CART.
+
+    Unconstrained trees keep splitting until leaves are pure and so memorise the training set, a textbook case of overfitting with high variance: small changes in the data can produce a completely different tree. Controls are pre-pruning (maximum depth, minimum samples per leaf or split, minimum impurity decrease) and post-pruning such as CART's minimal cost-complexity pruning, tuned by cross-validation. Trees need no feature scaling, handle mixed data types, and capture interactions naturally, but their axis-aligned, piecewise-constant predictions approximate smooth or diagonal boundaries poorly and cannot extrapolate beyond the training range.
+
+    A shallow tree is one of the few models whose full decision logic a person can read, which is why it is used as an interpretable model and as a surrogate to explain black-box models. Impurity-based feature importances from trees are cheap but biased toward features with many distinct values; permutation importance is the usual check. Their instability is also the reason ensembles work so well: random forests average many decorrelated trees to cut variance, and gradient boosting adds many shallow trees in sequence to cut bias.
+  da: |-
+    Et beslutningstræ opdeler feature-rummet i akseparallelle områder ved gentagen binær opsplitning. I hver knude gennemsøger algoritmen alle features og tærskler efter den opdeling, der mindsker et urenhedsmål mest: Gini-urenhed eller entropi (informationsgevinst) ved klassifikation og middelkvadratfejl ved regression. Bladene forudsiger flertalsklassen, klasseandelene eller gennemsnittet af målværdien for deres træningseksempler. At finde det optimale træ er NP-hårdt, så alle praktiske algoritmer er grådige og arbejder oppefra og ned.
+
+    De vigtigste algoritmefamilier er ID3 (Quinlan, 1986), der brugte informationsgevinst på kategoriske features; efterfølgeren C4.5, der håndterer numeriske features med tærskler og beskærer ud fra fejlskøn; og CART (Breiman, Friedman, Olshen og Stone, 1984), der bygger rent binære træer til både klassifikation og regression og beskærer efter omkostningskompleksitet. scikit-learn implementerer en optimeret udgave af CART.
+
+    Træer uden begrænsninger bliver ved med at dele, til bladene er rene, og lærer dermed træningssættet udenad, et skoleeksempel på overtilpasning med høj varians: Små ændringer i data kan give et helt andet træ. Midlerne er forhåndsbeskæring (maksimal dybde, mindste antal eksempler pr. blad eller opdeling, mindste fald i urenhed) og efterbeskæring som CART's minimal cost-complexity pruning, indstillet med krydsvalidering. Træer kræver ingen skalering af features, håndterer blandede datatyper og fanger naturligt samspil, men deres akseparallelle, trinvist konstante forudsigelser passer dårligt til bløde eller skrå grænser og kan ikke ekstrapolere ud over træningsområdet.
+
+    Et lavt træ er en af de få modeller, hvis fulde beslutningslogik et menneske kan læse, og derfor bruges det som fortolkelig model og som surrogat til at forklare black box-modeller. Urenhedsbaserede feature-vigtigheder fra træer er billige, men favoriserer features med mange forskellige værdier; permutationsvigtighed er den sædvanlige kontrol. Ustabiliteten er også grunden til, at ensembler virker så godt: Random forests tager gennemsnittet af mange dekorrelerede træer for at mindske variansen, og gradient boosting lægger mange lave træer til efter hinanden for at mindske bias.
+edges:
+  implements:
+    - to: classification
+      why:
+        en: A tree can sort cases into groups by asking questions until it reaches an end point that names a group.
+        da: Et træ kan sortere sager i grupper ved at stille spørgsmål, til det når et slutpunkt, der angiver en gruppe.
+      strength: primary
+      confidence: high
+    - to: regression
+      why:
+        en: The same kind of tree can predict a number, giving each end point the average of the training cases that land there.
+        da: Samme slags træ kan forudsige et tal ved at give hvert slutpunkt gennemsnittet af de træningssager, der lander der.
+      strength: normal
+      confidence: high
+  requires: [feature]
+  causes:
+    - to: overfitting
+      why:
+        en: A tree allowed to grow without limits keeps splitting until it fits every training case, including its noise.
+        da: Et træ, der får lov at vokse uden grænser, bliver ved med at dele, til det passer til hver eneste træningssag, inklusive støjen.
+      strength: minor
+      confidence: high
+  used-with:
+    - to: explainability
+      why:
+        en: A small tree's rules can be read by a person, so trees are used both as models that explain themselves and to explain other models.
+        da: Et lille træs regler kan læses af et menneske, så træer bruges både som modeller, der forklarer sig selv, og til at forklare andre modeller.
+      strength: normal
+      confidence: high
+sources:
+  - title: scikit-learn User Guide, 1.10 Decision Trees
+    url: https://scikit-learn.org/stable/modules/tree.html
+    tier: official-doc
+    publisher: scikit-learn
+  - title: 'Breiman, Friedman, Olshen & Stone, Classification and Regression Trees (1984)'
+    tier: textbook
+    publisher: Wadsworth
+  - title: 'Quinlan (1986), Induction of Decision Trees'
+    url: https://doi.org/10.1007/BF00116251
+    tier: reference
+    publisher: Machine Learning
+  - title: Decision tree learning
+    url: https://en.wikipedia.org/wiki/Decision_tree_learning
+    tier: reference
+    publisher: Wikipedia
+draft: true

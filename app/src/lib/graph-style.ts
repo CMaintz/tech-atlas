@@ -111,13 +111,124 @@ export function domainHue(domain: string): number {
   return hue;
 }
 
-/** A domain's signature colour (its base hue, mid lightness). */
-export const domainColour = (domain: string) => hslToHex(domainHue(domain), 82, 62);
+// ---- Map themes (A92) --------------------------------------------------------------
+
+/**
+ * The map's two looks: a night map (bright hues on near-black) and a cream "paper" map
+ * (deeper, more saturated shades of the same hues on warm off-white). Every colour
+ * function takes a theme and defaults to dark, so server-rendered callers are unchanged.
+ */
+export type MapTheme = 'dark' | 'light';
+
+/** Colours of everything on a map that is not a domain, cluster or family colour. */
+export const MAP_INK: Record<
+  MapTheme,
+  {
+    /** The 3D scene's background and fog (2D maps use the `--map-bg` CSS token). */
+    bg3d: string;
+    /** Term labels, and the halo round them that keeps them legible over edges. */
+    label: string;
+    halo: string;
+    /** Year ticks, depth rows and other quiet map text (AA on the map background). */
+    tick: string;
+    /** The selected term's outline (2D) and fill (3D). */
+    selected: string;
+    /** Glow (dark) or soft shadow (light) round a term: colour (null = its own) and opacity. */
+    underlay: string | null;
+    underlayAlpha: number;
+    /** A receded term in 3D. */
+    faded3d: string;
+    /** 3D hub labels: text and the blur behind it. */
+    label3d: string;
+    labelShadow3d: string;
+    /** Knowledge colour of a term with no status yet. */
+    unknown: string;
+    /** Resting opacity of the 2D flow dots. */
+    dotAlpha: number;
+  }
+> = {
+  dark: {
+    bg3d: '#05060b',
+    label: '#e5e5e5',
+    halo: '#0a0a0a',
+    tick: '#a3a3a3',
+    selected: '#ffffff',
+    underlay: null,
+    underlayAlpha: 0.2,
+    faded3d: 'rgba(70,74,90,0.25)',
+    label3d: '#e5e7eb',
+    labelShadow3d: 'rgba(0,0,0,0.95)',
+    unknown: '#404040',
+    dotAlpha: 0.4,
+  },
+  light: {
+    bg3d: '#f6f1e7',
+    label: '#292524',
+    halo: '#faf6ee',
+    tick: '#57534e',
+    selected: '#1c1917',
+    underlay: '#57534e',
+    underlayAlpha: 0.16,
+    faded3d: 'rgba(168,160,146,0.35)',
+    label3d: '#292524',
+    labelShadow3d: 'rgba(250,246,238,1)',
+    unknown: '#a8a29e',
+    dotAlpha: 0.7,
+  },
+};
+
+/** WCAG relative luminance of `#rrggbb`. */
+const luminance = (hex: string) => {
+  const [r, g, b] = [1, 3, 5].map((i) => {
+    const c = parseInt(hex.slice(i, i + 2), 16) / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
+
+/** WCAG contrast ratio of two `#rrggbb` colours (1–21). */
+export const contrastRatio = (a: string, b: string) => {
+  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return (hi + 0.05) / (lo + 0.05);
+};
+
+/** The darker of the two cream map backgrounds (the vignette's edge). */
+export const CREAM = '#f6f1e7';
+
+/**
+ * An HSL colour for the cream map, darkened step by step until it has at least `min`
+ * contrast on it: greens and cyans are far brighter than reds or violets at the same
+ * lightness, so one lightness for every hue would leave them washed out.
+ */
+function onCream(h: number, s: number, l: number, min: number): string {
+  let hex = hslToHex(h, s, l);
+  while (contrastRatio(hex, CREAM) < min && l > 12) hex = hslToHex(h, s, (l -= 2));
+  return hex;
+}
+
+/**
+ * Minimum contrast on cream: domain colours are also text (lane and legend names), so
+ * AA for text; cluster shades colour nodes and edges, so 3:1 (WCAG 1.4.11).
+ */
+const DOMAIN_MIN = 4.5;
+const CLUSTER_MIN = 3;
+
+/** A domain's signature colour (its base hue; mid lightness, or deep on the cream map). */
+export const domainColour = (domain: string, theme: MapTheme = 'dark') =>
+  theme === 'light'
+    ? onCream(domainHue(domain), 78, 34, DOMAIN_MIN)
+    : hslToHex(domainHue(domain), 82, 62);
 
 /** How far (±degrees) cluster shades may drift from their domain's hue. */
 export const CLUSTER_HUE_SPREAD = 22;
-const CLUSTER_LIGHTNESS = [62, 74, 54];
-const CLUSTER_SATURATION = [80, 70, 86];
+const CLUSTER_LIGHTNESS: Record<MapTheme, number[]> = {
+  dark: [62, 74, 54],
+  light: [40, 50, 32],
+};
+const CLUSTER_SATURATION: Record<MapTheme, number[]> = {
+  dark: [80, 70, 86],
+  light: [74, 66, 80],
+};
 
 /** Clusters of one domain, in the order CLUSTER_DOMAIN lists them. */
 const clustersOf = (domain: string) =>
@@ -130,15 +241,21 @@ const clustersOf = (domain: string) =>
  * ±CLUSTER_HUE_SPREAD and cycle through three lightness steps, so neighbours in the
  * list differ in both hue and value.
  */
-export function clusterColour(cluster: string, fallbackDomain?: string): string {
+export function clusterColour(
+  cluster: string,
+  fallbackDomain?: string,
+  theme: MapTheme = 'dark',
+): string {
   const domain = CLUSTER_DOMAIN[cluster] ?? fallbackDomain;
-  if (!domain) return '#a3a3a3';
+  if (!domain) return theme === 'light' ? '#78716c' : '#a3a3a3';
   const siblings = clustersOf(domain);
   const i = siblings.indexOf(cluster);
-  if (i < 0) return domainColour(domain);
+  if (i < 0) return domainColour(domain, theme);
   const t = siblings.length > 1 ? i / (siblings.length - 1) - 0.5 : 0;
   const hue = domainHue(domain) + t * 2 * CLUSTER_HUE_SPREAD;
-  return hslToHex(hue, CLUSTER_SATURATION[i % 3], CLUSTER_LIGHTNESS[i % 3]);
+  const s = CLUSTER_SATURATION[theme][i % 3];
+  const l = CLUSTER_LIGHTNESS[theme][i % 3];
+  return theme === 'light' ? onCream(hue, s, l, CLUSTER_MIN) : hslToHex(hue, s, l);
 }
 
 /** Every listed cluster's colour — used by server-rendered pages (Timeline). */
@@ -155,17 +272,23 @@ export const homeDomain = (n: Paintable) => CLUSTER_DOMAIN[n.cluster] ?? n.domai
  * A node's fill (cluster shade) and, for a term in more than one domain, a ring in the
  * other domain's colour — so a node that bridges two domains shows both.
  */
-export function nodePaint(n: Paintable): { fill: string; ring: string | null } {
+export function nodePaint(
+  n: Paintable,
+  theme: MapTheme = 'dark',
+): { fill: string; ring: string | null } {
   const home = homeDomain(n);
   const other = n.domain.find((d) => d !== home);
   return {
-    fill: clusterColour(n.cluster, home),
-    ring: other ? domainColour(other) : null,
+    fill: clusterColour(n.cluster, home, theme),
+    ring: other ? domainColour(other, theme) : null,
   };
 }
 
 /** Domains present in a node list, in a stable order (listed domains first). */
-export function legendDomains(nodes: Paintable[]): {
+export function legendDomains(
+  nodes: Paintable[],
+  theme: MapTheme = 'dark',
+): {
   domain: string;
   colour: string;
   clusters: { cluster: string; colour: string }[];
@@ -186,10 +309,10 @@ export function legendDomains(nodes: Paintable[]): {
       const rankC = (c: string) => (order.includes(c) ? order.indexOf(c) : order.length);
       return {
         domain,
-        colour: domainColour(domain),
+        colour: domainColour(domain, theme),
         clusters: [...clusters.get(domain)!]
           .sort((a, b) => rankC(a) - rankC(b) || a.localeCompare(b))
-          .map((cluster) => ({ cluster, colour: clusterColour(cluster, domain) })),
+          .map((cluster) => ({ cluster, colour: clusterColour(cluster, domain, theme) })),
       };
     });
 }
@@ -206,6 +329,21 @@ export const FAMILY_COLOURS: Record<Family, string> = {
   lineage: '#a8a29e',
   association: '#7dd3fc',
 };
+
+/** The same families on the cream map: deeper shades that hold up on a light ground. */
+export const FAMILY_COLOURS_LIGHT: Record<Family, string> = {
+  structure: '#64748b',
+  dependency: '#b45309',
+  contrast: '#be185d',
+  security: '#c2410c',
+  regulation: '#6d28d9',
+  lineage: '#78716c',
+  association: '#0369a1',
+};
+
+/** A theme's family colours. */
+export const familyColours = (theme: MapTheme = 'dark') =>
+  theme === 'light' ? FAMILY_COLOURS_LIGHT : FAMILY_COLOURS;
 
 /**
  * Relationships that read the same both ways (schema.ts `symmetric: true`): drawn
@@ -234,15 +372,16 @@ export function edgePaint(
   link: { type: EdgeType; family: Family },
   source: Paintable,
   target: Paintable,
+  theme: MapTheme = 'dark',
 ): EdgePaint {
-  const colour = FAMILY_COLOURS[link.family];
+  const colour = familyColours(theme)[link.family];
   const crossDomain = isCrossDomain(source.domain, target.domain);
   return {
     colour,
     directed: isDirected(link.type),
     crossDomain,
     gradient: crossDomain
-      ? [domainColour(homeDomain(source)), colour, domainColour(homeDomain(target))]
+      ? [domainColour(homeDomain(source), theme), colour, domainColour(homeDomain(target), theme)]
       : null,
   };
 }

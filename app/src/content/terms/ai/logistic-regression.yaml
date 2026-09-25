@@ -1,0 +1,66 @@
+term:
+  en: Logistic regression
+  da: Logistisk regression
+aka:
+  en: [logit model]
+  da: [logit-model]
+domain: [ai]
+cluster: ml-fundamentals
+layer: model
+status: current
+summary:
+  en: A simple model that sorts cases into two groups by turning a weighted sum of the inputs into a chance between 0 and 1.
+  da: En enkel model, der sorterer sager i to grupper ved at gøre en vægtet sum af input til en sandsynlighed mellem 0 og 1.
+body:
+  formal:
+    en: A method for classification that adds up the features, each times a weight, and passes the total through an S-shaped curve to get the chance of the positive group; the weights are chosen so the known answers in the training data get the highest chance.
+    da: En metode til klassifikation, der lægger features sammen, hver ganget med en vægt, og sender summen gennem en S-formet kurve for at få sandsynligheden for den positive gruppe; vægtene vælges, så de kendte svar i træningsdata får størst mulig sandsynlighed.
+  plain:
+    en: Like a doctor adding up points for age, smoking and blood pressure, then reading off a chart that turns the total score into a chance of illness that never goes below zero or above certain.
+    da: Som en læge, der giver point for alder, rygning og blodtryk og så aflæser et skema, der gør den samlede score til en risiko for sygdom, som aldrig går under nul eller over helt sikker.
+  inPractice:
+    en: A Danish bank scores each loan request with the chance that the customer will fail to pay, and staff can see which answers on the form pushed the score up or down.
+    da: En dansk bank giver hver låneansøgning en sandsynlighed for, at kunden ikke kan betale, og medarbejderne kan se, hvilke svar i ansøgningen der trak scoren op eller ned.
+  whyItMatters:
+    en: It gives a chance, not just a yes or no, and each input's effect can be read directly, which is why banks, hospitals and public bodies still rely on it when decisions must be explained.
+    da: Den giver en sandsynlighed og ikke bare et ja eller nej, og hvert inputs betydning kan aflæses direkte, og derfor bruger banker, hospitaler og myndigheder den stadig, når beslutninger skal kunne forklares.
+deepDive:
+  en: |-
+    Despite its name, logistic regression is a classifier. For binary classes it models p(y = 1 | x) = sigma(w0 + w^T x), where sigma(z) = 1 / (1 + e^-z) is the logistic (sigmoid) function. Equivalently, the log-odds log(p / (1 - p)) are a linear function of the features, so each coefficient is the change in log-odds per unit of its feature and e^w is an odds ratio. The decision boundary p = 0.5 is a hyperplane, so the model is linear in feature space; non-linear boundaries need transformed or engineered features.
+
+    The weights are fitted by maximum likelihood, which is the same as minimising the log-loss (binary cross-entropy) -[y log p + (1 - y) log(1 - p)]. Unlike least squares there is no closed-form solution, but the loss is convex, so iterative solvers such as Newton methods (iteratively reweighted least squares), L-BFGS or stochastic gradient descent reach the global optimum. If the classes are perfectly separable the unregularised weights grow without bound, which is one reason libraries apply regularisation by default: scikit-learn's LogisticRegression uses an L2 penalty with strength controlled by C (default 1.0), and also supports L1 and elastic net.
+
+    For more than two classes the multinomial (softmax) form gives each class its own weight vector and normalises the scores into a probability distribution; a one-vs-rest scheme of separate binary models is the older alternative. A single-layer neural network with a sigmoid or softmax output trained on cross-entropy is exactly logistic regression, which is why it is often taught as the bridge from classical statistics to deep learning.
+
+    The model's probabilities are usually reasonably well calibrated, a property that matters for credit scoring and clinical risk scores, but it still needs a chosen threshold to turn a probability into a decision, and the right threshold depends on the relative cost of false positives and false negatives. The method was developed in statistics, notably by Cox (1958), well before machine learning adopted it.
+  da: |-
+    Trods navnet er logistisk regression en klassifikator. For to klasser modellerer den p(y = 1 | x) = sigma(w0 + w^T x), hvor sigma(z) = 1 / (1 + e^-z) er den logistiske (sigmoide) funktion. Tilsvarende er log-odds log(p / (1 - p)) en lineær funktion af features, så hver koefficient er ændringen i log-odds pr. enhed af sin feature, og e^w er en oddsratio. Beslutningsgrænsen p = 0,5 er et hyperplan, så modellen er lineær i feature-rummet; ikke-lineære grænser kræver transformerede eller konstruerede features.
+
+    Vægtene tilpasses med maksimum likelihood, hvilket svarer til at minimere log-loss (binær krydsentropi) -[y log p + (1 - y) log(1 - p)]. I modsætning til mindste kvadraters metode findes der ingen lukket løsning, men tabsfunktionen er konveks, så iterative løsere som Newton-metoder (iterativt vægtede mindste kvadrater), L-BFGS eller stokastisk gradientnedstigning når det globale optimum. Hvis klasserne kan adskilles perfekt, vokser de uregulariserede vægte uden grænse, hvilket er én grund til, at biblioteker regulariserer som standard: scikit-learns LogisticRegression bruger en L2-straf, hvis styrke styres af C (standard 1,0), og understøtter også L1 og elastic net.
+
+    Ved mere end to klasser giver den multinomiale (softmax) form hver klasse sin egen vægtvektor og normaliserer scorerne til en sandsynlighedsfordeling; en one-vs-rest-opbygning med separate binære modeller er det ældre alternativ. Et neuralt netværk med ét lag og sigmoid- eller softmax-output, trænet på krydsentropi, er præcis logistisk regression, og derfor bruges den ofte som broen fra klassisk statistik til deep learning.
+
+    Modellens sandsynligheder er som regel rimeligt godt kalibrerede, hvilket betyder noget ved kreditvurdering og kliniske risikoscorer, men den kræver stadig en valgt tærskel for at gøre en sandsynlighed til en beslutning, og den rigtige tærskel afhænger af, hvad falske positiver koster i forhold til falske negativer. Metoden blev udviklet i statistikken, bl.a. af Cox (1958), længe før maskinlæring tog den til sig.
+edges:
+  implements:
+    - to: classification
+      why:
+        en: It is the standard simple method for sorting cases into groups, giving a chance for each group rather than a number to predict.
+        da: Den er standardmetoden til at sortere sager i grupper og giver en sandsynlighed for hver gruppe frem for et tal at forudsige.
+      strength: primary
+      confidence: high
+  requires: [feature, linear-regression]
+sources:
+  - title: 'scikit-learn User Guide, Linear Models: Logistic regression'
+    url: https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+    tier: official-doc
+    publisher: scikit-learn
+  - title: Logistic regression
+    url: https://en.wikipedia.org/wiki/Logistic_regression
+    tier: reference
+    publisher: Wikipedia
+  - title: 'Murphy, Probabilistic Machine Learning: An Introduction (2022)'
+    url: https://probml.github.io/pml-book/book1.html
+    tier: textbook
+    publisher: MIT Press
+draft: true

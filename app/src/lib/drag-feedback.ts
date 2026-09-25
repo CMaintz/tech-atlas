@@ -50,6 +50,10 @@ export function createDragFeedback(host: HTMLElement): DragFeedback {
   ring.setAttribute('aria-hidden', 'true');
   ring.dataset.dragRing = '';
   const size = cfg.ringSize;
+  // Colours follow the page theme live (A92): global.css sets --drag-ring/--drag-outline
+  // (light stroke, dark outline on the night map; the reverse on the cream map).
+  const ringColour = `var(--drag-ring, ${cfg.ringColour})`;
+  const ringOutline = `var(--drag-outline, ${cfg.ringOutline})`;
   Object.assign(ring.style, {
     position: 'absolute',
     left: '0',
@@ -59,10 +63,10 @@ export function createDragFeedback(host: HTMLElement): DragFeedback {
     marginLeft: `${-size / 2}px`,
     marginTop: `${-size / 2}px`,
     borderRadius: '50%',
-    border: `1.5px solid ${cfg.ringColour}`,
-    boxShadow: `0 0 0 1px ${cfg.ringOutline}, inset 0 0 0 1px ${cfg.ringOutline}`,
+    border: `1.5px solid ${ringColour}`,
+    boxShadow: `0 0 0 1px ${ringOutline}, inset 0 0 0 1px ${ringOutline}`,
     // The crosshair: two thin light bars through the centre.
-    background: `linear-gradient(${cfg.ringColour}, ${cfg.ringColour}) center / 1px 40% no-repeat, linear-gradient(${cfg.ringColour}, ${cfg.ringColour}) center / 40% 1px no-repeat`,
+    background: `linear-gradient(${ringColour}, ${ringColour}) center / 1px 40% no-repeat, linear-gradient(${ringColour}, ${ringColour}) center / 40% 1px no-repeat`,
     pointerEvents: 'none',
     zIndex: '5',
     opacity: '0',

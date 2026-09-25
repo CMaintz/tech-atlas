@@ -7,9 +7,13 @@ import type { Map3D } from '../lib/explorer-3d';
 import type { Graph } from '../lib/graph-model';
 import type { EdgeType } from '../schema';
 import { EXPLORER } from '../lib/explorer-config';
+import { useTheme } from '../lib/use-theme';
 import { FADE_TRANSITIONS, attachHover } from '../lib/graph-cytoscape';
 import {
   FAMILY_COLOURS,
+  clusterColour,
+  familyColours,
+  type MapTheme,
   FLOW_DASH,
   domainColour,
   homeDomain,
@@ -23,9 +27,19 @@ import {
   frameStats,
   fromQuery,
   rules2D,
+  edgeStateRules,
+  importance,
+  intensity,
+  alphaGain,
+  widthGain,
+  emphasise,
+  EMPHASES,
   type Lab2D,
   type Lab3D,
 } from '../lib/explorer-lab';
+
+/** A base stylesheet entry, re-laid as a lab rule. */
+const asRule = (r: { selector: string }) => r as ReturnType<typeof rules2D>[number];
 
 type Props = Omit<ComponentProps<typeof Explorer>, 'lab'> & { view: '2d' | '3d' };
 type Maps = { map2d: Map2D | null; map3d: Map3D | null };
@@ -86,6 +100,17 @@ const TEXT = {
     spin: 'Auto-rotate',
     fog: 'Fog',
     spacing: 'Node spacing',
+    emph: 'Emphasis by importance',
+    emphOff: 'Off (today)',
+    emphOpacity: 'Opacity',
+    emphColour: 'Colour (saturation, lightness)',
+    emphWidth: 'Line width',
+    emphCombined: 'Combined',
+    spread: 'Importance spread',
+    emphNote:
+      'Importance = type rank (requires, kind of, part of first; used with last) × the edge weight.',
+    emphNote3d: 'Lines are one pixel wide: width shows on tubes only.',
+    bloomLight: 'Bloom applies to the night map only.',
   },
   da: {
     title: 'Visuelt laboratorium',
@@ -138,6 +163,17 @@ const TEXT = {
     spin: 'Autorotation',
     fog: 'Tåge',
     spacing: 'Nodeafstand',
+    emph: 'Fremhævning efter vigtighed',
+    emphOff: 'Fra (i dag)',
+    emphOpacity: 'Gennemsigtighed',
+    emphColour: 'Farve (mætning, lyshed)',
+    emphWidth: 'Stregbredde',
+    emphCombined: 'Kombineret',
+    spread: 'Vigtighedsspredning',
+    emphNote:
+      'Vigtighed = typens rang (kræver, er en slags, er del af først; bruges med sidst) × kantens vægt.',
+    emphNote3d: 'Linjer er én pixel brede: bredde ses kun på rør.',
+    bloomLight: 'Bloom virker kun på natkortet.',
   },
 };
 type Text = (typeof TEXT)['en'];
@@ -147,11 +183,13 @@ const CHOICES_2D = {
   flow: ['dots', 'dashes', 'none'],
   hover: ['current', 'old'],
   labels: ['none', 'hubs', 'current', 'all'],
+  emph: EMPHASES,
 } as const;
 const CHOICES_3D = {
   links: ['lines', 'tubes'],
   flow: ['comets', 'particles', 'none'],
   glow: ['cloud', 'sprites'],
+  emph: EMPHASES,
 } as const;
 
 /**
@@ -162,6 +200,9 @@ const CHOICES_3D = {
 export default function ExplorerLab(props: Props) {
   const { view, lang } = props;
   const t = TEXT[lang];
+  // The maps follow the page theme (A92) through their own `retheme`; the lab re-reads
+  // the restyled base stylesheet and lays its rules over it again.
+  const theme = useTheme();
   const [s2, setS2] = useState<Lab2D>(() =>
     fromQuery(window.location.search, DEFAULT_2D, CHOICES_2D),
   );
@@ -213,7 +254,7 @@ export default function ExplorerLab(props: Props) {
     const byId = new Map(graph.nodes.map((n) => [n.id, n]));
     const colour = (id: string) => {
       const n = byId.get(id);
-      return n ? domainColour(homeDomain(n)) : '#888888';
+      return n ? domainColour(homeDomain(n), theme) : '#888888';
     };
     cy.batch(() =>
       cy
@@ -224,7 +265,32 @@ export default function ExplorerLab(props: Props) {
           e.data('labCurve', e.data('curve'));
         }),
     );
-  }, [cy, graph]);
+  }, [cy, graph, theme]);
+
+  // Emphasis by importance: each edge's opacity, colour and width as data the rules read.
+  useEffect(() => {
+    if (!cy || !graph || s2.emph === 'off') return;
+    const imp = importance(graph.links);
+    const light = theme === 'light';
+    const { restAlpha, crossAlpha, allAlpha } = EXPLORER.edges;
+    cy.batch(() =>
+      cy
+        .edges()
+        .not('.bundle')
+        .forEach((e) => {
+          const k = intensity(imp[Number(e.id().slice(1))] ?? 0, s2.spread);
+          const a = alphaGain(k);
+          e.data({
+            labAlpha: Math.min(1, restAlpha * a),
+            labAlphaXc: Math.min(1, crossAlpha * a),
+            labAlphaAll: Math.min(1, allAlpha * a),
+            labWidth: Number(e.data('width')) * widthGain(k),
+            labTint: emphasise(String(e.data('tint')), k, light),
+            labColour: emphasise(String(e.data('colour')), k, light),
+          });
+        }),
+    );
+  }, [cy, graph, s2.emph, s2.spread, theme]);
 
   useEffect(() => {
     const m = maps.map2d;
@@ -237,6 +303,9 @@ export default function ExplorerLab(props: Props) {
     );
     const extra = [...rules2D(s2, FLOW_DASH)];
     if (s2.hover === 'old') extra.push(...(FADE_TRANSITIONS as unknown as typeof extra));
+    // Hover, selection and route states still win over the emphasis.
+    if (s2.emph !== 'off')
+      extra.push(...edgeStateRules(base2d.current as { selector: string }[]).map(asRule));
     cy.style()
       .fromJson([...base2d.current, ...extra] as cytoscape.StylesheetJson)
       .update();
@@ -244,7 +313,7 @@ export default function ExplorerLab(props: Props) {
     m.lab.dots.speed = EXPLORER.dots.speed * s2.speed;
     (cy as unknown as { renderer(): { textureOnViewport: boolean } }).renderer().textureOnViewport =
       s2.texture;
-  }, [maps, cy, graph, s2, view]);
+  }, [maps, cy, graph, s2, view, theme]);
 
   // The old hover: every element restyled on each hover (graph-cytoscape `attachHover`).
   useEffect(() => {
@@ -288,7 +357,7 @@ export default function ExplorerLab(props: Props) {
     void setup3D(m).then((rt) => {
       if (cancelled) return rt.dispose();
       three.current = rt;
-      rt.apply(s3);
+      rt.apply(s3, theme);
     });
     return () => {
       cancelled = true;
@@ -296,7 +365,7 @@ export default function ExplorerLab(props: Props) {
       three.current = null;
     };
   }, [maps.map3d]);
-  useEffect(() => three.current?.apply(s3), [s3]);
+  useEffect(() => three.current?.apply(s3, theme), [s3, theme]);
 
   // ---- Benchmark ------------------------------------------------------------------------
   const runBench = () => {
@@ -344,31 +413,31 @@ export default function ExplorerLab(props: Props) {
     <>
       <Explorer {...props} lab={{ mode: view, showAll: all, onMaps: (m) => setMaps({ ...m }) }} />
       <div
-        class="absolute right-3 bottom-3 z-30 w-72 max-w-[calc(100vw-1.5rem)] rounded-xl border border-neutral-800 bg-neutral-950/90 p-3 text-xs text-neutral-300 shadow-lg shadow-black/40 backdrop-blur"
+        class="absolute right-3 bottom-3 z-30 w-72 max-w-[calc(100vw-1.5rem)] rounded-xl border border-border bg-bg/90 p-3 text-xs text-fg-soft shadow-lg shadow-black/15 backdrop-blur dark:shadow-black/40"
         role="group"
         aria-label={t.title}
         data-lab-panel
       >
         <div class="flex items-center justify-between gap-2">
-          <h2 class="text-[11px] tracking-widest text-neutral-400 uppercase">
+          <h2 class="text-[11px] tracking-widest text-muted uppercase">
             {t.title} · {view.toUpperCase()}
           </h2>
           <button
             type="button"
-            class="rounded-full border border-neutral-700 px-2 py-0.5 text-neutral-400 hover:text-neutral-100"
+            class="rounded-full border border-border-strong px-2 py-0.5 text-muted hover:text-fg"
             aria-expanded={open}
             onClick={() => setOpen(!open)}
           >
             {open ? t.hide : t.show}
           </button>
         </div>
-        <p class="mt-1.5 font-mono text-neutral-100" ref={meter} aria-label={t.meter}>
+        <p class="mt-1.5 font-mono text-fg" ref={meter} aria-label={t.meter}>
           -
         </p>
         <div class="mt-1.5 flex items-center gap-2">
           <button
             type="button"
-            class="rounded-full border border-neutral-500 bg-neutral-800/80 shrink-0 px-2.5 py-1 whitespace-nowrap text-neutral-100 disabled:opacity-50"
+            class="rounded-full border border-border-hover bg-surface-2/80 shrink-0 px-2.5 py-1 whitespace-nowrap text-fg disabled:opacity-50"
             disabled={running || !ready}
             title={view === '2d' ? t.benchPan : t.benchOrbit}
             onClick={runBench}
@@ -376,16 +445,16 @@ export default function ExplorerLab(props: Props) {
             {running ? t.running : t.bench}
           </button>
           {res && (
-            <span class="font-mono text-amber-200" data-lab-result={result}>
+            <span class="font-mono text-amber-700 dark:text-amber-200" data-lab-result={result}>
               {res.fps} {t.fps} {t.average} · {t.low} {res.low}
             </span>
           )}
         </div>
-        <p class="mt-1.5 text-neutral-500">
-          {t.active}: <span class="text-neutral-300">{active.join(', ') || t.defaults}</span>
+        <p class="mt-1.5 text-muted">
+          {t.active}: <span class="text-fg-soft">{active.join(', ') || t.defaults}</span>
         </p>
         {open && (
-          <div class="mt-2 max-h-[50vh] space-y-2 overflow-y-auto border-t border-neutral-800 pt-2">
+          <div class="mt-2 max-h-[50vh] space-y-2 overflow-y-auto border-t border-border pt-2">
             {view === '2d' ? (
               <Controls2D s={s2} set={setS2} t={t} />
             ) : (
@@ -417,7 +486,7 @@ function Pick<T extends string>(p: {
   return (
     <Row label={p.label}>
       <select
-        class="max-w-40 rounded border border-neutral-700 bg-neutral-900 px-1 py-0.5 text-neutral-100"
+        class="max-w-40 rounded border border-border-strong bg-surface px-1 py-0.5 text-fg"
         value={p.value}
         onChange={(e) => p.on((e.target as HTMLSelectElement).value as T)}
       >
@@ -516,8 +585,9 @@ function Controls2D(p: { s: Lab2D; set: (s: Lab2D) => void; t: Text }) {
       />
       <Check label={t.glow} value={s.glow} on={up('glow')} />
       <Check label={t.all} value={s.all} on={up('all')} />
+      <Emph s={s} set={p.set} t={t} />
       <Check label={t.texture} value={s.texture} on={up('texture')} />
-      <p class="text-neutral-500">{t.textureNote}</p>
+      <p class="text-muted">{t.textureNote}</p>
     </>
   );
 }
@@ -569,9 +639,42 @@ function Controls3D(p: { s: Lab3D; set: (s: Lab3D) => void; t: Text }) {
       />
       <Slide label={t.spacing} value={s.spacing} min={0.5} max={2} step={0.05} on={up('spacing')} />
       <Check label={t.bloom} value={s.bloom} on={up('bloom')} />
+      {s.bloom && <p class="text-muted">{t.bloomLight}</p>}
       <Check label={t.spin} value={s.spin} on={up('spin')} />
       <Check label={t.fog} value={s.fog} on={up('fog')} />
       <Check label={t.all} value={s.all} on={up('all')} />
+      <Emph s={s} set={p.set} t={t} />
+      {s.emph !== 'off' && <p class="text-muted">{t.emphNote3d}</p>}
+    </>
+  );
+}
+
+/** Emphasis by importance: the mode and the spread (shared by 2D and 3D). */
+function Emph<S extends Lab2D | Lab3D>(p: { s: S; set: (s: S) => void; t: Text }) {
+  const { s, t } = p;
+  return (
+    <>
+      <Pick
+        label={t.emph}
+        value={s.emph}
+        options={[
+          ['off', t.emphOff],
+          ['opacity', t.emphOpacity],
+          ['colour', t.emphColour],
+          ['width', t.emphWidth],
+          ['combined', t.emphCombined],
+        ]}
+        on={(v) => p.set({ ...s, emph: v })}
+      />
+      <Slide
+        label={t.spread}
+        value={s.spread}
+        min={0}
+        max={4}
+        step={0.1}
+        on={(v) => p.set({ ...s, spread: v })}
+      />
+      {s.emph !== 'off' && <p class="text-muted">{t.emphNote}</p>}
     </>
   );
 }
@@ -628,14 +731,23 @@ function orbit(m: Map3D): Motion {
 
 // ---- 3D runtime -------------------------------------------------------------------------
 
-type Lab3DRuntime = { apply: (s: Lab3D) => void; dispose: () => void };
+type Lab3DRuntime = { apply: (s: Lab3D, theme: MapTheme) => void; dispose: () => void };
 type LinkLike = {
-  source: { id: string; x: number; y: number; z: number } | string;
-  target: { id: string; x: number; y: number; z: number } | string;
+  source: NodeLike | string;
+  target: NodeLike | string;
   type: EdgeType;
   family: keyof typeof FAMILY_COLOURS;
+  weight: number;
 };
-type NodeLike = { id: string; x: number; y: number; z: number; __threeObj?: Obj };
+type NodeLike = {
+  id: string;
+  cluster: string;
+  domain: string[];
+  x: number;
+  y: number;
+  z: number;
+  __threeObj?: Obj;
+};
 type Obj = { scale: { setScalar(v: number): void; set(x: number, y: number, z: number): void } };
 type Acc<T> = (l: LinkLike) => T;
 /** The slice of 3d-force-graph the lab drives (accessors are re-evaluated on set). */
@@ -646,7 +758,7 @@ type Fg = {
   linkColor(f: Acc<string>): Fg;
   linkDirectionalArrowLength(): Acc<number>;
   linkDirectionalArrowLength(f: Acc<number>): Fg;
-  linkWidth(w: number): Fg;
+  linkWidth(w: number | Acc<number>): Fg;
   linkOpacity(o: number): Fg;
   linkCurvature(c: number): Fg;
   linkDirectionalParticles(f: Acc<number> | number): Fg;
@@ -657,6 +769,7 @@ type Fg = {
   postProcessingComposer(): { addPass(p: unknown): void; removePass(p: unknown): void };
   width(): number;
   height(): number;
+  backgroundColor(): string;
   d3ReheatSimulation(): Fg;
 };
 
@@ -680,6 +793,8 @@ async function setup3D(m: Map3D): Promise<Lab3DRuntime> {
   const byId = new Map(nodes.map((n) => [n.id, n]));
   const faded = (l: LinkLike) => L.faded(endOf(l.source)) || L.faded(endOf(l.target));
   const cfg = EXPLORER.three;
+  // The scene's own fog, recoloured by `retheme`; the lab only switches it off and on.
+  const fog = L.scene.fog;
 
   // Curvature: re-bend the merged web and the comets' curves (as explorer-3d does).
   const webPos = L.web.geometry.getAttribute('position') as InstanceType<
@@ -758,6 +873,14 @@ async function setup3D(m: Map3D): Promise<Lab3DRuntime> {
         const [r, gg, b] = [glowCol.getX(i), glowCol.getY(i), glowCol.getZ(i)];
         sp.visible = r + gg + b > 0;
         sp.material.color.setRGB(r, gg, b);
+        // The light theme multiplies instead of adding (explorer-3d `setBlend`); three.js
+        // needs premultiplied alpha for that.
+        const multiply = L.glowMat.blending === THREE.MultiplyBlending;
+        if (sp.material.premultipliedAlpha !== multiply) {
+          sp.material.premultipliedAlpha = multiply;
+          sp.material.needsUpdate = true;
+        }
+        sp.material.blending = L.glowMat.blending;
       });
     sync();
     syncTimer = window.setInterval(sync, 250);
@@ -765,8 +888,8 @@ async function setup3D(m: Map3D): Promise<Lab3DRuntime> {
     L.scene.add(g);
   };
 
-  // Bloom: an UnrealBloomPass on 3d-force-graph's composer, an OutputPass for the colour
-  // space and an opaque scene background (the canvas is transparent; bloom lifts it).
+  // Bloom: an UnrealBloomPass on 3d-force-graph's composer and an OutputPass for the colour
+  // space (the opaque background is set in `apply`).
   let bloom: InstanceType<typeof UnrealBloomPass> | null = null;
   const output = new OutputPass();
   const setBloom = (on: boolean) => {
@@ -776,11 +899,9 @@ async function setup3D(m: Map3D): Promise<Lab3DRuntime> {
       bloom = new UnrealBloomPass(new THREE.Vector2(fg.width(), fg.height()), 0.9, 0.5, 0.55);
       composer.addPass(bloom);
       composer.addPass(output);
-      L.scene.background = new THREE.Color(cfg.background);
     } else {
       composer.removePass(bloom);
       composer.removePass(output);
-      L.scene.background = null;
       bloom!.dispose();
       bloom = null;
     }
@@ -801,27 +922,64 @@ async function setup3D(m: Map3D): Promise<Lab3DRuntime> {
     });
   };
 
+  // Emphasis by importance: per-link intensity, fed to the web's gain / tint hooks and
+  // to the tubes' width and colour.
+  const imp = importance(links);
+  const indexOf = new Map(links.map((l, i) => [l, i]));
+  let kOf = new Float32Array(links.length).fill(1);
+  const emphasis = (s: Lab3D, theme: MapTheme) => {
+    const on = s.emph !== 'off';
+    const alpha = s.emph === 'opacity' || s.emph === 'combined';
+    const colour = s.emph === 'colour' || s.emph === 'combined';
+    kOf = new Float32Array(imp.map((v) => (on ? intensity(v, s.spread) : 1)));
+    links.forEach((l, i) => {
+      L.webGain[i] = alpha ? alphaGain(kOf[i]) : 1;
+      if (!colour) L.webTint[i] = null;
+      else {
+        const src = typeof l.source === 'string' ? byId.get(l.source)! : l.source;
+        const base = clusterColour(src.cluster, homeDomain(src), theme);
+        L.webTint[i] = new THREE.Color(emphasise(base, kOf[i], theme === 'light'));
+      }
+    });
+    L.repaint();
+  };
+  const tubeColour = (s: Lab3D, theme: MapTheme) => {
+    const colour = s.emph === 'colour' || s.emph === 'combined';
+    const fam = familyColours(theme);
+    return (l: LinkLike) => {
+      if (faded(l)) return 'rgba(82,82,82,0.08)';
+      const c = fam[l.family];
+      return colour ? emphasise(c, kOf[indexOf.get(l) ?? 0], theme === 'light') : c;
+    };
+  };
+
   let last: Lab3D | null = null;
+  let lastTheme: MapTheme | null = null;
   return {
-    apply(s) {
+    apply(s, theme) {
       const tubes = s.links === 'tubes';
       const particles = s.flow === 'particles';
       const perLink = tubes || particles;
+      const emphChanged =
+        !last || last.emph !== s.emph || last.spread !== s.spread || lastTheme !== theme;
+      if (emphChanged) emphasis(s, theme);
+      const wide = s.emph === 'width' || s.emph === 'combined';
       if (
         !last ||
+        emphChanged ||
         last.links !== s.links ||
         last.flow !== s.flow ||
         last.speed !== s.speed ||
         last.curvature !== s.curvature
       ) {
         L.web.visible = !tubes;
-        fg.linkWidth(tubes ? 0.6 : 0)
+        fg.linkWidth(tubes ? (l) => 0.6 * (wide ? widthGain(kOf[indexOf.get(l) ?? 0]) : 1) : 0)
           .linkOpacity(tubes ? 0.5 : 1)
           .linkCurvature(s.curvature)
           .linkVisibility(perLink ? (l) => drawn(l) || prod.vis(l) : prod.vis)
           .linkColor(
             tubes
-              ? (l) => (faded(l) ? 'rgba(82,82,82,0.08)' : FAMILY_COLOURS[l.family])
+              ? tubeColour(s, theme)
               : perLink
                 ? (l) => (focusOf(l) ? prod.colour(l) : 'rgba(0,0,0,0)')
                 : prod.colour,
@@ -840,12 +998,17 @@ async function setup3D(m: Map3D): Promise<Lab3DRuntime> {
       }
       setSprites(s.glow === 'sprites');
       setBloom(s.bloom);
+      // Bloom brightens what is already bright: on the cream map it only washes it out.
+      if (bloom) bloom.enabled = theme !== 'light';
       m.spin(s.spin);
-      L.scene.fog = s.fog ? new THREE.FogExp2(cfg.background, cfg.fogDensity) : null;
+      L.scene.fog = s.fog ? fog : null;
+      // Bloom needs an opaque background (the canvas is transparent), in the theme's colour.
+      L.scene.background = bloom?.enabled ? new THREE.Color(fg.backgroundColor()) : null;
       L.glowMat.uniforms.fogDensity.value = s.fog ? cfg.fogDensity : 0;
       L.flowMat.uniforms.fogDensity.value = s.fog ? cfg.fogDensity : 0;
       setSpacing(s.spacing);
       last = s;
+      lastTheme = theme;
     },
     dispose() {
       window.clearInterval(syncTimer);

@@ -9,14 +9,14 @@ cluster: training
 layer: model
 status: current
 summary:
-  en: The learned numbers that set how strongly each part of a neural network influences the next - in practice, the file that is the model.
+  en: The learned numbers that set how strongly each part of a neural network influences the next; in practice, the file that is the model.
   da: De lærte tal, der styrer, hvor stærkt hver del af et neuralt netværk påvirker den næste - i praksis den fil, der er modellen.
 body:
   formal:
     en: The main kind of model parameter in a neural network, one number per connection, adjusted by gradient descent during model training and stored in files that are loaded again at inference.
     da: Den vigtigste slags modelparameter i et neuralt netværk, ét tal pr. forbindelse, justeret med gradientnedstigning under modeltræning og gemt i filer, der indlæses igen ved inferens.
   plain:
-    en: Like the paths worn across a park lawn - every walk wears a route a little deeper, and together the worn paths decide where the next walker goes.
+    en: Like the paths worn across a park lawn; every walk wears a route a little deeper, and together the worn paths decide where the next walker goes.
     da: Som stierne, der bliver trådt hen over en græsplæne i en park - hver tur gør en rute lidt tydeligere, og tilsammen afgør stierne, hvor den næste går.
   inPractice:
     en: A developer at a Danish software house downloads a folder of weight files from a public model hub and runs the model on the company's own machine, so customer text never leaves the building.
@@ -26,13 +26,13 @@ body:
     da: Vægte er dyre at fremstille og er selve modellen, så lækkede vægte betyder en stjålet model, og vægtfiler fra ukendte kilder kan skjule skadelig kode eller adfærd.
 deepDive:
   en: |-
-    On disk, weights are a set of named tensors - in PyTorch terms a state_dict mapping names such as layers.0.self_attn.q_proj.weight to arrays - stored together with a configuration file describing the architecture. Weights alone do not run: the matching model code, tokenizer and config are needed to interpret them. Large models are sharded across several files with an index. The legacy PyTorch format (.bin, .pt) is a Python pickle, and unpickling can execute arbitrary code, which made malicious model files a practical attack; PyTorch 2.6 changed torch.load to default to weights_only=True. The safetensors format, a JSON header followed by raw tensor bytes, cannot carry code and can be memory-mapped for fast loading. GGUF, used by llama.cpp, packs quantised weights and metadata in one file, and ONNX stores the computational graph together with its weights.
+    On disk, weights are a set of named tensors (in PyTorch terms a state_dict mapping names such as layers.0.self_attn.q_proj.weight to arrays), stored together with a configuration file describing the architecture. Weights alone do not run: the matching model code, tokenizer and config are needed to interpret them. Large models are sharded across several files with an index. The legacy PyTorch format (.bin, .pt) is a Python pickle, and unpickling can execute arbitrary code, which made malicious model files a practical attack; PyTorch 2.6 changed torch.load to default to weights_only=True. The safetensors format, a JSON header followed by raw tensor bytes, cannot carry code and can be memory-mapped for fast loading. GGUF, used by llama.cpp, packs quantised weights and metadata in one file, and ONNX stores the computational graph together with its weights.
 
     The numeric format is part of the artefact. Training typically keeps FP32 master copies while computing in BF16; released checkpoints are usually BF16, and quantisation methods such as GPTQ or AWQ produce 8-bit or 4-bit versions that are smaller and faster but behave slightly differently, so evaluation results obtained on one precision do not automatically transfer to another. Integrity is checked with cryptographic hashes of each shard, and signing schemes for model artefacts are emerging so that consumers can verify who produced a file.
 
-    Weights are the concentrated result of the training budget, which makes them a high-value target. A 2024 RAND report defined security levels for protecting frontier model weights against actors from opportunistic criminals to state programmes. Leaks have happened: Meta's original LLaMA weights, released to approved researchers, appeared on 4chan within about a week in March 2023. Integrity threats are subtler than theft. Behaviour can be altered by editing weights directly - the 2023 PoisonGPT demonstration used the ROME model-editing technique to make an open model state a specific falsehood while otherwise behaving normally - and backdoors cannot be found by inspecting the numbers. OWASP's Top 10 for LLM Applications 2025 lists such tampered or poisoned pre-trained models under LLM03 Supply Chain.
+    Weights are the concentrated result of the training budget, which makes them a high-value target. A 2024 RAND report defined security levels for protecting frontier model weights against actors from opportunistic criminals to state programmes. Leaks have happened: Meta's original LLaMA weights, released to approved researchers, appeared on 4chan within about a week in March 2023. Integrity threats are subtler than theft. Behaviour can be altered by editing weights directly: the 2023 PoisonGPT demonstration used the ROME model-editing technique to make an open model state a specific falsehood while otherwise behaving normally. Backdoors cannot be found by inspecting the numbers. OWASP's Top 10 for LLM Applications 2025 lists such tampered or poisoned pre-trained models under LLM03 Supply Chain.
 
-    Publishing weights is distinct from open source. The Open Source Initiative's Open Source AI Definition 1.0 (2024) requires, besides weights, the training code and sufficiently detailed information about the training data, and many "open-weight" licences restrict use in ways the definition does not allow. The EU AI Act exempts providers of general-purpose models released under a free and open-source licence with publicly available weights from parts of the Art. 53(1) documentation duties, but not if the model carries systemic risk (Art. 53(2)). Weights are the largest subset of a model's parameters; biases, normalisation scales and embedding tables make up the rest.
+    Publishing weights is distinct from open source. The Open Source Initiative's Open Source AI Definition 1.0 (2024) requires, besides weights, the training code and sufficiently detailed information about the training data, and many "open-weight" licences restrict use in ways the definition does not allow. The EU AI Act exempts providers of general-purpose models released under a free and open-source licence, with weights, architecture and usage information publicly available, from the technical documentation duties in Art. 53(1)(a) and (b), but not if the model carries systemic risk (Art. 53(2)). Weights are the largest subset of a model's parameters; biases, normalisation scales and embedding tables make up the rest.
   da: |-
     På disk er vægte et sæt navngivne tensorer - i PyTorch-termer en state_dict, der knytter navne som layers.0.self_attn.q_proj.weight til arrays - gemt sammen med en konfigurationsfil, der beskriver arkitekturen. Vægte kan ikke køre alene: den tilhørende modelkode, tokenizer og konfiguration skal bruges til at fortolke dem. Store modeller deles op i flere filer med et indeks. Det ældre PyTorch-format (.bin, .pt) er en Python-pickle, og udpakning af en pickle kan afvikle vilkårlig kode, hvilket gjorde ondsindede modelfiler til et praktisk angreb; PyTorch 2.6 ændrede torch.load til som standard at bruge weights_only=True. Formatet safetensors, en JSON-header efterfulgt af rå tensorbytes, kan ikke indeholde kode og kan memory-mappes for hurtig indlæsning. GGUF, der bruges af llama.cpp, pakker kvantiserede vægte og metadata i én fil, og ONNX gemmer beregningsgrafen sammen med vægtene.
 
@@ -40,7 +40,7 @@ deepDive:
 
     Vægte er det koncentrerede resultat af træningsbudgettet og derfor et mål af høj værdi. En RAND-rapport fra 2024 definerede sikkerhedsniveauer for beskyttelse af vægte fra frontiermodeller mod aktører fra opportunistiske kriminelle til statslige programmer. Lækager er sket: Metas oprindelige LLaMA-vægte, der blev delt med godkendte forskere, dukkede op på 4chan inden for cirka en uge i marts 2023. Trusler mod integriteten er mere subtile end tyveri. Adfærd kan ændres ved at redigere vægtene direkte - demonstrationen PoisonGPT fra 2023 brugte modelredigeringsteknikken ROME til at få en åben model til at fremføre en bestemt usandhed og ellers opføre sig normalt - og bagdøre kan ikke findes ved at se på tallene. OWASP Top 10 for LLM Applications 2025 opfører den slags manipulerede eller forgiftede fortrænede modeller under LLM03 Supply Chain.
 
-    At offentliggøre vægte er ikke det samme som open source. Open Source Initiatives Open Source AI Definition 1.0 (2024) kræver ud over vægtene også træningskoden og tilstrækkeligt detaljerede oplysninger om træningsdata, og mange "open-weight"-licenser begrænser brugen på måder, definitionen ikke tillader. EU's AI-forordning fritager udbydere af AI-modeller til almen brug, der udgives under en fri open source-licens med offentligt tilgængelige vægte, fra dele af dokumentationspligterne i art. 53, stk. 1, men ikke hvis modellen udgør en systemisk risiko (art. 53, stk. 2). Vægte er den største delmængde af en models parametre; bias, normaliseringsskalaer og embedding-tabeller udgør resten.
+    At offentliggøre vægte er ikke det samme som open source. Open Source Initiatives Open Source AI Definition 1.0 (2024) kræver ud over vægtene også træningskoden og tilstrækkeligt detaljerede oplysninger om træningsdata, og mange "open-weight"-licenser begrænser brugen på måder, definitionen ikke tillader. EU's AI-forordning fritager udbydere af AI-modeller til almen brug, der udgives under en fri open source-licens, og hvis vægte, arkitektur og brugsoplysninger er offentligt tilgængelige, fra pligterne til teknisk dokumentation i art. 53, stk. 1, litra a og b, men ikke hvis modellen udgør en systemisk risiko (art. 53, stk. 2). Vægte er den største delmængde af en models parametre; bias, normaliseringsskalaer og embedding-tabeller udgør resten.
 edges:
   kind-of:
     - to: model-parameter
@@ -55,10 +55,20 @@ sources:
   - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 6)'
     tier: textbook
     publisher: MIT Press
+    url: https://www.deeplearningbook.org/contents/mlp.html
   - title: OWASP Top 10 for LLM Applications 2025 (LLM03 Supply Chain)
     tier: reference
     publisher: OWASP
-  - title: Open Source Initiative - The Open Source AI Definition 1.0
+    url: https://genai.owasp.org/llmrisk/llm032025-supply-chain/
+  - title: PyTorch documentation, Serialization semantics (weights_only default since 2.6)
+    tier: official-doc
+    publisher: PyTorch
+    url: https://docs.pytorch.org/docs/stable/notes/serialization.html
+  - title: Regulation (EU) 2024/1689 (AI Act), Article 53
+    tier: standard
+    publisher: EUR-Lex
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+  - title: Open Source Initiative, The Open Source AI Definition 1.0
     tier: official-doc
     publisher: Open Source Initiative
     url: https://opensource.org/ai/open-source-ai-definition

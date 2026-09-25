@@ -1,0 +1,66 @@
+term:
+  en: Regularization
+  da: Regularisering
+aka:
+  en: [regularisation]
+  da: [regularization]
+domain: [ai]
+cluster: training
+layer: training
+status: current
+summary:
+  en: Any rule added during learning that holds a model back from fitting its examples too closely, so it does better on new cases.
+  da: Enhver regel under læringen, der holder en model tilbage fra at passe for tæt til sine eksempler, så den klarer nye tilfælde bedre.
+body:
+  formal:
+    en: A change to model training that trades a little closeness of fit on the training data for better results on unseen data, most often by adding a penalty for large model weights to the loss function, or by switching off random parts of a neural network while it learns.
+    da: En ændring af modeltræningen, der ofrer lidt pasform på træningsdata for bedre resultater på usete data, oftest ved at lægge en straf for store modelvægte til tabsfunktionen eller ved tilfældigt at slå dele af et neuralt netværk fra, mens det lærer.
+  plain:
+    en: Like a word limit on an essay. The writer cannot pour in every detail they remember, so they keep only the points that really matter.
+    da: Som et ordloft på en stil. Skribenten kan ikke hælde alle de detaljer ind, de husker, og beholder derfor kun de pointer, der virkelig betyder noget.
+  inPractice:
+    en: A hospital team's model for spotting patients at risk of coming back fits its old records perfectly but misses new cases; adding a weight penalty and tuning its strength on a validation set closes most of the gap.
+    da: Et hospitalsteams model til at finde patienter med risiko for genindlæggelse passer perfekt til de gamle journaler, men overser nye tilfælde; en straf på vægtene, justeret på et valideringssæt, lukker det meste af hullet.
+  whyItMatters:
+    en: Without it, flexible models tend to learn their examples by heart and look far better in testing than they are in real use.
+    da: Uden den har fleksible modeller en tendens til at lære eksemplerne udenad og se langt bedre ud i test, end de er i virkeligheden.
+deepDive:
+  en: |-
+    Explicit penalty methods add a term to the training objective. L2 regularization adds lambda times the sum of squared weights; in linear regression this is ridge regression (Hoerl and Kennard, 1970), a special case of Tikhonov regularization, and it shrinks all coefficients smoothly toward zero. L1 regularization adds lambda times the sum of absolute weights; in linear regression this is the lasso (Tibshirani, 1996), which drives some coefficients to exactly zero and so performs feature selection. Elastic net mixes the two. In scikit-learn the strength is the alpha argument of Ridge and Lasso, and it is normally chosen by cross-validation (RidgeCV, LassoCV). From a Bayesian view, L2 corresponds to a Gaussian prior on the weights and L1 to a Laplace prior, so the penalised solution is a maximum a posteriori estimate.
+
+    Weight decay multiplies weights by a factor slightly below one at every update. For plain stochastic gradient descent this is equivalent to an L2 penalty, but Loshchilov and Hutter (2019) showed that it is not equivalent for adaptive optimisers such as Adam, where the L2 gradient is rescaled per parameter. Their decoupled version, AdamW, applies decay directly to the weights and is now the default choice for training transformers; PyTorch exposes it as torch.optim.AdamW with a weight_decay argument.
+
+    Deep learning adds implicit and structural regularisers. Dropout (Srivastava et al., 2014) randomly zeroes units during training, which approximates averaging an ensemble of thinned networks; at test time all units are used with rescaled activations. Early stopping halts training when validation loss stops improving and, for quadratic losses, behaves much like an L2 penalty. Data augmentation, label smoothing, batch normalisation noise, parameter sharing in convolutional networks, and the implicit bias of stochastic gradient descent toward flat or low-norm solutions also regularise. The strength of every regulariser is itself a hyperparameter and moves the model along the bias-variance trade-off: too little leaves overfitting, too much causes underfitting.
+  da: |-
+    Eksplicitte strafmetoder lægger et led til træningsmålet. L2-regularisering lægger lambda gange summen af de kvadrerede vægte til; i lineær regression er det ridge-regression (Hoerl og Kennard, 1970), et specialtilfælde af Tikhonov-regularisering, som skrumper alle koefficienter jævnt mod nul. L1-regularisering lægger lambda gange summen af de absolutte vægte til; i lineær regression er det lasso (Tibshirani, 1996), som sætter nogle koefficienter til præcis nul og dermed udvælger features. Elastic net blander de to. I scikit-learn er styrken argumentet alpha i Ridge og Lasso, og den vælges normalt ved krydsvalidering (RidgeCV, LassoCV). Set bayesiansk svarer L2 til en normalfordelt prior på vægtene og L1 til en Laplace-prior, så den straffede løsning er et maksimum a posteriori-estimat.
+
+    Weight decay ganger vægtene med en faktor lidt under et ved hver opdatering. For almindelig stokastisk gradientnedstigning svarer det til en L2-straf, men Loshchilov og Hutter (2019) viste, at det ikke gælder for adaptive optimeringsalgoritmer som Adam, hvor L2-gradienten skaleres om for hver parameter. Deres afkoblede variant, AdamW, trækker vægtene direkte ned og er i dag standardvalget til træning af transformere; PyTorch udstiller den som torch.optim.AdamW med argumentet weight_decay.
+
+    Deep learning tilføjer implicitte og strukturelle regularisatorer. Dropout (Srivastava m.fl., 2014) sætter tilfældigt enheder til nul under træningen, hvilket tilnærmer et gennemsnit over et ensemble af udtyndede netværk; ved test bruges alle enheder med omskalerede aktiveringer. Early stopping standser træningen, når valideringstabet holder op med at falde, og virker for kvadratiske tabsfunktioner meget som en L2-straf. Dataaugmentering, label smoothing, støj fra batchnormalisering, delte parametre i foldningsnetværk og stokastisk gradientnedstignings implicitte tilbøjelighed til flade løsninger eller løsninger med lav norm regulariserer også. Styrken af enhver regularisator er selv en hyperparameter og flytter modellen langs bias-varians-afvejningen: For lidt efterlader overtilpasning, for meget giver undertilpasning.
+edges:
+  requires: [loss-function]
+  mitigates:
+    - to: overfitting
+      why:
+        en: By holding the model back from fitting every detail of its examples, it narrows the gap between how it does on those examples and on new cases.
+        da: Ved at holde modellen tilbage fra at passe til hver detalje i eksemplerne mindsker den forskellen mellem, hvordan den klarer sig på dem og på nye tilfælde.
+      strength: primary
+      confidence: high
+sources:
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning, ch. 7: Regularization for Deep Learning'
+    url: https://www.deeplearningbook.org/contents/regularization.html
+    tier: textbook
+    publisher: MIT Press
+  - title: scikit-learn User Guide, Linear Models (Ridge, Lasso)
+    url: https://scikit-learn.org/stable/modules/linear_model.html
+    tier: official-doc
+    publisher: scikit-learn
+  - title: Srivastava et al. (2014), Dropout, A Simple Way to Prevent Neural Networks from Overfitting
+    url: https://jmlr.org/papers/v15/srivastava14a.html
+    tier: reference
+    publisher: Journal of Machine Learning Research
+  - title: Loshchilov & Hutter (2019), Decoupled Weight Decay Regularization
+    url: https://arxiv.org/abs/1711.05101
+    tier: reference
+    publisher: ICLR 2019
+draft: true

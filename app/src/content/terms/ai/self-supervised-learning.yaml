@@ -9,26 +9,26 @@ cluster: ml-fundamentals
 layer: training
 status: current
 summary:
-  en: Machine learning where the right answers come from the data itself - for instance hiding a word in a sentence and guessing it back.
+  en: Machine learning where the right answers come from the data itself, for instance hiding a word in a sentence and guessing it back.
   da: Maskinlæring, hvor de rigtige svar kommer fra selve dataene - fx ved at skjule et ord i en sætning og gætte det igen.
 body:
   formal:
     en: A form of machine learning that makes its own labels from unlabelled training data, by hiding or holding back part of each example and learning to fill it in from the rest.
     da: En form for maskinlæring, der laver sine egne mærkater ud fra træningsdata uden mærkater ved at skjule eller holde en del af hvert eksempel tilbage og lære at udfylde den ud fra resten.
   plain:
-    en: Like learning a song by pausing the recording mid-line, singing the next words yourself, then playing on to check - the song is its own answer key.
+    en: Like learning a song by pausing the recording mid-line, singing the next words yourself, then playing on to check. The song is its own answer key.
     da: Som at lære en sang ved at sætte optagelsen på pause midt i en linje, synge de næste ord selv og så spille videre for at tjekke - sangen giver selv svaret.
   inPractice:
     en: A region's speech-to-text team lets a model learn from thousands of hours of Danish speech by hiding short bits of sound and guessing them, then needs only a few hours of typed-up dictations to handle doctors' notes.
     da: En regions tale-til-tekst-team lader en model lære af tusindvis af timers dansk tale ved at skjule korte bidder af lyden og gætte dem og behøver derefter kun få timers optagelser med færdig tekst for at kunne skrive lægernes notater ud.
   whyItMatters:
-    en: Removing the need for human labels is what made training on the whole web possible - and why whatever is on the web, good or bad, ends up in the model.
+    en: Removing the need for human labels is what made training on the whole web possible, and it is why whatever is on the web, good or bad, ends up in the model.
     da: At fjerne behovet for menneskelige mærkater er det, der gjorde det muligt at træne på hele nettet - og grunden til, at alt på nettet, godt eller skidt, ender i modellen.
 deepDive:
   en: |-
     The approach defines a pretext task whose target can be computed from the raw input, trains a network on it with an ordinary supervised loss, and then reuses the learned representations for downstream tasks. Two families dominate. Generative or predictive objectives reconstruct hidden parts of the input: causal language modelling predicts the next token from the preceding ones (the GPT line), masked language modelling predicts hidden tokens from both sides, and masked autoencoders for images (He et al., 2021) hide a large share of image patches, typically 75 percent, and reconstruct the pixels. Contrastive and joint-embedding objectives instead learn to map different views of the same item close together and different items apart: SimCLR (2020) contrasts two augmented crops of an image, and CLIP (2021) aligns images with their captions using a contrastive loss over large batches.
 
-    BERT (Devlin et al., 2019) illustrates the details. It selects 15 percent of input tokens for prediction; of those, 80 percent are replaced by a [MASK] token, 10 percent by a random token and 10 percent are left unchanged, so the model cannot rely on seeing [MASK] at fine-tuning time. Speech works similarly: wav2vec 2.0 (Baevski et al., 2020) masks spans of latent speech features and solves a contrastive task over quantised targets, and showed that fine-tuning on very small amounts of transcribed audio could produce usable recognisers, which is the pattern behind low-resource languages and domain-specific dictation.
+    BERT (Devlin et al., 2019) illustrates the details. It selects 15 percent of input tokens for prediction; of those, 80 percent are replaced by a [MASK] token, 10 percent by a random token and 10 percent are left unchanged, so the model cannot rely on seeing [MASK] at fine-tuning time. Speech works similarly: wav2vec 2.0 (Baevski et al., 2020) masks spans of latent speech features and solves a contrastive task over quantised targets, and showed that fine-tuning on as little as ten minutes of transcribed audio, after pretraining on 53,000 hours of unlabelled speech, could produce usable recognisers, which is the pattern behind low-resource languages and domain-specific dictation.
 
     A known failure mode for joint-embedding methods is representational collapse, where the network maps every input to the same vector and trivially satisfies the objective. Negative pairs (contrastive methods), asymmetric architectures with stop-gradient (BYOL, SimSiam) or explicit variance regularisation (VICReg) prevent it. Augmentation choices also encode assumptions: cropping and colour jitter teach invariance to those changes, which is harmful if colour matters for the downstream task.
 
@@ -38,7 +38,7 @@ deepDive:
   da: |-
     Tilgangen definerer en hjælpeopgave (pretext task), hvis mål kan beregnes ud fra det rå input, træner et netværk på den med et almindeligt superviseret tab og genbruger derefter de lærte repræsentationer til efterfølgende opgaver. To familier dominerer. Generative eller prædiktive mål rekonstruerer skjulte dele af inputtet: Kausal sprogmodellering forudsiger det næste token ud fra de foregående (GPT-linjen), maskeret sprogmodellering forudsiger skjulte tokens ud fra begge sider, og maskerede autoencodere til billeder (He m.fl., 2021) skjuler en stor andel af billedfelterne, typisk 75 procent, og rekonstruerer pixelværdierne. Kontrastive og joint-embedding-mål lærer i stedet at placere forskellige udgaver af samme element tæt sammen og forskellige elementer langt fra hinanden: SimCLR (2020) kontrasterer to augmenterede udsnit af et billede, og CLIP (2021) afstemmer billeder med deres billedtekster med et kontrastivt tab over store batches.
 
-    BERT (Devlin m.fl., 2019) viser detaljerne. Modellen udvælger 15 procent af input-tokens til forudsigelse; af dem erstattes 80 procent af et [MASK]-token, 10 procent af et tilfældigt token, og 10 procent forbliver uændrede, så modellen ikke kan regne med at se [MASK] under finjustering. Tale fungerer på samme måde: wav2vec 2.0 (Baevski m.fl., 2020) maskerer afsnit af latente talefeatures og løser en kontrastiv opgave over kvantiserede mål og viste, at finjustering på meget små mængder transskriberet lyd kunne give brugbare talegenkendere, hvilket er mønstret bag sprog med få ressourcer og domænespecifik diktering.
+    BERT (Devlin m.fl., 2019) viser detaljerne. Modellen udvælger 15 procent af input-tokens til forudsigelse; af dem erstattes 80 procent af et [MASK]-token, 10 procent af et tilfældigt token, og 10 procent forbliver uændrede, så modellen ikke kan regne med at se [MASK] under finjustering. Tale fungerer på samme måde: wav2vec 2.0 (Baevski m.fl., 2020) maskerer afsnit af latente talefeatures og løser en kontrastiv opgave over kvantiserede mål og viste, at finjustering på helt ned til ti minutters transskriberet lyd efter fortræning på 53.000 timers umærket tale kunne give brugbare talegenkendere, hvilket er mønstret bag sprog med få ressourcer og domænespecifik diktering.
 
     En kendt fejltype for joint-embedding-metoder er repræsentationskollaps, hvor netværket afbilder alle input til samme vektor og dermed trivielt opfylder målet. Negative par (kontrastive metoder), asymmetriske arkitekturer med stop-gradient (BYOL, SimSiam) eller eksplicit variansregularisering (VICReg) forhindrer det. Valget af augmentering indebærer også antagelser: Beskæring og farvevariation lærer modellen at være ufølsom over for netop de ændringer, hvilket er skadeligt, hvis farve betyder noget i den efterfølgende opgave.
 
@@ -63,7 +63,18 @@ edges:
       confidence: medium
 sources:
   - title: 'Devlin et al. (2019), BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding'
+    url: https://arxiv.org/abs/1810.04805
     tier: reference
-  - title: 'Jurafsky & Martin, Speech and Language Processing'
+    publisher: NAACL 2019
+  - title: 'He et al. (2021), Masked Autoencoders Are Scalable Vision Learners'
+    url: https://arxiv.org/abs/2111.06377
+    tier: reference
+    publisher: arXiv
+  - title: 'Baevski et al. (2020), wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations'
+    url: https://arxiv.org/abs/2006.11477
+    tier: reference
+    publisher: NeurIPS 2020
+  - title: 'Jurafsky & Martin, Speech and Language Processing, 3rd edition draft'
+    url: https://web.stanford.edu/~jurafsky/slp3/
     tier: textbook
 draft: true

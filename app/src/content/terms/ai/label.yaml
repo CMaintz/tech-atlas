@@ -1,0 +1,69 @@
+term:
+  en: Label
+  da: Label (mærkat)
+aka:
+  en: [target variable, ground truth]
+  da: [målvariabel]
+domain: [ai]
+cluster: ml-fundamentals
+layer: training
+status: current
+summary:
+  en: The right answer attached to a training example, such as "spam" or a sale price, that a model learns to give on its own.
+  da: Det rigtige svar knyttet til et træningseksempel, fx "spam" eller en salgspris, som en model lærer selv at give.
+body:
+  formal:
+    en: The known output recorded for an example in training data, either a group name or a number; supervised learning fits a model to match labels, and held-back labels are used to score its guesses.
+    da: Det kendte output, der er registreret for et eksempel i træningsdata, enten et gruppenavn eller et tal; superviseret læring tilpasser en model til at ramme labels, og tilbageholdte labels bruges til at vurdere dens gæt.
+  plain:
+    en: Like the answer key at the back of a school maths book, which lets a pupil check each sum and learn from the mistakes.
+    da: Som facitlisten bag i en skolebog, der lader en elev tjekke hvert regnestykke og lære af sine fejl.
+  inPractice:
+    en: To train a model that sorts incoming letters at a municipality, staff mark two thousand old letters with the department that handled each one, and those marks become the labels.
+    da: For at træne en model, der fordeler indgående breve i en kommune, markerer medarbejdere to tusind gamle breve med den afdeling, der behandlede hvert af dem, og de markeringer bliver til labels.
+  whyItMatters:
+    en: A model can be no more right than its answers to learn from, so wrong or unfair labels are copied straight into its behaviour.
+    da: En model kan ikke blive mere rigtig end de svar, den lærer af, så forkerte eller skæve labels kopieres direkte ind i dens adfærd.
+deepDive:
+  en: |-
+    In supervised learning a labelled example is a pair (x, y) of a feature vector and a label; Google's ML glossary defines the label as the answer or result portion of an example. For classification y is a category from a fixed label set (binary, multi-class, or multi-label when several categories may apply at once); for regression it is a real number. Losses compare predictions to labels: cross-entropy against one-hot or class-index labels, squared error against numeric targets. Techniques such as label smoothing replace hard one-hot targets with slightly softened ones to curb overconfidence.
+
+    Labels come from human annotation, from records that already exist (a later diagnosis, whether a loan defaulted, whether a user clicked), or from heuristics and weaker models (weak supervision). Ground truth is the term for the true value against which predictions are judged; in practice the recorded label is only an estimate of it. Label noise is common: Northcutt, Athalye and Mueller (2021) estimated an average of at least 3.3 percent label errors across the test sets of ten widely used benchmarks, and at least 6 percent in the ImageNet validation set, enough to change which of two models appears better.
+
+    Labels encode decisions and can encode bias. If historical hiring outcomes or arrest records are used as labels, a model learns to reproduce those past decisions rather than the quality they were meant to measure. Proxy labels (clicks for relevance, cost of care for health need) are a frequent source of this kind of silent target mismatch.
+
+    Self-supervised learning avoids manual labels by deriving the target from the input itself, for example the next token in a text, which is why large language models can pretrain on unlabelled corpora. Later stages such as instruction tuning and RLHF bring human-provided targets back in the form of demonstrations and preference rankings.
+  da: |-
+    I superviseret læring er et mærket eksempel et par (x, y) af en feature-vektor og en label; Googles ML-ordliste definerer labelen som svar- eller resultatdelen af et eksempel. Ved klassifikation er y en kategori fra en fast mængde labels (binær, flere klasser eller multi-label, når flere kategorier kan gælde på én gang); ved regression er den et reelt tal. Tabsfunktioner sammenligner forudsigelser med labels: krydsentropi mod one-hot- eller klasseindeks-labels, kvadreret fejl mod numeriske mål. Teknikker som label smoothing erstatter hårde one-hot-mål med lidt blødere for at dæmpe overdreven sikkerhed.
+
+    Labels stammer fra menneskelig annotering, fra registreringer, der allerede findes (en senere diagnose, om et lån blev misligholdt, om en bruger klikkede), eller fra tommelfingerregler og svagere modeller (weak supervision). Ground truth er betegnelsen for den sande værdi, som forudsigelser bedømmes ud fra; i praksis er den registrerede label kun et skøn over den. Støj i labels er almindelig: Northcutt, Athalye og Mueller (2021) anslog i gennemsnit mindst 3,3 procent forkerte labels i testsættene for ti udbredte benchmarks og mindst 6 procent i ImageNets valideringssæt, nok til at ændre, hvilken af to modeller der ser bedst ud.
+
+    Labels indeholder beslutninger og kan indeholde bias. Bruges historiske ansættelsesudfald eller anholdelser som labels, lærer modellen at gentage de tidligere beslutninger i stedet for den kvalitet, de skulle måle. Stedfortrædende labels (klik som mål for relevans, behandlingsudgifter som mål for sundhedsbehov) er en hyppig kilde til denne slags skjulte skævhed mellem mål og label.
+
+    Selvsuperviseret læring undgår manuelle labels ved at udlede målet af selve inputtet, fx næste token i en tekst, og derfor kan store sprogmodeller fortrænes på umærkede tekstsamlinger. Senere trin som instruktionstilpasning og RLHF bringer menneskeskabte mål tilbage i form af eksempelsvar og rangordnede præferencer.
+edges:
+  part-of:
+    - to: training-data
+      why:
+        en: In labelled training data each example carries its label next to its features.
+        da: I mærkede træningsdata bærer hvert eksempel sin label ved siden af sine features.
+      strength: primary
+      confidence: high
+sources:
+  - title: Machine Learning Glossary
+    url: https://developers.google.com/machine-learning/glossary
+    tier: official-doc
+    publisher: Google for Developers
+  - title: 'Machine Learning Crash Course: Supervised learning terminology'
+    url: https://developers.google.com/machine-learning/crash-course/framing/ml-terminology
+    tier: reference
+    publisher: Google for Developers
+  - title: Northcutt, Athalye & Mueller (2021), Pervasive Label Errors in Test Sets Destabilize Machine Learning Benchmarks
+    url: https://arxiv.org/abs/2103.14749
+    tier: reference
+    publisher: NeurIPS Datasets and Benchmarks
+  - title: 'Goodfellow, Bengio & Courville, Deep Learning, ch. 5 Machine Learning Basics'
+    url: https://www.deeplearningbook.org/
+    tier: textbook
+    publisher: MIT Press
+draft: true

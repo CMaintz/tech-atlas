@@ -30,7 +30,7 @@ deepDive:
 
     The protocol matters as much as the data. Changing the prompt format, the number of shots, whether the answer is scored by generated letter or by the log-likelihood of each option, or the evaluation harness version can move a score by several points, so numbers from different model cards are often not comparable. HELM (Liang et al., 2022) was designed partly to address this by running many models under one standardised protocol and reporting several metrics per scenario (accuracy, calibration, robustness, fairness, efficiency) instead of a single number.
 
-    Benchmarks decay. Saturation happens when top models approach the ceiling, as GLUE did soon after its 2018 release, prompting SuperGLUE in 2019. Contamination happens because public test items get scraped into pretraining corpora; mitigations include n-gram overlap checks, unique canary strings embedded in benchmark files so their presence in a corpus can be detected and filtered, private held-out splits and continually refreshed item pools. Adaptive overfitting arises when a community repeatedly tunes against one public test set: Recht et al. (2019) rebuilt CIFAR-10 and ImageNet test sets following the original procedures and saw accuracy drops of 3-15% and 11-14% respectively, although model rankings largely held. Label noise adds another layer: Northcutt et al. (2021) estimated at least 3.3% label errors on average across ten widely used test sets.
+    Benchmarks decay. Saturation happens when top models approach the ceiling, as GLUE did soon after its 2018 release, prompting SuperGLUE in 2019. Contamination happens because public test items get scraped into pretraining corpora; mitigations include n-gram overlap checks, unique canary strings embedded in benchmark files so their presence in a corpus can be detected and filtered, private held-out splits and continually refreshed item pools. Adaptive overfitting arises when a community repeatedly tunes against one public test set: Recht et al. (2019) rebuilt CIFAR-10 and ImageNet test sets following the original procedures and saw accuracy drops of 3% to 15% and 11% to 14% respectively, although model rankings largely held. Label noise adds another layer: Northcutt et al. (2021) estimated at least 3.3% label errors on average across ten widely used test sets.
 
     In practice a benchmark score is a prior, not a verdict. It narrows the candidate list, after which a task-specific evaluation on in-domain data, with the organisation's own prompts, context and failure costs, decides. A benchmark differs from a private test set mainly in being public and shared, which gives comparability at the price of leakage, and from LLM-as-a-judge in having reference answers or executable checks rather than a model's opinion.
   da: |-
@@ -68,12 +68,15 @@ sources:
   - title: 'Hendrycks et al. (2021), Measuring Massive Multitask Language Understanding'
     tier: reference
     publisher: ICLR 2021
+    url: https://arxiv.org/abs/2009.03300
   - title: 'Liang et al. (2022), Holistic Evaluation of Language Models'
     tier: reference
     publisher: Stanford CRFM
-  - title: 'NIST AI 600-1 - Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile'
+    url: https://arxiv.org/abs/2211.09110
+  - title: 'NIST AI 600-1, Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile'
     tier: standard
     publisher: NIST
+    url: https://doi.org/10.6028/NIST.AI.600-1
   - title: 'Recht et al. (2019), Do ImageNet Classifiers Generalize to ImageNet?'
     tier: reference
     publisher: ICML 2019 (PMLR 97)
