@@ -3,7 +3,14 @@ import cytoscape from 'cytoscape';
 import type { EdgeType } from '../schema';
 import type { Family } from '../lib/graph-model';
 import { FAMILY_COLOURS, nodePaint } from '../lib/graph-style';
-import { GRAPH_STYLE, attachHover, edgeData, smoothFit, startFlow } from '../lib/graph-cytoscape';
+import {
+  FADE_TRANSITIONS,
+  GRAPH_STYLE,
+  attachHover,
+  edgeData,
+  smoothFit,
+  startFlow,
+} from '../lib/graph-cytoscape';
 import GraphLegend from './GraphLegend';
 
 type Dict = Record<string, string>;
@@ -78,6 +85,7 @@ export default function Graph({ nodes, edges, termBase, ...props }: Props) {
       ],
       style: [
         ...(GRAPH_STYLE as unknown[]),
+        ...(FADE_TRANSITIONS as unknown[]),
         {
           selector: 'node[focus = 1]',
           style: {
