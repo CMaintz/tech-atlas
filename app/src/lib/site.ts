@@ -98,6 +98,12 @@ export const UI = {
     neighbourhood: 'Neighbourhood',
     expand: 'Expand +1',
     wholeMap: 'Whole map',
+    controls: 'Controls',
+    mapControls: 'Map controls',
+    mapActions: 'On the map',
+    autoRotate: 'Auto-rotate',
+    findTerm: 'Find a term',
+    routeShort: 'Route',
     explorerIntro:
       'The whole map. Click a term to open it in the side panel; expand the panel to read it in full.',
     layoutForce: 'Force',
@@ -299,6 +305,12 @@ export const UI = {
     neighbourhood: 'Nabolag',
     expand: 'Udvid +1',
     wholeMap: 'Hele kortet',
+    controls: 'Kontroller',
+    mapControls: 'Kortkontroller',
+    mapActions: 'På kortet',
+    autoRotate: 'Roter automatisk',
+    findTerm: 'Find et begreb',
+    routeShort: 'Rute',
     explorerIntro:
       'Hele kortet. Klik på et begreb for at åbne det i sidepanelet; udvid panelet for at læse det hele.',
     layoutForce: 'Kraft',
@@ -760,7 +772,7 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
   },
   {
     page: 'explorer/',
-    anchors: ['[data-tour="explorer-layouts"]', '#explorer aside', '#explorer'],
+    anchors: ['[data-tour="explorer-layouts"]', '[data-explorer-bar]', '#explorer'],
     via: { en: 'Next: the Explorer', da: 'Næste: Udforsk' },
     title: { en: 'The explorer', da: 'Udforsk' },
     body: {
@@ -770,7 +782,7 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
   },
   {
     page: 'explorer/',
-    anchors: ['[data-tour="explorer-filters"]', '#explorer aside', '#explorer'],
+    anchors: ['[data-tour="explorer-filters"]', '[data-explorer-bar]', '#explorer'],
     title: { en: 'Filters', da: 'Filtre' },
     body: {
       en: 'Show only some domains or kinds of relationship — for example just prerequisites, or just attacks and defences. Click a term to focus on its neighbourhood.',
@@ -779,7 +791,7 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
   },
   {
     page: 'explorer/',
-    anchors: ['[data-tour="explorer-route"]', '#explorer aside', '#explorer'],
+    anchors: ['[data-tour="explorer-route"]', '[data-explorer-bar]', '#explorer'],
     title: { en: 'Route finder', da: 'Find vej' },
     body: {
       en: 'Pick two terms to see the shortest chain of links between them — handy for explaining how two ideas connect.',
@@ -844,7 +856,7 @@ export const ABOUT_PEOPLE: AboutPerson[] = [
   {
     section: 'credits',
     name: 'Christoffer Maintz',
-    role: { en: 'Author', da: 'Forfatter' },
+    role: { en: 'Atlas author · Tech wizard', da: 'Forfatter til Atlas · Tech-troldmand' },
     photo: 'christoffer.jpg',
   },
   {

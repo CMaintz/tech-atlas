@@ -53,8 +53,8 @@ const about = aboutProps(lang);
 
 <style is:global>
   /*
-   * The About button (A84) owns the map's top-right corner (the map has no other
-   * corner controls); on phones the sidebar heading is nudged clear of it from here.
+   * The About button (A84) owns the map's top-right corner; the floating control bar
+   * (A93) is centred between insets that keep it clear of the button.
    */
   #explorer {
     position: relative;
@@ -65,14 +65,6 @@ const about = aboutProps(lang);
   @media (prefers-reduced-motion: reduce) {
     #explorer [data-about-corner] {
       transition: none;
-    }
-  }
-  #explorer aside > div:first-child {
-    padding-right: 2.75rem;
-  }
-  @media (min-width: 1024px) {
-    #explorer aside > div:first-child {
-      padding-right: 0;
     }
   }
   /*

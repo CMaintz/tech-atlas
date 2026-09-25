@@ -59,6 +59,11 @@ export type Map2DOptions = {
   onOpen: (id: string) => void;
   /** A term is hovered (e.g. to prefetch its panel data). */
   onHover?: (id: string) => void;
+  /**
+   * The pointer is over a term (its centre in container pixels), or left it / the view
+   * moved (null) — for the Explorer's resting hover card.
+   */
+  onPoint?: (hit: { id: string; x: number; y: number } | null) => void;
 };
 
 /** What the map shows; every field is applied in place. */
@@ -714,12 +719,18 @@ export function createMap2D(opts: Map2DOptions) {
   };
   // No hover while a button is down: restyling mid-pan throws away the viewport snapshot.
   let pressing = false;
-  cy.on('tapstart', () => void (pressing = true));
+  cy.on('tapstart', () => {
+    pressing = true;
+    opts.onPoint?.(null);
+  });
   cy.on('tapend', () => void (pressing = false));
+  cy.on('viewport', () => opts.onPoint?.(null));
   cy.on('mouseover', 'node[size]', (e) => {
     if (pressing) return;
     const n = e.target as cytoscape.NodeSingular;
     opts.onHover?.(n.id());
+    const at = n.renderedPosition();
+    opts.onPoint?.({ id: n.id(), x: at.x, y: at.y });
     window.clearTimeout(hoverTimer);
     hoverTimer = window.setTimeout(() => {
       if (hovered?.same(n)) return;
@@ -727,7 +738,10 @@ export function createMap2D(opts: Map2DOptions) {
       hover(n);
     }, EXPLORER.hoverDelayMs);
   });
-  cy.on('mouseout', 'node[size]', unhover);
+  cy.on('mouseout', 'node[size]', () => {
+    unhover();
+    opts.onPoint?.(null);
+  });
   cy.on('tap', 'node[size]', (e) => opts.onSelect(e.target.id()));
   cy.on('tap', (e) => e.target === cy && opts.onSelect(null));
   cy.on('dbltap', 'node[size]', (e) => opts.onOpen(e.target.id()));

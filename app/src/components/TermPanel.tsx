@@ -1,3 +1,4 @@
+import type { ComponentChildren } from 'preact';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { prerequisitesOf, type Graph } from '../lib/graph-model';
 import { domainColour, nodePaint } from '../lib/graph-style';
@@ -54,6 +55,10 @@ interface Props extends PanelConfig {
   /** Re-focus the map (and this panel) on another term. */
   onSelect: (id: string) => void;
   onClose: () => void;
+  /** Map actions for this term (Explorer: prerequisites, neighbourhood, whole map). */
+  actions?: ComponentChildren;
+  /** Name of the actions group, for assistive technology. */
+  actionsLabel?: string;
 }
 
 const FACETS = ['formal', 'plain', 'inPractice', 'whyItMatters'] as const;
@@ -221,6 +226,8 @@ export default function TermPanel(props: Props) {
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Escape' || e.defaultPrevented) return;
       if (document.querySelector('[data-tour-overlay]')) return;
+      // An open map popover (the Explorer's control bar) takes this Escape.
+      if (document.querySelector('[data-map-popover]')) return;
       const t = e.target as HTMLElement | null;
       const inPanel = !!t && !!root.current?.contains(t);
       if (!inPanel && t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
@@ -400,6 +407,17 @@ export default function TermPanel(props: Props) {
           </button>
         </div>
       </div>
+
+      {props.actions && (
+        <div
+          role="group"
+          aria-label={props.actionsLabel}
+          data-panel-actions
+          class="flex shrink-0 flex-wrap items-center gap-2 border-b border-border px-4 py-2 text-xs"
+        >
+          {props.actions}
+        </div>
+      )}
 
       {cycle.length > 0 && (
         <div
