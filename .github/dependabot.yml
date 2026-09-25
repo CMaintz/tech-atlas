@@ -17,6 +17,14 @@ updates:
       # runtime must match it. A bump of either alone can't be caught by the gate.
       - dependency-name: onnxruntime-web
       - dependency-name: '@huggingface/transformers'
+      # Majors that break the toolchain (TS 7 vs @astrojs/check peer range, Zod 4 API,
+      # @types/node ahead of the pinned Node 22 runtime): upgrade by hand in their own PR.
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
+      - dependency-name: zod
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
     commit-message:
       prefix: chore(deps)
   - package-ecosystem: github-actions

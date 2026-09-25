@@ -43,19 +43,17 @@ const rows = [
       </tr>
     </thead>
     <tbody>
-      {
-        rows.map((r) => (
-          <tr class="border-t border-neutral-800 align-top">
-            <td class="py-2 pr-4">
-              <a class="font-mono break-all text-neutral-100 hover:underline" href={r.href}>
-                {r.label}
-              </a>
-            </td>
-            <td class="py-2 pr-4 whitespace-nowrap text-neutral-400">{r.format}</td>
-            <td class="py-2 text-neutral-300">{r.what}</td>
-          </tr>
-        ))
-      }
+      {rows.map((r) => (
+        <tr class="border-t border-neutral-800 align-top">
+          <td class="py-2 pr-4">
+            <a class="font-mono break-all text-neutral-100 hover:underline" href={r.href}>
+              {r.label}
+            </a>
+          </td>
+          <td class="py-2 pr-4 whitespace-nowrap text-neutral-400">{r.format}</td>
+          <td class="py-2 text-neutral-300">{r.what}</td>
+        </tr>
+      ))}
     </tbody>
   </table>
   <h2 class="mb-2 text-xs tracking-widest text-neutral-500 uppercase">{x.dataLicence}</h2>
@@ -64,9 +62,13 @@ const rows = [
     <a
       class="underline hover:text-white"
       rel="license"
-      href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a
-    > · <a class="underline hover:text-white" href={`${REPO}/blob/main/CONTENT-LICENSE.md`}
-      >CONTENT-LICENSE.md</a
+      href="https://creativecommons.org/licenses/by-sa/4.0/"
     >
+      CC BY-SA 4.0
+    </a>{' '}
+    ·{' '}
+    <a class="underline hover:text-white" href={`${REPO}/blob/main/CONTENT-LICENSE.md`}>
+      CONTENT-LICENSE.md
+    </a>
   </p>
 </Base>

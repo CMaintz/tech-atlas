@@ -155,16 +155,14 @@ const crumbs = [
         class="mb-2 text-xs tracking-widest text-neutral-500 uppercase"
       >
         <ol class="flex flex-wrap items-center gap-x-1.5">
-          {
-            crumbs.map((c, i) => (
-              <li class="flex items-center gap-x-1.5">
-                {i > 0 && <span aria-hidden="true">›</span>}
-                <a class="hover:text-neutral-200" href={c.href}>
-                  {c.label}
-                </a>
-              </li>
-            ))
-          }
+          {crumbs.map((c, i) => (
+            <li class="flex items-center gap-x-1.5">
+              {i > 0 && <span aria-hidden="true">›</span>}
+              <a class="hover:text-neutral-200" href={c.href}>
+                {c.label}
+              </a>
+            </li>
+          ))}
         </ol>
       </nav>
       <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
@@ -178,177 +176,157 @@ const crumbs = [
           <span data-label>{ui.copyLink}</span>
         </button>
       </div>
-      {
-        aka.length > 0 && (
-          <p class="mt-1 text-sm text-neutral-500">
-            {ui.aka}: {aka.join(', ')}
-          </p>
-        )
-      }
+      {aka.length > 0 && (
+        <p class="mt-1 text-sm text-neutral-500">
+          {ui.aka}: {aka.join(', ')}
+        </p>
+      )}
       <p class="mt-3 text-lg text-neutral-300">{d.summary[lang]}</p>
 
-      {
-        collides && (
-          <p class="mt-3 text-sm">
-            <a
-              class="text-neutral-400 underline hover:text-neutral-100"
-              href={url(`${lang}/terms/${name}/`)}
-            >
-              {ui.otherMeanings.replace('{name}', name.replace(/-/g, ' '))}
-            </a>
-          </p>
-        )
-      }
+      {collides && (
+        <p class="mt-3 text-sm">
+          <a
+            class="text-neutral-400 underline hover:text-neutral-100"
+            href={url(`${lang}/terms/${name}/`)}
+          >
+            {ui.otherMeanings.replace('{name}', name.replace(/-/g, ' '))}
+          </a>
+        </p>
+      )}
 
-      {
-        d.draft && (
-          <p class="mt-4 rounded border border-amber-900 bg-amber-950/40 px-3 py-2 text-sm text-amber-300">
-            {ui.draft}
-          </p>
-        )
-      }
+      {d.draft && (
+        <p class="mt-4 rounded border border-amber-900 bg-amber-950/40 px-3 py-2 text-sm text-amber-300">
+          {ui.draft}
+        </p>
+      )}
 
-      {
-        d.article?.[lang] && (
-          <p class="mt-6">
-            <a
-              class="text-neutral-100 underline hover:text-white"
-              href={url(`${lang}/articles/${term.id}/`)}
-            >
-              {ui.readArticle}
-            </a>
-          </p>
-        )
-      }
+      {d.article?.[lang] && (
+        <p class="mt-6">
+          <a
+            class="text-neutral-100 underline hover:text-white"
+            href={url(`${lang}/articles/${term.id}/`)}
+          >
+            {ui.readArticle}
+          </a>
+        </p>
+      )}
 
       <div class="mt-8 space-y-5" id="facets">
-        {
-          facets.map((f) => (
-            <div>
-              <h2 class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">{ui[f]}</h2>
-              <p class="text-neutral-200">
-                <Prose segments={linked[f]} lang={lang} />
-              </p>
-            </div>
-          ))
-        }
+        {facets.map((f) => (
+          <div>
+            <h2 class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">{ui[f]}</h2>
+            <p class="text-neutral-200">
+              <Prose segments={linked[f]} lang={lang} />
+            </p>
+          </div>
+        ))}
       </div>
 
-      {
-        learnFirst.length > 0 && (
-          <section class="mt-10" id="learn-first">
-            <h2 class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">{ui.learnFirst}</h2>
-            <p class="mb-2 text-sm text-neutral-500">{ui.learnFirstIntro}</p>
-            <ol class="flex flex-wrap items-center gap-1 text-sm">
-              {learnFirst.map((n, i) => (
-                <li class="flex items-center gap-1">
-                  {i > 0 && <span class="text-neutral-600">→</span>}
-                  <a
-                    class="rounded border border-neutral-800 px-2 py-1 text-neutral-300 hover:border-neutral-400"
-                    href={termUrl(lang, n.id)}
-                  >
-                    {n.term[lang]}
-                  </a>
-                </li>
-              ))}
+      {learnFirst.length > 0 && (
+        <section class="mt-10" id="learn-first">
+          <h2 class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">{ui.learnFirst}</h2>
+          <p class="mb-2 text-sm text-neutral-500">{ui.learnFirstIntro}</p>
+          <ol class="flex flex-wrap items-center gap-1 text-sm">
+            {learnFirst.map((n, i) => (
               <li class="flex items-center gap-1">
-                <span class="text-neutral-600">→</span>
-                <span class="rounded border border-neutral-500 px-2 py-1 text-neutral-100">
-                  {d.term[lang]}
-                </span>
+                {i > 0 && <span class="text-neutral-600">→</span>}
+                <a
+                  class="rounded border border-neutral-800 px-2 py-1 text-neutral-300 hover:border-neutral-400"
+                  href={termUrl(lang, n.id)}
+                >
+                  {n.term[lang]}
+                </a>
               </li>
-            </ol>
-          </section>
-        )
-      }
+            ))}
+            <li class="flex items-center gap-1">
+              <span class="text-neutral-600">→</span>
+              <span class="rounded border border-neutral-500 px-2 py-1 text-neutral-100">
+                {d.term[lang]}
+              </span>
+            </li>
+          </ol>
+        </section>
+      )}
 
-      {
-        groups.length > 0 && (
-          <section class="mt-10" id="relationships">
-            <h2 class="mb-3 text-xs tracking-widest text-neutral-500 uppercase">
-              {ui.relationships}
-            </h2>
-            <dl class="space-y-3">
-              {groups.map((g) => (
-                <div>
-                  <dt class="text-sm text-neutral-400">{EDGE_LABELS[g.type]?.[lang] ?? g.type}</dt>
-                  <dd class="mt-1 flex flex-wrap gap-2">
-                    {g.items.map((r) => (
-                      <a
-                        href={
-                          g.type === 'contrasts-with'
-                            ? url(`${lang}/compare/${pairSlug(term, r.target)}/`)
-                            : termUrl(lang, r.target.id)
-                        }
-                        title={r.why?.[lang]}
-                        class:list={[
-                          'rounded border px-2 py-1 text-sm hover:border-neutral-400',
-                          r.strength === 'primary'
-                            ? 'border-neutral-500 text-neutral-100'
-                            : 'border-neutral-800 text-neutral-300',
-                        ]}
-                      >
-                        {r.target.data.term[lang]}
-                      </a>
-                    ))}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </section>
-        )
-      }
+      {groups.length > 0 && (
+        <section class="mt-10" id="relationships">
+          <h2 class="mb-3 text-xs tracking-widest text-neutral-500 uppercase">
+            {ui.relationships}
+          </h2>
+          <dl class="space-y-3">
+            {groups.map((g) => (
+              <div>
+                <dt class="text-sm text-neutral-400">{EDGE_LABELS[g.type]?.[lang] ?? g.type}</dt>
+                <dd class="mt-1 flex flex-wrap gap-2">
+                  {g.items.map((r) => (
+                    <a
+                      href={
+                        g.type === 'contrasts-with'
+                          ? url(`${lang}/compare/${pairSlug(term, r.target)}/`)
+                          : termUrl(lang, r.target.id)
+                      }
+                      title={r.why?.[lang]}
+                      class:list={[
+                        'rounded border px-2 py-1 text-sm hover:border-neutral-400',
+                        r.strength === 'primary'
+                          ? 'border-neutral-500 text-neutral-100'
+                          : 'border-neutral-800 text-neutral-300',
+                      ]}
+                    >
+                      {r.target.data.term[lang]}
+                    </a>
+                  ))}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )}
 
       <section class="mt-8 text-sm text-neutral-500" id="continue-learning">
         <h2 class="text-xs tracking-widest uppercase">
           {ui.sources} · {extra.continueLearning}
         </h2>
-        {
-          sourceGroups.map((g) => (
-            <div class="mt-2">
-              <h3 class="text-xs text-neutral-600">{extra.tiers[g.tier]}</h3>
-              <ul class="mt-1 list-inside list-disc">
-                {g.items.map((s) => (
-                  <li>
-                    {s.url ? (
-                      <a class="hover:text-neutral-300 hover:underline" href={s.url}>
-                        {s.title}
-                      </a>
-                    ) : (
-                      s.title
-                    )}
-                    {s.publisher && <span class="text-neutral-600"> · {s.publisher}</span>}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))
-        }
+        {sourceGroups.map((g) => (
+          <div class="mt-2">
+            <h3 class="text-xs text-neutral-600">{extra.tiers[g.tier]}</h3>
+            <ul class="mt-1 list-inside list-disc">
+              {g.items.map((s) => (
+                <li>
+                  {s.url ? (
+                    <a class="hover:text-neutral-300 hover:underline" href={s.url}>
+                      {s.title}
+                    </a>
+                  ) : (
+                    s.title
+                  )}
+                  {s.publisher && <span class="text-neutral-600"> · {s.publisher}</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
         <p class="mt-3 print:hidden">
           <a class="hover:text-neutral-300 hover:underline" href={url(`api/terms/${term.id}.json`)}>
             {extra.dataThisTerm}
           </a>
         </p>
       </section>
-      {
-        mentionedIn.length > 0 && (
-          <section class="mt-8" id="mentions">
-            <h2 class="mb-2 text-xs tracking-widest text-neutral-500 uppercase">
-              {ui.mentionedIn}
-            </h2>
-            <div class="flex flex-wrap gap-2">
-              {mentionedIn.map((n) => (
-                <a
-                  class="rounded border border-dashed border-neutral-800 px-2 py-1 text-sm text-neutral-400 hover:border-neutral-500"
-                  href={termUrl(lang, n.id)}
-                >
-                  {n.term[lang]}
-                </a>
-              ))}
-            </div>
-          </section>
-        )
-      }
+      {mentionedIn.length > 0 && (
+        <section class="mt-8" id="mentions">
+          <h2 class="mb-2 text-xs tracking-widest text-neutral-500 uppercase">{ui.mentionedIn}</h2>
+          <div class="flex flex-wrap gap-2">
+            {mentionedIn.map((n) => (
+              <a
+                class="rounded border border-dashed border-neutral-800 px-2 py-1 text-sm text-neutral-400 hover:border-neutral-500"
+                href={termUrl(lang, n.id)}
+              >
+                {n.term[lang]}
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section
         class="mt-10 space-y-5 rounded border border-neutral-800 p-4 print:hidden"

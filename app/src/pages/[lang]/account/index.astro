@@ -13,14 +13,12 @@ const ui = UI[lang];
 
 <Base lang={lang} title={ui.account}>
   <h1 class="mb-2 text-3xl font-semibold">{ui.account}</h1>
-  {
-    ACCOUNTS ? (
-      <>
-        <p class="mb-10 text-neutral-400">{ui.accountIntro}</p>
-        <Account client:only="preact" lang={lang} ui={{ ...ui }} />
-      </>
-    ) : (
-      <p class="text-neutral-400">{ui.accountsOff}</p>
-    )
-  }
+  {ACCOUNTS ? (
+    <>
+      <p class="mb-10 text-neutral-400">{ui.accountIntro}</p>
+      <Account client:only="preact" lang={lang} ui={{ ...ui }} />
+    </>
+  ) : (
+    <p class="text-neutral-400">{ui.accountsOff}</p>
+  )}
 </Base>

@@ -77,7 +77,9 @@ const tourUi = {
     <meta name="theme-color" content="#0a0a0a" />
     {noindex && <meta name="robots" content="noindex" />}
     {!noindex && <link rel="canonical" href={canonical} />}
-    {alternates.map((a) => <link rel="alternate" hreflang={a.lang} href={a.href} />)}
+    {alternates.map((a) => (
+      <link rel="alternate" hreflang={a.lang} href={a.href} />
+    ))}
     <link rel="alternate" hreflang="x-default" href={alternates[0].href} />
     <link rel="sitemap" href={url('sitemap-index.xml')} />
     <link
@@ -94,21 +96,19 @@ const tourUi = {
     <meta property="og:locale" content={lang === 'da' ? 'da_DK' : 'en_GB'} />
     <meta property="og:locale:alternate" content={lang === 'da' ? 'en_GB' : 'da_DK'} />
     <meta name="twitter:card" content="summary" />
-    {
-      jsonLd && (
-        <script
-          type="application/ld+json"
-          set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')}
-        />
-      )
-    }
-    <noscript
-      ><style>
+    {jsonLd && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')}
+      ></script>
+    )}
+    <noscript>
+      <style>
         #site-nav {
           display: flex;
         }
-      </style></noscript
-    >
+      </style>
+    </noscript>
   </head>
   <body class="min-h-screen bg-neutral-950 font-sans text-neutral-100 antialiased">
     <a
@@ -121,24 +121,24 @@ const tourUi = {
       class="group relative flex items-center justify-between gap-4 border-b border-neutral-800 px-4 py-4 sm:px-6 print:hidden"
       data-site-header
     >
-      <a href={langBase} class="font-mono text-lg tracking-tight">atlas</a>
+      <a href={langBase} class="font-mono text-lg tracking-tight">
+        atlas
+      </a>
       <div class="flex items-center gap-4 text-sm text-neutral-400">
         <nav
           id="site-nav"
           aria-label={ui.menu}
           class="absolute inset-x-0 top-full z-30 hidden flex-col gap-1 border-b border-neutral-800 bg-neutral-950 px-4 py-3 group-data-[open]:flex md:static md:flex md:flex-row md:flex-wrap md:justify-end md:gap-x-5 md:gap-y-1 md:border-0 md:bg-transparent md:p-0"
         >
-          {
-            nav.map((n) => (
-              <a
-                class="py-1.5 hover:text-neutral-100 aria-[current=page]:text-neutral-100 md:py-0"
-                href={n.href}
-                aria-current={current(n.href) ? 'page' : undefined}
-              >
-                {n.label}
-              </a>
-            ))
-          }
+          {nav.map((n) => (
+            <a
+              class="py-1.5 hover:text-neutral-100 aria-[current=page]:text-neutral-100 md:py-0"
+              href={n.href}
+              aria-current={current(n.href) ? 'page' : undefined}
+            >
+              {n.label}
+            </a>
+          ))}
           <button
             type="button"
             class="py-1.5 text-left hover:text-neutral-100 md:py-0"
@@ -146,20 +146,18 @@ const tourUi = {
           >
             {ui.tourStart}
           </button>
-          {
-            ACCOUNTS && (
-              <AccountMenu
-                client:only="preact"
-                href={url(`${lang}/account/`)}
-                ui={{
-                  signIn: ui.signIn,
-                  account: ui.account,
-                  sync_error: ui.sync_error,
-                  sync_offline: ui.sync_offline,
-                }}
-              />
-            )
-          }
+          {ACCOUNTS && (
+            <AccountMenu
+              client:only="preact"
+              href={url(`${lang}/account/`)}
+              ui={{
+                signIn: ui.signIn,
+                account: ui.account,
+                sync_error: ui.sync_error,
+                sync_offline: ui.sync_offline,
+              }}
+            />
+          )}
         </nav>
         <a
           id="lang-switch"
@@ -185,66 +183,60 @@ const tourUi = {
         </button>
       </div>
     </header>
-    {
-      lang === 'en' && !wide && (
-        <div
-          id="lang-suggest"
-          lang="da"
-          hidden
-          class="border-b border-neutral-800 bg-neutral-900 px-4 py-2 text-sm text-neutral-300 sm:px-6 print:hidden"
-        >
-          <div class="mx-auto flex max-w-5xl flex-wrap items-center gap-x-4 gap-y-1">
-            <span>{UI.da.langSuggest}</span>
-            <a class="text-amber-300 hover:underline" href={swapLang(path, 'da')} hreflang="da">
-              {UI.da.langSwitch}
-            </a>
-            <button type="button" class="text-neutral-500 hover:text-neutral-200" data-lang-keep>
-              {UI.da.langKeep}
-            </button>
-          </div>
+    {lang === 'en' && !wide && (
+      <div
+        id="lang-suggest"
+        lang="da"
+        hidden
+        class="border-b border-neutral-800 bg-neutral-900 px-4 py-2 text-sm text-neutral-300 sm:px-6 print:hidden"
+      >
+        <div class="mx-auto flex max-w-5xl flex-wrap items-center gap-x-4 gap-y-1">
+          <span>{UI.da.langSuggest}</span>
+          <a class="text-amber-300 hover:underline" href={swapLang(path, 'da')} hreflang="da">
+            {UI.da.langSwitch}
+          </a>
+          <button type="button" class="text-neutral-500 hover:text-neutral-200" data-lang-keep>
+            {UI.da.langKeep}
+          </button>
         </div>
-      )
-    }
+      </div>
+    )}
     <main id="main" tabindex="-1" class={wide ? '' : 'mx-auto max-w-5xl px-4 py-10 sm:px-6'}>
       <slot />
     </main>
-    {
-      !wide && (
-        <footer class="mx-auto flex max-w-5xl flex-wrap gap-5 px-4 pb-10 text-xs text-neutral-500 sm:px-6 print:hidden">
-          <a class="hover:text-neutral-300" href={url(`${lang}/review/`)}>
-            {ui.review}
-          </a>
-          <a class="hover:text-neutral-300" href={url(`${lang}/data/`)}>
-            {extra.data}
-          </a>
-          <a class="hover:text-neutral-300" href={REPO}>
-            {ui.sourceCode}
-          </a>
-          <a
-            class="hover:text-neutral-300"
-            href={`${REPO}/blob/main/CONTENT-LICENSE.md`}
-            rel="license"
-          >
-            {extra.licenceFooter}
-          </a>
-          <button type="button" class="hover:text-neutral-300" data-tour-start>
-            {ui.tourStart}
-          </button>
-        </footer>
-      )
-    }
-    {
-      !wide && (
-        <a
-          href="#main"
-          data-back-to-top
-          hidden
-          class="fixed right-4 bottom-4 z-30 rounded-full border border-neutral-700 bg-neutral-900/90 px-3 py-2 text-xs text-neutral-300 shadow hover:text-neutral-100 print:hidden"
-        >
-          ↑ {ui.backToTop}
+    {!wide && (
+      <footer class="mx-auto flex max-w-5xl flex-wrap gap-5 px-4 pb-10 text-xs text-neutral-500 sm:px-6 print:hidden">
+        <a class="hover:text-neutral-300" href={url(`${lang}/review/`)}>
+          {ui.review}
         </a>
-      )
-    }
+        <a class="hover:text-neutral-300" href={url(`${lang}/data/`)}>
+          {extra.data}
+        </a>
+        <a class="hover:text-neutral-300" href={REPO}>
+          {ui.sourceCode}
+        </a>
+        <a
+          class="hover:text-neutral-300"
+          href={`${REPO}/blob/main/CONTENT-LICENSE.md`}
+          rel="license"
+        >
+          {extra.licenceFooter}
+        </a>
+        <button type="button" class="hover:text-neutral-300" data-tour-start>
+          {ui.tourStart}
+        </button>
+      </footer>
+    )}
+    {!wide && (
+      <a
+        href="#main"
+        data-back-to-top
+        hidden
+        class="fixed right-4 bottom-4 z-30 rounded-full border border-neutral-700 bg-neutral-900/90 px-3 py-2 text-xs text-neutral-300 shadow hover:text-neutral-100 print:hidden"
+      >
+        ↑ {ui.backToTop}
+      </a>
+    )}
     <Tour client:load steps={steps} langBase={langBase} autoStart={tourAutoStart} ui={tourUi} />
     <script>
       import {

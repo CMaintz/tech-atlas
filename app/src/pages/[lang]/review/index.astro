@@ -28,30 +28,30 @@ const editUrl = (id: string) => `${REPO}/edit/main/app/src/content/terms/${id}.y
     {ui.reviewed}
   </p>
   <div class="mb-10 h-1.5 w-full max-w-md rounded bg-neutral-800">
-    <div class="h-1.5 rounded bg-green-600" style={`width: ${(reviewed / terms.length) * 100}%`}>
-    </div>
+    <div
+      class="h-1.5 rounded bg-green-600"
+      style={`width: ${(reviewed / terms.length) * 100}%`}
+    ></div>
   </div>
-  {
-    clusters.map(([cluster, items]) => (
-      <section class="mb-8">
-        <h2 class="mb-3 text-xs tracking-widest text-neutral-500 uppercase">
-          {CLUSTER_LABELS[cluster]?.[lang] ?? cluster} · {items.length}
-        </h2>
-        <ul class="space-y-1 text-sm">
-          {items
-            .sort((a, b) => a.data.term[lang].localeCompare(b.data.term[lang], lang))
-            .map((t) => (
-              <li class="flex flex-wrap items-baseline gap-x-3">
-                <a class="text-neutral-100 hover:underline" href={termUrl(lang, t.id)}>
-                  {t.data.term[lang]}
-                </a>
-                <a class="text-xs text-neutral-500 hover:text-neutral-300" href={editUrl(t.id)}>
-                  {ui.editOnGitHub}
-                </a>
-              </li>
-            ))}
-        </ul>
-      </section>
-    ))
-  }
+  {clusters.map(([cluster, items]) => (
+    <section class="mb-8">
+      <h2 class="mb-3 text-xs tracking-widest text-neutral-500 uppercase">
+        {CLUSTER_LABELS[cluster]?.[lang] ?? cluster} · {items.length}
+      </h2>
+      <ul class="space-y-1 text-sm">
+        {items
+          .sort((a, b) => a.data.term[lang].localeCompare(b.data.term[lang], lang))
+          .map((t) => (
+            <li class="flex flex-wrap items-baseline gap-x-3">
+              <a class="text-neutral-100 hover:underline" href={termUrl(lang, t.id)}>
+                {t.data.term[lang]}
+              </a>
+              <a class="text-xs text-neutral-500 hover:text-neutral-300" href={editUrl(t.id)}>
+                {ui.editOnGitHub}
+              </a>
+            </li>
+          ))}
+      </ul>
+    </section>
+  ))}
 </Base>
