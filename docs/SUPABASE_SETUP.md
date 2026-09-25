@@ -3,7 +3,7 @@
 Atlas works fully without this: learner progress lives in the browser and search matches
 names and aliases. One Supabase project adds two optional features:
 
-- **Accounts + synced progress** — sign-in (email magic link + GitHub) so a learner's
+- **Accounts + synced progress** — sign-in (GitHub, optionally LinkedIn) so a learner's
   progress follows them across devices (A44–A50 in `design/AUTONOMOUS_DECISIONS.md`):
   steps 1–6. Until both repository variables in step 5 are set, the site has no account UI.
 - **Search by meaning** — questions like "how do I stop people reusing leaked passwords"
@@ -29,7 +29,8 @@ If you set up step 7, the `backend` workflow runs every migration for you
 
 - **Dashboard:** open **SQL Editor → New query**, paste the whole of each file in
   [`supabase/migrations/`](../supabase/migrations/) in name order
-  (`20260923000000_learner_state.sql`, then `20260925000000_term_vectors.sql`), and
+  (`20260923000000_learner_state.sql`, `20260925000000_term_vectors.sql`, then
+  `20260926000000_search_rate_retention.sql`), and
   **Run**. They are idempotent, so running one twice is harmless — including when the
   workflow later applies them again.
 - **CLI:** from the repo root, `npx supabase login`, `npx supabase link --project-ref <ref>`,
@@ -57,8 +58,10 @@ Sign-in links and the GitHub flow return to `/tech-atlas/en/account/` or
 
 ## 4. Sign-in providers
 
-**Email (magic link)** — on by default (**Authentication → Sign In / Providers → Email**).
-Leave "Confirm email" on.
+**Email (magic link)** — **hidden on the site for now** (A87): the account page shows no
+email field until `EMAIL_SIGNIN` in `app/src/lib/auth-config.ts` is set to `true` (one
+line). Do that only once custom SMTP (below) works. In Supabase it is on by default
+(**Authentication → Sign In / Providers → Email**); leave "Confirm email" on.
 
 > Supabase's built-in mailer is for testing: it sends only a few emails an hour, and only
 > to members of your Supabase organisation. For other learners to receive sign-in links,
@@ -79,6 +82,35 @@ Leave "Confirm email" on.
 The GitHub client secret lives only in Supabase — never in this repository or its
 variables.
 
+**LinkedIn (optional)** — Supabase's provider is **LinkedIn (OIDC)** (`linkedin_oidc`); the
+older plain "LinkedIn" provider is deprecated, don't use it.
+
+1. LinkedIn requires every developer app to be associated with a **LinkedIn Company
+   Page**, and you must be an admin of that page. If you don't have one: on LinkedIn,
+   **For Business → Create a Company Page** — a simple page named e.g. `Atlas` is enough.
+2. Go to <https://www.linkedin.com/developers/apps> → **Create app**:
+   - App name: `Atlas`
+   - LinkedIn Page: the Company Page from step 1
+   - Privacy policy URL: `https://cmaintz.github.io/tech-atlas/en/privacy/`
+   - App logo: any square image (required)
+   - Accept the terms → **Create app**. If asked, verify the app (**Settings** tab →
+     **Verify** → open the link as the page admin and approve it).
+3. **Products** tab → **Sign In with LinkedIn using OpenID Connect** → **Request access**
+   (granted at once). It provides the `openid`, `profile` and `email` scopes Supabase uses.
+4. **Auth** tab → **OAuth 2.0 settings → Authorized redirect URLs for your app** → add
+   `https://<project-ref>.supabase.co/auth/v1/callback` (copy the exact value shown in
+   Supabase's LinkedIn (OIDC) panel). On the same tab, copy the **Client ID** and the
+   **Primary Client Secret**.
+5. In Supabase: **Authentication → Sign In / Providers → LinkedIn (OIDC)** → enable,
+   paste the Client ID and Client Secret, save.
+6. Show the button: set the repository variable `PUBLIC_AUTH_PROVIDERS` to
+   `github,linkedin_oidc` (step 5) and redeploy.
+
+Which buttons the site shows is decided by `PUBLIC_AUTH_PROVIDERS` alone
+(comma-separated; unknown names are ignored; unset = `github`), so enabling a provider in
+Supabase changes nothing on the site until it is listed there — no half-configured button
+is ever shown.
+
 ## 5. Give the site the two public values
 
 In Supabase, **Project Settings → API Keys** (and **Data API** for the URL), copy:
@@ -96,6 +128,9 @@ Variables** tab → **New repository variable**, twice:
 | -------------------------- | -------------------------- |
 | `PUBLIC_SUPABASE_URL`      | the Project URL            |
 | `PUBLIC_SUPABASE_ANON_KEY` | the publishable / anon key |
+
+Optionally a third, once LinkedIn is set up (step 4): `PUBLIC_AUTH_PROVIDERS` =
+`github,linkedin_oidc`. Unset means GitHub only.
 
 They must be **variables**, not secrets — `deploy.yml` reads `vars.*`.
 
@@ -188,7 +223,11 @@ never the address) and **50,000 a day in total**, answering 429 beyond that. COR
 only `https://cmaintz.github.io` and `localhost`. The binding free-tier budget is
 **Supabase Edge Function invocations: 500,000 a month**; Workers AI's 10,000 neurons a day
 cover far more queries than the daily cap allows. To change the caps, edit
-`public.search_allow` in a new migration. Logs: **Edge Functions → semantic-search → Logs**
+`public.search_allow` in a new migration. **Retention (A88):** expired counters are
+deleted on every search and by a pg_cron job (`atlas-search-rate-purge`, every 10 minutes;
+the migration enables **pg_cron** itself), so a per-client row (a hash of an IP address)
+is gone within ~12 minutes and the daily total (no identifier) after 2 days — the privacy
+page promises this. Check: **Integrations → Cron**, or `select * from cron.job;`. Logs: **Edge Functions → semantic-search → Logs**
 (the first request per instance also logs the pooling Workers AI reports).
 
 **After editing terms:** run `npm run embed` in `app/` and commit the updated vector file
@@ -222,6 +261,11 @@ CLOUDFLARE_API_TOKEN=… npm run seed:vectors`.
   sign-in identity itself (email / GitHub id in **Authentication → Users**) remains
   until you delete it there; deleting a user also deletes their row
   (`on delete cascade`).
+- **Account deletion requests** (the privacy page tells learners to email
+  cmaintz@outlook.com): **Authentication → Users** → find the user → **Delete user** (this
+  also deletes their `learner_state` row), then in the SQL editor
+  `delete from auth.audit_log_entries where payload->>'actor_id' = '<user id>';` to remove
+  their sign-in log. Answer within a month (GDPR Art. 12).
 - **Turning it off:** delete the two `PUBLIC_SUPABASE_*` repository variables and redeploy
   (accounts); delete `PUBLIC_SEMANTIC_SEARCH_URL` and redeploy (search by meaning); delete
   `SUPABASE_PROJECT_REF` to stop the backend workflow.

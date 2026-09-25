@@ -1,7 +1,7 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import Account from '../../../components/Account';
-import { ACCOUNTS, LANGS, UI, type Lang } from '../../../lib/site';
+import { ACCOUNTS, LANGS, UI, url, type Lang } from '../../../lib/site';
 
 export function getStaticPaths() {
   return LANGS.map((lang) => ({ params: { lang } }));
@@ -21,4 +21,9 @@ const ui = UI[lang];
   ) : (
     <p class="text-neutral-400">{ui.accountsOff}</p>
   )}
+  <p class="mt-10 text-sm text-neutral-500">
+    <a class="underline hover:text-neutral-300" href={url(`${lang}/privacy/`)}>
+      {ui.privacyLink}
+    </a>
+  </p>
 </Base>

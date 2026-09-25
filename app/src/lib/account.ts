@@ -8,6 +8,7 @@
  * out, offline, or with accounts unconfigured, nothing here runs and nothing breaks.
  */
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import type { AuthProvider } from './auth-config';
 import { loadLearner, parseLearner, saveLearner, type Learner } from './learner';
 import { ACCOUNTS, SUPABASE_ANON_KEY, SUPABASE_URL, url, type Lang } from './site';
 import { mergeLearner, sameLearner } from './sync';
@@ -260,6 +261,7 @@ export function startSync() {
 /** Absolute URL of the account page — where sign-in links and OAuth return to. */
 const returnUrl = (lang: Lang) => new URL(url(`${lang}/account/`), location.origin).href;
 
+/** Email magic link — offered only while `EMAIL_SIGNIN` (auth-config.ts) is on. */
 export async function signInWithEmail(email: string, lang: Lang): Promise<string | null> {
   const c = getClient();
   if (!c) return 'Accounts are not configured.';
@@ -270,11 +272,12 @@ export async function signInWithEmail(email: string, lang: Lang): Promise<string
   return error?.message ?? null;
 }
 
-export async function signInWithGitHub(lang: Lang): Promise<string | null> {
+/** Sign in with an OAuth provider (A46, A87): a PKCE redirect back to the account page. */
+export async function signInWith(provider: AuthProvider, lang: Lang): Promise<string | null> {
   const c = getClient();
   if (!c) return 'Accounts are not configured.';
   const { error } = await c.auth.signInWithOAuth({
-    provider: 'github',
+    provider,
     options: { redirectTo: returnUrl(lang) },
   });
   return error?.message ?? null;

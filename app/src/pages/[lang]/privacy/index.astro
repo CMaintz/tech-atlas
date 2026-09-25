@@ -1,0 +1,148 @@
+---
+/** Privacy and data handling (A88): what is processed, why, where, for how long, and your rights. */
+import Base from '../../../layouts/Base.astro';
+import { LANGS, type Lang } from '../../../lib/site';
+import {
+  CONTROLLER,
+  DATA,
+  LINKS,
+  PRIVACY_UI,
+  PROCESSORS,
+  STORAGE,
+  UPDATED,
+} from '../../../lib/privacy';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const p = PRIVACY_UI[lang];
+const date = new Date(`${UPDATED}T00:00:00Z`).toLocaleDateString(
+  lang === 'da' ? 'da-DK' : 'en-GB',
+  { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' },
+);
+const mail = `mailto:${CONTROLLER.email}`;
+// The controller's name in plain text; the address follows the sentence as a link.
+const controllerText = p.controller.replace('{name}', CONTROLLER.name);
+const h2 = 'mt-12 mb-3 text-xl font-semibold';
+const link = 'underline decoration-neutral-600 underline-offset-2 hover:decoration-neutral-300';
+---
+
+<Base lang={lang} title={p.title} description={p.intro}>
+  <article class="max-w-3xl text-neutral-300">
+    <h1 class="mb-2 text-3xl font-semibold text-neutral-100">{p.title}</h1>
+    <p class="mb-6 text-sm text-neutral-500">
+      <time datetime={UPDATED}>{p.updated.replace('{date}', date)}</time>
+    </p>
+    <p class="mb-8">{p.intro}</p>
+
+    <h2 class={h2}>{p.shortTitle}</h2>
+    <ul class="list-disc space-y-1 pl-5">
+      {p.short.map((s) => (
+        <li>{s}</li>
+      ))}
+    </ul>
+
+    <h2 class={h2} id="controller">
+      {p.controllerTitle}
+    </h2>
+    <p>
+      {controllerText}
+      <a class={link} href={mail}>
+        {CONTROLLER.email}
+      </a>
+    </p>
+
+    <h2 class={h2} id="data">
+      {p.dataTitle}
+    </h2>
+    <div class="space-y-6">
+      {DATA.map((d) => (
+        <section class="rounded border border-neutral-800 p-4">
+          <h3 class="mb-3 font-semibold text-neutral-100">{d.title[lang]}</h3>
+          <dl class="grid gap-x-4 gap-y-2 text-sm sm:grid-cols-[10rem_1fr]">
+            <dt class="text-neutral-500">{p.what}</dt>
+            <dd>{d.what[lang]}</dd>
+            <dt class="text-neutral-500">{p.why}</dt>
+            <dd>{d.why[lang]}</dd>
+            <dt class="text-neutral-500">{p.where}</dt>
+            <dd>{d.where[lang]}</dd>
+            <dt class="text-neutral-500">{p.basis}</dt>
+            <dd>{d.basis[lang]}</dd>
+            <dt class="text-neutral-500">{p.retention}</dt>
+            <dd>{d.retention[lang]}</dd>
+          </dl>
+        </section>
+      ))}
+    </div>
+
+    <h2 class={h2} id="storage">
+      {p.storageTitle}
+    </h2>
+    <p class="mb-4">{p.storageIntro}</p>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-sm">
+        <thead class="text-xs tracking-widest text-neutral-500 uppercase">
+          <tr>
+            <th class="py-2 pr-4 font-normal">{p.storageKey}</th>
+            <th class="py-2 pr-4 font-normal">{p.storageWhere}</th>
+            <th class="py-2 font-normal">{p.storagePurpose}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {STORAGE.map((s) => (
+            <tr class="border-t border-neutral-800 align-top">
+              <td class="py-2 pr-4 font-mono text-xs break-all text-neutral-100">{s.key}</td>
+              <td class="py-2 pr-4 text-neutral-400">{s.store}</td>
+              <td class="py-2">{s.purpose[lang]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-4">{p.consent}</p>
+
+    <h2 class={h2} id="processors">
+      {p.processorsTitle}
+    </h2>
+    <ul class="space-y-2">
+      {PROCESSORS.map((x) => (
+        <li>
+          <a class={`${link} text-neutral-100`} href={x.link}>
+            {x.name}
+          </a>{' '}
+          — {x.role[lang]}
+        </li>
+      ))}
+    </ul>
+
+    <h2 class={h2} id="rights">
+      {p.rightsTitle}
+    </h2>
+    <ul class="list-disc space-y-1 pl-5">
+      {p.rights.map((r) => (
+        <li>{r}</li>
+      ))}
+    </ul>
+    <p class="mt-3">
+      {p.rightsReply}{' '}
+      <a class={link} href={mail}>
+        {CONTROLLER.email}
+      </a>
+    </p>
+
+    <h2 class={h2} id="complaints">
+      {p.complaintTitle}
+    </h2>
+    <p>
+      {p.complaint}
+      <a class={link} href={LINKS.datatilsynet} hreflang="da">
+        {p.complaintLink}
+      </a>
+    </p>
+
+    <h2 class={h2}>{p.changesTitle}</h2>
+    <p>{p.changes}</p>
+  </article>
+</Base>

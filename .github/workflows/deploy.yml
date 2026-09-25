@@ -45,6 +45,8 @@ jobs:
         env:
           PUBLIC_SUPABASE_URL: ${{ vars.PUBLIC_SUPABASE_URL }}
           PUBLIC_SUPABASE_ANON_KEY: ${{ vars.PUBLIC_SUPABASE_ANON_KEY }}
+          # Sign-in buttons offered (A87), e.g. github,linkedin_oidc; unset => GitHub only.
+          PUBLIC_AUTH_PROVIDERS: ${{ vars.PUBLIC_AUTH_PROVIDERS }}
           # Search by meaning (A75): the semantic-search function URL; unset => name search only.
           PUBLIC_SEMANTIC_SEARCH_URL: ${{ vars.PUBLIC_SEMANTIC_SEARCH_URL }}
         run: npm run build
