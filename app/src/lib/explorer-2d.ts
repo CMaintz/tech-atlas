@@ -26,6 +26,7 @@ import {
 } from './graph-style';
 import {
   backbone,
+  backboneOf,
   bundleControls,
   clusterBundles,
   depthLanes,
@@ -591,19 +592,28 @@ export function createMap2D(opts: Map2DOptions) {
   /** Elements currently displayed — hover fades only these. */
   let shown = cy.collection();
 
-  /** Which edges are drawn, and how (backbone / all / focus). */
+  /** The backbone over the families switched on, recomputed when they change. */
+  let spineFor: ReadonlySet<string> | null = null;
+  /**
+   * Which edges are drawn, and how (backbone / all / focus). The families filter the
+   * overview only: a selected term shows every one of its relationships.
+   */
   const refreshEdges = () => {
     if (!view) return;
     const v = view;
     const sel = v.selected;
     const hl = v.highlight;
+    const spine = spineFor === v.families ? null : backboneOf(graph.nodes, graph.links, v.families);
+    spineFor = v.families;
     cy.batch(() => {
       links.forEach((e) => {
         const s = e.data('source');
         const t = e.data('target');
-        const ends = v.nodes.has(s) && v.nodes.has(t) && v.families.has(graphFamily(e));
-        const focus = ends && (s === sel || t === sel || (hl.has(s) && hl.has(t)));
-        const on = ends && (v.showAll || e.hasClass('bb') || focus);
+        if (spine) e.toggleClass('bb', spine.has(Number(e.id().slice(1))));
+        const shown = v.nodes.has(s) && v.nodes.has(t);
+        const ends = shown && v.families.has(graphFamily(e));
+        const focus = (shown && (s === sel || t === sel)) || (ends && hl.has(s) && hl.has(t));
+        const on = focus || (ends && (v.showAll || e.hasClass('bb')));
         e.toggleClass('off', !on);
         e.toggleClass('all', on && v.showAll);
         e.toggleClass('focus', focus);
@@ -886,7 +896,8 @@ export function createMap2D(opts: Map2DOptions) {
       prev && familiesNow && familiesNow !== next.families && !reducedMotion()
         ? links.filter((e) => {
             const f = graphFamily(e);
-            return familiesNow!.has(f) && !next.families.has(f) && !e.hasClass('off');
+            const mine = e.data('source') === next.selected || e.data('target') === next.selected;
+            return familiesNow!.has(f) && !next.families.has(f) && !e.hasClass('off') && !mine;
           })
         : cy.collection();
     const familiesOn =

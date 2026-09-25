@@ -104,6 +104,8 @@ export const UI = {
     autoRotate: 'Auto-rotate',
     findTerm: 'Find a term',
     routeShort: 'Route',
+    /** The bar's Relationships button (the popover keeps the full heading). */
+    linksShort: 'Links',
     explorerIntro:
       'The whole map. Click a term to open it in the side panel; expand the panel to read it in full.',
     layoutForce: 'Force',
@@ -311,6 +313,7 @@ export const UI = {
     autoRotate: 'Roter automatisk',
     findTerm: 'Find et begreb',
     routeShort: 'Rute',
+    linksShort: 'Relationer',
     explorerIntro:
       'Hele kortet. Klik på et begreb for at åbne det i sidepanelet; udvid panelet for at læse det hele.',
     layoutForce: 'Kraft',
@@ -528,6 +531,8 @@ export const GRAPH_UI = {
     showAll: 'Show all relationships',
     overview:
       'The overview draws each term’s strongest links; faint ribbons bundle the links between clusters. Hover or click a term for all its relationships.',
+    typesNote:
+      'The ticked types filter the overview; a selected term always shows all its relationships.',
   },
   da: {
     legend: 'Forklaring',
@@ -541,6 +546,8 @@ export const GRAPH_UI = {
     showAll: 'Vis alle relationer',
     overview:
       'Overblikket viser hvert begrebs stærkeste forbindelser; svage bånd samler forbindelserne mellem klynger. Hold musen over eller klik på et begreb for at se alle dets relationer.',
+    typesNote:
+      'De valgte typer filtrerer overblikket; et valgt begreb viser altid alle sine relationer.',
   },
 } as const;
 

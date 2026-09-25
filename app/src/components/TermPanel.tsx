@@ -630,16 +630,6 @@ export default function TermPanel(props: Props) {
                 </button>
               )}
             </section>
-
-            <p>
-              <a
-                class="text-sm text-fg underline hover:text-fg"
-                href={termHref}
-                title={text.readMoreLabel}
-              >
-                {text.readMore}
-              </a>
-            </p>
           </div>
 
           {mini && (

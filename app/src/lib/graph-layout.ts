@@ -112,6 +112,24 @@ export function backbone(
   return chosen;
 }
 
+/**
+ * The backbone over only the relationship families switched on, as indices into the
+ * full `links`: a family that is off no longer takes a term's strongest-link slots, so
+ * the families left on fill them.
+ */
+export function backboneOf(
+  nodes: Node[],
+  links: (WeightedLink & { type?: string; primary?: boolean })[],
+  families: ReadonlySet<string>,
+): Set<number> {
+  const on = links.flatMap((l, i) => (families.has(l.family) ? [i] : []));
+  const chosen = backbone(
+    nodes,
+    on.map((i) => links[i]),
+  );
+  return new Set([...chosen].map((j) => on[j]));
+}
+
 // ---- Centrality ----------------------------------------------------------------------
 
 /**
