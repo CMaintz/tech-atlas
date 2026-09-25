@@ -26,7 +26,7 @@ body:
     da: Forvirrende eller sene budskaber kan skade tilliden mere end selve hændelsen, og nogle indberetninger er lovpligtige.
 edges:
   part-of: [contingency-plan]
-  used-with: [data-breach, incident-response]
+  used-with: [data-breach, incident-response, crisis-management]
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material

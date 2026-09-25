@@ -7,7 +7,7 @@ names and aliases. One Supabase project adds two optional features:
   progress follows them across devices (A44–A50 in `design/AUTONOMOUS_DECISIONS.md`):
   steps 1–6. Until both repository variables in step 5 are set, the site has no account UI.
 - **Search by meaning** — questions like "how do I stop people reusing leaked passwords"
-  find _Credential stuffing_, in English or Danish (A61–A64): steps 1, 2, 5 (the URL) and 7.
+  find _Credential stuffing_, in English or Danish (A65–A68): steps 1, 2, 5 (the URL) and 7.
   The language model runs on the backend; visitors download nothing.
 
 Everything below is on free tiers. Roughly 15 minutes per feature.
@@ -115,7 +115,7 @@ workflow applies the migrations, deploys the `semantic-search` Edge Function and
 vectors into `public.term_vectors`. The site calls
 `<PUBLIC_SUPABASE_URL>/functions/v1/semantic-search`; the function embeds the query with
 **bge-m3 on Cloudflare Workers AI** (too large to run inside a Supabase Edge Function —
-A61) and ranks terms in Postgres. If anything is missing or down, search quietly falls
+A65) and ranks terms in Postgres. If anything is missing or down, search quietly falls
 back to names.
 
 **7a. Cloudflare (runs the model; free tier: 10,000 neurons/day — a query costs ~0.02).**
@@ -157,7 +157,7 @@ without the two Cloudflare secrets it deploys everything but the function answer
 **7d. Deploy and check.**
 
 1. **Actions → backend → Run workflow** (it also runs on every push to `main`). It should
-   end with `term_vectors: 562 rows upserted, …`.
+   end with `term_vectors: <2 × number of terms> rows upserted, …`.
 2. **Actions → deploy → Run workflow**, so the site is built with `PUBLIC_SUPABASE_URL`.
 3. From a terminal:
 

@@ -1,0 +1,36 @@
+term:
+  en: Human error
+  da: Menneskelig fejl
+aka:
+  en: [accidental insider, user error]
+  da: [insiderfejl, brugerfejl]
+domain: [security]
+cluster: fundamentals
+layer: people
+status: current
+summary:
+  en: An honest mistake by a person — a wrong click, a lost laptop, a file sent to the wrong address — that harms security.
+  da: En ærlig fejl begået af et menneske — et forkert klik, en tabt bærbar, en fil sendt til den forkerte — der skader sikkerheden.
+body:
+  formal:
+    en: A threat in which someone with legitimate access causes harm without meaning to, for example by setting a system up wrongly, sharing data with the wrong person or losing a device.
+    da: En trussel, hvor en person med lovlig adgang gør skade uden at ville det, fx ved at sætte et system forkert op, dele data med den forkerte eller miste en enhed.
+  plain:
+    en: Like leaving the front door unlocked by accident — nobody planned a break-in, but the house is open all the same.
+    da: Som at glemme at låse hoveddøren — ingen havde planlagt et indbrud, men huset står åbent alligevel.
+  inPractice:
+    en: An HR assistant sends a file of salaries to an outside email address with a similar name; the organisation must treat it as a data breach and report it.
+    da: En HR-assistent sender et regneark med lønninger til en ekstern mailadresse med et lignende navn; organisationen skal behandle det som et databrud og anmelde det.
+  whyItMatters:
+    en: Many incidents start with a mistake, not an attacker, so good design, training and simple routines prevent a large share of harm.
+    da: Mange hændelser starter med en fejl og ikke en angriber, så godt design, træning og enkle rutiner forhindrer en stor del af skaderne.
+edges:
+  kind-of: [insider-threat]
+  requires: [human-factor]
+  causes: [security-incident, data-breach]
+sources:
+  - title: Cyber Security Fast Track — Ordliste (Trussel — insiderfejl)
+    tier: course-material
+  - title: ISO/IEC 27005:2022
+    tier: standard
+draft: true

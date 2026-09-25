@@ -1,4 +1,4 @@
--- Atlas: semantic search vectors (A61). One bge-m3 vector (1024 dimensions, unit length)
+-- Atlas: semantic search vectors (A65). One bge-m3 vector (1024 dimensions, unit length)
 -- per term and language, embedded offline by `npm run embed` and seeded by CI
 -- (app/scripts/seed-vectors.ts) — the `semantic-search` Edge Function embeds the query
 -- with the same model and calls match_terms. Content is public (it is on the site), so

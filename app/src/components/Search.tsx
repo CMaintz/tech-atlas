@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import MiniSearch from 'minisearch';
-import { parseIntent } from '../lib/intent';
+import { exactName, parseIntent } from '../lib/intent';
 import { pairSlugFromIds } from '../lib/slug';
 import { collisionForQuery, collisionsOf } from '../lib/collisions';
 import {
@@ -30,6 +30,10 @@ interface Props {
   langBase: string;
   placeholder: string;
   noResults: string;
+  /** Shown while the index is still loading. */
+  loadingLabel: string;
+  /** Shown under the box: the "/" shortcut. */
+  hint?: string;
   /** Templates with {a} / {b} placeholders. */
   intentLabels: { compare: string; route: string; before: string };
   /** Shown when the query is a name several terms share; {name} and {n} placeholders. */
@@ -46,7 +50,7 @@ const DEBOUNCE_MS = 300;
  * Client-side bilingual search: typo-tolerant over names and aliases in both
  * languages, plus intents — "X vs Y" (compare), "from X to Y" (route) and
  * "before X" (prerequisites) — and, for questions and descriptions, search by meaning
- * (A61): the `semantic-search` Edge Function ranks terms server-side, fused with the
+ * (A65): the `semantic-search` Edge Function ranks terms server-side, fused with the
  * lexical ranking by RRF. Without a backend, or when it fails or is slow, the lexical
  * results simply stand.
  */
@@ -57,6 +61,8 @@ export default function Search({
   langBase,
   placeholder,
   noResults,
+  loadingLabel,
+  hint,
   intentLabels,
   disambiguationLabel,
   byMeaningLabel,
@@ -66,6 +72,12 @@ export default function Search({
   const [semantic, setSemantic] = useState<{ query: string; hits: Scored[] } | null>(null);
   // Answers already fetched this visit, so editing back to a query doesn't ask again.
   const answered = useRef(new Map<string, Scored[]>());
+  const box = useRef<HTMLInputElement>(null);
+
+  // Arriving via the "/" shortcut from another page (…/#search): focus the box.
+  useEffect(() => {
+    if (location.hash === '#search') box.current?.focus();
+  }, []);
 
   useEffect(() => {
     fetch(indexUrl)
@@ -96,6 +108,8 @@ export default function Search({
   const byId = useMemo(() => new Map((docs ?? []).map((d) => [d.id, d])), [docs]);
   const collisions = useMemo(() => collisionsOf((docs ?? []).map((d) => d.id)), [docs]);
   const best = (phrase: string) => {
+    const exact = exactName(docs ?? [], phrase);
+    if (exact) return exact;
     const hit = engine?.search(phrase, { fields: ['en', 'da', 'akaEn', 'akaDa'] })[0];
     return hit ? byId.get(hit.id as string) : undefined;
   };
@@ -188,14 +202,25 @@ export default function Search({
   return (
     <div class="relative">
       <input
+        ref={box}
+        id="search"
         type="search"
+        autocomplete="off"
         value={query}
         onInput={(e) => setQuery((e.target as HTMLInputElement).value)}
         placeholder={placeholder}
         aria-label={placeholder}
         class="w-full rounded border border-neutral-700 bg-neutral-900 px-3 py-2 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-400 focus:outline-none"
       />
-      {q && (
+      {q && !engine && (
+        <p
+          class="absolute z-10 mt-1 w-full rounded border border-neutral-800 bg-neutral-900 px-3 py-2 text-neutral-500"
+          role="status"
+        >
+          {loadingLabel}
+        </p>
+      )}
+      {q && engine && (
         <ul
           class="absolute z-10 mt-1 w-full overflow-hidden rounded border border-neutral-800 bg-neutral-900 shadow-lg"
           aria-live="polite"
@@ -246,6 +271,7 @@ export default function Search({
           )}
         </ul>
       )}
+      {hint && <p class="mt-2 text-xs text-neutral-500">{hint}</p>}
     </div>
   );
 }

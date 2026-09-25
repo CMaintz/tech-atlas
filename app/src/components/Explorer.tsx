@@ -348,7 +348,7 @@ export default function Explorer(props: Props) {
           <p class="mt-1 text-xs text-neutral-500">{ui.explorerIntro}</p>
         </div>
 
-        <div class="flex flex-wrap gap-2">
+        <div class="flex flex-wrap gap-2" data-tour="explorer-layouts">
           <button class={button(mode === '2d')} onClick={() => setMode('2d')}>
             2D
           </button>
@@ -389,7 +389,7 @@ export default function Explorer(props: Props) {
           </button>
         </div>
 
-        <fieldset>
+        <fieldset data-tour="explorer-filters">
           <legend class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">
             {ui.domains}
           </legend>
@@ -422,7 +422,7 @@ export default function Explorer(props: Props) {
           ))}
         </fieldset>
 
-        <div class="space-y-2">
+        <div class="space-y-2" data-tour="explorer-route">
           <h2 class="text-xs tracking-widest text-neutral-500 uppercase">{ui.route}</h2>
           <datalist id="atlas-terms">
             {(graph?.nodes ?? []).map((n) => (

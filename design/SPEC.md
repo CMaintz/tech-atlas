@@ -307,7 +307,7 @@ languages)**, and summaries, with typo tolerance. Search also understands intent
 (A39): "X vs Y" opens the comparison, "how are X and Y related" / "from X to Y" opens
 the route in the Explorer, "before X" opens what to learn first.
 
-**Semantic search (A61–A64, superseding A51–A55)** answers questions and descriptions
+**Semantic search (A65–A68, superseding A51–A55)** answers questions and descriptions
 ("how do I stop people reusing leaked passwords" → Credential stuffing), in Danish or
 English and across the two. **The model runs on the backend, never in the browser.**
 Every Term (name + aliases + summary + plain facet, per language) is embedded at author
@@ -390,7 +390,7 @@ Built after v1.0 (A34–A37) exactly as the data model intended: nothing is hand
 - A database (Postgres + pgvector, or a graph DB) is **deferred** to the phase where
   learning or personalization actually need it. *Post-v1:* learner progress sync uses
   Supabase (hosted Postgres + Auth) straight from the browser (A44), and semantic search
-  keeps its term vectors in the same Postgres (pgvector) behind an Edge Function (A61);
+  keeps its term vectors in the same Postgres (pgvector) behind an Edge Function (A65);
   content, pages and the graph stay static and never touch it. Both are optional: an
   unconfigured build is the fully static site, with name search only.
 

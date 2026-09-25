@@ -1,0 +1,36 @@
+term:
+  en: Awareness officer
+  da: Awareness- og træningsansvarlig
+aka:
+  en: [awareness lead, security training lead]
+  da: [awarenessansvarlig, træningsansvarlig]
+domain: [security]
+cluster: awareness
+layer: people
+status: current
+summary:
+  en: The person responsible for teaching staff to spot and avoid attacks, and for measuring whether their habits actually change.
+  da: Den person, der har ansvaret for at lære medarbejderne at opdage og undgå angreb og for at måle, om deres vaner faktisk ændrer sig.
+body:
+  formal:
+    en: A role that plans, runs and evaluates the organisation's awareness and training work — choosing target groups, messages and methods, running phishing simulations, and reporting results against agreed measures.
+    da: En rolle, der planlægger, gennemfører og evaluerer organisationens awareness- og træningsarbejde — vælger målgrupper, budskaber og metoder, kører phishing-simuleringer og rapporterer resultater mod aftalte mål.
+  plain:
+    en: Like a swimming coach for a whole town — not saving people in the water, but teaching everyone early so fewer get into trouble.
+    da: Som en svømmetræner for en hel by — ikke en der redder folk i vandet, men en der lærer alle at svømme tidligt, så færre kommer i knibe.
+  inPractice:
+    en: The awareness officer sees that the warehouse team rarely reports fake emails, so she runs a ten-minute session at their morning meeting instead of sending another online course.
+    da: Awareness-ansvarlige ser, at lagerholdet sjældent melder falske mails, så hun holder en session på ti minutter på deres morgenmøde i stedet for at sende endnu et onlinekursus.
+  whyItMatters:
+    en: Attacks aimed at people keep changing, so someone must own the job of keeping staff ready — NIS2 even requires training for management.
+    da: Angreb rettet mod mennesker ændrer sig hele tiden, så nogen skal eje opgaven med at holde medarbejderne klar — NIS2 kræver endda træning af ledelsen.
+edges:
+  kind-of: [grey-roles]
+  requires: [awareness-programme]
+  used-with: [phishing-simulation]
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Kursistens udbytte og Modul 2
+    tier: course-material
+  - title: NIST SP 800-50 Rev. 1 — Building a Cybersecurity and Privacy Learning Program
+    tier: standard
+draft: true

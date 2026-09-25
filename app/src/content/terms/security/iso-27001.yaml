@@ -74,6 +74,7 @@ edges:
         da: ISO 27001 er et ledelsessystem, man kan certificeres efter; NIST CSF er et gratis, frivilligt rammeværk af mål uden certifikat.
       strength: normal
       confidence: high
+  part-of: [iso-27000-series]
 article:
   en: src/content/articles/security/iso-27001.en.md
   da: src/content/articles/security/iso-27001.da.md

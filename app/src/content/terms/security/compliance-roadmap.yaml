@@ -1,0 +1,33 @@
+term:
+  en: Compliance roadmap
+  da: Compliance-køreplan (roadmap)
+aka:
+  en: [security roadmap]
+  da: [sikkerhedsroadmap, compliance-roadmap]
+domain: [security]
+cluster: compliance
+layer: governance
+status: current
+summary:
+  en: A time plan that turns a list of gaps into ordered steps, owners and dates for meeting a set of requirements.
+  da: En tidsplan, der gør en liste over mangler til ordnede trin med ejere og datoer for at opfylde et sæt krav.
+body:
+  formal:
+    en: A prioritised plan, usually built from a gap analysis and risk assessment, that sets out which measures will be put in place, in what order, by whom and by when, so the organisation reaches and then keeps compliance.
+    da: En prioriteret plan, typisk bygget på en gap-analyse og en risikoanalyse, der fastlægger, hvilke tiltag der indføres, i hvilken rækkefølge, af hvem og hvornår, så organisationen opnår og derefter fastholder compliance.
+  plain:
+    en: Like planning a house renovation — first the roof that leaks, then the wiring, and the new kitchen last — each job with a builder and a week.
+    da: Som at planlægge en husrenovering — først taget, der er utæt, så el-installationen og det nye køkken til sidst — hver opgave med en håndværker og en uge.
+  inPractice:
+    en: After a gap analysis against NIS2, a transport company plans MFA and backup tests in the first quarter, supplier checks in the second and a first exercise before summer.
+    da: Efter en gap-analyse mod NIS2 planlægger et transportfirma MFA og test af backup i første kvartal, tjek af leverandører i andet og en første øvelse før sommer.
+  whyItMatters:
+    en: No organisation can fix everything at once, and a clear, agreed order shows leaders and authorities that the most important gaps come first.
+    da: Ingen organisation kan rette alt på én gang, og en klar, aftalt rækkefølge viser ledelse og myndigheder, at de vigtigste huller kommer først.
+edges:
+  requires: [gap-analysis]
+  used-with: [nis2, pdca]
+sources:
+  - title: Cyber Security Fast Track — Kursuskompendium, Modul 3 (vejen til god compliance)
+    tier: course-material
+draft: true

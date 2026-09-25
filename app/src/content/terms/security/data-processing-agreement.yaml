@@ -26,7 +26,7 @@ body:
     en: Handing data to a supplier without one breaks GDPR, and it leaves you blind to how your customers' data is actually treated.
     da: At give data til en leverandør uden en sådan aftale er et brud på GDPR og efterlader en uden indsigt i, hvordan kundernes data faktisk behandles.
 edges:
-  requires: [gdpr]
+  requires: [gdpr, personal-data]
   used-with:
     - service-level-agreement
     - to: supplier-management

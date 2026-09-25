@@ -21,7 +21,7 @@ jobs:
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Install dependencies
         working-directory: app
-        # onnxruntime-node (used only by a local `npm run embed`) otherwise downloads CUDA binaries (A61).
+        # onnxruntime-node (used only by a local `npm run embed`) otherwise downloads CUDA binaries (A65).
         env:
           ONNXRUNTIME_NODE_INSTALL: skip
         run: npm ci
