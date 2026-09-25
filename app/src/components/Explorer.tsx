@@ -43,6 +43,12 @@ interface Props {
   domainLabels: Dict;
   /** The term panel's strings and data locations (A80). */
   panel: PanelConfig;
+  /** The hidden visual lab only (A96): opening view, "show all" and the built maps. */
+  lab?: {
+    mode: Mode;
+    showAll: boolean;
+    onMaps: (maps: { map2d: Map2D | null; map3d: Map3D | null }) => void;
+  };
   /** The `semantic-search` Edge Function, or '' when none is configured (names only). */
   semanticUrl?: string;
 }
@@ -108,7 +114,7 @@ const media = (q: string) => typeof window !== 'undefined' && window.matchMedia(
 export default function Explorer(props: Props) {
   const { lang, graphUrl, termBase, ui } = props;
   const [graph, setGraph] = useState<Graph | null>(null);
-  const [mode, setMode] = useState<Mode>('2d');
+  const [mode, setMode] = useState<Mode>(props.lab?.mode ?? '2d');
   const [layout, setLayout] = useState<Layout>('force');
   const [domains, setDomains] = useState<Set<string>>(new Set());
   // The overview starts with the owner's types (A95): contrasts, alternatives and "used
@@ -432,6 +438,10 @@ export default function Explorer(props: Props) {
       bands: bandsOf,
     });
   }, [map3d, visibleIds, families, showAll, selected, hl, colourOf, bandsOf]);
+  // The lab (A96) drives "show all" from its own panel and tunes the built maps.
+  const labAll = props.lab?.showAll;
+  useEffect(() => void (labAll !== undefined && setShowAll(labAll)), [labAll]);
+  useEffect(() => props.lab?.onMaps({ map2d: map2d.current, map3d }), [graph, map3d]);
 
   // ---- Tools -----------------------------------------------------------
   const findRoute = () => {

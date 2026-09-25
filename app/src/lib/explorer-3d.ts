@@ -17,7 +17,7 @@ import {
   isDirected,
   type MapTheme,
 } from './graph-style';
-import { backboneOf, galaxyLayout, pageRank, separate } from './graph-layout';
+import { backboneOf, galaxyLayout, linkVisible, pageRank, separate } from './graph-layout';
 import { reducedMotion } from './graph-cytoscape';
 import { createDragFeedback, orbitDragKind } from './drag-feedback';
 
@@ -123,8 +123,7 @@ export async function createMap3D(opts: {
     const s = endId(l.source);
     const t = endId(l.target);
     return (
-      view.nodes.has(s) &&
-      view.nodes.has(t) &&
+      linkVisible({ source: s, target: t }, view.nodes) &&
       (view.families.has(l.family) || s === view.selected || t === view.selected)
     );
   };
@@ -382,6 +381,9 @@ export async function createMap3D(opts: {
       return new THREE.Color(clusterColour(s.cluster, homeDomain(s), theme));
     });
   let tints = tintsFor();
+  /** The hidden visual lab (A96) may scale or recolour each resting link; inert by default. */
+  const webGain = new Float32Array(links.length).fill(1);
+  const webTint: (InstanceType<typeof THREE.Color> | null)[] = links.map(() => null);
   /**
    * Night map (additive): a colour's brightness is its opacity; black is invisible.
    * Cream map (multiply): a colour mixed towards white by its opacity; white is invisible.
@@ -392,8 +394,9 @@ export async function createMap3D(opts: {
   let revealRaf = 0;
   const writeWeb = (i: number, k: number) => {
     webK[i] = k;
-    const c = tints[i];
-    const kk = light() ? Math.min(1, k * 1.5) : k;
+    const c = webTint[i] ?? tints[i];
+    const g = k * webGain[i];
+    const kk = light() ? Math.min(1, g * 1.5) : g;
     for (let j = 0; j < SEG * 2; j++)
       webCol.set(
         light()
@@ -430,7 +433,8 @@ export async function createMap3D(opts: {
   // One THREE.Points for all of them: each comet is a head and a fading tail of points
   // (`cfg.flow.trail`), positions recomputed on the link's curve every frame for the
   // visible one-way links only (compacted to the front of the buffers, drawRange).
-  const fl = cfg.flow;
+  // A copy, read every frame, so the hidden visual lab (A96) can tune the speed live.
+  const fl: Omit<typeof cfg.flow, 'speed'> & { speed: number } = { ...cfg.flow };
   const TRAIL = fl.trail.length;
   const flowPos = new Float32Array(links.length * TRAIL * 3);
   const flowCol = new Float32Array(links.length * TRAIL * 3);
@@ -744,6 +748,32 @@ export async function createMap3D(opts: {
       // Opening or closing the term panel changes the part of the canvas left clear.
       if (!!next.selected !== !!prev?.selected) resize();
       if (next.selected && next.selected !== prev?.selected) flyTo(next.selected);
+    },
+    /** Hooks for the hidden visual lab only (A96); the Explorer never uses them. */
+    lab: {
+      fg,
+      THREE,
+      scene,
+      web,
+      glow,
+      glowMat,
+      flow,
+      flowMat,
+      flowCfg: fl,
+      /** Each link's length along its curve (the comets wrap at it), term radius, hub labels. */
+      linkLength,
+      radius,
+      labels,
+      webGain,
+      webTint,
+      /** Repaint the resting web (after changing `webGain` / `webTint`). */
+      repaint: () => paintGlow(),
+      /** Each link's quadratic curve (start, bend, end), shared by the web and comets. */
+      curve,
+      /** Drawn in the overview (the backbone, or every link with "show all"). */
+      drawn: (l: Link3) => !!view && endsShown(l) && (view.showAll || l.bb),
+      focusOf,
+      faded,
     },
     /** Bring a term into view (Find a term, even when it is already selected). */
     focus: (id: string) => flyTo(id),
