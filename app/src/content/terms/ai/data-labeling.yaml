@@ -10,7 +10,7 @@ layer: training
 status: current
 summary:
   en: Having people (or tools) attach the right answer to each example, such as “cat”, “complaint” or “angry”, so a model can learn from it.
-  da: At lade mennesker (eller værktøjer) sætte det rigtige svar på hvert eksempel — “kat”, “klage”, “vred” — så en model kan lære af det.
+  da: At lade mennesker (eller værktøjer) sætte det rigtige svar på hvert eksempel - “kat”, “klage”, “vred” - så en model kan lære af det.
 body:
   formal:
     en: The work of adding the correct output to each input in a data set, producing the answered examples that supervised learning needs as training data and that evaluation needs as a reference.

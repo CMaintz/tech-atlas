@@ -17,7 +17,7 @@ body:
     da: En opgave i maskinlæring, hvor modellen lærer af mærkede eksempler at knytte et input til et tal, der kan have enhver værdi mellem to grænser, og bedømmes på, hvor langt dens gæt ligger fra de rigtige værdier.
   plain:
     en: Like guessing a house's price from its size, age and street after seeing what many other houses sold for; the answer is an amount, not a yes or no.
-    da: Som at gætte en boligs pris ud fra størrelse, alder og gade efter at have set, hvad mange andre boliger blev solgt for — svaret er et beløb, ikke et ja eller nej.
+    da: Som at gætte en boligs pris ud fra størrelse, alder og gade efter at have set, hvad mange andre boliger blev solgt for - svaret er et beløb, ikke et ja eller nej.
   inPractice:
     en: An operations planner at a water utility uses a model trained on five years of readings to predict tomorrow's water use hour by hour from the weather forecast and the day of the week.
     da: En driftsplanlægger på et vandværk bruger en model, der er trænet på fem års målinger, til at forudsige morgendagens vandforbrug time for time ud fra vejrudsigten og ugedagen.

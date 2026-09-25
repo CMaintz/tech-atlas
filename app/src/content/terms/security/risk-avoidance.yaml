@@ -16,11 +16,11 @@ body:
     en: The risk treatment option in which the organisation decides not to start, or to stop, the activity, system or data handling that gives rise to the risk, so the risk no longer exists.
     da: Den håndteringsmulighed, hvor organisationen beslutter ikke at starte, eller at stoppe, den aktivitet, det system eller den databehandling, der giver anledning til risikoen, så risikoen ikke længere findes.
   plain:
-    en: Like selling the trampoline because the children keep getting hurt — no more jumping, but also no more broken arms.
-    da: Som at sælge trampolinen, fordi børnene bliver ved med at slå sig — ikke flere hop, men heller ikke flere brækkede arme.
+    en: Like selling the trampoline because the children keep getting hurt - no more jumping, but also no more broken arms.
+    da: Som at sælge trampolinen, fordi børnene bliver ved med at slå sig - ikke flere hop, men heller ikke flere brækkede arme.
   inPractice:
-    en: A fitness chain finds an old database of former members that nobody uses; rather than protect it, it deletes it — data it no longer holds cannot leak.
-    da: En fitnesskæde finder en gammel database over tidligere medlemmer, som ingen bruger; i stedet for at beskytte den sletter kæden den — data, man ikke længere har, kan ikke lække.
+    en: A fitness chain finds an old database of former members that nobody uses; rather than protect it, it deletes it - data it no longer holds cannot leak.
+    da: En fitnesskæde finder en gammel database over tidligere medlemmer, som ingen bruger; i stedet for at beskytte den sletter kæden den - data, man ikke længere har, kan ikke lække.
   whyItMatters:
     en: It is the only option that removes a risk completely, but it also gives up whatever value the activity had, so it suits risks that bring the business little gain.
     da: Det er den eneste mulighed, der fjerner en risiko helt, men man opgiver også den værdi, aktiviteten havde, så den passer til risici, der giver forretningen lille gevinst.
@@ -57,8 +57,8 @@ edges:
         da: Undgåelse stopper aktiviteten; reduktion beholder den og tilføjer kontroller for at gøre den sikrere.
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 5 og Ordliste (Risikohåndtering — eliminere)
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 5 og Ordliste (Risikohåndtering - eliminere)
     tier: course-material
-  - title: ISO/IEC 27005:2022 (8.2 — Risk treatment options)
+  - title: ISO/IEC 27005:2022 (8.2 - Risk treatment options)
     tier: standard
 draft: true

@@ -26,6 +26,7 @@ import {
 } from './graph-style';
 import {
   backbone,
+  backboneOf,
   bundleControls,
   clusterBundles,
   depthLanes,
@@ -39,6 +40,7 @@ import {
   type LaneLayout,
 } from './graph-layout';
 import { GRAPH_STYLE, edgeData, reducedMotion, smoothFit } from './graph-cytoscape';
+import { createDragFeedback } from './drag-feedback';
 import { startDots } from './explorer-flow';
 
 cytoscape.use(fcose);
@@ -88,6 +90,9 @@ const MIN_LABEL_PX = 8;
 const HOVER_LABEL_PX = 11;
 
 const EXTRA_STYLE = [
+  // Cytoscape's own press marker is a dark disc, invisible on the night map: the drag
+  // ring (drag-feedback.ts) replaces it (A95).
+  { selector: 'core', style: { 'active-bg-opacity': 0 } },
   { selector: '.gone', style: { display: 'none' } },
   { selector: 'edge.off', style: { display: 'none' } },
   // Resting backbone: the cluster's own shade, no arrow, straight and solid — a calm
@@ -591,19 +596,28 @@ export function createMap2D(opts: Map2DOptions) {
   /** Elements currently displayed — hover fades only these. */
   let shown = cy.collection();
 
-  /** Which edges are drawn, and how (backbone / all / focus). */
+  /** The backbone over the families switched on, recomputed when they change. */
+  let spineFor: ReadonlySet<string> | null = null;
+  /**
+   * Which edges are drawn, and how (backbone / all / focus). The families filter the
+   * overview only: a selected term shows every one of its relationships.
+   */
   const refreshEdges = () => {
     if (!view) return;
     const v = view;
     const sel = v.selected;
     const hl = v.highlight;
+    const spine = spineFor === v.families ? null : backboneOf(graph.nodes, graph.links, v.families);
+    spineFor = v.families;
     cy.batch(() => {
       links.forEach((e) => {
         const s = e.data('source');
         const t = e.data('target');
-        const ends = v.nodes.has(s) && v.nodes.has(t) && v.families.has(graphFamily(e));
-        const focus = ends && (s === sel || t === sel || (hl.has(s) && hl.has(t)));
-        const on = ends && (v.showAll || e.hasClass('bb') || focus);
+        if (spine) e.toggleClass('bb', spine.has(Number(e.id().slice(1))));
+        const shown = v.nodes.has(s) && v.nodes.has(t);
+        const ends = shown && v.families.has(graphFamily(e));
+        const focus = (shown && (s === sel || t === sel)) || (ends && hl.has(s) && hl.has(t));
+        const on = focus || (ends && (v.showAll || e.hasClass('bb')));
         e.toggleClass('off', !on);
         e.toggleClass('all', on && v.showAll);
         e.toggleClass('focus', focus);
@@ -682,7 +696,7 @@ export function createMap2D(opts: Map2DOptions) {
       was.connectedEdges('.hoverlink').removeClass('hoverlink').addClass('off');
       cy.nodes('.tag').removeClass('faded');
     });
-    opts.container.style.cursor = 'default';
+    opts.container.style.cursor = 'grab';
   };
   const hover = (n: cytoscape.NodeSingular) => {
     hovered = n;
@@ -719,11 +733,24 @@ export function createMap2D(opts: Map2DOptions) {
   };
   // No hover while a button is down: restyling mid-pan throws away the viewport snapshot.
   let pressing = false;
-  cy.on('tapstart', () => {
+  // The background can be dragged: an open hand at rest, a closed one and a ring while
+  // panning (A95). Only a press on the background pans; a press on a term does not.
+  opts.container.style.cursor = 'grab';
+  const drag = createDragFeedback(opts.container);
+  cy.on('tapstart', (e) => {
     pressing = true;
     opts.onPoint?.(null);
+    const ev = e.originalEvent as (MouseEvent & { pointerType?: string }) | TouchEvent | undefined;
+    if (e.target !== cy || !ev) return;
+    if ('touches' in ev) {
+      const t = ev.touches[0];
+      if (t) drag.start('pan', { clientX: t.clientX, clientY: t.clientY, pointerType: 'touch' });
+    } else if (ev.button === 0) drag.start('pan', ev);
   });
-  cy.on('tapend', () => void (pressing = false));
+  cy.on('tapend', () => {
+    pressing = false;
+    drag.end();
+  });
   cy.on('viewport', () => opts.onPoint?.(null));
   cy.on('mouseover', 'node[size]', (e) => {
     if (pressing) return;
@@ -886,7 +913,8 @@ export function createMap2D(opts: Map2DOptions) {
       prev && familiesNow && familiesNow !== next.families && !reducedMotion()
         ? links.filter((e) => {
             const f = graphFamily(e);
-            return familiesNow!.has(f) && !next.families.has(f) && !e.hasClass('off');
+            const mine = e.data('source') === next.selected || e.data('target') === next.selected;
+            return familiesNow!.has(f) && !next.families.has(f) && !e.hasClass('off') && !mine;
           })
         : cy.collection();
     const familiesOn =
@@ -962,6 +990,8 @@ export function createMap2D(opts: Map2DOptions) {
   return {
     cy,
     apply,
+    /** Bring a term into view (Find a term, even when it is already selected). */
+    focus: (id: string) => void centreOn(id, [0.9, 1.2]),
     resize() {
       cy.resize();
       dots.resize();
@@ -970,6 +1000,7 @@ export function createMap2D(opts: Map2DOptions) {
       dots.stop();
       window.clearTimeout(cullTimer);
       window.clearTimeout(hoverTimer);
+      drag.destroy();
       cy.destroy();
     },
   };

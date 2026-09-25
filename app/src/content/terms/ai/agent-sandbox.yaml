@@ -13,11 +13,11 @@ summary:
   da: Et lukket rum, hvor en AI-agent kører kode og bruger værktøjer, så en fejl eller et trick ikke kan nå resten af ens systemer.
 body:
   formal:
-    en: A closed-off place to run code — often a container or small virtual machine — in which an agent's commands execute with only chosen folders, network destinations and rights, and which is thrown away after the task.
-    da: Et lukket sted at køre kode — ofte en container eller en lille virtuel maskine — hvor en agents kommandoer udføres med kun udvalgte mapper, netværksmål og rettigheder, og som smides væk efter opgaven.
+    en: A closed-off place to run code - often a container or small virtual machine - in which an agent's commands execute with only chosen folders, network destinations and rights, and which is thrown away after the task.
+    da: Et lukket sted at køre kode - ofte en container eller en lille virtuel maskine - hvor en agents kommandoer udføres med kun udvalgte mapper, netværksmål og rettigheder, og som smides væk efter opgaven.
   plain:
-    en: Like letting a new cook practise in a test kitchen instead of the restaurant — if they set the pan on fire, only the test kitchen gets burnt.
-    da: Som at lade en ny kok øve sig i et prøvekøkken i stedet for i restauranten — hvis panden bryder i brand, er det kun prøvekøkkenet, der brænder.
+    en: Like letting a new cook practise in a test kitchen instead of the restaurant - if they set the pan on fire, only the test kitchen gets burnt.
+    da: Som at lade en ny kok øve sig i et prøvekøkken i stedet for i restauranten - hvis panden bryder i brand, er det kun prøvekøkkenet, der brænder.
   inPractice:
     en: A developer in a region's IT department lets a coding agent run tests inside a fresh container that sees only the booking app's folder and cannot reach the internet; when the task ends, the container is deleted.
     da: En udvikler i en regions IT-afdeling lader en kodeagent køre tests i en frisk container, der kun kan se bookingappens mappe og ikke kan nå internettet; når opgaven er løst, slettes containeren.
@@ -52,8 +52,8 @@ edges:
       confidence: high
     - to: prompt-injection
       why:
-        en: It does not stop the trick, but it limits the damage — a tricked agent can only harm what is inside the walls.
-        da: Det stopper ikke tricket, men begrænser skaden — en narret agent kan kun skade det, der er inden for væggene.
+        en: It does not stop the trick, but it limits the damage - a tricked agent can only harm what is inside the walls.
+        da: Det stopper ikke tricket, men begrænser skaden - en narret agent kan kun skade det, der er inden for væggene.
       strength: normal
       confidence: high
   used-with:
@@ -75,10 +75,10 @@ sources:
   - title: OWASP Top 10 for LLM Applications 2025 (LLM06 Excessive Agency)
     tier: reference
     publisher: OWASP
-  - title: NIST SP 800-190 — Application Container Security Guide
+  - title: NIST SP 800-190 - Application Container Security Guide
     tier: standard
     publisher: NIST
-  - title: Claude Code documentation — Configure the sandboxed Bash tool
+  - title: Claude Code documentation - Configure the sandboxed Bash tool
     tier: official-doc
     publisher: Anthropic
     url: https://code.claude.com/docs/en/sandboxing

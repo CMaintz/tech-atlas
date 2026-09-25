@@ -9,15 +9,15 @@ cluster: cryptography
 layer: theory
 status: current
 summary:
-  en: Looking after cryptographic keys over their whole life — making, storing, handing out, changing and finally destroying them.
-  da: At passe på kryptografiske nøgler gennem hele deres levetid — at skabe, gemme, udlevere, skifte og til sidst destruere dem.
+  en: Looking after cryptographic keys over their whole life - making, storing, handing out, changing and finally destroying them.
+  da: At passe på kryptografiske nøgler gennem hele deres levetid - at skabe, gemme, udlevere, skifte og til sidst destruere dem.
 body:
   formal:
-    en: The rules, roles and tools that govern each stage of a key's life — creation from a good random source, protected storage, controlled sharing and use, planned replacement, cancelling a leaked key and destroying retired ones — including who may do each step.
-    da: De regler, roller og værktøjer, der styrer hvert trin i en nøgles liv — skabelse fra en god tilfældighedskilde, beskyttet opbevaring, kontrolleret deling og brug, planlagt udskiftning, tilbagekaldelse af en lækket nøgle og destruktion af nøgler, der er taget ud af brug — herunder hvem der må udføre hvert trin.
+    en: The rules, roles and tools that govern each stage of a key's life - creation from a good random source, protected storage, controlled sharing and use, planned replacement, cancelling a leaked key and destroying retired ones - including who may do each step.
+    da: De regler, roller og værktøjer, der styrer hvert trin i en nøgles liv - skabelse fra en god tilfældighedskilde, beskyttet opbevaring, kontrolleret deling og brug, planlagt udskiftning, tilbagekaldelse af en lækket nøgle og destruktion af nøgler, der er taget ud af brug - herunder hvem der må udføre hvert trin.
   plain:
-    en: Like a building manager's key cabinet — keys are cut, numbered, signed out, changed when a tenant moves and melted down when a lock is replaced.
-    da: Som viceværtens nøgleskab — nøgler bliver lavet, nummereret, kvitteret for, skiftet, når en lejer flytter, og smeltet om, når en lås udskiftes.
+    en: Like a building manager's key cabinet - keys are cut, numbered, signed out, changed when a tenant moves and melted down when a lock is replaced.
+    da: Som viceværtens nøgleskab - nøgler bliver lavet, nummereret, kvitteret for, skiftet, når en lejer flytter, og smeltet om, når en lås udskiftes.
   inPractice:
     en: The IT security manager at a pension fund keeps its signing keys in sealed hardware that never lets them out, replaces them every year on a set date, and has a written plan for what to do if one is exposed.
     da: IT-sikkerhedschefen i en pensionskasse opbevarer signeringsnøglerne i forseglet hardware, der aldrig slipper dem ud, skifter dem hvert år på en fast dato og har en skriftlig plan for, hvad der skal ske, hvis én bliver afsløret.
@@ -59,7 +59,7 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: NIST SP 800-57 Part 1 Rev. 5 — Recommendation for Key Management
+  - title: NIST SP 800-57 Part 1 Rev. 5 - Recommendation for Key Management
     url: https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final
     tier: standard
     publisher: NIST

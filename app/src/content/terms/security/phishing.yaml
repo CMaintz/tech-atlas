@@ -17,8 +17,8 @@ body:
     en: A form of social engineering in which messages pretending to come from a trusted sender are sent to many people, aiming to capture a password or other credential, or to get the reader to open a harmful file or link.
     da: En form for social engineering, hvor beskeder, der udgiver sig for at komme fra en betroet afsender, sendes til mange mennesker for at opsnappe en adgangskode eller anden loginoplysning eller få modtageren til at åbne en skadelig fil eller et skadeligt link.
   plain:
-    en: Like casting a net with bait into the sea — the sender does not care which fish bites, only that some do.
-    da: Som at kaste et net med madding i havet — afsenderen er ligeglad med, hvilken fisk der bider, bare nogle gør.
+    en: Like casting a net with bait into the sea - the sender does not care which fish bites, only that some do.
+    da: Som at kaste et net med madding i havet - afsenderen er ligeglad med, hvilken fisk der bider, bare nogle gør.
   inPractice:
     en: Hundreds of employees in a region receive a mail “from MitID” saying their login is about to expire; a few follow the link to a copy of the login page and type in their details.
     da: Hundredvis af medarbejdere i en region får en mail “fra MitID” om, at deres login snart udløber; nogle få følger linket til en kopi af login-siden og indtaster deres oplysninger.
@@ -63,9 +63,9 @@ article:
   en: src/content/articles/security/phishing.en.md
   da: src/content/articles/security/phishing.da.md
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
-  - title: NIST Glossary — Phishing
+  - title: NIST Glossary - Phishing
     tier: standard
     publisher: NIST
     url: https://csrc.nist.gov/glossary/term/phishing

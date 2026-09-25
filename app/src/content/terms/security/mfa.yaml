@@ -14,11 +14,11 @@ summary:
   da: Et login, der kræver to eller flere forskellige slags bevis, fx en adgangskode plus en kode eller en godkendelse i en app.
 body:
   formal:
-    en: An authentication method that grants access only after the user presents at least two factors from different categories — something they know, something they have, or something they are.
-    da: En autentificeringsmetode, der kun giver adgang, når brugeren fremviser mindst to faktorer fra forskellige kategorier — noget man ved, noget man har, eller noget man er.
+    en: An authentication method that grants access only after the user presents at least two factors from different categories - something they know, something they have, or something they are.
+    da: En autentificeringsmetode, der kun giver adgang, når brugeren fremviser mindst to faktorer fra forskellige kategorier - noget man ved, noget man har, eller noget man er.
   plain:
-    en: Like a safe-deposit box that needs both your key and your signature — a thief who copies one still cannot open it.
-    da: Som en bankboks, der kræver både din nøgle og din underskrift — en tyv, der kopierer den ene, kan stadig ikke åbne den.
+    en: Like a safe-deposit box that needs both your key and your signature - a thief who copies one still cannot open it.
+    da: Som en bankboks, der kræver både din nøgle og din underskrift - en tyv, der kopierer den ene, kan stadig ikke åbne den.
   inPractice:
     en: A finance clerk in a municipality logs in to the payment system with MitID; she types her user ID, then approves the request in the MitID app on her phone, which she unlocks with her PIN.
     da: En bogholder i en kommune logger ind i betalingssystemet med MitID; hun taster sit bruger-ID og godkender derefter i MitID-appen på sin telefon, som hun låser op med sin pinkode.
@@ -33,7 +33,7 @@ deepDive:
 
     Push-based MFA added its own failure mode, MFA fatigue or prompt bombing, used in the 2022 Uber breach: the attacker holding the password triggers repeated prompts until the user approves one. Number matching (the user types a number shown on the login page into the app), displayed location and application context, and rate limits on prompts are now standard mitigations; Microsoft made number matching mandatory in Authenticator in 2023.
 
-    MFA protects the authentication event, not the session that follows. AiTM kits capture not only the password and code but the resulting session cookie or OAuth refresh token, which then works without any further factor; defences include short token lifetimes, conditional access tied to compliant devices, and emerging token-binding approaches such as Device Bound Session Credentials. Other bypass paths are weaker fallback methods left enabled, help-desk resets performed on a phone call, legacy protocols (IMAP, POP, basic authentication) that never prompt for a second factor, and service accounts exempted from policy. An MFA programme is therefore assessed on coverage of all interactive and remote access paths, the strength of the weakest enabled method, and the rigour of enrolment and recovery — not on whether MFA is "turned on".
+    MFA protects the authentication event, not the session that follows. AiTM kits capture not only the password and code but the resulting session cookie or OAuth refresh token, which then works without any further factor; defences include short token lifetimes, conditional access tied to compliant devices, and emerging token-binding approaches such as Device Bound Session Credentials. Other bypass paths are weaker fallback methods left enabled, help-desk resets performed on a phone call, legacy protocols (IMAP, POP, basic authentication) that never prompt for a second factor, and service accounts exempted from policy. An MFA programme is therefore assessed on coverage of all interactive and remote access paths, the strength of the weakest enabled method, and the rigour of enrolment and recovery - not on whether MFA is "turned on".
   da: |-
     NIST SP 800-63B (revision 4, færdiggjort i 2025) graduerer autentificering efter Authenticator Assurance Level. AAL1 tillader én faktor; AAL2 kræver to forskellige faktorer og forpligter i revision 4 verifikatoren til at tilbyde mindst én phishing-resistent mulighed; AAL3 kræver en phishing-resistent kryptografisk autentifikator med en ikke-eksporterbar privat nøgle, hvilket udelukker synkroniserbare passkeys. Engangskoder via sms eller opkald (PSTN out-of-band) er en "restricted" autentifikator, hvor verifikatoren skal vurdere risikoen og tilbyde et alternativ. Amerikansk føderal politik (OMB M-22-09, 2022) gik videre og krævede phishing-resistent MFA for myndighedernes ansatte. I EU-retten nævner NIS2 art. 21, stk. 2, litra j, MFA eller kontinuerlig autentificering blandt risikostyringsforanstaltningerne, og den danske NIS2-lov, der trådte i kraft 1. juli 2025, fører kravet ind i dansk ret.
 
@@ -41,7 +41,7 @@ deepDive:
 
     Push-baseret MFA gav sin egen fejltype, MFA-træthed eller prompt bombing, som blev brugt ved Uber-bruddet i 2022: angriberen, der har adgangskoden, udløser gentagne anmodninger, til brugeren godkender én. Number matching (brugeren taster et tal fra loginsiden ind i appen), visning af placering og applikation samt begrænsning af antallet af anmodninger er nu standardmodtræk; Microsoft gjorde number matching obligatorisk i Authenticator i 2023.
 
-    MFA beskytter selve login-hændelsen, ikke den session, der følger. AiTM-værktøjer opsnapper ikke kun adgangskode og kode, men også den resulterende sessionscookie eller OAuth refresh token, som derefter virker uden yderligere faktor; forsvaret omfatter korte token-levetider, betinget adgang knyttet til compliant enheder og nye token binding-tilgange som Device Bound Session Credentials. Andre omgåelsesveje er svagere reservemetoder, der stadig er slået til, nulstillinger foretaget af servicedesken over telefonen, ældre protokoller (IMAP, POP, basic authentication), der aldrig beder om en anden faktor, og servicekonti, der er undtaget fra politikken. Et MFA-program vurderes derfor på dækningen af alle interaktive adgangsveje og fjernadgange, styrken af den svageste aktiverede metode og grundigheden af tilmelding og gendannelse — ikke på, om MFA er "slået til".
+    MFA beskytter selve login-hændelsen, ikke den session, der følger. AiTM-værktøjer opsnapper ikke kun adgangskode og kode, men også den resulterende sessionscookie eller OAuth refresh token, som derefter virker uden yderligere faktor; forsvaret omfatter korte token-levetider, betinget adgang knyttet til compliant enheder og nye token binding-tilgange som Device Bound Session Credentials. Andre omgåelsesveje er svagere reservemetoder, der stadig er slået til, nulstillinger foretaget af servicedesken over telefonen, ældre protokoller (IMAP, POP, basic authentication), der aldrig beder om en anden faktor, og servicekonti, der er undtaget fra politikken. Et MFA-program vurderes derfor på dækningen af alle interaktive adgangsveje og fjernadgange, styrken af den svageste aktiverede metode og grundigheden af tilmelding og gendannelse - ikke på, om MFA er "slået til".
 edges:
   kind-of: [control]
   implements: [authentication]
@@ -68,12 +68,12 @@ article:
   en: src/content/articles/security/mfa.en.md
   da: src/content/articles/security/mfa.da.md
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
-  - title: NIST SP 800-63B — Digital Identity Guidelines, Authentication
+  - title: NIST SP 800-63B - Digital Identity Guidelines, Authentication
     tier: standard
     publisher: NIST
-  - title: NIST SP 800-63B-4 — Digital Identity Guidelines, Authentication and Authenticator Management
+  - title: NIST SP 800-63B-4 - Digital Identity Guidelines, Authentication and Authenticator Management
     tier: standard
     publisher: NIST
     url: https://pages.nist.gov/800-63-4/sp800-63b.html

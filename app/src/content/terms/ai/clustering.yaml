@@ -17,13 +17,13 @@ body:
     da: En opgave i maskinlæring, der deler ting uden mærkater op i grupper, så ting i samme gruppe ligner hinanden mere end ting i forskellige grupper; antallet af grupper og deres betydning er ikke givet.
   plain:
     en: Like looking up at the night sky and seeing which stars sit close together; the groups come first, and the names for them come afterwards.
-    da: Som at kigge op på nattehimlen og se, hvilke stjerner der ligger tæt sammen — grupperne kommer først, og navnene på dem kommer bagefter.
+    da: Som at kigge op på nattehimlen og se, hvilke stjerner der ligger tæt sammen - grupperne kommer først, og navnene på dem kommer bagefter.
   inPractice:
     en: A data analyst at a Danish online shop groups 80,000 customers by what and when they buy and finds six groups, including one that only ever shops during sales.
     da: En dataanalytiker i en dansk webshop grupperer 80.000 kunder efter, hvad og hvornår de køber, og finder seks grupper, herunder én, der kun handler, når der er udsalg.
   whyItMatters:
     en: It finds order in piles of data nobody has time to label, but the groups carry no meaning until a person looks at them, and a different setting can split the same data quite differently.
-    da: Den finder orden i bunker af data, som ingen har tid til at mærke, men grupperne betyder intet, før et menneske har set på dem — og en anden indstilling kan dele de samme data helt anderledes.
+    da: Den finder orden i bunker af data, som ingen har tid til at mærke, men grupperne betyder intet, før et menneske har set på dem - og en anden indstilling kan dele de samme data helt anderledes.
 deepDive:
   en: |-
     k-means is the default partitioning method. Given k, it minimises the within-cluster sum of squared distances to the cluster centroids by Lloyd's algorithm: assign each point to its nearest centroid, recompute each centroid as the mean of its points, and repeat until assignments stop changing. Each iteration costs O(n·k·d). Finding the global optimum is NP-hard even for two clusters, so the result depends on initialisation; k-means++ (Arthur and Vassilvitskii, 2007) picks spread-out starting centroids with probability proportional to squared distance and is O(log k)-competitive with the optimal clustering in expectation, and implementations run several restarts and keep the best. k-means assumes roughly spherical clusters of similar size in Euclidean space and is sensitive to outliers and to feature scaling.

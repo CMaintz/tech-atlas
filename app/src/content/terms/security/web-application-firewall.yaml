@@ -14,8 +14,8 @@ summary:
   da: Et filter foran et website, der læser hver webforespørgsel og blokerer dem, der ligner kendte angreb.
 body:
   formal:
-    en: A firewall that works at the level of HTTP rather than single packets, checking the content of each request to a web application — form fields, headers, cookie values — against rules for known attack patterns, and blocking or logging matches.
-    da: En firewall, der arbejder på HTTP-niveau i stedet for med enkelte pakker og tjekker indholdet af hver forespørgsel til en webapplikation — formularfelter, headers, cookie-værdier — mod regler for kendte angrebsmønstre og blokerer eller logger dem, der matcher.
+    en: A firewall that works at the level of HTTP rather than single packets, checking the content of each request to a web application - form fields, headers, cookie values - against rules for known attack patterns, and blocking or logging matches.
+    da: En firewall, der arbejder på HTTP-niveau i stedet for med enkelte pakker og tjekker indholdet af hver forespørgsel til en webapplikation - formularfelter, headers, cookie-værdier - mod regler for kendte angrebsmønstre og blokerer eller logger dem, der matcher.
   plain:
     en: Like a receptionist who opens every letter to a company and throws out the ones with a known scam inside, whereas an ordinary guard only checks the address on the envelope.
     da: Som en receptionist, der åbner alle breve til en virksomhed og smider dem ud, der indeholder et kendt fupnummer, hvor en almindelig vagt kun tjekker adressen på kuverten.
@@ -59,11 +59,11 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: OWASP — Web Application Firewall
+  - title: OWASP - Web Application Firewall
     tier: reference
     publisher: OWASP
     url: https://owasp.org/www-community/Web_Application_Firewall
-  - title: NIST SP 800-41 Rev. 1 — Guidelines on Firewalls and Firewall Policy
+  - title: NIST SP 800-41 Rev. 1 - Guidelines on Firewalls and Firewall Policy
     tier: standard
     publisher: NIST
 draft: true

@@ -17,14 +17,14 @@ body:
     en: A numeric label assigned to a device's network connection, which the TCP/IP protocols use to mark where each packet comes from and where it must go. IPv4 addresses are 32 bits long; IPv6 addresses are 128 bits.
     da: En talværdi, der tildeles en enheds netværksforbindelse, og som TCP/IP-protokollerne bruger til at angive, hvor hver pakke kommer fra, og hvor den skal hen. IPv4-adresser er på 32 bit, IPv6-adresser på 128 bit.
   plain:
-    en: Like a street address for a house — without it, the postman has no idea where to deliver the letter.
-    da: Som en gadeadresse til et hus — uden den aner postbudet ikke, hvor brevet skal afleveres.
+    en: Like a street address for a house - without it, the postman has no idea where to deliver the letter.
+    da: Som en gadeadresse til et hus - uden den aner postbudet ikke, hvor brevet skal afleveres.
   inPractice:
     en: An analyst in a region's SOC sees hundreds of failed logins to the hospitals' remote access, all from one IP address abroad, and blocks that address in the firewall.
     da: En analytiker i regionens SOC ser hundredvis af mislykkede login til hospitalernes fjernadgang, alle fra én IP-adresse i udlandet, og blokerer adressen i firewallen.
   whyItMatters:
-    en: Blocking, logging and tracing attacks all start from addresses, yet an address alone does not prove who is behind it — many users can share one, and attackers often borrow someone else's.
-    da: Når man blokerer, logger og sporer angreb, tager man udgangspunkt i adresser, men en adresse alene beviser ikke, hvem der står bag — mange brugere kan dele én, og angribere låner ofte andres.
+    en: Blocking, logging and tracing attacks all start from addresses, yet an address alone does not prove who is behind it - many users can share one, and attackers often borrow someone else's.
+    da: Når man blokerer, logger og sporer angreb, tager man udgangspunkt i adresser, men en adresse alene beviser ikke, hvem der står bag - mange brugere kan dele én, og angribere låner ofte andres.
 deepDive:
   en: |-
     An IPv4 address (RFC 791, 1981) is 32 bits, written as four decimal octets such as 192.0.2.10. Every address is split into a network prefix and a host part. The original classful scheme (classes A, B and C) wasted space and was replaced in 1993 by Classless Inter-Domain Routing (CIDR, now RFC 4632), where the prefix length is written explicitly: 192.0.2.0/24 covers 256 addresses, and routers forward by longest prefix match. Several blocks are reserved: 10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16 for private networks (RFC 1918), 127.0.0.0/8 for loopback, 169.254.0.0/16 for link-local autoconfiguration, 100.64.0.0/10 for carrier-grade NAT (RFC 6598) and 192.0.2.0/24, 198.51.100.0/24 and 203.0.113.0/24 for documentation (RFC 5737).
@@ -48,6 +48,6 @@ edges:
 sources:
   - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
     tier: textbook
-  - title: RFC 791 — Internet Protocol
+  - title: RFC 791 - Internet Protocol
     tier: standard
 draft: true

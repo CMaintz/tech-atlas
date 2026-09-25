@@ -12,11 +12,11 @@ summary:
   da: Summen af alle de steder, hvor en udefrakommende kan forsøge at komme ind i et system, sende data ind eller hente data ud.
 body:
   formal:
-    en: The set of all points at which a system can be reached or acted on from outside its trust boundary — open ports, web pages and APIs, user accounts, stored data, the people who run it and the suppliers it depends on.
-    da: Alle de punkter, hvor et system kan nås eller påvirkes fra den anden side af dets tillidsgrænse — åbne porte, websider og API'er, brugerkonti, lagrede data, de mennesker, der driver det, og de leverandører, det afhænger af.
+    en: The set of all points at which a system can be reached or acted on from outside its trust boundary - open ports, web pages and APIs, user accounts, stored data, the people who run it and the suppliers it depends on.
+    da: Alle de punkter, hvor et system kan nås eller påvirkes fra den anden side af dets tillidsgrænse - åbne porte, websider og API'er, brugerkonti, lagrede data, de mennesker, der driver det, og de leverandører, det afhænger af.
   plain:
-    en: Like counting every door, window, hatch and mail slot in a house — each one is a place a burglar could try, whether or not it is locked.
-    da: Som at tælle hver dør, hvert vindue, hver luge og hver brevsprække i et hus — alle er steder, en indbrudstyv kan prøve, uanset om de er låst.
+    en: Like counting every door, window, hatch and mail slot in a house - each one is a place a burglar could try, whether or not it is locked.
+    da: Som at tælle hver dør, hvert vindue, hver luge og hver brevsprække i et hus - alle er steder, en indbrudstyv kan prøve, uanset om de er låst.
   inPractice:
     en: An IT operations manager at a water utility checks what it exposes to the internet and finds an old test website, a forgotten file server and three admin accounts nobody uses; shutting them down shrinks the attack surface.
     da: En IT-driftsansvarlig på et vandværk gennemgår, hvad værket har liggende ud mod internettet, og finder et gammelt testwebsite, en glemt filserver og tre administratorkonti, som ingen bruger; når de lukkes, bliver angrebsfladen mindre.
@@ -46,7 +46,7 @@ edges:
     - to: hardening
       why:
         en: Hardening is the main way to shrink the attack surface, by turning off and removing what is not needed.
-        da: Hærdning er den vigtigste måde at gøre angrebsfladen mindre på — man slår det unødvendige fra og fjerner det.
+        da: Hærdning er den vigtigste måde at gøre angrebsfladen mindre på - man slår det unødvendige fra og fjerner det.
       strength: primary
       confidence: high
     - to: threat-modelling
@@ -63,11 +63,11 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: NIST Glossary — Attack Surface
+  - title: NIST Glossary - Attack Surface
     tier: standard
     publisher: NIST
     url: https://csrc.nist.gov/glossary/term/attack_surface
-  - title: OWASP Cheat Sheet Series — Attack Surface Analysis
+  - title: OWASP Cheat Sheet Series - Attack Surface Analysis
     tier: reference
     publisher: OWASP
     url: https://cheatsheetseries.owasp.org/cheatsheets/Attack_Surface_Analysis_Cheat_Sheet.html

@@ -9,18 +9,18 @@ cluster: fundamentals
 layer: governance
 status: current
 summary:
-  en: How leadership steers security — setting direction, handing out responsibility and checking that it works.
-  da: Hvordan ledelsen styrer sikkerheden — sætter retningen, fordeler ansvaret og tjekker, at det virker.
+  en: How leadership steers security - setting direction, handing out responsibility and checking that it works.
+  da: Hvordan ledelsen styrer sikkerheden - sætter retningen, fordeler ansvaret og tjekker, at det virker.
 body:
   formal:
     en: The system by which an organisation's leadership sets security goals, assigns roles and responsibility, decides how much risk is acceptable, and follows up on results.
     da: Den måde, hvorpå organisationens ledelse fastsætter mål for sikkerheden, fordeler roller og ansvar, beslutter, hvor meget risiko der kan accepteres, og følger op på resultaterne.
   plain:
-    en: Like the captain of a ship — the crew does the rowing, but someone must choose the course and answer for where the ship ends up.
-    da: Som kaptajnen på et skib — besætningen ror, men nogen skal vælge kursen og stå til ansvar for, hvor skibet ender.
+    en: Like the captain of a ship - the crew does the rowing, but someone must choose the course and answer for where the ship ends up.
+    da: Som kaptajnen på et skib - besætningen ror, men nogen skal vælge kursen og stå til ansvar for, hvor skibet ender.
   inPractice:
-    en: The board of a Danish pension fund names a security lead, approves the security policy and asks for a risk report every quarter — and under DORA its members must also take security training themselves.
-    da: Bestyrelsen i en pensionskasse udpeger en sikkerhedsansvarlig, godkender sikkerhedspolitikken og beder om en risikorapport hvert kvartal — og efter DORA skal ledelsen også selv gennemgå et kursus i sikkerhed.
+    en: The board of a Danish pension fund names a security lead, approves the security policy and asks for a risk report every quarter - and under DORA its members must also take security training themselves.
+    da: Bestyrelsen i en pensionskasse udpeger en sikkerhedsansvarlig, godkender sikkerhedspolitikken og beder om en risikorapport hvert kvartal - og efter DORA skal ledelsen også selv gennemgå et kursus i sikkerhed.
   whyItMatters:
     en: Without clear steering from the top, security stays a scattered IT task with no budget, no owner and no one to answer when things go wrong.
     da: Uden klar styring fra toppen forbliver sikkerhed en spredt IT-opgave uden budget, uden ejer og uden nogen, der står til ansvar, når det går galt.
@@ -50,9 +50,9 @@ edges:
       strength: primary
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
-  - title: NIST Cybersecurity Framework (CSF) 2.0 — Govern function
+  - title: NIST Cybersecurity Framework (CSF) 2.0 - Govern function
     tier: standard
     publisher: NIST
 draft: true

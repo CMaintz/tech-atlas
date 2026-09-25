@@ -17,14 +17,14 @@ body:
     en: An awareness document from the open OWASP community that ranks ten broad categories of web application risk, such as broken access control and injection, using data from real tests and a survey of practitioners; it is revised every few years, most recently in 2025.
     da: Et awareness-dokument fra det åbne OWASP-fællesskab, der rangordner ti brede kategorier af risici i webapplikationer, fx brudt adgangskontrol og injection, ud fra data fra rigtige test og en rundspørge blandt fagfolk; det revideres med få års mellemrum, senest i 2025.
   plain:
-    en: Like a motoring group's list of the ten faults most often found in used cars — not every possible fault, but the ones worth checking first.
-    da: Som en bilorganisations liste over de ti fejl, der oftest findes i brugte biler — ikke alle tænkelige fejl, men dem, det er værd at tjekke først.
+    en: Like a motoring group's list of the ten faults most often found in used cars - not every possible fault, but the ones worth checking first.
+    da: Som en bilorganisations liste over de ti fejl, der oftest findes i brugte biler - ikke alle tænkelige fejl, men dem, det er værd at tjekke først.
   inPractice:
     en: A region buying a new patient portal writes into the tender that the supplier must document testing against every category on the OWASP Top 10 before go-live.
     da: En region, der skal købe en ny patientportal, skriver ind i udbuddet, at leverandøren skal dokumentere test mod alle kategorier på OWASP Top 10, før portalen sættes i drift.
   whyItMatters:
-    en: It gives developers, testers and buyers a shared starting point and a common language, but it is a floor rather than a full checklist — covering all ten does not make an application safe.
-    da: Den giver udviklere, testere og indkøbere et fælles udgangspunkt og et fælles sprog, men den er et minimum og ikke en fuld tjekliste — at dække alle ti gør ikke en webapplikation sikker.
+    en: It gives developers, testers and buyers a shared starting point and a common language, but it is a floor rather than a full checklist - covering all ten does not make an application safe.
+    da: Den giver udviklere, testere og indkøbere et fælles udgangspunkt og et fælles sprog, men den er et minimum og ikke en fuld tjekliste - at dække alle ti gør ikke en webapplikation sikker.
 deepDive:
   en: |-
     The list first appeared in 2003 and has been revised in 2004, 2007, 2010, 2013, 2017, 2021 and 2025, making the 2025 edition the eighth. Since 2021 it has been built from two inputs. OWASP collects testing data from contributing organisations, maps the findings to CWE identifiers, groups related CWEs into categories and ranks them using incidence in the data together with exploitability and impact scores derived from the CVSS data of the mapped CVEs. Because tool-based data lags behind what practitioners see, eight of the ten categories are chosen from the data and two are promoted from a community survey. For 2025 the data covered more than 2.8 million applications and 589 CWEs, and the ten categories contain 248 CWEs between them.
@@ -72,7 +72,7 @@ sources:
     tier: reference
     publisher: OWASP
     url: https://owasp.org/www-project-top-ten/
-  - title: OWASP Top 10:2025 — Introduction (What's new in 2025)
+  - title: OWASP Top 10:2025 - Introduction (What's new in 2025)
     tier: reference
     publisher: OWASP
     url: https://top10.owasp.org/2025/0x00_2025-Introduction/

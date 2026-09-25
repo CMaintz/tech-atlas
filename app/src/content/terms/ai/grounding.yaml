@@ -16,8 +16,8 @@ body:
     en: The practice of placing trusted source text in the context window and telling the model to answer only from it, often citing the passage behind each claim and saying so when the sources do not cover the question.
     da: Praksissen med at lægge troværdig kildetekst i kontekstvinduet og bede modellen om kun at svare ud fra den, ofte med henvisning til afsnittet bag hver påstand og med besked, når kilderne ikke dækker spørgsmålet.
   plain:
-    en: Like a student writing an essay where every claim must name the book and page it came from — if no book says it, it does not go in.
-    da: Som en studerende, der skriver en opgave, hvor hver påstand skal nævne den bog og side, den stammer fra — står det ikke i nogen bog, kommer det ikke med.
+    en: Like a student writing an essay where every claim must name the book and page it came from - if no book says it, it does not go in.
+    da: Som en studerende, der skriver en opgave, hvor hver påstand skal nævne den bog og side, den stammer fra - står det ikke i nogen bog, kommer det ikke med.
   inPractice:
     en: An unemployment insurance fund's member chat answers a question about holiday benefit by quoting section 4.2 of the fund's rules with a link, and says “the rules do not cover this” when nothing fits, passing it to a case officer.
     da: En a-kasses medlemschat besvarer et spørgsmål om feriedagpenge ved at citere punkt 4.2 i a-kassens regler med et link og svarer “det dækker reglerne ikke”, når intet passer, og sender sagen videre til en sagsbehandler.
@@ -45,8 +45,8 @@ edges:
   mitigates:
     - to: hallucination
       why:
-        en: Limiting answers to supplied sources, with citations, makes unsupported claims rarer and easier to spot — but does not remove them.
-        da: At begrænse svar til de givne kilder med kildehenvisninger gør udokumenterede påstande sjældnere og lettere at opdage — men fjerner dem ikke.
+        en: Limiting answers to supplied sources, with citations, makes unsupported claims rarer and easier to spot - but does not remove them.
+        da: At begrænse svar til de givne kilder med kildehenvisninger gør udokumenterede påstande sjældnere og lettere at opdage - men fjerner dem ikke.
       strength: primary
       confidence: medium
   requires:
@@ -60,7 +60,7 @@ edges:
       strength: primary
       confidence: high
 sources:
-  - title: NIST AI 600-1 — Artificial Intelligence Risk Management Framework, Generative AI Profile
+  - title: NIST AI 600-1 - Artificial Intelligence Risk Management Framework, Generative AI Profile
     tier: standard
     publisher: NIST
   - title: Gao et al. (2023), Enabling Large Language Models to Generate Text with Citations

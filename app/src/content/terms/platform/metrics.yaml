@@ -46,11 +46,11 @@ edges:
   used-with:
     - service-level-objective
 sources:
-  - title: OpenTelemetry — Metrics
+  - title: OpenTelemetry - Metrics
     url: https://opentelemetry.io/docs/concepts/signals/metrics/
     tier: official-doc
     publisher: OpenTelemetry (CNCF)
-  - title: Google SRE book — Chapter 6, Monitoring Distributed Systems
+  - title: Google SRE book - Chapter 6, Monitoring Distributed Systems
     url: https://sre.google/sre-book/monitoring-distributed-systems/
     tier: reference
     publisher: Google

@@ -9,8 +9,9 @@
 import type { Graph, GraphLink, GraphNode } from './graph-model';
 import { EXPLORER } from './explorer-config';
 import { FAMILY_COLOURS, clusterColour, homeDomain, isDirected } from './graph-style';
-import { backbone, galaxyLayout, pageRank, separate } from './graph-layout';
+import { backboneOf, galaxyLayout, pageRank, separate } from './graph-layout';
 import { reducedMotion } from './graph-cytoscape';
+import { createDragFeedback, orbitDragKind } from './drag-feedback';
 
 export type View3D = {
   nodes: ReadonlySet<string>;
@@ -64,13 +65,12 @@ export async function createMap3D(opts: {
     separate(pts, (i, j) => (EXPLORER.spacing.factor * (r[i] + r[j])) / 2 + cfg.labelClearance, 60);
     graph.nodes.forEach((n, i) => pos.set(n.id, pts[i]));
   }
-  const spine = backbone(graph.nodes, graph.links);
   const nodes: Node3[] = graph.nodes.map((n) => {
     const p = pos.get(n.id)!;
     return { ...n, x: p.x, y: p.y, z: p.z, fx: p.x, fy: p.y, fz: p.z };
   });
   const byId = new Map(nodes.map((n) => [n.id, n]));
-  const links: Link3[] = graph.links.map((l, i) => ({ ...l, i, bb: spine.has(i) }));
+  const links: Link3[] = graph.links.map((l, i) => ({ ...l, i, bb: false }));
   const neighbours = new Map<string, Set<string>>(nodes.map((n) => [n.id, new Set([n.id])]));
   for (const l of links) {
     neighbours.get(l.source)?.add(l.target);
@@ -102,12 +102,15 @@ export async function createMap3D(opts: {
   };
   const nodeColour = (n: GraphNode) =>
     n.id === view?.selected ? '#ffffff' : faded(n.id) ? 'rgba(70,74,90,0.25)' : view!.colour(n);
+  /** The families filter the overview only: a selected term shows all its relationships. */
   const endsShown = (l: Link3) => {
     if (!view) return false;
+    const s = endId(l.source);
+    const t = endId(l.target);
     return (
-      view.nodes.has(endId(l.source)) &&
-      view.nodes.has(endId(l.target)) &&
-      view.families.has(l.family)
+      view.nodes.has(s) &&
+      view.nodes.has(t) &&
+      (view.families.has(l.family) || s === view.selected || t === view.selected)
     );
   };
   // Only the focused links are 3d-force-graph objects (arrows, particles); the resting
@@ -483,7 +486,7 @@ export async function createMap3D(opts: {
   /** Auto-rotating: terms drift under a still pointer, so no hover card. */
   let spinning = false;
   fg.onNodeHover((n: GraphNode | null) => {
-    el.style.cursor = n ? 'pointer' : 'default';
+    el.style.cursor = n ? 'pointer' : 'grab';
     if (n) opts.onHover?.(n.id);
     const p = n && !spinning ? byId.get(n.id) : undefined;
     if (p) {
@@ -500,13 +503,28 @@ export async function createMap3D(opts: {
     }, EXPLORER.hoverDelayMs);
   });
 
+  el.style.cursor = 'grab';
+  const drag = createDragFeedback(el);
+  let press: PointerEvent | null = null;
+  const onPress = (e: PointerEvent) => void (press = e);
+  const onRelease = () => void (press = null);
+  el.addEventListener('pointerdown', onPress, true);
+  window.addEventListener('pointerup', onRelease);
+
   // Orbiting, zooming or panning the camera hides the hover card.
   const controls = fg.controls() as unknown as {
     autoRotate: boolean;
     autoRotateSpeed: number;
     addEventListener: (type: string, fn: () => void) => void;
   };
-  controls.addEventListener('start', () => opts.onPoint?.(null));
+  controls.addEventListener('start', () => {
+    opts.onPoint?.(null);
+    // A drag (not the wheel): a rotate cursor and a ring while orbiting, a closed hand
+    // while panning (A95). The press is seen first, in the capture phase.
+    const kind = press && orbitDragKind(press);
+    if (press && kind) drag.start(kind, press);
+  });
+  controls.addEventListener('end', () => drag.end());
 
   // ---- Camera: a slow swoop in from far out ------------------------------------------
   const centre = {
@@ -543,28 +561,36 @@ export async function createMap3D(opts: {
   resize();
   window.addEventListener('resize', resize);
 
+  /** The camera glides to a term (a cut under reduced motion). */
+  const flyTo = (id: string) => {
+    const n = byId.get(id);
+    if (!n) return;
+    const d = 260;
+    const r = Math.hypot(n.x, n.z) || 1;
+    fg.cameraPosition(
+      { x: n.x + (n.x / r) * d, y: n.y + d * 0.5, z: n.z + (n.z / r) * d },
+      { x: n.x, y: n.y, z: n.z },
+      motion ? 1200 : 0,
+    );
+  };
+
   return {
     apply(next: View3D) {
       const prev = view;
       view = next;
+      if (prev?.families !== next.families) {
+        const spine = backboneOf(graph.nodes, graph.links, next.families);
+        for (const l of links) l.bb = spine.has(l.i);
+      }
       const nodesChanged = !prev || prev.nodes !== next.nodes;
       if (nodesChanged) fg.nodeVisibility(fg.nodeVisibility());
       refresh();
       // Opening or closing the term panel changes the part of the canvas left clear.
       if (!!next.selected !== !!prev?.selected) resize();
-      if (next.selected && next.selected !== prev?.selected) {
-        const n = byId.get(next.selected);
-        if (n && motion) {
-          const d = 260;
-          const r = Math.hypot(n.x, n.z) || 1;
-          fg.cameraPosition(
-            { x: n.x + (n.x / r) * d, y: n.y + d * 0.5, z: n.z + (n.z / r) * d },
-            { x: n.x, y: n.y, z: n.z },
-            1200,
-          );
-        }
-      }
+      if (next.selected && next.selected !== prev?.selected) flyTo(next.selected);
     },
+    /** Bring a term into view (Find a term, even when it is already selected). */
+    focus: (id: string) => flyTo(id),
     /** Slow auto-rotation about the scene centre (off under reduced motion). */
     spin(on: boolean) {
       spinning = on && motion;
@@ -587,6 +613,9 @@ export async function createMap3D(opts: {
       runFlow(false);
       window.clearTimeout(hoverTimer);
       window.removeEventListener('resize', resize);
+      window.removeEventListener('pointerup', onRelease);
+      el.removeEventListener('pointerdown', onPress, true);
+      drag.destroy();
       fg._destructor();
       el.innerHTML = '';
     },

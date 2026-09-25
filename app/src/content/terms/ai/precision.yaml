@@ -10,14 +10,14 @@ layer: theory
 status: current
 summary:
   en: Of all the cases a model flags as positive, the share that really are; in security terms, how many alerts were real.
-  da: Af alle de tilfælde, en model markerer som positive, andelen der virkelig er det — i sikkerhedssprog, hvor mange alarmer der var ægte.
+  da: Af alle de tilfælde, en model markerer som positive, andelen der virkelig er det - i sikkerhedssprog, hvor mange alarmer der var ægte.
 body:
   formal:
     en: The number of true positives divided by all cases the model marked positive (true positives plus false positives), taken from a confusion matrix for one class.
     da: Antallet af sande positive delt med alle tilfælde, modellen markerede som positive (sande positive plus falske positive), hentet fra en forvekslingsmatrix for én klasse.
   plain:
     en: Like a mushroom picker whose basket holds only good mushrooms; every one they chose was safe, even if they walked past plenty of others.
-    da: Som en svampeplukker, hvis kurv kun rummer gode svampe — hver eneste, de valgte, var spiselig, selv om de gik forbi masser af andre.
+    da: Som en svampeplukker, hvis kurv kun rummer gode svampe - hver eneste, de valgte, var spiselig, selv om de gik forbi masser af andre.
   inPractice:
     en: At a small engineering firm, the office manager who looks after IT sees the phishing filter hold back 200 emails in a month; 180 really are phishing, so its precision is 90%, and she releases the other 20 by hand.
     da: I en mindre ingeniørvirksomhed ser kontorchefen, der også passer IT, at phishingfilteret holder 200 mails tilbage på en måned; 180 er reelt phishing, så præcisionen er 90 %, og hun frigiver selv de øvrige 20.
@@ -38,7 +38,7 @@ deepDive:
 
     Modsat genkaldelse afhænger præcision direkte af forekomsten. Efter Bayes' regel er PPV = (sensitivitet × forekomst) / (sensitivitet × forekomst + (1 − specificitet) × (1 − forekomst)). En detektor med 99 % sensitivitet og 99 % specificitet, der bruges, hvor kun 0,1 % af hændelserne er ondsindede, har en præcision på cirka 9 %: omkring ti falske alarmer for hver ægte. Denne basisrate-effekt er regnestykket bag alarmtræthed i sikkerhedsdrift og falsk positive screeningsresultater i sundhedsvæsenet, og den betyder, at præcision målt på et balanceret eller beriget testsæt overvurderer, hvad man vil se i drift, medmindre den omvægtes til den reelle klassefordeling.
 
-    Præcision styres via beslutningstærsklen. En højere tærskel giver typisk højere præcision, men ikke strengt monotont — den kan falde, når nogle få højt scorede negative er tilbage — mens genkaldelse kun kan forblive uændret eller falde. Præcision–genkaldelse-kurven viser afvejningen; ved stærk klasseubalance er den mere informativ end ROC-kurven, fordi den falsk positive rate forbliver vildledende lav, når negative tilfælde langt overstiger positive (Davis & Goadrich, 2006; Saito & Rehmsmeier, 2015). Driftskrav formuleres derfor ofte som "højest mulig genkaldelse under forudsætning af mindst X præcision".
+    Præcision styres via beslutningstærsklen. En højere tærskel giver typisk højere præcision, men ikke strengt monotont - den kan falde, når nogle få højt scorede negative er tilbage - mens genkaldelse kun kan forblive uændret eller falde. Præcision-genkaldelse-kurven viser afvejningen; ved stærk klasseubalance er den mere informativ end ROC-kurven, fordi den falsk positive rate forbliver vildledende lav, når negative tilfælde langt overstiger positive (Davis & Goadrich, 2006; Saito & Rehmsmeier, 2015). Driftskrav formuleres derfor ofte som "højest mulig genkaldelse under forudsætning af mindst X præcision".
 
     Ordet støder sammen med andre betydninger. I metrologien (ISO 5725) betyder præcision, hvor tæt gentagne målinger ligger på hinanden, altså en egenskab ved variansen og ikke ved korrektheden; i numerik henviser det til flydende-komma-formater som FP16 eller BF16, der bruges til modelvægte. I retrieval-augmented generation måler "context precision", hvor stor en del af det hentede materiale der er relevant, et retrieval-mål, der er noget andet end præcisionen af det endelige svar.
 edges:

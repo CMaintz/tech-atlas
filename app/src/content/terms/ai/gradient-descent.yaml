@@ -10,20 +10,20 @@ layer: training
 status: current
 summary:
   en: The step-by-step method most models learn by, which nudges every setting a little in whichever direction makes the error shrink.
-  da: Den trinvise metode, de fleste modeller lærer med — skub hver indstilling en smule i den retning, der gør fejlen mindre.
+  da: Den trinvise metode, de fleste modeller lærer med - skub hver indstilling en smule i den retning, der gør fejlen mindre.
 body:
   formal:
     en: A method that lowers the value of a loss function by repeatedly working out which way each model parameter should move to reduce the loss, then moving all of them a small step that way; the size of the step is a hyperparameter.
     da: En metode, der sænker værdien af en tabsfunktion ved gentagne gange at regne ud, hvilken vej hver modelparameter skal flyttes for at mindske tabet, og så flytte dem alle et lille skridt i den retning; skridtets størrelse er en hyperparameter.
   plain:
     en: Like walking down a foggy hill with your eyes closed; you feel which way the ground slopes under your feet and take a small step downhill, again and again, until it is flat.
-    da: Som at gå ned ad en tåget bakke med lukkede øjne — du mærker, hvilken vej jorden hælder under fødderne, og tager et lille skridt nedad, igen og igen, til det bliver fladt.
+    da: Som at gå ned ad en tåget bakke med lukkede øjne - du mærker, hvilken vej jorden hælder under fødderne, og tager et lille skridt nedad, igen og igen, til det bliver fladt.
   inPractice:
     en: An analyst in a ministry trains a model to sort incoming letters by topic; the error jumps up and down instead of falling, because gradient descent is taking steps that are too large, so she lowers the step size and starts again.
     da: En analytiker i et ministerium træner en model til at sortere indkomne breve efter emne; fejlen hopper op og ned i stedet for at falde, fordi gradientnedstigning tager for store skridt, så hun sænker skridtstørrelsen og starter forfra.
   whyItMatters:
     en: Almost every modern neural network is trained this way, so its choices, such as step size and how many rounds, decide whether training succeeds, stalls or wastes large amounts of costly computing.
-    da: Næsten alle moderne neurale netværk trænes sådan, så valgene — skridtstørrelse, antal runder — afgør, om træningen lykkes, går i stå eller spilder store mængder dyr regnekraft.
+    da: Næsten alle moderne neurale netværk trænes sådan, så valgene - skridtstørrelse, antal runder - afgør, om træningen lykkes, går i stå eller spilder store mængder dyr regnekraft.
 deepDive:
   en: |-
     The basic update is θₜ₊₁ = θₜ − η ∇L(θₜ), where θ is the parameter vector, L the loss and η the learning rate. The negative gradient is the direction of steepest local decrease, an idea usually credited to Cauchy (1847). For a convex loss whose gradient is L-Lipschitz (L-smooth), a fixed step η ≤ 1/L guarantees that the loss never increases and converges at rate O(1/t), and strong convexity gives linear convergence; on a quadratic, any η above 2/L along the sharpest direction makes the iterates diverge, which is the oscillating, exploding loss seen when the learning rate is set too high. Neural-network losses are non-convex, so these guarantees hold only locally, and in high dimensions saddle points and flat regions are a bigger obstacle than poor local minima (Dauphin et al., 2014).

@@ -24,7 +24,7 @@ body:
     da: En dansk banks svindelsystem får vist millioner af tidligere kortbetalinger mærket som ægte eller svindel og lærer at markere nye betalinger, der ligner svindel, så en medarbejder kan se på dem.
   whyItMatters:
     en: Because the behaviour comes from data, nobody wrote down the rules, so the quality, fairness and safety of the result depend on the data and are harder to check.
-    da: Fordi adfærden kommer fra data, har ingen skrevet reglerne ned — så resultatets kvalitet, retfærdighed og sikkerhed afhænger af data og er sværere at kontrollere.
+    da: Fordi adfærden kommer fra data, har ingen skrevet reglerne ned - så resultatets kvalitet, retfærdighed og sikkerhed afhænger af data og er sværere at kontrollere.
 deepDive:
   en: |-
     Arthur Samuel used the phrase in his 1959 paper on a checkers program that improved by playing against itself. The most cited formal definition is Tom Mitchell's (1997): a program learns from experience E with respect to a class of tasks T and performance measure P if its performance at T, as measured by P, improves with E. In modern terms, most machine learning is empirical risk minimisation: choose a model family (linear models, decision trees, neural networks), a loss function that scores errors, and an optimisation procedure that finds the parameters minimising the average loss over the training data, usually with a regularisation term that penalises complexity.

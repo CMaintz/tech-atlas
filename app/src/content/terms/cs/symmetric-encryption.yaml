@@ -17,8 +17,8 @@ body:
     en: A class of methods, such as the Advanced Encryption Standard, in which one cryptographic key both turns readable data into scrambled data and turns it back. It is fast enough for large amounts of data but does not solve how the key is shared safely.
     da: En klasse af metoder, fx AES, hvor én og samme kryptografiske nøgle både gør læsbare data umulige at læse og gør dem læsbare igen. Den er hurtig nok til store datamængder, men løser ikke, hvordan nøglen deles sikkert.
   plain:
-    en: Like a padlocked box where you and a friend each hold a copy of the same key — easy to use, but you had to hand the copy over in person first.
-    da: Som en kasse med hængelås, hvor du og en ven har hver sin kopi af samme nøgle — let at bruge, men du skulle først give ham kopien personligt.
+    en: Like a padlocked box where you and a friend each hold a copy of the same key - easy to use, but you had to hand the copy over in person first.
+    da: Som en kasse med hængelås, hvor du og en ven har hver sin kopi af samme nøgle - let at bruge, men du skulle først give ham kopien personligt.
   inPractice:
     en: A home-care worker's laptop is stolen from a car in a municipality. Its disk is protected with symmetric encryption, unlocked only at login, so the thief cannot read the citizens' data on it.
     da: En bærbar fra hjemmeplejen i en kommune bliver stjålet fra en bil. Disken er beskyttet med symmetrisk kryptering, der først låses op ved login, så tyven kan ikke læse borgernes oplysninger på den.
@@ -54,7 +54,7 @@ edges:
       confidence: high
     - vpn
 sources:
-  - title: NIST FIPS 197 — Advanced Encryption Standard (AES)
+  - title: NIST FIPS 197 - Advanced Encryption Standard (AES)
     url: https://csrc.nist.gov/pubs/fips/197/final
     tier: standard
     publisher: NIST

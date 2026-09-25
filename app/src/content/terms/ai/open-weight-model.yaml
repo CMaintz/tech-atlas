@@ -17,8 +17,8 @@ body:
     en: A foundation model whose model weights are released publicly, often under a licence with use limits, so it can be run, inspected and fine-tuned on one's own hardware; the training data and code are usually not released.
     da: En grundmodel, hvis modelvægte offentliggøres, ofte under en licens med begrænsninger, så den kan køres, undersøges og finjusteres på egen hardware; træningsdata og kode frigives som regel ikke.
   plain:
-    en: Like buying a car you can keep in your own garage, service and modify, instead of only paying for rides — though the factory's drawings stay secret.
-    da: Som at købe en bil, du kan have i din egen garage, servicere og bygge om, i stedet for kun at betale for ture — men fabrikkens tegninger forbliver hemmelige.
+    en: Like buying a car you can keep in your own garage, service and modify, instead of only paying for rides - though the factory's drawings stay secret.
+    da: Som at købe en bil, du kan have i din egen garage, servicere og bygge om, i stedet for kun at betale for ture - men fabrikkens tegninger forbliver hemmelige.
   inPractice:
     en: A shipping company's IT lead picks an open-weight model to run on a server aboard each ship, so the crew can ask about the technical manuals mid-ocean without a satellite link.
     da: IT-chefen i et rederi vælger en model med åbne vægte, der kan køre på en server om bord på hvert skib, så besætningen kan spørge til de tekniske manualer midt på havet uden satellitforbindelse.
@@ -48,7 +48,7 @@ edges:
     - to: model-weights
       why:
         en: What makes a model "open" here is that its weights file is published, not its code or training data.
-        da: Det, der gør en model "åben" her, er, at vægtfilen offentliggøres — ikke koden eller træningsdata.
+        da: Det, der gør en model "åben" her, er, at vægtfilen offentliggøres - ikke koden eller træningsdata.
       strength: primary
       confidence: high
   used-with:
@@ -70,11 +70,11 @@ sources:
     publisher: U.S. Department of Commerce, NTIA
   - title: Kapoor et al. (2024), On the Societal Impact of Open Foundation Models
     tier: reference
-  - title: The Open Source AI Definition — 1.0
+  - title: The Open Source AI Definition - 1.0
     tier: official-doc
     publisher: Open Source Initiative
     url: https://opensource.org/ai/open-source-ai-definition
-  - title: General-Purpose AI Models in the AI Act — Questions & Answers
+  - title: General-Purpose AI Models in the AI Act - Questions & Answers
     tier: official-doc
     publisher: European Commission
     url: https://digital-strategy.ec.europa.eu/en/faqs/general-purpose-ai-models-ai-act-questions-answers

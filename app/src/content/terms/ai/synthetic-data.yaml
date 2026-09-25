@@ -10,14 +10,14 @@ layer: training
 status: current
 summary:
   en: Made-up examples produced by a program or another AI model to look like real records, used where real examples are scarce or private.
-  da: Opdigtede eksempler, lavet af et program eller en AI-model, så de ligner rigtige data — brugt, hvor ægte eksempler er få eller private.
+  da: Opdigtede eksempler, lavet af et program eller en AI-model, så de ligner rigtige data - brugt, hvor ægte eksempler er få eller private.
 body:
   formal:
     en: Data generated rather than collected, designed to keep the useful patterns of real data; used as training data, for testing, or to share data sets without exposing personal data.
     da: Data, der er skabt i stedet for indsamlet, og som er designet til at bevare de nyttige mønstre fra rigtige data; bruges som træningsdata, til test eller til at dele datasæt uden at afsløre personoplysninger.
   plain:
     en: Like a flight simulator; the storms and engine failures are not real, but a pilot can practise them safely and as often as needed.
-    da: Som en flysimulator — stormene og motorsvigtene er ikke ægte, men en pilot kan øve dem sikkert og så tit, det er nødvendigt.
+    da: Som en flysimulator - stormene og motorsvigtene er ikke ægte, men en pilot kan øve dem sikkert og så tit, det er nødvendigt.
   inPractice:
     en: A pension fund wants a supplier to test its new member portal without seeing real member data, so the fund's test manager generates 50,000 made-up members with realistic ages, salaries and payments.
     da: En pensionskasse vil lade en leverandør teste sin nye medlemsportal uden at se rigtige medlemsdata, så pensionskassens testansvarlige laver 50.000 opdigtede medlemmer med realistiske aldre, lønninger og indbetalinger.
@@ -34,7 +34,7 @@ deepDive:
 
     For model training, heavy reliance on generated data carries its own risk. Shumailov et al. (2024) showed in Nature that models trained recursively on the output of earlier generations lose the tails of the original distribution and eventually collapse; follow-up work found that accumulating real data alongside synthetic data, rather than replacing it, largely avoids this. Synthetic data also inherits and can amplify the biases and factual errors of its generator, and outputs from proprietary models may be restricted by the provider's terms when used to train competing models.
   da: |-
-    Syntetiske data skabes af meget forskellige generatorer. Regelbaserede tilgange og simulationer spænder fra testdatabiblioteker, der udfylder skemaer med troværdige værdier, til fysik- og køresimulatorer, der renderer mærkede sensordata. Statistiske tilgange tilpasser en model af den fælles fordeling i en rigtig tabel — bayesianske netværk, copulaer, som i open source-projektet Synthetic Data Vault — og trækker nye rækker. Dybe generative modeller (GAN'er som CTGAN, variational autoencoders, diffusionsmodeller) håndterer billeder og komplekse tabeldata, og store sprogmodeller genererer nu tekst i stor skala: instruktion–svar-par (Self-Instruct, Alpaca), træningskorpusser i lærebogsstil (modellen phi-1 fra Gunasekar m.fl., 2023) og ræsonnementsforløb, der filtreres af automatiske tjek. Man skelner mellem helt syntetiske datasæt og delvist syntetiske, hvor kun følsomme felter erstattes. Oversampling i stil med SMOTE, der interpolerer mellem eksisterende eksempler fra minoritetsklassen, ligger på grænsen til dataaugmentering.
+    Syntetiske data skabes af meget forskellige generatorer. Regelbaserede tilgange og simulationer spænder fra testdatabiblioteker, der udfylder skemaer med troværdige værdier, til fysik- og køresimulatorer, der renderer mærkede sensordata. Statistiske tilgange tilpasser en model af den fælles fordeling i en rigtig tabel - bayesianske netværk, copulaer, som i open source-projektet Synthetic Data Vault - og trækker nye rækker. Dybe generative modeller (GAN'er som CTGAN, variational autoencoders, diffusionsmodeller) håndterer billeder og komplekse tabeldata, og store sprogmodeller genererer nu tekst i stor skala: instruktion-svar-par (Self-Instruct, Alpaca), træningskorpusser i lærebogsstil (modellen phi-1 fra Gunasekar m.fl., 2023) og ræsonnementsforløb, der filtreres af automatiske tjek. Man skelner mellem helt syntetiske datasæt og delvist syntetiske, hvor kun følsomme felter erstattes. Oversampling i stil med SMOTE, der interpolerer mellem eksisterende eksempler fra minoritetsklassen, ligger på grænsen til dataaugmentering.
 
     Kvaliteten vurderes på tre akser. Fidelitet sammenligner marginale fordelinger, korrelationer og struktur af højere orden med de rigtige data. Nytte måles som regel med "træn på syntetisk, test på ægte": en model trænet på det syntetiske sæt evalueres på tilbageholdte rigtige data og sammenlignes med en model trænet på rigtige data. Privatliv testes med tjek af afstand til nærmeste rigtige post og med simulerede angreb, der forsøger at afgøre medlemskab eller udlede attributter. Akserne trækker mod hinanden: jo mere tro generatoren er mod data, jo større risiko for at den gengiver enkeltposter.
 
@@ -48,7 +48,7 @@ edges:
     - to: data-breach
       why:
         en: Working on made-up records instead of real personal data means a leak exposes less, but only if individuals cannot be traced back from it.
-        da: At arbejde på opdigtede poster i stedet for rigtige personoplysninger betyder, at et læk afslører mindre — men kun hvis enkeltpersoner ikke kan spores tilbage.
+        da: At arbejde på opdigtede poster i stedet for rigtige personoplysninger betyder, at et læk afslører mindre - men kun hvis enkeltpersoner ikke kan spores tilbage.
       strength: minor
       confidence: medium
   causes:

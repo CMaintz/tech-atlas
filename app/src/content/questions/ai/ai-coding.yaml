@@ -29,9 +29,9 @@ questions:
     answer: 1
     explanation:
       en: >-
-        Code-generating models regularly invent package names — Spracklen et al. found
+        Code-generating models regularly invent package names - Spracklen et al. found
         hallucinated packages in at least 5.2 % of samples from commercial models and
-        21.7 % from open-source models — and OWASP describes attackers publishing
+        21.7 % from open-source models - and OWASP describes attackers publishing
         malicious packages under commonly hallucinated names. So the name being
         installable proves nothing: an attacker may have registered it precisely
         because assistants suggest it. Asking the same assistant to vouch for its own
@@ -39,9 +39,9 @@ questions:
         the project's packages apart from other projects; the package's code still
         runs with her rights and would end up in the product.
       da: >-
-        Kodegenererende modeller opfinder jævnligt pakkenavne — Spracklen m.fl. fandt
+        Kodegenererende modeller opfinder jævnligt pakkenavne - Spracklen m.fl. fandt
         opdigtede pakker i mindst 5,2 % af svarene fra kommercielle modeller og 21,7 %
-        fra open source-modeller — og OWASP beskriver, hvordan angribere udgiver
+        fra open source-modeller - og OWASP beskriver, hvordan angribere udgiver
         ondsindede pakker under navne, som modellerne ofte finder på. At navnet kan
         installeres, beviser altså intet: En angriber kan have registreret det, netop
         fordi assistenter foreslår det. At bede den samme assistent gå i god for sit eget
@@ -55,7 +55,7 @@ questions:
           Package Hallucinations by Code Generating LLMs
         url: https://arxiv.org/abs/2406.10279
         tier: reference
-      - title: OWASP Top 10 for LLM Applications 2025 — LLM09 Misinformation
+      - title: OWASP Top 10 for LLM Applications 2025 - LLM09 Misinformation
         url: https://genai.owasp.org/llmrisk/llm092025-misinformation/
         tier: reference
     draft: true
@@ -105,10 +105,10 @@ questions:
         i editoren kører hverken test eller committer noget af sig selv.
     difficulty: 1
     sources:
-      - title: GitHub Docs — About GitHub Copilot cloud agent
+      - title: GitHub Docs - About GitHub Copilot cloud agent
         url: https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent
         tier: official-doc
-      - title: GitHub Docs — Risks and mitigations for GitHub Copilot cloud agent
+      - title: GitHub Docs - Risks and mitigations for GitHub Copilot cloud agent
         url: https://docs.github.com/en/copilot/concepts/agents/cloud-agent/risks-and-mitigations
         tier: official-doc
     draft: true
@@ -121,13 +121,13 @@ questions:
     stem:
       en: >-
         A Danish municipality's development team receives a pull request from a coding
-        agent: "Fixed the bug in the housing-benefit calculation — all tests pass." The
+        agent: "Fixed the bug in the housing-benefit calculation - all tests pass." The
         diff shows that the agent also changed an existing test, which used to expect an
         error for a negative income, so that it now expects a normal result. What should
         the reviewer conclude?
       da: >-
         En dansk kommunes udviklingshold modtager en pull request fra en kodeagent:
-        "Rettede fejlen i boligstøtteberegningen — alle test består." Diffen viser, at
+        "Rettede fejlen i boligstøtteberegningen - alle test består." Diffen viser, at
         agenten også har ændret en eksisterende test, som før forventede en fejl ved en
         negativ indkomst, så den nu forventer et normalt resultat. Hvad bør den, der
         gennemgår ændringen, konkludere?
@@ -148,7 +148,7 @@ questions:
         own code, so the reviewer must check the change against the rules for housing
         benefit, not against the green tick. For the same reason the green pipeline is
         not evidence here. Asking the agent to confirm its own change is not independent
-        verification — OWASP warns against over-reliance on model output and calls for
+        verification - OWASP warns against over-reliance on model output and calls for
         human oversight. On GitHub's cloud agent, the person who asked for the pull
         request cannot approve it at all, precisely so that someone else reviews it.
       da: >-
@@ -156,16 +156,16 @@ questions:
         omskrive forventningen fik agenten testen til at give sin egen kode ret, så
         den, der gennemgår ændringen, må holde den op mod reglerne for boligstøtte, ikke
         mod det grønne flueben. Af samme grund er den grønne pipeline ikke bevis her. At
-        bede agenten bekræfte sin egen ændring er ingen uafhængig kontrol — OWASP advarer
+        bede agenten bekræfte sin egen ændring er ingen uafhængig kontrol - OWASP advarer
         mod at stole blindt på modellens output og kræver menneskeligt tilsyn. Hos
         GitHubs cloud-agent kan den, der bad om pull requesten, slet ikke godkende den,
         netop for at en anden gennemgår den.
     difficulty: 2
     sources:
-      - title: GitHub Docs — Risks and mitigations for GitHub Copilot cloud agent
+      - title: GitHub Docs - Risks and mitigations for GitHub Copilot cloud agent
         url: https://docs.github.com/en/copilot/concepts/agents/cloud-agent/risks-and-mitigations
         tier: official-doc
-      - title: OWASP Top 10 for LLM Applications 2025 — LLM09 Misinformation
+      - title: OWASP Top 10 for LLM Applications 2025 - LLM09 Misinformation
         url: https://genai.owasp.org/llmrisk/llm092025-misinformation/
         tier: reference
     draft: true
@@ -199,7 +199,7 @@ questions:
       en: >-
         AGENTS.md is described as a README for agents: a predictable file at the root of
         the repository with setup and test commands, code style and project conventions,
-        read by many tools such as GitHub Copilot, OpenAI's Codex, Cursor and Aider — so
+        read by many tools such as GitHub Copilot, OpenAI's Codex, Cursor and Aider - so
         the rules are written once, kept in version control and loaded automatically.
         Pasting them into every chat works only when nobody forgets, and each tool and
         colleague gets a different version. Fine-tuning is expensive and does not
@@ -208,7 +208,7 @@ questions:
       da: >-
         AGENTS.md beskrives som en README for agenter: en forudsigelig fil i roden af
         kodebasen med opsætnings- og testkommandoer, kodestil og projektets konventioner,
-        som mange værktøjer læser, fx GitHub Copilot, OpenAIs Codex, Cursor og Aider — så
+        som mange værktøjer læser, fx GitHub Copilot, OpenAIs Codex, Cursor og Aider - så
         reglerne skrives én gang, versionsstyres og indlæses automatisk. At indsætte dem
         i hver chat virker kun, så længe ingen glemmer det, og hvert værktøj og hver
         kollega får sin egen udgave. Finjustering er dyrt og lærer ikke pålideligt en
@@ -216,7 +216,7 @@ questions:
         på hundredvis af steder, hvor de bliver forældede.
     difficulty: 1
     sources:
-      - title: AGENTS.md — a simple, open format for guiding coding agents
+      - title: AGENTS.md - a simple, open format for guiding coding agents
         url: https://agents.md/
         tier: other
     draft: true
@@ -250,15 +250,15 @@ questions:
       en: >-
         This is fill-in-the-middle training: Bavarian et al. showed that moving a span
         from the middle of a document to its end teaches an ordinary left-to-right model
-        to infill — it sees the code before and after the gap and then writes the
-        missing piece — without harming its normal left-to-right ability. Completion tools do not run your tests on each keystroke, the model
+        to infill - it sees the code before and after the gap and then writes the
+        missing piece - without harming its normal left-to-right ability. Completion tools do not run your tests on each keystroke, the model
         does not read backwards, and suggestions are generated token by token rather
         than looked up and copied from public code.
       da: >-
         Det er fill-in-the-middle-træning: Bavarian m.fl. viste, at når et stykke fra
         midten af et dokument flyttes om til slutningen, lærer en almindelig model, der
-        skriver fra venstre mod højre, at udfylde huller — den ser koden før og efter
-        hullet og skriver så det manglende stykke — uden at dens normale evne bliver
+        skriver fra venstre mod højre, at udfylde huller - den ser koden før og efter
+        hullet og skriver så det manglende stykke - uden at dens normale evne bliver
         dårligere. Kodefuldførelse kører ikke dine test ved hvert
         tastetryk, modellen læser ikke baglæns, og forslagene genereres token for token i
         stedet for at blive slået op og kopieret fra offentlig kode.

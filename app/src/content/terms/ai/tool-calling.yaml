@@ -10,15 +10,15 @@ layer: agent
 era: 2023
 status: current
 summary:
-  en: How a language model asks outside code to do something for it — look something up, run a task — and then reads back the result.
-  da: Måden, en sprogmodel beder et program uden for sig selv om at gøre noget — slå noget op, udføre en opgave — og så læser svaret.
+  en: How a language model asks outside code to do something for it - look something up, run a task - and then reads back the result.
+  da: Måden, en sprogmodel beder et program uden for sig selv om at gøre noget - slå noget op, udføre en opgave - og så læser svaret.
 body:
   formal:
     en: A way of working in which the model is given a list of named tools with a description of what each one takes in; instead of plain text it may answer with a structured request naming a tool and its inputs, which the surrounding program runs before sending the result back to the model.
     da: En arbejdsform, hvor modellen får en liste over navngivne værktøjer med en beskrivelse af, hvad hvert af dem tager imod; i stedet for almindelig tekst kan den svare med en struktureret anmodning, der nævner et værktøj og dets input, som programmet rundt om den udfører, før resultatet sendes tilbage til modellen.
   plain:
-    en: Like a boss who cannot leave the office but can fill in order slips — each slip names a helper and says exactly what to fetch, and someone else walks it down the hall.
-    da: Som en chef, der ikke kan forlade kontoret, men kan udfylde bestillingssedler — hver seddel nævner en hjælper og siger præcis, hvad der skal hentes, og en anden bærer den ned ad gangen.
+    en: Like a boss who cannot leave the office but can fill in order slips - each slip names a helper and says exactly what to fetch, and someone else walks it down the hall.
+    da: Som en chef, der ikke kan forlade kontoret, men kan udfylde bestillingssedler - hver seddel nævner en hjælper og siger præcis, hvad der skal hentes, og en anden bærer den ned ad gangen.
   inPractice:
     en: A case officer at a municipality's front desk for citizens asks the chat assistant when waste is collected at an address; the model replies with a request to the collection calendar tool, address filled in, and the app runs it and hands back the dates for the answer.
     da: En sagsbehandler i en kommunes borgerservice spørger chatassistenten, hvornår der hentes affald på en adresse; modellen svarer med en anmodning til affaldskalenderens værktøj med adressen udfyldt, og appen kører den og sender datoerne tilbage til svaret.
@@ -46,8 +46,8 @@ edges:
   part-of:
     - to: ai-agent
       why:
-        en: An AI agent is, at its heart, a loop of tool calls — pick a tool, read the result, decide the next step.
-        da: En AI-agent er i bund og grund en løkke af værktøjskald — vælg et værktøj, læs resultatet, beslut næste trin.
+        en: An AI agent is, at its heart, a loop of tool calls - pick a tool, read the result, decide the next step.
+        da: En AI-agent er i bund og grund en løkke af værktøjskald - vælg et værktøj, læs resultatet, beslut næste trin.
       strength: primary
       confidence: high
   requires:
@@ -59,10 +59,10 @@ edges:
       confidence: high
     - api
 sources:
-  - title: OpenAI API documentation — Function calling
+  - title: OpenAI API documentation - Function calling
     tier: official-doc
     publisher: OpenAI
-  - title: Anthropic documentation — Tool use with Claude
+  - title: Anthropic documentation - Tool use with Claude
     tier: official-doc
     publisher: Anthropic
   - title: 'Schick et al. (2023), Toolformer: Language Models Can Teach Themselves to Use Tools'

@@ -10,14 +10,14 @@ layer: theory
 status: current
 summary:
   en: The share of all cases a model gets right; simple to read, but it can look excellent when the thing you care about is rare.
-  da: Andelen af alle tilfælde, en model rammer rigtigt — let at læse, men den kan se flot ud, når det, man leder efter, er sjældent.
+  da: Andelen af alle tilfælde, en model rammer rigtigt - let at læse, men den kan se flot ud, når det, man leder efter, er sjældent.
 body:
   formal:
     en: In classification, the number of correct answers divided by the total number of cases; in a confusion matrix it is the sum of the cells where the answer and the true class agree, divided by the sum of all cells.
     da: I klassifikation antallet af rigtige svar delt med det samlede antal tilfælde; i en forvekslingsmatrix er det summen af de felter, hvor svaret og den sande klasse stemmer overens, delt med summen af alle felter.
   plain:
     en: Like a weather forecaster in the desert who says “no rain” every single day and is right almost every time, yet useless on the one day it pours.
-    da: Som en vejrudsigt i ørkenen, der siger “ingen regn” hver eneste dag — rigtig næsten hver gang og ubrugelig den ene dag, det styrter ned.
+    da: Som en vejrudsigt i ørkenen, der siger “ingen regn” hver eneste dag - rigtig næsten hver gang og ubrugelig den ene dag, det styrter ned.
   inPractice:
     en: A data analyst at a shipping company tests a model meant to warn of engine faults; it scores 99.5% accuracy, yet it has never raised a single warning, because faults occur on only one voyage in 200.
     da: En dataanalytiker i et rederi tester en model, der skal varsle om motorfejl; den får 99,5 % nøjagtighed, men har aldrig givet en eneste advarsel, fordi der kun opstår fejl på én ud af 200 sejladser.
@@ -34,7 +34,7 @@ deepDive:
 
     Being an estimate from a finite test set, it carries sampling error: the standard error is roughly √(a(1 − a)/n), so 90% measured on 1,000 cases has a 95% interval of about ±1.9 percentage points. Differences between two models on the same test cases should be checked with a paired test such as McNemar's rather than by eye. Note the naming clash with metrology, where ISO 5725-1 defines accuracy as trueness plus precision, and with the EU AI Act, whose Art. 15 uses "accuracy" broadly and requires the levels and "relevant accuracy metrics" of high-risk systems to be declared in the instructions for use (Art. 15(3)). ISO/IEC TS 4213:2022 gives a methodology for assessing classification performance, including the choice of such metrics.
   da: |-
-    For en binær klassifikator er nøjagtighed = (TP + TN) / (TP + TN + FP + FN); med k klasser er det sporet af den k × k store forvekslingsmatrix delt med det samlede antal, altså præcis 1 minus det empiriske 0-1-tab. Varianter ændrer, hvad der tæller som rigtigt: top-k-nøjagtighed (kendt fra ImageNets top-5-mål) godkender svaret, hvis den sande klasse er blandt de k højest scorede, og ved multilabel-klassifikation beregner scikit-learns accuracy_score subset accuracy, hvor et eksempel kun tæller, hvis alle dets labels er rigtige — et langt strengere tal end nøjagtighed pr. label.
+    For en binær klassifikator er nøjagtighed = (TP + TN) / (TP + TN + FP + FN); med k klasser er det sporet af den k × k store forvekslingsmatrix delt med det samlede antal, altså præcis 1 minus det empiriske 0-1-tab. Varianter ændrer, hvad der tæller som rigtigt: top-k-nøjagtighed (kendt fra ImageNets top-5-mål) godkender svaret, hvis den sande klasse er blandt de k højest scorede, og ved multilabel-klassifikation beregner scikit-learns accuracy_score subset accuracy, hvor et eksempel kun tæller, hvis alle dets labels er rigtige - et langt strengere tal end nøjagtighed pr. label.
 
     Den mest kendte faldgrube er nøjagtighedsparadokset. Med en andel p positive giver en konstant klassifikator, der altid svarer majoritetsklassen, 1 − p, så 99 % nøjagtighed er værdiløs ved 1 % forekomst. Nøjagtighed bør derfor altid rapporteres sammen med majoritetsbaselinen. Mål, der tåler ubalance, er bl.a. balanced accuracy (gennemsnittet af genkaldelsen pr. klasse, (TPR + TNR) / 2 i det binære tilfælde), Cohens kappa, der trækker den tilfældige enighed fra, og Matthews-korrelationskoefficienten (MCC), som bruger alle fire felter og kun bliver høj, når begge klasser forudsiges godt.
 

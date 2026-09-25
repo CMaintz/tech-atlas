@@ -10,14 +10,14 @@ layer: inference
 status: current
 summary:
   en: How a language model picks each next piece of text from its list of likely options, by a set rule or with some chance involved.
-  da: Måden, en sprogmodel vælger hvert næste stykke tekst blandt sine sandsynlige muligheder — efter fast regel eller med tilfældighed.
+  da: Måden, en sprogmodel vælger hvert næste stykke tekst blandt sine sandsynlige muligheder - efter fast regel eller med tilfældighed.
 body:
   formal:
-    en: The step in inference where, after next-token prediction gives a chance for every possible token, one token is chosen — always the most likely, or drawn at random according to those chances after settings such as temperature and top-p reshape them — and the process repeats.
-    da: Det trin i inferensen, hvor der, efter at forudsigelse af næste token har givet en chance for hvert muligt token, vælges ét token — altid det mest sandsynlige eller trukket tilfældigt efter de chancer, når indstillinger som temperatur og top-p har justeret dem — og processen gentages.
+    en: The step in inference where, after next-token prediction gives a chance for every possible token, one token is chosen - always the most likely, or drawn at random according to those chances after settings such as temperature and top-p reshape them - and the process repeats.
+    da: Det trin i inferensen, hvor der, efter at forudsigelse af næste token har givet en chance for hvert muligt token, vælges ét token - altid det mest sandsynlige eller trukket tilfældigt efter de chancer, når indstillinger som temperatur og top-p har justeret dem - og processen gentages.
   plain:
-    en: Like choosing the next word in a story by drawing from a bag where common words have many slips and odd words have few — usually sensible, sometimes surprising.
-    da: Som at vælge næste ord i en historie ved at trække fra en pose, hvor almindelige ord har mange sedler og sjældne ord få — oftest fornuftigt, af og til overraskende.
+    en: Like choosing the next word in a story by drawing from a bag where common words have many slips and odd words have few - usually sensible, sometimes surprising.
+    da: Som at vælge næste ord i en historie ved at trække fra en pose, hvor almindelige ord har mange sedler og sjældne ord få - oftest fornuftigt, af og til overraskende.
   inPractice:
     en: Two case workers at a job centre ask the same chat assistant to draft a letter from identical notes and get differently worded drafts, because each word was picked with some chance involved.
     da: To sagsbehandlere på et jobcenter beder den samme chatassistent skrive et brev ud fra de samme noter og får forskelligt formulerede udkast, fordi hvert ord blev valgt med en smule tilfældighed.

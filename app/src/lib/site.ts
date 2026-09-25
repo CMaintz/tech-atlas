@@ -58,7 +58,7 @@ export const UI = {
     next: 'Next',
     again: 'Another round',
     correct: 'Correct.',
-    incorrect: 'Not quite — the answer is',
+    incorrect: 'Not quite - the answer is',
     readAbout: 'Read about',
     score: 'You got {n} of {m} right.',
     noQuestions: 'No questions for this term yet.',
@@ -68,7 +68,7 @@ export const UI = {
     weakTerms: 'My weak terms ({n})',
     clusters: 'Clusters',
     noWeakTerms:
-      'No weak terms yet — terms you answer wrongly or mark as “Learning it” or “Don’t understand” gather here.',
+      'No weak terms yet - terms you answer wrongly or mark as “Learning it” or “Don’t understand” gather here.',
     progress: 'Your progress',
     practised: 'Practised',
     known: 'Known',
@@ -104,6 +104,8 @@ export const UI = {
     autoRotate: 'Auto-rotate',
     findTerm: 'Find a term',
     routeShort: 'Route',
+    /** The bar's Relationships button (the popover keeps the full heading). */
+    linksShort: 'Links',
     explorerIntro:
       'The whole map. Click a term to open it in the side panel; expand the panel to read it in full.',
     layoutForce: 'Force',
@@ -135,12 +137,12 @@ export const UI = {
     aka: 'Also known as',
     readArticle: 'Read the full article →',
     backToTerm: '← Back to the entry',
-    draft: 'Draft — this entry has not been reviewed yet.',
-    disambiguationTitle: '“{name}” — several meanings',
+    draft: 'Draft - this entry has not been reviewed yet.',
+    disambiguationTitle: '“{name}” - several meanings',
     disambiguationIntro:
       '“{name}” names different things in different fields. Pick the one you mean.',
-    otherMeanings: '“{name}” also means something else in another field — see every meaning →',
-    searchDisambiguation: '“{name}” has {n} meanings — choose one',
+    otherMeanings: '“{name}” also means something else in another field - see every meaning →',
+    searchDisambiguation: '“{name}” has {n} meanings - choose one',
     compareTitle: "Don't confuse these",
     compareIntro: 'Pairs that are easy to mix up, side by side.',
     compareAcross: 'Across domains',
@@ -189,7 +191,7 @@ export const UI = {
     privacyLink: 'How Atlas handles your data',
     downloadProgress: 'Download my progress',
     downloadNote:
-      'Your progress as a JSON file — the same data that is synced when you are signed in.',
+      'Your progress as a JSON file - the same data that is synced when you are signed in.',
     authError: 'Something went wrong: {msg}',
     signedInAs: 'Signed in as {email}',
     syncRetry: 'Try again',
@@ -200,15 +202,15 @@ export const UI = {
     syncShort_error: 'Not synced',
     sync_syncing: 'Syncing…',
     sync_synced: 'Progress synced.',
-    sync_offline: 'Offline — changes are kept here and sync when you are back online.',
-    sync_error: 'Could not sync just now — your progress is safe in this browser.',
+    sync_offline: 'Offline - changes are kept here and sync when you are back online.',
+    sync_error: 'Could not sync just now - your progress is safe in this browser.',
     lastSynced: 'Progress synced at {time}.',
     deleteData: 'Delete my synced data',
     deleteNote:
       'Deletes your synced progress from the server and signs you out; other devices are signed out at their next sync. Progress in this browser is kept.',
     deleteConfirm: 'Delete your synced progress from the server and sign out?',
     deleted: 'Your synced data has been deleted.',
-    syncNote: 'Your progress is stored in this browser — sign in to sync it across devices.',
+    syncNote: 'Your progress is stored in this browser - sign in to sync it across devices.',
     stoppedNote:
       'Your synced data was deleted, so syncing is paused. Start again to upload the progress in this browser.',
     startAgain: 'Start syncing again',
@@ -237,7 +239,7 @@ export const UI = {
     langSwitch: 'Switch to English',
     langKeep: 'No thanks',
     notFoundTitle: 'Page not found',
-    notFoundBody: 'The page you asked for does not exist — it may have moved.',
+    notFoundBody: 'The page you asked for does not exist - it may have moved.',
     notFoundHome: 'Go to the English home page',
     tourStart: 'Take the tour',
     tourWelcomeStart: 'Start the tour',
@@ -250,8 +252,8 @@ export const UI = {
     tourStepOf: 'Step {n} of {m}',
     tourContinue: 'Continue the tour ({n}/{m})',
     tourEnd: 'End tour',
-    tourBridgeLink: 'This link takes you there — follow it, or press Next.',
-    tourBridgeMenu: 'It’s in the menu — open it and follow the link, or press Next.',
+    tourBridgeLink: 'This link takes you there - follow it, or press Next.',
+    tourBridgeMenu: 'It’s in the menu - open it and follow the link, or press Next.',
   },
   da: {
     tagline: 'En tosproget teknisk ordbog, der læses som en vidensgraf.',
@@ -265,7 +267,7 @@ export const UI = {
     next: 'Næste',
     again: 'En runde til',
     correct: 'Rigtigt.',
-    incorrect: 'Ikke helt — svaret er',
+    incorrect: 'Ikke helt - svaret er',
     readAbout: 'Læs om',
     score: 'Du fik {n} af {m} rigtige.',
     noQuestions: 'Ingen spørgsmål til dette begreb endnu.',
@@ -275,7 +277,7 @@ export const UI = {
     weakTerms: 'Mine svage begreber ({n})',
     clusters: 'Klynger',
     noWeakTerms:
-      'Ingen svage begreber endnu — begreber, du svarer forkert på eller markerer som “Lærer det” eller “Forstår det ikke”, samles her.',
+      'Ingen svage begreber endnu - begreber, du svarer forkert på eller markerer som “Lærer det” eller “Forstår det ikke”, samles her.',
     progress: 'Dine fremskridt',
     practised: 'Øvet',
     known: 'Kendt',
@@ -311,6 +313,7 @@ export const UI = {
     autoRotate: 'Roter automatisk',
     findTerm: 'Find et begreb',
     routeShort: 'Rute',
+    linksShort: 'Relationer',
     explorerIntro:
       'Hele kortet. Klik på et begreb for at åbne det i sidepanelet; udvid panelet for at læse det hele.',
     layoutForce: 'Kraft',
@@ -328,7 +331,7 @@ export const UI = {
     showPrerequisites: 'Vis forudsætninger',
     clear: 'Ryd',
     learnFirst: 'Hvad du bør lære først',
-    learnFirstIntro: 'Alt det, dette bygger på — grundlaget først.',
+    learnFirstIntro: 'Alt det, dette bygger på - grundlaget først.',
     openExplorer: 'Åbn i udforskeren →',
     loading: 'Indlæser…',
     search: 'Søg i begreber, synonymer, definitioner…',
@@ -341,13 +344,13 @@ export const UI = {
     aka: 'Også kendt som',
     readArticle: 'Læs hele artiklen →',
     backToTerm: '← Tilbage til opslaget',
-    draft: 'Kladde — dette opslag er endnu ikke gennemgået.',
-    disambiguationTitle: '“{name}” — flere betydninger',
+    draft: 'Kladde - dette opslag er endnu ikke gennemgået.',
+    disambiguationTitle: '“{name}” - flere betydninger',
     disambiguationIntro:
       '“{name}” betyder forskellige ting inden for forskellige fagområder. Vælg den, du mener.',
     otherMeanings:
-      '“{name}” betyder også noget andet inden for et andet fagområde — se alle betydninger →',
-    searchDisambiguation: '“{name}” har {n} betydninger — vælg én',
+      '“{name}” betyder også noget andet inden for et andet fagområde - se alle betydninger →',
+    searchDisambiguation: '“{name}” har {n} betydninger - vælg én',
     compareTitle: 'Forveksl ikke disse',
     compareIntro: 'Begrebspar, der er lette at blande sammen, side om side.',
     compareAcross: 'På tværs af domæner',
@@ -396,7 +399,7 @@ export const UI = {
     privacyLink: 'Sådan behandler Atlas dine data',
     downloadProgress: 'Download mine fremskridt',
     downloadNote:
-      'Dine fremskridt som en JSON-fil — de samme data, der synkroniseres, når du er logget ind.',
+      'Dine fremskridt som en JSON-fil - de samme data, der synkroniseres, når du er logget ind.',
     authError: 'Noget gik galt: {msg}',
     signedInAs: 'Logget ind som {email}',
     syncRetry: 'Prøv igen',
@@ -407,8 +410,8 @@ export const UI = {
     syncShort_error: 'Ikke synkroniseret',
     sync_syncing: 'Synkroniserer …',
     sync_synced: 'Fremskridt synkroniseret.',
-    sync_offline: 'Offline — ændringer gemmes her og synkroniseres, når du er online igen.',
-    sync_error: 'Kunne ikke synkronisere lige nu — dine fremskridt er sikre i denne browser.',
+    sync_offline: 'Offline - ændringer gemmes her og synkroniseres, når du er online igen.',
+    sync_error: 'Kunne ikke synkronisere lige nu - dine fremskridt er sikre i denne browser.',
     lastSynced: 'Fremskridt synkroniseret kl. {time}.',
     deleteData: 'Slet mine synkroniserede data',
     deleteNote:
@@ -416,7 +419,7 @@ export const UI = {
     deleteConfirm: 'Slet dine synkroniserede fremskridt fra serveren og log ud?',
     deleted: 'Dine synkroniserede data er slettet.',
     syncNote:
-      'Dine fremskridt gemmes i denne browser — log ind for at synkronisere dem på tværs af enheder.',
+      'Dine fremskridt gemmes i denne browser - log ind for at synkronisere dem på tværs af enheder.',
     stoppedNote:
       'Dine synkroniserede data er slettet, så synkroniseringen er sat på pause. Start igen for at uploade fremskridtene i denne browser.',
     startAgain: 'Start synkronisering igen',
@@ -445,7 +448,7 @@ export const UI = {
     langSwitch: 'Skift til dansk',
     langKeep: 'Nej tak',
     notFoundTitle: 'Siden blev ikke fundet',
-    notFoundBody: 'Siden, du bad om, findes ikke — den er måske flyttet.',
+    notFoundBody: 'Siden, du bad om, findes ikke - den er måske flyttet.',
     notFoundHome: 'Gå til den danske forside',
     tourStart: 'Tag rundvisningen',
     tourWelcomeStart: 'Start rundvisningen',
@@ -458,8 +461,8 @@ export const UI = {
     tourStepOf: 'Trin {n} af {m}',
     tourContinue: 'Fortsæt rundvisningen ({n}/{m})',
     tourEnd: 'Afslut rundvisning',
-    tourBridgeLink: 'Dette link fører dig derhen — følg det, eller tryk Næste.',
-    tourBridgeMenu: 'Det ligger i menuen — åbn den og følg linket, eller tryk Næste.',
+    tourBridgeLink: 'Dette link fører dig derhen - følg det, eller tryk Næste.',
+    tourBridgeMenu: 'Det ligger i menuen - åbn den og følg linket, eller tryk Næste.',
   },
 } as const;
 
@@ -518,43 +521,43 @@ export const FAMILY_LABELS: Record<string, Record<Lang, string>> = {
 export const GRAPH_UI = {
   en: {
     legend: 'Legend',
-    nodes: 'Terms — colour = domain, shade = cluster',
+    nodes: 'Terms - colour = domain, shade = cluster',
     ring: 'Ring: the term also belongs to another domain, in that domain’s colour',
-    edges: 'Relationships — colour = family',
+    edges: 'Relationships - colour = family',
     oneWay:
       'One-way: the arrow (and the moving flow) point from a term to what it requires, mitigates, causes …',
-    twoWay: 'Two-way: contrasts, alternatives and “used with” — no arrow',
+    twoWay: 'Two-way: contrasts, alternatives and “used with” - no arrow',
     crossDomain: 'Fades between two domain colours: crosses domains',
     showAll: 'Show all relationships',
     overview:
-      'The overview draws each term’s strongest links; faint ribbons bundle the links between clusters. Hover or click a term for all its relationships.',
+      'The overview draws each term’s strongest links; faint ribbons bundle the links between clusters. Click a term for all its relationships.',
+    typesNote:
+      'The overview starts with structure, prerequisites, attacks & defences, regulation and lineage; tick contrasts or “used together” to add them. A selected term always shows all its relationships.',
   },
   da: {
     legend: 'Forklaring',
-    nodes: 'Begreber — farve = domæne, nuance = klynge',
+    nodes: 'Begreber - farve = domæne, nuance = klynge',
     ring: 'Ring: begrebet hører også til et andet domæne, i det domænes farve',
-    edges: 'Relationer — farve = familie',
+    edges: 'Relationer - farve = familie',
     oneWay:
       'Envejs: pilen (og den bevægelige strøm) peger fra et begreb mod det, det forudsætter, afbøder, forårsager …',
-    twoWay: 'Tovejs: kontraster, alternativer og “bruges sammen med” — ingen pil',
+    twoWay: 'Tovejs: kontraster, alternativer og “bruges sammen med” - ingen pil',
     crossDomain: 'Glider mellem to domænefarver: krydser domæner',
     showAll: 'Vis alle relationer',
     overview:
-      'Overblikket viser hvert begrebs stærkeste forbindelser; svage bånd samler forbindelserne mellem klynger. Hold musen over eller klik på et begreb for at se alle dets relationer.',
+      'Overblikket viser hvert begrebs stærkeste forbindelser; svage bånd samler forbindelserne mellem klynger. Klik på et begreb for at se alle dets relationer.',
+    typesNote:
+      'Overblikket starter med struktur, forudsætninger, angreb og forsvar, regulering og afstamning; sæt flueben ved kontraster eller “bruges sammen” for at tilføje dem. Et valgt begreb viser altid alle sine relationer.',
   },
 } as const;
 
 /** The Explorer's term panel (A80). `da` must carry every key `en` has. */
 const PANEL_EN = {
-  panelLabel: 'Term details: {name}',
-  panelExpand: 'Expand',
   panelExpandLabel: 'Expand the panel to fill the page',
-  panelCollapse: 'Collapse',
   panelCollapseLabel: 'Return the panel to the side of the map',
   panelClose: 'Close the panel',
   readMore: 'Read more →',
   readMoreLabel: 'Read the full entry, with the technical deep dive and sources',
-  contentLanguage: 'Language of the text',
   facets: 'Definitions',
   loadError: 'Could not load the details of this term.',
   noRelations: 'No relationships yet.',
@@ -565,9 +568,7 @@ const PANEL_EN = {
   connectionCount: '{n} connections',
   connectionCountOne: '1 connection',
   cyclePosition: '{i} of {n} · {type}',
-  prevConnection: 'Previous',
   prevConnectionLabel: 'Previous connection of {name} (←)',
-  nextConnection: 'Next',
   nextConnectionLabel: 'Next connection of {name} (→)',
   returnTo: 'Return to {name}',
 } as const;
@@ -575,15 +576,11 @@ const PANEL_EN = {
 export const PANEL_UI: Record<Lang, Record<keyof typeof PANEL_EN, string>> = {
   en: PANEL_EN,
   da: {
-    panelLabel: 'Detaljer om begrebet: {name}',
-    panelExpand: 'Udvid',
     panelExpandLabel: 'Udvid panelet til hele siden',
-    panelCollapse: 'Formindsk',
     panelCollapseLabel: 'Sæt panelet tilbage ved siden af kortet',
     panelClose: 'Luk panelet',
     readMore: 'Læs mere →',
     readMoreLabel: 'Læs hele opslaget med den tekniske uddybning og kilderne',
-    contentLanguage: 'Tekstens sprog',
     facets: 'Definitioner',
     loadError: 'Detaljerne om dette begreb kunne ikke hentes.',
     noRelations: 'Ingen relationer endnu.',
@@ -594,9 +591,7 @@ export const PANEL_UI: Record<Lang, Record<keyof typeof PANEL_EN, string>> = {
     connectionCount: '{n} forbindelser',
     connectionCountOne: '1 forbindelse',
     cyclePosition: '{i} af {n} · {type}',
-    prevConnection: 'Forrige',
     prevConnectionLabel: 'Forrige forbindelse for {name} (←)',
-    nextConnection: 'Næste',
     nextConnectionLabel: 'Næste forbindelse for {name} (→)',
     returnTo: 'Tilbage til {name}',
   },
@@ -700,18 +695,18 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
     anchors: [],
     title: { en: 'Welcome to Atlas', da: 'Velkommen til Atlas' },
     body: {
-      en: 'Atlas is a technical dictionary that doubles as a map: every term is linked to the terms it builds on, is confused with, or leads to. This short tour shows you around — it takes about two minutes.',
-      da: 'Atlas er en teknisk ordbog, der også er et kort: hvert begreb er forbundet med de begreber, det bygger på, forveksles med eller fører videre til. Denne korte rundvisning viser dig rundt — den tager cirka to minutter.',
+      en: 'Atlas is a technical dictionary that doubles as a map: every term is linked to the terms it builds on, is confused with, or leads to. This short tour shows you around - it takes about two minutes.',
+      da: 'Atlas er en teknisk ordbog, der også er et kort: hvert begreb er forbundet med de begreber, det bygger på, forveksles med eller fører videre til. Denne korte rundvisning viser dig rundt - den tager cirka to minutter.',
     },
   },
   {
     page: '',
     anchors: ['#search'],
     via: { en: 'Next: the home page', da: 'Næste: forsiden' },
-    title: { en: 'Search — or ask', da: 'Søg — eller spørg' },
+    title: { en: 'Search - or ask', da: 'Søg - eller spørg' },
     body: {
-      en: 'Search names, abbreviations and synonyms in both languages; small typos are fine. It also understands intents — “risk vs threat” compares two terms, “before zero trust” lists what to learn first — and whole questions are searched by meaning. Press / anywhere to jump here.',
-      da: 'Søg i navne, forkortelser og synonymer på begge sprog; små stavefejl gør ikke noget. Feltet forstår også hensigter — “risiko vs trussel” sammenligner to begreber, “før zero trust” viser, hvad du bør lære først — og hele spørgsmål søges efter betydning. Tryk / hvor som helst for at hoppe hertil.',
+      en: 'Search names, abbreviations and synonyms in both languages; small typos are fine. It also understands intents - “risk vs threat” compares two terms, “before zero trust” lists what to learn first - and whole questions are searched by meaning. Press / anywhere to jump here.',
+      da: 'Søg i navne, forkortelser og synonymer på begge sprog; små stavefejl gør ikke noget. Feltet forstår også hensigter - “risiko vs trussel” sammenligner to begreber, “før zero trust” viser, hvad du bør lære først - og hele spørgsmål søges efter betydning. Tryk / hvor som helst for at hoppe hertil.',
     },
   },
   {
@@ -726,11 +721,11 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
   {
     page: `terms/${TOUR_TERM}/`,
     anchors: ['#facets'],
-    via: { en: 'Next: an entry — Risk', da: 'Næste: et opslag — Risiko' },
+    via: { en: 'Next: an entry - Risk', da: 'Næste: et opslag - Risiko' },
     title: { en: 'Four ways to explain one term', da: 'Fire måder at forklare ét begreb' },
     body: {
-      en: 'Every entry has four facets: a formal definition, a plain-language one, what it looks like in practice, and why it matters. Underlined words are other entries — follow them.',
-      da: 'Hvert opslag har fire facetter: en formel definition, en enkel forklaring, hvordan det ser ud i praksis, og hvorfor det betyder noget. Understregede ord er andre opslag — følg dem.',
+      en: 'Every entry has four facets: a formal definition, a plain-language one, what it looks like in practice, and why it matters. Underlined words are other entries - follow them.',
+      da: 'Hvert opslag har fire facetter: en formel definition, en enkel forklaring, hvordan det ser ud i praksis, og hvorfor det betyder noget. Understregede ord er andre opslag - følg dem.',
     },
   },
   {
@@ -785,8 +780,8 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
     anchors: ['[data-tour="explorer-filters"]', '[data-explorer-bar]', '#explorer'],
     title: { en: 'Filters', da: 'Filtre' },
     body: {
-      en: 'Show only some domains or kinds of relationship — for example just prerequisites, or just attacks and defences. Click a term to focus on its neighbourhood.',
-      da: 'Vis kun nogle domæner eller slags relationer — for eksempel kun forudsætninger eller kun angreb og forsvar. Klik på et begreb for at fokusere på dets nabolag.',
+      en: 'Show only some domains or kinds of relationship - for example just prerequisites, or just attacks and defences. Click a term to focus on its neighbourhood.',
+      da: 'Vis kun nogle domæner eller slags relationer - for eksempel kun forudsætninger eller kun angreb og forsvar. Klik på et begreb for at fokusere på dets nabolag.',
     },
   },
   {
@@ -794,8 +789,8 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
     anchors: ['[data-tour="explorer-route"]', '[data-explorer-bar]', '#explorer'],
     title: { en: 'Route finder', da: 'Find vej' },
     body: {
-      en: 'Pick two terms to see the shortest chain of links between them — handy for explaining how two ideas connect.',
-      da: 'Vælg to begreber for at se den korteste kæde af forbindelser mellem dem — praktisk, når du skal forklare, hvordan to idéer hænger sammen.',
+      en: 'Pick two terms to see the shortest chain of links between them - handy for explaining how two ideas connect.',
+      da: 'Vælg to begreber for at se den korteste kæde af forbindelser mellem dem - praktisk, når du skal forklare, hvordan to idéer hænger sammen.',
     },
   },
   {
@@ -814,8 +809,8 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
     via: { en: 'Next: the timeline', da: 'Næste: tidslinjen' },
     title: { en: 'Timeline', da: 'Tidslinje' },
     body: {
-      en: 'One lane per domain, each term placed at the year it came into use, with the eras behind them — the big dots are milestones. Click a term to read it.',
-      da: 'Én bane pr. domæne, hvert begreb placeret i det år, det kom i brug, med tidsaldrene bagved — de store prikker er milepæle. Klik på et begreb for at læse det.',
+      en: 'One lane per domain, each term placed at the year it came into use, with the eras behind them - the big dots are milestones. Click a term to read it.',
+      da: 'Én bane pr. domæne, hvert begreb placeret i det år, det kom i brug, med tidsaldrene bagved - de store prikker er milepæle. Klik på et begreb for at læse det.',
     },
   },
   {
@@ -823,8 +818,8 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
     anchors: ['#lang-switch'],
     title: { en: 'English and Danish', da: 'Dansk og engelsk' },
     body: {
-      en: 'Switch language here — you stay on the same page. That’s the tour; restart it any time from “Take the tour”.',
-      da: 'Skift sprog her — du bliver på samme side. Det var rundvisningen; start den igen når som helst fra “Tag rundvisningen”.',
+      en: 'Switch language here - you stay on the same page. That’s the tour; restart it any time from “Take the tour”.',
+      da: 'Skift sprog her - du bliver på samme side. Det var rundvisningen; start den igen når som helst fra “Tag rundvisningen”.',
     },
   },
 ];

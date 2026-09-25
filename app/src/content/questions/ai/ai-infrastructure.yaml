@@ -36,11 +36,11 @@ questions:
         og bytter lavere ydelse pr. tråd for en langt større samlet kapacitet. Den
         bruger flere af sine transistorer på databehandling og færre på cache og
         styring af programforløbet. Træning af et neuralt netværk består mest af enorme
-        mængder uafhængige multiplikationer og additioner — netop den slags arbejde, der
+        mængder uafhængige multiplikationer og additioner - netop den slags arbejde, der
         lader sig fordele over tusindvis af tråde.
     difficulty: 1
     sources:
-      - title: NVIDIA CUDA Programming Guide — Introduction (the benefits of using GPUs)
+      - title: NVIDIA CUDA Programming Guide - Introduction (the benefits of using GPUs)
         url: https://docs.nvidia.com/cuda/cuda-programming-guide/01-introduction/introduction.html
         tier: official-doc
     draft: true
@@ -93,7 +93,7 @@ questions:
         skal stadig indlæses under alle omstændigheder.
     difficulty: 2
     sources:
-      - title: Hugging Face Transformers documentation — Quantization overview
+      - title: Hugging Face Transformers documentation - Quantization overview
         url: https://huggingface.co/docs/transformers/main/en/quantization/overview
         tier: official-doc
     draft: true
@@ -113,7 +113,7 @@ questions:
       da: >-
         En dansk kommune kører en borgerchatbot på sine egne servere. Dashboardet viser,
         at serverne samlet leverer masser af tokens i sekundet, men borgerne klager over
-        en lang pause, før der overhovedet kommer noget frem på skærmen — især når de
+        en lang pause, før der overhovedet kommer noget frem på skærmen - især når de
         vedhæfter lange dokumenter. Hvilken måling bør holdet fokusere på?
     options:
       - en: Total throughput, raising it by grouping even more requests into each batch
@@ -129,7 +129,7 @@ questions:
       en: >-
         NVIDIA defines time to first token as the time from submitting a query to
         receiving the first token; it includes queueing and the prefill of the full
-        input, so it grows with long prompts such as attached documents — exactly the
+        input, so it grows with long prompts such as attached documents - exactly the
         pause citizens describe. High total throughput can coexist with a poor
         experience: NVIDIA notes that as more requests are served concurrently, system
         throughput rises while each user's latency increases, so bigger batches may make
@@ -139,7 +139,7 @@ questions:
       da: >-
         NVIDIA definerer tid til første token som tiden fra forespørgslen sendes, til
         det første token modtages; den omfatter kø og forudfyldning (prefill) af hele
-        inputtet, så den vokser med lange prompter som vedhæftede dokumenter — præcis den
+        inputtet, så den vokser med lange prompter som vedhæftede dokumenter - præcis den
         pause, borgerne beskriver. Et højt samlet gennemløb kan godt gå hånd i hånd med en
         dårlig oplevelse: NVIDIA bemærker, at når flere forespørgsler håndteres samtidig,
         stiger systemets gennemløb, mens hver brugers latens vokser, så større batches kan
@@ -148,7 +148,7 @@ questions:
         ventetid.
     difficulty: 2
     sources:
-      - title: NVIDIA NIM for LLMs documentation — Benchmarking metrics
+      - title: NVIDIA NIM for LLMs documentation - Benchmarking metrics
         url: https://docs.nvidia.com/nim/benchmarking/llm/latest/metrics.html
         tier: official-doc
     draft: true
@@ -183,7 +183,7 @@ questions:
     explanation:
       en: >-
         Prompt caching reuses a prompt prefix, and a cache hit requires the prompt to be
-        100 % identical up to the cached point — so if the case number and time come
+        100 % identical up to the cached point - so if the case number and time come
         first, every prefix differs and the provider writes a new cache entry each time
         without ever reading one. The fix is to put the fixed policy first and the
         changing details after it. Anthropic's default cache lifetime is five minutes,
@@ -192,17 +192,17 @@ questions:
         documents are the typical use case, not an obstacle.
       da: >-
         Prompt caching genbruger begyndelsen af en prompt, og et cachetræf kræver, at
-        prompten er 100 % identisk frem til det cachede punkt — så når sagsnummer og
+        prompten er 100 % identisk frem til det cachede punkt - så når sagsnummer og
         klokkeslæt står først, er hver begyndelse forskellig, og udbyderen skriver en ny
         post i cachen hver gang uden nogensinde at læse en. Løsningen er at sætte den
         faste politik først og de skiftende oplysninger bagefter. Hos Anthropic er
         cachens standardlevetid fem minutter, ikke sekunder. Funktionen gemmer arbejdet
-        med inputtets begyndelse — det er det, der gør senere forespørgsler billigere og
-        hurtigere — ikke svarene. Lange, gentagne dokumenter er det typiske
+        med inputtets begyndelse - det er det, der gør senere forespørgsler billigere og
+        hurtigere - ikke svarene. Lange, gentagne dokumenter er det typiske
         anvendelsestilfælde, ikke en hindring.
     difficulty: 3
     sources:
-      - title: Anthropic documentation — Prompt caching
+      - title: Anthropic documentation - Prompt caching
         url: https://platform.claude.com/docs/en/build-with-claude/prompt-caching
         tier: official-doc
     draft: true
@@ -238,7 +238,7 @@ questions:
         smaller student model to reproduce the predictions of a larger teacher, so it
         needs a training run but can give a model with far fewer parameters. The swapped
         option reverses the two. They are different techniques that can even be
-        combined — a distilled model can later be quantized. Neither works by deleting
+        combined - a distilled model can later be quantized. Neither works by deleting
         layers or vocabulary words.
       da: >-
         Kvantisering beholder modellen, som den er, men gemmer dens vægte med lavere
@@ -247,14 +247,14 @@ questions:
         træner en separat, mindre elevmodel til at gengive en større lærermodels
         forudsigelser, så det kræver en træningskørsel, men kan give en model med langt
         færre parametre. Den ombyttede mulighed vender de to om. Det er forskellige
-        teknikker, som endda kan kombineres — en destilleret model kan bagefter
+        teknikker, som endda kan kombineres - en destilleret model kan bagefter
         kvantiseres. Ingen af dem virker ved at slette lag eller ord i ordforrådet.
     difficulty: 1
     sources:
       - title: Hinton, Vinyals and Dean (2015), Distilling the Knowledge in a Neural Network
         url: https://arxiv.org/abs/1503.02531
         tier: reference
-      - title: Hugging Face Transformers documentation — Quantization overview
+      - title: Hugging Face Transformers documentation - Quantization overview
         url: https://huggingface.co/docs/transformers/main/en/quantization/overview
         tier: official-doc
     draft: true

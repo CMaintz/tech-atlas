@@ -16,8 +16,8 @@ body:
     en: During inference in a transformer, the stored per-token numbers (called keys and values) that the attention mechanism compares against, for every token read so far; each new token adds its own and reuses the rest, so the store grows with the text.
     da: Under inferens i en transformer de gemte tal pr. token (kaldet keys og values), som attention-mekanismen sammenligner med, for hvert token læst indtil nu; hvert nyt token tilføjer sine egne og genbruger resten, så lageret vokser med teksten.
   plain:
-    en: Like keeping notes while reading a long book aloud — to say the next sentence you glance at your notes instead of starting again from page one.
-    da: Som at tage noter, mens man læser en lang bog højt — for at sige næste sætning kigger man i noterne i stedet for at begynde forfra fra side ét.
+    en: Like keeping notes while reading a long book aloud - to say the next sentence you glance at your notes instead of starting again from page one.
+    da: Som at tage noter, mens man læser en lang bog højt - for at sige næste sætning kigger man i noterne i stedet for at begynde forfra fra side ét.
   inPractice:
     en: A Danish software house runs a legal chat tool for law firms; its operations engineer finds the GPU fills up not with model weights but with the KV cache of lawyers' long chats, which limits how many can use it at once.
     da: Et dansk softwarehus driver et juridisk chatværktøj for advokatfirmaer; driftsingeniøren opdager, at GPU'en ikke fyldes af modelvægte, men af KV-cache fra advokaternes lange samtaler, hvilket begrænser, hvor mange der kan bruge den samtidig.

@@ -17,14 +17,14 @@ body:
     en: A system that creates and maintains digital identities, performs authentication, and then sends signed statements about the user to other applications that have agreed to trust it.
     da: Et system, der opretter og vedligeholder digitale identiteter, udfører autentificering og derefter sender signerede erklæringer om brugeren til andre programmer, der har sagt ja til at stole på det.
   plain:
-    en: Like the passport office — it checks who you are once and issues a document that airlines and hotels accept without checking you from scratch.
-    da: Som paskontoret — det kontrollerer én gang, hvem du er, og udsteder et dokument, som flyselskaber og hoteller godtager uden at tjekke dig forfra.
+    en: Like the passport office - it checks who you are once and issues a document that airlines and hotels accept without checking you from scratch.
+    da: Som paskontoret - det kontrollerer én gang, hvem du er, og udsteder et dokument, som flyselskaber og hoteller godtager uden at tjekke dig forfra.
   inPractice:
     en: A municipality runs one central identity provider for all staff; when a case officer leaves, disabling her identity there cuts off email, files and every connected app at once.
     da: En kommune bruger én central identitetsudbyder til alle medarbejdere; når en sagsbehandler stopper, lukkes hun ude af mail, filer og alle tilknyttede apps på én gang, så snart hendes identitet spærres dér.
   whyItMatters:
-    en: It gathers all logins in one place where MFA and monitoring can be enforced — and makes that place a prime target that must be guarded closely.
-    da: Den samler alle login ét sted, hvor MFA og overvågning kan håndhæves — og gør det sted til et oplagt mål, der skal beskyttes nøje.
+    en: It gathers all logins in one place where MFA and monitoring can be enforced - and makes that place a prime target that must be guarded closely.
+    da: Den samler alle login ét sted, hvor MFA og overvågning kan håndhæves - og gør det sted til et oplagt mål, der skal beskyttes nøje.
 deepDive:
   en: |-
     An identity provider bundles several functions that standards describe separately: an identity store or directory (Active Directory, LDAP or a cloud directory), a credential service provider that enrols and verifies authenticators, a session layer that remembers the user at the IdP, and one or more token services. In SAML it is the IdP issuing signed assertions; in OpenID Connect it is the OpenID Provider issuing ID tokens, usually combined with an OAuth 2.0 authorization server issuing access and refresh tokens. Around that sit claims transformation (mapping directory attributes to what each application expects), policy evaluation such as conditional access, and provisioning connectors, often SCIM, that push accounts into applications. Entra ID, Okta, Ping, Keycloak and AD FS are common implementations; NemLog-in plays a broker role in the Danish public sector.

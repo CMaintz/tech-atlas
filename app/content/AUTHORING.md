@@ -57,6 +57,10 @@ application, theory.
   rephrase it away. Never define jargon with jargon.
 - The four facets must each do a **different** job. If two read alike, rewrite.
 - Summary must not start by restating the term ("Phishing is phishing that…").
+- **Dashes: hyphen-minus `-` only**, in every field of terms, articles and questions.
+  No em dash (U+2014), en dash (U+2013) or horizontal bar (U+2015): write " - " between
+  clauses (or a comma, colon or full stop where that reads better), "2018-2020" for
+  ranges and "-" for an empty value. Lint **E12** fails the build on any of them.
 - Danish must be natural, idiomatic Danish (not word-for-word). Keep established
   English loanwords (MFA, SIEM, Zero Trust, NIS2) where Danes use them.
 - Source tiers: `standard` (NIST, ISO, NIS2/GDPR text, CIS, RFCs), `official-doc`,
@@ -214,5 +218,6 @@ See `src/content/questions/security/incident-response.yaml` for a full example.
 Errors: Q1 schema (shape, 4/2 options, answer in range, both languages) · Q2 duplicate
 id · Q3 unknown or repeated term id · Q4 answer index · Q5 blank text · Q6 two options
 read the same · Q7 the stem names the correct option · Q8 explanation under 80
-characters · Q9 true-false options not True/Sandt, False/Falsk. Warnings: W9 file not
+characters · Q9 true-false options not True/Sandt, False/Falsk · E12 an en/em dash
+anywhere in the file (write "-"). Warnings: W9 file not
 named after a cluster · W10 no term page can show the question.

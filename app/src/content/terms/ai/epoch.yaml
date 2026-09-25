@@ -17,7 +17,7 @@ body:
     da: En enhed i modeltræning, hvor hvert eksempel i træningsdata er brugt én gang til at opdatere modellen; antallet af epoker er en hyperparameter, der sættes, før træningen starter.
   plain:
     en: Like one full run-through of a choir's concert programme; a few run-throughs polish it, but after fifty the singers can only sing it exactly as rehearsed.
-    da: Som at synge et kors koncertprogram igennem én gang — et par gange gør det skarpere, men efter halvtreds gange kan sangerne kun synge det nøjagtig, som de har øvet det.
+    da: Som at synge et kors koncertprogram igennem én gang - et par gange gør det skarpere, men efter halvtreds gange kan sangerne kun synge det nøjagtig, som de har øvet det.
   inPractice:
     en: A data analyst at a Danish shipping company trains a model to predict fuel use from past voyages; she checks the validation set after each epoch and stops at epoch six, when results stop improving although the training error keeps falling.
     da: En dataanalytiker i et rederi træner en model, der skal forudsige brændstofforbrug ud fra tidligere sejladser; hun tjekker valideringssættet efter hver epoke og stopper ved epoke seks, hvor resultatet holder op med at blive bedre, selvom træningsfejlen bliver ved med at falde.

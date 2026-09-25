@@ -17,7 +17,7 @@ body:
     da: En formel, der sammenligner en models output med det rigtige svar og giver et tal, der er større, jo dårligere outputtet er; modeltræning justerer modelparametre, så gennemsnittet over træningsdata bliver så lille som muligt.
   plain:
     en: Like the penalty points in a driving test; each mistake adds points, and the learner practises until the total is as low as it can get.
-    da: Som strafpoint til en køreprøve — hver fejl giver point, og eleven øver, til summen er så lav som muligt.
+    da: Som strafpoint til en køreprøve - hver fejl giver point, og eleven øver, til summen er så lav som muligt.
   inPractice:
     en: A developer at a Danish housing association, building a filter for the inbox tenants write to, chooses a loss function that punishes throwing away a tenant's real complaint far harder than letting a piece of junk mail through.
     da: En udvikler i en dansk boligforening, der bygger et filter til den indbakke, lejerne skriver til, vælger en tabsfunktion, der straffer det langt hårdere at smide en lejers ægte klage væk end at lukke en reklamemail igennem.

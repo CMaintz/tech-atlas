@@ -14,8 +14,8 @@ summary:
   da: Et spor efter et angreb, fx en kendt ondsindet webadresse eller fil, der viser, at et system sandsynligvis er kompromitteret.
 body:
   formal:
-    en: A piece of evidence found on a system or network — an IP address, a domain name, a file's hash value, an odd account — that is known to be linked to a past attack and so suggests a break-in has happened.
-    da: Et stykke bevis fundet på et system eller i et netværk — en IP-adresse, et domænenavn, en fils hashværdi, en mærkelig konto — som man ved hænger sammen med et tidligere angreb, og som derfor tyder på, at der har været indbrud.
+    en: A piece of evidence found on a system or network - an IP address, a domain name, a file's hash value, an odd account - that is known to be linked to a past attack and so suggests a break-in has happened.
+    da: Et stykke bevis fundet på et system eller i et netværk - en IP-adresse, et domænenavn, en fils hashværdi, en mærkelig konto - som man ved hænger sammen med et tidligere angreb, og som derfor tyder på, at der har været indbrud.
   plain:
     en: Like the footprints and a known burglar's tools found in a garden; they do not stop the break-in, but they tell you who has been there.
     da: Som fodspor og en kendt indbrudstyvs værktøj fundet i haven; de stopper ikke indbruddet, men de fortæller, hvem der har været der.
@@ -60,13 +60,13 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: NIST SP 800-150 — Guide to Cyber Threat Information Sharing
+  - title: NIST SP 800-150 - Guide to Cyber Threat Information Sharing
     url: https://doi.org/10.6028/NIST.SP.800-150
     tier: standard
     publisher: NIST
-  - title: Cyber Security Fast Track — SIEM module
+  - title: Cyber Security Fast Track - SIEM module
     tier: course-material
-  - title: RFC 9424 — Indicators of Compromise (IoCs) and Their Role in Attack Defence
+  - title: RFC 9424 - Indicators of Compromise (IoCs) and Their Role in Attack Defence
     url: https://www.rfc-editor.org/rfc/rfc9424
     tier: standard
     publisher: IETF

@@ -10,14 +10,14 @@ layer: model
 status: current
 summary:
   en: The practice of checking how well an AI system does its job, with scores, public tests, human review and deliberate attacks.
-  da: Praksis med at kontrollere, hvor godt et AI-system løser sin opgave — med tal, offentlige tests, menneskelig gennemgang og bevidste angreb.
+  da: Praksis med at kontrollere, hvor godt et AI-system løser sin opgave - med tal, offentlige tests, menneskelig gennemgang og bevidste angreb.
 body:
   formal:
     en: The planned measuring of a model or AI system against goals for quality, safety and fairness, combining numbers such as accuracy and the F1 score, benchmark results, human review, LLM-as-a-judge grading and AI red teaming.
     da: Den planlagte måling af en model eller et AI-system op imod mål for kvalitet, sikkerhed og retfærdighed, som kombinerer tal som nøjagtighed og F1-score, benchmarkresultater, menneskelig gennemgang, LLM som dommer og AI red teaming.
   plain:
     en: Like a car's road trials before sale, with speed runs on the track, crash checks, drivers' opinions and people trying hard to make it fail.
-    da: Som en bils prøvekørsler før salg — fartløb på banen, kollisionsforsøg, førernes meninger og folk, der gør alt for at få den til at svigte.
+    da: Som en bils prøvekørsler før salg - fartløb på banen, kollisionsforsøg, førernes meninger og folk, der gør alt for at få den til at svigte.
   inPractice:
     en: Before moving its tenant chat to a newer large language model, a housing association's IT lead reruns 500 saved tenant questions, has staff grade a sample of the answers, and switches only if nothing gets worse.
     da: Før lejerchatten flyttes til en nyere stor sprogmodel, kører et boligselskabs IT-ansvarlige 500 gemte spørgsmål fra lejere igen, lader medarbejdere bedømme et udvalg af svarene og skifter kun, hvis intet bliver dårligere.

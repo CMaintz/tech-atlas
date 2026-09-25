@@ -3,11 +3,19 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { prerequisitesOf, shortestPath, type Graph, type GraphNode } from '../lib/graph-model';
 import { loadLearner, type Learner } from '../lib/learner';
 import { domainColour, homeDomain } from '../lib/graph-style';
-import { domainBands, effectiveHome, effectivePaint, termVisible } from '../lib/graph-layout';
+import {
+  OVERVIEW_FAMILIES,
+  domainBands,
+  effectiveHome,
+  effectivePaint,
+  termVisible,
+} from '../lib/graph-layout';
 import { createMap2D, type Layout, type Map2D } from '../lib/explorer-2d';
 import type { Map3D } from '../lib/explorer-3d';
 import { EXPLORER } from '../lib/explorer-config';
 import { searchTerms } from '../lib/canvas-explorer';
+import { looksNaturalLanguage, mergeHits } from '../lib/semantic';
+import { useSemanticHits } from '../lib/use-semantic';
 import GraphLegend from './GraphLegend';
 import TermPanel, { prefetchTerm, type PanelConfig } from './TermPanel';
 import { termFromSearch, withTermParam } from '../lib/term-panel';
@@ -28,12 +36,14 @@ interface Props {
   domainLabels: Dict;
   /** The term panel's strings and data locations (A80). */
   panel: PanelConfig;
+  /** The `semantic-search` Edge Function, or '' when none is configured (names only). */
+  semanticUrl?: string;
 }
 
 type Mode = '2d' | '3d';
 type ColourMode = 'cluster' | 'knowledge';
 /** The control bar's popovers; only one is open at a time ('sheet' = phones' Controls). */
-type Pop = 'links' | 'colour' | 'route' | 'sheet';
+type Pop = 'links' | 'route' | 'sheet';
 /** A term under a resting pointer, in map pixels (the hover card's anchor). */
 type Point = { id: string; x: number; y: number };
 
@@ -78,7 +88,11 @@ export default function Explorer(props: Props) {
   const [mode, setMode] = useState<Mode>('2d');
   const [layout, setLayout] = useState<Layout>('force');
   const [domains, setDomains] = useState<Set<string>>(new Set());
-  const [families, setFamilies] = useState<Set<string>>(new Set(Object.keys(props.familyColours)));
+  // The overview starts with the owner's types (A95): contrasts, alternatives and "used
+  // with" are off until ticked; a selected term shows all its relationships regardless.
+  const [families, setFamilies] = useState<Set<string>>(
+    new Set(Object.keys(props.familyColours).filter((f) => OVERVIEW_FAMILIES.has(f))),
+  );
   const [showAll, setShowAll] = useState(false);
   /** The selected term: a single callback sets it (a side panel may read it later). */
   const [selected, setSelected] = useState<string | null>(null);
@@ -96,6 +110,11 @@ export default function Explorer(props: Props) {
   const [spin, setSpin] = useState(false);
   const [pop, setPop] = useState<Pop | null>(null);
   const [query, setQuery] = useState('');
+  const [findOpen, setFindOpen] = useState(false);
+  const findField = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (findOpen) findField.current?.focus();
+  }, [findOpen]);
   const [narrow, setNarrow] = useState(() => media(NARROW));
   useEffect(() => {
     const mq = window.matchMedia(NARROW);
@@ -219,7 +238,8 @@ export default function Explorer(props: Props) {
     for (let h = 0; h < hops; h++) {
       const next = new Set<string>();
       for (const l of graph.links) {
-        if (!families.has(l.family) || !ids.has(l.source) || !ids.has(l.target)) continue;
+        // A selected term shows all its relationships, so its neighbourhood ignores the types.
+        if (!ids.has(l.source) || !ids.has(l.target)) continue;
         if (frontier.has(l.source) && !near.has(l.target)) next.add(l.target);
         if (frontier.has(l.target) && !near.has(l.source)) next.add(l.source);
       }
@@ -227,7 +247,7 @@ export default function Explorer(props: Props) {
       frontier = next;
     }
     return near;
-  }, [graph, domains, families, mode, layout, hops, hops === null ? null : selected]);
+  }, [graph, domains, mode, layout, hops, hops === null ? null : selected]);
 
   const visible = useMemo<Graph | null>(() => {
     if (!graph) return null;
@@ -369,18 +389,27 @@ export default function Explorer(props: Props) {
     else next.add(key);
     apply(next);
   };
-  const matches = useMemo(
-    () => (graph ? searchTerms(graph.nodes, query, lang) : []),
-    [graph, query, lang],
+  // "Find a term" works like the home search (A95): names and aliases at once, then, for
+  // a question or description, the terms nearest in meaning, fused by RRF.
+  const q = query.trim();
+  const named = useMemo(
+    () => (graph ? searchTerms(graph.nodes, q, lang).map((n) => n.id) : []),
+    [graph, q, lang],
   );
+  const natural = !!graph && looksNaturalLanguage(q, named.length);
+  const meaning = useSemanticHits(props.semanticUrl ?? '', q, lang, natural);
+  const matches = mergeHits(named, natural ? meaning : null, { known: (id) => byId.has(id) });
   /** Find a term: make sure it is shown (its domain on, a layout that has it), select it. */
   const findTerm = (id: string) => {
     const n = byId.get(id);
     if (!n) return;
     if (!termVisible(n, domains)) setDomains(new Set([...domains, ...n.domain]));
     if (mode === '2d' && layout === 'time' && n.era === undefined) setLayout('force');
+    // A new selection glides into view by itself; the open term may have been panned away.
+    if (id === selected) (mode === '3d' ? map3d : map2d.current)?.focus(id);
     setSelected(id);
     setQuery('');
+    setFindOpen(false);
     setPop(null);
   };
 
@@ -399,7 +428,7 @@ export default function Explorer(props: Props) {
   const pill = (active: boolean) =>
     `inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs whitespace-nowrap focus-visible:outline-2 focus-visible:outline-amber-300 ${active ? 'border-neutral-400 bg-neutral-800/80 text-neutral-100' : 'border-neutral-700 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200'}`;
   const seg = (active: boolean) =>
-    `px-2.5 py-1 text-xs whitespace-nowrap focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-amber-300 ${active ? 'bg-neutral-200 text-neutral-900' : 'text-neutral-400 hover:text-neutral-100'}`;
+    `px-2 py-1 text-xs whitespace-nowrap focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-amber-300 ${active ? 'bg-neutral-200 text-neutral-900' : 'text-neutral-400 hover:text-neutral-100'}`;
   const segGroup = 'flex w-fit shrink-0 overflow-hidden rounded-full border border-neutral-700';
   const field =
     'w-full rounded-full border border-neutral-700 bg-neutral-900 px-3 py-1 text-xs text-neutral-100 placeholder:text-neutral-500';
@@ -493,9 +522,10 @@ export default function Explorer(props: Props) {
         <span aria-hidden="true">⟳</span> {ui.autoRotate}
       </button>
     );
-  const domainPills = (
+  /** Domain toggles: labelled pills in the phone sheet, dot-only chips in the bar. */
+  const domainPills = (compact: boolean) => (
     <div
-      class="flex flex-wrap items-center gap-1.5"
+      class={`flex flex-wrap items-center ${compact ? 'gap-1' : 'gap-1.5'}`}
       role="group"
       aria-label={ui.domains}
       data-tour="explorer-filters"
@@ -503,18 +533,24 @@ export default function Explorer(props: Props) {
       {allDomains.map((d) => (
         <button
           type="button"
-          class={pill(domains.has(d))}
+          class={
+            compact
+              ? `flex h-7 w-7 items-center justify-center rounded-full border focus-visible:outline-2 focus-visible:outline-amber-300 ${domains.has(d) ? 'border-neutral-500 bg-neutral-800/80' : 'border-neutral-700 hover:border-neutral-500'}`
+              : pill(domains.has(d))
+          }
           aria-pressed={domains.has(d)}
+          aria-label={compact ? (props.domainLabels[d] ?? d) : undefined}
+          title={compact ? (props.domainLabels[d] ?? d) : undefined}
           onClick={() => toggle(domains, d, setDomains)}
         >
           <span
-            class="inline-block h-2 w-2 rounded-full"
+            class={`inline-block rounded-full ${compact ? 'h-2.5 w-2.5' : 'h-2 w-2'}`}
             style={{
               background: domains.has(d) ? domainColour(d) : 'transparent',
               boxShadow: `inset 0 0 0 1px ${domainColour(d)}`,
             }}
           />
-          {props.domainLabels[d] ?? d}
+          {!compact && (props.domainLabels[d] ?? d)}
         </button>
       ))}
     </div>
@@ -550,6 +586,7 @@ export default function Explorer(props: Props) {
         {props.graphUi.showAll}
       </label>
       {!showAll && <p class="text-neutral-500">{props.graphUi.overview}</p>}
+      <p class="text-neutral-500">{props.graphUi.typesNote}</p>
       <fieldset class="space-y-1 border-t border-neutral-800 pt-1.5">
         <legend class="sr-only">{ui.relationshipTypes}</legend>
         {allFamilies.map((f) => (
@@ -605,47 +642,81 @@ export default function Explorer(props: Props) {
       )}
     </form>
   );
-  const search = (
-    <div class="relative">
-      <input
-        type="search"
-        placeholder={ui.findTerm}
+  // In the bar, "Find a term" is a search icon that opens the field (keeps the bar one row).
+  const search =
+    !narrow && !findOpen ? (
+      <button
+        type="button"
+        class={`${pill(false)} px-2`}
         aria-label={ui.findTerm}
-        aria-controls="xp-find"
-        value={query}
-        onInput={(e) => setQuery((e.target as HTMLInputElement).value)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' && matches[0]) findTerm(matches[0].id);
-          if (e.key === 'Escape' && query) {
-            e.preventDefault();
-            setQuery('');
-          }
-        }}
-        class={`${field} ${narrow ? '' : 'w-40'}`}
-      />
-      {query.trim() && (
-        <ul
-          id="xp-find"
-          aria-label={ui.findTerm}
-          class={`${narrow ? 'mt-2' : `absolute top-full left-0 z-20 mt-2 w-64 max-w-[calc(100vw-2rem)] ${glass}`} space-y-0.5 rounded-xl p-2 text-xs`}
+        title={ui.findTerm}
+        onClick={() => setFindOpen(true)}
+      >
+        <svg
+          aria-hidden="true"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
         >
-          {matches.length === 0 && <li class="px-1 text-neutral-500">{ui.noResults}</li>}
-          {matches.map((m) => (
-            <li>
-              <button
-                type="button"
-                class="w-full rounded px-1.5 py-1 text-left text-neutral-300 hover:bg-neutral-800 hover:text-white focus-visible:bg-neutral-800"
-                onClick={() => findTerm(m.id)}
-              >
-                {m.term[lang]}
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-  const colourLabel = `${ui.colourBy}: ${colourMode === 'cluster' ? ui.byCluster : ui.byKnowledge}`;
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-4-4" />
+        </svg>
+      </button>
+    ) : (
+      <div class="relative">
+        <input
+          type="search"
+          ref={findField}
+          onBlur={() => {
+            if (!query.trim()) setFindOpen(false);
+          }}
+          placeholder={ui.findTerm}
+          aria-label={ui.findTerm}
+          aria-controls="xp-find"
+          value={query}
+          onInput={(e) => setQuery((e.target as HTMLInputElement).value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && matches[0]) findTerm(matches[0].id);
+            if (e.key === 'Escape' && (query || findOpen)) {
+              e.preventDefault();
+              if (query) setQuery('');
+              else setFindOpen(false);
+            }
+          }}
+          class={`${field} ${narrow ? '' : 'w-40'}`}
+        />
+        {query.trim() && (
+          <ul
+            id="xp-find"
+            aria-live="polite"
+            aria-label={ui.findTerm}
+            class={`${narrow ? 'mt-2' : `absolute top-full left-0 z-20 mt-2 w-64 max-w-[calc(100vw-2rem)] ${glass}`} space-y-0.5 rounded-xl p-2 text-xs`}
+          >
+            {matches.length === 0 && <li class="px-1 text-neutral-500">{ui.noResults}</li>}
+            {matches.map((m) => (
+              <li>
+                <button
+                  type="button"
+                  class="w-full rounded px-1.5 py-1 text-left text-neutral-300 hover:bg-neutral-800 hover:text-white focus-visible:bg-neutral-800"
+                  onClick={() => findTerm(m.id)}
+                >
+                  {byId.get(m.id)!.term[lang]}
+                  {!m.from.includes('lexical') && (
+                    <span class="ml-1.5 rounded bg-sky-950 px-1 py-px text-[10px] text-sky-300">
+                      ✦ {ui.semanticByMeaning}
+                    </span>
+                  )}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    );
 
   // ---- Hover card ------------------------------------------------------------------
   const cardNode = card ? byId.get(card.id) : undefined;
@@ -711,21 +782,24 @@ export default function Explorer(props: Props) {
       </datalist>
 
       {/*
-        The control bar floats centred over the top of the map, clear of the About "i" in
-        the top-right corner (and left of the docked term panel). On phones it condenses to
-        2D/3D and a "Controls" sheet.
+        The control bar: one compact row (dot-only domain chips, a search icon) centred over
+        the top of the map. Equal insets keep it clear of the collapsed legend (top-left,
+        also in Danish) and the About "i" (top-right); while the legend is open the bar
+        sits right of it. It never moves when the term panel opens, which simply sits above
+        it. On phones it condenses to 2D/3D and a "Controls" sheet, and the legend sits
+        below it.
       */}
       <div
-        class={`pointer-events-none absolute top-3 right-14 left-14 z-10 flex flex-col items-center gap-1.5 ${sel ? 'lg:right-[calc(26rem+3.5rem)]' : ''}`}
+        class={`pointer-events-none absolute top-3 right-14 left-14 z-20 flex flex-col items-center gap-1.5 md:right-36 ${legendOpen ? 'md:left-[18rem]' : 'md:left-36'}`}
       >
         <div
           ref={bar}
           role="group"
           aria-label={ui.mapControls}
           data-explorer-bar
-          class={`pointer-events-auto relative flex max-w-full flex-wrap items-center justify-center gap-x-2 gap-y-1.5 rounded-2xl px-2 py-1.5 text-sm ${glass}`}
+          class={`pointer-events-auto relative flex max-w-full flex-wrap items-center justify-center gap-x-1.5 gap-y-1.5 rounded-2xl px-1.5 py-1.5 text-sm ${glass}`}
         >
-          <div class="flex items-center gap-2" data-tour="explorer-layouts">
+          <div class="flex items-center gap-1.5" data-tour="explorer-layouts">
             {modeSeg}
             {!narrow && layoutSeg}
           </div>
@@ -749,7 +823,7 @@ export default function Explorer(props: Props) {
                   </section>
                   <section>
                     <h2 class={heading}>{ui.domains}</h2>
-                    {domainPills}
+                    {domainPills(false)}
                   </section>
                   <section>
                     <h2 class={heading}>{ui.relationshipTypes}</h2>
@@ -764,15 +838,12 @@ export default function Explorer(props: Props) {
             </>
           ) : (
             <>
-              {domainPills}
+              {domainPills(true)}
               <div class="relative">
-                {popButton('links', ui.relationshipTypes, showAll)}
+                {popButton('links', ui.linksShort, showAll)}
                 {popover('links', ui.relationshipTypes, linksBody)}
               </div>
-              <div class="relative">
-                {popButton('colour', colourLabel)}
-                {popover('colour', ui.colourBy, colourBody)}
-              </div>
+              {colourBody}
               {search}
               <div class="relative" data-tour="explorer-route">
                 {popButton('route', ui.routeShort, highlight.length > 0 && !!routeMsg)}
@@ -788,9 +859,9 @@ export default function Explorer(props: Props) {
         )}
       </div>
 
-      {/* The legend: its own collapsible box, bottom-left of the map (clear of the beta ribbon). */}
+      {/* The legend: a collapsible box top-left of the map (below the bar on phones). */}
       {visible && (
-        <div class="absolute bottom-3 left-28 z-10" data-explorer-legend>
+        <div class="absolute top-16 left-3 z-10 md:top-3" data-explorer-legend>
           <GraphLegend
             nodes={legendNodes}
             families={allFamilies.filter((f) => families.has(f))}

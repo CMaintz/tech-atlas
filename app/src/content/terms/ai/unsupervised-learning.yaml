@@ -14,7 +14,7 @@ summary:
 body:
   formal:
     en: A form of machine learning that works on training data without labels, finding structure in it, for example grouping similar items or flagging items that differ from the rest.
-    da: En form for maskinlæring, der arbejder på træningsdata uden mærkater og finder struktur i dem — fx ved at gruppere lignende ting eller markere ting, der skiller sig ud fra resten.
+    da: En form for maskinlæring, der arbejder på træningsdata uden mærkater og finder struktur i dem - fx ved at gruppere lignende ting eller markere ting, der skiller sig ud fra resten.
   plain:
     en: Like sorting a box of mixed buttons into piles by colour and size without anyone telling you what the piles should be.
     da: Som at sortere en kasse blandede knapper i bunker efter farve og størrelse, uden at nogen har fortalt dig, hvilke bunker der skal være.

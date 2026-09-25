@@ -1,5 +1,5 @@
 ---
-title: The software supply chain — why your security depends on code you did not write
+title: The software supply chain - why your security depends on code you did not write
 term: platform/software-supply-chain
 lang: en
 ---
@@ -41,17 +41,17 @@ Governments responded. A 2021 US executive order pushed software bills of materi
 
 ## What it means for an organisation and a coordinator
 
-Almost every organisation is a _consumer_ in the software supply chain, and many are also _producers_ — any company that builds a web shop, an app or an integration. The coordinator's job is to make both roles visible in the risk work.
+Almost every organisation is a _consumer_ in the software supply chain, and many are also _producers_ - any company that builds a web shop, an app or an integration. The coordinator's job is to make both roles visible in the risk work.
 
 As a consumer, the questions are: which software do we depend on, who supplies it, how do they secure it, and how quickly will we know when something in it is vulnerable? As a producer: which components do we use, is our pipeline protected, and could we tell a customer within a day whether we are affected by a new vulnerability? NIS2 Article 21(2)(d) (supply chain security) and (e) (security in acquisition, development and maintenance) cover both sides.
 
 ### A worked scenario
 
-Clara is a GRC student at a Danish company that makes booking software for dental clinics. A news story breaks about attackers who broke into a software maker's build system and hid malware inside a normal update, which thousands of customers then installed because it came from a trusted supplier — the pattern described in the term's definition. The CEO asks: "Could that happen to us, or through us?"
+Clara is a GRC student at a Danish company that makes booking software for dental clinics. A news story breaks about attackers who broke into a software maker's build system and hid malware inside a normal update, which thousands of customers then installed because it came from a trusted supplier - the pattern described in the term's definition. The CEO asks: "Could that happen to us, or through us?"
 
 Clara maps the chain with the development team. Upstream, the product uses around 900 open-source packages; there is no SBOM, and nobody can say quickly which versions are in production. The build pipeline runs on a hosted CI service with a long-lived token that can publish releases, stored as a plain variable. Downstream, 300 clinics install updates automatically.
 
-She rates the risk as high — a compromise would reach every customer, and the clinics hold health data. Her proposed plan: generate an SBOM on every build and scan it for known vulnerabilities; move the publishing token into a secrets manager with short-lived credentials; require MFA and protected branches for all developers; sign releases so the clinics' installer can verify them; and add the three most critical suppliers to the supplier review. She also notes that installed software sold on the EU market is likely to fall under the Cyber Resilience Act, so the work doubles as preparation for that. Management approves a six-month roadmap.
+She rates the risk as high - a compromise would reach every customer, and the clinics hold health data. Her proposed plan: generate an SBOM on every build and scan it for known vulnerabilities; move the publishing token into a secrets manager with short-lived credentials; require MFA and protected branches for all developers; sign releases so the clinics' installer can verify them; and add the three most critical suppliers to the supplier review. She also notes that installed software sold on the EU market is likely to fall under the Cyber Resilience Act, so the work doubles as preparation for that. Management approves a six-month roadmap.
 
 ## Common misunderstandings
 

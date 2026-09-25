@@ -60,7 +60,7 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: Google SRE book — Chapter 4, Service Level Objectives
+  - title: Google SRE book - Chapter 4, Service Level Objectives
     url: https://sre.google/sre-book/service-level-objectives/
     tier: reference
     publisher: Google

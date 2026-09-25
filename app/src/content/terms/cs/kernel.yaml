@@ -17,8 +17,8 @@ body:
     en: The part of the operating system that runs with full rights over the machine. Ordinary programs cannot touch devices, memory or each other's data directly; they must ask the kernel, which checks and carries out each request.
     da: Den del af styresystemet, der kører med fulde rettigheder over maskinen. Almindelige programmer kan ikke røre udstyr, hukommelse eller hinandens data direkte; de må bede kernen, som kontrollerer og udfører hver anmodning.
   plain:
-    en: Like the staff at a bank vault — customers never walk into the vault themselves; they hand a slip over the counter, and staff decide whether to fetch what was asked for.
-    da: Som personalet ved bankboksen — kunderne går aldrig selv ind i boksen; de afleverer en seddel ved skranken, og personalet afgør, om de vil hente det ønskede.
+    en: Like the staff at a bank vault - customers never walk into the vault themselves; they hand a slip over the counter, and staff decide whether to fetch what was asked for.
+    da: Som personalet ved bankboksen - kunderne går aldrig selv ind i boksen; de afleverer en seddel ved skranken, og personalet afgør, om de vil hente det ønskede.
   inPractice:
     en: After the Danish Resilience Agency (home of CFCS) warns about a flaw in the Linux kernel, the IT operations lead at a water utility patches the control servers and restarts them, because the new kernel only takes over after a restart.
     da: Efter at SAMSIK har advaret om en sårbarhed i Linux-kernen, patcher den IT-driftsansvarlige på et vandværk styringsserverne og genstarter dem, fordi den nye kerne først tager over efter en genstart.

@@ -14,11 +14,11 @@ summary:
   da: Den grundliste af sikkerhedstiltag, som alle organisationer under NIS2 skal have på plads.
 body:
   formal:
-    en: The ten areas of measures in NIS2 Article 21(2) — among them risk analysis, incident handling, business continuity, supply-chain security, training, encryption and multi-factor authentication — to be applied in proportion to the entity's size and exposure to risk.
-    da: De ti områder af tiltag i NIS2 artikel 21, stk. 2 — blandt andet risikoanalyse, hændelseshåndtering, beredskab for at holde driften i gang, sikkerhed i forsyningskæden, uddannelse, kryptering og multifaktorgodkendelse — som skal stå i forhold til enhedens størrelse og risiko.
+    en: The ten areas of measures in NIS2 Article 21(2) - among them risk analysis, incident handling, business continuity, supply-chain security, training, encryption and multi-factor authentication - to be applied in proportion to the entity's size and exposure to risk.
+    da: De ti områder af tiltag i NIS2 artikel 21, stk. 2 - blandt andet risikoanalyse, hændelseshåndtering, beredskab for at holde driften i gang, sikkerhed i forsyningskæden, uddannelse, kryptering og multifaktorgodkendelse - som skal stå i forhold til enhedens størrelse og risiko.
   plain:
-    en: Like the equipment every car must have before it may use the road — lights, brakes, seat belts — however big or small the car.
-    da: Som det udstyr, enhver bil skal have, før den må køre på vejen — lys, bremser, seler — uanset hvor stor eller lille bilen er.
+    en: Like the equipment every car must have before it may use the road - lights, brakes, seat belts - however big or small the car.
+    da: Som det udstyr, enhver bil skal have, før den må køre på vejen - lys, bremser, seler - uanset hvor stor eller lille bilen er.
   inPractice:
     en: The IT operations manager at a Danish freight company holds each point on the list against what the firm already does and finds that backups exist but have never been restored in a test.
     da: Driftschefen for IT i en dansk fragtvirksomhed holder hvert punkt på listen op mod det, virksomheden allerede gør, og opdager, at der tages backup, men at den aldrig er blevet gendannet i en test.
@@ -33,7 +33,7 @@ deepDive:
 
     For DNS, TLD, cloud, data centre, CDN, managed and managed security service providers, online marketplaces, search engines, social networks and trust service providers, Commission Implementing Regulation (EU) 2024/2690 turns the ten areas into detailed technical and methodological requirements in its annex. For all other entities the national transposition, in Denmark § 6 of the NIS2 Act, carries the list almost word for word, and the detail is left to guidance and recognised standards.
 
-    In practice the ten areas map closely onto ISO/IEC 27002:2022: incident management to controls 5.24–5.28, continuity to 5.29–5.30 and backup to 8.13, suppliers to 5.19–5.22, secure development and vulnerabilities to 8.8 and 8.25–8.28, effectiveness to 5.35 and ISO 27001 clause 9, awareness to 6.3, cryptography to 8.24, access control to 5.15–5.18 and authentication to 8.5. Two misreadings recur. "Minimum" does not mean light, since each area must be addressed and a scaled-down response has to be justified by risk and size; and "where appropriate" in points (h) and (j) is not an opt-out; in practice it means being able to show, with a documented risk rationale, why a measure such as MFA is not used on a given system.
+    In practice the ten areas map closely onto ISO/IEC 27002:2022: incident management to controls 5.24-5.28, continuity to 5.29-5.30 and backup to 8.13, suppliers to 5.19-5.22, secure development and vulnerabilities to 8.8 and 8.25-8.28, effectiveness to 5.35 and ISO 27001 clause 9, awareness to 6.3, cryptography to 8.24, access control to 5.15-5.18 and authentication to 8.5. Two misreadings recur. "Minimum" does not mean light, since each area must be addressed and a scaled-down response has to be justified by risk and size; and "where appropriate" in points (h) and (j) is not an opt-out; in practice it means being able to show, with a documented risk rationale, why a measure such as MFA is not used on a given system.
   da: |-
     Artikel 21, stk. 1, fastlægger den generelle pligt: passende og forholdsmæssige tekniske, operationelle og organisatoriske foranstaltninger til at styre risici for de net- og informationssystemer, der bruges til driften eller til at levere tjenester, og til at forebygge eller begrænse virkningen af hændelser. Foranstaltningerne skal tage højde for det aktuelle tekniske niveau, relevante europæiske og internationale standarder og omkostningerne, og proportionaliteten vurderes ud fra enhedens risikoeksponering, størrelse og sandsynligheden for og alvoren af hændelser, herunder deres samfundsmæssige og økonomiske virkning. Artikel 21, stk. 2, kræver derefter en tilgang, der dækker alle farer, altså fysiske hændelser som brand, oversvømmelse og strømsvigt lige så vel som angreb, og opregner ti områder, litra a til j, som foranstaltningerne mindst skal omfatte.
 
@@ -41,7 +41,7 @@ deepDive:
 
     For udbydere af DNS, topdomæner, cloud, datacentre, CDN, managed services og managed security services, online markedspladser, søgemaskiner, sociale netværk og tillidstjenester omsætter Kommissionens gennemførelsesforordning (EU) 2024/2690 de ti områder til detaljerede tekniske og metodiske krav i sit bilag. For alle andre enheder gengiver den nationale gennemførelse, i Danmark § 6 i NIS2-loven, listen næsten ordret, og detaljerne overlades til vejledninger og anerkendte standarder.
 
-    I praksis kan de ti områder kobles tæt til ISO/IEC 27002:2022: hændelseshåndtering til kontrol 5.24–5.28, kontinuitet til 5.29–5.30 og backup til 8.13, leverandører til 5.19–5.22, sikker udvikling og sårbarheder til 8.8 og 8.25–8.28, effektivitet til 5.35 og ISO 27001 afsnit 9, awareness til 6.3, kryptografi til 8.24, adgangskontrol til 5.15–5.18 og autentificering til 8.5. To fejllæsninger går igen. "Minimum" betyder ikke let, for hvert område skal adresseres, og en nedskaleret indsats skal begrundes i risiko og størrelse; og "hvor det er relevant" i litra h og j er ikke et fravalg; i praksis betyder det, at man med en dokumenteret risikobegrundelse skal kunne vise, hvorfor fx MFA ikke bruges på et bestemt system.
+    I praksis kan de ti områder kobles tæt til ISO/IEC 27002:2022: hændelseshåndtering til kontrol 5.24-5.28, kontinuitet til 5.29-5.30 og backup til 8.13, leverandører til 5.19-5.22, sikker udvikling og sårbarheder til 8.8 og 8.25-8.28, effektivitet til 5.35 og ISO 27001 afsnit 9, awareness til 6.3, kryptografi til 8.24, adgangskontrol til 5.15-5.18 og autentificering til 8.5. To fejllæsninger går igen. "Minimum" betyder ikke let, for hvert område skal adresseres, og en nedskaleret indsats skal begrundes i risiko og størrelse; og "hvor det er relevant" i litra h og j er ikke et fravalg; i praksis betyder det, at man med en dokumenteret risikobegrundelse skal kunne vise, hvorfor fx MFA ikke bruges på et bestemt system.
 edges:
   part-of: [nis2]
   mandates:
@@ -74,7 +74,7 @@ edges:
     - security-awareness
     - supplier-management
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
   - title: Directive (EU) 2022/2555 (NIS2 Directive), Article 21
     tier: standard

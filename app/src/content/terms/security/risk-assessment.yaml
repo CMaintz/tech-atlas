@@ -16,8 +16,8 @@ body:
     en: The step in risk management that finds each risk by pairing an asset with a threat and a vulnerability, then rates it by likelihood and impact. It can be done with numbers or with scales such as low, medium and high.
     da: Det trin i risikostyringen, hvor hver risiko findes ved at koble et aktiv med en trussel og en sårbarhed, hvorefter den vurderes ud fra sandsynlighed og konsekvens. Det kan gøres med tal eller med skalaer som lav, middel og høj.
   plain:
-    en: Before a picnic you ask what could spoil it, how likely that is and how bad it would be — then you bring an umbrella rather than worrying about bears.
-    da: Før en skovtur spørger man, hvad der kan ødelægge den, hvor sandsynligt det er, og hvor slemt det vil være — og så tager man en paraply med i stedet for at bekymre sig om bjørne.
+    en: Before a picnic you ask what could spoil it, how likely that is and how bad it would be - then you bring an umbrella rather than worrying about bears.
+    da: Før en skovtur spørger man, hvad der kan ødelægge den, hvor sandsynligt det er, og hvor slemt det vil være - og så tager man en paraply med i stedet for at bekymre sig om bjørne.
   inPractice:
     en: The owner of a small Danish web shop lists its payment system, customer data and warehouse, scores each threat from 1 to 5 for likelihood and impact, and puts the results on a heat map for the board.
     da: Ejeren af en lille dansk webshop skriver betalingssystemet, kundedata og lageret op, giver hver trussel point fra 1 til 5 for sandsynlighed og konsekvens og samler resultatet i et heat-map til bestyrelsen.
@@ -54,12 +54,12 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Ordliste
+  - title: Cyber Security Fast Track - Ordliste
     tier: course-material
-  - title: NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments
+  - title: NIST SP 800-30 Rev. 1 - Guide for Conducting Risk Assessments
     tier: standard
     publisher: NIST
-  - title: ISO/IEC 27005:2022 — Guidance on managing information security risks
+  - title: ISO/IEC 27005:2022 - Guidance on managing information security risks
     tier: standard
     publisher: ISO/IEC
 draft: true

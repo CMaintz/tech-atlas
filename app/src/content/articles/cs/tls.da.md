@@ -10,7 +10,7 @@ Transport Layer Security (TLS) er protokollen bag hængelåsen i browseren og "s
 
 Man behøver ikke forstå matematikken for at styre TLS godt. Man skal vide, hvad TLS beskytter, hvad den ikke beskytter, og hvilke indstillinger man skal kræve af IT-afdelingen og leverandørerne.
 
-## Hvad TLS beskytter – og hvad den ikke gør
+## Hvad TLS beskytter - og hvad den ikke gør
 
 TLS giver tre ting for data under transport:
 
@@ -20,7 +20,7 @@ TLS giver tre ting for data under transport:
 | Integritet                  | Enhver ændring af data undervejs opdages    | At nogen ændrer en betaling eller indsætter skadeligt indhold                  |
 | Autentificering af serveren | Man taler faktisk med den server, man ville | En falsk side eller en "man-in-the-middle", der udgiver sig for at være banken |
 
-Autentificering af klienten – hvor serveren også tjekker klientens certifikat, ofte kaldet mutual TLS (mTLS) – er valgfri og bruges mest mellem systemer.
+Autentificering af klienten - hvor serveren også tjekker klientens certifikat, ofte kaldet mutual TLS (mTLS) - er valgfri og bruges mest mellem systemer.
 
 Lige så vigtigt er det, TLS **ikke** gør:
 
@@ -45,8 +45,8 @@ Et certifikat er et digitalt dokument, der knytter en offentlig nøgle til et na
 
 Det, der går galt i praksis, er som regel administrativt og ikke kryptografisk:
 
-- **Udløbne certifikater** lægger tjenester ned uden varsel. Hav en oversigt med udløbsdatoer, og automatiser fornyelsen, hvor det er muligt (fx med ACME-protokollen). Den maksimale levetid for offentlige certifikater bliver gradvist kortere – fra 398 til 200 dage i marts 2026 og til 47 dage i 2029 – så automatisering bliver en nødvendighed.
-- **Selvsignerede certifikater eller certifikater fra en intern CA** giver advarsler, og brugerne lærer at klikke dem væk – en vane, som en angriber kan udnytte.
+- **Udløbne certifikater** lægger tjenester ned uden varsel. Hav en oversigt med udløbsdatoer, og automatiser fornyelsen, hvor det er muligt (fx med ACME-protokollen). Den maksimale levetid for offentlige certifikater bliver gradvist kortere - fra 398 til 200 dage i marts 2026 og til 47 dage i 2029 - så automatisering bliver en nødvendighed.
+- **Selvsignerede certifikater eller certifikater fra en intern CA** giver advarsler, og brugerne lærer at klikke dem væk - en vane, som en angriber kan udnytte.
 - **De private nøgler**, der hører til certifikaterne, skal beskyttes. Den, der har dem, kan udgive sig for at være tjenesten.
 
 ## Derfor er SSL og de tidlige TLS-versioner udfaset
@@ -63,7 +63,7 @@ TLS stammer fra Netscapes SSL, og hver ny generation har rettet svagheder i den 
 
 De gamle versioner tillader svage krypteringsalgoritmer og har kendte angreb, og de store browsere vil ikke længere forbinde med dem. Lader man dem stå slået til "af hensyn til kompatibiliteten", hjælper man primært angriberne, som i nogle tilfælde kan tvinge forbindelsen ned på den svageste version, begge parter stadig accepterer.
 
-Mange siger stadig "SSL-certifikat" af gammel vane. Det betyder ikke, at den gamle protokol er i brug – men det er værd at tjekke efter.
+Mange siger stadig "SSL-certifikat" af gammel vane. Det betyder ikke, at den gamle protokol er i brug - men det er værd at tjekke efter.
 
 ## Det bør koordinatoren stille krav om
 
@@ -73,7 +73,7 @@ TLS er et område, hvor det er let at formulere klare krav, der kan efterprøves
 - **Kun moderne cipher suites** til TLS 1.2 (med forward secrecy; ingen RC4, 3DES, eksport- eller null-algoritmer).
 - **Certifikater fra en betroet udsteder**, en navngiven ejer af hvert certifikat, en oversigt med udløbsdatoer og automatisk fornyelse.
 - **HTTPS overalt** på websites, hvor HTTP omdirigeres til HTTPS, og HSTS er slået til.
-- **TLS mellem mailservere**, hvor det understøttes, og krypterede forbindelser mellem systemer og til leverandører – ikke kun på det offentlige website.
+- **TLS mellem mailservere**, hvor det understøttes, og krypterede forbindelser mellem systemer og til leverandører - ikke kun på det offentlige website.
 - **Løbende test**, fx med en offentlig TLS-scanner for eksterne sites, hvor resultaterne rapporteres som ethvert andet fund.
 - **Klausuler i leverandørkontrakter** med de samme minimumskrav, så også hostede tjenester og cloudtjenester lever op til dem.
 

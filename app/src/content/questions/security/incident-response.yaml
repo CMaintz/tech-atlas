@@ -17,8 +17,8 @@ questions:
         Filerne kan afsløre borgeres helbredsoplysninger. Hvornår skal kommunen efter
         GDPR normalt senest have anmeldt bruddet til Datatilsynet?
     options:
-      - en: Thursday at 09:00 — 72 hours after it became aware of the breach
-        da: Torsdag kl. 9.00 — 72 timer efter, at den blev bekendt med bruddet
+      - en: Thursday at 09:00 - 72 hours after it became aware of the breach
+        da: Torsdag kl. 9.00 - 72 timer efter, at den blev bekendt med bruddet
       - en: Within 24 hours, because health data is involved
         da: Inden for 24 timer, fordi der er tale om helbredsoplysninger
       - en: 72 hours after the laptop was stolen from the car, whenever that was
@@ -30,7 +30,7 @@ questions:
       en: >-
         GDPR Article 33(1) requires the controller to notify the supervisory authority
         without undue delay and, where feasible, within 72 hours of becoming aware of
-        a personal data breach — the clock starts when the municipality is reasonably
+        a personal data breach - the clock starts when the municipality is reasonably
         certain a breach happened (Monday 09:00), not when the theft took place. The
         24-hour deadline is NIS2's early warning for significant incidents, not the
         GDPR rule, and sensitive data does not shorten it. One month is the NIS2 final
@@ -39,7 +39,7 @@ questions:
       da: >-
         GDPR artikel 33, stk. 1, kræver, at den dataansvarlige anmelder bruddet til
         tilsynsmyndigheden uden unødig forsinkelse og om muligt senest 72 timer efter
-        at være blevet bekendt med det — fristen løber fra det tidspunkt, hvor kommunen
+        at være blevet bekendt med det - fristen løber fra det tidspunkt, hvor kommunen
         med rimelig sikkerhed ved, at der er sket et brud (mandag kl. 9.00), ikke fra
         selve tyveriet. Fristen på 24 timer er NIS2's tidlige varsling om væsentlige
         hændelser, ikke GDPR-reglen, og følsomme oplysninger forkorter den ikke. En
@@ -53,7 +53,7 @@ questions:
       - title: EDPB Guidelines 9/2022 on personal data breach notification under GDPR
         url: https://www.edpb.europa.eu/our-work-tools/our-documents/guidelines/guidelines-92022-personal-data-breach-notification-under_en
         tier: official-doc
-      - title: Datatilsynet — Anmeld brud på persondatasikkerheden
+      - title: Datatilsynet - Anmeld brud på persondatasikkerheden
         url: https://www.datatilsynet.dk/sikkerhedsbrud/anmeld-sikkerhedsbrud
         tier: official-doc
     draft: true
@@ -90,7 +90,7 @@ questions:
         The ransomware is still spreading, so containment comes first: isolating the
         servers stops the damage and buys time to plan the clean-up, and NIST advises
         taking a snapshot of a system as it is before anyone alters it, so the evidence
-        survives. Wiping and restoring straight away jumps to recovery — it destroys the
+        survives. Wiping and restoring straight away jumps to recovery - it destroys the
         traces needed to find how the attackers got in and which other machines are hit,
         and the restored servers may be infected again. Leaving the servers running to
         watch the attackers is the delayed containment NIST calls dangerous, because they
@@ -100,7 +100,7 @@ questions:
         Ransomwaren spreder sig stadig, så inddæmning kommer først: Når serverne isoleres,
         stopper skaden, og der bliver tid til at planlægge oprydningen, og NIST anbefaler
         at tage et snapshot af et system, som det er, før nogen ændrer det, så sporene
-        bevares. At slette og gendanne med det samme springer direkte til genopretning —
+        bevares. At slette og gendanne med det samme springer direkte til genopretning -
         det ødelægger de spor, der skal vise, hvordan angriberne kom ind, og hvilke andre
         maskiner der er ramt, og de gendannede servere kan blive smittet igen. At lade
         serverne køre for at iagttage angriberne er den forsinkede inddæmning, som NIST
@@ -109,11 +109,11 @@ questions:
         fortsætter imens.
     difficulty: 2
     sources:
-      - title: NIST SP 800-61 Rev. 2 — Computer Security Incident Handling Guide, sections 3.3.1–3.3.4
+      - title: NIST SP 800-61 Rev. 2 - Computer Security Incident Handling Guide, sections 3.3.1-3.3.4
         url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r2.pdf
         tier: standard
       - title: >-
-          NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations
+          NIST SP 800-61 Rev. 3 - Incident Response Recommendations and Considerations
           for Cyber Risk Management, RS.MI (Incident Mitigation)
         url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r3.pdf
         tier: standard
@@ -126,12 +126,12 @@ questions:
     stem:
       en: >-
         On Tuesday at 10:00 a Danish drinking-water utility that is an essential entity
-        under NIS2 becomes aware that attackers have disrupted its control systems — a
+        under NIS2 becomes aware that attackers have disrupted its control systems - a
         significant incident. Which sequence of reports to the CSIRT matches the
         reporting obligations in NIS2 Article 23?
       da: >-
         Tirsdag kl. 10.00 får et dansk vandforsyningsselskab, der er væsentlig enhed
-        efter NIS2, kendskab til, at angribere har forstyrret dets styringssystemer — en
+        efter NIS2, kendskab til, at angribere har forstyrret dets styringssystemer - en
         væsentlig hændelse. Hvilken rækkefølge af underretninger til CSIRT'en svarer til
         rapporteringspligten i NIS2's artikel 23?
     options:
@@ -150,7 +150,7 @@ questions:
         aware of the significant incident (saying whether it looks malicious or could
         have a cross-border impact), an incident notification within 72 hours with a
         first assessment of severity and impact, and a final report no later than one
-        month after that incident notification — not one month after discovery, which
+        month after that incident notification - not one month after discovery, which
         is the tempting near-miss. The quick, short warning always comes before the
         fuller notification, so swapping them is wrong, and a final report after 72
         hours would come before the investigation could describe the root cause. The
@@ -162,14 +162,14 @@ questions:
         være ondsindet eller kan have grænseoverskridende virkning), en
         hændelsesunderretning senest efter 72 timer med en indledende vurdering af alvor
         og indvirkning og en endelig rapport senest en måned efter
-        hændelsesunderretningen — ikke en måned efter opdagelsen, som er den fristende
+        hændelsesunderretningen - ikke en måned efter opdagelsen, som er den fristende
         fejl. Den hurtige, korte varsling kommer altid før den fyldigere underretning, så
         det er forkert at bytte om på dem, og en endelig rapport efter 72 timer ville
         komme, før undersøgelsen kunne beskrive årsagen. CSIRT'en kan desuden bede om en
         foreløbig rapport undervejs; den danske NIS 2-lov gentager trinene i § 13.
     difficulty: 3
     sources:
-      - title: Directive (EU) 2022/2555 (NIS2 Directive), Article 23 — Reporting obligations
+      - title: Directive (EU) 2022/2555 (NIS2 Directive), Article 23 - Reporting obligations
         url: https://eur-lex.europa.eu/eli/dir/2022/2555/oj
         tier: standard
       - title: NIS 2-loven (lov nr. 434 af 6. maj 2025), § 13
@@ -194,8 +194,8 @@ questions:
         alvorligt nok til at vække nogen. Hvad bør afgøre, hvem hun kontakter, og hvor
         hurtigt?
     options:
-      - en: Her own judgement — if the logins go on, she emails the IT department in the morning
-        da: Hendes egen vurdering — fortsætter loginnene, mailer hun IT-afdelingen om morgenen
+      - en: Her own judgement - if the logins go on, she emails the IT department in the morning
+        da: Hendes egen vurdering - fortsætter loginnene, mailer hun IT-afdelingen om morgenen
       - en: The communication plan, which lists who may speak to members and to the press
         da: Kommunikationsplanen, som angiver, hvem der må udtale sig til medlemmer og presse
       - en: The thresholds and contact chain agreed in advance for alerts of this kind
@@ -207,7 +207,7 @@ questions:
       en: >-
         An escalation procedure sets, in advance, the thresholds at which an alert must
         be passed on, to whom and within what time, so a first responder never has to
-        guess at 3 a.m. — NIST SP 800-61 Rev. 3 lists deciding when to escalate or
+        guess at 3 a.m. - NIST SP 800-61 Rev. 3 lists deciding when to escalate or
         elevate incident response as part of preparation. Waiting until morning on her
         own judgement can cost hours while an attacker with admin rights spreads. The
         communication plan governs messages to members, the press and authorities, not
@@ -217,7 +217,7 @@ questions:
       da: >-
         En eskaleringsprocedure fastlægger på forhånd, ved hvilke tærskler en alarm skal
         sendes videre, til hvem og inden for hvilken tid, så den, der sidder med alarmen,
-        ikke skal gætte kl. 3 om natten — NIST SP 800-61 Rev. 3 nævner beslutninger om,
+        ikke skal gætte kl. 3 om natten - NIST SP 800-61 Rev. 3 nævner beslutninger om,
         hvornår hændelseshåndteringen skal eskaleres eller løftes op, som en del af
         forberedelsen. At vente til om morgenen på egen vurdering kan koste timer, mens en
         angriber med administratorrettigheder breder sig. Kommunikationsplanen styrer
@@ -227,11 +227,11 @@ questions:
     difficulty: 1
     sources:
       - title: >-
-          NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations
+          NIST SP 800-61 Rev. 3 - Incident Response Recommendations and Considerations
           for Cyber Risk Management, GV.RM-07 and RS.MA-04
         url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r3.pdf
         tier: standard
-      - title: Cyber Security Fast Track — kursuskompendium, Modul 7 (roller, kommunikationsveje og eskaleringsprocedurer)
+      - title: Cyber Security Fast Track - kursuskompendium, Modul 7 (roller, kommunikationsveje og eskaleringsprocedurer)
         tier: course-material
     draft: true
   - id: ir-table-top-reveals
@@ -264,7 +264,7 @@ questions:
       en: >-
         This is a table-top exercise: NIST SP 800-84 describes it as discussion-based,
         with a facilitator presenting a scenario that prompts talk about roles,
-        responsibilities, coordination and decision-making — so it shows where the plan
+        responsibilities, coordination and decision-making - so it shows where the plan
         is unclear or silent. Because it does not deploy equipment or touch live
         systems, it cannot prove that backups restore in time; that takes a functional
         exercise or an actual restore test. Phishing susceptibility is measured with a
@@ -273,7 +273,7 @@ questions:
       da: >-
         Det er en table-top-øvelse: NIST SP 800-84 beskriver den som samtalebaseret, hvor
         en mødeleder præsenterer et scenarie, der sætter gang i en drøftelse af roller,
-        ansvar, koordinering og beslutninger — så den viser, hvor planen er uklar eller
+        ansvar, koordinering og beslutninger - så den viser, hvor planen er uklar eller
         tavs. Fordi den ikke tager udstyr i brug eller rører de rigtige systemer, kan den
         ikke bevise, at backupperne kan gendannes til tiden; det kræver en funktionel
         øvelse eller en egentlig gendannelsestest. Hvor mange der falder for phishing,
@@ -283,11 +283,11 @@ questions:
     difficulty: 1
     sources:
       - title: >-
-          NIST SP 800-84 — Guide to Test, Training, and Exercise Programs for IT Plans
+          NIST SP 800-84 - Guide to Test, Training, and Exercise Programs for IT Plans
           and Capabilities, section 4
         url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-84.pdf
         tier: standard
-      - title: Cyber Security Fast Track — kursuskompendium, Modul 7 og Ordliste (Table-top øvelse)
+      - title: Cyber Security Fast Track - kursuskompendium, Modul 7 og Ordliste (Table-top øvelse)
         tier: course-material
     draft: true
   - id: ir-rpo-nightly-backup
@@ -322,7 +322,7 @@ questions:
         The one-hour limit on lost orders is the recovery point objective: NIST SP
         800-34 defines the RPO as the point in time the data can be recovered to from
         the most recent backup, so a nightly backup can mean losing up to about 24 hours
-        of orders — the shop needs a copy at least every hour. The four-hour limit is
+        of orders - the shop needs a copy at least every hour. The four-hour limit is
         the recovery time objective, and a tested two-hour restore fits inside it, so
         the RTO is met. "Neither" overlooks the data loss. How often backups run decides
         how much data can be lost, not how long the system is down, so blaming the RTO
@@ -331,7 +331,7 @@ questions:
         Grænsen på én times tabte ordrer er recovery point objective: NIST SP 800-34
         definerer RPO som det tidspunkt, data kan gendannes til ud fra den seneste
         backup, så en natlig backup kan betyde, at op til omkring et døgns ordrer går
-        tabt — webshoppen skal have en kopi mindst hver time. Grænsen på fire timer er
+        tabt - webshoppen skal have en kopi mindst hver time. Grænsen på fire timer er
         recovery time objective, og en afprøvet gendannelse på to timer ligger inden for
         den, så RTO'en er opfyldt. "Ingen af dem" overser datatabet. Hvor ofte der tages
         backup, afgør, hvor meget data der kan gå tabt, ikke hvor længe systemet er nede,
@@ -339,7 +339,7 @@ questions:
     difficulty: 3
     sources:
       - title: >-
-          NIST SP 800-34 Rev. 1 — Contingency Planning Guide for Federal Information
+          NIST SP 800-34 Rev. 1 - Contingency Planning Guide for Federal Information
           Systems, section 3.2 (RTO and RPO)
         url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf
         tier: standard
@@ -372,7 +372,7 @@ questions:
       en: >-
         Incident response is the technical work of containing, eradicating and
         recovering from the attack; crisis management is the leadership level that, in
-        parallel, makes business decisions — taking shop orders by phone, what to tell
+        parallel, makes business decisions - taking shop orders by phone, what to tell
         customers and the press, whether to pay. NIST SP 800-61 Rev. 3 gives leadership
         decision-making authority on high-impact actions, while incident handlers limit
         the damage and restore operations. Swapping the roles puts technical actions and
@@ -382,7 +382,7 @@ questions:
       da: >-
         Hændelseshåndtering er det tekniske arbejde med at inddæmme, fjerne årsagen og
         genoprette efter angrebet; krisestyring er ledelsesniveauet, der sideløbende
-        træffer forretningsbeslutninger — at tage imod butikkernes ordrer pr. telefon,
+        træffer forretningsbeslutninger - at tage imod butikkernes ordrer pr. telefon,
         hvad kunder og presse skal have at vide, og om der skal betales. NIST SP 800-61
         Rev. 3 giver ledelsen beslutningskompetence over indgreb med stor betydning,
         mens de, der håndterer hændelsen, begrænser skaden og genopretter driften. At
@@ -393,11 +393,11 @@ questions:
     difficulty: 2
     sources:
       - title: >-
-          NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations
+          NIST SP 800-61 Rev. 3 - Incident Response Recommendations and Considerations
           for Cyber Risk Management, section 2 (roles and responsibilities)
         url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r3.pdf
         tier: standard
-      - title: Cyber Security Fast Track — kursuskompendium, Modul 7 (Beredskabs- og genopretningsplaner)
+      - title: Cyber Security Fast Track - kursuskompendium, Modul 7 (Beredskabs- og genopretningsplaner)
         tier: course-material
     draft: true
   - id: ir-restored-not-finished
@@ -432,16 +432,16 @@ questions:
       da: >-
         Falsk. Genopretning er ikke den sidste fase: NIST SP 800-61 Rev. 2 afslutter
         hændelseshåndteringens livscyklus med aktiviteter efter hændelsen og kalder
-        læring og forbedring en af de vigtigste dele — og den, der oftest springes over.
+        læring og forbedring en af de vigtigste dele - og den, der oftest springes over.
         Et lessons learned-møde med alle involverede, holdt inden for få dage efter
         hændelsens afslutning, spørger, hvad der skete, hvad der skal gøres anderledes,
         og hvilke rettelser der kan forhindre en gentagelse. Springes det over, kan netop
         den svaghed, angriberne udnyttede, stå åben endnu.
     difficulty: 1
     sources:
-      - title: NIST SP 800-61 Rev. 2 — Computer Security Incident Handling Guide, section 3.4.1 Lessons Learned
+      - title: NIST SP 800-61 Rev. 2 - Computer Security Incident Handling Guide, section 3.4.1 Lessons Learned
         url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r2.pdf
         tier: standard
-      - title: Cyber Security Fast Track — kursuskompendium, Ordliste (Lessons learned)
+      - title: Cyber Security Fast Track - kursuskompendium, Ordliste (Lessons learned)
         tier: course-material
     draft: true

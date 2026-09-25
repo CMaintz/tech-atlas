@@ -47,13 +47,13 @@ questions:
         automatisk (teknologisk).
     difficulty: 1
     sources:
-      - title: ISMS.online — ISO 27002:2022 overview (themes and control counts)
+      - title: ISMS.online - ISO 27002:2022 overview (themes and control counts)
         url: https://www.isms.online/iso-27002/
         tier: reference
-      - title: ISMS.online — ISO 27002:2022 Control 6.1 Screening
+      - title: ISMS.online - ISO 27002:2022 Control 6.1 Screening
         url: https://www.isms.online/iso-27002/control-6-1-screening/
         tier: reference
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -93,7 +93,7 @@ questions:
         an incident happening), detective (reveals that one is happening) or
         corrective (limits the damage and restores afterwards). MFA stops an attacker
         with a stolen password from getting in, so it is preventive, like control 8.5
-        Secure authentication. An IDS only watches and warns, so it is detective — an
+        Secure authentication. An IDS only watches and warns, so it is detective - an
         IPS that blocks traffic would lean towards preventive. Restoring from backup
         repairs the damage after the fact, which is why control 8.13 Information
         backup is tagged corrective, not preventive.
@@ -103,18 +103,18 @@ questions:
         korrigerende (begrænser skaden og genopretter bagefter). MFA forhindrer en
         angriber med en stjålet adgangskode i at komme ind og er derfor forebyggende,
         ligesom kontrol 8.5 om sikker autentificering. Et IDS overvåger og advarer
-        kun og er derfor detekterende — et IPS, der blokerer trafik, ville ligge
+        kun og er derfor detekterende - et IPS, der blokerer trafik, ville ligge
         nærmere forebyggende. Genskabelse fra backup reparerer skaden bagefter, og
         derfor er kontrol 8.13 om backup mærket korrigerende, ikke forebyggende.
     difficulty: 3
     sources:
-      - title: ISMS.online — ISO 27002:2022 Control 8.13 Information Backup
+      - title: ISMS.online - ISO 27002:2022 Control 8.13 Information Backup
         url: https://www.isms.online/iso-27002/control-8-13-information-backup/
         tier: reference
-      - title: ISMS.online — ISO 27002:2022 Control 8.5 Secure Authentication
+      - title: ISMS.online - ISO 27002:2022 Control 8.5 Secure Authentication
         url: https://www.isms.online/iso-27002/control-8-5-secure-authentication/
         tier: reference
-      - title: NIST CSRC Glossary — intrusion detection system
+      - title: NIST CSRC Glossary - intrusion detection system
         url: https://csrc.nist.gov/glossary/term/intrusion_detection_system
         tier: official-doc
     draft: true
@@ -168,10 +168,10 @@ questions:
         med adgang til netværksdrevet i at kryptere det.
     difficulty: 2
     sources:
-      - title: CISA — #StopRansomware Guide
+      - title: CISA - #StopRansomware Guide
         url: https://www.cisa.gov/stopransomware/ransomware-guide
         tier: official-doc
-      - title: ISMS.online — ISO 27002:2022 Control 8.13 Information Backup
+      - title: ISMS.online - ISO 27002:2022 Control 8.13 Information Backup
         url: https://www.isms.online/iso-27002/control-8-13-information-backup/
         tier: reference
     draft: true
@@ -217,7 +217,7 @@ questions:
         står for.
     difficulty: 1
     sources:
-      - title: US-CERT — Data Backup Options (Ruggiero & Heckathorn, 2012)
+      - title: US-CERT - Data Backup Options (Ruggiero & Heckathorn, 2012)
         url: https://www.cisa.gov/sites/default/files/publications/data_backup_options.pdf
         tier: official-doc
     draft: true
@@ -266,13 +266,13 @@ questions:
         hele idéen med implementation groups.
     difficulty: 2
     sources:
-      - title: CIS — Implementation Group 1 (IG1)
+      - title: CIS - Implementation Group 1 (IG1)
         url: https://www.cisecurity.org/controls/implementation-groups/ig1
         tier: official-doc
-      - title: CIS — CIS Controls Implementation Groups
+      - title: CIS - CIS Controls Implementation Groups
         url: https://www.cisecurity.org/controls/implementation-groups
         tier: official-doc
-      - title: Cyber Security Fast Track — kursuskompendium
+      - title: Cyber Security Fast Track - kursuskompendium
         tier: course-material
     draft: true
 
@@ -311,7 +311,7 @@ questions:
         changed password is still just as easy to type into a fake page, and the
         attacker uses it straight away, long before 90 days pass. Antivirus protects
         the employees' PCs but does nothing when the attacker logs in from their own
-        machine. An IDS might raise an alert, but it only detects — it does not
+        machine. An IDS might raise an alert, but it only detects - it does not
         prevent the login.
       da: >-
         Angriberne havde allerede de korrekte adgangskoder, så kun en kontrol, der
@@ -320,14 +320,14 @@ questions:
         adgangskode er lige så let at taste ind på en falsk side, og angriberen
         bruger den med det samme, længe før der er gået 90 dage. Antivirus beskytter
         medarbejdernes pc'er, men hjælper ikke, når angriberen logger ind fra sin egen
-        maskine. Et IDS kan måske give en alarm, men det opdager kun — det forhindrer
+        maskine. Et IDS kan måske give en alarm, men det opdager kun - det forhindrer
         ikke login.
     difficulty: 2
     sources:
-      - title: CISA — More than a Password (multifactor authentication)
+      - title: CISA - More than a Password (multifactor authentication)
         url: https://www.cisa.gov/MFA
         tier: official-doc
-      - title: ISMS.online — ISO 27002:2022 Control 8.5 Secure Authentication
+      - title: ISMS.online - ISO 27002:2022 Control 8.5 Secure Authentication
         url: https://www.isms.online/iso-27002/control-8-5-secure-authentication/
         tier: reference
     draft: true
@@ -382,10 +382,10 @@ questions:
         for at teste, om et angreb ville lykkes.
     difficulty: 2
     sources:
-      - title: NIST CSRC Glossary — penetration testing
+      - title: NIST CSRC Glossary - penetration testing
         url: https://csrc.nist.gov/glossary/term/penetration_testing
         tier: official-doc
-      - title: NIST CSRC Glossary — vulnerability scanning
+      - title: NIST CSRC Glossary - vulnerability scanning
         url: https://csrc.nist.gov/glossary/term/vulnerability_scanning
         tier: official-doc
     draft: true
@@ -428,7 +428,7 @@ questions:
         der overtager én pc, bevæge sig frit videre til andre systemer.
     difficulty: 1
     sources:
-      - title: NIST SP 800-207 — Zero Trust Architecture
+      - title: NIST SP 800-207 - Zero Trust Architecture
         url: https://csrc.nist.gov/pubs/sp/800/207/final
         tier: standard
     draft: true

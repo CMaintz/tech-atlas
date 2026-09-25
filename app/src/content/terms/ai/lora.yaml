@@ -10,15 +10,15 @@ layer: training
 era: 2021
 status: current
 summary:
-  en: A cheap way to fine-tune a big model — freeze the original weights and train only a small add-on that nudges its behaviour.
-  da: En billig måde at finjustere en stor model på — frys de oprindelige vægte og træn kun en lille adapter, der justerer dens adfærd.
+  en: A cheap way to fine-tune a big model - freeze the original weights and train only a small add-on that nudges its behaviour.
+  da: En billig måde at finjustere en stor model på - frys de oprindelige vægte og træn kun en lille adapter, der justerer dens adfærd.
 body:
   formal:
     en: A fine-tuning method that keeps the model weights fixed and learns, for chosen layers, a pair of small extra weight tables whose product is added to the original; only a tiny share of the model parameters is trained and the add-on can be stored and swapped separately.
     da: En finjusteringsmetode, der holder modelvægtene faste og for udvalgte lag lærer et par små ekstra vægttabeller, hvis produkt lægges til de oprindelige; kun en lille del af modelparametrene trænes, og adapteren kan gemmes og udskiftes for sig.
   plain:
-    en: Like clipping a thin lens over a camera instead of rebuilding it — the camera stays the same, the pictures change, and you can swap lenses in seconds.
-    da: Som at klipse en tynd linse på et kamera i stedet for at bygge det om — kameraet er det samme, billederne ændrer sig, og man kan skifte linse på sekunder.
+    en: Like clipping a thin lens over a camera instead of rebuilding it - the camera stays the same, the pictures change, and you can swap lenses in seconds.
+    da: Som at klipse en tynd linse på et kamera i stedet for at bygge det om - kameraet er det samme, billederne ændrer sig, og man kan skifte linse på sekunder.
   inPractice:
     en: A developer at a Danish accounting firm adapts an open model to the firm's standard reports on a single rented GPU; the result is a small adapter file loaded on top of the untouched base model.
     da: En udvikler i et revisionsfirma tilpasser en åben model til firmaets standardrapporter på en enkelt lejet GPU; resultatet er en lille adapterfil, der indlæses oven på den urørte basismodel.
@@ -33,7 +33,7 @@ deepDive:
 
     QLoRA (Dettmers et al., 2023) trains LoRA adapters on top of a base model quantised to 4-bit NormalFloat, adding double quantisation of the quantisation constants and paged optimiser states, which made fine-tuning a 65-billion-parameter model possible on a single 48 GB GPU. Other variants include DoRA, which separates the magnitude and direction of the weight update, and rank-stabilised LoRA, which scales by α/√r instead of α/r so higher ranks remain effective.
 
-    LoRA is not a free replacement for full fine-tuning. Biderman et al. (2024) found that in continued training on code and mathematics it substantially underperforms full fine-tuning, whose weight updates had 10–100 times higher rank than typical LoRA settings, but that it also forgets less of the base model's other abilities. An adapter is bound to the exact base checkpoint it was trained on; loading it onto a different version or quantisation silently changes behaviour. Adapters are also a supply-chain artefact: OWASP's Top 10 for LLM Applications 2025 (LLM03) warns that a malicious LoRA adapter can compromise the integrity of a trusted base model, and research has shown that LoRA fine-tuning can cheaply strip safety training from aligned models, so third-party adapters need provenance checks and evaluation before use.
+    LoRA is not a free replacement for full fine-tuning. Biderman et al. (2024) found that in continued training on code and mathematics it substantially underperforms full fine-tuning, whose weight updates had 10-100 times higher rank than typical LoRA settings, but that it also forgets less of the base model's other abilities. An adapter is bound to the exact base checkpoint it was trained on; loading it onto a different version or quantisation silently changes behaviour. Adapters are also a supply-chain artefact: OWASP's Top 10 for LLM Applications 2025 (LLM03) warns that a malicious LoRA adapter can compromise the integrity of a trusted base model, and research has shown that LoRA fine-tuning can cheaply strip safety training from aligned models, so third-party adapters need provenance checks and evaluation before use.
   da: |-
     For en frossen vægtmatrix W₀ ∈ ℝ^(d×k) lærer LoRA en opdatering ΔW = BA med B ∈ ℝ^(d×r), A ∈ ℝ^(r×k) og rang r ≪ min(d, k), så laget beregner h = W₀x + (α/r)·BAx. A initialiseres tilfældigt og B med nuller, så træningen starter præcis i den fortrænede model. Besparelsen i parametre er stor: for en projektion på 4096 × 4096 giver r = 8 i alt 8 × (4096 + 4096) = 65.536 trænbare værdier i stedet for cirka 16,8 millioner, omtrent 0,4 %. Gradienter og optimeringstilstand er kun nødvendige for A og B, og det er dér, det meste af hukommelsesbesparelsen kommer fra; den frosne basismodel skal stadig ligge i hukommelsen til det forlæns og baglæns pass.
 
@@ -41,7 +41,7 @@ deepDive:
 
     QLoRA (Dettmers m.fl., 2023) træner LoRA-adaptere oven på en basismodel kvantiseret til 4-bit NormalFloat og tilføjer dobbelt kvantisering af kvantiseringskonstanterne samt paged optimeringstilstand, hvilket gjorde det muligt at finjustere en model med 65 milliarder parametre på én GPU med 48 GB. Andre varianter er DoRA, der adskiller størrelse og retning i vægtopdateringen, og rank-stabilised LoRA, der skalerer med α/√r i stedet for α/r, så højere rang forbliver effektiv.
 
-    LoRA er ikke en gratis erstatning for fuld finjustering. Biderman m.fl. (2024) fandt, at den ved fortsat træning på kode og matematik klarer sig markant dårligere end fuld finjustering, hvis vægtopdateringer havde 10–100 gange højere rang end typiske LoRA-indstillinger, men at den også glemmer mindre af basismodellens øvrige evner. En adapter er bundet til præcis det basis-checkpoint, den er trænet på; indlæses den på en anden version eller kvantisering, ændres adfærden stille. Adaptere er også en del af leverandørkæden: OWASP Top 10 for LLM Applications 2025 (LLM03) advarer om, at en ondsindet LoRA-adapter kan kompromittere integriteten af en betroet basismodel, og forskning har vist, at LoRA-finjustering billigt kan fjerne sikkerhedstræning fra aligned modeller, så adaptere fra tredjepart kræver kontrol af oprindelse og evaluering før brug.
+    LoRA er ikke en gratis erstatning for fuld finjustering. Biderman m.fl. (2024) fandt, at den ved fortsat træning på kode og matematik klarer sig markant dårligere end fuld finjustering, hvis vægtopdateringer havde 10-100 gange højere rang end typiske LoRA-indstillinger, men at den også glemmer mindre af basismodellens øvrige evner. En adapter er bundet til præcis det basis-checkpoint, den er trænet på; indlæses den på en anden version eller kvantisering, ændres adfærden stille. Adaptere er også en del af leverandørkæden: OWASP Top 10 for LLM Applications 2025 (LLM03) advarer om, at en ondsindet LoRA-adapter kan kompromittere integriteten af en betroet basismodel, og forskning har vist, at LoRA-finjustering billigt kan fjerne sikkerhedstræning fra aligned modeller, så adaptere fra tredjepart kræver kontrol af oprindelse og evaluering før brug.
 edges:
   kind-of: [fine-tuning]
   requires:
@@ -59,13 +59,13 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: Hu et al. (2021), LoRA — Low-Rank Adaptation of Large Language Models
+  - title: Hu et al. (2021), LoRA - Low-Rank Adaptation of Large Language Models
     tier: reference
   - title: Biderman et al. (2024), LoRA Learns Less and Forgets Less
     tier: reference
     publisher: arXiv
     url: https://arxiv.org/abs/2405.09673
-  - title: 'OWASP Top 10 for LLM Applications 2025 — LLM03:2025 Supply Chain'
+  - title: 'OWASP Top 10 for LLM Applications 2025 - LLM03:2025 Supply Chain'
     tier: reference
     publisher: OWASP
     url: https://genai.owasp.org/llmrisk/llm032025-supply-chain/

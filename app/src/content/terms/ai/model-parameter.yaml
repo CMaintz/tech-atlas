@@ -14,10 +14,10 @@ summary:
 body:
   formal:
     en: An internal value of a model, mostly the model weights plus small offset values, that model training adjusts to reduce the loss; a large language model can have billions of them.
-    da: En intern værdi i en model — mest modelvægtene plus små forskydningsværdier — som modeltræning justerer for at mindske tabet; en stor sprogmodel kan have milliarder af dem.
+    da: En intern værdi i en model - mest modelvægtene plus små forskydningsværdier - som modeltræning justerer for at mindske tabet; en stor sprogmodel kan have milliarder af dem.
   plain:
     en: Like the tiles in a huge mosaic; no single tile means much, but together their colours make the picture, and more tiles allow finer detail.
-    da: Som stenene i en kæmpe mosaik — ingen enkelt sten betyder meget, men tilsammen danner deres farver billedet, og flere sten giver finere detaljer.
+    da: Som stenene i en kæmpe mosaik - ingen enkelt sten betyder meget, men tilsammen danner deres farver billedet, og flere sten giver finere detaljer.
   inPractice:
     en: An IT buyer in a municipality compares a “7B” and a “70B” model for an internal assistant; the figures are billions of model parameters and give a rough guide to memory needs, running cost and ability.
     da: En IT-indkøber i en kommune sammenligner en “7B”- og en “70B”-model til en intern assistent; tallene er milliarder af modelparametre og giver et groft bud på hukommelsesbehov, driftspris og evner.

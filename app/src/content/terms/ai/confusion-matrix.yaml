@@ -10,7 +10,7 @@ layer: theory
 status: current
 summary:
   en: A small table that counts, for every true class, how often a model gave each answer, showing exactly which mistakes it makes.
-  da: En lille tabel, der for hver sand klasse tæller, hvor ofte en model gav hvert svar — og viser præcis, hvilke fejl den begår.
+  da: En lille tabel, der for hver sand klasse tæller, hvor ofte en model gav hvert svar - og viser præcis, hvilke fejl den begår.
 body:
   formal:
     en: A grid of counts for a classification task with one row per true class and one column per predicted class; with two classes its four cells are true positives, false positives, false negatives and true negatives.
@@ -38,7 +38,7 @@ deepDive:
 
     Næsten alle klassifikationsmål er funktioner af disse felter. Nøjagtighed er sporet delt med N; genkaldelse for en klasse er diagonalfeltet over rækkesummen, præcision diagonalfeltet over kolonnesummen, specificitet TN / (TN + FP). Normaliseres matricen pr. række (scikit-learn normalize='true'), bliver hver række til genkaldelse pr. klasse; normaliseres den pr. kolonne (normalize='pred'), får man præcision pr. klasse. Multiklasse-gennemsnit adskiller sig ved, hvordan en-mod-resten-tabellerne kombineres: makrogennemsnit vægter alle klasser ens, mikrogennemsnit lægger optællingerne sammen (og er lig nøjagtighed ved multiklasse med én label pr. eksempel), og vægtet gennemsnit vægter efter antal eksempler pr. klasse. Cohens kappa og Matthews-korrelationskoefficienten beregnes også direkte ud fra matricen.
 
-    En forvekslingsmatrix beskriver ét arbejdspunkt. En model, der giver scorer, giver en ny matrix for hver tærskel; ROC-kurven (Fawcett, 2006) viser TPR mod FPR over hele den familie, og præcision–genkaldelse-kurven gør det samme for præcision og genkaldelse. Ganger man matricen feltvis med en omkostningsmatrix og summerer, får man den forventede omkostning ved en tærskel, hvilket gør omkostningsbevidste beslutninger eksplicitte. Da præcision afhænger af forekomsten, mens TPR og FPR ikke gør, kan en matrix målt på et bevidst balanceret testsæt ikke læses som driftsydelse uden omvægtning til den reelle klassefordeling.
+    En forvekslingsmatrix beskriver ét arbejdspunkt. En model, der giver scorer, giver en ny matrix for hver tærskel; ROC-kurven (Fawcett, 2006) viser TPR mod FPR over hele den familie, og præcision-genkaldelse-kurven gør det samme for præcision og genkaldelse. Ganger man matricen feltvis med en omkostningsmatrix og summerer, får man den forventede omkostning ved en tærskel, hvilket gør omkostningsbevidste beslutninger eksplicitte. Da præcision afhænger af forekomsten, mens TPR og FPR ikke gør, kan en matrix målt på et bevidst balanceret testsæt ikke læses som driftsydelse uden omvægtning til den reelle klassefordeling.
 
     I fejlanalyse er de varme felter uden for diagonalen det interessante: systematisk forveksling mellem to klasser skyldes ofte overlappende definitioner i mærkningsvejledningen, tvetydige kildedata eller en taksonomi, hvor klasser bør slås sammen eller deles, snarere end en fejl i modellen. Separate matricer pr. befolkningsgruppe understøtter fairnesstjek som equalised odds (Hardt m.fl., 2016), der sammenligner TPR og FPR på tværs af grupper. Ved multilabel-opgaver returnerer scikit-learns multilabel_confusion_matrix én 2 × 2-tabel pr. label. Små felter er statistisk støjfyldte, så sjældne klasser kræver nok testeksempler, før deres række kan tages for pålydende.
 edges:

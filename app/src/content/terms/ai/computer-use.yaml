@@ -10,21 +10,21 @@ layer: agent
 era: 2024
 status: emerging
 summary:
-  en: Letting an AI agent work a computer like a person does — it looks at pictures of the screen and moves the mouse and types.
-  da: At lade en AI-agent betjene en computer, som et menneske gør — den ser på billeder af skærmen, flytter musen og skriver.
+  en: Letting an AI agent work a computer like a person does - it looks at pictures of the screen and moves the mouse and types.
+  da: At lade en AI-agent betjene en computer, som et menneske gør - den ser på billeder af skærmen, flytter musen og skriver.
 body:
   formal:
     en: A form of tool calling in which the tools are the screen, mouse and keyboard; a multimodal model is sent pictures of the screen and answers with actions such as "click at this point" or "type this text", repeating until the task is done.
     da: En form for værktøjskald, hvor værktøjerne er skærm, mus og tastatur; en multimodal model får billeder af skærmen og svarer med handlinger som "klik her" eller "skriv denne tekst" og gentager, til opgaven er løst.
   plain:
-    en: Like a stand-in sitting at your desk while you are away — they see the same screen, press the same buttons, and can do anything you could do from that chair.
-    da: Som en afløser, der sidder ved dit skrivebord, mens du er væk — vedkommende ser den samme skærm, trykker på de samme knapper og kan gøre alt, hvad du kunne fra den stol.
+    en: Like a stand-in sitting at your desk while you are away - they see the same screen, press the same buttons, and can do anything you could do from that chair.
+    da: Som en afløser, der sidder ved dit skrivebord, mens du er væk - vedkommende ser den samme skærm, trykker på de samme knapper og kan gøre alt, hvad du kunne fra den stol.
   inPractice:
     en: A finance clerk at a shipping company has an agent copy freight totals from an old booking program with no API into the finance system; it opens each booking, reads the figures off the screen and types them in.
     da: En bogholder i et rederi lader en agent kopiere fragtbeløb fra et gammelt bookingprogram uden API over i økonomisystemet; den åbner hver booking, aflæser tallene på skærmen og taster dem ind.
   whyItMatters:
-    en: It reaches any program a person can use, even without an API, but anything shown on screen — a web page, a pop-up — can carry hidden orders, and every click is a real action.
-    da: Det når ethvert program, et menneske kan bruge, også uden API, men alt, der vises på skærmen — en webside, et pop op-vindue — kan bære skjulte ordrer, og hvert klik er en rigtig handling.
+    en: It reaches any program a person can use, even without an API, but anything shown on screen - a web page, a pop-up - can carry hidden orders, and every click is a real action.
+    da: Det når ethvert program, et menneske kan bruge, også uden API, men alt, der vises på skærmen - en webside, et pop op-vindue - kan bære skjulte ordrer, og hvert klik er en rigtig handling.
 deepDive:
   en: |-
     Anthropic released computer use as a public beta on 22 October 2024 with an upgraded Claude 3.5 Sonnet, and OpenAI followed in January 2025 with Operator and its Computer-Using Agent model; other labs and browser vendors have since shipped comparable features. Mechanically it is ordinary tool calling with a special tool definition. The client declares a computer tool with the display dimensions; the model returns tool-use blocks naming actions such as screenshot, left_click at (x, y), left_click_drag, scroll, type, key (a key combination) or wait; the client executes them against a real or virtual display and returns the result, a fresh screenshot for observation actions. The loop repeats until the model stops requesting tools.
@@ -66,7 +66,7 @@ edges:
       strength: primary
       confidence: high
 sources:
-  - title: Anthropic documentation — Computer use tool
+  - title: Anthropic documentation - Computer use tool
     tier: official-doc
     publisher: Anthropic
   - title: Anthropic (2024), Introducing computer use

@@ -46,6 +46,8 @@ export type GraphNode = {
   summary?: { en: string; da: string };
   /** Year the idea entered use; absent when not authored. Drives the Time layout. */
   era?: number;
+  /** Other names, per language; absent when the term has none. */
+  aka?: { en: string[]; da: string[] };
   /** Longest path to this term through `requires` (ADR-0001). */
   depth: number;
   degree: number;
@@ -156,6 +158,8 @@ export function buildGraph(terms: ModelTerm[]): Graph {
     cluster: t.cluster,
     summary: t.summary,
     era: t.era,
+    // Aliases only when a term has some: the Explorer's "Find a term" matches them (A95).
+    ...(t.aka && (t.aka.en.length || t.aka.da.length) ? { aka: t.aka } : {}),
     depth: depthOf(t.id),
     degree: degree.get(t.id) ?? 0,
     requires: requires.get(t.id) ?? [],

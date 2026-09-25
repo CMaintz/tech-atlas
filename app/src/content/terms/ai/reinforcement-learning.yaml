@@ -10,14 +10,14 @@ layer: training
 status: current
 summary:
   en: Machine learning by trial and error, where a system acts, gets a reward or a penalty, and slowly learns which actions pay off.
-  da: Maskinlæring ved at prøve sig frem — et system handler, får belønning eller straf og lærer langsomt, hvilke handlinger der betaler sig.
+  da: Maskinlæring ved at prøve sig frem - et system handler, får belønning eller straf og lærer langsomt, hvilke handlinger der betaler sig.
 body:
   formal:
     en: A form of machine learning in which an agent acts in a setting, receives a reward signal for the results, and learns a way of choosing actions that brings the most reward over time, without being shown the right action.
     da: En form for maskinlæring, hvor en agent handler i et miljø, modtager et belønningssignal for resultaterne og lærer en måde at vælge handlinger på, der giver mest belønning over tid, uden at få vist den rigtige handling.
   plain:
     en: Like teaching a dog a trick with treats; nobody explains the trick, the dog just learns which moves earn a treat.
-    da: Som at lære en hund et trick med godbidder — ingen forklarer tricket, hunden lærer bare, hvilke bevægelser der giver en godbid.
+    da: Som at lære en hund et trick med godbidder - ingen forklarer tricket, hunden lærer bare, hvilke bevægelser der giver en godbid.
   inPractice:
     en: A region's energy manager tests a system that adjusts the ventilation in a hospital wing; it earns a reward for using less power and a penalty each time a ward gets too warm or too cold.
     da: En energiansvarlig i en region tester et system, der styrer ventilationen i en hospitalsfløj; det får belønning for at bruge mindre strøm og straf, hver gang en afdeling bliver for varm eller for kold.

@@ -16,14 +16,14 @@ body:
     en: The risk treatment option in which the organisation knowingly keeps a risk, because it is within the risk appetite or further controls would cost more than the harm; the decision is made and signed by someone with the authority to own the risk.
     da: Den håndteringsmulighed, hvor organisationen bevidst beholder en risiko, fordi den ligger inden for risikoappetitten, eller fordi flere kontroller ville koste mere end skaden; beslutningen træffes og underskrives af en person med ret til at eje risikoen.
   plain:
-    en: Like driving on with a small chip at the edge of the windscreen — you note it, decide a new glass is not worth it yet, and look at it again after the winter.
-    da: Som at køre videre med et lille stenslag i kanten af forruden — man noterer det, beslutter, at en ny rude ikke er pengene værd endnu, og ser på det igen efter vinteren.
+    en: Like driving on with a small chip at the edge of the windscreen - you note it, decide a new glass is not worth it yet, and look at it again after the winter.
+    da: Som at køre videre med et lille stenslag i kanten af forruden - man noterer det, beslutter, at en ny rude ikke er pengene værd endnu, og ser på det igen efter vinteren.
   inPractice:
     en: At a ferry company, the IT manager writes down that the test server has no backup, the director signs that this is acceptable for one year, and the item is put on the list for review.
     da: I et færgeselskab skriver IT-chefen ned, at testserveren ikke har backup, direktøren skriver under på, at det er acceptabelt i et år, og punktet sættes på listen til ny gennemgang.
   whyItMatters:
-    en: Accepting a risk is fine; ignoring it is not — the written decision shows who owns it and stops risks from being accepted without anyone deciding.
-    da: At acceptere en risiko er i orden; at ignorere den er ikke — den skriftlige beslutning viser, hvem der ejer den, og forhindrer, at risici bliver accepteret, uden at nogen har besluttet det.
+    en: Accepting a risk is fine; ignoring it is not - the written decision shows who owns it and stops risks from being accepted without anyone deciding.
+    da: At acceptere en risiko er i orden; at ignorere den er ikke - den skriftlige beslutning viser, hvem der ejer den, og forhindrer, at risici bliver accepteret, uden at nogen har besluttet det.
 deepDive:
   en: |-
     ISO 31000:2018 calls this option retaining the risk by informed decision, and the word "informed" is the whole point. ISO/IEC 27001:2022 builds acceptance into two places: clause 6.1.2 a) 1) requires risk acceptance criteria to be established before assessment, and clause 6.1.3 f) requires risk owners to approve the treatment plan and accept the residual risks. An acceptance that cannot be traced to those criteria, or that was signed by someone without authority over the affected business activity, is a common audit nonconformity. In the NIST Risk Management Framework (SP 800-37 Rev. 2) the equivalent is the Authorize step, in which a senior authorizing official explicitly accepts the residual risk of operating a system.
@@ -52,8 +52,8 @@ edges:
       strength: primary
       confidence: high
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Modul 5 og Ordliste (Risikohåndtering)
+  - title: Cyber Security Fast Track - Kursuskompendium, Modul 5 og Ordliste (Risikohåndtering)
     tier: course-material
-  - title: ISO/IEC 27005:2022 (8.2 — Risk treatment options)
+  - title: ISO/IEC 27005:2022 (8.2 - Risk treatment options)
     tier: standard
 draft: true

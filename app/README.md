@@ -4,28 +4,31 @@ A bilingual (English + Danish) technical dictionary whose typed, sourced
 relationships make it a navigable knowledge graph. See the full design in
 [`../design/SPEC.md`](../design/SPEC.md) and the decisions in
 [`../design/adr/`](../design/adr/) and
-[`../design/UNIFIED_VISION.md`](../design/UNIFIED_VISION.md).
+[`../design/UNIFIED_VISION.md`](../design/UNIFIED_VISION.md). The project overview, feature
+list and getting-started steps are in the [root README](../README.md).
 
 ## Stack
 
 - **Astro** (static-first, ADR-0008), route-based i18n (`/en/`, `/da/`, ADR-0007)
 - **Preact** islands; **Cytoscape.js** for the 2D graph and **3d-force-graph** for the 3D Explorer mode
 - **Tailwind v4**; content authored as **YAML** validated by **Zod** (`src/schema.ts`)
-- Custom build/lint scripts (`scripts/`) — the content-quality engine
+- Custom build/lint scripts (`scripts/`) - the content-quality engine
 
 ## Layout
 
 ```
-src/schema.ts                   the authored Term schema (Zod) — the single source of truth
+src/schema.ts                   the authored Term schema (Zod) - the single source of truth
 src/content.config.ts           Astro content collection (glob loader over the YAML)
 src/content/terms/<domain>/     authored bilingual Term files (security/, cs/, ai/, platform/)
+src/content/articles/           technical deep-dive articles
+src/content/questions/<domain>/ the hand-written question bank for Study
 src/lib/site.ts                 base-path-aware URLs, UI strings (EN/DA), cluster labels
 src/lib/terms.ts                relationship resolution, inverse edges, compare pairs
-src/pages/[lang]/               index (+ search), terms/<id>, compare/ and compare/<a>-vs-<b>
+src/pages/[lang]/               index, terms/, explorer/, timeline/, compare/, study/, review/, data/, account/
 src/pages/search-index.json.ts  static search index for the Search island
-src/components/                 Graph.tsx (Cytoscape neighbourhood), Search.tsx (MiniSearch)
+src/components/                 Preact islands: Explorer (2D/3D), Graph, Search, Timeline, Quiz, StudyHub, Account
 scripts/                        build-graph, lint, closed-vocab, vocab-report, load-terms
-content/manifest.yaml           the canonical term list — edges may only target these ids
+content/manifest.yaml           the canonical term list - edges may only target these ids
 content/AUTHORING.md            how to write a Term
 content/allowed-words.*.txt     Closed Vocabulary escape hatch, per language
 content/wordlists/              plain-language base for Closed Vocabulary (CC BY-SA 4.0)
@@ -35,7 +38,7 @@ content/wordlists/              plain-language base for Closed Vocabulary (CC BY
 
 ```
 npm run dev            # astro dev server
-npm run lint:content   # the content lint (E1–E11, W1–W8)
+npm run lint:content   # the content lint (E1-E12, W1-W8)
 npx tsx scripts/vocab-report.ts   # which unknown words recur (Closed Vocabulary triage)
 npm run build:graph    # regenerate src/generated/graph.json
 npm run embed          # re-embed terms for semantic search (after editing a name, alias, summary or plain facet; lint E11/W8; see A76)
@@ -48,14 +51,14 @@ npm run build          # lint -> build:graph -> astro build
 The repo is gated by **Foundry** (`mise run gate` = lint → typecheck → test → audit) and
 deployed to GitHub Pages on every push to `main`: https://cmaintz.github.io/tech-atlas/
 
-## Features (v1)
+## Content quality
 
-- Bilingual term pages (`/en/`, `/da/`) with the four-facet body, generated relationship
-  sections, draft banner, sources, and an interactive neighbourhood graph.
-- Index grouped by domain and cluster, with typo-tolerant bilingual search.
-- Compare view ("don't confuse these") generated from every `contrasts-with` edge.
-- Content lint: Closed Vocabulary (English blocking, Danish advisory), dangling /
+The full feature list is in the [root README](../README.md#features). What the content
+lint checks:
+
+- Closed Vocabulary (English blocking, Danish advisory), dangling /
   ambiguous edges, `requires` cycles, tautological summaries, alias collisions,
-  layer/domain mismatch, orphans, thin neighbourhoods, duplicate symmetric edges.
+  layer/domain mismatch, orphans, thin neighbourhoods, duplicate symmetric edges,
+  en/em dashes.
 
 All content is `draft: true` until a human reviews it.

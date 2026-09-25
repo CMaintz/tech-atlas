@@ -13,24 +13,24 @@ summary:
   da: En type EU-lov, der gælder direkte og ens i alle medlemslande, uden at der skal en national lov til for at indføre den.
 body:
   formal:
-    en: A legal act of the European Union that is binding in full and applies directly in all member states from the date it takes effect — for example GDPR, DORA and the Cyber Resilience Act — although countries may add rules on authorities and fines where it allows.
-    da: En retsakt fra EU, der er bindende i alle enkeltheder og gælder direkte i alle medlemslande fra den dag, den træder i kraft — fx GDPR, DORA og Cyberrobusthedsforordningen — dog kan landene tilføje regler om myndigheder og bøder, hvor den giver plads til det.
+    en: A legal act of the European Union that is binding in full and applies directly in all member states from the date it takes effect - for example GDPR, DORA and the Cyber Resilience Act - although countries may add rules on authorities and fines where it allows.
+    da: En retsakt fra EU, der er bindende i alle enkeltheder og gælder direkte i alle medlemslande fra den dag, den træder i kraft - fx GDPR, DORA og Cyberrobusthedsforordningen - dog kan landene tilføje regler om myndigheder og bøder, hvor den giver plads til det.
   plain:
-    en: Like a single book of rules for a chess tournament played in many countries — every table follows the same page, and no host country may print its own version.
-    da: Som én regelbog for en skakturnering, der spilles i mange lande — alle borde følger den samme side, og intet værtsland må trykke sin egen udgave.
+    en: Like a single book of rules for a chess tournament played in many countries - every table follows the same page, and no host country may print its own version.
+    da: Som én regelbog for en skakturnering, der spilles i mange lande - alle borde følger den samme side, og intet værtsland må trykke sin egen udgave.
   inPractice:
     en: A web shop selling to both Denmark and Germany follows one GDPR text for handling customer data, and only checks national rules for details the regulation leaves open.
     da: En webshop, der sælger til både Danmark og Tyskland, følger den samme GDPR-tekst for kundedata og tjekker kun nationale regler for de detaljer, forordningen lader stå åbne.
   whyItMatters:
-    en: Knowing whether a rule is a regulation or a directive tells you where to read your duties — in the EU text itself or in your own country's law.
-    da: At vide, om en regel er en forordning eller et direktiv, fortæller, hvor man skal læse sine pligter — i selve EU-teksten eller i sit eget lands lov.
+    en: Knowing whether a rule is a regulation or a directive tells you where to read your duties - in the EU text itself or in your own country's law.
+    da: At vide, om en regel er en forordning eller et direktiv, fortæller, hvor man skal læse sine pligter - i selve EU-teksten eller i sit eget lands lov.
 deepDive:
   en: |-
     Under Article 288 TFEU a regulation has general application, is binding in its entirety and is directly applicable in all member states. Direct applicability means it becomes part of national law on its own, without any transposing act; in fact the Court of Justice held in Variola (34/73) that member states must not adopt national measures that reproduce or disguise the text of a regulation, because that would obscure its EU origin and the Court's jurisdiction to interpret it. Unlike directives, regulations can create rights and obligations between private parties (horizontal effect), and under the primacy principle a conflicting national rule must be set aside by the national court (Simmenthal, 106/77).
 
     Two dates must be kept apart: entry into force and date of application. GDPR entered into force on 24 May 2016 but applied from 25 May 2018; DORA entered into force on 16 January 2023 and applied from 17 January 2025; the Cyber Resilience Act entered into force on 10 December 2024 but applies in stages, with reporting duties from 11 September 2026 and most obligations from 11 December 2027. The gap exists to let organisations and authorities prepare, and compliance programmes are planned against the application dates.
 
-    Direct applicability does not mean national law is irrelevant. Many regulations contain opening clauses that require or allow national rules. GDPR leaves room in, among others, Art. 6(2)–(3) for public-sector processing, Art. 8(1) for the age of consent for information society services (between 13 and 16; Denmark chose 13 in databeskyttelsesloven), Art. 87 for national identification numbers such as the CPR number and Art. 88 for employment. Regulations also typically require member states to designate competent authorities and lay down penalties, as GDPR Art. 84 and DORA Art. 50 do, which is why Danish supplementary acts exist even for directly applicable rules.
+    Direct applicability does not mean national law is irrelevant. Many regulations contain opening clauses that require or allow national rules. GDPR leaves room in, among others, Art. 6(2)-(3) for public-sector processing, Art. 8(1) for the age of consent for information society services (between 13 and 16; Denmark chose 13 in databeskyttelsesloven), Art. 87 for national identification numbers such as the CPR number and Art. 88 for employment. Regulations also typically require member states to designate competent authorities and lay down penalties, as GDPR Art. 84 and DORA Art. 50 do, which is why Danish supplementary acts exist even for directly applicable rules.
 
     Much of the technical content sits in secondary acts adopted by the Commission under a regulation or directive: delegated acts under Art. 290 TFEU, which supplement or amend non-essential elements (for example DORA's regulatory technical standards such as Delegated Regulation (EU) 2024/1774), and implementing acts under Art. 291, which set uniform conditions for implementation. These are themselves regulations and apply directly; notably, an implementing regulation can be adopted under a directive, as with Implementing Regulation (EU) 2024/2690 laying down technical requirements under NIS2 for certain digital-infrastructure and digital-service entities. Reading a regulation in practice therefore means reading the base act, its level-2 acts, guidance from the EDPB or European Supervisory Authorities where relevant, national supplementary rules, and case law of the Court of Justice.
   da: |-
@@ -38,7 +38,7 @@ deepDive:
 
     To datoer skal holdes adskilt: ikrafttrædelse og anvendelsesdato. GDPR trådte i kraft 24. maj 2016, men fandt anvendelse fra 25. maj 2018; DORA trådte i kraft 16. januar 2023 og fandt anvendelse fra 17. januar 2025; Cyberrobusthedsforordningen trådte i kraft 10. december 2024, men anvendes trinvis med indberetningspligt fra 11. september 2026 og de fleste forpligtelser fra 11. december 2027. Mellemrummet giver virksomheder og myndigheder tid til at forberede sig, og compliance-programmer planlægges efter anvendelsesdatoerne.
 
-    Umiddelbar anvendelighed betyder ikke, at national ret er uden betydning. Mange forordninger har åbningsbestemmelser, der kræver eller tillader nationale regler. GDPR giver bl.a. plads i art. 6, stk. 2–3, for behandling i den offentlige sektor, art. 8, stk. 1, for aldersgrænsen for samtykke til informationssamfundstjenester (mellem 13 og 16 år; Danmark valgte 13 i databeskyttelsesloven), art. 87 for nationale identifikationsnumre som CPR-nummeret og art. 88 for ansættelsesforhold. Forordninger kræver også typisk, at medlemslandene udpeger kompetente myndigheder og fastsætter sanktioner, som GDPR art. 84 og DORA art. 50 gør, og derfor findes der danske supplerende love, også for regler, der gælder direkte.
+    Umiddelbar anvendelighed betyder ikke, at national ret er uden betydning. Mange forordninger har åbningsbestemmelser, der kræver eller tillader nationale regler. GDPR giver bl.a. plads i art. 6, stk. 2-3, for behandling i den offentlige sektor, art. 8, stk. 1, for aldersgrænsen for samtykke til informationssamfundstjenester (mellem 13 og 16 år; Danmark valgte 13 i databeskyttelsesloven), art. 87 for nationale identifikationsnumre som CPR-nummeret og art. 88 for ansættelsesforhold. Forordninger kræver også typisk, at medlemslandene udpeger kompetente myndigheder og fastsætter sanktioner, som GDPR art. 84 og DORA art. 50 gør, og derfor findes der danske supplerende love, også for regler, der gælder direkte.
 
     Meget af det tekniske indhold ligger i afledte retsakter, som Kommissionen vedtager med hjemmel i en forordning eller et direktiv: delegerede retsakter efter art. 290 TEUF, der supplerer eller ændrer ikke-væsentlige elementer (fx DORA's reguleringsmæssige tekniske standarder som delegeret forordning (EU) 2024/1774), og gennemførelsesretsakter efter art. 291, der fastsætter ensartede betingelser for gennemførelsen. De er selv forordninger og gælder direkte; bemærk, at en gennemførelsesforordning også kan vedtages med hjemmel i et direktiv, som gennemførelsesforordning (EU) 2024/2690, der fastsætter tekniske krav efter NIS2 for visse enheder inden for digital infrastruktur og digitale tjenester. At læse en forordning i praksis betyder derfor at læse grundretsakten, dens niveau 2-retsakter, eventuel vejledning fra EDPB eller de europæiske tilsynsmyndigheder, nationale supplerende regler og EU-Domstolens praksis.
 edges:
@@ -50,7 +50,7 @@ edges:
         da: En forordning gælder direkte, men hvert land udpeger den myndighed, der fører tilsyn med den.
       confidence: medium
 sources:
-  - title: Cyber Security Fast Track — Kursuskompendium, Ordliste (GDPR)
+  - title: Cyber Security Fast Track - Kursuskompendium, Ordliste (GDPR)
     tier: course-material
   - title: Treaty on the Functioning of the European Union, Article 288
     tier: standard

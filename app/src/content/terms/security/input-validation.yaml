@@ -13,8 +13,8 @@ summary:
   da: At tjekke alle data, et program modtager, mod faste regler, før de bruges, og afvise alt, der ikke passer.
 body:
   formal:
-    en: A control in which a program checks all data from outside — form fields, uploaded files, API calls — for expected type, length, format and range on the server side, preferring a list of what is allowed over a list of what is forbidden.
-    da: En kontrol, hvor et program på serversiden tjekker alle data udefra — formularfelter, indsendte filer, API-kald — for forventet type, længde, format og værdiområde og hellere bruger en liste over det tilladte end en liste over det forbudte.
+    en: A control in which a program checks all data from outside - form fields, uploaded files, API calls - for expected type, length, format and range on the server side, preferring a list of what is allowed over a list of what is forbidden.
+    da: En kontrol, hvor et program på serversiden tjekker alle data udefra - formularfelter, indsendte filer, API-kald - for forventet type, længde, format og værdiområde og hellere bruger en liste over det tilladte end en liste over det forbudte.
   plain:
     en: Like a post office that only accepts parcels of set sizes with a proper address on them, and hands everything else straight back across the counter.
     da: Som et posthus, der kun tager imod pakker i bestemte størrelser med en ordentlig adresse på og straks giver alt andet tilbage over disken.
@@ -70,11 +70,11 @@ edges:
       strength: normal
       confidence: medium
 sources:
-  - title: OWASP Cheat Sheet Series — Input Validation
+  - title: OWASP Cheat Sheet Series - Input Validation
     tier: reference
     publisher: OWASP
     url: https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html
-  - title: NIST SP 800-53 Rev. 5 — SI-10 Information Input Validation
+  - title: NIST SP 800-53 Rev. 5 - SI-10 Information Input Validation
     tier: standard
     publisher: NIST
 draft: true

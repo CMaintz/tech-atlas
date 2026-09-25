@@ -59,11 +59,11 @@ edges:
       strength: normal
       confidence: high
 sources:
-  - title: RFC 9110 — HTTP Semantics
+  - title: RFC 9110 - HTTP Semantics
     tier: standard
   - title: 'Kurose & Ross, Computer Networking: A Top-Down Approach'
     tier: textbook
-  - title: RFC 9849 — TLS Encrypted Client Hello
+  - title: RFC 9849 - TLS Encrypted Client Hello
     tier: standard
     publisher: IETF
     url: https://www.rfc-editor.org/rfc/rfc9849
