@@ -9,7 +9,7 @@
 import type { Graph, GraphLink, GraphNode } from './graph-model';
 import { EXPLORER } from './explorer-config';
 import { FAMILY_COLOURS, clusterColour, homeDomain, isDirected } from './graph-style';
-import { backboneOf, galaxyLayout, pageRank, separate } from './graph-layout';
+import { backboneOf, galaxyLayout, linkVisible, pageRank, separate } from './graph-layout';
 import { reducedMotion } from './graph-cytoscape';
 import { createDragFeedback, orbitDragKind } from './drag-feedback';
 
@@ -108,8 +108,7 @@ export async function createMap3D(opts: {
     const s = endId(l.source);
     const t = endId(l.target);
     return (
-      view.nodes.has(s) &&
-      view.nodes.has(t) &&
+      linkVisible({ source: s, target: t }, view.nodes) &&
       (view.families.has(l.family) || s === view.selected || t === view.selected)
     );
   };

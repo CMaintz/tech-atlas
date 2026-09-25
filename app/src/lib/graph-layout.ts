@@ -29,6 +29,10 @@ type WeightedLink = Link & { weight: number; family: string };
 export const termVisible = (n: { domain: string[] }, enabled: ReadonlySet<string>) =>
   n.domain.some((d) => enabled.has(d));
 
+/** An edge may be drawn only when both its ends are visible terms — in every mode. */
+export const linkVisible = (l: Link, visible: ReadonlySet<string>) =>
+  visible.has(l.source) && visible.has(l.target);
+
 /**
  * The domain whose colour and region a term takes: its cluster's domain while that is
  * enabled, else its first enabled domain — so with Computer science off, a CS+security
@@ -186,6 +190,31 @@ export const sizeForRank = (r: number) =>
   EXPLORER.node.minSize + (EXPLORER.node.maxSize - EXPLORER.node.minSize) * Math.sqrt(r);
 
 // ---- Bundles ---------------------------------------------------------------------------
+
+/** The key of a cluster pair, the same whichever way round. */
+export const pairKey = (a: string, b: string) => (a < b ? `${a}\u0000${b}` : `${b}\u0000${a}`);
+
+/**
+ * How many relationships a cross-cluster ribbon stands for, per cluster pair: only
+ * edges with both ends visible count, so a ribbon thins as a cluster's terms hide and
+ * is gone once all of one side is hidden.
+ */
+export function visibleBundleCounts(
+  links: Link[],
+  clusterOf: (id: string) => string | undefined,
+  visible: ReadonlySet<string>,
+): Map<string, number> {
+  const counts = new Map<string, number>();
+  for (const l of links) {
+    if (!linkVisible(l, visible)) continue;
+    const a = clusterOf(l.source);
+    const b = clusterOf(l.target);
+    if (!a || !b || a === b) continue;
+    const k = pairKey(a, b);
+    counts.set(k, (counts.get(k) ?? 0) + 1);
+  }
+  return counts;
+}
 
 /** Relationships between each pair of clusters, as one bundle per pair (a < b). */
 export function clusterBundles(
