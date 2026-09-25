@@ -1,0 +1,36 @@
+---
+/**
+ * A small inline flag for the language menu (A92). SVG, not emoji: Windows renders
+ * flag emoji as two letters. Decorative — the language name is always beside it.
+ */
+interface Props {
+  lang: 'en' | 'da';
+}
+const { lang } = Astro.props;
+---
+
+{lang === 'da' ? (
+  <svg
+    aria-hidden="true"
+    class="h-3 w-[1.1rem] shrink-0 rounded-[2px] ring-1 ring-black/15"
+    viewBox="0 0 37 28"
+    preserveAspectRatio="none"
+  >
+    <rect width="37" height="28" fill="#c8102e" />
+    <rect x="12" width="4" height="28" fill="#fff" />
+    <rect y="12" width="37" height="4" fill="#fff" />
+  </svg>
+) : (
+  <svg
+    aria-hidden="true"
+    class="h-3 w-[1.1rem] shrink-0 rounded-[2px] ring-1 ring-black/15"
+    viewBox="0 0 60 30"
+    preserveAspectRatio="none"
+  >
+    <rect width="60" height="30" fill="#012169" />
+    <path d="M0 0l60 30M60 0L0 30" stroke="#fff" stroke-width="6" />
+    <path d="M0 0l60 30M60 0L0 30" stroke="#c8102e" stroke-width="2" />
+    <path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10" />
+    <path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6" />
+  </svg>
+)}

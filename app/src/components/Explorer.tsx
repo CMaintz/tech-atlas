@@ -475,13 +475,9 @@ export default function Explorer(props: Props) {
           />
         )}
 
+        {/* The term's name and summary are in the term panel; only the map actions stay here. */}
         {sel && (
-          <div class="space-y-2 rounded border border-neutral-800 p-3">
-            <div class="text-xs tracking-widest uppercase" style={{ color: colourOf(sel) }}>
-              {props.clusterLabels[sel.cluster] ?? sel.cluster}
-            </div>
-            <div class="text-lg font-semibold">{sel.term[lang]}</div>
-            {sel.summary && <p class="text-neutral-300">{sel.summary[lang]}</p>}
+          <div class="space-y-2">
             <div class="flex flex-wrap gap-2">
               {sel.requires.length > 0 && (
                 <button class={button(false)} onClick={() => showPrerequisites(sel.id)}>

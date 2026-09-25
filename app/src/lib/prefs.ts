@@ -26,6 +26,25 @@ export function pushRecent(list: readonly string[], id: string, max = RECENT_MAX
 export const LANG_SUGGEST_KEY = 'atlas.langSuggest.dismissed';
 
 /**
+ * Colour theme (A92). The stored choice is 'light' or 'dark'; no stored value means
+ * "System" (follow the OS). public/theme-init.js repeats this logic before first
+ * paint — it must stay a plain blocking script, so it cannot import this module.
+ */
+export const THEME_KEY = 'atlas.theme';
+export type ThemeChoice = 'system' | 'light' | 'dark';
+
+/** A stored value → the reader's choice; anything unknown → 'system'. */
+export function parseTheme(raw: string | null): ThemeChoice {
+  return raw === 'light' || raw === 'dark' ? raw : 'system';
+}
+
+/** The theme to show for a choice, given whether the OS prefers light. */
+export function resolveTheme(choice: ThemeChoice, osPrefersLight: boolean): 'light' | 'dark' {
+  if (choice !== 'system') return choice;
+  return osPrefersLight ? 'light' : 'dark';
+}
+
+/**
  * Whether the reader's browser ranks Danish above English — `navigator.languages`
  * in preference order. Danish must come first among the two site languages.
  */

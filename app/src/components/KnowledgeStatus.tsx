@@ -7,10 +7,10 @@ interface Props {
 }
 
 const ACTIVE: Record<Status, string> = {
-  know: 'border-green-500 text-green-300',
-  familiar: 'border-lime-500 text-lime-300',
-  learning: 'border-amber-500 text-amber-300',
-  unknown: 'border-red-500 text-red-300',
+  know: 'border-green-600 text-green-800 dark:border-green-500 dark:text-green-300',
+  familiar: 'border-lime-600 text-lime-800 dark:border-lime-500 dark:text-lime-300',
+  learning: 'border-amber-600 text-amber-800 dark:border-amber-500 dark:text-amber-300',
+  unknown: 'border-red-600 text-red-700 dark:border-red-500 dark:text-red-300',
 };
 
 /** Self-assessment for one term — feeds the personal knowledge map and recommendations. */
@@ -32,11 +32,11 @@ export default function KnowledgeStatus({ termId, ui }: Props) {
 
   return (
     <div>
-      <p class="mb-2 text-sm text-neutral-400">{ui.statusQuestion}</p>
+      <p class="mb-2 text-sm text-muted">{ui.statusQuestion}</p>
       <div class="flex flex-wrap gap-2">
         {STATUSES.map((s) => (
           <button
-            class={`rounded border px-2 py-1 text-xs ${status === s ? ACTIVE[s] : 'border-neutral-700 text-neutral-400 hover:border-neutral-500'}`}
+            class={`rounded border px-2 py-1 text-xs ${status === s ? ACTIVE[s] : 'border-border-strong text-muted hover:border-border-hover'}`}
             aria-pressed={status === s}
             onClick={() => choose(s)}
           >

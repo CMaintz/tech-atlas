@@ -83,7 +83,7 @@ export const prefetchTerm = (apiBase: string, id: string) => termCache(apiBase).
 const PREFETCH_NEIGHBOURS = 12;
 
 const btn =
-  'rounded border border-neutral-700 px-2 py-1 text-xs text-neutral-300 hover:border-neutral-400 hover:text-neutral-100 focus-visible:outline-2 focus-visible:outline-amber-400';
+  'rounded border border-border-strong px-2 py-1 text-xs text-fg-soft hover:border-border-hover hover:text-fg focus-visible:outline-2 focus-visible:outline-(--focus)';
 
 /**
  * The Explorer's term panel (A80): a term's essentials beside the map — facets in both
@@ -291,7 +291,7 @@ export default function TermPanel(props: Props) {
   const chip = (x: string, title?: string) => (
     <button
       type="button"
-      class="rounded border border-neutral-800 px-2 py-0.5 text-left text-sm text-neutral-300 hover:border-neutral-400 hover:text-neutral-100 focus-visible:outline-2 focus-visible:outline-amber-400"
+      class="rounded border border-border px-2 py-0.5 text-left text-sm text-fg-soft hover:border-border-hover hover:text-fg focus-visible:outline-2 focus-visible:outline-(--focus)"
       title={title}
       lang={textLang}
       onClick={() => onSelect(x)}
@@ -304,15 +304,15 @@ export default function TermPanel(props: Props) {
 
   const facetText = (f: Facet) =>
     record ? (
-      <p class="text-neutral-200" lang={textLang}>
+      <p class="text-fg-soft" lang={textLang}>
         {record.body[f][textLang]}
       </p>
     ) : failed ? (
-      <p class="text-sm text-red-300">{text.loadError}</p>
+      <p class="text-sm text-red-700 dark:text-red-300">{text.loadError}</p>
     ) : (
       <div class="space-y-2" aria-hidden="true">
-        <div class="h-3 w-full animate-pulse rounded bg-neutral-800" />
-        <div class="h-3 w-4/5 animate-pulse rounded bg-neutral-800" />
+        <div class="h-3 w-full animate-pulse rounded bg-surface-2" />
+        <div class="h-3 w-4/5 animate-pulse rounded bg-surface-2" />
       </div>
     );
 
@@ -335,9 +335,9 @@ export default function TermPanel(props: Props) {
       data-term-panel={id}
       data-expanded={expanded ? '' : undefined}
       onKeyDown={onPanelKey}
-      class={`absolute top-0 right-0 bottom-0 z-20 flex w-full flex-col border-l border-neutral-800 bg-neutral-950/97 shadow-2xl shadow-black/60 backdrop-blur transition-[width] duration-300 ease-out motion-reduce:transition-none ${expanded ? '' : 'lg:w-[26rem]'}`}
+      class={`absolute top-0 right-0 bottom-0 z-20 flex w-full flex-col border-l border-border bg-bg/97 shadow-2xl shadow-black/60 backdrop-blur transition-[width] duration-300 ease-out motion-reduce:transition-none ${expanded ? '' : 'lg:w-[26rem]'}`}
     >
-      <div class="flex shrink-0 flex-wrap items-center gap-2 border-b border-neutral-800 px-4 py-2">
+      <div class="flex shrink-0 flex-wrap items-center gap-2 border-b border-border px-4 py-2">
         <div class="flex gap-1">
           <button
             type="button"
@@ -366,7 +366,7 @@ export default function TermPanel(props: Props) {
           {(['en', 'da'] as const).map((l) => (
             <button
               type="button"
-              class={`border px-2 py-1 text-xs first:rounded-l last:rounded-r focus-visible:outline-2 focus-visible:outline-amber-400 ${textLang === l ? 'border-neutral-400 text-neutral-100' : 'border-neutral-800 text-neutral-500 hover:text-neutral-200'}`}
+              class={`border px-2 py-1 text-xs first:rounded-l last:rounded-r focus-visible:outline-2 focus-visible:outline-(--focus) ${textLang === l ? 'border-border-hover text-fg' : 'border-border text-subtle hover:text-fg-soft'}`}
               aria-pressed={textLang === l}
               lang={l}
               onClick={() => setTextLang(l)}
@@ -406,7 +406,7 @@ export default function TermPanel(props: Props) {
           role="group"
           aria-label={text.connectionsOf.replace('{name}', anchorName)}
           data-panel-cycle={walk.anchor}
-          class="flex shrink-0 items-center gap-2 border-b border-neutral-800 px-4 py-1.5 text-xs"
+          class="flex shrink-0 items-center gap-2 border-b border-border px-4 py-1.5 text-xs"
         >
           <button
             type="button"
@@ -418,7 +418,7 @@ export default function TermPanel(props: Props) {
           >
             ‹ {text.prevConnection}
           </button>
-          <p class="min-w-0 flex-1 truncate text-center text-neutral-400" data-panel-position>
+          <p class="min-w-0 flex-1 truncate text-center text-muted" data-panel-position>
             {atAnchor ? (
               cycle.length === 1 ? (
                 text.connectionCountOne
@@ -431,7 +431,7 @@ export default function TermPanel(props: Props) {
                 {' · '}
                 <button
                   type="button"
-                  class="text-neutral-200 underline hover:text-white focus-visible:outline-2 focus-visible:outline-amber-400"
+                  class="text-fg-soft underline hover:text-fg focus-visible:outline-2 focus-visible:outline-(--focus)"
                   title={text.returnTo.replace('{name}', anchorName)}
                   lang={textLang}
                   onClick={() => go(walk.anchor, { via: 'step', index: null })}
@@ -473,12 +473,12 @@ export default function TermPanel(props: Props) {
                   style={{ background: colour }}
                   aria-hidden="true"
                 />
-                <span class="tracking-widest text-neutral-400 uppercase">
+                <span class="tracking-widest text-muted uppercase">
                   {props.clusterLabels[node.cluster] ?? node.cluster}
                 </span>
                 {node.domain.map((d) => (
                   <span
-                    class="rounded-full border px-2 py-0.5 text-neutral-300"
+                    class="rounded-full border px-2 py-0.5 text-fg-soft"
                     style={{ borderColor: domainColour(d) }}
                   >
                     {props.domainLabels[d] ?? d}
@@ -495,17 +495,17 @@ export default function TermPanel(props: Props) {
                 {name}
               </h2>
               {aka.length > 0 && (
-                <p class="mt-1 text-sm text-neutral-500" lang={textLang}>
+                <p class="mt-1 text-sm text-subtle" lang={textLang}>
                   {ui.aka}: {aka.join(', ')}
                 </p>
               )}
               {summary && (
-                <p class="mt-3 font-medium text-neutral-200" lang={textLang}>
+                <p class="mt-3 font-medium text-fg-soft" lang={textLang}>
                   {summary}
                 </p>
               )}
               {record?.draft && (
-                <p class="mt-3 rounded border border-amber-900 bg-amber-950/40 px-2 py-1 text-xs text-amber-300">
+                <p class="mt-3 rounded border border-amber-300 bg-amber-50 px-2 py-1 text-xs text-amber-900 dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-300">
                   {ui.draft}
                 </p>
               )}
@@ -516,9 +516,7 @@ export default function TermPanel(props: Props) {
                 <div class="grid gap-5 sm:grid-cols-2">
                   {FACETS.map((f) => (
                     <div>
-                      <h3 class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">
-                        {ui[f]}
-                      </h3>
+                      <h3 class="mb-1 text-xs tracking-widest text-subtle uppercase">{ui[f]}</h3>
                       {facetText(f)}
                     </div>
                   ))}
@@ -528,7 +526,7 @@ export default function TermPanel(props: Props) {
                   <div
                     role="tablist"
                     aria-label={text.facets}
-                    class="flex flex-wrap gap-1 border-b border-neutral-800"
+                    class="flex flex-wrap gap-1 border-b border-border"
                   >
                     {FACETS.map((f) => (
                       <button
@@ -538,7 +536,7 @@ export default function TermPanel(props: Props) {
                         aria-selected={facet === f}
                         aria-controls="tp-facet"
                         tabIndex={facet === f ? 0 : -1}
-                        class={`-mb-px border-b-2 px-2 py-1.5 text-xs focus-visible:outline-2 focus-visible:outline-amber-400 ${facet === f ? 'border-neutral-200 text-neutral-100' : 'border-transparent text-neutral-500 hover:text-neutral-200'}`}
+                        class={`-mb-px border-b-2 px-2 py-1.5 text-xs focus-visible:outline-2 focus-visible:outline-(--focus) ${facet === f ? 'border-border-hover text-fg' : 'border-transparent text-subtle hover:text-fg-soft'}`}
                         onClick={() => setFacet(f)}
                         onKeyDown={onTabKey}
                       >
@@ -560,15 +558,13 @@ export default function TermPanel(props: Props) {
 
             {learnFirst.length > 0 && (
               <section>
-                <h3 class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">
-                  {ui.learnFirst}
-                </h3>
-                <p class="mb-2 text-xs text-neutral-500">{ui.learnFirstIntro}</p>
+                <h3 class="mb-1 text-xs tracking-widest text-subtle uppercase">{ui.learnFirst}</h3>
+                <p class="mb-2 text-xs text-subtle">{ui.learnFirstIntro}</p>
                 <ol class="flex flex-wrap items-center gap-1">
                   {learnFirst.map((n, i) => (
                     <li class="flex items-center gap-1">
                       {i > 0 && (
-                        <span class="text-neutral-600" aria-hidden="true">
+                        <span class="text-subtle" aria-hidden="true">
                           →
                         </span>
                       )}
@@ -580,16 +576,14 @@ export default function TermPanel(props: Props) {
             )}
 
             <section>
-              <h3 class="mb-2 text-xs tracking-widest text-neutral-500 uppercase">
-                {ui.relationships}
-              </h3>
+              <h3 class="mb-2 text-xs tracking-widest text-subtle uppercase">{ui.relationships}</h3>
               {groups.length === 0 ? (
-                <p class="text-sm text-neutral-500">{text.noRelations}</p>
+                <p class="text-sm text-subtle">{text.noRelations}</p>
               ) : (
                 <dl class="space-y-3">
                   {groups.map((g) => (
                     <div>
-                      <dt class="text-xs text-neutral-400">{props.edgeLabels[g.type] ?? g.type}</dt>
+                      <dt class="text-xs text-muted">{props.edgeLabels[g.type] ?? g.type}</dt>
                       <dd class="mt-1 flex flex-wrap gap-1.5">
                         {g.ids.map((x) => chip(x, why.get(`${g.type}|${x}`)?.[textLang]))}
                       </dd>
@@ -599,8 +593,8 @@ export default function TermPanel(props: Props) {
               )}
             </section>
 
-            <section class="space-y-3 rounded border border-neutral-800 p-3">
-              <h3 class="text-xs tracking-widest text-neutral-500 uppercase">{ui.checkYourself}</h3>
+            <section class="space-y-3 rounded border border-border p-3">
+              <h3 class="text-xs tracking-widest text-subtle uppercase">{ui.checkYourself}</h3>
               <KnowledgeStatus key={id} termId={id} ui={ui} />
               {quiz ? (
                 <Quiz
@@ -621,7 +615,7 @@ export default function TermPanel(props: Props) {
 
             <p>
               <a
-                class="text-sm text-neutral-100 underline hover:text-white"
+                class="text-sm text-fg underline hover:text-fg"
                 href={termHref}
                 title={text.readMoreLabel}
               >
@@ -632,9 +626,7 @@ export default function TermPanel(props: Props) {
 
           {mini && (
             <aside aria-label={ui.connections} class="lg:sticky lg:top-0 lg:self-start">
-              <h3 class="mb-2 text-xs tracking-widest text-neutral-500 uppercase">
-                {ui.connections}
-              </h3>
+              <h3 class="mb-2 text-xs tracking-widest text-subtle uppercase">{ui.connections}</h3>
               <GraphView
                 key={id}
                 nodes={mini.nodes}

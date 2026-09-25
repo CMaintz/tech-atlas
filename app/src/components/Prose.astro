@@ -12,7 +12,7 @@ const { segments, lang } = Astro.props;
 {segments.map((s) =>
   s.id ? (
     <a
-      class="underline decoration-neutral-600 underline-offset-2 hover:decoration-neutral-300"
+      class="underline decoration-subtle underline-offset-2 hover:decoration-fg-soft"
       href={termUrl(lang, s.id)}
       set:text={s.text}
     />

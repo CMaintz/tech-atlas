@@ -43,7 +43,7 @@ export default function AccountMenu({ href, ui }: Props) {
   if (s.status === 'loading' || s.status === 'off') return null;
   if (s.status === 'signed-out') {
     return (
-      <a class="py-1.5 hover:text-neutral-100 md:py-0" href={href}>
+      <a class="py-1.5 hover:text-fg md:py-0" href={href}>
         {ui.signIn}
       </a>
     );
@@ -51,19 +51,26 @@ export default function AccountMenu({ href, ui }: Props) {
 
   const status =
     shown === 'synced' ? (
-      <span class="text-green-500" title={ui.syncShort_synced}>
+      <span class="text-green-700 dark:text-green-500" title={ui.syncShort_synced}>
         ✓<span class="sr-only"> {ui.syncShort_synced}</span>
       </span>
     ) : shown === 'syncing' ? (
-      <span class="text-xs text-neutral-500">{ui.syncShort_syncing}</span>
+      <span class="text-xs text-subtle">{ui.syncShort_syncing}</span>
     ) : shown === 'offline' ? (
-      <span class="text-xs text-amber-400" title={ui.sync_offline}>
+      <span class="text-xs text-accent" title={ui.sync_offline}>
         {ui.syncShort_offline}
       </span>
     ) : shown === 'error' ? (
-      <span class="inline-flex items-center gap-1.5 text-xs text-red-400" title={ui.sync_error}>
+      <span
+        class="inline-flex items-center gap-1.5 text-xs text-red-700 dark:text-red-400"
+        title={ui.sync_error}
+      >
         {ui.syncShort_error}
-        <button type="button" class="underline hover:text-red-300" onClick={() => void syncNow()}>
+        <button
+          type="button"
+          class="underline hover:text-red-900 dark:hover:text-red-300"
+          onClick={() => void syncNow()}
+        >
           {ui.syncRetry}
         </button>
       </span>
@@ -73,7 +80,7 @@ export default function AccountMenu({ href, ui }: Props) {
 
   return (
     <span class="inline-flex items-center gap-2 py-1.5 md:py-0">
-      <a class="hover:text-neutral-100" href={href} title={s.email}>
+      <a class="hover:text-fg" href={href} title={s.email}>
         {ui.account}
       </a>
       <span role="status" aria-live="polite" class="inline-flex items-center">

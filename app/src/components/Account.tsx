@@ -23,7 +23,7 @@ interface Props {
 }
 
 const button =
-  'rounded border border-neutral-700 px-3 py-1.5 text-sm hover:border-neutral-400 disabled:opacity-50';
+  'rounded border border-border-strong px-3 py-1.5 text-sm hover:border-border-hover disabled:opacity-50';
 
 /** What the signed-out view offers (A87): email only behind EMAIL_SIGNIN, providers by build variable. */
 const options = signInOptions({ emailSignin: EMAIL_SIGNIN, providers: AUTH_PROVIDERS });
@@ -84,7 +84,10 @@ export default function Account({ lang, ui }: Props) {
   const feedback = (
     <>
       {s.notice === 'remoteDeleted' && (
-        <p class="rounded border border-amber-800 p-3 text-sm text-amber-200" role="status">
+        <p
+          class="rounded border border-amber-600 p-3 text-sm text-amber-900 dark:border-amber-800 dark:text-amber-200"
+          role="status"
+        >
           {ui.remoteDeleted}{' '}
           <button class="underline" onClick={dismissNotice}>
             {ui.dismiss}
@@ -92,7 +95,7 @@ export default function Account({ lang, ui }: Props) {
         </p>
       )}
       {message && (
-        <p class="text-sm text-neutral-300" role="status">
+        <p class="text-sm text-fg-soft" role="status">
           {message}
         </p>
       )}
@@ -100,27 +103,33 @@ export default function Account({ lang, ui }: Props) {
   );
 
   const privacy = (
-    <p class="text-xs text-neutral-500">
-      <a class="underline hover:text-neutral-300" href={url(`${lang}/privacy/`)}>
+    <p class="text-xs text-subtle">
+      <a class="underline hover:text-fg-soft" href={url(`${lang}/privacy/`)}>
         {ui.privacyLink}
       </a>
     </p>
   );
 
   const download = (
-    <div class="border-t border-neutral-800 pt-6">
-      <p class="mb-2 text-sm text-neutral-400">{ui.downloadNote}</p>
+    <div class="border-t border-border pt-6">
+      <p class="mb-2 text-sm text-muted">{ui.downloadNote}</p>
       <button class={button} type="button" onClick={downloadProgress}>
         {ui.downloadProgress}
       </button>
     </div>
   );
 
-  if (s.status === 'loading') return <p class="text-neutral-500">{ui.loading}</p>;
+  const heading = (text: string) => <h1 class="mb-2 text-3xl font-semibold">{text}</h1>;
+
+  if (s.status === 'loading') return <p class="text-subtle">{ui.loading}</p>;
 
   if (s.status === 'signed-out' || s.status === 'off') {
     return (
       <div class="max-w-md space-y-6">
+        <div>
+          {heading(ui.signInTitle)}
+          <p class="text-muted">{ui.signInWhy}</p>
+        </div>
         {feedback}
         {options.email && (
           <form
@@ -130,7 +139,7 @@ export default function Account({ lang, ui }: Props) {
               void run(() => signInWithEmail(email.trim(), lang), ui.linkSent);
             }}
           >
-            <label class="block text-sm text-neutral-400" for="account-email">
+            <label class="block text-sm text-muted" for="account-email">
               {ui.emailLabel}
             </label>
             <div class="flex gap-2">
@@ -139,7 +148,7 @@ export default function Account({ lang, ui }: Props) {
                 type="email"
                 required
                 autocomplete="email"
-                class="min-w-0 flex-1 rounded border border-neutral-700 bg-neutral-900 px-2 py-1.5 text-sm"
+                class="min-w-0 flex-1 rounded border border-border-strong bg-surface px-2 py-1.5 text-sm"
                 value={email}
                 onInput={(e) => setEmail(e.currentTarget.value)}
               />
@@ -149,12 +158,13 @@ export default function Account({ lang, ui }: Props) {
             </div>
           </form>
         )}
-        {options.divider && <p class="text-xs text-neutral-500 uppercase">{ui.or}</p>}
-        <div class="flex flex-wrap gap-2">
+        {options.divider && <p class="text-xs text-subtle uppercase">{ui.or}</p>}
+        <div class="flex flex-col gap-3">
           {options.providers.map((p) => (
             <button
               key={p}
-              class={button}
+              type="button"
+              class="w-full rounded-md border border-border-strong bg-surface px-4 py-2.5 font-medium hover:border-border-hover disabled:opacity-50"
               disabled={busy}
               onClick={() => void run(() => signInWith(p, lang))}
             >
@@ -180,11 +190,12 @@ export default function Account({ lang, ui }: Props) {
   return (
     <div class="max-w-md space-y-6">
       <div>
+        {heading(ui.account)}
         <p>{ui.signedInAs.replace('{email}', s.email || '—')}</p>
-        <p class="mt-1 text-sm text-neutral-400" role="status">
+        <p class="mt-1 text-sm text-muted" role="status">
           {statusText}
         </p>
-        {!stopped && <p class="mt-1 text-xs text-neutral-500">{ui.syncAuto}</p>}
+        {!stopped && <p class="mt-1 text-xs text-subtle">{ui.syncAuto}</p>}
       </div>
       <div class="flex flex-wrap gap-2">
         {/* Sync runs by itself (A79); a button appears only when it needs the learner. */}
@@ -203,10 +214,10 @@ export default function Account({ lang, ui }: Props) {
         </button>
       </div>
       {!stopped && (
-        <div class="border-t border-neutral-800 pt-6">
-          <p class="mb-2 text-sm text-neutral-400">{ui.deleteNote}</p>
+        <div class="border-t border-border pt-6">
+          <p class="mb-2 text-sm text-muted">{ui.deleteNote}</p>
           <button
-            class={`${button} border-red-800 text-red-300 hover:border-red-500`}
+            class={`${button} border-red-300 text-red-700 hover:border-red-600 dark:border-red-800 dark:text-red-300 dark:hover:border-red-500`}
             disabled={busy}
             onClick={() => {
               if (confirm(ui.deleteConfirm))
