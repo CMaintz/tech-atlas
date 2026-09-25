@@ -10,8 +10,8 @@ layer: training
 era: 1986
 status: current
 summary:
-  en: The bookkeeping trick that works out, layer by layer from the output back, how much each weight in a network added to its mistake.
-  da: Det regnetrick, der lag for lag fra output og bagud regner ud, hvor meget hver vægt i et netværk bidrog til dets fejl.
+  en: The bookkeeping method that works out, layer by layer from the output back, how much each weight in a network added to its mistake.
+  da: Den regnemetode, der lag for lag fra output og bagud finder ud af, hvor meget hver vægt i et netværk bidrog til fejlen.
 body:
   formal:
     en: A method for computing, in one backward sweep through a neural network, how the loss would change if each weight changed; gradient descent then uses those numbers to update the model weights.
@@ -20,11 +20,11 @@ body:
     en: Like a kitchen following a burnt dish back through every cook who touched it, deciding how much blame each one carries, so each knows how much to change next time.
     da: Som et køkken, der sporer en brændt ret tilbage gennem hver kok, der rørte den, og afgør, hvor meget skyld hver bærer, så alle ved, hvor meget de skal ændre næste gang.
   inPractice:
-    en: A picture-sorting network guesses "dog" for a cat photo; backpropagation passes that error back through every layer and gives each of its millions of weights a small share of the blame.
-    da: Et netværk, der sorterer billeder, gætter "hund" for et kattefoto; backpropagation sender fejlen tilbage gennem alle lag og giver hver af de millioner af vægte en lille del af skylden.
+    en: A developer at a Danish logistics firm trains a network to read handwritten house numbers on parcels; when it reads a 7 as a 1, backpropagation passes that error back through every layer and gives each weight its share of the blame.
+    da: En udvikler i en dansk logistikvirksomhed træner et netværk til at læse håndskrevne husnumre på pakker; når det læser et 7-tal som et 1-tal, sender backpropagation fejlen tilbage gennem alle lag og giver hver vægt sin del af skylden.
   whyItMatters:
-    en: Without a cheap way to share out blame, networks with many layers could not be trained at all; this method is what made deep learning practical.
-    da: Uden en billig måde at fordele skylden på kunne netværk med mange lag slet ikke trænes; metoden er det, der gjorde deep learning praktisk mulig.
+    en: Without a cheap way to share out blame, networks with many layers would take far too long to train; this method, together with fast hardware, is what made deep learning practical.
+    da: Uden en billig måde at fordele skylden på ville netværk med mange lag tage alt for lang tid at træne; metoden er sammen med hurtig hardware det, der gjorde deep learning praktisk mulig.
 edges:
   requires: [neural-network, gradient-descent]
   part-of: [model-training]

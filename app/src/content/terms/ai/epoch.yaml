@@ -9,21 +9,21 @@ cluster: training
 layer: training
 status: current
 summary:
-  en: One complete pass of model training through every example in the training data; training usually runs for several.
-  da: Én fuld gennemgang af alle eksempler i træningsdata under modeltræning; træningen kører som regel flere.
+  en: One complete pass of model training through every example in the training data; training often runs for several.
+  da: Én fuld gennemgang af alle eksempler i træningsdata under modeltræning; træningen kører ofte flere.
 body:
   formal:
     en: A unit of model training in which each example in the training data has been used once to update the model; the number of epochs is a hyperparameter set before training starts.
     da: En enhed i modeltræning, hvor hvert eksempel i træningsdata er brugt én gang til at opdatere modellen; antallet af epoker er en hyperparameter, der sættes, før træningen starter.
   plain:
-    en: Like reading a textbook cover to cover once — most students read it two or three times, but twenty times and they just start reciting pages.
-    da: Som at læse en lærebog fra ende til anden én gang — de fleste læser den to-tre gange, men tyve gange, og man begynder bare at kunne siderne udenad.
+    en: Like one full run-through of a choir's concert programme — a few run-throughs polish it, but after fifty the singers can only sing it exactly as rehearsed.
+    da: Som at synge et kors koncertprogram igennem én gang — et par gange gør det skarpere, men efter halvtreds gange kan sangerne kun synge det nøjagtig, som de har øvet det.
   inPractice:
-    en: An engineer watches scores on the validation set after each epoch and stops at epoch six, when they stop improving even though the training error keeps falling.
-    da: En ingeniør følger scoren på valideringssættet efter hver epoke og stopper ved epoke seks, hvor den holder op med at blive bedre, selvom træningsfejlen bliver ved med at falde.
+    en: A data analyst at a Danish shipping company trains a model to predict fuel use from past voyages; she checks the validation set after each epoch and stops at epoch six, when results stop improving although the training error keeps falling.
+    da: En dataanalytiker i et rederi træner en model, der skal forudsige brændstofforbrug ud fra tidligere sejladser; hun tjekker valideringssættet efter hver epoke og stopper ved epoke seks, hvor resultatet holder op med at blive bedre, selvom træningsfejlen bliver ved med at falde.
   whyItMatters:
     en: Too few epochs leave a model half-learned; too many make it learn its examples by heart, so picking the count is a direct trade-off between underfitting and overfitting.
-    da: For få epoker efterlader en halvlært model; for mange får den til at lære eksemplerne udenad, så antallet er en direkte afvejning mellem undertilpasning og overtilpasning.
+    da: For få epoker efterlader en halvlært model; for mange får den til at lære eksemplerne udenad, så antallet skal lande et sted mellem undertilpasning og overtilpasning.
 edges:
   requires: [training-data]
   used-with: [hyperparameter]

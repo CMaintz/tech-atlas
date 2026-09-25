@@ -15,13 +15,13 @@ summary:
 body:
   formal:
     en: During pretraining, a document is cut into a start, a middle and an end, and the pieces are reordered with special marker tokens as start, end, then middle; ordinary next-token prediction on that order teaches the model to produce a middle that fits both sides.
-    da: Under prætræningen skæres et dokument i en start, en midte og en slutning, og stykkerne stilles om med særlige markør-tokens som start, slutning og så midte; almindelig next-token prediction på den rækkefølge lærer modellen at lave en midte, der passer til begge sider.
+    da: Under fortræningen skæres et dokument i en start, en midte og en slutning, og stykkerne stilles om med særlige markør-tokens som start, slutning og så midte; almindelig forudsigelse af næste token på den rækkefølge lærer modellen at lave en midte, der passer til begge sider.
   plain:
-    en: Like a crossword clue where you can see the letters on both sides of the empty squares — knowing how the word ends makes it far easier to guess what goes in between.
-    da: Som et krydsord, hvor du kan se bogstaverne på begge sider af de tomme felter — når du ved, hvordan ordet slutter, er det langt lettere at gætte, hvad der skal ind imellem.
+    en: Like fitting the last piece of a jigsaw — the pieces on every side of the hole show its shape far better than looking at one side alone.
+    da: Som at finde den sidste brik i et puslespil — brikkerne på alle sider af hullet viser formen langt bedre end én side alene.
   inPractice:
-    en: A programmer clicks into the middle of a half-written function; the editor sends the lines above and below, and the model returns only the few lines that belong in the hole.
-    da: En programmør sætter markøren midt i en halvskrevet funktion; værktøjet sender linjerne over og under, og modellen returnerer kun de få linjer, der hører til i hullet.
+    en: At a Danish university, a developer clicks into the middle of a half-written function in the exam booking app; the editor sends the lines above and below, and the model returns only the few lines that belong in the gap.
+    da: På et dansk universitet sætter en udvikler markøren midt i en halvskrevet funktion i appen til eksamensbooking; editoren sender linjerne over og under, og modellen returnerer kun de få linjer, der hører til i hullet.
   whyItMatters:
     en: Real editing rarely happens at the end of a file, so without it a model would guess blindly about everything below the spot being edited and suggest lines that clash with the rest.
     da: Rigtig redigering sker sjældent i slutningen af en fil, så uden det ville en model gætte i blinde om alt under det sted, man retter, og foreslå linjer, der støder mod resten.
@@ -38,7 +38,7 @@ edges:
     - to: pretraining
       why:
         en: The reordering is applied to a share of the documents during pretraining, so the ability comes built in rather than added afterwards.
-        da: Omstillingen anvendes på en del af dokumenterne under prætræningen, så evnen er indbygget i stedet for tilføjet bagefter.
+        da: Omstillingen anvendes på en del af dokumenterne under fortræningen, så evnen er indbygget i stedet for tilføjet bagefter.
       strength: normal
       confidence: high
   used-with: [tokenizer]

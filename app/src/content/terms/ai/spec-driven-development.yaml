@@ -14,17 +14,17 @@ summary:
   da: At skrive præcist ned, hvad softwaren skal gøre, godkendt af mennesker, før AI-værktøjer får lov at skrive koden ud fra den plan.
 body:
   formal:
-    en: A way of working with coding agents in which a written description of goals, behaviour, limits and acceptance checks is drafted and reviewed first, then broken into tasks the agent carries out, with the written description kept as the lasting source of truth and updated before the code.
-    da: En arbejdsform med kodeagenter, hvor en skriftlig beskrivelse af mål, adfærd, grænser og godkendelsestjek først udarbejdes og gennemgås, derefter deles op i opgaver, som agenten udfører, og den skriftlige beskrivelse bevares som den varige kilde til sandheden og opdateres før koden.
+    en: A way of working with coding agents in which a written description of goals, behaviour, limits and acceptance checks is drafted and reviewed first, then split into tasks the agent carries out; the description stays the lasting source of truth and is updated before the code.
+    da: En arbejdsform med kodeagenter, hvor en skriftlig beskrivelse af mål, adfærd, grænser og acceptkriterier først skrives og gennemgås og derefter deles op i opgaver, som agenten udfører; beskrivelsen forbliver den varige rettesnor og opdateres før koden.
   plain:
-    en: Like agreeing on drawings with an architect before the builders arrive — slower on day one, but nobody pours concrete for a room you never wanted.
-    da: Som at blive enige om tegningerne med en arkitekt, før håndværkerne kommer — langsommere den første dag, men ingen støber beton til et rum, man aldrig ønskede.
+    en: Like agreeing the menu and guest numbers with the cook before a wedding — the kitchen can then work fast, because nobody is guessing what to serve or for how many.
+    da: Som at aftale menu og antal gæster med kokken før et bryllup — så kan køkkenet arbejde hurtigt, fordi ingen skal gætte, hvad der skal serveres, eller til hvor mange.
   inPractice:
-    en: Before any code is written, a team agrees a one-page description of a password-reset feature, including "links expire after 15 minutes"; the agent builds from it, and the tests check that rule.
-    da: Før der skrives kode, bliver et team enige om en side, der beskriver en funktion til nulstilling af adgangskode, inklusive "links udløber efter 15 minutter"; agenten bygger ud fra den, og testene tjekker den regel.
+    en: At a software house building a pension fund's member portal, the product owner and developers agree a one-page description of password reset, including “links expire after 15 minutes”; the agent builds from it, and tests check that rule.
+    da: Hos et softwarehus, der bygger en pensionskasses medlemsportal, bliver produktejeren og udviklerne enige om én side, der beskriver nulstilling af adgangskode, herunder “links udløber efter 15 minutter”; agenten bygger ud fra den, og tests tjekker reglen.
   whyItMatters:
     en: It puts people back in charge of what gets built and gives both the AI and the reviewers something clear to check against, including security needs agreed up front.
-    da: Den giver mennesker styringen tilbage over, hvad der bygges, og giver både AI'en og dem, der gennemgår koden, noget klart at tjekke op imod, herunder sikkerhedskrav aftalt på forhånd.
+    da: Den giver mennesker magten tilbage over, hvad der bygges, og giver både AI-værktøjet og dem, der gennemgår koden, noget klart at tjekke op imod, herunder sikkerhedskrav aftalt på forhånd.
 edges:
   requires: [coding-agent]
   contrasts-with:

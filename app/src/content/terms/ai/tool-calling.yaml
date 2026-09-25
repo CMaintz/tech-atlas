@@ -11,7 +11,7 @@ era: 2023
 status: current
 summary:
   en: How a language model asks outside code to do something for it — look something up, run a task — and then reads back the result.
-  da: Måden, en sprogmodel beder kode udenfor om at gøre noget for sig — slå noget op, udføre en opgave — og så læser resultatet.
+  da: Måden, en sprogmodel beder et program uden for sig selv om at gøre noget — slå noget op, udføre en opgave — og så læser svaret.
 body:
   formal:
     en: A way of working in which the model is given a list of named tools with a description of what each one takes in; instead of plain text it may answer with a structured request naming a tool and its inputs, which the surrounding program runs before sending the result back to the model.
@@ -20,8 +20,8 @@ body:
     en: Like a boss who cannot leave the office but can fill in order slips — each slip names a helper and says exactly what to fetch, and someone else walks it down the hall.
     da: Som en chef, der ikke kan forlade kontoret, men kan udfylde bestillingssedler — hver seddel nævner en hjælper og siger præcis, hvad der skal hentes, og en anden bærer den ned ad gangen.
   inPractice:
-    en: Asked "will it rain in my town tomorrow?", a chat assistant replies with a request to a weather tool with the town and date filled in; the app calls the weather service, hands back the numbers, and the model writes the answer.
-    da: Når en chatassistent bliver spurgt "regner det i min by i morgen?", svarer den med en anmodning til et vejrværktøj med by og dato udfyldt; appen kalder vejrtjenesten, sender tallene tilbage, og modellen skriver svaret.
+    en: A case officer at a municipality's front desk for citizens asks the chat assistant when waste is collected at an address; the model replies with a request to the collection calendar tool, address filled in, and the app runs it and hands back the dates for the answer.
+    da: En sagsbehandler i en kommunes borgerservice spørger chatassistenten, hvornår der hentes affald på en adresse; modellen svarer med en anmodning til affaldskalenderens værktøj med adressen udfyldt, og appen kører den og sender datoerne tilbage til svaret.
   whyItMatters:
     en: It is what lets a model act in the world instead of only talking, so every tool it can call is also something a trick or a mistake can set off.
     da: Det er det, der lader en model handle i verden i stedet for kun at tale, så hvert værktøj, den kan kalde, er også noget, et trick eller en fejl kan sætte i gang.

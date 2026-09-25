@@ -19,18 +19,18 @@ body:
     en: Like the penalty points in a driving test — each mistake adds points, and the learner practises until the total is as low as it can get.
     da: Som strafpoint til en køreprøve — hver fejl giver point, og eleven øver, til summen er så lav som muligt.
   inPractice:
-    en: A team building a spam filter picks a loss function that punishes letting spam through less than it punishes blocking a customer's real invoice.
-    da: Et team, der bygger et spamfilter, vælger en tabsfunktion, der straffer det at lukke spam igennem mindre end det at blokere en kundes rigtige faktura.
+    en: A developer at a Danish housing association, building a filter for the inbox tenants write to, chooses a loss function that punishes throwing away a tenant's real complaint far harder than letting a piece of junk mail through.
+    da: En udvikler i en dansk boligforening, der bygger et filter til den indbakke, lejerne skriver til, vælger en tabsfunktion, der straffer det langt hårdere at smide en lejers ægte klage væk end at lukke en reklamemail igennem.
   whyItMatters:
     en: A model learns exactly what its loss function rewards and nothing else, so a badly chosen score quietly trains it to chase the wrong goal.
-    da: En model lærer præcis det, tabsfunktionen belønner, og intet andet, så en dårligt valgt score stille og roligt træner den til at jagte det forkerte mål.
+    da: En model lærer netop det, tabsfunktionen belønner, og intet andet, så en dårligt valgt score stille og roligt træner den til at jagte det forkerte mål.
 edges:
   requires: [machine-learning]
   part-of:
     - to: model-training
       why:
         en: Every round of model training starts by measuring the loss on a batch of examples.
-        da: Hver runde modeltræning starter med at måle tabet på et parti eksempler.
+        da: Hver runde modeltræning starter med at måle tabet på en batch eksempler.
       strength: primary
       confidence: high
   causes:

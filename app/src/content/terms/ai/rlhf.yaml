@@ -20,8 +20,8 @@ body:
     en: Like a comedian trying jokes on a test audience, noting which ones get laughs, and gradually shaping the act around what the crowd prefers.
     da: Som en komiker, der afprøver vittigheder på et prøvepublikum, noterer, hvilke der får grin, og gradvist former showet efter, hvad publikum foretrækker.
   inPractice:
-    en: Contract workers see two answers to "How do I reset my router?" and click the clearer, safer one; millions of such clicks steer the chat assistant's style.
-    da: Kontraktarbejdere ser to svar på "Hvordan nulstiller jeg min router?" og klikker på det klareste og sikreste; millioner af den slags klik styrer chatassistentens stil.
+    en: Case officers from several municipalities compare pairs of answers from a citizen-service chat assistant to “How do I get a new health card?” and pick the clearer, correct one; thousands of such choices train the scorer that steers the assistant.
+    da: Sagsbehandlere fra flere kommuner sammenligner par af svar fra en chatassistent til borgerservice på “Hvordan får jeg et nyt sundhedskort?” og vælger det klareste og korrekte; tusindvis af den slags valg træner den bedømmer, der styrer assistenten.
   whyItMatters:
     en: It is a main tool for making models helpful and less harmful, but it rewards what raters like rather than what is true, which can teach flattery and confident-sounding errors.
     da: Det er et centralt værktøj til at gøre modeller hjælpsomme og mindre skadelige, men det belønner, hvad bedømmerne kan lide, snarere end hvad der er sandt, og kan lære modellen smiger og selvsikre fejl.

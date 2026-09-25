@@ -19,8 +19,8 @@ body:
     en: Like a hiring manager who lets a quick sort pick fifty applications from a thousand, then reads those fifty properly before choosing five to interview.
     da: Som en ansættende leder, der lader en hurtig sortering vælge halvtreds ansøgninger ud af tusind og så læser de halvtreds ordentligt, før fem kaldes til samtale.
   inPractice:
-    en: A legal search tool pulls 100 possibly relevant passages in a split second, then reranking reads each against the question and passes the best eight to the language model.
-    da: Et juridisk søgeværktøj henter 100 mulige afsnit på et splitsekund, hvorefter genrangering læser hvert af dem op mod spørgsmålet og giver de otte bedste til sprogmodellen.
+    en: A legal officer in a ministry asks the department's search tool about a rule; it pulls 100 possible passages in a split second, then reranking reads each against the question and passes the best eight to the language model.
+    da: En fuldmægtig i et ministerium spørger afdelingens søgeværktøj om en regel; det henter 100 mulige afsnit på et splitsekund, hvorefter genrangering læser hvert op mod spørgsmålet og giver de otte bedste til sprogmodellen.
   whyItMatters:
     en: Only a few passages fit in front of the model, so getting the right ones to the top often matters more for answer quality than the first search itself.
     da: Kun få afsnit kan komme foran modellen, så at få de rigtige øverst betyder ofte mere for svarets kvalitet end selve den første søgning.

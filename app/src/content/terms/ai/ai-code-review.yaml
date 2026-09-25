@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: The use of a large language model, triggered when a change is proposed in version control, to read the changed lines with their surrounding code and post comments that point out likely bugs, security weaknesses and unclear parts, as an addition to review by people.
-    da: Brugen af en stor sprogmodel, der sættes i gang, når en ændring foreslås i versionsstyring, til at læse de ændrede linjer med den omgivende kode og skrive kommentarer, der peger på sandsynlige fejl, sikkerhedssvagheder og uklare steder, som et supplement til menneskers gennemgang.
+    da: Brugen af en stor sprogmodel, der sættes i gang, når en ændring foreslås i versionsstyring, til at læse de ændrede linjer og koden omkring dem og skrive kommentarer om sandsynlige fejl, sikkerhedssvagheder og uklare steder, som en tilføjelse til menneskers gennemgang.
   plain:
-    en: Like a tireless proof-reader who reads every letter before it is posted — quick to spot slips, sometimes fussy about nothing, and never the one who signs it.
-    da: Som en utrættelig korrekturlæser, der læser hvert brev, før det sendes — hurtig til at fange smuttere, af og til pernitten over ingenting og aldrig den, der skriver under.
+    en: Like a proof-reader who checks every letter before it is posted — quick to spot slips, sometimes fussy about nothing, and never the one who signs it.
+    da: Som en korrekturlæser, der tjekker hvert brev, før det sendes — hurtig til at fange smuttere, af og til pernitten over ingenting og aldrig den, der skriver under.
   inPractice:
-    en: A developer opens a change request; within a minute an AI reviewer comments that a new form field is saved without being checked, and a colleague confirms before approving the fix.
-    da: En udvikler åbner en ændringsanmodning; inden for et minut kommenterer en AI-gennemgang, at et nyt formularfelt gemmes uden at blive tjekket, og en kollega bekræfter, før rettelsen godkendes.
+    en: At a software house building a school portal, a developer opens a change request; within a minute an AI reviewer notes that a new search field goes straight into a database query, and the senior developer confirms it and sends the change back.
+    da: Hos et softwarehus, der bygger en skoleportal, åbner en udvikler en ændringsanmodning; inden for et minut påpeger en AI-gennemgang, at et nyt søgefelt sendes direkte ind i en databaseforespørgsel, og seniorudvikleren bekræfter det og sender ændringen tilbage.
   whyItMatters:
     en: It catches easy mistakes early and gives every change a first reading, but it misses some real problems and flags harmless ones, so it supports human review rather than replacing it.
     da: Den fanger lette fejl tidligt og giver hver ændring en første læsning, men den overser nogle reelle problemer og markerer harmløse, så den støtter menneskers gennemgang frem for at erstatte den.

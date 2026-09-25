@@ -15,16 +15,16 @@ summary:
 body:
   formal:
     en: An AI agent whose tools act on a code project — reading and writing files, searching, running shell commands and tests, and using version control — and which loops through plan, act and check steps via tool calling until the task is done or it hands back to a person.
-    da: En AI-agent, hvis værktøjer arbejder på et kodeprojekt — læser og skriver filer, søger, kører kommandoer og tests og bruger versionsstyring — og som gennem værktøjskald gentager trinene planlæg, handl og tjek, indtil opgaven er løst, eller den giver den tilbage til et menneske.
+    da: En AI-agent, hvis værktøjer arbejder på et kodeprojekt — læser og skriver filer, søger, kører kommandoer og tests og bruger versionsstyring — og som gennem værktøjskald gentager en runde med at planlægge, udføre og tjekke, indtil opgaven er løst, eller den giver den tilbage til et menneske.
   plain:
-    en: Like handing a skilled temp the keys to your workshop with a job sheet — they get on with it alone, but they can use every tool and open every drawer you left unlocked.
-    da: Som at give en dygtig vikar nøglerne til dit værksted og en arbejdsseddel — vikaren går selv i gang, men kan bruge alt værktøj og åbne hver skuffe, du lod stå ulåst.
+    en: Like leaving a carpenter alone in your house with a list of repairs — he gets on with it by himself, but he can also open any cupboard you left unlocked.
+    da: Som at lade en tømrer være alene i dit hus med en liste over reparationer — han går selv i gang, men kan også åbne ethvert skab, du lod stå ulåst.
   inPractice:
-    en: A developer asks the agent to add a date filter to a report page; it finds the right files, makes the change, runs the tests, fixes one failure and opens a change request for review.
-    da: En udvikler beder agenten tilføje et datofilter til en rapportside; den finder de rigtige filer, laver ændringen, kører testene, retter en fejl og åbner en ændringsanmodning til gennemgang.
+    en: A developer in a municipality asks the agent to add a date filter to the report page of the housing benefit system; it finds the files, makes the change, runs the tests, fixes one failure and opens a change request.
+    da: En udvikler i en kommune beder agenten tilføje et datofilter til rapportsiden i boligstøttesystemet; den finder filerne, laver ændringen, kører testene, retter en fejl og åbner en ændringsanmodning.
   whyItMatters:
-    en: It can do hours of routine work alone, but it runs real commands with the developer's rights, so a mistake or a planted instruction can delete work, leak keys or push harmful code.
-    da: Den kan udføre timers rutinearbejde alene, men den kører rigtige kommandoer med udviklerens rettigheder, så en fejl eller en plantet instruktion kan slette arbejde, lække nøgler eller skubbe skadelig kode ud.
+    en: It can do hours of routine work alone, but it runs real commands with the developer's rights, so a mistake or a planted order can delete work, leak keys or push harmful code.
+    da: Den kan udføre timers rutinearbejde alene, men den kører rigtige kommandoer med udviklerens rettigheder, så en fejl eller en plantet ordre kan slette arbejde, lække nøgler eller skubbe skadelig kode ud.
 edges:
   kind-of: [ai-agent]
   requires:

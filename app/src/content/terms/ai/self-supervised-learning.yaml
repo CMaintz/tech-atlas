@@ -13,14 +13,14 @@ summary:
   da: Maskinlæring, hvor de rigtige svar kommer fra selve dataene — fx ved at skjule et ord i en sætning og gætte det igen.
 body:
   formal:
-    en: A form of machine learning that makes its own labels from unlabeled training data, by hiding or holding back part of each example and learning to fill it in from the rest.
-    da: En form for maskinlæring, der laver sine egne mærkater ud fra umærkede træningsdata ved at skjule eller holde en del af hvert eksempel tilbage og lære at udfylde den ud fra resten.
+    en: A form of machine learning that makes its own labels from unlabelled training data, by hiding or holding back part of each example and learning to fill it in from the rest.
+    da: En form for maskinlæring, der laver sine egne mærkater ud fra træningsdata uden mærkater ved at skjule eller holde en del af hvert eksempel tilbage og lære at udfylde den ud fra resten.
   plain:
-    en: Like doing a crossword made from a book you are reading — cover a word, guess it from the words around it, then lift your hand to check.
-    da: Som at løse en kryds og tværs lavet af en bog, du læser — dæk et ord til, gæt det ud fra ordene omkring det, og løft så hånden for at tjekke.
+    en: Like learning a song by pausing the recording mid-line, singing the next words yourself, then playing on to check — the song is its own answer key.
+    da: Som at lære en sang ved at sætte optagelsen på pause midt i en linje, synge de næste ord selv og så spille videre for at tjekke — sangen giver selv svaret.
   inPractice:
-    en: A large language model learns from billions of web pages by guessing each next word and checking it against the page — no person has to label anything.
-    da: En stor sprogmodel lærer af milliarder af websider ved at gætte hvert næste ord og tjekke det mod siden — intet menneske behøver at mærke noget.
+    en: A region's speech-to-text team lets a model learn from thousands of hours of Danish speech by hiding short bits of sound and guessing them, then needs only a few hours of typed-up dictations to handle doctors' notes.
+    da: En regions tale-til-tekst-team lader en model lære af tusindvis af timers dansk tale ved at skjule korte bidder af lyden og gætte dem og behøver derefter kun få timers optagelser med færdig tekst for at kunne skrive lægernes notater ud.
   whyItMatters:
     en: Removing the need for human labels is what made training on the whole web possible — and why whatever is on the web, good or bad, ends up in the model.
     da: At fjerne behovet for menneskelige mærkater er det, der gjorde det muligt at træne på hele nettet — og grunden til, at alt på nettet, godt eller skidt, ender i modellen.

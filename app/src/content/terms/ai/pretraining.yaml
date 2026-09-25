@@ -13,17 +13,17 @@ summary:
   da: Første, enorme og dyre trin i at lære en model op — den læser store mængder tekst og opfanger generelle mønstre før nogen særlig opgave.
 body:
   formal:
-    en: The initial stage of model training in which a model learns from a very large, mostly unlabeled data set, usually by self-supervised learning such as guessing the next token; the result is a general base that later fine-tuning adapts.
-    da: Det første trin i modeltræning, hvor en model lærer af et meget stort, for det meste umærket datasæt, typisk med selvsuperviseret læring som at gætte næste token; resultatet er et generelt fundament, som senere finjustering tilpasser.
+    en: The initial stage of model training in which a model learns from a very large data set that mostly carries no answers, usually by self-supervised learning such as guessing the next token; the result is a general base that later fine-tuning adapts.
+    da: Det første trin i modeltræning, hvor en model lærer af et meget stort datasæt, der for det meste er uden tilhørende svar, typisk med selvsuperviseret læring som at gætte næste token; resultatet er et generelt fundament, som senere finjustering tilpasser.
   plain:
-    en: Like years of general schooling — reading, sums, a bit of everything — before anyone trains to be a plumber or a lawyer.
-    da: Som mange års almen skolegang — læsning, regning, lidt af hvert — før nogen uddanner sig til blikkenslager eller jurist.
+    en: Like a small child who hears years of everyday talk before starting school — nobody explains the grammar, yet the child picks up how the language works.
+    da: Som et lille barn, der hører flere års hverdagssnak, før det starter i skole — ingen forklarer grammatikken, men barnet opfanger alligevel, hvordan sproget virker.
   inPractice:
-    en: A lab spends months and many millions on thousands of GPUs reading a large slice of the public web; the resulting base model can continue any text but does not yet follow instructions well.
-    da: Et laboratorium bruger måneder og mange millioner på tusindvis af GPU'er, der læser en stor del af det offentlige web; basismodellen kan fortsætte enhver tekst, men følger endnu ikke instruktioner godt.
+    en: A research group at a Danish university spends months on a large national research computer pretraining a model on billions of words of public Danish text; the resulting base model can continue any text but does not yet follow instructions well.
+    da: En forskergruppe på et dansk universitet bruger måneder på en national supercomputer på at fortræne en model på milliarder af ord offentlig dansk tekst; basismodellen kan fortsætte enhver tekst, men følger endnu ikke instruktioner godt.
   whyItMatters:
     en: What goes into this stage — including copyrighted, personal or poisoned text — is baked into every product built on the model and is very hard to take out.
-    da: Det, der kommer ind i dette trin — også ophavsretligt beskyttet, personlig eller forgiftet tekst — bages ind i alle produkter bygget på modellen og er meget svært at fjerne.
+    da: Det, der kommer ind i dette trin — også tekst, som andre har rettighederne til, personoplysninger eller forgiftet tekst — bages ind i alle produkter bygget på modellen og er meget svært at fjerne.
 edges:
   kind-of: [model-training]
   requires: [self-supervised-learning, training-data]

@@ -10,20 +10,20 @@ layer: training
 status: current
 summary:
   en: Letting a computer put similar items into groups by itself, with no names or right answers given in advance.
-  da: At lade en computer selv samle ens ting i grupper, uden at navne eller rigtige svar er givet på forhånd.
+  da: At lade en computer selv dele ting, der ligner hinanden, op i grupper, uden at navne eller rigtige svar er givet på forhånd.
 body:
   formal:
-    en: A task in machine learning that splits unlabeled items into groups so that items in the same group are more alike than items in different groups; the number and meaning of the groups are not given.
-    da: En opgave i maskinlæring, der deler umærkede ting op i grupper, så ting i samme gruppe ligner hinanden mere end ting i forskellige grupper; antallet af grupper og deres betydning er ikke givet.
+    en: A task in machine learning that splits unlabelled items into groups so that items in the same group are more alike than items in different groups; the number and meaning of the groups are not given.
+    da: En opgave i maskinlæring, der deler ting uden mærkater op i grupper, så ting i samme gruppe ligner hinanden mere end ting i forskellige grupper; antallet af grupper og deres betydning er ikke givet.
   plain:
-    en: Like tipping out a bag of mixed sweets and pushing the ones that look alike into piles — you decide afterwards what each pile is.
-    da: Som at hælde en pose blandede slik ud og skubbe dem, der ligner hinanden, sammen i bunker — bagefter beslutter du, hvad hver bunke er.
+    en: Like looking up at the night sky and seeing which stars sit close together — the groups come first, and the names for them come afterwards.
+    da: Som at kigge op på nattehimlen og se, hvilke stjerner der ligger tæt sammen — grupperne kommer først, og navnene på dem kommer bagefter.
   inPractice:
-    en: A security team groups thousands of alerts by how alike they are and finds that most belong to five known causes, plus one small odd group worth a closer look.
-    da: Et sikkerhedsteam grupperer tusindvis af alarmer efter, hvor meget de ligner hinanden, og finder, at de fleste hører til fem kendte årsager plus én lille, mærkelig gruppe, der er værd at se nærmere på.
+    en: A data analyst at a Danish online shop groups 80,000 customers by what and when they buy and finds six groups, including one that only ever shops during sales.
+    da: En dataanalytiker i en dansk webshop grupperer 80.000 kunder efter, hvad og hvornår de køber, og finder seks grupper, herunder én, der kun handler, når der er udsalg.
   whyItMatters:
-    en: It finds order in piles of data nobody has time to label, but the groups carry no meaning until a person looks at them and names them.
-    da: Den finder orden i bunker af data, som ingen har tid til at mærke, men grupperne betyder intet, før et menneske har set på dem og navngivet dem.
+    en: It finds order in piles of data nobody has time to label, but the groups carry no meaning until a person looks at them — and a different setting can split the same data quite differently.
+    da: Den finder orden i bunker af data, som ingen har tid til at mærke, men grupperne betyder intet, før et menneske har set på dem — og en anden indstilling kan dele de samme data helt anderledes.
 edges:
   requires: [training-data]
   kind-of: [unsupervised-learning]

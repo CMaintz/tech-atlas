@@ -90,6 +90,12 @@ describe('makeLinker', () => {
       },
     ];
     expect(ids(makeLinker(t, 'da').link('på et kontor med en konto'))).toEqual(['cs/account']);
+    // DA "samle/samlet" (gather/total) must not become SAML + a Danish suffix.
+    const saml: LinkableTerm[] = [{ id: 'cs/saml', term: { en: 'SAML', da: 'SAML' } }];
+    expect(ids(makeLinker(saml, 'da').link('de samlede tal, samlet set; SAML bruges'))).toEqual([
+      'cs/saml',
+    ]);
+    expect(ids(makeLinker(saml, 'da').link('vi samler data og samle dem'))).toEqual([]);
     expect(ids(makeLinker(t, 'en').link('a house key, not a cryptographic key'))).toEqual([
       'cs/cryptographic-key',
     ]);

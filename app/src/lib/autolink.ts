@@ -44,6 +44,10 @@ const STOP: Record<Lang, Set<string>> = {
     'kontor',
     'evaluering',
     'evalueringen',
+    'samle',
+    'samler',
+    'samles',
+    'samlet',
   ]),
 };
 

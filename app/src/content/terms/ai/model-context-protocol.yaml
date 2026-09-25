@@ -14,14 +14,14 @@ summary:
   da: En åben standard for at koble værktøjer og data til AI-assistenter, så hvert værktøj kobles på én gang og virker i mange apps.
 body:
   formal:
-    en: An open protocol in which an AI app acts as a client and connects to MCP servers that offer tools, readable data and ready-made prompts in a shared format built on JSON messages; the app lists what each server offers and passes tool calls to it. Started by one AI company in 2024, it has been run since December 2025 by a neutral foundation under the Linux Foundation.
-    da: En åben protokol, hvor en AI-app fungerer som klient og forbinder sig til MCP-servere, der tilbyder værktøjer, data til læsning og færdige prompts i et fælles format bygget på JSON-beskeder; appen viser, hvad hver server tilbyder, og sender værktøjskald videre til den. Den blev startet af Anthropic i 2024 og drives siden december 2025 af en neutral fond under Linux Foundation.
+    en: An open protocol in which an AI app, acting as a client, connects to MCP servers that offer tools, readable data and ready-made prompts as JSON messages; the app lists what each server offers and passes tool calls to it. Begun by one AI company in 2024, it has been run by a neutral foundation under the Linux Foundation since December 2025.
+    da: En åben protokol, hvor en AI-app som klient forbinder sig til MCP-servere, der tilbyder værktøjer, data til læsning og færdige prompts som JSON-beskeder; appen viser, hvad hver server tilbyder, og sender værktøjskald videre til den. Den blev startet af en AI-virksomhed i 2024 og drives siden december 2025 af en neutral fond under Linux Foundation.
   plain:
     en: Like the standard wall plug — once every lamp and kettle uses the same shape, you can move any of them to any room without rewiring.
-    da: Som den almindelige stikkontakt — når alle lamper og elkedler bruger samme form, kan man flytte dem til ethvert rum uden at trække nye ledninger.
+    da: Som den almindelige stikkontakt — når alle lamper og køkkenapparater bruger samme form, kan man flytte dem til ethvert rum uden at trække nye ledninger.
   inPractice:
-    en: A team adds its issue tracker and its shared drive to an AI coding helper by listing two MCP servers in a settings file; the same two servers also work in their chat app.
-    da: Et team kobler sit sagssystem og sit fælles drev til en AI-kodehjælper ved at skrive to MCP-servere i en indstillingsfil; de samme to servere virker også i deres chat-app.
+    en: The IT lead at a Danish upper-secondary school connects the support case system and the shared drive to an AI assistant by listing two MCP servers in a settings file; the same two servers then work unchanged in the staff chat app.
+    da: Den IT-ansvarlige på et dansk gymnasium kobler skolens sagssystem til supporthenvendelser og det fælles drev til en AI-assistent ved at skrive to MCP-servere i en indstillingsfil; de samme to servere virker så uændret i personalets chatapp.
   whyItMatters:
     en: It ends the need to build a separate link for every tool and every AI app, but it also makes it very easy to hand an assistant powerful reach you have not checked.
     da: Det fjerner behovet for at bygge en særskilt forbindelse for hvert værktøj og hver AI-app, men gør det også meget let at give en assistent stor rækkevidde, man ikke har tjekket.

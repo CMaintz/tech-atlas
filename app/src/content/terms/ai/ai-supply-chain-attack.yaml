@@ -9,18 +9,18 @@ cluster: ai-risk
 layer: model
 status: current
 summary:
-  en: Attacking the ready-made parts an AI system is built from — shared models, datasets or plug-in parts — instead of the system itself.
+  en: Attacking the ready-made parts an AI system is built from — shared models, datasets or plug-in files — instead of the system itself.
   da: At angribe de færdige dele, et AI-system er bygget af — delte modeller, datasæt eller tilføjelser — i stedet for selve systemet.
 body:
   formal:
-    en: An attack, covered by LLM03 Supply Chain in the OWASP Top 10 for LLM Applications 2025, that tampers with third-party components of an AI system, such as model weights, LoRA files, training data or model files that run hidden code when loaded, or copycat model pages on public hubs.
-    da: Et angreb, dækket af LLM03 Supply Chain i OWASP Top 10 for LLM Applications 2025, der manipulerer tredjepartskomponenter i et AI-system, såsom modelvægte, LoRA-tilføjelser, træningsdata, modelfiler, der kører skjult kode, når de indlæses, eller efterligninger af modelsider på offentlige hubs.
+    en: Tampering with third-party parts of an AI system — model weights, add-on files such as LoRA, training data, model files that run hidden code when loaded, or copycat model pages on public hubs; OWASP lists it as LLM03:2025.
+    da: Manipulation af tredjepartsdele i et AI-system — modelvægte, tilføjelser som LoRA, træningsdata, modelfiler, der kører skjult kode, når de indlæses, eller efterlignede modelsider på offentlige hubs; OWASP fører det som LLM03:2025.
   plain:
-    en: Like a kitchen that buys a ready-made sauce base from a stall with a nearly identical name to its usual supplier — the dishes look fine, but something harmful was mixed in before the jar arrived.
-    da: Som et køkken, der køber en færdig saucebase hos en bod med næsten samme navn som den faste leverandør — retterne ser fine ud, men der var blandet noget skadeligt i, før glasset ankom.
+    en: Like buying a spare part from a shop whose name differs by one letter from your usual one — it fits and works, but someone altered it before it reached you.
+    da: Som at købe en reservedel i en butik, hvis navn afviger med ét bogstav fra den, du plejer at bruge — den passer og virker, men nogen har ændret den, før du fik den.
   inPractice:
-    en: A developer downloads a popular open-weight model from a copycat page whose name differs by one letter; loading the old-style file format quietly runs code that opens a back door on the build server.
-    da: En udvikler henter en populær model med åbne vægte fra en efterlignet side, hvis navn afviger med ét bogstav; når den gamle filtype indlæses, kører der stille kode, der åbner en bagdør på byggeserveren.
+    en: A developer in a pension fund's IT department downloads a popular open model from a copycat page; loading its old-style file quietly runs code that opens a back door on the build server.
+    da: En udvikler i en pensionskasses IT-afdeling henter en populær åben model fra en efterlignet side; når den gamle filtype indlæses, kører der stille kode, der åbner en bagdør på byggeserveren.
   whyItMatters:
     en: Most teams build on models and data they did not make and cannot fully inspect, so one poisoned download can reach every product that uses it.
     da: De fleste teams bygger på modeller og data, de ikke selv har lavet og ikke fuldt kan efterprøve, så én forgiftet download kan nå ud til alle produkter, der bruger den.

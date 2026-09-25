@@ -19,8 +19,8 @@ body:
     en: Like walking down a foggy hill with your eyes closed — you feel which way the ground slopes under your feet and take a small step downhill, again and again, until it is flat.
     da: Som at gå ned ad en tåget bakke med lukkede øjne — du mærker, hvilken vej jorden hælder under fødderne, og tager et lille skridt nedad, igen og igen, til det bliver fladt.
   inPractice:
-    en: During a night of model training, each batch of examples produces an error score, and gradient descent shifts millions of weights a tiny amount so the next batch scores slightly better.
-    da: I løbet af en nats modeltræning giver hvert parti eksempler en fejlscore, og gradientnedstigning flytter millioner af vægte en lillebitte smule, så det næste parti scorer lidt bedre.
+    en: An analyst in a ministry trains a model to sort incoming letters by topic; the error jumps up and down instead of falling, because gradient descent is taking steps that are too large, so she lowers the step size and starts again.
+    da: En analytiker i et ministerium træner en model til at sortere indkomne breve efter emne; fejlen hopper op og ned i stedet for at falde, fordi gradientnedstigning tager for store skridt, så hun sænker skridtstørrelsen og starter forfra.
   whyItMatters:
     en: Almost every modern neural network is trained this way, so its choices — step size, how many rounds — decide whether training succeeds, stalls or wastes large amounts of costly computing.
     da: Næsten alle moderne neurale netværk trænes sådan, så valgene — skridtstørrelse, antal runder — afgør, om træningen lykkes, går i stå eller spilder store mængder dyr regnekraft.

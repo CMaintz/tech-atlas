@@ -9,21 +9,21 @@ cluster: ai-risk
 layer: training
 status: current
 summary:
-  en: The work of making an AI system want and do what people actually intend, and refuse what they would not accept.
-  da: Arbejdet med at få et AI-system til at ville og gøre det, mennesker faktisk mener, og afvise det, de ikke vil acceptere.
+  en: The work of making an AI system aim for what people actually intend, and refuse what they would not accept.
+  da: Arbejdet med at få et AI-system til at stræbe efter det, mennesker faktisk mener, og afvise det, de ikke vil acceptere.
 body:
   formal:
-    en: The field and practice of steering an AI system's goals and behaviour so they match the intentions and values of its makers and users, including being helpful, honest and refusing harmful requests, even in situations it was never tested on.
-    da: Det felt og den praksis, der styrer et AI-systems mål og adfærd, så de svarer til skabernes og brugernes hensigter og værdier, herunder at være hjælpsomt og ærligt og afvise skadelige ønsker, også i situationer, det aldrig er blevet testet i.
+    en: The field and practice of steering an AI system's goals and behaviour to match the intentions and values of its makers and users — helpful, honest, refusing harmful requests — including in situations it was never tested on.
+    da: Det felt og den praksis, der styrer et AI-systems mål og adfærd, så de svarer til skabernes og brugernes hensigter og værdier — hjælpsomt, ærligt og afvisende over for skadelige ønsker — også i situationer, det aldrig er testet i.
   plain:
-    en: Like raising a very capable apprentice so that, even when no one is watching, they do the job the way the workshop would want rather than just whatever gets the fastest pat on the back.
-    da: Som at opdrage en meget dygtig lærling, så de, også når ingen kigger, gør arbejdet sådan, som værkstedet ønsker, og ikke bare det, der hurtigst giver ros.
+    en: Like King Midas, who wished that everything he touched would turn to gold and got exactly that — including his food. The wish was granted to the letter, not to the meaning.
+    da: Som kong Midas, der ønskede, at alt, han rørte ved, blev til guld, og fik præcis det — også sin mad. Ønsket blev opfyldt efter ordlyden, ikke efter meningen.
   inPractice:
-    en: After pretraining, a lab runs instruction tuning and RLHF so its chat assistant follows instructions, admits when it is unsure and refuses to give step-by-step help with building weapons.
-    da: Efter pretraining kører et laboratorium instruction tuning og RLHF, så dets chatassistent følger instruktioner, indrømmer, når den er usikker, og nægter at give trinvis hjælp til at bygge våben.
+    en: A research team at a Danish university adapts an open model to Danish, then has people rate its answers so it learns to admit when it is unsure and to refuse step-by-step help with building weapons.
+    da: Et forskerhold på et dansk universitet tilpasser en åben model til dansk og lader derefter mennesker bedømme dens svar, så den lærer at indrømme usikkerhed og nægte trinvis hjælp til at bygge våben.
   whyItMatters:
-    en: A system that is powerful but pursues a slightly wrong goal can cause harm at scale; as AI agents act more on their own, the gap between what we asked for and what we meant matters more.
-    da: Et system, der er stærkt, men forfølger et en smule forkert mål, kan gøre skade i stor skala; jo mere AI-agenter handler på egen hånd, jo mere betyder afstanden mellem det, vi bad om, og det, vi mente.
+    en: A capable system that pursues a slightly wrong goal can cause harm at scale; as AI agents act more on their own, the gap between what we asked for and what we meant matters more.
+    da: Et dygtigt system, der forfølger et en smule forkert mål, kan gøre skade i stor skala; jo mere AI-agenter handler på egen hånd, jo mere betyder afstanden mellem det, vi bad om, og det, vi mente.
 edges:
   requires: [artificial-intelligence, model-training]
   used-with:
@@ -36,7 +36,7 @@ edges:
     - to: instruction-tuning
       why:
         en: Teaching a model to follow instructions is usually the first alignment step after pretraining.
-        da: At lære en model at følge instruktioner er som regel det første alignment-skridt efter pretraining.
+        da: At lære en model at følge instruktioner er som regel det første alignment-skridt efter fortræningen.
       strength: normal
       confidence: high
   contrasts-with:

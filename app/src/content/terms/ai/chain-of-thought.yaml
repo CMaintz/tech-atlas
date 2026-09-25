@@ -14,14 +14,14 @@ summary:
   da: At få en sprogmodel til at skrive sine mellemregninger ud før det endelige svar, hvilket ofte hjælper på regnestykker, logik og planlægning.
 body:
   formal:
-    en: A prompting method in which a large language model is led — by worked examples or an instruction such as "think step by step" — to produce steps in between before its answer; because each written step becomes input for the next, harder problems can be broken down.
-    da: En promptmetode, hvor en stor sprogmodel ledes — med løste eksempler eller en instruktion som "tænk trin for trin" — til at skrive mellemtrin før sit svar; fordi hvert nedskrevet trin bliver input til det næste, kan sværere problemer brydes ned.
+    en: A prompting method in which a large language model is led — by worked examples or an instruction such as “think step by step” — to produce steps in between before its answer; because each written step becomes input for the next, harder problems can be broken down.
+    da: En promptmetode, hvor en stor sprogmodel ledes — med løste eksempler eller en opfordring som “tænk trin for trin” — til at skrive mellemtrin før sit svar; fordi hvert nedskrevet trin bliver input til det næste, kan sværere problemer brydes ned.
   plain:
     en: Like a teacher who makes pupils show their working on a maths test — writing each step down makes fewer slips and lets you see where one went wrong.
     da: Som en lærer, der kræver, at eleverne viser deres mellemregninger til matematikprøven — at skrive hvert trin ned giver færre fejl og viser, hvor noget gik galt.
   inPractice:
-    en: Asked how many meeting rooms a 40-person workshop needs, the assistant first lists group sizes and room capacities line by line, then gives the total, instead of guessing a number at once.
-    da: Spurgt om, hvor mange mødelokaler en workshop for 40 personer kræver, opstiller assistenten først gruppestørrelser og lokalekapacitet linje for linje og giver så totalen i stedet for at gætte et tal med det samme.
+    en: A planner at a water utility asks an assistant how many pipe inspections two crews can manage in a week; told to work step by step, it lists hours, driving time and time per job before giving the total.
+    da: En planlægger på et vandværk spørger en assistent, hvor mange ledningseftersyn to hold kan nå på en uge; bedt om at tage det trin for trin opstiller den timer, køretid og tid pr. opgave, før den giver totalen.
   whyItMatters:
     en: It often makes answers to multi-step problems better, but the written steps cost time and money and are not a faithful record of how the model really reached its answer.
     da: Det gør ofte svar på problemer i flere trin bedre, men de nedskrevne trin koster tid og penge og er ikke en tro gengivelse af, hvordan modellen reelt nåede sit svar.
@@ -43,8 +43,8 @@ edges:
       confidence: high
     - to: zero-shot-prompting
       why:
-        en: Adding just "let's think step by step" to a plain instruction was later shown to bring much of the same gain with no examples.
-        da: Blot at tilføje "lad os tænke trin for trin" til en ren instruktion viste sig senere at give meget af den samme gevinst uden eksempler.
+        en: Adding just “let's think step by step” to a plain instruction was later shown to bring much of the same gain with no examples.
+        da: Blot at tilføje “lad os tænke trin for trin” til en prompt uden eksempler viste sig senere at give meget af den samme gevinst.
       strength: normal
       confidence: high
 sources:

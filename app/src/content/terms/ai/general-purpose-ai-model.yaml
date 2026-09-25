@@ -14,16 +14,16 @@ summary:
   da: EU's AI-forordnings betegnelse for en bred model, der kan klare mange forskellige opgaver og bygges ind i mange andre AI-produkter.
 body:
   formal:
-    en: Under Article 3(63) of the EU AI Act, an AI model trained on large amounts of data that can competently perform a wide range of distinct tasks; its providers must keep technical documentation, inform downstream builders and respect copyright (Art. 53), with extra duties for the most powerful models that could cause harm across society (Art. 55).
-    da: Efter artikel 3, nr. 63, i EU's AI-forordning en AI-model, trænet på store mængder data, der kompetent kan udføre en bred vifte af forskellige opgaver; udbyderne skal føre teknisk dokumentation, informere dem, der bygger videre, og respektere ophavsret (art. 53), med ekstra pligter for modeller med systemisk risiko (art. 55).
+    en: Under Art. 3(63) of the EU AI Act, a model of significant generality that can competently perform a wide range of distinct tasks and be built into many other systems; providers owe documentation, a copyright policy and a training-data summary (Art. 53), and more if the model poses risks to society as a whole (Art. 55).
+    da: Efter art. 3, nr. 63, i EU's AI-forordning en model med betydelig generalitet, der kompetent kan udføre en bred vifte af forskellige opgaver og indgå i mange andre systemer; udbyderen skal levere dokumentation, en politik for ophavsret og en oversigt over træningsdata (art. 53) og mere, hvis modellen udgør en risiko for samfundet som helhed (art. 55).
   plain:
     en: Like a company whose engine ends up in cars, boats and generators — the law asks the engine's maker for proper paperwork so every builder further down the line knows what they are fitting.
     da: Som en fabrik, hvis motor ender i biler, både og generatorer — loven kræver ordentlige papirer fra fabrikken, så alle, der bygger videre, ved, hvad de sætter i.
   inPractice:
-    en: A lab releasing a new large language model in the EU writes technical documentation for the authorities, a summary of its training data and usage guidance for app makers; because it was trained with very large computing power, it also runs attack testing and reports serious incidents.
-    da: Et laboratorium, der lancerer en ny stor sprogmodel i EU, skriver teknisk dokumentation til myndighederne, en sammenfatning af træningsdataene og vejledning til app-udviklere; fordi den er trænet med meget stor regnekraft, skal det også udføre angrebstest og indberette alvorlige hændelser.
+    en: A Danish research centre releases a Danish-language model under an open licence; its project lead checks that this spares it the technical documentation, but it must still publish a summary of the training data and a copyright policy.
+    da: Et dansk forskningscenter udgiver en dansksproget model under en åben licens; projektlederen konstaterer, at det fritager centret for den tekniske dokumentation, men at det stadig skal offentliggøre en oversigt over træningsdataene og en politik for ophavsret.
   whyItMatters:
-    en: One model can sit under thousands of products, so the EU put duties on its maker directly since August 2025 instead of leaving every product builder to guess at the model's risks.
+    en: One model can sit under thousands of products, so since August 2025 the EU has placed duties directly on its maker instead of leaving every product builder to guess at the model's risks.
     da: Én model kan ligge under tusindvis af produkter, så EU har siden august 2025 lagt pligter direkte på den, der laver modellen, i stedet for at lade hver produktbygger gætte på modellens risici.
 edges:
   requires: [eu-ai-act]
@@ -36,8 +36,8 @@ edges:
       confidence: medium
     - to: open-weight-model
       why:
-        en: Models released under a free and open licence with public weights are spared some documentation duties, unless they are among the most powerful models.
-        da: Modeller udgivet under en fri og åben licens med offentlige vægte er fritaget for visse dokumentationspligter, medmindre de udgør en systemisk risiko.
+        en: Models released under a free and open licence with public weights are spared some documentation duties, unless they are among the largest models that pose risks to society as a whole.
+        da: Modeller udgivet under en fri og åben licens med offentlige vægte er fritaget for visse dokumentationspligter, medmindre de hører til de største modeller med risiko for samfundet som helhed.
       strength: normal
       confidence: high
 sources:

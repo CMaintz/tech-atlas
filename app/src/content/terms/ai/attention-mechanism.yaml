@@ -17,11 +17,11 @@ body:
     en: A method in a neural network where each token's embedding is compared with every other token's, the match scores are turned into shares that add up to one, and the token takes on a mix of the others weighted by those shares.
     da: En metode i et neuralt netværk, hvor hvert tokens embedding sammenlignes med alle andre tokens, matchscorerne laves om til andele, der tilsammen giver én, og tokenet optager en blanding af de andre vægtet efter de andele.
   plain:
-    en: Like a reader with a pen who, for each word in a sentence, marks the few other words that help explain it and skims past the rest.
-    da: Som en læser med en blyant, der for hvert ord i en sætning understreger de få andre ord, der hjælper med at forklare det, og skimmer resten.
+    en: Like following one friend at a noisy party — out of all the voices in the room you pick up the few that matter to what you are hearing and let the rest fade.
+    da: Som at følge med i, hvad én ven siger til en larmende fest — af alle stemmerne i rummet opfanger du de få, der har betydning, og lader resten glide i baggrunden.
   inPractice:
-    en: When a chat assistant answers a question about a long contract, attention lets the words of the question pull directly on the one clause, many pages back, that holds the answer.
-    da: Når en chatassistent besvarer et spørgsmål om en lang kontrakt, lader attention spørgsmålets ord trække direkte på den ene klausul mange sider tilbage, der rummer svaret.
+    en: A case officer in a municipality asks a chat assistant whether a 120-page local plan allows a garage; attention lets the question draw directly on the one paragraph, far back in the text, that settles it.
+    da: En sagsbehandler i en kommune spørger en chatassistent, om en lokalplan på 120 sider tillader en carport; attention lader spørgsmålet trække direkte på det ene afsnit langt tilbage i teksten, der afgør sagen.
   whyItMatters:
     en: Every token is compared with every other, so the work grows much faster than the length of the input — the main reason a longer context window costs more time and money.
     da: Hvert token sammenlignes med alle de andre, så arbejdet vokser langt hurtigere end inputtets længde — hovedårsagen til, at et længere kontekstvindue koster mere tid og flere penge.

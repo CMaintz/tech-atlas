@@ -9,21 +9,21 @@ cluster: training
 layer: training
 status: current
 summary:
-  en: Having people (or tools) attach the right answer to each example — "cat", "spam", "angry" — so a model can learn from it.
-  da: At lade mennesker (eller værktøjer) sætte det rigtige svar på hvert eksempel — "kat", "spam", "vred" — så en model kan lære af det.
+  en: Having people (or tools) attach the right answer to each example — “cat”, “complaint”, “angry” — so a model can learn from it.
+  da: At lade mennesker (eller værktøjer) sætte det rigtige svar på hvert eksempel — “kat”, “klage”, “vred” — så en model kan lære af det.
 body:
   formal:
     en: The work of adding the correct output to each input in a data set, producing the answered examples that supervised learning needs as training data and that evaluation needs as a reference.
-    da: Arbejdet med at tilføje det korrekte output til hvert input i et datasæt, så man får de besvarede eksempler, som superviseret læring kræver som træningsdata, og som evaluering kræver som facit.
+    da: Arbejdet med at tilføje det korrekte output til hvert input i et datasæt, så man får de besvarede eksempler, som superviseret læring kræver som træningsdata, og som man bruger som reference, når modellen skal bedømmes.
   plain:
     en: Like writing the answer on the back of every flash card before a pupil starts practising with the deck.
     da: Som at skrive svaret på bagsiden af hvert kort, før en elev begynder at øve sig med bunken.
   inPractice:
-    en: A hospital pays two doctors to mark tumours on 10,000 scans; where they disagree, a third decides, and the marked scans become the teaching set.
-    da: Et hospital betaler to læger for at markere svulster på 10.000 scanninger; hvor de er uenige, afgør en tredje, og de markerede scanninger bliver undervisningssættet.
+    en: In a Danish region, two hospital doctors mark tumours on 10,000 scans; where they disagree, a third decides, and the marked scans become training data for a model that flags suspect cases.
+    da: I en region markerer to hospitalslæger svulster på 10.000 scanninger; hvor de er uenige, afgør en tredje, og de markerede scanninger bliver træningsdata til en model, der udpeger mistænkelige tilfælde.
   whyItMatters:
-    en: A model can only be as good as its answers key; rushed, poorly paid or one-sided labeling passes straight into the model's errors and bias.
-    da: En model kan kun blive så god som sit facit; forhastet, underbetalt eller ensidig mærkning går direkte videre i modellens fejl og bias.
+    en: A model can only be as good as the answers it learns from; rushed, poorly paid or one-sided labelling passes straight into the model's errors and bias.
+    da: En model kan kun blive så god som de svar, den lærer af; forhastet, dårligt betalt eller skæv datamærkning går direkte videre i modellens fejl og bias.
 edges:
   part-of:
     - to: supervised-learning

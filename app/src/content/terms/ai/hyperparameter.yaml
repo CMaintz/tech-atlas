@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: A value that shapes how model training runs or how large the model is, fixed from outside rather than learned from the training data; it is tuned by trying values and comparing results on a validation set.
-    da: En værdi, der former, hvordan modeltræningen kører, eller hvor stor modellen er, og som fastsættes udefra i stedet for at læres fra træningsdata; den tunes ved at prøve værdier og sammenligne resultater på et valideringssæt.
+    da: En værdi, der former, hvordan modeltræningen kører, eller hvor stor modellen er, og som fastsættes udefra i stedet for at læres fra træningsdata; den justeres ved at prøve værdier og sammenligne resultater på et valideringssæt.
   plain:
     en: Like the oven heat and baking time you set before the cake goes in — the cake does not choose them, but they decide how it turns out.
     da: Som ovnvarmen og bagetiden, du sætter, før kagen kommer ind — kagen vælger dem ikke, men de afgør, hvordan den bliver.
   inPractice:
-    en: A team runs twenty short training jobs overnight, each with a different step size and batch size, and keeps the combination that scores best on held-back examples.
-    da: Et team kører tyve korte træningsjob over natten med hver sin skridtstørrelse og batchstørrelse og beholder den kombination, der scorer bedst på tilbageholdte eksempler.
+    en: A data analyst in a municipality runs twenty short training jobs overnight on a model that forecasts demand for home care, each with a different step size and batch size, and keeps the combination that does best on held-back cases.
+    da: En dataanalytiker i en kommune kører tyve korte træningsjob over natten på en model, der skal forudsige behovet for hjemmepleje, med hver sin skridtstørrelse og batchstørrelse, og beholder den kombination, der klarer sig bedst på tilbageholdte sager.
   whyItMatters:
     en: The same model and data can give a strong or a useless result depending on these settings, and searching them multiplies the cost of training.
     da: Samme model og data kan give et stærkt eller ubrugeligt resultat afhængigt af disse indstillinger, og at afsøge dem ganger prisen for træningen op.

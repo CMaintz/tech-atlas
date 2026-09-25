@@ -14,16 +14,16 @@ summary:
 body:
   formal:
     en: A system of two or more AI agents, each with its own instructions, tools and context window, that pass tasks and results between them; a common shape has a lead agent that plans, starts helper agents in parallel and joins their findings.
-    da: Et system af to eller flere AI-agenter, hver med egne instruktioner, værktøjer og kontekstvindue, der sender opgaver og resultater imellem sig; en udbredt form har en ledende agent, der planlægger, starter hjælpeagenter side om side og samler deres fund.
+    da: Et system af to eller flere AI-agenter, hver med egne instruktioner, værktøjer og kontekstvindue, der sender opgaver og resultater imellem sig; en udbredt form har en ledende agent, der planlægger, starter hjælpeagenter side om side og sætter deres fund sammen.
   plain:
     en: Like a newsroom — an editor hands stories to several reporters at once, each digs into one angle, and the editor stitches their notes into one article.
     da: Som en redaktion — en redaktør giver historier til flere journalister på én gang, hver graver i én vinkel, og redaktøren syr deres noter sammen til én artikel.
   inPractice:
-    en: For a research question, a lead agent starts five helper agents that each search a different topic, then reads their short reports and writes the final answer.
-    da: Ved et researchspørgsmål starter en ledende agent fem hjælpeagenter, der hver søger i et andet emne, og læser derefter deres korte rapporter og skriver det endelige svar.
+    en: A policy officer in a ministry asks how five other countries tax company cars; a lead agent starts one helper agent per country, then reads their short reports and writes one joint answer.
+    da: En fuldmægtig i et ministerium spørger, hvordan fem andre lande beskatter firmabiler; en ledende agent starter én hjælpeagent pr. land og læser derefter deres korte rapporter og skriver ét fælles svar.
   whyItMatters:
     en: Splitting work lets agents cover more ground than one context window allows, but it multiplies cost, and one tricked agent can pass bad orders on to the rest.
-    da: At dele arbejdet op lader agenter nå mere, end ét kontekstvindue tillader, men det ganger omkostningen, og én narret agent kan give dårlige ordrer videre til resten.
+    da: At dele arbejdet op lader agenter nå mere, end ét kontekstvindue tillader, men det ganger prisen, og én narret agent kan give dårlige ordrer videre til resten.
 edges:
   requires:
     - to: ai-agent

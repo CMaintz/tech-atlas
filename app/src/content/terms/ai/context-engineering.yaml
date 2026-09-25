@@ -14,14 +14,14 @@ summary:
   da: At vælge alt, hvad en LLM får at se til en opgave — instruktioner, hentede dokumenter, værktøjsresultater og noter — og ikke kun ordlyden.
 body:
   formal:
-    en: The practice of deciding, for each step of an AI system, what goes into the context window and in what order — system prompt, retrieved documents, tool results, saved memory and chat history — within the limit on tokens.
-    da: Praksissen at beslutte for hvert trin i et AI-system, hvad der kommer ind i kontekstvinduet og i hvilken rækkefølge — systemprompt, hentede dokumenter, værktøjsresultater, gemt hukommelse og samtalehistorik — inden for grænsen for tokens.
+    en: The practice of deciding, for each step of an AI system, what goes into the context window and in what order — system prompt, retrieved documents, tool results, saved notes and earlier messages — within the limit on tokens.
+    da: Praksissen at beslutte for hvert trin i et AI-system, hvad der kommer ind i kontekstvinduet og i hvilken rækkefølge — systemprompt, hentede dokumenter, værktøjsresultater, gemte noter og tidligere beskeder — inden for grænsen for antal tokens.
   plain:
     en: Like packing a small suitcase for a trip — what you leave out matters as much as what you put in, and what sits on top gets used first.
-    da: Som at pakke en lille kuffert til en rejse — det, man lader blive hjemme, betyder lige så meget som det, man tager med, og det, der ligger øverst, bliver brugt først.
+    da: Som at fylde en lille kuffert til en rejse — det, man lader blive hjemme, betyder lige så meget som det, man tager med, og det, der ligger øverst, bliver brugt først.
   inPractice:
-    en: A coding agent working in a large code project keeps the task notes and the three most relevant files in view, and replaces long tool output with a short summary before its next step.
-    da: En kodeagent, der arbejder i en stor kodebase, holder opgavenoterne og de tre mest relevante filer synlige og erstatter langt værktøjsoutput med et kort resumé før næste trin.
+    en: At a Danish software house, a developer sets up a coding agent to load only the task notes and the three most relevant files, and to swap long test output for a short summary before each next step.
+    da: I et dansk softwarehus sætter en udvikler en kodeagent op til kun at hente opgavenoterne og de tre mest relevante filer og til at erstatte langt testoutput med et kort sammendrag før hvert nyt trin.
   whyItMatters:
     en: In long agent tasks, answers go wrong less from badly worded requests than from missing, stale or cluttered material in view, and untrusted material in view can also steer the agent.
     da: I lange agentopgaver går svar sjældnere galt på grund af dårligt formulerede ønsker end på grund af manglende, forældet eller rodet materiale i synsfeltet, og materiale, man ikke kan stole på, kan også styre agenten.

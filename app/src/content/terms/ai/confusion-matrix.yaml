@@ -14,13 +14,13 @@ summary:
 body:
   formal:
     en: A grid of counts for a classification task with one row per true class and one column per predicted class; with two classes its four cells are true positives, false positives, false negatives and true negatives.
-    da: Et gitter af optællinger for en klassifikationsopgave med én række pr. sand klasse og én kolonne pr. forudsagt klasse; med to klasser er de fire felter sande positive, falske positive, falske negative og sande negative.
+    da: En tabel med optællinger for en klassifikationsopgave med én række pr. sand klasse og én kolonne pr. forudsagt klasse; med to klasser er de fire felter sande positive, falske positive, falske negative og sande negative.
   plain:
     en: Like a sorting office's end-of-day sheet showing how many letters for each town ended up in each town's bag, so you can see which towns keep getting mixed up.
     da: Som postcentralens opgørelse ved dagens slut, der viser, hvor mange breve til hver by der endte i hver bys sæk, så man kan se, hvilke byer der bliver forvekslet.
   inPractice:
-    en: A security team lays a month of alerts from its anomaly detection tool into four boxes — real attacks caught, false positives, attacks missed and quiet days — and sees misses cluster in one office.
-    da: Et sikkerhedsteam fordeler en måneds alarmer fra anomalidetektionen i fire felter — fangede angreb, falske positive, oversete angreb og rolige dage — og ser, at de oversete samler sig på ét kontor.
+    en: A case officer in a municipality checks the model that sends citizens' emails on to five departments; the confusion matrix shows that emails about housing benefit keep landing with the pensions team.
+    da: En sagsbehandler i en kommune tjekker den model, der sender borgernes mails videre til fem afdelinger; forvekslingsmatrixen viser, at mails om boligstøtte gang på gang havner hos pensionsteamet.
   whyItMatters:
     en: One overall number hides which errors a model makes; this table shows them, and accuracy, precision and recall are all worked out from its cells.
     da: Ét samlet tal skjuler, hvilke fejl en model laver; denne tabel viser dem, og nøjagtighed, præcision og genkaldelse regnes alle ud fra dens felter.

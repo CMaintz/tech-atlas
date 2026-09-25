@@ -3,8 +3,10 @@
 # own Term: proper nouns, formats, common abbreviations. One per line,
 # alphabetical, each justified with a trailing "# why". Deliberately annoying to
 # add to, so it never becomes a rubber stamp.
+chatbot      # everyday English, missing from the frequency list
 email        # everyday word, never a node
 gatekeeper   # everyday English, missing from the frequency list
+generality   # everyday English; the EU AI Act's own wording (Art. 3(63))
 hierarchical # everyday English, missing from the frequency list
 inbox        # everyday word for an email inbox
 linux        # proper noun (operating system brand)
@@ -15,8 +17,11 @@ mitid        # proper noun (Danish national login)
 numeric      # everyday English, missing from the frequency list
 organisational # British spelling of an everyday word
 repeal       # everyday legal English (a law is repealed), missing from the frequency list
+ribe         # proper noun (Danish town)
 samsik       # proper noun (SAMSIK, the Danish Resilience Agency)
+skattestyrelsen # proper noun (the Danish Tax Agency)
 specification  # everyday English, missing from the frequency list
 watertight   # everyday English, missing from the frequency list
+webshop      # everyday word for an online shop, missing from the frequency list
 wifi         # everyday word for wireless networking
 windows      # proper noun (operating system brand)

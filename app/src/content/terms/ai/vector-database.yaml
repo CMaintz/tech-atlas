@@ -16,14 +16,14 @@ body:
     en: A database that saves embeddings next to the text or files they came from, and answers lookups by nearest-neighbour search instead of exact matches, usually with filters on extra fields such as owner or date.
     da: En database, der gemmer embeddings sammen med den tekst eller de filer, de kom fra, og besvarer opslag med nærmeste-nabo-søgning i stedet for præcise match, typisk med filtre på ekstra felter som ejer eller dato.
   plain:
-    en: Like a library where books are placed by what they are about rather than by title — ask for "sad stories about the sea" and the librarian walks you to the right corner.
-    da: Som et bibliotek, der er sat op efter, hvad bøgerne handler om, frem for efter titel — spørg efter "triste historier om havet", og bibliotekaren fører dig hen til det rigtige hjørne.
+    en: Like a record shop that files albums by mood instead of by artist — ask for “something calm for a rainy Sunday” and the assistant walks you to one shelf.
+    da: Som en pladebutik, der sætter albummer op efter stemning i stedet for kunstner — spørg efter “noget roligt til en regnvejrssøndag”, og ekspedienten fører dig hen til én hylde.
   inPractice:
-    en: A support team loads every help article into a vector database; when a customer writes in, the bot pulls the five closest articles and hands them to the language model.
-    da: Et supportteam lægger alle hjælpeartikler i en vektordatabase; når en kunde skriver, henter botten de fem nærmeste artikler og giver dem til sprogmodellen.
+    en: A region loads all its clinical guidelines into a vector database; when a nurse asks the assistant a question, it pulls the five closest guidelines and hands them to the language model.
+    da: En region lægger alle sine kliniske retningslinjer i en vektordatabase; når en sygeplejerske stiller assistenten et spørgsmål, henter den de fem nærmeste retningslinjer og giver dem til sprogmodellen.
   whyItMatters:
     en: It often ends up holding copies of a company's most private documents in one place, so who may read what has to be enforced there too, not only in the original systems.
-    da: Den ender ofte med at rumme kopier af virksomhedens mest fortrolige dokumenter samlet ét sted, så hvem der må læse hvad, skal håndhæves dér også, ikke kun i de oprindelige systemer.
+    da: Den ender ofte med at rumme kopier af virksomhedens mest fortrolige dokumenter på ét sted, så hvem der må læse hvad, skal håndhæves dér også, ikke kun i de oprindelige systemer.
 edges:
   kind-of:
     - to: database

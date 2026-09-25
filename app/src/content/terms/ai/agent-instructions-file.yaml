@@ -14,14 +14,14 @@ summary:
   da: En almindelig tekstfil, der ligger sammen med koden og fortæller AI-værktøjer projektets regler, kommandoer og vaner, før de går i gang.
 body:
   formal:
-    en: A file stored in the project under version control that a coding agent automatically loads into its context window at the start of each session, holding standing guidance such as build and test commands, style rules, folder layout and things never to do.
-    da: En fil gemt i projektet under versionsstyring, som en kodeagent automatisk indlæser i sit kontekstvindue i starten af hver session, med faste anvisninger som bygge- og testkommandoer, stilregler, mappestruktur og ting, der aldrig må gøres.
+    en: A file stored in the project under version control that a coding agent automatically loads into its context window each time it starts work, holding standing guidance such as build and test commands, style rules, folder layout and things never to do.
+    da: En fil gemt i projektet under versionsstyring, som en kodeagent automatisk indlæser i sit kontekstvindue, hver gang den går i gang, med faste anvisninger som bygge- og testkommandoer, stilregler, mappestruktur og ting, der aldrig må gøres.
   plain:
-    en: Like the note a family leaves for the house-sitter — where things are, which door sticks, never let the cat out — read once on arrival and followed all week.
-    da: Som den seddel, en familie efterlader til huspasseren — hvor tingene er, hvilken dør der binder, luk aldrig katten ud — læst én gang ved ankomsten og fulgt hele ugen.
+    en: Like the folder kept aboard a sailing club's shared boat, which every member reads before taking her out — how to start the engine, where the key hangs, never moor by the rocks.
+    da: Som mappen om bord på en sejlklubs fælles båd, som alle medlemmer læser, før de tager den ud — hvordan motoren startes, hvor nøglen hænger, fortøj aldrig ved stenene.
   inPractice:
-    en: A team adds a short file saying "run the linter before finishing, never edit generated files, use the shared date helper"; every agent session on the project now follows it without being told.
-    da: Et team tilføjer en kort fil med "kør linteren, før du slutter, ret aldrig i genererede filer, brug den fælles datohjælper"; alle agentsessioner i projektet følger den nu uden at få besked.
+    en: At a Danish software house, the lead developer adds a short file to the payroll project — “run the tests before finishing, never edit generated files, use the shared date helper” — and the agent now follows it every time without being told.
+    da: Hos et dansk softwarehus lægger den ledende udvikler en kort fil i lønprojektet — “kør testene, før du slutter, ret aldrig i genererede filer, brug den fælles datohjælper” — og agenten følger den nu hver gang uden at få besked.
   whyItMatters:
     en: It turns team knowledge into lasting guidance for AI tools, but anyone who can change the file can change what the agent does — so it needs the same care as code.
     da: Den gør teamets viden til varig vejledning for AI-værktøjer, men alle, der kan ændre filen, kan ændre, hvad agenten gør — så den kræver samme omhu som kode.

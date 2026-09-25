@@ -15,16 +15,16 @@ summary:
 body:
   formal:
     en: A supply-chain attack in which an attacker collects package names that large language models make up through hallucination while writing code, registers those unclaimed names in a public package registry, and fills them with harmful code that runs when a developer or coding agent installs the suggested package.
-    da: Et supply chain-angreb, hvor en angriber samler pakkenavne, som store sprogmodeller hallucinerer, når de skriver kode, registrerer de ledige navne i et offentligt pakkeregister og fylder dem med skadelig kode, der kører, når en udvikler eller en kodeagent installerer den foreslåede pakke.
+    da: Et forsyningskædeangreb, hvor en angriber indsamler pakkenavne, som store sprogmodeller hallucinerer, når de skriver kode, registrerer de ledige navne i et offentligt pakkeregister og fylder dem med skadelig kode, der kører, når en udvikler eller en kodeagent installerer den foreslåede pakke.
   plain:
     en: Like a shop assistant who keeps recommending a brand that does not exist — until a crook notices, starts selling fakes under that exact name, and waits for customers to ask for it.
     da: Som en ekspedient, der bliver ved med at anbefale et mærke, der ikke findes — indtil en svindler opdager det, begynder at sælge forfalskninger under netop det navn og venter på, at kunderne spørger efter det.
   inPractice:
-    en: An assistant tells a developer to install a helper library with a believable but invented name; an attacker registered that name last month, and installing it quietly copies the developer's cloud keys.
-    da: En assistent beder en udvikler installere et hjælpebibliotek med et troværdigt, men opdigtet navn; en angriber registrerede navnet sidste måned, og når det installeres, kopierer det stille udviklerens cloud-nøgler.
+    en: A developer at a Danish logistics firm is told by an assistant to install a helper library with a believable but invented name; an attacker registered that name last month, and installing it quietly copies her cloud access keys.
+    da: En udvikler i en dansk logistikvirksomhed får af en assistent besked på at installere et hjælpebibliotek med et troværdigt, men opdigtet navn; en angriber registrerede navnet sidste måned, og da hun installerer det, kopierer det i al stilhed hendes adgangsnøgler til skyen.
   whyItMatters:
-    en: Research found models repeat the same invented names across many questions, so attackers can predict them in advance, and a single careless install hands them the build machine.
-    da: Forskning viste, at modeller gentager de samme opdigtede navne på tværs af mange spørgsmål, så angribere kan forudsige dem på forhånd, og én uforsigtig installation giver dem byggemaskinen.
+    en: Research found that many invented names come back each time the same question is asked again, so attackers can predict and register them in advance — and one careless install hands them the build machine.
+    da: Forskning viste, at mange opdigtede navne dukker op igen, hver gang det samme spørgsmål stilles, så angribere kan forudsige og registrere dem på forhånd — og én uforsigtig pakke giver dem byggemaskinen.
 edges:
   kind-of: [supply-chain-attack]
   exploits:

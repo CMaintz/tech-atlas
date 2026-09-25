@@ -19,8 +19,8 @@ body:
     en: Like a printed travel guide — everything in it was true when it went to print, but it cannot tell you about the restaurant that opened last month.
     da: Som en trykt rejseguide — alt i den passede, da den gik i trykken, men den kan ikke fortælle om restauranten, der åbnede i sidste måned.
   inPractice:
-    en: Asked about a new version of a library, a chat assistant describes an old version as the newest one, because the new release came out after its cutoff date.
-    da: Spurgt om en ny version af et bibliotek beskriver en chatassistent en gammel version som den nyeste, fordi den nye udgivelse kom efter dens skæringsdato.
+    en: An IT teacher at a vocational school asks a chat assistant about the latest version of a code library for a lesson; it describes an older version as current, because the new one came out after its cutoff date.
+    da: En IT-lærer på en erhvervsskole spørger en chatassistent om den nyeste version af et kodebibliotek til en lektion; den beskriver en ældre version som den aktuelle, fordi den nye kom efter dens skæringsdato.
   whyItMatters:
     en: Security advice goes stale fast — new weak spots, new attacks, new versions — so answers about recent events must be checked against current sources.
     da: Sikkerhedsråd forælder hurtigt — nye svagheder, nye angreb, nye versioner — så svar om nylige begivenheder skal tjekkes mod aktuelle kilder.

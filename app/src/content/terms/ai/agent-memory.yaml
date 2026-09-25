@@ -9,21 +9,21 @@ cluster: agents
 layer: agent
 status: emerging
 summary:
-  en: Notes an AI agent saves outside the model and reads back later, so it can recall facts and past work between separate chats.
+  en: Notes an AI agent saves outside the model and reads back later, so it can carry facts and past work from one chat to the next.
   da: Noter, en AI-agent gemmer uden for modellen og læser igen senere, så den kan huske fakta og tidligere arbejde mellem adskilte samtaler.
 body:
   formal:
     en: Storage outside the model — plain files, a database or a vector database — into which an agent writes facts, choices and summaries, and from which the most useful items are fetched back into the context window at the start of later tasks.
-    da: Lager uden for modellen — almindelige filer, en database eller en vektordatabase — som en agent skriver fakta, valg og resuméer ind i, og hvorfra de mest nyttige dele hentes tilbage i kontekstvinduet, når senere opgaver starter.
+    da: Lager uden for modellen — almindelige filer, en database eller en vektordatabase — som en agent skriver fakta, valg og sammendrag ind i, og hvorfra de mest nyttige dele hentes tilbage i kontekstvinduet, når senere opgaver starter.
   plain:
     en: Like a nurse's notebook passed between shifts — whoever starts work reads the notes first, because nobody remembers yesterday on their own.
     da: Som en sygeplejerskes notesbog, der går videre mellem vagterne — den, der møder ind, læser først noterne, for ingen husker selv i går.
   inPractice:
-    en: A coding assistant writes "this project uses tabs, tests live in the test folder" to a notes file, and next week, in a fresh chat, reads it back before touching any code.
-    da: En kodeassistent skriver "dette projekt bruger tabulatorer, testene ligger i test-mappen" i en notefil og læser den igen næste uge i en ny samtale, før den rører koden.
+    en: A developer at a pension fund works with a coding assistant that saves notes such as “member numbers must never appear in logs”; a week later, in a fresh chat, it reads them back before touching the code.
+    da: En udvikler i en pensionskasse arbejder med en kodeassistent, der gemmer noter som “medlemsnumre må aldrig stå i logfiler”; en uge senere, i en ny samtale, læser den dem igen, før den rører koden.
   whyItMatters:
-    en: It makes agents more useful over time, but whatever is saved is trusted later — a planted false note or a stored secret can outlive the chat that caused it.
-    da: Det gør agenter mere nyttige over tid, men det, der gemmes, stoles på senere — en plantet falsk note eller en gemt hemmelighed kan overleve den samtale, der skabte den.
+    en: It makes agents more useful over time, but saved notes are trusted later — a planted false note or a stored secret can outlive the chat that caused it.
+    da: Det gør agenter mere nyttige over tid, men gemte noter bliver taget for gode varer senere — en plantet falsk note eller en gemt hemmelighed kan overleve den samtale, der skabte den.
 edges:
   part-of: [ai-agent]
   contrasts-with:

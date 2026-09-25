@@ -19,11 +19,11 @@ body:
     en: Like choosing the next word in a story by drawing from a bag where common words have many slips and odd words have few — usually sensible, sometimes surprising.
     da: Som at vælge næste ord i en historie ved at trække fra en pose, hvor almindelige ord har mange sedler og sjældne ord få — oftest fornuftigt, af og til overraskende.
   inPractice:
-    en: Two people send the same question to a chat assistant and get differently worded answers, because the reply was built one piece at a time with some chance at each pick.
-    da: To personer sender det samme spørgsmål til en chatassistent og får forskelligt formulerede svar, fordi svaret blev bygget ét stykke ad gangen med en smule tilfældighed i hvert valg.
+    en: Two case workers at a job centre ask the same chat assistant to draft a letter from identical notes and get differently worded drafts, because each word was picked with some chance involved.
+    da: To sagsbehandlere på et jobcenter beder den samme chatassistent skrive et brev ud fra de samme noter og får forskelligt formulerede udkast, fordi hvert ord blev valgt med en smule tilfældighed.
   whyItMatters:
     en: The choice of rule decides whether answers can be repeated exactly, which matters for testing and for tasks like code, and it shapes how varied or dull the text feels.
-    da: Valget af regel afgør, om svar kan gentages nøjagtigt, hvilket betyder noget for test og for opgaver som kode, og det former, hvor varieret eller kedelig teksten føles.
+    da: Valget af regel afgør, om svar kan gentages nøjagtigt, hvilket betyder noget for test og for opgaver som kode, og det former, hvor afvekslende eller kedelig teksten føles.
 edges:
   requires: [next-token-prediction]
   part-of:
