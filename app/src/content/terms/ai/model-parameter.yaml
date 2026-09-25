@@ -13,10 +13,10 @@ summary:
   da: Et af de tal inde i en model, der fastsættes ved at lære af data; antallet af dem er den måde, modelstørrelse normalt opgives på.
 body:
   formal:
-    en: An internal value of a model - mostly the model weights plus small offset values - that model training adjusts to reduce the loss; a large language model can have billions of them.
+    en: An internal value of a model, mostly the model weights plus small offset values, that model training adjusts to reduce the loss; a large language model can have billions of them.
     da: En intern værdi i en model - mest modelvægtene plus små forskydningsværdier - som modeltræning justerer for at mindske tabet; en stor sprogmodel kan have milliarder af dem.
   plain:
-    en: Like the tiles in a huge mosaic - no single tile means much, but together their colours make the picture, and more tiles allow finer detail.
+    en: Like the tiles in a huge mosaic; no single tile means much, but together their colours make the picture, and more tiles allow finer detail.
     da: Som stenene i en kæmpe mosaik - ingen enkelt sten betyder meget, men tilsammen danner deres farver billedet, og flere sten giver finere detaljer.
   inPractice:
     en: An IT buyer in a municipality compares a “7B” and a “70B” model for an internal assistant; the figures are billions of model parameters and give a rough guide to memory needs, running cost and ability.
@@ -32,7 +32,7 @@ deepDive:
 
     Memory follows from parameter count and numeric format: 4 bytes per parameter in FP32, 2 in BF16 or FP16, 1 in INT8 and about 0.5 at 4 bits. A 7-billion-parameter model therefore needs about 14 GB for its weights in BF16, before the KV cache and activations. Training is far heavier: mixed-precision training with Adam needs roughly 16 bytes per parameter for weights, gradients, FP32 master weights and two moment estimates, as analysed in the ZeRO paper, so a 7B model needs over 100 GB for model and optimiser state alone.
 
-    Parameter count is a poor proxy for capability on its own. Kaplan et al. (2020) found loss falling as a power law in parameters, but Hoffmann et al. (2022) showed that many large models were undertrained and that compute-optimal training uses on the order of 20 tokens per parameter; their 70B Chinchilla, trained on 1.4 trillion tokens, outperformed the 280B Gopher. Training compute is commonly estimated as C ≈ 6·N·D for N parameters and D tokens. Regulation reflects this: the EU AI Act presumes systemic risk for general-purpose models by training compute above 10²⁵ FLOPs (Art. 51(2)), not by parameter count. Contrast hyperparameters, which are chosen, not learned, and weights, which are the largest subset of parameters.
+    Parameter count is a poor proxy for capability on its own. Kaplan et al. (2020) found loss falling as a power law in parameters, but Hoffmann et al. (2022) showed that many large models were undertrained and that compute-optimal training uses on the order of 20 tokens per parameter; their 70B Chinchilla, trained on 1.4 trillion tokens, outperformed the 280B Gopher. Training compute is commonly estimated as C ≈ 6·N·D for N parameters and D tokens. Regulation reflects this: the EU AI Act presumes that a general-purpose model has high-impact capabilities, the trigger for classing it as a model with systemic risk, when its cumulative training compute exceeds 10²⁵ floating-point operations (Art. 51(2)); the test is compute, not parameter count. Contrast hyperparameters, which are chosen, not learned, and weights, which are the largest subset of parameters.
   da: |-
     I et neuralt netværk er parametrene alle de tensorer, optimeringsalgoritmen opdaterer: vægtmatricer og biasvektorer i lineære lag, foldningskerner, tabeller med token-embeddings, lærte positionsembeddings og skalering og forskydning (γ, β) i normaliseringslag. Ikke alle gemte tal er parametre. Batchnormaliseringens løbende middelværdi og varians opdateres ved gennemsnit og ikke via gradienter, og derfor registrerer PyTorch dem som buffere frem for parametre; optimeringsalgoritmens egen tilstand, som Adams momentestimater, er heller ikke en del af modellen, selv om den gemmes i træningscheckpoints.
 
@@ -40,7 +40,7 @@ deepDive:
 
     Hukommelse følger af antallet af parametre og talformatet: 4 byte pr. parameter i FP32, 2 i BF16 eller FP16, 1 i INT8 og omkring 0,5 ved 4 bit. En model med 7 milliarder parametre kræver derfor cirka 14 GB til vægtene i BF16, før KV-cache og aktiveringer. Træning er langt tungere: træning med blandet præcision og Adam kræver omtrent 16 byte pr. parameter til vægte, gradienter, FP32-mastervægte og to momentestimater, som analyseret i ZeRO-artiklen, så en 7B-model kræver over 100 GB alene til model- og optimeringstilstand.
 
-    Antallet af parametre er i sig selv en dårlig indikator for evner. Kaplan m.fl. (2020) fandt, at tabet falder som en potenslov i antallet af parametre, men Hoffmann m.fl. (2022) viste, at mange store modeller var undertrænede, og at beregningsoptimal træning bruger i størrelsesordenen 20 tokens pr. parameter; deres Chinchilla på 70B, trænet på 1,4 billioner tokens, slog Gopher på 280B. Træningsberegningen anslås ofte som C ≈ 6·N·D for N parametre og D tokens. Reguleringen afspejler det: EU's AI-forordning formoder systemisk risiko for AI-modeller til almen brug ud fra træningsberegning over 10²⁵ FLOP (art. 51, stk. 2), ikke ud fra antallet af parametre. Til forskel fra hyperparametre vælges parametre ikke, men læres, og vægte er den største delmængde af dem.
+    Antallet af parametre er i sig selv en dårlig indikator for evner. Kaplan m.fl. (2020) fandt, at tabet falder som en potenslov i antallet af parametre, men Hoffmann m.fl. (2022) viste, at mange store modeller var undertrænede, og at beregningsoptimal træning bruger i størrelsesordenen 20 tokens pr. parameter; deres Chinchilla på 70B, trænet på 1,4 billioner tokens, slog Gopher på 280B. Træningsberegningen anslås ofte som C ≈ 6·N·D for N parametre og D tokens. Reguleringen afspejler det: EU's AI-forordning formoder, at en AI-model til almen brug har kapaciteter med stor virkning, som udløser klassificering som model med systemisk risiko, når den samlede træningsberegning overstiger 10²⁵ flydende kommaoperationer (art. 51, stk. 2); kriteriet er beregning, ikke antallet af parametre. Til forskel fra hyperparametre vælges parametre ikke, men læres, og vægte er den største delmængde af dem.
 edges:
   requires: [machine-learning]
   part-of:
@@ -55,6 +55,15 @@ sources:
   - title: 'Goodfellow, Bengio & Courville, Deep Learning'
     tier: textbook
     publisher: MIT Press
+    url: https://www.deeplearningbook.org/
   - title: Kaplan et al. (2020), Scaling Laws for Neural Language Models
     tier: reference
+    url: https://arxiv.org/abs/2001.08361
+  - title: Hoffmann et al. (2022), Training Compute-Optimal Large Language Models
+    tier: reference
+    url: https://arxiv.org/abs/2203.15556
+  - title: Regulation (EU) 2024/1689 (AI Act), Article 51
+    tier: standard
+    publisher: EUR-Lex
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
 draft: true

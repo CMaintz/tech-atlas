@@ -16,7 +16,7 @@ body:
     en: Data generated rather than collected, designed to keep the useful patterns of real data; used as training data, for testing, or to share data sets without exposing personal data.
     da: Data, der er skabt i stedet for indsamlet, og som er designet til at bevare de nyttige mønstre fra rigtige data; bruges som træningsdata, til test eller til at dele datasæt uden at afsløre personoplysninger.
   plain:
-    en: Like a flight simulator - the storms and engine failures are not real, but a pilot can practise them safely and as often as needed.
+    en: Like a flight simulator; the storms and engine failures are not real, but a pilot can practise them safely and as often as needed.
     da: Som en flysimulator - stormene og motorsvigtene er ikke ægte, men en pilot kan øve dem sikkert og så tit, det er nødvendigt.
   inPractice:
     en: A pension fund wants a supplier to test its new member portal without seeing real member data, so the fund's test manager generates 50,000 made-up members with realistic ages, salaries and payments.
@@ -26,11 +26,11 @@ body:
     da: Det kan lette problemer med privatliv og datamangel, men dårligt lavede syntetiske data kan stadig lække rigtige personers oplysninger eller bage fejlene fra den model, der lavede dem, ind.
 deepDive:
   en: |-
-    Synthetic data is produced by very different generators. Rule-based and simulation approaches range from test-data libraries that fill schemas with plausible values to physics and driving simulators that render labelled sensor data. Statistical approaches fit a model of the joint distribution of a real table - Bayesian networks, copulas, as in the open-source Synthetic Data Vault - and sample new rows. Deep generative models (GANs such as CTGAN, variational autoencoders, diffusion models) handle images and complex tabular data, and large language models now generate text at scale: instruction-response pairs (Self-Instruct, Alpaca), textbook-style training corpora (the phi-1 model of Gunasekar et al., 2023) and reasoning traces filtered by automatic checkers. A distinction is drawn between fully synthetic data sets and partially synthetic ones in which only sensitive fields are replaced. SMOTE-style oversampling, which interpolates between existing minority-class examples, sits on the boundary with data augmentation.
+    Synthetic data is produced by very different generators. Rule-based and simulation approaches range from test-data libraries that fill schemas with plausible values to physics and driving simulators that render labelled sensor data. Statistical approaches fit a model of the joint distribution of a real table (Bayesian networks or copulas, as in the open-source Synthetic Data Vault) and sample new rows. Deep generative models (GANs such as CTGAN, variational autoencoders, diffusion models) handle images and complex tabular data, and large language models now generate text at scale: instruction and response pairs (Self-Instruct, Alpaca), textbook-style training corpora (the phi-1 model of Gunasekar et al., 2023) and reasoning traces filtered by automatic checkers. A distinction is drawn between fully synthetic data sets and partially synthetic ones in which only sensitive fields are replaced. SMOTE-style oversampling, which interpolates between existing minority-class examples, sits on the boundary with data augmentation.
 
     Quality is assessed on three axes. Fidelity compares marginal distributions, correlations and higher-order structure with the real data. Utility is usually measured by "train on synthetic, test on real": a model trained on the synthetic set is evaluated on held-out real data and compared with one trained on real data. Privacy is tested by distance-to-closest-record checks and by simulated membership- and attribute-inference attacks. The axes pull against each other: the more faithfully a generator reproduces the data, the more it risks reproducing individual records.
 
-    Synthetic data derived from personal data is therefore not automatically anonymous under the GDPR. The test in Recital 26 is whether identification is possible by means reasonably likely to be used, and generators can memorise and leak outliers. Stadler, Oprisanu and Troncoso (USENIX Security 2022) showed empirically that synthetic data either fails to prevent inference attacks or fails to retain utility, with a privacy-utility trade-off that is hard to predict. Differential privacy is the main way to obtain a formal guarantee, bounding each individual's influence on the generator, but it costs accuracy, especially for small subgroups. Using synthetic records in development and test environments supports the data minimisation principle (GDPR Art. 5(1)(c)), but the generator itself is trained on personal data and needs a legal basis.
+    Synthetic data derived from personal data is therefore not automatically anonymous under the GDPR. The test in Recital 26 is whether identification is possible by means reasonably likely to be used, and generators can memorise and leak outliers. Stadler, Oprisanu and Troncoso (USENIX Security 2022) showed empirically that synthetic data either fails to prevent inference attacks or fails to retain utility, with a trade-off between privacy and utility that is hard to predict. Differential privacy is the main way to obtain a formal guarantee, bounding each individual's influence on the generator, but it costs accuracy, especially for small subgroups. Using synthetic records in development and test environments supports the data minimisation principle (GDPR Art. 5(1)(c)), but the generator itself is trained on personal data and needs a legal basis.
 
     For model training, heavy reliance on generated data carries its own risk. Shumailov et al. (2024) showed in Nature that models trained recursively on the output of earlier generations lose the tails of the original distribution and eventually collapse; follow-up work found that accumulating real data alongside synthetic data, rather than replacing it, largely avoids this. Synthetic data also inherits and can amplify the biases and factual errors of its generator, and outputs from proprietary models may be restricted by the provider's terms when used to train competing models.
   da: |-
@@ -47,7 +47,7 @@ edges:
   mitigates:
     - to: data-breach
       why:
-        en: Working on made-up records instead of real personal data means a leak exposes less - but only if individuals cannot be traced back from it.
+        en: Working on made-up records instead of real personal data means a leak exposes less, but only if individuals cannot be traced back from it.
         da: At arbejde på opdigtede poster i stedet for rigtige personoplysninger betyder, at et læk afslører mindre - men kun hvis enkeltpersoner ikke kan spores tilbage.
       strength: minor
       confidence: medium
@@ -59,13 +59,15 @@ edges:
       strength: minor
       confidence: medium
 sources:
-  - title: ISO/IEC 22989:2022 - Artificial intelligence concepts and terminology
+  - title: ISO/IEC 22989:2022, Artificial intelligence concepts and terminology
     tier: standard
     publisher: ISO/IEC
+    url: https://www.iso.org/standard/74296.html
   - title: Shumailov et al. (2024), AI models collapse when trained on recursively generated data
     tier: reference
-    publisher: Nature
-  - title: 'Stadler, Oprisanu & Troncoso, Synthetic Data - Anonymisation Groundhog Day'
+    publisher: Nature 631
+    url: https://doi.org/10.1038/s41586-024-07566-y
+  - title: 'Stadler, Oprisanu & Troncoso, Synthetic Data: Anonymisation Groundhog Day'
     tier: reference
     publisher: USENIX Security 2022
     url: https://arxiv.org/abs/2011.07018

@@ -1,0 +1,66 @@
+term:
+  en: Random forest
+  da: Random forest
+aka:
+  en: [random decision forest]
+  da: [tilfældig skov]
+domain: [ai]
+cluster: ml-fundamentals
+layer: model
+status: current
+summary:
+  en: A model that builds many slightly different decision trees on random parts of the data and lets them vote on the answer.
+  da: En model, der bygger mange lidt forskellige beslutningstræer på tilfældige dele af data og lader dem stemme om svaret.
+body:
+  formal:
+    en: A group of decision tree models, each trained on a random sample of the training data and allowed to look at only a random few features at each split; for a new case the trees' answers are combined by vote or average.
+    da: En samling af beslutningstræer, hvor hvert træ trænes på en tilfældig stikprøve af træningsdata og kun må se på nogle få tilfældigt valgte features ved hver opdeling; for en ny sag kombineres træernes svar ved afstemning eller gennemsnit.
+  plain:
+    en: Like asking hundreds of people to guess the number of sweets in a jar, each seeing it from a different side; single guesses are often far off, but the average is usually close.
+    da: Som at bede hundredvis af mennesker gætte, hvor mange bolcher der er i et glas, hver fra sin egen side. De enkelte gæt rammer tit ved siden af, men gennemsnittet er som regel tæt på.
+  inPractice:
+    en: A Danish hospital predicts which patients are likely to be admitted again within 30 days from age, earlier stays and lab results, and it works well without much tuning.
+    da: Et dansk hospital forudsiger, hvilke patienter der sandsynligvis bliver genindlagt inden for 30 dage, ud fra alder, tidligere indlæggelser og prøvesvar, og det virker godt uden meget finjustering.
+  whyItMatters:
+    en: It fixes the biggest problem with a single tree, learning its examples too closely, and gives strong results on table data with little effort, which makes it a common first choice.
+    da: Den retter den største svaghed ved et enkelt træ, at det lærer eksemplerne for tæt, og giver stærke resultater på data i tabeller med lille indsats, hvilket gør den til et oplagt førstevalg.
+deepDive:
+  en: |-
+    Random forests were introduced by Leo Breiman (2001, Machine Learning 45(1)). They combine bagging (bootstrap aggregating, Breiman 1996), where each tree is trained on a bootstrap sample drawn with replacement, with random feature subsampling: at every split only a random subset of features is considered. The second source of randomness decorrelates the trees, and because the variance of an average falls with the correlation between its members, the ensemble has much lower variance than any single deep tree while keeping its low bias.
+
+    The key hyperparameters are the number of trees, where more is never worse for accuracy but costs time; max_features, the size of the random subset, with sqrt(p) a common default for classification and all features the scikit-learn default for regression; and tree depth or minimum leaf size. Breiman's original method lets each tree vote; scikit-learn instead averages the trees' predicted class probabilities.
+
+    Since each bootstrap sample leaves out about a third of the rows (1 - 1/e, roughly 36.8 percent), every tree has out-of-bag samples it never saw. Predicting each row with only the trees that did not train on it gives the out-of-bag error, a nearly free estimate of generalisation error. Forests also yield feature importances, either the mean decrease in impurity (fast but biased toward high-cardinality features) or permutation importance.
+
+    Random forests are robust, parallelise trivially and need little tuning, which makes them a strong baseline for tabular data. Well-tuned gradient boosting usually beats them on accuracy, and like all tree ensembles they cannot extrapolate beyond the target range seen in training. Extremely randomised trees (Geurts et al., 2006) push the idea further by also choosing split thresholds at random.
+  da: |-
+    Random forests blev introduceret af Leo Breiman (2001, Machine Learning 45(1)). De kombinerer bagging (bootstrap aggregating, Breiman 1996), hvor hvert træ trænes på en bootstrapstikprøve trukket med tilbagelægning, med tilfældig udvælgelse af features: Ved hver opdeling overvejes kun en tilfældig delmængde af features. Den anden kilde til tilfældighed dekorrelerer træerne, og fordi variansen af et gennemsnit falder med korrelationen mellem dets medlemmer, har ensemblet langt lavere varians end noget enkelt dybt træ, samtidig med at den lave bias bevares.
+
+    De vigtigste hyperparametre er antallet af træer, hvor flere aldrig giver dårligere nøjagtighed, men koster tid; max_features, størrelsen af den tilfældige delmængde, hvor sqrt(p) er en almindelig standard ved klassifikation og alle features er scikit-learns standard ved regression; samt træernes dybde eller mindste bladstørrelse. Breimans oprindelige metode lader hvert træ stemme; scikit-learn tager i stedet gennemsnittet af træernes forudsagte klassesandsynligheder.
+
+    Da hver bootstrapstikprøve udelader omkring en tredjedel af rækkerne (1 - 1/e, ca. 36,8 procent), har hvert træ out-of-bag-eksempler, det aldrig har set. Forudsiges hver række kun med de træer, der ikke er trænet på den, får man out-of-bag-fejlen, et næsten gratis skøn over generaliseringsfejlen. Skove giver også feature-vigtigheder, enten gennemsnitligt fald i urenhed (hurtigt, men skævt mod features med mange værdier) eller permutationsvigtighed.
+
+    Random forests er robuste, lader sig let parallelisere og kræver lidt tuning, hvilket gør dem til en stærk målestok for data i tabeller. Veltunet gradient boosting slår dem som regel på nøjagtighed, og som alle træensembler kan de ikke ekstrapolere ud over det interval af målværdier, de så under træningen. Extremely randomised trees (Geurts m.fl., 2006) fører idéen videre ved også at vælge opdelingstærsklerne tilfældigt.
+edges:
+  requires: [decision-tree]
+  mitigates:
+    - to: overfitting
+      why:
+        en: Each tree learns its data too closely in its own way, and averaging many different trees cancels much of that out.
+        da: Hvert træ lærer sine data for tæt på sin egen måde, og et gennemsnit af mange forskellige træer udligner meget af det.
+      strength: primary
+      confidence: high
+sources:
+  - title: 'Breiman (2001), Random Forests'
+    url: https://doi.org/10.1023/A:1010933404324
+    tier: reference
+    publisher: Machine Learning
+  - title: 'scikit-learn User Guide, 1.11 Ensembles: random forests'
+    url: https://scikit-learn.org/stable/modules/ensemble.html#random-forests-and-other-randomized-tree-ensembles
+    tier: official-doc
+    publisher: scikit-learn
+  - title: 'Hastie, Tibshirani & Friedman, The Elements of Statistical Learning (2nd ed.), ch. 15'
+    url: https://hastie.su.domains/ElemStatLearn/
+    tier: textbook
+    publisher: Springer
+draft: true

@@ -16,7 +16,7 @@ body:
     en: A unit of model training in which each example in the training data has been used once to update the model; the number of epochs is a hyperparameter set before training starts.
     da: En enhed i modeltræning, hvor hvert eksempel i træningsdata er brugt én gang til at opdatere modellen; antallet af epoker er en hyperparameter, der sættes, før træningen starter.
   plain:
-    en: Like one full run-through of a choir's concert programme - a few run-throughs polish it, but after fifty the singers can only sing it exactly as rehearsed.
+    en: Like one full run-through of a choir's concert programme; a few run-throughs polish it, but after fifty the singers can only sing it exactly as rehearsed.
     da: Som at synge et kors koncertprogram igennem én gang - et par gange gør det skarpere, men efter halvtreds gange kan sangerne kun synge det nøjagtig, som de har øvet det.
   inPractice:
     en: A data analyst at a Danish shipping company trains a model to predict fuel use from past voyages; she checks the validation set after each epoch and stops at epoch six, when results stop improving although the training error keeps falling.
@@ -56,6 +56,10 @@ sources:
   - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 7.8, early stopping)'
     tier: textbook
     publisher: MIT Press
+    url: https://www.deeplearningbook.org/contents/regularization.html
+  - title: Nakkiran et al. (2019), Deep Double Descent
+    tier: reference
+    url: https://arxiv.org/abs/1912.02292
   - title: Muennighoff et al. (2023), Scaling Data-Constrained Language Models
     tier: reference
     publisher: NeurIPS 2023

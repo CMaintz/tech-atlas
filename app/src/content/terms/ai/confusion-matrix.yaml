@@ -9,7 +9,7 @@ cluster: evaluation
 layer: theory
 status: current
 summary:
-  en: A small table that counts, for every true class, how often a model gave each answer - showing exactly which mistakes it makes.
+  en: A small table that counts, for every true class, how often a model gave each answer, showing exactly which mistakes it makes.
   da: En lille tabel, der for hver sand klasse tæller, hvor ofte en model gav hvert svar - og viser præcis, hvilke fejl den begår.
 body:
   formal:
@@ -61,9 +61,16 @@ sources:
   - title: 'Fawcett (2006), An introduction to ROC analysis'
     tier: reference
     publisher: Pattern Recognition Letters
-  - title: 'Jurafsky & Martin, Speech and Language Processing (ch. 4, Evaluation: precision, recall, F-measure)'
+    url: https://doi.org/10.1016/j.patrec.2005.10.010
+  - title: 'Jurafsky & Martin, Speech and Language Processing, 3rd ed. draft (§4.9, Evaluation: Precision, Recall, F-measure)'
     tier: textbook
+    url: https://web.stanford.edu/~jurafsky/slp3/
+  - title: scikit-learn User Guide, Metrics and scoring (classification metrics)
+    tier: official-doc
+    publisher: scikit-learn
+    url: https://scikit-learn.org/stable/modules/model_evaluation.html
   - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    url: https://aima.cs.berkeley.edu/
     tier: textbook
     publisher: Pearson
 draft: true

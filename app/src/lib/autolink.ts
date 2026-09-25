@@ -54,14 +54,15 @@ const STOP: Record<Lang, Set<string>> = {
 /**
  * Names that are the term inside its own domain but an everyday word, or a
  * different concept, outside it: an AI "token" vs an OAuth access token, a
- * car "recall", paying "attention", data "sensitivity". They link only on
+ * car "recall", paying "attention", data "sensitivity", a product "feature", a
+ * classification or certification "label". They link only on
  * pages in the same domain as the term. Fuller names ("attention mechanism",
  * "true positive rate") are unaffected. Each entry is backed by a real false
  * link found in the content (see autolink.test.ts).
  */
 const SAME_DOMAIN_ONLY: Record<Lang, Set<string>> = {
-  en: new Set(['attention', 'recall', 'sensitivity', 'token']),
-  da: new Set(['token']),
+  en: new Set(['attention', 'feature', 'label', 'recall', 'sensitivity', 'token']),
+  da: new Set(['feature', 'label', 'mærkat', 'token']),
 };
 
 const domainOf = (id: string) => id.split('/')[0];

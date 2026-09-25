@@ -16,7 +16,7 @@ body:
     en: A part of the labelled data kept out of the training data and used during model training to compare hyperparameter choices and pick the best round to stop; because choices are tuned to it, its scores are not a fair final result.
     da: En del af de mærkede data, der holdes uden for træningsdata og bruges under modeltræningen til at sammenligne valg af hyperparametre og vælge den bedste runde at stoppe i; da valgene tilpasses til den, er dens resultater ikke et retfærdigt slutresultat.
   plain:
-    en: Like a cook tasting the sauce again and again while it simmers, adjusting salt and time - useful for steering, but not the guests' honest verdict on the finished dish.
+    en: Like a cook tasting the sauce again and again while it simmers, adjusting salt and time, which helps steer the cooking but is not the guests' honest verdict on the finished dish.
     da: Som en kok, der smager på saucen igen og igen, mens den simrer, og justerer salt og tid - nyttigt at styre efter, men ikke gæsternes ærlige dom over den færdige ret.
   inPractice:
     en: A data analyst in a ministry tries five settings for a model that sorts public consultation responses by topic and keeps the one that scores best on 1,500 responses held back from training; the test set stays closed until then.
@@ -30,7 +30,7 @@ deepDive:
 
     When data is scarce, a single split wastes examples and gives a noisy estimate, so k-fold cross-validation (typically k = 5 or 10) rotates the validation role across folds and averages the score; stratified folds keep class ratios constant. If the cross-validated score is also used to report performance after tuning, it is biased upward; nested cross-validation fixes this with an inner loop for tuning and an outer loop for estimation, a point made forcefully by Cawley and Talbot (2010). Time series need forward-chaining schemes such as scikit-learn's TimeSeriesSplit, where every validation fold lies after its training data, and grouped data needs group-aware folds.
 
-    Early stopping is the most visible use. The validation loss is evaluated periodically, training stops when it has not improved for a set number of evaluations (the patience), and the checkpoint with the best validation score is restored - Keras exposes this as restore_best_weights. Goodfellow et al. (§7.8) interpret early stopping as a form of regularisation. A common follow-up is to retrain on training plus validation data for the chosen number of steps, trading a held-out check for more data.
+    Early stopping is the most visible use. The validation loss is evaluated periodically, training stops when it has not improved for a set number of evaluations (the patience), and the checkpoint with the best validation score is restored; Keras exposes this as restore_best_weights. Goodfellow et al. (§7.8) interpret early stopping as a form of regularisation. A common follow-up is to retrain on training plus validation data for the chosen number of steps, trading a held-out check for more data.
 
     The validation score is an optimistically biased estimate of the selected model, and the bias grows with the number of configurations tried: taking the maximum over many noisy scores rewards configurations that got lucky on this particular sample, the winner's curse of model selection. Large hyperparameter sweeps can therefore overfit the validation set, which is why a separate test set is still required. In LLM fine-tuning frameworks the "eval" split, such as the eval_dataset in Hugging Face's Trainer, is a validation set in this sense. Terminology varies: NLP often says dev set, while clinical research uses "validation" for what machine learning calls testing.
   da: |-
@@ -61,7 +61,16 @@ sources:
   - title: 'Goodfellow, Bengio & Courville, Deep Learning (ch. 5.3 and 7.8)'
     tier: textbook
     publisher: MIT Press
+    url: https://www.deeplearningbook.org/
   - title: 'Russell & Norvig, Artificial Intelligence: A Modern Approach'
+    url: https://aima.cs.berkeley.edu/
     tier: textbook
     publisher: Pearson
+  - title: 'Cawley & Talbot (2010), On Over-fitting in Model Selection and Subsequent Selection Bias in Performance Evaluation'
+    tier: reference
+    publisher: Journal of Machine Learning Research 11
+    url: https://jmlr.org/papers/v11/cawley10a.html
+  - title: 'Jurafsky & Martin, Speech and Language Processing, 3rd ed. draft (§4.10, Test sets and Cross-validation)'
+    tier: textbook
+    url: https://web.stanford.edu/~jurafsky/slp3/
 draft: true
