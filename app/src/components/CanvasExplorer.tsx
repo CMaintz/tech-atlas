@@ -652,8 +652,33 @@ export default function CanvasExplorer(props: Props) {
       return { x: ev.clientX - r.left, y: ev.clientY - r.top };
     };
     const hit = (x: number, y: number) => e.grid.nearest(x, y, e.sx, e.sy, e.dr, e.order);
+    /** Zoom by `k` about the screen point `p`: the point under it stays put. */
+    const zoomAt = (p: { x: number; y: number }, k0: number) => {
+      const next = Math.min(8, Math.max(0.3, c.zoom * k0));
+      const k = next / c.zoom;
+      c.panX = p.x - c.cx - (p.x - c.cx - c.panX) * k;
+      c.panY = p.y - h2() - (p.y - h2() - c.panY) * k;
+      c.zoom = next;
+      c.focus = -1;
+      v.dirty = true;
+    };
+    // Two fingers down: pinch-zoom about their centre (and pan with it).
+    const touches = new Map<number, { x: number; y: number }>();
+    let pinch: null | { d: number; x: number; y: number } = null;
+    const pinchState = () => {
+      const [a, b] = [...touches.values()];
+      return { d: Math.hypot(a.x - b.x, a.y - b.y) || 1, x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+    };
     const onDown = (ev: PointerEvent) => {
       const p = local(ev);
+      touches.set(ev.pointerId, p);
+      if (touches.size === 2) {
+        drag = null;
+        pinch = pinchState();
+        el.setPointerCapture(ev.pointerId);
+        return;
+      }
+      if (touches.size > 2) return;
       const node = hit(p.x, p.y);
       drag = {
         id: ev.pointerId,
@@ -667,6 +692,15 @@ export default function CanvasExplorer(props: Props) {
       el.setPointerCapture(ev.pointerId);
     };
     const onMove = (ev: PointerEvent) => {
+      if (touches.has(ev.pointerId)) touches.set(ev.pointerId, local(ev));
+      if (pinch && touches.size === 2) {
+        const next = pinchState();
+        c.panX += next.x - pinch.x;
+        c.panY += next.y - pinch.y;
+        zoomAt(next, next.d / pinch.d);
+        pinch = next;
+        return;
+      }
       if (!drag) {
         const p = local(ev);
         const hov = hit(p.x, p.y);
@@ -701,7 +735,12 @@ export default function CanvasExplorer(props: Props) {
       }
       v.dirty = true;
     };
-    const onUp = () => {
+    const onUp = (ev: PointerEvent) => {
+      touches.delete(ev.pointerId);
+      if (pinch) {
+        if (touches.size < 2) pinch = null;
+        return;
+      }
       if (!drag) return;
       const { node, moved } = drag;
       drag = null;
@@ -727,14 +766,7 @@ export default function CanvasExplorer(props: Props) {
     };
     const onWheel = (ev: WheelEvent) => {
       ev.preventDefault();
-      const p = local(ev);
-      const next = Math.min(8, Math.max(0.3, c.zoom * Math.exp(-ev.deltaY * 0.0012)));
-      const k = next / c.zoom;
-      // Zoom about the pointer: the point under it stays put.
-      c.panX = p.x - c.cx - (p.x - c.cx - c.panX) * k;
-      c.panY = p.y - h2() - (p.y - h2() - c.panY) * k;
-      c.zoom = next;
-      v.dirty = true;
+      zoomAt(local(ev), Math.exp(-ev.deltaY * 0.0012));
     };
     const h2 = () => midY(c.h);
     el.addEventListener('pointerdown', onDown);

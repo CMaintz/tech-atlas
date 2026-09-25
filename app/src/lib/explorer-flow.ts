@@ -107,10 +107,11 @@ export function startDots(
   };
   const markDirty = () => void (dirty = true);
   cy.on('class style position add remove', markDirty);
-  // Pan and zoom move a snapshot of the map (textureOnViewport); the dots rest until the
-  // gesture settles, so the frame budget goes to the gesture.
-  let movedAt = -Infinity;
-  const onViewport = () => void (movedAt = performance.now());
+  // Pan and zoom: the dots follow the live viewport (cy.pan()/cy.zoom()) in the very
+  // next animation frame, outside the fps throttle, so they stay locked to the map and
+  // never blink out mid-gesture (A86).
+  let moved = false;
+  const onViewport = () => void (moved = true);
   cy.on('viewport', onViewport);
 
   let raf = 0;
@@ -125,7 +126,7 @@ export function startDots(
   };
   const draw = (t: number) => {
     clear();
-    if (paused() || !container.offsetParent || t - movedAt < cfg.settleMs) return;
+    if (paused() || !container.offsetParent) return;
     if (dirty) rebuild();
     const zoom = cy.zoom();
     const pan = cy.pan();
@@ -169,7 +170,8 @@ export function startDots(
       return;
     }
     raf = requestAnimationFrame(tick);
-    if (t - last < 1000 / cfg.fps) return;
+    if (!moved && t - last < 1000 / cfg.fps) return;
+    moved = false;
     last = t;
     draw(t);
   };

@@ -67,10 +67,8 @@ export const EXPLORER = {
     radius: 1.4,
     alpha: 0.4,
     litAlpha: 0.95,
-    /** Repaint rate of the overlay. */
+    /** Repaint rate of the overlay at rest; during a pan or zoom it follows every frame. */
     fps: 30,
-    /** The dots rest during a pan or zoom and for this long after it. */
-    settleMs: 200,
   },
 
   motion: {
@@ -138,9 +136,23 @@ export const EXPLORER = {
     hubLabelHeight: 24,
     /** Minimum distance between terms (see `spacing`), in scene units. */
     labelClearance: 10,
-    /** Flow particles along every visible one-way link: fraction of a link per second. */
-    particleSpeed: 0.05,
-    particleSize: 5,
+    /**
+     * Flow comets along every visible one-way link (A86): scene units per second, head
+     * size (scene units, clamped to minPx–maxPx on screen), each tail point's brightness
+     * (head first) and the gap between them, and brightness at rest, lit (hovered /
+     * selected) and dimmed (outside the selection).
+     */
+    flow: {
+      speed: 34,
+      size: 14,
+      minPx: 4,
+      maxPx: 18,
+      trail: [1, 0.55, 0.3, 0.14] as readonly number[],
+      tailGap: 10,
+      alpha: 0.95,
+      litAlpha: 1.4,
+      dimAlpha: 0.08,
+    },
     introMs: 2200,
   },
 } as const;
