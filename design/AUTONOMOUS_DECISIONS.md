@@ -5,7 +5,7 @@ log it, we review later"). Review these together after v1 is built.
 
 ## Current build status (2026-09-25)
 
-315 terms (security 177, cs 68, platform 40, ai 30) × 2 languages, 20 articles per
+419 terms (security 177, cs 68, platform 40, ai 134) × 2 languages, 20 articles per
 language, all `draft: true`. `mise run gate` is green; the production build emits the
 term, article, compare, disambiguation, A–Z, data, Explorer, Timeline, Study and review
 pages plus short-name redirects, JSON/CSV/Anki exports, RSS feeds and a sitemap. Deploys
