@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: Chips built for one job are one of the main ways the largest AI firms cut the cost of training and running models and depend less on a single chip maker, which shapes what AI costs everyone else.
     da: Chips bygget til én opgave er en af de vigtigste måder, de største AI-firmaer sænker prisen på at træne og køre modeller og bliver mindre afhængige af én chipproducent — og det påvirker, hvad AI koster for alle andre.
+deepDive:
+  en: |-
+    Google began deploying the first TPU in its data centres in 2015 and described it publicly in 2016; the ISCA 2017 paper by Jouppi et al. gave the details. TPU v1 was an inference-only coprocessor attached over PCIe, built around a matrix unit of 65,536 8-bit multiply-accumulate cells (a 256 × 256 array) and delivering 92 TOPS of peak integer throughput. Its central design choice was the systolic array: operands flow rhythmically through a grid of simple processing elements, each passing partial sums to its neighbour, so a large matrix multiplication proceeds with very few reads and writes to memory. This saves the energy that a general processor spends on caches, instruction fetch and register files, and it is why TPUs achieve high performance per watt on dense linear algebra while being poor at irregular, control-heavy code.
+
+    Later generations turned the chip into a training platform. TPU v2 (2017) added high-bandwidth memory, floating-point support and the bfloat16 format — 8 exponent bits like FP32 but only 7 mantissa bits — which preserves FP32's dynamic range and has since been adopted widely by other hardware. From v2 onward, chips are connected by a dedicated inter-chip interconnect (ICI) into "pods"; TPU v4 introduced optically switched 3D-torus topologies for large slices, and later generations continued with v5e and v5p, Trillium (v6e) and Ironwood (TPU7x), announced in April 2025, which Google documents with 192 GB of HBM per chip, native FP8 support and pods of up to 9,216 chips. Many generations combine TensorCores, containing the matrix units plus vector and scalar units, with SparseCores for embedding-heavy workloads such as recommendation models.
+
+    Programming TPUs goes through the XLA compiler, which traces a computation graph and compiles it for the fixed-function hardware. JAX is the most natural front end, with TensorFlow and PyTorch/XLA also supported. The compile-first model has practical consequences: static tensor shapes are strongly preferred, because changing shapes triggers recompilation; custom CUDA kernels do not port and must be rewritten (for example with Pallas) or avoided; and debugging and profiling use different tooling from the GPU world. This, rather than raw performance, is usually the main migration cost.
+
+    Compared with GPUs, TPUs trade generality and vendor choice for efficiency on neural-network workloads and tight integration with Google's infrastructure. They are primarily consumed as Google Cloud capacity and inside Google's own products, so adopting them means accepting that cloud as the execution environment, which is a lock-in and data-residency consideration. The TPU is also one instance of a broader class of AI accelerators (ASICs such as AWS Trainium and Inferentia), and it should not be confused with Google's Edge TPU, a small low-power inference chip for devices that shares the name but not the data-centre architecture.
+  da: |-
+    Google begyndte at tage den første TPU i brug i sine datacentre i 2015 og omtalte den offentligt i 2016; ISCA 2017-artiklen af Jouppi m.fl. gav detaljerne. TPU v1 var en coprocessor kun til inferens, tilsluttet via PCIe og bygget op om en matrixenhed med 65.536 8-bit multiply-accumulate-celler (et 256 × 256-array), der leverede 92 TOPS i maksimal heltalsydelse. Det centrale designvalg var det systoliske array: operanderne strømmer rytmisk gennem et gitter af simple processorelementer, som hver sender delsummer videre til naboen, så en stor matrixmultiplikation gennemføres med meget få læsninger og skrivninger i hukommelsen. Det sparer den energi, en generel processor bruger på caches, instruktionshentning og registerfiler, og det er derfor, TPU'er opnår høj ydelse pr. watt på tæt lineær algebra, men er dårlige til uregelmæssig kode med meget kontrolflow.
+
+    Senere generationer gjorde chippen til en træningsplatform. TPU v2 (2017) tilføjede high-bandwidth memory, understøttelse af flydende kommatal og bfloat16-formatet — 8 eksponentbit som FP32, men kun 7 mantissebit — der bevarer FP32's dynamiske område og siden er taget i brug bredt af anden hardware. Fra v2 og frem forbindes chippene med en dedikeret inter-chip interconnect (ICI) til "pods"; TPU v4 indførte optisk omkoblede 3D-torus-topologier til store slices, og senere generationer fortsatte med v5e og v5p, Trillium (v6e) og Ironwood (TPU7x), annonceret i april 2025, som Google dokumenterer med 192 GB HBM pr. chip, indbygget FP8-understøttelse og pods på op til 9.216 chips. Flere generationer kombinerer TensorCores, der rummer matrixenhederne samt vektor- og skalarenheder, med SparseCores til arbejdsbelastninger med mange embeddings, fx anbefalingsmodeller.
+
+    TPU'er programmeres gennem XLA-compileren, der sporer en beregningsgraf og kompilerer den til den specialiserede hardware. JAX er den mest naturlige frontend, og TensorFlow og PyTorch/XLA understøttes også. Denne kompilér-først-model har praktiske konsekvenser: statiske tensorformer foretrækkes klart, fordi ændrede former udløser genkompilering; brugerdefinerede CUDA-kernels kan ikke flyttes og skal skrives om (fx med Pallas) eller undgås; og fejlfinding og profilering foregår med andre værktøjer end i GPU-verdenen. Det er som regel dette og ikke den rå ydelse, der er den største omkostning ved at flytte.
+
+    Sammenlignet med GPU'er bytter TPU'er alsidighed og valg af leverandør for effektivitet på neurale netværk og tæt integration med Googles infrastruktur. De bruges primært som kapacitet i Google Cloud og i Googles egne produkter, så at tage dem i brug betyder at acceptere denne cloud som afviklingsmiljø, hvilket er et spørgsmål om lock-in og dataplacering. TPU'en er også ét eksempel på en bredere klasse af AI-acceleratorer (ASIC'er som AWS Trainium og Inferentia), og den skal ikke forveksles med Googles Edge TPU, en lille, strømbesparende inferenschip til enheder, der deler navnet, men ikke datacenterarkitekturen.
 edges:
   requires:
     - to: neural-network
@@ -37,6 +54,10 @@ sources:
   - title: Jouppi et al. (2017), In-Datacenter Performance Analysis of a Tensor Processing Unit
     tier: reference
   - title: Google Cloud documentation — Cloud TPU
+    tier: official-doc
+    publisher: Google
+  - title: Google Cloud documentation — TPU7x (Ironwood)
+    url: https://docs.cloud.google.com/tpu/docs/tpu7x
     tier: official-doc
     publisher: Google
 draft: true

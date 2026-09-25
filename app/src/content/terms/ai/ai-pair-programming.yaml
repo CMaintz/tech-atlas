@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: Keeping a person reading along is what separates helpful speed from blind trust — the human catches the confident mistakes before they reach real users.
     da: At et menneske læser med, er det, der skiller nyttig fart fra blind tillid — mennesket fanger de selvsikre fejl, før de når rigtige brugere.
+deepDive:
+  en: |-
+    Pair programming was formalised in Extreme Programming by Kent Beck in the late 1990s: two developers at one workstation, a driver who types and a navigator who reviews each line, thinks ahead and catches mistakes, swapping roles frequently. GitHub marketed Copilot from its 2021 launch as "your AI pair programmer", and tools such as Aider describe themselves the same way. The metaphor is imperfect in an instructive way: in AI pairing the model usually drives, producing code faster than a person types, and the human becomes the permanent navigator, whose job is exactly the review discipline that is easiest to let slip.
+
+    Effective practice keeps changes small and reversible. The developer states intent and constraints, asks for one focused change, reads the diff, runs tests, and commits before the next step, so each increment can be rolled back; Aider, for example, commits every AI edit to git automatically for this reason. Useful moves include asking for two alternative approaches before choosing, asking the model to explain a line or predict how code behaves on an edge case, having it write failing tests first and then the implementation, and challenging its assumptions rather than accepting the first answer. The model has no persistent memory of team conventions unless they are supplied through instruction files or the prompt.
+
+    The productivity evidence is mixed and context-dependent. In a controlled experiment by Peng et al. (2023), developers with Copilot completed a greenfield task, implementing an HTTP server in JavaScript, 55.8% faster than a control group. METR's randomised trial published in July 2025 found the opposite for experts on familiar ground: 16 experienced open-source maintainers working on 246 real issues in their own large repositories took 19% longer when AI tools were allowed, while believing afterwards that AI had made them about 20% faster. The gap between perceived and measured speed is itself a reason to measure rather than assume.
+
+    The security evidence points the same way. Perry et al. (ACM CCS 2023) found that participants with an AI assistant wrote less secure code on several tasks and were more likely to believe their code was secure, a textbook case of automation bias. Human pairing also delivers knowledge sharing, collective code ownership and mentoring, which AI pairing does not replace and may erode if juniors accept code they could not have written. The line from vibe coding is whether the human reads and understands every change; the line from a coding agent is whether the human is present at every step.
+  da: |-
+    Parprogrammering blev formaliseret i Extreme Programming af Kent Beck i slutningen af 1990'erne: to udviklere ved én arbejdsstation, en driver, der skriver, og en navigatør, der gennemgår hver linje, tænker fremad og fanger fejl, og de bytter roller ofte. GitHub markedsførte Copilot fra lanceringen i 2021 som "your AI pair programmer", og værktøjer som Aider beskriver sig selv på samme måde. Metaforen halter på en lærerig måde: Ved AI-parprogrammering er det som regel modellen, der kører, og den producerer kode hurtigere, end et menneske skriver, mens mennesket bliver den permanente navigatør, hvis opgave netop er den disciplin med gennemgang, der er lettest at slække på.
+
+    God praksis holder ændringerne små og reversible. Udvikleren angiver hensigt og begrænsninger, beder om én fokuseret ændring, læser diffen, kører testene og committer før næste trin, så hvert skridt kan rulles tilbage; Aider committer fx automatisk hver AI-ændring til git af netop den grund. Nyttige greb er at bede om to alternative løsninger, før man vælger, at bede modellen forklare en linje eller forudsige, hvordan koden opfører sig i et grænsetilfælde, at lade den skrive fejlende tests først og derefter implementeringen og at udfordre dens antagelser i stedet for at tage det første svar. Modellen har ingen varig hukommelse om teamets konventioner, medmindre de gives via instruktionsfiler eller prompten.
+
+    Evidensen for produktivitet er blandet og afhænger af konteksten. I et kontrolleret eksperiment af Peng et al. (2023) løste udviklere med Copilot en opgave fra bunden, at implementere en HTTP-server i JavaScript, 55,8 % hurtigere end en kontrolgruppe. METR's randomiserede forsøg, offentliggjort i juli 2025, fandt det modsatte for eksperter på kendt grund: 16 erfarne open source-maintainere, der arbejdede på 246 reelle issues i deres egne store repositories, brugte 19 % længere tid, når AI-værktøjer var tilladt, men mente bagefter, at AI havde gjort dem ca. 20 % hurtigere. Kløften mellem oplevet og målt hastighed er i sig selv en grund til at måle frem for at antage.
+
+    Sikkerhedsevidensen peger samme vej. Perry et al. (ACM CCS 2023) fandt, at deltagere med en AI-assistent skrev mindre sikker kode i flere opgaver og oftere troede, at deres kode var sikker, et skoleeksempel på automatiseringsbias. Parprogrammering mellem mennesker giver desuden videndeling, fælles ejerskab af koden og mentorskab, som AI-parprogrammering ikke erstatter og kan udhule, hvis juniorudviklere accepterer kode, de ikke selv kunne have skrevet. Grænsen til vibe coding går ved, om mennesket læser og forstår hver ændring; grænsen til en kodeagent går ved, om mennesket er til stede ved hvert trin.
 edges:
   requires: [ai-coding-assistant]
   contrasts-with:
@@ -47,4 +64,12 @@ sources:
     tier: reference
   - title: 'Perry et al. (2023), Do Users Write More Insecure Code with AI Assistants? (ACM CCS)'
     tier: reference
+  - title: METR (2025), Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity
+    tier: reference
+    publisher: METR
+    url: https://arxiv.org/abs/2507.09089
+  - title: 'Peng et al. (2023), The Impact of AI on Developer Productivity: Evidence from GitHub Copilot'
+    tier: reference
+    publisher: arXiv
+    url: https://arxiv.org/abs/2302.06590
 draft: true

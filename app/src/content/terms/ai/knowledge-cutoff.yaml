@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Security advice goes stale fast — new weak spots, new attacks, new versions — so answers about recent events must be checked against current sources.
     da: Sikkerhedsråd forælder hurtigt — nye svagheder, nye angreb, nye versioner — så svar om nylige begivenheder skal tjekkes mod aktuelle kilder.
+deepDive:
+  en: |-
+    A cutoff date is a property of the pretraining corpus, not of the model's behaviour, and it is fuzzier than the single date on a model card suggests. Web-scale corpora are assembled from crawl snapshots such as Common Crawl, filtered and deduplicated, and then frozen months before training finishes; the model is then post-trained, evaluated and released, so the gap between cutoff and general availability is commonly several months to a year, and the model may stay in service for a year or more after that. Some providers now publish two dates: Anthropic's model documentation, for example, lists a "reliable knowledge cutoff" (the date through which knowledge is most extensive and reliable) separately from a later "training data cutoff" (the broader range of data used).
+
+    The distinction matters because coverage of any period keeps growing for years after it happens: news analysis, documentation, forum answers and encyclopaedia edits about an event accumulate long after the event itself. The last months before a cutoff are therefore thinly represented, and the model's knowledge of them is patchy. Cheng et al. ("Dated Data", 2024) probed models against time-stamped versions of the same resources and found that effective cutoffs often differ substantially from reported ones, and differ between sub-resources, attributing this to old content reappearing in newer crawl dumps and to deduplication schemes that interact badly with near-duplicates.
+
+    Models also do not reliably know their own cutoff. Asked directly, a model may name a date earlier than the real one, because the text it saw about itself or about the most recent period is sparse. It has no clock either: unless the system prompt or a tool supplies today's date, it will reason as if the present were somewhere near its training period, which produces wrong ages, wrong "latest version" answers and outdated regulatory status. Deployments therefore inject the current date and, where recency matters, give the model search or retrieval.
+
+    The cutoff interacts with neighbouring concepts in specific ways. Retrieval-augmented generation and tool use do not move the cutoff; they place newer text in the context window for the current request only. Fine-tuning on recent data can add some recent knowledge but is an unreliable way to update facts. Continued pretraining or a new model version is the only way to shift the cutoff itself. For security work the practical rule is that anything version-, vulnerability- or law-specific should be checked against a current primary source, because the model's parametric knowledge is guaranteed to be stale for anything that changed after its cutoff.
+  da: |-
+    En skæringsdato er en egenskab ved fortræningskorpusset, ikke ved modellens adfærd, og den er mere uskarp, end den ene dato på et modelkort antyder. Korpusser i webskala samles fra crawl-snapshots som Common Crawl, filtreres og deduplikeres og fryses så måneder før træningen er færdig; derefter eftertrænes, evalueres og udgives modellen, så afstanden fra skæringsdato til generel tilgængelighed er typisk fra flere måneder til et år, og modellen kan være i drift et år eller mere derefter. Nogle udbydere oplyser nu to datoer: Anthropics modeldokumentation angiver fx en "reliable knowledge cutoff" (datoen, hvortil viden er mest omfattende og pålidelig) adskilt fra en senere "training data cutoff" (det bredere interval af data, der er brugt).
+
+    Forskellen betyder noget, fordi dækningen af en given periode bliver ved med at vokse i årevis bagefter: Nyhedsanalyser, dokumentation, forumsvar og opslagsværksrettelser om en begivenhed hober sig op længe efter selve begivenheden. De sidste måneder før en skæringsdato er derfor tyndt repræsenteret, og modellens viden om dem er hullet. Cheng m.fl. ("Dated Data", 2024) testede modeller mod tidsstemplede versioner af de samme kilder og fandt, at de effektive skæringsdatoer ofte afviger markant fra de oplyste og varierer mellem delkilder; de tilskriver det gammelt indhold, der dukker op igen i nyere crawl-dumps, og deduplikering, der fungerer dårligt med næsten-dubletter.
+
+    Modeller kender heller ikke pålideligt deres egen skæringsdato. Spurgt direkte kan en model nævne en tidligere dato end den reelle, fordi den tekst, den har set om sig selv eller om den seneste periode, er sparsom. Den har heller intet ur: Medmindre systemprompten eller et værktøj giver dagens dato, ræsonnerer den, som om nutiden lå et sted omkring træningsperioden, hvilket giver forkerte aldre, forkerte svar om "nyeste version" og forældet status for regulering. Løsninger indsætter derfor den aktuelle dato og giver modellen søgning eller opslag, hvor aktualitet betyder noget.
+
+    Vidensgrænsen spiller sammen med nabobegreberne på bestemte måder. Retrieval-augmented generation og værktøjsbrug flytter ikke vidensgrænsen; de lægger nyere tekst ind i kontekstvinduet til det aktuelle kald alene. Finjustering på nye data kan tilføje en smule ny viden, men er en upålidelig måde at opdatere fakta på. Kun fortsat fortræning eller en ny modelversion flytter selve skæringsdatoen. I sikkerhedsarbejde er den praktiske regel, at alt, der afhænger af versioner, sårbarheder eller lovgivning, skal tjekkes mod en aktuel primærkilde, for modellens indlærte viden er med garanti forældet for alt, der har ændret sig efter skæringsdatoen.
 edges:
   requires: [training-data, model-training]
   part-of: [large-language-model]
@@ -40,4 +57,11 @@ sources:
     publisher: NIST
   - title: 'Jurafsky & Martin, Speech and Language Processing'
     tier: textbook
+  - title: 'Cheng et al. (2024), Dated Data: Tracing Knowledge Cutoffs in Large Language Models'
+    tier: reference
+    url: https://arxiv.org/abs/2403.12958
+  - title: Anthropic documentation — Models overview (reliable knowledge cutoff vs training data cutoff)
+    tier: official-doc
+    publisher: Anthropic
+    url: https://platform.claude.com/docs/en/about-claude/models/overview
 draft: true

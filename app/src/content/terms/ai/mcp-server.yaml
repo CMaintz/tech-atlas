@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: Each one is outside code with real access running next to your assistant, so a careless or hostile one can leak secrets or steer the model — it deserves the same care as installing any other software.
     da: Hver af dem er fremmed kode med reel adgang, der kører ved siden af ens assistent, så en sjusket eller ondsindet server kan lække hemmeligheder eller styre modellen — den skal installeres med samme omhu som al anden software.
+deepDive:
+  en: |-
+    An MCP server exposes up to three server-side primitives. Tools are model-invoked functions, advertised via tools/list with a name, a natural-language description, a JSON Schema inputSchema (JSON Schema 2020-12 is the default dialect) and optionally an outputSchema, and executed via tools/call, which returns content blocks and optionally structuredContent. Resources are application-controlled, URI-addressed data read with resources/read, and prompts are user-selected templates fetched with prompts/get. Tools may also carry annotations such as readOnlyHint, destructiveHint, idempotentHint and openWorldHint; the specification says clients must treat these as untrusted unless the server itself is trusted, because a malicious server can simply lie.
+
+    There are two standard transports. With stdio the host launches the server as a local subprocess and exchanges newline-delimited JSON-RPC over stdin and stdout; the server runs with the user's own operating-system privileges, and the authorization specification says stdio servers should take credentials from the environment rather than run OAuth. With Streamable HTTP the server is a remote endpoint and, when protected, acts as an OAuth 2.1 resource server: it must publish OAuth 2.0 Protected Resource Metadata (RFC 9728), accept only tokens whose audience is itself (RFC 8707 resource indicators), and must not pass tokens it received through to upstream APIs, a rule aimed at the confused-deputy problem. Local HTTP servers must also validate the Origin header to resist DNS rebinding. The 2026-07-28 revision made the protocol stateless: the initialize handshake and the Mcp-Session-Id header are gone, servers must implement server/discover, list results carry ttlMs and cacheScope caching hints, and any cross-call state has to be modelled as explicit handles passed in tool arguments.
+
+    Most real-world risk sits in the server ecosystem rather than the wire format. Tool poisoning hides instructions in tool descriptions, which the host feeds verbatim to the model; a "rug pull" changes a tool's definition after the user approved it; and with several servers connected, one server's descriptions can shadow or redirect another's tools. Ordinary software flaws apply too: CVE-2025-6514, published in July 2025, was a critical OS command injection in the widely used mcp-remote proxy, triggered by connecting to a malicious server. Validation errors should be returned as tool execution errors (isError) rather than protocol errors so the model can correct its call.
+
+    Operationally an MCP server should be treated like any third-party dependency with credentials: pin versions and review source, prefer official or registry-verified servers, grant narrowly scoped tokens, run local servers in a container or sandbox where possible, log every tool call, and have organisations enforce an allowlist of approved servers through managed client configuration.
+  da: |-
+    En MCP-server udstiller op til tre primitiver på serversiden. Tools er funktioner, som modellen kalder; de annonceres via tools/list med et navn, en beskrivelse i naturligt sprog, et JSON Schema i inputSchema (JSON Schema 2020-12 er standarddialekten) og eventuelt et outputSchema og udføres via tools/call, der returnerer indholdsblokke og eventuelt structuredContent. Resources er data, som applikationen styrer, adresseret med URI'er og læst med resources/read, og prompts er skabeloner, som brugeren vælger, hentet med prompts/get. Værktøjer kan også have annotationer som readOnlyHint, destructiveHint, idempotentHint og openWorldHint; specifikationen siger, at klienter skal betragte dem som upålidelige, medmindre selve serveren er betroet, for en ondsindet server kan bare lyve.
+
+    Der er to standardtransporter. Med stdio starter værten serveren som en lokal underproces og udveksler linjeopdelt JSON-RPC over stdin og stdout; serveren kører med brugerens egne rettigheder i styresystemet, og autorisationsspecifikationen siger, at stdio-servere bør hente legitimationsoplysninger fra miljøet i stedet for at køre OAuth. Med Streamable HTTP er serveren et fjernendpoint og fungerer, når den er beskyttet, som OAuth 2.1-ressourceserver: Den skal publicere OAuth 2.0 Protected Resource Metadata (RFC 9728), kun acceptere tokens, hvis audience er den selv (resource indicators efter RFC 8707), og må ikke sende modtagne tokens videre til bagvedliggende API'er, en regel rettet mod confused deputy-problemet. Lokale HTTP-servere skal desuden validere Origin-headeren for at modstå DNS rebinding. Revisionen 2026-07-28 gjorde protokollen tilstandsløs: initialize-håndtrykket og headeren Mcp-Session-Id er fjernet, servere skal implementere server/discover, listeresultater har cachehints i ttlMs og cacheScope, og tilstand på tværs af kald skal modelleres som eksplicitte handles, der sendes med i værktøjsargumenterne.
+
+    Den største reelle risiko ligger i økosystemet af servere snarere end i selve protokollen. Tool poisoning gemmer instruktioner i værktøjsbeskrivelser, som værten giver ordret videre til modellen; et "rug pull" ændrer et værktøjs definition, efter at brugeren har godkendt det; og når flere servere er tilsluttet, kan én servers beskrivelser skygge for eller omdirigere en andens værktøjer. Almindelige softwarefejl gælder også: CVE-2025-6514, offentliggjort i juli 2025, var en kritisk OS command injection i den udbredte proxy mcp-remote, der blev udløst ved forbindelse til en ondsindet server. Valideringsfejl bør returneres som fejl i værktøjsudførelsen (isError) frem for protokolfejl, så modellen kan rette sit kald.
+
+    I drift bør en MCP-server behandles som enhver tredjepartsafhængighed med legitimationsoplysninger: Fastlås versioner og gennemgå kildekoden, foretræk officielle eller registerverificerede servere, udsted snævert afgrænsede tokens, kør lokale servere i en container eller sandkasse, hvor det er muligt, log hvert værktøjskald, og lad organisationen håndhæve en tilladelsesliste over godkendte servere via centralt styret klientkonfiguration.
 edges:
   requires: [tool-calling]
   part-of:
@@ -61,4 +78,12 @@ sources:
   - title: OWASP Top 10 for LLM Applications 2025 (LLM01 Prompt Injection; LLM06 Excessive Agency)
     tier: reference
     publisher: OWASP
+  - title: Model Context Protocol specification 2026-07-28 — Authorization
+    tier: official-doc
+    publisher: Model Context Protocol project
+    url: https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization
+  - title: GitHub Advisory GHSA-6xpm-ggf7-wc3p (CVE-2025-6514) — OS command injection in mcp-remote
+    tier: reference
+    publisher: GitHub
+    url: https://github.com/advisories/GHSA-6xpm-ggf7-wc3p
 draft: true

@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Some attacks will always get past technical filters, so the last check is a person — and treating staff as a strength rather than only a weakness makes them more willing to speak up.
     da: Nogle angreb vil altid slippe forbi de tekniske filtre, så det sidste tjek er et menneske — og når medarbejderne ses som en styrke og ikke kun som en svaghed, siger de oftere til.
+deepDive:
+  en: |-
+    Human firewall is a practitioner metaphor, not a standardised term; no NIST, ISO or ENISA glossary defines it. It is best read as a reframing of the older "weakest link" narrative. Usable-security research, starting with Adams and Sasse's 1999 paper Users Are Not the Enemy, showed that insecure behaviour is mostly a rational response to badly designed security, and that treating staff as the problem makes them hide mistakes. The human-firewall framing keeps the idea that people are a control layer, but assigns them a job they can actually do: detect and report, not be infallible.
+
+    Mechanically, the value is in the sensor network, not in individual resistance. A phishing campaign typically hits many recipients within minutes; if even a small fraction report early, one report can protect everyone else. That requires a pipeline: a one-click report button in the mail client (Microsoft's built-in Report button, Google Workspace's report phishing, or a third-party add-in), a shared mailbox or API feeding a SOC or SOAR playbook, automated clustering of identical messages by sender, URL and hash, verdicting, and bulk removal from all mailboxes, for example through Microsoft Defender for Office 365 remediation or zero-hour auto purge. Detonated URLs and sender indicators then go into block lists, so a single report hardens the technical layers too. A large field study by Lain, Kostiainen and Čapkun (IEEE S&P 2022) found that crowd-sourced reporting by employees was an effective and sustained detection signal, while embedded post-click training was not.
+
+    The metrics follow from this model: reporting rate and median time-to-first-report per campaign, the ratio of reports to clicks, the share of reported mails that were genuinely malicious (a signal of detection quality, not only volume), and the time from first report to purge. Feedback closes the loop; reporters who never hear back stop reporting.
+
+    Common failure modes are the metaphor turning into blame (click-and-shame, public league tables, disciplinary action for simulation failures), an unmonitored report mailbox, and over-reliance on people to compensate for missing technical controls. A human firewall is one layer in defence in depth, sitting behind SPF/DKIM/DMARC, filtering, sandboxing and phishing-resistant MFA; it complements them by covering what they miss, and it is a property of security culture rather than something a single awareness campaign can produce.
+  da: |-
+    Human firewall er en metafor fra praksis, ikke et standardiseret begreb; ingen ordliste fra NIST, ISO eller ENISA definerer det. Det forstås bedst som et opgør med den ældre fortælling om mennesket som det svageste led. Forskning i brugbar sikkerhed, begyndende med Adams og Sasses artikel Users Are Not the Enemy fra 1999, viste, at usikker adfærd for det meste er en rationel reaktion på dårligt designet sikkerhed, og at medarbejdere, der behandles som problemet, begynder at skjule deres fejl. Human firewall-tankegangen fastholder, at mennesker er et kontrollag, men giver dem en opgave, de faktisk kan løse: at opdage og melde, ikke at være ufejlbarlige.
+
+    Mekanisk ligger værdien i sensornetværket, ikke i den enkeltes modstandskraft. En phishing-kampagne rammer typisk mange modtagere inden for få minutter; hvis bare en lille andel melder tidligt, kan én melding beskytte alle de andre. Det kræver en kæde: en meldeknap med ét klik i mailklienten (Microsofts indbyggede Report-knap, Google Workspaces rapportering af phishing eller et tredjeparts-add-in), en fælles postkasse eller et API, der fodrer en SOC- eller SOAR-playbook, automatisk gruppering af identiske mails efter afsender, URL og hash, en vurdering og masseoprydning i alle postkasser, fx med afhjælpningsfunktionerne eller zero-hour auto purge i Microsoft Defender for Office 365. Detonerede URL'er og afsenderindikatorer ryger derefter på blokeringslister, så én melding også styrker de tekniske lag. Et stort feltstudie af Lain, Kostiainen og Čapkun (IEEE S&P 2022) fandt, at medarbejdernes fælles indrapportering var et effektivt og holdbart detektionssignal, mens indlejret træning efter et klik ikke var.
+
+    Målepunkterne følger af modellen: meldeprocent og mediantid til første melding pr. kampagne, forholdet mellem meldinger og klik, andelen af meldte mails, der faktisk var ondsindede (et udtryk for kvaliteten af detektionen, ikke kun mængden), og tiden fra første melding til oprydning. Feedback lukker sløjfen; medarbejdere, der aldrig hører noget tilbage, holder op med at melde.
+
+    Typiske faldgruber er, at metaforen bliver til bebrejdelse (click-and-shame, offentlige ranglister, sanktioner for at fejle en simulering), en meldepostkasse, som ingen overvåger, og at man lader mennesker kompensere for manglende tekniske kontroller. En human firewall er ét lag i et dybdeforsvar bag SPF/DKIM/DMARC, filtrering, sandboxing og phishing-resistent MFA; den supplerer dem ved at dække det, de overser, og den er en egenskab ved sikkerhedskulturen snarere end noget, en enkelt awareness-kampagne kan skabe.
 edges:
   kind-of: [security-culture]
   requires: [security-awareness]
@@ -43,4 +60,8 @@ edges:
 sources:
   - title: Cyber Security Fast Track — Ordliste
     tier: course-material
+  - title: Lain, Kostiainen, Čapkun — Phishing in Organizations - Findings from a Large-Scale and Long-Term Study (IEEE S&P 2022)
+    tier: other
+    publisher: arXiv
+    url: https://arxiv.org/abs/2112.07498
 draft: true

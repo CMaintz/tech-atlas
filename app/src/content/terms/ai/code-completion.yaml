@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Suggestions arrive many times an hour and each takes one key press to accept, so weak or unsafe lines slip in easily unless someone reads them.
     da: Forslagene kommer mange gange i timen, og hvert kræver kun ét tastetryk at tage imod, så svage eller usikre linjer glider let ind, medmindre nogen læser dem.
+deepDive:
+  en: |-
+    Code completion has three generations. Classical completion, IntelliSense-style and now standardised in the Language Server Protocol's textDocument/completion request, lists identifiers that are valid at the cursor according to the parser and type checker, so it is exact but only ever suggests a single token or name. Statistical completion followed Hindle et al.'s 2012 observation that source code is highly repetitive and predictable ("On the naturalness of software"), first with n-gram models and later with neural rankers. Transformer-based completion, popularised by GitHub Copilot from 2021, generates whole lines or blocks and is what most developers now mean by the term.
+
+    A modern completion request is a tight real-time pipeline. The editor debounces keystrokes, cancels in-flight requests when the user keeps typing, and builds a prompt from the prefix before the cursor, the suffix after it (formatted for a fill-in-the-middle model), and a few snippets retrieved from neighbouring open files or a local index. Latency budgets are in the low hundreds of milliseconds end to end, so providers use comparatively small models, cache aggressively and stream tokens. Post-processing decides where a suggestion should stop, typically by balancing brackets, tracking indentation or checking that the result still parses, and trims text that duplicates the suffix. Newer "next edit" features extend the idea from inserting at the cursor to predicting the next location and content of an edit elsewhere in the file.
+
+    Quality is measured differently from chat. Offline benchmarks use HumanEval-style unit tests or infilling suites, while online telemetry tracks acceptance rate and how much accepted code survives unchanged after some minutes. Ziegler et al. (2022) found acceptance rate to be the best predictor among the usage metrics they studied of developers' perceived productivity, which explains why vendors optimise for it, but acceptance says nothing about correctness or security.
+
+    Risks come from volume and friction. A developer may see hundreds of suggestions a day, each accepted with a single Tab, so automation bias is structural rather than occasional. Completions can call APIs that do not exist, use deprecated or insecure patterns, import hallucinated packages, or reproduce licensed code verbatim, and because the model sees only local context, it can contradict invariants established elsewhere in the codebase. Controls are the usual ones for untrusted code: compile and type-check, run tests and SAST in CI, and enable any vendor filters for secrets and public-code matches.
+  da: |-
+    Kodefuldførelse findes i tre generationer. Klassisk fuldførelse, IntelliSense-agtig og nu standardiseret i Language Server Protocols forespørgsel textDocument/completion, oplister identifikatorer, der ifølge parseren og typetjekkeren er gyldige ved markøren, så den er præcis, men foreslår aldrig mere end ét token eller navn. Statistisk fuldførelse fulgte efter Hindle et al.'s iagttagelse fra 2012 af, at kildekode er meget gentagende og forudsigelig ("On the naturalness of software"), først med n-gram-modeller og senere med neurale rangeringsmodeller. Transformerbaseret fuldførelse, udbredt af GitHub Copilot fra 2021, genererer hele linjer eller blokke og er det, de fleste udviklere i dag mener med begrebet.
+
+    En moderne fuldførelsesforespørgsel er en stram realtidspipeline. Editoren debouncer tastetryk, annullerer igangværende forespørgsler, når brugeren skriver videre, og bygger en prompt af præfikset før markøren, suffikset efter den (formateret til en fill-in-the-middle-model) og nogle få uddrag hentet fra nabofiler, der er åbne, eller et lokalt indeks. Latensbudgettet er på et par hundrede millisekunder fra ende til anden, så udbyderne bruger forholdsvis små modeller, cacher aggressivt og streamer tokens. Efterbehandlingen afgør, hvor et forslag skal stoppe, typisk ved at afbalancere parenteser, følge indrykning eller tjekke, at resultatet stadig kan parses, og fjerner tekst, der gentager suffikset. Nyere "next edit"-funktioner udvider idéen fra at indsætte ved markøren til at forudsige, hvor og hvad den næste ændring andetsteds i filen bliver.
+
+    Kvalitet måles anderledes end ved chat. Offline-benchmarks bruger enhedstests i stil med HumanEval eller testsæt til infilling, mens online-telemetri følger acceptraten, og hvor meget accepteret kode der overlever uændret efter nogle minutter. Ziegler et al. (2022) fandt, at acceptraten blandt de brugsmål, de undersøgte, var den bedste forudsigelse af udviklernes oplevede produktivitet, hvilket forklarer, at leverandørerne optimerer efter den, men accept siger intet om korrekthed eller sikkerhed.
+
+    Risikoen kommer af mængde og lav friktion. En udvikler kan se hundredvis af forslag om dagen, hver accepteret med et enkelt Tab, så automatiseringsbias er strukturel frem for lejlighedsvis. Fuldførelser kan kalde API'er, der ikke findes, bruge forældede eller usikre mønstre, importere hallucinerede pakker eller gengive licenseret kode ordret, og fordi modellen kun ser lokal kontekst, kan den bryde med invarianter, der er fastlagt andre steder i kodebasen. Kontrollerne er de sædvanlige for upålidelig kode: kompiler og typetjek, kør tests og SAST i CI, og slå leverandørens eventuelle filtre for hemmeligheder og match med offentlig kode til.
 edges:
   part-of:
     - to: ai-coding-assistant
@@ -52,4 +69,8 @@ sources:
     tier: reference
   - title: "Pearce et al. (2022), Asleep at the Keyboard? Assessing the Security of GitHub Copilot's Code Contributions (IEEE S&P)"
     tier: reference
+  - title: Ziegler et al. (2022), Productivity Assessment of Neural Code Completion
+    tier: reference
+    publisher: arXiv
+    url: https://arxiv.org/abs/2205.06537
 draft: true

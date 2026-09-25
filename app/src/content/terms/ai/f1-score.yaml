@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: It gives one fair number for comparing models on rare classes, where accuracy misleads, though it hides which of the two errors is growing.
     da: Den giver ét retfærdigt tal til at sammenligne modeller på sjældne klasser, hvor nøjagtighed vildleder, men den skjuler, hvilken af de to fejltyper der vokser.
+deepDive:
+  en: |-
+    F1 is the harmonic mean of precision P and recall R: F1 = 2PR / (P + R), which in confusion-matrix terms is 2TP / (2TP + FP + FN). True negatives do not appear at all, which is why F1 suits retrieval and rare-class detection and why it says nothing about how well the negative class is handled. The general form Fβ = (1 + β²)PR / (β²P + R) weights recall β times as much as precision; F2 is common where misses are expensive and F0.5 where false alarms are. The measure descends from van Rijsbergen's effectiveness measure E in information retrieval (1979), of which F is the complement.
+
+    The harmonic mean is dominated by the smaller operand: P = 1.0 and R = 0.1 give F1 ≈ 0.18, whereas the arithmetic mean would be 0.55. For multiclass and multilabel problems the per-class scores must be aggregated, and the choice changes the number: macro-F1 averages per-class F1 equally (so rare classes count as much as common ones), micro-F1 pools TP, FP and FN across classes (and for single-label multiclass equals accuracy), weighted-F1 weights by class support. Even "macro-F1" has two definitions in the literature — the mean of per-class F1 versus the F1 of mean precision and mean recall — and they can differ noticeably (Opitz & Burst, 2019). When a class has no predicted and no true positives F1 is undefined; scikit-learn exposes this through its zero_division parameter.
+
+    F1 is threshold-dependent and not maximised at 0.5. Lipton, Elkan and Naryanaswamy (2014) showed that for calibrated probabilities the F1-optimal threshold equals half the achievable maximum F1, so a model capable of F1 = 0.6 should be thresholded near 0.3; the threshold is tuned on the validation set, never the test set. F1 is also non-decomposable: averaging per-fold or per-batch F1 is not the same as computing F1 on pooled counts (Forman & Scholz, 2010), and it cannot be optimised directly by per-example losses, so training typically uses cross-entropy with thresholding afterwards.
+
+    Critics note that F1 changes if the positive class is relabelled, depends on prevalence, and fixes an arbitrary equal weighting of the two error types; Hand and Christen (2018) argued it is ill-suited to comparing record-linkage methods, and the Matthews correlation coefficient is often recommended when both classes matter. Task-specific variants abound: entity-level F1 in named-entity recognition counts a prediction correct only with exact span and type, while SQuAD-style F1 measures token overlap between predicted and reference answers.
+  da: |-
+    F1 er det harmoniske gennemsnit af præcision P og genkaldelse R: F1 = 2PR / (P + R), hvilket i forvekslingsmatricens termer er 2TP / (2TP + FP + FN). Sande negative indgår slet ikke, og derfor passer F1 til søgning og detektion af sjældne klasser, men siger intet om, hvor godt den negative klasse håndteres. Den generelle form Fβ = (1 + β²)PR / (β²P + R) vægter genkaldelse β gange så højt som præcision; F2 er udbredt, hvor oversete tilfælde er dyre, og F0,5, hvor falske alarmer er. Målet stammer fra van Rijsbergens effektivitetsmål E inden for information retrieval (1979), som F er komplementet til.
+
+    Det harmoniske gennemsnit domineres af den mindste værdi: P = 1,0 og R = 0,1 giver F1 ≈ 0,18, mens det aritmetiske gennemsnit ville være 0,55. Ved multiklasse- og multilabel-opgaver skal scorerne pr. klasse samles, og valget ændrer tallet: makro-F1 tager gennemsnittet af F1 pr. klasse med lige vægt (så sjældne klasser tæller lige så meget som hyppige), mikro-F1 lægger TP, FP og FN sammen på tværs af klasser (og er lig nøjagtighed ved multiklasse med én label pr. eksempel), og vægtet F1 vægter efter antal eksempler pr. klasse. Selv "makro-F1" har to definitioner i litteraturen — gennemsnittet af F1 pr. klasse over for F1 af gennemsnitlig præcision og genkaldelse — og de kan afvige mærkbart (Opitz & Burst, 2019). Har en klasse hverken forudsagte eller sande positive, er F1 udefineret; scikit-learn håndterer det via parameteren zero_division.
+
+    F1 afhænger af tærsklen og maksimeres ikke ved 0,5. Lipton, Elkan og Naryanaswamy (2014) viste, at for kalibrerede sandsynligheder er den F1-optimale tærskel halvdelen af den højest opnåelige F1, så en model, der kan nå F1 = 0,6, bør have en tærskel omkring 0,3; tærsklen tunes på valideringssættet, aldrig på testsættet. F1 er desuden ikke dekomponerbar: gennemsnittet af F1 pr. fold eller pr. batch er ikke det samme som F1 beregnet på de samlede optællinger (Forman & Scholz, 2010), og den kan ikke optimeres direkte med tab pr. eksempel, så træning bruger typisk krydsentropi og sætter tærsklen bagefter.
+
+    Kritikere påpeger, at F1 ændrer sig, hvis man bytter om på, hvilken klasse der er positiv, at den afhænger af forekomsten, og at den fastlåser en vilkårlig ligevægtning af de to fejltyper; Hand og Christen (2018) argumenterede for, at den er uegnet til at sammenligne metoder til record linkage, og Matthews-korrelationskoefficienten anbefales ofte, når begge klasser betyder noget. Der findes mange opgavespecifikke varianter: F1 på entitetsniveau i named-entity recognition tæller kun en forudsigelse som rigtig ved præcis samme spænd og type, mens F1 i SQuAD-stil måler tokenoverlap mellem forudsagt svar og referencesvar.
 edges:
   requires:
     - to: precision
@@ -41,4 +58,12 @@ sources:
     publisher: Butterworths
   - title: 'Jurafsky & Martin, Speech and Language Processing (ch. 4, Evaluation: precision, recall, F-measure)'
     tier: textbook
+  - title: Lipton, Elkan & Naryanaswamy (2014), Thresholding Classifiers to Maximize F1 Score
+    tier: reference
+    publisher: ECML PKDD 2014
+    url: https://arxiv.org/abs/1402.1892
+  - title: Opitz & Burst (2019), Macro F1 and Macro F1
+    tier: reference
+    publisher: arXiv
+    url: https://arxiv.org/abs/1911.03347
 draft: true

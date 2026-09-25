@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: It turns awareness into a number that can be followed over time and gives safe practice before a real attacker tests people — as long as it is used to teach rather than to shame.
     da: Det gør awareness til et tal, der kan følges over tid, og giver sikker øvelse, før en rigtig angriber prøver folk af — så længe det bruges til at lære og ikke til at udstille nogen.
+deepDive:
+  en: |-
+    A simulation platform — commercial suites, Microsoft Defender for Office 365 Attack Simulation Training, or the open-source GoPhish — sends templated messages with per-recipient tracking tokens embedded in links, attachments or QR codes, and records opens, clicks, credential submissions, attachment opens and reports. Typical payload types mirror real techniques: credential harvest, malware attachment, link in attachment, drive-by URL and OAuth consent grant. Because production defences would otherwise block or detonate the mails, third-party simulations must be explicitly exempted, in Microsoft 365 via the advanced delivery policy rather than blanket transport-rule bypasses, and link scanners must be accounted for, since sandbox detonation produces false clicks that inflate results.
+
+    Results are only comparable when difficulty is controlled. The NIST Phish Scale (introduced in 2020, user guide NIST TN 2276, 2023) rates a template by counting observable cues (sender, formatting, technical and content anomalies) and assessing premise alignment, how well the pretext fits the recipient's actual work. A low-cue, high-alignment lure will produce far higher click rates than a clumsy one, so a falling click rate may reflect easier templates, not better staff. Report rate and time-to-report are more robust, and the difference between the two gives a picture of both susceptibility and detection. Small departments, one-off campaigns and seasonal effects add noise that is easily mistaken for trend.
+
+    The empirical evidence is sobering. Lain, Kostiainen and Čapkun (IEEE S&P 2022), with more than 14,000 employees over 15 months, found that embedded training shown after a click did not make employees more resilient and could make them more susceptible, while crowd-sourced reporting worked. Ho et al. (IEEE S&P 2025), in a randomised experiment with about 19,500 staff at UC San Diego Health, found no significant relationship between recent annual training and failure rates, and that most users spent a minute or less on embedded training pages. Simulations are thus better used to exercise reporting and to find processes that fail than as proof that training works.
+
+    Design and governance matter. Lures offering bonuses, pay rises or pandemic information have caused well-publicised staff backlash, for example at GoDaddy in 2020, and erode trust in the security team. Click data is personal data about employees, so under GDPR the programme needs a lawful basis (usually legitimate interest, Art. 6(1)(f)), transparent information to staff, data minimisation and, preferably, aggregated reporting to management rather than named lists. NIST SP 800-50 Rev. 1 places simulations under experiential learning alongside tabletop and cyber-range exercises, and CIS Controls v8 Control 14 expects training on recognising social engineering attacks.
+  da: |-
+    En simuleringsplatform — kommercielle pakker, Attack Simulation Training i Microsoft Defender for Office 365 eller open source-værktøjet GoPhish — sender skabelonbaserede beskeder med sporingstokens pr. modtager indlejret i links, vedhæftninger eller QR-koder og registrerer åbninger, klik, indtastede loginoplysninger, åbnede vedhæftninger og meldinger. De typiske nyttelaster spejler rigtige teknikker: høst af loginoplysninger, vedhæftet malware, link i vedhæftning, drive-by-URL og OAuth-samtykke. Da produktionsforsvaret ellers ville blokere eller detonere mailene, skal simuleringer fra tredjepart undtages eksplicit, i Microsoft 365 via advanced delivery policy frem for generelle omgåelser i transportregler, og der skal tages højde for linkscannere, fordi sandbox-detonering giver falske klik, der puster resultaterne op.
+
+    Resultater kan kun sammenlignes, når sværhedsgraden er styret. NIST Phish Scale (introduceret i 2020, brugervejledning NIST TN 2276 fra 2023) vurderer en skabelon ved at tælle synlige spor (afvigelser i afsender, formatering, teknik og indhold) og vurdere premise alignment, altså hvor godt påskuddet passer til modtagerens faktiske arbejde. Et lokkemiddel med få spor og høj relevans giver langt højere klikrater end et klodset et, så en faldende klikrate kan skyldes lettere skabeloner og ikke bedre medarbejdere. Meldeprocent og tid til melding er mere robuste mål, og forskellen mellem de to giver et billede af både modtagelighed og detektion. Små afdelinger, enkeltstående kampagner og sæsonudsving giver støj, der let forveksles med en tendens.
+
+    Den empiriske viden er nedslående. Lain, Kostiainen og Čapkun (IEEE S&P 2022) fulgte over 14.000 ansatte i 15 måneder og fandt, at indlejret træning vist efter et klik ikke gjorde medarbejderne mere modstandsdygtige og endda kunne gøre dem mere modtagelige, mens fælles indrapportering virkede. Ho m.fl. (IEEE S&P 2025) fandt i et randomiseret eksperiment med omkring 19.500 ansatte på UC San Diego Health ingen signifikant sammenhæng mellem nylig årlig træning og fejlrate, og at de fleste brugte et minut eller mindre på de indlejrede træningssider. Simuleringer bruges derfor bedre til at øve indrapportering og finde processer, der svigter, end som bevis på, at træningen virker.
+
+    Design og governance betyder meget. Lokkemidler med bonusser, lønstigninger eller pandemi-information har skabt meget omtalt modstand blandt medarbejderne, fx hos GoDaddy i 2020, og undergraver tilliden til sikkerhedsteamet. Klikdata er personoplysninger om medarbejderne, så efter databeskyttelsesforordningen kræver programmet et behandlingsgrundlag (typisk legitim interesse, art. 6, stk. 1, litra f), gennemsigtig information til medarbejderne, dataminimering og helst aggregeret rapportering til ledelsen frem for navnelister. NIST SP 800-50 Rev. 1 placerer simuleringer under erfaringsbaseret læring sammen med tabletop- og cyber range-øvelser, og CIS Controls v8 Control 14 forventer træning i at genkende social engineering-angreb.
 edges:
   kind-of: [control]
   requires: [phishing]
@@ -50,4 +67,16 @@ sources:
   - title: CIS Controls v8 — Control 14 (Security Awareness and Skills Training)
     tier: standard
     publisher: Center for Internet Security
+  - title: NIST TN 2276 — NIST Phish Scale User Guide
+    tier: standard
+    publisher: NIST
+    url: https://csrc.nist.gov/pubs/tn/2276/final
+  - title: Lain, Kostiainen, Čapkun — Phishing in Organizations - Findings from a Large-Scale and Long-Term Study (IEEE S&P 2022)
+    tier: other
+    publisher: arXiv
+    url: https://arxiv.org/abs/2112.07498
+  - title: Ho et al. — Understanding the Efficacy of Phishing Training in Practice (IEEE S&P 2025)
+    tier: other
+    publisher: IEEE
+    url: https://people.cs.uchicago.edu/~grantho/papers/oakland2025_phishing-training.pdf
 draft: true

@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: It is how most people first meet containers; by default its background service runs with full rights on the host, so access to it must be treated like admin access.
     da: Det er sådan, de fleste først møder containere; som standard kører dets baggrundstjeneste med fulde rettigheder på værten, så adgang til den skal behandles som administratoradgang.
+deepDive:
+  en: |-
+    Docker was presented by Solomon Hykes of dotCloud at PyCon in March 2013. The early engine drove LXC; in 2014 it switched to its own Go library, libcontainer, which Docker donated to the newly founded Open Container Initiative in 2015 where it became runc. Today's Docker Engine is a stack: the docker CLI sends REST calls to the dockerd daemon over a Unix socket (/var/run/docker.sock) or, if configured, TCP; dockerd delegates container lifecycle (and, with the containerd image store enabled, image storage) to containerd over gRPC; containerd starts a shim per container, and the shim invokes runc to set up namespaces, cgroups and the security profile. The open-source parts are developed under the Moby project, while Docker Desktop is a separate commercial product that runs the engine inside a lightweight Linux VM on macOS and Windows.
+
+    Images are built from a Dockerfile, a sequence of instructions (FROM, RUN, COPY, ENV, USER, ENTRYPOINT, CMD…) in which filesystem-changing steps produce layers. Since Docker Engine 23.0 (February 2023) the default builder on Linux is BuildKit, which executes a dependency graph in parallel, supports cache mounts, secret mounts (RUN --mount=type=secret) that keep credentials out of layers, multi-platform builds via buildx, and can emit SBOM and provenance attestations. Docker Compose describes multi-container applications on one host in a compose.yaml file; Swarm mode adds basic clustering, although most multi-host production use has moved to Kubernetes.
+
+    The main security property of the classic setup is that dockerd runs as root and anyone who can reach its API controls the host: docker run -v /:/host --privileged gives a root shell on the machine, so membership of the docker group is root-equivalent and mounting docker.sock into a container (common in CI runners and monitoring agents) hands that power to the container. An exposed TCP socket without mutual TLS on port 2375 is a long-standing target for cryptomining campaigns. Mitigations include rootless mode (daemon and containers inside a user namespace), userns-remap, authorization plugins, the default seccomp and AppArmor profiles, --cap-drop=ALL with selective --cap-add, --read-only, and never using --privileged in production. The CIS Docker Benchmark collects such settings as auditable checks.
+
+    Docker is often used as a synonym for containers, which is misleading. Kubernetes stopped supporting Docker Engine as a runtime when dockershim was removed in 1.24, yet images built with Docker run everywhere because they follow the OCI image format; Podman offers a largely CLI-compatible daemonless alternative. Licensing also matters in organisations: since 2021 Docker Desktop requires a paid subscription for larger commercial users, whereas Docker Engine on Linux remains open source under the Apache 2.0 licence.
+  da: |-
+    Docker blev præsenteret af Solomon Hykes fra dotCloud på PyCon i marts 2013. Den tidlige motor styrede LXC; i 2014 skiftede den til sit eget Go-bibliotek, libcontainer, som Docker i 2015 donerede til det nystiftede Open Container Initiative, hvor det blev til runc. Nutidens Docker Engine er en stak: docker-CLI'en sender REST-kald til dæmonen dockerd over en Unix-socket (/var/run/docker.sock) eller, hvis det er sat op, TCP; dockerd overlader containernes livscyklus (og, når containerd image store er slået til, også image-lagringen) til containerd via gRPC; containerd starter en shim per container, og shimmen kalder runc for at sætte namespaces, cgroups og sikkerhedsprofil op. De open source-dele udvikles under Moby-projektet, mens Docker Desktop er et separat kommercielt produkt, der kører motoren i en letvægts-Linux-VM på macOS og Windows.
+
+    Images bygges ud fra en Dockerfile, en række instruktioner (FROM, RUN, COPY, ENV, USER, ENTRYPOINT, CMD …), hvor trin, der ændrer filsystemet, giver lag. Siden Docker Engine 23.0 (februar 2023) har standardbyggeren på Linux været BuildKit, der afvikler en afhængighedsgraf parallelt, understøtter cache-mounts, secret-mounts (RUN --mount=type=secret), som holder legitimationsoplysninger ude af lagene, builds til flere platforme via buildx, og kan udsende SBOM- og provenance-attestationer. Docker Compose beskriver applikationer med flere containere på én vært i en compose.yaml-fil; Swarm mode tilføjer enkel klyngedrift, selvom det meste produktion på flere værter er flyttet til Kubernetes.
+
+    Den vigtigste sikkerhedsegenskab ved den klassiske opsætning er, at dockerd kører som root, og at enhver, der kan nå dens API, styrer værten: docker run -v /:/host --privileged giver en root-shell på maskinen, så medlemskab af gruppen docker svarer til root, og at montere docker.sock i en container (almindeligt i CI-runners og overvågningsagenter) giver containeren den samme magt. En eksponeret TCP-socket uden gensidig TLS på port 2375 har længe været et mål for kampagner med kryptomining. Afhjælpning omfatter rootless mode (dæmon og containere i et user namespace), userns-remap, autorisationsplugins, standardprofilerne for seccomp og AppArmor, --cap-drop=ALL med selektiv --cap-add, --read-only og aldrig at bruge --privileged i produktion. CIS Docker Benchmark samler sådanne indstillinger som tjek, der kan revideres.
+
+    Docker bruges ofte som synonym for containere, hvilket er misvisende. Kubernetes holdt op med at understøtte Docker Engine som runtime, da dockershim blev fjernet i 1.24, men images bygget med Docker kører overalt, fordi de følger OCI's image-format; Podman er et stort set CLI-kompatibelt alternativ uden dæmon. Licenser betyder også noget i organisationer: siden 2021 kræver Docker Desktop et betalt abonnement for større kommercielle brugere, mens Docker Engine på Linux fortsat er open source under Apache 2.0-licensen.
 edges:
   implements: [container]
   requires: [container-image]
@@ -37,4 +54,8 @@ sources:
   - title: NIST SP 800-190 — Application Container Security Guide
     tier: standard
     publisher: NIST
+  - title: Docker Engine 23.0 release notes
+    url: https://docs.docker.com/engine/release-notes/23.0/
+    tier: official-doc
+    publisher: Docker
 draft: true

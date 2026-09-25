@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Attackers often go unseen for months, so logs deleted too soon leave no trail; NIS2 and DORA rules expect a documented period, while GDPR forbids keeping personal data longer than needed.
     da: Angribere går ofte uopdaget i månedsvis, så logs, der slettes for tidligt, efterlader intet spor; NIS2- og DORA-reglerne forventer en dokumenteret periode, mens GDPR forbyder at gemme persondata længere end nødvendigt.
+deepDive:
+  en: |-
+    A retention decision has two opposing legal and operational pressures. On one side, investigations need history: intrusions are often discovered weeks or months after initial access, and indicators shared by others must be searched retroactively. On the other side, GDPR Art. 5(1)(e) (storage limitation) and Art. 5(1)(c) (data minimisation) forbid keeping personal data, which most security logs contain (usernames, IP addresses, email addresses, device identifiers), longer than necessary for the purpose. Art. 32 simultaneously makes logging part of appropriate security, so the result must be a documented, purpose-based period per log type rather than "keep everything" or "delete quickly".
+
+    Frameworks give reference points rather than a single number. CIS Controls v8 safeguard 8.10 requires retaining audit logs for a minimum of 90 days. PCI DSS v4.0 requirement 10.5.1 requires at least 12 months of audit log history, with at least the most recent three months immediately available for analysis. NIS2 does not fix a period in the directive itself; Commission Implementing Regulation (EU) 2024/2690, which applies to certain digital service providers, sets detailed monitoring and logging requirements in its point 3.2, including protection of logs and a defined retention period, and the DORA RTS on ICT risk management (Delegated Regulation 2024/1774, Art. 12) requires financial entities to define logging procedures including retention. In Denmark, the pre-GDPR security order for public authorities (bekendtgørelse nr. 528 af 15. juni 2000, § 19) required logs of personal-data use to be kept for six months and then deleted; that order has been repealed, and Datatilsynet's current guidance leaves the period to a concrete, purpose-based assessment.
+
+    A retention policy should specify for each log source the purpose, the period in hot (searchable) and cold (archive) storage, the storage location and jurisdiction, protection (access control, encryption, immutability), the deletion mechanism, and who can extend retention. Legal holds must be able to suspend deletion for specific data when litigation or a regulatory investigation is anticipated. Pseudonymisation, field-level reduction or aggregation can extend useful retention of security data while reducing personal-data exposure, for example by keeping full authentication logs for a year but reducing web access logs to aggregates after 90 days.
+
+    Frequent errors include retention set implicitly by SIEM licence cost rather than by policy, deletion that never happens in backups and archives, and retention periods that differ silently between the source system, the SIEM and the archive. Log retention is distinct from records retention under accounting law (in Denmark, bogføringsloven), and from the telecom data-retention rules, which concern traffic data kept by providers for law enforcement rather than an organisation's own security logs.
+  da: |-
+    En beslutning om opbevaring står i spændet mellem to modsatrettede juridiske og driftsmæssige hensyn. På den ene side kræver efterforskning historik: indbrud opdages ofte uger eller måneder efter den første adgang, og indikatorer, som andre deler, skal kunne søges bagudrettet. På den anden side forbyder databeskyttelsesforordningens art. 5, stk. 1, litra e (opbevaringsbegrænsning), og art. 5, stk. 1, litra c (dataminimering), at personoplysninger, som de fleste sikkerhedslogs indeholder (brugernavne, IP-adresser, e-mailadresser, enheds-id'er), opbevares længere end nødvendigt til formålet. Samtidig gør art. 32 logning til en del af en passende sikkerhed, så resultatet skal være en dokumenteret, formålsbestemt periode pr. logtype frem for "gem alt" eller "slet hurtigt".
+
+    Rammeværkerne giver pejlemærker frem for ét tal. CIS Controls v8, safeguard 8.10, kræver, at auditlogs opbevares i mindst 90 dage. PCI DSS v4.0, krav 10.5.1, kræver mindst 12 måneders historik i auditlogs, hvoraf mindst de seneste tre måneder skal være umiddelbart tilgængelige til analyse. NIS2 fastsætter ikke selv en periode i direktivet; Kommissionens gennemførelsesforordning (EU) 2024/2690, der gælder for visse udbydere af digitale tjenester, fastsætter i punkt 3.2 detaljerede krav til overvågning og logning, herunder beskyttelse af logs og en fastlagt opbevaringsperiode, og DORA's RTS om IKT-risikostyring (delegeret forordning 2024/1774, art. 12) kræver, at finansielle enheder fastlægger logningsprocedurer, herunder opbevaring. I Danmark krævede den tidligere sikkerhedsbekendtgørelse for offentlige myndigheder (bekendtgørelse nr. 528 af 15. juni 2000, § 19), at logs over anvendelse af personoplysninger blev opbevaret i seks måneder og derefter slettet; bekendtgørelsen er ophævet, og Datatilsynets nuværende vejledning overlader perioden til en konkret, formålsbestemt vurdering.
+
+    En opbevaringspolitik bør for hver logkilde angive formålet, perioden i hot (søgbar) og cold (arkiv) lagring, lagringssted og jurisdiktion, beskyttelse (adgangskontrol, kryptering, uforanderlighed), sletningsmekanismen og hvem der kan forlænge opbevaringen. Et legal hold skal kunne sætte sletning af bestemte data i bero, når en retssag eller en myndighedsundersøgelse kan forudses. Pseudonymisering, reduktion på feltniveau eller aggregering kan forlænge den nyttige opbevaring af sikkerhedsdata og samtidig mindske eksponeringen af personoplysninger, fx ved at gemme fulde autentificeringslogs i et år, men reducere webadgangslogs til aggregater efter 90 dage.
+
+    Hyppige fejl er en opbevaringsperiode, der i praksis bestemmes af SIEM-licensens pris frem for af politikken, sletning, der aldrig sker i backup og arkiver, og perioder, der i stilhed er forskellige i kildesystemet, SIEM'en og arkivet. Logopbevaring er noget andet end opbevaring af regnskabsmateriale efter bogføringsloven og end reglerne om teleudbyderes logning, der handler om trafikdata, som udbydere gemmer til brug for politiet, og ikke om en organisations egne sikkerhedslogs.
 edges:
   part-of: [log-management]
   requires: [cs/audit]
@@ -49,4 +66,12 @@ sources:
   - title: GDPR (Regulation (EU) 2016/679) — Article 5(1)(e), storage limitation
     tier: standard
     publisher: European Union
+  - title: Bekendtgørelse nr. 528 af 15. juni 2000 om sikkerhedsforanstaltninger til beskyttelse af personoplysninger, som behandles for den offentlige forvaltning (repealed)
+    url: https://www.retsinformation.dk/eli/lta/2000/528
+    tier: standard
+    publisher: Justitsministeriet
+  - title: Datatilsynet — Logning af brugernes anvendelser af personoplysninger
+    url: https://www.datatilsynet.dk/regler-og-vejledning/behandlingssikkerhed/katalog-over-foranstaltninger/logning-af-brugernes-anvendelser-af-personoplysninger
+    tier: official-doc
+    publisher: Datatilsynet
 draft: true

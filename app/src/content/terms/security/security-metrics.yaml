@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Without numbers, security spending is a guess, and ISO 27001 requires the organisation to measure how its security performs.
     da: Uden tal er sikkerhedsbudgettet gætværk, og ISO 27001 kræver, at organisationen måler, hvordan dens sikkerhed præsterer.
+deepDive:
+  en: |-
+    ISO/IEC 27001:2022 clause 9.1 requires the organisation to determine what needs to be monitored and measured, including information security processes and controls; the methods, which should produce comparable and reproducible results to be considered valid; when monitoring and measurement are performed and who performs them; and when and by whom the results are analysed and evaluated. The results must be retained as documented information and are an input to management review (9.3.2). ISO/IEC 27004:2016 gives guidance on building such measures, and NIST SP 800-55, revised in December 2024 as Volume 1 (identifying and selecting measures) and Volume 2 (developing a measurement programme), replaced the 2008 Revision 1.
+
+    A well-specified measure has a documented definition: purpose, formula, data source, collection frequency, owner, target and thresholds for action. Common types are implementation measures (share of endpoints with EDR, share of accounts with MFA), effectiveness or efficiency measures (median time to remediate critical vulnerabilities, mean time to detect and to respond, share of phishing simulations reported within ten minutes) and impact measures (incidents with business impact, downtime, cost). Leading indicators predict future problems (backlog of unpatched internet-facing systems), while lagging indicators confirm what already happened (incidents). Key risk indicators (KRIs) track exposure against the risk appetite, whereas KPIs track how well a process performs; a board dashboard usually needs both.
+
+    Measurement design is where most programmes fail. Averages hide tails, so vulnerability remediation is better reported as percentiles or as the share closed within the SLA, split by asset criticality. Denominators must be stable: "percentage of servers patched" is meaningless if the inventory is incomplete, which ties metrics to asset management. Goodhart's law applies fully: when click rate in phishing tests becomes a target, simulations get easier; reporting rate and time-to-report are harder to game. Activity counts (courses held, scans run, alerts closed) describe effort, not effect.
+
+    Metrics also serve legal duties. NIS2 Article 21(2)(f) requires policies and procedures to assess the effectiveness of the risk-management measures, and ISO/IEC 27002 control 5.35 calls for independent review of information security. Unlike a maturity rating, which describes how established a process is, a metric describes what the process achieves, and the two are most useful when reported side by side with a trend line rather than as single snapshots.
+  da: |-
+    ISO/IEC 27001:2022 afsnit 9.1 kræver, at organisationen fastlægger, hvad der skal overvåges og måles, herunder informationssikkerhedsprocesser og kontroller; metoderne, der bør give sammenlignelige og reproducerbare resultater for at blive betragtet som gyldige; hvornår overvågning og måling udføres, og af hvem; og hvornår og af hvem resultaterne analyseres og evalueres. Resultaterne skal opbevares som dokumenteret information og indgår i ledelsens evaluering (9.3.2). ISO/IEC 27004:2016 giver vejledning i at opbygge sådanne målinger, og NIST SP 800-55, revideret i december 2024 som bind 1 (identifikation og valg af målinger) og bind 2 (opbygning af et måleprogram), afløste Revision 1 fra 2008.
+
+    En velspecificeret måling har en dokumenteret definition: formål, formel, datakilde, målefrekvens, ejer, mål og tærskler, der udløser handling. Almindelige typer er implementeringsmålinger (andel af endpoints med EDR, andel af konti med MFA), effektivitetsmålinger (mediantid til at udbedre kritiske sårbarheder, gennemsnitlig tid til detektion og reaktion, andel af phishing-simuleringer, der meldes inden for ti minutter) og konsekvensmålinger (hændelser med forretningsmæssig betydning, nedetid, omkostninger). Førende indikatorer forudsiger fremtidige problemer (efterslæb af upatchede systemer mod internettet), mens bagudskuende indikatorer bekræfter, hvad der allerede er sket (hændelser). Nøgleindikatorer for risiko (KRI'er) følger eksponeringen mod risikoappetitten, mens KPI'er følger, hvor godt en proces fungerer; et bestyrelsesdashboard har som regel brug for begge.
+
+    Designet af målingerne er dér, hvor de fleste programmer fejler. Gennemsnit skjuler halerne, så udbedring af sårbarheder rapporteres bedre som percentiler eller som andelen, der lukkes inden for SLA'en, opdelt efter aktivernes kritikalitet. Nævnerne skal være stabile: "procent patchede servere" er meningsløst, hvis aktivfortegnelsen er ufuldstændig, hvilket binder målingerne til styring af aktiver. Goodharts lov gælder fuldt ud: når klikraten i phishing-test bliver et mål, bliver simuleringerne lettere; andelen, der melder, og tiden til melding er sværere at manipulere. Aktivitetstal (afholdte kurser, kørte scanninger, lukkede alarmer) beskriver indsats, ikke effekt.
+
+    Målinger tjener også lovpligtige formål. NIS2 artikel 21, stk. 2, litra f, kræver politikker og procedurer til at vurdere effektiviteten af foranstaltningerne til risikostyring, og ISO/IEC 27002 kontrol 5.35 kræver uafhængig gennemgang af informationssikkerheden. I modsætning til en modenhedsvurdering, der beskriver, hvor veletableret en proces er, beskriver en måling, hvad processen opnår, og de to er mest nyttige, når de rapporteres side om side med en tendenslinje frem for som enkeltstående øjebliksbilleder.
 edges:
   requires: [governance]
   part-of: [isms]
@@ -41,4 +58,8 @@ sources:
     tier: standard
   - title: NIST SP 800-55 Vol. 1 — Measurement Guide for Information Security
     tier: standard
+  - title: NIST SP 800-55 Vol. 2 — Measurement Guide for Information Security, Developing an Information Security Measurement Program
+    tier: standard
+    publisher: NIST
+    url: https://csrc.nist.gov/pubs/sp/800/55/v2/final
 draft: true

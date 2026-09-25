@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: Passwords get guessed, used again and typed into fake pages; a passkey works only on the real site, and the server holds no shared secret worth stealing.
     da: Adgangskoder bliver gættet, genbrugt og tastet ind på falske sider; en passkey virker kun på det rigtige website, og serveren gemmer ingen fælles hemmelighed, der er værd at stjæle.
+deepDive:
+  en: |-
+    A passkey is a FIDO2 credential, meaning W3C Web Authentication (WebAuthn) between the relying party and the browser plus the FIDO Alliance's Client to Authenticator Protocol (CTAP 2) between the browser and an external authenticator. Technically it is a discoverable credential, formerly called a resident key: the authenticator stores the private key together with the RP ID and a user handle, so sign-in can begin without a user name, typically through autofill-style conditional mediation. WebAuthn Level 2 became a W3C Recommendation in April 2021, and Level 3 followed on 25 August 2026.
+
+    At registration the site calls navigator.credentials.create() with a random challenge, its RP ID (a registrable domain such as example.dk), a user ID and acceptable algorithms as COSE identifiers, usually -7 (ES256) and -257 (RS256), and requests residentKey "required" plus a user-verification preference. The authenticator generates a fresh key pair scoped to that RP ID and returns authenticator data containing the SHA-256 hash of the RP ID, a flags byte, a signature counter, the credential ID and the public key, optionally with an attestation statement. At sign-in, navigator.credentials.get() asks the authenticator to sign the authenticator data concatenated with the hash of clientDataJSON, which the browser fills with the type, the challenge and the actual origin. The server verifies the signature with the stored public key and checks challenge, origin, RP ID hash and the UP (user present) and UV (user verified) flags.
+
+    Phishing resistance comes from that binding: the browser, not the user, asserts the origin, and the authenticator will not even offer a credential whose RP ID does not match the site, so a look-alike domain gets nothing to relay. This is verifier-name binding in the sense of NIST SP 800-63B-4 §3.2.5. Server-side, only public keys are stored, so a database breach yields nothing usable for login.
+
+    Passkeys are either synced or device-bound. After the joint commitment by Apple, Google and Microsoft in May 2022, platforms began syncing passkeys through iCloud Keychain, Google Password Manager and third-party password managers; the BE (backup eligible) and BS (backup state) flags reveal this, and synced authenticators often report a signature counter of zero, which makes counter-based clone detection meaningless. SP 800-63B-4 accepts syncable authenticators up to AAL2 but not at AAL3, which requires a non-exportable key, so administrator and high-assurance use calls for device-bound passkeys on security keys or platform TPMs, often with attestation to verify the model. Cross-device sign-in uses the hybrid transport, a QR code plus a Bluetooth proximity check, so a phone can authenticate a laptop. The residual risks are the weakest remaining recovery or fallback method (SMS or password left enabled), compromise of the sync account, and theft of the session cookie issued after a perfectly phishing-resistant login.
+  da: |-
+    En passkey er en FIDO2-loginoplysning, dvs. W3C Web Authentication (WebAuthn) mellem relying partyen og browseren plus FIDO Alliances Client to Authenticator Protocol (CTAP 2) mellem browseren og en ekstern autentifikator. Teknisk er det en discoverable credential, tidligere kaldt resident key: Autentifikatoren gemmer den private nøgle sammen med RP ID og et bruger-handle, så login kan starte uden brugernavn, typisk via autofill-lignende conditional mediation. WebAuthn Level 2 blev W3C Recommendation i april 2021, og Level 3 fulgte den 25. august 2026.
+
+    Ved registreringen kalder websitet navigator.credentials.create() med en tilfældig udfordring (challenge), sit RP ID (et registrerbart domæne som example.dk), et bruger-id og de accepterede algoritmer som COSE-identifikatorer, typisk -7 (ES256) og -257 (RS256), og beder om residentKey "required" og en præference for brugerverifikation. Autentifikatoren genererer et nyt nøglepar afgrænset til det RP ID og returnerer authenticator data med SHA-256-hashen af RP ID, en flag-byte, en signaturtæller, credential-id'et og den offentlige nøgle, eventuelt med en attestation. Ved login beder navigator.credentials.get() autentifikatoren signere authenticator data sammensat med hashen af clientDataJSON, som browseren udfylder med typen, udfordringen og den faktiske origin. Serveren verificerer signaturen med den gemte offentlige nøgle og kontrollerer udfordring, origin, RP ID-hash og flagene UP (bruger til stede) og UV (bruger verificeret).
+
+    Phishing-resistensen kommer af den binding: Det er browseren og ikke brugeren, der angiver origin, og autentifikatoren tilbyder slet ikke en loginoplysning, hvis RP ID ikke passer til websitet, så et forvekslingsdomæne får intet at videresende. Det er binding til verifierens navn i betydningen fra NIST SP 800-63B-4 §3.2.5. På serversiden gemmes kun offentlige nøgler, så et databasebrud giver intet, der kan bruges til login.
+
+    Passkeys er enten synkroniserede eller enhedsbundne. Efter Apples, Googles og Microsofts fælles tilsagn i maj 2022 begyndte platformene at synkronisere passkeys via iCloud-nøglering, Google Password Manager og tredjeparts adgangskodeadministratorer; flagene BE (backup eligible) og BS (backup state) afslører det, og synkroniserede autentifikatorer returnerer ofte signaturtælleren nul, så tællerbaseret kloningsdetektion bliver meningsløs. SP 800-63B-4 accepterer synkroniserbare autentifikatorer op til AAL2, men ikke på AAL3, som kræver en nøgle, der ikke kan eksporteres; administratorer og brug med højt sikringsniveau kræver derfor enhedsbundne passkeys på sikkerhedsnøgler eller platform-TPM'er, ofte med attestation, så modellen kan verificeres. Login på tværs af enheder bruger hybrid-transporten, en QR-kode plus et Bluetooth-nærhedstjek, så en telefon kan autentificere en bærbar. De tilbageværende risici er den svageste tilbageværende gendannelses- eller reservemetode (SMS eller adgangskode, der stadig er slået til), kompromittering af synkroniseringskontoen og tyveri af den sessionscookie, der udstedes efter et fuldt phishing-resistent login.
 edges:
   kind-of: [credential]
   requires: [public-key-cryptography]
@@ -61,4 +78,12 @@ sources:
     tier: official-doc
     publisher: FIDO Alliance
     url: https://fidoalliance.org/apple-google-and-microsoft-commit-to-expanded-support-for-fido-standard-to-accelerate-availability-of-passwordless-sign-ins/
+  - title: W3C Web Authentication — An API for accessing Public Key Credentials, Level 3
+    tier: standard
+    publisher: W3C
+    url: https://www.w3.org/TR/webauthn-3/
+  - title: NIST SP 800-63B-4 — Authentication and Authenticator Management
+    tier: standard
+    publisher: NIST
+    url: https://pages.nist.gov/800-63-4/sp800-63b.html
 draft: true

@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Most teams build on models and data they did not make and cannot fully inspect, so one poisoned download can reach every product that uses it.
     da: De fleste teams bygger på modeller og data, de ikke selv har lavet og ikke fuldt kan efterprøve, så én forgiftet download kan nå ud til alle produkter, der bruger den.
+deepDive:
+  en: |-
+    An ML system inherits a longer dependency graph than ordinary software: pretrained base models, fine-tuned derivatives and adapters (LoRA), tokenizers and config files, datasets and their download URLs, conversion and quantisation tools, inference servers, Python packages, and increasingly plugins, MCP servers and agent tools. OWASP LLM03:2025 (Supply Chain) covers tampered or vulnerable third-party components, outdated or deprecated models, unclear licensing, vulnerable LoRA adapters, and weak model provenance on public hubs; NIST AI 100-2 treats supply-chain compromise as an enabler for poisoning and backdoor attacks.
+
+    The most direct technical vector is unsafe deserialisation. PyTorch's legacy checkpoint format is a ZIP containing a Python pickle, and unpickling can invoke arbitrary callables through __reduce__, so torch.load on an untrusted .pt/.bin file is remote code execution. Similar issues exist with Keras Lambda layers (CVE-2024-3660) and joblib files. Researchers have repeatedly found malicious models on Hugging Face (JFrog reported around 100 in 2024), and ReversingLabs' 2025 "nullifAI" samples used deliberately broken pickles that evaded Picklescan. Mitigations are to load only weight-only formats such as safetensors, which stores raw tensors plus a JSON header and executes no code, to rely on torch.load(weights_only=True) (the default since PyTorch 2.6), and to run conversion jobs in sandboxes without credentials.
+
+    The subtler vector is behavioural: weights that execute no code but have been fine-tuned or edited to contain a backdoor or targeted misinformation. Mithril Security's 2023 PoisonGPT demonstration surgically edited one fact in GPT-J with ROME and uploaded it under a look-alike organisation name, and the model still scored normally on standard benchmarks. Such tampering cannot be found by malware scanning; detection requires provenance and behavioural evaluation. Look-alike and hijacked namespaces on model hubs play the role typosquatting plays in npm and PyPI, and agents that suggest non-existent packages open the related slopsquatting vector.
+
+    Controls follow classic software supply chain practice adapted to models: an internal model registry or proxy with an allow-list, pinning models by immutable commit hash rather than a mutable tag or "latest", verifying cryptographic signatures (for example OpenSSF model signing based on Sigstore), recording components in an ML-BOM (CycloneDX 1.5 added machine-learning BOMs; SPDX 3.0 has an AI profile), reviewing model cards and licences, re-running your own evaluation and red teaming on each new version, and treating datasets as versioned, hashed artefacts. Under the EU AI Act, providers of high-risk systems must document third-party components in their technical documentation, and Art. 25(4) requires written agreements with suppliers of AI tools, services, components or processes integrated into a high-risk system.
+  da: |-
+    Et ML-system arver en længere afhængighedsgraf end almindelig software: fortrænede basismodeller, finjusterede afledninger og adaptere (LoRA), tokenizere og konfigurationsfiler, datasæt og deres download-URL'er, værktøjer til konvertering og kvantisering, inferensservere, Python-pakker og i stigende grad plugins, MCP-servere og agentværktøjer. OWASP LLM03:2025 (Supply Chain) dækker manipulerede eller sårbare tredjepartskomponenter, forældede eller udfasede modeller, uklare licenser, sårbare LoRA-adaptere og svag sporbarhed af modellers oprindelse på offentlige hubs; NIST AI 100-2 behandler kompromittering af forsyningskæden som en vej til forgiftnings- og bagdørsangreb.
+
+    Den mest direkte tekniske angrebsvej er usikker deserialisering. PyTorchs gamle checkpoint-format er en ZIP-fil med en Python-pickle, og unpickling kan kalde vilkårlige funktioner via __reduce__, så torch.load på en upålidelig .pt- eller .bin-fil svarer til remote code execution. Tilsvarende problemer findes med Keras Lambda-lag (CVE-2024-3660) og joblib-filer. Forskere har gentagne gange fundet ondsindede modeller på Hugging Face (JFrog rapporterede omkring 100 i 2024), og ReversingLabs' "nullifAI"-eksempler fra 2025 brugte bevidst ødelagte pickles, der slap uden om Picklescan. Modtræk er kun at indlæse rene vægtformater som safetensors, der gemmer rå tensorer plus en JSON-header og ikke afvikler kode, at bruge torch.load(weights_only=True) (standard siden PyTorch 2.6) og at køre konverteringsjob i sandkasser uden adgangsnøgler.
+
+    Den mere subtile angrebsvej er adfærdsmæssig: vægte, der ikke afvikler kode, men er finjusteret eller redigeret til at indeholde en bagdør eller målrettet misinformation. Mithril Securitys PoisonGPT-demonstration fra 2023 redigerede præcist én kendsgerning i GPT-J med ROME og uploadede modellen under et organisationsnavn, der lignede det rigtige, og modellen scorede stadig normalt på standard-benchmarks. Den slags manipulation findes ikke med malwarescanning; det kræver sporbarhed og adfærdsmæssig evaluering. Efterlignede og overtagne navnerum på model-hubs spiller den rolle, typosquatting spiller i npm og PyPI, og agenter, der foreslår pakker, som ikke findes, åbner den beslægtede slopsquatting-vej.
+
+    Kontrollerne følger klassisk praksis for softwareforsyningskæden, tilpasset modeller: et internt modelregister eller en proxy med allow-list, fastlåsning af modeller på uforanderlig commit-hash i stedet for et foranderligt tag eller "latest", verifikation af kryptografiske signaturer (fx OpenSSF model signing baseret på Sigstore), registrering af komponenter i en ML-BOM (CycloneDX 1.5 indførte BOM'er for maskinlæring; SPDX 3.0 har en AI-profil), gennemgang af modelkort og licenser, egen evaluering og red teaming af hver ny version, og at behandle datasæt som versionerede artefakter med hash-værdier. Efter AI-forordningen skal udbydere af højrisikosystemer dokumentere tredjepartskomponenter i den tekniske dokumentation, og art. 25, stk. 4, kræver skriftlige aftaler med leverandører af AI-værktøjer, tjenester, komponenter eller processer, der indgår i et højrisikosystem.
 edges:
   requires: [software-supply-chain, model-weights]
   kind-of:
@@ -62,4 +79,16 @@ sources:
     tier: standard
     publisher: NIST
     url: https://doi.org/10.6028/NIST.AI.100-2e2025
+  - title: CERT/CC VU#253266 — Keras Lambda layers allow arbitrary code injection (CVE-2024-3660)
+    tier: official-doc
+    publisher: CERT/CC
+    url: https://kb.cert.org/vuls/id/253266
+  - title: PyTorch 2.6 release blog (torch.load weights_only default changed)
+    tier: official-doc
+    publisher: PyTorch Foundation
+    url: https://pytorch.org/blog/pytorch2-6/
+  - title: Data Scientists Targeted by Malicious Hugging Face ML Models with Silent Backdoor
+    tier: other
+    publisher: JFrog
+    url: https://jfrog.com/blog/data-scientists-targeted-by-malicious-hugging-face-ml-models-with-silent-backdoor/
 draft: true

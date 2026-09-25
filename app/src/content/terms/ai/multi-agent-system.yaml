@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: Splitting work lets agents cover more ground than one context window allows, but it multiplies cost, and one tricked agent can pass bad orders on to the rest.
     da: At dele arbejdet op lader agenter nå mere, end ét kontekstvindue tillader, men det ganger prisen, og én narret agent kan give dårlige ordrer videre til resten.
+deepDive:
+  en: |-
+    Multi-agent systems predate language models by decades. Classical research, summarised in Wooldridge's textbook, studied autonomous software agents coordinating through explicit protocols: the Contract Net Protocol (Smith, 1980) for announcing tasks and accepting bids, FIPA ACL with speech-act performatives such as request, inform and propose, and belief-desire-intention architectures for individual agents. LLM-based systems reuse the vocabulary but usually coordinate in natural language, which is flexible but loses the formal semantics that made classical protocols analysable.
+
+    Common LLM topologies are orchestrator-worker (a lead agent decomposes the task, spawns subagents with their own prompts, tools and context windows, and synthesises their results), hierarchical trees of supervisors, sequential hand-offs where control passes from one specialist to the next, debate or critique setups in which agents challenge each other's answers, and blackboard designs where agents read and write shared state. Anthropic's June 2025 write-up of its research feature is the most cited data point: an orchestrator on Claude Opus 4 with Claude Sonnet 4 subagents outperformed single-agent Opus 4 by 90.2% on an internal research evaluation, but multi-agent runs used about 15 times as many tokens as a chat, and token usage alone explained about 80% of performance variance on BrowseComp. The practical reading is that multi-agent designs buy performance mainly by spending more tokens in parallel, and each subagent's separate context window acts as a compression step, so the architecture pays off for breadth-first, parallelisable work such as research and is often a poor fit for tightly coupled tasks like most coding, where subagents make conflicting assumptions.
+
+    Failure analysis is maturing. Cemri et al. (2025) analysed traces from seven popular frameworks and identified 14 failure modes in three categories: system-design issues, inter-agent misalignment (such as ignored input, withheld information and derailed conversations) and task-verification failures, including premature termination. Errors compound: a subagent's confident but wrong summary becomes the orchestrator's ground truth. Synchronous designs also stall while waiting for the slowest subagent.
+
+    Security and operations need explicit trust boundaries. Text returned by one agent is untrusted input to the next, so a prompt injection picked up by a browsing subagent can propagate upward with the orchestrator's authority. Subagents should receive least-privilege tool sets rather than inheriting everything, delegation depth and budgets should be capped, and every hop should be traced with correlated IDs so an output can be attributed to the agent, prompt and tool call that produced it. The distinction from an agentic workflow is who decides routing (the model rather than fixed code); the distinction from A2A is that A2A is a wire protocol that one multi-agent system may use to reach agents it does not control.
+  da: |-
+    Multiagentsystemer er årtier ældre end sprogmodellerne. Klassisk forskning, som Wooldridges lærebog opsummerer, studerede autonome softwareagenter, der koordinerede via eksplicitte protokoller: Contract Net Protocol (Smith, 1980) til at udbyde opgaver og modtage bud, FIPA ACL med talehandlingsperformativer som request, inform og propose samt belief-desire-intention-arkitekturer for den enkelte agent. LLM-baserede systemer genbruger ordforrådet, men koordinerer som regel i naturligt sprog, hvilket er fleksibelt, men mister den formelle semantik, der gjorde de klassiske protokoller analyserbare.
+
+    Udbredte LLM-topologier er orchestrator-worker (en ledende agent nedbryder opgaven, starter underagenter med egne prompts, værktøjer og kontekstvinduer og samler deres resultater), hierarkiske træer af supervisorer, sekventielle overdragelser, hvor kontrollen går fra én specialist til den næste, debat- eller kritikopsætninger, hvor agenter udfordrer hinandens svar, og blackboard-design, hvor agenter læser og skriver en fælles tilstand. Anthropics beskrivelse fra juni 2025 af deres researchfunktion er det mest citerede datapunkt: En orkestrator på Claude Opus 4 med underagenter på Claude Sonnet 4 klarede sig 90,2 % bedre end en enkelt Opus 4-agent i en intern researchevaluering, men multiagentkørsler brugte omkring 15 gange så mange tokens som en chat, og tokenforbruget alene forklarede omkring 80 % af variansen i ydeevne på BrowseComp. Den praktiske læsning er, at multiagentdesign primært køber ydeevne ved at bruge flere tokens parallelt, og hver underagents separate kontekstvindue fungerer som et komprimeringstrin, så arkitekturen betaler sig ved brede, paralleliserbare opgaver som research og passer ofte dårligt til tæt koblede opgaver som det meste kodearbejde, hvor underagenter gør modstridende antagelser.
+
+    Fejlanalysen modnes. Cemri et al. (2025) analyserede forløb fra syv populære frameworks og fandt 14 fejlmåder i tre kategorier: problemer med systemdesign, manglende afstemning mellem agenter (fx ignoreret input, tilbageholdt information og samtaler, der kører af sporet) og svigt i verifikationen af opgaven, herunder for tidlig afslutning. Fejl forstærker hinanden: En underagents selvsikre, men forkerte resumé bliver orkestratorens sandhed. Synkrone design går desuden i stå, mens de venter på den langsomste underagent.
+
+    Sikkerhed og drift kræver eksplicitte tillidsgrænser. Tekst, som én agent returnerer, er upålideligt input til den næste, så en prompt injection, som en browsende underagent samler op, kan brede sig opad med orkestratorens autoritet. Underagenter bør få værktøjssæt efter mindste privilegium i stedet for at arve alt, delegeringsdybde og budgetter bør have et loft, og hvert hop bør spores med korrelerede ID'er, så et output kan henføres til den agent, prompt og det værktøjskald, der skabte det. Forskellen til en agentisk arbejdsgang er, hvem der bestemmer routingen (modellen frem for fast kode); forskellen til A2A er, at A2A er en protokol på ledningsniveau, som et multiagentsystem kan bruge til at nå agenter, det ikke selv kontrollerer.
 edges:
   requires:
     - to: ai-agent
@@ -51,4 +68,12 @@ sources:
     publisher: Wiley
   - title: 'Wu et al. (2023), AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation'
     tier: reference
+  - title: Anthropic (2025), How we built our multi-agent research system
+    tier: reference
+    publisher: Anthropic
+    url: https://www.anthropic.com/engineering/multi-agent-research-system
+  - title: Cemri et al. (2025), Why Do Multi-Agent LLM Systems Fail?
+    tier: reference
+    publisher: arXiv
+    url: https://arxiv.org/abs/2503.13657
 draft: true

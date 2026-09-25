@@ -146,6 +146,7 @@ export const TermFrontmatter = z
     status: z.enum(['current', 'legacy', 'emerging']).default('current'),
     summary: LocalizedMax(140),
     body: Body,
+    deepDive: Localized.optional(),
     edges: Edges.default({}),
     article: z.object({ en: z.string().optional(), da: z.string().optional() }).strict().optional(),
     sources: z.array(Source).min(1),

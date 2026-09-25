@@ -25,6 +25,23 @@ body:
   whyItMatters:
     en: When one click touches dozens of services, logs from each one alone cannot show the chain of cause; traces link them into one story, which also helps follow an attacker's steps.
     da: Når ét klik berører snesevis af tjenester, kan logs fra hver enkelt ikke vise årsagskæden; sporinger binder dem sammen til én historie, hvilket også hjælper med at følge en angribers skridt.
+deepDive:
+  en: |-
+    A trace is a directed acyclic graph of spans sharing one trace ID. Each span records a name, a span ID, its parent span ID, start and end timestamps, a kind (in OpenTelemetry: SERVER, CLIENT, PRODUCER, CONSUMER or INTERNAL), a status, key-value attributes, timestamped events such as exceptions, and optional links to spans in other traces, which is how batch and fan-in messaging work is modelled when one consumer span has many causal parents. The span model descends from Google's Dapper paper (2010), which inspired Zipkin, Jaeger, OpenTracing and OpenCensus; the last two merged into OpenTelemetry in 2019, now the de facto instrumentation standard.
+
+    Context propagation is the part that makes tracing distributed. Across HTTP the dominant format is the W3C Trace Context Recommendation: a traceparent header of the form version-traceid-parentid-flags, where the trace ID is 16 bytes (32 hex characters), the parent ID 8 bytes (16 hex), and the lowest bit of the flags byte marks the trace as sampled; all-zero IDs are invalid. A companion tracestate header carries up to 32 vendor-specific list members. Older systems use Zipkin's B3 headers, and messaging systems must carry the same context in message headers. Propagation breaks silently at any hop that does not forward headers, such as a proxy, a thread pool that loses in-process context, or a queue consumer without instrumentation, leaving orphaned fragments rather than an error.
+
+    Tracing every request is usually too expensive, so sampling is central. Head-based sampling decides at the root, typically probabilistically on the trace ID so every service reaches the same decision, and then propagates it through the sampled flag; it is cheap but cannot favour slow or failed requests because it decides before they happen. Tail-based sampling buffers all spans of a trace, for example in an OpenTelemetry Collector tier, and decides after completion, keeping errors and latency outliers at the cost of memory and a routing layer that sends all spans of one trace to the same instance.
+
+    Instrumentation is either automatic (agents or libraries that wrap HTTP servers, clients, database drivers) or manual spans around business logic, and attributes should follow OpenTelemetry semantic conventions so backends can interpret them. Traces differ from logs and metrics in that they encode causality and timing across process boundaries; exemplars link a metric data point to a representative trace ID, and injecting trace IDs into log records lets logs be joined to traces. Attributes can leak personal data or secrets such as full URLs with tokens, so span processors that redact attributes are part of a sound deployment.
+  da: |-
+    En sporing (trace) er en rettet acyklisk graf af spans med samme trace-ID. Hvert span registrerer et navn, et span-ID, forælderens span-ID, start- og sluttidspunkt, en type (i OpenTelemetry: SERVER, CLIENT, PRODUCER, CONSUMER eller INTERNAL), en status, nøgle-værdi-attributter, tidsstemplede hændelser som exceptions og eventuelle links til spans i andre sporinger, som er måden, batch- og fan-in-beskedbehandling modelleres på, når ét consumer-span har mange årsagsforældre. Span-modellen stammer fra Googles Dapper-artikel (2010), der inspirerede Zipkin, Jaeger, OpenTracing og OpenCensus; de to sidste blev i 2019 slået sammen til OpenTelemetry, som i dag er de facto-standarden for instrumentering.
+
+    Kontekstpropagering er det, der gør sporingen distribueret. Over HTTP er det dominerende format W3C-anbefalingen Trace Context: en traceparent-header på formen version-traceid-parentid-flags, hvor trace-ID'et er 16 byte (32 hex-tegn), parent-ID'et 8 byte (16 hex-tegn), og den laveste bit i flags-byten markerer, at sporingen er samplet; ID'er, der kun består af nuller, er ugyldige. En tilhørende tracestate-header bærer op til 32 leverandørspecifikke listeelementer. Ældre systemer bruger Zipkins B3-headers, og beskedsystemer skal bære samme kontekst i beskedheaders. Propageringen brydes lydløst ved ethvert led, der ikke videresender headers, fx en proxy, en trådpulje, der mister kontekst i processen, eller en køforbruger uden instrumentering, og resultatet er forældreløse fragmenter frem for en fejl.
+
+    At spore hver eneste forespørgsel er som regel for dyrt, så sampling er central. Head-based sampling beslutter ved roden, typisk sandsynlighedsbaseret ud fra trace-ID'et, så alle tjenester når samme beslutning, og sender den videre via sampled-flaget; det er billigt, men kan ikke favorisere langsomme eller fejlede forespørgsler, fordi beslutningen træffes, før de sker. Tail-based sampling holder alle spans i en sporing i buffer, fx i et lag af OpenTelemetry Collectors, og beslutter efter afslutning, så fejl og latensudliggere bevares, prisen er hukommelse og et routinglag, der sender alle spans fra samme sporing til samme instans.
+
+    Instrumentering er enten automatisk (agenter eller biblioteker, der pakker HTTP-servere, klienter og databasedrivere ind) eller manuelle spans omkring forretningslogik, og attributter bør følge OpenTelemetrys semantiske konventioner, så backends kan fortolke dem. Sporinger adskiller sig fra logs og metrikker ved at indkode årsagssammenhæng og timing på tværs af procesgrænser; exemplars knytter et metrikdatapunkt til et repræsentativt trace-ID, og når trace-ID'er skrives ind i logposter, kan logs kobles til sporinger. Attributter kan lække personoplysninger eller hemmeligheder, fx fulde URL'er med tokens, så span-processorer, der renser attributter, hører med til en forsvarlig opsætning.
 edges:
   part-of: [observability]
   requires: [service]
@@ -40,4 +57,8 @@ sources:
     url: https://research.google/pubs/dapper-a-large-scale-distributed-systems-tracing-infrastructure/
     tier: reference
     publisher: Google
+  - title: W3C Trace Context (W3C Recommendation)
+    tier: standard
+    publisher: W3C
+    url: https://www.w3.org/TR/trace-context/
 draft: true

@@ -24,6 +24,23 @@ body:
   whyItMatters:
     en: No defence stops everything, so the time between an attacker getting in and someone noticing decides how much harm is done.
     da: Intet forsvar stopper alt, så tiden fra en angriber kommer ind, til nogen opdager det, afgør, hvor stor skaden bliver.
+deepDive:
+  en: |-
+    The term covers two related scopes. In the narrow, operational sense it is threat detection: collecting telemetry and looking for evidence of attack. In the broader sense of NIST SP 800-137 (2011), information security continuous monitoring (ISCM) means maintaining ongoing awareness of vulnerabilities, threats and the effectiveness of controls to support risk decisions — patch levels, configuration compliance and control failures are monitored alongside intrusions. NIST CSF 2.0 reflects both in its Detect function, with categories DE.CM (continuous monitoring) and DE.AE (adverse event analysis), and ISO/IEC 27002:2022 added control 8.16 (monitoring activities) next to 8.15 (logging).
+
+    Data sources fall into three families. Logs: operating-system events (for example Windows Security events 4624/4625 for logon success and failure and 4688 for process creation, or Linux auditd and journald), identity-provider sign-in and audit logs, cloud control-plane logs (AWS CloudTrail, Azure Activity Log), application and database logs. Network data: flow records (NetFlow, IPFIX), DNS and proxy logs, IDS alerts and, where justified, full packet capture. Endpoint telemetry from EDR. Coverage is the first engineering problem — which assets and log types are actually collected — and time synchronisation is the second: without NTP-aligned clocks (ISO 27002 8.17), events cannot be correlated across systems.
+
+    Detection content is written as use cases, increasingly mapped to MITRE ATT&CK techniques so that coverage gaps can be measured. David Bianco's Pyramid of Pain (2013) explains why behavioural detections are preferred over indicators: hashes and IP addresses are trivial for attackers to change, while tools and tactics are costly. Tuning is continuous; untuned rules produce alert fatigue, in which analysts learn to dismiss alerts and miss the real one. OT environments usually require passive monitoring, since active queries can disturb industrial controllers.
+
+    Effectiveness is expressed in time. Dwell time — from initial compromise to detection — has fallen over the past decade but remains measured in days to weeks: Mandiant's M-Trends 2026 reports a global median of 14 days, up from 11 the year before, with much longer medians for espionage cases. Mean time to detect and mean time to respond are the usual internal metrics. Monitoring also has legal boundaries: monitoring employees' activity involves personal data, so in Denmark and the EU it must have a lawful basis, be proportionate and be disclosed to staff, and log retention must be justified. NIS2 Art. 21(2)(b) on incident handling and (f) on assessing the effectiveness of measures both presuppose monitoring, as does meeting the 24-hour early-warning deadline in Art. 23.
+  da: |-
+    Begrebet dækker to beslægtede omfang. I den snævre, operationelle betydning er det trusselsdetektion: indsamling af telemetri og søgning efter spor af angreb. I den bredere betydning i NIST SP 800-137 (2011) betyder information security continuous monitoring (ISCM) løbende indsigt i sårbarheder, trusler og kontrollernes effektivitet som grundlag for risikobeslutninger — patchniveauer, konfigurationsoverholdelse og kontrolsvigt overvåges sammen med indtrængen. NIST CSF 2.0 afspejler begge i funktionen Detect med kategorierne DE.CM (continuous monitoring) og DE.AE (adverse event analysis), og ISO/IEC 27002:2022 tilføjede kontrol 8.16 (overvågningsaktiviteter) ved siden af 8.15 (logning).
+
+    Datakilderne falder i tre familier. Logs: hændelser fra styresystemet (fx Windows Security-hændelserne 4624/4625 for vellykket og mislykket logon og 4688 for procesoprettelse eller Linux auditd og journald), login- og auditlogs fra identitetsudbyderen, logs fra cloudens kontrolplan (AWS CloudTrail, Azure Activity Log) samt applikations- og databaselogs. Netværksdata: flowdata (NetFlow, IPFIX), DNS- og proxylogs, IDS-alarmer og, hvor det kan begrundes, fuld pakkeoptagelse. Endpoint-telemetri fra EDR. Dækningen er det første tekniske problem — hvilke aktiver og logtyper der faktisk indsamles — og tidssynkronisering det andet: uden NTP-afstemte ure (ISO 27002 8.17) kan hændelser ikke korreleres på tværs af systemer.
+
+    Detektionsindholdet skrives som use cases, i stigende grad kortlagt til MITRE ATT&CK-teknikker, så huller i dækningen kan måles. David Biancos Pyramid of Pain (2013) forklarer, hvorfor adfærdsbaserede detektioner foretrækkes frem for indikatorer: hashværdier og IP-adresser er trivielle for angriberen at skifte, mens værktøjer og taktikker er dyre at ændre. Tuning er en løbende opgave; utunede regler giver alarmtræthed, hvor analytikerne vænner sig til at afvise alarmer og overser den rigtige. OT-miljøer kræver som regel passiv overvågning, fordi aktive forespørgsler kan forstyrre industrielle styringer.
+
+    Effektiviteten udtrykkes i tid. Dwell time — fra første kompromittering til opdagelse — er faldet over det seneste årti, men måles stadig i dage til uger: Mandiants M-Trends 2026 angiver en global median på 14 dage, op fra 11 året før, og langt længere medianer for spionagesager. Mean time to detect og mean time to respond er de sædvanlige interne nøgletal. Overvågning har også juridiske grænser: overvågning af medarbejderes aktivitet indebærer behandling af personoplysninger, så den skal i Danmark og EU have et lovligt grundlag, være proportional og være oplyst over for medarbejderne, og opbevaringen af logs skal kunne begrundes. NIS2 art. 21, stk. 2, litra b om hændelseshåndtering og litra f om vurdering af foranstaltningernes effektivitet forudsætter begge overvågning, ligesom overholdelse af fristen på 24 timer for den tidlige varsling i art. 23 gør det.
 edges:
   requires: [log]
   used-with:
@@ -50,4 +67,8 @@ sources:
   - title: CIS Controls v8 — Control 8 (Audit Log Management) and Control 13 (Network Monitoring and Defense)
     tier: standard
     publisher: Center for Internet Security
+  - title: 'M-Trends 2026: Data, Insights, and Strategies From the Frontlines'
+    tier: other
+    publisher: Mandiant (Google Cloud)
+    url: https://cloud.google.com/blog/topics/threat-intelligence/m-trends-2026/
 draft: true
