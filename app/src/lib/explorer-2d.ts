@@ -40,7 +40,7 @@ import {
   type LaneLayout,
 } from './graph-layout';
 import { GRAPH_STYLE, edgeData, reducedMotion, smoothFit } from './graph-cytoscape';
-import { startDots } from './explorer-flow';
+import { startDots, type DotsConfig } from './explorer-flow';
 
 cytoscape.use(fcose);
 
@@ -757,7 +757,10 @@ export function createMap2D(opts: Map2DOptions) {
   cy.on('dbltap', 'node[size]', (e) => opts.onOpen(e.target.id()));
   /** True while nodes glide to a new layout: the flow dots wait for them to land. */
   let moving = false;
-  const dots = startDots(cy, links, () => moving);
+  // The hidden visual lab (A95) tunes a copy of the dot settings live and can pause them.
+  const dotCfg: { -readonly [K in keyof DotsConfig]: number } = { ...EXPLORER.dots };
+  let dotsOn = true;
+  const dots = startDots(cy, links, () => moving || !dotsOn, dotCfg);
 
   // ---- 6. Positions ------------------------------------------------------------------
   const targetFor = (v: View) => {
@@ -976,6 +979,13 @@ export function createMap2D(opts: Map2DOptions) {
     resize() {
       cy.resize();
       dots.resize();
+    },
+    /** Hooks for the hidden visual lab only (A95); the Explorer never uses them. */
+    lab: {
+      dots: dotCfg,
+      setDots(on: boolean) {
+        dotsOn = on;
+      },
     },
     destroy() {
       dots.stop();

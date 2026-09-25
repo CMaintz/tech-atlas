@@ -323,7 +323,8 @@ export async function createMap3D(opts: {
   // One THREE.Points for all of them: each comet is a head and a fading tail of points
   // (`cfg.flow.trail`), positions recomputed on the link's curve every frame for the
   // visible one-way links only (compacted to the front of the buffers, drawRange).
-  const fl = cfg.flow;
+  // A copy, read every frame, so the hidden visual lab (A95) can tune the speed live.
+  const fl: Omit<typeof cfg.flow, 'speed'> & { speed: number } = { ...cfg.flow };
   const TRAIL = fl.trail.length;
   const flowPos = new Float32Array(links.length * TRAIL * 3);
   const flowCol = new Float32Array(links.length * TRAIL * 3);
@@ -570,6 +571,24 @@ export async function createMap3D(opts: {
           );
         }
       }
+    },
+    /** Hooks for the hidden visual lab only (A95); the Explorer never uses them. */
+    lab: {
+      fg,
+      THREE,
+      scene,
+      web,
+      glow,
+      glowMat,
+      flow,
+      flowMat,
+      flowCfg: fl,
+      /** Each link's quadratic curve (start, bend, end), shared by the web and comets. */
+      curve,
+      /** Drawn in the overview (the backbone, or every link with "show all"). */
+      drawn: (l: Link3) => !!view && endsShown(l) && (view.showAll || l.bb),
+      focusOf,
+      faded,
     },
     /** Slow auto-rotation about the scene centre (off under reduced motion). */
     spin(on: boolean) {

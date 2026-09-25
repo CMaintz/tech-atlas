@@ -13,6 +13,9 @@ const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
 /** Samples per quadratic piece of an edge's curve. */
 const STEPS = 8;
 
+/** The dots' settings (`EXPLORER.dots`), as plain numbers. */
+export type DotsConfig = { readonly [K in keyof typeof EXPLORER.dots]: number };
+
 type Path = {
   /** Sampled points (x0, y0, x1, y1, …) and cumulative lengths, in model coordinates. */
   pts: number[];
@@ -51,8 +54,9 @@ export function startDots(
   cy: cytoscape.Core,
   edges: cytoscape.EdgeCollection,
   paused: () => boolean,
+  /** The settings, read every frame (the hidden visual lab tunes a copy live, A95). */
+  cfg: DotsConfig = EXPLORER.dots,
 ): { stop: () => void; resize: () => void } {
-  const cfg = EXPLORER.dots;
   const container = cy.container()!;
   if (getComputedStyle(container).position === 'static') container.style.position = 'relative';
   const canvas = document.createElement('canvas');
