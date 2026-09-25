@@ -30,6 +30,8 @@ export const EXPLORER = {
     backbonePerNode: 2,
     /** Resting opacity of backbone edges; revealed (hover/selection) edges are brighter. */
     restAlpha: 0.42,
+    /** Resting opacity of backbone edges between two clusters (they are bundled). */
+    crossAlpha: 0.12,
     allAlpha: 0.22,
     /** Cluster-to-cluster bundles: fewer relationships than this are not drawn. */
     minBundle: 2,
@@ -58,19 +60,19 @@ export const EXPLORER = {
    */
   dots: {
     /** Model px per second a dot travels, source → target. */
-    speed: 16,
+    speed: 14,
     /** Dot spacing along an edge (model px); short edges still carry one dot. */
-    spacing: 90,
+    spacing: 220,
     /** Dot radius on screen (px) and opacity: lit (hovered / selected) and at rest. */
-    radius: 1.6,
-    alpha: 0.55,
+    radius: 1.4,
+    alpha: 0.4,
     litAlpha: 0.95,
     /** Repaint rate of the overlay. */
     fps: 30,
   },
 
   motion: {
-    /** Nodes glide to a new layout (force ↔ depth ↔ time, tidy up) over this long. */
+    /** Nodes glide to a new layout (force ↔ depth ↔ time) over this long. */
     layoutMs: 700,
     /** Edges fade in / out when a relationship family is toggled. */
     fadeMs: 180,

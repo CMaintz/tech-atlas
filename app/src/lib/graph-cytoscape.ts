@@ -73,15 +73,11 @@ export const GRAPH_STYLE = [
       'underlay-shape': 'ellipse',
     },
   },
-  // A term in several domains is split into vertical bands, one per domain (A86).
+  // A term in several domains: a solid fill in its own shade and a thin ring in the
+  // other domain's colour (A86; the split fill is left to the canvas lab).
   {
-    selector: 'node[bandColours]',
-    style: {
-      'background-fill': 'linear-gradient',
-      'background-gradient-direction': 'to-right',
-      'background-gradient-stop-colors': 'data(bandColours)',
-      'background-gradient-stop-positions': 'data(bandStops)',
-    },
+    selector: 'node[ring]',
+    style: { 'border-width': 2, 'border-color': 'data(ring)', 'border-opacity': 0.95 },
   },
   {
     selector: 'edge',

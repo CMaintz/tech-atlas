@@ -55,31 +55,15 @@ export function effectivePaint(
 }
 
 /**
- * The colour bands of a term in several enabled domains (A86): one band per domain,
- * its effective home first, each in that domain's colour. A term in one enabled domain
- * gets no bands (its fill is its cluster shade).
+ * The domain colours of a term in several enabled domains (A86): its effective home
+ * first, then the others. The map fills the term in its own shade and rings it in the
+ * second colour. A term in one enabled domain gets none.
  */
 export function domainBands(n: Paintable, enabled?: ReadonlySet<string>): string[] {
   const on = n.domain.filter((d) => !enabled || enabled.has(d));
   if (on.length < 2) return [];
   const home = effectiveHome(n, enabled);
   return [home, ...on.filter((d) => d !== home)].map(domainColour);
-}
-
-/**
- * Hard-edged vertical bands as a CSS/Cytoscape gradient: every colour repeated at its
- * band's start and end, so neighbouring bands meet without a blend.
- */
-export function bandGradient(colours: string[]): { colours: string; stops: string } {
-  const c: string[] = [];
-  const s: string[] = [];
-  colours.forEach((col, i) => {
-    const a = (100 * i) / colours.length;
-    const b = (100 * (i + 1)) / colours.length;
-    c.push(col, col);
-    s.push(`${+a.toFixed(3)}%`, `${+b.toFixed(3)}%`);
-  });
-  return { colours: c.join(' '), stops: s.join(' ') };
 }
 
 // ---- Backbone ------------------------------------------------------------------------

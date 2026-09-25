@@ -26,7 +26,6 @@ import {
 } from './graph-style';
 import {
   backbone,
-  bandGradient,
   bundleControls,
   clusterBundles,
   depthLanes,
@@ -39,7 +38,8 @@ import {
   timeLanes,
   type LaneLayout,
 } from './graph-layout';
-import { GRAPH_STYLE, edgeData, reducedMotion, smoothFit, startFlow } from './graph-cytoscape';
+import { GRAPH_STYLE, edgeData, reducedMotion, smoothFit } from './graph-cytoscape';
+import { startDots } from './explorer-flow';
 
 cytoscape.use(fcose);
 
@@ -72,7 +72,7 @@ export type View = {
   selected: string | null;
   highlight: ReadonlySet<string>;
   colour: (n: GraphNode) => string;
-  /** Domain colours of a shared term's split fill; empty for a single-domain term. */
+  /** Domain colours of a shared term, its own first (the second is its ring); else empty. */
   bands: (n: GraphNode) => string[];
 };
 
@@ -95,6 +95,8 @@ const EXTRA_STYLE = [
       'control-point-step-size': 30,
     },
   },
+  // Resting edges between islands are quieter, and bundled (see `setBundledRoutes`).
+  { selector: 'edge.bb.xc', style: { opacity: EXPLORER.edges.crossAlpha } },
   // Revealed (hover, selection, route, "show all"): family colour and arrow.
   {
     selector: 'edge.all, edge.lit, edge.hl, edge.focus',
@@ -168,6 +170,20 @@ const EXTRA_STYLE = [
   { selector: 'node.tag.domain', style: { 'text-opacity': 0.45, 'text-outline-width': 0 } },
   { selector: 'node.tag.tick', style: { 'text-opacity': 0.35, 'font-weight': 400 } },
   { selector: 'node.tag.faded', style: { 'text-opacity': 0.08 } },
+  // Hover previews the selection look, lighter.
+  { selector: 'node.faded', style: { opacity: 0.35, 'text-opacity': 0, 'underlay-opacity': 0 } },
+  { selector: 'edge.faded', style: { opacity: 0.08 } },
+  // Selection (and a route): everything not connected recedes — nodes, labels, edges,
+  // bundles and names — while the term, its neighbours and their edges stay fully lit.
+  { selector: 'node.dim', style: { opacity: 0.14, 'text-opacity': 0, 'underlay-opacity': 0 } },
+  { selector: 'edge.dim', style: { opacity: 0.05 } },
+  { selector: 'edge.bundle.dim', style: { opacity: 0.02 } },
+  { selector: 'node.tag.dim', style: { opacity: 1, 'text-opacity': 0.08 } },
+  {
+    selector: 'node.nb',
+    style: { 'text-opacity': 1, 'min-zoomed-font-size': 0, 'z-index': 20 },
+  },
+  { selector: 'node.far.nb', style: { 'font-size': 'data(hoverFont)' } },
 ];
 
 export function createMap2D(opts: Map2DOptions) {
@@ -557,7 +573,6 @@ export function createMap2D(opts: Map2DOptions) {
 
   // ---- 4. State, edges and focus ------------------------------------------------------
   let view: View | null = null;
-  let tidied = false;
   let hovered: cytoscape.NodeSingular | null = null;
   /** Elements currently displayed — hover fades only these. */
   let shown = cy.collection();
@@ -578,7 +593,6 @@ export function createMap2D(opts: Map2DOptions) {
         e.toggleClass('off', !on);
         e.toggleClass('all', on && v.showAll);
         e.toggleClass('focus', focus);
-        e.toggleClass('flow', focus && e.data('directed') === 1);
       });
       // Bundles summarise the visible cross-cluster relationships in the force overview.
       const counts = new Map<string, number>();
@@ -611,7 +625,11 @@ export function createMap2D(opts: Map2DOptions) {
   };
   const graphFamily = (e: cytoscape.EdgeSingular) => graph.links[Number(e.id().slice(1))].family;
 
-  /** Bundled routes for cross-cluster edges drawn in full ("show all", force layout). */
+  /**
+   * Bundled routes for every cross-cluster edge in the force layout: edges between the
+   * same two islands share a path, so the strong links between clusters read as a few
+   * strands, not a hairball (A86).
+   */
   let bundled = false;
   const setBundledRoutes = (on: boolean, centre?: Record<string, Point>) => {
     // Clearing routes that were never set restyles every cross-cluster edge for nothing.
@@ -648,7 +666,7 @@ export function createMap2D(opts: Map2DOptions) {
     const was = hovered;
     hovered = null;
     cy.batch(() => {
-      shown.removeClass('faded lit hflow');
+      shown.removeClass('faded lit');
       cy.nodes('.hoverhide').removeClass('hoverhide');
       // Edges revealed only for the hover go back to hidden.
       was.connectedEdges('.hoverlink').removeClass('hoverlink').addClass('off');
@@ -685,7 +703,6 @@ export function createMap2D(opts: Map2DOptions) {
       shown.not(hood).addClass('faded');
       cy.nodes('.tag').addClass('faded');
       hood.addClass('lit');
-      hood.edges('[?directed]').addClass('hflow');
       lit.filter((m) => hidden.has(m.id())).addClass('hoverhide');
     });
     opts.container.style.cursor = 'pointer';
@@ -704,20 +721,17 @@ export function createMap2D(opts: Map2DOptions) {
   cy.on('tap', 'node[size]', (e) => opts.onSelect(e.target.id()));
   cy.on('tap', (e) => e.target === cy && opts.onSelect(null));
   cy.on('dbltap', 'node[size]', (e) => opts.onOpen(e.target.id()));
-  const stopFlow = startFlow(cy, 240);
+  /** True while nodes glide to a new layout: the flow dots wait for them to land. */
+  let moving = false;
+  const dots = startDots(cy, links, () => moving);
 
   // ---- 6. Positions ------------------------------------------------------------------
-  const targetFor = (v: View, compact: boolean) => {
+  const targetFor = (v: View) => {
     if (v.layout === 'force') {
-      const s = compact ? islandMap(v.nodes, v.domains) : base.force;
+      const s = base.force;
       return { positions: s.positions, tags: tagsFor('force', s), centre: s.centre };
     }
-    const subset = graph.nodes.filter((n) => v.nodes.has(n.id));
-    const s = !compact
-      ? fullLanes(v.layout)
-      : v.layout === 'depth'
-        ? depthLanes(subset, graph.links, v.domains)
-        : timeLanes(subset, v.domains);
+    const s = fullLanes(v.layout);
     return { positions: s.positions, tags: tagsFor(v.layout, s), centre: undefined };
   };
   let centreNow: Record<string, Point> | undefined = base.force.centre;
@@ -740,8 +754,8 @@ export function createMap2D(opts: Map2DOptions) {
         tag.toggleClass('gone', gone);
       }),
     );
-  const place = (v: View, compact: boolean, animate: boolean) => {
-    const t = targetFor(v, compact);
+  const place = (v: View, animate: boolean) => {
+    const t = targetFor(v);
     centreNow = t.centre;
     setTags(t.tags);
     refreshTags(v);
@@ -753,7 +767,8 @@ export function createMap2D(opts: Map2DOptions) {
       );
     const move = terms.filter((n) => !!t.positions[n.id()]);
     const done = () => {
-      setBundledRoutes(v.layout === 'force' && v.showAll, t.centre);
+      moving = false;
+      setBundledRoutes(v.layout === 'force', t.centre);
       recull(true);
       frame();
     };
@@ -764,6 +779,7 @@ export function createMap2D(opts: Map2DOptions) {
     }
     // Straight-line routes bend badly mid-flight; drop them until nodes land.
     setBundledRoutes(false);
+    moving = true;
     move
       .layout({
         name: 'preset',
@@ -815,9 +831,7 @@ export function createMap2D(opts: Map2DOptions) {
     const layoutChanged = !prev || prev.layout !== next.layout;
     const nodesChanged = !prev || prev.nodes !== next.nodes;
     if (layoutChanged || nodesChanged || prev.domains !== next.domains) {
-      // Domain toggles hide in place; a tidied map returns to the stable layout.
-      const retidy = tidied && !layoutChanged;
-      tidied = false;
+      // Domain toggles hide in place; only a layout switch moves terms.
       cy.batch(() => {
         terms.forEach((n) => void n.toggleClass('gone', !next.nodes.has(n.id())));
         if (layoutChanged)
@@ -830,7 +844,7 @@ export function createMap2D(opts: Map2DOptions) {
           });
       });
       refreshEdges();
-      if (layoutChanged || retidy) place(next, false, !!prev);
+      if (layoutChanged) place(next, !!prev);
       else refreshTags(next);
     }
     if (!prev || prev.colour !== next.colour || prev.bands !== next.bands)
@@ -838,11 +852,9 @@ export function createMap2D(opts: Map2DOptions) {
         terms.forEach((n) => {
           const g = byId.get(n.id())!;
           n.data('colour', next.colour(g));
-          const bands = next.bands(g);
-          if (bands.length) {
-            const b = bandGradient(bands);
-            n.data({ bandColours: b.colours, bandStops: b.stops });
-          } else if (n.data('bandColours')) n.removeData('bandColours bandStops');
+          const ring = next.bands(g)[1];
+          if (ring) n.data('ring', ring);
+          else if (n.data('ring')) n.removeData('ring');
         }),
       );
     // Relationship families fade out / in rather than blink.
@@ -875,17 +887,28 @@ export function createMap2D(opts: Map2DOptions) {
               },
             );
           });
-      if (prev?.showAll !== next.showAll || layoutChanged)
-        setBundledRoutes(next.layout === 'force' && next.showAll, centreNow);
+      if (layoutChanged) setBundledRoutes(next.layout === 'force', centreNow);
       cy.batch(() => {
-        cy.elements('.sel, .hl, .dim').removeClass('sel hl dim');
+        cy.elements('.sel, .hl, .dim, .nb').removeClass('sel hl dim nb');
+        const tags = cy.nodes('.tag');
         if (next.highlight.size) {
           shown.addClass('dim');
+          tags.addClass('dim');
           terms
             .filter((n) => next.highlight.has(n.id()))
             .removeClass('dim')
             .addClass('hl');
           shown.edges('.focus').removeClass('dim').addClass('hl');
+        } else if (next.selected) {
+          // The selected term, its visible neighbours and the edges between them stay lit.
+          const s = cy.getElementById(next.selected);
+          if (s.nonempty() && !s.hasClass('gone')) {
+            const edges = s.connectedEdges().filter((e) => !e.hasClass('off'));
+            const hood = edges.connectedNodes().union(s);
+            shown.not(hood).not(edges).addClass('dim');
+            tags.addClass('dim');
+            hood.not(s).addClass('nb');
+          }
         }
         if (next.selected) cy.getElementById(next.selected).removeClass('dim').addClass('sel');
       });
@@ -914,18 +937,12 @@ export function createMap2D(opts: Map2DOptions) {
   return {
     cy,
     apply,
-    /** Gather the visible terms into a compact arrangement of the current layout. */
-    tidy() {
-      if (!view) return;
-      tidied = true;
-      place(view, true, true);
-    },
-    fit,
     resize() {
       cy.resize();
+      dots.resize();
     },
     destroy() {
-      stopFlow();
+      dots.stop();
       window.clearTimeout(cullTimer);
       window.clearTimeout(hoverTimer);
       cy.destroy();

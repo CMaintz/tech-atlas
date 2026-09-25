@@ -81,6 +81,7 @@ export const UI = {
     status_familiar: 'Familiar',
     status_learning: 'Learning it',
     status_unknown: "Don't understand",
+    view: 'View',
     colourBy: 'Colour by',
     byCluster: 'Cluster',
     byKnowledge: 'My knowledge',
@@ -104,7 +105,7 @@ export const UI = {
     depthNote:
       'Height = depth: foundations at the bottom, advanced terms on top. One lane per domain.',
     galaxyNote:
-      'Each domain is a galaxy; terms shared by two domains sit between them. Foundations lie lower, advanced terms higher.',
+      'Each domain is a galaxy of its clusters; a term shared by two domains glows in the other’s colour. Foundations lie lower, advanced terms higher.',
     domains: 'Domains',
     relationshipTypes: 'Relationships',
     route: 'Route between two terms',
@@ -269,6 +270,7 @@ export const UI = {
     status_familiar: 'Bekendt',
     status_learning: 'Lærer det',
     status_unknown: 'Forstår det ikke',
+    view: 'Visning',
     colourBy: 'Farv efter',
     byCluster: 'Klynge',
     byKnowledge: 'Min viden',
@@ -291,7 +293,7 @@ export const UI = {
     layoutDepth: 'Efter dybde',
     depthNote: 'Højde = dybde: grundlaget nederst, avancerede begreber øverst. Én bane pr. domæne.',
     galaxyNote:
-      'Hvert domæne er en galakse; begreber, som to domæner deler, ligger imellem dem. Grundlaget ligger lavere, avancerede begreber højere.',
+      'Hvert domæne er en galakse af sine klynger; et begreb, som to domæner deler, gløder i det andets farve. Grundlaget ligger lavere, avancerede begreber højere.',
     domains: 'Domæner',
     relationshipTypes: 'Relationer',
     route: 'Vej mellem to begreber',
@@ -481,14 +483,12 @@ export const GRAPH_UI = {
   en: {
     legend: 'Legend',
     nodes: 'Terms — colour = domain, shade = cluster',
-    ring: 'Split colours: the term belongs to several domains, one band each',
+    ring: 'Ring: the term also belongs to another domain, in that domain’s colour',
     edges: 'Relationships — colour = family',
     oneWay:
-      'One-way: the arrow (and moving dashes) point from a term to what it requires, mitigates, causes …',
+      'One-way: the arrow (and the moving flow) point from a term to what it requires, mitigates, causes …',
     twoWay: 'Two-way: contrasts, alternatives and “used with” — no arrow',
     crossDomain: 'Fades between two domain colours: crosses domains',
-    fit: 'Fit to view',
-    tidy: 'Tidy up',
     showAll: 'Show all relationships',
     overview:
       'The overview draws each term’s strongest links; faint ribbons bundle the links between clusters. Hover or click a term for all its relationships.',
@@ -496,14 +496,12 @@ export const GRAPH_UI = {
   da: {
     legend: 'Forklaring',
     nodes: 'Begreber — farve = domæne, nuance = klynge',
-    ring: 'Delte farver: begrebet hører til flere domæner, én stribe for hvert',
+    ring: 'Ring: begrebet hører også til et andet domæne, i det domænes farve',
     edges: 'Relationer — farve = familie',
     oneWay:
-      'Envejs: pilen (og de bevægelige streger) peger fra et begreb mod det, det forudsætter, afbøder, forårsager …',
+      'Envejs: pilen (og den bevægelige strøm) peger fra et begreb mod det, det forudsætter, afbøder, forårsager …',
     twoWay: 'Tovejs: kontraster, alternativer og “bruges sammen med” — ingen pil',
     crossDomain: 'Glider mellem to domænefarver: krydser domæner',
-    fit: 'Tilpas visning',
-    tidy: 'Ryd op',
     showAll: 'Vis alle relationer',
     overview:
       'Overblikket viser hvert begrebs stærkeste forbindelser; svage bånd samler forbindelserne mellem klynger. Hold musen over eller klik på et begreb for at se alle dets relationer.',

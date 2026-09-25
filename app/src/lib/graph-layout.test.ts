@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
   backbone,
-  bandGradient,
   bundleControls,
   clusterBundles,
   depthLanes,
@@ -53,7 +52,7 @@ describe('effectiveHome / effectivePaint', () => {
   });
 });
 
-describe('domainBands / bandGradient (A86)', () => {
+describe('domainBands (A86)', () => {
   const firewall = { domain: ['cs', 'security'], cluster: 'networking' };
   it('gives a shared term one band per enabled domain, home first', () => {
     expect(domainBands(firewall)).toEqual([domainColour('cs'), domainColour('security')]);
@@ -70,13 +69,6 @@ describe('domainBands / bandGradient (A86)', () => {
       domainColour('security'),
       domainColour('ai'),
     ]);
-  });
-  it('makes hard-edged bands: halves for two, thirds for three', () => {
-    expect(bandGradient(['#a', '#b'])).toEqual({
-      colours: '#a #a #b #b',
-      stops: '0% 50% 50% 100%',
-    });
-    expect(bandGradient(['#a', '#b', '#c']).stops).toBe('0% 33.333% 33.333% 66.667% 66.667% 100%');
   });
 });
 

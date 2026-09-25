@@ -17,6 +17,8 @@ interface Props {
   onToggle?: (open: boolean) => void;
   /** Compact: one domain row each, no cluster list (term-page graph). */
   compact?: boolean;
+  /** Explorer only: laid out in the left sidebar, full width, no floating card (A86). */
+  sidebar?: boolean;
   /** Explorer only: the overview/all-relationships toggle (A86). */
   showAll?: boolean;
   onShowAll?: (on: boolean) => void;
@@ -31,9 +33,15 @@ export default function GraphLegend(props: Props) {
     <details
       open={props.open}
       onToggle={(e) => props.onToggle?.((e.currentTarget as HTMLDetailsElement).open)}
-      class={`max-h-[60vh] ${props.compact ? 'w-full p-3' : 'w-64 px-3 py-2'} max-w-[calc(100vw-2rem)] overflow-y-auto rounded-lg border border-neutral-800 bg-neutral-950/85 text-xs text-neutral-300 shadow-lg shadow-black/40 backdrop-blur`}
+      class={
+        props.sidebar
+          ? 'text-xs text-neutral-300'
+          : `max-h-[60vh] ${props.compact ? 'w-full p-3' : 'w-64 px-3 py-2'} max-w-[calc(100vw-2rem)] overflow-y-auto rounded-lg border border-neutral-800 bg-neutral-950/85 text-xs text-neutral-300 shadow-lg shadow-black/40 backdrop-blur`
+      }
     >
-      <summary class="cursor-pointer text-[11px] tracking-widest text-neutral-400 uppercase select-none">
+      <summary
+        class={`cursor-pointer tracking-widest uppercase select-none ${props.sidebar ? 'mb-2 text-xs text-neutral-500 hover:text-neutral-300' : 'text-[11px] text-neutral-400'}`}
+      >
         {text.legend}
       </summary>
 
@@ -69,7 +77,8 @@ export default function GraphLegend(props: Props) {
           <span
             class="inline-block h-3 w-3 shrink-0 rounded-full"
             style={{
-              background: `linear-gradient(90deg, ${domainColour('cs')} 50%, ${domainColour('security')} 50%)`,
+              background: domainColour('cs'),
+              boxShadow: `0 0 0 2px ${domainColour('security')}`,
             }}
           />
           {text.ring}
