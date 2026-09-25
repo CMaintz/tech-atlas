@@ -319,5 +319,15 @@ const tourUi = {
         }
       });
     </script>
+    {/* Beta ribbon: fixed corner watermark, never blocks clicks, hidden in print. */}
+    <div
+      aria-hidden="true"
+      class="pointer-events-none fixed bottom-0 left-0 z-50 h-32 w-32 overflow-hidden print:hidden"
+    >
+      <div class="absolute bottom-[26px] left-[-44px] w-[180px] rotate-45 bg-amber-400/90 py-1.5 text-center text-sm font-bold tracking-[0.3em] text-neutral-950 shadow-lg shadow-black/40">
+        BETA
+      </div>
+    </div>
+    <p class="sr-only">{lang === 'da' ? 'Atlas er i beta.' : 'Atlas is in beta.'}</p>
   </body>
 </html>
