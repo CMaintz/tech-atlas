@@ -6,6 +6,7 @@
  */
 import Base from '../../../../layouts/Base.astro';
 import CanvasExplorer from '../../../../components/CanvasExplorer';
+import { aboutProps } from '../../../../lib/about-assets';
 import {
   CLUSTER_LABELS,
   DOMAIN_LABELS,
@@ -42,5 +43,6 @@ const localise = (m: Record<string, Record<Lang, string>>) => localiseIn(m, lang
     familyColours={FAMILY_COLOURS}
     domainLabels={localise(DOMAIN_LABELS)}
     panel={panelConfig(lang)}
+    about={aboutProps(lang)}
   />
 </Base>

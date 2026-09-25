@@ -17,6 +17,8 @@ import {
   springStep,
   type Projected,
 } from '../lib/canvas-explorer';
+import AboutButton from './AboutButton';
+import type { AboutProps } from '../lib/about-assets';
 import TermPanel, { prefetchTerm, type PanelConfig } from './TermPanel';
 import { termFromSearch, withTermParam } from '../lib/term-panel';
 import type { EdgeType } from '../schema';
@@ -37,6 +39,7 @@ interface Props {
   familyColours: Dict;
   domainLabels: Dict;
   panel: PanelConfig;
+  about: AboutProps;
 }
 
 /** The lab's own strings (A91): a hidden test page, so they stay out of site.ts. */
@@ -57,6 +60,8 @@ const TEXT: Record<Lang, Dict> = {
     hintDepth: 'Drag to orbit · Shift+drag to pan · wheel to zoom · pull a node and let go',
     compare: 'Open the Explorer',
     noMatch: 'No match',
+    pulses:
+      'Moving dots: a one-way relationship, travelling from a term to what it requires, mitigates, causes …',
   },
   da: {
     title: 'Canvas-lab',
@@ -75,10 +80,15 @@ const TEXT: Record<Lang, Dict> = {
       'Træk for at dreje · Shift+træk for at panorere · hjul for at zoome · træk i en knude og slip',
     compare: 'Åbn Udforskeren',
     noMatch: 'Intet match',
+    pulses:
+      'Bevægelige prikker: en envejsrelation, der løber fra et begreb mod det, det forudsætter, afbøder, forårsager …',
   },
 };
 
 const BG = '#05060b';
+/** Room the floating toolbar takes at the top of the map (px); the map centres below it. */
+const TOP = 56;
+const midY = (h: number) => (h + TOP) / 2;
 const panelReserve = () => (window.innerWidth >= 1024 ? 416 : 0);
 const reducedMotion = () =>
   typeof window !== 'undefined' &&
@@ -269,7 +279,12 @@ export default function CanvasExplorer(props: Props) {
         setDomains(new Set(g.nodes.flatMap((n) => n.domain)));
         setGraph(g);
         const deep = termFromSearch(window.location.search);
-        if (deep && g.nodes.some((n) => n.id === deep)) setSelected(deep);
+        if (deep && g.nodes.some((n) => n.id === deep)) {
+          setSelected(deep);
+          // Bring the deep-linked term into view, clear of the panel.
+          cam.current.focus = eng.current.ids.indexOf(deep);
+          cam.current.focusUntil = performance.now() + 1500;
+        }
       });
   }, [graphUrl]);
 
@@ -351,7 +366,7 @@ export default function CanvasExplorer(props: Props) {
       el.height = Math.max(1, Math.round(r.height * c.dpr));
       c.w = r.width;
       c.h = r.height;
-      c.fit = Math.min((r.width * 0.92) / e.span.w, (r.height * 0.88) / e.span.h);
+      c.fit = Math.min((r.width * 0.92) / e.span.w, (r.height - TOP - 70) / e.span.h);
       c.tcx = (c.w - (v.selected >= 0 ? panelReserve() : 0)) / 2;
       if (!c.cx) c.cx = c.tcx;
       v.dirty = true;
@@ -419,7 +434,7 @@ export default function CanvasExplorer(props: Props) {
       const cam3 = { yaw: c.yaw, pitch: c.pitch };
       const scale = c.fit * c.zoom * (v.mode === 'depth' ? 0.9 : 1);
       const ox = c.cx + c.panX;
-      const oy = h / 2 + c.panY;
+      const oy = midY(h) + c.panY;
       const depth = v.mode === 'depth' || Math.abs(c.yaw) + Math.abs(c.pitch) > 1e-3;
       const focal = depth ? LAB.focal : Infinity;
       for (let i = 0; i < e.n; i++) {
@@ -435,7 +450,7 @@ export default function CanvasExplorer(props: Props) {
       if (c.focus >= 0) {
         const f = c.focus;
         c.panX += (c.cx - e.sx[f]) * 0.15;
-        c.panY += (h / 2 - e.sy[f]) * 0.15;
+        c.panY += (midY(h) - e.sy[f]) * 0.15;
         if (now > c.focusUntil) c.focus = -1;
         v.dirty = true;
       }
@@ -713,7 +728,7 @@ export default function CanvasExplorer(props: Props) {
       c.zoom = next;
       v.dirty = true;
     };
-    const h2 = () => c.h / 2;
+    const h2 = () => midY(c.h);
     el.addEventListener('pointerdown', onDown);
     el.addEventListener('pointermove', onMove);
     el.addEventListener('pointerup', onUp);
@@ -771,41 +786,116 @@ export default function CanvasExplorer(props: Props) {
   };
   const sel = selected ? byId.get(selected) : undefined;
   const closePanel = useCallback(() => setSelected(null), []);
-  const button = (active: boolean) =>
-    `rounded border px-2 py-1 text-xs ${active ? 'border-neutral-300 text-neutral-100' : 'border-neutral-700 text-neutral-400 hover:border-neutral-500'}`;
+  const [legendOpen, setLegendOpen] = useState(
+    () => typeof window !== 'undefined' && window.innerWidth >= 1024,
+  );
+  const pill = (active: boolean) =>
+    `inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs ${active ? 'border-neutral-400 bg-neutral-800/80 text-neutral-100' : 'border-neutral-700 text-neutral-500 hover:border-neutral-500'}`;
+  const seg = (active: boolean) =>
+    `px-2.5 py-0.5 text-xs ${active ? 'bg-neutral-200 text-neutral-900' : 'text-neutral-400 hover:text-neutral-100'}`;
+  const bar = 'rounded-lg border border-neutral-800 bg-neutral-950/85 shadow-lg backdrop-blur';
+  const splitSample = allDomains
+    .slice(0, 2)
+    .map((d, i) => `${domainColour(d)} ${i * 50}% ${(i + 1) * 50}%`)
+    .join(', ');
 
   return (
-    <div class="relative flex h-[calc(100vh-4.25rem)] flex-col lg:flex-row">
-      <aside class="w-full shrink-0 space-y-5 overflow-y-auto border-neutral-800 p-4 text-sm lg:w-80 lg:border-r">
-        <div>
-          <h1 class="text-xl font-semibold">{t.title}</h1>
-          <p class="mt-1 text-xs text-neutral-500">{t.intro}</p>
-          <a
-            class="mt-1 inline-block text-xs text-amber-300 hover:underline"
-            href={props.explorerUrl}
+    <div
+      class="relative h-[calc(100vh-4.25rem)] overflow-hidden"
+      style={{ background: `radial-gradient(ellipse at center, #11131c 0%, ${BG} 75%)` }}
+    >
+      <h1 class="sr-only">{t.title}</h1>
+      {!graph && <p class="p-6 pt-20 text-neutral-500">{props.ui.loading}</p>}
+      <canvas
+        ref={canvas}
+        data-lab-canvas
+        class="absolute inset-0 h-full w-full touch-none"
+        style={{ cursor: mode === 'flat' ? 'grab' : 'move' }}
+        aria-label={t.title}
+      />
+
+      {/* Floating toolbar: one slim row over the top of the map (wraps on narrow screens). */}
+      <div
+        class={`absolute top-3 right-14 left-3 z-10 ${sel ? 'lg:right-[calc(26rem+3.5rem)]' : ''} flex flex-wrap items-center gap-x-3 gap-y-2 px-3 py-2 text-sm ${bar}`}
+        data-lab-toolbar
+      >
+        <span class="text-xs font-semibold tracking-widest text-neutral-500 uppercase">
+          {t.title}
+        </span>
+        <div class="flex overflow-hidden rounded-full border border-neutral-700">
+          <button
+            class={seg(mode === 'flat')}
+            aria-pressed={mode === 'flat'}
+            onClick={() => setMode('flat')}
           >
-            {t.compare}
-          </a>
-        </div>
-        <div class="flex flex-wrap items-center gap-2">
-          <button class={button(mode === 'flat')} onClick={() => setMode('flat')}>
             {t.flat}
           </button>
-          <button class={button(mode === 'depth')} onClick={() => setMode('depth')}>
+          <button
+            class={seg(mode === 'depth')}
+            aria-pressed={mode === 'depth'}
+            onClick={() => setMode('depth')}
+          >
             {t.depth}
-          </button>
-          <button class={button(false)} onClick={resetView}>
-            {t.fit}
           </button>
         </div>
         {mode === 'depth' && (
-          <label class="flex items-center gap-2 text-xs text-neutral-300">
+          <label class="flex items-center gap-1.5 text-xs text-neutral-300">
             <input type="checkbox" checked={spin} onChange={() => setSpin(!spin)} />
             {t.spin}
           </label>
         )}
-        <p class="text-xs text-neutral-500">{mode === 'flat' ? t.hintFlat : t.hintDepth}</p>
-
+        <div class="flex items-center gap-1.5">
+          <span class="text-xs text-neutral-500">{t.edges}</span>
+          <div class="flex overflow-hidden rounded-full border border-neutral-700">
+            <button class={seg(!showAll)} aria-pressed={!showAll} onClick={() => setShowAll(false)}>
+              {t.backbone}
+            </button>
+            <button class={seg(showAll)} aria-pressed={showAll} onClick={() => setShowAll(true)}>
+              {t.all}
+            </button>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-1.5" role="group" aria-label={props.ui.domains}>
+          {allDomains.map((d) => (
+            <button
+              class={pill(domains.has(d))}
+              aria-pressed={domains.has(d)}
+              onClick={() => toggle(domains, d, setDomains)}
+            >
+              <span
+                class="inline-block h-2 w-2 rounded-full"
+                style={{
+                  background: domains.has(d) ? domainColour(d) : 'transparent',
+                  boxShadow: `inset 0 0 0 1px ${domainColour(d)}`,
+                }}
+              />
+              {props.domainLabels[d] ?? d}
+            </button>
+          ))}
+        </div>
+        <details class="relative">
+          <summary
+            class={`${pill(families.size === Object.keys(props.familyColours).length)} cursor-pointer list-none`}
+          >
+            {props.ui.relationshipTypes} ▾
+          </summary>
+          <div class={`absolute top-full left-0 mt-2 w-64 space-y-1 p-3 ${bar}`}>
+            {Object.keys(props.familyColours).map((f) => (
+              <label class="flex items-center gap-2 text-xs">
+                <input
+                  type="checkbox"
+                  checked={families.has(f)}
+                  onChange={() => toggle(families, f, setFamilies)}
+                />
+                <span
+                  class="inline-block h-0.5 w-4"
+                  style={{ background: props.familyColours[f] }}
+                />
+                {props.familyLabels[f] ?? f}
+              </label>
+            ))}
+          </div>
+        </details>
         <div class="relative">
           <input
             type="search"
@@ -818,16 +908,17 @@ export default function CanvasExplorer(props: Props) {
                 focusTerm(matches[0].id);
                 setQuery('');
               }
+              if (ev.key === 'Escape') setQuery('');
             }}
-            class="w-full rounded border border-neutral-700 bg-neutral-900 px-2 py-1"
+            class="w-44 rounded-full border border-neutral-700 bg-neutral-900 px-3 py-0.5 text-xs"
           />
           {query.trim() && (
-            <ul class="mt-1 space-y-0.5 text-xs">
-              {matches.length === 0 && <li class="text-neutral-500">{t.noMatch}</li>}
+            <ul class={`absolute top-full left-0 mt-2 w-60 space-y-0.5 p-2 text-xs ${bar}`}>
+              {matches.length === 0 && <li class="px-1 text-neutral-500">{t.noMatch}</li>}
               {matches.map((m) => (
                 <li>
                   <button
-                    class="text-left text-neutral-300 hover:text-white"
+                    class="w-full rounded px-1 py-0.5 text-left text-neutral-300 hover:bg-neutral-800 hover:text-white"
                     onClick={() => {
                       focusTerm(m.id);
                       setQuery('');
@@ -840,67 +931,72 @@ export default function CanvasExplorer(props: Props) {
             </ul>
           )}
         </div>
-
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="text-xs tracking-widest text-neutral-500 uppercase">{t.edges}</span>
-          <button class={button(!showAll)} onClick={() => setShowAll(false)}>
-            {t.backbone}
-          </button>
-          <button class={button(showAll)} onClick={() => setShowAll(true)}>
-            {t.all}
-          </button>
-        </div>
-
-        <fieldset>
-          <legend class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">
-            {props.ui.domains}
-          </legend>
-          {allDomains.map((d) => (
-            <label class="mr-3 inline-flex items-center gap-1">
-              <input
-                type="checkbox"
-                checked={domains.has(d)}
-                onChange={() => toggle(domains, d, setDomains)}
-              />
-              <span
-                class="inline-block h-2.5 w-2.5 rounded-full"
-                style={{ background: domainColour(d) }}
-              />
-              {props.domainLabels[d] ?? d}
-            </label>
-          ))}
-        </fieldset>
-
-        <fieldset>
-          <legend class="mb-1 text-xs tracking-widest text-neutral-500 uppercase">
-            {props.ui.relationshipTypes}
-          </legend>
-          {Object.keys(props.familyColours).map((f) => (
-            <label class="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={families.has(f)}
-                onChange={() => toggle(families, f, setFamilies)}
-              />
-              <span class="inline-block h-0.5 w-4" style={{ background: props.familyColours[f] }} />
-              {props.familyLabels[f] ?? f}
-            </label>
-          ))}
-        </fieldset>
-      </aside>
-      <div
-        class="relative min-h-[60vh] flex-1 overflow-hidden"
-        style={{ background: `radial-gradient(ellipse at center, #11131c 0%, ${BG} 75%)` }}
-      >
-        {!graph && <p class="p-6 text-neutral-500">{props.ui.loading}</p>}
-        <canvas
-          ref={canvas}
-          data-lab-canvas
-          class="absolute inset-0 h-full w-full touch-none"
-          style={{ cursor: mode === 'flat' ? 'grab' : 'move' }}
-          aria-label={t.title}
-        />
+        <button class={pill(false)} onClick={resetView}>
+          {t.fit}
+        </button>
+        <a class="text-xs text-amber-300 hover:underline" href={props.explorerUrl}>
+          {t.compare}
+        </a>
       </div>
+
+      {/* Compact legend, bottom-left, collapsible. */}
+      <div
+        class={`absolute bottom-3 left-3 z-10 sm:left-28 max-w-xs text-xs ${bar}`}
+        data-lab-legend
+      >
+        <button
+          class="flex w-full items-center justify-between gap-3 px-3 py-1.5 text-neutral-300"
+          aria-expanded={legendOpen}
+          onClick={() => setLegendOpen(!legendOpen)}
+        >
+          {props.graphUi.legend}
+          <span aria-hidden="true">{legendOpen ? '▾' : '▸'}</span>
+        </button>
+        {legendOpen && (
+          <div class="space-y-2 border-t border-neutral-800 px-3 py-2 text-neutral-400">
+            <div class="flex flex-wrap gap-x-3 gap-y-1">
+              {allDomains.map((d) => (
+                <span class="inline-flex items-center gap-1">
+                  <span
+                    class="inline-block h-2.5 w-2.5 rounded-full"
+                    style={{ background: domainColour(d) }}
+                  />
+                  {props.domainLabels[d] ?? d}
+                </span>
+              ))}
+            </div>
+            <div class="flex items-center gap-2">
+              <span
+                class="inline-block h-3.5 w-3.5 shrink-0 rounded-full border border-white/75"
+                style={{ background: `linear-gradient(90deg, ${splitSample})` }}
+              />
+              {props.graphUi.ring}
+            </div>
+            <div class="flex flex-wrap gap-x-3 gap-y-1">
+              {Object.keys(props.familyColours).map((f) => (
+                <span class="inline-flex items-center gap-1">
+                  <span
+                    class="inline-block h-0.5 w-3"
+                    style={{ background: props.familyColours[f] }}
+                  />
+                  {props.familyLabels[f] ?? f}
+                </span>
+              ))}
+            </div>
+            <p>{t.pulses}</p>
+            <p class="text-neutral-500">{mode === 'flat' ? t.hintFlat : t.hintDepth}</p>
+          </div>
+        )}
+      </div>
+
+      {/* About "i": top-right of the map, moving left of the term panel when it opens. */}
+      <div
+        class={`absolute top-3 right-3 z-10 transition-[right] duration-300 motion-reduce:transition-none ${sel ? 'lg:right-[calc(26rem+0.75rem)]' : ''}`}
+        data-about-corner
+      >
+        <AboutButton {...props.about} />
+      </div>
+
       {graph && sel && (
         <TermPanel
           {...props.panel}

@@ -15,25 +15,28 @@ type LayoutLink = { source: string; target: string; weight: number; family: stri
 /** Every tunable number of the lab's layout and look, in one place. */
 export const LAB = {
   seed: 20260925,
-  /** Height per depth tier (world units); foundations low, advanced terms high. */
-  tier: 64,
+  /** Region width = this × √(terms in the domain); height = width × regionAspect. */
+  regionScale: 46,
+  regionAspect: 0.6,
   /** Each term's target height is spread ± half this many tiers (a band, not a floor). */
   tierJitter: 1.3,
   /** How hard the relaxation pulls a term to its depth height (0–1 per step). */
   tierPull: 0.12,
   /** Gap between two nodes' rims after the spacing pass (world units). */
   gap: 6,
-  /** Gap between domain regions along x. */
-  domainGap: 90,
-  /** Distance between cluster seats inside a domain (x and z). */
-  clusterStep: 190,
+  /** Gap between domain regions. */
+  domainGap: 110,
+  /** Distance between rows of cluster seats, front to back (z). */
+  clusterDepth: 170,
+  /** Terms closer than this push apart during the relaxation. */
+  repelRadius: 46,
   relaxSteps: 90,
   /** Node radius = this × the Explorer's PageRank size. */
   radiusScale: 0.42,
   /** Perspective focal length (world units) in Depth mode. */
   focal: 1500,
   /** Terms whose rank is at least this share of the top keep a label. */
-  hubShare: 0.3,
+  hubShare: 0.16,
   /** Alpha of everything not connected to the selection. */
   dimAlpha: 0.2,
   /** Spring constant and damping of the elastic snap-back (per second²/per second). */
@@ -67,9 +70,10 @@ export function radii(
 }
 
 /**
- * Where every term sits (A91), computed once: each domain is a region along x (a term
- * shared by domains sits in its primary — cluster's — domain), each cluster a seat on a
- * small grid inside it on the floor (x, z), and height y a soft pull towards Depth
+ * Where every term sits (A91), computed once. Each domain is a region on a grid in the
+ * front view (x, y), sized by its term count; a term shared by domains sits in its
+ * primary (cluster's) domain. Inside a region, clusters get seats across x and back to
+ * front in z (the depth you see when orbiting), and height is a soft pull towards Depth
  * (foundations low) with a spread. A short seeded relaxation draws related terms
  * together; `spaceOut` then guarantees no two nodes overlap in the front view.
  */
@@ -81,39 +85,60 @@ export function labLayout(
 ): Map<string, Vec3> {
   const rand = seededRandom(seed);
   const domains = domainOrder(nodes.map((n) => homeDomain(n)));
-  const clustersOf = new Map<string, string[]>(domains.map((d) => [d, []]));
+  const members = new Map<string, number[]>(domains.map((d) => [d, []]));
+  nodes.forEach((n, i) => members.get(homeDomain(n))!.push(i));
   const clusterSize = new Map<string, number>();
-  for (const n of nodes) {
-    const list = clustersOf.get(homeDomain(n))!;
-    if (!list.includes(n.cluster)) list.push(n.cluster);
-    clusterSize.set(n.cluster, (clusterSize.get(n.cluster) ?? 0) + 1);
-  }
-  // Cluster seats: a grid per domain on the floor, domains left to right.
+  for (const n of nodes) clusterSize.set(n.cluster, (clusterSize.get(n.cluster) ?? 0) + 1);
+
+  // Regions: a grid of domains, each about as wide as its terms need.
+  const cols = Math.max(1, Math.ceil(Math.sqrt(domains.length)));
+  const size = new Map(
+    domains.map((d) => [d, LAB.regionScale * Math.sqrt(members.get(d)!.length)]),
+  );
+  const colW = Array.from({ length: cols }, (_, c) =>
+    Math.max(0, ...domains.filter((_, i) => i % cols === c).map((d) => size.get(d)!)),
+  );
+  const rowH = Array.from({ length: Math.ceil(domains.length / cols) }, (_, r) =>
+    Math.max(
+      0,
+      ...domains
+        .filter((_, i) => Math.floor(i / cols) === r)
+        .map((d) => size.get(d)! * LAB.regionAspect),
+    ),
+  );
   const seat = new Map<string, { x: number; z: number }>();
-  let cursor = 0;
-  for (const d of domains) {
-    const cs = clustersOf.get(d)!.sort();
-    const cols = Math.max(1, Math.ceil(Math.sqrt(cs.length * 1.6)));
-    const rows = Math.ceil(cs.length / cols);
+  const targetY = new Array<number>(nodes.length);
+  domains.forEach((d, di) => {
+    const col = di % cols;
+    const row = Math.floor(di / cols);
+    const w = size.get(d)!;
+    const h = w * LAB.regionAspect;
+    const x0 = colW.slice(0, col).reduce((s, v) => s + v + LAB.domainGap, 0) + (colW[col] - w) / 2;
+    const yMid = rowH.slice(0, row).reduce((s, v) => s + v + LAB.domainGap, 0) + rowH[row] / 2;
+    const idx = members.get(d)!;
+    // Cluster seats: across the region in x, rows back to front in z.
+    const cs = [...new Set(idx.map((i) => nodes[i].cluster))].sort();
+    const ccols = Math.max(1, Math.ceil(Math.sqrt(cs.length * 1.5)));
+    const crows = Math.ceil(cs.length / ccols);
     cs.forEach((c, i) => {
-      const col = i % cols;
-      const row = Math.floor(i / cols);
-      // Alternate rows shift half a step, so front-view columns interleave.
-      const shift = row % 2 ? LAB.clusterStep / 2 : 0;
+      const cc = i % ccols;
+      const cr = Math.floor(i / ccols);
+      const shift = cr % 2 ? 0.5 : 0;
       seat.set(c, {
-        x: cursor + col * LAB.clusterStep + shift,
-        z: (row - (rows - 1) / 2) * LAB.clusterStep,
+        x: x0 + (w * (cc + 0.5 + shift * (ccols > 1 ? 0.5 : 0))) / ccols,
+        z: (cr - (crows - 1) / 2) * LAB.clusterDepth,
       });
     });
-    cursor += (cols - 1) * LAB.clusterStep + LAB.clusterStep / 2 + LAB.domainGap + 120;
-  }
-  const meanDepth = nodes.reduce((s, n) => s + n.depth, 0) / Math.max(1, nodes.length);
-  const targetY = nodes.map(
-    (n) => -(n.depth - meanDepth + (rand() - 0.5) * LAB.tierJitter) * LAB.tier,
-  );
+    // Height: foundations at the bottom of the region, the deepest terms at the top.
+    const maxDepth = Math.max(1, ...idx.map((i) => nodes[i].depth));
+    const tier = (h * 0.8) / maxDepth;
+    for (const i of idx)
+      targetY[i] = yMid + h * 0.4 - (nodes[i].depth + (rand() - 0.5) * LAB.tierJitter) * tier;
+  });
+
   const P = nodes.map((n, i) => {
     const s = seat.get(n.cluster)!;
-    const spread = 18 * Math.sqrt(clusterSize.get(n.cluster) ?? 1);
+    const spread = 20 * Math.sqrt(clusterSize.get(n.cluster) ?? 1);
     return {
       x: s.x + (rand() - 0.5) * spread,
       y: targetY[i],
@@ -126,6 +151,7 @@ export function labLayout(
     .filter((p): p is readonly [number, number] => p[0] !== undefined && p[1] !== undefined)
     .filter(([a, b]) => a !== b && nodes[a].cluster === nodes[b].cluster);
   const n = nodes.length;
+  const reach = LAB.repelRadius;
   for (let step = 0; step < LAB.relaxSteps; step++) {
     const k = 1 - step / LAB.relaxSteps;
     // Springs inside a cluster (related terms close), with a rest length.
@@ -133,7 +159,7 @@ export function labLayout(
       const dx = P[b].x - P[a].x;
       const dz = P[b].z - P[a].z;
       const d = Math.hypot(dx, dz) || 1;
-      const f = ((d - 40) * 0.02 * k) / d;
+      const f = ((d - 30) * 0.02 * k) / d;
       P[a].x += dx * f;
       P[a].z += dz * f;
       P[b].x -= dx * f;
@@ -146,9 +172,9 @@ export function labLayout(
         const dy = P[j].y - P[i].y;
         const dz = P[j].z - P[i].z;
         const d2 = dx * dx + dy * dy + dz * dz;
-        if (d2 > 90 * 90) continue;
+        if (d2 > reach * reach) continue;
         const d = Math.sqrt(Math.max(d2, 1));
-        const f = ((90 - d) * 0.06 * k) / d;
+        const f = ((reach - d) * 0.05 * k) / d;
         P[i].x -= dx * f;
         P[i].z -= dz * f;
         P[j].x += dx * f;
@@ -158,8 +184,8 @@ export function labLayout(
       }
     for (let i = 0; i < n; i++) {
       const s = seat.get(nodes[i].cluster)!;
-      P[i].x += (s.x - P[i].x) * 0.03;
-      P[i].z += (s.z - P[i].z) * 0.03;
+      P[i].x += (s.x - P[i].x) * 0.04;
+      P[i].z += (s.z - P[i].z) * 0.04;
       P[i].y += (targetY[i] - P[i].y) * LAB.tierPull;
     }
   }
