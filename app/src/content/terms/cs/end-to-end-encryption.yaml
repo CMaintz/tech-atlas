@@ -8,6 +8,7 @@ domain: [cs, security]
 cluster: cryptography
 layer: application
 status: current
+era: 1991
 summary:
   en: Scrambling a message on the sender's device so that only the receiver's device can read it, not even the service carrying it.
   da: At kryptere en besked på afsenderens enhed, så kun modtagerens enhed kan læse den — heller ikke tjenesten, der bringer den frem.

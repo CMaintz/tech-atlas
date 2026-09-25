@@ -137,7 +137,7 @@ export const UI = {
     whyItMatters: 'Why it matters',
     timeline: 'Timeline',
     timelineIntro:
-      'Terms by the decade they entered use. Colour = cluster; click a term to open it.',
+      'Terms by the year they entered use, one lane per domain. Larger dots are hub terms; hover or tap a term for its summary.',
     undatedNote: '{n} terms have no year yet and are not shown.',
     undatedNoteOne: '1 term has no year yet and is not shown.',
     noDated: 'No terms have a year yet.',
@@ -317,7 +317,7 @@ export const UI = {
     whyItMatters: 'Hvorfor det betyder noget',
     timeline: 'Tidslinje',
     timelineIntro:
-      'Begreber efter det årti, de kom i brug. Farve = klynge; klik på et begreb for at åbne det.',
+      'Begreber efter det år, de kom i brug, med ét spor pr. domæne. Større prikker er centrale begreber; hold musen over eller tryk på et begreb for at se resuméet.',
     undatedNote: '{n} begreber har endnu intet årstal og vises ikke.',
     undatedNoteOne: '1 begreb har endnu intet årstal og vises ikke.',
     noDated: 'Ingen begreber har et årstal endnu.',
@@ -548,6 +548,52 @@ export const DEEP_UI: Record<Lang, Record<keyof typeof DEEP_EN, string>> = {
     suggestFix: 'Foreslå en rettelse på GitHub',
   },
 };
+
+/** Timeline v2 controls, era bands and legend (swim-lane timeline). */
+export const TIMELINE_UI = {
+  en: {
+    zoomIn: 'Zoom in',
+    zoomOut: 'Zoom out',
+    zoom: 'Zoom',
+    filter: 'Show domains',
+    lanes: 'Lanes by domain',
+    milestone: 'Hub term (many connections)',
+    otherDomain: 'Ring: also in another domain',
+    openTerm: 'Open term',
+    close: 'Close',
+    listView: 'List view (every dated term by decade)',
+    mobileHint: 'Pick a single domain to read full names; tap a term for its summary.',
+    chart: 'Timeline chart',
+    eras: {
+      mainframe: 'Mainframes & time-sharing',
+      networks: 'PCs & networks',
+      web: 'The web',
+      cloud: 'Cloud & mobile',
+      ai: 'AI & agents',
+    },
+  },
+  da: {
+    zoomIn: 'Zoom ind',
+    zoomOut: 'Zoom ud',
+    zoom: 'Zoom',
+    filter: 'Vis domæner',
+    lanes: 'Spor pr. domæne',
+    milestone: 'Centralt begreb (mange forbindelser)',
+    otherDomain: 'Ring: hører også til et andet domæne',
+    openTerm: 'Åbn begrebet',
+    close: 'Luk',
+    listView: 'Listevisning (alle daterede begreber efter årti)',
+    mobileHint: 'Vælg ét domæne for at læse hele navnene; tryk på et begreb for at se resuméet.',
+    chart: 'Tidslinjediagram',
+    eras: {
+      mainframe: 'Mainframes og tidsdeling',
+      networks: "Pc'er og netværk",
+      web: 'Webben',
+      cloud: 'Cloud og mobil',
+      ai: 'AI og agenter',
+    },
+  },
+} as const;
 
 /** Where the source lives — used for 'Edit on GitHub' links in the review queue. */
 export const REPO = 'https://github.com/CMaintz/tech-atlas';

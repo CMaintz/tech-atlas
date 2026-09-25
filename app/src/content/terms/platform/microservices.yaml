@@ -8,6 +8,7 @@ domain: [platform, cs]
 cluster: containers
 layer: application
 status: current
+era: 2014
 summary:
   en: A way of building an application as many small, separate services that each do one job and talk to each other over an API.
   da: En måde at bygge et system på som mange små, selvstændige tjenester, der hver løser én opgave og taler sammen via et API.

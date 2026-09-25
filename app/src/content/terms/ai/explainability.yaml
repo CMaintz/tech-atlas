@@ -8,6 +8,7 @@ domain: [ai]
 cluster: ai-risk
 layer: model
 status: current
+era: 2016
 summary:
   en: How well people can understand why an AI system reached a particular result.
   da: Hvor godt mennesker kan forstå, hvorfor et AI-system nåede frem til et bestemt resultat.

@@ -8,6 +8,7 @@ domain: [cs, security]
 cluster: identity
 layer: identity
 status: current
+era: 2016
 summary:
   en: Rules that decide at each login whether to let someone in, ask for more proof or block them, based on who, where and what device.
   da: Regler, der ved hvert login afgør, om en person lukkes ind, skal bevise mere eller afvises — ud fra hvem, hvor og hvilken enhed.

@@ -8,6 +8,7 @@ domain: [ai]
 cluster: llm
 layer: inference
 status: current
+era: 2022
 summary:
   en: When an AI model states something false or made up — a fact, a quote, a source — in the same confident tone as a true answer.
   da: Når en AI-model finder på noget, der ikke er sandt — et faktum, et citat, en kilde — og siger det lige så sikkert som et sandt svar.

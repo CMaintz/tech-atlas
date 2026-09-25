@@ -8,6 +8,7 @@ domain: [platform]
 cluster: containers
 layer: infrastructure
 status: current
+era: 2013
 summary:
   en: The frozen, read-only package of a program and its files from which identical containers are started.
   da: Den frosne, skrivebeskyttede pakke med et program og dets filer, som ens containere startes ud fra.

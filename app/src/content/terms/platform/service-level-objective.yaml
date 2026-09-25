@@ -8,6 +8,7 @@ domain: [platform]
 cluster: observability
 layer: process
 status: current
+era: 2016
 summary:
   en: An internal target for how well a service should work, such as 99.9% of requests answered within a second over 30 days.
   da: Et internt mål for, hvor godt en tjeneste skal fungere, fx at 99,9 % af forespørgslerne besvares inden for et sekund over 30 dage.

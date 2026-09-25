@@ -8,6 +8,7 @@ domain: [platform]
 cluster: cloud
 layer: infrastructure
 status: current
+era: 2008
 summary:
   en: The cloud model where the provider runs the machines and operating system, and you only bring your own program and its data.
   da: Cloudmodellen, hvor udbyderen driver maskiner og styresystem, og du kun leverer dit eget program og dets data.
