@@ -26,7 +26,7 @@ body:
     da: Penge kan flyttes, men den tabte tillid, de tabte data og de juridiske pligter kan ikke — en forsikret organisation skal stadig anmelde brud og stå til ansvar over for sine kunder.
 edges:
   kind-of: [risk-treatment]
-  requires: [impact]
+  requires: [risk, impact]
   used-with: [supplier-management]
 sources:
   - title: Cyber Security Fast Track — Kursuskompendium, Modul 5 og Ordliste (Risikohåndtering — overføre)

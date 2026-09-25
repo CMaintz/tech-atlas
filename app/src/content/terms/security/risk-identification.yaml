@@ -26,7 +26,7 @@ body:
     da: En risiko, der aldrig bliver nævnt, bliver aldrig håndteret, så kvaliteten af hele risikoarbejdet afhænger af, hvor bredt denne første søgning favner.
 edges:
   part-of: [risk-assessment]
-  requires: [asset, threat, vulnerability]
+  requires: [risk, asset, threat, vulnerability]
   used-with: [threat-landscape]
 sources:
   - title: Cyber Security Fast Track — Kursuskompendium, Modul 5

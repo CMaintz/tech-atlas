@@ -137,15 +137,18 @@ export default function Account({ lang, ui }: Props) {
         <p class="mt-1 text-sm text-neutral-400" role="status">
           {statusText}
         </p>
+        {!stopped && <p class="mt-1 text-xs text-neutral-500">{ui.syncAuto}</p>}
       </div>
       <div class="flex flex-wrap gap-2">
-        {stopped ? (
+        {/* Sync runs by itself (A79); a button appears only when it needs the learner. */}
+        {stopped && (
           <button class={button} disabled={busy} onClick={() => void run(startSyncingAgain)}>
             {ui.startAgain}
           </button>
-        ) : (
+        )}
+        {s.status === 'error' && (
           <button class={button} disabled={busy} onClick={() => void run(syncNow)}>
-            {ui.syncNow}
+            {ui.syncRetry}
           </button>
         )}
         <button class={button} disabled={busy} onClick={() => void run(signOut)}>

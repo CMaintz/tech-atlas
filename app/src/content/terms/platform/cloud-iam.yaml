@@ -26,7 +26,7 @@ body:
     da: Rettighederne er kundens ansvar, ikke udbyderens, og én politik, der giver for meget, kan åbne alle ressourcer på en konto for den, der får fat i den.
 edges:
   implements: [access-management]
-  requires: [cloud-computing, authorization]
+  requires: [cloud-computing, access-control, authorization]
   used-with:
     - to: least-privilege
       why:
