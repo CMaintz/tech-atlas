@@ -488,6 +488,17 @@ const PANEL_EN = {
   loadError: 'Could not load the details of this term.',
   noRelations: 'No relationships yet.',
   quickQuiz: 'Quick quiz',
+  historyBack: 'Back to the previous term you viewed (Alt+←)',
+  historyForward: 'Forward to the next term you viewed (Alt+→)',
+  connectionsOf: 'Connections of {name}',
+  connectionCount: '{n} connections',
+  connectionCountOne: '1 connection',
+  cyclePosition: '{i} of {n} · {type}',
+  prevConnection: 'Previous',
+  prevConnectionLabel: 'Previous connection of {name} (←)',
+  nextConnection: 'Next',
+  nextConnectionLabel: 'Next connection of {name} (→)',
+  returnTo: 'Return to {name}',
 } as const;
 
 export const PANEL_UI: Record<Lang, Record<keyof typeof PANEL_EN, string>> = {
@@ -506,6 +517,17 @@ export const PANEL_UI: Record<Lang, Record<keyof typeof PANEL_EN, string>> = {
     loadError: 'Detaljerne om dette begreb kunne ikke hentes.',
     noRelations: 'Ingen relationer endnu.',
     quickQuiz: 'Hurtig quiz',
+    historyBack: 'Tilbage til det forrige begreb, du så (Alt+←)',
+    historyForward: 'Frem til det næste begreb, du så (Alt+→)',
+    connectionsOf: 'Forbindelser for {name}',
+    connectionCount: '{n} forbindelser',
+    connectionCountOne: '1 forbindelse',
+    cyclePosition: '{i} af {n} · {type}',
+    prevConnection: 'Forrige',
+    prevConnectionLabel: 'Forrige forbindelse for {name} (←)',
+    nextConnection: 'Næste',
+    nextConnectionLabel: 'Næste forbindelse for {name} (→)',
+    returnTo: 'Tilbage til {name}',
   },
 };
 

@@ -1,11 +1,21 @@
-import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { prerequisitesOf, type Graph } from '../lib/graph-model';
 import { domainColour, nodePaint } from '../lib/graph-style';
 import {
+  connectionCycle,
   makeTermCache,
   neighbourIds,
   neighbourhoodGraph,
+  nextCycleState,
+  positionText,
   relationGroups,
+  startHistory,
+  stepCycle,
+  travel,
+  visit,
+  type Arrival,
+  type CycleState,
+  type PanelHistory,
   type TermRecord,
 } from '../lib/term-panel';
 import GraphView from './Graph';
@@ -99,6 +109,74 @@ export default function TermPanel(props: Props) {
   const node = useMemo(() => graph.nodes.find((n) => n.id === id), [graph, id]);
   const nameOf = (x: string) => graph.nodes.find((n) => n.id === x)?.term[textLang] ?? x;
 
+  // Previous/Next walk the anchor term's connections; Back/Forward walk the terms viewed
+  // in this panel. `pending` marks a move the panel itself asked for, so the next `id`
+  // can tell a step or history move from a pick made anywhere else (node, chip, search).
+  const [walk, setWalk] = useState<CycleState>(() => ({ anchor: id, index: null }));
+  const [trail, setTrail] = useState<PanelHistory>(() => startHistory(id));
+  const [announce, setAnnounce] = useState('');
+  const pending = useRef<{ id: string; arrival: Arrival } | null>(null);
+  const focusName = useRef(true);
+  const shownId = useRef(id);
+  const cycleOf = (anchor: string) =>
+    connectionCycle(relationGroups(graph, anchor, props.edgeInverse, props.relationOrder), (x) =>
+      graph.nodes.some((n) => n.id === x),
+    );
+  const cycle = cycleOf(walk.anchor);
+  const atAnchor = walk.anchor === id || walk.index === null;
+  const anchorName = nameOf(walk.anchor);
+  const positionOf = (i: number | null) =>
+    i === null || !cycle[i]
+      ? ''
+      : positionText(
+          text.cyclePosition,
+          i,
+          cycle.length,
+          props.edgeLabels[cycle[i].type] ?? cycle[i].type,
+        );
+
+  // Before paint, so the position never shows a stale walk for a frame.
+  useLayoutEffect(() => {
+    if (shownId.current === id) return;
+    shownId.current = id;
+    const arrival: Arrival =
+      pending.current?.id === id ? pending.current.arrival : { via: 'other' };
+    pending.current = null;
+    const next = nextCycleState(walk, id, arrival, cycle);
+    setWalk(next);
+    if (arrival.via !== 'history') setTrail((h) => visit(h, id));
+    // A pick from elsewhere (or "return to" the anchor, whose button then disappears)
+    // moves focus to the name, which announces it; Previous/Next/Back/Forward keep focus
+    // on their button and announce through the live region instead.
+    focusName.current =
+      arrival.via === 'other' || (arrival.via === 'step' && arrival.index === null);
+    const where = next.anchor === id ? '' : positionOf(next.index);
+    setAnnounce(focusName.current ? '' : where ? `${nameOf(id)} — ${where}` : nameOf(id));
+  }, [id]);
+
+  /** Show `target` via a panel control: Explorer (or Timeline) selects it on the map. */
+  const go = (target: string, arrival: Arrival) => {
+    pending.current = { id: target, arrival };
+    onSelect(target);
+  };
+
+  const step = (dir: 1 | -1) => {
+    const i = stepCycle(cycle.length, atAnchor ? null : walk.index, dir);
+    if (i === null) return;
+    const target = cycle[i].id;
+    if (target !== id) return go(target, { via: 'step', index: i });
+    // The same term listed under another relationship: only the position moves.
+    setWalk({ anchor: walk.anchor, index: i });
+    setAnnounce(`${nameOf(id)} — ${positionOf(i)}`);
+  };
+
+  const move = (dir: 1 | -1) => {
+    const r = travel(trail, dir);
+    if (!r) return;
+    setTrail(r.history);
+    go(r.id, { via: 'history' });
+  };
+
   // Load the record (instant when cached) and warm the neighbours' records.
   useEffect(() => {
     let live = true;
@@ -127,9 +205,11 @@ export default function TermPanel(props: Props) {
     };
   }, []);
 
-  // A newly opened term is announced by moving focus to its name.
+  // A newly opened term is announced by moving focus to its name (unless the panel's own
+  // Previous/Next/Back/Forward moved it — see above).
   useEffect(() => {
-    heading.current?.focus({ preventScroll: true });
+    if (focusName.current) heading.current?.focus({ preventScroll: true });
+    focusName.current = true;
   }, [id]);
 
   // Esc: expanded → docked → closed. Typing in a field elsewhere is left alone.
@@ -172,6 +252,21 @@ export default function TermPanel(props: Props) {
       e.preventDefault();
       first.focus();
     }
+  };
+
+  // ←/→ step through the connections, Alt+←/→ go back/forward — while focus is in the
+  // panel, outside fields; widgets that use the arrows themselves (the facet tabs) handle
+  // them first and call preventDefault.
+  const onPanelKey = (e: KeyboardEvent) => {
+    trap(e);
+    if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    const dir = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+    if (!dir) return;
+    const t = e.target as HTMLElement | null;
+    if (t && (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.isContentEditable)) return;
+    e.preventDefault();
+    if (e.altKey) move(dir);
+    else step(dir);
   };
 
   if (!node) return null;
@@ -239,10 +334,34 @@ export default function TermPanel(props: Props) {
       aria-labelledby="tp-title"
       data-term-panel={id}
       data-expanded={expanded ? '' : undefined}
-      onKeyDown={trap}
+      onKeyDown={onPanelKey}
       class={`absolute top-0 right-0 bottom-0 z-20 flex w-full flex-col border-l border-neutral-800 bg-neutral-950/97 shadow-2xl shadow-black/60 backdrop-blur transition-[width] duration-300 ease-out motion-reduce:transition-none ${expanded ? '' : 'lg:w-[26rem]'}`}
     >
       <div class="flex shrink-0 flex-wrap items-center gap-2 border-b border-neutral-800 px-4 py-2">
+        <div class="flex gap-1">
+          <button
+            type="button"
+            class={`${btn} aria-disabled:opacity-40`}
+            aria-label={text.historyBack}
+            title={text.historyBack}
+            aria-disabled={trail.pos <= 0}
+            data-panel-back
+            onClick={() => move(-1)}
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            class={`${btn} aria-disabled:opacity-40`}
+            aria-label={text.historyForward}
+            title={text.historyForward}
+            aria-disabled={trail.pos >= trail.entries.length - 1}
+            data-panel-forward
+            onClick={() => move(1)}
+          >
+            →
+          </button>
+        </div>
         <div role="group" aria-label={text.contentLanguage} class="flex">
           {(['en', 'da'] as const).map((l) => (
             <button
@@ -281,6 +400,62 @@ export default function TermPanel(props: Props) {
           </button>
         </div>
       </div>
+
+      {cycle.length > 0 && (
+        <div
+          role="group"
+          aria-label={text.connectionsOf.replace('{name}', anchorName)}
+          data-panel-cycle={walk.anchor}
+          class="flex shrink-0 items-center gap-2 border-b border-neutral-800 px-4 py-1.5 text-xs"
+        >
+          <button
+            type="button"
+            class={btn}
+            title={text.prevConnectionLabel.replace('{name}', anchorName)}
+            aria-label={text.prevConnectionLabel.replace('{name}', anchorName)}
+            data-panel-prev
+            onClick={() => step(-1)}
+          >
+            ‹ {text.prevConnection}
+          </button>
+          <p class="min-w-0 flex-1 truncate text-center text-neutral-400" data-panel-position>
+            {atAnchor ? (
+              cycle.length === 1 ? (
+                text.connectionCountOne
+              ) : (
+                text.connectionCount.replace('{n}', String(cycle.length))
+              )
+            ) : (
+              <>
+                {positionOf(walk.index)}
+                {' · '}
+                <button
+                  type="button"
+                  class="text-neutral-200 underline hover:text-white focus-visible:outline-2 focus-visible:outline-amber-400"
+                  title={text.returnTo.replace('{name}', anchorName)}
+                  lang={textLang}
+                  onClick={() => go(walk.anchor, { via: 'step', index: null })}
+                >
+                  ↩ {anchorName}
+                </button>
+              </>
+            )}
+          </p>
+          <button
+            type="button"
+            class={btn}
+            title={text.nextConnectionLabel.replace('{name}', anchorName)}
+            aria-label={text.nextConnectionLabel.replace('{name}', anchorName)}
+            data-panel-next
+            onClick={() => step(1)}
+          >
+            {text.nextConnection} ›
+          </button>
+        </div>
+      )}
+      <p class="sr-only" aria-live="polite" data-panel-announce>
+        {announce}
+      </p>
 
       <div class="min-h-0 flex-1 overflow-y-auto">
         <div
