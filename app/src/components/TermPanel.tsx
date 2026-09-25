@@ -90,11 +90,39 @@ const PREFETCH_NEIGHBOURS = 12;
 const btn =
   'rounded border border-border-strong px-2 py-1 text-xs text-fg-soft hover:border-border-hover hover:text-fg focus-visible:outline-2 focus-visible:outline-(--focus)';
 
+/** A small square icon button (header and Previous/Next); its name comes from aria-label. */
+const iconBtn =
+  'grid h-7 w-7 shrink-0 place-items-center rounded text-fg-soft hover:bg-surface-2 hover:text-fg focus-visible:outline-2 focus-visible:outline-(--focus)';
+
+// 16×16 stroke icons (paths on a 24-unit grid).
+const ARROW_LEFT = 'M19 12H5m6-6-6 6 6 6';
+const ARROW_RIGHT = 'M5 12h14m-6-6 6 6-6 6';
+const CHEVRON_LEFT = 'm15 6-6 6 6 6';
+const CHEVRON_RIGHT = 'm9 6 6 6-6 6';
+const EXPAND = 'M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7';
+const COLLAPSE = 'M20 10h-6V4M4 14h6v6M14 10l7-7M10 14l-7 7';
+const CLOSE = 'M6 6l12 12M18 6 6 18';
+const icon = (d: string) => (
+  <svg
+    viewBox="0 0 24 24"
+    width="16"
+    height="16"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d={d} />
+  </svg>
+);
+
 /**
- * The Explorer's term panel (A80): a term's essentials beside the map — facets in both
- * languages, what to learn first, relationships (which re-focus the map, never navigate),
+ * The Explorer's term panel (A80): a term's essentials beside the map, in the site's
+ * language — facets, what to learn first, relationships (which re-focus the map, never navigate),
  * self-assessment and a quick quiz. Expand fills the page below the header, with the
- * term's neighbourhood graph; "Read more" opens the full entry page.
+ * term's neighbourhood graph; "Read more", at the end of the panel, opens the full entry page.
  */
 export default function TermPanel(props: Props) {
   const { lang, id, graph, ui, text, onSelect, onClose } = props;
@@ -103,7 +131,6 @@ export default function TermPanel(props: Props) {
   /** The id whose record failed to load — never shown next to another term. */
   const [failedId, setFailedId] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
-  const [textLang, setTextLang] = useState<Lang>(lang);
   const [facet, setFacet] = useState<Facet>('formal');
   const [quiz, setQuiz] = useState(false);
   const root = useRef<HTMLDivElement>(null);
@@ -112,7 +139,7 @@ export default function TermPanel(props: Props) {
   const opener = useRef<Element | null>(null);
 
   const node = useMemo(() => graph.nodes.find((n) => n.id === id), [graph, id]);
-  const nameOf = (x: string) => graph.nodes.find((n) => n.id === x)?.term[textLang] ?? x;
+  const nameOf = (x: string) => graph.nodes.find((n) => n.id === x)?.term[lang] ?? x;
 
   // Previous/Next walk the anchor term's connections; Back/Forward walk the terms viewed
   // in this panel. `pending` marks a move the panel itself asked for, so the next `id`
@@ -289,9 +316,9 @@ export default function TermPanel(props: Props) {
     (record?.edges ?? []).filter((e) => e.why).map((e) => [`${e.type}|${e.to}`, e.why!]),
   );
   const colour = nodePaint(node).fill;
-  const name = node.term[textLang];
-  const aka = record?.aka[textLang] ?? [];
-  const summary = record?.summary[textLang] ?? node.summary?.[textLang];
+  const name = node.term[lang];
+  const aka = record?.aka[lang] ?? [];
+  const summary = record?.summary[lang] ?? node.summary?.[lang];
   const termHref = `${props.termBase}${id}/`;
   const mini = expanded ? neighbourhoodGraph(graph, id, lang, props.edgeLabels) : null;
 
@@ -300,7 +327,7 @@ export default function TermPanel(props: Props) {
       type="button"
       class="rounded border border-border px-2 py-0.5 text-left text-sm text-fg-soft hover:border-border-hover hover:text-fg focus-visible:outline-2 focus-visible:outline-(--focus)"
       title={title}
-      lang={textLang}
+
       onClick={() => onSelect(x)}
       onMouseEnter={() => cache.prefetch(x)}
       onFocus={() => cache.prefetch(x)}
@@ -311,9 +338,7 @@ export default function TermPanel(props: Props) {
 
   const facetText = (f: Facet) =>
     record ? (
-      <p class="text-fg-soft" lang={textLang}>
-        {record.body[f][textLang]}
-      </p>
+      <p class="text-fg-soft">{record.body[f][lang]}</p>
     ) : failed ? (
       <p class="text-sm text-red-700 dark:text-red-300">{text.loadError}</p>
     ) : (
@@ -344,131 +369,129 @@ export default function TermPanel(props: Props) {
       onKeyDown={onPanelKey}
       class={`absolute top-0 right-0 bottom-0 z-20 flex w-full flex-col border-l border-border bg-bg/97 shadow-2xl shadow-black/60 backdrop-blur transition-[width] duration-300 ease-out motion-reduce:transition-none ${expanded ? '' : 'lg:w-[26rem]'}`}
     >
-      <div class="flex shrink-0 flex-wrap items-center gap-2 border-b border-border px-4 py-2">
-        <div class="flex gap-1">
-          <button
-            type="button"
-            class={`${btn} aria-disabled:opacity-40`}
-            aria-label={text.historyBack}
-            title={text.historyBack}
-            aria-disabled={trail.pos <= 0}
-            data-panel-back
-            onClick={() => move(-1)}
-          >
-            ←
-          </button>
-          <button
-            type="button"
-            class={`${btn} aria-disabled:opacity-40`}
-            aria-label={text.historyForward}
-            title={text.historyForward}
-            aria-disabled={trail.pos >= trail.entries.length - 1}
-            data-panel-forward
-            onClick={() => move(1)}
-          >
-            →
-          </button>
-        </div>
-        <div role="group" aria-label={text.contentLanguage} class="flex">
-          {(['en', 'da'] as const).map((l) => (
-            <button
-              type="button"
-              class={`border px-2 py-1 text-xs first:rounded-l last:rounded-r focus-visible:outline-2 focus-visible:outline-(--focus) ${textLang === l ? 'border-border-hover text-fg' : 'border-border text-subtle hover:text-fg-soft'}`}
-              aria-pressed={textLang === l}
-              lang={l}
-              onClick={() => setTextLang(l)}
-            >
-              {l.toUpperCase()}
-            </button>
-          ))}
-        </div>
-        <div class="ml-auto flex items-center gap-2">
-          <a class={btn} href={termHref} title={text.readMoreLabel}>
-            {text.readMore}
-          </a>
-          <button
-            ref={expandBtn}
-            type="button"
-            class={btn}
-            aria-expanded={expanded}
-            title={expanded ? text.panelCollapseLabel : text.panelExpandLabel}
-            onClick={() => setExpanded(!expanded)}
-          >
-            {expanded ? `⤡ ${text.panelCollapse}` : `⤢ ${text.panelExpand}`}
-          </button>
-          <button
-            type="button"
-            class={`${btn} px-2.5`}
-            aria-label={text.panelClose}
-            title={text.panelClose}
-            onClick={onClose}
-          >
-            ✕
-          </button>
-        </div>
+      <div class="flex shrink-0 items-center gap-1 border-b border-border px-3 py-1.5">
+        <button
+          type="button"
+          class={`${iconBtn} aria-disabled:opacity-40`}
+          aria-label={text.historyBack}
+          title={text.historyBack}
+          aria-disabled={trail.pos <= 0}
+          data-panel-back
+          onClick={() => move(-1)}
+        >
+          {icon(ARROW_LEFT)}
+        </button>
+        <button
+          type="button"
+          class={`${iconBtn} aria-disabled:opacity-40`}
+          aria-label={text.historyForward}
+          title={text.historyForward}
+          aria-disabled={trail.pos >= trail.entries.length - 1}
+          data-panel-forward
+          onClick={() => move(1)}
+        >
+          {icon(ARROW_RIGHT)}
+        </button>
+        <button
+          ref={expandBtn}
+          type="button"
+          class={`${iconBtn} ml-auto`}
+          aria-expanded={expanded}
+          aria-label={expanded ? text.panelCollapseLabel : text.panelExpandLabel}
+          title={expanded ? text.panelCollapseLabel : text.panelExpandLabel}
+          data-panel-expand
+          onClick={() => setExpanded(!expanded)}
+        >
+          {icon(expanded ? COLLAPSE : EXPAND)}
+        </button>
+        <button
+          type="button"
+          class={iconBtn}
+          aria-label={text.panelClose}
+          title={text.panelClose}
+          data-panel-close
+          onClick={onClose}
+        >
+          {icon(CLOSE)}
+        </button>
       </div>
 
-      {props.actions && (
-        <div
-          role="group"
-          aria-label={props.actionsLabel}
-          data-panel-actions
-          class="flex shrink-0 flex-wrap items-center gap-2 border-b border-border px-4 py-2 text-xs"
-        >
-          {props.actions}
-        </div>
-      )}
-
-      {cycle.length > 0 && (
-        <div
-          role="group"
-          aria-label={text.connectionsOf.replace('{name}', anchorName)}
-          data-panel-cycle={walk.anchor}
-          class="flex shrink-0 items-center gap-2 border-b border-border px-4 py-1.5 text-xs"
-        >
-          <button
-            type="button"
-            class={btn}
-            title={text.prevConnectionLabel.replace('{name}', anchorName)}
-            aria-label={text.prevConnectionLabel.replace('{name}', anchorName)}
-            data-panel-prev
-            onClick={() => step(-1)}
+      {(cycle.length > 0 || props.actions) && (
+        <div class="shrink-0 border-b border-border px-3 py-1.5 text-xs">
+          <div
+            class={
+              expanded
+                ? 'mx-auto flex max-w-6xl flex-wrap items-center gap-x-8 gap-y-1 sm:px-5'
+                : 'space-y-1'
+            }
           >
-            ‹ {text.prevConnection}
-          </button>
-          <p class="min-w-0 flex-1 truncate text-center text-muted" data-panel-position>
-            {atAnchor ? (
-              cycle.length === 1 ? (
-                text.connectionCountOne
-              ) : (
-                text.connectionCount.replace('{n}', String(cycle.length))
-              )
-            ) : (
-              <>
-                {positionOf(walk.index)}
-                {' · '}
+            {cycle.length > 0 && (
+              <div
+                role="group"
+                aria-label={text.connectionsOf.replace('{name}', anchorName)}
+                data-panel-cycle={walk.anchor}
+                class={`flex items-center gap-1 ${expanded ? 'w-full max-w-md' : ''}`}
+              >
                 <button
                   type="button"
-                  class="text-fg-soft underline hover:text-fg focus-visible:outline-2 focus-visible:outline-(--focus)"
-                  title={text.returnTo.replace('{name}', anchorName)}
-                  lang={textLang}
-                  onClick={() => go(walk.anchor, { via: 'step', index: null })}
+                  class={iconBtn}
+                  title={text.prevConnectionLabel.replace('{name}', anchorName)}
+                  aria-label={text.prevConnectionLabel.replace('{name}', anchorName)}
+                  data-panel-prev
+                  onClick={() => step(-1)}
                 >
-                  ↩ {anchorName}
+                  {icon(CHEVRON_LEFT)}
                 </button>
-              </>
+                <p class="min-w-0 flex-1 truncate text-center text-muted" data-panel-position>
+                  {atAnchor ? (
+                    cycle.length === 1 ? (
+                      text.connectionCountOne
+                    ) : (
+                      text.connectionCount.replace('{n}', String(cycle.length))
+                    )
+                  ) : (
+                    <>
+                      {positionOf(walk.index)}
+                      {' · '}
+                      <button
+                        type="button"
+                        class="text-fg-soft underline hover:text-fg focus-visible:outline-2 focus-visible:outline-(--focus)"
+                        title={text.returnTo.replace('{name}', anchorName)}
+                        onClick={() => go(walk.anchor, { via: 'step', index: null })}
+                      >
+                        ↩ {anchorName}
+                      </button>
+                    </>
+                  )}
+                </p>
+                <button
+                  type="button"
+                  class={iconBtn}
+                  title={text.nextConnectionLabel.replace('{name}', anchorName)}
+                  aria-label={text.nextConnectionLabel.replace('{name}', anchorName)}
+                  data-panel-next
+                  onClick={() => step(1)}
+                >
+                  {icon(CHEVRON_RIGHT)}
+                </button>
+              </div>
             )}
-          </p>
-          <button
-            type="button"
-            class={btn}
-            title={text.nextConnectionLabel.replace('{name}', anchorName)}
-            aria-label={text.nextConnectionLabel.replace('{name}', anchorName)}
-            data-panel-next
-            onClick={() => step(1)}
-          >
-            {text.nextConnection} ›
-          </button>
+            {props.actions && (
+              <div
+                role="group"
+                aria-label={props.actionsLabel}
+                data-panel-actions
+                class="flex flex-wrap items-center gap-x-0.5 gap-y-1 [&>button]:border-transparent [&>button]:px-1.5 [&>button]:py-0.5 [&>button]:text-muted [&>button:hover]:bg-surface-2 [&>button:hover]:text-fg [&>button[aria-pressed=true]]:bg-surface-2 [&>button[aria-pressed=true]]:text-fg"
+              >
+                {props.actionsLabel && (
+                  <span class="mr-1 text-subtle" aria-hidden="true">
+                    {props.actionsLabel}:
+                  </span>
+                )}
+                {props.actions}
+              </div>
+            )}
+          </div>
         </div>
       )}
       <p class="sr-only" aria-live="polite" data-panel-announce>
@@ -507,21 +530,17 @@ export default function TermPanel(props: Props) {
                 id="tp-title"
                 ref={heading}
                 tabIndex={-1}
-                lang={textLang}
+
                 class={`font-semibold outline-none ${expanded ? 'text-4xl' : 'text-2xl'}`}
               >
                 {name}
               </h2>
               {aka.length > 0 && (
-                <p class="mt-1 text-sm text-subtle" lang={textLang}>
+                <p class="mt-1 text-sm text-subtle">
                   {ui.aka}: {aka.join(', ')}
                 </p>
               )}
-              {summary && (
-                <p class="mt-3 font-medium text-fg-soft" lang={textLang}>
-                  {summary}
-                </p>
-              )}
+              {summary && <p class="mt-3 font-medium text-fg-soft">{summary}</p>}
               {record?.draft && (
                 <p class="mt-3 rounded border border-amber-300 bg-amber-50 px-2 py-1 text-xs text-amber-900 dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-300">
                   {ui.draft}
@@ -603,7 +622,7 @@ export default function TermPanel(props: Props) {
                     <div>
                       <dt class="text-xs text-muted">{props.edgeLabels[g.type] ?? g.type}</dt>
                       <dd class="mt-1 flex flex-wrap gap-1.5">
-                        {g.ids.map((x) => chip(x, why.get(`${g.type}|${x}`)?.[textLang]))}
+                        {g.ids.map((x) => chip(x, why.get(`${g.type}|${x}`)?.[lang]))}
                       </dd>
                     </div>
                   ))}
@@ -631,15 +650,14 @@ export default function TermPanel(props: Props) {
               )}
             </section>
 
-            <p>
-              <a
-                class="text-sm text-fg underline hover:text-fg"
-                href={termHref}
-                title={text.readMoreLabel}
-              >
-                {text.readMore}
-              </a>
-            </p>
+            <a
+              class="flex w-full items-center justify-center gap-2 rounded border border-border-strong px-3 py-2 text-sm font-medium text-fg hover:border-border-hover hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-(--focus)"
+              href={termHref}
+              title={text.readMoreLabel}
+              data-panel-read-more
+            >
+              {text.readMore}
+            </a>
           </div>
 
           {mini && (

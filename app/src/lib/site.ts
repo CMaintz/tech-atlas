@@ -546,15 +546,11 @@ export const GRAPH_UI = {
 
 /** The Explorer's term panel (A80). `da` must carry every key `en` has. */
 const PANEL_EN = {
-  panelLabel: 'Term details: {name}',
-  panelExpand: 'Expand',
   panelExpandLabel: 'Expand the panel to fill the page',
-  panelCollapse: 'Collapse',
   panelCollapseLabel: 'Return the panel to the side of the map',
   panelClose: 'Close the panel',
   readMore: 'Read more →',
   readMoreLabel: 'Read the full entry, with the technical deep dive and sources',
-  contentLanguage: 'Language of the text',
   facets: 'Definitions',
   loadError: 'Could not load the details of this term.',
   noRelations: 'No relationships yet.',
@@ -565,9 +561,7 @@ const PANEL_EN = {
   connectionCount: '{n} connections',
   connectionCountOne: '1 connection',
   cyclePosition: '{i} of {n} · {type}',
-  prevConnection: 'Previous',
   prevConnectionLabel: 'Previous connection of {name} (←)',
-  nextConnection: 'Next',
   nextConnectionLabel: 'Next connection of {name} (→)',
   returnTo: 'Return to {name}',
 } as const;
@@ -575,15 +569,11 @@ const PANEL_EN = {
 export const PANEL_UI: Record<Lang, Record<keyof typeof PANEL_EN, string>> = {
   en: PANEL_EN,
   da: {
-    panelLabel: 'Detaljer om begrebet: {name}',
-    panelExpand: 'Udvid',
     panelExpandLabel: 'Udvid panelet til hele siden',
-    panelCollapse: 'Formindsk',
     panelCollapseLabel: 'Sæt panelet tilbage ved siden af kortet',
     panelClose: 'Luk panelet',
     readMore: 'Læs mere →',
     readMoreLabel: 'Læs hele opslaget med den tekniske uddybning og kilderne',
-    contentLanguage: 'Tekstens sprog',
     facets: 'Definitioner',
     loadError: 'Detaljerne om dette begreb kunne ikke hentes.',
     noRelations: 'Ingen relationer endnu.',
@@ -594,9 +584,7 @@ export const PANEL_UI: Record<Lang, Record<keyof typeof PANEL_EN, string>> = {
     connectionCount: '{n} forbindelser',
     connectionCountOne: '1 forbindelse',
     cyclePosition: '{i} af {n} · {type}',
-    prevConnection: 'Forrige',
     prevConnectionLabel: 'Forrige forbindelse for {name} (←)',
-    nextConnection: 'Næste',
     nextConnectionLabel: 'Næste forbindelse for {name} (→)',
     returnTo: 'Tilbage til {name}',
   },
