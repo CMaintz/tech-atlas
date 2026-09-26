@@ -36,7 +36,7 @@ export default function KnowledgeStatus({ termId, ui }: Props) {
       <div class="flex flex-wrap gap-2">
         {STATUSES.map((s) => (
           <button
-            class={`rounded border px-2 py-1 text-xs ${status === s ? ACTIVE[s] : 'border-border-strong text-muted hover:border-border-hover'}`}
+            class={`min-h-11 rounded border px-3 py-1 text-sm sm:min-h-0 sm:px-2 sm:text-xs ${status === s ? ACTIVE[s] : 'border-border-strong text-muted hover:border-border-hover'}`}
             aria-pressed={status === s}
             onClick={() => choose(s)}
           >

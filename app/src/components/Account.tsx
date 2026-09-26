@@ -23,7 +23,7 @@ interface Props {
 }
 
 const button =
-  'rounded border border-border-strong px-3 py-1.5 text-sm hover:border-border-hover disabled:opacity-50';
+  'min-h-11 rounded border border-border-strong px-3 py-1.5 text-sm hover:border-border-hover disabled:opacity-50 sm:min-h-0';
 
 /** What the signed-out view offers (A87): email only behind EMAIL_SIGNIN, providers by build variable. */
 const options = signInOptions({ emailSignin: EMAIL_SIGNIN, providers: AUTH_PROVIDERS });
@@ -148,7 +148,7 @@ export default function Account({ lang, ui }: Props) {
                 type="email"
                 required
                 autocomplete="email"
-                class="min-w-0 flex-1 rounded border border-border-strong bg-surface px-2 py-1.5 text-sm"
+                class="min-w-0 flex-1 rounded border border-border-strong bg-surface px-2 py-1.5 text-base sm:text-sm"
                 value={email}
                 onInput={(e) => setEmail(e.currentTarget.value)}
               />

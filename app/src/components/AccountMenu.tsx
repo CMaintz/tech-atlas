@@ -43,7 +43,7 @@ export default function AccountMenu({ href, ui }: Props) {
   if (s.status === 'loading' || s.status === 'off') return null;
   if (s.status === 'signed-out') {
     return (
-      <a class="py-1.5 hover:text-fg md:py-0" href={href}>
+      <a class="flex min-h-11 items-center hover:text-fg md:min-h-0" href={href}>
         {ui.signIn}
       </a>
     );
@@ -79,7 +79,7 @@ export default function AccountMenu({ href, ui }: Props) {
     ) : null;
 
   return (
-    <span class="inline-flex items-center gap-2 py-1.5 md:py-0">
+    <span class="inline-flex min-h-11 items-center gap-2 md:min-h-0">
       <a class="hover:text-fg" href={href} title={s.email}>
         {ui.account}
       </a>

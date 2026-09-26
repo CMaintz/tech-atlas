@@ -45,7 +45,7 @@ const themes = [
 const menuCls =
   'absolute top-full right-0 z-40 mt-2 min-w-40 rounded-md border border-border-strong bg-surface py-1 text-sm text-fg shadow-lg shadow-black/20';
 const itemCls =
-  'flex w-full items-center gap-2 px-3 py-2 text-left hover:bg-surface-2 focus-visible:bg-surface-2 focus-visible:outline-none';
+  'flex min-h-11 w-full items-center gap-2 px-3 py-2 text-left md:min-h-0 hover:bg-surface-2 focus-visible:bg-surface-2 focus-visible:outline-none';
 const path = Astro.url.pathname;
 const alternates = (['en', 'da'] as const).map((l) => ({
   lang: l,
@@ -89,7 +89,7 @@ const tourUi = {
 <html lang={lang} data-lang-base={langBase}>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     {/* Cross-origin requests get the origin only, never the path (A89). The CSP meta is
         added by Astro (security.csp, integrations/csp.mjs). */}
     <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -132,7 +132,7 @@ const tourUi = {
       </style>
     </noscript>
   </head>
-  <body class="flex min-h-screen flex-col bg-bg font-sans text-fg antialiased">
+  <body class="flex min-h-dvh flex-col bg-bg font-sans text-fg antialiased">
     {/* Blocking, before any content is parsed, so there is no flash of the wrong theme
         (A92). Not in <head>: Astro appends the CSP meta there last, and nothing may
         run before the policy. */}
@@ -144,28 +144,44 @@ const tourUi = {
       {ui.skipToContent}
     </a>
     <header
-      class="group relative flex items-center justify-between gap-4 border-b border-border px-4 py-4 sm:px-6 print:hidden"
+      class="group relative flex items-center justify-between gap-4 border-b border-border px-4 py-2 sm:px-6 md:py-4 print:hidden"
       data-site-header
     >
-      <a href={langBase} class="font-mono text-lg tracking-tight">
-        atlas
-      </a>
-      <div class="flex items-center gap-4 text-sm text-muted">
+      <div class="flex items-center gap-2">
+        <a
+          href={langBase}
+          class="inline-flex min-h-11 items-center font-mono text-lg tracking-tight md:min-h-0"
+        >
+          atlas
+        </a>
+        {/* Phones: a badge here, as the corner ribbon would cover content and controls. */}
+        <span
+          aria-hidden="true"
+          class="rounded bg-amber-400/90 px-1.5 py-0.5 text-[10px] leading-none font-bold tracking-widest text-on-accent md:hidden"
+        >
+          BETA
+        </span>
+      </div>
+      <div class="flex items-center gap-1 text-sm text-muted md:gap-4">
         <nav
           id="site-nav"
           aria-label={ui.menu}
-          class="absolute inset-x-0 top-full z-30 hidden flex-col gap-1 border-b border-border bg-bg px-4 py-3 group-data-[open]:flex md:static md:flex md:flex-row md:flex-wrap md:justify-end md:gap-x-5 md:gap-y-1 md:border-0 md:bg-transparent md:p-0"
+          class="absolute inset-x-0 top-full z-30 hidden max-h-[calc(100dvh-4rem)] flex-col overflow-y-auto overscroll-contain border-b border-border bg-bg px-4 py-2 shadow-lg shadow-black/20 group-data-[open]:flex md:static md:flex md:flex-row md:flex-wrap md:justify-end md:gap-x-5 md:gap-y-1 md:border-0 md:bg-transparent md:p-0"
         >
           {nav.map((n) => (
             <a
-              class="py-1.5 hover:text-fg aria-[current=page]:text-fg md:py-0"
+              class="flex min-h-11 items-center hover:text-fg aria-[current=page]:text-fg md:min-h-0"
               href={n.href}
               aria-current={current(n.href) ? 'page' : undefined}
             >
               {n.label}
             </a>
           ))}
-          <button type="button" class="py-1.5 text-left hover:text-fg md:py-0" data-tour-start>
+          <button
+            type="button"
+            class="flex min-h-11 items-center text-left hover:text-fg md:min-h-0"
+            data-tour-start
+          >
             {ui.tourStart}
           </button>
           {ACCOUNTS && (
@@ -191,7 +207,7 @@ const tourUi = {
           <button
             type="button"
             id="theme-button"
-            class="flex rounded p-1 hover:text-fg"
+            class="flex h-11 w-11 items-center justify-center rounded hover:text-fg md:h-auto md:w-auto md:p-1"
             aria-haspopup="menu"
             aria-expanded="false"
             aria-controls="theme-menu"
@@ -252,7 +268,7 @@ const tourUi = {
           <button
             type="button"
             id="lang-switch"
-            class="flex items-center gap-1.5 rounded p-1 hover:text-fg"
+            class="flex min-h-11 items-center gap-1.5 rounded px-2 hover:text-fg md:min-h-0 md:p-1"
             aria-haspopup="menu"
             aria-expanded="false"
             aria-controls="lang-menu"
@@ -292,7 +308,7 @@ const tourUi = {
         </div>
         <button
           type="button"
-          class="-mr-1 rounded p-1 text-fg-soft hover:text-fg md:hidden"
+          class="-mr-2 flex h-11 w-11 items-center justify-center rounded text-fg-soft hover:text-fg md:hidden"
           aria-controls="site-nav"
           aria-expanded="false"
           aria-label={ui.menu}
@@ -330,7 +346,10 @@ const tourUi = {
       <slot />
     </main>
     {!wide && (
-      <footer class="mx-auto flex w-full max-w-5xl flex-wrap gap-5 px-4 pb-10 text-xs text-subtle sm:px-6 print:hidden">
+      <footer
+        class="mx-auto flex w-full max-w-5xl flex-wrap gap-x-5 px-4 pb-[max(2.5rem,env(safe-area-inset-bottom))] text-sm text-subtle sm:gap-y-5 sm:px-6 sm:text-xs print:hidden"
+        data-site-footer
+      >
         <a class="hover:text-fg-soft" href={url(`${lang}/review/`)}>
           {ui.review}
         </a>
@@ -357,7 +376,7 @@ const tourUi = {
         href="#main"
         data-back-to-top
         hidden
-        class="fixed right-4 bottom-4 z-30 rounded-full border border-border-strong bg-surface/90 px-3 py-2 text-xs text-fg-soft shadow hover:text-fg print:hidden"
+        class="fixed right-[max(1rem,env(safe-area-inset-right))] bottom-[max(1rem,env(safe-area-inset-bottom))] z-30 inline-flex min-h-11 items-center rounded-full border border-border-strong bg-surface/90 px-4 text-sm sm:min-h-0 sm:px-3 sm:py-2 sm:text-xs text-fg-soft shadow hover:text-fg print:hidden"
       >
         ↑ {ui.backToTop}
       </a>
@@ -544,10 +563,11 @@ const tourUi = {
         }
       });
     </script>
-    {/* Beta ribbon: fixed corner watermark, never blocks clicks, hidden in print. */}
+    {/* Beta ribbon: fixed corner watermark, never blocks clicks, hidden in print. Below md
+        it would cover content and the tour pill, so the header carries a badge instead. */}
     <div
       aria-hidden="true"
-      class="pointer-events-none fixed bottom-0 left-0 z-50 h-32 w-32 overflow-hidden print:hidden"
+      class="pointer-events-none fixed bottom-0 left-0 z-50 hidden h-32 w-32 overflow-hidden md:block print:hidden"
     >
       <div class="absolute bottom-[26px] left-[-44px] w-[180px] rotate-45 bg-amber-400/90 py-1.5 text-center text-sm font-bold tracking-[0.3em] text-on-accent shadow-lg shadow-black/40">
         BETA

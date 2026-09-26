@@ -59,12 +59,13 @@ const multi = (s: (typeof sections)[number]) => s.clusters.length > 1;
 <Base lang={lang} title={ui.compareTitle}>
   <h1 class="mb-2 text-3xl font-semibold">{ui.compareTitle}</h1>
   <p class="mb-6 text-muted">{ui.compareIntro}</p>
-  <div class="sticky top-0 z-20 -mx-4 mb-6 border-b border-border bg-bg/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6">
+  {/* Sticky from sm up only: on a phone the wrapped chips + filter would pin ~140px. */}
+  <div class="z-20 -mx-4 mb-6 sm:sticky sm:top-0 border-b border-border bg-bg/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6">
     <nav class="mb-3 flex flex-wrap gap-2 text-sm" aria-label={ui.compareTitle}>
       {sections.map((s) => (
         <a
           href={`#${s.id}`}
-          class="flex items-center gap-2 rounded-full border border-border-strong px-3 py-1 text-fg-soft hover:border-border-hover"
+          class="flex min-h-11 items-center gap-2 rounded-full border border-border-strong px-3 py-1 text-fg-soft hover:border-border-hover sm:min-h-0"
         >
           <span
             aria-hidden="true"
@@ -83,7 +84,7 @@ const multi = (s: (typeof sections)[number]) => s.clusters.length > 1;
         data-compare-filter
         placeholder={ui.compareFilter}
         autocomplete="off"
-        class="w-full max-w-md rounded-md border border-border-strong bg-surface px-3 py-1.5 text-sm text-fg placeholder:text-subtle focus:border-border-hover focus:outline-none"
+        class="min-h-11 w-full max-w-md rounded-md border border-border-strong bg-surface px-3 py-1.5 sm:min-h-0 text-base text-fg placeholder:text-subtle sm:text-sm focus:border-border-hover focus:outline-none"
       />
     </label>
   </div>
@@ -91,7 +92,7 @@ const multi = (s: (typeof sections)[number]) => s.clusters.length > 1;
     {ui.compareNone}
   </p>
   {sections.map((s) => (
-    <section id={s.id} data-compare-group class="mb-10 scroll-mt-32">
+    <section id={s.id} data-compare-group class="mb-10 scroll-mt-4 sm:scroll-mt-32">
       <h2
         class="mb-4 flex items-center gap-2 border-l-4 pl-3 text-xl font-semibold"
         style={{ borderColor: s.colour, color: s.colour }}
@@ -120,7 +121,7 @@ const multi = (s: (typeof sections)[number]) => s.clusters.length > 1;
                   .toLowerCase()}
               >
                 <a
-                  class="text-fg hover:underline"
+                  class="inline-block py-2.5 text-fg hover:underline sm:py-0"
                   href={url(`${lang}/compare/${pairSlug(p.a, p.b)}/`)}
                 >
                   {p.a.data.term[lang]} <span class="text-subtle">{ui.versus}</span>{' '}

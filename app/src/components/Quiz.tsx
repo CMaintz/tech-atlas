@@ -85,7 +85,7 @@ export default function Quiz({
   if (!session) {
     return (
       <button
-        class="rounded border border-border-hover px-3 py-1.5 text-sm hover:bg-surface"
+        class="min-h-11 rounded border border-border-hover px-3 py-1.5 text-sm hover:bg-surface sm:min-h-0"
         onClick={start}
       >
         {ui.start}
@@ -106,7 +106,7 @@ export default function Quiz({
           {ui.score.replace('{n}', String(score)).replace('{m}', String(session.length))}
         </p>
         <button
-          class="rounded border border-border-hover px-3 py-1.5 text-sm hover:bg-surface"
+          class="min-h-11 rounded border border-border-hover px-3 py-1.5 text-sm hover:bg-surface sm:min-h-0"
           onClick={start}
         >
           {ui.again}
@@ -148,7 +148,7 @@ export default function Quiz({
                 : 'border-border opacity-60';
           return (
             <button
-              class={`rounded border px-3 py-2 text-left text-sm ${state}`}
+              class={`min-h-11 rounded border px-3 py-2 text-left text-sm ${state}`}
               onClick={() => answer(o.id)}
             >
               {o.label}
@@ -183,7 +183,7 @@ export default function Quiz({
             </p>
           )}
           <button
-            class="rounded border border-border-hover px-3 py-1 hover:bg-surface"
+            class="min-h-11 rounded border border-border-hover px-3 py-1 hover:bg-surface sm:min-h-0"
             onClick={() => {
               setIndex(index + 1);
               setChosen(null);

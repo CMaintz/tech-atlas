@@ -160,6 +160,17 @@ main:focus,
   outline: none;
 }
 
+/* Phones: footer links are 44px tap targets. Direct children only: a utility like
+   `[&>*]` would also catch the <script> an island hoists into the footer and show it. */
+@media (max-width: 639.98px) {
+  [data-site-footer] > :is(a, button),
+  [data-site-footer] > astro-island > button {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+  }
+}
+
 /* The About dialog (A84): dimmed, blurred page behind; a short fade-in. */
 .about-dialog::backdrop {
   background: rgb(0 0 0 / 0.65);
