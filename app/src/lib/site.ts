@@ -889,6 +889,7 @@ const ABOUT_EN = {
   thanks: 'Thanks',
   close: 'Close',
   opensInNewTab: '(opens in a new tab)',
+  releaseNotes: 'Release notes',
 };
 
 export const ABOUT_UI: Record<Lang, Record<keyof typeof ABOUT_EN, string>> = {
@@ -904,5 +905,6 @@ export const ABOUT_UI: Record<Lang, Record<keyof typeof ABOUT_EN, string>> = {
     thanks: 'Tak til',
     close: 'Luk',
     opensInNewTab: '(åbner i en ny fane)',
+    releaseNotes: 'Udgivelsesnoter',
   },
 };

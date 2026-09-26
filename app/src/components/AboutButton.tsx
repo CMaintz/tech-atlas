@@ -55,7 +55,7 @@ const Avatar = ({ name, photo, position }: { name: string; photo?: string; posit
  * preventDefault, so the tour and term panel stand down), backdrop click, and focus
  * back on the opener.
  */
-export default function AboutButton({ ui, links, people, variant = 'circle' }: Props) {
+export default function AboutButton({ ui, links, people, version, variant = 'circle' }: Props) {
   const dialog = useRef<HTMLDialogElement>(null);
   const opener = useRef<HTMLButtonElement>(null);
   const titleId = useId();
@@ -182,6 +182,21 @@ export default function AboutButton({ ui, links, people, variant = 'circle' }: P
           <hr class="border-border" />
           {section('credits', ui.credits)}
           {section('thanks', ui.thanks)}
+          <p class="text-xs text-subtle">
+            <a
+              href={version.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:text-fg-soft hover:underline"
+              title={ui.releaseNotes}
+            >
+              Atlas {version.label}
+              <span class="sr-only">
+                {' '}
+                ({ui.releaseNotes}) {ui.opensInNewTab}
+              </span>
+            </a>
+          </p>
         </div>
       </dialog>
     </>

@@ -8,6 +8,7 @@ import { ACCOUNTS, LANGS, REPO, TOUR_STEPS, UI, swapLang, url, type Lang } from 
 import { isCurrentNav } from '../lib/prefs';
 import { aboutProps } from '../lib/about-assets';
 import { UI_EXTRA } from '../lib/ui-extra';
+import { CHANGELOG_URL, VERSION } from '../lib/version';
 
 interface Props {
   lang?: Lang;
@@ -369,6 +370,10 @@ const tourUi = {
           {ui.tourStart}
         </button>
         <AboutButton client:idle variant="link" {...aboutProps(lang)} />
+        <a class="hover:text-fg-soft" href={CHANGELOG_URL} title={extra.releaseNotes}>
+          {VERSION}
+          <span class="sr-only"> ({extra.releaseNotes})</span>
+        </a>
       </footer>
     )}
     {!wide && (

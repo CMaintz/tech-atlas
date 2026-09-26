@@ -30,6 +30,7 @@ export const UI_EXTRA = {
     azIntro: '{n} terms, alphabetically.',
     notFoundAz: 'Browse all terms A-Z',
     licenceFooter: 'Content CC BY-SA 4.0',
+    releaseNotes: 'Release notes',
     tiers: {
       standard: 'Standards & official texts',
       'official-doc': 'Official documentation',
@@ -63,6 +64,7 @@ export const UI_EXTRA = {
     azIntro: '{n} begreber i alfabetisk rækkefølge.',
     notFoundAz: 'Se alle begreber A-Å',
     licenceFooter: 'Indhold CC BY-SA 4.0',
+    releaseNotes: 'Udgivelsesnoter',
     tiers: {
       standard: 'Standarder og officielle tekster',
       'official-doc': 'Officiel dokumentation',

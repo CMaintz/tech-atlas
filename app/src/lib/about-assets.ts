@@ -10,6 +10,7 @@ import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { ABOUT_LINKS, ABOUT_PEOPLE, ABOUT_UI, url, type Lang } from './site';
 import { visibleLinks } from './about';
+import { CHANGELOG_URL, VERSION } from './version';
 
 export const aboutProps = (lang: Lang) => ({
   ui: { ...ABOUT_UI[lang] },
@@ -26,6 +27,7 @@ export const aboutProps = (lang: Lang) => ({
       : undefined,
     photoPosition: p.photoPosition ?? 'center',
   })),
+  version: { label: VERSION, href: CHANGELOG_URL },
 });
 
 export type AboutProps = ReturnType<typeof aboutProps>;
