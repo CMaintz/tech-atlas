@@ -350,6 +350,12 @@ export default function Explorer(props: Props) {
     [graph, domains],
   );
 
+  /** Relationship names for the lit links, read from either end (A99). */
+  const relationNames = useMemo(
+    () => ({ label: props.panel.edgeLabels, inverse: props.panel.edgeInverse }),
+    [props.panel],
+  );
+
   // ---- 2D: built once, then only told what to show --------------------------------------
   useEffect(() => {
     if (!graph || !box2d.current) return;
@@ -368,6 +374,7 @@ export default function Explorer(props: Props) {
       onHover: (id) => prefetchTerm(props.panel.apiBase, id),
       onPoint,
       theme,
+      relationNames,
     });
     map2d.current = m;
     return () => {
@@ -407,6 +414,7 @@ export default function Explorer(props: Props) {
           onPoint,
           theme,
           domainLabels: props.domainLabels,
+          relationNames,
         }),
       )
       .then((m) => {
@@ -461,7 +469,6 @@ export default function Explorer(props: Props) {
   const labAll = props.lab?.showAll;
   useEffect(() => void (labAll !== undefined && setShowAll(labAll)), [labAll]);
   useEffect(() => props.lab?.onMaps({ map2d: map2d.current, map3d }), [graph, map3d]);
-
   // ---- Tools -----------------------------------------------------------
   const findRoute = () => {
     if (!visible) return;

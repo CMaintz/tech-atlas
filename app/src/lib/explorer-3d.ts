@@ -21,6 +21,16 @@ import { backboneOf, galaxyLayout, linkVisible, pageRank, separate } from './gra
 import { reducedMotion } from './graph-cytoscape';
 import { createDragFeedback, orbitDragKind } from './drag-feedback';
 import type { Axes } from './explorer-keys';
+import {
+  createMotionGate,
+  cullBoxes,
+  effectiveFocus,
+  labelPov,
+  relationLabel,
+  type Focus,
+  type LabelBox,
+  type RelationNames,
+} from './explorer-focus';
 
 export type View3D = {
   nodes: ReadonlySet<string>;
@@ -44,7 +54,7 @@ const hexRgb = (hex: string) => {
 const rgba = (hex: string, a: number) => `rgba(${hexRgb(hex).join(',')},${a})`;
 
 /** Transparent draw order (three.js sorts by renderOrder before distance). */
-const DRAW = { glow: -1, solid: 0, links: 1, receded: 2, flow: 3 } as const;
+const DRAW = { glow: -1, solid: 0, links: 1, receded: 2, flow: 3, tags: 4 } as const;
 /** A 3d-force-graph object as the per-frame draw-order pass sees it. */
 type Obj3 = {
   __graphObjType?: string;
@@ -67,6 +77,8 @@ export async function createMap3D(opts: {
   theme?: MapTheme;
   /** Each domain's name, written large and faint across its galaxy (A93b). */
   domainLabels?: Record<string, string>;
+  /** Relationship names, written on the lit links (A99); none without. */
+  relationNames?: RelationNames;
 }) {
   const [{ default: ForceGraph3D }, THREE] = await Promise.all([
     import('3d-force-graph'),
@@ -104,24 +116,40 @@ export async function createMap3D(opts: {
   }
 
   let view: View3D | null = null;
-  let hover: Set<string> | null = null;
+  /** The hovered term the map shows (hover is gated: never while the map moves). */
+  let hoverId: string | null = null;
+  const gate = createMotionGate();
+  /** What hover adds (A99): a whole neighbourhood with nothing selected, else a preview. */
+  let fx: Focus = { hood: null, preview: null };
+  const refocus = () => {
+    fx = effectiveFocus({
+      selected: view?.selected ?? null,
+      route: !!view?.highlight.size,
+      hovered: hoverId,
+      moving: !gate.open,
+    });
+  };
+  const hoodOf = () => (fx.hood ? neighbours.get(fx.hood) : undefined);
   const focusOf = (l: Link3) => {
     if (!view) return false;
     const s = endId(l.source);
     const t = endId(l.target);
-    if (hover) return hover.has(s) && hover.has(t) && (hoverId === s || hoverId === t);
+    const hood = hoodOf();
+    if (hood) return hood.has(s) && hood.has(t) && (fx.hood === s || fx.hood === t);
     return (
       s === view.selected || t === view.selected || (view.highlight.has(s) && view.highlight.has(t))
     );
   };
-  let hoverId: string | null = null;
   /**
    * Receded terms: outside the hovered neighbourhood, else outside a route, else —
-   * with a term selected — everything not connected to it (A86).
+   * with a term selected — everything not connected to it (A86). A term hovered over a
+   * selection or route comes forward on its own (A99).
    */
   const faded = (id: string) => {
-    if (hover) return !hover.has(id);
+    const hood = hoodOf();
+    if (hood) return !hood.has(id);
     if (!view) return false;
+    if (id === fx.preview) return false;
     if (view.highlight.size) return !view.highlight.has(id);
     if (view.selected) return !neighbours.get(view.selected)?.has(id);
     return false;
@@ -182,7 +210,10 @@ export async function createMap3D(opts: {
   // solid spheres (they write depth, so they still hide what is behind them), the
   // lines, the receded spheres (no depth write: the lines show through), the comets.
   // The sphere materials are 3d-force-graph's, swapped on its schedule: every frame.
-  scene.onBeforeRender = () =>
+  // The same pass watches the camera (A99): any change since the last frame is motion.
+  const lastPos = new THREE.Vector3(NaN, NaN, NaN);
+  const lastTurn = new THREE.Quaternion();
+  scene.onBeforeRender = () => {
     scene.traverse((obj) => {
       const o = obj as unknown as Obj3;
       if (o.__graphObjType === 'link') o.renderOrder = DRAW.links;
@@ -191,6 +222,16 @@ export async function createMap3D(opts: {
       if (o.material) o.material.depthWrite = solid;
       o.renderOrder = solid ? DRAW.solid : DRAW.receded;
     });
+    const cam = fg.camera();
+    const moved =
+      !(cam.position.distanceToSquared(lastPos) < 1e-6) ||
+      1 - Math.abs(cam.quaternion.dot(lastTurn)) > 1e-10;
+    lastPos.copy(cam.position);
+    lastTurn.copy(cam.quaternion);
+    // Restyling re-evaluates 3d-force-graph's objects: not in the middle of a render.
+    if (gate.motion(moved)) window.setTimeout(stopHover, 0);
+    placeTags();
+  };
 
   // ---- Glow: one additive point cloud for every term ----------------------------------
   const glowTexture = (() => {
@@ -603,6 +644,120 @@ export async function createMap3D(opts: {
   };
   runFlow(true);
 
+  // ---- Relationship names on the lit links (A99) --------------------------------------
+  // A billboarded sprite per lit link of the selected (or a lightly linked hovered) term,
+  // a constant size on screen just above the link's midpoint, read from that term's side.
+  // Each frame the names are projected and those that would overlap give way to heavier
+  // links; the link under the pointer always shows its name.
+  type Tag = {
+    i: number;
+    weight: number;
+    aspect: number;
+    sprite: InstanceType<typeof THREE.Sprite>;
+  };
+  const tagPx = EXPLORER.edgeLabels.px3d;
+  const tagArt = new Map<
+    string,
+    { tex: InstanceType<typeof THREE.CanvasTexture>; aspect: number }
+  >();
+  const artFor = (text: string) => {
+    const had = tagArt.get(text);
+    if (had) return had;
+    const fpx = 36;
+    const c = document.createElement('canvas');
+    const g = c.getContext('2d')!;
+    const font = `500 ${fpx}px system-ui, sans-serif`;
+    g.font = font;
+    c.width = Math.ceil(g.measureText(text).width) + 16;
+    c.height = Math.ceil(fpx * 1.4);
+    g.font = font;
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    g.lineJoin = 'round';
+    g.lineWidth = 8;
+    g.strokeStyle = ink().halo;
+    g.strokeText(text, c.width / 2, c.height / 2);
+    g.fillStyle = ink().label3d;
+    g.fillText(text, c.width / 2, c.height / 2);
+    const art = { tex: new THREE.CanvasTexture(c), aspect: c.width / c.height };
+    tagArt.set(text, art);
+    return art;
+  };
+  const tagPool: InstanceType<typeof THREE.Sprite>[] = [];
+  let tags: Tag[] = [];
+  const paintTags = () => {
+    for (const t of tags) t.sprite.visible = false;
+    tags = [];
+    const names = opts.relationNames;
+    if (!view || !names) return;
+    const lit = links.filter((l) => endsShown(l) && focusOf(l));
+    const pov = labelPov(fx, view.selected, lit.length, EXPLORER.edgeLabels.hoverMax);
+    if (!pov || !view.nodes.has(pov)) return;
+    for (const l of lit) {
+      const s = endId(l.source);
+      const t = endId(l.target);
+      if (s !== pov && t !== pov) continue;
+      const art = artFor(
+        relationLabel({ source: s, target: t, type: l.type }, pov, names.label, names.inverse),
+      );
+      let sprite = tagPool[tags.length];
+      if (!sprite) {
+        sprite = new THREE.Sprite(
+          new THREE.SpriteMaterial({
+            transparent: true,
+            depthTest: false,
+            depthWrite: false,
+            fog: false,
+            sizeAttenuation: false,
+          }),
+        );
+        // Anchored below its centre, so the name sits just above the link.
+        sprite.center.set(0.5, -0.25);
+        sprite.renderOrder = DRAW.tags;
+        sprite.frustumCulled = false;
+        tagPool.push(sprite);
+        scene.add(sprite);
+      }
+      sprite.material.map = art.tex;
+      sprite.material.needsUpdate = true;
+      const o = l.i * 9;
+      // The curve's midpoint: a quarter of each end and half of the bend.
+      sprite.position.set(
+        0.25 * curve[o] + 0.5 * curve[o + 3] + 0.25 * curve[o + 6],
+        0.25 * curve[o + 1] + 0.5 * curve[o + 4] + 0.25 * curve[o + 7],
+        0.25 * curve[o + 2] + 0.5 * curve[o + 5] + 0.25 * curve[o + 8],
+      );
+      tags.push({ i: l.i, weight: l.weight, aspect: art.aspect, sprite });
+    }
+    tags.sort((a, b) => b.weight - a.weight);
+  };
+  const tagAt = new THREE.Vector3();
+  /** Per frame: size every name for the camera, and cull the overlapping ones. */
+  const placeTags = () => {
+    if (!tags.length) return;
+    const cam = fg.camera() as InstanceType<typeof THREE.PerspectiveCamera>;
+    const w = el.clientWidth;
+    const h = el.clientHeight;
+    // With sizeAttenuation off a sprite's height on screen is scale × P[5] × h / 2.
+    const k = (2 * tagPx) / (cam.projectionMatrix.elements[5] * h);
+    const boxes: LabelBox[] = [];
+    const first = tags.filter((t) => t.i === underLink);
+    for (const t of [...first, ...tags.filter((x) => x.i !== underLink)]) {
+      t.sprite.scale.set(k * t.aspect, k, 1);
+      tagAt.copy(t.sprite.position).project(cam);
+      if (tagAt.z > 1 || Math.abs(tagAt.x) > 1.2 || Math.abs(tagAt.y) > 1.2) continue;
+      boxes.push({
+        id: String(t.i),
+        x: ((tagAt.x + 1) / 2) * w,
+        y: ((1 - tagAt.y) / 2) * h - tagPx * 0.9,
+        w: tagPx * t.aspect,
+        h: tagPx,
+      });
+    }
+    const kept = cullBoxes(boxes);
+    for (const t of tags) t.sprite.visible = kept.has(String(t.i));
+  };
+
   /** Additive on the night map; multiplied into the cream map (a light on white is lost). */
   const setBlend = () => {
     const blending = light() ? THREE.MultiplyBlending : THREE.AdditiveBlending;
@@ -638,11 +793,12 @@ export async function createMap3D(opts: {
       s.material.opacity = faded(id) ? 0.12 : 1;
     }
     // A domain's name shows while any of its own terms does; it recedes with a selection.
-    const quiet = !!(hover || view?.selected || view?.highlight.size);
+    const quiet = !!(fx.hood || view?.selected || view?.highlight.size);
     for (const a of domainArt) {
       a.sprite.visible = a.ids.some((id) => view?.nodes.has(id));
       a.sprite.material.opacity = cfg.domainLabelAlpha[theme] * (quiet ? 0.35 : 1);
     }
+    paintTags();
   };
 
   /** Re-evaluate the accessors (3d-force-graph's idiom) and land any new objects. */
@@ -658,26 +814,52 @@ export async function createMap3D(opts: {
     fg.d3ReheatSimulation();
   };
 
+  // ---- Hover (A99): three-render-objects re-raycasts the last pointer position every
+  // frame, so while the camera moves terms drift under a resting pointer. The term under
+  // the pointer is tracked always, but shown only through the motion gate: never while
+  // the camera moves (auto-rotate, a glide, a drag, the wheel, keys), and not again until
+  // the pointer itself moves once it has stopped.
   let hoverTimer = 0;
-  /** Auto-rotating: terms drift under a still pointer, so no hover card. */
+  /** The term under the pointer, as 3d-force-graph last reported it. */
+  let under: string | null = null;
+  /** The link under the pointer: its name shows even where names were culled. */
+  let underLink: number | null = null;
   let spinning = false;
-  fg.onNodeHover((n: GraphNode | null) => {
-    el.style.cursor = n ? 'pointer' : 'grab';
-    if (n) opts.onHover?.(n.id);
-    const p = n && !spinning ? byId.get(n.id) : undefined;
+  const setHover = (id: string | null) => {
+    if (id === hoverId) return;
+    hoverId = id;
+    refocus();
+    refresh();
+  };
+  const showHover = () => {
+    const p = under ? byId.get(under) : undefined;
+    el.style.cursor = p ? 'pointer' : 'grab';
     if (p) {
+      opts.onHover?.(p.id);
       const at = fg.graph2ScreenCoords(p.x, p.y, p.z);
       opts.onPoint?.({ id: p.id, x: at.x, y: at.y });
     } else opts.onPoint?.(null);
     window.clearTimeout(hoverTimer);
-    hoverTimer = window.setTimeout(() => {
-      const next = n ? n.id : null;
-      if (next === hoverId) return;
-      hoverId = next;
-      hover = n ? (neighbours.get(n.id) ?? new Set([n.id])) : null;
-      refresh();
-    }, EXPLORER.hoverDelayMs);
+    hoverTimer = window.setTimeout(() => gate.open && setHover(under), EXPLORER.hoverDelayMs);
+  };
+  fg.onNodeHover((n: GraphNode | null) => {
+    under = n ? n.id : null;
+    if (gate.open) showHover();
   });
+  fg.onLinkHover((l: Link3 | null) => void (underLink = l && gate.open ? l.i : null));
+  /** The camera started moving: drop the hover and its card at once. */
+  const stopHover = () => {
+    window.clearTimeout(hoverTimer);
+    underLink = null;
+    opts.onPoint?.(null);
+    setHover(null);
+  };
+  const onPointerMove = () => {
+    const was = gate.open;
+    gate.pointer();
+    if (!was && gate.open) showHover();
+  };
+  el.addEventListener('pointermove', onPointerMove);
 
   el.style.cursor = 'grab';
   const drag = createDragFeedback(el);
@@ -754,6 +936,7 @@ export async function createMap3D(opts: {
     apply(next: View3D) {
       const prev = view;
       view = next;
+      refocus();
       if (prev?.families !== next.families || prev?.nodes !== next.nodes) {
         // Over the shown terms only, so none is stranded by a hidden domain.
         const spine = backboneOf(graph.nodes, graph.links, next.families, next.nodes);
@@ -767,7 +950,7 @@ export async function createMap3D(opts: {
       const toggleOnly =
         !!prev &&
         !nodesChanged &&
-        !hover &&
+        !fx.hood &&
         prev.selected === next.selected &&
         prev.highlight === next.highlight &&
         !next.highlight.size &&
@@ -857,6 +1040,8 @@ export async function createMap3D(opts: {
       fog.color.set(ink().bg3d);
       tints = tintsFor();
       familyColour = familyColoursFor();
+      for (const a of tagArt.values()) a.tex.dispose();
+      tagArt.clear();
       for (const a of labelArt) {
         drawLabel(a.text, a.c);
         a.tex.needsUpdate = true;
@@ -884,6 +1069,7 @@ export async function createMap3D(opts: {
       window.clearTimeout(hoverTimer);
       window.removeEventListener('resize', resize);
       window.removeEventListener('pointerup', onRelease);
+      el.removeEventListener('pointermove', onPointerMove);
       el.removeEventListener('pointerdown', onPress, true);
       drag.destroy();
       fg._destructor();
