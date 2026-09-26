@@ -112,6 +112,11 @@ export const EXPLORER = {
     layoutMs: 700,
     /** Edges fade in / out when a relationship family is toggled. */
     fadeMs: 180,
+    /**
+     * Edges a relationship toggle switches on or off (types, "show all") change this many
+     * per frame (A93b), so one toggle never restyles every edge in a single frame.
+     */
+    revealBatch: 120,
     fitMs: 550,
   },
 
@@ -177,6 +182,9 @@ export const EXPLORER = {
     linkAlpha: 0.2,
     hubLabels: 18,
     hubLabelHeight: 24,
+    /** Domain names across each galaxy (A93b): height in scene units, opacity per theme. */
+    domainLabelHeight: 110,
+    domainLabelAlpha: { dark: 0.26, light: 0.3 },
     /** Minimum distance between terms (see `spacing`), in scene units. */
     labelClearance: 10,
     /**

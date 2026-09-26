@@ -1,5 +1,5 @@
 import type { ComponentChildren } from 'preact';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { prerequisitesOf, shortestPath, type Graph, type GraphNode } from '../lib/graph-model';
 import { loadLearner, type Learner } from '../lib/learner';
 import {
@@ -58,6 +58,18 @@ type Mode = '2d' | '3d';
 type ColourMode = 'cluster' | 'knowledge';
 /** The control bar's popovers; only one is open at a time ('sheet' = phones' Controls). */
 type Pop = 'links' | 'route' | 'sheet';
+/**
+ * How much of the control bar fits (A93b): named domain pills and an open search field
+ * when there is room, dot chips next, then short labels and a search icon, and — when
+ * even that would wrap — the phones' "Controls" sheet. Measured, never a second row.
+ */
+type BarSize = 'full' | 'medium' | 'compact' | 'sheet';
+const SMALLER: Record<BarSize, BarSize> = {
+  full: 'medium',
+  medium: 'compact',
+  compact: 'sheet',
+  sheet: 'sheet',
+};
 /** A term under a resting pointer, in map pixels (the hover card's anchor). */
 type Point = { id: string; x: number; y: number };
 
@@ -143,6 +155,43 @@ export default function Explorer(props: Props) {
     return () => mq.removeEventListener('change', on);
   }, []);
   const bar = useRef<HTMLDivElement>(null);
+  /** The space the bar is centred in (between the legend and the "i"). */
+  const slot = useRef<HTMLDivElement>(null);
+  const [barSize, setBarSize] = useState<BarSize>('full');
+  // Start from the fullest bar whenever the space (or what the bar holds) changes...
+  useEffect(() => {
+    const el = slot.current;
+    if (!el) return;
+    let width = el.clientWidth;
+    const ro = new ResizeObserver(() => {
+      if (el.clientWidth === width) return;
+      width = el.clientWidth;
+      setBarSize('full');
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  /** Phones, or a desktop bar too tight for one row: the "Controls" sheet. */
+  const sheet = narrow || barSize === 'sheet';
+  // ...and step down, before paint, while its one row overflows.
+  useLayoutEffect(() => {
+    const b = bar.current;
+    // An opened search field in a compact bar may overflow a little: never a sheet for it.
+    if (barSize === 'sheet' || (barSize === 'compact' && findOpen)) return;
+    // In-flow widths only: an open popover or result list must not shrink the bar.
+    const room = slot.current?.clientWidth ?? 0;
+    const need = (el: HTMLElement) => {
+      const kids = [...el.children] as HTMLElement[];
+      const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
+      const pad = el.offsetWidth - el.clientWidth + 12; // border + px-1.5 padding
+      return (
+        kids.reduce((w, k) => w + k.getBoundingClientRect().width, 0) +
+        gap * (kids.length - 1) +
+        pad
+      );
+    };
+    if (b && !narrow && room && need(b) > room + 1) setBarSize(SMALLER[barSize]);
+  });
   // A popover closes on Esc (focus back on its button) or a press outside the bar. The
   // term panel's Esc handler stands down while a [data-map-popover] is open.
   useEffect(() => {
@@ -357,6 +406,7 @@ export default function Explorer(props: Props) {
           onHover: (id) => prefetchTerm(props.panel.apiBase, id),
           onPoint,
           theme,
+          domainLabels: props.domainLabels,
         }),
       )
       .then((m) => {
@@ -387,6 +437,7 @@ export default function Explorer(props: Props) {
     return () => nav.destroy();
   }, []);
   useEffect(() => map3d?.spin(spin), [map3d, spin]);
+  useEffect(() => setBarSize('full'), [mode, legendOpen, lang]);
   useEffect(() => map3d?.retheme(theme), [map3d, theme]);
   useEffect(() => {
     onPoint(null);
@@ -569,10 +620,10 @@ export default function Explorer(props: Props) {
         <span aria-hidden="true">⟳</span> {ui.autoRotate}
       </button>
     );
-  /** Domain toggles: labelled pills in the phone sheet, dot-only chips in the bar. */
-  const domainPills = (compact: boolean) => (
+  /** Domain toggles: labelled pills (the sheet, a full bar) or dot-only chips (a tighter bar). */
+  const domainPills = (compact: boolean, wrap = true) => (
     <div
-      class={`flex flex-wrap items-center ${compact ? 'gap-1' : 'gap-1.5'}`}
+      class={`flex shrink-0 ${wrap ? 'flex-wrap' : ''} items-center ${compact ? 'gap-1' : 'gap-1.5'}`}
       role="group"
       aria-label={ui.domains}
       data-tour="explorer-filters"
@@ -689,9 +740,9 @@ export default function Explorer(props: Props) {
       )}
     </form>
   );
-  // In the bar, "Find a term" is a search icon that opens the field (keeps the bar one row).
+  // In a compact bar, "Find a term" is a search icon that opens the field (keeps one row).
   const search =
-    !narrow && !findOpen ? (
+    barSize === 'compact' && !findOpen ? (
       <button
         type="button"
         class={`${pill(false)} px-2`}
@@ -734,14 +785,14 @@ export default function Explorer(props: Props) {
               else setFindOpen(false);
             }
           }}
-          class={`${field} ${narrow ? '' : 'w-40'}`}
+          class={`${field} ${sheet ? '' : barSize === 'full' ? 'w-56' : 'w-44'}`}
         />
         {query.trim() && (
           <ul
             id="xp-find"
             aria-live="polite"
             aria-label={ui.findTerm}
-            class={`${narrow ? 'mt-2' : `absolute top-full left-0 z-20 mt-2 w-64 max-w-[calc(100vw-2rem)] ${glass}`} space-y-0.5 rounded-xl p-2 text-xs`}
+            class={`${sheet ? 'mt-2' : `absolute top-full left-0 z-20 mt-2 w-64 max-w-[calc(100vw-2rem)] ${glass}`} space-y-0.5 rounded-xl p-2 text-xs`}
           >
             {matches.length === 0 && <li class="px-1 text-subtle">{ui.noResults}</li>}
             {matches.map((m) => (
@@ -843,20 +894,22 @@ export default function Explorer(props: Props) {
         below it.
       */}
       <div
-        class={`pointer-events-none absolute top-3 right-14 left-14 z-20 flex flex-col items-center gap-1.5 md:right-36 ${legendOpen ? 'md:left-[18rem]' : 'md:left-36'}`}
+        ref={slot}
+        class={`pointer-events-none absolute top-3 right-14 left-14 z-20 flex flex-col items-center gap-1.5 md:right-36 ${legendOpen ? 'md:left-(--xp-legend-open)' : 'md:left-(--xp-legend)'}`}
       >
         <div
           ref={bar}
+          data-size={sheet ? 'sheet' : barSize}
           role="group"
           aria-label={ui.mapControls}
           data-explorer-bar
-          class={`pointer-events-auto relative flex max-w-full flex-wrap items-center justify-center gap-x-1.5 gap-y-1.5 rounded-2xl px-1.5 py-1.5 text-sm ${glass}`}
+          class={`pointer-events-auto relative flex max-w-full flex-nowrap items-center justify-center gap-1.5 rounded-2xl px-1.5 py-1.5 text-sm ${glass}`}
         >
-          <div class="flex items-center gap-1.5" data-tour="explorer-layouts">
+          <div class="flex shrink-0 items-center gap-1.5" data-tour="explorer-layouts">
             {modeSeg}
-            {!narrow && layoutSeg}
+            {!sheet && layoutSeg}
           </div>
-          {narrow ? (
+          {sheet ? (
             <>
               {popButton('sheet', ui.controls)}
               {pop === 'sheet' && (
@@ -891,21 +944,25 @@ export default function Explorer(props: Props) {
             </>
           ) : (
             <>
-              {domainPills(true)}
-              <div class="relative">
-                {popButton('links', ui.linksShort, showAll)}
+              {domainPills(barSize !== 'full', false)}
+              <div class="relative shrink-0">
+                {popButton(
+                  'links',
+                  barSize === 'compact' ? ui.linksShort : ui.relationshipTypes,
+                  showAll,
+                )}
                 {popover('links', ui.relationshipTypes, linksBody)}
               </div>
               {colourBody}
               {search}
-              <div class="relative" data-tour="explorer-route">
+              <div class="relative shrink-0" data-tour="explorer-route">
                 {popButton('route', ui.routeShort, highlight.length > 0 && !!routeMsg)}
                 {popover('route', ui.route, routeBody, 'right-0')}
               </div>
             </>
           )}
         </div>
-        {!narrow && note && (
+        {!sheet && note && (
           <p class="max-w-2xl rounded-full bg-bg/70 px-3 py-0.5 text-center text-[11px] text-muted">
             {note}
           </p>

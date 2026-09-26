@@ -141,15 +141,20 @@ export const OVERVIEW_FAMILIES: ReadonlySet<string> = new Set([
  * The backbone over only the relationship families switched on (by default the
  * overview's, `OVERVIEW_FAMILIES`), as indices into the full `links`: a family that is
  * off no longer takes a term's strongest-link slots, so the families left on fill them.
+ * Given the `visible` terms, it is computed over them alone: a term whose strongest links
+ * went to hidden terms keeps its strongest visible one, so no connected term is stranded.
  */
 export function backboneOf(
   nodes: Node[],
   links: (WeightedLink & { type?: string; primary?: boolean })[],
   families: ReadonlySet<string> = OVERVIEW_FAMILIES,
+  visible?: ReadonlySet<string>,
 ): Set<number> {
-  const on = links.flatMap((l, i) => (families.has(l.family) ? [i] : []));
+  const on = links.flatMap((l, i) =>
+    families.has(l.family) && (!visible || linkVisible(l, visible)) ? [i] : [],
+  );
   const chosen = backbone(
-    nodes,
+    visible ? nodes.filter((n) => visible.has(n.id)) : nodes,
     on.map((i) => links[i]),
   );
   return new Set([...chosen].map((j) => on[j]));

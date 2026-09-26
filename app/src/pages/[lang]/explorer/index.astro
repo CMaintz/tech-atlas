@@ -57,8 +57,31 @@ const about = aboutProps(lang);
    * The About button (A84) owns the map's top-right corner; the floating control bar
    * (A93) is centred between insets that keep it clear of the button.
    */
+  /*
+   * The legend scales with the screen (A93b): a wider collapsed pill on big screens and a
+   * wider open box. The bar's left inset follows it (`--xp-legend[-open]`), so the two
+   * never meet; the right inset keeps the About "i" clear.
+   */
   #explorer {
     position: relative;
+    --xp-legend-w: clamp(18rem, 22vw, 28rem);
+    --xp-legend: 9rem;
+    --xp-legend-open: calc(var(--xp-legend-w) + 1.5rem);
+  }
+  #explorer [data-explorer-legend] details[open] {
+    width: var(--xp-legend-w);
+  }
+  @media (min-width: 1440px) {
+    #explorer {
+      --xp-legend: 11.5rem;
+    }
+    #explorer [data-explorer-legend] details:not([open]) {
+      min-width: 10rem;
+      padding-block: 0.625rem;
+    }
+    #explorer [data-explorer-legend] summary {
+      font-size: 0.8125rem;
+    }
   }
   #explorer [data-about-corner] {
     transition:
