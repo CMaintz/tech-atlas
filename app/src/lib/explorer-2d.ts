@@ -83,7 +83,7 @@ export type Map2DOptions = {
   onPoint?: (hit: { id: string; x: number; y: number } | null) => void;
   /** The map's palette (A92); change it later with `retheme`. */
   theme?: MapTheme;
-  /** Relationship names, written on the lit links (A99); none without. */
+  /** Relationship names, written on the lit links (A97a); none without. */
   relationNames?: RelationNames;
 };
 
@@ -225,14 +225,14 @@ const extraStyle = (theme: MapTheme) => [
     style: { 'text-opacity': 1, 'min-zoomed-font-size': 0, 'z-index': 20 },
   },
   { selector: 'node.far.nb', style: { 'font-size': 'data(hoverFont)' } },
-  // A term hovered over a selection or route (A99): it and its link to the selection
+  // A term hovered over a selection or route (A97a): it and its link to the selection
   // come forward; the selection's look stays.
   {
     selector: 'node.pv',
     style: { opacity: 1, 'text-opacity': 1, 'min-zoomed-font-size': 0, 'z-index': 21 },
   },
   { selector: 'edge.pv', style: { opacity: 1, 'z-index': 19 } },
-  // Relationship names on the lit links (A99), upright along the line, just above it.
+  // Relationship names on the lit links (A97a), upright along the line, just above it.
   {
     selector: 'edge.rl, edge.rlh',
     style: {
@@ -788,7 +788,7 @@ export function createMap2D(opts: Map2DOptions) {
 
   // ---- 5. Hover: light the neighbourhood, fade the rest (with a little intent) --------
   // With a term selected (or a route shown) the selection's look stays and hover only
-  // brings the hovered term forward (A99).
+  // brings the hovered term forward (A97a).
   let hoverTimer = 0;
   const unhover = () => {
     window.clearTimeout(hoverTimer);
@@ -855,7 +855,7 @@ export function createMap2D(opts: Map2DOptions) {
     paintLabels();
   };
 
-  // ---- 5a. Relationship names on the lit links (A99) --------------------------------
+  // ---- 5a. Relationship names on the lit links (A97a) --------------------------------
   // The selected term's links, or a hovered term's when it has few, each named from
   // that term's side; names that would overlap give way to heavier links, and the link
   // under the pointer shows its own. A constant size on screen when zoomed out.
@@ -925,7 +925,7 @@ export function createMap2D(opts: Map2DOptions) {
     pressing = false;
     drag.end();
   });
-  // No hover while the map moves (A99): a pan, the wheel, a glide to a term, keys or a
+  // No hover while the map moves (A97a): a pan, the wheel, a glide to a term, keys or a
   // layout change; and none again until the pointer itself moves once it has stopped
   // (Cytoscape does not re-report a term the view slid under a resting pointer).
   const gate = createMotionGate();

@@ -81,7 +81,7 @@ export const EXPLORER = {
   hoverCardMs: 1200,
 
   /**
-   * Relationship names on lit links (A99): the selected term's, or a hovered term's when
+   * Relationship names on lit links (A97a): the selected term's, or a hovered term's when
    * it has at most `hoverMax` lit links. Text size on screen (2D keeps it from shrinking
    * when zoomed out); overlapping names give way to heavier links.
    */

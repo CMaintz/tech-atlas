@@ -77,7 +77,7 @@ export async function createMap3D(opts: {
   theme?: MapTheme;
   /** Each domain's name, written large and faint across its galaxy (A93b). */
   domainLabels?: Record<string, string>;
-  /** Relationship names, written on the lit links (A99); none without. */
+  /** Relationship names, written on the lit links (A97a); none without. */
   relationNames?: RelationNames;
 }) {
   const [{ default: ForceGraph3D }, THREE] = await Promise.all([
@@ -119,7 +119,7 @@ export async function createMap3D(opts: {
   /** The hovered term the map shows (hover is gated: never while the map moves). */
   let hoverId: string | null = null;
   const gate = createMotionGate();
-  /** What hover adds (A99): a whole neighbourhood with nothing selected, else a preview. */
+  /** What hover adds (A97a): a whole neighbourhood with nothing selected, else a preview. */
   let fx: Focus = { hood: null, preview: null };
   const refocus = () => {
     fx = effectiveFocus({
@@ -143,7 +143,7 @@ export async function createMap3D(opts: {
   /**
    * Receded terms: outside the hovered neighbourhood, else outside a route, else —
    * with a term selected — everything not connected to it (A86). A term hovered over a
-   * selection or route comes forward on its own (A99).
+   * selection or route comes forward on its own (A97a).
    */
   const faded = (id: string) => {
     const hood = hoodOf();
@@ -210,7 +210,7 @@ export async function createMap3D(opts: {
   // solid spheres (they write depth, so they still hide what is behind them), the
   // lines, the receded spheres (no depth write: the lines show through), the comets.
   // The sphere materials are 3d-force-graph's, swapped on its schedule: every frame.
-  // The same pass watches the camera (A99): any change since the last frame is motion.
+  // The same pass watches the camera (A97a): any change since the last frame is motion.
   const lastPos = new THREE.Vector3(NaN, NaN, NaN);
   const lastTurn = new THREE.Quaternion();
   scene.onBeforeRender = () => {
@@ -644,7 +644,7 @@ export async function createMap3D(opts: {
   };
   runFlow(true);
 
-  // ---- Relationship names on the lit links (A99) --------------------------------------
+  // ---- Relationship names on the lit links (A97a) --------------------------------------
   // A billboarded sprite per lit link of the selected (or a lightly linked hovered) term,
   // a constant size on screen just above the link's midpoint, read from that term's side.
   // Each frame the names are projected and those that would overlap give way to heavier
@@ -814,7 +814,7 @@ export async function createMap3D(opts: {
     fg.d3ReheatSimulation();
   };
 
-  // ---- Hover (A99): three-render-objects re-raycasts the last pointer position every
+  // ---- Hover (A97a): three-render-objects re-raycasts the last pointer position every
   // frame, so while the camera moves terms drift under a resting pointer. The term under
   // the pointer is tracked always, but shown only through the motion gate: never while
   // the camera moves (auto-rotate, a glide, a drag, the wheel, keys), and not again until

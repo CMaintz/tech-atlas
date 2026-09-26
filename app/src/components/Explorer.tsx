@@ -350,7 +350,7 @@ export default function Explorer(props: Props) {
     [graph, domains],
   );
 
-  /** Relationship names for the lit links, read from either end (A99). */
+  /** Relationship names for the lit links, read from either end (A97a). */
   const relationNames = useMemo(
     () => ({ label: props.panel.edgeLabels, inverse: props.panel.edgeInverse }),
     [props.panel],

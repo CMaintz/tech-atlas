@@ -11,7 +11,7 @@ import {
 const at = (selected: string | null, hovered: string | null, moving = false, route = false) =>
   effectiveFocus({ selected, route, hovered, moving });
 
-describe('effectiveFocus (A99): selection wins over hover', () => {
+describe('effectiveFocus (A97a): selection wins over hover', () => {
   it('hover drives the look with nothing selected', () => {
     expect(at(null, 'mfa')).toEqual({ hood: 'mfa', preview: null });
     expect(at(null, null)).toEqual({ hood: null, preview: null });
@@ -30,7 +30,7 @@ describe('effectiveFocus (A99): selection wins over hover', () => {
   });
 });
 
-describe('createMotionGate (A99)', () => {
+describe('createMotionGate (A97a)', () => {
   it('is open at rest', () => {
     expect(createMotionGate().open).toBe(true);
   });
@@ -52,7 +52,7 @@ describe('createMotionGate (A99)', () => {
   });
 });
 
-describe('relationLabel (A99)', () => {
+describe('relationLabel (A97a)', () => {
   const labels = { requires: 'Requires', unlocks: 'Unlocks', 'used-with': 'Used with' };
   const inverse = { requires: 'unlocks', 'used-with': 'used-with' };
   const l = { source: 'tls', target: 'pki', type: 'requires' };
@@ -66,7 +66,7 @@ describe('relationLabel (A99)', () => {
   });
 });
 
-describe('label placement (A99)', () => {
+describe('label placement (A97a)', () => {
   it('keeps the first of two overlapping boxes, and boxes clear of it', () => {
     const kept = cullBoxes([
       { id: 'a', x: 0, y: 0, w: 40, h: 10 },
