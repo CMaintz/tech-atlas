@@ -20,6 +20,8 @@ interface Props {
   /** Explorer only: the overview/all-relationships toggle (A86). */
   showAll?: boolean;
   onShowAll?: (on: boolean) => void;
+  /** Explorer only: a one-line keyboard hint at the foot (A97). */
+  hint?: string;
   /** The map theme its colours match (A92); dark by default. */
   theme?: MapTheme;
 }
@@ -153,6 +155,7 @@ export default function GraphLegend(props: Props) {
           {text.crossDomain}
         </li>
       </ul>
+      {props.hint && <p class="mt-3 border-t border-border pt-2 text-subtle">{props.hint}</p>}
     </details>
   );
 }

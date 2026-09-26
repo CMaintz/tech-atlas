@@ -55,6 +55,25 @@ export const EXPLORER = {
     slopPx: 3,
   },
 
+  /**
+   * Keyboard navigation (A97, explorer-keys.ts): speeds at full throttle, the ease in and
+   * out (time constant, s; none under reduced motion) and the Shift multiplier.
+   */
+  keys: {
+    easeS: 0.12,
+    fast: 3,
+    /** 2D: pan speed (screen px/s) and zoom rate (natural log of the zoom per second). */
+    panPx: 520,
+    zoomRate: 1.1,
+    /** 3D: travel per second as a share of the distance to the orbit centre (min units/s). */
+    moveRel: 0.8,
+    moveMin: 60,
+    /** 3D: W never takes the camera closer than this to the orbit centre; it moves it on. */
+    near: 120,
+    /** 3D: orbit speed with the arrow keys (radians per second). */
+    orbitRad: 1.1,
+  },
+
   /** Hover intent: the pointer must rest this long before the map re-styles. */
   hoverDelayMs: 45,
 
@@ -150,6 +169,11 @@ export const EXPLORER = {
     nodeRel: 3.2,
     glowScale: 24,
     glowOpacity: 0.5,
+    /**
+     * A sphere at least this opaque hides what is behind it; a receded one (dimmed by a
+     * selection, hover or route) writes no depth, so the lines behind it show (A97).
+     */
+    solidOpacity: 0.5,
     linkAlpha: 0.2,
     hubLabels: 18,
     hubLabelHeight: 24,

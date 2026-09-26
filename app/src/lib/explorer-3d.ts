@@ -19,6 +19,7 @@ import {
 import { backboneOf, galaxyLayout, linkVisible, pageRank, separate } from './graph-layout';
 import { reducedMotion } from './graph-cytoscape';
 import { createDragFeedback, orbitDragKind } from './drag-feedback';
+import type { Axes } from './explorer-keys';
 
 export type View3D = {
   nodes: ReadonlySet<string>;
@@ -41,6 +42,15 @@ const hexRgb = (hex: string) => {
 };
 const rgba = (hex: string, a: number) => `rgba(${hexRgb(hex).join(',')},${a})`;
 
+/** Transparent draw order (three.js sorts by renderOrder before distance). */
+const DRAW = { glow: -1, solid: 0, links: 1, receded: 2, flow: 3 } as const;
+/** A 3d-force-graph object as the per-frame draw-order pass sees it. */
+type Obj3 = {
+  __graphObjType?: string;
+  renderOrder: number;
+  material?: { opacity: number; depthWrite: boolean };
+};
+
 export async function createMap3D(opts: {
   container: HTMLElement;
   graph: Graph;
@@ -59,6 +69,7 @@ export async function createMap3D(opts: {
     import('3d-force-graph'),
     import('three'),
   ]);
+  type Vec3 = InstanceType<typeof THREE.Vector3>;
   const cfg = EXPLORER.three;
   const { graph, lang, container: el } = opts;
   let theme: MapTheme = opts.theme ?? 'dark';
@@ -162,6 +173,22 @@ export async function createMap3D(opts: {
   const fog = new THREE.FogExp2(ink().bg3d, cfg.fogDensity);
   scene.fog = fog;
 
+  // ---- Draw order (A97): every sphere is transparent (nodeOpacity < 1), so three.js
+  // sorted each against the one merged web by distance, and a receded sphere drawn
+  // first wrote depth and erased every line behind it. A fixed order instead: glow, the
+  // solid spheres (they write depth, so they still hide what is behind them), the
+  // lines, the receded spheres (no depth write: the lines show through), the comets.
+  // The sphere materials are 3d-force-graph's, swapped on its schedule: every frame.
+  scene.onBeforeRender = () =>
+    scene.traverse((obj) => {
+      const o = obj as unknown as Obj3;
+      if (o.__graphObjType === 'link') o.renderOrder = DRAW.links;
+      if (o.__graphObjType !== 'node') return;
+      const solid = (o.material?.opacity ?? 1) >= cfg.solidOpacity;
+      if (o.material) o.material.depthWrite = solid;
+      o.renderOrder = solid ? DRAW.solid : DRAW.receded;
+    });
+
   // ---- Glow: one additive point cloud for every term ----------------------------------
   const glowTexture = (() => {
     const c = document.createElement('canvas');
@@ -234,6 +261,7 @@ export async function createMap3D(opts: {
   });
   const glow = new THREE.Points(glowGeo, glowMat);
   glow.frustumCulled = false;
+  glow.renderOrder = DRAW.glow;
   scene.add(glow);
 
   // ---- Hub labels: text sprites for the most central terms ---------------------------
@@ -328,6 +356,7 @@ export async function createMap3D(opts: {
     }),
   );
   web.frustumCulled = false;
+  web.renderOrder = DRAW.links;
   scene.add(web);
   const tintsFor = () =>
     links.map((l) => {
@@ -426,6 +455,7 @@ export async function createMap3D(opts: {
   });
   const flow = new THREE.Points(flowGeo, flowMat);
   flow.frustumCulled = false;
+  flow.renderOrder = DRAW.flow;
   flow.visible = motion;
   scene.add(flow);
   const directed = links.map((l) => isDirected(l.type));
@@ -691,6 +721,36 @@ export async function createMap3D(opts: {
     },
     /** Bring a term into view (Find a term, even when it is already selected). */
     focus: (id: string) => flyTo(id),
+    /**
+     * Keyboard navigation (A97), for dt seconds: fly (the orbit centre travels with the
+     * camera, so a mouse orbit afterwards turns about what is in front) and orbit.
+     */
+    nudge(v: Axes, dt: number) {
+      const k = EXPLORER.keys;
+      const camera = fg.camera();
+      const target = (fg.controls() as unknown as { target: Vec3 }).target;
+      const offset = camera.position.clone().sub(target);
+      if (v.yaw || v.pitch) {
+        const s = new THREE.Spherical().setFromVector3(offset);
+        s.theta += v.yaw * k.orbitRad * dt;
+        s.phi = Math.min(Math.PI - 0.05, Math.max(0.05, s.phi - v.pitch * k.orbitRad * dt));
+        offset.setFromSpherical(s);
+        camera.position.copy(target).add(offset);
+      }
+      const dist = offset.length();
+      const speed = Math.max(k.moveMin, dist * k.moveRel) * dt;
+      const ahead = camera.getWorldDirection(new THREE.Vector3());
+      const right = ahead.clone().cross(camera.up).normalize();
+      // Sideways and up/down move camera and orbit centre together (a pan) ...
+      const pan = right.multiplyScalar(v.x * speed).addScaledVector(camera.up, v.y * speed);
+      camera.position.add(pan);
+      target.add(pan);
+      // ... forward closes in on the centre, and pushes it on ahead once near it.
+      const fwd = v.z * speed;
+      camera.position.addScaledVector(ahead, fwd);
+      if (dist - fwd < k.near) target.addScaledVector(ahead, k.near - (dist - fwd));
+      camera.lookAt(target);
+    },
     /** Slow auto-rotation about the scene centre (off under reduced motion). */
     spin(on: boolean) {
       spinning = on && motion;
