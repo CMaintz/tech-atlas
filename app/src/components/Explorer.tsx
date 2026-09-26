@@ -20,6 +20,7 @@ import {
 import { createMap2D, type Layout, type Map2D } from '../lib/explorer-2d';
 import type { Map3D } from '../lib/explorer-3d';
 import { EXPLORER } from '../lib/explorer-config';
+import { createKeyNav } from '../lib/explorer-keys';
 import { searchTerms } from '../lib/canvas-explorer';
 import { looksNaturalLanguage, mergeHits } from '../lib/semantic';
 import { useSemanticHits } from '../lib/use-semantic';
@@ -367,6 +368,24 @@ export default function Explorer(props: Props) {
     };
   }, [mode, graph]);
   useEffect(() => () => map3d?.destroy(), [map3d]);
+
+  // ---- Keyboard: WASD / arrows move the map with focus or the pointer on it (A97) ------
+  const mapHost = useRef<HTMLDivElement>(null);
+  const modeRef = useRef(mode);
+  modeRef.current = mode;
+  const map3dRef = useRef(map3d);
+  map3dRef.current = map3d;
+  useEffect(() => {
+    if (!mapHost.current) return;
+    const nav = createKeyNav({
+      host: mapHost.current,
+      mode: () => modeRef.current,
+      reduced: () => media('(prefers-reduced-motion: reduce)'),
+      start: () => onPoint(null),
+      move: (v, dt) => (modeRef.current === '3d' ? map3dRef.current : map2d.current)?.nudge(v, dt),
+    });
+    return () => nav.destroy();
+  }, []);
   useEffect(() => map3d?.spin(spin), [map3d, spin]);
   useEffect(() => map3d?.retheme(theme), [map3d, theme]);
   useEffect(() => {
@@ -787,8 +806,14 @@ export default function Explorer(props: Props) {
     <div class="relative h-[calc(100vh-4.25rem)] overflow-hidden map-surface">
       <h1 class="sr-only">{ui.explorer}</h1>
       <p class="sr-only">{ui.explorerIntro}</p>
+      {/* The map host: focusable, so the keyboard can move the map (A97). */}
       <div
-        class="absolute inset-0"
+        ref={mapHost}
+        tabIndex={0}
+        role="application"
+        aria-label={props.graphUi.mapLabel}
+        data-map-keys
+        class="absolute inset-0 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-(--focus)"
         onPointerDown={() => onPoint(null)}
         onWheel={() => onPoint(null)}
       >
@@ -901,6 +926,7 @@ export default function Explorer(props: Props) {
             text={props.graphUi}
             open={legendOpen}
             onToggle={onLegendToggle}
+            hint={mode === '3d' ? props.graphUi.keys3d : props.graphUi.keys2d}
           />
         </div>
       )}
