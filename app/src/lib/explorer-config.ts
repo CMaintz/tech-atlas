@@ -80,6 +80,19 @@ export const EXPLORER = {
   /** The pointer must rest on a term this long before its hover card appears (A93). */
   hoverCardMs: 1200,
 
+  /**
+   * Relationship names on lit links (A97a): the selected term's, or a hovered term's when
+   * it has at most `hoverMax` lit links. Text size on screen (2D keeps it from shrinking
+   * when zoomed out); overlapping names give way to heavier links.
+   */
+  edgeLabels: {
+    hoverMax: 12,
+    px2d: 10,
+    px3d: 12,
+    /** 2D: the view counts as still this long after its last pan or zoom. */
+    quietMs: 150,
+  },
+
   /** Marching dashes on the term page's hovered edges (graph-cytoscape `startFlow`). */
   flow: {
     /** Pixels per second the dash pattern moves, source → target. */

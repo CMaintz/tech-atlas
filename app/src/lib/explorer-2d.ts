@@ -47,6 +47,15 @@ import {
 import { edgeData, graphStyle, reducedMotion, smoothFit } from './graph-cytoscape';
 import { createDragFeedback } from './drag-feedback';
 import type { Axes } from './explorer-keys';
+import {
+  createMotionGate,
+  cullBoxes,
+  effectiveFocus,
+  labelPov,
+  relationLabel,
+  rotatedSize,
+  type RelationNames,
+} from './explorer-focus';
 import { startDots, type DotsConfig } from './explorer-flow';
 
 cytoscape.use(fcose);
@@ -74,6 +83,8 @@ export type Map2DOptions = {
   onPoint?: (hit: { id: string; x: number; y: number } | null) => void;
   /** The map's palette (A92); change it later with `retheme`. */
   theme?: MapTheme;
+  /** Relationship names, written on the lit links (A97a); none without. */
+  relationNames?: RelationNames;
 };
 
 /** What the map shows; every field is applied in place. */
@@ -214,6 +225,30 @@ const extraStyle = (theme: MapTheme) => [
     style: { 'text-opacity': 1, 'min-zoomed-font-size': 0, 'z-index': 20 },
   },
   { selector: 'node.far.nb', style: { 'font-size': 'data(hoverFont)' } },
+  // A term hovered over a selection or route (A97a): it and its link to the selection
+  // come forward; the selection's look stays.
+  {
+    selector: 'node.pv',
+    style: { opacity: 1, 'text-opacity': 1, 'min-zoomed-font-size': 0, 'z-index': 21 },
+  },
+  { selector: 'edge.pv', style: { opacity: 1, 'z-index': 19 } },
+  // Relationship names on the lit links (A97a), upright along the line, just above it.
+  {
+    selector: 'edge.rl, edge.rlh',
+    style: {
+      label: 'data(rel)',
+      'font-size': 'data(relFont)',
+      'font-weight': 500,
+      color: MAP_INK[theme].label,
+      'text-opacity': 1,
+      'text-rotation': 'autorotate',
+      'text-margin-y': -6,
+      'text-outline-color': MAP_INK[theme].halo,
+      'text-outline-width': 2,
+      'text-outline-opacity': 0.9,
+      'min-zoomed-font-size': 0,
+    },
+  },
 ];
 
 export function createMap2D(opts: Map2DOptions) {
@@ -752,6 +787,8 @@ export function createMap2D(opts: Map2DOptions) {
   };
 
   // ---- 5. Hover: light the neighbourhood, fade the rest (with a little intent) --------
+  // With a term selected (or a route shown) the selection's look stays and hover only
+  // brings the hovered term forward (A97a).
   let hoverTimer = 0;
   const unhover = () => {
     window.clearTimeout(hoverTimer);
@@ -759,17 +796,35 @@ export function createMap2D(opts: Map2DOptions) {
     const was = hovered;
     hovered = null;
     cy.batch(() => {
+      cy.elements('.pv').removeClass('pv');
       shown.removeClass('faded lit');
       cy.nodes('.hoverhide').removeClass('hoverhide');
       // Edges revealed only for the hover go back to hidden.
       was.connectedEdges('.hoverlink').removeClass('hoverlink').addClass('off');
       cy.nodes('.tag').removeClass('faded');
     });
+    paintLabels();
     opts.container.style.cursor = 'grab';
   };
   const hover = (n: cytoscape.NodeSingular) => {
     hovered = n;
     const v = view!;
+    opts.container.style.cursor = 'pointer';
+    const f = effectiveFocus({
+      selected: v.selected,
+      route: v.highlight.size > 0,
+      hovered: n.id(),
+      moving: false,
+    });
+    if (!f.hood) {
+      const sel = v.selected;
+      if (f.preview)
+        cy.batch(() => {
+          n.addClass('pv');
+          if (sel) n.edgesWith(cy.getElementById(sel)).not('.off').addClass('pv');
+        });
+      return;
+    }
     const extra = n
       .connectedEdges('.off')
       .filter(
@@ -797,8 +852,59 @@ export function createMap2D(opts: Map2DOptions) {
       hood.addClass('lit');
       lit.filter((m) => hidden.has(m.id())).addClass('hoverhide');
     });
-    opts.container.style.cursor = 'pointer';
+    paintLabels();
   };
+
+  // ---- 5a. Relationship names on the lit links (A97a) --------------------------------
+  // The selected term's links, or a hovered term's when it has few, each named from
+  // that term's side; names that would overlap give way to heavier links, and the link
+  // under the pointer shows its own. A constant size on screen when zoomed out.
+  let named = cy.collection() as cytoscape.EdgeCollection;
+  const paintLabels = () =>
+    cy.batch(() => {
+      cy.edges('.rl, .rlh').removeClass('rl rlh');
+      named = cy.collection() as cytoscape.EdgeCollection;
+      const names = opts.relationNames;
+      const v = view;
+      if (!names || !v) return;
+      const f = effectiveFocus({
+        selected: v.selected,
+        route: v.highlight.size > 0,
+        hovered: hovered?.id() ?? null,
+        moving: false,
+      });
+      const litOf = (id: string) =>
+        cy.getElementById(id).connectedEdges().intersection(links).not('.off');
+      const pov = labelPov(
+        f,
+        v.selected,
+        f.hood ? litOf(f.hood).length : 0,
+        EXPLORER.edgeLabels.hoverMax,
+      );
+      const p = pov ? cy.getElementById(pov) : null;
+      if (!pov || !p || p.empty() || p.hasClass('gone')) return;
+      const size = EXPLORER.edgeLabels.px2d / Math.min(1, cy.zoom());
+      const edges = litOf(pov)
+        .toArray()
+        .map((e) => ({ e, l: graph.links[Number(e.id().slice(1))] }))
+        .sort((a, b) => b.l.weight - a.l.weight);
+      const boxes = edges.map(({ e, l }) => {
+        const text = relationLabel(l, pov, names.label, names.inverse);
+        e.data({ rel: text, relFont: size });
+        const a = e.source().position();
+        const b = e.target().position();
+        const r = rotatedSize(
+          text.length * size * 0.55,
+          size * 1.3,
+          Math.atan2(b.y - a.y, b.x - a.x),
+        );
+        return { id: e.id(), x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 - 6, ...r };
+      });
+      const kept = cullBoxes(boxes);
+      named = cy.collection(edges.map(({ e }) => e)) as cytoscape.EdgeCollection;
+      named.filter((e) => kept.has(e.id())).addClass('rl');
+    });
+
   // No hover while a button is down: restyling mid-pan throws away the viewport snapshot.
   let pressing = false;
   // The background can be dragged: an open hand at rest, a closed one and a ring while
@@ -819,10 +925,31 @@ export function createMap2D(opts: Map2DOptions) {
     pressing = false;
     drag.end();
   });
-  cy.on('viewport', () => opts.onPoint?.(null));
-  cy.on('mouseover', 'node[size]', (e) => {
-    if (pressing) return;
-    const n = e.target as cytoscape.NodeSingular;
+  // No hover while the map moves (A97a): a pan, the wheel, a glide to a term, keys or a
+  // layout change; and none again until the pointer itself moves once it has stopped
+  // (Cytoscape does not re-report a term the view slid under a resting pointer).
+  const gate = createMotionGate();
+  let quietTimer = 0;
+  /** The term under the pointer, hovered or not. */
+  let under: cytoscape.NodeSingular | null = null;
+  const moved = () => {
+    if (gate.motion(true)) {
+      unhover();
+      opts.onPoint?.(null);
+    }
+    window.clearTimeout(quietTimer);
+    quietTimer = window.setTimeout(() => {
+      if (moving) return moved();
+      gate.motion(false);
+      // Names are sized for the zoom: re-place them once it settles.
+      if (named.nonempty()) paintLabels();
+    }, EXPLORER.edgeLabels.quietMs);
+  };
+  cy.on('viewport', () => {
+    opts.onPoint?.(null);
+    moved();
+  });
+  const showHover = (n: cytoscape.NodeSingular) => {
     opts.onHover?.(n.id());
     const at = n.renderedPosition();
     opts.onPoint?.({ id: n.id(), x: at.x, y: at.y });
@@ -832,11 +959,27 @@ export function createMap2D(opts: Map2DOptions) {
       unhover();
       hover(n);
     }, EXPLORER.hoverDelayMs);
+  };
+  cy.on('mouseover', 'node[size]', (e) => {
+    under = e.target as cytoscape.NodeSingular;
+    if (pressing || !gate.open) return;
+    showHover(under);
   });
   cy.on('mouseout', 'node[size]', () => {
+    under = null;
     unhover();
     opts.onPoint?.(null);
   });
+  const onPointerMove = () => {
+    const was = gate.open;
+    gate.pointer();
+    if (!was && gate.open && under && !pressing) showHover(under);
+  };
+  opts.container.addEventListener('pointermove', onPointerMove);
+  cy.on('mouseover', 'edge', (e) => {
+    if (gate.open && !pressing && named.contains(e.target)) e.target.addClass('rlh');
+  });
+  cy.on('mouseout', 'edge', (e) => void e.target.removeClass('rlh'));
   cy.on('tap', 'node[size]', (e) => opts.onSelect(e.target.id()));
   cy.on('tap', (e) => e.target === cy && opts.onSelect(null));
   cy.on('dbltap', 'node[size]', (e) => opts.onOpen(e.target.id()));
@@ -899,6 +1042,7 @@ export function createMap2D(opts: Map2DOptions) {
       setBundledRoutes(v.layout === 'force' && v.showAll, t.centre);
       recull(true);
       frame();
+      paintLabels();
     };
     if (!animate || reducedMotion()) {
       cy.batch(() => move.forEach((n) => void n.position(t.positions[n.id()])));
@@ -908,6 +1052,7 @@ export function createMap2D(opts: Map2DOptions) {
     // Straight-line routes bend badly mid-flight; drop them until nodes land.
     setBundledRoutes(false);
     moving = true;
+    moved();
     move
       .layout({
         name: 'preset',
@@ -1112,6 +1257,7 @@ export function createMap2D(opts: Map2DOptions) {
           }
         }
         if (next.selected) cy.getElementById(next.selected).removeClass('dim').addClass('sel');
+        paintLabels();
       });
     if (fading.nonempty())
       fading.animate(
@@ -1213,6 +1359,8 @@ export function createMap2D(opts: Map2DOptions) {
       pending = null;
       window.clearTimeout(cullTimer);
       window.clearTimeout(hoverTimer);
+      window.clearTimeout(quietTimer);
+      opts.container.removeEventListener('pointermove', onPointerMove);
       drag.destroy();
       cy.destroy();
     },
