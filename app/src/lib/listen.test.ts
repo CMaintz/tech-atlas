@@ -1,5 +1,17 @@
 import { describe, expect, it } from 'vitest';
-import { listenAll } from './listen';
+import { listen, listenAll } from './listen';
+
+describe('listen', () => {
+  it('adds a listener and hands back its removal, with the same options', () => {
+    const t = new EventTarget();
+    const seen: string[] = [];
+    const off = listen(t, 'x', (e) => seen.push(e.type), { capture: true });
+    t.dispatchEvent(new Event('x'));
+    off();
+    t.dispatchEvent(new Event('x'));
+    expect(seen).toEqual(['x']);
+  });
+});
 
 describe('listenAll', () => {
   it('adds every listener and removes them all at once', () => {
