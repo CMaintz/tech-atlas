@@ -6,41 +6,32 @@
  * pull + merge on sign-in, page load, returning to the tab and coming back online;
  * push (pull + merge + versioned write) shortly after each local change. Signed
  * out, offline, or with accounts unconfigured, nothing here runs and nothing breaks.
+ * The row reads/writes live in account-rows.ts, the observable state in account-state.ts.
  */
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { pull, write, writeTombstone, type Me, type Row } from './account-rows';
+import { setSyncState, syncState, writeNotice } from './account-state';
 import type { AuthProvider } from './auth-config';
 import { loadLearner, parseLearner, saveLearner, type Learner } from './learner';
 import { ACCOUNTS, SUPABASE_ANON_KEY, SUPABASE_URL, url, type Lang } from './site';
 import { mergeLearner, sameLearner } from './sync';
 
-export type SyncStatus =
-  | 'off'
-  | 'loading'
-  | 'signed-out'
-  | 'syncing'
-  | 'synced'
-  | 'offline'
-  | 'error'
-  /** Signed in after the synced data was deleted: syncing waits for "start again". */
-  | 'stopped';
-/** 'remoteDeleted': this browser was signed out because the data was deleted elsewhere. */
-export type SyncNotice = 'remoteDeleted';
-export type SyncState = { status: SyncStatus; email?: string; at?: number; notice?: SyncNotice };
+export {
+  dismissNotice,
+  subscribe,
+  type SyncNotice,
+  type SyncState,
+  type SyncStatus,
+} from './account-state';
 
-type Row = { state: unknown; version: number; deleted_at: string | null };
-type Me = { id: string; email: string; signedInAt: number };
-
-const TABLE = 'learner_state';
 const PUSH_DELAY = 1500;
 const ATTEMPTS = 4;
-const NOTICE_KEY = 'atlas:account:notice';
 /** After a failed sync, try again by itself after these delays (the last one repeats). */
 const RETRY_DELAYS = [5_000, 15_000, 60_000, 300_000];
+const CONFLICTING = 'Sync kept conflicting with another device.';
 
 let client: SupabaseClient | null = null;
 let user: Me | null = null;
-let state: SyncState = { status: ACCOUNTS ? 'loading' : 'off', notice: readNotice() };
-const listeners = new Set<(s: SyncState) => void>();
 let started = false;
 /** Set while sync itself writes localStorage, so that write doesn't schedule a push. */
 let applying = false;
@@ -51,24 +42,6 @@ let running: Promise<void> | null = null;
 let again = false;
 let retryTimer: ReturnType<typeof setTimeout> | undefined;
 let failures = 0;
-
-function readNotice(): SyncNotice | undefined {
-  try {
-    return localStorage.getItem(NOTICE_KEY) === 'remoteDeleted' ? 'remoteDeleted' : undefined;
-  } catch {
-    return undefined;
-  }
-}
-
-function writeNotice(notice: SyncNotice | undefined) {
-  try {
-    if (notice) localStorage.setItem(NOTICE_KEY, notice);
-    else localStorage.removeItem(NOTICE_KEY);
-  } catch {
-    // Storage blocked: the notice lasts only for this page.
-  }
-  set({ notice });
-}
 
 function getClient(): SupabaseClient | null {
   if (!ACCOUNTS) return null;
@@ -83,18 +56,6 @@ function getClient(): SupabaseClient | null {
     },
   });
   return client;
-}
-
-function set(patch: Partial<SyncState>) {
-  state = { ...state, ...patch };
-  for (const fn of listeners) fn(state);
-}
-
-/** Follow the sync state; returns an unsubscribe function. */
-export function subscribe(fn: (s: SyncState) => void): () => void {
-  listeners.add(fn);
-  fn(state);
-  return () => listeners.delete(fn);
 }
 
 function applyLocally(merged: Learner) {
@@ -113,71 +74,51 @@ function applyLocally(merged: Learner) {
  * choose "start syncing again".
  */
 async function onTombstone(c: SupabaseClient, me: Me, row: Row) {
-  if (me.signedInAt > Date.parse(row.deleted_at ?? '')) return set({ status: 'stopped' });
+  if (me.signedInAt > Date.parse(row.deleted_at ?? '')) return setSyncState({ status: 'stopped' });
   writeNotice('remoteDeleted');
   await c.auth.signOut({ scope: 'local' });
 }
 
-/**
- * Write `merged` over the version we read, or insert when there was no row. Returns
- * false when someone else wrote first (0 rows changed / duplicate insert), so the
- * caller re-pulls, re-merges and tries again (A49).
- */
-async function write(
-  c: SupabaseClient,
-  me: Me,
-  row: Row | null,
-  patch: Record<string, unknown>,
-): Promise<boolean> {
-  if (!row) {
-    const { error } = await c.from(TABLE).insert({ user_id: me.id, ...patch });
-    if (error?.code === '23505') return false;
-    if (error) throw error;
-    return true;
-  }
-  const { data, error } = await c
-    .from(TABLE)
-    .update(patch)
-    .eq('user_id', me.id)
-    .eq('version', row.version)
-    .select('version');
-  if (error) throw error;
-  return (data?.length ?? 0) > 0;
+/** Merge the synced copy into this browser's progress, saving it here if it changed. */
+function mergeIntoLocal(remote: Learner): Learner {
+  const local = loadLearner();
+  const merged = mergeLearner(local, remote);
+  if (!sameLearner(merged, local)) applyLocally(merged);
+  return merged;
 }
 
-async function pull(c: SupabaseClient, me: Me): Promise<Row | null> {
-  const { data, error } = await c
-    .from(TABLE)
-    .select('state, version, deleted_at')
-    .eq('user_id', me.id)
-    .maybeSingle();
-  if (error) throw error;
-  return data as Row | null;
+/**
+ * One pull, merge and write. True when this sync is finished (synced, tombstoned, or
+ * no longer wanted); false when another device wrote first and it must go again.
+ */
+async function syncPass(c: SupabaseClient, me: Me): Promise<boolean> {
+  const row = await pull(c, me);
+  if (deleting || user?.id !== me.id) return true;
+  if (row?.deleted_at) {
+    await onTombstone(c, me, row);
+    return true;
+  }
+  const remote = parseLearner(row?.state);
+  const merged = mergeIntoLocal(remote);
+  if ((row && sameLearner(merged, remote)) || (await write(c, me, row, { state: merged }))) {
+    setSyncState({ status: 'synced', at: Date.now() });
+    return true;
+  }
+  return false;
 }
 
 async function syncOnce() {
   const c = getClient();
   const me = user;
   if (!c || !me || deleting) return;
-  if (!navigator.onLine) return set({ status: 'offline' });
-  set({ status: 'syncing' });
+  if (!navigator.onLine) return setSyncState({ status: 'offline' });
+  setSyncState({ status: 'syncing' });
   try {
-    for (let attempt = 0; attempt < ATTEMPTS; attempt++) {
-      const row = await pull(c, me);
-      if (deleting || user?.id !== me.id) return;
-      if (row?.deleted_at) return await onTombstone(c, me, row);
-      const remote = parseLearner(row?.state);
-      const local = loadLearner();
-      const merged = mergeLearner(local, remote);
-      if (!sameLearner(merged, local)) applyLocally(merged);
-      if (row && sameLearner(merged, remote)) return set({ status: 'synced', at: Date.now() });
-      if (await write(c, me, row, { state: merged }))
-        return set({ status: 'synced', at: Date.now() });
-    }
-    throw new Error('Sync kept conflicting with another device.');
+    for (let attempt = 0; attempt < ATTEMPTS; attempt++) if (await syncPass(c, me)) return;
+    throw new Error(CONFLICTING);
   } catch {
     // Progress is safe locally either way; the next change or visit retries.
-    set({ status: navigator.onLine ? 'error' : 'offline' });
+    setSyncState({ status: navigator.onLine ? 'error' : 'offline' });
   }
 }
 
@@ -188,7 +129,7 @@ async function syncOnce() {
 function afterSync() {
   clearTimeout(retryTimer);
   retryTimer = undefined;
-  if (state.status !== 'error') {
+  if (syncState().status !== 'error') {
     failures = 0;
     return;
   }
@@ -221,7 +162,7 @@ export function syncNow(): Promise<void> {
 }
 
 function schedulePush() {
-  if (!user || applying || deleting || state.status === 'stopped') return;
+  if (!user || applying || deleting || syncState().status === 'stopped') return;
   clearTimeout(timer);
   timer = setTimeout(() => void syncNow(), PUSH_DELAY);
 }
@@ -242,10 +183,11 @@ export function startSync() {
       clearTimeout(timer);
       clearTimeout(retryTimer);
       failures = 0;
-      return set({ status: 'signed-out', email: undefined, at: undefined });
+      return setSyncState({ status: 'signed-out', email: undefined, at: undefined });
     }
-    if (event === 'SIGNED_IN' && state.notice) writeNotice(undefined);
-    set({ email: user.email, ...(state.status === 'loading' ? { status: 'syncing' } : {}) });
+    if (event === 'SIGNED_IN' && syncState().notice) writeNotice(undefined);
+    const s = syncState();
+    setSyncState({ email: user.email, ...(s.status === 'loading' ? { status: 'syncing' } : {}) });
     // Supabase calls must not be awaited inside this callback; defer the sync.
     if (changed && !deleting) setTimeout(() => void syncNow(), 0);
   });
@@ -287,9 +229,25 @@ export async function signInWith(provider: AuthProvider, lang: Lang): Promise<st
 export async function signOut(): Promise<string | null> {
   const c = getClient();
   if (!c) return null;
-  if (state.status !== 'stopped') await syncNow();
+  if (syncState().status !== 'stopped') await syncNow();
   const { error } = await c.auth.signOut({ scope: 'local' });
   return error?.message ?? null;
+}
+
+/** Drop a scheduled push and wait for a sync already under way. */
+async function settleSync() {
+  clearTimeout(timer);
+  timer = undefined;
+  if (running) await running;
+}
+
+/** Sign out every session; if that fails, at least this browser. Returns the error, if any. */
+async function signOutEverywhere(c: SupabaseClient): Promise<string | null> {
+  const { error } = await c.auth.signOut({ scope: 'global' });
+  if (!error) return null;
+  // Data is gone either way; at least leave this browser signed out.
+  await c.auth.signOut({ scope: 'local' });
+  return error.message;
 }
 
 /**
@@ -305,18 +263,9 @@ export async function deleteSyncedData(): Promise<string | null> {
   if (!c || !me) return null;
   deleting = true;
   try {
-    clearTimeout(timer);
-    timer = undefined;
-    if (running) await running;
-    const { error } = await c
-      .from(TABLE)
-      .upsert({ user_id: me.id, state: {}, deleted_at: new Date().toISOString() });
-    if (error) throw error;
-    const { error: outError } = await c.auth.signOut({ scope: 'global' });
-    if (!outError) return null;
-    // Data is gone either way; at least leave this browser signed out.
-    await c.auth.signOut({ scope: 'local' });
-    return outError.message;
+    await settleSync();
+    await writeTombstone(c, me);
+    return await signOutEverywhere(c);
   } finally {
     deleting = false;
   }
@@ -331,12 +280,10 @@ export async function startSyncingAgain(): Promise<string | null> {
     const row = await pull(c, me);
     const patch = { state: loadLearner(), deleted_at: null };
     if (await write(c, me, row, patch)) {
-      set({ status: 'syncing' });
+      setSyncState({ status: 'syncing' });
       await syncNow();
       return null;
     }
   }
-  return 'Sync kept conflicting with another device.';
+  return CONFLICTING;
 }
-
-export const dismissNotice = () => writeNotice(undefined);
