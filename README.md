@@ -119,6 +119,40 @@ was drafted with AI assistance and is being reviewed by hand, entry by entry; un
 entry is reviewed it is marked as a draft on the site. Corrections are welcome as issues
 or pull requests.
 
+## Releasing
+
+Versions follow [semantic versioning](https://semver.org) with beta pre-releases:
+v2.0.0-beta.1, beta.2, beta.3 and so on, then v2.0.0 at launch. The version lives in
+`app/package.json` and is shown in the site footer and the About dialog, linked to
+[CHANGELOG.md](CHANGELOG.md).
+
+[release-please](https://github.com/googleapis/release-please)
+(`.github/workflows/release-please.yml`) runs on every push to `main` and keeps one
+**Release PR** open, titled like `chore(main): release 2.0.0-beta.2`. It bumps the
+version (`app/package.json`, its lock file, `version.txt`, `.release-please-manifest.json`)
+and prepends the new entry to `CHANGELOG.md`, built from the conventional commits since
+the last release: `feat` (Features), `fix` (Fixes), `content` (Content), `docs`
+(Documentation); `chore`, `ci`, `refactor`, `test` are left out and do not start a
+release on their own.
+
+- **Cut a release**: the owner merges the Release PR. release-please then tags the
+  merge (e.g. `v2.0.0-beta.2`) and publishes a GitHub pre-release; the push to `main`
+  runs the gate and deploys, so the footer shows the new version.
+- **CI on the Release PR**: a PR opened with the default `GITHUB_TOKEN` triggers no
+  workflows, so the gate does not run on it (it only touches the changelog and version
+  files). To run it, add a fine-grained token (this repository only; Contents and Pull
+  requests: read and write) as the secret `RELEASE_PLEASE_TOKEN`; the workflow uses it
+  when present. Without that secret, **Settings > Actions > General > Allow GitHub
+  Actions to create and approve pull requests** must be on, or the workflow cannot open
+  the PR.
+- **After v2.0.0-beta.1**: delete `release-as` and `last-release-sha` from
+  `release-please-config.json`. They only seed the first release (the hand-written
+  summary of everything since v1.0.0 is already in the changelog); left in, every
+  release would propose beta.1 again.
+- **Launch**: in the config set `"release-as": "2.0.0"` and `"prerelease": false`,
+  and delete `versioning` and `prerelease-type`; merge the Release PR, then delete
+  `release-as` again.
+
 ## Data
 
 The site publishes its content as open data: every term as JSON (`/api/terms.json`,

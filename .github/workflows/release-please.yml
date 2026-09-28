@@ -1,0 +1,34 @@
+name: release-please
+# Keeps a Release PR open that bumps the version (app/package.json, version.txt) and
+# prepends CHANGELOG.md from the conventional commits merged since the last release.
+# Merging that PR (owner only) tags vX.Y.Z[-beta.N] and publishes the GitHub release
+# (A99). Config: release-please-config.json + .release-please-manifest.json. After
+# v2.0.0-beta.1 is out, delete "release-as" and "last-release-sha" from the config
+# (they only seed the first release); see README "Releasing".
+#
+# Token: a PR opened with GITHUB_TOKEN triggers no workflows, so the gate does not run
+# on the Release PR (it only touches CHANGELOG.md and version files). To run CI on it,
+# add a fine-grained PAT (this repo only; Contents and Pull requests: read and write)
+# as the secret RELEASE_PLEASE_TOKEN; it is used when present. Without it, the repo
+# setting "Allow GitHub Actions to create and approve pull requests" must be on.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions: {}
+concurrency:
+  group: release-please
+  cancel-in-progress: false
+jobs:
+  release-please:
+    if: github.repository == 'CMaintz/tech-atlas'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # release commits, tags, GitHub releases
+      pull-requests: write # the Release PR
+    steps:
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
