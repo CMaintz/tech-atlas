@@ -17,7 +17,3 @@ export function Dot({ colour, ring, hub }: { colour: Ink; ring: Ink | null; hub:
     />
   );
 }
-
-/** A decade's background: every other one faintly shaded. */
-export const stripe = (i: number) =>
-  i % 2 ? 'color-mix(in srgb, var(--fg) 4.5%, transparent)' : 'transparent';

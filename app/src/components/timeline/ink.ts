@@ -16,3 +16,7 @@ export const inkOf =
   (night: Dict, cream: Dict) =>
   (d: string | undefined): Ink =>
     d && night[d] ? { d: night[d], l: cream[d] ?? night[d] } : { d: '#a3a3a3', l: '#57534e' };
+
+/** A decade's background: every other one faintly shaded. */
+export const stripe = (i: number) =>
+  i % 2 ? 'color-mix(in srgb, var(--fg) 4.5%, transparent)' : 'transparent';

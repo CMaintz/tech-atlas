@@ -80,14 +80,14 @@ function DomainChip({ domain, on, onToggle }: DomainChipProps) {
 
 type Zoom = { zoom: number; setZoom: Dispatch<StateUpdater<number>> };
 
-function ZoomControls(zoom: Zoom) {
+function ZoomControls(props: Zoom) {
   const { text } = useTimelineCtx();
   return (
     <span class="ml-auto flex items-center gap-1" role="group" aria-label={text.zoom}>
-      <ZoomButton step={-1} label={text.zoomOut} {...zoom}>
+      <ZoomButton step={-1} label={text.zoomOut} {...props}>
         −
       </ZoomButton>
-      <ZoomButton step={1} label={text.zoomIn} {...zoom}>
+      <ZoomButton step={1} label={text.zoomIn} {...props}>
         +
       </ZoomButton>
     </span>

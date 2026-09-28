@@ -1,8 +1,8 @@
 import type { Scale } from '../../lib/timeline';
 import { AXIS_COL } from '../../lib/timeline-layout';
 import { useTimelineCtx } from './context';
-import { Dot, stripe } from './Dot';
-import { inkVars } from './ink';
+import { Dot } from './Dot';
+import { inkVars, stripe } from './ink';
 import type { TimelineEntry } from './types';
 import type { ChartLayout } from './use-timeline';
 

@@ -1,7 +1,7 @@
 import { BOTTOM_AXIS, H_PAD, LABEL_COL, TOP_AXIS } from '../../lib/timeline-layout';
 import type { Scale } from '../../lib/timeline';
 import { useTimelineCtx } from './context';
-import { stripe } from './Dot';
+import { stripe } from './ink';
 import { HorizontalLane } from './HorizontalLane';
 import type { MoreList } from './use-more-list';
 import type { ChartLayout } from './use-timeline';

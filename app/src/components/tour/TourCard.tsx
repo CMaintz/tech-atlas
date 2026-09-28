@@ -1,20 +1,6 @@
 import { cardModel, fillCount, type TourStep } from '../../lib/tour';
+import type { TourUi } from './types';
 import type { Tour } from './use-tour';
-
-export type TourUi = {
-  tourWelcomeStart: string;
-  tourNotNow: string;
-  tourDontShow: string;
-  tourNext: string;
-  tourBack: string;
-  tourFinish: string;
-  tourClose: string;
-  tourStepOf: string;
-  tourContinue: string;
-  tourEnd: string;
-  tourBridgeLink: string;
-  tourBridgeMenu: string;
-};
 
 type CardProps = { tour: Tour; steps: TourStep[]; ui: TourUi };
 type Model = ReturnType<typeof cardModel>;

@@ -1,6 +1,7 @@
 import type { TourStep } from '../lib/tour';
 import { ResumePill } from './tour/ResumePill';
-import { TourOverlay, type TourUi } from './tour/TourCard';
+import { TourOverlay } from './tour/TourCard';
+import type { TourUi } from './tour/types';
 import { useTour } from './tour/use-tour';
 
 interface Props {

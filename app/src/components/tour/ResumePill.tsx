@@ -1,5 +1,5 @@
 import { fillCount } from '../../lib/tour';
-import type { TourUi } from './TourCard';
+import type { TourUi } from './types';
 
 type ResumePillProps = {
   step: number;
