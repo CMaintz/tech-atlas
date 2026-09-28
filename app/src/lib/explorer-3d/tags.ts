@@ -11,15 +11,8 @@ import { midpoint } from './curves';
 import { endId } from './model';
 import { tagCanvas } from './text-art';
 import type { Ctx } from './context';
-import {
-  DRAW,
-  cameraOf,
-  type CanvasTexture,
-  type Camera,
-  type Link3,
-  type Sprite,
-  type Vec3,
-} from './types';
+import { DRAW, cameraOf } from './graph3d';
+import type { CanvasTexture, Camera, Link3, Sprite, Vec3 } from './types';
 
 type Tag = { i: number; weight: number; aspect: number; sprite: Sprite };
 type TagArt = { tex: CanvasTexture; aspect: number };

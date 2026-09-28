@@ -9,9 +9,16 @@ import { familyColours, isDirected } from '../graph-style';
 import type { GraphNode } from '../graph-model';
 import { rgba } from './colour';
 import type { Base, Ctx } from './context';
-import { DRAW, cameraOf, inkOf, orbitOf, type Graph3D, type Link3 } from './types';
+import { inkOf } from './lens';
+import type { Camera, Graph3D, Link3, Orbit } from './types';
 
 export type GraphClass = typeof ForceGraph3D;
+
+/** Transparent draw order (three.js sorts by renderOrder before distance). */
+export const DRAW = { glow: -1, solid: 0, links: 1, receded: 2, flow: 3, tags: 4 } as const;
+
+export const orbitOf = (fg: Graph3D) => fg.controls() as unknown as Orbit;
+export const cameraOf = (fg: Graph3D) => fg.camera() as Camera;
 
 function withNodes(fg: Graph3D, { opts, model, lens, state }: Base) {
   const rel = EXPLORER.three.nodeRel;

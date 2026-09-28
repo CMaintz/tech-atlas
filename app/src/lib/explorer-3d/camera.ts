@@ -9,7 +9,8 @@ import type { Axes } from '../explorer-keys';
 import type { Point3 } from '../graph-layout';
 import type { Ctx } from './context';
 import type { PointsMaterial3 } from './shaders';
-import { cameraOf, orbitOf, type Camera, type Vec3 } from './types';
+import { cameraOf, orbitOf } from './graph3d';
+import type { Camera, Vec3 } from './types';
 
 /** Where the camera rests (and swoops in from), looking at the scene's centre. */
 export function cameraPose(nodes: readonly Point3[]) {

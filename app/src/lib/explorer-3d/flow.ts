@@ -10,7 +10,9 @@ import { atStrength } from './colour';
 import { packedAt } from './curves';
 import { flowMaterial } from './shaders';
 import type { Ctx } from './context';
-import { DRAW, inkOf, isLight, type Colour, type Link3, type Three } from './types';
+import { DRAW } from './graph3d';
+import { inkOf, isLight } from './lens';
+import type { Colour, Link3, Three } from './types';
 
 /** The comets' settings: a copy, read every frame, so the hidden lab (A96) tunes it live. */
 export type FlowConfig = Omit<typeof EXPLORER.three.flow, 'speed'> & { speed: number };

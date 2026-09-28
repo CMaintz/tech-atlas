@@ -10,6 +10,10 @@ import type { GraphNode } from '../graph-model';
 import { endId } from './model';
 import type { Link3, State3 } from './types';
 
+/** The current palette's inks, and whether it is the cream map. */
+export const inkOf = (ctx: { state: State3 }) => MAP_INK[ctx.state.theme];
+export const isLight = (ctx: { state: State3 }) => ctx.state.theme === 'light';
+
 type Ends = { source: unknown; target: unknown };
 const endsOf = (l: Ends) => [endId(l.source), endId(l.target)] as const;
 
@@ -72,7 +76,7 @@ function derived(
     /** A lit link, drawn by 3d-force-graph (arrows); the rest are the merged web. */
     linkShown: (l: Link3) => endsShown(l) && focusOf(l),
     nodeColour: (n: GraphNode) => {
-      const ink = MAP_INK[s.theme];
+      const ink = inkOf({ state: s });
       if (n.id === s.view?.selected) return ink.selected;
       return faded(n.id) ? ink.faded3d : s.view!.colour(n);
     },

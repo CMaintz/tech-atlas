@@ -5,7 +5,9 @@
 import { EXPLORER } from '../explorer-config';
 import { glowMaterial } from './shaders';
 import type { Ctx } from './context';
-import { DRAW, inkOf, isLight, type Colour, type Node3 } from './types';
+import { DRAW } from './graph3d';
+import { inkOf, isLight } from './lens';
+import type { Colour, Node3 } from './types';
 
 /** No glow is black added to the night map, white multiplied into the cream one. */
 function glowOf(ctx: Ctx, n: Node3, col: Colour) {

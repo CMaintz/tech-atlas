@@ -10,7 +10,9 @@ import { atStrength } from './colour';
 import { SEGMENTS } from './curves';
 import { endId } from './model';
 import type { Ctx } from './context';
-import { DRAW, isLight, type Colour, type Link3, type Three } from './types';
+import { DRAW } from './graph3d';
+import { isLight } from './lens';
+import type { Colour, Link3, Three } from './types';
 
 const PER_LINK = SEGMENTS * 2;
 

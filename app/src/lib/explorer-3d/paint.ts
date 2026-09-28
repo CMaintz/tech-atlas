@@ -12,7 +12,7 @@ import { createWeb } from './web';
 import { createFlow } from './flow';
 import { createTags } from './tags';
 import type { Ctx } from './context';
-import { inkOf, isLight } from './types';
+import { inkOf, isLight } from './lens';
 
 /** Each link's curve, packed (shared by the web, comets and names), and its length. */
 function curvesOf({ model }: Ctx) {

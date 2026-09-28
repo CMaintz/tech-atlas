@@ -8,9 +8,9 @@ import { EXPLORER } from '../explorer-config';
 import { reducedMotion } from '../graph-cytoscape';
 import { createMotionGate, type MotionGate } from '../explorer-focus';
 import { buildModel, type Model } from './model';
-import { createLens, type Lens } from './lens';
 import { createGraph3D, type GraphClass } from './graph3d';
-import { inkOf, type Graph3D, type Map3DOptions, type State3, type Three } from './types';
+import { createLens, inkOf, type Lens } from './lens';
+import type { Graph3D, Map3DOptions, State3, Three } from './types';
 
 export type Base = {
   THREE: Three;

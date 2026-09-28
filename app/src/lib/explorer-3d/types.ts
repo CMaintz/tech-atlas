@@ -1,7 +1,7 @@
 /** The 3D map's shared shapes: its options, the View it shows, and its working state. */
 import type { ForceGraph3DInstance } from '3d-force-graph';
 import type { Graph, GraphLink, GraphNode } from '../graph-model';
-import { MAP_INK, type MapTheme } from '../graph-style';
+import type { MapTheme } from '../graph-style';
 import type { Focus, RelationNames } from '../explorer-focus';
 
 /** three.js, loaded on demand with the map (the type import is erased). */
@@ -75,12 +75,3 @@ export type Orbit = {
   zoomToCursor?: boolean;
   addEventListener: (type: string, fn: () => void) => void;
 };
-export const orbitOf = (fg: Graph3D) => fg.controls() as unknown as Orbit;
-export const cameraOf = (fg: Graph3D) => fg.camera() as Camera;
-
-/** Transparent draw order (three.js sorts by renderOrder before distance). */
-export const DRAW = { glow: -1, solid: 0, links: 1, receded: 2, flow: 3, tags: 4 } as const;
-
-/** The current palette's inks, and whether it is the cream map. */
-export const inkOf = (ctx: { state: State3 }) => MAP_INK[ctx.state.theme];
-export const isLight = (ctx: { state: State3 }) => ctx.state.theme === 'light';
