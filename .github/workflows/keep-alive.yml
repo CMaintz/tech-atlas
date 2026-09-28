@@ -1,0 +1,29 @@
+name: keep-alive
+# Supabase pauses free projects after about a week without database activity, which would
+# silently switch off accounts/sync and search by meaning. Every two days this reads one
+# row through the public REST API (the anon key only; RLS allows public reads of
+# term_vectors) so the project stays active. No secrets, no checkout, no third-party code.
+# It fails loudly if the backend is unreachable, so a paused project shows up as a red run.
+# Note: GitHub disables scheduled workflows after 60 days without repository activity;
+# re-enable it from the Actions tab if that ever happens.
+on:
+  schedule:
+    - cron: '17 6 */2 * *'
+  workflow_dispatch:
+permissions: {}
+jobs:
+  ping:
+    if: vars.PUBLIC_SUPABASE_URL != '' && vars.PUBLIC_SUPABASE_ANON_KEY != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Read one row from Supabase
+        env:
+          SUPABASE_URL: ${{ vars.PUBLIC_SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ vars.PUBLIC_SUPABASE_ANON_KEY }}
+        run: |
+          code=$(curl -sS -o /dev/null -w '%{http_code}' --retry 3 --retry-delay 10 \
+            "$SUPABASE_URL/rest/v1/term_vectors?select=id&limit=1" \
+            -H "apikey: $SUPABASE_ANON_KEY" -H "Authorization: Bearer $SUPABASE_ANON_KEY")
+          echo "Supabase REST answered HTTP $code"
+          test "$code" = 200
