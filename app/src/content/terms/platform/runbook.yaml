@@ -41,6 +41,57 @@ deepDive:
     Runbooks forældes: infrastrukturen ændrer sig, kommandoer henviser til hosts, der ikke længere findes, og trin, der var korrekte, bliver farlige. Typiske modtræk er at have runbooks i versionsstyring ved siden af tjenestens kode, gennemgå dem efter hver hændelse, hvor de blev brugt, øve dem på game days og slette alarmer uden en meningsfuld runbook, da en alarm uden dokumenteret handling som regel ikke burde vække nogen. Runbooks skrevet som fortællende prosa frem for eksekverbare, kontrollerbare trin er sværere at følge klokken tre om natten.
 
     Den naturlige udvikling er automatisering. Trin, der er fuldt deterministiske, kan laves om til scripts, dernæst til værktøjer til runbook-automatisering eller eksekverbare notebooks og til sidst til selvhelende controllere, der handler uden at tilkalde nogen, hvorefter alarmen bør nedgraderes eller fjernes. På sikkerhedssiden implementerer SOAR-platforme samme idé for SOC-arbejdsgange og udfører berigelse og inddæmning automatisk, når en SIEM-alarm kommer ind. NIST SP 800-61 Rev. 3 (april 2025) indplacerer hændelseshåndtering i funktionerne i NIST Cybersecurity Framework 2.0 og forventer, at organisationer vedligeholder dokumenterede responsprocedurer; runbooks er den mest konkrete form for sådanne procedurer, og for enheder omfattet af NIS2 eller DORA indgår de i dokumentationen for, at hændelseshåndteringen reelt fungerer.
+howTo:
+  steps:
+    en:
+      - List the alerts that page people and the routine tasks done by hand, and start with those that fire often or have caused incidents.
+      - Write one runbook per alert or task from a fixed template - what it means and how users are affected, owner, tools and permissions needed, and date of last review.
+      - Describe the diagnostic steps in order, with exact commands, links to the dashboards and queries needed and the expected output.
+      - List mitigations from least to most invasive, how to check that the fix worked, and when to stop and escalate, and to whom.
+      - Keep runbooks in version control next to the service code, and link each one directly from its alert, for example with a runbook_url annotation.
+      - Refer to the runbooks from the IT preparedness plan, so the plan's action plans point to the concrete technical procedures.
+      - Have a colleague who did not write the runbook test it, and rehearse the critical ones in game days or exercises.
+      - Review the runbook after every incident that used it, and delete alerts that have no meaningful action.
+      - Automate steps that are fully deterministic, first as scripts and later as self-healing automation, and then downgrade or remove the alert.
+    da:
+      - List de alarmer, der tilkalder folk, og de rutineopgaver, der udføres i hånden, og begynd med dem, der udløses ofte eller har ført til hændelser.
+      - Skriv én runbook pr. alarm eller opgave ud fra en fast skabelon - hvad den betyder, og hvordan brugerne påvirkes, ejer, nødvendige værktøjer og rettigheder samt dato for seneste gennemgang.
+      - Beskriv de diagnosticerende trin i rækkefølge med præcise kommandoer, links til de nødvendige dashboards og forespørgsler og det forventede output.
+      - List afhjælpning fra mindst til mest indgribende, hvordan man tjekker, at rettelsen virkede, og hvornår man skal stoppe og eskalere, og til hvem.
+      - Hold runbooks i versionsstyring ved siden af tjenestens kode, og link hver runbook direkte fra sin alarm, fx via en runbook_url-annotation.
+      - Henvis til runbooks fra it-beredskabsplanen, så planens handlingsplaner peger på de konkrete tekniske procedurer.
+      - Lad en kollega, der ikke har skrevet runbooken, afprøve den, og øv de kritiske på game days eller beredskabsøvelser.
+      - Gennemgå runbooken efter hver hændelse, hvor den blev brugt, og slet alarmer, der ikke har en meningsfuld handling.
+      - Automatisér trin, der er fuldt deterministiske, først som scripts og senere som selvhelende automatisering, og nedgradér eller fjern derefter alarmen.
+  pitfalls:
+    en:
+      - Writing runbooks once and never updating them, so commands point at hosts that no longer exist.
+      - Writing long prose instead of short, checkable steps that someone woken at three in the morning can follow.
+      - Keeping runbooks only in a system that is unavailable during the very outage they are meant for.
+      - Automating a runbook before the manual steps have been proven to work.
+    da:
+      - At skrive runbooks én gang og aldrig opdatere dem, så kommandoerne peger på hosts, der ikke længere findes.
+      - At skrive lange tekster i stedet for korte, kontrollerbare trin, som en, der er vækket klokken tre om natten, kan følge.
+      - Kun at have runbooks i et system, der er utilgængeligt under netop det nedbrud, de skal bruges til.
+      - At automatisere en runbook, før de manuelle trin er afprøvet og virker.
+  guides:
+    - title: Google SRE Workbook - On-Call
+      url: https://sre.google/workbook/on-call/
+      publisher: Google
+      tier: reference
+    - title: AWS Well-Architected - OPS07-BP03 Use runbooks to perform procedures
+      url: https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/ops_ready_to_support_use_runbooks.html
+      publisher: AWS
+      tier: official-doc
+    - title: NIST SP 800-61 Rev. 3 - Incident Response Recommendations and Considerations for Cybersecurity Risk Management
+      url: https://csrc.nist.gov/pubs/sp/800/61/r3/final
+      publisher: NIST
+      tier: standard
+    - title: Vejledning i it-beredskab
+      url: https://sikkerdigital.dk/Media/638000655159015474/Vejledning-i-it-beredskab-september-2022.pdf
+      publisher: Digitaliseringsstyrelsen
+      tier: official-doc
+      lang: da
 edges:
   requires: [alerting]
   used-with:

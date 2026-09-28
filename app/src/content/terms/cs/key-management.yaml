@@ -41,6 +41,53 @@ deepDive:
     Kontroller for særligt værdifulde nøgler omfatter delt viden og dobbeltkontrol (ingen enkeltperson kan genskabe eller bruge nøglen, ofte implementeret som M-af-N-nøgleandele, fx med Shamirs secret sharing), dokumenterede nøgleceremonier med vidner og video for CA-rodnøgler, adskillelse af nøgleforvalterrollen fra systemadministration og manipulationssikre auditlogs over al brug. Backup og deponering skal designes bevidst: en signeringsnøgle bør som regel ikke deponeres, da kopier svækker uafviseligheden, mens en dekrypteringsnøgle til arkiverede data skal kunne genskabes, ellers er data tabt.
 
     Revisioner kobler typisk denne praksis til ISO/IEC 27001:2022 Annex A kontrol 8.24 (brug af kryptografi), som forventer regler for hele nøglens livscyklus, og til PCI DSS krav 3 for kortholderdata. Hyppige fejl i praksis er nøgler hardkodet i kildekode eller containerimages, nøgler lagret på samme vært eller volumen som de data, de beskytter, manglende overblik over hvilke nøgler og certifikater der findes (så ingen opdager, når ét udløber eller lækker), og ingen afprøvet procedure for nødudskiftning. Overgangen til post-kvante-algoritmer har gjort en kryptografisk fortegnelse til en selvstændig nøglehåndteringsopgave. Nøglehåndtering er bredere end håndtering af hemmeligheder: sidstnævnte gemmer og udleverer legitimationsoplysninger til workloads, mens nøglehåndtering styrer generering, styrke, levetid og destruktion.
+howTo:
+  steps:
+    en:
+      - Build an inventory of all keys and certificates - encryption keys, signing keys, TLS and SSH keys, API keys and HSM or KMS keys - with owner, purpose, algorithm, location and expiry date.
+      - Write a key management policy that sets the approved algorithms and key lengths, a cryptoperiod for each key type, who may create, use and destroy keys, and how often each key is rotated.
+      - Move keys into a hardware security module or cloud KMS, generate them there from a strong random source, and remove keys from source code, configuration files and container images.
+      - Use envelope encryption, where data keys are wrapped by a master key that never leaves the KMS or HSM, and give applications permission only to use a key, not to export or delete it.
+      - Require dual control or split knowledge for the most valuable keys, such as root CA and master keys, and document every key ceremony with witnesses and logs.
+      - Turn on automatic rotation where the platform supports it, and back up decryption keys for archived data in a separate, protected place, while signing keys are not escrowed.
+      - Write and test a procedure for a leaked key - revoke it, issue a new one, re-encrypt or re-sign what is needed and tell those affected - at least once a year.
+      - Log all key use and administration, alert on unusual use and on keys close to expiry, and destroy retired keys in a documented way once no data depends on them.
+    da:
+      - Lav en oversigt over alle nøgler og certifikater - krypteringsnøgler, signeringsnøgler, TLS- og SSH-nøgler, API-nøgler og nøgler i HSM eller KMS - med ejer, formål, algoritme, placering og udløbsdato.
+      - Skriv en politik for nøglehåndtering, der fastsætter godkendte algoritmer og nøglelængder, en kryptoperiode for hver nøgletype, hvem der må oprette, bruge og destruere nøgler, og hvor ofte hver nøgle skiftes.
+      - Flyt nøglerne ind i et hardware security module eller en cloud-KMS, generér dem dér fra en stærk tilfældighedskilde, og fjern nøgler fra kildekode, konfigurationsfiler og container-images.
+      - Brug envelope encryption, hvor datanøgler er pakket ind i en hovednøgle, der aldrig forlader KMS eller HSM, og giv kun applikationer ret til at bruge en nøgle, ikke til at eksportere eller slette den.
+      - Kræv dobbeltkontrol eller delt viden for de mest værdifulde nøgler, fx rod-CA- og hovednøgler, og dokumentér hver nøgleceremoni med vidner og log.
+      - Slå automatisk nøgleskift til, hvor platformen understøtter det, og tag backup af dekrypteringsnøgler til arkiverede data et separat, beskyttet sted, mens signeringsnøgler ikke deponeres.
+      - Skriv og afprøv mindst en gang om året en procedure for en lækket nøgle - tilbagekald den, udsted en ny, genkryptér eller gensignér det nødvendige, og underret de berørte.
+      - Log al brug og administration af nøgler, alarmér ved usædvanlig brug og ved nøgler, der snart udløber, og destruér udfasede nøgler på en dokumenteret måde, når ingen data længere afhænger af dem.
+  pitfalls:
+    en:
+      - Keeping keys on the same server or in the same repository as the data or code they protect.
+      - Having no list of keys and certificates, so nobody notices when one expires or leaks until a service stops working.
+      - Destroying or rotating away a key while backups or archives still depend on it, which makes that data unreadable for good.
+    da:
+      - At opbevare nøgler på samme server eller i samme kodearkiv som de data eller den kode, de beskytter.
+      - Ikke at have en liste over nøgler og certifikater, så ingen opdager, at en udløber eller er lækket, før en tjeneste holder op med at virke.
+      - At destruere eller udskifte en nøgle, mens backup eller arkiver stadig afhænger af den, så de data bliver ulæselige for altid.
+  guides:
+    - title: NIST SP 800-57 Part 1 Rev. 5 - Recommendation for Key Management
+      url: https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final
+      publisher: NIST
+      tier: standard
+    - title: Key Management Cheat Sheet
+      url: https://cheatsheetseries.owasp.org/cheatsheets/Key_Management_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
+    - title: Key rotation - Cloud Key Management Service
+      url: https://docs.cloud.google.com/kms/docs/key-rotation
+      publisher: Google
+      tier: official-doc
+    - title: Overgangen til kvantesikker kryptografi
+      url: https://samsik.dk/cybersikkerhed/temaer/overgangen-til-kvantesikker-kryptografi/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   requires: [cryptographic-key, encryption]
   used-with:
