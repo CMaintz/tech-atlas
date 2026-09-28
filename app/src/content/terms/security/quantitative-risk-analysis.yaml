@@ -41,6 +41,51 @@ deepDive:
     Det er kurven, der gør metoden brugbar til beslutninger: Den kan sammenholdes med en kurve for risikoappetitten fastsat af ledelsen, bruges til at sammenligne kontroller efter, hvor meget de flytter kurven, og aflæses i halen, når forsikringssum og selvrisiko skal vælges. Hubbard og Seiersens How to Measure Anything in Cybersecurity Risk argumenterer for, at kalibrerede ekspertskøn, udtrykt som 90 %-konfidensintervaller af folk, der er trænet i hverken at være over- eller undersikre, giver bedre resultater end ordinal scoring, selv med sparsomme data.
 
     Svaghederne er praktiske snarere end teoretiske. Gode frekvensdata er sjældne, så skønnene hviler på egen hændelseshistorik, branchestudier af tab og skadesdata fra forsikring, som ikke nødvendigvis passer til organisationen; resultaterne kan se autoritative ud, selv om inputtet er svagt; korrelerede tab, fx et nedbrud hos én cloududbyder, der rammer mange processer på én gang, modelleres let fejlagtigt som uafhængige; og indsatsen betyder, at de fleste organisationer kun kvantificerer nogle få toprisici. Resultatet er en model af usikkerhed, ikke en prognose, og bør rapporteres med intervaller og de vigtigste antagelser.
+howTo:
+  steps:
+    en:
+      - Pick the few risks where a money figure changes a decision, such as a large control investment, an insurance limit or a risk above appetite, rather than quantifying the whole register.
+      - Write each risk as a precise scenario with one asset, one threat and one type of loss, for example ransomware stopping the planning system for several days.
+      - Gather data on how often such events happen and what they cost, from your own incident history, industry loss studies, insurers and the finance team's figures for downtime and recovery.
+      - Have calibrated experts give a minimum, most likely and maximum value (a 90 % range) for event frequency and for each type of loss, including secondary losses such as fines and lost customers.
+      - Run a Monte Carlo simulation, in a spreadsheet or a FAIR tool, to produce a loss exceedance curve and the expected annual loss.
+      - Model the risk again with the proposed control or insurance in place, and compare the drop in expected loss and in the tail with the control's yearly cost.
+      - Present the results to management as ranges with the key assumptions, and compare the curve with the risk appetite agreed with them.
+      - Update the inputs after incidents, control changes or new loss data, and check earlier estimates against what actually happened to improve calibration.
+    da:
+      - Vælg de få risici, hvor et beløb ændrer en beslutning, fx en stor investering i en kontrol, en forsikringssum eller en risiko over appetitten, i stedet for at kvantificere hele registret.
+      - Beskriv hver risiko som et præcist scenarie med ét aktiv, én trussel og én type tab, fx ransomware, der stopper planlægningssystemet i flere dage.
+      - Indsaml data om, hvor ofte sådanne hændelser sker, og hvad de koster, fra egen hændelseshistorik, branchestudier, forsikringsselskaber og økonomiafdelingens tal for nedetid og genopretning.
+      - Lad kalibrerede eksperter angive minimum, mest sandsynlig og maksimum (et 90 %-interval) for hyppigheden og for hver type tab, herunder følgetab som bøder og tabte kunder.
+      - Kør en Monte Carlo-simulering i et regneark eller et FAIR-værktøj, så I får en tabsoverskridelseskurve og det forventede årlige tab.
+      - Modellér risikoen igen med den foreslåede kontrol eller forsikring, og sammenlign faldet i det forventede tab og i halen med kontrollens årlige pris.
+      - Præsentér resultaterne for ledelsen som intervaller med de vigtigste antagelser, og sammenhold kurven med den risikoappetit, I har aftalt med dem.
+      - Opdatér inputtet efter hændelser, ændrede kontroller eller nye tabsdata, og sammenlign tidligere skøn med det, der faktisk skete, for at blive bedre kalibreret.
+  pitfalls:
+    en:
+      - Presenting a single ALE figure, which hides a rare loss large enough to threaten the organisation.
+      - Letting precise-looking numbers rest on guesses that nobody documented or challenged.
+      - Modelling losses as independent when one supplier or cloud outage can hit many processes at once.
+      - Trying to quantify every risk in the register and running out of time and data.
+    da:
+      - At præsentere ét ALE-tal, der skjuler et sjældent tab, som er stort nok til at true organisationen.
+      - At lade præcise tal hvile på gæt, som ingen har dokumenteret eller udfordret.
+      - At modellere tab som uafhængige, selv om ét nedbrud hos en leverandør eller cloududbyder kan ramme mange processer på én gang.
+      - At forsøge at kvantificere alle risici i registret og løbe tør for tid og data.
+  guides:
+    - title: NIST IR 8286A Rev. 1 - Identifying and Estimating Cybersecurity Risk for Enterprise Risk Management
+      url: https://csrc.nist.gov/pubs/ir/8286/a/r1/final
+      publisher: NIST
+      tier: standard
+    - title: The Open FAIR Body of Knowledge
+      url: https://www.opengroup.org/open-fair
+      publisher: The Open Group
+      tier: standard
+    - title: Vejledning i risikostyring inden for informationssikkerhed (2025)
+      url: https://www.sikkerdigital.dk/Media/639001951976452337/Vejledning%20i%20risikostyring%20inden%20for%20informationssikkerhed%202025.pdf
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   kind-of: [risk-assessment]
   requires: [risk, likelihood, impact]

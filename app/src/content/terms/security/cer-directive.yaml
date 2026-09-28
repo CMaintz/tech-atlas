@@ -42,6 +42,59 @@ deepDive:
     Grænsen til NIS2 er udtrykkelig og misforstås ofte. Efter art. 8 er enheder udpeget i sektorerne bankvirksomhed, finansielle markedsinfrastrukturer og digital infrastruktur undtaget fra art. 11 og kapitel III, IV og VI, fordi DORA og NIS2 allerede dækker deres modstandsdygtighed; omvendt regnes enhver kritisk enhed efter CER som væsentlig enhed efter NIS2, så dens cybertiltag følger NIS2 art. 21, mens den fysiske og organisatoriske modstandsdygtighed følger CER. Enheder, der leverer samme eller lignende væsentlige tjenester til eller i seks eller flere medlemslande, kan anses for at være af særlig europæisk betydning (art. 17) og kan få rådgivningsmissioner fra Kommissionen (art. 18).
 
     I Danmark er direktivet gennemført ved CER-loven (lov om kritiske enheders modstandsdygtighed), der har gældt siden 1. juli 2025; Styrelsen for Samfundssikkerhed koordinerer, mens sektormyndighederne udpeger og fører tilsyn med enhederne. En typisk fejl er at behandle CER som en vagtopgave: tilsynet leder efter en risikovurdering, der kan spores fra scenarier (oversvømmelse, sabotage, bortfald af leverandører, sygefravær under en pandemi) til konkrete foranstaltninger og afprøvede kontinuitetsplaner - ikke kun hegn og kameraer.
+howTo:
+  steps:
+    en:
+      - Check whether your sector and type of entity are listed in the annex to the Danish CER Act (lov nr. 433 of 6 May 2025); banking, financial market infrastructure and digital infrastructure are exempt from most duties (§ 1(6)), and IT systems covered by the NIS2 Act stay under NIS2 (§ 1(2)).
+      - Provide the information the sector minister asks for when deciding whether you are critical (§ 3(4)); entities are identified by 17 July 2026, and each one is told its duties and start date within one month (§ 3(5)).
+      - Name a contact person, send the contact details to the competent authority, and report any changes (§ 7).
+      - Within nine months of the notice, carry out a risk assessment of all natural and human-made risks that can disrupt your essential services, including dependencies on other sectors, based on the national risk assessment (§ 5); update it when needed and at least every four years.
+      - Within ten months of the notice, put the § 6 measures in place, from prevention and climate adaptation, physical protection such as fences, detection and access control, and crisis management to business continuity with alternative supply chains, personnel security and staff awareness.
+      - Describe the measures in a resilience plan (§ 6(2)), and decide which roles need a background check under the rules issued under § 9.
+      - Write an incident procedure that notifies the competent authority without undue delay and at the latest 24 hours after you become aware of a significant disruption, and sends a detailed report within one month if the authority asks for it (§ 8).
+      - Keep documentation ready for supervision, since the authority can inspect sites without a court order and demand an audit (§ 14), issue orders (§ 15), and violations are punished by fines (§ 17).
+      - Test continuity and crisis plans in exercises, and review the risk assessment, plan and measures after incidents and major changes, reporting the results to management.
+    da:
+      - Undersøg, om jeres sektor og enhedstype står i bilaget til CER-loven (lov nr. 433 af 6. maj 2025); bankvirksomhed, finansiel markedsinfrastruktur og digital infrastruktur er undtaget fra de fleste pligter (§ 1, stk. 6), og it-systemer omfattet af NIS 2-loven hører fortsat under NIS2 (§ 1, stk. 2).
+      - Lever de oplysninger, som vedkommende minister beder om for at afgøre, om I er kritiske (§ 3, stk. 4); enhederne identificeres senest 17. juli 2026, og hver enhed får inden for en måned besked om sine pligter og fra hvilken dato de gælder (§ 3, stk. 5).
+      - Udpeg en kontaktperson, send kontaktoplysningerne til den kompetente myndighed, og meld ændringer (§ 7).
+      - Gennemfør senest ni måneder efter orienteringen en risikovurdering af alle naturlige og menneskeskabte risici, der kan forstyrre jeres væsentlige tjenester, også afhængigheder af andre sektorer, med udgangspunkt i den nationale risikovurdering (§ 5); opdatér den efter behov og mindst hvert fjerde år.
+      - Hav senest ti måneder efter orienteringen foranstaltningerne i § 6 på plads, fra forebyggelse og klimatilpasning, fysisk beskyttelse som hegn, detektion og adgangskontrol og krisestyring til driftskontinuitet med alternative forsyningskæder, personalesikkerhed og awareness.
+      - Beskriv foranstaltningerne i en plan for modstandsdygtighed (§ 6, stk. 2), og afgør, hvilke funktioner der skal baggrundskontrolleres efter reglerne fastsat i medfør af § 9.
+      - Skriv en hændelsesprocedure, der underretter den kompetente myndighed uden unødigt ophold og senest 24 timer efter, at I er blevet opmærksomme på en betydelig forstyrrelse, og sender en detaljeret rapport inden for en måned, hvis myndigheden beder om det (§ 8).
+      - Hav dokumentationen klar til tilsyn, for myndigheden kan inspicere anlæg uden retskendelse og kræve en audit (§ 14), give påbud (§ 15), og overtrædelser straffes med bøde (§ 17).
+      - Afprøv kontinuitets- og kriseplaner ved øvelser, og gennemgå risikovurdering, plan og foranstaltninger efter hændelser og større ændringer, og rapportér resultatet til ledelsen.
+  pitfalls:
+    en:
+      - Treating CER as a guarding job of fences and cameras, without a risk assessment that traces each scenario to specific measures and tested continuity plans.
+      - Mixing up the two laws, although the IT systems are protected under the NIS2 Act, while CER covers the physical and organisational ability to keep the service running.
+      - Assessing only your own sites and forgetting your dependence on power, telecom, transport and key suppliers, which § 5 requires you to consider.
+      - Waiting until the ten-month deadline is close, when a risk assessment, a resilience plan and background-check procedures take many months to get right.
+    da:
+      - At behandle CER som en vagtopgave med hegn og kameraer uden en risikovurdering, der fører hvert scenarie frem til konkrete foranstaltninger og afprøvede kontinuitetsplaner.
+      - At blande de to love sammen, selv om it-systemerne beskyttes efter NIS 2-loven, mens CER dækker den fysiske og organisatoriske evne til at holde tjenesten i gang.
+      - Kun at vurdere jeres egne anlæg og glemme afhængigheden af strøm, tele, transport og vigtige leverandører, som § 5 kræver, at I tager højde for.
+      - At vente, til fristen på ti måneder nærmer sig, selv om en risikovurdering, en plan for modstandsdygtighed og procedurer for baggrundskontrol tager mange måneder at få på plads.
+  guides:
+    - title: Lov nr. 433 af 6. maj 2025 om kritiske enheders modstandsdygtighed (CER-loven)
+      url: https://www.retsinformation.dk/eli/lta/2025/433
+      publisher: Retsinformation
+      tier: standard
+      lang: da
+    - title: CER-loven - krav til modstandsdygtighed hos kritiske enheder
+      url: https://samsik.dk/cer/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Hvornår træder CER-loven i kraft? - Tidsplan for implementering
+      url: https://samsik.dk/cer/hvornaar-traeder-cer-i-kraft/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Critical infrastructure resilience at EU-level
+      url: https://home-affairs.ec.europa.eu/policies/internal-security/counter-terrorism-and-radicalisation/protection/critical-infrastructure-resilience_en
+      publisher: European Commission
+      tier: official-doc
 edges:
   requires: [critical-assets]
   mandates:

@@ -41,6 +41,52 @@ deepDive:
     Den overordnede plans eget indhold er mest organisatorisk: kriterier for aktivering og for, hvem der må erklære en hændelse eller en krise, beredskabsorganisationen med navngivne roller og stedfortrædere, beslutningsmandater (fx hvem der må koble organisationen fra internettet eller standse produktionen), eskalerings- og kontaktlister inklusive leverandører, forsikringsselskab, advokater og myndigheder samt henvisninger til de underliggende planer og playbooks. Versionsstyring, en ejer og en fast revisionscyklus er en del af planen, og kopier skal være tilgængelige offline, fordi dokumentserveren kan være blandt de systemer, der er nede.
 
     NIS2 artikel 21, stk. 2, kræver foranstaltninger til hændelseshåndtering og driftskontinuitet, og i den danske offentlige forvaltning har pligten til at planlægge for videreførelse af kritiske funktioner en længere historie i det nationale beredskabssystem. De hyppigste svagheder, øvelser afslører, er forældede kontaktlister, manglende stedfortrædere, uklar beslutningskompetence mellem IT og ledelse og underliggende planer, der forudsætter den samme infrastruktur, som hændelsen har taget væk. En beredskabsplan er ikke det samme som hændelseshåndtering: hændelseshåndtering er processen med at håndtere en sikkerhedshændelse, mens beredskabsplanen er den forberedte ramme, der rummer hændelseshåndteringen sammen med kontinuitet, genopretning og kommunikation.
+howTo:
+  steps:
+    en:
+      - Get management to approve a contingency planning policy that names the plan owner, the scope and how often the plan is reviewed.
+      - Decide the activation criteria - what counts as an incident and what counts as a crisis - and who may declare each one, with a named deputy for every role.
+      - Write down the decision mandates in advance, such as who may disconnect the organisation from the internet, shut down production or call in an external incident response provider.
+      - Set up the response organisation with named people, deputies and an escalation and contact list that includes suppliers, insurer, lawyers, the police and the authorities you report to.
+      - Link the subordinate plans instead of copying them - the business continuity plan, the disaster recovery plan, the communication plan and the incident playbooks - and check that none of them relies on the systems the others expect to be down.
+      - For each critical system, describe the three phases of activation and notification, recovery in a documented order, and reconstitution, where the system is tested, returned to normal operation and the plan is stood down.
+      - Keep the plan under version control, and store printed or offline copies where the response team can reach them without the network.
+      - Train the people with roles, exercise the plan at least once a year, and update it after every exercise, incident and change in organisation, systems or suppliers.
+    da:
+      - Få ledelsen til at godkende en politik for beredskabsplanlægning, der udpeger en ejer af planen og fastlægger omfanget, og hvor ofte planen revideres.
+      - Fastlæg kriterierne for aktivering - hvad der er en hændelse, og hvad der er en krise - og hvem der må erklære hver af dem, med en navngiven stedfortræder for hver rolle.
+      - Skriv beslutningsmandaterne ned på forhånd, fx hvem der må koble organisationen fra internettet, standse produktionen eller tilkalde en ekstern incident response-leverandør.
+      - Etablér beredskabsorganisationen med navngivne personer, stedfortrædere og en eskalerings- og kontaktliste, der omfatter leverandører, forsikringsselskab, advokater, politiet og de myndigheder, I indberetter til.
+      - Henvis til de underliggende planer i stedet for at kopiere dem - kontinuitetsplanen, disaster recovery-planen, kommunikationsplanen og playbooks for hændelser - og tjek, at ingen af dem bygger på de systemer, de andre regner med er nede.
+      - Beskriv for hvert kritisk system tre faser - aktivering og varsling, genopretning i en dokumenteret rækkefølge og rekonstitution, hvor systemet testes og sættes tilbage i normal drift, og planen afsluttes.
+      - Hold planen under versionsstyring, og opbevar printede eller offline kopier, hvor beredskabsorganisationen kan finde dem uden netværk.
+      - Træn dem, der har en rolle, øv planen mindst én gang om året, og opdatér den efter hver øvelse, hændelse og ændring i organisation, systemer eller leverandører.
+  pitfalls:
+    en:
+      - Contact lists that are out of date and roles without deputies, so the plan stalls when one person is on holiday.
+      - Leaving it unclear whether IT or management decides on drastic steps, such as cutting the internet connection, so time is lost arguing during the incident.
+      - Keeping the only copy of the plan on the file server that the incident has just taken down.
+      - Treating the contingency plan as the same thing as incident response, so continuity, recovery and communication are never planned.
+    da:
+      - Forældede kontaktlister og roller uden stedfortrædere, så planen går i stå, når én person er på ferie.
+      - At lade det være uklart, om IT eller ledelsen beslutter drastiske skridt som at afbryde internetforbindelsen, så der går tid med diskussion under hændelsen.
+      - At have den eneste kopi af planen liggende på den filserver, som hændelsen netop har lagt ned.
+      - At behandle beredskabsplanen som det samme som hændelseshåndtering, så kontinuitet, genopretning og kommunikation aldrig bliver planlagt.
+  guides:
+    - title: NIST SP 800-34 Rev. 1 - Contingency Planning Guide for Federal Information Systems
+      url: https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final
+      publisher: NIST
+      tier: standard
+    - title: Helhedsorienteret beredskabsplanlægning
+      url: https://www.brs.dk/da/nyheder-og-publikationer/publikationer2/alle-publikationer/2022/helhedsorienteret-beredskabsplanlagning/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Beredskabsplaner
+      url: https://www.brs.dk/da/redningsberedskab-myndighed/krisestyring2-og-beredskabsplanlagning/helhedsorienteret-beredskabsplanlagning/beredskabsplaner/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   requires: [incident-response, business-impact-analysis, recovery-objectives]
   used-with: [management-responsibility]

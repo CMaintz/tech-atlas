@@ -41,6 +41,51 @@ deepDive:
     Deling kræver fælles formater og regler for håndtering. STIX 2.1 er OASIS-standarden for at beskrive trusselsobjekter og deres relationer, og TAXII 2.1 er den tilhørende protokol til udveksling over HTTPS; MISP er en udbredt open source-platform til deling. Traffic Light Protocol, version 2.0 udgivet af FIRST i 2022, angiver, hvor bredt information må deles: TLP:RED, TLP:AMBER, TLP:AMBER+STRICT, TLP:GREEN og TLP:CLEAR, hvor den sidste erstatter det tidligere TLP:WHITE. NIST SP 800-150 vejleder i at etablere delingsrelationer, og NIS2 art. 29 giver rammer for frivillige ordninger for udveksling af cybersikkerhedsinformation mellem enheder.
 
     ISO/IEC 27001:2022 indførte kontrol 5.7 i bilag A, Threat intelligence, som kræver, at information om trusler indsamles og analyseres for at frembringe trusselsefterretninger, og som ISO/IEC 27002:2022 opdeler i et strategisk, taktisk og operationelt lag. I en moden organisation har efterretningerne flere aftagere: detektionsudvikling, prioritering af sårbarheder (hvilke CVE'er der faktisk udnyttes), hændelseshåndtering og risikostyring, hvor de opdaterer skønnene over sandsynlighed. Threat intelligence adskiller sig fra trusselsbilledet, som er det samlede billede over en periode; efterretningerne er den løbende, behovsstyrede strøm, der holder både billedet og det daglige forsvar opdateret.
+howTo:
+  steps:
+    en:
+      - Write down your intelligence requirements - the questions management, the SOC, vulnerability management and risk owners need answered, such as which groups target your sector and which vulnerabilities they exploit.
+      - Choose sources that answer those questions, such as national threat assessments and warnings, sector sharing groups, vendor reports and a small number of feeds, and avoid depending on a single provider.
+      - Join at least one sharing community for your sector, and agree how you handle shared information using the Traffic Light Protocol.
+      - Name an owner who reads, assesses and filters incoming intelligence, and give analysts time for written reports, not just indicator feeds.
+      - Deliver it in the form each reader needs - short strategic briefings for management, TTPs mapped to MITRE ATT&CK for detection and hunting, and exploited vulnerabilities for patch prioritisation.
+      - Load indicators into the SIEM, EDR and blocking tools with a confidence score and an expiry date, so old indicators age out instead of causing false positives.
+      - Ask the readers every quarter whether the intelligence helped them act, and adjust the requirements and sources accordingly.
+    da:
+      - Skriv jeres efterretningsbehov ned - de spørgsmål, ledelsen, SOC'en, sårbarhedsstyringen og risikoejerne skal have besvaret, fx hvilke grupper der går efter jeres branche, og hvilke sårbarheder de udnytter.
+      - Vælg kilder, der besvarer de spørgsmål, fx nationale trusselsvurderinger og varslinger, brancheorienterede delingsfora, leverandørrapporter og et lille antal feeds, og undgå at være afhængige af én leverandør.
+      - Meld jer ind i mindst ét delingsfællesskab for jeres branche, og aftal, hvordan I håndterer delt information efter Traffic Light Protocol.
+      - Udpeg en ejer, der læser, vurderer og filtrerer de indkomne efterretninger, og giv analytikerne tid til skriftlige rapporter, ikke kun feeds med indikatorer.
+      - Lever efterretningerne i den form, hver modtager har brug for - korte strategiske orienteringer til ledelsen, TTP'er kortlagt til MITRE ATT&CK til detektion og trusselsjagt og udnyttede sårbarheder til prioritering af patches.
+      - Læg indikatorer ind i SIEM, EDR og blokeringsværktøjer med en konfidensscore og en udløbsdato, så gamle indikatorer udfases i stedet for at give falske positiver.
+      - Spørg modtagerne hvert kvartal, om efterretningerne hjalp dem med at handle, og justér efterretningsbehov og kilder derefter.
+  pitfalls:
+    en:
+      - Buying many feeds without written requirements, so the SOC drowns in indicators nobody can prioritise.
+      - Keeping indicators forever, although attackers can change IP addresses and domains with little effort.
+      - Sharing information further than its TLP label allows, which damages trust in the sharing community.
+    da:
+      - At købe mange feeds uden skriftlige efterretningsbehov, så SOC'en drukner i indikatorer, som ingen kan prioritere.
+      - At beholde indikatorer for evigt, selv om angribere uden besvær kan skifte IP-adresser og domæner.
+      - At dele information længere ud, end dens TLP-mærkning tillader, hvilket skader tilliden i delingsfællesskabet.
+  guides:
+    - title: NIST SP 800-150 - Guide to Cyber Threat Information Sharing
+      url: https://csrc.nist.gov/pubs/sp/800/150/final
+      publisher: NIST
+      tier: standard
+    - title: Building a Security Operations Centre (SOC) - Threat Intelligence
+      url: https://www.ncsc.gov.uk/collection/building-a-security-operations-centre/threat-intelligence
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Traffic Light Protocol (TLP) 2.0
+      url: https://www.first.org/tlp/
+      publisher: FIRST
+      tier: standard
+    - title: Trusselsvurderinger - Cyber
+      url: https://samsik.dk/trusselsvurderinger/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   requires: [threat]
   used-with: [threat-landscape]

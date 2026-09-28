@@ -42,6 +42,52 @@ deepDive:
     EDPB's retningslinjer 4/2019 om artikel 25 (version 2.0, vedtaget i oktober 2020) understreger, at pligten påhviler den dataansvarlige, at "det aktuelle tekniske niveau" er et bevægeligt mål, og at effektiviteten skal kunne påvises, fx gennem nøgletal. Databehandlere og producenter er ikke direkte bundet, men betragtning 78 opfordrer producenter til at tage hensyn til databeskyttelse, og den dataansvarlige forventes at vælge værktøjer, der gør det muligt at overholde reglerne.
 
     I udviklingsarbejdet oversættes princippet til skemagennemgange, der fjerner felter uden et angivet formål, pseudonymisering og tokenisering på feltniveau, opbevaringsperioder implementeret som automatisk sletning eller TTL frem for politiktekst, rollebaseret adgang afgrænset til formålet, aggregering, k-anonymitet eller differential privacy til analyse, behandling på klienten, hvor det er muligt, og privatlivsvenlige standarder som tilvalg af tracking og profiler, der som udgangspunkt er private. Privacy by design adskiller sig fra en konsekvensanalyse efter artikel 35, som er en konkret vurdering, der udløses af behandling med høj risiko, og fra security by design, der beskytter alle aktiver mod angribere; et system kan være velsikret og alligevel indsamle langt flere personoplysninger, end det har brug for.
+howTo:
+  steps:
+    en:
+      - At the start of every new system or process, have the product owner list the purposes and the personal data each purpose really needs, and drop every field without a stated purpose.
+      - Assess the risks to the people whose data you process, and carry out a DPIA under GDPR Article 35 when the processing is likely to be high risk.
+      - Choose measures that fit the risk and the state of the art, such as pseudonymisation, encryption, role-based access limited to the purpose and aggregated data for analytics.
+      - Set privacy-friendly defaults (Article 25(2)) - optional fields and tracking off until the user opts in, profiles private, and no data made available to an unlimited number of people.
+      - Build retention into the system as automatic deletion or TTLs based on your deletion deadlines, instead of relying on a policy text.
+      - Write the privacy requirements into supplier contracts and choose tools that let you meet them, since the duty stays with you as controller.
+      - Test before launch that the measures work, fx that deleted data is really gone and that defaults are as designed, and document the choices so you can show them to Datatilsynet.
+      - Review the design when the purpose, the data or the technology changes, and at fixed intervals, since the state of the art moves.
+    da:
+      - Lad produktejeren ved starten af hvert nyt system eller hver ny proces opliste formålene og de personoplysninger, hvert formål reelt kræver, og fjern alle felter uden et angivet formål.
+      - Vurdér risikoen for de personer, hvis data I behandler, og lav en konsekvensanalyse efter GDPR artikel 35, når behandlingen sandsynligvis indebærer en høj risiko.
+      - Vælg foranstaltninger, der passer til risikoen og det aktuelle tekniske niveau, fx pseudonymisering, kryptering, rollebaseret adgang afgrænset til formålet og aggregerede data til analyse.
+      - Sæt privatlivsvenlige standardindstillinger (artikel 25, stk. 2) - frivillige felter og tracking slået fra, til brugeren vælger dem til, profiler private og ingen data gjort tilgængelige for et ubegrænset antal personer.
+      - Byg opbevaringsperioden ind i systemet som automatisk sletning eller TTL ud fra jeres slettefrister i stedet for at stole på en politiktekst.
+      - Skriv kravene til databeskyttelse ind i kontrakterne med leverandørerne, og vælg værktøjer, der gør det muligt at opfylde dem, for ansvaret bliver hos jer som dataansvarlig.
+      - Test før lancering, at foranstaltningerne virker, fx at slettede data faktisk er væk, og at standardindstillingerne er som designet, og dokumentér valgene, så I kan vise dem til Datatilsynet.
+      - Gennemgå designet, når formålet, data eller teknologien ændrer sig, og med faste mellemrum, for det aktuelle tekniske niveau flytter sig.
+  pitfalls:
+    en:
+      - Collecting data in case it might be useful later, which breaks data minimisation and increases what a breach can expose.
+      - Treating a well-secured system as privacy-compliant, although it can be well protected and still collect far more personal data than it needs.
+      - Doing the DPIA after the system is built, when the design choices can no longer be changed cheaply.
+      - Pre-ticking consent boxes or making sharing the default, which goes against data protection by default.
+    da:
+      - At indsamle data, fordi de måske kan bruges senere, hvilket bryder med dataminimering og øger det, et brud kan afsløre.
+      - At regne et velsikret system for at overholde reglerne om databeskyttelse, selv om det godt kan være velbeskyttet og alligevel indsamle langt flere personoplysninger end nødvendigt.
+      - At lave konsekvensanalysen, efter systemet er bygget, når designvalgene ikke længere kan ændres billigt.
+      - At forudafkrydse samtykkefelter eller gøre deling til standard, hvilket strider mod databeskyttelse gennem standardindstillinger.
+  guides:
+    - title: Guidelines 4/2019 on Article 25 Data Protection by Design and by Default
+      url: https://www.edpb.europa.eu/our-work-tools/our-documents/guidelines/guidelines-42019-article-25-data-protection-design-and_en
+      publisher: European Data Protection Board
+      tier: official-doc
+    - title: Databeskyttelse gennem design og standardindstillinger
+      url: https://www.datatilsynet.dk/regler-og-vejledning/behandlingssikkerhed/databeskyttelse-gennem-design-og-standardindstillinger
+      publisher: Datatilsynet
+      tier: official-doc
+      lang: da
+    - title: Indbygget databeskyttelse (privacy by design)
+      url: https://www.sikkerdigital.dk/myndighed/databeskyttelse-og-gdpr/indbygget-databeskyttelse
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   requires: [confidentiality]
   contrasts-with:
