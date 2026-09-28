@@ -10,9 +10,9 @@ dir = "app"
 run = "npx prettier --write ."
 
 [tasks.lint]
-description = "Report style violations and content-model smells."
+description = "Report style violations, content-model smells, and oversized functions/files."
 dir = "app"
-run = ["npx prettier --check .", "npm run lint:content"]
+run = ["npx prettier --check .", "npm run lint:content", "npm run lint:size"]
 
 [tasks.typecheck]
 description = "Static type analysis."
