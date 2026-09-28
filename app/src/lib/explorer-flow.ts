@@ -8,41 +8,186 @@
  */
 import type cytoscape from 'cytoscape';
 import { EXPLORER } from './explorer-config';
+import { eachDot, pathOf, sample, type Box, type Path } from './explorer-flow-path';
 
 const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
-/** Samples per quadratic piece of an edge's curve. */
-const STEPS = 8;
+const SCENE_EVENTS = 'class style data position add remove';
 
 /** The dots' settings (`EXPLORER.dots`), as plain numbers. */
 export type DotsConfig = { readonly [K in keyof typeof EXPLORER.dots]: number };
 
-type Path = {
-  /** Sampled points (x0, y0, x1, y1, …) and cumulative lengths, in model coordinates. */
-  pts: number[];
-  cum: number[];
-  box: { x1: number; y1: number; x2: number; y2: number };
-  lit: boolean;
-};
+/** A drawn one-way edge's path and its fill group (colour, lit), or null when hidden. */
+function edgeDots(e: cytoscape.EdgeSingular) {
+  if (e.hasClass('off') || e.hasClass('dim') || e.hasClass('faded')) return null;
+  if (e.source().hasClass('gone') || e.target().hasClass('gone')) return null;
+  const lit = e.hasClass('focus') || e.hasClass('lit');
+  const s = e.sourceEndpoint();
+  const t = e.targetEndpoint();
+  if (!s || !t || !Number.isFinite(s.x) || !Number.isFinite(t.x)) return null;
+  const colour = (lit || e.hasClass('all') ? e.data('colour') : e.data('tint')) as string;
+  return { key: `${colour}|${lit ? 1 : 0}`, path: pathOf(sample(s, e.controlPoints() ?? [], t)) };
+}
 
-/** Cytoscape's curve through its control points: quadratic pieces joined at midpoints. */
-function sample(s: cytoscape.Position, cps: cytoscape.Position[], t: cytoscape.Position): number[] {
-  if (!cps.length) return [s.x, s.y, t.x, t.y];
-  const out: number[] = [s.x, s.y];
-  let from = s;
-  cps.forEach((c, i) => {
-    const next = cps[i + 1];
-    const to = next ? { x: (c.x + next.x) / 2, y: (c.y + next.y) / 2 } : t;
-    for (let k = 1; k <= STEPS; k++) {
-      const u = k / STEPS;
-      const v = 1 - u;
-      out.push(
-        v * v * from.x + 2 * v * u * c.x + u * u * to.x,
-        v * v * from.y + 2 * v * u * c.y + u * u * to.y,
-      );
-    }
-    from = to;
+/** Paths grouped by colour, so a frame is one fill per colour. */
+function groupPaths(directed: cytoscape.EdgeCollection) {
+  const groups = new Map<string, Path[]>();
+  directed.forEach((e) => {
+    const d = edgeDots(e);
+    if (!d) return;
+    if (!groups.has(d.key)) groups.set(d.key, []);
+    groups.get(d.key)!.push(d.path);
   });
-  return out;
+  return groups;
+}
+
+/**
+ * The one-way edges' paths, re-sampled only after edges, classes or positions change;
+ * and whether the view moved since the last frame (pan and zoom: the dots follow the
+ * live viewport in the very next frame, outside the fps throttle, so they stay locked to
+ * the map and never blink out mid-gesture, A86).
+ */
+function watchScene(cy: cytoscape.Core, edges: cytoscape.EdgeCollection) {
+  const directed = edges.filter((e) => e.data('directed') === 1);
+  let groups = new Map<string, Path[]>();
+  let dirty = true;
+  let moved = false;
+  const markDirty = () => void (dirty = true);
+  const onViewport = () => void (moved = true);
+  cy.on(SCENE_EVENTS, markDirty);
+  cy.on('viewport', onViewport);
+  const paths = () => {
+    if (dirty) {
+      dirty = false;
+      groups = groupPaths(directed);
+    }
+    return groups;
+  };
+  const takeMoved = () => {
+    const was = moved;
+    moved = false;
+    return was;
+  };
+  const stop = () => {
+    cy.removeListener(SCENE_EVENTS, markDirty);
+    cy.removeListener('viewport', onViewport);
+  };
+  return { paths, takeMoved, stop };
+}
+
+/** A canvas laid over the map, letting the pointer through. */
+function overlay(container: HTMLElement) {
+  if (getComputedStyle(container).position === 'static') container.style.position = 'relative';
+  const canvas = document.createElement('canvas');
+  canvas.setAttribute('aria-hidden', 'true');
+  canvas.style.cssText = 'position:absolute;inset:0;pointer-events:none;z-index:2';
+  container.appendChild(canvas);
+  return canvas;
+}
+
+/** The overlay, sized to the map at the device's pixel ratio (at most 2). */
+function mountCanvas(container: HTMLElement) {
+  const canvas = overlay(container);
+  const ctx = canvas.getContext('2d')!;
+  const layer = {
+    container,
+    canvas,
+    ctx,
+    dpr: 1,
+    /** Whether anything is on the canvas (a clear is skipped otherwise). */
+    drawn: false,
+    resize() {
+      layer.dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(container.clientWidth * layer.dpr);
+      canvas.height = Math.round(container.clientHeight * layer.dpr);
+      canvas.style.width = `${container.clientWidth}px`;
+      canvas.style.height = `${container.clientHeight}px`;
+    },
+    clear() {
+      if (!layer.drawn) return;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      layer.drawn = false;
+    },
+  };
+  layer.resize();
+  return layer;
+}
+
+type Layer = ReturnType<typeof mountCanvas>;
+
+type Frame = { ext: Box; r: number; shift: number; spacing: number };
+
+const onScreen = (b: Box, ext: Box) =>
+  !(b.x2 < ext.x1 || b.x1 > ext.x2 || b.y2 < ext.y1 || b.y1 > ext.y2);
+
+/** One fill of a group's on-screen dots. */
+function fillGroup(ctx: CanvasRenderingContext2D, paths: Path[], f: Frame) {
+  ctx.beginPath();
+  for (const p of paths) {
+    if (!onScreen(p.box, f.ext)) continue;
+    eachDot(p, f.shift, f.spacing, (x, y) => {
+      ctx.moveTo(x + f.r, y);
+      ctx.arc(x, y, f.r, 0, Math.PI * 2);
+    });
+  }
+  ctx.fill();
+}
+
+type Look = { cfg: DotsConfig; restAlpha: () => number };
+
+/** Lay the canvas over the live viewport; the dots' size and shift at time `t` (ms). */
+function viewFrame(cy: cytoscape.Core, layer: Layer, cfg: DotsConfig, t: number): Frame {
+  const zoom = cy.zoom();
+  const pan = cy.pan();
+  const k = layer.dpr * zoom;
+  layer.ctx.setTransform(k, 0, 0, k, layer.dpr * pan.x, layer.dpr * pan.y);
+  const shift = ((t / 1000) * cfg.speed) % cfg.spacing;
+  return { ext: cy.extent(), r: cfg.radius / zoom, shift, spacing: cfg.spacing };
+}
+
+/** Draw every group's dots, one fill per colour. */
+function drawDots(layer: Layer, groups: Map<string, Path[]>, f: Frame, look: Look) {
+  const { ctx } = layer;
+  for (const [key, paths] of groups) {
+    ctx.globalAlpha = key.endsWith('|1') ? look.cfg.litAlpha : look.restAlpha();
+    ctx.fillStyle = key.slice(0, key.lastIndexOf('|'));
+    fillGroup(ctx, paths, f);
+    layer.drawn = true;
+  }
+  ctx.globalAlpha = 1;
+}
+
+type LoopHooks = { draw: (t: number) => void; moved: () => boolean; still: () => void };
+
+/**
+ * The frame loop: `draw` at most `cfg.fps` times a second (every frame while the view
+ * moves); none under reduced motion (`still` clears), resumed when that changes.
+ */
+function runLoop(cfg: DotsConfig, on: LoopHooks) {
+  const motion = window.matchMedia?.(REDUCED_MOTION);
+  let raf = 0;
+  let last = 0;
+  let stopped = false;
+  const tick = (t: number) => {
+    raf = 0;
+    if (stopped) return;
+    if (motion?.matches) return on.still();
+    raf = requestAnimationFrame(tick);
+    if (!on.moved() && t - last < 1000 / cfg.fps) return;
+    last = t;
+    on.draw(t);
+  };
+  const wake = () => {
+    if (!raf && !stopped) raf = requestAnimationFrame(tick);
+  };
+  motion?.addEventListener?.('change', wake);
+  wake();
+  const stop = () => {
+    stopped = true;
+    cancelAnimationFrame(raf);
+    motion?.removeEventListener?.('change', wake);
+  };
+  return { stop };
 }
 
 /**
@@ -59,142 +204,18 @@ export function startDots(
   /** The settings, read every frame (the hidden visual lab tunes a copy live, A96). */
   cfg: DotsConfig = EXPLORER.dots,
 ): { stop: () => void; resize: () => void } {
-  const container = cy.container()!;
-  if (getComputedStyle(container).position === 'static') container.style.position = 'relative';
-  const canvas = document.createElement('canvas');
-  canvas.setAttribute('aria-hidden', 'true');
-  canvas.style.cssText = 'position:absolute;inset:0;pointer-events:none;z-index:2';
-  container.appendChild(canvas);
-  const ctx = canvas.getContext('2d')!;
-  const directed = edges.filter((e) => e.data('directed') === 1);
-  const motion = window.matchMedia?.(REDUCED_MOTION);
-
-  let dpr = 1;
-  const resize = () => {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.round(container.clientWidth * dpr);
-    canvas.height = Math.round(container.clientHeight * dpr);
-    canvas.style.width = `${container.clientWidth}px`;
-    canvas.style.height = `${container.clientHeight}px`;
-  };
-  resize();
-
-  /** Paths grouped by colour, so a frame is one fill per colour. */
-  let groups = new Map<string, Path[]>();
-  let dirty = true;
-  const rebuild = () => {
-    dirty = false;
-    groups = new Map();
-    directed.forEach((e) => {
-      if (e.hasClass('off') || e.hasClass('dim') || e.hasClass('faded')) return;
-      if (e.source().hasClass('gone') || e.target().hasClass('gone')) return;
-      const lit = e.hasClass('focus') || e.hasClass('lit');
-      const s = e.sourceEndpoint();
-      const t = e.targetEndpoint();
-      if (!s || !t || !Number.isFinite(s.x) || !Number.isFinite(t.x)) return;
-      const pts = sample(s, e.controlPoints() ?? [], t);
-      const cum = [0];
-      let x1 = pts[0];
-      let y1 = pts[1];
-      let x2 = x1;
-      let y2 = y1;
-      for (let i = 2; i < pts.length; i += 2) {
-        cum.push(cum[cum.length - 1] + Math.hypot(pts[i] - pts[i - 2], pts[i + 1] - pts[i - 1]));
-        x1 = Math.min(x1, pts[i]);
-        y1 = Math.min(y1, pts[i + 1]);
-        x2 = Math.max(x2, pts[i]);
-        y2 = Math.max(y2, pts[i + 1]);
-      }
-      const colour = (lit || e.hasClass('all') ? e.data('colour') : e.data('tint')) as string;
-      const key = `${colour}|${lit ? 1 : 0}`;
-      if (!groups.has(key)) groups.set(key, []);
-      groups.get(key)!.push({ pts, cum, box: { x1, y1, x2, y2 }, lit });
-    });
-  };
-  const markDirty = () => void (dirty = true);
-  cy.on('class style data position add remove', markDirty);
-  // Pan and zoom: the dots follow the live viewport (cy.pan()/cy.zoom()) in the very
-  // next animation frame, outside the fps throttle, so they stay locked to the map and
-  // never blink out mid-gesture (A86).
-  let moved = false;
-  const onViewport = () => void (moved = true);
-  cy.on('viewport', onViewport);
-
-  let raf = 0;
-  let last = 0;
-  let stopped = false;
-  let drawn = false;
-  const clear = () => {
-    if (!drawn) return;
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawn = false;
-  };
+  const layer = mountCanvas(cy.container()!);
+  const scene = watchScene(cy, edges);
   const draw = (t: number) => {
-    clear();
-    if (paused() || !container.offsetParent) return;
-    if (dirty) rebuild();
-    const zoom = cy.zoom();
-    const pan = cy.pan();
-    const ext = cy.extent();
-    ctx.setTransform(dpr * zoom, 0, 0, dpr * zoom, dpr * pan.x, dpr * pan.y);
-    const r = cfg.radius / zoom;
-    const shift = ((t / 1000) * cfg.speed) % cfg.spacing;
-    for (const [key, paths] of groups) {
-      const lit = key.endsWith('|1');
-      ctx.globalAlpha = lit ? cfg.litAlpha : restAlpha();
-      ctx.fillStyle = key.slice(0, key.lastIndexOf('|'));
-      ctx.beginPath();
-      for (const p of paths) {
-        const b = p.box;
-        if (b.x2 < ext.x1 || b.x1 > ext.x2 || b.y2 < ext.y1 || b.y1 > ext.y2) continue;
-        const len = p.cum[p.cum.length - 1];
-        if (len < 1) continue;
-        // Short edges carry one dot; longer ones one per `spacing`.
-        const gap = len < cfg.spacing ? len : len / Math.floor(len / cfg.spacing);
-        let seg = 1;
-        for (let d = shift % gap; d < len; d += gap) {
-          while (seg < p.cum.length - 1 && p.cum[seg] < d) seg++;
-          const a = p.cum[seg - 1];
-          const k = (d - a) / (p.cum[seg] - a || 1);
-          const x = p.pts[seg * 2 - 2] + (p.pts[seg * 2] - p.pts[seg * 2 - 2]) * k;
-          const y = p.pts[seg * 2 - 1] + (p.pts[seg * 2 + 1] - p.pts[seg * 2 - 1]) * k;
-          ctx.moveTo(x + r, y);
-          ctx.arc(x, y, r, 0, Math.PI * 2);
-        }
-      }
-      ctx.fill();
-      drawn = true;
-    }
-    ctx.globalAlpha = 1;
+    layer.clear();
+    if (paused() || !layer.container.offsetParent) return;
+    drawDots(layer, scene.paths(), viewFrame(cy, layer, cfg, t), { cfg, restAlpha });
   };
-  const tick = (t: number) => {
-    raf = 0;
-    if (stopped) return;
-    if (motion?.matches) {
-      clear();
-      return;
-    }
-    raf = requestAnimationFrame(tick);
-    if (!moved && t - last < 1000 / cfg.fps) return;
-    moved = false;
-    last = t;
-    draw(t);
+  const loop = runLoop(cfg, { draw, moved: scene.takeMoved, still: layer.clear });
+  const stop = () => {
+    loop.stop();
+    scene.stop();
+    layer.canvas.remove();
   };
-  const wake = () => {
-    if (!raf && !stopped) raf = requestAnimationFrame(tick);
-  };
-  motion?.addEventListener?.('change', wake);
-  wake();
-  return {
-    resize,
-    stop() {
-      stopped = true;
-      cancelAnimationFrame(raf);
-      cy.removeListener('class style data position add remove', markDirty);
-      cy.removeListener('viewport', onViewport);
-      motion?.removeEventListener?.('change', wake);
-      canvas.remove();
-    },
-  };
+  return { resize: layer.resize, stop };
 }
