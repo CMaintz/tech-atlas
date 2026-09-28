@@ -322,8 +322,8 @@ export const PROCESSORS: Processor[] = [
   {
     name: 'Supabase, Inc.',
     role: {
-      en: 'Accounts, synced progress and the search function; data stored in Frankfurt (EU). Our data processor.',
-      da: 'Konti, synkroniserede fremskridt og søgefunktionen; data opbevares i Frankfurt (EU). Vores databehandler.',
+      en: 'Accounts, synced progress, the search function and stored feedback; data stored in Frankfurt (EU). Our data processor.',
+      da: 'Konti, synkroniserede fremskridt, søgefunktionen og gemt feedback; data opbevares i Frankfurt (EU). Vores databehandler.',
     },
     link: LINKS.supabase,
   },

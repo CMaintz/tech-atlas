@@ -286,8 +286,8 @@ migrations (7b/7c: `SUPABASE_PROJECT_REF`, `SUPABASE_ACCESS_TOKEN`,
 **Limits:** 5 submissions an hour per client (a hash of the IP, never the address) and 50
 a day in total, counted from the stored rows; beyond that the function answers 429 and
 stores nothing. Message up to 2,000 characters, body up to 16 KB. **Retention:** a daily
-pg_cron job (`atlas-feedback-purge`) deletes rows older than 180 days and clears
-`ip_hash` once a row is 2 days old; the privacy page promises both. Emails in your
+pg_cron jobs (`atlas-feedback-purge`, `atlas-feedback-iphash-purge`) delete rows older
+than 180 days and clear `ip_hash` once a row is 2 days old; the privacy page promises both. Emails in your
 mailbox are yours to delete. **Deletion requests** (the privacy page tells visitors to
 email): `delete from private.feedback where id = <id>;` (find it by date and text), and
 delete the email. Logs (**Edge Functions → feedback → Logs**) carry only statuses such as

@@ -83,9 +83,12 @@ create extension if not exists pg_cron with schema pg_catalog;
 select cron.schedule(
   'atlas-feedback-purge',
   '17 3 * * *',
-  $$
-    delete from private.feedback where created_at < now() - interval '180 days';
-    update private.feedback set ip_hash = null
-      where ip_hash is not null and created_at < now() - interval '2 days';
-  $$
+  $$delete from private.feedback where created_at < now() - interval '180 days'$$
+);
+
+select cron.schedule(
+  'atlas-feedback-iphash-purge',
+  '27 3 * * *',
+  $$update private.feedback set ip_hash = null
+      where ip_hash is not null and created_at < now() - interval '2 days'$$
 );
