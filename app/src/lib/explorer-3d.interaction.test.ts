@@ -4,6 +4,7 @@
  */
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { EXPLORER } from './explorer-config';
+import { STILL } from './explorer-keys';
 import { removeFakeDom } from './explorer-3d/testing/fake-dom';
 import type { FakeGraph } from './explorer-3d/testing/fake-force-graph';
 import { graph, overview, withView } from './explorer-3d/testing/fixture';
@@ -93,8 +94,8 @@ describe('createMap3D clicks and camera', () => {
     const { fg, map } = await mountMap3D();
     fg.camera.position.set(0, 100, 500);
     fg.camera.lookAt(0, 0, 0);
-    map.nudge({ x: 1, y: 0.5, z: 1, yaw: 0.3, pitch: 0.2 }, 0.5);
-    map.nudge({ x: 0, y: 0, z: 1, yaw: 0, pitch: 0 }, 4);
+    map.nudge({ x: 1, y: 0.5, z: 1, zoom: 0, yaw: 0.3, pitch: 0.2 }, 0.5);
+    map.nudge({ ...STILL, z: 1 }, 4);
     expect(
       r3([...fg.camera.position.toArray(), ...fg.controls.target.toArray()]),
     ).toMatchSnapshot();

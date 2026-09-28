@@ -29,24 +29,23 @@ function accessors(fg: FakeGraph) {
 }
 
 type Geometry = InstanceType<typeof THREE.BufferGeometry>;
-const attr = (g: Geometry, name: string) => g.getAttribute(name).array as ArrayLike<number>;
+type Attribute = InstanceType<typeof THREE.BufferAttribute>;
+const attr = (g: Geometry, name: string) => [...(g.getAttribute(name) as Attribute).array];
 
 /** A link's web colour is the same on all its vertices: one triple per link. */
 function webColours(g: Geometry, segments: number) {
   const col = attr(g, 'color');
   const per = segments * 2 * 3;
-  return Array.from({ length: col.length / per }, (_, i) =>
-    r3([...col].slice(i * per, i * per + 3)),
-  );
+  return Array.from({ length: col.length / per }, (_, i) => r3(col.slice(i * per, i * per + 3)));
 }
 
 function flow(g: Geometry) {
   const n = g.drawRange.count;
   return {
     count: n,
-    colours: r3([...attr(g, 'color')].slice(0, n * 3)),
-    sizes: r3([...attr(g, 'size')].slice(0, n)),
-    positions: r3([...attr(g, 'position')].slice(0, n * 3)),
+    colours: r3(attr(g, 'color').slice(0, n * 3)),
+    sizes: r3(attr(g, 'size').slice(0, n)),
+    positions: r3(attr(g, 'position').slice(0, n * 3)),
   };
 }
 
