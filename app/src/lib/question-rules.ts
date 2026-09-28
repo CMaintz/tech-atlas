@@ -4,6 +4,7 @@
  * endpoint and vitest share one implementation.
  */
 import { namesOf } from './autolink';
+import { containsWord } from './whole-word';
 
 type Localized = { en: string; da: string };
 const LANGS = ['en', 'da'] as const;
@@ -52,9 +53,6 @@ const norm = (s: string) =>
     .toLowerCase()
     .replace(/[.!?]+$/, '')
     .replace(/\s+/g, ' ');
-const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-const containsWord = (text: string, word: string) =>
-  new RegExp(`(?<![\\p{L}\\p{N}])${escape(word)}(?![\\p{L}\\p{N}])`, 'iu').test(text);
 
 /** Every name a term goes by, normalised: names, their parenthesised short forms, aliases, slug. */
 export function namesOfTerm(t: NamedTerm): string[] {
@@ -91,54 +89,95 @@ export function checkQuestions(
   const clusters = new Set([...terms.values()].map((t) => t.cluster).filter(Boolean));
   for (const q of questions) {
     const at = `${q.file ?? '?'}#${q.id}`;
-    // Q2 duplicate id across the bank — the id keys the learner's repetition record.
-    const prev = seen.get(q.id);
-    if (prev) errors.push(`Q2 duplicate question id ${q.id} (${prev} and ${at})`);
-    seen.set(q.id, at);
-    // Q3 every tested term exists; tested once.
-    for (const id of q.terms)
-      if (!terms.has(id)) errors.push(`Q3 ${at}: unknown term ${id} (write \`domain/id\`)`);
-    if (new Set(q.terms).size !== q.terms.length) errors.push(`Q3 ${at}: a term is listed twice`);
-    // Q4 answer indexes an option (the schema checks too; kept for plain-object callers).
-    if (!Number.isInteger(q.answer) || q.answer < 0 || q.answer >= q.options.length)
-      errors.push(`Q4 ${at}: answer ${q.answer} is not an option index`);
-    for (const lang of LANGS) {
-      // Q5 bilingual: nothing blank in either language.
-      const texts = [q.stem[lang], q.explanation[lang], ...q.options.map((o) => o[lang])];
-      if (texts.some((s) => !s?.trim())) errors.push(`Q5 ${at}: blank ${lang} text`);
-      // Q6 options distinct within each language.
-      const opts = q.options.map((o) => norm(o[lang]));
-      if (new Set(opts).size !== opts.length)
-        errors.push(`Q6 ${at}: two ${lang} options read the same`);
-      // Q7 the stem must not give the answer away by naming it.
-      const right = q.options[q.answer]?.[lang];
-      if (
-        right &&
-        q.kind !== 'true-false' &&
-        namesOf(right).some((n) => norm(n).length >= 3 && containsWord(q.stem[lang], n.trim()))
-      )
-        errors.push(`Q7 ${at}: the ${lang} stem names the correct option "${right}"`);
-    }
-    // Q8 the explanation must say more than "correct": both why right and why the others are wrong.
-    for (const lang of LANGS)
-      if (q.explanation[lang].trim().length < 80)
-        errors.push(`Q8 ${at}: the ${lang} explanation is too short to explain the wrong options`);
-    // Q9 true/false options are exactly True, False.
-    if (q.kind === 'true-false') {
-      const [t, f] = q.options;
-      if (t?.en !== 'True' || t?.da !== 'Sandt' || f?.en !== 'False' || f?.da !== 'Falsk')
-        errors.push(`Q9 ${at}: true-false options must be True/Sandt then False/Falsk`);
-    }
-    // W9 file lives under a real cluster; W10 a question only its own answer term tests
-    // is never shown on any term page (still used in study sessions).
-    const cluster = q.file?.split('/').pop();
-    if (cluster && clusters.size && !clusters.has(cluster))
-      warnings.push(`W9 ${at}: "${cluster}" is not a cluster`);
-    const by = answeredBy(q, terms);
-    if (q.terms.every((id) => by.includes(id)))
-      warnings.push(`W10 ${at}: answered by every term it tests, so no term page shows it`);
+    errors.push(...duplicateIdErrors(seen, q.id, at), ...questionErrors(q, at, terms));
+    warnings.push(...questionWarnings(q, at, terms, clusters));
   }
   return { errors, warnings };
+}
+
+/** Q2 duplicate id across the bank — the id keys the learner's repetition record. */
+function duplicateIdErrors(seen: Map<string, string>, id: string, at: string): string[] {
+  const prev = seen.get(id);
+  seen.set(id, at);
+  return prev ? [`Q2 duplicate question id ${id} (${prev} and ${at})`] : [];
+}
+
+/** Q3–Q9 for one question, in rule order. */
+function questionErrors(q: BankQuestion, at: string, terms: Map<string, NamedTerm>): string[] {
+  return [
+    ...testedTermErrors(q, at, terms),
+    ...answerIndexErrors(q, at),
+    ...LANGS.flatMap((lang) => languageErrors(q, at, lang)),
+    ...LANGS.flatMap((lang) => explanationErrors(q, at, lang)),
+    ...trueFalseErrors(q, at),
+  ];
+}
+
+/** Q3 every tested term exists; tested once. */
+function testedTermErrors(q: BankQuestion, at: string, terms: Map<string, NamedTerm>): string[] {
+  const errors = q.terms
+    .filter((id) => !terms.has(id))
+    .map((id) => `Q3 ${at}: unknown term ${id} (write \`domain/id\`)`);
+  if (new Set(q.terms).size !== q.terms.length) errors.push(`Q3 ${at}: a term is listed twice`);
+  return errors;
+}
+
+/** Q4 answer indexes an option (the schema checks too; kept for plain-object callers). */
+function answerIndexErrors(q: BankQuestion, at: string): string[] {
+  if (Number.isInteger(q.answer) && q.answer >= 0 && q.answer < q.options.length) return [];
+  return [`Q4 ${at}: answer ${q.answer} is not an option index`];
+}
+
+/** Q5 nothing blank, Q6 options distinct, Q7 the stem doesn't name the answer — per language. */
+function languageErrors(q: BankQuestion, at: string, lang: 'en' | 'da'): string[] {
+  const errors: string[] = [];
+  const texts = [q.stem[lang], q.explanation[lang], ...q.options.map((o) => o[lang])];
+  if (texts.some((s) => !s?.trim())) errors.push(`Q5 ${at}: blank ${lang} text`);
+  const opts = q.options.map((o) => norm(o[lang]));
+  if (new Set(opts).size !== opts.length)
+    errors.push(`Q6 ${at}: two ${lang} options read the same`);
+  const right = q.options[q.answer]?.[lang];
+  if (right && q.kind !== 'true-false' && stemNames(q.stem[lang], right))
+    errors.push(`Q7 ${at}: the ${lang} stem names the correct option "${right}"`);
+  return errors;
+}
+
+/** Whether the stem gives the answer away by naming it. */
+const stemNames = (stem: string, right: string) =>
+  namesOf(right).some((n) => norm(n).length >= 3 && containsWord(stem, n.trim()));
+
+/** Q8 the explanation must say more than "correct": both why right and why the others are wrong. */
+function explanationErrors(q: BankQuestion, at: string, lang: 'en' | 'da'): string[] {
+  if (q.explanation[lang].trim().length >= 80) return [];
+  return [`Q8 ${at}: the ${lang} explanation is too short to explain the wrong options`];
+}
+
+/** Q9 true/false options are exactly True, False. */
+function trueFalseErrors(q: BankQuestion, at: string): string[] {
+  if (q.kind !== 'true-false') return [];
+  const [t, f] = q.options;
+  if (t?.en === 'True' && t?.da === 'Sandt' && f?.en === 'False' && f?.da === 'Falsk') return [];
+  return [`Q9 ${at}: true-false options must be True/Sandt then False/Falsk`];
+}
+
+/**
+ * W9 file lives under a real cluster; W10 a question only its own answer term tests
+ * is never shown on any term page (still used in study sessions).
+ */
+function questionWarnings(
+  q: BankQuestion,
+  at: string,
+  terms: Map<string, NamedTerm>,
+  clusters: Set<string | undefined>,
+): string[] {
+  const warnings: string[] = [];
+  const cluster = q.file?.split('/').pop();
+  if (cluster && clusters.size && !clusters.has(cluster))
+    warnings.push(`W9 ${at}: "${cluster}" is not a cluster`);
+  const by = answeredBy(q, terms);
+  if (q.terms.every((id) => by.includes(id)))
+    warnings.push(`W10 ${at}: answered by every term it tests, so no term page shows it`);
+  return warnings;
 }
 
 /** The browser payload for one language: sources dropped, `answeredBy` derived. */
