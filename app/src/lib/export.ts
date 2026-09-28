@@ -56,51 +56,68 @@ export function exportTerms(terms: ExportInput[], siteUrl: string): ExportTerm[]
   const resolve = makeRefResolver(terms.map((t) => t.id));
   return [...terms]
     .sort((a, b) => a.id.localeCompare(b.id))
-    .map(({ id, data: d, depth }) => {
-      const edges: ExportEdge[] = [];
-      for (const [type, list] of Object.entries(d.edges ?? {}) as [
-        EdgeType,
-        TermData['edges'][EdgeType],
-      ][]) {
-        for (const e of list ?? []) {
-          const ref = typeof e === 'string' ? e : e.to;
-          const to = resolve(ref, id);
-          if (!to) continue;
-          edges.push(
-            typeof e === 'string'
-              ? { type, to, confidence: 'high', strength: 'normal' }
-              : {
-                  type,
-                  to,
-                  ...(e.why ? { why: e.why } : {}),
-                  confidence: e.confidence,
-                  strength: e.strength,
-                },
-          );
-        }
-      }
-      return {
-        id,
-        url: Object.fromEntries(LANGS.map((l) => [l, `${siteUrl}${l}/terms/${id}/`])) as Record<
-          Lang,
-          string
-        >,
-        term: d.term,
-        aka: d.aka,
-        domain: d.domain,
-        cluster: d.cluster,
-        ...(d.layer ? { layer: d.layer } : {}),
-        status: d.status,
-        ...(d.era !== undefined ? { era: d.era } : {}),
-        summary: d.summary,
-        body: d.body,
-        ...(d.deepDive ? { deepDive: d.deepDive } : {}),
-        edges,
-        depth,
-        sources: d.sources,
-        draft: d.draft,
-      };
-    });
+    .map((t) => exportTerm(t, siteUrl, exportEdges(t, resolve)));
+}
+
+type RefResolver = ReturnType<typeof makeRefResolver>;
+type AuthoredEdge = NonNullable<TermData['edges'][EdgeType]>[number];
+
+/** One authored edge; a bare-string edge gets the schema's defaults. */
+function exportEdge(type: EdgeType, e: AuthoredEdge, to: string): ExportEdge {
+  if (typeof e === 'string') return { type, to, confidence: 'high', strength: 'normal' };
+  return {
+    type,
+    to,
+    ...(e.why ? { why: e.why } : {}),
+    confidence: e.confidence,
+    strength: e.strength,
+  };
+}
+
+/** A Term's authored edges with targets resolved to full ids; dangling ones dropped. */
+function exportEdges({ id, data }: ExportInput, resolve: RefResolver): ExportEdge[] {
+  const edges: ExportEdge[] = [];
+  const lists = Object.entries(data.edges ?? {}) as [EdgeType, AuthoredEdge[] | undefined][];
+  for (const [type, list] of lists) {
+    for (const e of list ?? []) {
+      const to = resolve(typeof e === 'string' ? e : e.to, id);
+      if (to) edges.push(exportEdge(type, e, to));
+    }
+  }
+  return edges;
+}
+
+function exportTerm(
+  { id, data: d, depth }: ExportInput,
+  siteUrl: string,
+  edges: ExportEdge[],
+): ExportTerm {
+  const url = Object.fromEntries(LANGS.map((l) => [l, `${siteUrl}${l}/terms/${id}/`]));
+  return {
+    id,
+    url: url as Record<Lang, string>,
+    ...termContent(d),
+    edges,
+    depth,
+    sources: d.sources,
+    draft: d.draft,
+  };
+}
+
+/** The authored description of a Term, optional fields only when present. */
+function termContent(d: TermData) {
+  return {
+    term: d.term,
+    aka: d.aka,
+    domain: d.domain,
+    cluster: d.cluster,
+    ...(d.layer ? { layer: d.layer } : {}),
+    status: d.status,
+    ...(d.era !== undefined ? { era: d.era } : {}),
+    summary: d.summary,
+    body: d.body,
+    ...(d.deepDive ? { deepDive: d.deepDive } : {}),
+  };
 }
 
 /**
@@ -135,30 +152,29 @@ export const CSV_COLUMNS = [
 
 /** One row per Term, both languages; list fields joined with `; `. CRLF line ends. */
 export function toCsv(terms: ExportTerm[]): string {
-  const rows = terms.map((t) =>
-    [
-      t.id,
-      t.term.en,
-      t.term.da,
-      t.aka.en.join('; '),
-      t.aka.da.join('; '),
-      t.domain.join('; '),
-      t.cluster,
-      t.layer,
-      t.status,
-      t.era,
-      t.depth,
-      t.summary.en,
-      t.summary.da,
-      t.url.en,
-      t.url.da,
-      t.draft,
-    ]
-      .map(csvField)
-      .join(','),
-  );
+  const rows = terms.map((t) => csvCells(t).map(csvField).join(','));
   return [CSV_COLUMNS.join(','), ...rows].join('\r\n') + '\r\n';
 }
+
+/** A Term's cells, in CSV_COLUMNS order. */
+const csvCells = (t: ExportTerm) => [
+  t.id,
+  t.term.en,
+  t.term.da,
+  t.aka.en.join('; '),
+  t.aka.da.join('; '),
+  t.domain.join('; '),
+  t.cluster,
+  t.layer,
+  t.status,
+  t.era,
+  t.depth,
+  t.summary.en,
+  t.summary.da,
+  t.url.en,
+  t.url.da,
+  t.draft,
+];
 
 const escapeHtml = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -175,7 +191,7 @@ const noHash = (s: string) => s.replace(/^#/, '&#35;');
  * newer file updates the notes instead of duplicating them.
  */
 export function toAnki(terms: ExportTerm[], lang: Lang, deck: string): string {
-  const lines = [
+  const header = [
     '#separator:tab',
     '#html:true',
     '#notetype:Basic',
@@ -183,15 +199,17 @@ export function toAnki(terms: ExportTerm[], lang: Lang, deck: string): string {
     '#tags column:3',
     '#guid column:4',
   ];
-  for (const t of terms) {
-    const front = noHash(escapeHtml(oneLine(t.term[lang])));
-    const back = [
-      `<b>${escapeHtml(oneLine(t.summary[lang]))}</b>`,
-      escapeHtml(oneLine(t.body.plain[lang])),
-      `<a href="${escapeHtml(t.url[lang])}">${escapeHtml(t.url[lang])}</a>`,
-    ].join('<br><br>');
-    const tags = ['atlas', ...t.domain, t.cluster].map((x) => x.replace(/\s+/g, '_')).join(' ');
-    lines.push([front, back, tags, `atlas-${lang}-${t.id}`].join('\t'));
-  }
-  return lines.join('\n') + '\n';
+  return [...header, ...terms.map((t) => ankiNote(t, lang))].join('\n') + '\n';
+}
+
+/** One note line: front, back, tags and the stable guid, tab-separated. */
+function ankiNote(t: ExportTerm, lang: Lang): string {
+  const front = noHash(escapeHtml(oneLine(t.term[lang])));
+  const back = [
+    `<b>${escapeHtml(oneLine(t.summary[lang]))}</b>`,
+    escapeHtml(oneLine(t.body.plain[lang])),
+    `<a href="${escapeHtml(t.url[lang])}">${escapeHtml(t.url[lang])}</a>`,
+  ].join('<br><br>');
+  const tags = ['atlas', ...t.domain, t.cluster].map((x) => x.replace(/\s+/g, '_')).join(' ');
+  return [front, back, tags, `atlas-${lang}-${t.id}`].join('\t');
 }
