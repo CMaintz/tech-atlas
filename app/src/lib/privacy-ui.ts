@@ -1,0 +1,96 @@
+/** The privacy page's headings and running text, both languages (A88). */
+import type { Lang } from './site';
+
+export const PRIVACY_UI = {
+  en: {
+    title: 'Privacy',
+    intro:
+      'Atlas collects as little as it can. You can use every part of it without an account, and nothing about you is sold, shared for advertising or used to track you.',
+    updated: 'Last updated {date}.',
+    controllerTitle: 'Who is responsible',
+    controller: 'The data controller is {name}. Questions and requests about your data:',
+    shortTitle: 'In short',
+    short: [
+      'No cookies, no analytics, no ads, no trackers.',
+      'Your progress lives in your browser. It leaves it only if you sign in to sync it.',
+      'Search questions are sent to our search function without anything that identifies you; your IP address is only used, scrambled, to limit abuse, and deleted within minutes.',
+      'Account and synced data are stored in the EU (Frankfurt).',
+      'Feedback you send through the form is stored for 180 days and emailed to us. We only see your email address if you give it.',
+    ],
+    dataTitle: 'What we process, and why',
+    what: 'What',
+    why: 'Why',
+    where: 'Where, and who processes it',
+    basis: 'Legal basis',
+    retention: 'How long',
+    storageTitle: 'What is stored in your browser',
+    storageIntro:
+      'Atlas sets no cookies. It keeps the items below in your browser’s storage. They stay on your device (only your progress is synced, and only if you sign in), and you can remove them at any time by clearing the site data in your browser.',
+    storageKey: 'Name',
+    storageWhere: 'Kept in',
+    storagePurpose: 'Purpose',
+    consent:
+      'Every item is either strictly necessary for something you asked for or remembers a choice you made, so under the ePrivacy rules (in Denmark, the cookie order - cookiebekendtgørelsen) no consent is needed and there is no cookie banner. Atlas uses no analytics, advertising or tracking. If that ever changes, we will ask for your consent first.',
+    processorsTitle: 'Who else is involved',
+    rightsTitle: 'Your rights',
+    rights: [
+      'Access: email us and we send you everything we hold about you.',
+      'Rectification: your progress is yours to change on the site; your name and email come from your sign-in provider, so change them there - or email us.',
+      'Erasure: "Delete my synced data" on the account page removes your progress from the server at once. To delete your account itself (email address and sign-in records), email us.',
+      'Portability: "Download my progress" on the account page saves your progress as a JSON file.',
+      'Objection and restriction: you may object to processing based on legitimate interest, or ask us to restrict it - email us.',
+    ],
+    rightsReply: 'We answer within one month.',
+    complaintTitle: 'Complaints',
+    complaint:
+      'You can complain to the Danish Data Protection Agency (Datatilsynet). We would appreciate hearing from you first.',
+    complaintLink: 'Complain to Datatilsynet',
+    changesTitle: 'Changes',
+    changes: 'If what we collect changes, this page changes first, with a new date at the top.',
+  },
+  da: {
+    title: 'Privatliv',
+    intro:
+      'Atlas indsamler så lidt som muligt. Du kan bruge alle dele af sitet uden en konto, og intet om dig bliver solgt, delt til reklamer eller brugt til at spore dig.',
+    updated: 'Senest opdateret {date}.',
+    controllerTitle: 'Hvem er ansvarlig',
+    controller: 'Dataansvarlig er {name}. Spørgsmål og anmodninger om dine data:',
+    shortTitle: 'Kort fortalt',
+    short: [
+      'Ingen cookies, ingen statistik, ingen reklamer, ingen sporing.',
+      'Dine fremskridt ligger i din browser. De forlader den kun, hvis du logger ind for at synkronisere dem.',
+      'Søgespørgsmål sendes til vores søgefunktion uden noget, der identificerer dig; din IP-adresse bruges kun, i omformet form, til at begrænse misbrug og slettes efter få minutter.',
+      'Konto og synkroniserede data opbevares i EU (Frankfurt).',
+      'Feedback, du sender via formularen, gemmes i 180 dage og sendes til os på e-mail. Vi ser kun din e-mailadresse, hvis du oplyser den.',
+    ],
+    dataTitle: 'Hvad vi behandler, og hvorfor',
+    what: 'Hvad',
+    why: 'Hvorfor',
+    where: 'Hvor, og hvem behandler det',
+    basis: 'Retsgrundlag',
+    retention: 'Hvor længe',
+    storageTitle: 'Hvad der gemmes i din browser',
+    storageIntro:
+      'Atlas sætter ingen cookies. Sitet gemmer nedenstående i din browsers lager. Det bliver på din enhed (kun dine fremskridt synkroniseres, og kun hvis du logger ind), og du kan til enhver tid fjerne det ved at rydde sitets data i din browser.',
+    storageKey: 'Navn',
+    storageWhere: 'Gemmes i',
+    storagePurpose: 'Formål',
+    consent:
+      'Hvert element er enten strengt nødvendigt for noget, du har bedt om, eller husker et valg, du har truffet. Efter ePrivacy-reglerne (i Danmark cookiebekendtgørelsen) kræver det derfor ikke samtykke, og der er intet cookiebanner. Atlas bruger ingen statistik, reklamer eller sporing. Hvis det nogensinde ændrer sig, beder vi først om dit samtykke.',
+    processorsTitle: 'Hvem er ellers involveret',
+    rightsTitle: 'Dine rettigheder',
+    rights: [
+      'Indsigt: skriv til os, så sender vi dig alt, hvad vi har om dig.',
+      'Berigtigelse: dine fremskridt kan du selv ændre på sitet; dit navn og din e-mail kommer fra din login-udbyder, så ret dem dér - eller skriv til os.',
+      'Sletning: "Slet mine synkroniserede data" på kontosiden fjerner straks dine fremskridt fra serveren. Skriv til os for at slette selve kontoen (e-mailadresse og login-oplysninger).',
+      'Dataportabilitet: "Download mine fremskridt" på kontosiden gemmer dine fremskridt som en JSON-fil.',
+      'Indsigelse og begrænsning: du kan gøre indsigelse mod behandling, der bygger på legitim interesse, eller bede os begrænse den - skriv til os.',
+    ],
+    rightsReply: 'Vi svarer inden for en måned.',
+    complaintTitle: 'Klage',
+    complaint: 'Du kan klage til Datatilsynet. Vi vil dog gerne høre fra dig først.',
+    complaintLink: 'Klag til Datatilsynet',
+    changesTitle: 'Ændringer',
+    changes: 'Hvis det, vi indsamler, ændrer sig, ændres denne side først, med en ny dato øverst.',
+  },
+} satisfies Record<Lang, Record<string, string | string[]>>;
