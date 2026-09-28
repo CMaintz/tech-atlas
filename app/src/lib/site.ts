@@ -845,6 +845,7 @@ export const ABOUT_LINKS = {
   github: 'https://github.com/CMaintz',
   // Empty = the LinkedIn pill is left out.
   linkedin: 'https://www.linkedin.com/in/christoffer-maintz/',
+  website: 'https://maintz.dev',
 };
 
 export interface AboutPerson {
