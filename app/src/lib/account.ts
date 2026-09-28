@@ -1,5 +1,6 @@
 /**
- * Accounts and synced progress (A44–A49) — the only module that talks to Supabase.
+ * Accounts and synced progress (A44–A49) — with account-rows.ts, the only code that
+ * talks to Supabase.
  *
  * Local-first: localStorage (learner.ts) stays what the UI reads and writes. When
  * signed in, this module keeps the learner's own `learner_state` row in step:
