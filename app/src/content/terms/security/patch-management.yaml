@@ -41,6 +41,60 @@ deepDive:
     Driftsvirkeligheden komplicerer cyklussen. Microsoft udsender sikkerhedsopdateringer den anden tirsdag i hver måned (Patch Tuesday), men tredjepartsapplikationer, browsere, firmware (BIOS/UEFI, BMC, netværksudstyr) og container-baseimages følger deres egne rytmer. Genstarter, servicevinduer og applikationskompatibilitet skaber forsinkelse; medicoudstyr og OT-systemer er ofte kun certificeret til bestemte versioner og kræver leverandørens godkendelse. End-of-life-software får slet ingen patches og skal isoleres eller udskiftes. Værktøjerne flytter mod cloudstyrede tjenester, og Microsoft meddelte i 2024, at WSUS er udfaset uden ny funktionsudvikling. I containeriserede miljøer er imaget patchenheden: rettelser indføres ved at genbygge fra en opdateret base og udrulle igen, ikke ved at patche kørende containere.
 
     De nøgletal, revisorer og bestyrelser spørger efter, er dækning (andelen af aktiver, der rapporterer patchstatus), gennemsnitlig tid til afhjælpning pr. alvorsgrad og overholdelse af frister, med undtagelser registreret eksplicit. Kontrolankrene er CIS Controls v8 Control 7 (Safeguard 7.3 og 7.4 om automatiseret patching af styresystemer og applikationer), ISO/IEC 27002:2022 kontrol 8.8 (håndtering af tekniske sårbarheder) og NIS2 art. 21, stk. 2, litra e, om håndtering af sårbarheder. Patch management supplerer sårbarhedsscanning, der verificerer, at patches faktisk er installeret, og hærdning, der fjerner komponenter, som ellers skulle patches.
+howTo:
+  steps:
+    en:
+      - Name an owner for patching each asset type, including outsourced systems, and write the responsibility into contracts with IT suppliers.
+      - Keep a complete inventory of hardware, operating systems, applications and firmware, so you know what needs patching.
+      - Set deadlines by risk in a patch policy, for example emergency patching within days for exploited flaws on internet-facing systems and a monthly cycle for the rest.
+      - Check vendor advisories and the CISA KEV catalogue every day, and match new vulnerabilities against the inventory.
+      - Prioritise by known exploitation, internet exposure and asset criticality, not by CVSS score alone.
+      - Test patches on a pilot group, roll them out in rings to everyone else, and turn on automatic updates wherever it is safe.
+      - When a patch cannot be applied, mitigate by changing configuration, isolating the system or virtual patching, and record a risk acceptance with an owner and an expiry date.
+      - Verify installation with vulnerability scans, and replace or isolate end-of-life software that no longer receives updates.
+      - Report coverage, time to patch and overdue exceptions to management every month.
+    da:
+      - Udpeg en ansvarlig for patching af hver type aktiv, også outsourcede systemer, og skriv ansvaret ind i kontrakterne med it-leverandørerne.
+      - Hold en fuldstændig oversigt over hardware, styresystemer, applikationer og firmware, så I ved, hvad der skal patches.
+      - Fastsæt frister efter risiko i en patchpolitik, fx nødpatching inden for få dage af udnyttede sårbarheder på internetvendte systemer og en månedlig cyklus for resten.
+      - Tjek leverandørernes sikkerhedsmeddelelser og CISA's KEV-katalog hver dag, og afstem nye sårbarheder mod oversigten.
+      - Prioritér efter kendt udnyttelse, eksponering mod internettet og aktivets kritikalitet, ikke kun efter CVSS-score.
+      - Test patches på en pilotgruppe, rul dem ud i ringe til alle andre, og slå automatiske opdateringer til, hvor det er forsvarligt.
+      - Når en patch ikke kan installeres, så afbød med konfigurationsændringer, isolering af systemet eller virtuel patching, og registrér en risikoaccept med ejer og udløbsdato.
+      - Bekræft installationen med sårbarhedsscanninger, og udskift eller isolér end-of-life-software, der ikke længere får opdateringer.
+      - Rapportér dækning, tid til patching og forsinkede undtagelser til ledelsen hver måned.
+  pitfalls:
+    en:
+      - Patching only Windows on Patch Tuesday and forgetting firmware, network devices, browsers and third-party software.
+      - Treating VPN gateways and firewalls like any other system, although attackers often exploit flaws in them within days.
+      - Assuming a deployed patch is installed without checking it with a scan.
+    da:
+      - Kun at patche Windows på Patch Tuesday og glemme firmware, netværksudstyr, browsere og tredjepartssoftware.
+      - At behandle VPN-gateways og firewalls som alle andre systemer, selv om angribere ofte udnytter sårbarheder i dem inden for få dage.
+      - At gå ud fra, at en udrullet patch er installeret, uden at tjekke det med en scanning.
+  guides:
+    - title: NIST SP 800-40 Rev. 4 - Guide to Enterprise Patch Management Planning
+      url: https://csrc.nist.gov/pubs/sp/800/40/r4/final
+      publisher: NIST
+      tier: standard
+    - title: Known Exploited Vulnerabilities Catalog
+      url: https://www.cisa.gov/known-exploited-vulnerabilities-catalog
+      publisher: CISA
+      tier: official-doc
+    - title: Vulnerability management guidance
+      url: https://www.ncsc.gov.uk/guidance/vulnerability-management
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Opdater programmer løbende
+      url: https://www.sikkerdigital.dk/virksomhed/syv-raad-om-it-sikkerhed/2-opdater-programmer-loebende
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Cyberforsvar der virker
+      url: https://samsik.dk/publikation/cyberforsvar-der-virker/
+      publisher: Center for Cybersikkerhed (Styrelsen for Samfundssikkerhed)
+      tier: official-doc
+      lang: da
 edges:
   kind-of: [control]
   requires: [patch, cve]

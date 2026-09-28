@@ -42,6 +42,53 @@ deepDive:
     Push-baseret MFA gav sin egen fejltype, MFA-træthed eller prompt bombing, som blev brugt ved Uber-bruddet i 2022: angriberen, der har adgangskoden, udløser gentagne anmodninger, til brugeren godkender én. Number matching (brugeren taster et tal fra loginsiden ind i appen), visning af placering og applikation samt begrænsning af antallet af anmodninger er nu standardmodtræk; Microsoft gjorde number matching obligatorisk i Authenticator i 2023.
 
     MFA beskytter selve login-hændelsen, ikke den session, der følger. AiTM-værktøjer opsnapper ikke kun adgangskode og kode, men også den resulterende sessionscookie eller OAuth refresh token, som derefter virker uden yderligere faktor; forsvaret omfatter korte token-levetider, betinget adgang knyttet til compliant enheder og nye token binding-tilgange som Device Bound Session Credentials. Andre omgåelsesveje er svagere reservemetoder, der stadig er slået til, nulstillinger foretaget af servicedesken over telefonen, ældre protokoller (IMAP, POP, basic authentication), der aldrig beder om en anden faktor, og servicekonti, der er undtaget fra politikken. Et MFA-program vurderes derfor på dækningen af alle interaktive adgangsveje og fjernadgange, styrken af den svageste aktiverede metode og grundigheden af tilmelding og gendannelse - ikke på, om MFA er "slået til".
+howTo:
+  steps:
+    en:
+      - Map every way to log in to the organisation, including webmail, VPN, remote desktop, cloud admin portals and legacy protocols such as IMAP and POP.
+      - Decide which methods are allowed, preferring phishing-resistant ones such as passkeys, FIDO2 security keys or certificate-based login, and allow SMS codes only as a documented exception.
+      - Require MFA first for administrators, remote access and email, then extend it to all users and all applications through a conditional access policy or equivalent.
+      - Block legacy authentication protocols that cannot ask for a second factor, and remove fallback methods that are weaker than your chosen standard.
+      - Turn on number matching and show the application and location in push prompts, so users can spot and reject logins they did not start.
+      - Secure enrolment and recovery by verifying identity in person or with MitID before a factor is issued or reset, and never reset MFA on the strength of a phone call alone.
+      - Create two emergency access accounts with strong credentials stored offline, keep every exclusion from the MFA policy documented and minimal, and alert whenever an excluded account signs in.
+      - Review MFA coverage and exceptions from the sign-in logs every quarter, and move the remaining users step by step to phishing-resistant methods.
+    da:
+      - Kortlæg alle måder at logge ind i organisationen på, herunder webmail, VPN, fjernskrivebord, administrationsportaler i skyen og ældre protokoller som IMAP og POP.
+      - Beslut, hvilke metoder der er tilladt, og foretræk phishing-resistente som passkeys, FIDO2-sikkerhedsnøgler eller certifikatbaseret login; tillad kun sms-koder som dokumenteret undtagelse.
+      - Kræv MFA først for administratorer, fjernadgang og e-mail, og udvid derefter til alle brugere og alle applikationer via en politik for betinget adgang eller tilsvarende.
+      - Bloker ældre autentificeringsprotokoller, der ikke kan bede om en ekstra faktor, og fjern reservemetoder, der er svagere end jeres valgte standard.
+      - Slå number matching til, og vis applikation og placering i push-anmodninger, så brugerne kan opdage og afvise login, de ikke selv har startet.
+      - Sikr tilmelding og gendannelse ved at kontrollere identiteten personligt eller med MitID, før en faktor udstedes eller nulstilles, og nulstil aldrig MFA alene på grundlag af et telefonopkald.
+      - Opret to nødadgangskonti med stærke loginoplysninger opbevaret offline, hold alle undtagelser fra MFA-politikken dokumenterede og få, og alarmér, når en undtaget konto logger ind.
+      - Gennemgå MFA-dækning og undtagelser i loginloggene hvert kvartal, og flyt de resterende brugere trin for trin over på phishing-resistente metoder.
+  pitfalls:
+    en:
+      - Calling MFA done when it is switched on for the portal while VPN, legacy protocols or service accounts still accept a password alone.
+      - Relying on push approvals or SMS codes for administrators, although adversary-in-the-middle phishing kits can relay them in real time.
+      - Letting the service desk reset a user's second factor after a phone call, which gives attackers an easy way around MFA.
+    da:
+      - At erklære MFA for færdig, fordi det er slået til på portalen, mens VPN, ældre protokoller eller servicekonti stadig accepterer en adgangskode alene.
+      - At lade administratorer bruge push-godkendelser eller sms-koder, selv om adversary-in-the-middle-phishingværktøjer kan videresende dem i realtid.
+      - At lade servicedesken nulstille en brugers ekstra faktor efter et telefonopkald, hvilket giver angribere en nem vej uden om MFA.
+  guides:
+    - title: NIST SP 800-63B-4 - Digital Identity Guidelines, Authentication and Authenticator Management
+      url: https://csrc.nist.gov/pubs/sp/800/63/b/4/final
+      publisher: NIST
+      tier: standard
+    - title: Multi-factor authentication for your corporate online services
+      url: https://www.ncsc.gov.uk/guidance/multi-factor-authentication-online-services
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Require MFA for all users with Conditional Access - Microsoft Entra ID
+      url: https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-all-users-mfa-strength
+      publisher: Microsoft
+      tier: official-doc
+    - title: Lav stærke adgangskoder og brug to-faktor login
+      url: https://www.sikkerdigital.dk/virksomhed/syv-raad-om-it-sikkerhed/6-lav-staerke-adgangskoder-og-brug-to-faktor-login
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   kind-of: [control]
   implements: [authentication]

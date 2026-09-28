@@ -42,6 +42,51 @@ deepDive:
     Det er fravalgene, auditorerne går efter. "Ikke relevant" holder kun, hvis ingen risiko, lovkrav eller kontrakt kræver kontrollen inden for omfanget; at fravælge sikker udvikling (8.25-8.28), mens organisationen skriver kode, eller fysiske kontroller, mens der stadig sidder medarbejdere på et kontor, vil blive udfordret. Implementeringsstatus skal være ærlig: en kontrol kan være medtaget, men kun delvist gennemført, med hullet fulgt op i risikohåndteringsplanen. Overgangen til 2022-udgaven tvang alle certificerede organisationer til at bygge deres SoA om fra 114 til 93 kontroller, typisk med ISO/IEC 27002 anneks B som nøgle mellem gamle og nye kontroller.
 
     I praksis er SoA'en et styret, versioneret dokument; certificeringsorganer henviser ofte til dens version på certifikatet, så en væsentlig ændring i SoA'en kan påvirke, hvad certifikatet dækker. Mange organisationer vedligeholder den i et regneark eller et GRC-værktøj med kolonner for kontrol, anvendelighed, begrundelse, status, ejer, placering af dokumentation og tilknyttede risici og bruger attributterne fra ISO/IEC 27002 til at lave filtrerede visninger. Det er også det dokument, kunder oftest beder om, nogle gange under fortrolighedsaftale, når de vurderer en certificeret leverandør.
+howTo:
+  steps:
+    en:
+      - Start from the approved risk assessment and treatment plan, not from Annex A, so every control can be traced to a risk ID, a law or a contract.
+      - Set up the SoA as a controlled spreadsheet or GRC record with columns for control, included or excluded, justification, implementation status, owner, evidence and linked risks.
+      - List every control the treatment plan needs, including controls from outside Annex A such as CIS safeguards or sector requirements.
+      - Go through all 93 Annex A controls and mark each one included or excluded, with a concrete justification in both cases (clause 6.1.3 c-d).
+      - Record an honest implementation status for each control, and move the gaps into the treatment plan with an owner and a deadline.
+      - Have management approve the SoA, give it a version number, and keep the evidence for each control ready for the auditor.
+      - Update the SoA whenever the risks, the scope or the controls change, and review it at least once a year together with the risk assessment and management review.
+    da:
+      - Tag udgangspunkt i den godkendte risikovurdering og håndteringsplan, ikke i anneks A, så hver kontrol kan føres tilbage til et risiko-id, en lov eller en kontrakt.
+      - Opret SoA'en som et styret regneark eller i et GRC-værktøj med kolonner for kontrol, til- eller fravalg, begrundelse, implementeringsstatus, ejer, dokumentation og tilknyttede risici.
+      - Skriv alle de kontroller op, håndteringsplanen kræver, også kontroller uden for anneks A, fx CIS-safeguards eller sektorkrav.
+      - Gå alle 93 kontroller i anneks A igennem, og markér hver enkelt som til- eller fravalgt med en konkret begrundelse i begge tilfælde (afsnit 6.1.3 c-d).
+      - Angiv en ærlig implementeringsstatus for hver kontrol, og før hullerne over i håndteringsplanen med en ejer og en frist.
+      - Få ledelsen til at godkende SoA'en, giv den et versionsnummer, og hav dokumentationen for hver kontrol klar til auditoren.
+      - Opdatér SoA'en, når risici, omfang eller kontroller ændrer sig, og gennemgå den mindst én gang om året sammen med risikovurderingen og ledelsens evaluering.
+  pitfalls:
+    en:
+      - Filling in the SoA from Annex A downwards as a checklist, with no link to the risk register.
+      - Excluding controls with a bare "not relevant", for example secure development while the organisation writes its own code.
+      - Marking controls as implemented when they are only planned or partly in place.
+      - Forgetting to update the SoA after a scope change, so it no longer matches what the certificate covers.
+    da:
+      - At udfylde SoA'en fra anneks A og nedad som en tjekliste uden kobling til risikoregistret.
+      - At fravælge kontroller med et kort "ikke relevant", fx sikker udvikling, mens organisationen selv skriver kode.
+      - At markere kontroller som gennemført, når de kun er planlagt eller delvist på plads.
+      - At glemme at opdatere SoA'en efter en ændring af omfanget, så den ikke længere passer med det, certifikatet dækker.
+  guides:
+    - title: SoA-dokumentet
+      url: https://sikkerdigital.dk/myndighed/iso-27001-implementering/forstaa-arbejdet-med-informationssikkerhed/soa-dokumentet
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: SOA skabelon baseret på ISO 27001:2022 (Excel)
+      url: https://sikkerdigital.dk/Media/638385877836053497/SOA%20skabelon%202023%20ul%C3%A5st.xlsx
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Vejledninger og skabeloner
+      url: https://sikkerdigital.dk/myndighed/vejledninger-og-skabeloner
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   part-of: [iso-27001]
   requires: [risk-treatment, annex-a]

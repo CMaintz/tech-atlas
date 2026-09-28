@@ -41,6 +41,50 @@ deepDive:
     I DevOps- og GitOps-miljøer opfyldes de samme kontrolmål af pipelinen i stedet for et møde: en pull request med obligatorisk peer review og branch protection er ændringsanmodningen og godkendelsen, automatiske tests er konsekvensvurderingen, merge-committen er revisionssporet, og progressiv udrulning med automatisk rollback er tilbagerulningsplanen. Forskningen i Accelerate (Forsgren, Humble og Kim, 2018) fandt, at godkendelse fra et eksternt organ som et CAB var negativt korreleret med leveranceevne og ikke hang sammen med færre fejlslagne ændringer - et argument for let, kollegabaseret godkendelse understøttet af automatisering, ikke for at droppe kontrollen.
 
     Normative referencer: ISO/IEC 27002:2022 kontrol 8.32 (ændringsstyring), tæt knyttet til 8.9 (konfigurationsstyring); ISO/IEC 20000-1 for servicestyring; og - ikke at forveksle med driftsændringer - ISO/IEC 27001:2022 afsnit 6.3, der kræver, at ændringer af selve ledelsessystemet (ISMS) planlægges. Revisorer tester kontrollen ved at trække et udsnit af produktionsændringer fra systemlogs og spore hver enkelt tilbage til en godkendt registrering; uregistrerede ændringer, selvgodkendte ændringer og nødændringer, der aldrig fik deres efterfølgende gennemgang, er de klassiske fund. Mange nedbrud, der tilskrives "konfigurationsfejl" - også fejlkonfigurationer i cloud, der gør lagring offentligt tilgængelig - er i denne forstand fejl i ændringsstyringen.
+howTo:
+  steps:
+    en:
+      - Write a change procedure that defines what counts as a change, the three change types (standard, normal, emergency) and who may approve each.
+      - Link the process to the asset inventory or CMDB, so every change record names the affected systems and their owners.
+      - Require a change record with a description, a risk and impact assessment, test results, a planned time window and a tested rollback plan.
+      - Have normal changes approved by someone other than the requester, scaling the approver with risk from a peer up to a change advisory board.
+      - Keep a catalogue of pre-approved standard changes, and in code pipelines use pull requests with required review and branch protection as the approval step.
+      - Carry out the change in the agreed window, verify afterwards that it worked, and close the record with the result.
+      - Allow emergency changes with lighter approval up front, but review each one afterwards within a few working days.
+      - Detect unauthorised changes by comparing configurations with approved baselines, and sample production changes regularly to check they trace back to an approved record.
+    da:
+      - Skriv en ændringsprocedure, der fastlægger, hvad der tæller som en ændring, de tre ændringstyper (standard, normal, nød) og hvem der må godkende hver af dem.
+      - Kobl processen til aktivfortegnelsen eller CMDB'en, så hver ændringsregistrering nævner de berørte systemer og deres ejere.
+      - Kræv en ændringsregistrering med beskrivelse, risiko- og konsekvensvurdering, testresultater, planlagt tidsvindue og en testet rollback-plan.
+      - Lad normale ændringer godkende af en anden end den, der beder om dem, og lad godkenderen følge risikoen, fra en kollega op til et change advisory board.
+      - Hav et katalog over forhåndsgodkendte standardændringer, og brug i kodepipelines pull requests med påkrævet review og branch protection som godkendelsestrin.
+      - Gennemfør ændringen i det aftalte vindue, kontrollér bagefter, at den virker, og luk registreringen med resultatet.
+      - Tillad nødændringer med lettere godkendelse på forhånd, men gennemgå hver enkelt bagefter inden for få arbejdsdage.
+      - Opdag uautoriserede ændringer ved at sammenligne konfigurationer med godkendte baselines, og tag jævnligt stikprøver af produktionsændringer for at tjekke, at de kan spores til en godkendt registrering.
+  pitfalls:
+    en:
+      - Sending every small change through a weekly CAB meeting, which pushes staff to work around the process.
+      - Allowing self-approved changes or shared admin accounts, so nobody can tell who changed what.
+      - Letting emergency changes skip their review afterwards.
+      - Writing rollback plans that have never been tested.
+    da:
+      - At sende hver lille ændring gennem et ugentligt CAB-møde, så medarbejderne begynder at gå uden om processen.
+      - At tillade selvgodkendte ændringer eller delte administratorkonti, så ingen kan se, hvem der ændrede hvad.
+      - At lade nødændringer slippe for den efterfølgende gennemgang.
+      - At skrive rollback-planer, der aldrig er blevet testet.
+  guides:
+    - title: NIST SP 800-128 - Guide for Security-Focused Configuration Management of Information Systems
+      url: https://csrc.nist.gov/pubs/sp/800/128/upd1/final
+      publisher: NIST
+      tier: standard
+    - title: NIST SP 800-53 Rev. 5 - Security and Privacy Controls for Information Systems and Organizations (CM-3 Configuration Change Control)
+      url: https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final
+      publisher: NIST
+      tier: standard
+    - title: About protected branches
+      url: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches
+      publisher: GitHub
+      tier: official-doc
 edges:
   kind-of: [control]
   requires: [asset-inventory]

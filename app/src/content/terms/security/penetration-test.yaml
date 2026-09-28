@@ -42,6 +42,54 @@ deepDive:
     Opgaver klassificeres efter den viden, testerne får: black box (ingen, efterligner en ekstern angriber), grey box (legitimationsoplysninger eller dokumentation, ofte den mest effektive brug af testtiden) og white box (fuld adgang til kildekode og arkitektur). Typer af omfang omfatter eksternt netværk, internt netværk (ofte med udgangspunkt i et "assumed breach"-fodfæste), web og API, mobil, trådløst, cloudkonfiguration og social engineering. En red team-øvelse har et andet formål: den tester detektion og respons over for en skjult, målrettet modstander over uger, mens en pentest forsøger at finde så mange udnyttelige svagheder som muligt inden for et afgrænset omfang. Trusselsbaseret penetrationstest (TLPT) efter TIBER-EU-rammen, som er obligatorisk for visse finansielle enheder efter DORA art. 26, er i praksis efterretningsdrevet red teaming.
 
     Rapporten er produktet: et ledelsesresumé, angrebsfortællinger, der viser, hvordan fund kædes sammen, og for hvert fund dokumentation, berørte aktiver, en alvorsgrad (ofte CVSS justeret for kontekst) og anbefalinger til afhjælpning, efterfulgt af en retest, der bekræfter rettelserne. PCI DSS v4.x krav 11.4 kræver intern og ekstern penetrationstest mindst én gang om året og efter væsentlige ændringer; CIS Controls v8 Control 18 placerer pentest på IG2 og IG3, fordi den giver mest værdi, når den basale hygiejne er på plads. En pentest er et øjebliksbillede, ikke en garanti for, at der ikke findes andre svagheder.
+howTo:
+  steps:
+    en:
+      - Define the goal and the risk questions the test must answer, for example whether an outsider can reach the finance data or a domain admin account.
+      - Choose a qualified, independent supplier and agree the test type (external, internal, web and API, cloud) and how much the testers are told (black, grey or white box).
+      - Sign rules of engagement and a written authorisation from the system owners covering scope, exclusions, test window, allowed techniques, contacts, a stop procedure and personal data.
+      - Get consent from cloud, hosting and SaaS providers where their policies require it, and decide whether the SOC is told in advance.
+      - Have the testers follow a recognised method, such as NIST SP 800-115 or the OWASP WSTG for web applications, through discovery, exploitation and post-exploitation.
+      - Receive a report with an executive summary, attack paths, evidence and severity for each finding, and hold a debrief with IT and the risk owners.
+      - Put the findings into the remediation plan with owners and deadlines, and ask why your own scanning and monitoring did not catch them.
+      - Book a retest to confirm the fixes, and repeat testing at least yearly and after significant changes.
+    da:
+      - Fastlæg målet og de risikospørgsmål, testen skal besvare, fx om en udefrakommende kan nå økonomidata eller en domæneadministratorkonto.
+      - Vælg en kvalificeret, uafhængig leverandør, og aftal testtypen (ekstern, intern, web og API, cloud), og hvor meget testerne får at vide (black, grey eller white box).
+      - Underskriv rules of engagement og en skriftlig tilladelse fra systemejerne, der dækker omfang, undtagelser, testvindue, tilladte teknikker, kontakter, stopprocedure og personoplysninger.
+      - Indhent samtykke fra cloud-, hosting- og SaaS-leverandører, hvor deres politikker kræver det, og beslut, om SOC'en skal have besked på forhånd.
+      - Lad testerne følge en anerkendt metode som NIST SP 800-115 eller OWASP WSTG for webapplikationer gennem opdagelse, udnyttelse og post-exploitation.
+      - Modtag en rapport med ledelsesresumé, angrebsveje samt dokumentation og alvorsgrad for hvert fund, og hold et opfølgningsmøde med IT og risikoejerne.
+      - Læg fundene ind i afhjælpningsplanen med ejere og frister, og spørg, hvorfor jeres egen scanning og overvågning ikke fangede dem.
+      - Book en retest for at bekræfte rettelserne, og gentag testen mindst én gang om året og efter væsentlige ændringer.
+  pitfalls:
+    en:
+      - Testing without written authorisation from the real system owner, which can be a criminal offence under section 263 of the Danish Penal Code.
+      - Choosing a scope so narrow that it misses the real attack paths, just to get a clean report.
+      - Treating a yearly pentest as a replacement for continuous vulnerability management.
+      - Filing the report without fixing the findings and retesting.
+    da:
+      - At teste uden skriftlig tilladelse fra den reelle systemejer, hvilket kan være strafbart efter straffelovens § 263.
+      - At vælge et så snævert omfang, at de reelle angrebsveje ikke kommer med, bare for at få en pæn rapport.
+      - At bruge en årlig pentest som erstatning for løbende sårbarhedsstyring.
+      - At lægge rapporten i skuffen uden at rette fundene og teste igen.
+  guides:
+    - title: NIST SP 800-115 - Technical Guide to Information Security Testing and Assessment
+      url: https://csrc.nist.gov/pubs/sp/800/115/final
+      publisher: NIST
+      tier: standard
+    - title: OWASP Web Security Testing Guide
+      url: https://owasp.org/www-project-web-security-testing-guide/
+      publisher: OWASP
+      tier: reference
+    - title: Penetration testing
+      url: https://www.ncsc.gov.uk/guidance/penetration-testing
+      publisher: NCSC UK
+      tier: official-doc
+    - title: CIS Critical Security Controls - Control 18 Penetration Testing
+      url: https://www.cisecurity.org/controls/penetration-testing
+      publisher: Center for Internet Security
+      tier: standard
 edges:
   requires: [vulnerability]
   contrasts-with:
