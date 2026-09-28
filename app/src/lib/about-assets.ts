@@ -17,6 +17,7 @@ export const aboutProps = (lang: Lang) => ({
   links: visibleLinks([
     { id: 'github', label: 'GitHub', href: ABOUT_LINKS.github },
     { id: 'linkedin', label: 'LinkedIn', href: ABOUT_LINKS.linkedin },
+    { id: 'website', label: 'maintz.dev', href: ABOUT_LINKS.website },
   ]),
   people: ABOUT_PEOPLE.map((p) => ({
     section: p.section,
