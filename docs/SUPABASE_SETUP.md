@@ -9,6 +9,8 @@ names and aliases. One Supabase project adds two optional features:
 - **Search by meaning** — questions like "how do I stop people reusing leaked passwords"
   find _Credential stuffing_, in English or Danish (A75–A78): steps 1, 2 and 7.
   The language model runs on the backend; visitors download nothing.
+- **Feedback form** — a Feedback button (footer and About dialog) whose messages are
+  stored in the database and emailed to the owner through Resend (A100): steps 1, 2 and 8.
 
 Everything below is on free tiers. Roughly 15 minutes per feature.
 
@@ -29,8 +31,9 @@ If you set up step 7, the `backend` workflow runs every migration for you
 
 - **Dashboard:** open **SQL Editor → New query**, paste the whole of each file in
   [`supabase/migrations/`](../supabase/migrations/) in name order
-  (`20260923000000_learner_state.sql`, `20260925000000_term_vectors.sql`, then
-  `20260926000000_search_rate_retention.sql`), and
+  (`20260923000000_learner_state.sql`, `20260925000000_term_vectors.sql`,
+  `20260926000000_search_rate_retention.sql`, `20260926000100_security_hardening.sql`,
+  then `20260928000000_feedback.sql`), and
   **Run**. They are idempotent, so running one twice is harmless — including when the
   workflow later applies them again.
 - **CLI:** from the repo root, `npx supabase login`, `npx supabase link --project-ref <ref>`,
@@ -242,6 +245,54 @@ re-embedded through Workers AI by the workflow. With `CLOUDFLARE_ACCOUNT_ID` +
 `CLOUDFLARE_API_TOKEN` in your environment `npm run embed` uses Workers AI (seconds);
 otherwise it runs the same model locally (~2.3 GB download once, then a few minutes).
 
+## 8. Feedback form (A100)
+
+How it fits together: the site's Feedback dialog posts to the `feedback` Edge Function,
+which validates the message, stores it in `private.feedback` (through
+`public.feedback_submit`, service role only; nobody can read the table through the API)
+and then emails it to `cmaintz@outlook.com` through [Resend](https://resend.com). If the
+email fails, or no Resend key is set, the feedback is still stored and the visitor still
+sees "sent". The `backend` workflow deploys the function whenever it applies the
+migrations (7b/7c: `SUPABASE_PROJECT_REF`, `SUPABASE_ACCESS_TOKEN`,
+`SUPABASE_DB_PASSWORD`); Cloudflare is not needed for it.
+
+1. **Resend account:** sign up at <https://resend.com/signup> **with
+   `cmaintz@outlook.com`** (free plan: 100 emails a day, 3,000 a month). The function
+   sends from `Atlas <onboarding@resend.dev>`, Resend's shared test address, which can
+   deliver **only to the email address of the Resend account itself**, so the account
+   must use the address the feedback goes to. No domain is needed. (To send from your own
+   domain later, verify it under **Domains** and change `FEEDBACK_FROM` in
+   `supabase/functions/feedback/logic.ts`.)
+2. **API key:** **API Keys → Create API key**, name `atlas-feedback`, permission
+   **Sending access** (not Full access), domain **All domains** → create, copy the key
+   (`re_...`, shown once).
+3. **GitHub secret:** **CMaintz/tech-atlas → Settings → Secrets and variables →
+   Actions** (or, better, **Settings → Environments → backend → Environment secrets**, see
+   [SECURITY.md](SECURITY.md#owner-actions-repository-settings-and-dashboards)) →
+   **New secret** `RESEND_API_KEY` = the key. Only the step that copies it into the
+   function receives it. Without it the workflow notes "sends no email" and the function
+   only stores feedback.
+4. **Deploy the function:** **Actions → backend → Run workflow** on `main`. It should log
+   `feedback: ok` (a smoke request with the honeypot filled, so nothing is stored or
+   sent).
+5. **Turn the button on:** repository **variable** `PUBLIC_FEEDBACK_URL` =
+   `https://<ref>.supabase.co/functions/v1/feedback`, then **Actions → deploy → Run
+   workflow**. Until it is set the site shows no Feedback button.
+6. **Check:** send a message from the site. It arrives in the Outlook inbox as
+   `[Atlas feedback] Bug: ...` (look in Junk the first time and mark it "not junk");
+   **Reply** goes to the visitor when they gave an email. In Supabase, **SQL Editor**:
+   `select id, created_at, category, lang, page from private.feedback order by id desc;`.
+
+**Limits:** 5 submissions an hour per client (a hash of the IP, never the address) and 50
+a day in total, counted from the stored rows; beyond that the function answers 429 and
+stores nothing. Message up to 2,000 characters, body up to 16 KB. **Retention:** a daily
+pg_cron job (`atlas-feedback-purge`) deletes rows older than 180 days and clears
+`ip_hash` once a row is 2 days old; the privacy page promises both. Emails in your
+mailbox are yours to delete. **Deletion requests** (the privacy page tells visitors to
+email): `delete from private.feedback where id = <id>;` (find it by date and text), and
+delete the email. Logs (**Edge Functions → feedback → Logs**) carry only statuses such as
+`resend: HTTP 403 (row stored)`, never the message or an email address.
+
 ## Local development
 
 Copy `app/.env.example` to `app/.env` (git-ignored) and fill in the values you want;
@@ -273,4 +324,6 @@ CLOUDFLARE_API_TOKEN=… npm run seed:vectors`.
   their sign-in log. Answer within a month (GDPR Art. 12).
 - **Turning it off:** delete the two `PUBLIC_SUPABASE_*` repository variables and redeploy
   (accounts); delete `PUBLIC_SEMANTIC_SEARCH_URL` and redeploy (search by meaning); delete
-  `SUPABASE_PROJECT_REF` to stop the backend workflow.
+  `SUPABASE_PROJECT_REF` to stop the backend workflow. Delete `PUBLIC_FEEDBACK_URL` and
+  redeploy to hide the Feedback button; delete `RESEND_API_KEY` (GitHub) and run
+  `supabase secrets unset RESEND_API_KEY` to stop the emails.

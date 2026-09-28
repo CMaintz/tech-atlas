@@ -72,13 +72,22 @@ achieves nothing — the value is already public.
   streaming, validated input, per-IP and global daily rate limits in Postgres, one
   upstream deadline, generic error messages, no IPs or secrets in logs, `no-store` and
   `nosniff` on every answer.
+- **`feedback`** (A100) is public the same way: CORS for the site and localhost, a
+  16 KB body cap, validated input (category enum, message <= 2,000 characters, email
+  format), a honeypot, an in-isolate flood filter and, in Postgres, 5 submissions an
+  hour per hashed IP and 50 a day in total. Rows go to `private.feedback` (RLS on, no
+  policies, no grants to `anon`/`authenticated`) only through `feedback_submit`
+  (`security definer`, service role only). Logs carry statuses only, never the message
+  or email. `RESEND_API_KEY` lives only in the function's secrets and the `backend`
+  environment.
 - **Auth**: OAuth providers (GitHub; LinkedIn when enabled, A87) and, when turned on, email magic links — all with **PKCE** — the returned code
   is useless without the verifier this browser generated. Redirects go only to URLs on
   Supabase's allowlist.
 
 Checked live against the project with the public key (A89): `anon` is refused on
 `learner_state` (select and insert), on inserting into `term_vectors` and on calling
-`search_allow`; the `private` schema is not exposed.
+`search_allow`; the `private` schema is not exposed. (`feedback_submit`, A100, has the
+same grants as `search_allow`; not yet checked live.)
 
 ## The site
 
@@ -140,7 +149,8 @@ These can't be done from code. In order of value:
    `backend` environment (created automatically on its first run, or create it now under
    **Settings → Environments → New environment**). Set **Deployment branches and tags →
    Selected branches → `main`**, then move `SUPABASE_ACCESS_TOKEN`,
-   `SUPABASE_DB_PASSWORD`, `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` from
+   `SUPABASE_DB_PASSWORD`, `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN` and
+   `RESEND_API_KEY` (A100) from
    **Repository secrets** into the environment's secrets and delete the repository-level
    copies. Only a job on `main` can then read them.
 3. **Private vulnerability reporting** — **Settings → Security → Private vulnerability

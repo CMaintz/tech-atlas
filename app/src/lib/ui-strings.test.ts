@@ -8,6 +8,7 @@ import * as privacy from './privacy';
 import * as uiExtra from './ui-extra';
 import * as about from './about';
 import * as tour from './tour';
+import * as feedback from './feedback';
 import { FORBIDDEN_DASHES } from './lint-rules';
 
 /** Every string reachable from `value`, with its path. */
@@ -19,7 +20,7 @@ function strings(value: unknown, path: string, out: [string, string][] = []): [s
   return out;
 }
 
-const MODULES = { site, privacy, uiExtra, about, tour };
+const MODULES = { site, privacy, uiExtra, about, tour, feedback };
 
 describe('user-facing strings', () => {
   it('scans a meaningful number of strings', () => {

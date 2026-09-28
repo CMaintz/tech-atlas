@@ -9,7 +9,10 @@ name: backend
 # Skipped entirely until the repository variable SUPABASE_PROJECT_REF is set; its steps
 # are skipped (not failed) until the secrets SUPABASE_ACCESS_TOKEN and
 # SUPABASE_DB_PASSWORD are set, and everything after the migrations until
-# CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN are set. Setup: docs/SUPABASE_SETUP.md.
+# CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN are set. The `feedback` Edge Function
+# (A100) needs no Cloudflare: it is deployed whenever the migrations run, and its secret
+# RESEND_API_KEY is copied into it only when that GitHub secret is set (without it the
+# function stores feedback and sends no email). Setup: docs/SUPABASE_SETUP.md.
 #
 # Secrets (A89): each step gets only the secrets it uses — never the checkout, tool
 # installs or `npm ci` (whose install scripts are third-party code) — and the job runs in
@@ -47,6 +50,7 @@ jobs:
           HAS_DB: ${{ secrets.SUPABASE_ACCESS_TOKEN != '' && secrets.SUPABASE_DB_PASSWORD != '' }}
           HAS_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN != '' }}
           HAS_CLOUDFLARE: ${{ secrets.CLOUDFLARE_ACCOUNT_ID != '' && secrets.CLOUDFLARE_API_TOKEN != '' }}
+          HAS_RESEND: ${{ secrets.RESEND_API_KEY != '' }}
         run: |
           if [ "$HAS_DB" = true ]; then
             echo "db=true" >> "$GITHUB_OUTPUT"
@@ -57,6 +61,11 @@ jobs:
             echo "search=true" >> "$GITHUB_OUTPUT"
           elif [ "$HAS_ACCESS_TOKEN" = true ]; then
             echo "::notice::CLOUDFLARE_ACCOUNT_ID / CLOUDFLARE_API_TOKEN not set — applying migrations only; search by meaning is not deployed."
+          fi
+          if [ "$HAS_DB" = true ] && [ "$HAS_RESEND" = true ]; then
+            echo "resend=true" >> "$GITHUB_OUTPUT"
+          elif [ "$HAS_DB" = true ]; then
+            echo "::notice::RESEND_API_KEY not set — the feedback function stores feedback but sends no email."
           fi
       - if: steps.cfg.outputs.db == 'true'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -75,6 +84,26 @@ jobs:
         run: |
           supabase link --project-ref "$SUPABASE_PROJECT_REF"
           supabase db push --include-all
+      - name: Set the feedback function's secret
+        if: steps.cfg.outputs.resend == 'true'
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: supabase secrets set --project-ref "$SUPABASE_PROJECT_REF" RESEND_API_KEY="$RESEND_API_KEY"
+      - name: Deploy the feedback function
+        if: steps.cfg.outputs.db == 'true'
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: supabase functions deploy feedback --project-ref "$SUPABASE_PROJECT_REF" --no-verify-jwt --use-api
+      - name: Smoke test the feedback function
+        if: steps.cfg.outputs.db == 'true'
+        # A filled honeypot: answered like a real submission, but nothing is stored or sent.
+        env:
+          FEEDBACK_URL: https://${{ vars.SUPABASE_PROJECT_REF }}.supabase.co/functions/v1/feedback
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST "$FEEDBACK_URL"             -H 'Content-Type: application/json'             -d '{"category":"other","message":"smoke test","lang":"en","website":"ci"}')
+          if [ "$code" != 200 ]; then echo "::error::feedback function answered HTTP $code"; exit 1; fi
+          echo "feedback: ok"
       - name: Set function secrets
         if: steps.cfg.outputs.search == 'true'
         env:
