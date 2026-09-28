@@ -37,6 +37,14 @@ export const SEMANTIC_SEARCH_URL: string = (import.meta.env.PUBLIC_SEMANTIC_SEAR
   .trim()
   .replace(/\/+$/, '');
 
+/**
+ * The feedback form (A100) appears only when the build is given the full URL of the
+ * `feedback` Edge Function. Empty = no Feedback button anywhere.
+ */
+export const FEEDBACK_URL: string = (import.meta.env.PUBLIC_FEEDBACK_URL ?? '')
+  .trim()
+  .replace(/\/+$/, '');
+
 export const termUrl = (lang: Lang, id: string) => url(`${lang}/terms/${id}/`);
 
 /** Swap the language segment of the current pathname. */

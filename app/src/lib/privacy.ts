@@ -11,7 +11,7 @@ import type { Lang } from './site';
 
 type T = Record<Lang, string>;
 
-export const UPDATED = '2026-09-25';
+export const UPDATED = '2026-09-28';
 
 export const CONTROLLER = {
   name: 'Christoffer Maintz Andersen',
@@ -25,6 +25,7 @@ export const LINKS = {
   supabase: 'https://supabase.com/privacy',
   cloudflare: 'https://developers.cloudflare.com/workers-ai/platform/privacy/',
   linkedin: 'https://www.linkedin.com/legal/privacy-policy',
+  resend: 'https://resend.com/legal/privacy-policy',
 };
 
 export type StorageItem = {
@@ -134,6 +135,8 @@ export const STORAGE: StorageItem[] = [
 ];
 
 export type DataItem = {
+  /** Anchor on the privacy page, for items linked from elsewhere (e.g. #feedback). */
+  id?: string;
   title: T;
   what: T;
   why: T;
@@ -260,6 +263,30 @@ export const DATA: DataItem[] = [
     },
   },
   {
+    id: 'feedback',
+    title: { en: 'Feedback you send (optional)', da: 'Feedback, du sender (valgfri)' },
+    what: {
+      en: 'What you write in the Feedback form, the type you pick, the page you were on (its address without anything after "?"), the site language and, only if you give it, your email address. To limit abuse, also a scrambled form (SHA-256 hash) of your IP address, never the address itself.',
+      da: 'Det, du skriver i feedbackformularen, den type, du vælger, siden, du var på (adressen uden noget efter "?"), sitets sprog og, kun hvis du oplyser den, din e-mailadresse. For at begrænse misbrug også en omformet udgave (SHA-256-hash) af din IP-adresse, aldrig selve adressen.',
+    },
+    why: {
+      en: 'To fix what you report and improve Atlas, and to answer you if you asked for a reply. The scrambled IP address allows at most 5 messages an hour per visitor.',
+      da: 'For at rette det, du melder, og forbedre Atlas, og for at svare dig, hvis du har bedt om svar. Den omformede IP-adresse tillader højst 5 beskeder i timen pr. besøgende.',
+    },
+    where: {
+      en: 'Our database at Supabase (Frankfurt, EU), in a table that only the feedback function can write to and no visitor can read. A copy is emailed to our mailbox (Microsoft Outlook) through Resend, Inc. (USA), which delivers the email and so sees its content. Please do not put sensitive information in feedback.',
+      da: 'Vores database hos Supabase (Frankfurt, EU), i en tabel, som kun feedbackfunktionen kan skrive i, og som ingen besøgende kan læse. En kopi sendes til vores postkasse (Microsoft Outlook) via Resend, Inc. (USA), som leverer e-mailen og derfor ser indholdet. Skriv venligst ikke følsomme oplysninger i din feedback.',
+    },
+    basis: {
+      en: 'Legitimate interest (Art. 6(1)(f)): improving Atlas from what visitors report, and preventing abuse. Your email address only with your consent (Art. 6(1)(a)), which you give by entering it and can withdraw at any time.',
+      da: 'Legitim interesse (art. 6, stk. 1, litra f): at forbedre Atlas ud fra det, besøgende melder, og at forhindre misbrug. Din e-mailadresse kun med dit samtykke (art. 6, stk. 1, litra a), som du giver ved at skrive den, og som du til enhver tid kan trække tilbage.',
+    },
+    retention: {
+      en: 'Stored feedback is deleted automatically after 180 days; the scrambled IP address is removed from it after 2 days. The email copy is kept in our mailbox as long as needed to handle it; Resend keeps its delivery records for a limited time under its own policy. To have your feedback deleted sooner, email us (tell us roughly when you sent it).',
+      da: 'Gemt feedback slettes automatisk efter 180 dage; den omformede IP-adresse fjernes fra den efter 2 dage. E-mailkopien gemmes i vores postkasse, så længe det er nødvendigt for at behandle den; Resend gemmer sine leveringsoplysninger i en begrænset periode efter sine egne regler. Skriv til os, hvis din feedback skal slettes før (fortæl os cirka, hvornår du sendte den).',
+    },
+  },
+  {
     title: { en: 'Emails you send us', da: 'E-mails, du sender os' },
     what: {
       en: 'Your email address and what you write.',
@@ -295,8 +322,8 @@ export const PROCESSORS: Processor[] = [
   {
     name: 'Supabase, Inc.',
     role: {
-      en: 'Accounts, synced progress and the search function; data stored in Frankfurt (EU). Our data processor.',
-      da: 'Konti, synkroniserede fremskridt og søgefunktionen; data opbevares i Frankfurt (EU). Vores databehandler.',
+      en: 'Accounts, synced progress, the search function and stored feedback; data stored in Frankfurt (EU). Our data processor.',
+      da: 'Konti, synkroniserede fremskridt, søgefunktionen og gemt feedback; data opbevares i Frankfurt (EU). Vores databehandler.',
     },
     link: LINKS.supabase,
   },
@@ -307,6 +334,14 @@ export const PROCESSORS: Processor[] = [
       da: 'Omsætter søgespørgsmål til tal. Modtager kun spørgsmålets tekst, aldrig hvem der spurgte.',
     },
     link: LINKS.cloudflare,
+  },
+  {
+    name: 'Resend, Inc.',
+    role: {
+      en: 'Delivers feedback from the Feedback form to our mailbox (USA). Receives the message, the page and your email address if you gave one.',
+      da: 'Leverer feedback fra feedbackformularen til vores postkasse (USA). Modtager beskeden, siden og din e-mailadresse, hvis du har oplyst den.',
+    },
+    link: LINKS.resend,
   },
   {
     name: 'LinkedIn',
@@ -332,6 +367,7 @@ export const PRIVACY_UI = {
       'Your progress lives in your browser. It leaves it only if you sign in to sync it.',
       'Search questions are sent to our search function without anything that identifies you; your IP address is only used, scrambled, to limit abuse, and deleted within minutes.',
       'Account and synced data are stored in the EU (Frankfurt).',
+      'Feedback you send through the form is stored for 180 days and emailed to us. We only see your email address if you give it.',
     ],
     dataTitle: 'What we process, and why',
     what: 'What',
@@ -377,6 +413,7 @@ export const PRIVACY_UI = {
       'Dine fremskridt ligger i din browser. De forlader den kun, hvis du logger ind for at synkronisere dem.',
       'Søgespørgsmål sendes til vores søgefunktion uden noget, der identificerer dig; din IP-adresse bruges kun, i omformet form, til at begrænse misbrug og slettes efter få minutter.',
       'Konto og synkroniserede data opbevares i EU (Frankfurt).',
+      'Feedback, du sender via formularen, gemmes i 180 dage og sendes til os på e-mail. Vi ser kun din e-mailadresse, hvis du oplyser den.',
     ],
     dataTitle: 'Hvad vi behandler, og hvorfor',
     what: 'Hvad',

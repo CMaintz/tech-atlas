@@ -11,7 +11,7 @@
  *   can be hashed ahead of time; with a hash present browsers would ignore
  *   `'unsafe-inline'`, so Astro is told to emit none (see its render/csp.js).
  * - connect-src: `'self'` + the Supabase project (auth, the learner_state table) and the
- *   semantic-search function — taken from the same PUBLIC_* build variables the client
+ *   semantic-search and feedback functions (A100) — taken from the same PUBLIC_* build variables the client
  *   uses, so an unconfigured build allows no third-party origin at all.
  *
  * Not expressible in a meta policy (browsers ignore them there): `frame-ancestors`,
@@ -39,9 +39,11 @@ export function originOf(value) {
 export function cspConfig(env) {
   const origins = [
     ...new Set(
-      [originOf(env.PUBLIC_SUPABASE_URL), originOf(env.PUBLIC_SEMANTIC_SEARCH_URL)].filter(
-        (o) => o !== null,
-      ),
+      [
+        originOf(env.PUBLIC_SUPABASE_URL),
+        originOf(env.PUBLIC_SEMANTIC_SEARCH_URL),
+        originOf(env.PUBLIC_FEEDBACK_URL),
+      ].filter((o) => o !== null),
     ),
   ];
   return {

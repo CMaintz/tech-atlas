@@ -19,6 +19,11 @@ describe('CSP config (A89)', () => {
     expect(cspConfig({}).directives).toContain("connect-src 'self'");
   });
 
+  it('allows the feedback function origin (A100)', () => {
+    const c = cspConfig({ PUBLIC_FEEDBACK_URL: 'https://fb.supabase.co/functions/v1/feedback' });
+    expect(c.directives).toContain("connect-src 'self' https://fb.supabase.co");
+  });
+
   it('ignores values that are not http(s) URLs', () => {
     expect(originOf('javascript:alert(1)')).toBeNull();
     expect(originOf('not a url')).toBeNull();

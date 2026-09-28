@@ -1,6 +1,7 @@
 import { useId, useRef } from 'preact/hooks';
 import { initials } from '../lib/about';
 import type { AboutProps } from '../lib/about-assets';
+import FeedbackButton from './FeedbackButton';
 
 type Props = AboutProps & {
   /** 'circle': the round "i" button (Explorer corner). 'link': a plain footer link. */
@@ -55,7 +56,14 @@ const Avatar = ({ name, photo, position }: { name: string; photo?: string; posit
  * preventDefault, so the tour and term panel stand down), backdrop click, and focus
  * back on the opener.
  */
-export default function AboutButton({ ui, links, people, version, variant = 'circle' }: Props) {
+export default function AboutButton({
+  ui,
+  links,
+  people,
+  version,
+  feedback,
+  variant = 'circle',
+}: Props) {
   const dialog = useRef<HTMLDialogElement>(null);
   const opener = useRef<HTMLButtonElement>(null);
   const titleId = useId();
@@ -161,7 +169,7 @@ export default function AboutButton({ ui, links, people, version, variant = 'cir
             <p>{ui.aboutBody}</p>
             <p>{ui.aboutBeta}</p>
           </div>
-          {links.length > 0 && (
+          {(links.length > 0 || feedback) && (
             <ul class="flex flex-wrap gap-2">
               {links.map((l) => (
                 <li key={l.id}>
@@ -177,6 +185,11 @@ export default function AboutButton({ ui, links, people, version, variant = 'cir
                   </a>
                 </li>
               ))}
+              {feedback && (
+                <li>
+                  <FeedbackButton {...feedback} variant="pill" />
+                </li>
+              )}
             </ul>
           )}
           <hr class="border-border" />
