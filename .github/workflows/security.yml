@@ -1,0 +1,27 @@
+name: security
+# Foundry v2 security facade: secret scan (gitleaks over full history, .gitleaks.toml),
+# ruleset-guard (a PR that changes a gate-defining file alongside source, in a way that
+# may loosen the gate, needs the `ruleset-change` label) and diff-aware SAST (Semgrep).
+# Branch protection requires `security / security-ok`.
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  security:
+    uses: CMaintz/foundry/.github/workflows/security.yml@99ddc7c59809221828d7205a1f81b85862f313aa # v2.2.0
+    permissions:
+      contents: read
+      pull-requests: read # gitleaks-action lists the PR's commits
+    with:
+      # Gate-defining files. Add a new one here in the same change (Foundry OVERVIEW §7).
+      ruleset_paths: '^(mise\.toml|app/\.habit-hooks/|app/\.jscpd\.json|app/tsconfig\.json|app/\.npmrc|app/\.prettierrc\.json|app/\.prettierignore|\.gitleaks\.toml|\.github/workflows/)'
+      # Production source: the app and its build scripts, and the Edge Functions.
+      source_paths: '^(app/(src|scripts|integrations)|supabase/functions)/'
+      test_paths: '\.(test|spec)\.[jt]sx?$'
+      semgrep_version: '1.178.0'

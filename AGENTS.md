@@ -15,13 +15,23 @@ Invoke verbs, never tools. `mise run gate` is the only authority for "done".
 |---|---|
 | `mise run fix` | Apply mechanically-safe fixes (format). |
 | `mise run lint` | Report style + content-model violations. |
-| `mise run typecheck` | Static type analysis (`astro check`). |
+| `mise run typecheck` | Static type analysis: `astro check` for the app, `deno check` for the Edge Functions (`supabase/functions/**`, incl. `_shared`). |
 | `mise run test` | Unit tests (Vitest) + the production build as a smoke test. No coverage floor yet. |
-| `mise run audit` | Dependency vulnerabilities. |
+| `mise run audit` | Dependency vulnerabilities, registry signatures, secrets in git history. |
 | `mise run gate` | lint -> typecheck -> test -> audit. **Green gate from a clean tree, or it is not done.** |
 
 Rules: pin everything (tool versions in `[tools]`, CI actions by SHA). Never weaken a
 rule to pass it. Work on branches, PR into `main`.
+
+CI is [Foundry](https://github.com/CMaintz/foundry) v2, consumed through its two facades
+(pinned by SHA): `.github/workflows/gate.yml` calls `gate.yml` (stack `ts`,
+`working_directory: app`: the verbs above plus structural smells) and `security.yml`
+calls `security.yml` (gitleaks, ruleset-guard, Semgrep). Structural smells are
+habit-hooks, configured in `app/.habit-hooks/config.toml` with the accepted baseline in
+`app/.habit-hooks/snooze.json`: never edit the baseline by hand; the `bootstrap`
+workflow seeds and prunes it. Changing a gate-defining file (`mise.toml`, the
+workflows, `app/.habit-hooks/`, `.gitleaks.toml`, ...) in the same PR as source needs
+the `ruleset-change` label.
 
 ## The app (`app/`)
 
