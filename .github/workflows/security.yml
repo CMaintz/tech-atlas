@@ -3,10 +3,12 @@ name: security
 # ruleset-guard (a PR that changes a gate-defining file alongside source, in a way that
 # may loosen the gate, needs the `ruleset-change` label) and diff-aware SAST (Semgrep).
 # Branch protection requires `security / security-ok`.
+#
+# PR-only (Foundry OVERVIEW §13): the facade's Semgrep diffs against the PR base
+# (`--baseline-commit`), which a push has no value for. Every change reaches main
+# through a PR, and nothing (deploy/backend) waits on this workflow.
 on:
   pull_request:
-  push:
-    branches: [main]
 permissions:
   contents: read
 concurrency:
