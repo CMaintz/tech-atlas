@@ -17,7 +17,7 @@ Invoke verbs, never tools. `mise run gate` is the only authority for "done".
 | `mise run lint` | Report style + content-model violations. |
 | `mise run typecheck` | Static type analysis: `astro check` for the app, `deno check` for the Edge Functions (`supabase/functions/**`, incl. `_shared`). |
 | `mise run test` | Unit tests (Vitest) + the production build as a smoke test. No coverage floor yet. |
-| `mise run audit` | Dependency vulnerabilities, registry signatures, secrets in git history. |
+| `mise run audit` | Dependency vulnerabilities (ratcheted: high+ fails unless accepted with a reason in `app/.audit-allowlist.json`), registry signatures, secrets in git history. |
 | `mise run gate` | lint -> typecheck -> test -> audit. **Green gate from a clean tree, or it is not done.** |
 
 Rules: pin everything (tool versions in `[tools]`, CI actions by SHA). Never weaken a

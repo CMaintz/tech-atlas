@@ -16,10 +16,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   security:
-    # v2.2.0 ends in startup_failure (its guards job lacks pull-requests: read). Pinned to
-    # the fix commit (CMaintz/foundry fix/facade-permissions-and-ratchet) until it is
-    # released; then re-pin to that release.
-    uses: CMaintz/foundry/.github/workflows/security.yml@5e16845f82440eddb408b7a20d3176db9f15fc55 # v2.2.0 + fix
+    uses: CMaintz/foundry/.github/workflows/security.yml@467d6f5feb6f2d7258d4478f98043570f4da2c6e # v2.3.0
     permissions:
       contents: read
       pull-requests: read # gitleaks-action lists the PR's commits
@@ -27,7 +24,7 @@ jobs:
       # Gate-defining files. Add a new one here in the same change (Foundry OVERVIEW §7).
       # app/package.json holds the verbs' npm scripts; scripts/ holds ruleset_guard.py itself;
       # the allowed-words lists and wordlists are the content lint's allowlists.
-      ruleset_paths: '^(mise\.toml|app/package\.json|scripts/|app/content/allowed-words\.[a-z]+\.txt|app/content/wordlists/|app/\.habit-hooks/|app/\.jscpd\.json|app/tsconfig\.json|app/\.npmrc|app/\.prettierrc\.json|app/\.prettierignore|\.gitleaks\.toml|\.github/workflows/)'
+      ruleset_paths: '^(mise\.toml|app/package\.json|scripts/|app/content/allowed-words\.[a-z]+\.txt|app/content/wordlists/|app/\.audit-allowlist\.json|app/\.habit-hooks/|app/\.jscpd\.json|app/tsconfig\.json|app/\.npmrc|app/\.prettierrc\.json|app/\.prettierignore|\.gitleaks\.toml|\.github/workflows/)'
       # Production source: the app and its build scripts, and the Edge Functions.
       source_paths: '^(app/(src|scripts|integrations)|supabase/functions)/'
       test_paths: '\.(test|spec)\.[jt]sx?$'

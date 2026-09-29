@@ -6,9 +6,7 @@ permissions:
   contents: read
 jobs:
   ratchet:
-    # v2.2.0 fails while the baseline is not on main yet. Pinned to the fix commit
-    # (CMaintz/foundry fix/facade-permissions-and-ratchet) until it is released.
-    uses: CMaintz/foundry/.github/workflows/ratchet-report.yml@5e16845f82440eddb408b7a20d3176db9f15fc55 # v2.2.0 + fix
+    uses: CMaintz/foundry/.github/workflows/ratchet-report.yml@467d6f5feb6f2d7258d4478f98043570f4da2c6e # v2.3.0
     permissions:
       contents: read
       pull-requests: write
