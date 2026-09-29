@@ -1,31 +1,21 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
-import Graph from '../../../components/Graph';
-import KnowledgeStatus from '../../../components/KnowledgeStatus';
-import Quiz from '../../../components/Quiz';
-import {
-  CLUSTER_LABELS,
-  DEEP_UI,
-  DOMAIN_LABELS,
-  FAMILY_LABELS,
-  GRAPH_UI,
-  LANGS,
-  REPO,
-  UI,
-  termUrl,
-  url,
-  type Lang,
-} from '../../../lib/site';
-import { EDGE_LABELS, RELATION_ORDER, pairSlug, relationsOf } from '../../../lib/terms';
+import { LANGS, type Lang } from '../../../lib/site';
+import { relationsOf } from '../../../lib/terms';
 import { loadGraph } from '../../../lib/graph';
-import { FAMILY, prerequisitesOf } from '../../../lib/graph-model';
-import { EDGE_TYPES, type EdgeType } from '../../../schema';
-import { makeLinker } from '../../../lib/autolink';
-import Prose from '../../../components/Prose.astro';
-import { bareName, collisionsOf } from '../../../lib/collisions';
-import { TIER_ORDER, UI_EXTRA } from '../../../lib/ui-extra';
+import { makeLinker, type Segment } from '../../../lib/autolink';
 import { paragraphs } from '../../../lib/term-panel';
+import { FACETS, termJsonLd, type Facet } from '../../../lib/term-page';
+import TermHero from '../../../components/term/TermHero.astro';
+import TermFacets from '../../../components/term/TermFacets.astro';
+import DeepDive from '../../../components/term/DeepDive.astro';
+import LearnFirst from '../../../components/term/LearnFirst.astro';
+import TermRelations from '../../../components/term/TermRelations.astro';
+import ContinueLearning from '../../../components/term/ContinueLearning.astro';
+import Mentions from '../../../components/term/Mentions.astro';
+import CheckYourself from '../../../components/term/CheckYourself.astro';
+import TermConnections from '../../../components/term/TermConnections.astro';
 
 export async function getStaticPaths() {
   const terms = await getCollection('terms');
@@ -35,117 +25,24 @@ export async function getStaticPaths() {
 }
 
 const lang = Astro.params.lang as Lang;
-const ui = UI[lang];
 const { termId } = Astro.props;
 const all = await getCollection('terms');
 const term = all.find((t) => t.id === termId)!;
 const d = term.data;
 const relations = relationsOf(term, all);
-
-// Group relations by type, in a stable reading order.
-const groups = RELATION_ORDER.map((type) => ({
-  type,
-  items: relations.filter((r) => r.type === type),
-})).filter((g) => g.items.length > 0);
-
-// Neighbourhood graph: this term + every directly related term.
-const nodes = new Map([
-  [
-    term.id,
-    { id: term.id, label: d.term[lang], focus: true, domain: d.domain, cluster: d.cluster },
-  ],
-]);
-for (const r of relations) {
-  nodes.set(r.target.id, {
-    id: r.target.id,
-    label: r.target.data.term[lang],
-    focus: false,
-    domain: r.target.data.domain,
-    cluster: r.target.data.cluster,
-  });
-}
-// Edges are drawn in their authored direction (A74): a generated inverse ("unlocks")
-// is turned back into the authored edge ("requires") pointing at this term.
-const authoredType = (r: (typeof relations)[number]): EdgeType =>
-  r.generated
-    ? ((Object.entries(EDGE_TYPES).find(([, m]) => m.inverse === r.type)?.[0] ??
-        r.type) as EdgeType)
-    : (r.type as EdgeType);
-const edges = relations.map((r) => {
-  const type = authoredType(r);
-  return {
-    source: r.generated ? r.target.id : term.id,
-    target: r.generated ? term.id : r.target.id,
-    type,
-    family: FAMILY[type],
-    label: EDGE_LABELS[type]?.[lang] ?? type,
-  };
-});
-
-const facets = ['formal', 'plain', 'inPractice', 'whyItMatters'] as const;
 const graph = await loadGraph();
-const learnFirst = prerequisitesOf(graph, term.id);
 
-// Auto-link other terms in the body — first mention per page (SPEC §4).
+// Auto-link other terms in the body — first mention per page (SPEC §4): the facets,
+// then the technical deep dive (A80), one paragraph per blank-line block.
 const linker = makeLinker(
   all.map((t) => ({ id: t.id, term: t.data.term, aka: t.data.aka })),
   lang,
 );
 const seen = new Set<string>();
 const linked = Object.fromEntries(
-  facets.map((f) => [f, linker.link(d.body[f][lang], { self: term.id, seen })]),
-);
-// Technical deep dive (A80): optional plain text, one paragraph per blank-line block.
+  FACETS.map((f) => [f, linker.link(d.body[f][lang], { self: term.id, seen })]),
+) as Record<Facet, Segment[]>;
 const deepDive = paragraphs(d.deepDive?.[lang]).map((p) => linker.link(p, { self: term.id, seen }));
-const deep = DEEP_UI[lang];
-const editUrl = `${REPO}/edit/main/app/src/content/terms/${term.id}.yaml`;
-
-// Mentions: entries whose prose names this term but that aren't otherwise related (SPEC §6).
-const related = new Set(relations.map((r) => r.target.id));
-const mentionedIn = graph.nodes.filter(
-  (n) => n.id !== term.id && n.mentions.includes(term.id) && !related.has(n.id),
-);
-const aka = d.aka[lang];
-
-// A Collision (ADR-0003): other terms share this bare name — link the Disambiguation page.
-const name = bareName(term.id);
-const collides = collisionsOf(all.map((t) => t.id)).has(name);
-
-// Continue learning (SPEC §7, A73): sources grouped by tier, best tier first.
-const extra = UI_EXTRA[lang];
-const sourceGroups = TIER_ORDER.map((tier) => ({
-  tier,
-  items: d.sources.filter((s) => s.tier === tier),
-})).filter((g) => g.items.length > 0);
-
-// Structured data (A68): schema.org DefinedTerm in the Atlas DefinedTermSet.
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'DefinedTerm',
-  '@id': new URL(termUrl(lang, term.id), Astro.site).href,
-  name: d.term[lang],
-  ...(aka.length ? { alternateName: aka } : {}),
-  description: d.summary[lang],
-  inLanguage: lang,
-  url: new URL(termUrl(lang, term.id), Astro.site).href,
-  inDefinedTermSet: {
-    '@type': 'DefinedTermSet',
-    name: 'Atlas',
-    url: new URL(url(`${lang}/`), Astro.site).href,
-  },
-  license: 'https://creativecommons.org/licenses/by-sa/4.0/',
-};
-
-// Breadcrumb: Index › primary domain (the folder) › cluster — anchors on the home index.
-const primary = term.id.split('/')[0];
-const crumbs = [
-  { href: url(`${lang}/`), label: ui.index },
-  { href: url(`${lang}/#domain-${primary}`), label: DOMAIN_LABELS[primary]?.[lang] ?? primary },
-  {
-    href: url(`${lang}/#cluster-${primary}-${d.cluster}`),
-    label: CLUSTER_LABELS[d.cluster]?.[lang] ?? d.cluster,
-  },
-];
 ---
 
 <Base
@@ -153,249 +50,20 @@ const crumbs = [
   title={d.term[lang]}
   description={d.summary[lang]}
   ogType="article"
-  jsonLd={jsonLd}
+  jsonLd={termJsonLd(term, lang, Astro.site)}
 >
   <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-10" data-term-id={term.id}>
     <div>
-      <nav aria-label={ui.breadcrumb} class="mb-2 text-xs tracking-widest text-subtle uppercase">
-        <ol class="flex flex-wrap items-center gap-x-1.5">
-          {crumbs.map((c, i) => (
-            <li class="flex items-center gap-x-1.5">
-              {i > 0 && <span aria-hidden="true">›</span>}
-              <a
-                class="inline-flex min-h-11 items-center hover:text-fg-soft sm:min-h-0"
-                href={c.href}
-              >
-                {c.label}
-              </a>
-            </li>
-          ))}
-        </ol>
-      </nav>
-      <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
-        <h1 class="text-3xl font-semibold">{d.term[lang]}</h1>
-        <button
-          type="button"
-          data-copy-link
-          data-copied={ui.linkCopied}
-          class="mt-1.5 min-h-11 rounded border border-border px-3 py-1 text-sm text-muted sm:min-h-0 sm:px-2 sm:text-xs hover:border-border-hover hover:text-fg print:hidden"
-        >
-          <span data-label>{ui.copyLink}</span>
-        </button>
-      </div>
-      {aka.length > 0 && (
-        <p class="mt-1 text-sm text-subtle">
-          {ui.aka}: {aka.join(', ')}
-        </p>
-      )}
-      <p class="mt-3 text-lg text-fg-soft">{d.summary[lang]}</p>
-
-      {collides && (
-        <p class="mt-3 text-sm">
-          <a class="text-muted underline hover:text-fg" href={url(`${lang}/terms/${name}/`)}>
-            {ui.otherMeanings.replace('{name}', name.replace(/-/g, ' '))}
-          </a>
-        </p>
-      )}
-
-      {d.draft && (
-        <p class="mt-4 rounded border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900 dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-300">
-          {ui.draft}
-        </p>
-      )}
-
-      {d.article?.[lang] && (
-        <p class="mt-6">
-          <a
-            class="inline-flex min-h-11 items-center text-fg underline hover:text-fg sm:min-h-0"
-            href={url(`${lang}/articles/${term.id}/`)}
-          >
-            {ui.readArticle}
-          </a>
-        </p>
-      )}
-
-      <div class="mt-8 space-y-5" id="facets">
-        {facets.map((f) => (
-          <div>
-            <h2 class="mb-1 text-xs tracking-widest text-subtle uppercase">{ui[f]}</h2>
-            <p class="text-fg-soft">
-              <Prose segments={linked[f]} lang={lang} />
-            </p>
-          </div>
-        ))}
-      </div>
-
-      {deepDive.length > 0 && (
-        <section class="mt-10" id="deep-dive">
-          <h2 class="mb-2 text-xs tracking-widest text-subtle uppercase">{deep.deepDive}</h2>
-          <div class="space-y-4 leading-relaxed text-fg-soft">
-            {deepDive.map((p) => (
-              <p>
-                <Prose segments={p} lang={lang} />
-              </p>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {learnFirst.length > 0 && (
-        <section class="mt-10" id="learn-first">
-          <h2 class="mb-1 text-xs tracking-widest text-subtle uppercase">{ui.learnFirst}</h2>
-          <p class="mb-2 text-sm text-subtle">{ui.learnFirstIntro}</p>
-          <ol class="flex flex-wrap items-center gap-1 text-sm">
-            {learnFirst.map((n, i) => (
-              <li class="flex items-center gap-1">
-                {i > 0 && <span class="text-subtle">→</span>}
-                <a
-                  class="inline-flex min-h-11 items-center rounded border border-border px-2 py-1 text-fg-soft hover:border-border-hover sm:min-h-0"
-                  href={termUrl(lang, n.id)}
-                >
-                  {n.term[lang]}
-                </a>
-              </li>
-            ))}
-            <li class="flex items-center gap-1">
-              <span class="text-subtle">→</span>
-              <span class="rounded border border-border-hover px-2 py-1 text-fg">
-                {d.term[lang]}
-              </span>
-            </li>
-          </ol>
-        </section>
-      )}
-
-      {groups.length > 0 && (
-        <section class="mt-10" id="relationships">
-          <h2 class="mb-3 text-xs tracking-widest text-subtle uppercase">{ui.relationships}</h2>
-          <dl class="space-y-3">
-            {groups.map((g) => (
-              <div>
-                <dt class="text-sm text-muted">{EDGE_LABELS[g.type]?.[lang] ?? g.type}</dt>
-                <dd class="mt-1 flex flex-wrap gap-2">
-                  {g.items.map((r) => (
-                    <a
-                      href={
-                        g.type === 'contrasts-with'
-                          ? url(`${lang}/compare/${pairSlug(term, r.target)}/`)
-                          : termUrl(lang, r.target.id)
-                      }
-                      title={r.why?.[lang]}
-                      class:list={[
-                        'inline-flex min-h-11 items-center rounded border px-2 py-1 text-sm hover:border-border-hover sm:min-h-0',
-                        r.strength === 'primary'
-                          ? 'border-border-hover text-fg'
-                          : 'border-border text-fg-soft',
-                      ]}
-                    >
-                      {r.target.data.term[lang]}
-                    </a>
-                  ))}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-      )}
-
-      <section class="mt-10 rounded border border-border p-4 text-sm" id="continue-learning">
-        <h2 class="text-xs tracking-widest text-muted uppercase">{deep.sourcesFurther}</h2>
-        {sourceGroups.map((g) => (
-          <div class="mt-3">
-            <h3 class="text-xs text-subtle">{extra.tiers[g.tier]}</h3>
-            <ul class="mt-1 list-inside list-disc text-fg-soft">
-              {g.items.map((s) => (
-                <li>
-                  {s.url ? (
-                    <a class="underline-offset-2 hover:text-fg hover:underline" href={s.url}>
-                      {s.title}
-                    </a>
-                  ) : (
-                    s.title
-                  )}
-                  {s.publisher && <span class="text-subtle"> · {s.publisher}</span>}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-        <div class="mt-5 border-t border-border pt-3 text-muted" id="provenance">
-          <h3 class="text-xs tracking-widest text-subtle uppercase">{deep.provenanceTitle}</h3>
-          <p class="mt-1">{d.draft ? deep.provenanceDraft : deep.provenanceReviewed}</p>
-          <p class="mt-2 flex flex-wrap gap-x-4 gap-y-1 print:hidden [&>a]:inline-flex [&>a]:min-h-11 [&>a]:items-center sm:[&>a]:min-h-0">
-            <a class="hover:text-fg-soft hover:underline" href={url(`${lang}/review/`)}>
-              {deep.reviewQueue}
-            </a>
-            <a class="hover:text-fg-soft hover:underline" href={editUrl}>
-              {deep.suggestFix}
-            </a>
-            <a class="hover:text-fg-soft hover:underline" href={url(`api/terms/${term.id}.json`)}>
-              {extra.dataThisTerm}
-            </a>
-          </p>
-        </div>
-      </section>
-      {mentionedIn.length > 0 && (
-        <section class="mt-8" id="mentions">
-          <h2 class="mb-2 text-xs tracking-widest text-subtle uppercase">{ui.mentionedIn}</h2>
-          <div class="flex flex-wrap gap-2">
-            {mentionedIn.map((n) => (
-              <a
-                class="inline-flex min-h-11 items-center rounded border border-dashed border-border px-2 py-1 text-sm text-muted hover:border-border-hover sm:min-h-0"
-                href={termUrl(lang, n.id)}
-              >
-                {n.term[lang]}
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
-
-      <section
-        class="mt-10 space-y-5 rounded border border-border p-4 print:hidden"
-        id="check-yourself"
-      >
-        <h2 class="text-xs tracking-widest text-subtle uppercase">{ui.checkYourself}</h2>
-        <KnowledgeStatus client:only="preact" termId={term.id} ui={{ ...ui }} />
-        <Quiz
-          client:visible
-          lang={lang}
-          graphUrl={url('graph.json')}
-          termBase={url(`${lang}/terms/`)}
-          ui={{ ...ui }}
-          termId={term.id}
-          count={3}
-        />
-      </section>
+      <TermHero lang={lang} term={term} all={all} />
+      <TermFacets lang={lang} linked={linked} />
+      <DeepDive lang={lang} paragraphs={deepDive} />
+      <LearnFirst lang={lang} term={term} graph={graph} />
+      <TermRelations lang={lang} term={term} relations={relations} />
+      <ContinueLearning lang={lang} term={term} />
+      <Mentions lang={lang} term={term} relations={relations} graph={graph} />
+      <CheckYourself lang={lang} termId={term.id} />
     </div>
-    <aside class="mt-10 lg:sticky lg:top-6 lg:mt-0 lg:self-start print:hidden" id="connections">
-      <h2 class="mb-2 text-xs tracking-widest text-subtle uppercase">{ui.connections}</h2>
-      <div class="text-fg">
-        <Graph
-          client:only="preact"
-          nodes={[...nodes.values()]}
-          edges={edges}
-          termBase={url(`${lang}/terms/`)}
-          familyLabels={Object.fromEntries(
-            Object.entries(FAMILY_LABELS).map(([k, v]) => [k, v[lang]]),
-          )}
-          domainLabels={Object.fromEntries(
-            Object.entries(DOMAIN_LABELS).map(([k, v]) => [k, v[lang]]),
-          )}
-          clusterLabels={Object.fromEntries(
-            Object.entries(CLUSTER_LABELS).map(([k, v]) => [k, v[lang]]),
-          )}
-          text={{ ...GRAPH_UI[lang] }}
-        />
-      </div>
-
-      <a
-        class="mt-2 inline-flex min-h-11 items-center text-sm text-muted hover:text-fg sm:min-h-0"
-        href={url(`${lang}/explorer/?focus=${encodeURIComponent(term.id)}`)}
-      >
-        {ui.openExplorer}
-      </a>
-    </aside>
+    <TermConnections lang={lang} term={term} relations={relations} />
   </div>
 </Base>
 

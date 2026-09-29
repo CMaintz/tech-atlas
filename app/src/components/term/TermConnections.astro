@@ -1,0 +1,51 @@
+---
+/** The sidebar: the term's neighbourhood graph (an island) and a link into the Explorer. */
+import Graph from '../Graph';
+import {
+  CLUSTER_LABELS,
+  DOMAIN_LABELS,
+  FAMILY_LABELS,
+  GRAPH_UI,
+  UI,
+  url,
+  type Lang,
+} from '../../lib/site';
+import { termNeighbourhood } from '../../lib/term-page';
+import type { Relation, TermEntry } from '../../lib/terms';
+
+interface Props {
+  lang: Lang;
+  term: TermEntry;
+  relations: Relation[];
+}
+
+const { lang, term, relations } = Astro.props;
+const ui = UI[lang];
+const { nodes, edges } = termNeighbourhood(term, relations, lang);
+/** A label table in this page's language. */
+const inLang = (labels: Record<string, Record<Lang, string>>) =>
+  Object.fromEntries(Object.entries(labels).map(([k, v]) => [k, v[lang]]));
+---
+
+<aside class="mt-10 lg:sticky lg:top-6 lg:mt-0 lg:self-start print:hidden" id="connections">
+  <h2 class="mb-2 text-xs tracking-widest text-subtle uppercase">{ui.connections}</h2>
+  <div class="text-fg">
+    <Graph
+      client:only="preact"
+      nodes={nodes}
+      edges={edges}
+      termBase={url(`${lang}/terms/`)}
+      familyLabels={inLang(FAMILY_LABELS)}
+      domainLabels={inLang(DOMAIN_LABELS)}
+      clusterLabels={inLang(CLUSTER_LABELS)}
+      text={{ ...GRAPH_UI[lang] }}
+    />
+  </div>
+
+  <a
+    class="mt-2 inline-flex min-h-11 items-center text-sm text-muted hover:text-fg sm:min-h-0"
+    href={url(`${lang}/explorer/?focus=${encodeURIComponent(term.id)}`)}
+  >
+    {ui.openExplorer}
+  </a>
+</aside>
