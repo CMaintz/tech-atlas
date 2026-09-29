@@ -1,0 +1,48 @@
+---
+/** The footer: review queue, data, source and licence, privacy, tour, About, feedback, version. */
+import AboutButton from './AboutButton';
+import FeedbackButton from './FeedbackButton';
+import { aboutProps } from '../lib/about-assets';
+import { feedbackProps } from '../lib/feedback-props';
+import { REPO, UI, url, type Lang } from '../lib/site';
+import { UI_EXTRA } from '../lib/ui-extra';
+import { CHANGELOG_URL, VERSION } from '../lib/version';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const ui = UI[lang];
+const extra = UI_EXTRA[lang];
+const feedback = feedbackProps(lang);
+---
+
+<footer
+  class="mx-auto flex w-full max-w-5xl flex-wrap gap-x-5 px-4 pb-[max(2.5rem,env(safe-area-inset-bottom))] text-sm text-subtle sm:gap-y-5 sm:px-6 sm:text-xs print:hidden"
+  data-site-footer
+>
+  <a class="hover:text-fg-soft" href={url(`${lang}/review/`)}>
+    {ui.review}
+  </a>
+  <a class="hover:text-fg-soft" href={url(`${lang}/data/`)}>
+    {extra.data}
+  </a>
+  <a class="hover:text-fg-soft" href={REPO}>
+    {ui.sourceCode}
+  </a>
+  <a class="hover:text-fg-soft" href={`${REPO}/blob/main/CONTENT-LICENSE.md`} rel="license">
+    {extra.licenceFooter}
+  </a>
+  <a class="hover:text-fg-soft" href={url(`${lang}/privacy/`)}>
+    {ui.privacy}
+  </a>
+  <button type="button" class="hover:text-fg-soft" data-tour-start>
+    {ui.tourStart}
+  </button>
+  <AboutButton client:idle variant="link" {...aboutProps(lang)} />
+  {feedback && <FeedbackButton client:idle {...feedback} />}
+  <a class="hover:text-fg-soft" href={CHANGELOG_URL} title={extra.releaseNotes}>
+    {VERSION}
+    <span class="sr-only"> ({extra.releaseNotes})</span>
+  </a>
+</footer>

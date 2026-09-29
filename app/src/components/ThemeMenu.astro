@@ -1,0 +1,71 @@
+---
+/** The header's colour-theme menu (A92): System / Light / Dark. */
+import HeaderMenu from './HeaderMenu.astro';
+import { MENU_ITEM_CLASS } from '../lib/chrome/menu-style';
+import { UI, type Lang } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+const ui = UI[Astro.props.lang];
+const themes = [
+  { value: 'system', label: ui.themeSystem },
+  { value: 'light', label: ui.themeLight },
+  { value: 'dark', label: ui.themeDark },
+] as const;
+---
+
+<HeaderMenu
+  buttonId="theme-button"
+  buttonClass="flex h-11 w-11 items-center justify-center rounded hover:text-fg md:h-auto md:w-auto md:p-1"
+  menuId="theme-menu"
+  label={ui.theme}
+>
+  <Fragment slot="button">
+    {/* Sun in the light theme, moon in the dark one. */}
+    <svg
+      aria-hidden="true"
+      class="dark:hidden"
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+    >
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+    </svg>
+    <svg
+      aria-hidden="true"
+      class="hidden dark:block"
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linejoin="round"
+    >
+      <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path>
+    </svg>
+  </Fragment>
+  {themes.map((t) => (
+    <li role="none">
+      <button
+        type="button"
+        role="menuitemradio"
+        aria-checked={t.value === 'system' ? 'true' : 'false'}
+        tabindex="-1"
+        class={MENU_ITEM_CLASS}
+        data-theme-set={t.value}
+      >
+        <span aria-hidden="true" class="w-3 text-accent" data-check>
+          {t.value === 'system' ? '✓' : ''}
+        </span>
+        {t.label}
+      </button>
+    </li>
+  ))}
+</HeaderMenu>
