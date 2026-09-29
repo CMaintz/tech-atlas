@@ -54,42 +54,32 @@ const TEST_BLOCKS = new Set([
   'afterAll',
 ]);
 
-/** Line numbers (0-based) that hold code, not just whitespace or comments. */
-export function codeLines(code: string): Set<number> {
+/**
+ * Line numbers (0-based) that hold code, not just whitespace or comments: every line
+ * a token of the parsed tree touches (so template literals and JSX are read in
+ * context; comments are trivia and never tokens).
+ */
+export function codeLines(source: ts.SourceFile): Set<number> {
   const lines = new Set<number>();
-  const scanner = ts.createScanner(ts.ScriptTarget.Latest, false, ts.LanguageVariant.JSX, code);
-  const lineOf = lineIndex(code);
-  for (let kind = scanner.scan(); kind !== ts.SyntaxKind.EndOfFileToken; kind = scanner.scan()) {
-    if (isTrivia(kind)) continue;
-    const start = lineOf(scanner.getTokenStart());
-    const end = lineOf(scanner.getTokenEnd() - 1);
-    for (let l = start; l <= end; l++) lines.add(l);
-  }
+  const lineOf = (pos: number) => source.getLineAndCharacterOfPosition(pos).line;
+  const visit = (node: ts.Node): void => {
+    if (node.kind === ts.SyntaxKind.EndOfFileToken) return;
+    const children = node.getChildren(source);
+    if (children.length) return children.forEach(visit);
+    if (ts.isJsxText(node)) return markJsxText(node, source, lines);
+    const start = node.getStart(source);
+    if (node.end > start) for (let l = lineOf(start); l <= lineOf(node.end - 1); l++) lines.add(l);
+  };
+  visit(source);
   return lines;
 }
 
-function isTrivia(kind: ts.SyntaxKind): boolean {
-  return (
-    kind === ts.SyntaxKind.WhitespaceTrivia ||
-    kind === ts.SyntaxKind.NewLineTrivia ||
-    kind === ts.SyntaxKind.SingleLineCommentTrivia ||
-    kind === ts.SyntaxKind.MultiLineCommentTrivia
-  );
-}
-
-function lineIndex(code: string): (pos: number) => number {
-  const starts = [0];
-  for (let i = 0; i < code.length; i++) if (code[i] === '\n') starts.push(i + 1);
-  return (pos) => {
-    let lo = 0;
-    let hi = starts.length - 1;
-    while (lo < hi) {
-      const mid = (lo + hi + 1) >> 1;
-      if (starts[mid] <= pos) lo = mid;
-      else hi = mid - 1;
-    }
-    return lo;
-  };
+/** JSX text spans lines of indentation; only the lines with visible text count. */
+function markJsxText(node: ts.JsxText, source: ts.SourceFile, lines: Set<number>): void {
+  const first = source.getLineAndCharacterOfPosition(node.pos).line;
+  node.text.split('\n').forEach((line, i) => {
+    if (line.trim()) lines.add(first + i);
+  });
 }
 
 function functionName(node: ts.Node): string {
@@ -117,7 +107,7 @@ export function measureCode(code: string, file: string, lineOffset = 0): Functio
   const kind =
     file.endsWith('.tsx') || file.endsWith('.astro') ? ts.ScriptKind.TSX : ts.ScriptKind.TS;
   const source = ts.createSourceFile(file, code, ts.ScriptTarget.Latest, true, kind);
-  const lines = codeLines(code);
+  const lines = codeLines(source);
   const out: FunctionSize[] = [];
   const visit = (node: ts.Node): void => {
     if (FUNCTION_KINDS.has(node.kind) && !isTestBlock(node))

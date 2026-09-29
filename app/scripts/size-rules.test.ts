@@ -1,3 +1,4 @@
+import ts from 'typescript';
 import { describe, expect, it } from 'vitest';
 import {
   astroSegments,
@@ -11,14 +12,27 @@ import {
 const sizes = (code: string, file = 'x.ts') =>
   Object.fromEntries(measureCode(code, file).map((f) => [f.name, f.lines]));
 
+const parse = (code: string, file = 'x.tsx') =>
+  ts.createSourceFile(file, code, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+
 describe('codeLines', () => {
   it('skips blank and comment-only lines', () => {
     const code = ['// a comment', 'const a = 1;', '', '/* block', '   still */', 'a;'].join('\n');
-    expect([...codeLines(code)]).toEqual([1, 5]);
+    expect([...codeLines(parse(code))]).toEqual([1, 5]);
   });
 
   it('counts every line a multi-line string spans', () => {
-    expect(codeLines('const s = `one\n\ntwo`;').size).toBe(3);
+    expect(codeLines(parse('const s = `one\n\ntwo`;')).size).toBe(3);
+  });
+
+  it('reads the code after a template substitution as code, not string', () => {
+    const code = ['const s = `a${b}c`;', '', '// note', 'f();'].join('\n');
+    expect([...codeLines(parse(code))]).toEqual([0, 3]);
+  });
+
+  it('counts JSX text only on lines with visible text', () => {
+    const code = ['<div>', '  hello', '', '  <b />', '</div>;'].join('\n');
+    expect([...codeLines(parse(code))].sort()).toEqual([0, 1, 3, 4]);
   });
 });
 
