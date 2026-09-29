@@ -25,7 +25,9 @@ jobs:
       pull-requests: read # gitleaks-action lists the PR's commits
     with:
       # Gate-defining files. Add a new one here in the same change (Foundry OVERVIEW §7).
-      ruleset_paths: '^(mise\.toml|app/\.habit-hooks/|app/\.jscpd\.json|app/tsconfig\.json|app/\.npmrc|app/\.prettierrc\.json|app/\.prettierignore|\.gitleaks\.toml|\.github/workflows/)'
+      # app/package.json holds the verbs' npm scripts; scripts/ holds ruleset_guard.py itself;
+      # the allowed-words lists and wordlists are the content lint's allowlists.
+      ruleset_paths: '^(mise\.toml|app/package\.json|scripts/|app/content/allowed-words\.[a-z]+\.txt|app/content/wordlists/|app/\.habit-hooks/|app/\.jscpd\.json|app/tsconfig\.json|app/\.npmrc|app/\.prettierrc\.json|app/\.prettierignore|\.gitleaks\.toml|\.github/workflows/)'
       # Production source: the app and its build scripts, and the Edge Functions.
       source_paths: '^(app/(src|scripts|integrations)|supabase/functions)/'
       test_paths: '\.(test|spec)\.[jt]sx?$'
