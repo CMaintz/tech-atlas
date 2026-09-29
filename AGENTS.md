@@ -15,7 +15,7 @@ Invoke verbs, never tools. `mise run gate` is the only authority for "done".
 |---|---|
 | `mise run fix` | Apply mechanically-safe fixes (format). |
 | `mise run lint` | Report style + content-model violations. |
-| `mise run typecheck` | Static type analysis (`astro check`). |
+| `mise run typecheck` | Static type analysis (`astro check` over everything `app/tsconfig.json` includes: `src/`, `scripts/`, `integrations/`, tests; Astro's strict preset). |
 | `mise run test` | Unit tests (Vitest) + the production build as a smoke test. No coverage floor yet. |
 | `mise run audit` | Dependency vulnerabilities. |
 | `mise run gate` | lint -> typecheck -> test -> audit. **Green gate from a clean tree, or it is not done.** |
