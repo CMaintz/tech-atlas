@@ -30,6 +30,11 @@ describe('codeLines', () => {
     expect([...codeLines(parse(code))]).toEqual([0, 3]);
   });
 
+  it('skips doc comments the parser attaches to the tree', () => {
+    const code = ['const o = {', '  /** doc */', '  a: 1,', '};'].join('\n');
+    expect([...codeLines(parse(code))]).toEqual([0, 2, 3]);
+  });
+
   it('counts JSX text only on lines with visible text', () => {
     const code = ['<div>', '  hello', '', '  <b />', '</div>;'].join('\n');
     expect([...codeLines(parse(code))].sort()).toEqual([0, 1, 3, 4]);

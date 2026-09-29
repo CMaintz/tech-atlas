@@ -63,7 +63,7 @@ export function codeLines(source: ts.SourceFile): Set<number> {
   const lines = new Set<number>();
   const lineOf = (pos: number) => source.getLineAndCharacterOfPosition(pos).line;
   const visit = (node: ts.Node): void => {
-    if (node.kind === ts.SyntaxKind.EndOfFileToken) return;
+    if (node.kind === ts.SyntaxKind.EndOfFileToken || isJSDoc(node)) return;
     const children = node.getChildren(source);
     if (children.length) return children.forEach(visit);
     if (ts.isJsxText(node)) return markJsxText(node, source, lines);
@@ -73,6 +73,10 @@ export function codeLines(source: ts.SourceFile): Set<number> {
   visit(source);
   return lines;
 }
+
+/** A `/** … *\/` doc comment, which the parser attaches to the tree as nodes. */
+const isJSDoc = (node: ts.Node): boolean =>
+  node.kind >= ts.SyntaxKind.FirstJSDocNode && node.kind <= ts.SyntaxKind.LastJSDocNode;
 
 /** JSX text spans lines of indentation; only the lines with visible text count. */
 function markJsxText(node: ts.JsxText, source: ts.SourceFile, lines: Set<number>): void {
