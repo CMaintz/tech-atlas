@@ -10,10 +10,6 @@ import { CLUSTER_LABELS, DOMAIN_LABELS, termUrl, url, type Lang } from './site';
 import { EDGE_LABELS, RELATION_ORDER, type Relation, type TermEntry } from './terms';
 import { TIER_ORDER } from './ui-extra';
 
-/** The four facets of a definition, in reading order. */
-export const FACETS = ['formal', 'plain', 'inPractice', 'whyItMatters'] as const;
-export type Facet = (typeof FACETS)[number];
-
 /** Relations grouped by type, in a stable reading order; empty groups are left out. */
 export const relationsByType = (relations: readonly Relation[]) =>
   RELATION_ORDER.map((type) => ({
