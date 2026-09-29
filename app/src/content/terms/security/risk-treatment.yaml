@@ -41,6 +41,51 @@ deepDive:
     ISO 31000:2018 punkt 6.5.3 beskriver, hvad en håndteringsplan bør indeholde: begrundelsen for de valgte muligheder med de forventede gevinster, hvem der er ansvarlig for at godkende og gennemføre planen, de foreslåede handlinger, ressourcer, præstationsmål, begrænsninger, krav til rapportering og overvågning samt tidsplan. I praksis betyder det, at hver håndteret risiko i registret knyttes til navngivne handlinger, en ejer, en frist, en budgetpost og den forventede residuale vurdering, så overvågningen senere kan sammenligne den forventede med den opnåede effekt.
 
     Valget er en cost-benefit-beslutning inden for rammerne af forpligtelser. Lov- og kontraktkrav kan udelukke muligheder helt (et obligatorisk krav kan ikke bare accepteres væk), interessenternes forventninger og etik tæller ved siden af regnestykket over forventet tab, og ISO 31000 påpeger, at håndtering kan skabe nye risici og måske ikke virker som tiltænkt, så håndteringerne selv skal overvåges. Risikohåndtering er ikke det samme som hændelseshåndtering, selv om det engelske synonym risk response lyder beslægtet: Risikohåndtering afgør på forhånd, hvordan en risiko skal håndteres, mens hændelseshåndtering tager sig af noget, der allerede er sket.
+howTo:
+  steps:
+    en:
+      - Take the ranked risks from the assessment and, for each one above the acceptance level, decide with the risk owner whether to reduce, share, avoid or accept it.
+      - For risks you reduce, choose the controls needed from any source and compare them with ISO 27001 Annex A so nothing necessary is missed.
+      - Record in the Statement of Applicability which Annex A controls apply, why, and why any are excluded.
+      - Write a risk treatment plan listing each action with owner, deadline, budget and the expected residual risk.
+      - Have management approve the plan and the risk owners formally accept the residual risks, and keep the signed decision.
+      - For shared risks, check that contracts, supplier terms or cyber insurance actually cover the scenario, and note what stays with you.
+      - Implement the actions, track them in the risk register and report overdue items to management.
+      - Reassess each treated risk after implementation to confirm the control works and the residual risk matches what was expected.
+    da:
+      - Tag de prioriterede risici fra vurderingen, og beslut sammen med risikoejeren for hver risiko over acceptniveauet, om den skal reduceres, deles, undgås eller accepteres.
+      - Vælg de nødvendige kontroller til de risici, der skal reduceres, fra en hvilken som helst kilde, og sammenhold dem med ISO 27001 bilag A, så intet nødvendigt mangler.
+      - Notér i Statement of Applicability (SoA), hvilke kontroller fra bilag A der gælder, hvorfor, og hvorfor eventuelle kontroller er fravalgt.
+      - Udarbejd en risikohåndteringsplan, hvor hver handling har ejer, frist, budget og den forventede restrisiko.
+      - Få ledelsen til at godkende planen og risikoejerne til formelt at acceptere restrisiciene, og gem den underskrevne beslutning.
+      - Tjek ved delte risici, at kontrakter, leverandørvilkår eller cyberforsikring faktisk dækker scenariet, og notér, hvad der stadig ligger hos jer selv.
+      - Gennemfør handlingerne, følg dem i risikoregistret, og rapportér forsinkede punkter til ledelsen.
+      - Vurdér hver håndteret risiko igen efter gennemførelsen for at bekræfte, at kontrollen virker, og at restrisikoen svarer til det forventede.
+  pitfalls:
+    en:
+      - Accepting risks by default without a named owner with authority signing off.
+      - Assuming cyber insurance removes the risk, when it only covers part of the financial loss.
+      - Picking controls straight from Annex A without linking them to a specific risk.
+      - Never checking whether the chosen controls actually reduced the risk.
+    da:
+      - At acceptere risici som standard, uden at en navngiven ejer med mandat skriver under.
+      - At tro, at en cyberforsikring fjerner risikoen, når den kun dækker en del af det økonomiske tab.
+      - At vælge kontroller direkte fra bilag A uden at koble dem til en konkret risiko.
+      - Aldrig at tjekke, om de valgte kontroller faktisk har mindsket risikoen.
+  guides:
+    - title: Vejledning i risikostyring inden for informationssikkerhed (2025)
+      url: https://www.sikkerdigital.dk/Media/639001951976452337/Vejledning%20i%20risikostyring%20inden%20for%20informationssikkerhed%202025.pdf
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: NIST SP 800-39 - Managing Information Security Risk
+      url: https://csrc.nist.gov/pubs/sp/800/39/final
+      publisher: NIST
+      tier: standard
+    - title: Risk management guidance
+      url: https://www.ncsc.gov.uk/collection/risk-management
+      publisher: NCSC UK
+      tier: official-doc
 edges:
   requires: [risk, control, risk-assessment]
   part-of: [risk-management]

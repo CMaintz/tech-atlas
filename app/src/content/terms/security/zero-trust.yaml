@@ -42,6 +42,54 @@ deepDive:
     Til planlægning definerer CISA's Zero Trust Maturity Model 2.0 (2023) fem søjler - identitet, enheder, netværk, applikationer og workloads samt data - med tværgående kapabiliteter for synlighed og analyse, automatisering og orkestrering samt governance og fire modenhedstrin fra Traditional over Initial og Advanced til Optimal. Amerikanske føderale myndigheder blev med OMB M-22-09 (2022) pålagt at bevæge sig mod phishing-resistent MFA, enhedsfortegnelser, krypteret DNS og HTTP og at behandle interne applikationer, som om de var tilgængelige fra internettet.
 
     I praksis er de almindelige første skridt zero trust network access (ZTNA), der erstatter bred VPN-adgang med formidling pr. applikation, betinget adgang, der kombinerer identitet og enhedens compliance, og segmentering, der begrænser øst-vest-trafik. Faldgruberne er velkendte: identitetsudbyderen bliver en koncentration af risiko og skal selv hærdes og overvåges; ældre protokoller som NTLM, SMB-fildeling og OT-systemer modstår håndhævelse pr. forespørgsel; sessionstokens udstedt efter et stærkt tjek kan stjæles og genbruges; og leverandører kalder næsten ethvert adgangsprodukt "zero trust". Modellen afskaffer ikke tillid - den gør hver tillidsbeslutning eksplicit, snæver, kortvarig og logget.
+howTo:
+  steps:
+    en:
+      - Get management backing and name an owner, and plan zero trust as a staged programme over several years rather than a single product purchase.
+      - Map users, devices, applications, data and the flows between them, and choose the most critical resources to protect first.
+      - Assess current maturity for each pillar (identity, devices, networks, applications and workloads, data) with the CISA Zero Trust Maturity Model, and set a target stage.
+      - Make identity the main control point with one identity provider, phishing-resistant MFA and conditional access that checks both the user and the device.
+      - Enrol all devices in device management, and let device health such as patch level and EDR status feed into every access decision.
+      - Replace broad VPN access with per-application access through an access proxy or ZTNA service, starting with a few applications and expanding from there.
+      - Segment the network and restrict east-west traffic, so that reaching one system does not give reach to the rest.
+      - Grant access per session with least privilege and short token lifetimes, and harden and monitor the identity provider itself as a critical asset.
+      - Collect logs from identity, devices and network in one place, measure progress against the target stage every year, and adjust the roadmap.
+    da:
+      - Sikr ledelsens opbakning og udpeg en ejer, og planlæg zero trust som et program i etaper over flere år frem for et enkelt produktkøb.
+      - Kortlæg brugere, enheder, applikationer, data og strømmene imellem dem, og vælg de mest kritiske ressourcer, der skal beskyttes først.
+      - Vurdér den nuværende modenhed for hver søjle (identitet, enheder, netværk, applikationer og workloads, data) med CISA's Zero Trust Maturity Model, og sæt et mål for, hvilket trin I vil nå.
+      - Gør identitet til det centrale kontrolpunkt med én identitetsudbyder, phishing-resistent MFA og betinget adgang, der tjekker både bruger og enhed.
+      - Tilmeld alle enheder i enhedsstyring, og lad enhedens tilstand, fx patchniveau og EDR-status, indgå i hver adgangsbeslutning.
+      - Erstat bred VPN-adgang med adgang pr. applikation via en access proxy eller en ZTNA-tjeneste; start med nogle få applikationer, og udvid derfra.
+      - Segmentér netværket og begræns øst-vest-trafikken, så adgang til ét system ikke giver adgang til resten.
+      - Giv adgang pr. session efter mindste privilegium og med korte token-levetider, og hærd og overvåg selve identitetsudbyderen som et kritisk aktiv.
+      - Saml logs fra identitet, enheder og netværk ét sted, mål fremskridtet mod målet hvert år, og justér køreplanen.
+  pitfalls:
+    en:
+      - Buying a product labelled zero trust and assuming the work is done.
+      - Forgetting legacy systems, OT and file shares that cannot enforce per-request checks, and leaving them as open back doors.
+      - Making the identity provider the single gatekeeper without hardening and monitoring it as a critical asset.
+    da:
+      - At købe et produkt med zero trust på etiketten og tro, at arbejdet dermed er gjort.
+      - At glemme ældre systemer, OT og fildelinger, der ikke kan håndhæve tjek pr. forespørgsel, og lade dem stå som åbne bagdøre.
+      - At gøre identitetsudbyderen til den eneste portvagt uden at hærde og overvåge den som et kritisk aktiv.
+  guides:
+    - title: NIST SP 800-207 - Zero Trust Architecture
+      url: https://csrc.nist.gov/pubs/sp/800/207/final
+      publisher: NIST
+      tier: standard
+    - title: Zero Trust Maturity Model
+      url: https://www.cisa.gov/zero-trust-maturity-model
+      publisher: CISA
+      tier: official-doc
+    - title: Zero trust architecture design principles
+      url: https://www.ncsc.gov.uk/collection/zero-trust-architecture
+      publisher: NCSC UK
+      tier: official-doc
+    - title: NIST SP 1800-35 - Implementing a Zero Trust Architecture
+      url: https://csrc.nist.gov/pubs/sp/1800/35/final
+      publisher: NIST
+      tier: standard
 edges:
   requires:
     - authentication

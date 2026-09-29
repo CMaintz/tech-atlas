@@ -9,6 +9,7 @@ import { paragraphs } from '../../../lib/term-panel';
 import { FACETS, termJsonLd, type Facet } from '../../../lib/term-page';
 import TermHero from '../../../components/term/TermHero.astro';
 import TermFacets from '../../../components/term/TermFacets.astro';
+import TermHowTo from '../../../components/term/TermHowTo.astro';
 import DeepDive from '../../../components/term/DeepDive.astro';
 import LearnFirst from '../../../components/term/LearnFirst.astro';
 import TermRelations from '../../../components/term/TermRelations.astro';
@@ -56,6 +57,7 @@ const deepDive = paragraphs(d.deepDive?.[lang]).map((p) => linker.link(p, { self
     <div>
       <TermHero lang={lang} term={term} all={all} />
       <TermFacets lang={lang} linked={linked} />
+      <TermHowTo lang={lang} term={term} />
       <DeepDive lang={lang} paragraphs={deepDive} />
       <LearnFirst lang={lang} term={term} graph={graph} />
       <TermRelations lang={lang} term={term} relations={relations} />

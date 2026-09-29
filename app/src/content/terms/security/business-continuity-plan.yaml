@@ -41,6 +41,52 @@ deepDive:
     NIST SP 800-34 Rev. 1 skelner mellem BCP'en, der dækker forretningsprocesser, continuity of operations-planen for missionskritiske funktioner, beredskabsplanen for et enkelt informationssystem (ISCP) og disaster recovery-planen for at flytte systemer til et alternativt sted. Den praktiske grænse er, at BCP'en svarer på, hvordan forretningen bliver ved med at arbejde, mens DRP'en svarer på, hvordan IT får systemerne tilbage; målene for genoprettelsestid i DRP'en skal udledes af BCP'en og konsekvensanalysen, ikke omvendt.
 
     Regulering gør det i stigende grad eksplicit. NIS2 artikel 21, stk. 2, litra c, nævner driftskontinuitet, fx backupstyring og disaster recovery, samt krisestyring blandt minimumsforanstaltningerne for styring af cybersikkerhedsrisici, og ISO/IEC 27001:2022 bilag A 5.29 og 5.30 omhandler informationssikkerhed under afbrydelser og IKT-parathed til driftskontinuitet. En typisk svaghed i planer, der afprøves mod cyberangreb, er antagelsen om, at afbrydelsen er lokal og kortvarig, mens ransomware kan fjerne alle systemer, inklusive mail, netværksbaseret telefoni og de dokumenter, planen selv ligger i, i flere uger. Planerne bør derfor findes offline og forudsætte, at identitetstjenester og kommunikationsværktøjer ikke er tilgængelige.
+howTo:
+  steps:
+    en:
+      - Get top management to appoint an owner for business continuity and decide which services, sites and departments the plan must cover.
+      - Run a business impact analysis with each department to find the critical activities, how long each can be disrupted before the harm is unacceptable (MTPD) and a recovery time objective inside that limit.
+      - Map what each critical activity depends on - people, premises, IT systems, data, suppliers and equipment - and assess the likeliest disruptions, including a cyberattack that takes all IT down for weeks.
+      - Choose a workaround for each activity, such as paper forms, pre-printed lists, another site or moving the work to another unit, and agree the minimum service level it must deliver.
+      - Write the plan per activity with activation and stand-down criteria, roles and deputies, action cards, contact lists and a procedure for entering the manual backlog once systems return.
+      - Hand the recovery time objectives to IT so the disaster recovery plan, backups and supplier contracts are designed to meet them.
+      - Keep printed or offline copies where staff can reach them without the network, email or their usual login.
+      - Exercise the plan at least once a year, from a table-top to a live trial of the manual routines, and revise it after every exercise, incident and organisational change.
+    da:
+      - Få topledelsen til at udpege en ejer af driftskontinuiteten og beslutte, hvilke ydelser, lokationer og afdelinger planen skal dække.
+      - Gennemfør en konsekvensanalyse med hver afdeling for at finde de kritiske aktiviteter, hvor længe hver af dem kan være afbrudt, før skaden bliver uacceptabel (MTPD), og et mål for genoprettelsestid inden for den grænse.
+      - Kortlæg, hvad hver kritisk aktivitet afhænger af - medarbejdere, lokaler, IT-systemer, data, leverandører og udstyr - og vurdér de mest sandsynlige afbrydelser, også et cyberangreb, der lægger al IT ned i flere uger.
+      - Vælg en nødprocedure for hver aktivitet, fx papirblanketter, forudprintede lister, et andet sted at arbejde eller at flytte opgaven til en anden enhed, og aftal det minimale serviceniveau, den skal levere.
+      - Skriv planen pr. aktivitet med kriterier for aktivering og afslutning, roller og stedfortrædere, actioncards, kontaktlister og en procedure for at taste det manuelle efterslæb ind, når systemerne er tilbage.
+      - Giv målene for genoprettelsestid videre til IT, så disaster recovery-planen, backup og leverandøraftaler bliver indrettet efter dem.
+      - Hav printede eller offline kopier liggende, hvor medarbejderne kan finde dem uden netværk, mail eller deres sædvanlige login.
+      - Øv planen mindst én gang om året, fra en table-top-øvelse til en rigtig afprøvning af de manuelle rutiner, og revidér den efter hver øvelse, hændelse og organisationsændring.
+  pitfalls:
+    en:
+      - Building the plan around IT systems instead of the business activities that citizens and customers depend on.
+      - Assuming the disruption will be short and local, when ransomware can remove email, phones and the plan itself for weeks.
+      - Forgetting the catch-up work of keying manual records into the restored systems.
+      - Letting IT set the recovery times without the business having decided what it can tolerate.
+    da:
+      - At bygge planen op om IT-systemerne i stedet for de forretningsaktiviteter, borgere og kunder er afhængige af.
+      - At gå ud fra, at afbrydelsen bliver kort og lokal, når ransomware kan fjerne mail, telefoner og selve planen i flere uger.
+      - At glemme arbejdet med at taste de manuelle registreringer ind i de genoprettede systemer bagefter.
+      - At lade IT fastsætte genoprettelsestiderne, uden at forretningen har besluttet, hvad den kan tåle.
+  guides:
+    - title: NIST SP 800-34 Rev. 1 - Contingency Planning Guide for Federal Information Systems
+      url: https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final
+      publisher: NIST
+      tier: standard
+    - title: Kontinuitetsplanlægning - fortsat drift
+      url: https://www.brs.dk/da/redningsberedskab-myndighed/krisestyring2-og-beredskabsplanlagning/kontinuitetsplanlagning/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Beredskabsplaner
+      url: https://www.brs.dk/da/redningsberedskab-myndighed/krisestyring2-og-beredskabsplanlagning/helhedsorienteret-beredskabsplanlagning/beredskabsplaner/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   requires: [business-impact-analysis]
   part-of: [contingency-plan]

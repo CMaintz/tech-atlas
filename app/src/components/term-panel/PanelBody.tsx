@@ -2,6 +2,7 @@ import { neighbourhoodGraph } from '../../lib/term-panel';
 import GraphView from '../Graph';
 import CheckYourself from './CheckYourself';
 import Facets from './Facets';
+import HowToPreview from './HowToPreview';
 import PanelHeading from './PanelHeading';
 import { LearnFirst, Relationships } from './Relations';
 import TermHeader from './TermHeader';
@@ -48,6 +49,7 @@ function PanelSections({ panel }: PartProps) {
     <div class="space-y-6">
       <TermHeader panel={panel} />
       <Facets panel={panel} />
+      <HowToPreview panel={panel} />
       <LearnFirst panel={panel} />
       <Relationships panel={panel} />
       <CheckYourself key={panel.props.id} panel={panel} />

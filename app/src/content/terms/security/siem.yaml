@@ -41,6 +41,54 @@ deepDive:
     De dominerende begrænsninger er økonomiske og driftsmæssige. Licenser afregnes typisk efter indlæst datamængde (GB pr. dag) eller hændelser pr. sekund, hvilket presser organisationer til at fravælge "støjende" kilder - ofte netop dem, man har brug for i en efterforskning. Parsere går stille i stykker, når en leverandør ændrer sit logformat, så en kilde kan se sund ud, mens felterne er tomme. Detection engineering kræver versionsstyring, test mod eksempeldata og kortlægning af dækning mod MITRE ATT&CK. En SIEM med standardregler og uden tuning giver alarmmængde uden indsigt.
 
     Opbevaringstiden styres af efterforskningsbehov og regulering: efterforskning af hændelser kræver rutinemæssigt måneders historik, fordi dwell time måles i uger, mens logs med personoplysninger skal respektere databeskyttelsesforordningens princip om opbevaringsbegrænsning. NIST SP 800-92 (2006) er den klassiske vejledning i logstyring, og ISO/IEC 27002:2022 kontrol 8.15 (logning), 8.16 (overvågningsaktiviteter) og 8.17 (tidssynkronisering) er de sædvanlige ankre. En SIEM er en platform, ikke en funktion: uden en SOC eller vagthavende analytikere til at triagere outputtet er den et dyrt logarkiv.
+howTo:
+  steps:
+    en:
+      - Start from the threats and risks that matter to your organisation and write a prioritised list of detection use cases mapped to MITRE ATT&CK.
+      - Onboard the log sources each use case needs, starting with identity, endpoints, email and internet-facing systems, and check that the fields parse correctly.
+      - Decide who triages alarms and when (an in-house SOC, an MSSP or an on-call rota) and write a response playbook for each use case.
+      - Enable a small set of rules first, run them silently against real data and tune thresholds and exclusions before they page anyone.
+      - Keep detection rules in version control with a description, owner, test data and ATT&CK mapping, and review changes before they go live.
+      - Measure alert volume, false-positive rate and time to triage every month, and tune or retire rules that no one acts on.
+      - Test the detections regularly with attack simulations or purple-team exercises, and again after major changes to sources or parsers.
+      - Review coverage and cost every quarter against new threats, incidents and business changes, and turn lessons from incidents into new use cases.
+    da:
+      - Tag udgangspunkt i de trusler og risici, der betyder noget for organisationen, og skriv en prioriteret liste over detektions-use cases koblet til MITRE ATT&CK.
+      - Tilslut de logkilder, hver use case kræver, begyndende med identitet, endpoints, mail og internetvendte systemer, og kontrollér, at felterne parses korrekt.
+      - Beslut, hvem der triagerer alarmer og hvornår (en intern SOC, en MSSP eller en vagtordning), og skriv en respons-playbook for hver use case.
+      - Slå først et lille udvalg af regler til, lad dem køre i stilhed mod rigtige data, og tun tærskler og undtagelser, før de kalder nogen ud.
+      - Hold detektionsreglerne i versionsstyring med beskrivelse, ejer, testdata og ATT&CK-kobling, og gennemgå ændringer, før de går i drift.
+      - Mål alarmmængde, andel af falske positiver og tid til triage hver måned, og tun eller udfas regler, som ingen handler på.
+      - Test detektionerne jævnligt med angrebssimuleringer eller purple team-øvelser og igen efter større ændringer i kilder eller parsere.
+      - Gennemgå dækning og omkostninger hvert kvartal i lyset af nye trusler, hændelser og forretningsændringer, og omsæt erfaringer fra hændelser til nye use cases.
+  pitfalls:
+    en:
+      - Buying a SIEM without the people to watch and triage its alarms.
+      - Switching on every default rule and drowning analysts in false positives.
+      - Cutting log sources to save licence costs without checking which detections break.
+      - Not noticing when a source or parser breaks silently and a rule stops firing.
+    da:
+      - At købe en SIEM uden folk til at holde øje med og triagere alarmerne.
+      - At slå alle standardregler til og drukne analytikerne i falske positiver.
+      - At skære logkilder fra for at spare licens uden at tjekke, hvilke detektioner der holder op med at virke.
+      - Ikke at opdage, når en kilde eller parser stille går i stykker, og en regel holder op med at slå til.
+  guides:
+    - title: Building a Security Operations Centre (SOC) - Detection
+      url: https://www.ncsc.gov.uk/collection/building-a-security-operations-centre/detection
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Best Practices for Event Logging and Threat Detection
+      url: https://www.cisa.gov/resources-tools/resources/best-practices-event-logging-and-threat-detection
+      publisher: CISA
+      tier: official-doc
+    - title: Best practices for Microsoft Sentinel
+      url: https://learn.microsoft.com/en-us/azure/sentinel/best-practices
+      publisher: Microsoft
+      tier: official-doc
+    - title: MITRE ATT&CK
+      url: https://attack.mitre.org/
+      publisher: MITRE
+      tier: reference
 edges:
   kind-of: [control]
   requires:

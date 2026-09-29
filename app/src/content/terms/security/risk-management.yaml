@@ -41,6 +41,58 @@ deepDive:
     Organisatorisk beskrives ansvaret ofte med Institute of Internal Auditors' Three Lines Model (2020, en revision af den tidligere three lines of defence): Den operationelle ledelse ejer og styrer risikoen, en risiko- eller sikkerhedsfunktion i anden linje fastlægger metoder og udfordrer, og intern revision giver uafhængig sikkerhed. Risikoejerskab bør ligge hos den, der er ansvarlig for forretningsaktiviteten, ikke automatisk hos CISO'en; et register, hvor sikkerhedsteamet ejer alle risici, er et tegn på, at forretningen ikke har påtaget sig ansvaret.
 
     Regulering har gjort god praksis til pligt. NIS2 art. 21, stk. 1, kræver passende og forholdsmæssige tekniske, operationelle og organisatoriske foranstaltninger til at styre risici under hensyn til eksponering, størrelse og hændelsers sandsynlighed og alvor, og art. 20 kræver, at ledelsesorganerne godkender foranstaltningerne, fører tilsyn med gennemførelsen og deltager i uddannelse, med ansvar ved overtrædelser; i Danmark er det gennemført ved NIS2-loven. DORA stiller et tilsvarende krav om en ramme for IKT-risikostyring i den finansielle sektor. Det praktiske modenhedstegn er, om risikovurderingerne faktisk styrer budget- og projektbeslutninger, frem for et register, der opdateres én gang om året til revisoren.
+howTo:
+  steps:
+    en:
+      - Have top management approve a risk management policy that sets scope, roles, the method (for example ISO/IEC 27005) and how often the cycle runs.
+      - Establish the context - business goals, critical processes and legal requirements such as NIS2 and GDPR - and agree criteria for likelihood, consequence and risk acceptance.
+      - Identify risks for each critical process or system and record them in a risk register with a named risk owner from the business.
+      - Analyse and evaluate each risk against the agreed criteria, and rank the list so the highest risks are handled first.
+      - Draw up a risk treatment plan with actions, owners, deadlines and budget, and have management approve it.
+      - Have the risk owners formally accept the residual risk that remains after treatment, and record the decision.
+      - Follow up on actions and key risk indicators, and report status to management at least every quarter.
+      - Repeat the full assessment at planned intervals, at least yearly, and whenever major changes, incidents or new threats occur.
+    da:
+      - Få topledelsen til at godkende en politik for risikostyring, der fastlægger omfang, roller, metode (fx ISO/IEC 27005) og hvor ofte cyklussen gennemløbes.
+      - Fastlæg konteksten - forretningsmål, kritiske processer og lovkrav som NIS2 og GDPR - og aftal kriterier for sandsynlighed, konsekvens og risikoaccept.
+      - Identificér risici for hver kritisk proces eller hvert kritisk system, og registrér dem i et risikoregister med en navngiven risikoejer fra forretningen.
+      - Analysér og evaluér hver risiko mod de aftalte kriterier, og prioritér listen, så de største risici håndteres først.
+      - Udarbejd en risikohåndteringsplan med handlinger, ejere, frister og budget, og få den godkendt af ledelsen.
+      - Lad risikoejerne formelt acceptere den restrisiko, der er tilbage efter håndteringen, og dokumentér beslutningen.
+      - Følg op på handlinger og nøglerisikoindikatorer, og rapportér status til ledelsen mindst hvert kvartal.
+      - Gentag hele vurderingen med planlagte mellemrum, mindst én gang om året, og ved større ændringer, hændelser eller nye trusler.
+  pitfalls:
+    en:
+      - Letting the security team own every risk, so the business never takes responsibility.
+      - A register updated once a year for the auditor but never used in budget decisions.
+      - Scoring without agreed criteria, so results cannot be compared between years or departments.
+    da:
+      - At lade sikkerhedsteamet eje alle risici, så forretningen aldrig tager ansvaret.
+      - Et register, der opdateres én gang om året til revisoren, men aldrig bruges i budgetbeslutninger.
+      - At score uden aftalte kriterier, så resultaterne ikke kan sammenlignes mellem år eller afdelinger.
+  guides:
+    - title: Vejledning i risikostyring inden for informationssikkerhed (2025)
+      url: https://www.sikkerdigital.dk/Media/639001951976452337/Vejledning%20i%20risikostyring%20inden%20for%20informationssikkerhed%202025.pdf
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Introduktion til risikostyring
+      url: https://www.sikkerdigital.dk/myndighed/iso-27001-implementering/risikostyring
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: NIST SP 800-39 - Managing Information Security Risk
+      url: https://csrc.nist.gov/pubs/sp/800/39/final
+      publisher: NIST
+      tier: standard
+    - title: NIST SP 800-37 Rev. 2 - Risk Management Framework for Information Systems and Organizations
+      url: https://csrc.nist.gov/pubs/sp/800/37/r2/final
+      publisher: NIST
+      tier: standard
+    - title: Interoperable EU Risk Management Framework
+      url: https://www.enisa.europa.eu/publications/interoperable-eu-risk-management-framework
+      publisher: ENISA
+      tier: official-doc
 edges:
   requires: [risk, threat, vulnerability]
   part-of: [governance]

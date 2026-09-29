@@ -41,6 +41,61 @@ deepDive:
     Tid er et hovedanliggende. Alle kilder bør synkronisere med en fælles reference via NTP (RFC 5905) eller PTP, logs bør registrere tidsstempler med tidszone eller i UTC, og pipelinen bør bevare både hændelsestidspunktet og indlæsningstidspunktet, fordi urforskydning og forsinket videresendelse ellers ødelægger korrelation og rekonstruktion af tidslinjer. Integritetskontroller omfatter hurtig videresendelse af logs væk fra den oprindelige maskine, lagring i en separat sikkerhedskonto eller tenant, som administratorerne af de overvågede systemer ikke kan ændre i, write-once-lagring (WORM) eller object lock samt hashkæder eller signering til brug som bevis.
 
     De typiske fejl er tavse: en kilde holder op med at sende efter en agentopdatering eller et udløbet certifikat, en ændret parser taber et felt, som detektionsregler afhænger af, eller volumenbaseret licensering får teams til at udelade værdifulde, men støjende kilder som DNS eller procesoprettelse. Overvågning af logkildernes sundhed (seneste modtagelse pr. kilde, forventede volumenintervaller) er derfor en del af selve loghåndteringen. Loghåndtering adskiller sig fra en SIEM, der bruger de håndterede data til at korrelere og slå alarm, og fra observability-platforme, der bruger logs, metrikker og traces primært til driftsstabilitet frem for sikkerhed og ofte gemmer dem i langt kortere tid.
+howTo:
+  steps:
+    en:
+      - Name an owner and write a logging policy that states which questions the logs must answer during an incident and which sources are therefore required.
+      - Start with the priority sources (identity and logins, firewall and VPN, email, DNS, endpoints, cloud audit logs and critical applications) and switch on the relevant audit events.
+      - Synchronise every clock to a common NTP source and record timestamps in UTC or with an explicit time zone.
+      - Forward logs quickly over encrypted channels to a central store in a separate security account that the admins of the logged systems cannot change.
+      - Set retention per source from investigation needs, regulation and GDPR, for example at least 90 days searchable (CIS Safeguard 8.10) and longer in a cheaper archive.
+      - Parse the logs into a common format, and restrict and log access to the logs themselves, since they often contain personal data.
+      - Monitor source health, with the last event received and expected volume per source, and alert when a source goes silent.
+      - Review the policy and sources at least every 6 to 12 months and test that you can actually answer an incident question from the logs.
+    da:
+      - Udpeg en ejer, og skriv en logningspolitik, der angiver, hvilke spørgsmål logs skal kunne besvare under en hændelse, og dermed hvilke kilder der er nødvendige.
+      - Begynd med de vigtigste kilder (identitet og login, firewall og VPN, mail, DNS, endpoints, audit-logs i cloud og kritiske applikationer), og slå de relevante audit-hændelser til.
+      - Synkronisér alle ure med en fælles NTP-kilde, og registrér tidsstempler i UTC eller med en tydelig tidszone.
+      - Send logs hurtigt over krypterede forbindelser til et centralt lager i en separat sikkerhedskonto, som administratorerne af de loggede systemer ikke kan ændre i.
+      - Fastsæt opbevaringstiden pr. kilde ud fra efterforskningsbehov, regulering og GDPR, fx mindst 90 dage søgbart (CIS Safeguard 8.10) og længere i et billigere arkiv.
+      - Pars logs til et fælles format, og begræns og log adgangen til selve logs, da de ofte indeholder personoplysninger.
+      - Overvåg kildernes sundhed med seneste modtagne hændelse og forventet volumen pr. kilde, og slå alarm, når en kilde bliver tavs.
+      - Gennemgå politikken og kilderne mindst hver 6. til 12. måned, og test, at I rent faktisk kan besvare et hændelsesspørgsmål ud fra logs.
+  pitfalls:
+    en:
+      - Keeping logs only on the device that produced them, where an attacker can delete them.
+      - Dropping noisy but valuable sources such as DNS to save licence costs.
+      - Clocks that disagree, so events from different systems cannot be put on one timeline.
+      - Finding out during an incident that a source stopped sending months ago.
+      - Keeping logs with personal data forever because no one set a retention rule.
+    da:
+      - At gemme logs kun på den enhed, der skabte dem, hvor en angriber kan slette dem.
+      - At fravælge støjende, men værdifulde kilder som DNS for at spare licensudgifter.
+      - Ure, der ikke stemmer overens, så hændelser fra forskellige systemer ikke kan lægges på én tidslinje.
+      - At opdage under en hændelse, at en kilde holdt op med at sende for flere måneder siden.
+      - At gemme logs med personoplysninger for evigt, fordi ingen har fastsat en slettefrist.
+  guides:
+    - title: Logning - en del af et godt cyberforsvar
+      url: https://samsik.dk/publikationer/vejledning-logning/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: NIST SP 800-92 Rev. 1 (Initial Public Draft) - Cybersecurity Log Management Planning Guide
+      url: https://csrc.nist.gov/pubs/sp/800/92/r1/ipd
+      publisher: NIST
+      tier: standard
+    - title: CIS Critical Security Controls - Control 8 Audit Log Management
+      url: https://www.cisecurity.org/controls/audit-log-management
+      publisher: Center for Internet Security
+      tier: standard
+    - title: Introduction to logging for security purposes
+      url: https://www.ncsc.gov.uk/guidance/introduction-logging-security-purposes
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Best Practices for Event Logging and Threat Detection
+      url: https://www.cisa.gov/resources-tools/resources/best-practices-event-logging-and-threat-detection
+      publisher: CISA
+      tier: official-doc
 edges:
   requires: [log]
   used-with:

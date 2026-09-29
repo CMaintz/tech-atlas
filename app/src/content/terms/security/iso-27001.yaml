@@ -42,6 +42,53 @@ deepDive:
     Standarden kræver bestemt dokumenteret information frem for et fast dokumentsæt: omfanget, politikken, processerne for risikovurdering og risikohåndtering, SoA'en, målene, dokumentation for kompetencer, planlægning af driften, resultaterne af risikovurdering og -håndtering, overvågningsresultater, auditprogrammet og auditresultaterne, resultaterne af ledelsens evaluering samt registrering af afvigelser og korrigerende handlinger. Certificering udføres af organer, der er akkrediteret efter ISO/IEC 17021-1 og ISO/IEC 27006 (i Danmark af DANAK); den første audit forløber i to trin, og afvigelser klassificeres som større eller mindre, hvor en større afvigelse blokerer certificeringen, indtil den er rettet.
 
     Hyppige fejl er for snævre omfang, en risikometode, hvis resultater ikke kan genskabes, fravalg i SoA'en begrundet med "ikke relevant" uden risikomæssig begrundelse, og interne audits udført af dem, der selv driver kontrollerne, hvilket undergraver den objektivitet, 9.2 kræver. I forhold til NIS2 er standarden frivillig og tavs om lovbestemte frister som den tidlige varsling inden for 24 timer; i forhold til NIST CSF foreskriver den et ledelsessystem frem for et katalog af ønskede resultater; og i forhold til ISO/IEC 27002 siger den, hvad der skal gøres, mens 27002 forklarer, hvordan hver kontrol kan gennemføres.
+howTo:
+  steps:
+    en:
+      - Get top management to sponsor the ISMS, name an owner such as an information security coordinator, and set up a security committee that meets regularly.
+      - Map the context and interested parties (clauses 4.1-4.2) and write a scope statement naming the units, locations and systems the ISMS covers (4.3).
+      - Choose a documented risk assessment method, build an asset and risk register, and have risk owners approve the treatment plan and the residual risks (6.1.2-6.1.3).
+      - Select the controls the risks call for, compare them with the 93 controls in Annex A, and record every choice and justification in a Statement of Applicability approved by management.
+      - Write the information security policy (5.2) and the topic-specific policies and procedures, then implement the controls with owners, deadlines and staff training.
+      - Measure whether the controls work, run an internal audit by someone independent of the audited area (9.2), and hold a management review (9.3) with recorded decisions.
+      - Fix nonconformities with root-cause analysis and corrective actions; if you want a certificate, book a certification body accredited by DANAK or another IAF member for the stage 1 and stage 2 audits.
+      - Run the cycle every year - risk assessment, internal audit, management review and SoA update - since a certificate lasts three years with annual surveillance audits.
+    da:
+      - Få den øverste ledelse til at stå bag ISMS'et, udpeg en ansvarlig, fx en informationssikkerhedskoordinator, og nedsæt et sikkerhedsudvalg, der mødes fast.
+      - Kortlæg konteksten og interessenterne (afsnit 4.1-4.2), og skriv en afgrænsning, der nævner de enheder, lokationer og systemer, ISMS'et dækker (4.3).
+      - Vælg en dokumenteret metode til risikovurdering, opbyg et aktiv- og risikoregister, og lad risikoejerne godkende håndteringsplanen og de resterende risici (6.1.2-6.1.3).
+      - Vælg de kontroller, risiciene kræver, sammenhold dem med de 93 kontroller i anneks A, og dokumentér alle valg og begrundelser i en Statement of Applicability, som ledelsen godkender.
+      - Skriv informationssikkerhedspolitikken (5.2) og de emnespecifikke politikker og procedurer, og gennemfør derefter kontrollerne med ejere, frister og uddannelse af medarbejderne.
+      - Mål, om kontrollerne virker, få en intern audit udført af en, der er uafhængig af det auditerede område (9.2), og hold ledelsens evaluering (9.3) med referat af beslutningerne.
+      - Ret afvigelser med årsagsanalyse og korrigerende handlinger; ønsker I et certifikat, så book et certificeringsorgan akkrediteret af DANAK eller et andet IAF-medlem til audit i trin 1 og trin 2.
+      - Hold cyklussen kørende hvert år - risikovurdering, intern audit, ledelsens evaluering og opdatering af SoA'en - for et certifikat gælder i tre år med årlige overvågningsaudits.
+  pitfalls:
+    en:
+      - Writing a pack of documents before the risk assessment, so controls are copied from Annex A instead of chosen for real risks.
+      - Drawing the scope so narrowly that the systems customers and authorities care about fall outside it.
+      - Letting the people who run the controls audit themselves, which breaks the objectivity clause 9.2 requires.
+      - Treating the certificate as the finish line and letting the ISMS go quiet between surveillance audits.
+    da:
+      - At skrive en stak dokumenter før risikovurderingen, så kontrollerne bliver kopieret fra anneks A i stedet for at blive valgt ud fra reelle risici.
+      - At afgrænse omfanget så snævert, at de systemer, kunder og myndigheder går op i, falder udenfor.
+      - At lade dem, der driver kontrollerne, auditere sig selv, hvilket bryder med den objektivitet, afsnit 9.2 kræver.
+      - At se certifikatet som målstregen og lade ISMS'et gå i stå mellem overvågningsaudits.
+  guides:
+    - title: ISO 27001 implementering - her finder du overblik og hjælp
+      url: https://sikkerdigital.dk/myndighed/iso-27001-implementering
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Ledelsessystem for informationssikkerhed (ISMS)
+      url: https://sikkerdigital.dk/myndighed/iso-27001-implementering/forstaa-arbejdet-med-informationssikkerhed/ledelsessystem
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Vejledning i risikostyring inden for informationssikkerhed (2025)
+      url: https://sikkerdigital.dk/Media/639001951976452337/Vejledning%20i%20risikostyring%20inden%20for%20informationssikkerhed%202025.pdf
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   kind-of: [security-framework]
   mandates:

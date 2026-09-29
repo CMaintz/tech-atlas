@@ -42,6 +42,58 @@ deepDive:
     Teknisk bygger opdagelse og analyse på korreleret telemetri fra SIEM, EDR, identitetsudbyderen og netværkslogs, triage efter en alvorlighedsskala og afgrænsning ved at søge efter kompromitteringsindikatorer og angriberteknikker i hele miljøet. Beviser indsamles i rækkefølge efter flygtighed som beskrevet i RFC 3227 (hukommelse, netværkstilstand og kørende processer før disk), med hashværdier og en dokumenteret kæde for håndtering af beviser, hvis retsforfølgning er mulig. Valg af inddæmning er afvejninger: at isolere en maskine med EDR bevarer den til forensisk analyse, mens at trække strømmen sletter hukommelsen; at nulstille en kompromitteret konto, før man forstår angriberens fodfæste, kan advare angriberen og udløse ødelæggende handlinger. Fjernelsen skal omfatte ethvert fodfæste, herunder planlagte opgaver, web shells, nye konti, OAuth-samtykker og efter kompromittering af domænet krbtgt-nøglen, der nulstilles to gange.
 
     Hændelseshåndtering adskiller sig fra sine naboer. Krisestyring er ledelseslaget, der træffer forretningsbeslutninger omkring hændelsen, driftskontinuitet holder driften i gang imens, og disaster recovery genopretter teknikken efter omfattende tab. Indberetning til myndigheder efter NIS2, databeskyttelsesforordningen eller DORA er en af de forpligtelser, der håndteres inden for hændelseshåndteringen. I praksis bruger mange danske organisationer en ekstern incident response-leverandør på retainer, og aktiveringsproceduren, kontaktoplysningerne og den forhåndsaftalte adgang skal være en del af forberedelsen.
+howTo:
+  steps:
+    en:
+      - Get management to approve an incident response policy that defines what counts as an incident, the severity levels and who may decide to isolate systems or shut services down.
+      - Name an incident lead, deputies and a core team from IT, security, legal, communications and management, and keep an offline contact list that includes your external IR retainer and the police.
+      - Prepare playbooks for the likeliest scenarios, such as ransomware, a compromised account and a data leak, and make sure logs from SIEM, EDR and identity systems are kept long enough to investigate.
+      - When an alert comes in, triage it against the severity scale, open an incident record and keep a timestamped log of every observation, decision and action from the first minute.
+      - Contain the attack by isolating affected hosts and accounts, and secure logs, memory and disk images before anything is wiped or reinstalled.
+      - Check reporting duties early and give one person the job - an NIS2 early warning within 24 hours of becoming aware of a significant incident, and a GDPR notification to Datatilsynet within 72 hours if personal data is hit.
+      - Remove every foothold the attacker left, restore from clean backups, reset credentials and monitor closely before declaring a return to normal operation.
+      - Hold a lessons-learned review within a few weeks, turn the findings into actions with owners and deadlines, and update the plan and playbooks.
+      - Test the plan at least once a year with a table-top exercise, and again after major changes in systems, suppliers or organisation.
+    da:
+      - Få ledelsen til at godkende en politik for hændelseshåndtering, der fastlægger, hvad der er en hændelse, hvilke alvorlighedsniveauer der findes, og hvem der må beslutte at isolere systemer eller lukke tjenester.
+      - Udpeg en hændelsesansvarlig, stedfortrædere og et kerneteam fra IT, sikkerhed, jura, kommunikation og ledelse, og hav en offline kontaktliste med jeres eksterne incident response-leverandør og politiet.
+      - Lav playbooks for de mest sandsynlige scenarier som ransomware, en kompromitteret konto og et datalæk, og sørg for, at logs fra SIEM, EDR og identitetssystemer gemmes længe nok til en undersøgelse.
+      - Når en alarm kommer ind, så vurdér den efter alvorlighedsskalaen, opret en hændelsessag og før en tidsstemplet log over alle observationer, beslutninger og handlinger fra første minut.
+      - Inddæm angrebet ved at isolere ramte maskiner og konti, og sikr logs, hukommelse og diskimages, før noget slettes eller geninstalleres.
+      - Afklar tidligt, hvad der skal indberettes, og giv én person opgaven - tidlig varsling efter NIS2 inden 24 timer, efter at I er blevet bekendt med en væsentlig hændelse, og anmeldelse til Datatilsynet inden 72 timer, hvis personoplysninger er ramt.
+      - Fjern alle angriberens fodfæster, gendan fra rene backups, nulstil adgangsoplysninger og overvåg tæt, før I erklærer, at driften er normal igen.
+      - Hold en evaluering inden for få uger, gør erfaringerne til handlinger med ansvarlige og frister, og opdatér planen og playbooks.
+      - Afprøv planen mindst én gang om året med en table-top-øvelse og igen efter større ændringer i systemer, leverandører eller organisation.
+  pitfalls:
+    en:
+      - Keeping the plan only on the network drive or in email, so it disappears together with everything else when ransomware hits.
+      - Wiping and reinstalling infected machines before logs and evidence are secured, so the cause and scope can never be established.
+      - Resetting passwords or blocking the attacker before the full scope is known, which tips them off and leaves backdoors in place.
+      - Losing track of the reporting deadlines to authorities in the middle of the technical work.
+    da:
+      - At have planen liggende kun på netværksdrevet eller i mailen, så den forsvinder sammen med alt det andet, når ransomware rammer.
+      - At slette og geninstallere ramte maskiner, før logs og beviser er sikret, så årsagen og omfanget aldrig kan fastlægges.
+      - At nulstille adgangskoder eller blokere angriberen, før det fulde omfang er kendt, så angriberen bliver advaret og bagdøre bliver stående.
+      - At miste overblikket over fristerne for indberetning til myndighederne midt i det tekniske arbejde.
+  guides:
+    - title: NIST SP 800-61 Rev. 3 - Incident Response Recommendations and Considerations for Cybersecurity Risk Management - A CSF 2.0 Community Profile
+      url: https://csrc.nist.gov/pubs/sp/800/61/r3/final
+      publisher: NIST
+      tier: standard
+    - title: Incident management
+      url: https://www.ncsc.gov.uk/collection/incident-management
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Gå fra panik til handling - brug nødplan ved cyberangreb
+      url: https://www.sikkerdigital.dk/virksomhed/naar-skaden-er-sket/noedplan-ved-cyberangreb-
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Minimer skaden og stop angrebet
+      url: https://www.sikkerdigital.dk/virksomhed/naar-skaden-er-sket/minimer-skaden-og-stop-angrebet
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   requires: [threat]
   used-with:

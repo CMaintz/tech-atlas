@@ -147,6 +147,19 @@ export const paragraphs = (text: string | undefined): string[] =>
     .filter(Boolean);
 
 /**
+ * A howTo's guides for a reader of `lang` (A101): guides in the reader's language first,
+ * otherwise in authored order; `other` marks a guide in the other language. A guide
+ * without `lang` is in English.
+ */
+export function guidesFor<G extends { lang?: 'en' | 'da' }>(
+  guides: readonly G[],
+  lang: 'en' | 'da',
+): (G & { other: boolean })[] {
+  const marked = guides.map((g) => ({ ...g, other: (g.lang ?? 'en') !== lang }));
+  return [...marked.filter((g) => !g.other), ...marked.filter((g) => g.other)];
+}
+
+/**
  * The anchor term's connections as one list, in the order the relationships list shows
  * them (group by group). A term under two types appears twice, so a position is an index
  * into this list, never a lookup by id. Ids `known` rejects (not on the map) are skipped.
