@@ -20,7 +20,7 @@ function useRestoreFocus(root: RefObject<HTMLElement>) {
  * Whether an Escape press is the panel's: not while a tour card or a map popover (the
  * Explorer's control bar) is open, and not when typed in a field elsewhere on the page.
  */
-function escapeIsPanels(e: KeyboardEvent, root: HTMLElement | null): boolean {
+function panelOwnsEscape(e: KeyboardEvent, root: HTMLElement | null): boolean {
   if (e.key !== 'Escape' || e.defaultPrevented) return false;
   if (document.querySelector('[data-tour-overlay]')) return false;
   if (document.querySelector('[data-map-popover]')) return false;
@@ -43,7 +43,7 @@ function useEscape(
 ) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (!escapeIsPanels(e, root.current)) return;
+      if (!panelOwnsEscape(e, root.current)) return;
       e.preventDefault();
       if (expanded) collapse();
       else onClose();

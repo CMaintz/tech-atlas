@@ -1,10 +1,8 @@
 import { useRef, useState } from 'preact/hooks';
 import { tabKeyTarget } from '../../lib/key-intent';
+import { FACETS, type Facet } from '../../lib/term-panel';
 import PanelHeading from './PanelHeading';
 import type { PartProps } from './types';
-
-const FACETS = ['formal', 'plain', 'inPractice', 'whyItMatters'] as const;
-type Facet = (typeof FACETS)[number];
 
 /** One facet's text; a placeholder while the record loads, or the load error. */
 function FacetText({ panel, facet }: PartProps & { facet: Facet }) {

@@ -7,6 +7,10 @@
 import type { Graph, GraphLink, GraphNode } from './graph-model';
 import type { ExportEdge, ExportTerm } from './export';
 
+/** The four facets of a definition, in reading order. */
+export const FACETS = ['formal', 'plain', 'inPractice', 'whyItMatters'] as const;
+export type Facet = (typeof FACETS)[number];
+
 export type PanelRelation = { type: string; id: string };
 export type PanelRelationGroup = { type: string; ids: string[] };
 
