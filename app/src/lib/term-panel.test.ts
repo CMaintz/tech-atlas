@@ -13,6 +13,7 @@ import {
   neighbourhoodGraph,
   paragraphs,
   relationGroups,
+  relationReasons,
   termFromSearch,
   withTermParam,
 } from './term-panel';
@@ -92,6 +93,17 @@ describe('neighbourIds / neighbourhoodGraph', () => {
       { source: 'a', target: 'b', type: 'requires', family: 'structure', label: 'Forudsætter' },
       { source: 'b', target: 'c', type: 'used-with', family: 'structure', label: 'used-with' },
     ]);
+  });
+});
+
+describe('relationReasons', () => {
+  it('keys each authored reason by type and target, skipping edges without one', () => {
+    const why = { en: 'because', da: 'fordi' };
+    const edges = [
+      { type: 'requires' as const, to: 'b', why, confidence: 'high', strength: 'primary' },
+      { type: 'requires' as const, to: 'c', confidence: 'high', strength: 'primary' },
+    ];
+    expect([...relationReasons(edges)]).toEqual([['requires|b', why]]);
   });
 });
 
