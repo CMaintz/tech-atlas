@@ -1,0 +1,13 @@
+---
+/** A bordered link that reads as a button, e.g. the home page's "Random term" row. */
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'a'>;
+---
+
+<a
+  {...Astro.props}
+  class="inline-flex min-h-11 items-center rounded border border-border-strong px-3 py-1.5 text-fg-soft hover:border-border-hover hover:text-fg sm:min-h-0"
+>
+  <slot />
+</a>
