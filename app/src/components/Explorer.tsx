@@ -155,7 +155,7 @@ export default function Explorer(props: Props) {
     return () => mq.removeEventListener('change', on);
   }, []);
   const bar = useRef<HTMLDivElement>(null);
-  /** The space the bar is centred in (between the legend and the "i"). */
+  /** The space the bar is centred in (clear of the About "i"). */
   const slot = useRef<HTMLDivElement>(null);
   const [barSize, setBarSize] = useState<BarSize>('full');
   // Start from the fullest bar whenever the space (or what the bar holds) changes...
@@ -445,7 +445,7 @@ export default function Explorer(props: Props) {
     return () => nav.destroy();
   }, []);
   useEffect(() => map3d?.spin(spin), [map3d, spin]);
-  useEffect(() => setBarSize('full'), [mode, legendOpen, lang]);
+  useEffect(() => setBarSize('full'), [mode, lang]);
   useEffect(() => map3d?.retheme(theme), [map3d, theme]);
   useEffect(() => {
     onPoint(null);
@@ -894,15 +894,14 @@ export default function Explorer(props: Props) {
 
       {/*
         The control bar: one compact row (dot-only domain chips, a search icon) centred over
-        the top of the map. Equal insets keep it clear of the collapsed legend (top-left,
-        also in Danish) and the About "i" (top-right); while the legend is open the bar
-        sits right of it. It never moves when the term panel opens, which simply sits above
-        it. On phones it condenses to 2D/3D and a "Controls" sheet, and the legend sits
-        below it.
+        the top of the map. Equal insets keep it centred and clear of the About "i"
+        (top-right); the legend lives bottom-left, so the bar has the full width. It never
+        moves when the term panel opens, which simply sits above it. On phones it condenses
+        to 2D/3D and a "Controls" sheet.
       */}
       <div
         ref={slot}
-        class={`pointer-events-none absolute top-3 right-14 left-14 z-20 flex flex-col items-center gap-1.5 md:right-36 ${legendOpen ? 'md:left-(--xp-legend-open)' : 'md:left-(--xp-legend)'}`}
+        class="pointer-events-none absolute top-3 right-14 left-14 z-20 flex flex-col items-center gap-1.5"
       >
         <div
           ref={bar}
@@ -976,9 +975,15 @@ export default function Explorer(props: Props) {
         )}
       </div>
 
-      {/* The legend: a collapsible box top-left of the map (below the bar on phones). */}
+      {/*
+        The legend: a pill bottom-left of the map that opens upward (A93b), so it never
+        meets the bar. From md it sits right of the fixed BETA corner ribbon (8rem square).
+      */}
       {visible && (
-        <div class="absolute top-16 left-3 z-10 md:top-3" data-explorer-legend>
+        <div
+          class={`absolute bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-[max(0.75rem,env(safe-area-inset-left))] z-10 md:left-[8.5rem] ${pop === 'sheet' ? 'invisible' : ''}`}
+          data-explorer-legend
+        >
           <GraphLegend
             nodes={legendNodes}
             families={allFamilies.filter((f) => families.has(f))}
@@ -990,6 +995,7 @@ export default function Explorer(props: Props) {
             text={props.graphUi}
             open={legendOpen}
             onToggle={onLegendToggle}
+            upward
             hint={mode === '3d' ? props.graphUi.keys3d : props.graphUi.keys2d}
           />
         </div>
