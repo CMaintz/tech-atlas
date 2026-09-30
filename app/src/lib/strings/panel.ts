@@ -1,0 +1,53 @@
+import type { Lang } from '../lang';
+
+/** The Explorer's term panel (A80). `da` must carry every key `en` has. */
+const PANEL_EN = {
+  panelExpandLabel: 'Expand the panel to fill the page',
+  panelCollapseLabel: 'Return the panel to the side of the map',
+  panelClose: 'Close the panel',
+  readMore: 'Read more →',
+  readMoreLabel: 'Read the full entry, with the technical deep dive and sources',
+  facets: 'Definitions',
+  loadError: 'Could not load the details of this term.',
+  noRelations: 'No relationships yet.',
+  quickQuiz: 'Quick quiz',
+  historyBack: 'Back to the previous term you viewed (Alt+←)',
+  historyForward: 'Forward to the next term you viewed (Alt+→)',
+  connectionsOf: 'Connections of {name}',
+  connectionCount: '{n} connections',
+  connectionCountOne: '1 connection',
+  cyclePosition: '{i} of {n} · {type}',
+  prevConnectionLabel: 'Previous connection of {name} (←)',
+  nextConnectionLabel: 'Next connection of {name} (→)',
+  returnTo: 'Return to {name}',
+  howTo: 'How to',
+  howToMore: 'All steps and guides →',
+  howToMoreLabel: 'See every step, the common pitfalls and good guides on the term page',
+} as const;
+
+export const PANEL_UI: Record<Lang, Record<keyof typeof PANEL_EN, string>> = {
+  en: PANEL_EN,
+  da: {
+    panelExpandLabel: 'Udvid panelet til hele siden',
+    panelCollapseLabel: 'Sæt panelet tilbage ved siden af kortet',
+    panelClose: 'Luk panelet',
+    readMore: 'Læs mere →',
+    readMoreLabel: 'Læs hele opslaget med den tekniske uddybning og kilderne',
+    facets: 'Definitioner',
+    loadError: 'Detaljerne om dette begreb kunne ikke hentes.',
+    noRelations: 'Ingen relationer endnu.',
+    quickQuiz: 'Hurtig quiz',
+    historyBack: 'Tilbage til det forrige begreb, du så (Alt+←)',
+    historyForward: 'Frem til det næste begreb, du så (Alt+→)',
+    connectionsOf: 'Forbindelser for {name}',
+    connectionCount: '{n} forbindelser',
+    connectionCountOne: '1 forbindelse',
+    cyclePosition: '{i} af {n} · {type}',
+    prevConnectionLabel: 'Forrige forbindelse for {name} (←)',
+    nextConnectionLabel: 'Næste forbindelse for {name} (→)',
+    returnTo: 'Tilbage til {name}',
+    howTo: 'Sådan gør du',
+    howToMore: 'Alle trin og vejledninger →',
+    howToMoreLabel: 'Se alle trin, de typiske faldgruber og gode vejledninger på begrebets side',
+  },
+};

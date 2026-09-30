@@ -41,6 +41,50 @@ deepDive:
     Effektivitet afhænger mere af livscyklusdisciplin end af ordlyd. En politik, der skrives, godkendes og derefter aldrig genbesøges, bliver en "papirpolitik" - til stede ved audit, men afkoblet fra praksis, hvilket vel er værre end ingen, fordi den skaber falsk tryghed og efter en hændelse udgør bevis for en kendt, men ignoreret kontrol. God praksis knytter hver politik til en navngiven ejer, en revisionsdato (ofte årlig eller ved væsentlig ændring), versionsstyring, en registrering af medarbejdernes accept og målbar efterlevelse, så undtagelser formelt anmodes om, risikovurderes og tidsbegrænses frem for at blive stiltiende tolereret.
 
     To misforståelser går igen. For det første at mere politik er bedre: et alt for langt, ulæseligt politiksæt sænker efterlevelsen, fordi medarbejderne ikke kan finde eller rumme det, så korthed og klarhed er sikkerhedsegenskaber. For det andet at selve politikken yder beskyttelse; den er en administrativ kontrol, der former adfærd og muliggør håndhævelse, men den mindsker kun risiko, når den bakkes op af tekniske kontroller, træning og overvågning, der gør de fastsatte regler virkelige. Sikkerhedspolitikken er således bindevævet mellem governance og de operationelle kontroller, der er dokumenteret andetsteds - ikke en erstatning for dem.
+howTo:
+  steps:
+    en:
+      - Map what the policy must answer to - business goals, laws such as NIS2 and GDPR, and customer contracts - and agree the target security level with top management.
+      - Draft a short top-level policy covering purpose, scope, objectives, roles and responsibilities, the commitment to meet requirements and improve, and how exceptions are handled.
+      - Move the details into topic-specific policies (access control, acceptable use, backup, incident handling, suppliers), standards and procedures that can change without board approval.
+      - Have top management formally approve the top-level policy, and give every policy document a named owner, a version number and a next review date.
+      - Publish the policies where all staff can find them, include them in onboarding, and record that each employee has read and accepted them.
+      - Set up an exception process in which deviations are requested in writing, risk-assessed, approved by the right manager and time-limited.
+      - Review the policy set at least once a year and after major changes, and use audits and metrics to check that daily practice matches the text.
+    da:
+      - Kortlæg, hvad politikken skal leve op til - forretningens mål, love som NIS2 og GDPR og kundekontrakter - og aftal det ønskede sikkerhedsniveau med den øverste ledelse.
+      - Skriv et kort udkast til den overordnede politik med formål, omfang, mål, roller og ansvar, forpligtelsen til at opfylde krav og forbedre sig samt håndtering af undtagelser.
+      - Flyt detaljerne ud i emnespecifikke politikker (adgangsstyring, acceptabel brug, backup, hændelseshåndtering, leverandører), standarder og procedurer, der kan ændres uden ledelsens godkendelse.
+      - Få den øverste ledelse til formelt at godkende den overordnede politik, og giv hvert politikdokument en navngiven ejer, et versionsnummer og en dato for næste gennemgang.
+      - Offentliggør politikkerne, hvor alle medarbejdere kan finde dem, tag dem med i onboardingen, og registrér, at hver medarbejder har læst og accepteret dem.
+      - Indfør en undtagelsesproces, hvor afvigelser søges skriftligt, risikovurderes, godkendes af den rette leder og tidsbegrænses.
+      - Gennemgå politiksættet mindst én gang om året og efter større ændringer, og brug audits og målinger til at tjekke, at hverdagen svarer til teksten.
+  pitfalls:
+    en:
+      - Writing a long, technical policy that needs board approval for every small change and that nobody reads.
+      - Letting IT own the policy alone instead of top management.
+      - Approving the policy once and never reviewing it, so it turns into a paper policy that gives false assurance.
+      - Tolerating exceptions informally instead of recording, risk-assessing and time-limiting them.
+    da:
+      - At skrive en lang, teknisk politik, som kræver ledelsens godkendelse ved hver lille ændring, og som ingen læser.
+      - At lade IT eje politikken alene i stedet for den øverste ledelse.
+      - At godkende politikken én gang og aldrig gennemgå den igen, så den bliver en papirpolitik, der giver falsk tryghed.
+      - At tolerere undtagelser uformelt i stedet for at registrere, risikovurdere og tidsbegrænse dem.
+  guides:
+    - title: Vejledning i politikker for informationssikkerhed (august 2021)
+      url: https://sikkerdigital.dk/Media/637963195943118829/Vejledning-i-politikker-for-informationssikkerhed-aug2021.pdf
+      publisher: Digitaliseringsstyrelsen
+      tier: official-doc
+      lang: da
+    - title: Politik for informationssikkerhed
+      url: https://sikkerdigital.dk/myndighed/iso-27001-implementering/forstaa-arbejdet-med-informationssikkerhed/politik
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Cybersecurity Policies and Standards - policy templates
+      url: https://www.sans.org/information-security-policy/
+      publisher: SANS Institute
+      tier: reference
 edges:
   part-of: [governance]
   mandates:

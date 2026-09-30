@@ -41,6 +41,58 @@ deepDive:
     I praksis afhænger indberetning af tre ting, der er besluttet på forhånd: hvem der vurderer, om en tærskel er nået, hvem der har mandat til at indsende hver indberetning, og hvor fakta kommer fra. Hændelsesloggen med tidsstempler for opdagelse, kendskab, klassificering og vigtige handlinger er beviset for, hvornår hver frist begyndte at løbe. Den trinvise model forudsætter, at de første indberetninger er ufuldstændige og opdateres senere; venter man på det fulde billede, overskrides fristen, mens en tidlig indberetning, der angiver sine usikkerheder, er netop det, reglerne lægger op til.
 
     Intern rapportering er det første led i kæden. Medarbejdere skal have en enkel og velkendt kanal til at melde mistænkelige hændelser, og servicedesk og leverandører skal have kontraktlige frister for at sende hændelser videre, fordi langsomme interne overdragelser æder af de lovbestemte frister, der regnes fra det tidspunkt, organisationen anses for at have fået kendskab. Frivillig indberetning af nærved-hændelser og cybertrusler er også mulig efter NIS2 artikel 30.
+howTo:
+  steps:
+    en:
+      - Map which reporting regimes apply to you, such as GDPR Art. 33, the NIS2 Act, DORA or sector rules, with their thresholds, recipients and deadlines in one table.
+      - Give staff, the service desk and suppliers a simple channel and contractual deadlines for passing on suspected incidents, since the legal clocks start when the organisation becomes aware.
+      - Decide in advance who assesses an incident against each threshold and who is authorised to submit each report, with deputies outside office hours.
+      - Keep a timestamped incident log of detection, awareness, classification and key actions, because it is your evidence of when each deadline started.
+      - For a significant NIS2 incident, send an early warning within 24 hours and an incident notification within 72 hours through the joint form on virk.dk, which reaches both the sector authority and the CSIRT.
+      - For a personal data breach, notify Datatilsynet within 72 hours where feasible (it can be selected in the same Virk form), tell affected people when the risk is high, and download a copy of the report as proof.
+      - Send updates as the facts become clear and, under NIS2, a final report no later than one month after the notification, covering root cause, impact and measures taken.
+      - Inform affected customers or service recipients where the rules require it, and feed the lessons from each case back into the incident response plan.
+    da:
+      - Kortlæg, hvilke regelsæt for indberetning der gælder for jer, fx GDPR art. 33, NIS2-loven, DORA eller sektorregler, og saml tærskler, modtagere og frister i én oversigt.
+      - Giv medarbejdere, servicedesk og leverandører en enkel kanal og kontraktlige frister for at melde mistænkelige hændelser videre, for de lovbestemte frister løber fra det tidspunkt, organisationen får kendskab.
+      - Beslut på forhånd, hvem der vurderer en hændelse mod hver tærskel, og hvem der har mandat til at indsende hver indberetning, med stedfortrædere uden for arbejdstid.
+      - Før en hændelseslog med tidsstempler for opdagelse, kendskab, klassificering og vigtige handlinger, for den er jeres bevis for, hvornår hver frist begyndte at løbe.
+      - Ved en væsentlig NIS2-hændelse sender I en tidlig varsling inden for 24 timer og en hændelsesunderretning inden for 72 timer via den fælles blanket på virk.dk, som går til både sektormyndigheden og CSIRT'en.
+      - Ved et brud på persondatasikkerheden anmelder I til Datatilsynet om muligt inden 72 timer (det kan vælges i samme blanket på Virk), underretter de berørte, hvis risikoen er høj, og gemmer en kopi af anmeldelsen som dokumentation.
+      - Send opdateringer, efterhånden som fakta bliver klare, og efter NIS2 en endelig rapport senest en måned efter underretningen med grundårsag, konsekvenser og iværksatte tiltag.
+      - Underret berørte kunder eller modtagere af jeres tjenester, hvor reglerne kræver det, og før erfaringerne fra hver sag tilbage i beredskabsplanen.
+  pitfalls:
+    en:
+      - Waiting for a complete picture before the first report, when the staged model expects early reports that state their uncertainties.
+      - Counting the deadline from when IT confirmed the incident instead of from when the organisation first became aware of it.
+      - Assuming one report satisfies every authority, so a personal data breach found during a NIS2 incident never reaches Datatilsynet.
+      - Leaving reporting to an outsourced provider without checking it, although the responsibility stays with your organisation.
+    da:
+      - At vente på det fulde billede før den første indberetning, selv om den trinvise model forventer tidlige indberetninger, der angiver deres usikkerheder.
+      - At regne fristen fra det tidspunkt, IT bekræftede hændelsen, i stedet for fra det tidspunkt, organisationen først fik kendskab til den.
+      - At tro, at én indberetning dækker alle myndigheder, så et brud på persondatasikkerheden, der opdages under en NIS2-hændelse, aldrig når frem til Datatilsynet.
+      - At overlade indberetningen til en outsourcet leverandør uden at kontrollere den, selv om ansvaret bliver hos jeres organisation.
+  guides:
+    - title: Vejledning til NIS 2-loven - Hændelsesunderretning
+      url: https://samsik.dk/wp-content/uploads/2025/06/SAMSIK-vejledning-om-handelsesunderretning-2025.pdf
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Anmeld sikkerhedsbrud
+      url: https://www.datatilsynet.dk/sikkerhedsbrud/anmeld-sikkerhedsbrud
+      publisher: Datatilsynet
+      tier: official-doc
+      lang: da
+    - title: Håndtering af brud på persondatasikkerheden
+      url: https://www.datatilsynet.dk/regler-og-vejledning/behandlingssikkerhed/haandtering-af-brud-paa-persondatasikkerheden
+      publisher: Datatilsynet
+      tier: official-doc
+      lang: da
+    - title: Styrelsen for Samfundssikkerhed på Virk
+      url: https://virk.dk/myndigheder/stat/SAMSIK/
+      publisher: Virk
+      tier: official-doc
+      lang: da
 edges:
   part-of:
     - to: incident-response

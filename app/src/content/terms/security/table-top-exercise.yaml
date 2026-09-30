@@ -41,6 +41,55 @@ deepDive:
     Rollerne er adskilt. Øvelseslederen styrer drøftelsen og holder scenariet troværdigt; evaluatorer eller observatører noterer huller op mod formålene; en referent fører en tidslinje; og deltagerne agerer i deres rigtige roller, helst med stedfortrædere med, så planen ikke kun afprøves med de mest erfarne. Scenarierne bør være realistiske for organisationen, bygge på aktuelle trusselsvurderinger og indeholde bevidste komplikationer frem for en glat vej. Øvelser for ledelsesgrupper holdes som regel på nogle få timer.
 
     Øvelsen slutter med en umiddelbar hot wash, hvor deltagerne deler indtryk, mens de er friske, efterfulgt af en evalueringsrapport og en forbedringsplan med ansvarlige og frister, som indgår i samme opfølgning på korrigerende handlinger som erfaringsopsamlingen efter rigtige hændelser. Table-top-øvelser afprøver ikke den tekniske formåen: de kan ikke vise, at en backup kan gendannes inden for sin RTO, hvilket kræver en funktionel test. Nationale øvelser og øvelser på EU-niveau som ENISA's Cyber Europe-serie bruger samme metode i sektor- og landeskala.
+howTo:
+  steps:
+    en:
+      - Choose which plan or part of a plan to test and write two to four concrete objectives, for example whether the NIS2 early warning can go out within 24 hours.
+      - Pick a realistic scenario based on current threat assessments and write a timed list of injects, such as a SOC alert, a ransom note, a journalist calling and encrypted backups.
+      - Invite the people named in the plan and their deputies, and appoint a facilitator, observers who note gaps against the objectives, and a scribe who keeps the timeline.
+      - Open with the ground rules - no blame, answer in your real role, and treat systems as unavailable wherever the scenario says so.
+      - Run the session for two to four hours, releasing injects in stages and asking what people know, what they decide, whom they inform and what they are missing.
+      - Hold a short hot wash straight afterwards while impressions are fresh.
+      - Write an after-action report listing the gaps against each objective, with an improvement plan that has owners and deadlines.
+      - Update the plans, follow up the actions and book the next exercise, at least once a year, moving on to functional tests as the plans mature.
+    da:
+      - Vælg, hvilken plan eller del af en plan der skal afprøves, og skriv to til fire konkrete formål, fx om den tidlige varsling efter NIS2 kan sendes inden 24 timer.
+      - Vælg et realistisk scenarie ud fra aktuelle trusselsvurderinger, og skriv en tidsplan med injects som en alarm fra SOC'en, et krav om løsesum, et opkald fra en journalist og krypterede backups.
+      - Invitér de personer, planen udpeger, og deres stedfortrædere, og udpeg en øvelsesleder, observatører, der noterer huller op mod formålene, og en referent, der fører tidslinjen.
+      - Start med spillereglerne - ingen skyld, svar i din rigtige rolle, og betragt systemer som utilgængelige, hvor scenariet siger det.
+      - Gennemfør øvelsen på to til fire timer, frigiv injects i etaper, og spørg, hvad deltagerne ved, hvad de beslutter, hvem de informerer, og hvad de mangler.
+      - Hold en kort hot wash lige bagefter, mens indtrykkene er friske.
+      - Skriv en evalueringsrapport med de fundne huller for hvert formål og en forbedringsplan med ansvarlige og frister.
+      - Opdatér planerne, følg op på handlingerne, og planlæg næste øvelse mindst én gang om året, så I går videre til funktionelle test, efterhånden som planerne modnes.
+  pitfalls:
+    en:
+      - Scripting a smooth scenario where nothing goes wrong, so no gaps show up.
+      - Only inviting the most experienced people and never testing the deputies.
+      - Ending without a report and owned actions, so the same gaps appear again next year.
+      - Treating a table-top as proof that backups or failover work, which only a technical test can show.
+    da:
+      - At skrive et glat scenarie, hvor intet går galt, så ingen huller kommer frem.
+      - Kun at invitere de mest erfarne og aldrig afprøve stedfortræderne.
+      - At slutte uden rapport og handlinger med ejere, så de samme huller dukker op igen næste år.
+      - At tage en table-top-øvelse som bevis for, at backup eller failover virker, hvilket kun en teknisk test kan vise.
+  guides:
+    - title: CISA Tabletop Exercise Packages
+      url: https://www.cisa.gov/resources-tools/services/cisa-tabletop-exercise-packages
+      publisher: CISA
+      tier: official-doc
+    - title: NIST SP 800-84 - Guide to Test, Training, and Exercise Programs for IT Plans and Capabilities
+      url: https://csrc.nist.gov/pubs/sp/800/84/final
+      publisher: NIST
+      tier: standard
+    - title: Exercise in a Box
+      url: https://www.ncsc.gov.uk/information/exercise-in-a-box
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Øvelser
+      url: https://www.brs.dk/da/redningsberedskab-myndighed/krisestyring2-og-beredskabsplanlagning/helhedsorienteret-beredskabsplanlagning/ovelser/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   requires: [contingency-plan, incident-response]
   causes: [lessons-learned]

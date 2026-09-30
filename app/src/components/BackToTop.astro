@@ -1,0 +1,15 @@
+---
+/** A floating "Back to top" pill, shown by lib/chrome/back-to-top.ts once the reader scrolls. */
+interface Props {
+  label: string;
+}
+---
+
+<a
+  href="#main"
+  data-back-to-top
+  hidden
+  class="fixed right-[max(1rem,env(safe-area-inset-right))] bottom-[max(1rem,env(safe-area-inset-bottom))] z-30 inline-flex min-h-11 items-center rounded-full border border-border-strong bg-surface/90 px-4 text-sm sm:min-h-0 sm:px-3 sm:py-2 sm:text-xs text-fg-soft shadow hover:text-fg print:hidden"
+>
+  ↑ {Astro.props.label}
+</a>

@@ -12,30 +12,37 @@ const maxDefined = (a?: number, b?: number) =>
 const rank = (s?: Status) => (s ? STATUSES.length - STATUSES.indexOf(s) : 0);
 
 /**
- * One term: the schedule (box, due) comes from the most recent quiz answer — a
- * wrong answer on one device must be able to demote a term — with the higher box
- * winning a tie; the status from the most recent change, so clearing one sticks.
- * Right/wrong counts take the larger side: summing would double-count answers
- * both copies already share. A missing timestamp counts as oldest.
+ * The copy whose schedule (box, due) wins: the most recent quiz answer — a wrong
+ * answer on one device must be able to demote a term — then the higher box, then the
+ * later due date. A missing timestamp counts as oldest; a full tie picks `a`.
  */
-export function mergeTerm(a: TermState, b: TermState): TermState {
+export function scheduleSource(a: TermState, b: TermState): TermState {
   const ra = a.reviewed ?? 0;
   const rb = b.reviewed ?? 0;
-  const sr =
-    ra !== rb
-      ? ra > rb
-        ? a
-        : b
-      : a.box !== b.box
-        ? a.box > b.box
-          ? a
-          : b
-        : a.due >= b.due
-          ? a
-          : b;
+  if (ra !== rb) return ra > rb ? a : b;
+  if (a.box !== b.box) return a.box > b.box ? a : b;
+  return a.due >= b.due ? a : b;
+}
+
+/**
+ * The copy whose status wins: the most recent change, so clearing one sticks; on a
+ * timestamp tie any status beats none. A missing timestamp counts as oldest.
+ */
+export function statusSource(a: TermState, b: TermState): TermState {
   const sa = a.statusAt ?? 0;
   const sb = b.statusAt ?? 0;
-  const st = sa !== sb ? (sa > sb ? a : b) : rank(a.status) >= rank(b.status) ? a : b;
+  if (sa !== sb) return sa > sb ? a : b;
+  return rank(a.status) >= rank(b.status) ? a : b;
+}
+
+/**
+ * One term: the schedule from scheduleSource, the status from statusSource.
+ * Right/wrong counts take the larger side: summing would double-count answers
+ * both copies already share.
+ */
+export function mergeTerm(a: TermState, b: TermState): TermState {
+  const sr = scheduleSource(a, b);
+  const st = statusSource(a, b);
 
   // A fresh object with a fixed field order, so equal states serialise identically.
   const out: TermState = {

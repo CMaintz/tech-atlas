@@ -118,6 +118,74 @@ when the field is present.
 - Usually 2–5 paragraphs. Longer narrative with history and worked scenarios belongs in
   an Article.
 
+## How to put it into practice (`howTo`, A101)
+
+Every **actionable** term (something you do or implement: a process, control, practice,
+framework, a law you must comply with, a tool or technique) explains how to actually do
+it. The term page shows it as **How to put it into practice** / **Sådan kommer du i
+gang** after the four facets; the Explorer panel previews the first three steps.
+
+```yaml
+actionable: true # optional; overrides the rules below (true or false)
+howTo:
+  steps: # 5-10 concrete, ORDERED steps; the same number in en and da
+    en:
+      - Name an owner and agree the scope with management.
+      - ...
+    da:
+      - Udpeg en ejer, og aftal omfanget med ledelsen.
+      - ...
+  pitfalls: # optional, recommended: 2-5 common mistakes; the same number in en and da
+    en:
+      - ...
+    da:
+      - ...
+  guides: # 2-5 external guides, official or primary sources first
+    - title: NIST SP 800-40 Rev. 4 - Guide to Enterprise Patch Management Planning
+      url: https://csrc.nist.gov/pubs/sp/800/40/r4/final
+      publisher: NIST
+      tier: standard # the source tiers above
+    - title: ...
+      url: https://www.datatilsynet.dk/...
+      publisher: Datatilsynet
+      tier: official-doc
+      lang: da # the guide's language; omit for English
+```
+
+- Put `actionable` and `howTo` just before `edges:`.
+- **Exempt from Closed Vocabulary** (technical guidance, like a deep dive), but keep the
+  steps plain and concrete: who does what, in what order, what comes out of it (a
+  register, a policy, a report) and how often it repeats. One or two sentences a step.
+- For a law or standard the steps are the compliance path (scope, gap, implement,
+  document, report, maintain), with facts (articles, deadlines) checked in the source.
+- **Guides**: prefer official and primary sources (NIST, CIS, ENISA, ISO summary pages,
+  EUR-Lex, Datatilsynet, Styrelsen for Samfundssikkerhed / sikkerdigital.dk, CFCS,
+  Digitaliseringsstyrelsen, D-mærket, OWASP, NCSC UK, CISA, cloud provider docs) and add
+  a Danish guide wherever a good one exists. **Open every URL before you add it** and
+  check that it is the page it claims to be; never guess a link. Danish readers see
+  Danish guides first; a guide in the other language is labelled.
+- Hyphen-minus only (E12 applies to every field, guide titles included).
+
+**Which terms are actionable** (`src/lib/actionable.ts`, first match wins):
+
+1. The explicit `actionable: true | false`. Use `false` for a concept the rules below
+   over-catch (e.g. `control`, `endpoint`), `true` for a practice they miss.
+2. The term has a `howTo`.
+3. Not actionable when `status: legacy` (a repealed law such as NIS1, a retired body).
+4. It authors a `mandates` edge (a law, standard or framework you comply with).
+5. It is `kind-of` `control`, `security-framework`, `risk-treatment` or `risk-assessment`.
+6. Security cluster `controls`.
+7. Security cluster `incident-response` with layer `governance` or `people` (plans,
+   procedures, exercises; a data breach, layer `data`, is an event).
+8. Platform layer `delivery` or `process` (CI/CD, GitOps, runbooks, SLOs).
+9. It authors a `mitigates` edge; in AI only in the clusters `ai-risk`, `agents` and
+   `ai-coding` (a modelling technique such as regularization is not a practice).
+
+**Lint**: W11 an actionable term has no `howTo` (with the rule that made it actionable).
+E10 (schema) a `howTo` with 5-10 steps or 1-8 pitfalls outside range, unequal counts per
+language, fewer than 2 or more than 5 guides, a missing field, or a guide URL that is not
+http(s). E13 a blank step or pitfall, or a guide listed twice. E12 a dash.
+
 ## Articles (optional long-form)
 
 Only for terms that genuinely need more than the four facets. Exempt from Closed

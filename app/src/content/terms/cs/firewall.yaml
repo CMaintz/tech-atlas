@@ -42,6 +42,53 @@ deepDive:
     Netværksfirewalls sidder mellem zoner og håndhæver netværkssegmentering, mens værtsbaserede firewalls (Windows Defender Firewall, nftables på en server) beskytter den enkelte maskine og begrænser lateral bevægelse selv på et fladt netværk; CIS Controls v8, safeguard 4.4 og 4.5, kræver firewall på henholdsvis servere og slutbrugerenheder. I skyen dukker de samme idéer op som security groups (stateful, knyttet til instanser) og network ACL'er (tilstandsløse, knyttet til subnet) i AWS.
 
     En firewall afgør kun, om et flow må eksistere; den vurderer ikke, hvad der bevæger sig inde i et tilladt flow. Alt, der tunneleres over TCP 443, ser ens ud uden TLS-inspektion, og der skal en web application firewall eller en IPS til for at fange SQL injection eller exploit-kode på en åben port. Firewalls er også selv mål: Kant-enheder fra flere store leverandører har haft kritiske, aktivt udnyttede sårbarheder i deres VPN- og administrationskomponenter, fx CVE-2024-3400 i Palo Alto Networks PAN-OS i 2024. Revision omfatter derfor regelsættet (periodisk regelgennemgang, tællere for regeltræf), konfigurationen holdt op mod en hærdningsvejledning og patchniveauet på firewallens egen software.
+howTo:
+  steps:
+    en:
+      - Draw a simple network map with the zones you have, such as internet, DMZ, office, servers, management and OT, and name an owner for the firewalls between them.
+      - Write a firewall policy that says traffic is denied by default in both directions, and that every allowed flow needs a business reason, an owner and an approval.
+      - Build the rule base from that policy, allowing only the specific source, destination, port and protocol each system needs, and add a clear deny-all rule at the end that logs what it blocks.
+      - Limit outbound traffic too, so servers can reach only the update and service addresses they need, and route web traffic from users through a filtering proxy or DNS filter.
+      - Turn on the host firewall on every laptop and server through central policy, blocking inbound traffic except the few services the device must offer.
+      - Put the firewall's own management interface on a separate management network with MFA, never on the internet, and patch the firewall as soon as security updates are released.
+      - Send firewall logs to central logging or a SIEM, and alert on blocked traffic from inside to known bad addresses and on changes to the rule base.
+      - Handle every rule change through change management with a ticket, and review the whole rule base at least once a year, removing rules that are unused, too broad or have no owner.
+    da:
+      - Tegn et enkelt netværkskort med de zoner, I har, fx internet, DMZ, kontor, servere, administration og OT, og udpeg en ejer af firewallene mellem dem.
+      - Skriv en firewallpolitik, der siger, at trafik som udgangspunkt afvises i begge retninger, og at hvert tilladt flow kræver en forretningsmæssig begrundelse, en ejer og en godkendelse.
+      - Byg regelsættet ud fra politikken, så kun den kilde, destination, port og protokol, hvert system har brug for, er tilladt, og slut af med en tydelig afvis-alt-regel, der logger, hvad den blokerer.
+      - Begræns også udgående trafik, så servere kun kan nå de opdaterings- og tjenesteadresser, de har brug for, og send brugernes webtrafik gennem en filtrerende proxy eller DNS-filtrering.
+      - Slå værtsfirewallen til på alle bærbare og servere via central politik, og bloker indgående trafik bortset fra de få tjenester, enheden skal tilbyde.
+      - Placér firewallens egen administrationsflade på et separat administrationsnet med MFA, aldrig på internettet, og patch firewallen, så snart der kommer sikkerhedsopdateringer.
+      - Send firewallloggene til central logning eller en SIEM, og alarmér ved blokeret trafik indefra mod kendte ondsindede adresser og ved ændringer i regelsættet.
+      - Behandl hver regelændring gennem ændringsstyring med en sag, og gennemgå hele regelsættet mindst en gang om året, hvor regler uden brug, for brede regler og regler uden ejer fjernes.
+  pitfalls:
+    en:
+      - Adding a "temporary" any-any rule to solve an urgent problem and never removing it again.
+      - Filtering only inbound traffic, so malware on the inside can freely call home and send data out.
+      - Exposing the firewall's VPN or management portal to the internet without patching it quickly, although such edge devices are a favourite target.
+    da:
+      - At tilføje en "midlertidig" any-any-regel for at løse et akut problem og aldrig fjerne den igen.
+      - Kun at filtrere indgående trafik, så malware på indersiden frit kan ringe hjem og sende data ud.
+      - At have firewallens VPN- eller administrationsportal åben mod internettet uden at patche den hurtigt, selv om den slags kantudstyr er et yndet mål.
+  guides:
+    - title: NIST SP 800-41 Rev. 1 - Guidelines on Firewalls and Firewall Policy
+      url: https://csrc.nist.gov/pubs/sp/800/41/r1/final
+      publisher: NIST
+      tier: standard
+    - title: CIS Critical Security Control 4 - Secure Configuration of Enterprise Assets and Software
+      url: https://www.cisecurity.org/controls/secure-configuration-of-enterprise-assets-and-software
+      publisher: Center for Internet Security
+      tier: standard
+    - title: Windows Firewall Overview
+      url: https://learn.microsoft.com/en-us/windows/security/operating-system-security/network-security/windows-firewall/
+      publisher: Microsoft
+      tier: official-doc
+    - title: Køb antivirus og firewall
+      url: https://www.sikkerdigital.dk/virksomhed/syv-raad-om-it-sikkerhed/3-koeb-antivirus-og-firewall
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   kind-of: [control]
   requires: [packet, port, ip-address]

@@ -41,6 +41,53 @@ deepDive:
     For algoritmiske systemer er referencepunkterne EU's ekspertgruppes etiske retningslinjer for troværdig AI (2019) med syv krav, bl.a. menneskelig handlekraft og tilsyn, gennemsigtighed, mangfoldighed, ikke-diskrimination og retfærdighed samt ansvarlighed, og OECD's AI-principper (2019). EU's AI-forordning (forordning (EU) 2024/1689) har siden gjort en del af dette til lov, idet forbuddene mod bestemte praksisser har gældt siden 2. februar 2025, så noget af det, der var etik, nu er compliance. Retfærdighed er også teknisk omstridt: kendte resultater viser, at almindelige mål som kalibrering og lige fejlrater på tværs af grupper generelt ikke kan opfyldes samtidig, når basisraterne er forskellige, så valget af mål er i sig selv en etisk beslutning, der bør dokumenteres.
 
     I praksis udmøntes dataetik gennem en skriftlig politik godkendt af bestyrelsen, et vurderingstrin i projektstyringen (ofte kombineret med konsekvensanalysen, men med fokus på skader ud over databeskyttelse, fx manipulation, udelukkelse eller samfundsmæssige virkninger), et etisk udvalg til grænsetilfælde og gennemsigtighed om formål i et klart sprog. En hyppig fejl er at behandle politikken som en rapporteringsøvelse uden nogen beslutning, den reelt kan stoppe; revisorer og journalister kigger efter eksempler, hvor politikken ændrede eller standsede et projekt.
+howTo:
+  steps:
+    en:
+      - Check whether the company is covered by § 99 d of the Danish Financial Statements Act - large class C companies (above two of the three size limits in § 7 in two years in a row) and all class D companies, for financial years beginning on or after 1 January 2021; financial firms follow matching rules from Finanstilsynet.
+      - Have the board and management decide whether the company wants a data ethics policy; the law does not require one, but without one you must explain why (comply or explain).
+      - Map which data the company uses and where it comes from, including customer and behaviour data, data bought from third parties, and AI or algorithms used for pricing, decisions or personalisation.
+      - Write the policy with principles such as fairness, openness and avoiding harm, and cover topics Erhvervsstyrelsen suggests, fx third parties' data, bias in trained algorithms, personalisation, staff training and where decisions on data are anchored.
+      - Add a data ethics review to project approval, often next to the DPIA, and give an ethics committee or a named owner the power to change or stop borderline projects.
+      - Write the statement in the management's review under its own heading, describing both the content of the policy and the actual work with it, or publish it on the website with a direct link from the management's review (§ 99 d(4)).
+      - Publish it in the same language and for the same period as the annual report; a parent may report for the whole group, and a subsidiary that relies on this names the parent and its CVR number (§ 99 d(2)-(3)).
+      - Brief the auditor, who checks the statement for consistency as part of the management's review (§ 135(5)), and review the policy every year together with examples of decisions it changed.
+    da:
+      - Undersøg, om virksomheden er omfattet af årsregnskabslovens § 99 d - store virksomheder i regnskabsklasse C (over to af de tre størrelsesgrænser i § 7 to år i træk) og alle virksomheder i klasse D, for regnskabsår, der begynder 1. januar 2021 eller senere; finansielle virksomheder følger tilsvarende regler fra Finanstilsynet.
+      - Lad bestyrelse og direktion beslutte, om virksomheden vil have en politik for dataetik; loven kræver det ikke, men uden en politik skal I forklare hvorfor (følg eller forklar).
+      - Kortlæg, hvilke data virksomheden bruger, og hvor de kommer fra, herunder kunde- og adfærdsdata, data købt af tredjeparter og AI eller algoritmer til prissætning, afgørelser eller personalisering.
+      - Skriv politikken med principper som retfærdighed, åbenhed og at undgå skade, og dæk de emner, Erhvervsstyrelsen foreslår, fx tredjeparters data, bias i trænede algoritmer, personalisering, træning af medarbejdere og hvor beslutninger om data er forankret.
+      - Indfør en dataetisk vurdering i godkendelsen af projekter, ofte sammen med konsekvensanalysen, og giv et dataetisk udvalg eller en navngiven ejer magt til at ændre eller stoppe projekter i gråzonen.
+      - Skriv redegørelsen i ledelsesberetningen under sin egen overskrift, og beskriv både politikkens indhold og det faktiske arbejde med den, eller offentliggør den på hjemmesiden med et direkte link fra ledelsesberetningen (§ 99 d, stk. 4).
+      - Offentliggør den på samme sprog og for samme periode som årsrapporten; et moderselskab kan redegøre for hele koncernen, og en dattervirksomhed, der benytter det, oplyser moderselskabets navn og CVR-nummer (§ 99 d, stk. 2-3).
+      - Orientér revisor, der tjekker redegørelsen for konsistens som en del af ledelsesberetningen (§ 135, stk. 5), og gennemgå politikken hvert år sammen med eksempler på beslutninger, den har ændret.
+  pitfalls:
+    en:
+      - Stating only that the company has a data ethics policy, when the statement must describe its content and how the company works with it.
+      - Stating only that there is no policy, without explaining why, which does not meet the comply-or-explain rule.
+      - Filling the statement with GDPR compliance, which Erhvervsstyrelsen says is not what the data ethics statement is about.
+      - Keeping a policy that never changes or stops a project, so it becomes a reporting exercise rather than a working tool.
+    da:
+      - Kun at skrive, at virksomheden har en politik for dataetik, selv om redegørelsen skal beskrive indholdet og virksomhedens arbejde med den.
+      - Kun at skrive, at der ikke er en politik, uden at forklare hvorfor, hvilket ikke opfylder følg-eller-forklar-princippet.
+      - At fylde redegørelsen med overholdelse af GDPR, som Erhvervsstyrelsen siger ikke er det, redegørelsen for dataetik handler om.
+      - At have en politik, der aldrig ændrer eller stopper et projekt, så den bliver en rapporteringsøvelse frem for et arbejdsredskab.
+  guides:
+    - title: Vejledning om lovpligtig redegørelse for dataetik
+      url: https://erhvervsstyrelsen.dk/vejledning-vejledning-om-lovpligtig-redegoerelse-dataetik
+      publisher: Erhvervsstyrelsen
+      tier: official-doc
+      lang: da
+    - title: Hvad er dataetik?
+      url: https://virksomhedsguiden.dk/content/ydelser/hvad-er-dataetik/d2c12f81-4c66-4c62-b63e-3b039c678eae/
+      publisher: Erhvervsstyrelsen
+      tier: official-doc
+      lang: da
+    - title: D-mærkets kriterier
+      url: https://d-maerket.dk/da/bliv-d-maerket/kriterier
+      publisher: D-mærket
+      tier: official-doc
+      lang: da
 edges:
   requires: [personal-data]
   contrasts-with:

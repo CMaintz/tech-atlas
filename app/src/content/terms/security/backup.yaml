@@ -41,6 +41,55 @@ deepDive:
     Konsistens er lige så vigtig som eksistens. Et crash-konsistent image af en kørende database starter måske ikke; applikationskonsistente backups fastfryser skrivninger (på Windows via VSS-writers) eller bruger databasens egen dump- eller logmekanisme. SaaS-data er et hyppigt hul - under modellen for delt ansvar garanterer udbydere som Microsoft 365 tjenestens tilgængelighed, men tilbyder kun begrænset opbevaring af data, som brugere har slettet eller angribere har ændret.
 
     Normative ankre: CIS Controls v8 Control 11 (Data Recovery), herunder en isoleret kopi af gendannelsesdata (Safeguard 11.4) og gendannelsestest af et udsnit af aktiverne mindst kvartalsvist (11.5); ISO/IEC 27002:2022 kontrol 8.13 (backup af information); NIS2 art. 21, stk. 2, litra c, der nævner backupstyring sammen med driftskontinuitet og katastrofeberedskab; og databeskyttelsesforordningens art. 32, stk. 1, litra c, om evnen til rettidigt at genoprette tilgængeligheden af og adgangen til personoplysninger. Opbevaringen har også en databeskyttelsesside: backups med personoplysninger er omfattet af princippet om opbevaringsbegrænsning, og anmodninger om sletning håndteres typisk ved dokumenteret udløb frem for ved at redigere gamle backupsæt. Det eneste reelle bevis på, at en backup virker, er en tidsmålt og dokumenteret gendannelse.
+howTo:
+  steps:
+    en:
+      - Agree the RPO and RTO with the business owner of each system, so backup frequency and restore method follow from real needs.
+      - Make an inventory of what must be backed up - servers, databases, configurations, endpoints with local data and SaaS data such as Microsoft 365 - and name an owner for each.
+      - Follow the 3-2-1 rule of three copies on two different media with one off-site, and keep at least one copy offline or immutable.
+      - Separate the backup system from daily administration with its own accounts, MFA and no trust to the production domain, so an attacker who takes the domain cannot delete the backups.
+      - Use application-consistent backups for databases and critical applications, and encrypt copies that leave the building while keeping the keys available offline.
+      - Check backup jobs every day and follow up failed or missed jobs the same day.
+      - Test restores regularly, a sample at least every quarter and a full restore of a critical system at least once a year, and record the time taken and the result.
+      - Set retention periods that meet both recovery needs and GDPR storage limitation, and document how old copies expire.
+    da:
+      - Aftal RPO og RTO med den forretningsansvarlige for hvert system, så backuphyppighed og gendannelsesmetode følger af de reelle behov.
+      - Lav en oversigt over alt, der skal tages backup af - servere, databaser, konfigurationer, klienter med lokale data og SaaS-data som Microsoft 365 - og udpeg en ejer for hvert punkt.
+      - Følg 3-2-1-reglen med tre kopier på to forskellige medier, hvoraf én ligger uden for huset, og hav mindst én kopi offline eller uforanderlig.
+      - Adskil backupsystemet fra den daglige administration med egne konti, MFA og ingen tillid til produktionsdomænet, så en angriber, der overtager domænet, ikke kan slette backupperne.
+      - Brug applikationskonsistente backups til databaser og kritiske applikationer, og kryptér kopier, der forlader huset, men hav nøglerne tilgængelige offline.
+      - Tjek backupjobbene hver dag, og følg op på fejlede eller manglende job samme dag.
+      - Test gendannelse jævnligt, et udsnit mindst hvert kvartal og en fuld gendannelse af et kritisk system mindst én gang om året, og notér tidsforbrug og resultat.
+      - Fastsæt opbevaringsperioder, der både opfylder behovet for gendannelse og databeskyttelsesforordningens krav om opbevaringsbegrænsning, og dokumentér, hvordan gamle kopier udløber.
+  pitfalls:
+    en:
+      - Treating RAID, snapshots on the same storage or file synchronisation as backup.
+      - Never testing restores, so the first real attempt happens in the middle of a crisis.
+      - Keeping backups on the same domain and admin accounts as production, where ransomware operators can find and delete them.
+      - Leaving SaaS data out because the cloud provider is assumed to take care of it.
+    da:
+      - At regne RAID, snapshots på samme storage eller filsynkronisering for backup.
+      - Aldrig at teste gendannelse, så det første rigtige forsøg sker midt i en krise.
+      - At have backupperne på samme domæne og administratorkonti som produktionen, hvor ransomwaregrupper kan finde og slette dem.
+      - At udelade SaaS-data, fordi man går ud fra, at cloududbyderen tager sig af det.
+  guides:
+    - title: 'CIS Critical Security Control 11 - Data Recovery'
+      url: https://www.cisecurity.org/controls/data-recovery
+      publisher: Center for Internet Security
+      tier: standard
+    - title: Principles for ransomware-resistant cloud backups
+      url: https://www.ncsc.gov.uk/guidance/principles-for-ransomware-resistant-cloud-backups
+      publisher: NCSC UK
+      tier: official-doc
+    - title: '#StopRansomware Guide'
+      url: https://www.cisa.gov/stopransomware/ransomware-guide
+      publisher: CISA
+      tier: official-doc
+    - title: Reducer risikoen for ransomware
+      url: https://samsik.dk/publikation/reducer-risikoen-for-ransomware/
+      publisher: Center for Cybersikkerhed (Styrelsen for Samfundssikkerhed)
+      tier: official-doc
+      lang: da
 edges:
   kind-of: [control]
   mitigates:

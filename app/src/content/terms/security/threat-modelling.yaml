@@ -41,6 +41,54 @@ deepDive:
     I en sikker udviklingslivscyklus foregår trusselsmodellering i designfasen og igen, når en ændring krydser en tillidsgrænse, tilføjer en ny datatype eller indfører en ny ekstern afhængighed. NIST SP 800-218 (SSDF) praksis PW.1.1 nævner udtrykkeligt trusselsmodellering, angrebsmodellering og kortlægning af angrebsfladen som former for risikomodellering til at vurdere sikkerhedskrav. Værktøjerne spænder fra whiteboards til Microsoft Threat Modeling Tool, OWASP Threat Dragon og kodebaserede tilgange som pytm og Threagile, der genererer diagrammer og fund ud fra en model, der ligger i versionsstyring.
 
     Typiske fejl er at modellere én gang og aldrig opdatere, at producere en lang liste generiske trusler uden tilknyttede beslutninger og at gå for dybt i én komponent og overse integrationerne, hvor de fleste reelle fejl findes. Trusselsmodellering adskiller sig fra risikovurdering i omfang og timing: en risikovurdering rangordner risici for organisationens aktiver, mens en trusselsmodel undersøger, hvordan et bestemt system kan angribes, tidligt nok til at ændre designet. Den adskiller sig også fra penetrationstest, der finder fejl i det, der allerede er bygget.
+howTo:
+  steps:
+    en:
+      - Pick what to model, such as a new system, a new feature or a change that crosses a trust boundary, and book a session with the architect, developers, product owner and someone from security.
+      - Draw a data flow diagram with users, external systems, processes, data stores, data flows and trust boundaries, and agree that it matches how the system really works.
+      - Walk through each element and flow with STRIDE (spoofing, tampering, repudiation, information disclosure, denial of service, elevation of privilege), and add LINDDUN where personal data is involved.
+      - Decide for each threat whether to mitigate it, remove it by changing the design, transfer it or accept it, and name an owner for every accepted risk.
+      - Record the mitigations as security requirements or backlog items with acceptance criteria, so they are built and tested like any other feature.
+      - Keep the diagram and the threat list in version control next to the code, drawn in a tool such as OWASP Threat Dragon or the Microsoft Threat Modeling Tool.
+      - Check before release that the mitigations were built, through tests, code review or a penetration test aimed at the threats you found.
+      - Update the model when the design changes, a new integration or type of data is added, or an incident shows that a threat was missed.
+    da:
+      - Vælg, hvad der skal modelleres, fx et nyt system, en ny funktion eller en ændring, der krydser en tillidsgrænse, og book en session med arkitekten, udviklerne, produktejeren og en fra sikkerhed.
+      - Tegn et dataflowdiagram med brugere, eksterne systemer, processer, datalagre, dataflows og tillidsgrænser, og bliv enige om, at det svarer til, hvordan systemet faktisk fungerer.
+      - Gå hvert element og hvert flow igennem med STRIDE (spoofing, tampering, repudiation, information disclosure, denial of service, elevation of privilege), og tilføj LINDDUN, hvor der indgår personoplysninger.
+      - Beslut for hver trussel, om den skal afhjælpes, fjernes ved at ændre designet, overføres eller accepteres, og udpeg en ejer for hver accepteret risiko.
+      - Registrér modforanstaltningerne som sikkerhedskrav eller backlog-punkter med acceptkriterier, så de bygges og testes som enhver anden funktion.
+      - Gem diagrammet og trusselslisten i versionsstyring ved siden af koden, tegnet i et værktøj som OWASP Threat Dragon eller Microsoft Threat Modeling Tool.
+      - Tjek før release, at modforanstaltningerne er bygget, via test, code review eller en penetrationstest rettet mod de trusler, I fandt.
+      - Opdatér modellen, når designet ændres, en ny integration eller datatype kommer til, eller en hændelse viser, at en trussel blev overset.
+  pitfalls:
+    en:
+      - Modelling once at the start of the project and never updating the diagram.
+      - Producing a long list of generic threats with no decisions, owners or backlog items attached.
+      - Leaving the work to one security expert instead of the team that builds the system.
+      - Going deep into one component and missing the integrations between systems, where many real flaws sit.
+    da:
+      - At modellere én gang i starten af projektet og aldrig opdatere diagrammet.
+      - At producere en lang liste generiske trusler uden beslutninger, ejere eller backlog-punkter.
+      - At overlade arbejdet til én sikkerhedsekspert i stedet for det team, der bygger systemet.
+      - At gå i dybden med én komponent og overse integrationerne mellem systemer, hvor mange reelle fejl findes.
+  guides:
+    - title: OWASP Cheat Sheet Series - Threat Modeling
+      url: https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
+    - title: NIST SP 800-218 - Secure Software Development Framework (SSDF) Version 1.1
+      url: https://csrc.nist.gov/pubs/sp/800/218/final
+      publisher: NIST
+      tier: standard
+    - title: Microsoft Threat Modeling Tool overview
+      url: https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool
+      publisher: Microsoft
+      tier: official-doc
+    - title: OWASP Threat Dragon
+      url: https://owasp.org/www-project-threat-dragon/
+      publisher: OWASP
+      tier: reference
 edges:
   requires: [threat, asset]
   part-of: [secure-development-lifecycle]

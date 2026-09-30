@@ -1,0 +1,35 @@
+---
+/** Mentioned in (SPEC §6): entries whose prose names this term but aren't otherwise related. */
+import { UI, termUrl, type Lang } from '../../lib/site';
+import type { Graph } from '../../lib/graph-model';
+import type { Relation, TermEntry } from '../../lib/terms';
+
+interface Props {
+  lang: Lang;
+  term: TermEntry;
+  relations: Relation[];
+  graph: Graph;
+}
+
+const { lang, term, relations, graph } = Astro.props;
+const related = new Set(relations.map((r) => r.target.id));
+const mentionedIn = graph.nodes.filter(
+  (n) => n.id !== term.id && n.mentions.includes(term.id) && !related.has(n.id),
+);
+---
+
+{mentionedIn.length > 0 && (
+  <section class="mt-8" id="mentions">
+    <h2 class="mb-2 text-xs tracking-widest text-subtle uppercase">{UI[lang].mentionedIn}</h2>
+    <div class="flex flex-wrap gap-2">
+      {mentionedIn.map((n) => (
+        <a
+          class="inline-flex min-h-11 items-center rounded border border-dashed border-border px-2 py-1 text-sm text-muted hover:border-border-hover sm:min-h-0"
+          href={termUrl(lang, n.id)}
+        >
+          {n.term[lang]}
+        </a>
+      ))}
+    </div>
+  </section>
+)}

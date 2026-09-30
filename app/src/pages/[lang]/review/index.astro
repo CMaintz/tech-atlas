@@ -1,7 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
-import { CLUSTER_LABELS, LANGS, REPO, UI, termUrl, type Lang } from '../../../lib/site';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import { LANGS, REPO, UI, clusterLabel, termUrl, type Lang } from '../../../lib/site';
 
 export function getStaticPaths() {
   return LANGS.map((lang) => ({ params: { lang } }));
@@ -32,9 +33,9 @@ const editUrl = (id: string) => `${REPO}/edit/main/app/src/content/terms/${id}.y
   </div>
   {clusters.map(([cluster, items]) => (
     <section class="mb-8">
-      <h2 class="mb-3 text-xs tracking-widest text-subtle uppercase">
-        {CLUSTER_LABELS[cluster]?.[lang] ?? cluster} · {items.length}
-      </h2>
+      <SectionHeading class="mb-3">
+        {clusterLabel(cluster, lang)} · {items.length}
+      </SectionHeading>
       <ul class="space-y-1 text-sm">
         {items
           .sort((a, b) => a.data.term[lang].localeCompare(b.data.term[lang], lang))

@@ -42,6 +42,55 @@ deepDive:
     Den empiriske viden er nedslående. Lain, Kostiainen og Čapkun (IEEE S&P 2022) fulgte over 14.000 ansatte i 15 måneder og fandt, at indlejret træning vist efter et klik ikke gjorde medarbejderne mere modstandsdygtige og endda kunne gøre dem mere modtagelige, mens fælles indrapportering virkede. Ho m.fl. (IEEE S&P 2025) fandt i et randomiseret eksperiment med omkring 19.500 ansatte på UC San Diego Health ingen signifikant sammenhæng mellem nylig årlig træning og fejlrate, og at de fleste brugte et minut eller mindre på de indlejrede træningssider. Simuleringer bruges derfor bedre til at øve indrapportering og finde processer, der svigter, end som bevis på, at træningen virker.
 
     Design og governance betyder meget. Lokkemidler med bonusser, lønstigninger eller pandemi-information har skabt meget omtalt modstand blandt medarbejderne, fx hos GoDaddy i 2020, og undergraver tilliden til sikkerhedsteamet. Klikdata er personoplysninger om medarbejderne, så efter databeskyttelsesforordningen kræver programmet et behandlingsgrundlag (typisk legitim interesse, art. 6, stk. 1, litra f), gennemsigtig information til medarbejderne, dataminimering og helst aggregeret rapportering til ledelsen frem for navnelister. NIST SP 800-50 Rev. 1 placerer simuleringer under erfaringsbaseret læring sammen med tabletop- og cyber range-øvelser, og CIS Controls v8 Control 14 forventer træning i at genkende social engineering-angreb.
+howTo:
+  steps:
+    en:
+      - Decide the purpose first - practising reporting and finding weak processes, not catching people - and get written approval from management, HR, employee representatives and the DPO.
+      - Tell staff in advance that simulations will run, why and how the data is used, and document the GDPR lawful basis (usually Art. 6(1)(f)) and a retention period for click data.
+      - Before the first campaign, make reporting easy with a report button and a quick, thankful reply to everyone who reports, whether the mail is real or simulated.
+      - Build lures from threats you actually see, rate their difficulty with the NIST Phish Scale, and avoid cruel pretexts such as bonuses, pay rises or health scares.
+      - Allow the simulation through your mail filters the supported way (for example the advanced delivery policy in Microsoft 365) and filter out clicks made by link scanners.
+      - Run small campaigns spread over the year with varied templates instead of one big blast that staff warn each other about.
+      - Follow every campaign with a short, friendly explanation of the warning signs and praise for those who reported, and never name or punish individuals.
+      - Report aggregated report rate, time to report and click rate per difficulty level to management, and fix the processes that failed, such as invoice approval.
+    da:
+      - Fastlæg først formålet - at øve indrapportering og finde svage processer, ikke at fange folk - og få skriftlig godkendelse fra ledelse, HR, medarbejderrepræsentanter og DPO.
+      - Fortæl medarbejderne på forhånd, at der kommer simuleringer, hvorfor og hvordan data bruges, og dokumentér behandlingsgrundlaget (typisk art. 6, stk. 1, litra f) og en slettefrist for klikdata.
+      - Gør det let at melde før første kampagne, med en meldeknap og et hurtigt, anerkendende svar til alle, der melder, uanset om mailen er ægte eller simuleret.
+      - Byg lokkemidlerne på trusler, I faktisk ser, vurdér sværhedsgraden med NIST Phish Scale, og undgå urimelige påskud som bonusser, lønstigninger eller helbredsbekymringer.
+      - Lad simuleringen komme igennem mailfiltrene på den understøttede måde (fx advanced delivery policy i Microsoft 365), og frasortér klik fra linkscannere.
+      - Kør små kampagner fordelt over året med skiftende skabeloner i stedet for én stor udsendelse, som medarbejderne advarer hinanden om.
+      - Følg op på hver kampagne med en kort, venlig forklaring af advarselstegnene og ros til dem, der meldte, og udstil eller straf aldrig enkeltpersoner.
+      - Rapportér samlet meldeprocent, tid til melding og klikrate pr. sværhedsgrad til ledelsen, og ret de processer, der svigtede, fx godkendelse af fakturaer.
+  pitfalls:
+    en:
+      - Using the click rate alone as the measure of success without controlling for how hard the templates were.
+      - Naming, shaming or disciplining staff who click, which destroys trust and makes people stop reporting.
+      - Lures that exploit pay, bonuses or personal worries and cause a backlash against the security team.
+      - Running simulations without telling staff or employee representatives and without a GDPR basis for the click data.
+    da:
+      - At bruge klikraten alene som succesmål uden at tage højde for, hvor svære skabelonerne var.
+      - At udstille, skælde ud på eller sanktionere medarbejdere, der klikker, hvilket ødelægger tilliden og får folk til at holde op med at melde.
+      - Lokkemidler, der spiller på løn, bonusser eller personlige bekymringer og skaber modvilje mod sikkerhedsteamet.
+      - At køre simuleringer uden at informere medarbejdere eller medarbejderrepræsentanter og uden et behandlingsgrundlag for klikdata.
+  guides:
+    - title: Phishing attacks - defending your organisation
+      url: https://www.ncsc.gov.uk/guidance/phishing
+      publisher: NCSC UK
+      tier: official-doc
+    - title: NIST TN 2276 - NIST Phish Scale User Guide
+      url: https://csrc.nist.gov/pubs/tn/2276/final
+      publisher: NIST
+      tier: standard
+    - title: Get started using Attack simulation training
+      url: https://learn.microsoft.com/en-us/defender-office-365/attack-simulation-training-get-started
+      publisher: Microsoft
+      tier: official-doc
+    - title: Film om god sikkerhedsadfærd
+      url: https://sikkerdigital.dk/myndighed/uddannelse-og-awareness/film-om-god-sikkerhedsadfaerd
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   kind-of: [control]
   requires: [phishing]

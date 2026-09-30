@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import type { Graph, GraphLink, GraphNode } from './graph-model';
 import {
+  guidesFor,
   connectionCycle,
   makeTermCache,
   nextCycleState,
@@ -13,6 +14,7 @@ import {
   neighbourhoodGraph,
   paragraphs,
   relationGroups,
+  relationReasons,
   termFromSearch,
   withTermParam,
 } from './term-panel';
@@ -92,6 +94,17 @@ describe('neighbourIds / neighbourhoodGraph', () => {
       { source: 'a', target: 'b', type: 'requires', family: 'structure', label: 'Forudsætter' },
       { source: 'b', target: 'c', type: 'used-with', family: 'structure', label: 'used-with' },
     ]);
+  });
+});
+
+describe('relationReasons', () => {
+  it('keys each authored reason by type and target, skipping edges without one', () => {
+    const why = { en: 'because', da: 'fordi' };
+    const edges = [
+      { type: 'requires' as const, to: 'b', why, confidence: 'high', strength: 'primary' },
+      { type: 'requires' as const, to: 'c', confidence: 'high', strength: 'primary' },
+    ];
+    expect([...relationReasons(edges)]).toEqual([['requires|b', why]]);
   });
 });
 
@@ -251,5 +264,25 @@ describe('panel history (Back / Forward)', () => {
     let h = startHistory('t0');
     for (let k = 1; k < 10; k++) h = visit(h, `t${k}`, 3);
     expect(h).toEqual({ entries: ['t7', 't8', 't9'], pos: 2 });
+  });
+});
+
+describe('guidesFor (A101)', () => {
+  const guides = [
+    { title: 'NIST', lang: undefined },
+    { title: 'Datatilsynet', lang: 'da' as const },
+    { title: 'ENISA', lang: 'en' as const },
+  ];
+  it('puts the reader language first and marks the rest', () => {
+    expect(guidesFor(guides, 'da').map((g) => [g.title, g.other])).toEqual([
+      ['Datatilsynet', false],
+      ['NIST', true],
+      ['ENISA', true],
+    ]);
+    expect(guidesFor(guides, 'en').map((g) => [g.title, g.other])).toEqual([
+      ['NIST', false],
+      ['ENISA', false],
+      ['Datatilsynet', true],
+    ]);
   });
 });

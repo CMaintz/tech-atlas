@@ -40,6 +40,59 @@ deepDive:
     For organisationer i EU skal governance frembringe dokumentation til AI-forordningen. Udbydere af højrisikosystemer skal have et kvalitetsstyringssystem (art. 17), risikostyring (art. 9), datastyring (art. 10), teknisk dokumentation (art. 11) og logning (art. 12); idriftsættere skal udpege kompetent menneskeligt tilsyn, overvåge driften og opbevare logs (art. 26), og offentlige myndigheder og visse andre skal udarbejde en konsekvensanalyse vedrørende grundlæggende rettigheder (art. 27). Art. 4 om AI-færdigheder har gældet siden 2. februar 2025, men Digital Omnibus-ændringen fra 2026 blødte den op til en pligt til at understøtte AI-færdigheder hos medarbejderne. I Danmark er Digitaliseringsstyrelsen den primære markedsovervågningsmyndighed efter den supplerende danske AI-lov (lov nr. 467 af 14. maj 2025), sammen med Datatilsynet og Domstolsstyrelsen på særlige områder.
 
     I praksis er kerneartefaktet et AI-register: hvert system eller indbygget AI-funktion med ejer, formål, rolle (udbyder eller idriftsætter), risikoklasse efter AI-forordningen, datakategorier, leverandør, modelversion og dato for næste gennemgang. Rundt om det ligger en godkendelsesproces for nye use cases, en konsekvensanalyse efter GDPR art. 35, når der indgår personoplysninger, evaluering og red teaming før idriftsættelse, ændringsstyring ved modelopdateringer og overvågning af drift og hændelser. En typisk fejl er governance, der kun dækker egenudviklede modeller, mens AI i virkeligheden kommer ind via funktionsopdateringer i SaaS og medarbejdernes egne abonnementer - derfor er governance den vigtigste kontrol mod skygge-AI. Den adskiller sig fra AI-sikkerhedsforskning og alignment, som ændrer modellens adfærd; governance afgør, om, hvor og under hvilke kontroller et system bruges.
+howTo:
+  steps:
+    en:
+      - Have management name an accountable owner for AI governance and approve a short AI policy that says what AI may be used for, what is forbidden and who decides, using the NIST AI RMF Govern function or ISO/IEC 42001 as the frame.
+      - Build an AI register covering in-house models, AI features in SaaS products and staff subscriptions, recording for each the owner, purpose, your role as provider or deployer, EU AI Act risk class, data categories, supplier, model version and next review date.
+      - Set up an intake gate where every new AI use case is described and classified before it is taken into use, including a DPIA under GDPR Art. 35 when personal data is involved.
+      - Assess the risks of each approved use (Map and Measure in the NIST AI RMF), test accuracy, bias and security before launch, and record who accepted the remaining risk.
+      - Give staff approved tools and clear rules, for example no confidential or personal data in public chat services, and support their AI literacy with training (AI Act Art. 4).
+      - Put model updates, new data sources and changed use under change control, and monitor systems in operation for drift, errors, complaints and incidents.
+      - For high-risk systems, add the AI Act duties for your role, such as human oversight and log retention for deployers (Art. 26) and a fundamental rights impact assessment for public bodies (Art. 27).
+      - Report the register, incidents and open risks to management at least once a year, and review the policy when the law, the technology or your use changes.
+    da:
+      - Få ledelsen til at udpege en ansvarlig ejer af AI-governance og godkende en kort AI-politik, der siger, hvad AI må bruges til, hvad der er forbudt, og hvem der beslutter, med Govern-funktionen i NIST AI RMF eller ISO/IEC 42001 som ramme.
+      - Opbyg et AI-register, der dækker egne modeller, AI-funktioner i SaaS-produkter og medarbejdernes egne abonnementer, og notér for hver ejer, formål, jeres rolle som udbyder eller idriftsætter, risikoklasse efter AI-forordningen, datakategorier, leverandør, modelversion og dato for næste gennemgang.
+      - Indfør en godkendelsesproces, hvor hver ny AI-use case beskrives og klassificeres, før den tages i brug, herunder en konsekvensanalyse efter GDPR art. 35, når der indgår personoplysninger.
+      - Vurdér risiciene ved hver godkendt anvendelse (Map og Measure i NIST AI RMF), test nøjagtighed, skævheder og sikkerhed før lancering, og notér, hvem der har accepteret den tilbageværende risiko.
+      - Giv medarbejderne godkendte værktøjer og klare regler, fx ingen fortrolige oplysninger eller personoplysninger i offentlige chattjenester, og understøt deres AI-færdigheder med uddannelse (AI-forordningens art. 4).
+      - Læg modelopdateringer, nye datakilder og ændret brug under ændringsstyring, og overvåg systemerne i drift for drift i ydeevnen, fejl, klager og hændelser.
+      - Tilføj for højrisikosystemer AI-forordningens krav til jeres rolle, fx menneskeligt tilsyn og opbevaring af logs for idriftsættere (art. 26) og en konsekvensanalyse vedrørende grundlæggende rettigheder for offentlige myndigheder (art. 27).
+      - Rapportér register, hændelser og åbne risici til ledelsen mindst en gang om året, og gennemgå politikken, når loven, teknologien eller jeres brug ændrer sig.
+  pitfalls:
+    en:
+      - Covering only models you build yourself, while most AI arrives through SaaS feature updates and staff's own subscriptions.
+      - Writing a policy nobody can follow because there is no approved tool, which pushes staff towards shadow AI.
+      - Doing the risk assessment once at approval and never again, although models, data and use change after launch.
+    da:
+      - Kun at dække modeller, I selv bygger, selv om det meste AI kommer ind via funktionsopdateringer i SaaS og medarbejdernes egne abonnementer.
+      - At skrive en politik, ingen kan følge, fordi der ikke findes et godkendt værktøj, hvilket skubber medarbejderne over i skygge-AI.
+      - At lave risikovurderingen én gang ved godkendelsen og aldrig igen, selv om modeller, data og brug ændrer sig efter lanceringen.
+  guides:
+    - title: AI Risk Management Framework
+      url: https://www.nist.gov/itl/ai-risk-management-framework
+      publisher: NIST
+      tier: standard
+    - title: NIST AI RMF Playbook
+      url: https://airc.nist.gov/airmf-resources/playbook/
+      publisher: NIST
+      tier: official-doc
+    - title: Guide til virksomheder om ansvarlig anvendelse af generativ kunstig intelligens
+      url: https://digst.dk/kunstig-intelligens/guides-til-brug-af-kunstig-intelligens/guide-til-virksomheder/
+      publisher: Digitaliseringsstyrelsen
+      tier: official-doc
+      lang: da
+    - title: Guide til offentlige myndigheder om ansvarlig anvendelse af generativ kunstig intelligens
+      url: https://digst.dk/kunstig-intelligens/guides-til-brug-af-kunstig-intelligens/guide-offentlige-myndigheder/
+      publisher: Digitaliseringsstyrelsen
+      tier: official-doc
+      lang: da
+    - title: Kunstig intelligens
+      url: https://www.datatilsynet.dk/regler-og-vejledning/kunstig-intelligens
+      publisher: Datatilsynet
+      tier: official-doc
+      lang: da
 edges:
   part-of: [governance]
   requires: [artificial-intelligence, risk-management]

@@ -40,6 +40,7 @@ deepDive:
     Ud over opdelingen i forebyggende, opdagende og korrigerende kontroller tilføjer mange rammeværk afskrækkende, genoprettende og kompenserende kontroller. En kompenserende kontrol er et alternativ, der opfylder hensigten med et krav, når den foreskrevne kontrol ikke kan gennemføres, fx netværksisolation og ekstra overvågning af et legacy-system, der ikke kan patches; PCI DSS formaliserer dette med dokumenteret begrundelse og validering. Kontroller beskrives også som manuelle eller automatiserede og som forebyggende spærringer eller opdagende gennemgange, hvilket har betydning for revisorens stikprøver.
 
     Revisorer tester to ting: designeffektivitet, altså om kontrollen som designet ville håndtere risikoen, og operationel effektivitet, altså om den faktisk er udført konsekvent i perioden. SOC 2 Type I- og Type II-rapporter og i Danmark ISAE 3402- og ISAE 3000-erklæringer afspejler denne forskel. Typiske fejl er kontroller, der kun findes på papiret, kontroller uden ejer eller dokumentation, og kontroller, der ikke er koblet til nogen risiko, og som derfor koster uden at mindske risikoen. En kontrol adskiller sig fra en sikkerhedspolitik, der udtrykker hensigten, og fra et kontrolmål, der beskriver det ønskede resultat; ét politikudsagn realiseres typisk af flere tekniske og organisatoriske kontroller, og én kontrol, fx MFA, kan understøtte flere mål.
+actionable: false
 edges:
   requires: [risk]
   mitigates:

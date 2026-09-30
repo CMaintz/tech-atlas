@@ -42,6 +42,54 @@ deepDive:
     Hashkæden beviser integritet, ikke forfatterskab: felterne author og committer er fritekst, som enhver kan sætte. Signerede commits og tags (OpenPGP, SSH-nøgler siden Git 2.34 eller X.509 og Sigstores gitsign) binder et commit til en nøgle, og hostingplatforme kan kræve verificerede signaturer på beskyttede grene. Andre kontroller er grenbeskyttelse med krævede gennemgange og statustjek, forbud mod force-push, CODEOWNERS-filer, der sender ændringer til ansvarlige reviewere, og MFA eller hardwarenøgler for konti med skriveadgang. NIST SSDF-praksis PS.1 beder producenter beskytte alle former for kode mod uautoriseret adgang og manipulation, og SLSA's Source-spor fastlægger niveauer for sådanne garantier.
 
     En hyppig fejl er committede hemmeligheder: sletter man filen i et nyt commit, ligger legitimationsoplysningen stadig i historikken og i alle kloner og forks, så den skal udskiftes, og omskrivning af historikken (git filter-repo) er kun en sekundær oprydning. Versionsstyring adskiller sig fra backup, der gendanner en tilstand, men ikke rummer en gennemgået ændringshistorik, og fra GitOps, der bruger et repository som den operationelle sandhedskilde og ikke blot som et register over ændringer.
+howTo:
+  steps:
+    en:
+      - Keep all code, pipeline definitions, infrastructure code and configuration in Git repositories on a hosting platform your organisation controls, with a named owner for each repository.
+      - Require MFA or hardware security keys for every account with write access, and give write access only to those who need it.
+      - Protect the main branch - require pull requests with review and passing status checks, and block force-pushes and deletion, also for administrators.
+      - Add a CODEOWNERS file so changes to sensitive areas are routed to accountable reviewers.
+      - Require signed commits on protected branches (SSH, OpenPGP or Sigstore gitsign), and sign every release tag.
+      - Turn on secret scanning with push protection, and if a secret still gets in, rotate it first and clean history afterwards.
+      - Work in short-lived branches that are merged often, and tag each release so you can always show what was running.
+      - Check repository settings regularly with tools such as OpenSSF Scorecard or Allstar, and back up repositories outside the hosting platform.
+    da:
+      - Hold al kode, pipelinedefinitioner, infrastrukturkode og konfiguration i Git-repositories på en hostingplatform, jeres organisation har kontrol over, med en navngiven ejer for hvert repository.
+      - Kræv MFA eller hardwarenøgler for alle konti med skriveadgang, og giv kun skriveadgang til dem, der har brug for den.
+      - Beskyt hovedgrenen - kræv pull requests med gennemgang og grønne statustjek, og bloker force-push og sletning, også for administratorer.
+      - Tilføj en CODEOWNERS-fil, så ændringer i følsomme dele sendes til ansvarlige reviewere.
+      - Kræv signerede commits på beskyttede grene (SSH, OpenPGP eller Sigstores gitsign), og signér hvert udgivelsestag.
+      - Slå secret scanning med push protection til, og kommer en hemmelighed alligevel ind, så udskift den først og rens historikken bagefter.
+      - Arbejd i kortlivede grene, der flettes ofte, og tag hver udgivelse, så I altid kan vise, hvad der kørte.
+      - Tjek repositoriernes indstillinger jævnligt med værktøjer som OpenSSF Scorecard eller Allstar, og tag backup af repositories uden for hostingplatformen.
+  pitfalls:
+    en:
+      - Trusting the author name on a commit, which anyone can set, instead of a verified signature.
+      - Leaving administrators able to bypass branch protection, so the review rule has a silent back door.
+      - Removing a committed password in a new commit without rotating it.
+      - Treating the hosting platform as the backup of your source code.
+    da:
+      - At stole på forfatternavnet på et commit, som enhver kan sætte, i stedet for en verificeret signatur.
+      - At lade administratorer kunne omgå grenbeskyttelsen, så reglen om gennemgang har en stille bagdør.
+      - At fjerne en committet adgangskode i et nyt commit uden at udskifte den.
+      - At betragte hostingplatformen som backup af jeres kildekode.
+  guides:
+    - title: NIST SP 800-218 - Secure Software Development Framework (SSDF) Version 1.1
+      url: https://csrc.nist.gov/pubs/sp/800/218/final
+      publisher: NIST
+      tier: standard
+    - title: Source Code Management Platform Configuration Best Practices
+      url: https://best.openssf.org/SCM-BestPractices/
+      publisher: OpenSSF
+      tier: reference
+    - title: GitHub - About protected branches
+      url: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches
+      publisher: GitHub
+      tier: official-doc
+    - title: Git - Signing Your Work
+      url: https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work
+      publisher: Git project
+      tier: official-doc
 edges:
   part-of: [software-supply-chain]
 sources:

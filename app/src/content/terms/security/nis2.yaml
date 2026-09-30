@@ -42,6 +42,52 @@ deepDive:
     De materielle pligter fylder ikke meget. Artikel 20 lægger godkendelse, tilsyn og uddannelse på ledelsesorganet; artikel 21 kræver passende og forholdsmæssige tekniske, operationelle og organisatoriske foranstaltninger ud fra en tilgang, der dækker alle farer, med ti minimumsområder i stk. 2; og artikel 23 definerer en væsentlig hændelse og den trinvise indberetning til CSIRT'en eller den kompetente myndighed: tidlig varsling inden for 24 timer efter, at enheden får kendskab til hændelsen, hændelsesunderretning inden for 72 timer, foreløbige rapporter på anmodning og en endelig rapport senest en måned efter underretningen. For udbydere af DNS, topdomæner, cloud, datacentre, CDN, managed services og managed security services, online markedspladser, søgemaskiner, sociale netværk og tillidstjenester præciserer Kommissionens gennemførelsesforordning (EU) 2024/2690 både de tekniske foranstaltninger og, hvornår en hændelse er væsentlig.
 
     Håndhævelsen er delt mellem artikel 32 (forudgående tilsyn med væsentlige enheder, herunder inspektioner på stedet, sikkerhedsaudits og scanninger) og artikel 33 (efterfølgende tilsyn med vigtige enheder, udløst af indikationer på manglende overholdelse). Artikel 34 fastsætter bødemaksimum på mindst 10 mio. euro eller 2 % af den globale årsomsætning for væsentlige enheder og 7 mio. euro eller 1,4 % for vigtige enheder, alt efter hvad der er højest. Artikel 27 opretter et register hos ENISA over visse digitale udbydere, og artikel 35 koordinerer med databeskyttelsesforordningen: har en databeskyttelsesmyndighed givet bøde for en overtrædelse, der udspringer af samme adfærd, må NIS2-myndigheden ikke give en yderligere bøde efter artikel 34. Én hændelse kan derfor udløse både en NIS2-indberetning og en anmeldelse efter GDPR artikel 33 til forskellige myndigheder med forskellige frister.
+howTo:
+  steps:
+    en:
+      - Check scope under Art. 2 and Annexes I and II, using your sector, your size as a medium or large enterprise and the size-independent cases, and whether you are an essential or important entity (Art. 3).
+      - Find the national law and competent authority where you are established, because the directive binds you only through national law; in Denmark that is the NIS2 Act, with energy, telecom and finance under separate rules.
+      - Register with the competent authority as the national law requires, and keep the registered details up to date.
+      - Have the management body approve the risk-management measures, oversee their implementation and follow training (Art. 20), since its members can be held liable for infringements.
+      - Run an all-hazards risk assessment and a gap analysis against the ten areas in Art. 21(2), from risk policies and incident handling to supply chain security, cryptography and MFA.
+      - Implement proportionate measures and document them; digital providers such as cloud and managed service providers must also meet Implementing Regulation (EU) 2024/2690, supported by ENISA's technical guidance.
+      - Build an incident process that can deliver the Art. 23 reports, with an early warning within 24 hours, an incident notification within 72 hours and a final report within one month.
+      - Test the effectiveness of the measures regularly (Art. 21(2)(f)) and keep evidence ready for supervision, ex ante for essential entities (Art. 32) and ex post for important ones (Art. 33).
+    da:
+      - Afklar, om I er omfattet efter art. 2 og bilag I og II ud fra sektor, størrelse som mellemstor eller stor virksomhed og de tilfælde, der gælder uanset størrelse, og om I er en væsentlig eller vigtig enhed (art. 3).
+      - Find den nationale lov og den kompetente myndighed i det land, hvor I er etableret, for direktivet binder kun gennem national ret; i Danmark er det NIS2-loven, mens energi, tele og finans har egne regler.
+      - Registrér jer hos den kompetente myndighed, som den nationale lov kræver, og hold oplysningerne ajour.
+      - Få ledelsesorganet til at godkende foranstaltningerne til risikostyring, føre tilsyn med gennemførelsen og deltage i kurser (art. 20), da medlemmerne kan holdes ansvarlige for overtrædelser.
+      - Gennemfør en risikovurdering, der dækker alle farer, og en gap-analyse mod de ti områder i art. 21, stk. 2, fra risikopolitik og hændelseshåndtering til forsyningskædesikkerhed, kryptografi og MFA.
+      - Implementér forholdsmæssige foranstaltninger og dokumentér dem; digitale udbydere som cloud- og managed service-udbydere skal også opfylde gennemførelsesforordning (EU) 2024/2690 med støtte i ENISA's tekniske vejledning.
+      - Byg en hændelsesproces, der kan levere indberetningerne efter art. 23 med en tidlig varsling inden for 24 timer, en hændelsesunderretning inden for 72 timer og en endelig rapport inden for en måned.
+      - Test løbende, om foranstaltningerne virker (art. 21, stk. 2, litra f), og hav dokumentationen klar til tilsyn, som er forudgående for væsentlige enheder (art. 32) og efterfølgende for vigtige enheder (art. 33).
+  pitfalls:
+    en:
+      - Assuming you are out of scope because you do not see yourself as critical infrastructure, when sector and size decide.
+      - Leaving NIS2 to the IT department without the management approval, oversight and training the law demands.
+      - Waiting for a full picture before sending the 24-hour early warning.
+      - Forgetting the supply chain, although weak suppliers are one of the areas the measures must cover.
+    da:
+      - At gå ud fra, at man ikke er omfattet, fordi man ikke opfatter sig som kritisk infrastruktur, selv om det er sektor og størrelse, der afgør det.
+      - At overlade NIS2 til IT-afdelingen uden den godkendelse, det tilsyn og de kurser for ledelsen, som reglerne kræver.
+      - At vente på det fulde overblik, før den tidlige varsling sendes inden for 24 timer.
+      - At glemme forsyningskæden, selv om leverandørerne er et af de områder, foranstaltningerne skal dække.
+  guides:
+    - title: NIS2 Technical Implementation Guidance
+      url: https://www.enisa.europa.eu/publications/nis2-technical-implementation-guidance
+      publisher: ENISA
+      tier: official-doc
+    - title: NIS 2
+      url: https://samsik.dk/nis2/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Lov nr. 434 af 6. maj 2025 om foranstaltninger til sikring af et højt cybersikkerhedsniveau (NIS 2-loven)
+      url: https://www.retsinformation.dk/eli/lta/2025/434
+      publisher: Retsinformation
+      tier: standard
+      lang: da
 edges:
   requires: [cyber-and-information-security]
   supersedes:

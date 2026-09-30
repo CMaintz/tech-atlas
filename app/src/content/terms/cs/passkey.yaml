@@ -42,6 +42,48 @@ deepDive:
     Phishing-resistensen kommer af den binding: Det er browseren og ikke brugeren, der angiver origin, og autentifikatoren tilbyder slet ikke en loginoplysning, hvis RP ID ikke passer til websitet, så et forvekslingsdomæne får intet at videresende. Det er binding til verifierens navn i betydningen fra NIST SP 800-63B-4 §3.2.5. På serversiden gemmes kun offentlige nøgler, så et databasebrud giver intet, der kan bruges til login.
 
     Passkeys er enten synkroniserede eller enhedsbundne. Efter Apples, Googles og Microsofts fælles tilsagn i maj 2022 begyndte platformene at synkronisere passkeys via iCloud-nøglering, Google Password Manager og tredjeparts adgangskodeadministratorer; flagene BE (backup eligible) og BS (backup state) afslører det, og synkroniserede autentifikatorer returnerer ofte signaturtælleren nul, så tællerbaseret kloningsdetektion bliver meningsløs. SP 800-63B-4 accepterer synkroniserbare autentifikatorer op til AAL2, men ikke på AAL3, som kræver en nøgle, der ikke kan eksporteres; administratorer og brug med højt sikringsniveau kræver derfor enhedsbundne passkeys på sikkerhedsnøgler eller platform-TPM'er, ofte med attestation, så modellen kan verificeres. Login på tværs af enheder bruger hybrid-transporten, en QR-kode plus et Bluetooth-nærhedstjek, så en telefon kan autentificere en bærbar. De tilbageværende risici er den svageste tilbageværende gendannelses- eller reservemetode (SMS eller adgangskode, der stadig er slået til), kompromittering af synkroniseringskontoen og tyveri af den sessionscookie, der udstedes efter et fuldt phishing-resistent login.
+howTo:
+  steps:
+    en:
+      - Decide where passkeys come first, for example staff sign-in through the identity provider, administrators and the organisation's own customer-facing login, and name an owner for the rollout.
+      - Decide which passkey types each group may use - synced passkeys in a password manager for most users, device-bound passkeys on security keys or in an authenticator app with attestation for administrators.
+      - For your own applications, use a maintained WebAuthn server library, set the RP ID to your registrable domain, and verify challenge, origin and signature on every sign-in instead of writing the checks yourself.
+      - Let users register a passkey only after a strong sign-in, allow several passkeys per account so a lost device is not a lock-out, and show each passkey with a name and last-used date.
+      - Offer passkeys in the normal sign-in flow through autofill and in account settings, run a pilot group first, and measure how many users sign in with a passkey.
+      - Secure account recovery as carefully as sign-in, with identity checks in person or through MitID, because an attacker will go for the weakest fallback.
+      - Once most users have a passkey, require phishing-resistant sign-in for sensitive systems through conditional access, and phase out SMS codes and passwords as fallbacks.
+      - Review every quarter which accounts still lack a passkey, which weak methods are still enabled and how recovery requests are handled.
+    da:
+      - Beslut, hvor passkeys skal indføres først, fx medarbejderlogin via identitetsudbyderen, administratorer og organisationens eget kundelogin, og udpeg en ejer af udrulningen.
+      - Beslut, hvilke typer passkeys hver gruppe må bruge - synkroniserede passkeys i en adgangskodeadministrator for de fleste brugere, enhedsbundne passkeys på sikkerhedsnøgler eller i en godkendelsesapp med attestation for administratorer.
+      - Brug et vedligeholdt WebAuthn-serverbibliotek til jeres egne applikationer, sæt RP ID til jeres registrerbare domæne, og kontrollér challenge, origin og signatur ved hvert login i stedet for selv at skrive kontrollerne.
+      - Lad kun brugerne registrere en passkey efter et stærkt login, tillad flere passkeys pr. konto, så en mistet enhed ikke låser dem ude, og vis hver passkey med navn og dato for seneste brug.
+      - Tilbyd passkeys i det almindelige login via autofill og i kontoindstillingerne, kør først en pilotgruppe, og mål, hvor mange brugere der logger ind med passkey.
+      - Sikr gendannelse af konti lige så grundigt som login, med identitetskontrol personligt eller via MitID, for en angriber går efter den svageste reservemetode.
+      - Når de fleste brugere har en passkey, så kræv phishing-resistent login til følsomme systemer via betinget adgang, og udfas sms-koder og adgangskoder som reservemetoder.
+      - Gennemgå hvert kvartal, hvilke konti der stadig mangler en passkey, hvilke svage metoder der stadig er slået til, og hvordan anmodninger om gendannelse håndteres.
+  pitfalls:
+    en:
+      - Adding passkeys while leaving password and SMS sign-in enabled forever, so attackers simply phish the old method instead.
+      - Allowing only one passkey per account, so a lost or replaced phone sends every user to the service desk.
+      - Giving administrators synced passkeys without checking whether policy requires device-bound keys for high-assurance access.
+    da:
+      - At indføre passkeys, men lade login med adgangskode og sms være slået til for altid, så angribere blot phisher den gamle metode i stedet.
+      - Kun at tillade én passkey pr. konto, så en mistet eller udskiftet telefon sender alle brugere til servicedesken.
+      - At give administratorer synkroniserede passkeys uden at tjekke, om politikken kræver enhedsbundne nøgler til adgang med højt sikringsniveau.
+  guides:
+    - title: Passkey Central
+      url: https://www.passkeycentral.org/
+      publisher: FIDO Alliance
+      tier: official-doc
+    - title: How to enable passkeys (FIDO2) in Microsoft Entra ID
+      url: https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-authentication-passkeys-fido2
+      publisher: Microsoft
+      tier: official-doc
+    - title: Passkeys
+      url: https://developers.google.com/identity/passkeys
+      publisher: Google for Developers
+      tier: official-doc
 edges:
   kind-of: [credential]
   requires: [authentication, public-key-cryptography]

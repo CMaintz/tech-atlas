@@ -42,6 +42,65 @@ deepDive:
     Registreringen er delt i to: § 9 omfatter udbydere af DNS, topdomæner, domænenavnsregistrering, cloud, CDN, managed services og managed security services samt online markedspladser, søgemaskiner og sociale netværksplatforme, og § 10 omfatter alle væsentlige og vigtige enheder; for enheder, der fandtes ved ikrafttrædelsen, fastsatte § 33, stk. 3, fristen til den 1. oktober 2025. § 11 pålægger topdomæneadministratorer og registratorer at føre nøjagtige registreringsdata. Indberetninger og registreringer sker via Virk, og hændelserne håndteres af den nationale CSIRT under Forsvarets Efterretningstjeneste.
 
     Tilsynet er decentralt. Efter § 20 udpeger ministeren for samfundssikkerhed og beredskab ved bekendtgørelse den kompetente myndighed for hver sektor, mens Styrelsen for Samfundssikkerhed er koordinerende myndighed. Myndighederne kan give påbud til væsentlige (§ 22) og vigtige (§ 25) enheder, og § 23 giver mulighed for, kun over for væsentlige enheder og når andre tiltag har vist sig utilstrækkelige, midlertidigt at forbyde en person på direktørniveau at udøve ledelsesfunktioner. Efter § 32 straffes overtrædelser med bøde; som sædvanligt i dansk ret er det en strafferetlig sanktion, der afgøres ved domstolene frem for en administrativ bøde fastsat af tilsynsmyndigheden, hvilket er en praktisk forskel fra, hvordan mange andre medlemsstater har gennemført NIS2 artikel 34.
+howTo:
+  steps:
+    en:
+      - Check whether you are covered with the NIS2 check on sikkerdigital.dk and SAMSIK's guidance on scope, and whether you are an essential or important entity (§§ 4-5); energy, telecom and finance follow their own acts.
+      - Find the competent authority for your sector in SAMSIK's list of sector authorities, and read its sector-specific rules and guidance.
+      - Register on virk.dk with MitID Erhverv (§ 10) within two weeks of becoming covered (entities covered at entry into force had until 1 October 2025), and report changes within two weeks.
+      - Have the management body approve the § 6 measures and oversee their implementation, and make sure its members attend relevant cybersecurity courses (§ 7).
+      - Carry out a risk assessment and implement the § 6 minimum measures, from risk policy, incident handling, backup and supply chain security to cryptography, access control and MFA.
+      - Write an incident procedure for §§ 12-13 with an early warning within 24 hours, an incident notification within 72 hours and a final report within one month, submitted through the joint form on virk.dk.
+      - Decide how you will inform the recipients of your services without undue delay about significant incidents and threats that may affect them (§ 15).
+      - Keep documentation ready for supervision, since the authority can issue orders (§§ 22 and 25), temporarily ban a manager in an essential entity (§ 23), and violations are punished by fines (§ 32).
+      - Review the risk assessment, measures and procedures at least yearly and after major changes, and report them to management.
+    da:
+      - Undersøg, om I er omfattet, med NIS2-tjekket på sikkerdigital.dk og SAMSIK's vejledning om anvendelsesområdet, og om I er en væsentlig eller vigtig enhed (§§ 4-5); energi, tele og finans følger deres egne love.
+      - Find den kompetente myndighed for jeres sektor på SAMSIK's liste over sektoransvarlige myndigheder, og læs dens sektorspecifikke regler og vejledning.
+      - Registrér jer på virk.dk med MitID Erhverv (§ 10) senest to uger efter, at I er blevet omfattet (enheder, der var omfattet ved ikrafttrædelsen, havde frist til 1. oktober 2025), og meld ændringer inden for to uger.
+      - Få ledelsesorganet til at godkende foranstaltningerne efter § 6 og føre tilsyn med gennemførelsen, og sørg for, at medlemmerne deltager i relevante kurser om cybersikkerhed (§ 7).
+      - Gennemfør en risikovurdering, og implementér minimumsforanstaltningerne i § 6, fra risikopolitik, hændelseshåndtering, backup og forsyningskædesikkerhed til kryptografi, adgangskontrol og MFA.
+      - Skriv en hændelsesprocedure efter §§ 12-13 med tidlig varsling inden for 24 timer, hændelsesunderretning inden for 72 timer og endelig rapport inden for en måned, indsendt via den fælles blanket på virk.dk.
+      - Fastlæg, hvordan I uden unødigt ophold underretter modtagerne af jeres tjenester om væsentlige hændelser og trusler, der kan ramme dem (§ 15).
+      - Hav dokumentationen klar til tilsyn, for myndigheden kan give påbud (§§ 22 og 25) og midlertidigt forbyde en leder i en væsentlig enhed at udøve ledelse (§ 23), og overtrædelser straffes med bøde (§ 32).
+      - Gennemgå risikovurdering, foranstaltninger og procedurer mindst en gang om året og efter større ændringer, og rapportér til ledelsen.
+  pitfalls:
+    en:
+      - Thinking the October 2025 registration deadline is history, when an entity that becomes covered later has only two weeks to register.
+      - Letting an outsourced IT provider handle incident reporting without checking it, although the responsibility for reporting on time always stays with the entity.
+      - Treating the NIS2 notification as covering a personal data breach, instead of also notifying Datatilsynet, which the Virk form lets you select.
+      - Assuming an energy, telecom or financial company follows this act, when they have their own sector laws.
+    da:
+      - At tro, at registreringsfristen i oktober 2025 er historie, selv om en enhed, der bliver omfattet senere, kun har to uger til at registrere sig.
+      - At lade en outsourcet IT-leverandør stå for underretningen uden at kontrollere det, selv om ansvaret for rettidig underretning altid ligger hos enheden.
+      - At regne med, at NIS2-underretningen også dækker et brud på persondatasikkerheden, i stedet for også at underrette Datatilsynet, som man kan vælge i blanketten på Virk.
+      - At gå ud fra, at en energi-, tele- eller finansvirksomhed følger denne lov, selv om de har deres egne sektorlove.
+  guides:
+    - title: Lov nr. 434 af 6. maj 2025 om foranstaltninger til sikring af et højt cybersikkerhedsniveau (NIS 2-loven)
+      url: https://www.retsinformation.dk/eli/lta/2025/434
+      publisher: Retsinformation
+      tier: standard
+      lang: da
+    - title: NIS 2-vejledninger
+      url: https://samsik.dk/nis2/nis-2-vejledninger/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Registrering af enheder efter NIS 2-loven
+      url: https://samsik.dk/nis2/registrering-nis2/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Sektoransvarlige myndigheder
+      url: https://samsik.dk/nis2/sektoransvarlige-myndigheder/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: NIS2-tjek
+      url: https://nis2tjek.sikkerdigital.dk/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   implements:
     - to: nis2

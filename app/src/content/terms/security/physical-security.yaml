@@ -40,6 +40,50 @@ deepDive:
     Datacentre formaliserer dette med lagdelte tilgængelighedsmodeller: Uptime Institutes Tier I-IV-klassifikation (Tier IV er fejltolerant med samtidig vedligeholdelsesvenlig, redundant infrastruktur) og EN 50600-serien i Europa definerer forventet redundans og fysisk beskyttelse. Adgang logges typisk og er ofte betinget af fysisk multifaktor-autentificering (kort plus PIN eller biometri), og selve rack-skabene er låst, så colocation-lejere ikke kan nå hinandens hardware.
 
     Et centralt princip er, at fysisk adgang ofte slår logiske kontroller: en angriber med hænderne på en enhed kan boote fra eksternt medie, udtrække diske, opsnappe data fra hukommelsen (cold-boot-angreb), montere en hardware-keylogger eller plante et rogue netværksimplantat - derfor er fulddiskkryptering, deaktiveret boot fra flytbare medier, portkontrol og tamper-evident-forseglinger vigtige. En udbredt misforståelse er, at fysisk sikkerhed er et facility-anliggende adskilt fra cybersikkerhed; NIS2 og ISO 27001 behandler det som en integreret del af informationssikkerheden, netop fordi så mange logiske beskyttelser antager, at angriberen er ekstern. Sikker bortskaffelse er den ofte glemte ende af livscyklussen: diske og multifunktionsprintere gemmer data og skal saneres (efter NIST SP 800-88's retningslinjer for mediesanering) eller destrueres fysisk før bortskaffelse.
+howTo:
+  steps:
+    en:
+      - List the sites, rooms and equipment that hold or process important information, including server rooms, network cabinets, printers and paper archives, with an owner for each.
+      - Assess the physical and environmental threats for each location, such as break-in, tailgating, theft of laptops, fire, water and power loss.
+      - Set up zones from public areas to secure rooms, with locks or card access at each boundary, and give people access only to the zones their work requires.
+      - Stop tailgating with a clear rule, visible badges, visitor registration and escorts, and mantraps or anti-passback at the most sensitive doors.
+      - Protect server rooms with fire detection and suitable suppression, UPS and backup power, cooling, and water and temperature sensors that raise an alarm.
+      - Protect devices outside secure areas with full-disk encryption, locked screens, disabled unused network sockets and a clear desk rule.
+      - Wipe or destroy disks, phones and printer drives before disposal or reuse following NIST SP 800-88, and keep a record for each device.
+      - Review access lists and logs every quarter, remove leavers at once, and test alarms, backup power and the tailgating rule at least once a year.
+    da:
+      - Lav en liste over lokaler, rum og udstyr, der rummer eller behandler vigtig information, herunder serverrum, netværksskabe, printere og papirarkiver, med en ejer for hvert.
+      - Vurdér de fysiske og miljømæssige trusler for hvert sted, fx indbrud, tailgating, tyveri af bærbare, brand, vand og strømsvigt.
+      - Indret zoner fra offentlige områder til sikre rum med lås eller kortadgang ved hver grænse, og giv kun adgang til de zoner, som arbejdet kræver.
+      - Stop tailgating med en klar regel, synlige adgangskort, registrering og ledsagelse af gæster og sluser eller anti-passback ved de mest følsomme døre.
+      - Beskyt serverrum med branddetektion og egnet slukning, UPS og nødstrøm, køling samt vand- og temperatursensorer, der slår alarm.
+      - Beskyt enheder uden for de sikre områder med fulddiskkryptering, låste skærme, slukkede ubrugte netværksstik og en clear desk-regel.
+      - Slet eller destruér diske, telefoner og printerdiske før bortskaffelse eller genbrug efter NIST SP 800-88, og registrér hver enhed.
+      - Gennemgå adgangslister og logs hvert kvartal, fjern fratrådte med det samme, og test alarmer, nødstrøm og tailgating-reglen mindst én gang om året.
+  pitfalls:
+    en:
+      - Treating physical security as a facilities matter, so network sockets, printers and disposal are left out of the security work.
+      - Access cards that are never withdrawn from leavers or temporary staff.
+      - A tailgating rule that nobody enforces because it feels rude to stop a colleague.
+      - Sending old disks and multifunction printers for recycling without wiping them.
+    da:
+      - At se fysisk sikkerhed som et anliggende for bygningsdriften, så netværksstik, printere og bortskaffelse falder uden for sikkerhedsarbejdet.
+      - Adgangskort, der aldrig inddrages fra fratrådte eller midlertidige medarbejdere.
+      - En tailgating-regel, som ingen håndhæver, fordi det føles uhøfligt at stoppe en kollega.
+      - At sende gamle diske og multifunktionsprintere til genbrug uden at slette dem.
+  guides:
+    - title: NIST SP 800-88 Rev. 2 - Guidelines for Media Sanitization
+      url: https://csrc.nist.gov/pubs/sp/800/88/r2/final
+      publisher: NIST
+      tier: standard
+    - title: NIST SP 800-53 Rev. 5 - Security and Privacy Controls for Information Systems and Organizations (PE Physical and Environmental Protection)
+      url: https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final
+      publisher: NIST
+      tier: standard
+    - title: Security Planning Workbook
+      url: https://www.cisa.gov/resources-tools/resources/security-planning-workbook
+      publisher: CISA
+      tier: official-doc
 edges:
   kind-of: [control]
   part-of: [defence-in-depth]

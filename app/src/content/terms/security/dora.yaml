@@ -42,6 +42,56 @@ deepDive:
     Tredjepartsrisiko på IKT-området (art. 28-30) kræver et informationsregister over alle aftaler med IKT-leverandører, due diligence før aftaleindgåelse, exitstrategier og de obligatoriske kontraktvilkår i art. 30, som er skrappere for tjenester, der understøtter kritiske eller vigtige funktioner. Tilsynsrammen (art. 31-44) lader de europæiske tilsynsmyndigheder (ESA'erne) udpege kritiske tredjepartsudbydere af IKT-tjenester og føre tilsyn med dem via en ledende tilsynsførende; den første liste med 19 udbydere, herunder de store hyperscalere, blev offentliggjort 18. november 2025 og opdateres årligt. Den femte søjle, art. 45, giver mulighed for frivillig deling af trusselsoplysninger.
 
     DORA er lex specialis i forhold til NIS2 for finansielle enheder, og NIS2 art. 4 viger for den, så en dansk bank indberetter større IKT-hændelser til Finanstilsynet efter DORA frem for NIS2's frister i art. 23. En udbredt misforståelse er, at DORA gælder direkte for cloududbydere: den binder den finansielle enhed, og kun udpegede kritiske udbydere nås via ESA'ernes tilsyn; andre leverandører påvirkes indirekte gennem de kontraktvilkår, kunderne skal stille.
+howTo:
+  steps:
+    en:
+      - Check on Finanstilsynet's list whether you are one of the financial entity types in Art. 2, and whether you qualify for the simplified ICT risk-management framework in Art. 16 or the lighter rules for microenterprises.
+      - Have the management body approve and own the ICT risk-management framework (Art. 5), set roles and budget, and keep its members' knowledge of ICT risk up to date.
+      - Build the framework under Arts. 6-16 and Delegated Regulation (EU) 2024/1774 - map ICT assets and dependencies, protect and detect, set up backup and restoration, and write an ICT business continuity policy with plans that are tested (Art. 11).
+      - Set up incident management (Art. 17) that logs every ICT-related incident, classifies it under Delegated Regulation (EU) 2024/1772, and names who decides that an incident is major.
+      - For a major incident, send the initial notification to Finanstilsynet through Virk.dk within four hours of classifying it as major and no later than 24 hours after becoming aware of it, then an intermediate report within 72 hours and a final report within one month of the last intermediate report (Art. 19).
+      - Keep a register of information on all contracts with ICT third-party providers (Art. 28), do due diligence before signing, put the Art. 30 clauses into the contracts, and keep exit strategies for services that support critical or important functions.
+      - Run a risk-based testing programme that tests systems supporting critical or important functions at least yearly (Art. 24), and prepare for threat-led penetration testing every three years if Finanstilsynet selects you (Art. 26).
+      - Review the framework at least yearly and after major incidents or supervisory findings, keep the register current for Finanstilsynet, and report the results to the management body.
+    da:
+      - Tjek på Finanstilsynets liste, om I er en af de typer finansielle enheder, der står i art. 2, og om I kan bruge den forenklede ramme for IKT-risikostyring i art. 16 eller de lettere regler for mikrovirksomheder.
+      - Få ledelsesorganet til at godkende og eje rammen for IKT-risikostyring (art. 5), fastlæg roller og budget, og sørg for, at medlemmerne holder deres viden om IKT-risici ajour.
+      - Byg rammen efter art. 6-16 og delegeret forordning (EU) 2024/1774 - kortlæg IKT-aktiver og afhængigheder, beskyt og detektér, indfør backup og gendannelse, og skriv en politik for IKT-forretningskontinuitet med planer, der bliver testet (art. 11).
+      - Indfør hændelseshåndtering (art. 17), der registrerer alle IKT-relaterede hændelser, klassificerer dem efter delegeret forordning (EU) 2024/1772 og fastlægger, hvem der afgør, at en hændelse er større.
+      - Send ved en større hændelse den første underretning til Finanstilsynet via Virk.dk inden for fire timer efter klassificeringen som større og senest 24 timer efter, at I fik kendskab til den, derefter en mellemrapport inden for 72 timer og en endelig rapport senest en måned efter den seneste mellemrapport (art. 19).
+      - Før et informationsregister over alle aftaler med tredjepartsudbydere af IKT-tjenester (art. 28), lav due diligence før aftaleindgåelse, skriv vilkårene i art. 30 ind i kontrakterne, og hav exitstrategier for tjenester, der understøtter kritiske eller vigtige funktioner.
+      - Kør et risikobaseret testprogram, der mindst en gang om året tester systemer, som understøtter kritiske eller vigtige funktioner (art. 24), og forbered jer på trusselsbaseret penetrationstest hvert tredje år, hvis Finanstilsynet udvælger jer (art. 26).
+      - Gennemgå rammen mindst en gang om året og efter større hændelser eller tilsynsfund, hold registret opdateret til Finanstilsynet, og rapportér resultatet til ledelsesorganet.
+  pitfalls:
+    en:
+      - Reporting a major incident under NIS2 deadlines or to the wrong authority, when DORA takes precedence for financial entities and reports go to Finanstilsynet.
+      - Assuming the cloud provider carries the DORA duties, when the financial entity must impose the contract terms and keep its own exit plan.
+      - Losing the four-hour window in internal debate, because no classification procedure or on-call decision maker was agreed in advance.
+      - Keeping the register of information as a one-off spreadsheet that drifts out of date as contracts and subcontractors change.
+    da:
+      - At indberette en større hændelse efter NIS2-fristerne eller til den forkerte myndighed, selv om DORA går forud for finansielle enheder, og indberetningen skal til Finanstilsynet.
+      - At gå ud fra, at cloududbyderen bærer DORA-pligterne, selv om det er den finansielle enhed, der skal stille kontraktvilkårene og have sin egen exitplan.
+      - At miste firetimersfristen i intern diskussion, fordi der ikke på forhånd var aftalt en klassificeringsprocedure eller en beslutningstager på vagt.
+      - At føre informationsregistret som et engangsregneark, der bliver forældet, efterhånden som aftaler og underleverandører skifter.
+  guides:
+    - title: Forordning om digital operationel modstandsdygtighed (DORA)
+      url: https://www.finanstilsynet.dk/finansielle-temaer/tilsyn-med-ikt-og-datasikkerhed/forordning-om-digital-operationel-modstandsdygtighed-dora
+      publisher: Finanstilsynet
+      tier: official-doc
+      lang: da
+    - title: Indberetning af IKT-relaterede hændelser i henhold til DORA
+      url: https://www.finanstilsynet.dk/finansielle-temaer/tilsyn-med-ikt-og-datasikkerhed/indberetning-af-ikt-relaterede-haendelser-i-henhold-til-dora
+      publisher: Finanstilsynet
+      tier: official-doc
+      lang: da
+    - title: Implementing and delegated acts - DORA
+      url: https://finance.ec.europa.eu/regulation-and-supervision/financial-services-legislation/implementing-and-delegated-acts/digital-operational-resilience-regulation_en
+      publisher: European Commission
+      tier: official-doc
+    - title: Joint Technical Standards on major incident reporting
+      url: https://www.eba.europa.eu/activities/single-rulebook/regulatory-activities/operational-resilience/joint-technical-standards-major-incident-reporting
+      publisher: European Banking Authority
+      tier: official-doc
 edges:
   mandates:
     - to: incident-reporting

@@ -1,307 +1,41 @@
 /**
  * The Explorer's 2D map (A74, A86): one Cytoscape instance for the life of the page.
  * The island layout is computed once from the whole graph; filters only hide and show
- * elements in place, layouts (force / depth / time) and "Tidy up" glide nodes to new
- * positions, and nothing here ever re-creates the instance. Browser-only.
+ * elements in place, layouts (force / depth / time) and the lab's relayout glide nodes
+ * to new positions, and nothing here ever re-creates the instance. Browser-only.
+ *
+ * This module composes the map's parts (`explorer-2d/`): elements and style, islands and
+ * placement, label culling, edges and their reveal, hover and relationship names, the
+ * pointer, the camera and the palette. They share `MapParts` and a small `MapState`.
  */
 import cytoscape from 'cytoscape';
-import fcose from 'cytoscape-fcose';
-import type { Graph, GraphNode } from './graph-model';
 import { EXPLORER } from './explorer-config';
-import {
-  LAYOUT_SEED,
-  clusterColour,
-  cullLabels,
-  domainColour,
-  homeDomain,
-  isDirected,
-  labelAbove,
-  labelBelow,
-  outerSide,
-  packIslands,
-  withSeededRandom,
-  MAP_INK,
-  type MapTheme,
-  type Island,
-  type IslandLink,
-  type Point,
-} from './graph-style';
-import {
-  backbone,
-  backboneOf,
-  bundleControls,
-  clusterBundles,
-  depthLanes,
-  effectiveHome,
-  levelAngle,
-  linkVisible,
-  pageRank,
-  pairKey,
-  rotateAbout,
-  separate,
-  sizeForRank,
-  timeLanes,
-  visibleBundleCounts,
-  type LaneLayout,
-} from './graph-layout';
-import { edgeData, graphStyle, reducedMotion, smoothFit } from './graph-cytoscape';
-import { createDragFeedback } from './drag-feedback';
+import { MAP_INK, type MapTheme } from './graph-style';
 import type { Axes } from './explorer-keys';
-import {
-  createMotionGate,
-  cullBoxes,
-  effectiveFocus,
-  labelPov,
-  relationLabel,
-  rotatedSize,
-  type RelationNames,
-} from './explorer-focus';
 import { startDots, type DotsConfig } from './explorer-flow';
+import { createApply } from './explorer-2d/apply';
+import { centreOn, nudge } from './explorer-2d/camera';
+import type { MapParts, MapState } from './explorer-2d/context';
+import { createEdges, createRoutes } from './explorer-2d/edges';
+import { anchorElements, bundleElements, mapElements } from './explorer-2d/elements';
+import { createHover } from './explorer-2d/hover';
+import { buildIslands, type IslandTune } from './explorer-2d/islands';
+import { createLabelCull } from './explorer-2d/labels';
+import { createLayouts, createPlacement } from './explorer-2d/placement';
+import { bindPointer } from './explorer-2d/pointer';
+import { createRelationNames } from './explorer-2d/relation-names';
+import { createStagger } from './explorer-2d/stagger';
+import { mapStylesheet } from './explorer-2d/style';
+import { retheme } from './explorer-2d/theme';
+import type { Map2DOptions } from './explorer-2d/types';
 
-cytoscape.use(fcose);
+export type { Layout, Map2DOptions, View } from './explorer-2d/types';
 
-export type Layout = 'force' | 'depth' | 'time';
-
-export type Map2DOptions = {
-  container: HTMLElement;
-  graph: Graph;
-  lang: 'en' | 'da';
-  clusterLabels: Record<string, string>;
-  domainLabels: Record<string, string>;
-  /** Pixels kept clear on the right when fitting (the open legend). */
-  reserveRight: () => number;
-  /** Pixels on the right covered while a term is selected (the docked term panel). */
-  centreReserve: () => number;
-  onSelect: (id: string | null) => void;
-  onOpen: (id: string) => void;
-  /** A term is hovered (e.g. to prefetch its panel data). */
-  onHover?: (id: string) => void;
-  /**
-   * The pointer is over a term (its centre in container pixels), or left it / the view
-   * moved (null) — for the Explorer's resting hover card.
-   */
-  onPoint?: (hit: { id: string; x: number; y: number } | null) => void;
-  /** The map's palette (A92); change it later with `retheme`. */
-  theme?: MapTheme;
-  /** Relationship names, written on the lit links (A97a); none without. */
-  relationNames?: RelationNames;
-};
-
-/** What the map shows; every field is applied in place. */
-export type View = {
-  layout: Layout;
-  /** Terms shown (domain filter, neighbourhood, time layout's dated terms). */
-  nodes: ReadonlySet<string>;
-  domains: ReadonlySet<string>;
-  families: ReadonlySet<string>;
-  showAll: boolean;
-  selected: string | null;
-  highlight: ReadonlySet<string>;
-  colour: (n: GraphNode) => string;
-  /** Domain colours of a shared term, its own first (the second is its ring); else empty. */
-  bands: (n: GraphNode) => string[];
-};
-
-/** Below this zoom only hubs keep a (larger) label. */
-const FAR_ZOOM = 0.9;
-/** Labels smaller than this on screen are not drawn. */
-const MIN_LABEL_PX = 8;
-const HOVER_LABEL_PX = 11;
-
-const extraStyle = (theme: MapTheme) => [
-  // Cytoscape's own press marker is a dark disc, invisible on the night map: the drag
-  // ring (drag-feedback.ts) replaces it (A95).
-  { selector: 'core', style: { 'active-bg-opacity': 0 } },
-  { selector: '.gone', style: { display: 'none' } },
-  { selector: 'edge.off', style: { display: 'none' } },
-  // Resting backbone: the cluster's own shade, no arrow, straight and solid — a calm
-  // constellation, and the cheapest edges Cytoscape draws (haystack), so ~950 of them
-  // still pan smoothly (A86).
-  {
-    selector: 'edge.bb',
-    style: {
-      'line-color': 'data(tint)',
-      'line-fill': 'solid',
-      'target-arrow-shape': 'none',
-      'curve-style': 'haystack',
-      'haystack-radius': 0,
-    },
-  },
-  // Resting edges between islands are quieter.
-  { selector: 'edge.bb.xc', style: { opacity: EXPLORER.edges.crossAlpha } },
-  // Revealed (hover, selection, route, "show all"): family colour, curve and arrow.
-  {
-    selector: 'edge.all, edge.lit, edge.hl, edge.focus',
-    style: {
-      'line-color': 'data(colour)',
-      'target-arrow-color': 'data(colour)',
-      'target-arrow-shape': 'data(arrow)',
-      'curve-style': 'bezier',
-      'control-point-step-size': 30,
-    },
-  },
-  {
-    selector: 'edge[?cross].all, edge[?cross].lit, edge[?cross].hl, edge[?cross].focus',
-    style: { 'line-fill': 'linear-gradient' },
-  },
-  { selector: 'edge.all', style: { opacity: EXPLORER.edges.allAlpha } },
-  { selector: 'edge.focus', style: { opacity: 0.9, 'z-index': 18 } },
-  {
-    selector: 'edge.bundle',
-    style: {
-      width: 'data(width)',
-      opacity: 'data(alpha)',
-      'line-fill': 'linear-gradient',
-      'line-gradient-stop-colors': 'data(gradient)',
-      'line-gradient-stop-positions': '0 100',
-      'target-arrow-shape': 'none',
-      'curve-style': 'unbundled-bezier',
-      'control-point-distances': 'data(curve)',
-      'control-point-weights': 0.5,
-      'line-cap': 'round',
-      events: 'no',
-      'z-index': 0,
-    },
-  },
-  { selector: 'edge.bundle.faded', style: { opacity: 0.02 } },
-  { selector: 'edge.bundle.near', style: { display: 'none' } },
-  {
-    selector: 'node.anchor',
-    style: { width: 1, height: 1, 'background-opacity': 0, label: '', events: 'no' },
-  },
-  { selector: 'node.far', style: { 'font-size': 'data(farFont)' } },
-  { selector: 'node.far[farFont = 0]', style: { 'text-opacity': 0 } },
-  { selector: 'node[size]', style: { 'min-zoomed-font-size': 0 } },
-  { selector: 'node.nolabel', style: { 'text-opacity': 0 } },
-  {
-    selector: 'node.far.lit, node.far.sel, node.far.hl',
-    style: { 'text-opacity': 1, 'font-size': 'data(hoverFont)' },
-  },
-  {
-    selector: 'node.nolabel.lit, node.nolabel.sel, node.nolabel.hl',
-    style: { 'text-opacity': 1 },
-  },
-  { selector: 'node.hoverhide', style: { 'text-opacity': 0 } },
-  {
-    selector: 'node.tag',
-    style: {
-      'background-opacity': 0,
-      'border-width': 0,
-      'underlay-opacity': 0,
-      width: 1,
-      height: 1,
-      label: 'data(label)',
-      color: 'data(colour)',
-      'font-size': 'data(font)',
-      'font-weight': 600,
-      'text-valign': 'data(valign)',
-      'text-halign': 'data(halign)',
-      'text-opacity': 0.8,
-      'text-outline-color': MAP_INK[theme].halo,
-      'text-outline-width': 3,
-      'text-outline-opacity': 0.85,
-      'min-zoomed-font-size': 6,
-      'z-index': 0,
-      events: 'no',
-    },
-  },
-  { selector: 'node.tag.domain', style: { 'text-opacity': 0.45, 'text-outline-width': 0 } },
-  {
-    selector: 'node.tag.tick',
-    style: { 'text-opacity': theme === 'light' ? 1 : 0.35, 'font-weight': 400 },
-  },
-  { selector: 'node.tag.faded', style: { 'text-opacity': 0.08 } },
-  // Hover previews the selection look, lighter.
-  { selector: 'node.faded', style: { opacity: 0.35, 'text-opacity': 0, 'underlay-opacity': 0 } },
-  { selector: 'edge.faded', style: { opacity: 0.08 } },
-  // Selection (and a route): everything not connected recedes — nodes, labels, edges,
-  // bundles and names — while the term, its neighbours and their edges stay fully lit.
-  { selector: 'node.dim', style: { opacity: 0.14, 'text-opacity': 0, 'underlay-opacity': 0 } },
-  { selector: 'edge.dim', style: { opacity: 0.05 } },
-  { selector: 'edge.bundle.dim', style: { opacity: 0.02 } },
-  { selector: 'node.tag.dim', style: { opacity: 1, 'text-opacity': 0.08 } },
-  {
-    selector: 'node.nb',
-    style: { 'text-opacity': 1, 'min-zoomed-font-size': 0, 'z-index': 20 },
-  },
-  { selector: 'node.far.nb', style: { 'font-size': 'data(hoverFont)' } },
-  // A term hovered over a selection or route (A97a): it and its link to the selection
-  // come forward; the selection's look stays.
-  {
-    selector: 'node.pv',
-    style: { opacity: 1, 'text-opacity': 1, 'min-zoomed-font-size': 0, 'z-index': 21 },
-  },
-  { selector: 'edge.pv', style: { opacity: 1, 'z-index': 19 } },
-  // Relationship names on the lit links (A97a), upright along the line, just above it.
-  {
-    selector: 'edge.rl, edge.rlh',
-    style: {
-      label: 'data(rel)',
-      'font-size': 'data(relFont)',
-      'font-weight': 500,
-      color: MAP_INK[theme].label,
-      'text-opacity': 1,
-      'text-rotation': 'autorotate',
-      'text-margin-y': -6,
-      'text-outline-color': MAP_INK[theme].halo,
-      'text-outline-width': 2,
-      'text-outline-opacity': 0.9,
-      'min-zoomed-font-size': 0,
-    },
-  },
-];
-
-export function createMap2D(opts: Map2DOptions) {
-  const { graph, lang } = opts;
-  let theme: MapTheme = opts.theme ?? 'dark';
-  const stylesheet = (t: MapTheme) =>
-    [...(graphStyle(t) as unknown[]), ...extraStyle(t)] as cytoscape.StylesheetJson;
-  const bundleGradient = (a: string, b: string) =>
-    `${clusterColour(a, undefined, theme)} ${clusterColour(b, undefined, theme)}`;
-  const byId = new Map(graph.nodes.map((n) => [n.id, n]));
-  const rank = pageRank(
-    graph.nodes.map((n) => n.id),
-    graph.links.map((l) => ({ ...l, directed: isDirected(l.type) })),
-  );
-  const spine = backbone(graph.nodes, graph.links);
-  const clusterOf = (id: string) => byId.get(id)?.cluster;
-  const bundles = clusterBundles(graph.links, clusterOf, 1);
-
-  const cy = cytoscape({
+const createCy = (opts: Map2DOptions, theme: MapTheme) =>
+  cytoscape({
     container: opts.container,
-    elements: [
-      ...graph.nodes.map((n) => {
-        const r = rank.get(n.id) ?? 0;
-        const size = sizeForRank(r);
-        return {
-          data: {
-            id: n.id,
-            label: n.term[lang],
-            colour: '#888888',
-            size,
-            font: 8 + Math.round(Math.sqrt(r) * 7),
-            farFont: r >= EXPLORER.node.hubShare ? Math.round(14 + Math.sqrt(r) * 12) : 0,
-            hoverFont: 15,
-          },
-        };
-      }),
-      ...edgeData(
-        graph.links,
-        (id) => byId.get(id),
-        (_, i) => 0.7 + graph.links[i].weight * 0.35,
-        EXPLORER.edges.restAlpha,
-        theme,
-      ).map((data, i) => {
-        const s = byId.get(data.source)!;
-        const t = byId.get(data.target)!;
-        const cross = s.cluster !== t.cluster;
-        return {
-          data: { ...data, tint: clusterColour(s.cluster, homeDomain(s), theme) },
-          classes: [spine.has(i) ? 'bb' : '', cross ? 'xc' : ''].join(' '),
-        };
-      }),
-    ],
-    style: stylesheet(theme),
+    elements: mapElements(opts.graph, opts.lang, theme),
+    style: mapStylesheet(theme),
     layout: { name: 'preset', fit: false } as cytoscape.LayoutOptions,
     minZoom: 0.08,
     maxZoom: 3,
@@ -311,1059 +45,106 @@ export function createMap2D(opts: Map2DOptions) {
     textureOnViewport: true,
     pixelRatio: Math.min(window.devicePixelRatio || 1, 2),
   });
+
+/** The instance, its islands laid out once, then the island anchors and bundles. */
+function createParts(opts: Map2DOptions, theme: MapTheme) {
+  const { graph } = opts;
+  const cy = createCy(opts, theme);
+  const byId = new Map(graph.nodes.map((n) => [n.id, n]));
+  const clusterOf = (id: string) => byId.get(id)?.cluster;
   const terms = cy.nodes('[size]');
   const links = cy.edges().not('.bundle');
-
-  // ---- 1. The island map, once, from the whole graph ------------------------------
-  const clusters = new Map<string, GraphNode[]>();
-  for (const n of graph.nodes) clusters.set(n.cluster, [...(clusters.get(n.cluster) ?? []), n]);
-  const clusterIds = [...clusters.keys()].sort();
-  /** Each term's offset from its island's centre. */
-  const offset = new Map<string, Point>();
-  const islandR = new Map<string, number>();
-  /** Each island's own layout before spacing (kept so the lab can re-space it, A96). */
-  const raw = new Map<string, Point[]>();
-  /**
-   * Space each island's terms (no two closer than a click target and a label apart; the
-   * island grows) and measure it. The hidden visual lab (A96) re-runs this with a larger
-   * minimum distance (`spacing` ×), tighter islands (`tight` ×) and wider gaps (`gap` px).
-   */
-  const shapeIslands = (tune = { spacing: 1, tight: 1, gap: 0 }) => {
-    for (const c of clusterIds) {
-      const members = clusters.get(c)!;
-      const ps = raw.get(c)!.map((p) => ({ ...p }));
-      const sizes = members.map((n) => cy.getElementById(n.id).data('size') as number);
-      const mx = ps.reduce((a, p) => a + p.x, 0) / ps.length;
-      const my = ps.reduce((a, p) => a + p.y, 0) / ps.length;
-      if (tune.tight !== 1)
-        for (const p of ps) {
-          p.x = mx + (p.x - mx) * tune.tight;
-          p.y = my + (p.y - my) * tune.tight;
-        }
-      const { factor, labelClearance } = EXPLORER.spacing;
-      separate(
-        ps,
-        (i, j) => tune.spacing * ((factor * (sizes[i] + sizes[j])) / 4 + labelClearance),
-      );
-      const cx = ps.reduce((a, p) => a + p.x, 0) / ps.length;
-      const cyy = ps.reduce((a, p) => a + p.y, 0) / ps.length;
-      let r = 0;
-      members.forEach((n, k) => {
-        const o = { x: ps[k].x - cx, y: ps[k].y - cyy };
-        offset.set(n.id, o);
-        r = Math.max(r, Math.hypot(o.x, o.y) + sizes[k] / 2);
-      });
-      islandR.set(c, r + 16 + tune.gap / 2);
-    }
-  };
-  withSeededRandom(LAYOUT_SEED, () => {
-    for (const c of clusterIds) {
-      const members = cy.collection(clusters.get(c)!.map((n) => cy.getElementById(n.id)));
-      if (members.length > 1)
-        members
-          .union(members.edgesWith(members))
-          .layout({
-            name: 'fcose',
-            quality: 'default',
-            randomize: true,
-            animate: false,
-            fit: false,
-            nodeRepulsion: () => EXPLORER.islands.nodeRepulsion,
-            idealEdgeLength: () => EXPLORER.islands.idealEdgeLength,
-            edgeElasticity: () => 0.45,
-            gravity: 0.6,
-            numIter: 1500,
-            tile: true,
-            tilingPaddingVertical: 24,
-            tilingPaddingHorizontal: 24,
-            packComponents: true,
-            nodeSeparation: 60,
-          } as cytoscape.LayoutOptions)
-          .run();
-      raw.set(
-        c,
-        members.map((m) => ({ ...m.position() })),
-      );
-    }
-    shapeIslands();
-  });
-
-  /** Pack the given islands (only their visible members count) into domain regions. */
-  const islandMap = (visible: ReadonlySet<string>, enabled?: ReadonlySet<string>) => {
-    const members = new Map<string, GraphNode[]>();
-    for (const c of clusterIds) {
-      const mine = clusters.get(c)!.filter((n) => visible.has(n.id));
-      if (mine.length) members.set(c, mine);
-    }
-    const domainOfIsland = new Map<string, string>();
-    for (const [c, mine] of members) {
-      const votes = new Map<string, number>();
-      for (const n of mine) {
-        const d = effectiveHome(n, enabled);
-        votes.set(d, (votes.get(d) ?? 0) + 1);
-      }
-      domainOfIsland.set(
-        c,
-        [...votes.entries()].sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1))[0][0],
-      );
-    }
-    const islands: Island[] = [...members.keys()].map((c) => {
-      const all = members.get(c)!.length === clusters.get(c)!.length;
-      const r = all
-        ? islandR.get(c)!
-        : Math.max(
-            ...members.get(c)!.map((n) => Math.hypot(offset.get(n.id)!.x, offset.get(n.id)!.y)),
-          ) + 26;
-      return { id: c, domain: domainOfIsland.get(c)!, r };
-    });
-    const between = visibleBundleCounts(graph.links, clusterOf, visible);
-    const links: IslandLink[] = [...between.entries()].map(([k, w]) => {
-      const [a, b] = k.split('\u0000');
-      return { a, b, w };
-    });
-    const packed = packIslands(islands, links);
-    const centre = { ...packed.islands };
-    // A term sits in its own cluster's island like any other, whatever other domains it
-    // also belongs to (A86: no seams — hubs that connect everywhere broke them).
-    const positions: Record<string, Point> = {};
-    for (const [c, mine] of members)
-      for (const n of mine) {
-        const o = offset.get(n.id)!;
-        positions[n.id] = { x: centre[c].x + o.x, y: centre[c].y + o.y };
-      }
-    // Lay the map's long axis along the screen's (landscape: horizontal), so it fills it.
-    const pts = Object.values(positions);
-    const wide = opts.container.clientWidth >= opts.container.clientHeight;
-    const turn = levelAngle(pts) + (wide ? 0 : Math.PI / 2);
-    const mid = {
-      x: pts.reduce((s, p) => s + p.x, 0) / Math.max(1, pts.length),
-      y: pts.reduce((s, p) => s + p.y, 0) / Math.max(1, pts.length),
-    };
-    const level = (p: Point) => rotateAbout(p, mid, turn);
-    const regions = Object.fromEntries(
-      Object.entries(packed.regions).map(([d, r]) => [d, { ...level(r), r: r.r }]),
-    );
-    for (const id of Object.keys(positions)) positions[id] = level(positions[id]);
-    for (const c of Object.keys(centre)) centre[c] = level(centre[c]);
-    return { positions, centre, islands, regions, members };
-  };
-
-  const everyone = new Set(graph.nodes.map((n) => n.id));
-  // Only the opening layout is computed up front; depth and time are computed on first use
-  // and cached, so each whole-graph layout is still computed once and never changes.
-  const base = { force: islandMap(everyone) };
-  const lanes = new Map<'depth' | 'time', LaneLayout>();
-  const fullLanes = (layout: 'depth' | 'time') => {
-    if (!lanes.has(layout))
-      lanes.set(
-        layout,
-        layout === 'depth' ? depthLanes(graph.nodes, graph.links) : timeLanes(graph.nodes),
-      );
-    return lanes.get(layout)!;
-  };
-
-  // Anchors (island centres) and the cluster-to-cluster bundles between them.
-  cy.add(
-    clusterIds.map((c) => ({
-      group: 'nodes' as const,
-      data: { id: `anc:${c}` },
-      position: base.force.centre[c],
-      classes: 'anchor',
-    })),
-  );
-  const [wMin, wMax] = EXPLORER.edges.bundleWidth;
-  const maxCount = Math.max(1, ...bundles.map((b) => b.count));
-  cy.add(
-    bundles.map((b, i) => ({
-      group: 'edges' as const,
-      data: {
-        id: `bundle:${i}`,
-        source: `anc:${b.a}`,
-        target: `anc:${b.b}`,
-        a: b.a,
-        b: b.b,
-        count: b.count,
-        width: wMin + (wMax - wMin) * Math.sqrt(b.count / maxCount),
-        curve: (i % 2 ? 1 : -1) * 24,
-        alpha: 0,
-        colour: clusterColour(b.a, undefined, theme),
-        arrow: 'none',
-        gradient: bundleGradient(b.a, b.b),
-      },
-      classes: 'bundle',
-    })),
-  );
+  const layouts = createLayouts({ graph, clusterOf, opts }, buildIslands(cy, graph.nodes));
+  cy.add(anchorElements(layouts.islands.clusterIds, layouts.force.centre));
+  cy.add(bundleElements(graph, byId, theme));
   const bundleEdges = cy.edges('.bundle');
+  const p: MapParts = { cy, opts, graph, byId, clusterOf, terms, links, bundleEdges };
+  return { p, layouts };
+}
 
-  // ---- 2. Tags: cluster and domain names, lane names, depth rows / year ticks ---------
-  const tagsFor = (layout: Layout, state: ReturnType<typeof islandMap> | LaneLayout) => {
-    const out: cytoscape.ElementDefinition[] = [];
-    if (layout === 'force') {
-      const s = state as ReturnType<typeof islandMap>;
-      for (const isl of s.islands) {
-        const mine = s.members.get(isl.id)!;
-        if (mine.length < 3) continue;
-        const top = Math.min(
-          ...mine.map(
-            (n) => s.positions[n.id].y - (cy.getElementById(n.id).data('size') as number) / 2,
-          ),
-        );
-        out.push({
-          data: {
-            id: `tag:c:${isl.id}`,
-            label: opts.clusterLabels[isl.id] ?? isl.id,
-            colour: clusterColour(isl.id, isl.domain, theme),
-            font: 30,
-            valign: 'top',
-            halign: 'center',
-          },
-          position: { x: s.centre[isl.id].x, y: top - 8 },
-          classes: 'tag',
-        });
-      }
-      const all = Object.values(s.regions);
-      const mapCentre = {
-        x: all.reduce((a, p) => a + p.x, 0) / all.length,
-        y: all.reduce((a, p) => a + p.y, 0) / all.length,
-      };
-      for (const d of [...new Set(s.islands.map((i) => i.domain))]) {
-        const mine = s.islands.filter((i) => i.domain === d);
-        const box = {
-          x1: Math.min(...mine.map((i) => s.centre[i.id].x - i.r)),
-          y1: Math.min(...mine.map((i) => s.centre[i.id].y - i.r)),
-          x2: Math.max(...mine.map((i) => s.centre[i.id].x + i.r)),
-          y2: Math.max(...mine.map((i) => s.centre[i.id].y + i.r)),
-        };
-        const midX = (box.x1 + box.x2) / 2;
-        const midY = (box.y1 + box.y2) / 2;
-        const at = {
-          top: { x: midX, y: box.y1 - 30, valign: 'top', halign: 'center' },
-          bottom: { x: midX, y: box.y2 + 30, valign: 'bottom', halign: 'center' },
-          left: { x: box.x1 - 30, y: midY, valign: 'center', halign: 'left' },
-          right: { x: box.x2 + 30, y: midY, valign: 'center', halign: 'right' },
-        }[outerSide(box, mapCentre)];
-        out.push({
-          data: {
-            id: `tag:d:${d}`,
-            label: opts.domainLabels[d] ?? d,
-            colour: domainColour(d, theme),
-            font: 96,
-            valign: at.valign,
-            halign: at.halign,
-          },
-          position: { x: at.x, y: at.y },
-          classes: 'tag domain',
-        });
-      }
-    } else {
-      const s = state as LaneLayout;
-      for (const l of s.lanes)
-        out.push({
-          data: {
-            id: `tag:l:${l.domain}`,
-            label: opts.domainLabels[l.domain] ?? l.domain,
-            colour: domainColour(l.domain, theme),
-            font: layout === 'depth' ? 44 : 30,
-            valign: layout === 'depth' ? 'top' : 'center',
-            halign: layout === 'depth' ? 'center' : 'left',
-          },
-          position: { x: l.x, y: l.y },
-          classes: 'tag domain',
-        });
-      for (const t of s.ticks)
-        out.push({
-          data: {
-            id: `tag:t:${t.label}`,
-            label: t.label,
-            colour: MAP_INK[theme].tick,
-            font: 22,
-            valign: layout === 'time' ? 'bottom' : 'center',
-            halign: layout === 'time' ? 'center' : 'left',
-          },
-          position: { x: t.x, y: t.y },
-          classes: 'tag tick',
-        });
-    }
-    return out;
-  };
-  const setTags = (defs: cytoscape.ElementDefinition[]) =>
-    cy.batch(() => {
-      cy.nodes('.tag').remove();
-      cy.add(defs.map((d) => ({ ...d, group: 'nodes' as const })));
-    });
+/** The flow dots, paused while terms glide; the lab (A96) tunes a copy and can pause them. */
+function startMapDots(p: MapParts, s: MapState) {
+  const cfg: { -readonly [K in keyof DotsConfig]: number } = { ...EXPLORER.dots };
+  let on = true;
+  const paused = () => s.moving || !on;
+  const dots = startDots(p.cy, p.links, paused, () => MAP_INK[s.theme].dotAlpha, cfg);
+  return { cfg, dots, setOn: (v: boolean) => void (on = v) };
+}
 
-  // ---- 3. Label cull (A74), over visible terms only ----------------------------------
-  const measure = document.createElement('canvas').getContext('2d')!;
-  const family = terms.first().style('font-family') as string;
-  const textWidth = (text: string, px: number, weight = 'normal') => {
-    measure.font = `${weight} ${px}px ${family}`;
-    return measure.measureText(text).width;
-  };
-  const widthCache = new Map<string, number>();
-  const labelWidth = (n: cytoscape.NodeSingular, px: number) => {
-    const key = `${n.id()}\u0000${px}\u0000${n.data('label')}`;
-    if (!widthCache.has(key)) widthCache.set(key, textWidth(n.data('label'), px));
-    return widthCache.get(key)!;
-  };
-  const cull = () => {
-    const zoom = cy.zoom();
-    const far = zoom < FAR_ZOOM;
-    const hoverFont = Math.max(9, Math.round(HOVER_LABEL_PX / zoom));
-    if (far && terms.first().data('hoverFont') !== hoverFont) terms.data('hoverFont', hoverFont);
-    const fontOf = (n: cytoscape.NodeSingular): number =>
-      far ? n.data('farFont') : n.data('font');
-    const shown = terms.not('.gone');
-    const candidates = shown
-      .filter((n) => fontOf(n) > 0 && fontOf(n) * zoom >= MIN_LABEL_PX)
-      .sort((a, b) => b.data('size') - a.data('size') || (a.id() < b.id() ? -1 : 1));
-    const hidden = cullLabels(
-      candidates.map((n) => ({
-        id: n.id(),
-        ...labelBelow(n.position(), n.data('size'), labelWidth(n, fontOf(n)), fontOf(n)),
-      })),
-      cy
-        .nodes('.tag')
-        .not('.gone')
-        .filter((t) => t.data('valign') === 'top')
-        .map((t) =>
-          labelAbove(
-            t.position(),
-            textWidth(t.data('label'), t.data('font'), '600'),
-            t.data('font'),
-          ),
-        ),
-    );
-    cy.batch(() => {
-      terms.removeClass('nolabel');
-      shown.filter((n) => hidden.has(n.id()) || !candidates.contains(n)).addClass('nolabel');
-    });
-  };
-  let cullAt = NaN;
-  let cullTimer = 0;
-  const recull = (force = false) => {
-    const key = cy.zoom() < FAR_ZOOM ? -Math.floor(cy.zoom() * 20) : Math.floor(cy.zoom() * 20);
-    if (key === cullAt && !force) return;
-    cullAt = key;
-    window.clearTimeout(cullTimer);
-    cullTimer = window.setTimeout(cull, 120);
-  };
-  const setFar = () => {
-    const far = cy.zoom() < FAR_ZOOM;
-    if (far !== terms.first().hasClass('far')) terms.toggleClass('far', far);
-    // Bundles are an overview device: zoomed in, the real edges take over.
-    if (far === bundleEdges.first().hasClass('near')) bundleEdges.toggleClass('near', !far);
-    // Everything else waits until the zoom settles (see `cull`): restyling mid-gesture
-    // would throw away the viewport snapshot.
-    recull();
-  };
-  cy.on('zoom viewport', setFar);
+const initialState = (p: MapParts, theme: MapTheme, centre: MapState['centreNow']): MapState => ({
+  theme,
+  view: null,
+  hovered: null,
+  shown: p.cy.collection(),
+  moving: false,
+  centreNow: centre,
+});
 
-  // ---- 4. State, edges and focus ------------------------------------------------------
-  let view: View | null = null;
-  let hovered: cytoscape.NodeSingular | null = null;
-  /** Elements currently displayed — hover fades only these. */
-  let shown = cy.collection();
+/** Every part of the map, wired together. */
+function assemble(opts: Map2DOptions) {
+  const theme = opts.theme ?? 'dark';
+  const { p, layouts } = createParts(opts, theme);
+  const labels = createLabelCull(p);
+  const s = initialState(p, theme, layouts.force.centre);
+  const refreshEdges = createEdges(p, s);
+  const routes = createRoutes(p);
+  const names = createRelationNames(p, s);
+  const hover = createHover(p, s, { paintNames: names.paint, labelWidth: labels.labelWidth });
+  const pointer = bindPointer(p, s, { hover, names });
+  const dots = startMapDots(p, s);
+  const deps = { routes, recull: labels.recull, paintNames: names.paint, moved: pointer.moved };
+  const place = createPlacement(p, s, layouts, deps);
+  const stagger = createStagger(p.cy);
+  const apply = createApply(p, s, { ...deps, refreshEdges, stagger, place, hover });
+  return { p, s, layouts, labels, hover, pointer, dots, place, stagger, apply };
+}
 
-  /**
-   * The backbone over the families switched on and the terms shown, recomputed when
-   * either changes: a term whose strongest links went to hidden terms keeps a visible one.
-   */
-  let spineFor: [ReadonlySet<string>, ReadonlySet<string>] | null = null;
-  /**
-   * Which edges are drawn, and how (backbone / all / focus). The families filter the
-   * overview only: a selected term shows every one of its relationships.
-   */
-  const refreshEdges = (defer = false): EdgeChange[] => {
-    const changes: EdgeChange[] = [];
-    if (!view) return changes;
-    const v = view;
-    const sel = v.selected;
-    const hl = v.highlight;
-    const spine =
-      spineFor?.[0] === v.families && spineFor[1] === v.nodes
-        ? null
-        : backboneOf(graph.nodes, graph.links, v.families, v.nodes);
-    spineFor = [v.families, v.nodes];
-    cy.batch(() => {
-      // Worked out in plain data; only edges whose classes change are touched (A93b):
-      // a toggle then restyles the edges it changes, not every edge. `defer` hands the
-      // changes back to be applied a batch per frame.
-      edgeMeta.forEach((m, i) => {
-        const { s, t, e } = m;
-        if (spine) m.bb = spine.has(i);
-        const shown = linkVisible({ source: s, target: t }, v.nodes);
-        const ends = shown && v.families.has(m.family);
-        const focus = (shown && (s === sel || t === sel)) || (ends && hl.has(s) && hl.has(t));
-        const on = focus || (ends && (v.showAll || m.bb));
-        const bits = (m.bb ? 1 : 0) | (on ? 0 : 2) | (on && v.showAll ? 4 : 0) | (focus ? 8 : 0);
-        if (bits === m.bits && e.hasClass('off') === !on) return;
-        m.bits = bits;
-        const c = { e, bb: m.bb, on, all: on && v.showAll, focus };
-        if (defer) changes.push(c);
-        else applyEdge(c);
-      });
-      // Bundles summarise the visible cross-cluster relationships in the force overview.
-      const counts =
-        v.layout === 'force' && !v.showAll
-          ? visibleBundleCounts(
-              graph.links.filter((l) => v.families.has(l.family)),
-              clusterOf,
-              v.nodes,
-            )
-          : new Map<string, number>();
-      const top = Math.max(1, ...counts.values());
-      const [aMin, aMax] = EXPLORER.edges.bundleAlpha;
-      bundleEdges.forEach((e) => {
-        const a = e.data('a');
-        const b = e.data('b');
-        const c = counts.get(pairKey(a, b)) ?? 0;
-        const on = c >= EXPLORER.edges.minBundle;
-        e.toggleClass('off', !on);
-        if (on) {
-          e.data('alpha', aMin + (aMax - aMin) * Math.sqrt(c / top));
-          e.data('width', wMin + (wMax - wMin) * Math.sqrt(c / top));
-        }
-      });
-    });
-    shown = cy.elements().not('.gone, .off, .anchor');
-    return changes;
-  };
-  const graphFamily = (e: cytoscape.EdgeSingular) => graph.links[Number(e.id().slice(1))].family;
-  type EdgeChange = {
-    e: cytoscape.EdgeSingular;
-    bb: boolean;
-    on: boolean;
-    all: boolean;
-    focus: boolean;
-  };
-  const applyEdge = (c: EdgeChange) =>
-    c.e
-      .toggleClass('bb', c.bb)
-      .toggleClass('off', !c.on)
-      .toggleClass('all', c.all)
-      .toggleClass('focus', c.focus);
-  /** Each relationship's edge, ends and family by index, and its last class bits. */
-  const edgeMeta = graph.links.map((l, i) => ({
-    e: cy.getElementById(`e${i}`) as cytoscape.EdgeSingular,
-    s: l.source,
-    t: l.target,
-    family: l.family,
-    bb: false,
-    bits: -1,
-  }));
+type Assembled = ReturnType<typeof assemble>;
 
-  /** Bundled routes for cross-cluster edges drawn in full ("show all", force layout). */
-  let bundled = false;
-  /** `only`: just these edges (a batch of a staggered reveal), the rest already done. */
-  const setBundledRoutes = (
-    on: boolean,
-    centre?: Record<string, Point>,
-    only?: cytoscape.EdgeCollection,
-  ) => {
-    // Clearing routes that were never set restyles every cross-cluster edge for nothing.
-    if (!on && !bundled && !only) return;
-    bundled = on && !!centre;
-    cy.batch(() => {
-      (only ?? links).filter('.xc').forEach((e) => {
-        if (!on || !centre) {
-          e.removeStyle('curve-style control-point-distances control-point-weights');
-          return;
-        }
-        const s = byId.get(e.data('source'))!;
-        const t = byId.get(e.data('target'))!;
-        const r = bundleControls(
-          e.source().position(),
-          e.target().position(),
-          centre[s.cluster],
-          centre[t.cluster],
-        );
-        e.style({
-          'curve-style': 'unbundled-bezier',
-          'control-point-distances': r.distances,
-          'control-point-weights': r.weights,
-        });
-      });
-    });
-  };
+/** Hooks for the hidden visual lab only (A96); the Explorer never uses them. */
+const labHooks = (m: Assembled) => ({
+  dots: m.dots.cfg,
+  setDots(on: boolean) {
+    m.dots.setOn(on);
+  },
+  /** Re-space the island map (see `shapeIslands`) and glide the terms there. */
+  relayout(tune: IslandTune) {
+    m.layouts.respace(tune);
+    if (m.s.view) m.place(m.s.view, true);
+  },
+});
 
-  // ---- 5. Hover: light the neighbourhood, fade the rest (with a little intent) --------
-  // With a term selected (or a route shown) the selection's look stays and hover only
-  // brings the hovered term forward (A97a).
-  let hoverTimer = 0;
-  const unhover = () => {
-    window.clearTimeout(hoverTimer);
-    if (!hovered) return;
-    const was = hovered;
-    hovered = null;
-    cy.batch(() => {
-      cy.elements('.pv').removeClass('pv');
-      shown.removeClass('faded lit');
-      cy.nodes('.hoverhide').removeClass('hoverhide');
-      // Edges revealed only for the hover go back to hidden.
-      was.connectedEdges('.hoverlink').removeClass('hoverlink').addClass('off');
-      cy.nodes('.tag').removeClass('faded');
-    });
-    paintLabels();
-    opts.container.style.cursor = 'grab';
-  };
-  const hover = (n: cytoscape.NodeSingular) => {
-    hovered = n;
-    const v = view!;
-    opts.container.style.cursor = 'pointer';
-    const f = effectiveFocus({
-      selected: v.selected,
-      route: v.highlight.size > 0,
-      hovered: n.id(),
-      moving: false,
-    });
-    if (!f.hood) {
-      const sel = v.selected;
-      if (f.preview)
-        cy.batch(() => {
-          n.addClass('pv');
-          if (sel) n.edgesWith(cy.getElementById(sel)).not('.off').addClass('pv');
-        });
-      return;
-    }
-    const extra = n
-      .connectedEdges('.off')
-      .filter(
-        (e) =>
-          linkVisible({ source: e.data('source'), target: e.data('target') }, v.nodes) &&
-          v.families.has(graphFamily(e)),
-      );
-    const hood = n.closedNeighborhood().filter((el) => !el.hasClass('off') || extra.contains(el));
-    const far = cy.zoom() < FAR_ZOOM;
-    const fontOf = (m: cytoscape.NodeSingular): number =>
-      far ? m.data('hoverFont') : m.data('font');
-    const lit = hood
-      .nodes('[size]')
-      .sort((a, b) => (a.same(n) ? -1 : b.same(n) ? 1 : b.data('size') - a.data('size')));
-    const hidden = cullLabels(
-      lit.map((m) => ({
-        id: m.id(),
-        ...labelBelow(m.position(), m.data('size'), labelWidth(m, fontOf(m)), fontOf(m)),
-      })),
-    );
-    cy.batch(() => {
-      extra.removeClass('off').addClass('hoverlink');
-      shown.not(hood).addClass('faded');
-      cy.nodes('.tag').addClass('faded');
-      hood.addClass('lit');
-      lit.filter((m) => hidden.has(m.id())).addClass('hoverhide');
-    });
-    paintLabels();
-  };
+const destroyer = (m: Assembled) => () => {
+  m.dots.dots.stop();
+  m.stagger.cancel();
+  m.labels.stop();
+  m.hover.stop();
+  m.pointer.destroy();
+  m.p.cy.destroy();
+};
 
-  // ---- 5a. Relationship names on the lit links (A97a) --------------------------------
-  // The selected term's links, or a hovered term's when it has few, each named from
-  // that term's side; names that would overlap give way to heavier links, and the link
-  // under the pointer shows its own. A constant size on screen when zoomed out.
-  let named = cy.collection() as cytoscape.EdgeCollection;
-  const paintLabels = () =>
-    cy.batch(() => {
-      cy.edges('.rl, .rlh').removeClass('rl rlh');
-      named = cy.collection() as cytoscape.EdgeCollection;
-      const names = opts.relationNames;
-      const v = view;
-      if (!names || !v) return;
-      const f = effectiveFocus({
-        selected: v.selected,
-        route: v.highlight.size > 0,
-        hovered: hovered?.id() ?? null,
-        moving: false,
-      });
-      const litOf = (id: string) =>
-        cy.getElementById(id).connectedEdges().intersection(links).not('.off');
-      const pov = labelPov(
-        f,
-        v.selected,
-        f.hood ? litOf(f.hood).length : 0,
-        EXPLORER.edgeLabels.hoverMax,
-      );
-      const p = pov ? cy.getElementById(pov) : null;
-      if (!pov || !p || p.empty() || p.hasClass('gone')) return;
-      const size = EXPLORER.edgeLabels.px2d / Math.min(1, cy.zoom());
-      const edges = litOf(pov)
-        .toArray()
-        .map((e) => ({ e, l: graph.links[Number(e.id().slice(1))] }))
-        .sort((a, b) => b.l.weight - a.l.weight);
-      const boxes = edges.map(({ e, l }) => {
-        const text = relationLabel(l, pov, names.label, names.inverse);
-        e.data({ rel: text, relFont: size });
-        const a = e.source().position();
-        const b = e.target().position();
-        const r = rotatedSize(
-          text.length * size * 0.55,
-          size * 1.3,
-          Math.atan2(b.y - a.y, b.x - a.x),
-        );
-        return { id: e.id(), x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 - 6, ...r };
-      });
-      const kept = cullBoxes(boxes);
-      named = cy.collection(edges.map(({ e }) => e)) as cytoscape.EdgeCollection;
-      named.filter((e) => kept.has(e.id())).addClass('rl');
-    });
-
-  // No hover while a button is down: restyling mid-pan throws away the viewport snapshot.
-  let pressing = false;
-  // The background can be dragged: an open hand at rest, a closed one and a ring while
-  // panning (A95). Only a press on the background pans; a press on a term does not.
-  opts.container.style.cursor = 'grab';
-  const drag = createDragFeedback(opts.container);
-  cy.on('tapstart', (e) => {
-    pressing = true;
-    opts.onPoint?.(null);
-    const ev = e.originalEvent as (MouseEvent & { pointerType?: string }) | TouchEvent | undefined;
-    if (e.target !== cy || !ev) return;
-    if ('touches' in ev) {
-      const t = ev.touches[0];
-      if (t) drag.start('pan', { clientX: t.clientX, clientY: t.clientY, pointerType: 'touch' });
-    } else if (ev.button === 0) drag.start('pan', ev);
-  });
-  cy.on('tapend', () => {
-    pressing = false;
-    drag.end();
-  });
-  // No hover while the map moves (A97a): a pan, the wheel, a glide to a term, keys or a
-  // layout change; and none again until the pointer itself moves once it has stopped
-  // (Cytoscape does not re-report a term the view slid under a resting pointer).
-  const gate = createMotionGate();
-  let quietTimer = 0;
-  /** The term under the pointer, hovered or not. */
-  let under: cytoscape.NodeSingular | null = null;
-  const moved = () => {
-    if (gate.motion(true)) {
-      unhover();
-      opts.onPoint?.(null);
-    }
-    window.clearTimeout(quietTimer);
-    quietTimer = window.setTimeout(() => {
-      if (moving) return moved();
-      gate.motion(false);
-      // Names are sized for the zoom: re-place them once it settles.
-      if (named.nonempty()) paintLabels();
-    }, EXPLORER.edgeLabels.quietMs);
-  };
-  cy.on('viewport', () => {
-    opts.onPoint?.(null);
-    moved();
-  });
-  const showHover = (n: cytoscape.NodeSingular) => {
-    opts.onHover?.(n.id());
-    const at = n.renderedPosition();
-    opts.onPoint?.({ id: n.id(), x: at.x, y: at.y });
-    window.clearTimeout(hoverTimer);
-    hoverTimer = window.setTimeout(() => {
-      if (hovered?.same(n)) return;
-      unhover();
-      hover(n);
-    }, EXPLORER.hoverDelayMs);
-  };
-  cy.on('mouseover', 'node[size]', (e) => {
-    under = e.target as cytoscape.NodeSingular;
-    if (pressing || !gate.open) return;
-    showHover(under);
-  });
-  cy.on('mouseout', 'node[size]', () => {
-    under = null;
-    unhover();
-    opts.onPoint?.(null);
-  });
-  const onPointerMove = () => {
-    const was = gate.open;
-    gate.pointer();
-    if (!was && gate.open && under && !pressing) showHover(under);
-  };
-  opts.container.addEventListener('pointermove', onPointerMove);
-  cy.on('mouseover', 'edge', (e) => {
-    if (gate.open && !pressing && named.contains(e.target)) e.target.addClass('rlh');
-  });
-  cy.on('mouseout', 'edge', (e) => void e.target.removeClass('rlh'));
-  cy.on('tap', 'node[size]', (e) => opts.onSelect(e.target.id()));
-  cy.on('tap', (e) => e.target === cy && opts.onSelect(null));
-  cy.on('dbltap', 'node[size]', (e) => opts.onOpen(e.target.id()));
-  /** True while nodes glide to a new layout: the flow dots wait for them to land. */
-  let moving = false;
-  // The hidden visual lab (A96) tunes a copy of the dot settings live and can pause them.
-  const dotCfg: { -readonly [K in keyof DotsConfig]: number } = { ...EXPLORER.dots };
-  let dotsOn = true;
-  const dots = startDots(
-    cy,
-    links,
-    () => moving || !dotsOn,
-    () => MAP_INK[theme].dotAlpha,
-    dotCfg,
-  );
-
-  // ---- 6. Positions ------------------------------------------------------------------
-  const targetFor = (v: View) => {
-    if (v.layout === 'force') {
-      const s = base.force;
-      return { positions: s.positions, tags: tagsFor('force', s), centre: s.centre };
-    }
-    const s = fullLanes(v.layout);
-    return { positions: s.positions, tags: tagsFor(v.layout, s), centre: undefined };
-  };
-  let centreNow: Record<string, Point> | undefined = base.force.centre;
-  /** Names of disabled domains, and of clusters with nothing left of their own, hide. */
-  const refreshTags = (v: View) =>
-    cy.batch(() =>
-      cy.nodes('.tag').forEach((tag) => {
-        const d = /^tag:(?:d|l):(.+)$/.exec(tag.id());
-        const c = /^tag:c:(.+)$/.exec(tag.id());
-        const gone = d
-          ? !v.domains.has(d[1])
-          : c
-            ? !graph.nodes.some(
-                (n) =>
-                  n.cluster === c[1] &&
-                  v.nodes.has(n.id) &&
-                  effectiveHome(n, v.domains) === homeDomain(n),
-              )
-            : false;
-        tag.toggleClass('gone', gone);
-      }),
-    );
-  const place = (v: View, animate: boolean) => {
-    const t = targetFor(v);
-    centreNow = t.centre;
-    setTags(t.tags);
-    refreshTags(v);
-    if (t.centre)
-      cy.batch(() =>
-        clusterIds.forEach(
-          (c) => t.centre![c] && cy.getElementById(`anc:${c}`).position(t.centre![c]),
-        ),
-      );
-    const move = terms.filter((n) => !!t.positions[n.id()]);
-    const done = () => {
-      moving = false;
-      setBundledRoutes(v.layout === 'force' && v.showAll, t.centre);
-      recull(true);
-      frame();
-      paintLabels();
-    };
-    if (!animate || reducedMotion()) {
-      cy.batch(() => move.forEach((n) => void n.position(t.positions[n.id()])));
-      done();
-      return;
-    }
-    // Straight-line routes bend badly mid-flight; drop them until nodes land.
-    setBundledRoutes(false);
-    moving = true;
-    moved();
-    move
-      .layout({
-        name: 'preset',
-        positions: (n: cytoscape.NodeSingular) => t.positions[n.id()],
-        animate: true,
-        animationDuration: EXPLORER.motion.layoutMs,
-        animationEasing: 'ease-in-out-cubic',
-        fit: false,
-      } as cytoscape.LayoutOptions)
-      .one('layoutstop', done)
-      .run();
-  };
-  const fit = () => {
-    cy.stop(true);
-    smoothFit(cy, 24, 1.1, opts.reserveRight(), shown.nodes().union(cy.nodes('.tag').not('.gone')));
-  };
-  /** Centre a term in the part of the map the docked panel leaves visible (A80). */
-  const centreOn = (id: string, zoomRange: [number, number] = [0, Infinity]) => {
-    const node = cy.getElementById(id);
-    if (node.empty() || node.hasClass('gone')) return false;
-    cy.stop(true);
-    const zoom = Math.min(zoomRange[1], Math.max(cy.zoom(), zoomRange[0]));
-    const p = node.position();
-    const clear = cy.width() - opts.centreReserve();
-    cy.animate(
-      { zoom, pan: { x: clear / 2 - p.x * zoom, y: cy.height() / 2 - p.y * zoom } },
-      { duration: reducedMotion() ? 0 : 400, easing: 'ease-in-out-cubic' },
-    );
-    return true;
-  };
-  /**
-   * Frame the view after a layout: an explicit selection wins over the fit (a deep link
-   * must land centred on its term); a small neighbourhood is fitted whole.
-   */
-  const frame = () => {
-    const sel = view?.selected;
-    if (sel && shown.nodes('[size]').length > EXPLORER.islands.minTermsForSystems) {
-      if (centreOn(sel, [0.9, 1.2])) return;
-    }
-    fit();
-  };
-
-  // ---- 7. Applying a view ------------------------------------------------------------
-  /** A staggered edge change in flight: its remaining batches, and what ends it. */
-  let pending: { rest: () => void; raf: number } | null = null;
-  /** Finish a staggered change at once (a new view is about to be applied). */
-  const flushStagger = () => {
-    if (!pending) return;
-    cancelAnimationFrame(pending.raf);
-    const p = pending;
-    pending = null;
-    p.rest();
-  };
-  /**
-   * Run `step` over `edges` a batch per frame (`EXPLORER.motion.revealBatch`) inside a
-   * Cytoscape batch (no per-edge fade: a style bypass per edge costs more than the batch).
-   */
-  const inBatches = <T>(all: T[], step: (chunk: T[]) => void, end: () => void) => {
-    const n = EXPLORER.motion.revealBatch;
-    let i = 0;
-    const run = (count: number) => {
-      const chunk = all.slice(i, (i += count));
-      cy.batch(() => step(chunk));
-    };
-    const tick = () => {
-      run(n);
-      if (i < all.length) pending!.raf = requestAnimationFrame(tick);
-      else {
-        pending = null;
-        end();
-      }
-    };
-    pending = {
-      raf: requestAnimationFrame(tick),
-      rest: () => {
-        run(all.length - i);
-        end();
-      },
-    };
-  };
-  let familiesNow: ReadonlySet<string> | null = null;
-  const apply = (next: View) => {
-    const prev = view;
-    view = next;
-    unhover();
-    const layoutChanged = !prev || prev.layout !== next.layout;
-    const nodesChanged = !prev || prev.nodes !== next.nodes;
-    if (layoutChanged || nodesChanged || prev.domains !== next.domains) {
-      // Domain toggles hide in place; only a layout switch moves terms.
-      cy.batch(() => {
-        terms.forEach((n) => void n.toggleClass('gone', !next.nodes.has(n.id())));
-        if (layoutChanged)
-          terms.forEach((n) => {
-            const g = byId.get(n.id())!;
-            n.data(
-              'label',
-              next.layout === 'time' && g.era ? `${g.term[lang]} (${g.era})` : g.term[lang],
-            );
-          });
-      });
-      refreshEdges();
-      if (layoutChanged) place(next, !!prev);
-      else refreshTags(next);
-    }
-    if (!prev || prev.colour !== next.colour || prev.bands !== next.bands)
-      cy.batch(() =>
-        terms.forEach((n) => {
-          const g = byId.get(n.id())!;
-          n.data('colour', next.colour(g));
-          const ring = next.bands(g)[1];
-          if (ring) n.data('ring', ring);
-          else if (n.data('ring')) n.removeData('ring');
-        }),
-      );
-    // Relationship families fade out / in rather than blink.
-    const fading =
-      prev && familiesNow && familiesNow !== next.families && !reducedMotion()
-        ? links.filter((e) => {
-            const f = graphFamily(e);
-            const mine = e.data('source') === next.selected || e.data('target') === next.selected;
-            return familiesNow!.has(f) && !next.families.has(f) && !e.hasClass('off') && !mine;
-          })
-        : cy.collection();
-    familiesNow = next.families;
-    flushStagger();
-    const fadeIn = (edges: cytoscape.EdgeCollection) =>
-      edges.forEach((e) => {
-        const target = Number(e.style('opacity'));
-        e.style('opacity', 0).animate(
-          { style: { opacity: target } },
-          { duration: EXPLORER.motion.fadeMs, complete: () => void e.removeStyle('opacity') },
-        );
-      });
-    const finish = () => {
-      // Many edges switched on or off by a toggle (types, "show all") change a batch per
-      // frame (A93b); a few fade in at once. Instant under reduced motion.
-      const toggled = prev && (prev.families !== next.families || prev.showAll !== next.showAll);
-      const stagger = !!toggled && !layoutChanged && !reducedMotion();
-      const routes = prev?.showAll !== next.showAll || layoutChanged;
-      const bundle = next.layout === 'force' && next.showAll;
-      const changes = refreshEdges(stagger);
-      const edgesOf = (cs: EdgeChange[]) =>
-        cy.collection(cs.map((c) => c.e)) as cytoscape.EdgeCollection;
-      /** Apply changes; the edges they switch on get bundled routes when those are on. */
-      const land = (cs: EdgeChange[]) => {
-        const arriving = edgesOf(cs.filter((c) => c.on && c.e.hasClass('off')));
-        cs.forEach(applyEdge);
-        if (bundle && !routes) setBundledRoutes(true, centreNow, arriving);
-        return arriving;
-      };
-      if (changes.length > EXPLORER.motion.revealBatch) {
-        // Routes now for the edges that stay shown; the rest get theirs with their batch.
-        const changing = edgesOf(changes);
-        if (routes)
-          setBundledRoutes(bundle, centreNow, (bundle ? links.not('.off') : links).not(changing));
-        inBatches(
-          changes,
-          (chunk) => {
-            land(chunk);
-            if (routes) setBundledRoutes(bundle, centreNow, edgesOf(chunk));
-          },
-          () => {
-            shown = cy.elements().not('.gone, .off, .anchor');
-            paintFocus();
-          },
-        );
-      } else {
-        // A small change (or reduced motion): at once, new edges fading in.
-        let arriving = cy.collection() as cytoscape.EdgeCollection;
-        cy.batch(() => void (arriving = land(changes)));
-        shown = cy.elements().not('.gone, .off, .anchor');
-        if (routes) setBundledRoutes(bundle, centreNow);
-        if (stagger) fadeIn(arriving);
-      }
-      paintFocus();
-      if (nodesChanged && !layoutChanged) {
-        recull(true);
-        frame();
-      }
-    };
-    const paintFocus = () =>
-      cy.batch(() => {
-        cy.elements('.sel, .hl, .dim, .nb').removeClass('sel hl dim nb');
-        const tags = cy.nodes('.tag');
-        if (next.highlight.size) {
-          shown.addClass('dim');
-          tags.addClass('dim');
-          terms
-            .filter((n) => next.highlight.has(n.id()))
-            .removeClass('dim')
-            .addClass('hl');
-          shown.edges('.focus').removeClass('dim').addClass('hl');
-        } else if (next.selected) {
-          // The selected term, its visible neighbours and the edges between them stay lit.
-          const s = cy.getElementById(next.selected);
-          if (s.nonempty() && !s.hasClass('gone')) {
-            const edges = s.connectedEdges().filter((e) => !e.hasClass('off'));
-            const hood = edges.connectedNodes().union(s);
-            shown.not(hood).not(edges).addClass('dim');
-            tags.addClass('dim');
-            hood.not(s).addClass('nb');
-          }
-        }
-        if (next.selected) cy.getElementById(next.selected).removeClass('dim').addClass('sel');
-        paintLabels();
-      });
-    if (fading.nonempty())
-      fading.animate(
-        { style: { opacity: 0 } },
-        {
-          duration: EXPLORER.motion.fadeMs,
-          complete: () => {
-            fading.removeStyle('opacity');
-            finish();
-          },
-        },
-      );
-    else finish();
-    // A new selection glides into view (layout and filter changes frame it themselves).
-    if (next.selected && next.selected !== prev?.selected && !layoutChanged && !nodesChanged)
-      centreOn(next.selected);
-  };
-
+export function createMap2D(opts: Map2DOptions) {
+  const m = assemble(opts);
+  const { p, s } = m;
   return {
-    cy,
-    apply,
-    /**
-     * Switch palettes (A92) in place: the stylesheet, and every colour held in element
-     * data (edges, bundles, names). No relayout. Term fills come from the View's
-     * `colour`, so the caller applies a view with the new theme's colours as well.
-     */
+    cy: p.cy,
+    apply: m.apply,
+    /** Switch palettes (A92) in place; see `explorer-2d/theme.ts`. */
     retheme(next: MapTheme) {
-      if (next === theme) return;
-      theme = next;
-      const paint = edgeData(
-        graph.links,
-        (id) => byId.get(id),
-        () => 0,
-        0,
-        theme,
-      );
-      cy.batch(() => {
-        links.forEach((e) => {
-          const p = paint[Number(e.id().slice(1))];
-          const s = byId.get(e.data('source'))!;
-          e.data({
-            colour: p.colour,
-            gradient: p.gradient,
-            tint: clusterColour(s.cluster, homeDomain(s), theme),
-          });
-        });
-        bundleEdges.forEach((e) => {
-          e.data({
-            colour: clusterColour(e.data('a'), undefined, theme),
-            gradient: bundleGradient(e.data('a'), e.data('b')),
-          });
-        });
-        cy.nodes('.tag').forEach((n) => {
-          const [, kind, key] = n.id().split(':');
-          const colour =
-            kind === 'c'
-              ? clusterColour(key, undefined, theme)
-              : kind === 't'
-                ? MAP_INK[theme].tick
-                : domainColour(key, theme);
-          n.data('colour', colour);
-        });
-      });
-      cy.style(stylesheet(theme));
+      if (next === s.theme) return;
+      s.theme = next;
+      retheme(p, next);
     },
     /** Bring a term into view (Find a term, even when it is already selected). */
-    focus: (id: string) => void centreOn(id, [0.9, 1.2]),
+    focus: (id: string) => void centreOn(p, id, [0.9, 1.2]),
     /** Keyboard navigation (A97): pan and zoom about the clear part's centre, for dt s. */
-    nudge(v: Axes, dt: number) {
-      const k = EXPLORER.keys;
-      cy.stop(true);
-      if (v.x || v.y) cy.panBy({ x: -v.x * k.panPx * dt, y: -v.y * k.panPx * dt });
-      if (v.zoom)
-        cy.zoom({
-          level: cy.zoom() * Math.exp(v.zoom * k.zoomRate * dt),
-          renderedPosition: { x: (cy.width() - opts.centreReserve()) / 2, y: cy.height() / 2 },
-        });
-    },
+    nudge: (v: Axes, dt: number) => nudge(p, v, dt),
     resize() {
-      cy.resize();
-      dots.resize();
+      p.cy.resize();
+      m.dots.dots.resize();
     },
-    /** Hooks for the hidden visual lab only (A96); the Explorer never uses them. */
-    lab: {
-      dots: dotCfg,
-      setDots(on: boolean) {
-        dotsOn = on;
-      },
-      /** Re-space the island map (see `shapeIslands`) and glide the terms there. */
-      relayout(tune: { spacing: number; tight: number; gap: number }) {
-        withSeededRandom(LAYOUT_SEED, () => shapeIslands(tune));
-        base.force = islandMap(everyone);
-        if (view) place(view, true);
-      },
-    },
-    destroy() {
-      dots.stop();
-      if (pending) cancelAnimationFrame(pending.raf);
-      pending = null;
-      window.clearTimeout(cullTimer);
-      window.clearTimeout(hoverTimer);
-      window.clearTimeout(quietTimer);
-      opts.container.removeEventListener('pointermove', onPointerMove);
-      drag.destroy();
-      cy.destroy();
-    },
+    lab: labHooks(m),
+    destroy: destroyer(m),
   };
 }
 
