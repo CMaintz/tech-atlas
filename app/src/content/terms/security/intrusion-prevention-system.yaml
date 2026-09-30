@@ -42,6 +42,48 @@ deepDive:
     Falske positiver er den driftsrisiko, der mest adskiller en IPS fra en IDS: en falsk positiv i en IDS koster analytikertid, en falsk positiv i en IPS er et selvforskyldt nedbrud. Udrulning starter derfor normalt i ren detektionstilstand, måler hvilke signaturer der udløses af legitim trafik, og slår blokering til selektivt for signaturer med høj træfsikkerhed - typisk exploit-signaturer for konkrete CVE'er - mens brede heuristikker forbliver i alarmtilstand. Denne målrettede brug kaldes ofte virtuel patching: udnyttelse af en kendt sårbarhed blokeres på nettet, mens den egentlige patch testes og rulles ud. Det er en kompenserende kontrol, ikke en rettelse, og den svigter over for krypteret trafik, som IPS'en ikke kan dekryptere, og over for exploit-varianter, som signaturen ikke matcher.
 
     Beslægtede begreber: en web application firewall (WAF) er en IPS på applikationslaget, specialiseret i HTTP og arbejdende på parsede forespørgsler frem for pakker; værtsbaseret IPS-funktionalitet er i dag stort set opslugt af EDR; og IPS-modulerne i NGFW'er har stort set erstattet selvstændige appliances ved virksomhedens perimeter, selv om selvstændige sensorer stadig er almindelige i datacentre og OT-miljøer, hvor inline-blokering skal styres stramt.
+howTo:
+  steps:
+    en:
+      - Decide which traffic the IPS must protect, typically the internet edge and the paths into servers holding critical data, and name who owns the decision to block.
+      - Place the IPS inline, as a module in the next-generation firewall or as a dedicated sensor, and choose fail-open or fail-closed for each link depending on whether availability or protection matters most.
+      - Size it for peak traffic with all the rules, TLS inspection and file checks you plan to turn on, not for the vendor's headline throughput.
+      - Run it in detect-only mode for the first weeks, and record which signatures fire on legitimate traffic.
+      - Turn on blocking first for high-confidence signatures, such as exploits for specific CVEs in software you actually run, and leave broad heuristics in alert mode.
+      - Use targeted signatures as a virtual patch when a critical vulnerability cannot be patched at once, and give each one an end date tied to the real patch.
+      - Send every block and alert to the SIEM, and give the service desk a fast way to report and lift a block when legitimate traffic is stopped.
+      - Update signatures automatically, review blocking rules and exceptions every quarter, and test failover so the chosen fail mode actually works.
+    da:
+      - Beslut, hvilken trafik IPS'en skal beskytte, typisk internetkanten og vejene ind til servere med kritiske data, og udpeg, hvem der ejer beslutningen om at blokere.
+      - Placér IPS'en inline, som modul i next-generation firewallen eller som selvstændig sensor, og vælg fail-open eller fail-closed for hver forbindelse efter, om tilgængelighed eller beskyttelse vejer tungest.
+      - Dimensionér den til spidsbelastning med alle de regler, den TLS-inspektion og de filtjek, I vil slå til, og ikke efter leverandørens overskriftstal for gennemløb.
+      - Kør den i ren detektionstilstand de første uger, og notér, hvilke signaturer der udløses af legitim trafik.
+      - Slå først blokering til for signaturer med høj træfsikkerhed, fx exploits mod konkrete CVE'er i software, I faktisk bruger, og lad brede heuristikker blive i alarmtilstand.
+      - Brug målrettede signaturer som virtuel patch, når en kritisk sårbarhed ikke kan patches med det samme, og giv hver af dem en slutdato knyttet til den rigtige patch.
+      - Send alle blokeringer og alarmer til SIEM'en, og giv servicedesken en hurtig vej til at melde og ophæve en blokering, når legitim trafik bliver stoppet.
+      - Opdatér signaturer automatisk, gennemgå blokeringsregler og undtagelser hvert kvartal, og test failover, så den valgte fejltilstand faktisk virker.
+  pitfalls:
+    en:
+      - Turning on blocking for every signature on day one and causing a self-inflicted outage.
+      - Treating a virtual patch as the fix and never installing the real patch.
+      - Assuming the IPS stops attacks hidden in encrypted traffic that it cannot decrypt.
+    da:
+      - At slå blokering til for alle signaturer fra første dag og dermed skabe et selvforskyldt nedbrud.
+      - At betragte en virtuel patch som løsningen og aldrig installere den rigtige patch.
+      - At regne med, at IPS'en stopper angreb gemt i krypteret trafik, som den ikke kan dekryptere.
+  guides:
+    - title: NIST SP 800-94 - Guide to Intrusion Detection and Prevention Systems (IDPS)
+      url: https://csrc.nist.gov/pubs/sp/800/94/final
+      publisher: NIST
+      tier: standard
+    - title: CIS Critical Security Controls - Control 13 Network Monitoring and Defense
+      url: https://www.cisecurity.org/controls/network-monitoring-and-defense
+      publisher: Center for Internet Security
+      tier: standard
+    - title: Suricata documentation - Setting up IPS/inline for Linux
+      url: https://docs.suricata.io/en/latest/ips/setting-up-ipsinline-for-linux.html
+      publisher: Open Information Security Foundation
+      tier: official-doc
 edges:
   kind-of: [control]
   requires:

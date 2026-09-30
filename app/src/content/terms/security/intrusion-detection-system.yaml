@@ -42,6 +42,54 @@ deepDive:
     De klassiske svagheder er veldokumenterede. Ptacek og Newsham (1998) viste, at forskelle i samling af IP-fragmenter og TCP-segmenter mellem sensor og mål lader angribere indsætte eller skjule trafik; moderne motorer modvirker det med målbaserede reassembly-politikker. Kryptering er den største praktiske begrænsning: med TLS 1.3 og krypteret SNI/ECH ser en NIDS kun lidt ud over metadata, medmindre trafikken dekrypteres i en proxy, så detektionen flytter over på JA3/JA4-fingeraftryk, certifikatmetadata, DNS og flowadfærd. Anomalidetektion lider under den base-rate-fejlslutning, Axelsson beskrev i 1999: fordi reelle angreb er sjældne, giver selv en meget lav falsk-positiv-rate langt flere falske end ægte alarmer, og derfor dominerer tuning og triage driftsomkostningerne.
 
     En IDS adskiller sig fra en IPS i placering og beføjelser - uden for trafikvejen og kun alarmerende frem for inline og blokerende - og de fleste moderne produkter kan køre i begge tilstande. Outputtet er kun nyttigt, når det sendes videre til en SIEM eller SOC, der korrelerer og handler på det; CIS Controls v8 Control 13 (netværksovervågning og -forsvar) og ISO/IEC 27002:2022 kontrol 8.16 (overvågningsaktiviteter) er de sædvanlige ankre.
+howTo:
+  steps:
+    en:
+      - Decide what the IDS must detect, based on your threat assessment and most valuable systems, and agree who in the SOC or IT operations acts on its alerts and how fast.
+      - Choose where to place it, with network sensors at the internet edge and between key segments such as server, user and OT networks, and host-based agents on critical servers.
+      - Feed each network sensor from a TAP or a SPAN port sized for peak traffic, and check regularly that it sees all the traffic without dropping packets.
+      - Install a maintained rule set, such as Emerging Threats for Suricata or Snort, update it automatically every day and disable rules for protocols you do not use.
+      - Send alerts, together with flow, DNS and TLS metadata, to the SIEM, where they are correlated with logs from endpoints and identity systems.
+      - Tune during the first weeks by tracing the cause of each false positive, writing narrow exceptions and keeping a list of every suppressed rule with its reason.
+      - Write a playbook for the most important alert types that says who triages, how to verify and when to isolate a machine or escalate to incident response.
+      - Test detection at least once a year with harmless test traffic or a purple-team exercise, and review coverage whenever the network or the use of encryption changes.
+    da:
+      - Beslut, hvad IDS'en skal opdage, ud fra jeres trusselsvurdering og vigtigste systemer, og aftal, hvem i SOC'en eller IT-driften der handler på alarmerne, og hvor hurtigt.
+      - Vælg placeringen, med netværkssensorer ved internetkanten og mellem vigtige segmenter som server-, bruger- og OT-net, og værtsbaserede agenter på kritiske servere.
+      - Forsyn hver netværkssensor fra en TAP eller en SPAN-port dimensioneret til spidsbelastning, og tjek jævnligt, at den ser al trafikken uden at tabe pakker.
+      - Installér et vedligeholdt regelsæt, fx Emerging Threats til Suricata eller Snort, opdatér det automatisk hver dag, og slå regler fra for protokoller, I ikke bruger.
+      - Send alarmer sammen med flow-, DNS- og TLS-metadata til SIEM'en, hvor de korreleres med logs fra endpoints og identitetssystemer.
+      - Finjustér reglerne i de første uger ved at finde årsagen til hver falsk positiv, skrive snævre undtagelser og føre en liste over alle undertrykte regler med begrundelse.
+      - Skriv en playbook for de vigtigste alarmtyper, der beskriver, hvem der triagerer, hvordan fundet bekræftes, og hvornår en maskine isoleres eller sagen eskaleres til incident response.
+      - Test detektionen mindst én gang om året med harmløs testtrafik eller en purple team-øvelse, og gennemgå dækningen, når netværket eller brugen af kryptering ændrer sig.
+  pitfalls:
+    en:
+      - Installing sensors but having nobody who reads and acts on the alerts.
+      - Placing the only sensor at the internet edge, so an attacker moving between internal machines is never seen.
+      - Leaving the default rules untuned until the flood of false alarms makes analysts ignore everything.
+      - Forgetting that encryption hides the payload, so detection must rely on metadata or on decryption at a proxy.
+    da:
+      - At installere sensorer uden at have nogen, der læser og handler på alarmerne.
+      - At placere den eneste sensor ved internetkanten, så en angriber, der bevæger sig mellem interne maskiner, aldrig bliver set.
+      - At lade standardreglerne stå utunede, til strømmen af falske alarmer får analytikerne til at ignorere alt.
+      - At glemme, at kryptering skjuler indholdet, så detektionen må bygge på metadata eller på dekryptering i en proxy.
+  guides:
+    - title: NIST SP 800-94 - Guide to Intrusion Detection and Prevention Systems (IDPS)
+      url: https://csrc.nist.gov/pubs/sp/800/94/final
+      publisher: NIST
+      tier: standard
+    - title: CIS Critical Security Controls - Control 13 Network Monitoring and Defense
+      url: https://www.cisecurity.org/controls/network-monitoring-and-defense
+      publisher: Center for Internet Security
+      tier: standard
+    - title: 10 Steps to Cyber Security - Logging and monitoring
+      url: https://www.ncsc.gov.uk/collection/10-steps/logging-and-monitoring
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Suricata documentation - Rule Management with Suricata-Update
+      url: https://docs.suricata.io/en/latest/rule-management/suricata-update.html
+      publisher: Open Information Security Foundation
+      tier: official-doc
 edges:
   kind-of: [control]
   requires:

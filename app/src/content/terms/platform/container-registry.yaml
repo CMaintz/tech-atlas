@@ -42,6 +42,52 @@ deepDive:
     Implementeringerne spænder fra CNCF-projektet Distribution og Harbor (med indbygget scanning, replikering, kvoter og robotkonti) til Zot og Quay samt cloudtjenesterne Amazon ECR, Azure Container Registry, Google Artifact Registry og GitHub Container Registry. Docker Hub er den underforståede standard: et ukvalificeret navn som nginx udvides til docker.io/library/nginx, en adfærd, der skaber tvetydighed og har fået værktøjer som Podman til at kræve fuldt kvalificerede navne eller eksplicitte aliasser.
 
     Registryet står i et knudepunkt for tillid i softwareforsyningskæden. Risici er bl.a. foranderlige tags, der overskrives (afhjælpes med uforanderlige tags og udrulning via digest), lækkede push-legitimationsoplysninger fra CI, private repositories, der ved en fejl kan læses offentligt og afslører indlejrede hemmeligheder, typosquattede eller ondsindede offentlige images (kryptominere i forvekslelige repositories på Docker Hub er et tilbagevendende fund) samt afhængighed af et offentligt registrys tilgængelighed og grænser for antal pulls. Typiske kontroller er en privat pull-through-cache eller et spejl, så produktion kun henter fra et internt registry, separate push-identiteter per pipeline med kortlivet OIDC-føderering i stedet for faste adgangskoder, løbende scanning af lagrede images, politikker for opbevaring og oprydning (garbage collection) og en admission controller, der afviser images fra ikke-godkendte registries eller uden gyldig signatur. Et registry adskiller sig fra et pakke-repository som npm eller PyPI ved at levere hele runtime-filsystemer, og fra runtimen, der kun forbruger det, registryet udleverer.
+howTo:
+  steps:
+    en:
+      - Choose a private registry, such as Harbor or your cloud provider's registry service, and write down which registries production is allowed to pull from.
+      - Set up a pull-through cache or mirror for public images so production pulls only from the internal registry, and always use fully qualified image names.
+      - Organise repositories by team or system, give each pipeline its own push identity through short-lived OIDC federation, and give the clusters that run images pull-only access.
+      - Turn on tag immutability for release tags and deploy by digest (image@sha256:...), so nobody can quietly overwrite what a tag points to.
+      - Scan images when they are pushed and again regularly while they are stored, and block or quarantine images with serious known vulnerabilities.
+      - Attach signatures, SBOMs and provenance to each image, and let an admission controller refuse images from unapproved registries or without a valid signature.
+      - Set retention and clean-up (garbage collection) policies, and review repository visibility, access rights and push logs every quarter.
+    da:
+      - Vælg et privat registry, fx Harbor eller cloududbyderens registry-tjeneste, og skriv ned, hvilke registries produktion må hente fra.
+      - Opsæt en pull-through-cache eller et spejl til offentlige images, så produktion kun henter fra det interne registry, og brug altid fuldt kvalificerede image-navne.
+      - Organisér repositories efter team eller system, giv hver pipeline sin egen push-identitet via kortlivet OIDC-føderering, og giv de klynger, der kører images, kun adgang til at hente.
+      - Slå uforanderlige tags til for udgivelsestags, og rul ud via digest (image@sha256:...), så ingen i stilhed kan overskrive, hvad et tag peger på.
+      - Scan images, når de lægges op, og igen løbende, mens de ligger i registryet, og bloker eller sæt images med alvorlige kendte sårbarheder i karantæne.
+      - Knyt signaturer, SBOM'er og provenance til hvert image, og lad en admission controller afvise images fra ikke-godkendte registries eller uden gyldig signatur.
+      - Fastsæt politikker for opbevaring og oprydning (garbage collection), og gennemgå repositoriers synlighed, adgangsrettigheder og push-logs hvert kvartal.
+  pitfalls:
+    en:
+      - Deploying by mutable tags such as latest, so what runs in production can change without anyone deploying.
+      - Leaving a repository publicly readable and exposing images with passwords or keys baked into their layers.
+      - Sharing one long-lived registry password between all pipelines and storing it in CI variables.
+      - Pulling base images straight from Docker Hub in production and being hit by rate limits, outages or look-alike malicious images.
+    da:
+      - At rulle ud via foranderlige tags som latest, så det, der kører i produktion, kan ændre sig, uden at nogen har rullet noget ud.
+      - At lade et repository kunne læses offentligt og dermed afsløre images med adgangskoder eller nøgler bagt ind i lagene.
+      - At dele én langlivet registry-adgangskode mellem alle pipelines og gemme den i CI-variabler.
+      - At hente base-images direkte fra Docker Hub i produktion og blive ramt af grænser for antal pulls, nedbrud eller forvekslelige ondsindede images.
+  guides:
+    - title: NIST SP 800-190 - Application Container Security Guide
+      url: https://csrc.nist.gov/pubs/sp/800/190/final
+      publisher: NIST
+      tier: standard
+    - title: Kubernetes documentation - Images
+      url: https://kubernetes.io/docs/concepts/containers/images/
+      publisher: The Kubernetes Authors
+      tier: official-doc
+    - title: Best Practices for Using Azure Container Registry
+      url: https://learn.microsoft.com/en-us/azure/container-registry/container-registry-best-practices
+      publisher: Microsoft
+      tier: official-doc
+    - title: Docker Security Cheat Sheet
+      url: https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
 edges:
   requires: [container-image]
   part-of: [software-supply-chain]

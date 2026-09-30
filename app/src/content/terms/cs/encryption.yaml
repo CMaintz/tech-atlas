@@ -41,6 +41,53 @@ deepDive:
     En tilstrækkelig stor kvantecomputer med Shors algoritme ville bryde RSA og elliptiske kurver, mens Grovers algoritme kun halverer den effektive styrke af symmetriske nøgler - derfor foretrækkes AES-256 til data med lang levetid. NIST udgav de første post-kvante-standarder i august 2024: FIPS 203 (ML-KEM), FIPS 204 (ML-DSA) og FIPS 205 (SLH-DSA). Fordi trafik, der optages i dag, kan dekrypteres senere ("harvest now, decrypt later"), har de store browsere og TLS-biblioteker allerede indført hybrid nøgleudveksling, der kombinerer X25519 med ML-KEM.
 
     Kryptering bliver ofte overvurderet. Fuld diskkryptering som BitLocker beskytter en slukket eller låst enhed; når systemet er låst op, dekrypterer styresystemet gennemsigtigt for alle processer - også ransomware. Transparent data encryption i databaser beskytter filer og backup, ikke data, der hentes ud via SQL injection. Kryptering uden autentifikation sikrer ikke integritet, og kryptering er ikke det samme som hashing. I praksis skyldes de fleste fejl nøgler og tilfældighed - hårdkodede nøgler, svage tilfældighedsgeneratorer, nøgler gemt ved siden af data - snarere end brudte algoritmer. Juridisk nævner databeskyttelsesforordningens art. 32, stk. 1, litra a, kryptering som eksempel på en passende foranstaltning; art. 34, stk. 3, litra a, kan fjerne pligten til at underrette de registrerede, når de kompromitterede data var uforståelige for uvedkommende; og NIS2 art. 21, stk. 2, litra h, kræver politikker for brug af kryptografi og kryptering.
+howTo:
+  steps:
+    en:
+      - Map where sensitive data lives and travels - laptops, phones, USB drives, servers, databases, backups, cloud storage, email and links between systems - and mark what must be encrypted.
+      - Have management approve a short cryptography policy that names the approved algorithms, such as AES-256-GCM, TLS 1.2 or later and full-disk encryption, and names an owner for the keys.
+      - Turn on full-disk encryption on every laptop, phone and removable drive through device management, for example BitLocker with TPM or FileVault, and store the recovery keys centrally.
+      - Encrypt data in transit with TLS on all external and internal connections, and use encrypted email or a secure file-sharing service for confidential data sent outside the organisation.
+      - Encrypt databases, file storage and backups at rest, and keep the keys in a key vault, KMS or HSM, never next to the data they protect.
+      - Make developers use well-tested libraries with authenticated encryption instead of writing their own cryptography, and scan code for hard-coded keys and old algorithms such as DES, RC4 or ECB mode.
+      - Check encryption status every month from device management and cloud reports, and follow up on any device or storage that is not encrypted.
+      - Review the policy once a year against new guidance, and keep a list of where each algorithm is used so you can replace it, for example on the move to post-quantum cryptography.
+    da:
+      - Kortlæg, hvor følsomme data ligger og bevæger sig - bærbare, telefoner, USB-drev, servere, databaser, backup, cloudlagring, e-mail og forbindelser mellem systemer - og markér, hvad der skal krypteres.
+      - Lad ledelsen godkende en kort kryptografipolitik, der nævner de godkendte algoritmer, fx AES-256-GCM, TLS 1.2 eller nyere og fuld diskkryptering, og udpeger en ejer af nøglerne.
+      - Slå fuld diskkryptering til på alle bærbare, telefoner og flytbare drev via enhedsstyringen, fx BitLocker med TPM eller FileVault, og gem gendannelsesnøglerne centralt.
+      - Kryptér data under transport med TLS på alle eksterne og interne forbindelser, og brug krypteret e-mail eller en sikker fildelingstjeneste til fortrolige data, der sendes ud af organisationen.
+      - Kryptér databaser, fillagre og backup i hvile, og opbevar nøglerne i en key vault, KMS eller HSM, aldrig ved siden af de data, de beskytter.
+      - Lad udviklerne bruge velafprøvede biblioteker med autentificeret kryptering i stedet for at skrive deres egen kryptografi, og scan koden for hardkodede nøgler og gamle algoritmer som DES, RC4 eller ECB-tilstand.
+      - Tjek krypteringsstatus hver måned i rapporter fra enhedsstyring og cloud, og følg op på enheder og lagre, der ikke er krypteret.
+      - Gennemgå politikken en gang om året mod ny vejledning, og hold en liste over, hvor hver algoritme bruges, så I kan udskifte den, fx ved overgangen til kvantesikker kryptografi.
+  pitfalls:
+    en:
+      - Believing full-disk encryption protects a running, logged-in machine, although the data is readable to every program, including ransomware, once it is unlocked.
+      - Storing the encryption key in the same database, server or code repository as the encrypted data.
+      - Encrypting backups without keeping the recovery keys in a separate, tested place, so a restore fails exactly when it is needed.
+    da:
+      - At tro, at fuld diskkryptering beskytter en kørende maskine med en bruger logget ind, selv om data kan læses af alle programmer, også ransomware, når den er låst op.
+      - At gemme krypteringsnøglen i samme database, på samme server eller i samme kodearkiv som de krypterede data.
+      - At kryptere backup uden at opbevare gendannelsesnøglerne et separat og afprøvet sted, så en genskabelse fejler præcis, når den er nødvendig.
+  guides:
+    - title: Cryptographic Storage Cheat Sheet
+      url: https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
+    - title: NIST SP 800-111 - Guide to Storage Encryption Technologies for End User Devices
+      url: https://csrc.nist.gov/pubs/sp/800/111/final
+      publisher: NIST
+      tier: standard
+    - title: BitLocker Overview
+      url: https://learn.microsoft.com/en-us/windows/security/operating-system-security/data-protection/bitlocker/
+      publisher: Microsoft
+      tier: official-doc
+    - title: De 10 brud
+      url: https://www.datatilsynet.dk/regler-og-vejledning/behandlingssikkerhed/de-10-brud
+      publisher: Datatilsynet
+      tier: official-doc
+      lang: da
 edges:
   kind-of: [control]
   implements:

@@ -1,0 +1,26 @@
+---
+/** Technical deep dive (A80): optional; one auto-linked paragraph per blank-line block. */
+import Prose from '../Prose.astro';
+import { DEEP_UI, type Lang } from '../../lib/site';
+import type { Segment } from '../../lib/autolink';
+
+interface Props {
+  lang: Lang;
+  paragraphs: Segment[][];
+}
+
+const { lang, paragraphs } = Astro.props;
+---
+
+{paragraphs.length > 0 && (
+  <section class="mt-10" id="deep-dive">
+    <h2 class="mb-2 text-xs tracking-widest text-subtle uppercase">{DEEP_UI[lang].deepDive}</h2>
+    <div class="space-y-4 leading-relaxed text-fg-soft">
+      {paragraphs.map((p) => (
+        <p>
+          <Prose segments={p} lang={lang} />
+        </p>
+      ))}
+    </div>
+  </section>
+)}

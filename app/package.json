@@ -9,6 +9,7 @@
     "build:graph": "tsx scripts/build-graph.ts",
     "embed": "tsx scripts/embed.ts",
     "lint:content": "tsx scripts/lint.ts",
+    "lint:size": "tsx scripts/size-check.ts",
     "build": "npm run lint:content && npm run build:graph && astro build",
     "preview": "astro preview",
     "check": "astro check",

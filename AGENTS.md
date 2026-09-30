@@ -14,7 +14,7 @@ Invoke verbs, never tools. `mise run gate` is the only authority for "done".
 | Verb | Contract |
 |---|---|
 | `mise run fix` | Apply mechanically-safe fixes (format). |
-| `mise run lint` | Report style + content-model violations. |
+| `mise run lint` | Report style + content-model violations, and size: no function over 18 logical lines, no code file over 300 lines (`npm run lint:size`, `app/scripts/size-rules.ts`). |
 | `mise run typecheck` | Static type analysis: `astro check` for the app, `deno check` for the Edge Functions (`supabase/functions/**`, incl. `_shared`). |
 | `mise run test` | Unit tests (Vitest) + the production build as a smoke test. No coverage floor yet. |
 | `mise run audit` | Dependency vulnerabilities (ratcheted: high+ fails unless accepted with a reason in `app/.audit-allowlist.json`), registry signatures, secrets in git history. |

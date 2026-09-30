@@ -41,6 +41,57 @@ deepDive:
     Den centrale fejlmåde er stempelgodkendelse. Automatiseringsbias og godkendelsestræthed får den, der godkender hundredvis af rutineanmodninger, til at holde op med at læse dem, så godkendelsesraten nærmer sig 100 %, og kontrollen bliver til teater. Effektive design kræver godkendelse efter risiko frem for som standard, viser den konkrete foreslåede handling (den præcise e-mail, SQL-sætning, diff eller betaling med parametre og de kilder, der førte til den) frem for et resumé skrevet af den samme model, gør afvisning og redigering lige så let som godkendelse, afviser som standard ved timeout og logger, hvem der godkendte hvad, af hensyn til revision.
 
     For agenter kræver implementeringen, at forløbet kan sættes på pause midtvejs: orkestreringen gemmer tilstanden ved det kontrollerede værktøjskald, lægger det i en godkendelseskø og genoptager med menneskets beslutning indsat som værktøjsresultat. Bemærk begrænsningerne. HITL forhindrer ikke prompt injection; det giver et menneske en chance for at opdage virkningen, hvilket kun virker, hvis den ondsindede handling er synlig i det, der vises. Det tilføjer også latenstid og omkostning og supplerer derfor sandkasser og mindste privilegium frem for at erstatte dem.
+howTo:
+  steps:
+    en:
+      - List every action the AI system or agent can take and sort them by risk, for example reading data runs on its own, medium-risk actions are logged for later review, and actions that are costly, irreversible or affect people's rights wait for approval.
+      - Name who approves each gated action and make sure they have the competence, training and authority to say no, as AI Act Art. 26(2) requires for high-risk systems.
+      - Show the approver the exact action with its parameters and the sources behind it, such as the full email, SQL statement, code diff or payment, instead of a summary written by the same model.
+      - Make rejecting and editing as easy as approving, reject by default when a request times out, and give overseers a stop button that halts the system (Art. 14(4)).
+      - Build the pause into the agent, so it saves its state at the gated tool call, places it in an approval queue and resumes only with the human decision.
+      - Log who approved, edited or rejected what and when, and keep the logs, for high-risk systems at least six months as deployer (Art. 26(6)).
+      - Where AI supports decisions about citizens or customers, check whether GDPR Art. 22 applies, and make sure the human reviewer actually assesses the case and can reach a different result, so the review is not a token one.
+      - Every quarter, look at approval rates, time spent per approval and caught errors, and move gates up or down if people are rubber-stamping or drowning in requests.
+    da:
+      - Lav en liste over alle handlinger, AI-systemet eller agenten kan udføre, og sortér dem efter risiko, fx at læse data sker af sig selv, handlinger med middel risiko logges til senere gennemsyn, og handlinger, der er dyre, uigenkaldelige eller berører folks rettigheder, venter på godkendelse.
+      - Udpeg, hvem der godkender hver kontrolleret handling, og sørg for, at de har kompetence, uddannelse og myndighed til at sige nej, som AI-forordningens art. 26, stk. 2, kræver for højrisikosystemer.
+      - Vis den, der godkender, den præcise handling med parametre og de kilder, der ligger bag, fx hele e-mailen, SQL-sætningen, kodeændringen eller betalingen, i stedet for et resumé skrevet af den samme model.
+      - Gør det lige så let at afvise og rette som at godkende, afvis som standard, når en anmodning løber ud i tid, og giv tilsynspersonerne en stopknap, der standser systemet (art. 14, stk. 4).
+      - Byg pausen ind i agenten, så den gemmer sin tilstand ved det kontrollerede værktøjskald, lægger den i en godkendelseskø og først fortsætter med menneskets beslutning.
+      - Log, hvem der godkendte, rettede eller afviste hvad og hvornår, og gem loggene, for højrisikosystemer i mindst seks måneder som idriftsætter (art. 26, stk. 6).
+      - Undersøg, når AI understøtter afgørelser om borgere eller kunder, om GDPR art. 22 gælder, og sørg for, at den menneskelige sagsbehandler reelt vurderer sagen og kan nå et andet resultat, så gennemgangen ikke kun er symbolsk.
+      - Se hvert kvartal på godkendelsesrater, tid brugt pr. godkendelse og fangede fejl, og flyt kontrolpunkterne op eller ned, hvis folk stempelgodkender eller drukner i anmodninger.
+  pitfalls:
+    en:
+      - Asking for approval on everything, so approval fatigue sets in and the approval rate drifts towards 100% without anyone reading.
+      - Showing the approver a friendly summary from the model rather than the actual action, so a prompt-injected payload is never seen.
+      - Treating a human click as enough to take a decision outside GDPR Art. 22, when the person has neither the time, the information nor the authority to disagree.
+    da:
+      - At kræve godkendelse af alt, så godkendelsestræthed sætter ind, og godkendelsesraten nærmer sig 100 %, uden at nogen læser med.
+      - At vise den, der godkender, et venligt resumé fra modellen frem for selve handlingen, så en payload fra prompt injection aldrig bliver set.
+      - At regne et menneskeligt klik for nok til at bringe en afgørelse uden for GDPR art. 22, når personen hverken har tid, oplysninger eller myndighed til at være uenig.
+  guides:
+    - title: AI Act, Article 14 - Human oversight
+      url: https://artificialintelligenceact.eu/article/14/
+      publisher: Future of Life Institute
+      tier: reference
+    - title: AI Act, Article 26 - Obligations of deployers of high-risk AI systems
+      url: https://artificialintelligenceact.eu/article/26/
+      publisher: Future of Life Institute
+      tier: reference
+    - title: LLM06:2025 Excessive Agency
+      url: https://genai.owasp.org/llmrisk/llm062025-excessive-agency/
+      publisher: OWASP
+      tier: reference
+    - title: AI Agent Security Cheat Sheet
+      url: https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
+    - title: Offentlige myndigheders brug af kunstig intelligens - Inden I går i gang
+      url: https://www.datatilsynet.dk/Media/638321084132236143/Offentlige%20myndigheders%20brug%20af%20kunstig%20intelligens%20-%20Inden%20I%20g%C3%A5r%20i%20gang.pdf
+      publisher: Datatilsynet
+      tier: official-doc
+      lang: da
 edges:
   mitigates:
     - to: excessive-agency

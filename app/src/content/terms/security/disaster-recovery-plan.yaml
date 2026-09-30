@@ -41,6 +41,55 @@ deepDive:
     Kernen i planen er en runbook ordnet efter afhængigheder. De grundlæggende tjenester kommer først: netværk, DNS, tidssynkronisering, identitet (typisk Active Directory eller cloudens identitetsudbyder), nøglehåndtering og backupinfrastruktur, derefter databaser, applikationslag og til sidst de tjenester, brugerne ser. Hvert trin angiver ansvarlig, forventet varighed, valideringstjek og beslutningspunkt. Adgangsoplysninger, licensnøgler, leverandørkontrakter og selve runbooken skal være tilgængelige, når katalogtjenesten og dokumentsystemerne er nede. Maersks genopretning efter NotPetya i 2017 afhang berømt nok af den ene domænecontroller, der havde overlevet, fordi den var offline under en strømafbrydelse på kontoret i Ghana.
 
     Cyberangreb ændrer forudsætningerne for DR. Efter ransomware kan en gendannelse af den nyeste backup føre angriberen tilbage, fordi indtrængen ofte ligger dage eller uger før krypteringen, så genopretning kræver, at man finder et rent gendannelsespunkt, genopbygger i et isoleret genopretningsmiljø, scanner de gendannede data, nulstiller adgangsoplysninger inklusive krbtgt-kontoen og sikrer forensiske spor, før systemer slettes. Kun øvelser, der måler faktisk genoprettelsestid og faktisk datatab op mod målene, viser, om en DRP virker; utestede gendannelser, manglende applikationskonsistente backups og begrænset båndbredde ved store datamængder er de typiske fejl. DRP'en får teknikken tilbage, mens BCP'en holder forretningen i gang imens.
+howTo:
+  steps:
+    en:
+      - Take the recovery time and recovery point objectives from the business impact analysis and list every system and data set the critical services need.
+      - Map the dependencies and set a restore order that starts with network, DNS, time, identity, key management and the backup platform, then databases, applications and user-facing services.
+      - Choose a recovery strategy per system, from backup and restore to warm standby or active-active, whose cost fits the objectives, and make sure offline or immutable backups exist.
+      - Write a runbook step for each system with owner, expected duration, validation check and decision point, and store it offline together with credentials, licence keys and supplier contacts.
+      - For cyberattacks, plan an isolated recovery environment, a way to find a clean restore point and a full credential reset, including krbtgt twice after a domain compromise.
+      - Agree with the incident response lead when evidence has been secured, so systems may be wiped and rebuilt.
+      - Test restores at least once a year, measure the actual recovery time and data loss against the objectives, and close the gaps you find.
+      - Update the plan after every test, incident and major change in systems, hosting or suppliers.
+    da:
+      - Hent målene for genoprettelsestid og tolereret datatab fra konsekvensanalysen, og list alle de systemer og datasæt, de kritiske ydelser har brug for.
+      - Kortlæg afhængighederne og fastlæg en gendannelsesrækkefølge, der starter med netværk, DNS, tid, identitet, nøglehåndtering og backupplatformen og derefter databaser, applikationer og de tjenester, brugerne ser.
+      - Vælg en genopretningsstrategi pr. system, fra backup og gendannelse til warm standby eller active-active, hvor prisen passer til målene, og sørg for, at der findes offline eller uforanderlige backups.
+      - Skriv et runbook-trin for hvert system med ansvarlig, forventet varighed, valideringstjek og beslutningspunkt, og opbevar det offline sammen med adgangsoplysninger, licensnøgler og leverandørkontakter.
+      - Planlæg til cyberangreb et isoleret genopretningsmiljø, en metode til at finde et rent gendannelsespunkt og en fuld nulstilling af adgangsoplysninger, inklusive krbtgt to gange efter kompromittering af domænet.
+      - Aftal med den hændelsesansvarlige, hvornår beviser er sikret, så systemer må slettes og genopbygges.
+      - Test gendannelse mindst én gang om året, mål den faktiske genoprettelsestid og det faktiske datatab op mod målene, og luk de huller, I finder.
+      - Opdatér planen efter hver test, hændelse og større ændring i systemer, hosting eller leverandører.
+  pitfalls:
+    en:
+      - Relying on replication or snapshots alone, when they copy ransomware encryption and corruption as faithfully as good data.
+      - Restoring the newest backup without checking whether the attacker was already inside when it was taken.
+      - Keeping the runbook and passwords in systems that are down during the disaster.
+      - Never timing a full restore, so the RTO on paper has no link to reality.
+    da:
+      - At stole alene på replikering eller snapshots, som kopierer ransomwarekryptering og korruption lige så trofast som gode data.
+      - At gendanne den nyeste backup uden at tjekke, om angriberen allerede var inde, da den blev taget.
+      - At have runbooken og adgangskoderne liggende i systemer, der er nede under katastrofen.
+      - Aldrig at tage tid på en fuld gendannelse, så RTO'en på papiret ikke har noget med virkeligheden at gøre.
+  guides:
+    - title: NIST SP 800-34 Rev. 1 - Contingency Planning Guide for Federal Information Systems
+      url: https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final
+      publisher: NIST
+      tier: standard
+    - title: '#StopRansomware Guide'
+      url: https://www.cisa.gov/stopransomware/ransomware-guide
+      publisher: CISA
+      tier: official-doc
+    - title: Disaster Recovery of Workloads on AWS - Recovery in the Cloud
+      url: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-workloads-on-aws.html
+      publisher: AWS
+      tier: official-doc
+    - title: Beskyt dig mod destruktive cyberangreb
+      url: https://samsik.dk/cyb-publikationer/beskyt-dig-mod-destruktive-cyberangreb/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   requires: [backup, recovery-objectives]
   part-of: [contingency-plan]

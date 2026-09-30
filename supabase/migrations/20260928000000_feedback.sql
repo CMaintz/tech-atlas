@@ -78,7 +78,16 @@ grant execute on function public.feedback_submit(text, text, text, text, text, t
 
 -- Supabase Cron (pg_cron); enabled by 20260926000000_search_rate_retention.sql, repeated
 -- here so this file also runs on its own. Scheduling under an existing name replaces it.
-create extension if not exists pg_cron with schema pg_catalog;
+-- Guarded rather than `create extension if not exists`: Supabase (supautils) re-runs
+-- pg_cron's privilege setup script even when the extension already exists, and that
+-- fails with "dependent privileges exist" against the cron grants made in 20260926000000.
+do $$
+begin
+  if not exists (select 1 from pg_extension where extname = 'pg_cron') then
+    create extension pg_cron with schema pg_catalog;
+  end if;
+end
+$$;
 
 select cron.schedule(
   'atlas-feedback-purge',

@@ -55,9 +55,7 @@ const order = ['security', 'cs', 'ai', 'platform'];
 const domains = [...new Set(dated.map((t) => t.home))].sort(
   (a, b) => (order.indexOf(a) + 1 || 99) - (order.indexOf(b) + 1 || 99) || a.localeCompare(b),
 );
-const domainLabels = Object.fromEntries(
-  Object.entries(DOMAIN_LABELS).map(([d, l]) => [d, l[lang]]),
-);
+const domainLabels = localise(DOMAIN_LABELS, lang);
 const allDomains = [...new Set([...domains, ...dated.flatMap((t) => t.domain)])];
 const domainColours = Object.fromEntries(allDomains.map((d) => [d, domainColour(d)]));
 // The cream map's deeper shades (A92); the page shows whichever matches the theme.

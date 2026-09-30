@@ -84,28 +84,56 @@ function isCode(attrs) {
 export function checkPage(html) {
   const meta = /<meta http-equiv="content-security-policy" content="([^"]*)"/i.exec(html);
   if (!meta) return ['no Content-Security-Policy meta'];
-  const problems = [];
-  // A policy applies only to what follows it; data blocks (ld+json) aren't scripts.
-  const firstScript = [...html.matchAll(/<script\b([^>]*)>/gi)].find((m) => isCode(m[1]));
-  if (firstScript && (firstScript.index ?? 0) < meta.index) {
-    problems.push('a script precedes the CSP meta');
-  }
   const directives = meta[1].split(';').map((d) => d.trim().split(/\s+/));
   const scriptSrc = directives.find((d) => d[0] === 'script-src') ?? [];
-  if (!scriptSrc.length) problems.push('no script-src');
-  for (const bad of ["'unsafe-inline'", "'unsafe-eval'", '*', 'data:', 'http:', 'https:']) {
-    if (scriptSrc.includes(bad)) problems.push(`script-src allows ${bad}`);
-  }
+  return [
+    ...scriptBeforeMeta(html, meta.index),
+    ...(scriptSrc.length ? [] : ['no script-src']),
+    ...unsafeScriptSources(scriptSrc),
+    ...unhashedInlineScripts(html, scriptSrc),
+    ...inlineEventHandlers(html),
+  ];
+}
+
+/**
+ * A policy applies only to what follows it; data blocks (ld+json) aren't scripts.
+ * @param {string} html
+ * @param {number} metaAt
+ */
+function scriptBeforeMeta(html, metaAt) {
+  const firstScript = [...html.matchAll(/<script\b([^>]*)>/gi)].find((m) => isCode(m[1]));
+  return firstScript && (firstScript.index ?? 0) < metaAt ? ['a script precedes the CSP meta'] : [];
+}
+
+/** @param {string[]} scriptSrc */
+function unsafeScriptSources(scriptSrc) {
+  return ["'unsafe-inline'", "'unsafe-eval'", '*', 'data:', 'http:', 'https:']
+    .filter((bad) => scriptSrc.includes(bad))
+    .map((bad) => `script-src allows ${bad}`);
+}
+
+/**
+ * Inline scripts whose hash script-src doesn't list (the browser would block them).
+ * @param {string} html
+ * @param {string[]} scriptSrc
+ */
+function unhashedInlineScripts(html, scriptSrc) {
+  const problems = [];
   for (const m of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
     if (!isCode(m[1]) || /\bsrc\s*=/.test(m[1])) continue;
     const hash = `'sha256-${createHash('sha256').update(m[2]).digest('base64')}'`;
     if (!scriptSrc.includes(hash))
       problems.push(`inline script not in script-src: ${m[2].slice(0, 60)}`);
   }
-  if (/\son[a-z]+\s*=\s*["']/i.test(html.replace(/<script\b[\s\S]*?<\/script>/gi, ''))) {
-    problems.push('inline event-handler attribute (blocked by the CSP)');
-  }
   return problems;
+}
+
+/** @param {string} html */
+function inlineEventHandlers(html) {
+  const outsideScripts = html.replace(/<script\b[\s\S]*?<\/script>/gi, '');
+  return /\son[a-z]+\s*=\s*["']/i.test(outsideScripts)
+    ? ['inline event-handler attribute (blocked by the CSP)']
+    : [];
 }
 
 /** @param {string} dir */
@@ -118,32 +146,44 @@ async function files(dir) {
   return out;
 }
 
+/**
+ * Secret and CSP problems across the build output, and how many pages were checked.
+ * @param {string} outDir
+ * @param {string[]} forbidden
+ */
+async function scan(outDir, forbidden) {
+  /** @type {string[]} */
+  const problems = [];
+  let pages = 0;
+  for (const file of await files(outDir)) {
+    const rel = path.relative(outDir, file).split(path.sep).join('/');
+    const text = await readFile(file, 'utf8');
+    for (const kind of findSecrets(text, forbidden)) problems.push(`${rel}: ${kind}`);
+    if (rel.endsWith('.html')) {
+      pages++;
+      for (const p of checkPage(text)) problems.push(`${rel}: ${p}`);
+    }
+  }
+  return { problems, pages };
+}
+
+/** @param {string[]} problems at least one */
+function failure(problems) {
+  const shown = problems.slice(0, 20).join('\n  ');
+  return new Error(
+    `dist-guard: ${problems.length} problem(s):\n  ${shown}${problems.length > 20 ? '\n  …' : ''}`,
+  );
+}
+
 /** @returns {import('astro').AstroIntegration} */
 export default function distGuard() {
   return {
     name: 'atlas-dist-guard',
     hooks: {
       'astro:build:done': async ({ dir, logger }) => {
-        const outDir = fileURLToPath(dir);
         const forbidden = SECRET_ENV.map((n) => process.env[n] ?? '').filter(Boolean);
-        /** @type {string[]} */
-        const problems = [];
-        let pages = 0;
-        for (const file of await files(outDir)) {
-          const rel = path.relative(outDir, file).split(path.sep).join('/');
-          const text = await readFile(file, 'utf8');
-          for (const kind of findSecrets(text, forbidden)) problems.push(`${rel}: ${kind}`);
-          if (rel.endsWith('.html')) {
-            pages++;
-            for (const p of checkPage(text)) problems.push(`${rel}: ${p}`);
-          }
-        }
-        if (problems.length) {
-          const shown = problems.slice(0, 20).join('\n  ');
-          throw new Error(
-            `dist-guard: ${problems.length} problem(s):\n  ${shown}${problems.length > 20 ? '\n  …' : ''}`,
-          );
-        }
+        const { problems, pages } = await scan(fileURLToPath(dir), forbidden);
+        if (problems.length) throw failure(problems);
         logger.info(`dist-guard: ${pages} pages under the CSP, no secrets in the output`);
       },
     },

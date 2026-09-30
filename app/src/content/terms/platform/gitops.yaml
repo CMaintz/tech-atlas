@@ -42,6 +42,54 @@ deepDive:
     Pull-modellen er sikkerhedsargumentet: CI behøver ikke længere cluster-admin-legitimationsoplysninger, fordi kun agenten i klyngen skriver til API-serveren, og revisionssporet for ændringer i produktion er repositoryets historik over commits og gennemgange. Bagsiden er, at repositoryet - og den, der kan flette til dets beskyttede grene - nu reelt styrer produktionen. Kontrollerne omfatter grenbeskyttelse med krævede gennemgange, verifikation af signerede commits (både Argo CD og Flux kan afvise usignerede eller ikke-betroede revisioner), service accounts med mindste privilegium per applikation frem for én controller med cluster-admin og begrænsning af, hvilke repositories og namespaces hver applikation må ramme. Hemmeligheder kan ikke committes i klartekst, så teams bruger Sealed Secrets eller SOPS-krypterede filer eller henviser til eksterne lagre via External Secrets Operator.
 
     GitOps adskiller sig fra infrastructure as code i omfang og mekanisme: IaC beskriver ressourcer deklarativt, men anvendes ofte i en push-model af en pipeline, der kører terraform apply, så afvigelser først opdages ved næste plan, mens GitOps tilføjer løbende afstemning drevet af en agent. Typiske fejl er afstemningsløkker, der kæmper med andre controllere som autoskalerere om de samme felter, afvigelser skjult af ignore-regler og nedbrud, når Git-værten er utilgængelig - kørende workloads fortsætter, men ingen kan ændre dem ad den normale vej.
+howTo:
+  steps:
+    en:
+      - Describe the desired state of each environment declaratively (plain YAML, Kustomize or Helm) and keep it in a config repository separate from the application source code.
+      - Protect the config repository with branch protection, required reviews, signed commits and code owners for the production folders.
+      - Install a GitOps agent such as Argo CD or Flux in each cluster, give it least-privilege service accounts per application instead of cluster-admin, and restrict which repositories and namespaces each application may target.
+      - Let CI build, scan and sign the image and then open a pull request that updates the image digest in the config repository, so CI never needs cluster credentials.
+      - Turn on automated sync with self-heal and pruning, so manual changes are reverted and objects removed from the repository are deleted.
+      - Keep secrets out of the repository in plaintext by using Sealed Secrets, SOPS-encrypted files or the External Secrets Operator with an external store.
+      - Promote a release between environments by merging a reviewed pull request, and roll back by reverting the commit.
+      - Alert on failed syncs and drift, review ignore rules regularly, and document a break-glass procedure for when the Git host is unavailable.
+    da:
+      - Beskriv hvert miljøs ønskede tilstand deklarativt (ren YAML, Kustomize eller Helm), og hold den i et config-repository adskilt fra applikationens kildekode.
+      - Beskyt config-repositoryet med grenbeskyttelse, krævede gennemgange, signerede commits og code owners for produktionsmapperne.
+      - Installér en GitOps-agent som Argo CD eller Flux i hver klynge, giv den service accounts med mindste privilegium pr. applikation i stedet for cluster-admin, og begræns, hvilke repositories og namespaces hver applikation må ramme.
+      - Lad CI bygge, scanne og signere imaget og derefter oprette en pull request, der opdaterer image-digesten i config-repositoryet, så CI aldrig har brug for legitimationsoplysninger til klyngen.
+      - Slå automatisk synkronisering med self-heal og pruning til, så manuelle ændringer rulles tilbage, og objekter, der er fjernet fra repositoryet, slettes.
+      - Hold hemmeligheder ude af repositoryet i klartekst ved at bruge Sealed Secrets, SOPS-krypterede filer eller External Secrets Operator med et eksternt lager.
+      - Promovér en udgivelse mellem miljøer ved at flette en gennemgået pull request, og rul tilbage ved at lave revert på commit'et.
+      - Alarmér ved fejlede synkroniseringer og afvigelser, gennemgå ignore-regler jævnligt, og dokumentér en nødprocedure (break-glass) til når Git-værten er utilgængelig.
+  pitfalls:
+    en:
+      - Letting the agent and an autoscaler fight over the same fields, such as replica counts, so reconciliation never settles.
+      - Running the GitOps controller as cluster-admin everywhere, so anyone who can merge to the repository controls every cluster.
+      - Committing secrets in plaintext because the repository is private.
+      - Pointing at a moving branch head or floating chart versions instead of pinned commits or digests, so the deployed state changes without a reviewed commit.
+    da:
+      - At lade agenten og en autoskalerer kæmpe om de samme felter, fx antal replikaer, så afstemningen aldrig falder til ro.
+      - At køre GitOps-controlleren som cluster-admin overalt, så enhver, der kan flette til repositoryet, styrer alle klynger.
+      - At committe hemmeligheder i klartekst, fordi repositoryet er privat.
+      - At pege på en flyttende grens HEAD eller flydende chart-versioner i stedet for låste commits eller digests, så den udrullede tilstand ændrer sig uden et gennemgået commit.
+  guides:
+    - title: OpenGitOps Principles v1.0.0
+      url: https://opengitops.dev/
+      publisher: CNCF OpenGitOps
+      tier: reference
+    - title: Argo CD - Best Practices
+      url: https://argo-cd.readthedocs.io/en/stable/user-guide/best_practices/
+      publisher: Argo Project
+      tier: reference
+    - title: Flux - Security Documentation
+      url: https://fluxcd.io/flux/security/
+      publisher: CNCF
+      tier: reference
+    - title: NIST SP 800-204D - Strategies for the Integration of Software Supply Chain Security in DevSecOps CI/CD Pipelines
+      url: https://csrc.nist.gov/pubs/sp/800/204/d/final
+      publisher: NIST
+      tier: standard
 edges:
   requires:
     - infrastructure-as-code

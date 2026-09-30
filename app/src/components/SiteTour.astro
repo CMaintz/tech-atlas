@@ -1,0 +1,35 @@
+---
+/** The guided tour (A61, A85) with its steps and card text in the page language. */
+import Tour from './Tour';
+import { TOUR_STEPS, UI, url, type Lang } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+  /** Greet first-time visitors with the tour. */
+  autoStart: boolean;
+}
+const { lang, autoStart } = Astro.props;
+const ui = UI[lang];
+const steps = TOUR_STEPS.map((s) => ({
+  ...s,
+  title: s.title[lang],
+  body: s.body[lang],
+  via: s.via?.[lang],
+}));
+const tourUi = {
+  tourWelcomeStart: ui.tourWelcomeStart,
+  tourNotNow: ui.tourNotNow,
+  tourDontShow: ui.tourDontShow,
+  tourNext: ui.tourNext,
+  tourBack: ui.tourBack,
+  tourFinish: ui.tourFinish,
+  tourClose: ui.tourClose,
+  tourStepOf: ui.tourStepOf,
+  tourContinue: ui.tourContinue,
+  tourEnd: ui.tourEnd,
+  tourBridgeLink: ui.tourBridgeLink,
+  tourBridgeMenu: ui.tourBridgeMenu,
+};
+---
+
+<Tour client:load steps={steps} langBase={url(`${lang}/`)} autoStart={autoStart} ui={tourUi} />

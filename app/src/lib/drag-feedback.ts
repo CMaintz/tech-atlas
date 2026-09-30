@@ -7,6 +7,7 @@
  * Touch gets no ring (the finger covers it). Nothing here re-renders the map.
  */
 import { EXPLORER } from './explorer-config';
+import { listenAll, type Binding } from './listen';
 
 export type DragKind = 'pan' | 'orbit';
 
@@ -44,17 +45,11 @@ export type DragFeedback = {
 const reduced = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-export function createDragFeedback(host: HTMLElement): DragFeedback {
-  const cfg = EXPLORER.drag;
-  const ring = document.createElement('div');
-  ring.setAttribute('aria-hidden', 'true');
-  ring.dataset.dragRing = '';
-  const size = cfg.ringSize;
-  // Colours follow the page theme live (A92): global.css sets --drag-ring/--drag-outline
-  // (light stroke, dark outline on the night map; the reverse on the cream map).
-  const ringColour = `var(--drag-ring, ${cfg.ringColour})`;
-  const ringOutline = `var(--drag-outline, ${cfg.ringOutline})`;
-  Object.assign(ring.style, {
+type DragConfig = typeof EXPLORER.drag;
+
+/** The ring's box: a circle centred on its position (the pointer), hidden until shown. */
+export const ringBox = (size: number) =>
+  ({
     position: 'absolute',
     left: '0',
     top: '0',
@@ -63,70 +58,105 @@ export function createDragFeedback(host: HTMLElement): DragFeedback {
     marginLeft: `${-size / 2}px`,
     marginTop: `${-size / 2}px`,
     borderRadius: '50%',
-    border: `1.5px solid ${ringColour}`,
-    boxShadow: `0 0 0 1px ${ringOutline}, inset 0 0 0 1px ${ringOutline}`,
-    // The crosshair: two thin light bars through the centre.
-    background: `linear-gradient(${ringColour}, ${ringColour}) center / 1px 40% no-repeat, linear-gradient(${ringColour}, ${ringColour}) center / 40% 1px no-repeat`,
     pointerEvents: 'none',
     zIndex: '5',
     opacity: '0',
     visibility: 'hidden',
-  } satisfies Partial<CSSStyleDeclaration>);
+  }) satisfies Partial<CSSStyleDeclaration>;
+
+/**
+ * The ring's paint: a light stroke with a dark outline and a crosshair. Colours follow
+ * the page theme live (A92): global.css sets --drag-ring/--drag-outline (light stroke,
+ * dark outline on the night map; the reverse on the cream map).
+ */
+export function ringPaint(cfg: DragConfig) {
+  const colour = `var(--drag-ring, ${cfg.ringColour})`;
+  const outline = `var(--drag-outline, ${cfg.ringOutline})`;
+  const bar = `linear-gradient(${colour}, ${colour}) center`;
+  return {
+    border: `1.5px solid ${colour}`,
+    boxShadow: `0 0 0 1px ${outline}, inset 0 0 0 1px ${outline}`,
+    // The crosshair: two thin light bars through the centre.
+    background: `${bar} / 1px 40% no-repeat, ${bar} / 40% 1px no-repeat`,
+  } satisfies Partial<CSSStyleDeclaration>;
+}
+
+/** The ring, hidden, in the host (positioned so the ring can sit over it). */
+function createRing(host: HTMLElement) {
+  const ring = document.createElement('div');
+  ring.setAttribute('aria-hidden', 'true');
+  ring.dataset.dragRing = '';
+  Object.assign(ring.style, ringBox(EXPLORER.drag.ringSize), ringPaint(EXPLORER.drag));
   if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
   host.appendChild(ring);
+  return ring;
+}
 
-  let active = false;
+function showRing(ring: HTMLElement) {
+  ring.style.transition = reduced() ? 'none' : `opacity ${EXPLORER.drag.fadeMs}ms ease-out`;
+  ring.style.visibility = 'visible';
+  ring.style.opacity = String(EXPLORER.drag.ringOpacity);
+}
+
+function hideRing(ring: HTMLElement) {
+  ring.style.transition = 'none';
+  ring.style.opacity = '0';
+  ring.style.visibility = 'hidden';
+}
+
+/** The ring follows the mouse from `begin`, appearing once the drag passes the slop. */
+function followPointer(host: HTMLElement, ring: HTMLElement) {
   let origin = { x: 0, y: 0 };
   // The host does not move during a drag: read its box once, never per pointer move.
   let at = { left: 0, top: 0 };
   const place = (e: { clientX: number; clientY: number }) => {
     ring.style.transform = `translate(${e.clientX - at.left}px, ${e.clientY - at.top}px)`;
   };
-  const onMove = (e: PointerEvent) => {
-    if (!active) return;
-    place(e);
-    if (
-      ring.style.visibility === 'hidden' &&
-      beyondSlop(e.clientX - origin.x, e.clientY - origin.y)
-    )
-      show();
+  const begin = (p: PointerLike) => {
+    origin = { x: p.clientX, y: p.clientY };
+    at = host.getBoundingClientRect();
+    place(p);
   };
-  const show = () => {
-    ring.style.transition = reduced() ? 'none' : `opacity ${cfg.fadeMs}ms ease-out`;
-    ring.style.visibility = 'visible';
-    ring.style.opacity = String(cfg.ringOpacity);
+  const move = (e: PointerEvent) => {
+    place(e);
+    const hidden = ring.style.visibility === 'hidden';
+    if (hidden && beyondSlop(e.clientX - origin.x, e.clientY - origin.y)) showRing(ring);
+  };
+  return { begin, move };
+}
+
+export function createDragFeedback(host: HTMLElement): DragFeedback {
+  const ring = createRing(host);
+  const follow = followPointer(host, ring);
+  let active = false;
+  let unlisten = () => {};
+  const onMove = (e: PointerEvent) => {
+    if (active) follow.move(e);
   };
   const end = () => {
     if (!active) return;
     active = false;
     delete host.dataset.drag;
-    ring.style.transition = 'none';
-    ring.style.opacity = '0';
-    ring.style.visibility = 'hidden';
-    window.removeEventListener('pointermove', onMove);
-    window.removeEventListener('pointerup', end);
-    window.removeEventListener('pointercancel', end);
-    window.removeEventListener('blur', end);
+    hideRing(ring);
+    unlisten();
   };
-
-  return {
-    start(kind, p) {
-      end();
-      active = true;
-      host.dataset.drag = kind;
-      origin = { x: p.clientX, y: p.clientY };
-      window.addEventListener('pointerup', end);
-      window.addEventListener('pointercancel', end);
-      window.addEventListener('blur', end);
-      if (p.pointerType === 'touch') return;
-      at = host.getBoundingClientRect();
-      place(p);
-      window.addEventListener('pointermove', onMove);
-    },
-    end,
-    destroy() {
-      end();
-      ring.remove();
-    },
+  const start = (kind: DragKind, p: PointerLike) => {
+    end();
+    active = true;
+    host.dataset.drag = kind;
+    const ends: Binding[] = [
+      [window, 'pointerup', end],
+      [window, 'pointercancel', end],
+      [window, 'blur', end],
+    ];
+    // Touch gets no ring (the finger covers it).
+    const touch = p.pointerType === 'touch';
+    if (!touch) follow.begin(p);
+    unlisten = listenAll(touch ? ends : [...ends, [window, 'pointermove', onMove]]);
   };
+  const destroy = () => {
+    end();
+    ring.remove();
+  };
+  return { start, end, destroy };
 }
