@@ -1,10 +1,10 @@
 # Atlas
 
-**A bilingual (English + Danish) technical dictionary you can explore as a map.**
+A technical dictionary in English and Danish that you can explore as a map. The idea is simple: the English term everyone uses and the Danish one from the course material, side by side, explained in plain words, and linked to everything they relate to.
 
 ![Atlas Explorer: the 3D knowledge map rotating, then a term selected and its panel opened](docs/media/atlas-explorer.gif)
 
-**Live site:** https://cmaintz.github.io/tech-atlas/
+Live site: https://cmaintz.github.io/tech-atlas/
 
 ## What it is
 
@@ -14,28 +14,28 @@ by typed, sourced relationships ("is a kind of", "requires", "contrasts with" an
 so the dictionary doubles as a knowledge graph you can navigate.
 
 It is anchored to a real Danish cybersecurity (GRC) course and written first for
-**Danish learners of cybersecurity and governance, risk and compliance** who need the
-English terms and the Danish ones, explained in plain language. It is built to grow
-into the wider CS, AI and platform domains.
+Danish learners of cybersecurity and governance, risk and compliance who need both the
+English and the Danish terms, explained in plain language. The CS, AI and platform
+domains are there to grow into.
 
 ## Features
 
-- **Dictionary** - every term has four facets: a formal definition, a plain-language
-  explanation, an example in practice, and why it matters. Many terms also have a longer
+- Dictionary: every term has four facets (a formal definition, a plain-language
+  explanation, an example in practice, and why it matters). Many terms also have a longer
   technical deep-dive article. Summaries use a closed vocabulary (plain words plus other
   defined terms), enforced by a lint.
-- **Explorer** - the whole graph in 2D (force, by depth, by time) or 3D, with flowing
+- Explorer: the whole graph in 2D (force, by depth, by time) or 3D, with flowing
   relationship edges, auto-rotate, domain and relationship filters, a route finder
   between two terms, and a side panel for the selected term.
-- **Timeline** - terms by the year they entered use, one lane per domain.
-- **Compare** - "don't confuse these" pages for every pair of contrasting terms.
-- **Study** - quizzes generated from the graph plus a hand-written question bank, with
+- Timeline: terms by the year they entered use, one lane per domain.
+- Compare: "don't confuse these" pages for every pair of contrasting terms.
+- Study: quizzes generated from the graph plus a hand-written question bank, with
   spaced repetition to bring terms back when they are due.
-- **Search** - typo-tolerant bilingual search, plus search by meaning (semantic search).
-- **Accounts and sync** - optional sign-in with GitHub or LinkedIn to keep study
+- Search: typo-tolerant bilingual search, plus search by meaning (semantic search).
+- Accounts and sync: optional sign-in with GitHub or LinkedIn to keep study
   progress across devices. Everything works without an account.
-- **Light and dark theme**, and every page in **English and Danish** (`/en/`, `/da/`).
-- **Open data** - every term as JSON and CSV, Anki decks, the graph and RSS feeds (see
+- Light and dark theme, and every page in English and Danish (`/en/`, `/da/`).
+- Open data: every term as JSON and CSV, Anki decks, the graph and RSS feeds (see
   [Data](#data)).
 
 ## Screenshots
@@ -62,14 +62,14 @@ into the wider CS, AI and platform domains.
 
 ## Architecture in brief
 
-Atlas is a **static site**. The build reads the YAML terms, derives the graph (depth,
+Atlas is a static site. The build reads the YAML terms, derives the graph (depth,
 inverse edges, visual weight) and renders every page for both languages. All reading,
 exploring and studying runs in the browser, and progress is kept locally.
 
-An **optional backend** adds two things on top:
+An optional backend adds two things on top:
 
-- **Accounts and sync** through Supabase Auth (GitHub, LinkedIn) with Row Level Security.
-- **Search by meaning** through a Supabase Edge Function that embeds the query with
+- Accounts and sync through Supabase Auth (GitHub, LinkedIn) with Row Level Security.
+- Search by meaning through a Supabase Edge Function that embeds the query with
   Cloudflare Workers AI (`bge-m3`) and matches it against pre-computed term vectors.
 
 If the backend is not configured, the site still works; those two features are simply
@@ -108,14 +108,14 @@ is [app/content/AUTHORING.md](app/content/AUTHORING.md): the four facets, the cl
 vocabulary, the 12 relationship types and how to write questions.
 
 Every new entry starts as `draft: true` and shows a "not reviewed yet" banner. A human
-reviewer checks it and flips the flag. The site's **Review** page (`/en/review/`) lists
+reviewer checks it and flips the flag. The site's Review page (`/en/review/`) lists
 the drafts still waiting, grouped by cluster, with an edit link for each.
 
 ## Project status
 
-**Beta.** The site, explorer, study tools and backend are in place. Much of the content
-was drafted with AI assistance and is being reviewed by hand, entry by entry; until an
-entry is reviewed it is marked as a draft on the site. Corrections are welcome as issues
+Beta. The site, explorer, study tools and backend are in place. Much of the content
+was drafted with AI assistance and I'm reviewing it by hand, entry by entry (420 terms
+is a lot of entries). Until an entry is reviewed it is marked as a draft on the site. Corrections are welcome as issues
 or pull requests.
 
 ## Releasing
@@ -127,28 +127,28 @@ v2.0.0-beta.1, beta.2, beta.3 and so on, then v2.0.0 at launch. The version live
 
 [release-please](https://github.com/googleapis/release-please)
 (`.github/workflows/release-please.yml`) runs on every push to `main` and keeps one
-**Release PR** open, titled like `chore(main): release 2.0.0-beta.2`. It bumps the
+Release PR open, titled like `chore(main): release 2.0.0-beta.2`. It bumps the
 version (`app/package.json`, its lock file, `version.txt`, `.release-please-manifest.json`)
 and prepends the new entry to `CHANGELOG.md`, built from the conventional commits since
 the last release: `feat` (Features), `fix` (Fixes), `content` (Content), `docs`
 (Documentation); `chore`, `ci`, `refactor`, `test` are left out and do not start a
 release on their own.
 
-- **Cut a release**: the owner merges the Release PR. release-please then tags the
+- Cut a release: I merge the Release PR. release-please then tags the
   merge (e.g. `v2.0.0-beta.2`) and publishes a GitHub pre-release; the push to `main`
   runs the gate and deploys, so the footer shows the new version.
-- **CI on the Release PR**: a PR opened with the default `GITHUB_TOKEN` triggers no
+- CI on the Release PR: a PR opened with the default `GITHUB_TOKEN` triggers no
   workflows, so the gate does not run on it (it only touches the changelog and version
   files). To run it, add a fine-grained token (this repository only; Contents and Pull
   requests: read and write) as the secret `RELEASE_PLEASE_TOKEN`; the workflow uses it
-  when present. Without that secret, **Settings > Actions > General > Allow GitHub
-  Actions to create and approve pull requests** must be on, or the workflow cannot open
+  when present. Without that secret, Settings > Actions > General > "Allow GitHub
+  Actions to create and approve pull requests" must be on, or the workflow cannot open
   the PR.
-- **After v2.0.0-beta.1**: delete `release-as` and `last-release-sha` from
+- After v2.0.0-beta.1: delete `release-as` and `last-release-sha` from
   `release-please-config.json`. They only seed the first release (the hand-written
   summary of everything since v1.0.0 is already in the changelog); left in, every
   release would propose beta.1 again.
-- **Launch**: in the config set `"release-as": "2.0.0"` and `"prerelease": false`,
+- Launch: in the config set `"release-as": "2.0.0"` and `"prerelease": false`,
   and delete `versioning` and `prerelease-type`; merge the Release PR, then delete
   `release-as` again.
 
@@ -157,18 +157,17 @@ release on their own.
 The site publishes its content as open data: every term as JSON (`/api/terms.json`,
 `/api/terms/<folder>/<id>.json`), a CSV (`/api/terms.csv`), Anki import files per
 language, the derived graph (`/graph.json`) and an RSS feed of new terms per language.
-The list, with formats, is on the site's **Data** page (`/en/data/`, `/da/data/`).
+The list, with formats, is on the site's Data page (`/en/data/`, `/da/data/`).
 
 ## License
 
-- **Code:** MIT, see [LICENSE](LICENSE).
-- **Content** (terms, articles, allowed-words lists and the published data):
+- Code: MIT, see [LICENSE](LICENSE).
+- Content (terms, articles, allowed-words lists and the published data):
   [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), see
   [CONTENT-LICENSE.md](CONTENT-LICENSE.md) for the scope, the attribution line and the
   reasoning.
 
 ## Credits
 
-Made by **Christoffer Maintz Andersen** -
-[GitHub](https://github.com/CMaintz) -
-[LinkedIn](https://www.linkedin.com/in/christoffer-maintz/).
+Made by me, Christoffer Maintz Andersen
+([GitHub](https://github.com/CMaintz), [LinkedIn](https://www.linkedin.com/in/christoffer-maintz/)).
