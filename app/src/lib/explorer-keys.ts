@@ -9,6 +9,7 @@
  * Q/E (or Space for up) down and up, arrows orbit, -/+ forward and back. Shift is faster.
  */
 import { EXPLORER } from './explorer-config';
+import { listenAll } from './listen';
 
 export type NavMode = '2d' | '3d';
 
@@ -88,36 +89,35 @@ const typing = (t: EventTarget | null) => {
 
 export type KeyNav = { destroy(): void };
 
-/**
- * Drive a map from the keyboard. `move` gets the current velocity and the frame's
- * seconds; `start` runs when a key first sets the map moving (e.g. to hide a hover card).
- */
-export function createKeyNav(opts: {
+type KeyNavOptions = {
   host: HTMLElement;
   mode: () => NavMode;
   reduced: () => boolean;
   move: (v: Axes, dt: number) => void;
   start?: () => void;
-}): KeyNav {
-  const { host } = opts;
-  const held = new Set<string>();
-  let fast = false;
-  let over = false;
+};
+
+/** The keys held, Shift, and whether the pointer is over the map. */
+type Keys = { held: Set<string>; fast: boolean; over: boolean };
+
+/** Whether a key is the map's: in the map (not in a field), or on the page under the pointer. */
+function ours(host: HTMLElement, keys: Keys, e: KeyboardEvent) {
+  if (host.contains(e.target as Node)) return !typing(e.target);
+  // Nothing focused (the page itself) and the pointer over the map.
+  return keys.over && (e.target === document.body || e.target === document.documentElement);
+}
+
+/** The glide: eases towards the held keys' velocity each frame until still. */
+function createGlide(opts: KeyNavOptions, keys: Keys) {
   let v = STILL;
   let raf = 0;
   let last = 0;
-
-  const ours = (e: KeyboardEvent) => {
-    if (host.contains(e.target as Node)) return !typing(e.target);
-    // Nothing focused (the page itself) and the pointer over the map.
-    return over && (e.target === document.body || e.target === document.documentElement);
-  };
   const frame = (t: number) => {
     const dt = Math.min(0.05, Math.max(0, (t - last) / 1000));
     last = t;
-    const cfg = EXPLORER.keys;
-    v = ease(v, targetAxes(held, opts.mode(), fast), dt, cfg.easeS, opts.reduced());
-    if (!held.size && isStill(v)) {
+    const target = targetAxes(keys.held, opts.mode(), keys.fast);
+    v = ease(v, target, dt, EXPLORER.keys.easeS, opts.reduced());
+    if (!keys.held.size && isStill(v)) {
       v = STILL;
       raf = 0;
       return;
@@ -131,43 +131,53 @@ export function createKeyNav(opts: {
     last = performance.now();
     raf = requestAnimationFrame(frame);
   };
-  const onDown = (e: KeyboardEvent) => {
-    fast = e.shiftKey;
+  return { run, stop: () => cancelAnimationFrame(raf) };
+}
+
+/** Key presses and releases, and the resets when the page loses the keyboard. */
+function keyHandlers(opts: KeyNavOptions, keys: Keys, run: () => void) {
+  const down = (e: KeyboardEvent) => {
+    keys.fast = e.shiftKey;
     // Alt+←/→ is history, Ctrl/⌘ combinations belong to the browser.
     if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
     const k = navKey(e, opts.mode());
-    if (!k || !ours(e)) return;
+    if (!k || !ours(opts.host, keys, e)) return;
     e.preventDefault();
-    held.add(k);
+    keys.held.add(k);
     run();
   };
-  const onUp = (e: KeyboardEvent) => {
-    fast = e.shiftKey;
+  const up = (e: KeyboardEvent) => {
+    keys.fast = e.shiftKey;
     const k = navKey(e, opts.mode());
-    if (k) held.delete(k);
+    if (k) keys.held.delete(k);
   };
   const clear = () => {
-    held.clear();
-    fast = false;
+    keys.held.clear();
+    keys.fast = false;
   };
-  const onVisibility = () => document.hidden && clear();
-  const onEnter = () => void (over = true);
-  const onLeave = () => void (over = false);
-  window.addEventListener('keydown', onDown);
-  window.addEventListener('keyup', onUp);
-  window.addEventListener('blur', clear);
-  document.addEventListener('visibilitychange', onVisibility);
-  host.addEventListener('pointerenter', onEnter);
-  host.addEventListener('pointerleave', onLeave);
+  return { down, up, clear, hidden: () => document.hidden && clear() };
+}
+
+/**
+ * Drive a map from the keyboard. `move` gets the current velocity and the frame's
+ * seconds; `start` runs when a key first sets the map moving (e.g. to hide a hover card).
+ */
+export function createKeyNav(opts: KeyNavOptions): KeyNav {
+  const keys: Keys = { held: new Set(), fast: false, over: false };
+  const glide = createGlide(opts, keys);
+  const h = keyHandlers(opts, keys, glide.run);
+  const unlisten = listenAll([
+    [window, 'keydown', h.down],
+    [window, 'keyup', h.up],
+    [window, 'blur', h.clear],
+    [document, 'visibilitychange', h.hidden],
+    [opts.host, 'pointerenter', () => void (keys.over = true)],
+    [opts.host, 'pointerleave', () => void (keys.over = false)],
+  ]);
   return {
     destroy() {
-      cancelAnimationFrame(raf);
-      window.removeEventListener('keydown', onDown);
-      window.removeEventListener('keyup', onUp);
-      window.removeEventListener('blur', clear);
-      document.removeEventListener('visibilitychange', onVisibility);
-      host.removeEventListener('pointerenter', onEnter);
-      host.removeEventListener('pointerleave', onLeave);
+      glide.stop();
+      unlisten();
     },
   };
 }
