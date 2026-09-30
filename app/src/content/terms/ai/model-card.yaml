@@ -42,6 +42,52 @@ deepDive:
     Regulering har gjort dele af kortet til pligter uden at foreskrive formatet. For AI-modeller til almen brug kræver AI-forordningens art. 53, stk. 1, litra b, og bilag XII oplysninger til efterfølgende udbydere, herunder tilsigtede opgaver og politik for acceptabel brug, arkitektur og antal parametre, input- og outputmodaliteter og -formater, licens og oplysninger om træningsdata; bilag XI opregner den fyldigere tekniske dokumentation til myndighederne. Adfærdskodeksen for AI-modeller til almen brug (2025) indeholder en Model Documentation Form, der dækker disse punkter. For højrisikosystemer dækker brugsanvisningen efter art. 13 og den tekniske dokumentation efter art. 11 (bilag IV) tilsvarende forhold på systemniveau. NIST AI RMF's MAP- og MEASURE-funktioner forventer lignende dokumentation af kontekst, begrænsninger og testresultater.
 
     Typiske svagheder: kort, der skrives én gang ved udgivelsen og aldrig opdateres for nye versioner; benchmark-resultater, der er selvrapporterede, målt under ukendte indstillinger eller pustet op af, at testdata er sluppet ind i træningen; manglende disaggregerede resultater, ofte fordi der ikke findes demografiske labels; vage afsnit om brug uden for rammerne; og tavshed om træningsdata, ofte af juridiske grunde. En idriftsætter bør derfor behandle et modelkort som en leverandørpåstand, der skal efterprøves, køre evalueringerne igen på egne data og sprog - ydeevnen på dansk er fx ofte svagere, end de engelske overskriftstal antyder - og notere resultatet i sin egen dokumentation.
+howTo:
+  steps:
+    en:
+      - Name who writes the card - the developer for training details and results, someone with legal or ethics background for bias and risks, and a project owner for intended use and contact - and start from the Hugging Face annotated template or the sections in Mitchell et al.
+      - Describe the model details and intended use, including primary users, and list out-of-scope uses concretely, such as decisions about individuals or languages it was not tested on.
+      - Describe the training data and its sources, or link to a datasheet or dataset card, and say plainly what you cannot disclose and why.
+      - Choose the factors that may change performance, such as language, dialect, age group or recording conditions, and report evaluation results separately for each of them, not just one overall score.
+      - Record the evaluation settings (data, metrics, thresholds, decoding settings) so others can reproduce the numbers, and add results from safety testing and red teaming.
+      - Write known limitations, biases and risks with recommendations for users, and fill the metadata (licence, language, datasets, base_model, evaluation results) so the card can be searched and traced.
+      - For a general-purpose AI model placed on the EU market, check that the card together with your technical documentation covers the information for downstream providers in AI Act Art. 53 and Annex XII, for example using the Model Documentation Form in the GPAI Code of Practice.
+      - Update the card with every new model version, and as a deployer treat other people's cards as supplier claims by rerunning key evaluations on your own data and in Danish before you use the model.
+    da:
+      - Udpeg, hvem der skriver kortet - udvikleren til træningsdetaljer og resultater, en person med juridisk eller etisk baggrund til bias og risici og en projektejer til tilsigtet brug og kontakt - og tag udgangspunkt i Hugging Faces kommenterede skabelon eller afsnittene hos Mitchell et al.
+      - Beskriv modeldetaljer og tilsigtet brug, herunder de primære brugere, og list brug uden for rammerne konkret, fx afgørelser om enkeltpersoner eller sprog, den ikke er testet på.
+      - Beskriv træningsdataene og deres kilder, eller link til et datasheet eller et dataset card, og sig klart, hvad I ikke kan oplyse, og hvorfor.
+      - Vælg de faktorer, der kan ændre ydeevnen, fx sprog, dialekt, aldersgruppe eller optageforhold, og rapportér evalueringsresultater særskilt for hver af dem, ikke kun ét samlet tal.
+      - Notér evalueringsopsætningen (data, metrikker, tærskler, decoding-indstillinger), så andre kan genskabe tallene, og tilføj resultater fra sikkerhedstest og red teaming.
+      - Skriv kendte begrænsninger, skævheder og risici med anbefalinger til brugerne, og udfyld metadata (licens, sprog, datasæt, base_model, evalueringsresultater), så kortet kan søges frem og spores.
+      - Tjek for en AI-model til almen brug, der bringes i omsætning i EU, at kortet sammen med jeres tekniske dokumentation dækker oplysningerne til efterfølgende udbydere i AI-forordningens art. 53 og bilag XII, fx ved hjælp af Model Documentation Form i adfærdskodeksen for AI-modeller til almen brug.
+      - Opdatér kortet ved hver ny modelversion, og behandl som idriftsætter andres modelkort som leverandørpåstande ved at køre de vigtigste evalueringer igen på egne data og på dansk, før I tager modellen i brug.
+  pitfalls:
+    en:
+      - Writing the card once at release and never updating it, so it describes a model version nobody runs any more.
+      - Reporting a single aggregate score that hides the groups or languages where the model fails.
+      - Copying benchmark numbers from the supplier's card without knowing the settings or whether the test data leaked into training.
+    da:
+      - At skrive kortet én gang ved udgivelsen og aldrig opdatere det, så det beskriver en modelversion, ingen kører længere.
+      - At rapportere ét samlet tal, der skjuler de grupper eller sprog, hvor modellen fejler.
+      - At kopiere benchmark-tal fra leverandørens kort uden at kende indstillingerne, eller om testdataene er sluppet ind i træningen.
+  guides:
+    - title: Model Cards - Hugging Face Hub documentation
+      url: https://huggingface.co/docs/hub/model-cards
+      publisher: Hugging Face
+      tier: official-doc
+    - title: Annotated Model Card Template
+      url: https://huggingface.co/docs/hub/model-card-annotated
+      publisher: Hugging Face
+      tier: official-doc
+    - title: Mitchell et al., Model Cards for Model Reporting
+      url: https://arxiv.org/abs/1810.03993
+      publisher: arXiv
+      tier: reference
+    - title: The General-Purpose AI Code of Practice
+      url: https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai
+      publisher: European Commission
+      tier: official-doc
 edges:
   requires: [model-evaluation, training-data]
   part-of:
