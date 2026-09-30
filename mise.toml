@@ -27,7 +27,7 @@ run = "npx prettier --write ."
 [tasks.lint]
 description = "Report style violations and content-model smells."
 dir = "app"
-run = ["npx prettier --check .", "npm run lint:content"]
+run = ["npx prettier --check .", "npm run lint:eslint", "npm run lint:content"]
 
 [tasks.typecheck]
 description = "Static type analysis: the Astro app (astro check), then the Edge Functions (deno check)."
