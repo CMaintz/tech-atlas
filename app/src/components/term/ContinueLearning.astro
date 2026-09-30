@@ -1,0 +1,59 @@
+---
+/**
+ * Continue learning (SPEC §7, A73): the term's sources by tier, best tier first, then its
+ * provenance — reviewed or draft — with the review queue, an edit link and its data.
+ */
+import { DEEP_UI, REPO, url, type Lang } from '../../lib/site';
+import { UI_EXTRA } from '../../lib/ui-extra';
+import { sourcesByTier } from '../../lib/term-page';
+import type { TermEntry } from '../../lib/terms';
+
+interface Props {
+  lang: Lang;
+  term: TermEntry;
+}
+
+const { lang, term } = Astro.props;
+const d = term.data;
+const deep = DEEP_UI[lang];
+const extra = UI_EXTRA[lang];
+const editUrl = `${REPO}/edit/main/app/src/content/terms/${term.id}.yaml`;
+---
+
+<section class="mt-10 rounded border border-border p-4 text-sm" id="continue-learning">
+  <h2 class="text-xs tracking-widest text-muted uppercase">{deep.sourcesFurther}</h2>
+  {sourcesByTier(d.sources).map((g) => (
+    <div class="mt-3">
+      <h3 class="text-xs text-subtle">{extra.tiers[g.tier]}</h3>
+      <ul class="mt-1 list-inside list-disc text-fg-soft">
+        {g.items.map((s) => (
+          <li>
+            {s.url ? (
+              <a class="underline-offset-2 hover:text-fg hover:underline" href={s.url}>
+                {s.title}
+              </a>
+            ) : (
+              s.title
+            )}
+            {s.publisher && <span class="text-subtle"> · {s.publisher}</span>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+  <div class="mt-5 border-t border-border pt-3 text-muted" id="provenance">
+    <h3 class="text-xs tracking-widest text-subtle uppercase">{deep.provenanceTitle}</h3>
+    <p class="mt-1">{d.draft ? deep.provenanceDraft : deep.provenanceReviewed}</p>
+    <p class="mt-2 flex flex-wrap gap-x-4 gap-y-1 print:hidden [&>a]:inline-flex [&>a]:min-h-11 [&>a]:items-center sm:[&>a]:min-h-0">
+      <a class="hover:text-fg-soft hover:underline" href={url(`${lang}/review/`)}>
+        {deep.reviewQueue}
+      </a>
+      <a class="hover:text-fg-soft hover:underline" href={editUrl}>
+        {deep.suggestFix}
+      </a>
+      <a class="hover:text-fg-soft hover:underline" href={url(`api/terms/${term.id}.json`)}>
+        {extra.dataThisTerm}
+      </a>
+    </p>
+  </div>
+</section>
