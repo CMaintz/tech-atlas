@@ -28,7 +28,7 @@ deepDive:
   en: |-
     Technically a patch ranges from a literal diff applied to source code (the unified diff format of diff/patch and git) to a binary delta, a replacement package version or a cumulative update. Windows now ships monthly cumulative updates, so each one contains all earlier fixes and machines cannot selectively skip one; Linux distributions ship rebuilt packages, often backporting a security fix into an older upstream version, which is why a vulnerability scanner that compares only version strings reports false positives on RHEL or Debian. Firmware, BIOS/UEFI, network appliances and embedded devices have their own, frequently manual, update channels and are the most commonly forgotten.
 
-    Microsoft's Patch Tuesday, the second Tuesday of each month, dates from 2003 and was adopted in similar form by Adobe, SAP and others; Oracle uses quarterly Critical Patch Updates. Out-of-band releases follow for actively exploited flaws. Publication starts a race, because attackers diff patched and unpatched binaries to derive the vulnerability ("patch diffing"), sometimes producing working exploits within days. Prioritisation therefore should not rely on CVSS base scores alone (CVSS v4.0 was released in November 2023) but combine them with exploitation evidence such as the CISA Known Exploited Vulnerabilities catalogue, which under Binding Operational Directive 22-01 US federal agencies must remediate within fixed deadlines, typically two weeks for newer CVEs, and with probability estimates such as EPSS and the asset's exposure.
+    Microsoft's Patch Tuesday, the second Tuesday of each month, dates from 2003 and was adopted in similar form by Adobe, SAP and others; Oracle uses quarterly Critical Patch Updates. Out-of-band releases follow for actively exploited flaws. Publication starts a race, because attackers diff patched and unpatched binaries to derive the vulnerability ("patch diffing"), sometimes producing working exploits within days. Prioritisation therefore should not rely on CVSS base scores alone (CVSS v4.0 was released in November 2023) but combine them with exploitation evidence such as the CISA Known Exploited Vulnerabilities catalogue, which US federal agencies must remediate under Binding Operational Directive 26-04 (June 2026, replacing BOD 22-01) within a deadline set per CVE by exposure, exploitability and impact, as short as three days, and with probability estimates such as EPSS and the asset's exposure.
 
     NIST SP 800-40 Rev. 4 (April 2022) recasts patching as preventive maintenance with a defined risk response for each asset class: patch within a maintenance plan, apply an emergency cycle for severe exploited flaws, mitigate with configuration or network controls when no patch exists, or accept and document residual risk. A mature process has an up-to-date asset inventory, test rings (pilot, broad, critical systems), rollback plans, maintenance windows agreed with the business, and verification afterwards through scanning or configuration management, since "deployed" is not the same as "installed and rebooted". ISO/IEC 27001:2022 control 8.8 (management of technical vulnerabilities) is the usual audit anchor, and NIS2 Art. 21(2)(e) requires vulnerability handling and disclosure as part of cybersecurity risk-management measures.
 
@@ -36,11 +36,54 @@ deepDive:
   da: |-
     Teknisk spænder en patch fra en bogstavelig diff, der anvendes på kildekode (det samlede diff-format fra diff/patch og git), over en binær delta og en ny pakkeversion til en kumulativ opdatering. Windows udsender nu månedlige kumulative opdateringer, så hver enkelt indeholder alle tidligere rettelser, og maskiner kan ikke selektivt springe én over; Linux-distributioner udsender genbyggede pakker og backporter ofte en sikkerhedsrettelse til en ældre upstream-version, hvilket er grunden til, at en sårbarhedsscanner, der kun sammenligner versionsnumre, giver falske positiver på RHEL eller Debian. Firmware, BIOS/UEFI, netværksudstyr og indlejrede enheder har deres egne, ofte manuelle, opdateringskanaler og er dem, der oftest bliver glemt.
 
-    Microsofts Patch Tuesday, anden tirsdag i hver måned, stammer fra 2003 og er i lignende form overtaget af Adobe, SAP og andre; Oracle bruger kvartalsvise Critical Patch Updates. Ekstraordinære udgivelser følger ved aktivt udnyttede fejl. Udgivelsen starter et kapløb, fordi angribere sammenligner patchede og upatchede binære filer for at finde sårbarheden (patch diffing) og nogle gange har fungerende exploits klar inden for få dage. Prioritering bør derfor ikke hvile på CVSS-basisscoren alene (CVSS v4.0 kom i november 2023), men kombinere den med tegn på udnyttelse, fx CISA's Known Exploited Vulnerabilities-katalog, som amerikanske føderale myndigheder efter Binding Operational Directive 22-01 skal afhjælpe inden for faste frister, typisk to uger for nyere CVE'er, med sandsynlighedsestimater som EPSS og med aktivets eksponering.
+    Microsofts Patch Tuesday, anden tirsdag i hver måned, stammer fra 2003 og er i lignende form overtaget af Adobe, SAP og andre; Oracle bruger kvartalsvise Critical Patch Updates. Ekstraordinære udgivelser følger ved aktivt udnyttede fejl. Udgivelsen starter et kapløb, fordi angribere sammenligner patchede og upatchede binære filer for at finde sårbarheden (patch diffing) og nogle gange har fungerende exploits klar inden for få dage. Prioritering bør derfor ikke hvile på CVSS-basisscoren alene (CVSS v4.0 kom i november 2023), men kombinere den med tegn på udnyttelse, fx CISA's Known Exploited Vulnerabilities-katalog, som amerikanske føderale myndigheder efter Binding Operational Directive 26-04 (juni 2026, der afløste BOD 22-01) skal afhjælpe inden for en frist, der fastsættes for hver CVE ud fra eksponering, udnyttelighed og konsekvens og kan være helt ned til tre dage, med sandsynlighedsestimater som EPSS og med aktivets eksponering.
 
     NIST SP 800-40 Rev. 4 (april 2022) beskriver patching som forebyggende vedligehold med en fastlagt risikohåndtering for hver aktivklasse: patch inden for en vedligeholdelsesplan, kør en nødcyklus ved alvorlige udnyttede fejl, afbød med konfiguration eller netværkskontroller, når der ikke findes en patch, eller accepter og dokumenter restrisikoen. En moden proces har en opdateret aktivfortegnelse, testringe (pilot, bred udrulning, kritiske systemer), planer for tilbagerulning, servicevinduer aftalt med forretningen og efterfølgende verifikation via scanning eller konfigurationsstyring, fordi "udrullet" ikke er det samme som "installeret og genstartet". ISO/IEC 27001:2022 kontrol 8.8 (håndtering af tekniske sårbarheder) er det sædvanlige revisionsankerpunkt, og NIS2 art. 21, stk. 2, litra e, kræver håndtering og offentliggørelse af sårbarheder som en del af foranstaltningerne til styring af cybersikkerhedsrisici.
 
     Reguleringen når nu også leverandørsiden. Efter EU's Cyber Resilience Act (forordning (EU) 2024/2847) skal producenter af produkter med digitale elementer fra 11. september 2026 underrette deres CSIRT og ENISA om aktivt udnyttede sårbarheder og alvorlige hændelser (tidlig varsling inden for 24 timer), mens pligten til at levere gratis sikkerhedsopdateringer i hele en oplyst supportperiode gælder sammen med hovedkravene fra 11. december 2027. Patches kan også selv være angrebsvejen: kompromitteret opdateringsinfrastruktur leverede malware i NotPetya (via M.E.Doc, 2017) og SolarWinds Orion (2020), og derfor skal opdateringer være signerede og signeringsnøglerne beskyttede. En patch retter en fejl; en workaround eller afbødning mindsker kun eksponeringen og bør følges, indtil den egentlige rettelse er installeret.
+howTo:
+  steps:
+    en:
+      - When a patch is released, read the vendor's advisory and note which versions it fixes, whether the flaw is already exploited, whether it needs a reboot and whether there are known issues.
+      - Find every machine and device in your inventory that runs an affected version, including servers, appliances and systems run by suppliers.
+      - Set the deadline from the risk, for example within days if the flaw is in the CISA KEV catalogue or the system faces the internet, and otherwise in the next regular cycle.
+      - Take a backup or snapshot of critical systems, and agree a maintenance window and a rollback plan with the system owner before installing.
+      - Install the patch on a pilot group first, check that the key functions still work, and then roll it out in rings to the rest.
+      - Restart the machines where the patch requires it, and confirm with a vulnerability scan or the update tool's report that the new version is actually running.
+      - If the patch cannot be installed in time, apply the vendor's workaround or block access to the vulnerable function, and record the exception with an owner and an end date.
+      - Close the task in the change log with what was patched, when and by whom, and follow up on machines that failed.
+    da:
+      - Når en patch udkommer, så læs leverandørens sikkerhedsmeddelelse, og notér, hvilke versioner den retter, om fejlen allerede udnyttes, om den kræver genstart, og om der er kendte problemer.
+      - Find alle maskiner og enheder i jeres oversigt, der kører en berørt version, også servere, appliances og systemer, som leverandører driver.
+      - Fastsæt fristen ud fra risikoen, fx inden for få dage, hvis fejlen står i CISA's KEV-katalog eller systemet vender mod internettet, og ellers i den næste faste cyklus.
+      - Tag backup eller snapshot af kritiske systemer, og aftal et servicevindue og en plan for at rulle tilbage med systemejeren, før I installerer.
+      - Installér først patchen på en pilotgruppe, tjek, at de vigtigste funktioner stadig virker, og rul den derefter ud i ringe til resten.
+      - Genstart maskinerne, hvor patchen kræver det, og bekræft med en sårbarhedsscanning eller opdateringsværktøjets rapport, at den nye version faktisk kører.
+      - Hvis patchen ikke kan installeres i tide, så brug leverandørens workaround, eller bloker adgangen til den sårbare funktion, og registrér undtagelsen med en ejer og en slutdato.
+      - Luk opgaven i ændringsloggen med, hvad der blev patchet, hvornår og af hvem, og følg op på maskiner, hvor det fejlede.
+  pitfalls:
+    en:
+      - Marking a patch as done when it is deployed, although the machine has not restarted and still runs the old code.
+      - Applying the workaround and forgetting the real fix, so the system stays vulnerable once the workaround is undone.
+      - Downloading patches from unofficial sites or unsigned sources, which can deliver malware instead of a fix.
+    da:
+      - At markere en patch som færdig, når den er udrullet, selv om maskinen ikke er genstartet og stadig kører den gamle kode.
+      - At anvende workarounden og glemme den egentlige rettelse, så systemet igen er sårbart, når workarounden fjernes.
+      - At hente patches fra uofficielle sider eller usignerede kilder, som kan levere malware i stedet for en rettelse.
+  guides:
+    - title: Known Exploited Vulnerabilities Catalog
+      url: https://www.cisa.gov/known-exploited-vulnerabilities-catalog
+      publisher: CISA
+      tier: official-doc
+    - title: Create a deployment plan - Windows updates
+      url: https://learn.microsoft.com/en-us/windows/deployment/update/create-deployment-plan
+      publisher: Microsoft
+      tier: official-doc
+    - title: Opdater programmer løbende
+      url: https://www.sikkerdigital.dk/virksomhed/syv-raad-om-it-sikkerhed/2-opdater-programmer-loebende
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   mitigates:
     - to: vulnerability
@@ -63,4 +106,8 @@ sources:
     url: https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act
     tier: official-doc
     publisher: European Commission
+  - title: BOD 26-04 - Prioritizing Security Updates Based on Risk
+    url: https://www.cisa.gov/news-events/directives/bod-26-04-prioritizing-security-updates-based-risk
+    tier: official-doc
+    publisher: CISA
 draft: true

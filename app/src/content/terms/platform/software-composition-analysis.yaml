@@ -41,6 +41,50 @@ deepDive:
     Prioritering adskiller brugbare programmer fra støjende. En sårbar funktion kan ofte ikke nås fra applikationens kaldgraf, så moderne værktøjer tilføjer reachability-analyse; sandsynligheden for udnyttelse (EPSS), optagelse i CISA's katalog over Known Exploited Vulnerabilities og leverandørers VEX-erklæringer indsnævrer listen yderligere. Afhjælpning automatiseres med pull requests fra Dependabot eller Renovate, der løfter versioner, men transitive rettelser kan kræve overrides eller at vente på en mellemliggende vedligeholder. Licensanalyse markerer stærke copyleft-vilkår (GPL, AGPL) i software, der distribueres eller eksponeres over netværk, og manglende krav om kildeangivelse.
 
     SCA er også vokset fra matchning af kendte sårbarheder til trusler i forsyningskæden: detektion af typosquattede eller nyudgivne ondsindede pakker, dependency confusion (demonstreret offentligt af Alex Birsan i 2021, hvor interne pakkenavne blev registreret i offentlige registries), installationsscripts, der kører ved npm install, og forladte projekter uden vedligeholder. OWASP rangerede "Vulnerable and Outdated Components" som A06 i Top 10:2021, og 2025-udgaven udvidede kategorien til "Software Supply Chain Failures" som A03:2025. SCA adskiller sig fra SAST, der analyserer egen kildekode for kodefejl, og fra scanning af container-images, der anvender samme matchning på styresystempakker i et image; det er en form for sårbarhedsscanning rettet mod tredjepartskomponenter frem for kørende værter.
+howTo:
+  steps:
+    en:
+      - Commit a lockfile for every project, so the scanner sees exactly which versions, including transitive ones, will be installed.
+      - Choose an SCA tool that uses ecosystem advisories such as OSV.dev and GitHub Security Advisories as well as the NVD, and that can output an SBOM.
+      - Run SCA on every pull request and every build, and also scan container images for operating-system packages.
+      - Agree a policy on which severities and licences block the build and which only create a ticket.
+      - Prioritise findings with reachability, CISA's KEV catalogue, EPSS and suppliers' VEX statements, and route each one to the owning team.
+      - Automate upgrades with Dependabot or Renovate pull requests, and handle fixes in transitive dependencies with overrides where needed.
+      - Check new dependencies before adding them - maintenance activity, known malicious or typosquatted names, and install scripts.
+      - Rescan the components of already released software continuously so new CVEs are caught, and report time to remediate every month.
+    da:
+      - Commit en lockfil for hvert projekt, så scanneren ser præcis, hvilke versioner, også transitive, der bliver installeret.
+      - Vælg et SCA-værktøj, der bruger økosystemernes egne advisories som OSV.dev og GitHub Security Advisories ud over NVD, og som kan levere en SBOM.
+      - Kør SCA ved hver pull request og hvert build, og scan også container-images for styresystempakker.
+      - Aftal en politik for, hvilke alvorlighedsgrader og licenser der blokerer buildet, og hvilke der kun opretter en sag.
+      - Prioritér fund med rækkevidde, CISA's KEV-katalog, EPSS og leverandørers VEX-erklæringer, og send hvert fund til det ansvarlige team.
+      - Automatisér opgraderinger med pull requests fra Dependabot eller Renovate, og håndtér rettelser i transitive afhængigheder med overrides, hvor det er nødvendigt.
+      - Tjek nye afhængigheder, før de tilføjes - vedligeholdelsesaktivitet, kendte ondsindede eller typosquattede navne og installationsscripts.
+      - Scan løbende komponenterne i allerede udgivet software igen, så nye CVE'er bliver fanget, og rapportér tiden til afhjælpning hver måned.
+  pitfalls:
+    en:
+      - Scanning manifests without lockfiles, so the tool guesses versions and misses transitive dependencies.
+      - Blocking on every finding regardless of reachability, so teams mute or bypass the tool.
+      - Forgetting vendored or statically linked code, which manifest-based scanning cannot see.
+      - Scanning only at build time and never rechecking released software when new CVEs are published.
+    da:
+      - At scanne manifester uden lockfiler, så værktøjet gætter på versioner og overser transitive afhængigheder.
+      - At blokere på hvert fund uanset rækkevidde, så teamene slår værktøjet fra eller går uden om det.
+      - At glemme vendoreret eller statisk linket kode, som manifestbaseret scanning ikke kan se.
+      - Kun at scanne ved build og aldrig tjekke udgivet software igen, når nye CVE'er offentliggøres.
+  guides:
+    - title: Vulnerable Dependency Management Cheat Sheet
+      url: https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
+    - title: Concise Guide for Evaluating Open Source Software
+      url: https://best.openssf.org/Concise-Guide-for-Evaluating-Open-Source-Software
+      publisher: OpenSSF
+      tier: reference
+    - title: GitHub - Dependabot security updates
+      url: https://docs.github.com/en/code-security/dependabot/dependabot-security-updates/about-dependabot-security-updates
+      publisher: GitHub
+      tier: official-doc
 edges:
   kind-of: [vulnerability-scanning]
   requires:

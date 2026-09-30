@@ -42,6 +42,48 @@ deepDive:
     Det svageste punkt er autentificering af nøgler. Serveren distribuerer de offentlige nøgler, så en ondsindet eller tvunget server kunne udlevere sin egen nøgle og placere sig i midten. Modtrækkene er verifikation af sikkerhedsnumre eller QR-koder ad anden vej og i stigende grad key transparency-logs, der gør den slags udskiftninger offentligt synlige. Understøttelse af flere enheder forstørrer problemet: hver tilknyttet enhed, webklient og backup er endnu et endepunkt. Cloud-backup er et klassisk hul; WhatsApp indførte valgfri end-to-end-krypterede backups i 2021, og Apples Advanced Data Protection udvider E2EE til de fleste iCloud-kategorier, men blev i februar 2025 trukket tilbage for nye brugere i Storbritannien efter et krav fra regeringen.
 
     E2EE adskiller sig fra TLS, der beskytter strækning for strækning og ender hos udbyderen, og fra kryptering af lagrede data, hvor udbyderen har nøglerne. I e-mail giver OpenPGP (RFC 9580) og S/MIME kun E2EE for selve beskedteksten, mens headere og emnelinje står i klartekst. For organisationer er afvejningerne konkrete: E2EE kolliderer med malwarescanning på serveren, litigation hold, arkiveringspligt og DLP, og mistede nøgler betyder mistede data. Forslag om client-side scanning for at finde ulovligt indhold, som har været debatteret i EU i flere år, vil flytte inspektionen ud på endepunktet og kritiseres bredt af kryptografer for at undergrave netop den garanti, E2EE skal give.
+howTo:
+  steps:
+    en:
+      - Decide which conversations and data need end-to-end encryption, such as board chats, incident response or sensitive case work, and who you are protecting them from - the provider, outsiders or a foreign authority.
+      - Check your duties to keep records, archive, run legal hold or scan for malware before you choose, because the organisation cannot read or archive content it holds no key to.
+      - Choose tools built on a published, independently reviewed protocol such as the Signal Protocol or MLS, where end-to-end encryption is on by default for chats, calls, groups and backups.
+      - Deploy the app on managed devices with a screen lock, current updates and remote wipe, since end-to-end encryption does not help when the phone itself is compromised.
+      - Teach users to verify safety numbers or QR codes with contacts they share sensitive information with, and to treat a changed-key warning as a reason to check before continuing.
+      - Turn on encrypted backups or disable cloud backups that the provider can read, and set disappearing messages where the content does not need to be kept.
+      - Write a procedure for lost or replaced devices that covers unlinking old devices, recovery keys and what happens to messages that can no longer be decrypted.
+      - Review once a year which tools are approved, what metadata they still expose, and whether new devices, web clients or integrations have opened a gap.
+    da:
+      - Beslut, hvilke samtaler og data der skal have end-to-end-kryptering, fx bestyrelseschat, hændelseshåndtering eller følsomt sagsarbejde, og hvem I beskytter dem mod - udbyderen, udefrakommende eller en fremmed myndighed.
+      - Tjek jeres journaliserings- og arkivpligt, krav om bevarelse og behovet for malwarescanning, før I vælger, for organisationen kan ikke læse eller arkivere indhold, den ikke har nøglen til.
+      - Vælg værktøjer, der bygger på en offentliggjort og uafhængigt gennemgået protokol som Signal-protokollen eller MLS, og hvor end-to-end-kryptering er slået til som standard for chat, opkald, grupper og backup.
+      - Udrul appen på administrerede enheder med skærmlås, aktuelle opdateringer og fjernsletning, da end-to-end-kryptering ikke hjælper, når selve telefonen er kompromitteret.
+      - Lær brugerne at bekræfte sikkerhedsnumre eller QR-koder med de kontakter, de deler følsomme oplysninger med, og at en advarsel om skiftet nøgle er et signal til at tjekke, før de fortsætter.
+      - Slå krypteret backup til, eller slå cloudbackup fra, som udbyderen kan læse, og brug forsvindende beskeder, hvor indholdet ikke skal gemmes.
+      - Skriv en procedure for mistede eller udskiftede enheder, der dækker frakobling af gamle enheder, gendannelsesnøgler og hvad der sker med beskeder, der ikke længere kan dekrypteres.
+      - Gennemgå en gang om året, hvilke værktøjer der er godkendt, hvilke metadata de stadig afslører, og om nye enheder, webklienter eller integrationer har åbnet et hul.
+  pitfalls:
+    en:
+      - Assuming end-to-end encryption also hides who talks to whom and when, although most services still see that metadata.
+      - Leaving unencrypted cloud backups switched on, so the provider can read a full copy of every chat anyway.
+      - Using an end-to-end encrypted app for work matters that must be filed and archived, and discovering too late that nothing can be retrieved.
+    da:
+      - At gå ud fra, at end-to-end-kryptering også skjuler, hvem der taler med hvem og hvornår, selv om de fleste tjenester stadig kan se de metadata.
+      - At lade ukrypteret cloudbackup være slået til, så udbyderen alligevel kan læse en fuld kopi af alle samtaler.
+      - At bruge en end-to-end-krypteret app til arbejdssager, der skal journaliseres og arkiveres, og først for sent opdage, at intet kan hentes frem.
+  guides:
+    - title: Mobile Communications Best Practice Guidance
+      url: https://www.cisa.gov/resources-tools/resources/mobile-communications-best-practice-guidance
+      publisher: CISA
+      tier: official-doc
+    - title: RFC 9420 - The Messaging Layer Security (MLS) Protocol
+      url: https://www.rfc-editor.org/rfc/rfc9420
+      publisher: IETF
+      tier: standard
+    - title: Signal Protocol documentation
+      url: https://signal.org/docs/
+      publisher: Signal
+      tier: official-doc
 edges:
   requires: [public-key-cryptography, encryption]
   implements: [confidentiality]

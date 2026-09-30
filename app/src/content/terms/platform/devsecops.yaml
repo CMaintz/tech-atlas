@@ -42,6 +42,56 @@ deepDive:
     Det svære er forholdet mellem signal og støj. SAST og SCA giver mange fund, der ikke kan nås, er omstridte eller har lille betydning, og en pipeline, der fejler på hvert medium-fund, bliver hurtigt omgået. Modne programmer bryder kun buildet på fund med høj sikkerhed og høj alvor, bruger baselines eller ratchets, så kun nye fund blokerer, prioriterer med data om rækkevidde og udnyttelighed (EPSS, CISA's katalog over Known Exploited Vulnerabilities, VEX-erklæringer) og måler gennemsnitlig tid til afhjælpning frem for antal fund. "Shift left" betyder ikke "flyt alt til venstre": trusselsmodellering, arkitekturgennemgang og overvågning i drift kan ikke erstattes af scannere. Organisatorisk skalerer security champions i teamene og sikre standardveje ejet af sikkerhedsfunktionen (hærdede skabeloner, genbrugelige pipelinetrin) bedre end et centralt team, der gennemgår hver ændring.
 
     DevSecOps forholder sig til en sikker udviklingslivscyklus (SDL), som automatisering forholder sig til proces: Microsofts SDL, indført i 2004, definerede sikkerhedsaktiviteter per fase til forholdsvis lange udgivelsescyklusser, mens DevSecOps udfører den automatiserbare del løbende ved hver ændring og overlader resten til mennesker. I en EU-sammenhæng understøtter den samme dokumentation - gennemgåede ændringer, scanningsresultater, SBOM'er, registreringer af sårbarhedshåndtering - NIS2-direktivets artikel 21, stk. 2, litra e, om sikkerhed ved erhvervelse, udvikling og vedligeholdelse af net- og informationssystemer, og Cyberrobusthedsforordningens væsentlige krav til producenter.
+howTo:
+  steps:
+    en:
+      - Get management to agree that development, security and operations share responsibility for security, and adopt a reference framework such as the NIST SSDF (SP 800-218) to describe what the teams must do.
+      - Assess where you stand with a maturity model such as OWASP SAMM or DSOMM, and pick the few practices to improve first.
+      - Add fast checks close to the developer - linters in the IDE and pre-commit hooks that catch secrets.
+      - Run SAST, software composition analysis, IaC scanning and licence checks on every pull request, and require peer review before merge.
+      - At build time scan container images, generate an SBOM, sign the artefact and record provenance; around deployment run DAST and enforce policy as code in admission control.
+      - Tune the gates so the build fails only on high-confidence, high-severity findings, and use a baseline so only new findings block.
+      - Send every finding to the owning team's backlog, prioritise with CISA's KEV catalogue, EPSS and reachability, and track mean time to remediate.
+      - Appoint security champions in each team, offer hardened templates and reusable pipeline steps, and keep threat modelling and architecture review for new features.
+      - Review the metrics and the maturity assessment every six months and choose the next improvements.
+    da:
+      - Få ledelsen til at bekræfte, at udvikling, sikkerhed og drift deler ansvaret for sikkerheden, og vælg en referenceramme som NIST SSDF (SP 800-218) til at beskrive, hvad teamene skal gøre.
+      - Vurdér, hvor I står, med en modenhedsmodel som OWASP SAMM eller DSOMM, og vælg de få praksisser, I vil forbedre først.
+      - Tilføj hurtige tjek tæt på udvikleren - linters i IDE'en og pre-commit-hooks, der fanger hemmeligheder.
+      - Kør SAST, software composition analysis, IaC-scanning og licenstjek ved hver pull request, og kræv kollegial gennemgang før fletning.
+      - Scan container-images, generér en SBOM, signér artefaktet, og registrér provenance ved build; kør DAST omkring udrulningen, og håndhæv policy as code i admission control.
+      - Justér tjekkene, så buildet kun fejler på fund med høj sikkerhed og høj alvor, og brug en baseline, så kun nye fund blokerer.
+      - Send hvert fund til det ansvarlige teams backlog, prioritér med CISA's KEV-katalog, EPSS og rækkevidde, og følg den gennemsnitlige tid til afhjælpning.
+      - Udpeg security champions i hvert team, tilbyd hærdede skabeloner og genbrugelige pipelinetrin, og bevar trusselsmodellering og arkitekturgennemgang for nye funktioner.
+      - Gennemgå målingerne og modenhedsvurderingen hvert halve år, og vælg de næste forbedringer.
+  pitfalls:
+    en:
+      - Buying scanners and switching them all on as blocking gates, so developers drown in false positives and route around the pipeline.
+      - Measuring success by the number of findings rather than by how fast the important ones are fixed.
+      - Believing automation replaces threat modelling, design review and monitoring in production.
+      - Keeping security as a separate team that only signs off at the end, which is the old model with new tools.
+    da:
+      - At købe scannere og slå dem alle til som blokerende tjek, så udviklerne drukner i falske positiver og går uden om pipelinen.
+      - At måle succes på antallet af fund i stedet for på, hvor hurtigt de vigtige bliver rettet.
+      - At tro, at automatisering erstatter trusselsmodellering, designgennemgang og overvågning i drift.
+      - At beholde sikkerhed som et separat team, der kun godkender til sidst, hvilket er den gamle model med nye værktøjer.
+  guides:
+    - title: NIST SP 800-218 - Secure Software Development Framework (SSDF) Version 1.1
+      url: https://csrc.nist.gov/pubs/sp/800/218/final
+      publisher: NIST
+      tier: standard
+    - title: NIST SP 800-204D - Strategies for the Integration of Software Supply Chain Security in DevSecOps CI/CD Pipelines
+      url: https://csrc.nist.gov/pubs/sp/800/204/d/final
+      publisher: NIST
+      tier: standard
+    - title: OWASP DevSecOps Maturity Model (DSOMM)
+      url: https://owasp.org/www-project-devsecops-maturity-model/
+      publisher: OWASP
+      tier: reference
+    - title: OWASP SAMM - Software Assurance Maturity Model
+      url: https://owaspsamm.org/
+      publisher: OWASP
+      tier: reference
 edges:
   requires: [ci-cd]
   implements: [security-by-design]
