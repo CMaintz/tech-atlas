@@ -41,6 +41,56 @@ deepDive:
     Målene er mål, ikke målinger. Den faktiske genoprettelsestid og det faktiske gendannelsespunkt måles ved øvelser, og forskellen mellem mål og virkelighed er det mest nyttige resultat af en DR-test. En hyppig fejl er at fastsætte én RTO pr. system uden at tænke på scenariet: failover af en virtuel maskine efter en hardwarefejl kan tage minutter, mens genopbygning efter ransomware i hele domænet kræver forensisk frigivelse, ren infrastruktur og nulstilling af adgangsoplysninger, hvilket kan tage uger. Målene bør derfor testes mod et ødelæggende cyberscenarie og ikke kun mod en teknisk fejl.
 
     RTO og RPO adskiller sig fra service level objectives. En SLO beskriver pålideligheden i normal drift, fx 99,9 % tilgængelighed over en måned, og styres med fejlbudgetter, mens genopretningsmål beskriver den tålelige konsekvens, når en afbrydelse allerede er sket. Begge skal hænge sammen med kontrakterne: en SLA, der lover genopretning inden fire timer, er meningsløs, hvis DRP'ens testede genoprettelsestid er to døgn.
+howTo:
+  steps:
+    en:
+      - Start from the business impact analysis and have each process owner state how long the process can be disrupted before the harm is unacceptable and how much recent data it can lose.
+      - Translate that into an RTO and an RPO for each supporting IT system, keeping the RTO short enough to leave time for checking data and clearing the backlog before the process limit is reached.
+      - Align the objectives of systems that exchange data, so a system is not restored to a different point in time than the systems it depends on or feeds.
+      - Have management approve the objectives, since they decide the budget for backups, replicas and spare capacity.
+      - Choose backup frequency, replication and restore design to meet each RPO and RTO, and keep point-in-time or offline copies so ransomware or corrupted data cannot reach every copy.
+      - Write the objectives into the IT recovery plans, and into contracts and SLAs for systems that suppliers run.
+      - Test restores against both a technical failure and a destructive cyberattack, and measure the actual recovery time and data loss in each test.
+      - Close gaps between objective and result by improving the setup or by getting management to accept a longer objective, and review the objectives every year and after major changes.
+    da:
+      - Tag udgangspunkt i konsekvensanalysen (BIA), og lad hver procesejer angive, hvor længe processen kan være afbrudt, før skaden bliver uacceptabel, og hvor meget af de seneste data den kan undvære.
+      - Omsæt det til en RTO og en RPO for hvert understøttende it-system, og hold RTO så kort, at der er tid til at kontrollere data og indhente efterslæbet, før processens grænse er nået.
+      - Afstem målene for systemer, der udveksler data, så et system ikke gendannes til et andet tidspunkt end de systemer, det afhænger af eller leverer data til.
+      - Få ledelsen til at godkende målene, fordi de afgør budgettet til backup, replikering og reservekapacitet.
+      - Vælg backupfrekvens, replikering og gendannelsesdesign, så hver RPO og RTO kan nås, og behold kopier fra bestemte tidspunkter eller offline, så ransomware eller korrupte data ikke kan nå alle kopier.
+      - Skriv målene ind i it-beredskabsplanerne og i kontrakter og SLA'er for de systemer, som leverandører driver.
+      - Test gendannelse både efter en teknisk fejl og efter et ødelæggende cyberangreb, og mål den faktiske genoprettelsestid og det faktiske datatab ved hver test.
+      - Luk hullet mellem mål og resultat ved at forbedre opsætningen eller ved at få ledelsen til at acceptere et længere mål, og gennemgå målene hvert år og efter større ændringer.
+  pitfalls:
+    en:
+      - Letting IT set RTO and RPO alone, without the business deciding how much downtime and data loss it can tolerate.
+      - Setting one RTO per system based on a hardware failover, when rebuilding after ransomware can take weeks.
+      - Promising an RTO in contracts or SLAs that has never been met in a restore test.
+      - Relying on replication alone, which copies corrupted and encrypted data straight to the second site.
+    da:
+      - At lade it fastsætte RTO og RPO alene, uden at forretningen beslutter, hvor meget nedetid og datatab den kan tåle.
+      - At fastsætte én RTO pr. system ud fra en failover efter hardwarefejl, når genopbygning efter ransomware kan tage uger.
+      - At love en RTO i kontrakter eller SLA'er, som aldrig er nået ved en gendannelsestest.
+      - At stole på replikering alene, som kopierer korrupte og krypterede data direkte til den anden lokation.
+  guides:
+    - title: NIST SP 800-34 Rev. 1 - Contingency Planning Guide for Federal Information Systems
+      url: https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final
+      publisher: NIST
+      tier: standard
+    - title: Architecture strategies for defining reliability targets - Azure Well-Architected Framework
+      url: https://learn.microsoft.com/en-us/azure/well-architected/reliability/metrics
+      publisher: Microsoft
+      tier: official-doc
+    - title: Vejledning i it-beredskab
+      url: https://sikkerdigital.dk/Media/638000655159015474/Vejledning-i-it-beredskab-september-2022.pdf
+      publisher: Digitaliseringsstyrelsen
+      tier: official-doc
+      lang: da
+    - title: Vejledning til test af reetableringsplaner for samfundskritiske it-systemer
+      url: https://sikkerdigital.dk/Media/638817808200206255/Vejledning%20i%20test%20af%20reetableringsplaner%20for%20samfundskritiske%20it-systemer.pdf
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   part-of: [business-continuity-plan]
   requires: [business-impact-analysis, availability]

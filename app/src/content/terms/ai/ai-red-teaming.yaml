@@ -42,6 +42,58 @@ deepDive:
     For udbydere i EU af AI-modeller til almen brug med systemisk risiko kræver AI-forordningens art. 55, stk. 1, litra a, modelevaluering, "herunder gennemførelse og dokumentation af adversarial testing", med henblik på at identificere og afbøde systemiske risici, og adfærdskodeksen for AI-modeller til almen brug (juli 2025) beskriver i kapitlet om Safety and Security, hvordan tiltrædende udbydere dokumenterer det. For højrisikosystemer kræver art. 15 modstandsdygtighed over for forsøg på at ændre brug eller ydeevne ved at udnytte sårbarheder, herunder adversarielle eksempler og dataforgiftning, hvilket red teaming er med til at påvise. NIST AI 600-1 nævner red teaming blandt de foreslåede handlinger til at måle risici i generativ AI.
 
     Typiske faldgruber: kun at teste basismodellen og ikke den konfiguration, der faktisk kører med systemprompt, værktøjer og retrieval; at behandle en bestået red team-øvelse som bevis på sikkerhed i stedet for en nedre grænse for, hvad en angriber finder; at køre én enkelt øvelse før lancering, mens modelversioner, prompts og connectors ændres hver uge; og ikke at føre fundene ind i regressionstest og guardrail-regler. Microsofts rapport fra 2025 om red teaming af over 100 generative AI-produkter understreger, at mange reelle fejl skyldes simple teknikker og systemintegration, ikke gradientbaserede angreb. Red teaming supplerer - men erstatter ikke - benchmark-evaluering, en klassisk pentest af den omgivende infrastruktur og overvågning i drift.
+howTo:
+  steps:
+    en:
+      - Get written approval from the system owner with scope, rules of engagement, test accounts and a stop contact, and agree which environment may be attacked.
+      - Write a threat model and a list of harms for this particular deployment, such as leaking other users' data, wrong advice, unsafe tool actions and ignored rules, using MITRE ATLAS and the OWASP LLM Top 10 as checklists.
+      - Put together a mixed team with security testers, domain experts and ordinary users who did not build the system, and give each of them harms or features to focus on.
+      - Test the deployed configuration with its system prompt, tools, retrieval sources and guardrails, not only the base model, and include indirect attacks through documents, web pages and emails the system reads.
+      - Start with an open-ended manual round, then turn what you found into a harms list for guided rounds, and add automated tools such as PyRIT, garak or promptfoo to run large attack sets.
+      - Log every attempt with date, input, output, model version and settings, and report results as attack success rates over many runs rather than single screenshots.
+      - Give the owner a report with the top issues, their severity and suggested fixes, and track each fix to closure.
+      - Turn each confirmed finding into a regression test and a guardrail or permission change, and red team again whenever the model, system prompt, tools or connectors change, and at least yearly.
+    da:
+      - Få skriftlig godkendelse fra systemejeren med omfang, spilleregler, testkonti og en kontaktperson, der kan stoppe testen, og aftal, hvilket miljø der må angribes.
+      - Skriv en trusselsmodel og en liste over skader for netop denne løsning, fx læk af andre brugeres data, forkerte råd, usikre værktøjshandlinger og ignorerede regler, med MITRE ATLAS og OWASP LLM Top 10 som tjeklister.
+      - Sammensæt et blandet hold med sikkerhedstestere, fageksperter og almindelige brugere, der ikke har bygget systemet, og giv hver især skader eller funktioner at fokusere på.
+      - Test den konfiguration, der faktisk kører, med systemprompt, værktøjer, retrieval-kilder og guardrails, ikke kun basismodellen, og tag indirekte angreb med via dokumenter, websider og e-mails, systemet læser.
+      - Start med en åben manuel runde, gør derefter fundene til en liste over skader til styrede runder, og brug automatiske værktøjer som PyRIT, garak eller promptfoo til at køre store samlinger af angreb.
+      - Log hvert forsøg med dato, input, output, modelversion og indstillinger, og rapportér resultaterne som attack success rate over mange kørsler frem for enkelte skærmbilleder.
+      - Giv ejeren en rapport med de vigtigste fund, deres alvor og forslag til rettelser, og følg hver rettelse, til den er lukket.
+      - Gør hvert bekræftet fund til en regressionstest og en ændring i guardrails eller rettigheder, og gentag red teaming, når model, systemprompt, værktøjer eller connectors ændres, og mindst en gang om året.
+  pitfalls:
+    en:
+      - Testing only the base model through its API, while the real risk sits in the deployed system prompt, tools and retrieval.
+      - Treating a passed exercise as proof of safety, when it only shows what this team found in the time it had.
+      - Running one exercise before launch and never again, although prompts, model versions and connectors change every few weeks.
+      - Reporting single dramatic screenshots instead of reproducible success rates, so nobody can tell whether a fix worked.
+    da:
+      - Kun at teste basismodellen via dens API, selv om den reelle risiko ligger i den systemprompt, de værktøjer og den retrieval, der faktisk kører.
+      - At se en bestået øvelse som bevis på sikkerhed, selv om den kun viser, hvad netop dette hold fandt i den tid, det havde.
+      - At køre én øvelse før lancering og aldrig igen, selv om prompts, modelversioner og connectors ændres med få ugers mellemrum.
+      - At rapportere enkelte dramatiske skærmbilleder i stedet for reproducerbare succesrater, så ingen kan se, om en rettelse virkede.
+  guides:
+    - title: OWASP GenAI Red Teaming Guide
+      url: https://genai.owasp.org/resource/genai-red-teaming-guide/
+      publisher: OWASP
+      tier: reference
+    - title: MITRE ATLAS
+      url: https://atlas.mitre.org/
+      publisher: MITRE
+      tier: reference
+    - title: NIST AI 600-1 - Artificial Intelligence Risk Management Framework, Generative Artificial Intelligence Profile
+      url: https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence
+      publisher: NIST
+      tier: standard
+    - title: Planning red teaming for large language models (LLMs) and their applications
+      url: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/red-teaming
+      publisher: Microsoft
+      tier: official-doc
+    - title: The General-Purpose AI Code of Practice
+      url: https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai
+      publisher: European Commission
+      tier: official-doc
 edges:
   requires: [artificial-intelligence]
   part-of:

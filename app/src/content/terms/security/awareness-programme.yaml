@@ -41,6 +41,51 @@ deepDive:
     De designvalg, der betyder noget i praksis, er segmentering efter risikoeksponering frem for organisationsdiagram (betalingsgodkendere, HR, privilegerede administratorer og direktionen møder forskellige påskud), spredte gentagelser frem for én årlig blok og levering lige dér, hvor beslutningen træffes, hvor nudges supplerer den formelle læring. CIS Controls v8 Control 14 omsætter det til reviderbare safeguards, der starter med at etablere og vedligeholde programmet, træne i social engineering, autentificering og datahåndtering og tilføje rollespecifik træning.
 
     Måling er dér, mange programmer fejler. Afsnit 2.4 i SP 800-50r1 skelner mellem aktivitetsmål (fremmøde, pris pr. deltager) og mål for adfærdsændring, fx andelen af deltagere, der melder en simuleret phishing-mail. Modne programmer følger meldeprocent, tid til melding, udviklingen i gengangere, der klikker igen, og hændelser med menneskelig grundårsag, og de behandler klikrater varsomt, fordi de afhænger stærkt af, hvor svær skabelonen er. Feltstudier på UC San Diego Health (IEEE S&P 2025) og i en stor organisation med over 14.000 ansatte (IEEE S&P 2022) fandt kun lille eller ingen beskyttende effekt af årlig træning og indlejrede lektioner efter et klik, hvilket taler for at koble programmet med tekniske kontroller som phishing-resistent MFA i stedet for at forvente, at træning alene bærer risikoen. På compliance-siden er programmet dokumentationen for ISO/IEC 27001:2022 pkt. 7.3 og bilag A 6.3, NIS2 art. 21, stk. 2, litra g, og for finansielle virksomheder DORA-forordningens art. 13, stk. 6.
+howTo:
+  steps:
+    en:
+      - Name an owner, get backing and budget from management, and link the programme to the risk assessment and to duties such as the NIS2 requirement for cyber hygiene and training.
+      - Analyse the needs - which roles face which threats, fx payment approvers, HR, administrators and managers - and what they know and do today.
+      - Choose the target behaviours for each group, such as reporting suspicious emails quickly, and set measurable goals for them.
+      - Plan a year of activities with short recurring themes, onboarding for new staff, phishing simulations, role-based training for high-risk roles and a separate session for management.
+      - Produce or buy the content, test it on a few users first, and spread the delivery over the year instead of one annual block.
+      - Make reporting easy with a report button and quick feedback, and pair the programme with technical controls such as phishing-resistant MFA.
+      - Measure behaviour, such as reporting rate, time to report and repeat clickers, not just attendance, and report the results to management every quarter.
+      - Revise the plan at least once a year and after incidents or new threats.
+    da:
+      - Udpeg en ejer, få opbakning og budget fra ledelsen, og kobl programmet til risikovurderingen og til krav som NIS2's krav om cyberhygiejne og uddannelse.
+      - Analysér behovene - hvilke roller møder hvilke trusler, fx dem, der godkender betalinger, HR, administratorer og ledere - og hvad de ved og gør i dag.
+      - Vælg den ønskede adfærd for hver målgruppe, fx at melde mistænkelige mails hurtigt, og sæt målbare mål for den.
+      - Planlæg et år med korte tilbagevendende temaer, introduktion for nye medarbejdere, phishing-simuleringer, rollebaseret træning for højrisikoroller og en særskilt session for ledelsen.
+      - Lav eller køb indholdet, test det først på nogle få brugere, og fordel indsatsen over året i stedet for én samlet blok om året.
+      - Gør det nemt at melde med en meldeknap og hurtig tilbagemelding, og kombinér programmet med tekniske kontroller som phishing-resistent MFA.
+      - Mål adfærd, fx meldeprocent, tid til melding og gengangere, der klikker igen, ikke kun fremmøde, og rapportér resultaterne til ledelsen hvert kvartal.
+      - Revidér planen mindst en gang om året og efter hændelser eller nye trusler.
+  pitfalls:
+    en:
+      - Measuring only attendance or click rates, which depend on how hard the test is and say little about behaviour.
+      - Running one annual course for everybody, instead of repeated activities aimed at the roles that face the most risk.
+      - Shaming staff who click, which makes them less likely to report the next real attack.
+      - Expecting training alone to stop phishing, when field studies show small effects and technical controls are still needed.
+    da:
+      - Kun at måle fremmøde eller klikrater, som afhænger af, hvor svær testen er, og siger meget lidt om adfærd.
+      - At køre ét årligt kursus for alle i stedet for gentagne aktiviteter rettet mod de roller, der er mest udsatte.
+      - At udskamme medarbejdere, der klikker, så de bliver mindre tilbøjelige til at melde det næste rigtige angreb.
+      - At forvente, at træning alene stopper phishing, selv om feltstudier viser små effekter, og tekniske kontroller stadig er nødvendige.
+  guides:
+    - title: NIST SP 800-50 Rev. 1 - Building a Cybersecurity and Privacy Learning Program
+      url: https://csrc.nist.gov/pubs/sp/800/50/r1/final
+      publisher: NIST
+      tier: standard
+    - title: 'CIS Critical Security Control 14: Security Awareness and Skills Training'
+      url: https://www.cisecurity.org/controls/security-awareness-and-skills-training
+      publisher: Center for Internet Security
+      tier: standard
+    - title: Om at arbejde med adfærdsindsatser
+      url: https://www.sikkerdigital.dk/myndighed/uddannelse-og-awareness/om-at-arbejde-med-adfaerdsindsatser
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   requires: [security-awareness]
   used-with: [nudging, security-metrics]

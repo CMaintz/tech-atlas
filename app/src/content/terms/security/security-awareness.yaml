@@ -41,6 +41,55 @@ deepDive:
     Målingen er den svære del. Den klassiske viden-holdning-adfærd-model antager, at viden giver den rette holdning, som giver den rette adfærd, men kløften mellem at vide og at gøre er veldokumenteret: Folk, der kan bestå en quiz, klikker stadig under tidspres. Validerede instrumenter som Human Aspects of Information Security Questionnaire (HAIS-Q) måler viden, holdning og selvrapporteret adfærd hver for sig, mens observeret adfærd - meldeprocent ved rigtige og simulerede hændelser, tid til melding, undtagelser fra politikken, fejl i datahåndtering - er det stærkeste bevis. Store feltstudier (IEEE S&P 2022 og 2025) fandt, at årlig træning og indlejrede lektioner efter et klik havde ringe målbar effekt på modtageligheden for phishing, hvilket er et argument for at måle effekt frem for gennemførelser.
 
     Awareness er individuel og kognitiv; sikkerhedskultur er det fælles sæt af normer, der afgør, om den viden bliver brugt, når det er ubelejligt. Awareness er nødvendig, men ikke tilstrækkelig: Den virker bedst sammen med nudges i beslutningsøjeblikket og med tekniske kontroller som phishing-resistent MFA, der slet ikke afhænger af, at et menneske opdager noget.
+howTo:
+  steps:
+    en:
+      - Get management to name an owner for the awareness programme and set aside budget and staff time, remembering that NIS2 also requires the management body itself to be trained.
+      - Use the risk assessment and recent incidents to pick three to five target behaviours for the year, such as reporting suspicious mails, locking screens and handling personal data safely.
+      - For each target group, map the gap between today's behaviour and the desired behaviour, including the practical barriers that make the secure choice hard.
+      - Write an annual plan that combines onboarding for new starters, short recurring activities (staff meetings, newsletters, e-learning) and role-based training for admins, developers and managers.
+      - Make the secure behaviour easy with a report-phishing button, a clear contact point and technical controls such as MFA that do not depend on people noticing anything.
+      - Test campaigns and materials on a few users before rollout, then spread the activities across the year instead of one annual push.
+      - Set measurable goals up front and measure behaviour rather than completions, such as reporting rate, time to report and repeat incidents.
+      - Report results to management at least once a year and adjust topics, target groups and methods for the next cycle.
+    da:
+      - Få ledelsen til at udpege en ejer af awareness-programmet og afsætte budget og arbejdstid - og husk, at NIS2 også kræver, at ledelsen selv bliver trænet.
+      - Brug risikovurderingen og de seneste hændelser til at vælge tre til fem målsadfærder for året, fx at melde mistænkelige mails, låse skærmen og håndtere personoplysninger sikkert.
+      - Kortlæg for hver målgruppe spændet mellem den nuværende og den ønskede adfærd, herunder de praktiske barrierer, der gør det sikre valg besværligt.
+      - Lav en årsplan, der kombinerer introduktion af nyansatte, korte tilbagevendende aktiviteter (personalemøder, nyhedsbreve, e-læring) og rollebaseret træning for administratorer, udviklere og ledere.
+      - Gør den sikre adfærd let med en knap til at melde phishing, et tydeligt kontaktpunkt og tekniske kontroller som MFA, der ikke afhænger af, at folk opdager noget.
+      - Test kampagner og materialer på nogle få brugere før udrulning, og spred derefter aktiviteterne ud over året i stedet for én stor årlig indsats.
+      - Sæt målbare mål fra start, og mål adfærd frem for gennemførelser, fx meldeprocent, tid til melding og gentagne hændelser.
+      - Rapportér resultaterne til ledelsen mindst én gang om året, og justér emner, målgrupper og metoder til næste runde.
+  pitfalls:
+    en:
+      - Treating the annual e-learning module as the whole programme and counting completion rates as success.
+      - Blaming or shaming people who make mistakes, so they stop reporting.
+      - Running one programme for everyone and forgetting managers, administrators and new starters.
+      - Expecting awareness to replace technical controls instead of backing them up.
+    da:
+      - At behandle det årlige e-læringsmodul som hele programmet og regne gennemførelsesprocenten som succes.
+      - At give skylden til eller udstille dem, der laver fejl, så de holder op med at melde.
+      - At køre ét program for alle og glemme ledere, administratorer og nyansatte.
+      - At forvente, at awareness kan erstatte tekniske kontroller i stedet for at understøtte dem.
+  guides:
+    - title: NIST SP 800-50 Rev. 1 - Building a Cybersecurity and Privacy Learning Program
+      url: https://csrc.nist.gov/pubs/sp/800/50/r1/final
+      publisher: NIST
+      tier: standard
+    - title: Om at arbejde med adfærdsindsatser
+      url: https://sikkerdigital.dk/myndighed/uddannelse-og-awareness/om-at-arbejde-med-adfaerdsindsatser
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: 10 Steps to Cyber Security - Engagement and training
+      url: https://www.ncsc.gov.uk/collection/10-steps/engagement-and-training
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Awareness and Cyber Hygiene
+      url: https://www.enisa.europa.eu/topics/awareness-and-cyber-hygiene
+      publisher: ENISA
+      tier: official-doc
 edges:
   requires: [threat]
   implements:

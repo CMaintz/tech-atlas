@@ -42,6 +42,50 @@ deepDive:
     CIS begrunder prioriteringen med sin Community Defense Model, der kortlægger safeguards mod MITRE ATT&CK-teknikker i udbredte angrebsmønstre som ransomware, angreb på webapplikationer og insidermisbrug, og opgør, hvor stor en del af hvert mønster IG1 alene afbøder. Dette evidensgrundlag er den væsentligste metodiske forskel fra ISO/IEC 27002, hvis 93 kontroller udvælges gennem en risikovurdering og begrundes i en Statement of Applicability (erklæring om anvendelighed) i stedet for at blive anvendt i en fast rækkefølge.
 
     To nærtstående CIS-produkter forveksles ofte med kontrollerne. CIS Benchmarks er konsensusbaserede hærdningsvejledninger til konkrete platforme (Windows Server, RHEL, Kubernetes, AWS og mange flere) med Level 1- og Level 2-profiler; det er med dem, Control 4 (sikker konfiguration) implementeres i praksis, og CIS-CAT scanner systemer op imod dem. CIS Controls Self Assessment Tool (CSAT) bruges til at følge implementeringen af safeguards. CIS udgiver mappings til NIST CSF 2.0, ISO/IEC 27001:2022, PCI DSS og andre rammer, hvilket gør kontrollerne til et praktisk teknisk lag under en ledelsessystemstandard eller under NIS2 art. 21 - men ikke til en erstatning for de krav om ledelse, risikovurdering og rapportering, som disse stiller.
+howTo:
+  steps:
+    en:
+      - Name an owner for the programme and download CIS Controls v8.1 with its Implementation Group mapping from cisecurity.org.
+      - Pick your Implementation Group from your size, IT staff and data sensitivity; most small and medium organisations start with IG1 and its 56 safeguards.
+      - Run a baseline self-assessment of every safeguard in the chosen group, for example in the CIS Controls Self Assessment Tool (CSAT) or a spreadsheet, scoring how far each is implemented.
+      - Start with Controls 1 and 2 (enterprise and software asset inventory), because patching, configuration and access control all depend on knowing what you have.
+      - Turn the gaps into a prioritised roadmap with owners, deadlines and budget, and have management approve it.
+      - Implement the safeguards and turn their built-in frequencies into routines, such as quarterly internal vulnerability scans and quarterly restore tests.
+      - Map the safeguards to ISO 27001 or NIS2 requirements where needed, so the same evidence serves several frameworks.
+      - Reassess at least once a year, report progress to management, and move on to IG2 or IG3 once IG1 is in place and your risk calls for it.
+    da:
+      - Udpeg en ejer af arbejdet, og hent CIS Controls v8.1 med opdelingen i Implementation Groups fra cisecurity.org.
+      - Vælg Implementation Group ud fra størrelse, IT-bemanding og datas følsomhed; de fleste små og mellemstore organisationer starter med IG1 og dens 56 safeguards.
+      - Lav en statusmåling af hver safeguard i den valgte gruppe, fx i CIS Controls Self Assessment Tool (CSAT) eller et regneark, og vurdér, hvor langt hver enkelt er gennemført.
+      - Begynd med Control 1 og 2 (fortegnelse over enheder og software), fordi patching, konfiguration og adgangsstyring alle forudsætter, at man ved, hvad man har.
+      - Gør hullerne til en prioriteret køreplan med ejere, frister og budget, og få ledelsen til at godkende den.
+      - Gennemfør safeguards, og gør deres indbyggede frekvenser til faste rutiner, fx kvartalsvise interne sårbarhedsscanninger og kvartalsvise gendannelsestest.
+      - Kobl safeguards til kravene i ISO 27001 eller NIS2, hvor det er relevant, så den samme dokumentation kan bruges til flere rammer.
+      - Gentag vurderingen mindst én gang om året, rapportér fremdriften til ledelsen, og gå videre til IG2 eller IG3, når IG1 er på plads, og risikoen kræver det.
+  pitfalls:
+    en:
+      - Jumping to advanced IG3 safeguards before IG1 basics like inventory, patching and backup are in place.
+      - Treating the Controls as a replacement for the governance and risk assessment that ISO 27001 or NIS2 require.
+      - Scoring a safeguard as done because a tool has been bought, not because it covers all assets.
+      - Confusing the CIS Controls with the CIS Benchmarks, which are hardening guides for specific platforms.
+    da:
+      - At springe til avancerede IG3-safeguards, før IG1-grundlaget som fortegnelse, patching og backup er på plads.
+      - At bruge kontrollerne som erstatning for den ledelse og risikovurdering, som ISO 27001 eller NIS2 kræver.
+      - At score en safeguard som opfyldt, fordi et værktøj er købt, og ikke fordi det dækker alle aktiver.
+      - At forveksle CIS Controls med CIS Benchmarks, som er hærdningsvejledninger til bestemte platforme.
+  guides:
+    - title: CIS Critical Security Controls Version 8.1
+      url: https://www.cisecurity.org/controls/v8-1
+      publisher: Center for Internet Security
+      tier: standard
+    - title: CIS Critical Security Controls Implementation Groups
+      url: https://www.cisecurity.org/controls/implementation-groups
+      publisher: Center for Internet Security
+      tier: standard
+    - title: CIS Critical Security Controls Implementation Group 1
+      url: https://www.cisecurity.org/controls/implementation-groups/ig1
+      publisher: Center for Internet Security
+      tier: standard
 edges:
   kind-of: [security-framework]
   requires: [control]

@@ -41,6 +41,53 @@ deepDive:
     Maskinlæsbare formater gør baselines reviderbare: SCAP samler XCCDF-tjeklister og OVAL-tjek, og værktøjer som OpenSCAP, CIS-CAT eller cloud security posture management scorer systemer op imod dem. Den praktiske udfordring er drift - håndrettede servere glider tilbage, efterhånden som administratorer ændrer indstillinger - så modne organisationer udtrykker baseline som kode (Group Policy, Ansible, DSC, Terraform-politikker, admission controllers) og måler overholdelsen løbende. Hver afvigelse bør være en dokumenteret undtagelse med en risikoejer, fordi visse hærdningspunkter bryder ældre applikationer.
 
     Hærdning er noget andet end patching: patching retter fejl i kode, der skal køre, mens hærdning fjerner eller begrænser kode og indstillinger, der ikke behøver at være eksponeret. CIS Controls v8 Control 4 (sikker konfiguration af virksomhedens aktiver og software) og ISO/IEC 27002:2022 kontrol 8.9 (konfigurationsstyring), som er ny i 2022-udgaven, er de sædvanlige kontrolankre.
+howTo:
+  steps:
+    en:
+      - Assign responsibility for secure configuration, and pick a baseline per platform, such as a CIS Benchmark Level 1 profile or the Microsoft security baselines.
+      - Keep an inventory of servers, clients, network devices and cloud services, and record which baseline applies to each.
+      - Tailor the baseline to each system's role by removing unused software, services, ports and sample content, and change all default passwords.
+      - Test the baseline on a pilot group before broad rollout, and record every setting you cannot apply as an exception with a risk owner and an expiry date.
+      - Apply the baseline as code through Group Policy, Intune, Ansible or similar, so new systems are hardened from day one.
+      - Allow only approved applications on clients with an allowlist, and restrict scripting tools such as PowerShell where possible.
+      - Scan systems against the baseline at least monthly with a tool such as CIS-CAT or OpenSCAP, and correct any drift.
+      - Review the baselines when a new benchmark version, a new operating system version or a major incident appears, and update the exception list.
+    da:
+      - Placér ansvaret for sikker konfiguration, og vælg en baseline pr. platform, fx en CIS Benchmark Level 1-profil eller Microsofts sikkerhedsbaselines.
+      - Hold en oversigt over servere, klienter, netværksudstyr og cloudtjenester, og notér, hvilken baseline der gælder for hver.
+      - Tilpas baselinen til systemets rolle ved at fjerne ubrugt software, tjenester, porte og eksempelindhold, og skift alle standardadgangskoder.
+      - Test baselinen på en pilotgruppe før bred udrulning, og registrér hver indstilling, der ikke kan anvendes, som en undtagelse med en risikoejer og en udløbsdato.
+      - Udrul baselinen som kode via Group Policy, Intune, Ansible eller lignende, så nye systemer er hærdede fra første dag.
+      - Tillad kun godkendte applikationer på klienterne med en positivliste, og begræns scriptværktøjer som PowerShell, hvor det er muligt.
+      - Scan systemerne mod baselinen mindst en gang om måneden med et værktøj som CIS-CAT eller OpenSCAP, og ret afvigelser.
+      - Gennemgå baselines, når der kommer en ny benchmarkversion, en ny version af styresystemet eller en større hændelse, og opdatér undtagelseslisten.
+  pitfalls:
+    en:
+      - Hardening a server by hand once and letting it drift back as administrators change settings.
+      - Applying a strict profile to production without testing, breaking applications and making the business wary of hardening.
+      - Leaving default passwords and admin interfaces on network devices, printers and appliances that fall outside the baseline.
+    da:
+      - At hærde en server manuelt én gang og lade den glide tilbage, efterhånden som administratorer ændrer indstillinger.
+      - At rulle en stram profil ud i produktion uden test, så applikationer går i stykker, og forretningen bliver skeptisk over for hærdning.
+      - At lade standardadgangskoder og administrationsgrænseflader blive på netværksudstyr, printere og appliances, der falder uden for baselinen.
+  guides:
+    - title: CIS Benchmarks
+      url: https://www.cisecurity.org/cis-benchmarks
+      publisher: Center for Internet Security
+      tier: standard
+    - title: CIS Critical Security Control 4 - Secure Configuration of Enterprise Assets and Software
+      url: https://www.cisecurity.org/controls/secure-configuration-of-enterprise-assets-and-software
+      publisher: Center for Internet Security
+      tier: standard
+    - title: Microsoft Security Compliance Toolkit Guide
+      url: https://learn.microsoft.com/en-us/windows/security/operating-system-security/device-management/windows-security-configuration-framework/security-compliance-toolkit-10
+      publisher: Microsoft
+      tier: official-doc
+    - title: Cyberforsvar der virker
+      url: https://samsik.dk/publikation/cyberforsvar-der-virker/
+      publisher: Center for Cybersikkerhed (Styrelsen for Samfundssikkerhed)
+      tier: official-doc
+      lang: da
 edges:
   kind-of: [control]
   mitigates:

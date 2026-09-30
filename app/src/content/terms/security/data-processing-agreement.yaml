@@ -42,6 +42,47 @@ deepDive:
     Det er i bilagene, aftalerne typisk halter. De bør beskrive behandlingen konkret, angive de tekniske og organisatoriske foranstaltninger på et niveau, der kan efterprøves (kryptering af lagrede data og data under transport, adgangsmodel, logning, test af backup og gendannelse, lokationer), navngive godkendte underdatabehandlere med behandlingssted og fastlægge tilsynsmekanismen: hyppighed, om tredjepartserklæringer som ISAE 3000 eller ISO 27001-certifikater accepteres, og hvem der betaler. Bestemmelser om brud fastsætter ofte en konkret frist, fx 24 eller 48 timer, fordi "uden unødig forsinkelse" i art. 33, stk. 2, skal give den dataansvarlige tid til at nå sin egen 72-timersfrist.
 
     En databehandleraftale kræves kun, hvor der reelt er et forhold mellem dataansvarlig og databehandler. Deling mellem to dataansvarlige kræver et behandlingsgrundlag og ofte en datadelingsaftale, og fælles dataansvarlige skal i stedet have en ordning efter art. 26. At kalde en leverandør databehandler i aftalen gør den ikke til det, hvis den reelt fastlægger formålene, jf. art. 28, stk. 10. Forkortelsen DPA kolliderer desuden med "data protection authority", så kontrakter bør skrive begrebet ud. I driften er aftalen kun så god som opfølgningen: den dataansvarlige forventes løbende at gennemgå ændringer i underdatabehandlere og tilsynsdokumentation som led i leverandørstyringen.
+howTo:
+  steps:
+    en:
+      - Classify each supplier relationship first as processor, independent controller or joint controller, using EDPB Guidelines 07/2020, because an Art. 28 agreement only fits a genuine processor.
+      - Before any personal data is shared, sign a written agreement (electronic is fine) covering every Art. 28(3) item, preferably based on Datatilsynet's template or the Commission's clauses in Decision (EU) 2021/915.
+      - Fill in the annexes concretely with the processing, data categories, documented instructions, technical and organisational measures, processing locations and approved sub-processors.
+      - Set a breach notification deadline for the processor, for example 24 or 48 hours, so you can still meet your own 72-hour deadline towards Datatilsynet.
+      - Check whether the processor or its sub-processors transfer data outside the EU/EEA, and cover each transfer with an adequacy decision or standard contractual clauses and a transfer assessment.
+      - Agree the audit mechanism, including how often, which evidence is accepted (such as ISAE 3000 reports or ISO 27001 certificates) and who pays.
+      - Keep a register of agreements linked to the record of processing, supervise each processor on a risk-based schedule and review every notice of a new sub-processor.
+      - When the contract ends, have the data deleted or returned as agreed and get written confirmation that it has been done.
+    da:
+      - Afklar først for hver leverandør, om den er databehandler, selvstændig dataansvarlig eller fælles dataansvarlig, ud fra EDPB's retningslinjer 07/2020, for en aftale efter art. 28 passer kun til en reel databehandler.
+      - Indgå en skriftlig aftale, gerne elektronisk, der dækker alle punkter i art. 28, stk. 3, før der deles personoplysninger, helst med udgangspunkt i Datatilsynets skabelon eller Kommissionens standardkontraktbestemmelser i afgørelse (EU) 2021/915.
+      - Udfyld bilagene konkret med behandlingen, kategorier af oplysninger, den dokumenterede instruks, tekniske og organisatoriske foranstaltninger, behandlingssteder og godkendte underdatabehandlere.
+      - Aftal en frist for databehandlerens underretning om brud, fx 24 eller 48 timer, så I selv kan nå jeres 72-timersfrist over for Datatilsynet.
+      - Undersøg, om databehandleren eller dens underdatabehandlere overfører oplysninger ud af EU/EØS, og sørg for, at hver overførsel hviler på en tilstrækkelighedsafgørelse eller standardkontraktbestemmelser med en vurdering af overførslen.
+      - Aftal tilsynsmekanismen, herunder hyppighed, hvilken dokumentation der accepteres (fx ISAE 3000-erklæringer eller ISO 27001-certifikater), og hvem der betaler.
+      - Hold en oversigt over aftalerne koblet til fortegnelsen, før risikobaseret tilsyn med hver databehandler, og tag stilling til hver meddelelse om en ny underdatabehandler.
+      - Sørg for, at oplysningerne slettes eller tilbageleveres som aftalt, når aftalen ophører, og få en skriftlig bekræftelse på det.
+  pitfalls:
+    en:
+      - Accepting the supplier's standard agreement without reading or completing the annexes, where the real obligations are.
+      - Calling a supplier a processor in the contract although it in fact decides the purposes of the processing itself.
+      - Signing the agreement and never following up with the supervision it provides for.
+      - Confusing the transfer clauses in Decision 2021/914 with the Art. 28 clauses in Decision 2021/915.
+    da:
+      - At acceptere leverandørens standardaftale uden at læse eller udfylde bilagene, hvor de reelle forpligtelser står.
+      - At kalde en leverandør databehandler i aftalen, selv om den reelt selv fastlægger formålet med behandlingen.
+      - At underskrive aftalen og aldrig føre det tilsyn, som aftalen lægger op til.
+      - At forveksle overførselsklausulerne i afgørelse 2021/914 med art. 28-klausulerne i afgørelse 2021/915.
+  guides:
+    - title: Rollefordeling - dataansvarlig og databehandler
+      url: https://www.datatilsynet.dk/regler-og-vejledning/grundlaeggende-begreber/rollefordeling-dataansvarlig-og-databehandler
+      publisher: Datatilsynet
+      tier: official-doc
+      lang: da
+    - title: Guidelines 07/2020 on the concepts of controller and processor in the GDPR
+      url: https://www.edpb.europa.eu/our-work-tools/our-documents/guidelines/guidelines-072020-concepts-controller-and-processor-gdpr_en
+      publisher: European Data Protection Board
+      tier: official-doc
 edges:
   requires: [gdpr, personal-data]
   used-with:

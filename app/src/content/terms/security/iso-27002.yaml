@@ -42,6 +42,53 @@ deepDive:
     En anden strukturel nyskabelse er attributter, tags i hashtag-form, der gør det muligt at se de samme kontroller fra forskellige vinkler: kontroltype (#Preventive, #Detective, #Corrective), informationssikkerhedsegenskaber (#Confidentiality, #Integrity, #Availability), cybersikkerhedsbegreber (#Identify, #Protect, #Detect, #Respond, #Recover, lånt fra funktionerne i NIST CSF), operationelle kapabiliteter og sikkerhedsdomæner. Anneks A i 27002 forklarer, hvordan man filtrerer på dem, fx for at finde alle detekterende kontroller, der understøtter tilgængelighed, og organisationer kan definere deres egne attributter.
 
     Fordi det er vejledning, bruger 27002 "bør" hele vejen igennem og kan ikke bruges til certificering; auditoren vurderer organisationen efter 27001 og bruger 27002 som reference for, hvordan en rimelig implementering ser ud. En udbredt fejl er at behandle vejledningsteksten som en tjekliste, der skal følges ord for ord, når den egentlige forpligtelse er det risikobaserede valg, der dokumenteres i SoA'en. Sektordokumenter som ISO/IEC 27017 (cloud), 27018 (personoplysninger i offentlige clouds) og 27019 (energiforsyning) udvider kontrollerne med sektorspecifik vejledning, mens CIS Controls tilbyder et mere foreskrivende, prioriteret sæt tekniske sikringer, der kan ligge under det teknologiske tema.
+howTo:
+  steps:
+    en:
+      - Start from the ISO 27001 risk assessment, which decides which risks need treatment; ISO 27002 is the guidance you use to choose and implement controls, not a checklist to follow word for word.
+      - For each risk, go through the 93 controls in the four themes - organisational, people, physical and technological - and pick those that fit, adding your own controls where none does.
+      - Record in the Statement of Applicability, for each Annex A control, whether it is used, why or why not, and how far it is implemented.
+      - Use each control's purpose and guidance to write the rule or procedure, adapted to your own systems, fx access control (5.15-5.18) or backup (8.13), and name an owner for it.
+      - Use the attributes, such as control type or cybersecurity concept, to check the balance, fx that you have detective and corrective controls and not only preventive ones.
+      - Where sector guidance applies, such as ISO/IEC 27017 for cloud or 27019 for energy utilities, add its extra guidance to the relevant controls.
+      - Implement the controls and keep evidence that they work, such as logs, access reviews and test results.
+      - Review the controls and the SoA in internal audits and the management review at least yearly, and after incidents, new systems or new suppliers.
+    da:
+      - Tag udgangspunkt i risikovurderingen efter ISO 27001, som afgør, hvilke risici der skal håndteres; ISO 27002 er den vejledning, I bruger til at vælge og indføre kontroller, ikke en tjekliste, der skal følges ord for ord.
+      - Gå for hver risiko de 93 kontroller i de fire temaer igennem - organisatoriske, menneskelige, fysiske og teknologiske - og vælg dem, der passer, og tilføj egne kontroller, hvor ingen passer.
+      - Skriv i jeres SoA (Statement of Applicability) for hver kontrol i anneks A, om den bruges, hvorfor eller hvorfor ikke, og hvor langt den er implementeret.
+      - Brug hver kontrols formål og vejledning til at skrive reglen eller proceduren, tilpasset jeres egne systemer, fx adgangskontrol (5.15-5.18) eller backup (8.13), og udpeg en ejer.
+      - Brug attributterne, fx kontroltype eller cybersikkerhedsbegreb, til at tjekke balancen, fx at I har detekterende og korrigerende kontroller og ikke kun forebyggende.
+      - Hvor der findes sektorvejledning, fx ISO/IEC 27017 til cloud eller 27019 til energiforsyning, så læg dens ekstra vejledning oven i de relevante kontroller.
+      - Indfør kontrollerne, og gem dokumentation for, at de virker, fx logs, gennemgange af adgange og testresultater.
+      - Gennemgå kontrollerne og SoA'en ved interne audits og ledelsens evaluering mindst en gang om året og efter hændelser, nye systemer eller nye leverandører.
+  pitfalls:
+    en:
+      - Treating the guidance text as a checklist that must be followed word for word, instead of choosing controls from the risk assessment.
+      - Trying to get certified against ISO 27002, which is not possible; certification is against ISO 27001.
+      - Copying control texts into policies without adapting them, so the rules do not match how the systems are actually run.
+      - Leaving the SoA untouched when new risks, systems or suppliers appear.
+    da:
+      - At behandle vejledningsteksten som en tjekliste, der skal følges ord for ord, i stedet for at vælge kontroller ud fra risikovurderingen.
+      - At forsøge at blive certificeret efter ISO 27002, hvilket ikke kan lade sig gøre; certificering sker efter ISO 27001.
+      - At kopiere kontrolteksterne ind i politikkerne uden at tilpasse dem, så reglerne ikke passer til, hvordan systemerne faktisk drives.
+      - At lade SoA'en stå uændret, når nye risici, systemer eller leverandører kommer til.
+  guides:
+    - title: ISO/IEC 27002 - Foranstaltninger til informationssikkerhed
+      url: https://www.ds.dk/da/om-standarder/ledelsesstandarder/iso-27001-informationssikkerhed/iso-27002-foranstaltninger
+      publisher: Dansk Standard
+      tier: official-doc
+      lang: da
+    - title: ISO 27001 implementering - her finder du overblik og hjælp
+      url: https://www.sikkerdigital.dk/myndighed/iso-27001-implementering
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Vejledninger og skabeloner
+      url: https://www.sikkerdigital.dk/myndighed/vejledninger-og-skabeloner
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   kind-of: [security-framework]
   requires: [control]

@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { parseLearner, recordAnswer, setStatus, type Learner } from './learner';
-import { mergeLearner, sameLearner } from './sync';
+import {
+  parseLearner,
+  recordAnswer,
+  setStatus,
+  type Learner,
+  type Status,
+  type TermState,
+} from './learner';
+import { mergeLearner, sameLearner, scheduleSource, statusSource } from './sync';
 
 const DAY = 24 * 60 * 60 * 1000;
 const empty: Learner = { terms: {} };
@@ -116,5 +123,53 @@ describe('mergeLearner', () => {
     const reversed: Learner = { terms: Object.fromEntries(Object.entries(ab.terms).reverse()) };
     expect(sameLearner(ab, reversed)).toBe(true);
     expect(sameLearner(ab, laptop)).toBe(false);
+  });
+});
+
+describe('scheduleSource', () => {
+  const t = (box: number, due: number, reviewed?: number): TermState => ({
+    box,
+    due,
+    right: 0,
+    wrong: 0,
+    reviewed,
+  });
+
+  it('takes the most recent answer, even with a lower box', () => {
+    const later = t(0, 1, 20);
+    expect(scheduleSource(t(4, 9, 10), later)).toBe(later);
+  });
+
+  it('breaks a timestamp tie on the higher box, then the later due date', () => {
+    const high = t(3, 1);
+    expect(scheduleSource(t(2, 9), high)).toBe(high);
+    const later = t(2, 9);
+    expect(scheduleSource(t(2, 5), later)).toBe(later);
+  });
+
+  it('picks the first copy on a full tie', () => {
+    const a = t(2, 5, 1);
+    expect(scheduleSource(a, t(2, 5, 1))).toBe(a);
+  });
+});
+
+describe('statusSource', () => {
+  const t = (status?: Status, statusAt?: number): TermState => ({
+    box: 0,
+    due: 0,
+    right: 0,
+    wrong: 0,
+    status,
+    statusAt,
+  });
+
+  it('takes the most recent change, including a clear', () => {
+    const cleared = t(undefined, 20);
+    expect(statusSource(t('know', 10), cleared)).toBe(cleared);
+  });
+
+  it('lets any status beat none on a timestamp tie', () => {
+    const set = t('learning');
+    expect(statusSource(t(), set)).toBe(set);
   });
 });

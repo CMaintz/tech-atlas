@@ -41,6 +41,59 @@ deepDive:
     Softwarefortegnelsen har bevæget sig fra "hvilke programmer er installeret" mod gennemsigtighed på komponentniveau. En software bill of materials (SBOM) i SPDX- eller CycloneDX-format viser bibliotekerne inde i et produkt og gør det muligt at svare på "hvor kører vi en sårbar Log4j-version?" på timer frem for uger. EU's Cyber Resilience Act gør SBOM til en pligt for producenter af produkter med digitale elementer, med en tidsplan, der løber frem til udgangen af 2027.
 
     Typiske fejl: at bruge CMDB'en (en konfigurationsmodel bygget til IT-servicestyring med relationer mellem konfigurationselementer) som sikkerhedsfortegnelse uden at efterprøve dens fuldstændighed; at overse kortlivede cloud-workloads og containere, der kun eksisterer i minutter; at ignorere SaaS-abonnementer købt på firmakort (skygge-IT); og at glemme utraditionelle endpoints som printere, IP-kameraer, bygningsautomatik og mødelokaleudstyr. Kvaliteten måles på dækning - andelen af observerede enheder, der er kendte og har en ejer - ikke på listens længde.
+howTo:
+  steps:
+    en:
+      - Name an owner for the inventory and agree which asset types it covers - end-user devices, servers, network gear, cloud resources, IoT and OT devices, software and SaaS.
+      - Define the minimum fields for each record, such as a unique ID, type, owner, location, purpose, data sensitivity and whether the asset is managed.
+      - Collect data from several sources - directory, MDM and EDR consoles, DHCP logs, network scans, cloud APIs and purchasing - and merge them on stable keys like serial number or instance ID.
+      - Give every asset a named owner and link it to the systems and data it supports.
+      - Build a software inventory with version and support status, and keep a list of approved software.
+      - Compare what is seen on the network with the inventory, and deal with unknown devices at least weekly and unapproved software at least monthly (CIS Safeguards 1.2 and 2.3).
+      - Tie the inventory into procurement, onboarding and decommissioning, so assets are added and removed as part of normal work.
+      - Review the whole inventory at least twice a year and measure coverage as the share of observed devices that are known and have an owner.
+    da:
+      - Udpeg en ejer af fortegnelsen, og aftal, hvilke typer aktiver den dækker - brugerenheder, servere, netværksudstyr, cloudressourcer, IoT- og OT-enheder, software og SaaS.
+      - Fastlæg minimumsfelterne for hver post, fx et entydigt id, type, ejer, placering, formål, datas følsomhed og om aktivet er administreret.
+      - Indsaml data fra flere kilder - katalogtjeneste, MDM- og EDR-konsoller, DHCP-logs, netværksscanninger, cloud-API'er og indkøb - og flet dem på stabile nøgler som serienummer eller instans-id.
+      - Giv hvert aktiv en navngiven ejer, og knyt det til de systemer og data, det understøtter.
+      - Opbyg en softwarefortegnelse med version og supportstatus, og hold en liste over godkendt software.
+      - Sammenlign det, der ses på netværket, med fortegnelsen, og håndtér ukendte enheder mindst ugentligt og ikke-godkendt software mindst månedligt (CIS Safeguard 1.2 og 2.3).
+      - Kobl fortegnelsen til indkøb, onboarding og udfasning, så aktiver tilføjes og fjernes som en del af det normale arbejde.
+      - Gennemgå hele fortegnelsen mindst to gange om året, og mål dækningen som andelen af observerede enheder, der er kendte og har en ejer.
+  pitfalls:
+    en:
+      - Relying on a single source, such as the CMDB or the purchasing list, without checking it against what is on the network.
+      - Forgetting cloud workloads, SaaS bought on company cards, printers, cameras and OT devices.
+      - Keeping records without an owner, so vulnerabilities and end-of-life decisions have nobody to go to.
+      - Building the list once as a project and never updating it.
+    da:
+      - At stole på én kilde, fx CMDB'en eller indkøbslisten, uden at holde den op mod det, der faktisk er på netværket.
+      - At glemme cloud-workloads, SaaS købt på firmakort, printere, kameraer og OT-enheder.
+      - At have poster uden ejer, så sårbarheder og end-of-life-beslutninger ikke har nogen modtager.
+      - At lave listen én gang som et projekt og aldrig opdatere den.
+  guides:
+    - title: CIS Critical Security Control 1 - Inventory and Control of Enterprise Assets
+      url: https://www.cisecurity.org/controls/inventory-and-control-of-enterprise-assets
+      publisher: Center for Internet Security
+      tier: standard
+    - title: CIS Critical Security Control 2 - Inventory and Control of Software Assets
+      url: https://www.cisecurity.org/controls/inventory-and-control-of-software-assets
+      publisher: Center for Internet Security
+      tier: standard
+    - title: NIST SP 1800-5 - IT Asset Management
+      url: https://csrc.nist.gov/pubs/sp/1800/5/final
+      publisher: NIST
+      tier: standard
+    - title: 10 Steps to Cyber Security - Asset management
+      url: https://www.ncsc.gov.uk/collection/10-steps/asset-management
+      publisher: NCSC UK
+      tier: official-doc
+    - title: 1. Få overblik over vigtige data og systemer
+      url: https://sikkerdigital.dk/virksomhed/syv-raad-om-it-sikkerhed/1-faa-overblik-over-vigtige-data-og-systemer
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   kind-of: [control]
   mitigates:

@@ -41,6 +41,53 @@ deepDive:
     Resultatet er en skriftlig rapport med en faktuel tidslinje, konsekvenser, hvad der gik godt, hvad der ikke gjorde, og en liste over handlinger, hver med en ansvarlig, en frist og en måde at verificere, at den er gennemført. Handlingerne ændrer typisk detektionsregler, playbooks, kontaktlister, arkitektur, uddannelse eller leverandørkontrakter. Opfølgning på, at handlingerne lukkes, er det trin, der oftest springes over; organisationer, der noterer det samme fund i flere gennemgange, har dokumenteret frem for lært. Rapporten kan også levere materiale til den endelige NIS2-rapport om grundårsag og afhjælpning, men de to har forskellige modtagere og bør ikke være det samme dokument.
 
     I ISO/IEC 27001:2022 kræves praksissen via kontrol 5.27 i bilag A, læring af informationssikkerhedshændelser, og hænger sammen med afsnit 10 om løbende forbedring og korrigerende handlinger, hvilket er grunden til, at begrebet passer naturligt til Act-trinnet i PDCA-cyklussen. Lessons learned adskiller sig fra hændelsesrapportering i formål og timing: rapportering sender fakta videre til andre under og kort efter hændelsen, mens lessons learned er en intern analyse, der sigter mod forandring.
+howTo:
+  steps:
+    en:
+      - Decide which incidents and exercises always get a review, for example every incident above a set severity level, and name a facilitator who was not in charge of the response.
+      - Before the meeting, rebuild a factual timeline from logs, tickets, chat records and the incident log, so the discussion starts from what actually happened.
+      - Hold the meeting within a few days or weeks while memories are fresh, and state at the start that the review is blameless and looks at why decisions made sense at the time.
+      - Work through fixed questions - what happened and when, what went well, whether procedures were followed and good enough, what information was needed sooner and what slowed recovery.
+      - Look for several contributing factors, such as a missing alert, an unclear mandate and an outdated contact list, instead of settling on one root cause.
+      - Write a short report with the timeline, impact, what worked, what did not and a list of actions, each with an owner, a deadline and a way to check it is done.
+      - Track the actions to closure in your normal task or risk system, report open items to management, and check at the next review whether the same finding comes back.
+    da:
+      - Beslut, hvilke hændelser og øvelser der altid skal evalueres, fx alle hændelser over et fastsat alvorlighedsniveau, og udpeg en mødeleder, der ikke selv ledede indsatsen.
+      - Genskab før mødet en faktuel tidslinje ud fra logs, sager, chatbeskeder og hændelsesloggen, så drøftelsen tager udgangspunkt i det, der faktisk skete.
+      - Hold mødet inden for få dage eller uger, mens alle husker forløbet, og sig fra starten, at gennemgangen er skyldfri og ser på, hvorfor beslutningerne gav mening dengang.
+      - Gå faste spørgsmål igennem - hvad skete der og hvornår, hvad gik godt, blev procedurerne fulgt og var de gode nok, hvilke oplysninger manglede man tidligere, og hvad forsinkede genopretningen.
+      - Led efter flere medvirkende faktorer, fx en manglende alarm, et uklart mandat og en forældet kontaktliste, i stedet for at nøjes med én grundårsag.
+      - Skriv en kort rapport med tidslinje, konsekvenser, hvad der virkede, hvad der ikke gjorde, og en liste over handlinger, hver med en ansvarlig, en frist og en måde at kontrollere, at den er gennemført.
+      - Følg handlingerne i jeres normale opgave- eller risikosystem, til de er lukket, rapportér åbne punkter til ledelsen, og tjek ved næste evaluering, om det samme fund dukker op igen.
+  pitfalls:
+    en:
+      - Looking for someone to blame, so people stop reporting mistakes and near misses.
+      - Writing a good report but never following up the actions, so the same finding appears again at the next incident.
+      - Stopping at one root cause and leaving the other contributing factors in place.
+      - Reusing the NIS2 final report as the internal review, although it is written for a different reader and purpose.
+    da:
+      - At lede efter en syndebuk, så folk holder op med at melde fejl og nærved-hændelser.
+      - At skrive en god rapport, men aldrig følge op på handlingerne, så det samme fund dukker op igen ved næste hændelse.
+      - At stoppe ved én grundårsag og lade de andre medvirkende faktorer blive stående.
+      - At genbruge den endelige NIS2-rapport som den interne evaluering, selv om den er skrevet til en anden modtager og med et andet formål.
+  guides:
+    - title: Site Reliability Engineering - Postmortem Culture - Learning from Failure
+      url: https://sre.google/sre-book/postmortem-culture/
+      publisher: Google
+      tier: textbook
+    - title: Maintain - Build and upkeep of your capability
+      url: https://www.ncsc.gov.uk/collection/incident-management/building-and-maintaining-capability
+      publisher: NCSC UK
+      tier: official-doc
+    - title: NIST SP 800-61 Rev. 3 - Incident Response Recommendations and Considerations for Cybersecurity Risk Management - A CSF 2.0 Community Profile
+      url: https://csrc.nist.gov/pubs/sp/800/61/r3/final
+      publisher: NIST
+      tier: standard
+    - title: Evalueringer
+      url: https://www.brs.dk/da/redningsberedskab-myndighed/krisestyring2-og-beredskabsplanlagning/helhedsorienteret-beredskabsplanlagning/evalueringer/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   part-of: [incident-response]
   implements: [pdca]

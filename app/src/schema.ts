@@ -137,6 +137,49 @@ export const Body = z
   .strict();
 export type Body = z.infer<typeof Body>;
 
+/* ---- How to put it into practice (A101) ----------------------------- */
+
+/** A step-by-step list, the same number of items in both languages. */
+const StepList = (min: number, max: number) =>
+  z
+    .object({
+      en: z.array(z.string().min(1)).min(min).max(max),
+      da: z.array(z.string().min(1)).min(min).max(max),
+    })
+    .strict()
+    .refine((l) => l.en.length === l.da.length, {
+      message: 'en and da must have the same number of items',
+    });
+
+/** An external guide for doing it: official or primary sources first. */
+export const HowToGuide = z
+  .object({
+    title: z.string().min(1),
+    url: z
+      .string()
+      .url()
+      .regex(/^https?:\/\//, 'must be an http(s) URL'),
+    publisher: z.string().min(1),
+    tier: SourceTier,
+    /** The guide's language; omitted means English. */
+    lang: z.enum(['en', 'da']).optional(),
+  })
+  .strict();
+export type HowToGuide = z.infer<typeof HowToGuide>;
+
+/**
+ * Practical guidance for an actionable term: ordered steps, common pitfalls and good
+ * guides. Exempt from Closed Vocabulary (technical guidance), like a deep dive.
+ */
+export const HowTo = z
+  .object({
+    steps: StepList(5, 10),
+    pitfalls: StepList(1, 8).optional(),
+    guides: z.array(HowToGuide).min(2).max(5),
+  })
+  .strict();
+export type HowTo = z.infer<typeof HowTo>;
+
 /* ---- Term frontmatter ---------------------------------------------- */
 
 export const TermFrontmatter = z
@@ -159,6 +202,14 @@ export const TermFrontmatter = z
       .object({ en: z.string().min(1), da: z.string().min(1) })
       .strict()
       .optional(),
+    /**
+     * Is this something you do or implement (a process, control, practice, framework,
+     * law to comply with, tool or technique)? Omitted: decided by `isActionable`'s
+     * cluster, layer and edge rules (src/lib/actionable.ts, A101).
+     */
+    actionable: z.boolean().optional(),
+    /** How to put it into practice (A101): steps, pitfalls and guides. */
+    howTo: HowTo.optional(),
     edges: Edges.default({}),
     article: z.object({ en: z.string().optional(), da: z.string().optional() }).strict().optional(),
     sources: z.array(Source).min(1),

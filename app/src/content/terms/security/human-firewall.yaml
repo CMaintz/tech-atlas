@@ -41,6 +41,7 @@ deepDive:
     Målepunkterne følger af modellen: meldeprocent og mediantid til første melding pr. kampagne, forholdet mellem meldinger og klik, andelen af meldte mails, der faktisk var ondsindede (et udtryk for kvaliteten af detektionen, ikke kun mængden), og tiden fra første melding til oprydning. Feedback lukker sløjfen; medarbejdere, der aldrig hører noget tilbage, holder op med at melde.
 
     Typiske faldgruber er, at metaforen bliver til bebrejdelse (click-and-shame, offentlige ranglister, sanktioner for at fejle en simulering), en meldepostkasse, som ingen overvåger, og at man lader mennesker kompensere for manglende tekniske kontroller. En human firewall er ét lag i et dybdeforsvar bag SPF/DKIM/DMARC, filtrering, sandboxing og phishing-resistent MFA; den supplerer dem ved at dække det, de overser, og den er en egenskab ved sikkerhedskulturen snarere end noget, en enkelt awareness-kampagne kan skabe.
+actionable: false
 edges:
   kind-of: [security-culture]
   requires: [security-awareness]

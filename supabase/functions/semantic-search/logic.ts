@@ -1,13 +1,26 @@
 /**
- * The pure half of the `semantic-search` Edge Function (A75): request validation, CORS,
- * a per-IP rate limit and the Cloudflare Workers AI embedding call. No Deno APIs, so
- * the app's Vitest suite tests it and `npm run embed` reuses the same Cloudflare client
- * (app/src/lib/semantic-function.test.ts, app/scripts/embed.ts).
+ * The pure half of the `semantic-search` Edge Function (A75): its limits, request
+ * validation and the database answers it parses. No Deno APIs, so the app's Vitest
+ * suite tests it (app/src/lib/semantic-function.test.ts). It also re-exports the
+ * shared request plumbing (../_shared) and the Workers AI client (cloudflare.ts) under
+ * the names the tests and scripts have always imported from here.
  */
+import { readCapped as readCappedTo } from "../_shared/body.ts";
+import { type Lang, langError } from "../_shared/lang.ts";
+import { RateLimiter } from "../_shared/rate-limit.ts";
 
-/** The embedding model behind the function — the same one `npm run embed` uses. */
-export const CLOUDFLARE_MODEL = "@cf/baai/bge-m3";
-export const DIM = 1024;
+export { allowedOrigin, corsHeaders } from "../_shared/cors.ts";
+export { clientIp, ipKey } from "../_shared/client.ts";
+export { RateLimiter } from "../_shared/rate-limit.ts";
+export type { Lang } from "../_shared/lang.ts";
+export {
+  CLOUDFLARE_MODEL,
+  cloudflareEmbed,
+  DIM,
+  type Embedded,
+  normalize,
+  parseCloudflareEmbedding,
+} from "./cloudflare.ts";
 
 /** Longest query embedded; longer ones are rejected (a question, not a document). */
 export const MAX_QUERY_CHARS = 200;
@@ -25,7 +38,14 @@ export const MAX_BODY_BYTES = 2048;
 /** One deadline for the whole upstream chain: rate check, Workers AI, match_terms. */
 export const UPSTREAM_DEADLINE_MS = 5500;
 
-export type Lang = "en" | "da";
+/** The in-isolate flood filter: at most RATE_LIMIT requests a window per IP. */
+export const floodFilter = () => new RateLimiter(RATE_LIMIT, RATE_WINDOW_MS);
+
+/** Read a request body, refusing more than `maxBytes` (default MAX_BODY_BYTES). */
+export const readCapped = (
+  body: ReadableStream<Uint8Array> | null,
+  maxBytes = MAX_BODY_BYTES,
+) => readCappedTo(body, maxBytes);
 
 export type SearchRequest = { q: string; lang: Lang; k: number };
 
@@ -33,212 +53,47 @@ export type SearchRequest = { q: string; lang: Lang; k: number };
 export function parseSearchRequest(
   body: unknown,
 ): { ok: true; value: SearchRequest } | { ok: false; error: string } {
-  if (!body || typeof body !== "object")
+  if (!body || typeof body !== "object") {
     return { ok: false, error: "expected a JSON object" };
+  }
   const { q, lang, k } = body as Record<string, unknown>;
-  if (typeof q !== "string" || !q.trim())
-    return { ok: false, error: "`q` must be a string" };
-  if (q.length > MAX_QUERY_CHARS) {
-    return {
-      ok: false,
-      error: `\`q\` is longer than ${MAX_QUERY_CHARS} characters`,
-    };
-  }
-  if (lang !== "en" && lang !== "da")
-    return { ok: false, error: '`lang` must be "en" or "da"' };
-  if (
-    k !== undefined &&
-    (typeof k !== "number" || !Number.isInteger(k) || k < 1 || k > MAX_K)
-  ) {
-    return { ok: false, error: `\`k\` must be an integer from 1 to ${MAX_K}` };
-  }
+  const error = queryError(q) ?? langError(lang) ?? countError(k);
+  if (error) return { ok: false, error };
   return {
     ok: true,
-    value: { q: q.trim(), lang, k: (k as number | undefined) ?? DEFAULT_K },
+    value: {
+      q: (q as string).trim(),
+      lang: lang as Lang,
+      k: (k as number | undefined) ?? DEFAULT_K,
+    },
   };
 }
 
-/** The deployed site, plus any local dev server. */
-export function allowedOrigin(origin: string | null): boolean {
-  if (!origin) return false;
-  if (origin === "https://cmaintz.github.io") return true;
-  return /^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/.test(origin);
-}
-
-export function corsHeaders(origin: string | null): Record<string, string> {
-  const base: Record<string, string> = { Vary: "Origin" };
-  if (!allowedOrigin(origin)) return base;
-  return {
-    ...base,
-    "Access-Control-Allow-Origin": origin!,
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers":
-      "content-type, authorization, apikey, x-client-info",
-    "Access-Control-Max-Age": "86400",
-  };
-}
-
-/**
- * The caller's IP. `cf-connecting-ip` is set by the edge in front of Supabase and
- * overwrites any value the client sends; failing that, the **rightmost** X-Forwarded-For
- * hop (the one our proxy appended) — the leftmost is whatever the client claimed.
- */
-export function clientIp(headers: {
-  get(name: string): string | null;
-}): string {
-  const cf = headers.get("cf-connecting-ip")?.trim();
-  if (cf) return cf;
-  const hops = (headers.get("x-forwarded-for") ?? "")
-    .split(",")
-    .map((h) => h.trim())
-    .filter(Boolean);
-  return hops.at(-1) || "unknown";
-}
-
-/** A stable, non-reversible key for an IP (the rate-limit table never stores addresses). */
-export async function ipKey(ip: string): Promise<string> {
-  const digest = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(`atlas:${ip}`),
-  );
-  return Array.from(new Uint8Array(digest).subarray(0, 12), (b) =>
-    b.toString(16).padStart(2, "0"),
-  ).join("");
-}
-
-/**
- * Read a request body as text, refusing more than `maxBytes` — counted while streaming,
- * so a lying or absent Content-Length can't make the function buffer a large body.
- */
-export async function readCapped(
-  body: ReadableStream<Uint8Array> | null,
-  maxBytes = MAX_BODY_BYTES,
-): Promise<{ ok: true; text: string } | { ok: false }> {
-  if (!body) return { ok: true, text: "" };
-  const reader = body.getReader();
-  const chunks: Uint8Array[] = [];
-  let size = 0;
-  for (;;) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    size += value.byteLength;
-    if (size > maxBytes) {
-      await reader.cancel().catch(() => {});
-      return { ok: false };
-    }
-    chunks.push(value);
+function queryError(q: unknown): string | null {
+  if (typeof q !== "string" || !q.trim()) return "`q` must be a string";
+  if (q.length > MAX_QUERY_CHARS) {
+    return `\`q\` is longer than ${MAX_QUERY_CHARS} characters`;
   }
-  const all = new Uint8Array(size);
-  let at = 0;
-  for (const c of chunks) {
-    all.set(c, at);
-    at += c.byteLength;
-  }
-  return { ok: true, text: new TextDecoder().decode(all) };
+  return null;
 }
 
-/** Fixed-window counter per key. Old windows are dropped as keys are seen. */
-export class RateLimiter {
-  private windows = new Map<string, { start: number; count: number }>();
-  constructor(
-    private limit = RATE_LIMIT,
-    private windowMs = RATE_WINDOW_MS,
-  ) {}
-
-  allow(key: string, now: number): boolean {
-    if (this.windows.size > 10_000) {
-      for (const [k, w] of this.windows)
-        if (now - w.start >= this.windowMs) this.windows.delete(k);
-    }
-    const w = this.windows.get(key);
-    if (!w || now - w.start >= this.windowMs) {
-      this.windows.set(key, { start: now, count: 1 });
-      return true;
-    }
-    w.count += 1;
-    return w.count <= this.limit;
+function countError(k: unknown): string | null {
+  if (k === undefined) return null;
+  if (typeof k === "number" && Number.isInteger(k) && k >= 1 && k <= MAX_K) {
+    return null;
   }
-}
-
-export function normalize(v: ArrayLike<number>): number[] {
-  let n = 0;
-  for (let i = 0; i < v.length; i++) n += v[i] * v[i];
-  n = Math.sqrt(n);
-  return Array.from(v, (x) => (n ? x / n : 0));
+  return `\`k\` must be an integer from 1 to ${MAX_K}`;
 }
 
 /** pgvector's text form, e.g. `[0.1,0.2]`. */
 export const toVectorLiteral = (v: ArrayLike<number>) =>
   `[${Array.from(v).join(",")}]`;
 
-type FetchLike = (url: string, init: RequestInit) => Promise<Response>;
-
-/** Unit vectors, one per text, and the pooling Workers AI reports (not documented for bge-m3). */
-export type Embedded = { vectors: number[][]; pooling?: string };
-
-/**
- * Embed texts with Cloudflare Workers AI (REST) — the one code path used both for
- * queries (the function) and for the stored term vectors (seed-vectors.ts), so the two
- * always come from the same service. Throws on any HTTP, API or shape error.
- */
-export async function cloudflareEmbed(
-  texts: string[],
-  opts: {
-    accountId: string;
-    token: string;
-    fetch?: FetchLike;
-    signal?: AbortSignal;
-  },
-): Promise<Embedded> {
-  const doFetch = opts.fetch ?? fetch;
-  const res = await doFetch(
-    `https://api.cloudflare.com/client/v4/accounts/${opts.accountId}/ai/run/${CLOUDFLARE_MODEL}`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${opts.token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text: texts, truncate_inputs: true }),
-      signal: opts.signal,
-    },
-  );
-  if (!res.ok) throw new Error(`Workers AI: HTTP ${res.status}`);
-  return parseCloudflareEmbedding(await res.json(), texts.length);
-}
-
-export function parseCloudflareEmbedding(
-  json: unknown,
-  expected: number,
-): Embedded {
-  const body = json as {
-    success?: boolean;
-    result?: { data?: unknown; pooling?: unknown };
-  };
-  if (!body || body.success === false)
-    throw new Error("Workers AI: request failed");
-  const data = body.result?.data;
-  const pooling =
-    typeof body.result?.pooling === "string" ? body.result.pooling : undefined;
-  if (
-    !Array.isArray(data) ||
-    data.length !== expected ||
-    !data.every(
-      (v) =>
-        Array.isArray(v) &&
-        v.length === DIM &&
-        v.every((x) => typeof x === "number"),
-    )
-  ) {
-    throw new Error("Workers AI: unexpected response shape");
-  }
-  return { vectors: (data as number[][]).map(normalize), pooling };
-}
-
 /** The `search_allow` RPC answers a bare JSON boolean; anything else is an error. */
 export function parseAllow(json: unknown): boolean {
-  if (typeof json !== "boolean")
+  if (typeof json !== "boolean") {
     throw new Error("search_allow: expected a boolean");
+  }
   return json;
 }
 

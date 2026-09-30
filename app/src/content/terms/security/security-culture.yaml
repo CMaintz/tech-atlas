@@ -41,6 +41,55 @@ deepDive:
     Kultur er sværere at måle end awareness. Metoderne kombinerer spørgeskemaer om holdninger og oplevede normer, interviews og observation samt adfærdsindikatorer som meldeprocent, tiden fra en fejl til selvindrapportering, antallet og alderen af undtagelser fra politikken, og om sikkerhed bringes op tidligt i projekter eller først ved idriftsættelsen. NIST SP 800-50 Rev. 1 (afsnit 1.4) behandler kultur som det resultat, et læringsprogram skal understøtte, ikke som et modul i sig selv, og ENISA's rapport Cyber Security Culture in Organisations (2018), der trækker på organisationsteori, psykologi og jura, giver metodiske værktøjer og trinvis vejledning til at starte eller forbedre et kulturprogram.
 
     Kultur må ikke forveksles med naboerne. Awareness er det, den enkelte ved og kan; kultur er gruppens fælles normer, der afgør, om den viden bliver brugt, når det er ubelejligt. En sikkerhedspolitik fastsætter reglerne; kulturen afgør, om de bliver levet. Human firewall er ét synligt udtryk for en stærk kultur, og subkulturer betyder noget: Et udviklingsteam, en hospitalsafdeling og en økonomiafdeling i samme organisation kan have vidt forskellige sikkerhedsnormer og brug for forskellige indsatser.
+howTo:
+  steps:
+    en:
+      - Get top management to say why security matters, act on it themselves and take part in training, since staff copy what leaders do more than what policies say.
+      - Measure the starting point with a short survey of attitudes and perceived norms, a few interviews, and behavioural indicators such as reporting rate and time to self-report.
+      - Look for workarounds such as shared passwords, personal cloud storage and shadow IT, and treat them as signs of friction to fix rather than only as misconduct.
+      - Adopt a just culture by announcing that honest mistakes and near misses can be reported without punishment, while reckless or malicious acts are still dealt with.
+      - Remove friction where it drives people around controls, for example with single sign-on, approved tools for sharing files and a quick way to request an exception.
+      - Recruit security champions in each department, and let them adapt the message to their own subculture, such as developers, a hospital ward or finance.
+      - Make good behaviour visible, for instance by thanking people at staff meetings for reporting a suspicious mail and sharing what their report prevented.
+      - Repeat the measurement every year, compare it with the starting point, and report the changes to management together with next year's focus.
+    da:
+      - Få topledelsen til at sige, hvorfor sikkerhed er vigtig, selv at handle efter det og deltage i træningen, fordi medarbejderne gør som lederne mere end som politikkerne.
+      - Mål udgangspunktet med et kort spørgeskema om holdninger og oplevede normer, nogle få interviews og adfærdsindikatorer som meldeprocent og tid til selvindrapportering.
+      - Kig efter workarounds som delte adgangskoder, private cloudtjenester og skygge-IT, og behandl dem som tegn på friktion, der skal fjernes, og ikke kun som dårlig opførsel.
+      - Indfør en just culture, hvor I melder ud, at ærlige fejl og nærved-hændelser kan meldes uden straf, mens hensynsløse eller ondsindede handlinger stadig får konsekvenser.
+      - Fjern friktion, hvor den får folk til at gå uden om kontrollerne, fx med single sign-on, godkendte værktøjer til fildeling og en hurtig måde at søge om en undtagelse på.
+      - Find sikkerhedsambassadører i hver afdeling, og lad dem tilpasse budskabet til deres egen subkultur, fx udviklere, en hospitalsafdeling eller økonomi.
+      - Gør god adfærd synlig, fx ved på fællesmøder at takke folk, der har meldt en mistænkelig mail, og fortælle, hvad deres melding forhindrede.
+      - Gentag målingen hvert år, sammenlign med udgangspunktet, og rapportér ændringerne til ledelsen sammen med næste års fokus.
+  pitfalls:
+    en:
+      - Confusing culture with an awareness campaign and measuring course completions instead of behaviour.
+      - Punishing people who click or who report their own mistakes, so the next incident is hidden.
+      - Leaders who ask for exceptions to the rules they expect staff to follow.
+      - One programme for the whole organisation that ignores the different norms of each department.
+    da:
+      - At forveksle kultur med en awareness-kampagne og måle gennemførte kurser i stedet for adfærd.
+      - At straffe folk, der klikker, eller som melder deres egne fejl, så den næste hændelse bliver skjult.
+      - Ledere, der beder om undtagelser fra de regler, de forventer, at medarbejderne følger.
+      - Ét program for hele organisationen, der overser de forskellige normer i hver afdeling.
+  guides:
+    - title: Cyber security culture principles
+      url: https://www.ncsc.gov.uk/collection/cyber-security-culture-principles
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Cyber Security Culture in Organisations
+      url: https://www.enisa.europa.eu/publications/cyber-security-culture-in-organisations
+      publisher: ENISA
+      tier: official-doc
+    - title: NIST SP 800-50 Rev. 1 - Building a Cybersecurity and Privacy Learning Program
+      url: https://csrc.nist.gov/pubs/sp/800/50/r1/final
+      publisher: NIST
+      tier: standard
+    - title: Om at arbejde med adfærdsindsatser
+      url: https://sikkerdigital.dk/myndighed/uddannelse-og-awareness/om-at-arbejde-med-adfaerdsindsatser
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   requires: [security-awareness, security-policy]
   part-of: [governance]

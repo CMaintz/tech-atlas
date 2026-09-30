@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import type { Graph, GraphLink, GraphNode } from './graph-model';
 import {
+  guidesFor,
   connectionCycle,
   makeTermCache,
   nextCycleState,
@@ -251,5 +252,25 @@ describe('panel history (Back / Forward)', () => {
     let h = startHistory('t0');
     for (let k = 1; k < 10; k++) h = visit(h, `t${k}`, 3);
     expect(h).toEqual({ entries: ['t7', 't8', 't9'], pos: 2 });
+  });
+});
+
+describe('guidesFor (A101)', () => {
+  const guides = [
+    { title: 'NIST', lang: undefined },
+    { title: 'Datatilsynet', lang: 'da' as const },
+    { title: 'ENISA', lang: 'en' as const },
+  ];
+  it('puts the reader language first and marks the rest', () => {
+    expect(guidesFor(guides, 'da').map((g) => [g.title, g.other])).toEqual([
+      ['Datatilsynet', false],
+      ['NIST', true],
+      ['ENISA', true],
+    ]);
+    expect(guidesFor(guides, 'en').map((g) => [g.title, g.other])).toEqual([
+      ['NIST', false],
+      ['ENISA', false],
+      ['Datatilsynet', true],
+    ]);
   });
 });

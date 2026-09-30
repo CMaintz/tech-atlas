@@ -33,32 +33,42 @@ export function originOf(value) {
 }
 
 /**
+ * The third-party origins the client talks to: the Supabase project and the two
+ * Edge Functions, each only when its build variable is set.
+ * @param {Record<string, string | undefined>} env
+ */
+function connectOrigins(env) {
+  const origins = [
+    originOf(env.PUBLIC_SUPABASE_URL),
+    originOf(env.PUBLIC_SEMANTIC_SEARCH_URL),
+    originOf(env.PUBLIC_FEEDBACK_URL),
+  ];
+  return [...new Set(origins.filter((o) => o !== null))];
+}
+
+/** Every directive but connect-src, which depends on the build. */
+const FIXED_DIRECTIVES = [
+  "img-src 'self' data:",
+  "font-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-src 'none'",
+  "worker-src 'self'",
+  "manifest-src 'self'",
+];
+
+/**
  * Astro `security.csp` settings for the given build environment.
  * @param {Record<string, string | undefined>} env
  */
 export function cspConfig(env) {
-  const origins = [
-    ...new Set(
-      [
-        originOf(env.PUBLIC_SUPABASE_URL),
-        originOf(env.PUBLIC_SEMANTIC_SEARCH_URL),
-        originOf(env.PUBLIC_FEEDBACK_URL),
-      ].filter((o) => o !== null),
-    ),
-  ];
   return {
     algorithm: /** @type {const} */ ('SHA-256'),
     directives: [
       "default-src 'self'",
-      ['connect-src', "'self'", ...origins].join(' '),
-      "img-src 'self' data:",
-      "font-src 'self'",
-      "object-src 'none'",
-      "base-uri 'self'",
-      "form-action 'self'",
-      "frame-src 'none'",
-      "worker-src 'self'",
-      "manifest-src 'self'",
+      ['connect-src', "'self'", ...connectOrigins(env)].join(' '),
+      ...FIXED_DIRECTIVES,
     ],
     styleDirective: { resources: ["'self'", "'unsafe-inline'"] },
   };

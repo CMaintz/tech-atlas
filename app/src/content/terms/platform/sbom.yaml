@@ -42,6 +42,54 @@ deepDive:
     SBOM'er adskiller sig efter, hvornår de laves; CISA's taksonomi skelner mellem design-, kilde-, build-, analyserede, udrullede og runtime-SBOM'er. En build-SBOM, som pakkehåndteringen eller byggeværktøjet genererer under kompileringen, er som regel den mest komplette; en analyseret SBOM, lavet ved at scanne en færdig binær eller et container-image (Syft, Trivy, cdxgen), kan overse statisk linket, vendoreret eller shadet kode. Dybden betyder noget: mange afhængigheder er transitive, og en SBOM med kun direkte afhængigheder ville have skjult det meste af Log4j-eksponeringen i 2021. SBOM'er vedhæftes ofte udgivelser eller container-images som signerede in-toto-attestationer, så modtagerne kan verificere deres oprindelse.
 
     En SBOM er en fortegnelse, ikke en vurdering. Værdien viser sig, når den indlæses i værktøjer (fx OWASP Dependency-Track) og løbende sammenholdes med sårbarhedsdata, og når den kombineres med VEX (Vulnerability Exploitability eXchange i CSAF- eller OpenVEX-form), hvor leverandøren oplyser, om en listet sårbarhed faktisk rammer produktet. I EU kræver Cyberrobusthedsforordningen (forordning (EU) 2024/2847), bilag I, del II, punkt 1, at producenter identificerer og dokumenterer komponenter, bl.a. ved at udarbejde en SBOM i et almindeligt anvendt, maskinlæsbart format, der som minimum dækker de øverste afhængigheder; SBOM'en er en del af den tekniske dokumentation og skal ikke offentliggøres. Forordningens hovedforpligtelser gælder fra 11. december 2027, mens pligten til at indberette sårbarheder har gældt siden 11. september 2026. SBOM adskiller sig fra software composition analysis, som er den proces, der bruger eller producerer sådanne fortegnelser for at finde sårbare og ikke-kompatible komponenter.
+howTo:
+  steps:
+    en:
+      - Decide which products and releases need an SBOM, including products placed on the EU market under the Cyber Resilience Act, and choose one format, SPDX or CycloneDX.
+      - Generate a build SBOM automatically in the pipeline for every release from the package manager or build tool, and add an analysed SBOM of the finished image to catch operating-system packages.
+      - Check that each SBOM holds the minimum data - supplier, component name, version, unique identifiers such as a purl, dependency relationships, author and timestamp - and that it includes transitive dependencies.
+      - Sign the SBOM and attach it to the release or container image as an attestation, and keep it with the product's technical documentation.
+      - Load all SBOMs into a tool such as OWASP Dependency-Track that continuously matches components against newly published vulnerabilities.
+      - Publish VEX statements saying whether a listed vulnerability actually affects your product, so customers do not chase false alarms.
+      - Require SBOMs from your own suppliers in contracts, and load the SBOMs you receive into the same inventory.
+      - Regenerate the SBOM for every new release, and use the inventory to answer "are we affected?" within hours when a critical flaw is announced.
+    da:
+      - Beslut, hvilke produkter og udgivelser der skal have en SBOM, herunder produkter, der bringes i omsætning i EU under Cyberrobusthedsforordningen, og vælg ét format, SPDX eller CycloneDX.
+      - Generér automatisk en build-SBOM i pipelinen for hver udgivelse ud fra pakkehåndteringen eller byggeværktøjet, og tilføj en analyseret SBOM af det færdige image for at fange styresystempakker.
+      - Tjek, at hver SBOM har minimumsdata - leverandør, komponentnavn, version, unikke identifikatorer som en purl, afhængighedsforhold, forfatter og tidsstempel - og at den medtager transitive afhængigheder.
+      - Signér SBOM'en, og vedhæft den udgivelsen eller container-imaget som en attestation, og opbevar den sammen med produktets tekniske dokumentation.
+      - Indlæs alle SBOM'er i et værktøj som OWASP Dependency-Track, der løbende matcher komponenterne mod nyudgivne sårbarheder.
+      - Udgiv VEX-erklæringer om, hvorvidt en listet sårbarhed faktisk rammer jeres produkt, så kunderne ikke jagter falske alarmer.
+      - Kræv SBOM'er af jeres egne leverandører i kontrakterne, og indlæs dem, I modtager, i samme fortegnelse.
+      - Generér SBOM'en igen ved hver ny udgivelse, og brug fortegnelsen til at svare på "er vi ramt?" inden for timer, når en kritisk sårbarhed bliver kendt.
+  pitfalls:
+    en:
+      - Producing SBOMs only to tick a box and never loading them into a tool that checks them against new vulnerabilities.
+      - Listing only direct dependencies, which hides most of the real exposure, as with Log4j in 2021.
+      - Making the SBOM by hand once instead of on every build, so it no longer matches what is shipped.
+      - Using inconsistent component identifiers, so automatic matching gives both false positives and missed vulnerabilities.
+    da:
+      - At lave SBOM'er for at opfylde et krav uden nogensinde at indlæse dem i et værktøj, der tjekker dem mod nye sårbarheder.
+      - Kun at liste direkte afhængigheder, hvilket skjuler det meste af den reelle eksponering, som med Log4j i 2021.
+      - At lave SBOM'en i hånden én gang i stedet for ved hvert build, så den ikke længere passer med det, der leveres.
+      - At bruge inkonsistente identifikatorer for komponenter, så den automatiske matchning giver både falske positiver og oversete sårbarheder.
+  guides:
+    - title: 2026 Minimum Elements for a Software Bill of Materials (SBOM)
+      url: https://www.cisa.gov/resources-tools/resources/2026-minimum-elements-software-bill-materials-sbom
+      publisher: CISA
+      tier: official-doc
+    - title: Software Bill of Materials (SBOM)
+      url: https://www.cisa.gov/sbom
+      publisher: CISA
+      tier: official-doc
+    - title: OWASP Dependency-Track documentation
+      url: https://docs.dependencytrack.org/
+      publisher: OWASP
+      tier: reference
+    - title: NIST SP 800-218 - Secure Software Development Framework (SSDF) Version 1.1
+      url: https://csrc.nist.gov/pubs/sp/800/218/final
+      publisher: NIST
+      tier: standard
 edges:
   requires: [software-supply-chain]
   used-with:

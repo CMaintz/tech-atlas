@@ -20,6 +20,9 @@ const PANEL_EN = {
   prevConnectionLabel: 'Previous connection of {name} (←)',
   nextConnectionLabel: 'Next connection of {name} (→)',
   returnTo: 'Return to {name}',
+  howTo: 'How to',
+  howToMore: 'All steps and guides →',
+  howToMoreLabel: 'See every step, the common pitfalls and good guides on the term page',
 } as const;
 
 export const PANEL_UI: Record<Lang, Record<keyof typeof PANEL_EN, string>> = {
@@ -43,5 +46,8 @@ export const PANEL_UI: Record<Lang, Record<keyof typeof PANEL_EN, string>> = {
     prevConnectionLabel: 'Forrige forbindelse for {name} (←)',
     nextConnectionLabel: 'Næste forbindelse for {name} (→)',
     returnTo: 'Tilbage til {name}',
+    howTo: 'Sådan gør du',
+    howToMore: 'Alle trin og vejledninger →',
+    howToMoreLabel: 'Se alle trin, de typiske faldgruber og gode vejledninger på begrebets side',
   },
 };

@@ -41,6 +41,7 @@ deepDive:
     Forsvaret er kumulativt, ikke et enten-eller. Reproducerbare builds lader uafhængige parter genbygge og sammenligne digests og afslører manipulation under bygning; hermetiske, flygtige byggemiljøer og kortlivede legitimationsoplysninger begrænser, hvad et kompromitteret job kan gøre; gennemgang ved to personer og beskyttede grene håndterer trusler mod kilden; låste, hash-verificerede afhængigheder med SCA og SBOM'er håndterer afhængighedslaget; signering og verifikation af provenance ved udrulning lukker distributionsleddet. OpenSSF Scorecard giver heuristiske risikosignaler for open source-projekter, selvom ingen af disse signaler med sikkerhed ville have fanget xz-angrebet.
 
     Til styring dækker NIST SP 800-161r1 (2022) risikostyring i cyberforsyningskæden for indkøbere, mens NIST SP 800-218 (SSDF) og SP 800-204D dækker producenter. I EU kræver NIS2-direktivets artikel 21, stk. 2, litra d, at omfattede enheder håndterer sikkerheden i forsyningskæden, herunder de direkte leverandørers sikkerhedspraksis, og Cyberrobusthedsforordningen kræver, at producenter af produkter med digitale elementer udviser rettidig omhu over for tredjepartskomponenter; indberetningspligterne har gældt siden 11. september 2026, og forordningen finder fuldt anvendelse fra 11. december 2027.
+actionable: false
 edges:
   used-with:
     - supplier-management

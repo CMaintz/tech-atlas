@@ -41,6 +41,54 @@ deepDive:
     Claude Codes sandboxede Bash-værktøj viser en lokal implementering: det bruger Seatbelt på macOS og bubblewrap plus en proxy via socat på Linux og WSL2, tillader som standard skrivning i arbejdsmappen og sessionens temp-mappe og begrænser udgående trafik til tilladte domæner. Bemærk, at det ved manglende afhængigheder advarer og kører uden sandkasse, medmindre det er sat op til at fejle lukket, en detalje, som en revision bør tjekke.
 
     Udbredte misforståelser: En sandkasse stopper ikke prompt injection, den begrænser skadens omfang, og den neutraliserer ikke misbrug af de kanaler, den tillader. En agent, der må pushe til GitHub, kan exfiltrere via et commit, og kode skrevet inde i sandkassen kan plante en ondsindet git-hook eller et CI-trin, der senere kører uden for den. Sandkassen er altså håndhævelsesmekanismen for mindste privilegium, supplerer menneske i løkken-godkendelse og mindsker den godkendelsestræthed, der opstår, når hver kommando kræver et klik.
+howTo:
+  steps:
+    en:
+      - List every place an agent runs code or uses tools (developer laptops, CI runners, hosted agents), and decide per use case how strong the wall must be, from a per-command sandbox for everyday work to a container or virtual machine for unattended runs and untrusted repositories.
+      - Give each task a fresh sandbox that is deleted or reset from a snapshot afterwards, so nothing the agent leaves behind survives to the next task.
+      - Mount only the project folder with write access, keep system paths read-only, and explicitly deny credential locations such as ~/.ssh, ~/.aws, .env files and browser profiles.
+      - Block outgoing network traffic by default and allow only the domains the task needs, such as the package registry and the code host, enforced by a proxy rather than by IP address.
+      - Hand the agent only short-lived, narrowly scoped tokens, or let the egress proxy inject credentials so the secret itself never enters the sandbox.
+      - Make the sandbox fail closed, so commands stop instead of running unsandboxed when the sandbox cannot start (in Claude Code, sandbox.failIfUnavailable set to true and allowUnsandboxedCommands set to false), and enforce the settings centrally through managed settings.
+      - Check what sits outside the wall, such as MCP servers, hooks and built-in file tools, and move the whole agent process into a container or VM if those must be contained too.
+      - Review the channels you still allow, such as git push and CI, for exfiltration and planted git hooks or pipeline steps, and look at sandbox violation logs and the allowlist every quarter.
+    da:
+      - Lav en liste over alle steder, hvor en agent kører kode eller bruger værktøjer (udvikleres bærbare, CI-runners, hostede agenter), og beslut for hver use case, hvor stærk muren skal være, fra en sandkasse pr. kommando i hverdagen til en container eller virtuel maskine ved uovervågede kørsler og repositories, I ikke stoler på.
+      - Giv hver opgave en frisk sandkasse, der slettes eller nulstilles fra et snapshot bagefter, så intet, agenten efterlader, overlever til næste opgave.
+      - Montér kun projektmappen med skriveadgang, hold systemstier skrivebeskyttede, og afvis udtrykkeligt adgang til steder med loginoplysninger som ~/.ssh, ~/.aws, .env-filer og browserprofiler.
+      - Bloker udgående netværkstrafik som standard, og tillad kun de domæner, opgaven har brug for, fx pakkeregistret og kodehosten, håndhævet af en proxy og ikke via IP-adresser.
+      - Giv kun agenten kortlivede, snævert afgrænsede tokens, eller lad udgangsproxyen indsætte loginoplysningerne, så selve hemmeligheden aldrig kommer ind i sandkassen.
+      - Sørg for, at sandkassen fejler lukket, så kommandoer stopper i stedet for at køre uden sandkasse, når den ikke kan starte (i Claude Code sandbox.failIfUnavailable sat til true og allowUnsandboxedCommands sat til false), og håndhæv indstillingerne centralt via managed settings.
+      - Tjek, hvad der ligger uden for muren, fx MCP-servere, hooks og indbyggede filværktøjer, og flyt hele agentprocessen ind i en container eller VM, hvis de også skal holdes inde.
+      - Gennemgå de kanaler, I stadig tillader, fx git push og CI, for datalæk og plantede git-hooks eller pipeline-trin, og kig på logs over sandkasseovertrædelser og tilladelseslisten hvert kvartal.
+  pitfalls:
+    en:
+      - Believing the sandbox stops prompt injection, when it only limits what a tricked agent can reach through the channels you left open.
+      - Leaving the default read access to the whole home folder, so the agent can still read SSH keys and cloud credentials even though it cannot write there.
+      - Letting the sandbox silently fall back to running commands unsandboxed when a dependency is missing, so the wall disappears without anyone noticing.
+      - Sandboxing only shell commands while MCP servers and hooks run with full access on the host.
+    da:
+      - At tro, at sandkassen stopper prompt injection, selv om den kun begrænser, hvad en narret agent kan nå via de kanaler, I har ladet stå åbne.
+      - At beholde standardlæseadgangen til hele hjemmemappen, så agenten stadig kan læse SSH-nøgler og loginoplysninger til skyen, selv om den ikke kan skrive der.
+      - At lade sandkassen stille og roligt køre kommandoer uden sandkasse, når en afhængighed mangler, så muren forsvinder, uden at nogen opdager det.
+      - Kun at sandboxe shell-kommandoer, mens MCP-servere og hooks kører med fuld adgang på værten.
+  guides:
+    - title: Claude Code documentation - Configure the sandboxed Bash tool
+      url: https://code.claude.com/docs/en/sandboxing
+      publisher: Anthropic
+      tier: official-doc
+    - title: Claude Code documentation - Choose a sandbox environment
+      url: https://code.claude.com/docs/en/sandbox-environments
+      publisher: Anthropic
+      tier: official-doc
+    - title: NIST SP 800-190 - Application Container Security Guide
+      url: https://csrc.nist.gov/pubs/sp/800/190/final
+      publisher: NIST
+      tier: standard
+    - title: AI Agent Security Cheat Sheet
+      url: https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
 edges:
   requires: [ai-agent]
   mitigates:

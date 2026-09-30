@@ -41,6 +41,7 @@ deepDive:
     Biometri er et særtilfælde. Et biometrisk kendetegn er ikke hemmeligt - ansigter fotograferes, og fingeraftryk efterlades på glas - så sikkerheden hviler på detektion af præsentationsangreb (liveness) og på matcherens false match rate. NIST accepterer derfor kun biometri som del af multifaktorautentificering bundet til en bestemt fysisk autentifikator, aldrig som selvstændig faktor, og på de udbredte platforme verificeres biometrien lokalt og bruges kun til at låse en privat nøgle op i et secure element eller en TPM; skabelonen forlader aldrig enheden. Et kompromitteret fingeraftryk kan ikke udskiftes, hvilket er endnu en grund til, at biometri bruges som lokal lås frem for som overført legitimation.
 
     Kontekstsignaler - IP-adresse, geolokation, enhedens tilstand, adfærdsmønstre - kaldes undertiden "et sted man er" (somewhere you are) eller en fjerde faktor. Standardiseringsorganer regner dem generelt ikke som autentificeringsfaktorer; de indgår i risikobaserede eller betingede adgangsbeslutninger, som kan kræve step-up-autentificering. Styrken af et login afhænger mindre af antallet af faktorer end af deres modstandskraft mod phishing, replay og aflytning: en adgangskode plus en engangskode, der kan phishes, er to faktorer, men det er en enhedsbundet passkey med brugerverifikation også - og den modstår relay-angreb, fordi svaret er bundet til sitets origin.
+actionable: false
 edges:
   requires: [authentication]
   used-with: [passkey, password]

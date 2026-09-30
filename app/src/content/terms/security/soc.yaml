@@ -41,6 +41,50 @@ deepDive:
     Organiseringen er en strategisk beslutning. At bemande én plads døgnet rundt internt kræver efter en gængs tommelfingerregel omkring fem-seks analytikere, når vagter, ferie og uddannelse er dækket, hvilket ligger uden for rækkevidde for de fleste små og mellemstore organisationer. Alternativerne er managed security service providers (MSSP), der overvåger udstyr og videresender alarmer, managed detection and response (MDR), hvor leverandøren også undersøger og foretager inddæmning med egen eller kundens EDR, og hybride modeller med et internt team i dagtimerne og en leverandør om natten. Kontrakten skal fastlægge beføjelserne til at reagere - må leverandøren isolere en produktionsserver klokken 3 om natten? - samt ejerskab til logs, opbevaring og exitvilkår.
 
     En SOC er noget andet end et CSIRT eller CERT, der koordinerer hændelseshåndtering, kommunikation og genopretning, når en hændelse er erklæret, selv om små organisationer slår rollerne sammen. NIST SP 800-61 Rev. 3 (2025) placerer hændelseshåndtering inden for funktionerne i NIST CSF 2.0 i stedet for som en selvstændig livscyklus. Efter NIS2 skal væsentlige og vigtige enheder sende en tidlig varsling til CSIRT'en eller den kompetente myndighed inden for 24 timer efter at have fået kendskab til en væsentlig hændelse og en hændelsesunderretning inden for 72 timer (art. 23); i praksis er det i SOC'en, at kendskabet starter uret. Typiske nøgletal er mean time to detect, mean time to respond, forholdet mellem alarmer og hændelser samt detektionsdækning, men jagt på hastighedstal alene kan friste til at lukke alarmer for tidligt.
+howTo:
+  steps:
+    en:
+      - Start from the threats you face and the systems you must protect, and decide what the SOC must cover - which environments, which hours and how fast an alarm must be looked at.
+      - Choose the sourcing model - an in-house team, an MSSP that forwards alerts, an MDR service that also investigates and contains, or a hybrid with your own staff by day and a provider at night - keeping in mind that one seat staffed around the clock takes about five to six analysts.
+      - If you buy the service, write into the contract what the provider may do on its own, such as isolating a production server at night, and who owns the logs, how long they are kept and how you get them back when the contract ends.
+      - Give the SOC the tools and data it needs, typically a SIEM, EDR on endpoints, a case or ticket system and threat intelligence, and connect the systems that matter most first.
+      - Write a runbook for each common alert type, such as phishing, a compromised account and ransomware precursors, and an escalation matrix that says when the business is called in.
+      - Have analysts record their triage actions in the case, and sample closed alerts regularly to check that none were dismissed without good reason.
+      - Set up shift handover, training time and career paths, and move repetitive triage to automation so analysts spend their time on judgement.
+      - Measure time to detect, time to respond and detection coverage every month, and assess the SOC's maturity once a year, for example with SOC-CMM.
+    da:
+      - Tag udgangspunkt i de trusler, I står over for, og de systemer, I skal beskytte, og beslut, hvad SOC'en skal dække - hvilke miljøer, hvilke tidspunkter og hvor hurtigt en alarm skal ses på.
+      - Vælg organiseringen - et internt team, en MSSP, der videresender alarmer, en MDR-tjeneste, der også undersøger og inddæmmer, eller en hybrid med egne folk om dagen og en leverandør om natten - og husk, at én plads bemandet døgnet rundt kræver omkring fem-seks analytikere.
+      - Køber I tjenesten, så skriv ind i kontrakten, hvad leverandøren må gøre på egen hånd, fx isolere en produktionsserver om natten, og hvem der ejer loggene, hvor længe de gemmes, og hvordan I får dem tilbage, når kontrakten ophører.
+      - Giv SOC'en de værktøjer og data, den har brug for, typisk en SIEM, EDR på endpoints, et sags- eller ticketsystem og threat intelligence, og tilslut de vigtigste systemer først.
+      - Skriv en runbook for hver almindelig alarmtype, fx phishing, en kompromitteret konto og forstadier til ransomware, og en eskaleringsmatrix, der siger, hvornår forretningen skal inddrages.
+      - Lad analytikerne registrere deres triage i sagen, og tag jævnligt stikprøver af lukkede alarmer for at tjekke, at ingen er afvist uden god grund.
+      - Indfør vagtoverdragelse, tid til uddannelse og karriereveje, og flyt gentagen triage over på automatisering, så analytikerne bruger tiden på vurderinger.
+      - Mål tid til opdagelse, tid til reaktion og detektionsdækning hver måned, og vurdér SOC'ens modenhed én gang om året, fx med SOC-CMM.
+  pitfalls:
+    en:
+      - Buying a managed service without agreeing what the provider may do at night, so an alarm is forwarded but nobody acts until morning.
+      - Chasing speed metrics until analysts close alerts too early to hit the target.
+      - Treating the SOC as a room or a product rather than people, process and technology that must all be maintained.
+      - Putting all the repetitive work on junior analysts until they burn out and leave.
+    da:
+      - At købe en managed service uden at aftale, hvad leverandøren må gøre om natten, så en alarm bliver videresendt, men ingen handler før om morgenen.
+      - At jagte hastighedstal, til analytikerne lukker alarmer for tidligt for at nå målet.
+      - At se SOC'en som et lokale eller et produkt frem for mennesker, processer og teknologi, som alle skal vedligeholdes.
+      - At lægge alt det gentagne arbejde på de yngste analytikere, til de brænder ud og siger op.
+  guides:
+    - title: Building a Security Operations Centre (SOC)
+      url: https://www.ncsc.gov.uk/collection/building-a-security-operations-centre
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Building a Security Operations Centre (SOC) - Incident Response and Management
+      url: https://www.ncsc.gov.uk/collection/building-a-security-operations-centre/incidents
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Guidance for SIEM and SOAR Implementation
+      url: https://www.cisa.gov/resources-tools/resources/guidance-siem-and-soar-implementation
+      publisher: CISA
+      tier: official-doc
 edges:
   requires: [incident-response]
   used-with:

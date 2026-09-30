@@ -42,6 +42,54 @@ deepDive:
     For udbydere af DNS, topdomæner, cloud, datacentre, CDN, managed services og managed security services, online markedspladser, søgemaskiner, sociale netværk og tillidstjenester omsætter Kommissionens gennemførelsesforordning (EU) 2024/2690 de ti områder til detaljerede tekniske og metodiske krav i sit bilag. For alle andre enheder gengiver den nationale gennemførelse, i Danmark § 6 i NIS2-loven, listen næsten ordret, og detaljerne overlades til vejledninger og anerkendte standarder.
 
     I praksis kan de ti områder kobles tæt til ISO/IEC 27002:2022: hændelseshåndtering til kontrol 5.24-5.28, kontinuitet til 5.29-5.30 og backup til 8.13, leverandører til 5.19-5.22, sikker udvikling og sårbarheder til 8.8 og 8.25-8.28, effektivitet til 5.35 og ISO 27001 afsnit 9, awareness til 6.3, kryptografi til 8.24, adgangskontrol til 5.15-5.18 og autentificering til 8.5. To fejllæsninger går igen. "Minimum" betyder ikke let, for hvert område skal adresseres, og en nedskaleret indsats skal begrundes i risiko og størrelse; og "hvor det er relevant" i litra h og j er ikke et fravalg; i praksis betyder det, at man med en dokumenteret risikobegrundelse skal kunne vise, hvorfor fx MFA ikke bruges på et bestemt system.
+howTo:
+  steps:
+    en:
+      - Once you know you are an essential or important entity, read the ten areas in § 6 of the Danish NIS2 Act (Article 21(2) of the directive); cloud, data centre, managed service and other digital providers must also follow the detailed annex of Implementing Regulation (EU) 2024/2690.
+      - Carry out a risk assessment that covers all hazards, from attacks to fire, flooding and power loss, and use it to decide how far each measure must go given your size and exposure.
+      - Hold each of the ten areas against what you already do, fx with SAMSIK's guidance on implementing the measures or the matching ISO 27002 controls, and record the gaps in a gap register with an owner and a deadline for each.
+      - Write the policies the list asks for - risk analysis and information system security, incident handling, business continuity with backup and crisis management, supply chain security and access control - and have management approve them.
+      - Implement the technical measures, such as tested backups, vulnerability handling, cryptography, asset management, and MFA or continuous authentication and secured emergency communication where the risk calls for it.
+      - Set security requirements for each direct supplier based on its vulnerabilities, product quality and secure development practices, and train management and staff in basic cyber hygiene.
+      - Write down a risk-based reason for every measure you leave out or scale down, especially where the law says "where appropriate".
+      - Assess whether the measures work with tests, audits or metrics (area f), correct any shortfall without undue delay, and keep the documentation ready for the sector authority.
+      - Repeat the assessment at least once a year and after major changes or incidents, and report the status to management.
+    da:
+      - Når I ved, at I er en væsentlig eller vigtig enhed, så læs de ti områder i § 6 i NIS 2-loven (artikel 21, stk. 2, i direktivet); udbydere af cloud, datacentre, managed services og andre digitale tjenester skal også følge det detaljerede bilag til gennemførelsesforordning (EU) 2024/2690.
+      - Gennemfør en risikovurdering, der dækker alle farer, fra angreb til brand, oversvømmelse og strømsvigt, og brug den til at afgøre, hvor langt hvert tiltag skal gå i forhold til jeres størrelse og risiko.
+      - Hold hvert af de ti områder op mod det, I allerede gør, fx med SAMSIK's vejledning om implementering af foranstaltningerne eller de tilsvarende kontroller i ISO 27002, og skriv hullerne ind i et gap-register med en ejer og en frist for hvert.
+      - Skriv de politikker, listen kræver - risikoanalyse og informationssystemers sikkerhed, hændelseshåndtering, driftskontinuitet med backup og krisestyring, forsyningskædesikkerhed og adgangskontrol - og få ledelsen til at godkende dem.
+      - Indfør de tekniske tiltag, fx testet backup, håndtering af sårbarheder, kryptografi, styring af aktiver samt MFA eller kontinuerlig autentificering og sikret nødkommunikation, hvor risikoen kræver det.
+      - Stil sikkerhedskrav til hver direkte leverandør ud fra dens sårbarheder, produktkvalitet og praksis for sikker udvikling, og uddan ledelse og medarbejdere i grundlæggende cyberhygiejne.
+      - Skriv en risikobaseret begrundelse ned for hvert tiltag, I undlader eller skalerer ned, især hvor loven siger "hvor det er relevant".
+      - Vurdér med test, audits eller nøgletal, om tiltagene virker (område f), ret mangler uden unødigt ophold, og hav dokumentationen klar til den sektoransvarlige myndighed.
+      - Gentag vurderingen mindst en gang om året og efter større ændringer eller hændelser, og rapportér status til ledelsen.
+  pitfalls:
+    en:
+      - Reading "minimum" as light, when every one of the ten areas must be addressed and any scaled-down response must be justified by risk and size.
+      - Treating "where appropriate" as an opt-out for MFA or encryption, instead of documenting why a measure is not used on a given system.
+      - Keeping backups that have never been restored in a test, so business continuity exists only on paper.
+      - Stopping at written policies without checking whether they work, although assessing effectiveness is itself one of the ten areas.
+    da:
+      - At læse "minimum" som let, selv om hvert af de ti områder skal adresseres, og en nedskaleret indsats skal begrundes i risiko og størrelse.
+      - At bruge "hvor det er relevant" som et fravalg af MFA eller kryptering i stedet for at dokumentere, hvorfor et tiltag ikke bruges på et bestemt system.
+      - At have backup, der aldrig er blevet gendannet i en test, så driftskontinuiteten kun findes på papiret.
+      - At stoppe ved skrevne politikker uden at tjekke, om de virker, selv om vurdering af effektiviteten i sig selv er et af de ti områder.
+  guides:
+    - title: Vejledning til NIS 2-loven - Implementering af cybersikkerhedsforanstaltninger
+      url: https://samsik.dk/wp-content/uploads/2025/08/Vejledning-til-implementering-af-cybersikkerhedsforanstaltninger.pdf
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: NIS 2-vejledninger
+      url: https://samsik.dk/nis2/nis-2-vejledninger/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: NIS2 Technical Implementation Guidance
+      url: https://www.enisa.europa.eu/publications/nis2-technical-implementation-guidance
+      publisher: ENISA
+      tier: official-doc
 edges:
   part-of: [nis2]
   mandates:
