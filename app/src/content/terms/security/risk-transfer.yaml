@@ -41,6 +41,51 @@ deepDive:
     Kontraktlig overførsel sker via skadesløsholdelse, ansvarsbestemmelser og servicekreditter over for leverandører. I praksis betyder ansvarslofter, ofte knyttet til et års vederlag, og udelukkelse af indirekte tab eller følgeskader, at det overførte beløb som regel er lille i forhold til den reelle forretningsmæssige konsekvens af et stort nedbrud. Regulering begrænser, hvad der kan flyttes: Efter databeskyttelsesforordningens art. 82, stk. 4, hæfter hver af flere involverede dataansvarlige eller databehandlere over for den registrerede for hele skaden, med regres indbyrdes efter art. 82, stk. 5; DORA art. 28, stk. 1, fastholder, at finansielle enheder har det fulde ansvar for overholdelse, når de bruger tredjepartsudbydere af IKT-tjenester; og NIS2 art. 21, stk. 2, litra d, gør forsyningskædesikkerhed til en del af enhedens egne forpligtelser.
 
     Overførsel supplerer derfor reduktion frem for at erstatte den. Den egner sig bedst til den residuale risiko med lav sandsynlighed og høj konsekvens, der er tilbage efter rimelige kontroller, og det er en kvantitativ analyse af tabets hale, der gør det muligt at vælge fornuftige forsikringssummer og selvrisici.
+howTo:
+  steps:
+    en:
+      - Identify the residual risks that remain after reasonable controls and have low likelihood but high impact, since these are the ones worth transferring.
+      - Estimate the financial loss of the worst credible scenarios, such as several days of downtime or a large data breach, to size policy limits and retentions.
+      - Document your current controls accurately before buying cyber insurance, because insurers set conditions such as MFA, EDR and offline backups and can refuse a claim on the basis of a wrong answer.
+      - Have legal, finance and IT read the policy together, checking sublimits, the waiting period before business interruption is covered, exclusions such as war or state-backed attacks, and the response providers you must use.
+      - In supplier contracts, set security requirements, liability caps and indemnities that match the harm a supplier failure could cause, not just a year's fees.
+      - Record in the risk register which part of each risk is transferred and which stays with you, including legal duties such as breach notification that cannot be transferred.
+      - Add the insurer's hotline and panel providers to the incident response plan so they are called at the start of an incident.
+      - Review cover and contracts at every renewal and after major changes or incidents, and update the answers you give the insurer.
+    da:
+      - Find de restrisici, der er tilbage efter rimelige kontroller og har lav sandsynlighed, men høj konsekvens, for det er dem, det kan betale sig at overføre.
+      - Skøn det økonomiske tab ved de værste realistiske scenarier, fx flere dages nedetid eller et stort databrud, så forsikringssum og selvrisiko kan dimensioneres.
+      - Dokumentér jeres nuværende kontroller korrekt, før I tegner en cyberforsikring, fordi forsikringsselskaber stiller krav som MFA, EDR og offline backup og kan afvise en skade på grund af et forkert svar.
+      - Lad jura, økonomi og it læse policen sammen og tjekke underbegrænsninger, karensperioden før driftstab dækkes, undtagelser som krig eller statsstøttede angreb og krav om bestemte rådgivere.
+      - Stil i leverandørkontrakter sikkerhedskrav, ansvarslofter og skadesløsholdelse, der svarer til den skade, et svigt hos leverandøren kan give, og ikke kun til et års vederlag.
+      - Notér i risikoregistret, hvilken del af hver risiko der er overført, og hvad der bliver hos jer, herunder juridiske pligter som anmeldelse af brud, der ikke kan overføres.
+      - Skriv forsikringsselskabets hotline og faste rådgivere ind i beredskabsplanen, så de kontaktes i starten af en hændelse.
+      - Gennemgå dækning og kontrakter ved hver fornyelse og efter større ændringer eller hændelser, og opdatér de svar, I giver forsikringsselskabet.
+  pitfalls:
+    en:
+      - Treating insurance as a replacement for controls, when it pays only part of the money and none of the lost trust or data.
+      - Discovering exclusions, sublimits or waiting periods only after an incident.
+      - Assuming a supplier contract covers the loss when liability is capped at a small amount.
+      - Giving the insurer inaccurate answers about your controls, which can cost you the claim.
+    da:
+      - At se forsikringen som en erstatning for kontroller, når den kun betaler en del af pengene og intet af den tabte tillid eller de tabte data.
+      - Først at opdage undtagelser, underbegrænsninger eller karensperioder efter en hændelse.
+      - At tro, at en leverandørkontrakt dækker tabet, når ansvaret er begrænset til et lille beløb.
+      - At give forsikringsselskabet forkerte oplysninger om kontrollerne, hvilket kan koste erstatningen.
+  guides:
+    - title: Cyber insurance guidance
+      url: https://www.ncsc.gov.uk/guidance/cyber-insurance-guidance
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Cybersikkerhed i leverandørforhold
+      url: https://samsik.dk/publikation/cybersikkerhed-i-leverandoerforhold/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: NIST SP 800-161 Rev. 1 - Cybersecurity Supply Chain Risk Management Practices for Systems and Organizations
+      url: https://csrc.nist.gov/pubs/sp/800/161/r1/upd1/final
+      publisher: NIST
+      tier: standard
 edges:
   kind-of: [risk-treatment]
   requires: [risk, impact]

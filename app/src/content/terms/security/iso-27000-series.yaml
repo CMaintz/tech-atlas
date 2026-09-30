@@ -42,6 +42,7 @@ deepDive:
     Historikken forklarer nummereringen. Den britiske standard BS 7799 del 1 (1995) blev til ISO/IEC 17799 i 2000 og omdøbt til ISO/IEC 27002 i 2007; BS 7799-2 blev til ISO/IEC 27001:2005. Revisionen i 2013 flyttede 27001 over på den fælles struktur for ISO's ledelsessystemstandarder, og revisionen i 2022 omorganiserede kontrollerne i fire temaer, fulgt af et tillæg i 2024, der føjede klimaforandringer til afsnittene om kontekst.
 
     Typiske misforståelser: man kan ikke være "ISO 27000-certificeret", og man kan ikke certificeres efter 27002; udvidelser som 27017 og 27018 vurderes normalt som tillæg til et 27001-certifikat frem for som selvstændige certifikater. Dokumenterne er ophavsretligt beskyttede og sælges af ISO og de nationale standardiseringsorganer som Dansk Standard, hvilket er én grund til, at frit tilgængelige rammeværker som NIST CSF og CIS Controls ofte bruges ved siden af. Sammenligner man de to verdener, henviser NIST CSF til ISO/IEC 27001-kontroller blandt sine informative referencer, så rammeværkerne kan kobles sammen i stedet for at være et enten-eller.
+actionable: false
 edges:
   kind-of: [security-framework]
   requires: [cyber-and-information-security]

@@ -42,6 +42,54 @@ deepDive:
     Sigstore, et OpenSSF-projekt, tilbyder "nøgleløs" signering rettet mod open source- og container-forsyningskæder: cosign henter et OIDC-token for underskriverens identitet (en persons e-mail eller en CI-workflows identitet), Fulcio udsteder et certifikat til en flygtig nøgle, der er gyldigt i omkring ti minutter, signaturen og certifikatet registreres i transparensloggen Rekor, og verifikatorer tjekker både den forventede identitet og udsteder og optagelsen i loggen. Notary Projects notation er et PKI-baseret alternativ til OCI-artefakter; npm, PyPI og Maven Central har i forskellige former indført Sigstore-baseret provenance eller signaturer.
 
     Den vigtigste begrænsning er, at en signatur bevidner, hvem der signerede, ikke hvad koden gør. Stjålne nøgler har signeret malware (Stuxnet brugte certifikater stjålet fra Realtek og JMicron), og kompromitterede byggesystemer giver fuldt gyldige signaturer på ondsindet kode, som med SolarWinds Orion i 2020 og 3CX' desktopklient i 2023. Effektive programmer beskytter derfor nøgler i HSM'er med separat godkendelse af hver signering, signerer kun i hærdede frigivelsespipelines frem for på udvikleres maskiner, kobler signaturer med build-provenance (SLSA) og SBOM'er og håndhæver verifikation hos modtageren: Windows Defender Application Control- eller AppLocker-politikker, macOS Gatekeeper, pakkehåndteringens signaturtjek og admission controllers i Kubernetes, der afviser usignerede images.
+howTo:
+  steps:
+    en:
+      - List everything you publish or run that can be signed - installers, executables, scripts, packages, container images and release files - and decide which of them must be signed.
+      - Choose the signing method per platform, such as Authenticode for Windows, codesign with notarisation for Apple, Sigstore cosign or Notation for container images, and the package manager's own signing for packages.
+      - Generate and keep private signing keys in an HSM or a cloud key service (required for publicly trusted code-signing certificates since 1 June 2023), or use keyless Sigstore signing tied to the CI workflow's identity.
+      - Sign only in a hardened release pipeline, never on developer machines, and require a separate approval for each signing of a production release.
+      - Add an RFC 3161 timestamp to every signature so it stays valid after the certificate expires, and plan certificate renewal, since publicly trusted certificates are limited to 460 days since 1 March 2026.
+      - Publish build provenance (SLSA) and an SBOM together with the signed artefact, so recipients can see how and from what it was built.
+      - Enforce verification where the code runs - App Control for Business or AppLocker on Windows, Gatekeeper on macOS, signature checks in package managers and a Kubernetes admission controller that rejects unsigned images or an unexpected signer.
+      - Write and rehearse a procedure for a stolen key - revoke the certificate with an invalidity date, re-sign affected releases with a new key and inform customers.
+    da:
+      - List alt, hvad I udgiver eller kører, som kan signeres - installationsfiler, programmer, scripts, pakker, container-images og udgivelsesfiler - og beslut, hvilke der skal signeres.
+      - Vælg signeringsmetode pr. platform, fx Authenticode til Windows, codesign med notarisering til Apple, Sigstore cosign eller Notation til container-images og pakkehåndteringens egen signering til pakker.
+      - Generér og opbevar private signeringsnøgler i en HSM eller en nøgletjeneste i skyen (et krav for offentligt betroede kodesigneringscertifikater siden 1. juni 2023), eller brug nøgleløs Sigstore-signering knyttet til CI-workflowets identitet.
+      - Signér kun i en hærdet frigivelsespipeline, aldrig på udvikleres maskiner, og kræv separat godkendelse af hver signering af en produktionsudgivelse.
+      - Tilføj et tidsstempel efter RFC 3161 til hver signatur, så den forbliver gyldig, efter certifikatet er udløbet, og planlæg fornyelse, da offentligt betroede certifikater siden 1. marts 2026 højst må gælde i 460 dage.
+      - Udgiv build-provenance (SLSA) og en SBOM sammen med det signerede artefakt, så modtagerne kan se, hvordan og af hvad det er bygget.
+      - Håndhæv verifikation dér, hvor koden kører - App Control for Business eller AppLocker på Windows, Gatekeeper på macOS, signaturtjek i pakkehåndteringen og en admission controller i Kubernetes, der afviser usignerede images eller en uventet underskriver.
+      - Skriv og øv en procedure for en stjålet nøgle - tilbagekald certifikatet med en invalidity date, signér berørte udgivelser igen med en ny nøgle, og informér kunderne.
+  pitfalls:
+    en:
+      - Treating a valid signature as proof that the code is safe, although a compromised build system signs malicious code just as validly.
+      - Keeping signing keys as files on build servers or laptops, where malware can copy them.
+      - Signing everything but never checking signatures where software is installed or run.
+      - Checking only that a Sigstore signature exists, without checking the expected signer identity and issuer.
+    da:
+      - At tage en gyldig signatur som bevis for, at koden er sikker, selv om et kompromitteret byggesystem signerer ondsindet kode lige så gyldigt.
+      - At opbevare signeringsnøgler som filer på byggeservere eller bærbare, hvor malware kan kopiere dem.
+      - At signere alt, men aldrig tjekke signaturer dér, hvor softwaren installeres eller kører.
+      - Kun at tjekke, at en Sigstore-signatur findes, uden at kontrollere den forventede underskriveridentitet og udsteder.
+  guides:
+    - title: NIST CSWP 5 - Security Considerations for Code Signing
+      url: https://csrc.nist.gov/pubs/cswp/5/security-considerations-for-code-signing/final
+      publisher: NIST
+      tier: standard
+    - title: Sigstore - Signing Containers
+      url: https://docs.sigstore.dev/cosign/signing/signing_with_containers/
+      publisher: OpenSSF
+      tier: reference
+    - title: Sigstore - Verifying Signatures
+      url: https://docs.sigstore.dev/cosign/verifying/verify/
+      publisher: OpenSSF
+      tier: reference
+    - title: Application Control for Windows
+      url: https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/appcontrol
+      publisher: Microsoft
+      tier: official-doc
 edges:
   requires: [digital-signature, digital-certificate]
   part-of: [software-supply-chain]

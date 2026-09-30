@@ -41,6 +41,54 @@ deepDive:
     De lovbestemte frister styrer timingen mere end nogen kommunikationsmæssig præference. Efter databeskyttelsesforordningens artikel 34 skal den dataansvarlige uden unødig forsinkelse underrette de registrerede, når et brud sandsynligvis indebærer en høj risiko for dem, i et klart og enkelt sprog, der beskriver bruddets karakter, de sandsynlige konsekvenser, de trufne foranstaltninger og et kontaktpunkt. Artikel 34, stk. 3, tillader en offentlig meddelelse i stedet, når individuel underretning vil kræve en uforholdsmæssig indsats. NIS2 artikel 23, stk. 1, kræver, at enheder, hvor det er relevant, underretter modtagerne af deres tjenester om væsentlige hændelser, der kan påvirke dem, og stk. 2, at modtagere, der kan blive berørt af en væsentlig cybertrussel, får at vide, hvilke foranstaltninger de kan træffe. Disse eksterne budskaber og indberetningerne til myndighederne skal hænge sammen, for både myndigheder og journalister sammenligner dem.
 
     Cyberhændelser giver begrænsninger, som almindelig krisekommunikation ikke møder. Mail, Teams og intranettet kan være kompromitteret eller overvåget af angriberen, så planen skal have kanaler uden for det normale netværk, fx telefonkæder på papir, SMS-tjenester eller en separat beskedplatform, der er forberedt på forhånd. Udmeldinger bør undgå forhastede påstande som "der er ikke taget data", før den tekniske undersøgelse har bekræftet det, fordi rettelser skader tilliden mere end et ærligt "vi undersøger sagen". Ransomware-grupper kontakter desuden selv kunder og journalister, hvilket planen bør tage højde for.
+howTo:
+  steps:
+    en:
+      - Map every audience you may have to reach in an incident - staff, management, board, customers or citizens, suppliers, insurer, regulators, police, media and partners - and note who owns each relationship.
+      - Name a spokesperson and a deputy for each audience, and agree an approval chain for outgoing messages with a maximum turnaround time, so a statement is never stuck waiting for one person.
+      - Write pre-approved holding statements for the likeliest scenarios, such as ransomware, a data leak and a long IT outage, that say what you know, what you are doing and when the next update comes.
+      - Choose a channel for each audience and prepare out-of-band alternatives in advance, such as a paper phone tree, an SMS service or a separate messaging platform, in case email, Teams and the intranet are down or watched by the attacker.
+      - Agree that one situation log owned by the crisis team is the single source of truth, and derive every message to the press, customer service and regulators from it so the versions never conflict.
+      - Build the legal duties into the plan - notifying Datatilsynet within 72 hours and informing affected people without undue delay when a breach puts them at high risk, and telling service recipients about significant incidents under NIS2 - and name who drafts each message.
+      - Keep the plan, contact lists and statements on paper or offline, and test them in exercises at least once a year, including a round where the normal channels are unavailable.
+    da:
+      - Kortlæg alle de målgrupper, I kan få brug for at nå under en hændelse - medarbejdere, ledelse, bestyrelse, kunder eller borgere, leverandører, forsikringsselskab, tilsynsmyndigheder, politi, medier og samarbejdspartnere - og notér, hvem der ejer hver relation.
+      - Udpeg en talsperson og en stedfortræder for hver målgruppe, og aftal en godkendelsesgang for udgående budskaber med en maksimal svartid, så en udmelding aldrig hænger fast hos én person.
+      - Skriv forhåndsgodkendte standardudmeldinger til de mest sandsynlige scenarier, fx ransomware, et datalæk og et langvarigt IT-nedbrud, der siger, hvad I ved, hvad I gør, og hvornår næste opdatering kommer.
+      - Vælg en kanal til hver målgruppe, og forbered alternativer uden for det normale netværk, fx en telefonkæde på papir, en SMS-tjeneste eller en separat beskedplatform, hvis mail, Teams og intranet er nede eller overvåges af angriberen.
+      - Aftal, at én situationslog, som krisestaben ejer, er den fælles sandhed, og udled alle budskaber til presse, kundeservice og myndigheder af den, så versionerne aldrig modsiger hinanden.
+      - Byg de lovbestemte pligter ind i planen - anmeldelse til Datatilsynet inden 72 timer og underretning af de berørte uden unødig forsinkelse, når et brud giver høj risiko for dem, samt underretning af modtagerne af jeres tjenester om væsentlige hændelser efter NIS2 - og udpeg, hvem der skriver hvert budskab.
+      - Opbevar plan, kontaktlister og udmeldinger på papir eller offline, og test dem i øvelser mindst én gang om året, også i en runde, hvor de normale kanaler ikke virker.
+  pitfalls:
+    en:
+      - Claiming early that no data was taken before the forensic work has confirmed it, and then having to correct the statement.
+      - Relying on email and Teams to coordinate the response while the attacker may be reading them.
+      - Letting the press office, customer service and the report to the authorities tell different versions of the same incident.
+      - Forgetting that ransomware groups may contact customers and journalists directly before you have said anything.
+    da:
+      - At sige tidligt, at der ikke er taget data, før den tekniske undersøgelse har bekræftet det, og derefter måtte rette udmeldingen.
+      - At koordinere indsatsen via mail og Teams, mens angriberen måske læser med.
+      - At lade presseafdelingen, kundeservice og indberetningen til myndighederne fortælle hver sin version af den samme hændelse.
+      - At glemme, at ransomware-grupper kan kontakte kunder og journalister direkte, før I selv har sagt noget.
+  guides:
+    - title: Plan - Your cyber incident response processes
+      url: https://www.ncsc.gov.uk/collection/incident-management/cyber-incident-response-processes
+      publisher: NCSC UK
+      tier: official-doc
+    - title: NIST SP 800-34 Rev. 1 - Contingency Planning Guide for Federal Information Systems
+      url: https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final
+      publisher: NIST
+      tier: standard
+    - title: Håndtering af brud på persondatasikkerheden
+      url: https://www.datatilsynet.dk/regler-og-vejledning/behandlingssikkerhed/haandtering-af-brud-paa-persondatasikkerheden
+      publisher: Datatilsynet
+      tier: official-doc
+      lang: da
+    - title: Indberet en sikkerhedshændelse
+      url: https://www.sikkerdigital.dk/virksomhed/naar-skaden-er-sket/indberet-en-sikkerhedshaendelse
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   part-of: [contingency-plan]
   used-with: [data-breach, incident-response, crisis-management]

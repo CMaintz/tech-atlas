@@ -42,6 +42,52 @@ deepDive:
     Der bruges to sikkerhedsmodeller. En negativ model blokerer kendte farlige mønstre og er let at udrulle, men kan omgås; en positiv model tillader kun det, applikationen vides at acceptere, fx definerede stier, metoder, parametertyper og længder, ofte afledt af en OpenAPI-beskrivelse, hvilket er stærkere, men dyrt at vedligeholde, når applikationen ændrer sig. Kendte klasser af omgåelser er alternative encodings, tricks med store og små bogstaver og kommentarer i SQL, HTTP parameter pollution, request smuggling, hvor WAF og backend er uenige om, hvor en besked slutter, payloads i content types, WAF'en ikke parser, og for store bodies ud over inspektionsgrænsen. I 2022 viste Claroty, at flere store WAF'er kunne omgås med JSON-baseret SQL-syntaks, fordi deres parsere ikke forstod den.
 
     Den vigtigste legitime anvendelse er virtuel patching: at blokere udnyttelse af en kendt sårbarhed, som Log4Shell i december 2021, mens rettelsen udvikles og udrulles. PCI DSS v4.0 krav 6.4.2, der har været obligatorisk siden 31. marts 2025, kræver en automatiseret teknisk løsning, der løbende opdager og forhindrer webbaserede angreb foran offentligt tilgængelige webapplikationer, og en WAF er den almindelige måde at opfylde det på. En WAF kan ikke se fejl i forretningslogik, manglende autorisation på objektniveau eller lagrede payloads, der allerede ligger i applikationen, så den supplerer sikker kode uden at erstatte den.
+howTo:
+  steps:
+    en:
+      - List the public web applications and APIs that need protection, and choose how to deploy the WAF, as a cloud or CDN service, a reverse proxy or a module in the web server or ingress controller.
+      - Make sure the WAF sees decrypted traffic, and lock down the origin servers so they only accept traffic that has passed through the WAF.
+      - Enable a managed rule set such as the OWASP Core Rule Set at its lowest paranoia level, and set limits on request body size and allowed content types.
+      - Run in detection mode first and go through the logs to find rules that fire on legitimate traffic.
+      - Write narrow exclusions for specific rules and parameters instead of turning off whole rule groups, and keep the configuration as code so it survives rule set upgrades.
+      - Switch to prevention mode once false positives are under control, and add rate limits and bot rules for logins and other sensitive endpoints.
+      - Send the WAF logs to the SIEM, and review blocked requests and attack trends regularly.
+      - When a critical vulnerability hits one of your applications, add a virtual patch rule straight away, and remove it once the code has been fixed.
+      - Keep the rule sets up to date, and retest with known attack payloads after every major change to the application or the rules.
+    da:
+      - Lav en liste over de offentlige webapplikationer og API'er, der skal beskyttes, og vælg, hvordan WAF'en skal køre, som cloud- eller CDN-tjeneste, som reverse proxy eller som modul i webserveren eller ingress-controlleren.
+      - Sørg for, at WAF'en ser trafikken dekrypteret, og luk originserverne ned, så de kun tager imod trafik, der er gået gennem WAF'en.
+      - Slå et administreret regelsæt som OWASP Core Rule Set til på laveste paranoia-niveau, og sæt grænser for body-størrelse og tilladte content types.
+      - Kør først i detektionstilstand, og gennemgå logs for at finde regler, der rammer legitim trafik.
+      - Skriv snævre undtagelser for bestemte regler og parametre i stedet for at slå hele regelgrupper fra, og hold konfigurationen som kode, så den overlever opgraderinger af regelsættet.
+      - Skift til blokeringstilstand, når de falske positiver er under kontrol, og tilføj rate limits og bot-regler for login og andre følsomme endpoints.
+      - Send WAF-logs til SIEM'en, og gennemgå jævnligt blokerede forespørgsler og udviklingen i angreb.
+      - Når en kritisk sårbarhed rammer en af jeres applikationer, så tilføj straks en regel som virtuel patch, og fjern den, når koden er rettet.
+      - Hold regelsættene opdaterede, og test igen med kendte angrebs-payloads efter hver større ændring af applikationen eller reglerne.
+  pitfalls:
+    en:
+      - Leaving the WAF in detection mode for months, so it logs attacks but blocks nothing.
+      - Letting the origin server accept traffic directly, so attackers simply go around the WAF.
+      - Turning off whole rule groups to silence false positives.
+      - Treating the WAF as a substitute for fixing the code, although it cannot see business-logic or authorisation flaws.
+    da:
+      - At lade WAF'en stå i detektionstilstand i månedsvis, så den logger angreb, men ikke blokerer noget.
+      - At lade originserveren tage imod trafik direkte, så angribere bare går uden om WAF'en.
+      - At slå hele regelgrupper fra for at få de falske positiver til at forsvinde.
+      - At se WAF'en som en erstatning for at rette koden, selv om den ikke kan se fejl i forretningslogik eller autorisation.
+  guides:
+    - title: OWASP CRS Documentation - False Positives and Tuning
+      url: https://coreruleset.org/docs/2-how-crs-works/2-3-false-positives-and-tuning/
+      publisher: OWASP
+      tier: reference
+    - title: OWASP Cheat Sheet Series - Virtual Patching
+      url: https://cheatsheetseries.owasp.org/cheatsheets/Virtual_Patching_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
+    - title: Best Practices for Azure Web Application Firewall (WAF) on Application Gateway
+      url: https://learn.microsoft.com/en-us/azure/web-application-firewall/ag/best-practices
+      publisher: Microsoft
+      tier: official-doc
 edges:
   kind-of: [firewall]
   requires: [http, web-application]

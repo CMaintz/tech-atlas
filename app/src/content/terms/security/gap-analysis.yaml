@@ -41,6 +41,60 @@ deepDive:
     Dybden af bevisførelsen adskiller en gap-analyse fra en audit. Gap-analyser er typisk baseret på interview og dokumenter og udføres af organisationen selv eller en konsulent som rådgivning, uden formelle krav til stikprøver eller uafhængighed. Det gør dem hurtige, men også sårbare over for "papir-compliance": der findes en politik, så kravet vurderes som opfyldt, selv om ingen følger den. Stikprøver i registreringer, fx et udsnit af gennemgange af brugeradgange eller logs fra gendannelsestest, øger pålideligheden markant. Den adskiller sig også fra en risikovurdering: en gap-analyse måler afstanden til et kravsæt, mens en risikovurdering måler eksponeringen for trusler; et hul i et lavrisikokrav kan med rette accepteres, og en fuldt compliant organisation kan stadig bære betydelig risiko.
 
     Resultatet føder planlægningen: i ISO 27001-termer indgår det i risikohåndteringen efter 6.1.3 og målene efter 6.2, og i praksis omsættes det til en compliance-køreplan. Gentages samme vurdering med faste mellemrum, typisk årligt eller før en certificerings- eller tilsynsaudit, bliver den en måling af fremskridt i Check-fasen af PDCA. Fejl i afgrænsningen er den hyppigste faldgrube: man vurderer kun IT-afdelingen, selv om NIS2- eller ISO 27001-omfanget dækker hele organisationen, eller udelader outsourcede tjenester, som enheden stadig har ansvaret for.
+howTo:
+  steps:
+    en:
+      - Choose the requirement baseline and scope - for example NIS2 Art. 21, ISO 27001 clauses 4-10 and Annex A, or a NIST CSF 2.0 target profile - and agree which units and outsourced services are included.
+      - Break the baseline down into testable statements and pick a scale, such as met, partly met and missing, or a 0-5 maturity scale with evidence criteria for each level.
+      - Collect evidence through interviews, document reviews and spot checks of records such as access reviews or restore tests.
+      - For each requirement, record the current state, the evidence seen, the target state and a description of the gap.
+      - Rate each gap by the risk it leaves and the effort needed to close it, and rank the gaps by risk reduction per unit of effort.
+      - Turn the ranked gaps into a roadmap with owners, deadlines and budget, and have management approve it.
+      - Feed the result into risk treatment and the security objectives, and track the actions in the same register.
+      - Repeat the same assessment on the same scale at fixed intervals, typically yearly or before an audit, to show progress.
+    da:
+      - Vælg kravgrundlag og omfang - fx NIS2 art. 21, ISO 27001 punkt 4-10 og bilag A eller en målprofil i NIST CSF 2.0 - og aftal, hvilke enheder og outsourcede tjenester der er med.
+      - Bryd kravgrundlaget ned i udsagn, der kan testes, og vælg en skala, fx opfyldt, delvist opfyldt og mangler, eller en modenhedsskala fra 0 til 5 med dokumentationskrav for hvert niveau.
+      - Indsaml dokumentation gennem interview, gennemgang af dokumenter og stikprøver i registreringer som adgangsgennemgange eller gendannelsestest.
+      - Notér for hvert krav den nuværende tilstand, den dokumentation, du har set, måltilstanden og en beskrivelse af hullet.
+      - Vurdér hvert hul efter den risiko, det efterlader, og den indsats, det kræver at lukke det, og prioritér efter risikoreduktion pr. indsats.
+      - Omsæt de prioriterede huller til en køreplan med ejere, frister og budget, og få den godkendt af ledelsen.
+      - Før resultatet videre til risikohåndteringen og sikkerhedsmålene, og følg handlingerne i samme register.
+      - Gentag samme vurdering på samme skala med faste mellemrum, typisk årligt eller før en audit, for at vise fremskridt.
+  pitfalls:
+    en:
+      - Scoring a requirement as met because a policy exists, without checking that anyone follows it.
+      - Assessing only the IT department when the NIS2 or ISO 27001 scope covers the whole organisation and its suppliers.
+      - Changing the scale between rounds, so progress cannot be compared.
+      - Treating the gap list as the risk assessment and closing low-risk gaps before high-risk ones.
+    da:
+      - At vurdere et krav som opfyldt, fordi der findes en politik, uden at tjekke, om nogen følger den.
+      - Kun at vurdere IT-afdelingen, selv om NIS2- eller ISO 27001-omfanget dækker hele organisationen og dens leverandører.
+      - At skifte skala mellem runderne, så fremskridt ikke kan sammenlignes.
+      - At bruge listen over huller som risikovurdering og lukke lavrisikohuller før højrisikohuller.
+  guides:
+    - title: NIST SP 1301 - CSF 2.0 Quick-Start Guide for Creating and Using Organizational Profiles
+      url: https://csrc.nist.gov/pubs/sp/1301/final
+      publisher: NIST
+      tier: standard
+    - title: NIS2 Technical Implementation Guidance
+      url: https://www.enisa.europa.eu/publications/nis2-technical-implementation-guidance
+      publisher: ENISA
+      tier: official-doc
+    - title: Cyber Assessment Framework (CAF)
+      url: https://www.ncsc.gov.uk/collection/cyber-assessment-framework
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Vejledning i etablering og drift af et ledelsessystem for informationssikkerhed (ISMS) med udgangspunkt i ISO 27001
+      url: https://www.sikkerdigital.dk/Media/637653926782093355/Vejledning-i-etablering-og-drift-af-et-ledelsessytem-for-informationssikkerhed-(ISMS)-med-udgangspunkt-i-ISO-27001-aug2021.pdf
+      publisher: Digitaliseringsstyrelsen
+      tier: official-doc
+      lang: da
+    - title: Implementering af NIS 2 i dansk ret
+      url: https://samsik.dk/nis2/implementering-af-nis-2-i-dansk-ret/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   requires: [compliance]
   used-with:

@@ -41,6 +41,54 @@ deepDive:
     Fordi en pipeline udfører kode fra repositoryet med adgang til hemmeligheder, er den selv en angrebsflade, katalogiseret i OWASP Top 10 CI/CD Security Risks. Poisoned pipeline execution (CICD-SEC-4) opstår, når en angriber kan ændre, hvad der kører - fx et GitHub Actions-workflow udløst af pull_request_target, der checker den upålidelige pull request-kode ud og bygger den, mens repositoryets hemmeligheder er tilgængelige. Script-injektion opstår, når strenge, som angriberen styrer, fx titlen på et issue, interpoleres med ${{ }} direkte ind i en run:-shellblok. Tredjeparts-actions og plugins er afhængigheder, der kører med jobbets fulde rettigheder; kompromitteringen af tj-actions/changed-files i marts 2025 (CVE-2025-30066) virkede, fordi mange workflows henviste til den via et foranderligt tag. Selvhostede runners koblet til offentlige repositories kan overtages og overleve mellem jobs, og delte caches kan forgiftes.
 
     Modtræk er tokens med mindste privilegium (begræns standardrettighederne for GITHUB_TOKEN per job), OIDC-føderering, så jobs får kortlivede cloud-legitimationsoplysninger afgrænset til repository, gren og miljø, fastlåsning af actions til fulde commit-SHA'er med automatiske opdaterings-PR'er, flygtige runners, adskillelse af builds af upålidelige pull requests fra privilegerede frigivelsesjobs og beskyttelse af selve pipelinedefinitionen via gennemgang fra code owners. Pipelinen er den eksekverbare implementering; CI/CD er den praksis, den tjener.
+howTo:
+  steps:
+    en:
+      - Define the pipeline as code in the repository it builds, and protect the pipeline files with code-owner review so changes to them are reviewed like any other code.
+      - Order the stages so cheap checks run first - build, unit tests, security scans, packaging - and deployment jobs run last.
+      - Build once and promote the same immutable artefact, identified by its digest, through test, staging and production.
+      - Pin toolchains, dependencies and third-party actions or plugins to exact versions or full commit SHAs, and let an update bot propose upgrades as pull requests.
+      - Make the default job token read-only, grant each job only the permissions it needs, and use OIDC federation for short-lived cloud credentials scoped to repository, branch and environment.
+      - Build untrusted pull requests without secrets on ephemeral runners, separate from privileged release jobs, and never insert untrusted text such as issue titles directly into shell commands.
+      - Protect production deployments with named environments that require approval or a protected branch.
+      - Make the pipeline produce evidence for each release - test reports, scan results, an SBOM and signed provenance - aiming for SLSA Build Level 2 or 3.
+    da:
+      - Definér pipelinen som kode i det repository, den bygger, og beskyt pipelinefilerne med gennemgang fra code owners, så ændringer i dem gennemgås som al anden kode.
+      - Læg faserne i en rækkefølge, hvor billige tjek kører først - build, enhedstests, sikkerhedsscanninger, pakning - og udrulningsjobs kører sidst.
+      - Byg én gang, og promovér det samme uforanderlige artefakt, identificeret ved sin digest, gennem test, staging og produktion.
+      - Lås værktøjskæder, afhængigheder og tredjeparts-actions eller plugins til præcise versioner eller fulde commit-SHA'er, og lad en opdateringsbot foreslå opgraderinger som pull requests.
+      - Gør jobbets standardtoken skrivebeskyttet, giv hvert job kun de rettigheder, det har brug for, og brug OIDC-føderering til kortlivede cloud-legitimationsoplysninger afgrænset til repository, gren og miljø.
+      - Byg upålidelige pull requests uden hemmeligheder på flygtige runners, adskilt fra privilegerede frigivelsesjobs, og indsæt aldrig upålidelig tekst som titlen på et issue direkte i shell-kommandoer.
+      - Beskyt udrulninger til produktion med navngivne miljøer, der kræver godkendelse eller en beskyttet gren.
+      - Lad pipelinen producere dokumentation for hver udgivelse - testrapporter, scanningsresultater, en SBOM og signeret provenance - med SLSA Build Level 2 eller 3 som mål.
+  pitfalls:
+    en:
+      - Using triggers such as pull_request_target that check out untrusted code while repository secrets are available.
+      - Referring to third-party actions by mutable tags, which is how the 2025 tj-actions/changed-files compromise spread.
+      - Attaching self-hosted runners to public repositories, where any pull request can take over the machine.
+      - Rebuilding separately for each environment, so what was tested is not what reaches production.
+    da:
+      - At bruge udløsere som pull_request_target, der checker upålidelig kode ud, mens repositoryets hemmeligheder er tilgængelige.
+      - At henvise til tredjeparts-actions via foranderlige tags, hvilket var sådan, kompromitteringen af tj-actions/changed-files spredte sig i 2025.
+      - At koble selvhostede runners til offentlige repositories, hvor enhver pull request kan overtage maskinen.
+      - At bygge forfra for hvert miljø, så det, der blev testet, ikke er det, der når produktion.
+  guides:
+    - title: SLSA v1.2 - Build Track Basics
+      url: https://slsa.dev/spec/v1.2/build-track-basics
+      publisher: OpenSSF
+      tier: reference
+    - title: GitHub Actions - Secure use reference
+      url: https://docs.github.com/en/actions/reference/security/secure-use
+      publisher: GitHub
+      tier: official-doc
+    - title: GitHub Actions - OpenID Connect
+      url: https://docs.github.com/en/actions/concepts/security/openid-connect
+      publisher: GitHub
+      tier: official-doc
+    - title: CI/CD Security Cheat Sheet
+      url: https://cheatsheetseries.owasp.org/cheatsheets/CI_CD_Security_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
 edges:
   part-of: [ci-cd]
   used-with:

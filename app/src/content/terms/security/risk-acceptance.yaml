@@ -41,6 +41,51 @@ deepDive:
     Accept har faste grænser. Den kan ikke fritage for lovkrav: En dataansvarlig kan ikke acceptere sig ud af pligten til at anmelde brud på persondatasikkerheden efter databeskyttelsesforordningens art. 33, og viser en konsekvensanalyse vedrørende databeskyttelse en høj residual risiko for de registrerede, kræver art. 36, stk. 1, forudgående høring af tilsynsmyndigheden, i Danmark Datatilsynet, frem for intern accept. Kontraktlige standarder fungerer på samme måde; i PCI DSS håndteres et krav, der ikke kan opfyldes, med dokumenterede kompenserende kontroller, ikke ved at acceptere hullet. Og risici, som primært bæres af andre, fx kunder eller registrerede, bør ikke accepteres alene ud fra organisationens egen cost-benefit-betragtning.
 
     Anti-mønstret er den tavse accept: risici, der er kendte, aldrig håndteres og aldrig besluttes, ofte synlige som gamle fund i sårbarhedsscanninger eller revisionsrapporter. I praksis er de accepteret, men uden ejer, begrundelse eller revurderingsdato. Forskellen til undgåelse er, at accept beholder både aktiviteten og risikoen; forskellen til reduktion er, at der ikke tilføjes flere kontroller.
+howTo:
+  steps:
+    en:
+      - Have management set written risk acceptance criteria before any assessment, stating which combinations of likelihood and consequence may be accepted.
+      - Agree who may accept what, for example a team lead for low risks, a director for medium ones and only top management for anything outside the risk appetite.
+      - For each risk proposed for acceptance, check that it does not set aside a legal or contractual duty, such as reporting a personal data breach or meeting a PCI DSS requirement.
+      - Write an acceptance record with the risk description, the current residual rating, the reason for not treating it further, any compensating controls, the named owner and an expiry or review date.
+      - Have the risk owner with the right authority sign the record, and log it in the risk register.
+      - Monitor the conditions behind the decision, such as a newly exploited vulnerability in an accepted unsupported system.
+      - Review each acceptance at its expiry date, or earlier if the threat or the system changes, and either renew it, treat the risk or close it.
+      - Report the list of accepted risks to management at least once a year, and turn ageing audit or scan findings into explicit decisions.
+    da:
+      - Få ledelsen til at fastlægge skriftlige kriterier for risikoaccept før enhver vurdering, som angiver, hvilke kombinationer af sandsynlighed og konsekvens der kan accepteres.
+      - Aftal, hvem der må acceptere hvad, fx en teamleder for lave risici, en direktør for middel og kun topledelsen for alt, der ligger uden for risikoappetitten.
+      - Tjek for hver risiko, der foreslås accepteret, at den ikke tilsidesætter et lovkrav eller en kontraktlig pligt, fx anmeldelse af brud på persondatasikkerheden eller et krav i PCI DSS.
+      - Skriv en accept med risikobeskrivelse, aktuel residual vurdering, begrundelsen for ikke at håndtere risikoen yderligere, eventuelle kompenserende kontroller, den navngivne ejer og en udløbs- eller revurderingsdato.
+      - Få risikoejeren med det rette mandat til at underskrive accepten, og registrér den i risikoregistret.
+      - Overvåg de forudsætninger, beslutningen bygger på, fx en ny udnyttet sårbarhed i et accepteret system uden support.
+      - Gennemgå hver accept ved udløbsdatoen, eller før, hvis truslen eller systemet ændrer sig, og forny den, håndtér risikoen, eller luk den.
+      - Rapportér listen over accepterede risici til ledelsen mindst én gang om året, og gør gamle fund fra audit eller scanninger til udtrykkelige beslutninger.
+  pitfalls:
+    en:
+      - Silent acceptance, where known findings sit untreated for months without an owner or a decision.
+      - Acceptances signed by someone without authority over the business activity at risk.
+      - Open-ended acceptances with no expiry date, which outlive the conditions they were based on.
+      - Accepting risks that mainly fall on customers or data subjects, or that the law does not let you accept.
+    da:
+      - Tavs accept, hvor kendte fund ligger uhåndterede i månedsvis uden ejer eller beslutning.
+      - Accepter, der er underskrevet af en person uden myndighed over den forretningsaktivitet, der er i risiko.
+      - Accepter uden udløbsdato, der lever videre, efter at forudsætningerne har ændret sig.
+      - At acceptere risici, der primært rammer kunder eller registrerede, eller som loven ikke tillader jer at acceptere.
+  guides:
+    - title: Vejledning i risikostyring inden for informationssikkerhed (2025)
+      url: https://www.sikkerdigital.dk/Media/639001951976452337/Vejledning%20i%20risikostyring%20inden%20for%20informationssikkerhed%202025.pdf
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: NIST SP 800-37 Rev. 2 - Risk Management Framework for Information Systems and Organizations
+      url: https://csrc.nist.gov/pubs/sp/800/37/r2/final
+      publisher: NIST
+      tier: standard
+    - title: NIST SP 800-39 - Managing Information Security Risk
+      url: https://csrc.nist.gov/pubs/sp/800/39/final
+      publisher: NIST
+      tier: standard
 edges:
   kind-of: [risk-treatment]
   requires: [risk-appetite, residual-risk]

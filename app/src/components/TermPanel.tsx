@@ -64,6 +64,8 @@ interface Props extends PanelConfig {
 
 const FACETS = ['formal', 'plain', 'inPractice', 'whyItMatters'] as const;
 type Facet = (typeof FACETS)[number];
+/** How many how-to steps the panel previews (A101). */
+const HOW_TO_PREVIEW = 3;
 
 const getJson = (u: string) =>
   fetch(u).then((r) => {
@@ -322,6 +324,8 @@ export default function TermPanel(props: Props) {
   const aka = record?.aka[lang] ?? [];
   const summary = record?.summary[lang] ?? node.summary?.[lang];
   const termHref = `${props.termBase}${id}/`;
+  /** How to (A101): the first steps only; the term page has them all, with guides. */
+  const howToSteps = record?.howTo?.steps[lang].slice(0, HOW_TO_PREVIEW) ?? [];
   const mini = expanded ? neighbourhoodGraph(graph, id, lang, props.edgeLabels) : null;
 
   const chip = (x: string, title?: string) => (
@@ -594,6 +598,34 @@ export default function TermPanel(props: Props) {
                 </>
               )}
             </section>
+
+            {howToSteps.length > 0 && (
+              <section aria-labelledby="tp-howto" data-panel-howto>
+                <h3 id="tp-howto" class="mb-2 text-xs tracking-widest text-subtle uppercase">
+                  {text.howTo}
+                </h3>
+                <ol class="space-y-2 text-sm">
+                  {howToSteps.map((s, i) => (
+                    <li class="flex gap-2">
+                      <span
+                        aria-hidden="true"
+                        class="mt-px flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border-strong text-[0.7rem] font-semibold text-fg"
+                      >
+                        {i + 1}
+                      </span>
+                      <span class="text-fg-soft">{s}</span>
+                    </li>
+                  ))}
+                </ol>
+                <a
+                  class="mt-2 inline-flex min-h-11 items-center text-sm text-muted underline-offset-2 hover:text-fg hover:underline sm:min-h-0"
+                  href={`${termHref}#how-to`}
+                  title={text.howToMoreLabel}
+                >
+                  {text.howToMore}
+                </a>
+              </section>
+            )}
 
             {learnFirst.length > 0 && (
               <section>

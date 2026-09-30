@@ -41,6 +41,54 @@ deepDive:
     Struktureret input valideres bedst mod et skema: JSON Schema eller OpenAPI for API-bodies, XSD for XML med DTD'er og eksterne entiteter slået fra for at undgå XXE, og streng binding til eksplicitte dataoverførselsobjekter, så ekstra felter afvises, hvilket også forhindrer mass assignment. Filuploads kræver en størrelsesgrænse, en allowlist over filtyper, der tjekkes sammen med filens faktiske signatur frem for den Content-Type, klienten oplyser, filnavne genereret af serveren og lagring uden for webroden.
 
     Den vigtigste begrænsning er, at validering ikke erstatter håndtering tilpasset den kontekst, data bruges i. En streng kan være fuldt gyldig, fx efternavnet O'Neil eller en fritekstkommentar med vinkelparenteser, og alligevel være farlig i en SQL-sætning eller på en HTML-side. Injection forhindres dér, hvor data bruges, med parameteriserede forespørgsler, kontekstafhængig output-encoding og sikre API'er; validering gør angrebsfladen mindre og fanger fejlformede data tidligt. Det samme gælder data fra interne tjenester, databaser og output fra sprogmodeller, som skal behandles som ubetroede, når de stammer fra noget uden for komponentens egen kontrol.
+howTo:
+  steps:
+    en:
+      - Map every trust boundary where data enters the application, including form fields, query parameters, headers, cookies, API bodies, files, queue messages and replies from other services or language models.
+      - Write down the allowed type, length, format and range for each field, and keep the rules in shared validators or a JSON Schema or OpenAPI description rather than scattered through the code.
+      - Decode and normalise input, for example URL decoding and Unicode normalisation, before you validate it, so encoded variants cannot slip past the check.
+      - Validate on the server at the boundary, first the syntax and then the business meaning, and reject input that does not fit instead of trying to repair it.
+      - Bind structured input to explicit objects that reject unknown properties, and configure XML parsers with DTDs and external entities turned off.
+      - For file uploads, check the size, an allowlist of extensions and the real file signature, give each file a server-generated name and store it outside the web root.
+      - Keep the defences at the point of use as well, with parameterised queries, contextual output encoding and safe APIs.
+      - Log rejected input safely, without echoing it back unescaped, and add unit tests and fuzz tests for the validators to the build pipeline.
+    da:
+      - Kortlæg alle tillidsgrænser, hvor data kommer ind i applikationen, herunder formularfelter, query-parametre, headers, cookies, API-bodies, filer, beskeder fra køer og svar fra andre tjenester eller sprogmodeller.
+      - Skriv for hvert felt den tilladte type, længde, format og værdiområde ned, og saml reglerne i fælles validatorer eller en JSON Schema- eller OpenAPI-beskrivelse i stedet for at sprede dem ud i koden.
+      - Dekod og normalisér input, fx URL-dekodning og Unicode-normalisering, før det valideres, så kodede varianter ikke kan snige sig forbi tjekket.
+      - Validér på serveren ved grænsen, først syntaksen og derefter den forretningsmæssige betydning, og afvis input, der ikke passer, i stedet for at forsøge at rette det.
+      - Bind struktureret input til eksplicitte objekter, der afviser ukendte felter, og konfigurér XML-parsere med DTD'er og eksterne entiteter slået fra.
+      - Ved filupload skal I tjekke størrelse, en allowlist over filtyper og filens faktiske signatur, give hver fil et navn genereret af serveren og gemme den uden for webroden.
+      - Behold også forsvaret dér, hvor data bruges, med parameteriserede forespørgsler, kontekstafhængig output-encoding og sikre API'er.
+      - Log afvist input sikkert uden at sende det uescaped tilbage, og læg unit tests og fuzz tests af validatorerne ind i build-pipelinen.
+  pitfalls:
+    en:
+      - Validating only in the browser, which any HTTP client can bypass.
+      - Relying on denylists of known bad strings, which alternative encodings and case tricks get around.
+      - Treating validation as the fix for SQL injection or XSS instead of parameterised queries and output encoding.
+      - Writing regular expressions with nested quantifiers and no length limit, which opens the door to ReDoS.
+    da:
+      - Kun at validere i browseren, hvilket enhver HTTP-klient kan gå uden om.
+      - At stole på denylists over kendte farlige strenge, som alternative encodings og tricks med store og små bogstaver kommer uden om.
+      - At se validering som løsningen på SQL injection eller XSS i stedet for parameteriserede forespørgsler og output-encoding.
+      - At skrive regulære udtryk med indlejrede kvantorer og uden længdegrænse, hvilket åbner for ReDoS.
+  guides:
+    - title: OWASP Cheat Sheet Series - Input Validation
+      url: https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
+    - title: OWASP Top 10 Proactive Controls - C3 Validate all Input and Handle Exceptions
+      url: https://top10proactive.owasp.org/archive/2024/the-top-10/c3-validate-input-and-handle-exceptions/
+      publisher: OWASP
+      tier: reference
+    - title: OWASP Cheat Sheet Series - File Upload
+      url: https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
+    - title: CWE-20 - Improper Input Validation
+      url: https://cwe.mitre.org/data/definitions/20.html
+      publisher: MITRE
+      tier: reference
 edges:
   kind-of: [control]
   mitigates:

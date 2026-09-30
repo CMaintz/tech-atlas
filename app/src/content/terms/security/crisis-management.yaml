@@ -41,6 +41,56 @@ deepDive:
     Cyberkriser bringer særlige beslutninger på bordet: om organisationen skal kobles fra internettet eller produktionen standses, om der skal betales eller forhandles om en løsesum (med begrænsninger fra sanktioner, lovgivning og forsikring), hvornår politiet og det nationale CSIRT skal inddrages, hvad kunderne skal have at vide, før fakta kendes, og hvordan kritiske ydelser fortsat leveres. Norsk Hydros håndtering af ransomwaren LockerGoga i 2019 med manuel produktion og daglige åbne pressebriefinger og Maersks genopretning efter NotPetya i 2017 nævnes ofte som eksempler på krisestyring, der bevarede tilliden trods alvorlig driftsskade.
 
     NIS2 artikel 21, stk. 2, litra c, nævner krisestyring sammen med driftskontinuitet som en påkrævet foranstaltning, og artikel 20 gør ledelsesorganet ansvarligt for at godkende og føre tilsyn med foranstaltningerne til styring af cybersikkerhedsrisici og kræver, at dets medlemmer deltager i uddannelse. På EU-niveau opretter artikel 16 EU-CyCLONe til at koordinere cybersikkerhedshændelser og -kriser i stor skala mellem medlemslandene. Krisestyring adskiller sig fra hændelseshåndtering ved, at hændelseshåndteringen inddæmmer og fjerner den tekniske årsag, mens krisestyringen styrer organisationen gennem de forretningsmæssige, juridiske og omdømmemæssige konsekvenser; de to kører parallelt og kræver en klar snitflade, typisk en hændelsesleder, der orienterer krisestaben.
+howTo:
+  steps:
+    en:
+      - Agree with top management what turns an incident into a crisis, for example a threat to critical services, to people's safety or to the organisation's reputation, and who may call the crisis team together.
+      - Set up a crisis team of senior leaders with fixed roles - chair, situation picture, communication, legal and HR - and a deputy for each, and decide how it connects to the incident response team, usually through the incident lead.
+      - Decide in advance the hardest calls and who makes them, such as disconnecting from the internet, stopping production or taking a position on ransom payment together with legal advisers and the insurer.
+      - Prepare a crisis room, physical or virtual, that works without the normal IT, with a meeting agenda template, a situation log and a decision log.
+      - When the team is activated, meet at a fixed rhythm; open each meeting with the common situation picture, follow up on actions from the last meeting and end with decisions and owners.
+      - Record every decision with its reason and time in the decision log, so choices made under uncertainty can be explained later to the board, auditors and regulators.
+      - Start the continuity plans and the communication plan from the crisis team, and agree when and how the crisis is stood down and handed back to normal management.
+      - Train the crisis team, including new board members and managers, and exercise it at least once a year with a cyber scenario.
+    da:
+      - Aftal med topledelsen, hvornår en hændelse bliver til en krise, fx når den truer kritiske ydelser, menneskers sikkerhed eller organisationens omdømme, og hvem der må kalde krisestaben sammen.
+      - Nedsæt en krisestab af topledere med faste roller - formand, situationsbillede, kommunikation, jura og HR - og en stedfortræder for hver, og beslut, hvordan den hænger sammen med teamet for hændelseshåndtering, typisk via hændelseslederen.
+      - Beslut på forhånd, hvem der træffer de sværeste beslutninger, fx om at koble fra internettet, standse produktionen eller tage stilling til en løsesum sammen med juridiske rådgivere og forsikringsselskabet.
+      - Forbered et krisestabsrum, fysisk eller virtuelt, der fungerer uden den normale IT, med en skabelon til dagsorden, en situationslog og en beslutningslog.
+      - Når krisestaben er aktiveret, så mød i en fast kadence; åbn hvert møde med det fælles situationsbillede, følg op på handlingerne fra sidste møde, og slut med beslutninger og ansvarlige.
+      - Skriv hver beslutning ned med begrundelse og tidspunkt i beslutningsloggen, så valg truffet under usikkerhed senere kan forklares for bestyrelse, revisorer og tilsynsmyndigheder.
+      - Sæt kontinuitetsplanerne og kommunikationsplanen i gang fra krisestaben, og aftal, hvornår og hvordan krisen afsluttes og overdrages til den normale ledelse.
+      - Træn krisestaben, også nye bestyrelsesmedlemmer og ledere, og øv den mindst én gang om året med et cyberscenarie.
+  pitfalls:
+    en:
+      - Leaving a serious attack to IT alone, so business decisions about customers, production and the press are made late or not at all.
+      - Crisis team members pulling into the technical work instead of deciding priorities and leaving the technical work to the incident team.
+      - Making decisions without writing down why, so they cannot be explained or defended afterwards.
+      - Planning to meet in a room or on a platform that depends on the systems the attack has taken down.
+    da:
+      - At overlade et alvorligt angreb til IT alene, så forretningsbeslutninger om kunder, produktion og presse bliver truffet for sent eller slet ikke.
+      - At krisestabens medlemmer blander sig i det tekniske arbejde i stedet for at sætte prioriteter og lade hændelsesteamet klare teknikken.
+      - At træffe beslutninger uden at skrive begrundelsen ned, så de ikke kan forklares eller forsvares bagefter.
+      - At planlægge at mødes i et lokale eller på en platform, der afhænger af de systemer, angrebet har lagt ned.
+  guides:
+    - title: Struktur og organisering
+      url: https://www.brs.dk/da/redningsberedskab-myndighed/krisestyring2-og-beredskabsplanlagning/helhedsorienteret-beredskabsplanlagning/struktur-og-organisering/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Retningslinjer for krisestyring
+      url: https://www.brs.dk/da/nyheder-og-publikationer/publikationer2/alle-publikationer/2019/retningslinjer-for-krisestyring/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Cyber Governance Code of Practice
+      url: https://www.ncsc.gov.uk/cyber-governance-for-boards/code-of-practice
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Build - A cyber security incident response team (CSIRT)
+      url: https://www.ncsc.gov.uk/collection/incident-management/creating-incident-response-team
+      publisher: NCSC UK
+      tier: official-doc
 edges:
   requires: [business-continuity-plan]
   contrasts-with:

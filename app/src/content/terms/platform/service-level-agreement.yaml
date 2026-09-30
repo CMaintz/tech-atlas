@@ -41,6 +41,56 @@ deepDive:
     Kompensationen i cloud-SLA'er er normalt servicekreditter efter en trappeskala som procent af månedsgebyret, ofte på betingelse af at kunden gør krav gældende inden for en frist, med et loft som en andel af regningen og formuleret som den eneste og udtømmende beføjelse. En kreditering dækker derfor sjældent det reelle forretningstab ved et nedbrud; SLA'en fordeler den økonomiske risiko frem for at garantere driftssikkerhed. Svar- og løsningstider for supportsager efter alvorlighed er en anden udbredt SLA-kategori, adskilt fra tilgængelighed.
 
     I ITIL-terminologi er SLA'en den eksterne aftale med en kunde, understøttet internt af operational level agreements (OLA'er) mellem interne teams og underliggende kontrakter med leverandører. I SRE-praksis er SLA'en bakket op af en strengere intern SLO, så teamet reagerer på forbruget af fejlbudget længe før kontraktlige sanktioner udløses. Regulering fastlægger i stigende grad SLA-indhold: efter DORA (forordning (EU) 2022/2554, gældende fra 17. januar 2025) kræver artikel 30, stk. 2, litra e, at finansielle enheders kontrakter om IKT-tjenester indeholder beskrivelser af serviceniveauer, og artikel 30, stk. 3, litra a, kræver fuldstændige serviceniveaubeskrivelser med præcise kvantitative og kvalitative præstationsmål for tjenester, der understøtter kritiske eller vigtige funktioner, så enheden kan overvåge leverancen og handle uden unødig forsinkelse, når niveauerne ikke overholdes.
+howTo:
+  steps:
+    en:
+      - Start from the business need - which processes depend on the service, how long they can be without it, and what you have promised your own customers.
+      - Define each service level precisely - the indicator (for example monthly availability, or response time per severity), how and where it is measured, the time window and every exclusion such as scheduled maintenance.
+      - Check that the level is realistic by comparing it with your internal SLOs and with the SLAs of the suppliers you depend on, and add redundancy if the combined figure is too low.
+      - Agree the remedies - service credits, how and by when a claim must be made, and the right to terminate after repeated breaches - knowing that credits are capped and rarely cover the real loss.
+      - Require a monthly service report from the supplier, and set up your own independent measurement to check it.
+      - If you are a financial entity under DORA, check that each ICT contract describes the service levels, and for services supporting critical or important functions sets precise quantitative and qualitative performance targets (Article 30).
+      - Follow up at regular service meetings, monthly or quarterly - compare the reports with your own figures, claim credits and agree improvement plans for missed levels.
+      - Review the SLA at least once a year and whenever the business need or the service changes.
+    da:
+      - Tag udgangspunkt i forretningens behov - hvilke processer afhænger af tjenesten, hvor længe de kan undvære den, og hvad I selv har lovet jeres kunder.
+      - Definér hvert serviceniveau præcist - indikatoren (fx månedlig tilgængelighed eller svartid pr. alvorlighed), hvordan og hvor den måles, perioden og alle undtagelser som planlagt vedligehold.
+      - Tjek, at niveauet er realistisk, ved at sammenholde det med jeres interne SLO'er og med SLA'erne fra de leverandører, I selv afhænger af, og tilføj redundans, hvis det samlede tal er for lavt.
+      - Aftal kompensationen - servicekreditter, hvordan og inden hvornår der skal gøres krav gældende, og retten til at opsige ved gentagne brud - vel vidende at kreditter har et loft og sjældent dækker det reelle tab.
+      - Kræv en månedlig servicerapport fra leverandøren, og sæt jeres egen uafhængige måling op til at kontrollere den.
+      - Er I en finansiel enhed under DORA, så tjek, at hver IKT-kontrakt beskriver serviceniveauerne og for tjenester, der understøtter kritiske eller vigtige funktioner, fastsætter præcise kvantitative og kvalitative præstationsmål (artikel 30).
+      - Følg op på faste servicemøder hver måned eller hvert kvartal - sammenhold rapporterne med jeres egne tal, gør krav på kreditter, og aftal forbedringsplaner for niveauer, der ikke er nået.
+      - Gennemgå SLA'en mindst én gang om året, og når forretningens behov eller tjenesten ændrer sig.
+  pitfalls:
+    en:
+      - Comparing SLAs on the headline percentage without reading how downtime is defined and what is excluded.
+      - Promising your own customers a higher level than the combined SLAs of the services you depend on.
+      - Treating service credits as insurance, when they are capped and seldom cover the business loss of an outage.
+      - Signing the SLA and never measuring or claiming, so breaches pass unnoticed.
+    da:
+      - At sammenligne SLA'er på overskriftens procenttal uden at læse, hvordan nedetid er defineret, og hvad der er undtaget.
+      - At love jeres egne kunder et højere niveau end de samlede SLA'er for de tjenester, I afhænger af.
+      - At betragte servicekreditter som en forsikring, selv om de har et loft og sjældent dækker forretningstabet ved et nedbrud.
+      - At underskrive SLA'en og aldrig måle eller gøre krav gældende, så brud går ubemærket hen.
+  guides:
+    - title: Google SRE book - Chapter 4, Service Level Objectives
+      url: https://sre.google/sre-book/service-level-objectives/
+      publisher: Google
+      tier: reference
+    - title: Cloud Service Level Agreement Standardisation Guidelines
+      url: https://digital-strategy.ec.europa.eu/en/news/cloud-service-level-agreement-standardisation-guidelines
+      publisher: European Commission
+      tier: official-doc
+    - title: Katalog over kontraktbestemmelser for samfundskritiske it-systemer
+      url: https://sikkerdigital.dk/Media/637819816667401542/Katalog%20over%20kontraktbestemmelser_2022_web.pdf
+      publisher: Digitaliseringsstyrelsen
+      tier: official-doc
+      lang: da
+    - title: Forordning om digital operationel modstandsdygtighed (DORA)
+      url: https://www.finanstilsynet.dk/finansielle-temaer/tilsyn-med-ikt-og-datasikkerhed/forordning-om-digital-operationel-modstandsdygtighed-dora
+      publisher: Finanstilsynet
+      tier: official-doc
+      lang: da
 edges:
   requires: [availability]
   contrasts-with:

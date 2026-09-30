@@ -27,6 +27,59 @@ async function htmlFiles(dir) {
 /** @param {string} s */
 const xml = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+/**
+ * The route of every indexable page, sorted: not the 404, not excluded, not asking to
+ * stay out of the index, not a redirect.
+ * @param {string} outDir
+ */
+async function indexableRoutes(outDir) {
+  /** @type {string[]} */
+  const pages = [];
+  for (const file of await htmlFiles(outDir)) {
+    const rel = path.relative(outDir, file).split(path.sep).join('/');
+    const route = rel === 'index.html' ? '' : rel.replace(/(^|\/)index\.html$/, '$1');
+    if (rel === '404.html' || EXCLUDE.some((r) => r.test(route))) continue;
+    const html = await readFile(file, 'utf8');
+    if (/<meta name="robots" content="noindex"/.test(html)) continue;
+    if (/<meta http-equiv="refresh"/.test(html)) continue;
+    pages.push(route);
+  }
+  return pages.sort();
+}
+
+/**
+ * One `<url>` with its `hreflang` alternates (the languages the page exists in).
+ * @param {string} root
+ * @param {string} page
+ * @param {Set<string>} pages
+ */
+function urlEntry(root, page, pages) {
+  const m = /^(en|da)\/(.*)$/.exec(page);
+  const alts = m
+    ? ['en', 'da']
+        .filter((l) => pages.has(`${l}/${m[2]}`))
+        .map(
+          (l) =>
+            `    <xhtml:link rel="alternate" hreflang="${l}" href="${xml(root + l + '/' + m[2])}"/>`,
+        )
+    : [];
+  return [`  <url>`, `    <loc>${xml(root + page)}</loc>`, ...alts, `  </url>`].join('\n');
+}
+
+/**
+ * @param {string} root
+ * @param {string[]} pages sorted routes
+ */
+function urlset(root, pages) {
+  const set = new Set(pages);
+  const urls = pages.map((p) => urlEntry(root, p, set));
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join('\n')}\n</urlset>\n`;
+}
+
+/** @param {string} root */
+const sitemapIndex = (root) =>
+  `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <sitemap><loc>${xml(root)}sitemap-0.xml</loc></sitemap>\n</sitemapindex>\n`;
+
 /** @returns {import('astro').AstroIntegration} */
 export default function sitemap() {
   /** @type {string} */
@@ -41,39 +94,9 @@ export default function sitemap() {
       },
       'astro:build:done': async ({ dir, logger }) => {
         const outDir = fileURLToPath(dir);
-        /** @type {string[]} */
-        const pages = [];
-        for (const file of await htmlFiles(outDir)) {
-          const rel = path.relative(outDir, file).split(path.sep).join('/');
-          const route = rel === 'index.html' ? '' : rel.replace(/(^|\/)index\.html$/, '$1');
-          if (rel === '404.html' || EXCLUDE.some((r) => r.test(route))) continue;
-          const html = await readFile(file, 'utf8');
-          if (/<meta name="robots" content="noindex"/.test(html)) continue;
-          if (/<meta http-equiv="refresh"/.test(html)) continue;
-          pages.push(route);
-        }
-        pages.sort();
-        const set = new Set(pages);
-        const urls = pages.map((p) => {
-          const m = /^(en|da)\/(.*)$/.exec(p);
-          const alts = m
-            ? ['en', 'da']
-                .filter((l) => set.has(`${l}/${m[2]}`))
-                .map(
-                  (l) =>
-                    `    <xhtml:link rel="alternate" hreflang="${l}" href="${xml(root + l + '/' + m[2])}"/>`,
-                )
-            : [];
-          return [`  <url>`, `    <loc>${xml(root + p)}</loc>`, ...alts, `  </url>`].join('\n');
-        });
-        await writeFile(
-          path.join(outDir, 'sitemap-0.xml'),
-          `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join('\n')}\n</urlset>\n`,
-        );
-        await writeFile(
-          path.join(outDir, 'sitemap-index.xml'),
-          `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <sitemap><loc>${xml(root)}sitemap-0.xml</loc></sitemap>\n</sitemapindex>\n`,
-        );
+        const pages = await indexableRoutes(outDir);
+        await writeFile(path.join(outDir, 'sitemap-0.xml'), urlset(root, pages));
+        await writeFile(path.join(outDir, 'sitemap-index.xml'), sitemapIndex(root));
         logger.info(`sitemap: ${pages.length} pages`);
       },
     },
