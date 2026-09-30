@@ -41,6 +41,54 @@ deepDive:
     Ethvert guardrail er en klassifikator med en rate for falske positiver og en for falske negativer, og begge tæller: overblokering driver brugerne over i ustyrede værktøjer, underblokering lukker angreb igennem. Guardrails bør evalueres på mærkede testsæt, også med flersprogede og kodede varianter, og tærsklerne bør tilpasses den enkelte use case. Kendte svagheder er obfuskering (Base64, homoglyffer, en payload delt over flere ture), sprog med få træningsdata, som klassifikatoren ikke er trænet på, at klassifikatoren selv kan rammes af prompt injection, når den er en LLM, og streaming, hvor tokens når brugeren, før en output-kontrol har set hele svaret; modtrækket er kontrol i bidder med mulighed for at trække svaret tilbage eller buffering af højrisikosvar. Hvert ekstra modelkald giver også mere latens og flere omkostninger.
 
     Guardrails supplerer alignment frem for at erstatte det: alignment ændrer, hvad modellen er tilbøjelig til at producere, guardrails begrænser, hvad applikationen tager imod og sender ud, og de kan opdateres på timer uden gentræning. Ingen af dem erstatter mindst mulige rettigheder til værktøjer, for et filter kan omgås, men en rettighed, agenten ikke har, kan ikke misbruges. OWASP's LLM Top 10 anbefaler filtrering af input og output som et lag mod LLM01 Prompt Injection, LLM02 Sensitive Information Disclosure og LLM05 Improper Output Handling, og NIST AI 600-1 behandler indholdsfiltrering som én af flere risikostyringshandlinger for generativ AI.
+howTo:
+  steps:
+    en:
+      - Write a short policy for the application stating what it must never accept or say, such as jailbreak attempts, personal data like CPR and card numbers, secrets, off-topic or harmful content, and which output format is allowed.
+      - Map the points where checks can sit, namely the user's message, retrieved documents, tool results, tool calls and the final answer, and decide which rule applies where.
+      - Start with deterministic checks, such as regular expressions with a Luhn check for card numbers, allowlists for URLs and domains, length limits and JSON Schema validation of structured output.
+      - Add classifier checks for what rules cannot catch, such as a prompt-injection detector on user input and retrieved content, a safety classifier on answers and a PII detector, and use an LLM judge only where nothing simpler works.
+      - Decide for each check whether it blocks, rewrites, masks, asks the user again or hands the case to a person, and log every hit without storing more personal data than needed.
+      - Build a labelled test set with normal requests and attacks, including Danish, encoded and multi-turn variants, measure false positives and false negatives, and tune the thresholds per use case.
+      - For streamed answers, check the text in chunks with the option to retract it, or buffer high-risk answers until the output check has seen them in full.
+      - Rerun the test set whenever the model, prompt or guardrail changes, add new attacks from incidents and red teaming, and review block rates and user complaints every month.
+    da:
+      - Skriv en kort politik for applikationen om, hvad den aldrig må tage imod eller sige, fx jailbreak-forsøg, personoplysninger som CPR- og kortnumre, hemmeligheder og indhold, der er skadeligt eller uden for emnet, og hvilket outputformat der er tilladt.
+      - Kortlæg de steder, hvor kontroller kan sidde, nemlig brugerens besked, hentede dokumenter, værktøjsresultater, værktøjskald og det endelige svar, og beslut, hvilken regel der gælder hvor.
+      - Start med deterministiske kontroller, fx regulære udtryk med Luhn-tjek for kortnumre, tilladelseslister for URL'er og domæner, længdegrænser og JSON Schema-validering af struktureret output.
+      - Tilføj klassifikatorer til det, regler ikke kan fange, fx en detektor for prompt injection på brugerinput og hentet indhold, en sikkerhedsklassifikator på svar og en PII-detektor, og brug kun en LLM som dommer, hvor intet enklere virker.
+      - Beslut for hver kontrol, om den blokerer, omskriver, maskerer, spørger brugeren igen eller sender sagen videre til et menneske, og log hvert fund uden at gemme flere personoplysninger end nødvendigt.
+      - Opbyg et mærket testsæt med almindelige forespørgsler og angreb, også på dansk, kodede og fordelt over flere ture, mål falske positiver og falske negativer, og justér tærsklerne til den enkelte use case.
+      - Kontrollér ved streamede svar teksten i bidder med mulighed for at trække den tilbage, eller hold højrisikosvar tilbage, til output-kontrollen har set dem i fuld længde.
+      - Kør testsættet igen, hver gang model, prompt eller guardrail ændres, tilføj nye angreb fra hændelser og red teaming, og gennemgå blokeringsrater og brugerklager hver måned.
+  pitfalls:
+    en:
+      - Checking only the user's message, while indirect prompt injection arrives through retrieved documents, web pages and tool results.
+      - Treating a guardrail as a wall instead of a classifier with error rates, and giving the agent broad permissions because the filter should catch misuse.
+      - Tuning only on English examples, so Danish, encoded or split-up attacks pass straight through.
+      - Blocking so much that users give up and move to unmanaged AI tools.
+    da:
+      - Kun at kontrollere brugerens besked, mens indirekte prompt injection kommer ind via hentede dokumenter, websider og værktøjsresultater.
+      - At behandle et guardrail som en mur i stedet for en klassifikator med fejlrater og give agenten brede rettigheder, fordi filteret nok skal fange misbrug.
+      - Kun at tune på engelske eksempler, så danske, kodede eller opdelte angreb slipper lige igennem.
+      - At blokere så meget, at brugerne giver op og går over til ustyrede AI-værktøjer.
+  guides:
+    - title: OWASP Top 10 for LLM Applications 2025
+      url: https://genai.owasp.org/llm-top-10/
+      publisher: OWASP
+      tier: reference
+    - title: LLM Prompt Injection Prevention Cheat Sheet
+      url: https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
+    - title: Prompt Shields in Azure AI Content Safety
+      url: https://learn.microsoft.com/en-us/azure/ai-services/content-safety/concepts/jailbreak-detection
+      publisher: Microsoft
+      tier: official-doc
+    - title: NIST AI 600-1 - Artificial Intelligence Risk Management Framework, Generative Artificial Intelligence Profile
+      url: https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence
+      publisher: NIST
+      tier: standard
 edges:
   requires: [large-language-model]
   mitigates:

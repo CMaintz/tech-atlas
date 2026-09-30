@@ -1,0 +1,52 @@
+---
+/** The header's language menu (A92): the same page in the other language. */
+import Flag from './Flag.astro';
+import HeaderMenu from './HeaderMenu.astro';
+import { MENU_ITEM_CLASS } from '../lib/chrome/menu-style';
+import { LANGS, UI, swapLang, type Lang } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const ui = UI[lang];
+const path = Astro.url.pathname;
+const LANG_NAMES = { en: 'English', da: 'Dansk' } as const;
+---
+
+<HeaderMenu
+  buttonId="lang-switch"
+  buttonClass="flex min-h-11 items-center gap-1.5 rounded px-2 hover:text-fg md:min-h-0 md:p-1"
+  buttonLabel={`${ui.language}: ${LANG_NAMES[lang]}`}
+  menuId="lang-menu"
+  label={ui.language}
+>
+  <Fragment slot="button">
+    <Flag lang={lang} />
+    <span aria-hidden="true">{lang.toUpperCase()}</span>
+    <svg aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" fill="none">
+      <path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5"></path>
+    </svg>
+  </Fragment>
+  {LANGS.map((l) => (
+    <li role="none">
+      <a
+        role="menuitem"
+        tabindex="-1"
+        class={`${MENU_ITEM_CLASS} ${l === lang ? 'font-semibold' : ''}`}
+        href={swapLang(path, l)}
+        hreflang={l}
+        lang={l}
+        aria-current={l === lang ? 'true' : undefined}
+      >
+        <Flag lang={l} />
+        {LANG_NAMES[l]}
+        {l === lang && (
+          <span aria-hidden="true" class="ml-auto text-accent">
+            ✓
+          </span>
+        )}
+      </a>
+    </li>
+  ))}
+</HeaderMenu>

@@ -15,6 +15,7 @@ import { VECTORS_PATH, semanticInputs } from './semantic-inputs';
 import { compareVectors, type VectorFile } from '../src/lib/semantic';
 import { collisionsOf } from '../src/lib/collisions';
 import { buildGraph, type ModelTerm } from '../src/lib/graph-model';
+import { actionableReason, howToIssues, isActionable } from '../src/lib/actionable';
 import {
   circularDefinitions,
   depthHistogram,
@@ -122,6 +123,21 @@ for (const path of fg.sync('src/content/**/*.{yaml,md}').sort()) {
   for (const f of forbiddenDashes(readFileSync(path, 'utf8'))) {
     errors.push(`E12 ${path}:${f.line}: ${f.char} dash, write "-" instead: "${f.excerpt}"`);
   }
+}
+
+// E13 malformed howTo · W11 actionable term without one (A101). Counts, lengths and URLs
+// are schema checks (E10); dashes are E12.
+const actionableIds: string[] = [];
+const withHowTo: string[] = [];
+for (const [id, t] of terms) {
+  if (t.howTo) {
+    withHowTo.push(id);
+    for (const issue of howToIssues(t.howTo)) errors.push(`E13 ${id}: howTo ${issue}`);
+  }
+  if (!isActionable({ ...t, id })) continue;
+  actionableIds.push(id);
+  if (!t.howTo)
+    warnings.push(`W11 actionable but no howTo: ${id} (${actionableReason({ ...t, id })})`);
 }
 
 // W6 untouched Mentions: named in the prose of 5+ terms but linked by edges to none of them.
@@ -233,6 +249,11 @@ console.log(
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([f, n]) => `${f} ${n}`)
     .join(' · ')})`,
+);
+console.log(
+  `  howTo coverage: ${withHowTo.length} terms with a howTo; ${actionableIds.length} actionable, ${
+    actionableIds.filter((id) => !terms.get(id)!.howTo).length
+  } still without one (W11)`,
 );
 console.log(`  clusters under ten: ${underTen.join(', ') || 'none'}`);
 console.log(

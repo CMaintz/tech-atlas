@@ -42,6 +42,54 @@ deepDive:
     Sikkerhed kommer ind i CI/CD fra to sider. Pipelinen er et kontrolpunkt: SAST, SCA, scanning for hemmeligheder, IaC-scanning, SBOM-generering, signering og provenance kan håndhæves ved hver ændring, som NIST SP 800-204D (2024) beskriver for DevSecOps-pipelines. Den er også en værdifuld angrebsflade, fordi CI-systemer har legitimationsoplysninger til registries, cloudkonti og produktion. OWASP Top 10 CI/CD Security Risks katalogiserer fejl som utilstrækkelig flowkontrol (CICD-SEC-1), poisoned pipeline execution, hvor upålidelig kode fra en pull request kører med betroede hemmeligheder (CICD-SEC-4), mangelfuld hygiejne omkring legitimationsoplysninger (CICD-SEC-6) og utilstrækkelig validering af artefakters integritet (CICD-SEC-9). Virkelige hændelser omfatter kompromitteringen af Codecovs uploader i 2021, der lækkede miljøvariabler fra CI, og kompromitteringen af GitHub Action'en tj-actions/changed-files i marts 2025 (CVE-2025-30066), der dumpede hemmeligheder i offentlige build-logs.
 
     Standardmodtræk er grenbeskyttelse med krævede gennemgange og statustjek, kortlivede cloud-legitimationsoplysninger via OIDC-føderering i stedet for gemte nøgler, fastlåsning af tredjeparts-actions til fulde commit-SHA'er, flygtige og isolerede runners, adskillelse af rettigheder til build og udrulning samt verifikation af signerede artefakter før udrulning. CI/CD er praksissen; pipelinen er den konkrete, versionsstyrede automatisering, der implementerer den.
+howTo:
+  steps:
+    en:
+      - Keep each service's code, pipeline definition and infrastructure files in one version-controlled repository, and agree as a team that everyone merges small changes to the main branch at least once a day.
+      - Protect the main branch so every change needs a pull request, at least one review and passing status checks, and block force-pushes.
+      - Build a pipeline that runs on every change - build, unit tests and security checks (SAST, SCA, secrets and IaC scanning) - and keep the fast feedback loop to about ten minutes.
+      - Produce one immutable, versioned artefact per commit, generate an SBOM for it, sign it and store it in the registry.
+      - Deploy that same artefact to test, staging and production, with a manual approval before production if you practise continuous delivery, or automatic release if you practise continuous deployment.
+      - Give the pipeline short-lived OIDC-federated cloud credentials instead of stored keys, separate build and deploy permissions, and pin third-party actions and plugins to full commit SHAs.
+      - Release gradually with canary or blue-green deployments, and roll back automatically when health checks or the error budget are breached.
+      - Track the four DORA metrics every month (deployment frequency, lead time for changes, change failure rate, time to restore service) and improve the slowest or least stable stage first.
+    da:
+      - Hold hver tjenestes kode, pipelinedefinition og infrastrukturfiler i ét versionsstyret repository, og aftal i teamet, at alle fletter små ændringer ind i hovedgrenen mindst én gang om dagen.
+      - Beskyt hovedgrenen, så hver ændring kræver en pull request, mindst én gennemgang og grønne statustjek, og bloker force-push.
+      - Byg en pipeline, der kører ved hver ændring - build, enhedstests og sikkerhedstjek (SAST, SCA, scanning for hemmeligheder og IaC-scanning) - og hold den hurtige feedback på omkring ti minutter.
+      - Lav ét uforanderligt, versioneret artefakt pr. commit, generér en SBOM til det, signér det, og læg det i registryet.
+      - Rul det samme artefakt ud i test, staging og produktion, med manuel godkendelse før produktion, hvis I praktiserer kontinuerlig levering, eller automatisk frigivelse, hvis I praktiserer kontinuerlig udrulning.
+      - Giv pipelinen kortlivede cloud-legitimationsoplysninger via OIDC-føderering i stedet for gemte nøgler, adskil rettigheder til build og udrulning, og lås tredjeparts-actions og plugins til fulde commit-SHA'er.
+      - Frigiv gradvist med canary- eller blue-green-udrulninger, og rul automatisk tilbage, når helbredstjek eller fejlbudgettet overskrides.
+      - Følg de fire DORA-målinger hver måned (udrulningsfrekvens, gennemløbstid for ændringer, fejlrate for ændringer og tid til genopretning), og forbedr det langsomste eller mest ustabile trin først.
+  pitfalls:
+    en:
+      - Calling it CI while developers work for weeks on long-lived branches that are merged just before a release.
+      - Letting untrusted pull-request code run in jobs that can read secrets or deploy, which is poisoned pipeline execution.
+      - Leaving a broken or flaky build red for days, so people learn to ignore failures and bypass the checks.
+      - Turning every scanner on as a blocking gate from day one, so the pipeline becomes slow and noisy and teams work around it.
+    da:
+      - At kalde det CI, mens udviklerne arbejder i ugevis på langlivede grene, der først flettes ind lige før en frigivelse.
+      - At lade upålidelig kode fra pull requests køre i jobs, der kan læse hemmeligheder eller rulle ud, hvilket er poisoned pipeline execution.
+      - At lade et brudt eller ustabilt build stå rødt i dagevis, så folk vænner sig til at ignorere fejl og omgå tjekkene.
+      - At slå alle scannere til som blokerende fra første dag, så pipelinen bliver langsom og støjende, og teamene finder veje uden om den.
+  guides:
+    - title: NIST SP 800-204D - Strategies for the Integration of Software Supply Chain Security in DevSecOps CI/CD Pipelines
+      url: https://csrc.nist.gov/pubs/sp/800/204/d/final
+      publisher: NIST
+      tier: standard
+    - title: CI/CD Security Cheat Sheet
+      url: https://cheatsheetseries.owasp.org/cheatsheets/CI_CD_Security_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
+    - title: Continuous Integration (Martin Fowler)
+      url: https://martinfowler.com/articles/continuousIntegration.html
+      publisher: martinfowler.com
+      tier: reference
+    - title: GitHub Actions - Secure use reference
+      url: https://docs.github.com/en/actions/reference/security/secure-use
+      publisher: GitHub
+      tier: official-doc
 edges:
   requires: [version-control]
   part-of: [software-supply-chain]

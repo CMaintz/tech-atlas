@@ -1,0 +1,27 @@
+---
+/** The four facets of a term's definition, auto-linked (SPEC §4). */
+import Prose from '../Prose.astro';
+import { UI, type Lang } from '../../lib/site';
+import type { Segment } from '../../lib/autolink';
+import { FACETS, type Facet } from '../../lib/term-panel';
+
+interface Props {
+  lang: Lang;
+  /** Each facet's text, already auto-linked. */
+  linked: Record<Facet, Segment[]>;
+}
+
+const { lang, linked } = Astro.props;
+const ui = UI[lang];
+---
+
+<div class="mt-8 space-y-5" id="facets">
+  {FACETS.map((f) => (
+    <div>
+      <h2 class="mb-1 text-xs tracking-widest text-subtle uppercase">{ui[f]}</h2>
+      <p class="text-fg-soft">
+        <Prose segments={linked[f]} lang={lang} />
+      </p>
+    </div>
+  ))}
+</div>

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { makeLinker, namesOf, type LinkableTerm } from './autolink';
+import { makeLinker, nameIndex, namesOf, type LinkableTerm } from './autolink';
 
 const terms: LinkableTerm[] = [
   { id: 'security/phishing', term: { en: 'Phishing', da: 'Phishing' } },
@@ -20,6 +20,21 @@ describe('namesOf', () => {
       'IDS',
     ]);
     expect(namesOf('Denial of service (DoS/DDoS)')).toEqual(['Denial of service', 'DoS', 'DDoS']);
+  });
+});
+
+describe('nameIndex', () => {
+  it('indexes every name of 3+ letters in lower case, abbreviations included', () => {
+    const en = nameIndex(terms, 'en');
+    expect(en.get('intrusion detection system')).toEqual(['security/ids']);
+    expect(en.get('ids')).toEqual(['security/ids']);
+    expect(en.has('os')).toBe(false);
+  });
+
+  it('also knows the English names on Danish pages', () => {
+    const da = nameIndex(terms, 'da');
+    expect(da.get('adgangskode')).toEqual(['cs/password']);
+    expect(da.get('password')).toEqual(['cs/password']);
   });
 });
 

@@ -40,6 +40,51 @@ deepDive:
     Begrebet har bevæget sig fra god praksis mod pligt. GDPR artikel 25 gør "databeskyttelse gennem design og gennem standardindstillinger" til et lovkrav ved behandling af personoplysninger, så privatlivsrelevante designbeslutninger skal minimere data og som standard vælge de mest beskyttende indstillinger. EU's Cyber Resilience Act stiller væsentlige cybersikkerhedskrav til produkter med digitale elementer, herunder secure-by-default-konfiguration og håndtering af sårbarheder, med forpligtelser, der indfases, og indberetningspligter, der gælder fra 11. september 2026. CISA's internationale "Secure by Design"-vejledning skubber yderligere ansvaret over på producenterne frem for slutbrugerne. NIS2 artikel 21 understøtter samme forventning for væsentlige og vigtige enheder.
 
     En vedholdende misforståelse sætter lighedstegn mellem security by design og blot at køre en penetrationstest før lancering; test til sidst validerer, men kan ikke erstatte designbeslutninger, der allerede er indbygget, og en pentest, der finder en arkitektonisk fejl, finder den typisk for sent til at rette billigt. En anden er at opfatte "secure by default" som absolut - standardindstillinger sænker risikoen for det gennemsnitlige setup, men kan ikke foregribe ethvert miljø, så dokumenteret hærdningsvejledning er stadig vigtig. Security by design adskiller sig fra defence-in-depth (der lagdeler kontroller under drift) ved at handle om, hvordan systemet undfanges og bygges; de to supplerer hinanden, for godt design afgør, hvor de lag skal placeres.
+howTo:
+  steps:
+    en:
+      - Set security requirements at the idea stage, next to the functional ones, based on the data and services the system handles and on rules such as NIS2, GDPR or the CRA.
+      - Draw the architecture with data flows and trust boundaries, and threat model it with a method such as STRIDE before building starts.
+      - Choose design principles that remove whole classes of flaws, such as least privilege, fail-safe defaults, checking every access, simple mechanisms and memory-safe languages where possible.
+      - Make the secure setting the default - no default passwords, unused services off, and MFA, logging and encryption on without extra cost or effort for the user.
+      - Write the requirements into contracts and acceptance criteria when you buy or outsource development, so the supplier has to show how each one is met.
+      - Check the design and code during development with reviews and automated tests, not only with a penetration test at the end.
+      - Ship hardening guidance and a clear way to receive and fix vulnerability reports, and repeat the threat model whenever the design changes.
+    da:
+      - Fastlæg sikkerhedskravene allerede på idéstadiet sammen med de funktionelle krav, ud fra de data og tjenester, systemet håndterer, og regler som NIS2, GDPR eller CRA.
+      - Tegn arkitekturen med dataflow og tillidsgrænser, og lav en trusselsmodel med en metode som STRIDE, før udviklingen begynder.
+      - Vælg designprincipper, der fjerner hele klasser af fejl, fx mindst mulige rettigheder, sikre fejltilstande, kontrol af hver adgang, enkle mekanismer og hukommelsessikre sprog, hvor det er muligt.
+      - Gør den sikre indstilling til standard - ingen standardadgangskoder, ubrugte tjenester slået fra, og MFA, logning og kryptering slået til uden ekstra pris eller besvær for brugeren.
+      - Skriv kravene ind i kontrakter og acceptkriterier, når I køber eller outsourcer udvikling, så leverandøren skal vise, hvordan hvert krav er opfyldt.
+      - Kontrollér design og kode undervejs med gennemgange og automatiske test, ikke kun med en penetrationstest til sidst.
+      - Lever vejledning i hærdning og en klar vej til at modtage og rette sårbarhedsrapporter, og gentag trusselsmodellen, hver gang designet ændres.
+  pitfalls:
+    en:
+      - Treating a penetration test before launch as security by design, although architectural flaws found at that point are costly or impossible to fix.
+      - Leaving secure settings as optional extras the customer must turn on, instead of making them the default.
+      - Writing vague requirements such as "the system must be secure", which cannot be tested or held against a supplier.
+    da:
+      - At regne en penetrationstest før lancering for security by design, selv om arkitektoniske fejl, der findes på det tidspunkt, er dyre eller umulige at rette.
+      - At lade sikre indstillinger være tilvalg, som kunden selv skal slå til, i stedet for at gøre dem til standard.
+      - At skrive vage krav som "systemet skal være sikkert", som hverken kan testes eller holdes op mod en leverandør.
+  guides:
+    - title: Secure by Design
+      url: https://www.cisa.gov/securebydesign
+      publisher: CISA
+      tier: official-doc
+    - title: Secure design principles
+      url: https://www.ncsc.gov.uk/collection/cyber-security-design-principles
+      publisher: NCSC UK
+      tier: official-doc
+    - title: NIST SP 800-160 Vol. 1 Rev. 1 - Engineering Trustworthy Secure Systems
+      url: https://csrc.nist.gov/pubs/sp/800/160/v1/r1/final
+      publisher: NIST
+      tier: standard
+    - title: D-mærkets kriterier
+      url: https://d-maerket.dk/da/bliv-d-maerket/kriterier
+      publisher: D-mærket
+      tier: official-doc
+      lang: da
 edges:
   requires: [cia-triad]
   mitigates:

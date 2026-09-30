@@ -1,0 +1,67 @@
+---
+/** Every page's <head> content: title, description, language alternates, social cards. */
+import { UI, swapLang, url, type Lang } from '../lib/site';
+import { UI_EXTRA } from '../lib/ui-extra';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description?: string;
+  ogType: 'website' | 'article';
+  noindex: boolean;
+  jsonLd?: Record<string, unknown>;
+}
+const { lang, title, description, ogType, noindex, jsonLd } = Astro.props;
+const path = Astro.url.pathname;
+const alternates = (['en', 'da'] as const).map((l) => ({
+  lang: l,
+  href: new URL(swapLang(path, l), Astro.site).href,
+}));
+const pageTitle = title === 'Atlas' ? 'Atlas' : `${title} - Atlas`;
+const canonical = new URL(path, Astro.site).href;
+const desc = description ?? UI[lang].tagline;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+{/* Cross-origin requests get the origin only, never the path (A89). The CSP meta is
+    added by Astro (security.csp, integrations/csp.mjs). */}
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<title>{pageTitle}</title>
+<link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
+<meta name="description" content={desc} />
+<meta name="theme-color" content="#0a0a0a" />
+{noindex && <meta name="robots" content="noindex" />}
+{!noindex && <link rel="canonical" href={canonical} />}
+{alternates.map((a) => (
+  <link rel="alternate" hreflang={a.lang} href={a.href} />
+))}
+<link rel="alternate" hreflang="x-default" href={alternates[0].href} />
+<link rel="sitemap" href={url('sitemap-index.xml')} />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={UI_EXTRA[lang].feedTitle}
+  href={url(`${lang}/feed.xml`)}
+/>
+<meta property="og:site_name" content="Atlas" />
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={desc} />
+<meta property="og:type" content={ogType} />
+{!noindex && <meta property="og:url" content={canonical} />}
+<meta property="og:locale" content={lang === 'da' ? 'da_DK' : 'en_GB'} />
+<meta property="og:locale:alternate" content={lang === 'da' ? 'en_GB' : 'da_DK'} />
+<meta name="twitter:card" content="summary" />
+{jsonLd && (
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')}
+  ></script>
+)}
+<noscript>
+  <style>
+    #site-nav {
+      display: flex;
+    }
+  </style>
+</noscript>

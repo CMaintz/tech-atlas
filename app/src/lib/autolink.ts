@@ -75,7 +75,8 @@ export const namesOf = (label: string) => {
   return m ? [m[1], ...m[2].split('/').map((x) => x.trim())] : [label];
 };
 
-export function makeLinker(terms: LinkableTerm[], lang: Lang) {
+/** Every linkable name (lower case, 3+ letters) → the ids of the terms it names. */
+export function nameIndex(terms: LinkableTerm[], lang: Lang): Map<string, string[]> {
   const idsOf = new Map<string, string[]>();
   for (const t of terms) {
     // Danish pages also recognise English names — many security terms are loanwords.
@@ -86,13 +87,23 @@ export function makeLinker(terms: LinkableTerm[], lang: Lang) {
       if (key.length >= 3 && !ids.includes(t.id)) idsOf.set(key, [...ids, t.id]);
     }
   }
-  const alternation = [...idsOf.keys()]
+  return idsOf;
+}
+
+/** One regex for every name as a whole word, longest first, allowing `lang`'s inflections. */
+function namePattern(names: string[], lang: Lang): RegExp | null {
+  const alternation = [...names]
     .sort((a, b) => b.length - a.length)
     .map(escape)
     .join('|');
-  const pattern = alternation
+  return alternation
     ? new RegExp(`(?<![\\p{L}\\p{N}])(${alternation})${SUFFIX[lang]}(?![\\p{L}\\p{N}])`, 'giu')
     : null;
+}
+
+export function makeLinker(terms: LinkableTerm[], lang: Lang) {
+  const idsOf = nameIndex(terms, lang);
+  const pattern = namePattern([...idsOf.keys()], lang);
 
   /** A name shared across domains (ADR-0003) resolves to the page's own domain, else stays unlinked. */
   const resolve = (name: string, self?: string) => {

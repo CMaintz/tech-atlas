@@ -7,26 +7,14 @@
 import Base from '../../../../layouts/Base.astro';
 import CanvasExplorer from '../../../../components/CanvasExplorer';
 import { aboutProps } from '../../../../lib/about-assets';
-import {
-  CLUSTER_LABELS,
-  DOMAIN_LABELS,
-  FAMILY_COLOURS,
-  FAMILY_LABELS,
-  GRAPH_UI,
-  LANGS,
-  UI,
-  url,
-  type Lang,
-} from '../../../../lib/site';
-import { localise as localiseIn, panelConfig } from '../../../../lib/panel-config';
+import { mapIslandProps } from '../../../../lib/map-props';
+import { LANGS, url, type Lang } from '../../../../lib/site';
 
 export function getStaticPaths() {
   return LANGS.map((lang) => ({ params: { lang } }));
 }
 
 const lang = Astro.params.lang as Lang;
-const ui = UI[lang];
-const localise = (m: Record<string, Record<Lang, string>>) => localiseIn(m, lang);
 ---
 
 <Base lang={lang} title="Canvas lab" wide noindex tourAutoStart={false}>
@@ -34,16 +22,8 @@ const localise = (m: Record<string, Record<Lang, string>>) => localiseIn(m, lang
     <CanvasExplorer
       client:only="preact"
       lang={lang}
-      graphUrl={url('graph.json')}
-      termBase={url(`${lang}/terms/`)}
+      {...mapIslandProps(lang)}
       explorerUrl={url(`${lang}/explorer/`)}
-      ui={{ ...ui }}
-      clusterLabels={localise(CLUSTER_LABELS)}
-      graphUi={{ ...GRAPH_UI[lang] }}
-      familyLabels={localise(FAMILY_LABELS)}
-      familyColours={FAMILY_COLOURS}
-      domainLabels={localise(DOMAIN_LABELS)}
-      panel={panelConfig(lang)}
       about={aboutProps(lang)}
     />
   </div>

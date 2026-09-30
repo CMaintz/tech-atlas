@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { newest, parseAddLog, toRss } from './feed';
+import { newest, parseAddLog, termFeed, toRss } from './feed';
 
 const LOG = `@2026-09-23T14:51:44+02:00
 
@@ -38,6 +38,34 @@ describe('newest', () => {
     const out = newest([{ id: 'c' }, { id: 'a' }, { id: 'b' }, { id: 'x' }], added, 2);
     expect(out.map((t) => t.id)).toEqual(['b', 'c']);
     expect(out[0].date).toBe('2026-02-01T00:00:00Z');
+  });
+});
+
+describe('termFeed', () => {
+  const term = (id: string) => ({
+    id,
+    data: { term: { en: `${id} en`, da: `${id} da` }, summary: { en: 'S', da: 'R' } },
+  });
+  const added = new Map([['cs/json', '2026-02-01T00:00:00Z']]);
+  const feed = termFeed([term('cs/json'), term('cs/undated')], added, {
+    lang: 'da',
+    root: 'https://x.test/atlas/',
+    title: 'T',
+    description: 'D',
+  });
+
+  it('links the language home, its own feed and each dated term in that language', () => {
+    expect(feed.link).toBe('https://x.test/atlas/da/');
+    expect(feed.self).toBe('https://x.test/atlas/da/feed.xml');
+    expect(feed.language).toBe('da');
+    expect(feed.items).toEqual([
+      {
+        title: 'cs/json da',
+        link: 'https://x.test/atlas/da/terms/cs/json/',
+        description: 'R',
+        date: '2026-02-01T00:00:00Z',
+      },
+    ]);
   });
 });
 

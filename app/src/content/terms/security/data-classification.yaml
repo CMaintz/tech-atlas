@@ -41,6 +41,50 @@ deepDive:
     Juridiske kategorier er et lag ovenpå, ikke en erstatning. Særlige kategorier af personoplysninger (GDPR art. 9) og oplysninger om strafbare forhold (art. 10) samt i Danmark CPR-numre, som databeskyttelseslovens § 11 regulerer særskilt, fører som regel mindst til niveauet fortrolig, men et dokument kan være meget fortroligt uden at indeholde personoplysninger, fx en tilbudspris eller kildekode. Når hver juridisk kategori kobles til et minimumsniveau, holdes de to systemer i overensstemmelse.
 
     Mærkninger er kun nyttige, hvis maskiner kan læse dem. Følsomhedsmærkater gemt i dokumenternes metadata, fx Microsoft Purview-labels, styrer kryptering, vandmærker, DLP-politikker i mailgatewayen og på endpoints samt CASB-regler for upload til cloud. Automatiske klassifikatorer baseret på regulære udtryk (fx mønstre for CPR-numre), fingerprinting eller trænede modeller hjælper med de store mængder eksisterende data, men giver falske positiver og kan ikke vurdere kontekst. De typiske fejl er overklassifikation, hvor alt bliver fortroligt, så mærkningen ikke længere siger noget, og medarbejderne går udenom, og underklassifikation som standard, hvor umærkede data ikke arver nogen beskyttelse. Klassifikation er også grundlaget for opbevaring og sletning, for at finde data ved indsigtsanmodninger og for at afgrænse backup og kryptering, og derfor hænger den så tæt sammen med kryptering og håndtering af personoplysninger.
+howTo:
+  steps:
+    en:
+      - Have management approve a scheme with three or four levels, such as public, internal, confidential and strictly confidential, each defined by the harm a leak or change would cause.
+      - For each level, write handling rules for access, encryption at rest and in transit, external sharing, printing, storage locations, retention and disposal.
+      - Map legal categories to a minimum level, for example GDPR special categories, criminal-offence data and CPR numbers as at least confidential.
+      - Make information owners responsible for classifying their data, starting with the most critical systems and data stores in the asset inventory.
+      - Set a sensible default label for unlabelled data and build the labels into your tools, for example Microsoft Purview sensitivity labels that drive encryption and DLP.
+      - Train staff with concrete examples of each level and how to send, store and share it.
+      - Use automatic classification, for example CPR-number patterns, to find sensitive data in existing file shares and mailboxes, and check the hits by hand.
+      - Review the scheme and a sample of labels every year, and lower the level when information loses sensitivity, such as a report after publication.
+    da:
+      - Få ledelsen til at godkende en ordning med tre eller fire niveauer, fx offentlig, intern, fortrolig og strengt fortrolig, hvor hvert niveau er defineret ud fra den skade, et læk eller en ændring vil give.
+      - Skriv for hvert niveau håndteringsregler for adgang, kryptering ved lagring og transmission, deling med eksterne, udskrift, lagringssteder, opbevaring og bortskaffelse.
+      - Kobl juridiske kategorier til et minimumsniveau, fx så særlige kategorier efter GDPR, oplysninger om strafbare forhold og CPR-numre mindst er fortrolige.
+      - Gør informationsejerne ansvarlige for at klassificere deres data, og start med de mest kritiske systemer og datalagre i aktivfortegnelsen.
+      - Vælg en fornuftig standardmærkning til umærkede data, og byg mærkningen ind i værktøjerne, fx Microsoft Purview-følsomhedsmærkater, der styrer kryptering og DLP.
+      - Uddan medarbejderne med konkrete eksempler på hvert niveau, og på hvordan data på niveauet må sendes, gemmes og deles.
+      - Brug automatisk klassifikation, fx mønstre for CPR-numre, til at finde følsomme data på eksisterende fildrev og i postkasser, og kontrollér fundene manuelt.
+      - Gennemgå ordningen og en stikprøve af mærkninger hvert år, og sænk niveauet, når information mister sin følsomhed, fx en rapport efter offentliggørelse.
+  pitfalls:
+    en:
+      - Using too many levels or marking everything confidential, so labels carry no signal and staff work around them.
+      - Defining labels with no handling rules or technical enforcement behind them.
+      - Leaving unlabelled data with no default protection at all.
+      - Treating classification as a personal data exercise only, so non-personal secrets like tender prices or source code go unprotected.
+    da:
+      - At bruge for mange niveauer eller mærke alt som fortroligt, så mærkningen ikke siger noget, og medarbejderne går uden om den.
+      - At indføre mærkninger uden håndteringsregler eller teknisk håndhævelse bag.
+      - At lade umærkede data stå helt uden standardbeskyttelse.
+      - At se klassifikation som noget, der kun handler om personoplysninger, så hemmeligheder som tilbudspriser eller kildekode står ubeskyttet.
+  guides:
+    - title: FIPS 199 - Standards for Security Categorization of Federal Information and Information Systems
+      url: https://csrc.nist.gov/pubs/fips/199/final
+      publisher: NIST
+      tier: standard
+    - title: Learn about sensitivity labels
+      url: https://learn.microsoft.com/en-us/purview/sensitivity-labels
+      publisher: Microsoft
+      tier: official-doc
+    - title: Traffic Light Protocol (TLP) 2.0
+      url: https://www.first.org/tlp/
+      publisher: FIRST
+      tier: standard
 edges:
   requires: [confidentiality]
   used-with:

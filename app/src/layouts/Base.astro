@@ -1,16 +1,13 @@
 ---
 import '../styles/global.css';
-import AboutButton from '../components/AboutButton';
-import AccountMenu from '../components/AccountMenu';
-import FeedbackButton from '../components/FeedbackButton';
-import Tour from '../components/Tour';
-import Flag from '../components/Flag.astro';
-import { ACCOUNTS, LANGS, REPO, TOUR_STEPS, UI, swapLang, url, type Lang } from '../lib/site';
-import { isCurrentNav } from '../lib/prefs';
-import { aboutProps } from '../lib/about-assets';
-import { feedbackProps } from '../lib/feedback-props';
-import { UI_EXTRA } from '../lib/ui-extra';
-import { CHANGELOG_URL, VERSION } from '../lib/version';
+import BackToTop from '../components/BackToTop.astro';
+import BetaRibbon from '../components/BetaRibbon.astro';
+import LangSuggest from '../components/LangSuggest.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHead from '../components/SiteHead.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteTour from '../components/SiteTour.astro';
+import { UI, url, type Lang } from '../lib/site';
 
 interface Props {
   lang?: Lang;
@@ -37,104 +34,20 @@ const {
   noindex = false,
   jsonLd,
 } = Astro.props;
-const extra = UI_EXTRA[lang];
 const ui = UI[lang];
-const LANG_NAMES = { en: 'English', da: 'Dansk' } as const;
-const feedback = feedbackProps(lang);
-const themes = [
-  { value: 'system', label: ui.themeSystem },
-  { value: 'light', label: ui.themeLight },
-  { value: 'dark', label: ui.themeDark },
-] as const;
-const menuCls =
-  'absolute top-full right-0 z-40 mt-2 min-w-40 rounded-md border border-border-strong bg-surface py-1 text-sm text-fg shadow-lg shadow-black/20';
-const itemCls =
-  'flex min-h-11 w-full items-center gap-2 px-3 py-2 text-left md:min-h-0 hover:bg-surface-2 focus-visible:bg-surface-2 focus-visible:outline-none';
-const path = Astro.url.pathname;
-const alternates = (['en', 'da'] as const).map((l) => ({
-  lang: l,
-  href: new URL(swapLang(path, l), Astro.site).href,
-}));
-const pageTitle = title === 'Atlas' ? 'Atlas' : `${title} - Atlas`;
-const canonical = new URL(path, Astro.site).href;
-const desc = description ?? ui.tagline;
-const langBase = url(`${lang}/`);
-const nav = [
-  { href: langBase, label: ui.index },
-  { href: url(`${lang}/explorer/`), label: ui.explorer },
-  { href: url(`${lang}/timeline/`), label: ui.timeline },
-  { href: url(`${lang}/compare/`), label: ui.compare },
-  { href: url(`${lang}/study/`), label: ui.study },
-];
-const current = (href: string) => isCurrentNav(path, href, langBase);
-const steps = TOUR_STEPS.map((s) => ({
-  ...s,
-  title: s.title[lang],
-  body: s.body[lang],
-  via: s.via?.[lang],
-}));
-const tourUi = {
-  tourWelcomeStart: ui.tourWelcomeStart,
-  tourNotNow: ui.tourNotNow,
-  tourDontShow: ui.tourDontShow,
-  tourNext: ui.tourNext,
-  tourBack: ui.tourBack,
-  tourFinish: ui.tourFinish,
-  tourClose: ui.tourClose,
-  tourStepOf: ui.tourStepOf,
-  tourContinue: ui.tourContinue,
-  tourEnd: ui.tourEnd,
-  tourBridgeLink: ui.tourBridgeLink,
-  tourBridgeMenu: ui.tourBridgeMenu,
-};
 ---
 
 <!doctype html>
-<html lang={lang} data-lang-base={langBase}>
+<html lang={lang} data-lang-base={url(`${lang}/`)}>
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    {/* Cross-origin requests get the origin only, never the path (A89). The CSP meta is
-        added by Astro (security.csp, integrations/csp.mjs). */}
-    <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <title>{pageTitle}</title>
-    <link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
-    <meta name="description" content={desc} />
-    <meta name="theme-color" content="#0a0a0a" />
-    {noindex && <meta name="robots" content="noindex" />}
-    {!noindex && <link rel="canonical" href={canonical} />}
-    {alternates.map((a) => (
-      <link rel="alternate" hreflang={a.lang} href={a.href} />
-    ))}
-    <link rel="alternate" hreflang="x-default" href={alternates[0].href} />
-    <link rel="sitemap" href={url('sitemap-index.xml')} />
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title={extra.feedTitle}
-      href={url(`${lang}/feed.xml`)}
+    <SiteHead
+      lang={lang}
+      title={title}
+      description={description}
+      ogType={ogType}
+      noindex={noindex}
+      jsonLd={jsonLd}
     />
-    <meta property="og:site_name" content="Atlas" />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={desc} />
-    <meta property="og:type" content={ogType} />
-    {!noindex && <meta property="og:url" content={canonical} />}
-    <meta property="og:locale" content={lang === 'da' ? 'da_DK' : 'en_GB'} />
-    <meta property="og:locale:alternate" content={lang === 'da' ? 'en_GB' : 'da_DK'} />
-    <meta name="twitter:card" content="summary" />
-    {jsonLd && (
-      <script
-        type="application/ld+json"
-        set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')}
-      ></script>
-    )}
-    <noscript>
-      <style>
-        #site-nav {
-          display: flex;
-        }
-      </style>
-    </noscript>
   </head>
   <body class="flex min-h-dvh flex-col bg-bg font-sans text-fg antialiased">
     {/* Blocking, before any content is parsed, so there is no flash of the wrong theme
@@ -147,201 +60,8 @@ const tourUi = {
     >
       {ui.skipToContent}
     </a>
-    <header
-      class="group relative flex items-center justify-between gap-4 border-b border-border px-4 py-2 sm:px-6 md:py-4 print:hidden"
-      data-site-header
-    >
-      <div class="flex items-center gap-2">
-        <a
-          href={langBase}
-          class="inline-flex min-h-11 items-center font-mono text-lg tracking-tight md:min-h-0"
-        >
-          atlas
-        </a>
-        {/* Phones: a badge here, as the corner ribbon would cover content and controls. */}
-        <span
-          aria-hidden="true"
-          class="rounded bg-amber-400/90 px-1.5 py-0.5 text-[10px] leading-none font-bold tracking-widest text-on-accent md:hidden"
-        >
-          BETA
-        </span>
-      </div>
-      <div class="flex items-center gap-1 text-sm text-muted md:gap-4">
-        <nav
-          id="site-nav"
-          aria-label={ui.menu}
-          class="absolute inset-x-0 top-full z-30 hidden max-h-[calc(100dvh-4rem)] flex-col overflow-y-auto overscroll-contain border-b border-border bg-bg px-4 py-2 shadow-lg shadow-black/20 group-data-[open]:flex md:static md:flex md:flex-row md:flex-wrap md:justify-end md:gap-x-5 md:gap-y-1 md:border-0 md:bg-transparent md:p-0"
-        >
-          {nav.map((n) => (
-            <a
-              class="flex min-h-11 items-center hover:text-fg aria-[current=page]:text-fg md:min-h-0"
-              href={n.href}
-              aria-current={current(n.href) ? 'page' : undefined}
-            >
-              {n.label}
-            </a>
-          ))}
-          <button
-            type="button"
-            class="flex min-h-11 items-center text-left hover:text-fg md:min-h-0"
-            data-tour-start
-          >
-            {ui.tourStart}
-          </button>
-          {ACCOUNTS && (
-            <AccountMenu
-              client:only="preact"
-              href={url(`${lang}/account/`)}
-              ui={{
-                signIn: ui.signIn,
-                account: ui.account,
-                sync_error: ui.sync_error,
-                sync_offline: ui.sync_offline,
-                syncRetry: ui.syncRetry,
-                syncShort_syncing: ui.syncShort_syncing,
-                syncShort_synced: ui.syncShort_synced,
-                syncShort_offline: ui.syncShort_offline,
-                syncShort_error: ui.syncShort_error,
-                stoppedNote: ui.stoppedNote,
-              }}
-            />
-          )}
-        </nav>
-        <div class="relative" data-dropdown>
-          <button
-            type="button"
-            id="theme-button"
-            class="flex h-11 w-11 items-center justify-center rounded hover:text-fg md:h-auto md:w-auto md:p-1"
-            aria-haspopup="menu"
-            aria-expanded="false"
-            aria-controls="theme-menu"
-            aria-label={ui.theme}
-            title={ui.theme}
-            data-dropdown-button
-          >
-            {/* Sun in the light theme, moon in the dark one. */}
-            <svg
-              aria-hidden="true"
-              class="dark:hidden"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            >
-              <circle cx="12" cy="12" r="4"></circle>
-              <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
-            </svg>
-            <svg
-              aria-hidden="true"
-              class="hidden dark:block"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linejoin="round"
-            >
-              <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path>
-            </svg>
-          </button>
-          <ul id="theme-menu" role="menu" aria-label={ui.theme} hidden class={menuCls}>
-            {themes.map((t) => (
-              <li role="none">
-                <button
-                  type="button"
-                  role="menuitemradio"
-                  aria-checked={t.value === 'system' ? 'true' : 'false'}
-                  tabindex="-1"
-                  class={itemCls}
-                  data-theme-set={t.value}
-                >
-                  <span aria-hidden="true" class="w-3 text-accent" data-check>
-                    {t.value === 'system' ? '✓' : ''}
-                  </span>
-                  {t.label}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div class="relative" data-dropdown>
-          <button
-            type="button"
-            id="lang-switch"
-            class="flex min-h-11 items-center gap-1.5 rounded px-2 hover:text-fg md:min-h-0 md:p-1"
-            aria-haspopup="menu"
-            aria-expanded="false"
-            aria-controls="lang-menu"
-            aria-label={`${ui.language}: ${LANG_NAMES[lang]}`}
-            title={ui.language}
-            data-dropdown-button
-          >
-            <Flag lang={lang} />
-            <span aria-hidden="true">{lang.toUpperCase()}</span>
-            <svg aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" fill="none">
-              <path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5"></path>
-            </svg>
-          </button>
-          <ul id="lang-menu" role="menu" aria-label={ui.language} hidden class={menuCls}>
-            {LANGS.map((l) => (
-              <li role="none">
-                <a
-                  role="menuitem"
-                  tabindex="-1"
-                  class={`${itemCls} ${l === lang ? 'font-semibold' : ''}`}
-                  href={swapLang(path, l)}
-                  hreflang={l}
-                  lang={l}
-                  aria-current={l === lang ? 'true' : undefined}
-                >
-                  <Flag lang={l} />
-                  {LANG_NAMES[l]}
-                  {l === lang && (
-                    <span aria-hidden="true" class="ml-auto text-accent">
-                      ✓
-                    </span>
-                  )}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <button
-          type="button"
-          class="-mr-2 flex h-11 w-11 items-center justify-center rounded text-fg-soft hover:text-fg md:hidden"
-          aria-controls="site-nav"
-          aria-expanded="false"
-          aria-label={ui.menu}
-          data-menu-toggle
-        >
-          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2"></path>
-          </svg>
-        </button>
-      </div>
-    </header>
-    {lang === 'en' && !wide && (
-      <div
-        id="lang-suggest"
-        lang="da"
-        hidden
-        class="border-b border-border bg-surface px-4 py-2 text-sm text-fg-soft sm:px-6 print:hidden"
-      >
-        <div class="mx-auto flex max-w-5xl flex-wrap items-center gap-x-4 gap-y-1">
-          <span>{UI.da.langSuggest}</span>
-          <a class="text-accent hover:underline" href={swapLang(path, 'da')} hreflang="da">
-            {UI.da.langSwitch}
-          </a>
-          <button type="button" class="text-subtle hover:text-fg-soft" data-lang-keep>
-            {UI.da.langKeep}
-          </button>
-        </div>
-      </div>
-    )}
+    <SiteHeader lang={lang} />
+    {lang === 'en' && !wide && <LangSuggest />}
     <main
       id="main"
       tabindex="-1"
@@ -349,239 +69,30 @@ const tourUi = {
     >
       <slot />
     </main>
-    {!wide && (
-      <footer
-        class="mx-auto flex w-full max-w-5xl flex-wrap gap-x-5 px-4 pb-[max(2.5rem,env(safe-area-inset-bottom))] text-sm text-subtle sm:gap-y-5 sm:px-6 sm:text-xs print:hidden"
-        data-site-footer
-      >
-        <a class="hover:text-fg-soft" href={url(`${lang}/review/`)}>
-          {ui.review}
-        </a>
-        <a class="hover:text-fg-soft" href={url(`${lang}/data/`)}>
-          {extra.data}
-        </a>
-        <a class="hover:text-fg-soft" href={REPO}>
-          {ui.sourceCode}
-        </a>
-        <a class="hover:text-fg-soft" href={`${REPO}/blob/main/CONTENT-LICENSE.md`} rel="license">
-          {extra.licenceFooter}
-        </a>
-        <a class="hover:text-fg-soft" href={url(`${lang}/privacy/`)}>
-          {ui.privacy}
-        </a>
-        <button type="button" class="hover:text-fg-soft" data-tour-start>
-          {ui.tourStart}
-        </button>
-        <AboutButton client:idle variant="link" {...aboutProps(lang)} />
-        {feedback && <FeedbackButton client:idle {...feedback} />}
-        <a class="hover:text-fg-soft" href={CHANGELOG_URL} title={extra.releaseNotes}>
-          {VERSION}
-          <span class="sr-only"> ({extra.releaseNotes})</span>
-        </a>
-      </footer>
-    )}
-    {!wide && (
-      <a
-        href="#main"
-        data-back-to-top
-        hidden
-        class="fixed right-[max(1rem,env(safe-area-inset-right))] bottom-[max(1rem,env(safe-area-inset-bottom))] z-30 inline-flex min-h-11 items-center rounded-full border border-border-strong bg-surface/90 px-4 text-sm sm:min-h-0 sm:px-3 sm:py-2 sm:text-xs text-fg-soft shadow hover:text-fg print:hidden"
-      >
-        ↑ {ui.backToTop}
-      </a>
-    )}
-    <Tour client:load steps={steps} langBase={langBase} autoStart={tourAutoStart} ui={tourUi} />
+    {!wide && <SiteFooter lang={lang} />}
+    {!wide && <BackToTop label={ui.backToTop} />}
+    <SiteTour lang={lang} autoStart={tourAutoStart} />
     <script>
-      import {
-        LANG_SUGGEST_KEY,
-        THEME_KEY,
-        isSearchShortcut,
-        isTypingTarget,
-        parseTheme,
-        prefersDanish,
-        resolveTheme,
-        type ThemeChoice,
-      } from '../lib/prefs';
+      import { initBackToTop } from '../lib/chrome/back-to-top';
+      import { initCopyLinks } from '../lib/chrome/copy-link';
+      import { initDropdowns } from '../lib/chrome/dropdowns';
+      import { initLangSuggest } from '../lib/chrome/lang-suggest';
+      import { initMobileMenu } from '../lib/chrome/mobile-menu';
+      import { initSearchShortcut } from '../lib/chrome/search-shortcut';
+      import { initThemeMenu } from '../lib/chrome/theme-menu';
 
       // Pages can't send frame-ancestors / X-Frame-Options (A89): refuse to render
       // inside another site's frame, so account actions can't be clickjacked.
       if (window.top !== window.self) document.documentElement.style.display = 'none';
 
-      // Mobile menu.
-      const header = document.querySelector<HTMLElement>('[data-site-header]');
-      const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
-      const setOpen = (open: boolean) => {
-        header?.toggleAttribute('data-open', open);
-        toggle?.setAttribute('aria-expanded', String(open));
-      };
-      toggle?.addEventListener('click', () => setOpen(!header?.hasAttribute('data-open')));
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !e.defaultPrevented && header?.hasAttribute('data-open')) {
-          e.preventDefault(); // handled: the tour leaves this Escape alone
-          setOpen(false);
-          toggle?.focus();
-        }
-      });
-      document.addEventListener('click', (e) => {
-        if (header && !header.contains(e.target as Node)) setOpen(false);
-      });
-
-      // Header drop-down menus (theme, language): a button + role="menu" (A92).
-      // Arrow keys move, Home/End jump, Esc closes and returns focus, Tab leaves.
-      type Dropdown = { root: HTMLElement; close: (refocus: boolean) => void };
-      const dropdowns: Dropdown[] = [];
-      for (const root of document.querySelectorAll<HTMLElement>('[data-dropdown]')) {
-        const button = root.querySelector<HTMLButtonElement>('[data-dropdown-button]');
-        const list = root.querySelector<HTMLElement>('[role="menu"]');
-        if (!button || !list) continue;
-        const items = [...list.querySelectorAll<HTMLElement>('[role^="menuitem"]')];
-        const close = (refocus: boolean) => {
-          if (list.hidden) return;
-          list.hidden = true;
-          button.setAttribute('aria-expanded', 'false');
-          if (refocus) button.focus();
-        };
-        const open = (at: 'first' | 'last' | 'current') => {
-          for (const d of dropdowns) if (d.root !== root) d.close(false);
-          list.hidden = false;
-          button.setAttribute('aria-expanded', 'true');
-          const current = items.findIndex(
-            (i) => i.getAttribute('aria-checked') === 'true' || i.hasAttribute('aria-current'),
-          );
-          const index = at === 'last' ? items.length - 1 : at === 'first' ? 0 : current;
-          items[Math.max(0, index)]?.focus();
-        };
-        button.addEventListener('click', () => (list.hidden ? open('current') : close(false)));
-        button.addEventListener('keydown', (e) => {
-          if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-            e.preventDefault();
-            open(e.key === 'ArrowDown' ? 'first' : 'last');
-          }
-        });
-        list.addEventListener('keydown', (e) => {
-          const i = items.indexOf(document.activeElement as HTMLElement);
-          const move = (to: number) => {
-            e.preventDefault();
-            items[(to + items.length) % items.length]?.focus();
-          };
-          if (e.key === 'ArrowDown') move(i + 1);
-          else if (e.key === 'ArrowUp') move(i - 1);
-          else if (e.key === 'Home') move(0);
-          else if (e.key === 'End') move(items.length - 1);
-          else if (e.key === 'Escape') {
-            e.preventDefault(); // handled: the mobile menu and the tour leave it alone
-            close(true);
-          } else if (e.key === 'Tab') close(false);
-        });
-        dropdowns.push({ root, close });
-      }
-      document.addEventListener('click', (e) => {
-        for (const d of dropdowns) if (!d.root.contains(e.target as Node)) d.close(false);
-      });
-
-      // Colour theme (A92): System / Light / Dark. public/theme-init.js applied it
-      // before paint; this keeps it in step with the menu and the OS.
-      const osLight = window.matchMedia('(prefers-color-scheme: light)');
-      const themeColor = document.querySelector('meta[name="theme-color"]');
-      let choice: ThemeChoice = 'system';
-      try {
-        choice = parseTheme(localStorage.getItem(THEME_KEY));
-      } catch {
-        /* storage blocked: follow the OS */
-      }
-      const applyTheme = () => {
-        const theme = resolveTheme(choice, osLight.matches);
-        const root = document.documentElement;
-        root.dataset.theme = theme;
-        root.dataset.themeChoice = choice;
-        themeColor?.setAttribute('content', theme === 'light' ? '#ffffff' : '#0a0a0a');
-        for (const item of document.querySelectorAll<HTMLElement>('[data-theme-set]')) {
-          const on = item.dataset.themeSet === choice;
-          item.setAttribute('aria-checked', String(on));
-          const check = item.querySelector('[data-check]');
-          if (check) check.textContent = on ? '✓' : '';
-        }
-      };
-      osLight.addEventListener('change', applyTheme);
-      document.addEventListener('click', (e) => {
-        const item = (e.target as Element | null)?.closest<HTMLElement>('[data-theme-set]');
-        if (!item) return;
-        choice = parseTheme(item.dataset.themeSet ?? null);
-        try {
-          if (choice === 'system') localStorage.removeItem(THEME_KEY);
-          else localStorage.setItem(THEME_KEY, choice);
-        } catch {
-          /* this page only */
-        }
-        applyTheme();
-        for (const d of dropdowns) d.close(true);
-      });
-      applyTheme();
-
-      // "/" focuses the search box — or goes to the home page's.
-      document.addEventListener('keydown', (e) => {
-        if (!isSearchShortcut(e) || isTypingTarget(document.activeElement as HTMLElement)) return;
-        e.preventDefault();
-        const box = document.querySelector<HTMLInputElement>('#search');
-        if (box) box.focus();
-        else location.href = `${document.documentElement.dataset.langBase ?? ''}#search`;
-      });
-
-      // Danish readers on an English page: suggest the Danish one (A63).
-      const suggest = document.getElementById('lang-suggest');
-      if (suggest) {
-        let dismissed = false;
-        try {
-          dismissed = localStorage.getItem(LANG_SUGGEST_KEY) === '1';
-        } catch {
-          /* storage unavailable: show it */
-        }
-        if (!dismissed && prefersDanish(navigator.languages ?? [navigator.language])) {
-          suggest.hidden = false;
-        }
-        suggest.querySelector('[data-lang-keep]')?.addEventListener('click', () => {
-          suggest.hidden = true;
-          try {
-            localStorage.setItem(LANG_SUGGEST_KEY, '1');
-          } catch {
-            /* hidden for this page only */
-          }
-        });
-      }
-
-      // Back to top, once the reader has scrolled a screen or so.
-      const top = document.querySelector<HTMLElement>('[data-back-to-top]');
-      if (top) {
-        const update = () => (top.hidden = window.scrollY < window.innerHeight * 1.2);
-        window.addEventListener('scroll', update, { passive: true });
-        update();
-      }
-
-      // Copy-link buttons: <button data-copy-link data-copied="…">.
-      document.addEventListener('click', async (e) => {
-        const b = (e.target as Element | null)?.closest<HTMLElement>('[data-copy-link]');
-        if (!b) return;
-        const label = b.querySelector('[data-label]') ?? b;
-        const before = label.textContent;
-        try {
-          await navigator.clipboard.writeText(location.href.split('#')[0]);
-          label.textContent = b.dataset.copied ?? before;
-          setTimeout(() => (label.textContent = before), 2000);
-        } catch {
-          /* clipboard blocked: nothing to do */
-        }
-      });
+      // Document-level key and click listeners run in the order these add them.
+      initMobileMenu();
+      initThemeMenu(initDropdowns());
+      initSearchShortcut();
+      initLangSuggest();
+      initBackToTop();
+      initCopyLinks();
     </script>
-    {/* Beta ribbon: fixed corner watermark, never blocks clicks, hidden in print. Below md
-        it would cover content and the tour pill, so the header carries a badge instead. */}
-    <div
-      aria-hidden="true"
-      class="pointer-events-none fixed bottom-0 left-0 z-50 hidden h-32 w-32 overflow-hidden md:block print:hidden"
-    >
-      <div class="absolute bottom-[26px] left-[-44px] w-[180px] rotate-45 bg-amber-400/90 py-1.5 text-center text-sm font-bold tracking-[0.3em] text-on-accent shadow-lg shadow-black/40">
-        BETA
-      </div>
-    </div>
-    <p class="sr-only">{lang === 'da' ? 'Atlas er i beta.' : 'Atlas is in beta.'}</p>
+    <BetaRibbon lang={lang} />
   </body>
 </html>

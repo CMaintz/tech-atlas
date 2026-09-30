@@ -41,6 +41,54 @@ deepDive:
     I august 2023 flyttede HashiCorp Terraform fra MPL 2.0 til Business Source License 1.1, hvilket førte til fællesskabsforgreningen OpenTofu under Linux Foundation, der siden har tilføjet funktioner som klientside-kryptering af state. Organisationer bør registrere, hvilket værktøj og hvilken licens de afhænger af, fordi økosystemerne af providers og moduler er fælles, men glider fra hinanden.
 
     Sikkerhedsgevinsten kommer af, at konfigurationen kan gennemgås og testes, før den findes: statiske analyseværktøjer (Checkov, Trivy/tfsec, KICS) og policy as code-motorer (OPA/Conftest, HashiCorp Sentinel) tjekker for offentlige lagerbuckets, åbne security groups, manglende kryptering eller logning, ofte koblet til CIS Benchmarks, og kan blokere pull requesten. IaC giver også sin egen forsyningskæde: providers og tredjepartsmoduler kører med pipelinens cloud-legitimationsoplysninger, så versioner bør låses, og afhængighedslåsefilen (.terraform.lock.hcl, der registrerer providernes checksummer) bør committes. Plan-output og logs kan lække hemmeligheder, og de legitimationsoplysninger, apply bruger, er som regel meget privilegerede, så fødererede kortlivede identiteter og adskilte rettigheder til plan og apply er standard. IaC er den deklarative beskrivelse; GitOps tilføjer løbende, pull-baseret afstemning af den beskrivelse.
+howTo:
+  steps:
+    en:
+      - Choose one declarative tool per layer, for example Terraform or OpenTofu for cloud resources and Ansible for machine configuration, record the tool and its licence, and keep all code in version control.
+      - Store the state file in a remote backend with encryption, strict access control and locking, and never commit it to the repository.
+      - Split the code into reusable modules, pin provider and module versions, and commit the dependency lock file.
+      - Run static analysis and policy as code (for example Checkov, Trivy or OPA/Conftest) on every pull request, and block public storage, open security groups and missing encryption or logging.
+      - Require a review of the plan output before apply, and let only the pipeline apply, using short-lived federated credentials and separate permissions for plan and apply.
+      - Keep secrets out of the code and the plan output by reading them from a secrets store at run time.
+      - Run a scheduled plan or drift detection at least weekly, and either import manual changes back into code or overwrite them.
+      - Rebuild a test environment from code on a regular schedule to prove that the code alone can recreate it after a disaster.
+    da:
+      - Vælg ét deklarativt værktøj pr. lag, fx Terraform eller OpenTofu til cloud-ressourcer og Ansible til konfiguration af maskiner, registrér værktøjet og dets licens, og hold al koden i versionsstyring.
+      - Gem state-filen i en fjern backend med kryptering, stram adgangskontrol og låsning, og commit den aldrig til repositoryet.
+      - Del koden op i genbrugelige moduler, lås versionerne af providers og moduler, og commit afhængighedslåsefilen.
+      - Kør statisk analyse og policy as code (fx Checkov, Trivy eller OPA/Conftest) ved hver pull request, og bloker offentlige lagerbuckets, åbne security groups og manglende kryptering eller logning.
+      - Kræv gennemgang af plan-output før apply, og lad kun pipelinen køre apply med kortlivede fødererede legitimationsoplysninger og adskilte rettigheder til plan og apply.
+      - Hold hemmeligheder ude af koden og plan-outputtet ved at hente dem fra et lager til hemmeligheder, når værktøjet kører.
+      - Kør en planlagt plan eller drift-detektion mindst ugentligt, og importér enten manuelle ændringer tilbage i koden eller overskriv dem.
+      - Genopbyg et testmiljø fra koden med faste mellemrum for at bevise, at koden alene kan genskabe det efter en katastrofe.
+  pitfalls:
+    en:
+      - Treating the state file as harmless, although it holds generated passwords and keys in plaintext.
+      - Making quick fixes in the cloud console that never go back into code, so the next apply undoes them or drift keeps growing.
+      - Giving the pipeline permanent administrator keys to the whole cloud account.
+      - Using third-party modules and providers without pinned versions, so a new release can change your infrastructure or run untrusted code.
+    da:
+      - At betragte state-filen som harmløs, selv om den rummer genererede adgangskoder og nøgler i klartekst.
+      - At lave hurtige rettelser i cloudkonsollen, som aldrig kommer tilbage i koden, så næste apply fjerner dem, eller afvigelserne bare vokser.
+      - At give pipelinen permanente administratornøgler til hele cloudkontoen.
+      - At bruge tredjepartsmoduler og providers uden låste versioner, så en ny udgivelse kan ændre jeres infrastruktur eller køre upålidelig kode.
+  guides:
+    - title: Infrastructure as Code Security Cheat Sheet
+      url: https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
+    - title: Terraform - Remote State
+      url: https://developer.hashicorp.com/terraform/language/state/remote
+      publisher: HashiCorp
+      tier: official-doc
+    - title: What is infrastructure as code (IaC)? - Azure DevOps
+      url: https://learn.microsoft.com/en-us/devops/deliver/what-is-infrastructure-as-code
+      publisher: Microsoft
+      tier: official-doc
+    - title: NIST SP 800-204D - Strategies for the Integration of Software Supply Chain Security in DevSecOps CI/CD Pipelines
+      url: https://csrc.nist.gov/pubs/sp/800/204/d/final
+      publisher: NIST
+      tier: standard
 edges:
   requires: [version-control]
   mitigates:

@@ -42,6 +42,48 @@ deepDive:
     En praktisk lagdeling går på tværs af forebyggelse, opdagelse og genopretning og på tværs af placering: governance og træning, fysisk adgang, perimeter- og mailfiltrering, netværkssegmentering, identitet med MFA og mindste privilegium, hærdede og patchede endpoints med EDR, applikationskontroller som inputvalidering og en WAF, kryptering og klassifikation af data, logning og overvågning i et SOC samt offline eller immutable backup med testede gendannelser. Genopretningslagene er vigtige, fordi modellen forudsætter, at et lag vil svigte; denne "assume breach"-holdning præger også designet af detektion og hændelseshåndtering.
 
     Lagdelt sikkerhed står i modsætning til perimetersikkerhed, "hård skal, blød kerne"-modellen, hvor én firewall ved grænsen beskytter et fladt, betroet internt netværk, så ét fodfæste, fx en phishet bærbar eller en kompromitteret VPN-konto, giver bred lateral bevægelse. Zero Trust, som beskrevet i NIST SP 800-207 (2020), er forenelig med lagdelt sikkerhed, men flytter vægten fra netværksplacering til autentificering og autorisation af hvert subjekt og hver ressource ved hver forespørgsel og tilføjer dermed reelt lag inde i netværket. De vigtigste omkostninger er kompleksitet, driftsbyrde og alarmtræthed; dårligt integrerede lag kan skabe huller mellem sig, og hvert nyt lag er også ny angrebsflade og en ting mere at patche.
+howTo:
+  steps:
+    en:
+      - Pick the critical assets and the attack paths that matter most, such as phishing that leads to ransomware, using the risk assessment.
+      - For each path, list the controls that stand in the way at each stage (prevent, detect, recover), and mark where only one control stands between the attacker and the asset.
+      - Add controls where a single layer is all that remains, spreading them across people, process, physical and technical measures rather than buying more of the same kind.
+      - Remove common points of failure between layers, such as one admin account that controls the firewall, EDR and backups, one vendor at several layers, or backups reachable from the main domain.
+      - Segment the network and apply least privilege, so a single foothold such as a phished laptop cannot reach everything.
+      - Make sure there are recovery layers, such as offline or immutable backups and a tested incident response plan, on the assumption that some layer will fail.
+      - Test the layers together with attack simulations, penetration tests or table-top exercises that follow an attack path from start to finish, and record where it would have been stopped.
+      - Review the layering once a year and after incidents, and retire layers that add complexity and alert noise without stopping anything.
+    da:
+      - Udpeg de kritiske aktiver og de angrebsveje, der betyder mest, fx phishing, der fører til ransomware, ud fra risikovurderingen.
+      - Oplist for hver angrebsvej de kontroller, der står i vejen i hver fase (forebygge, opdage, genoprette), og markér, hvor kun én kontrol står mellem angriberen og aktivet.
+      - Tilføj kontroller, hvor der kun er ét lag tilbage, og spred dem over mennesker, processer, fysiske og tekniske tiltag i stedet for at købe mere af samme slags.
+      - Fjern fælles svage punkter mellem lagene, fx én administratorkonto, der styrer firewall, EDR og backup, én leverandør i flere lag eller backup, der kan nås fra hoveddomænet.
+      - Segmentér netværket, og brug mindste privilegium, så ét fodfæste, fx en phishet bærbar, ikke kan nå det hele.
+      - Sørg for genopretningslag som offline eller immutable backup og en testet beredskabsplan ud fra en antagelse om, at et lag vil svigte.
+      - Test lagene samlet med angrebssimuleringer, penetrationstest eller table-top-øvelser, der følger en angrebsvej fra start til slut, og notér, hvor angrebet ville være stoppet.
+      - Gennemgå lagdelingen en gang om året og efter hændelser, og fjern lag, der giver kompleksitet og alarmstøj uden at stoppe noget.
+  pitfalls:
+    en:
+      - Counting products instead of checking independence, so one stolen admin account or one vendor flaw breaks several layers at once.
+      - Investing only in prevention, leaving no detection or recovery when a layer fails.
+      - Adding layers that nobody monitors or patches, which adds attack surface and alert fatigue.
+    da:
+      - At tælle produkter i stedet for at tjekke uafhængighed, så én stjålet administratorkonto eller én fejl hos en leverandør bryder flere lag på én gang.
+      - Kun at investere i forebyggelse, så der hverken er opdagelse eller genopretning, når et lag svigter.
+      - At tilføje lag, som ingen overvåger eller patcher, hvilket giver mere angrebsflade og alarmtræthed.
+  guides:
+    - title: NIST SP 800-53 Rev. 5 - Security and Privacy Controls for Information Systems and Organizations (PL-8 Security and Privacy Architectures)
+      url: https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final
+      publisher: NIST
+      tier: standard
+    - title: NIST SP 800-160 Vol. 1 Rev. 1 - Engineering Trustworthy Secure Systems
+      url: https://csrc.nist.gov/pubs/sp/800/160/v1/r1/final
+      publisher: NIST
+      tier: standard
+    - title: Recommended Practice - Improving Industrial Control System Cybersecurity with Defense-in-Depth Strategies
+      url: https://www.cisa.gov/sites/default/files/recommended_practices/NCCIC_ICS-CERT_Defense_in_Depth_2016_S508C.pdf
+      publisher: CISA
+      tier: official-doc
 edges:
   requires: [control]
   mitigates:

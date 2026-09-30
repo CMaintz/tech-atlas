@@ -48,6 +48,8 @@ export function feedbackBody(f: FeedbackForm, page: string, lang: Lang) {
 }
 
 export type SendResult = 'sent' | 'limited' | 'failed';
+/** Where the form stands: not yet sent, sending, or how the last send went. */
+export type FeedbackStatus = 'idle' | 'sending' | SendResult;
 
 /** POST the form to the function. Never throws. */
 export async function sendFeedback(
@@ -129,6 +131,23 @@ export const FEEDBACK_UI: Record<Lang, Record<keyof typeof FEEDBACK_EN, string>>
 };
 
 export type FeedbackUi = (typeof FEEDBACK_UI)['en'];
+
+/** The form's error line: a field problem first, else a failed send; '' when all is well. */
+export function feedbackError(
+  issue: FeedbackIssue,
+  status: FeedbackStatus,
+  ui: FeedbackUi,
+): string {
+  if (issue === 'message') return ui.errorMessage.replace('{max}', String(FEEDBACK_MAX_CHARS));
+  if (issue === 'email') return ui.errorEmail;
+  if (status === 'limited') return ui.errorLimited;
+  if (status === 'failed') return ui.errorFailed;
+  return '';
+}
+
+/** The counter under the message: "{n} of {max} characters". */
+export const feedbackCounter = (n: number, ui: FeedbackUi) =>
+  ui.messageHint.replace('{n}', String(n)).replace('{max}', String(FEEDBACK_MAX_CHARS));
 
 /** Props for the Feedback island; null when the build has no feedback function. */
 export type FeedbackProps = {

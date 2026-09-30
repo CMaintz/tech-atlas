@@ -42,6 +42,52 @@ deepDive:
     Det svage punkt er tilbagekaldelse. En signeret, men sårbar opstartskomponent kan genbruges for evigt, medmindre dens hash eller certifikat lægges i dbx, og dbx har begrænset plads. BootHole (CVE-2020-10713) i GRUB2 og BlackLotus-bootkittet, der udnyttede CVE-2022-21894 i Windows Boot Manager og i 2023 var den første offentligt kendte malware, der omgik Secure Boot på fuldt opdaterede Windows 11-maskiner, krævede massive dbx-opdateringer og for BlackLotus' vedkommende en trinvis afbødning fra Microsoft under CVE-2023-24932. PKfail (2024) viste, at hundredvis af enhedsmodeller var leveret med en test-Platform Key, hvis private nøgle var lækket, så Secure Boot på dem kunne omgås.
 
     Udløb af nøgler er det aktuelle driftsproblem. Microsofts oprindelige certifikater fra 2011 løber ud i løbet af 2026: Microsoft Corporation KEK CA 2011 og Microsoft UEFI CA 2011 udløb i juni 2026, og Windows Production PCA 2011, der signerer Windows' boot manager, udløber den 19. oktober 2026. Enhederne skal have 2023-afløserne lagt i KEK og db (via Windows-opdateringer eller firmware fra producenten) for fortsat at kunne modtage opdateringer af opstartskomponenter og dbx. Secure Boot kan desuden slås fra eller sættes i setup mode i firmwareindstillingerne af enhver med fysisk adgang, medmindre der er sat en firmwareadgangskode, og den gør intet mod angreb, der begynder, efter at kernen er indlæst. Den må ikke forveksles med Trusted Boot eller signerede kernemoduler, som fører verifikationen videre ind i styresystemet.
+howTo:
+  steps:
+    en:
+      - Check the Secure Boot state on every PC and server, for example with msinfo32 or Confirm-SecureBootUEFI on Windows, mokutil --sb-state on Linux, or the device health report in your device management tool.
+      - Switch machines that still boot in legacy BIOS or CSM mode to native UEFI, converting the disk with mbr2gpt first where needed, and then turn Secure Boot on in the firmware settings.
+      - Set a firmware administrator password so nobody with physical access can turn Secure Boot off or put the machine into setup mode.
+      - Make Secure Boot and UEFI firmware a requirement when you buy new PCs, servers and appliances, and ask vendors how they update the boot keys and firmware.
+      - On Linux systems with your own kernel modules or drivers, sign them with a Machine Owner Key enrolled through MOK, instead of turning Secure Boot off to make them load.
+      - Keep the firmware, the revocation list (dbx) and the boot certificates up to date through Windows updates or vendor firmware, including the move from Microsoft's 2011 certificates to the 2023 ones, and confirm the result in your reports.
+      - Combine Secure Boot with a TPM, measured boot and disk encryption such as BitLocker, and use device health attestation in conditional access, so a device that fails the checks loses access.
+      - Investigate every Secure Boot violation or device that suddenly reports it as off, and treat it as a possible bootkit until you know otherwise.
+    da:
+      - Tjek Secure Boot-status på alle pc'er og servere, fx med msinfo32 eller Confirm-SecureBootUEFI på Windows, mokutil --sb-state på Linux eller enhedsrapporten i jeres værktøj til enhedsstyring.
+      - Skift maskiner, der stadig starter i legacy BIOS- eller CSM-tilstand, til ren UEFI, konvertér først disken med mbr2gpt, hvor det er nødvendigt, og slå derefter Secure Boot til i firmwareindstillingerne.
+      - Sæt en administratoradgangskode på firmwaren, så ingen med fysisk adgang kan slå Secure Boot fra eller sætte maskinen i setup-tilstand.
+      - Gør Secure Boot og UEFI-firmware til et krav, når I køber nye pc'er, servere og appliances, og spørg leverandørerne, hvordan de opdaterer boot-nøgler og firmware.
+      - På Linux-systemer med egne kernemoduler eller drivere skal de signeres med en Machine Owner Key, der er tilmeldt via MOK, i stedet for at slå Secure Boot fra for at få dem til at indlæse.
+      - Hold firmware, spærrelisten (dbx) og boot-certifikaterne opdateret via Windows-opdateringer eller leverandørens firmware, herunder skiftet fra Microsofts 2011-certifikater til 2023-certifikaterne, og bekræft resultatet i jeres rapporter.
+      - Kombinér Secure Boot med TPM, measured boot og diskkryptering som BitLocker, og brug attestering af enhedens tilstand i betinget adgang, så en enhed, der fejler kontrollerne, mister adgangen.
+      - Undersøg alle Secure Boot-overtrædelser og enheder, der pludselig melder den slået fra, og behandl dem som en mulig bootkit, indtil I ved bedre.
+  pitfalls:
+    en:
+      - Turning Secure Boot off to get an unsigned driver or Linux module working and never turning it back on.
+      - Assuming Secure Boot is fine because it is enabled, while the dbx revocation list and boot certificates have not been updated for years.
+      - Leaving the firmware settings without a password, so anyone at the keyboard can disable Secure Boot in a minute.
+    da:
+      - At slå Secure Boot fra for at få en usigneret driver eller et Linux-modul til at virke og aldrig slå det til igen.
+      - At gå ud fra, at Secure Boot er i orden, fordi det er slået til, mens spærrelisten dbx og boot-certifikaterne ikke er opdateret i årevis.
+      - At lade firmwareindstillingerne være uden adgangskode, så alle ved tastaturet kan slå Secure Boot fra på et minut.
+  guides:
+    - title: Windows Secure Boot certificate expiration and CA updates
+      url: https://support.microsoft.com/en-us/topic/windows-secure-boot-certificate-expiration-and-ca-updates-7ff40d33-95dc-4c3c-8725-a9b95457578e
+      publisher: Microsoft
+      tier: official-doc
+    - title: Secure boot
+      url: https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/oem-secure-boot
+      publisher: Microsoft
+      tier: official-doc
+    - title: NIST SP 800-147 - BIOS Protection Guidelines
+      url: https://csrc.nist.gov/pubs/sp/800/147/final
+      publisher: NIST
+      tier: standard
+    - title: SecureBoot - Debian Wiki
+      url: https://wiki.debian.org/SecureBoot
+      publisher: Debian
+      tier: official-doc
 edges:
   requires: [digital-signature, kernel, operating-system]
   implements: [integrity]

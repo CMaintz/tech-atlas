@@ -41,6 +41,49 @@ deepDive:
     En jagt har tre mulige udfald, og de er alle nyttige. Et bekræftet fund bliver en hændelse og overdrages til hændelseshåndteringen. Et negativt resultat, der er veldokumenteret, viser, at hypotesen er afprøvet mod definerede data over en defineret periode. Og næsten hver jagt giver biprodukter: nye eller forbedrede detektionsregler, fundne huller i logning eller opbevaring og en bedre baseline for normal adfærd. Modne teams følger disse resultater, frem for antallet af fundne hændelser, som målet for programmets værdi.
 
     Trusselsjagt adskiller sig fra triage af alarmer, som er reaktiv og tager udgangspunkt i en alarm, og fra indikatorsøgninger, der gennemsøger logs efter kendte IoC'er; en IoC-søgning kan indgå i en jagt, men er ikke jagt i den hypotesedrevne forstand. Den adskiller sig også fra penetrationstest og red teaming, der simulerer angribere i stedet for at lede efter rigtige. Effektiviteten afhænger af data: jagt uden telemetri fra endpoints, tilstrækkelig opbevaring og synkroniserede tidsstempler er for det meste gætteri. Praksissen er vigtig, fordi dwell time, tiden fra indbrud til opdagelse, i branchens rapporter stadig typisk måles i dage til uger, og målrettede angribere bevidst holder sig under alarmtærsklerne.
+howTo:
+  steps:
+    en:
+      - Check that the data exists before you plan hunts - process creation with command lines, EDR telemetry, authentication logs and network metadata - and that it is kept long enough, with synchronised timestamps.
+      - Keep a backlog of hypotheses drawn from threat intelligence and the MITRE ATT&CK techniques most relevant to you, each specific enough to test, such as credential dumping from LSASS on servers with a renamed admin tool.
+      - For each hunt, write down the hypothesis, the data sources, the time period and what a finding would look like, before you start querying.
+      - Search the data with techniques such as stacking rare parent-child process pairs or autoruns across the fleet, looking for regular beaconing in network traffic, and pivoting from a suspicious item to related hosts and accounts.
+      - If you find real attacker activity, stop hunting and hand the case to incident response straight away.
+      - Document every hunt, including negative results, so you can show what was tested against which data over which period.
+      - Turn what each hunt teaches you into lasting improvements - new or better detection rules, fixed gaps in logging or retention, and a better picture of normal behaviour.
+      - Run hunts on a regular schedule, for example monthly, and measure the programme by the detections and fixes it produces rather than the number of incidents found.
+    da:
+      - Tjek, at data findes, før I planlægger jagter - procesoprettelse med kommandolinjer, EDR-telemetri, autentificeringslogs og netværksmetadata - og at de gemmes længe nok og har synkroniserede tidsstempler.
+      - Hav en liste over hypoteser hentet fra threat intelligence og de MITRE ATT&CK-teknikker, der er mest relevante for jer, hver så konkret, at den kan afprøves, fx dump af legitimationsoplysninger fra LSASS på servere med et omdøbt administrationsværktøj.
+      - Notér for hver jagt hypotesen, datakilderne, tidsperioden, og hvordan et fund vil se ud, før I begynder at søge.
+      - Gennemsøg data med teknikker som stacking af sjældne par af forælder- og børneprocesser eller autoruns på tværs af maskinparken, søgning efter regelmæssig beaconing i netværkstrafikken og pivotering fra et mistænkeligt fund til relaterede maskiner og konti.
+      - Finder I reel angriberaktivitet, så stop jagten, og send sagen videre til hændelseshåndteringen med det samme.
+      - Dokumentér hver jagt, også dem uden fund, så I kan vise, hvad der blev afprøvet mod hvilke data i hvilken periode.
+      - Omsæt det, hver jagt lærer jer, til varige forbedringer - nye eller bedre detektionsregler, lukkede huller i logning eller opbevaring og et bedre billede af normal adfærd.
+      - Gennemfør jagter efter en fast plan, fx hver måned, og mål programmet på de detektioner og forbedringer, det giver, frem for antallet af fundne hændelser.
+  pitfalls:
+    en:
+      - Hunting without endpoint telemetry or long enough log retention, which makes it mostly guesswork.
+      - Calling a sweep for known indicators of compromise a hunt, and never testing for the behaviour that indicators miss.
+      - Discarding hunts that found nothing instead of documenting them and turning them into detections.
+    da:
+      - At jage uden telemetri fra endpoints eller uden logs, der gemmes længe nok, så det mest bliver gætteri.
+      - At kalde en søgning efter kendte kompromitteringsindikatorer for en jagt og aldrig afprøve den adfærd, som indikatorerne overser.
+      - At kassere jagter, der ikke fandt noget, i stedet for at dokumentere dem og gøre dem til detektioner.
+  guides:
+    - title: MITRE ATT&CK
+      url: https://attack.mitre.org/
+      publisher: MITRE
+      tier: reference
+    - title: Advanced hunting overview in Microsoft Defender XDR
+      url: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-overview
+      publisher: Microsoft
+      tier: official-doc
+    - title: Trusselsvurderinger - Cyber
+      url: https://samsik.dk/trusselsvurderinger/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   requires:
     - detection-rule

@@ -41,6 +41,50 @@ deepDive:
     AI-kodegennemgang supplerer statisk sikkerhedstest (SAST) frem for at erstatte den. SAST-værktøjer anvender deterministiske regler knyttet til CWE med reproducerbare resultater og SARIF-output, der egner sig til revisionsspor; en LLM-reviewer finder nogle problemer, som regler ikke kan udtrykke, men kan ikke dokumentere dækning. En kendt svaghed er korrelerede blinde vinkler: Når samme modelfamilie, som skrev koden, også gennemgår den, kan begge dele have samme misforståelse.
 
     To styringspunkter er vigtige. For det første er selve pipelinen en angrebsflade: På offentlige repositories er teksten og koden i en pull request styret af angriberen og kan bære prompt injection, der sigter mod at undertrykke fund eller, hvis jobbet har hemmeligheder eller et token med skriveadgang, at lække dem, så revieweren bør køre med læseadgang alene og uden hemmeligheder på bidrag fra forks. For det andet forbliver ansvaret menneskeligt. NIST SP 800-218 (SSDF), praksis PW.7, kræver gennemgang og/eller analyse af menneskelæsbar kode for at finde sårbarheder; en AI-reviewer kan være ét dokumenteret input til den praksis, men branch protection bør stadig kræve en godkendende menneskelig gennemgang, og kommentarer fra bots må aldrig tælle som godkendelse.
+howTo:
+  steps:
+    en:
+      - Decide what the AI reviewer is for, such as a first pass for bugs and security slips or a summary for the human reviewer, and write that down in the team's review policy.
+      - Run it from the pull request pipeline with a read-only token, and without secrets or write access on pull requests from forks, since the code and description it reads may carry prompt injection.
+      - Keep branch protection requiring at least one approving review from a person (and from code owners where you use them), and do not let a bot's comments or approval count towards the required approvals.
+      - Give the tool repository instructions on your conventions and known risk areas, and limit comments to changed lines and to findings above a confidence and severity threshold.
+      - Keep your static analysis (SAST) and tests as required checks next to the AI reviewer, since the model cannot prove coverage and may share blind spots with the model that wrote the code.
+      - Have the author or reviewer resolve every AI comment as fixed or dismissed, so the pull request history shows what was checked, as input to the code review practice in the NIST SSDF (PW.7).
+      - Every quarter, sample dismissed and accepted comments to measure how many were real problems, and switch off categories that mostly produce noise.
+    da:
+      - Beslut, hvad AI-gennemgangen skal bruges til, fx en første gennemlæsning for fejl og sikkerhedssmuttere eller et resumé til den menneskelige reviewer, og skriv det ind i teamets politik for kodegennemgang.
+      - Kør den fra pull request-pipelinen med et token, der kun har læseadgang, og uden hemmeligheder eller skriveadgang på pull requests fra forks, da koden og beskrivelsen, den læser, kan indeholde prompt injection.
+      - Behold branch protection, der kræver mindst én godkendende gennemgang fra et menneske (og fra code owners, hvor I bruger dem), og lad aldrig en bots kommentarer eller godkendelse tælle med i de krævede godkendelser.
+      - Giv værktøjet instruktioner i repositoryet om jeres konventioner og kendte risikoområder, og begræns kommentarerne til ændrede linjer og til fund over en tærskel for sikkerhed og alvor.
+      - Behold statisk analyse (SAST) og tests som krævede tjek ved siden af AI-gennemgangen, fordi modellen ikke kan dokumentere dækning og kan have samme blinde vinkler som den model, der skrev koden.
+      - Lad forfatteren eller revieweren lukke hver AI-kommentar som rettet eller afvist, så pull requestens historik viser, hvad der er tjekket, som input til praksissen for kodegennemgang i NIST SSDF (PW.7).
+      - Tag hvert kvartal en stikprøve af afviste og accepterede kommentarer for at måle, hvor mange der var reelle problemer, og slå kategorier fra, der mest giver støj.
+  pitfalls:
+    en:
+      - Letting the AI review replace the human reviewer, so business rules, authorisation elsewhere and design choices are never checked by anyone.
+      - Running the reviewer on public pull requests with secrets or a write token, so a malicious pull request can use prompt injection to steal them.
+      - Leaving every comment category switched on, so developers drown in speculative remarks and learn to ignore the real findings.
+    da:
+      - At lade AI-gennemgangen erstatte den menneskelige reviewer, så forretningsregler, autorisation andre steder og designvalg aldrig bliver tjekket af nogen.
+      - At køre gennemgangen på offentlige pull requests med hemmeligheder eller et token med skriveadgang, så en ondsindet pull request kan stjæle dem via prompt injection.
+      - At have alle kommentarkategorier slået til, så udviklerne drukner i spekulative bemærkninger og lærer at overse de reelle fund.
+  guides:
+    - title: NIST SP 800-218 - Secure Software Development Framework (SSDF) Version 1.1
+      url: https://csrc.nist.gov/pubs/sp/800/218/final
+      publisher: NIST
+      tier: standard
+    - title: Secure Coding with AI Cheat Sheet
+      url: https://cheatsheetseries.owasp.org/cheatsheets/Secure_Coding_with_AI_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
+    - title: About GitHub Copilot code review
+      url: https://docs.github.com/en/copilot/concepts/agents/code-review
+      publisher: GitHub
+      tier: official-doc
+    - title: About protected branches
+      url: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches
+      publisher: GitHub
+      tier: official-doc
 edges:
   requires: [large-language-model]
   used-with:

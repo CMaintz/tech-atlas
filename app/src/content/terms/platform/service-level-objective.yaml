@@ -42,6 +42,54 @@ deepDive:
     Budgettet bliver et ledelsesværktøj gennem en fejlbudgetpolitik, som produkt, udvikling og drift aftaler på forhånd: fx at når budgettet er brugt op, sættes nye funktioner på pause, bortset fra rettelser af driftssikkerhed og sikkerhedsopdateringer, indtil tjenesten er tilbage inden for målet, og at enhver enkelt hændelse, der bruger mere end en fastsat andel af budgettet, kræver en postmortem. Uden en sådan politik er en SLO bare et dashboard. Omvendt er et stort resterende budget en tilladelse til at tage risici, fx hurtigere udrulninger eller chaos-eksperimenter.
 
     Mål bør fastsættes ud fra brugernes forventninger og historisk ydeevne, ikke ambitioner. 100 % er det forkerte mål, fordi brugerne ikke kan skelne det fra meget høj tilgængelighed bag deres egne ufuldkomne netværk, og fordi jagten på det fryser al forandring. En SLO kan heller ikke realistisk overstige den samlede tilgængelighed af hårde afhængigheder, herunder tredjeparters SLA'er, uden redundans. For mange SLO'er spreder opmærksomheden; nogle få pr. kritisk brugerrejse er typisk. SLO'er måles bedst så tæt på brugeren som praktisk muligt, ved loadbalanceren eller med telemetri fra klienten, fordi metrikker på serversiden overser forespørgsler, der aldrig når frem. Specifikationer som OpenSLO gør det muligt at erklære SLO'er som kode sammen med tjenesterne, og SLO'en sættes strengere end enhver ekstern SLA, så den interne reaktion kommer før kontraktbruddet.
+howTo:
+  steps:
+    en:
+      - Pick the few critical user journeys for the service, such as logging in or submitting a form, and agree with the product owner what working means for users.
+      - For each journey define SLIs as a ratio of good events to valid events, such as successful requests or requests answered faster than 300 ms, measured as close to the user as practical.
+      - Set a target and a window from historical performance and user expectations - never 100%, and stricter than any SLA you have given customers.
+      - Work out the error budget (at 99.9% over 30 days, 0.1% of valid requests or 43.2 minutes) and show it on a dashboard the whole team sees.
+      - Agree a written error budget policy with product, development and operations - for example, pause feature releases except reliability and security fixes when the budget is spent, and hold a postmortem for any incident that uses a large share of it.
+      - Alert on the burn rate, over both a short and a long window, instead of on the instantaneous SLI.
+      - Declare the SLOs as code next to the service so they are reviewed and versioned like other changes.
+      - Review SLOs and the policy every quarter, and tighten or loosen targets based on user feedback and how the budget was spent.
+    da:
+      - Vælg de få kritiske brugerrejser for tjenesten, fx at logge ind eller indsende en formular, og aftal med produktejeren, hvad det betyder for brugerne, at den virker.
+      - Definér for hver rejse SLI'er som forholdet mellem gode og gyldige hændelser, fx vellykkede forespørgsler eller forespørgsler besvaret hurtigere end 300 ms, målt så tæt på brugeren som praktisk muligt.
+      - Fastsæt mål og periode ud fra historisk ydeevne og brugernes forventninger - aldrig 100 %, og strengere end enhver SLA, I har givet kunder.
+      - Beregn fejlbudgettet (ved 99,9 % over 30 dage 0,1 % af de gyldige forespørgsler eller 43,2 minutter), og vis det på et dashboard, hele teamet ser.
+      - Aftal en skriftlig fejlbudgetpolitik med produkt, udvikling og drift - fx at nye funktioner sættes på pause, bortset fra rettelser af driftssikkerhed og sikkerhed, når budgettet er brugt, og at en hændelse, der bruger en stor del af det, kræver en postmortem.
+      - Alarmér på burn rate over både en kort og en lang periode i stedet for på den øjeblikkelige SLI.
+      - Erklær SLO'erne som kode ved siden af tjenesten, så de gennemgås og versioneres som andre ændringer.
+      - Gennemgå SLO'er og politik hvert kvartal, og stram eller løsn målene ud fra brugernes tilbagemeldinger og forbruget af budgettet.
+  pitfalls:
+    en:
+      - Setting 100% or wishful targets that freeze change and are quietly ignored in practice.
+      - Having an SLO without an agreed error budget policy, so it is just a dashboard nobody acts on.
+      - Measuring only on the server side and missing requests that never reach it.
+      - Defining dozens of SLOs, so nobody watches any of them closely.
+    da:
+      - At sætte 100 % eller urealistisk ambitiøse mål, der fryser forandring og i praksis stille ignoreres.
+      - At have en SLO uden en aftalt fejlbudgetpolitik, så den bare er et dashboard, ingen handler på.
+      - Kun at måle på serversiden og overse forespørgsler, der aldrig når frem.
+      - At definere dusinvis af SLO'er, så ingen holder nøje øje med nogen af dem.
+  guides:
+    - title: Google SRE book - Chapter 4, Service Level Objectives
+      url: https://sre.google/sre-book/service-level-objectives/
+      publisher: Google
+      tier: reference
+    - title: Google SRE Workbook - Chapter 2, Implementing SLOs
+      url: https://sre.google/workbook/implementing-slos/
+      publisher: Google
+      tier: reference
+    - title: Google SRE Workbook - Error Budget Policy
+      url: https://sre.google/workbook/error-budget-policy/
+      publisher: Google
+      tier: reference
+    - title: Google SRE Workbook - Chapter 5, Alerting on SLOs
+      url: https://sre.google/workbook/alerting-on-slos/
+      publisher: Google
+      tier: reference
 edges:
   requires:
     - metrics

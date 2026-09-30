@@ -41,6 +41,53 @@ deepDive:
     Flere standarder svarer direkte til PAM-funktioner. NIST SP 800-53 Rev. 5 dækker privilegerede konti i AC-2(7) og AC-6(5) og logning af privilegerede funktioner i AC-6(9); ISO/IEC 27001:2022 bilag A 8.2 omhandler privilegerede adgangsrettigheder; CIS Controls v8.1 kræver dedikerede administratorkonti (Safeguard 5.4) og MFA for al administrativ adgang (6.5); og NIS2 artikel 21, stk. 2, nævner politikker for adgangskontrol i litra i og multifaktor- eller kontinuerlig autentificering i litra j. NIST SP 1800-18 er en praksisvejledning, der viser en referenceopbygning af PAM for finanssektoren.
 
     Værdien af PAM afhænger af dækning og opfølgning. Typiske huller er administratorer, der beholder en fast konto uden for vaultet "til nødstilfælde", servicekonti og API-nøgler, der aldrig er registreret, sessionsoptagelser, som ingen ser, og godkendelsesforløb, der godkender alt. PAM-platformen er selv et aktiv i kontrolplanet: Kompromittering af vaultet eller dets administrationskonsol udleverer alle de hemmeligheder, det rummer, så det kræver samme beskyttelse som en domænecontroller. Optagelser kan indeholde personoplysninger og skal være omfattet af regler for opbevaring og en databeskyttelsesvurdering. PAM er en specialiseret del af adgangsstyringen; identity governance afgør, hvem der overhovedet skal have hvilken rolle, og PAM styrer, hvordan de mest magtfulde af de roller bruges.
+howTo:
+  steps:
+    en:
+      - Run a discovery of privileged accounts in the directory, cloud platforms, servers, network devices and databases, including service accounts, shared admin accounts and local administrator accounts.
+      - Treat the PAM platform as one of your most critical systems - place it in a protected management zone, give it its own admins with phishing-resistant MFA, and back it up.
+      - Move the passwords and SSH keys of privileged accounts into the vault, starting with domain, cloud and hypervisor admins, and set them to rotate automatically after each check-out or on a schedule.
+      - Route admin sessions to servers and network devices through the PAM session proxy or jump host, which injects the credential so administrators never see it, and record the sessions.
+      - Replace permanent admin group membership with just-in-time requests that require a ticket or reason, approval for the most powerful roles and an automatic end time.
+      - Give every computer a unique, rotated local administrator password, for example with Windows LAPS, and let administrators work from dedicated, hardened admin workstations.
+      - Keep two break-glass accounts outside the normal flow, with credentials in a sealed offline store, and alert every time they are used.
+      - Every month, review a sample of session recordings and all emergency use, and every quarter check for privileged accounts that are still outside the vault.
+    da:
+      - Kør en afdækning af privilegerede konti i kataloget, cloudplatforme, servere, netværksudstyr og databaser, også servicekonti, delte administratorkonti og lokale administratorkonti.
+      - Behandl PAM-platformen som et af jeres mest kritiske systemer - placér den i en beskyttet administrationszone, giv den egne administratorer med phishing-resistent MFA, og tag backup af den.
+      - Flyt adgangskoder og SSH-nøgler til privilegerede konti ind i boksen, start med domæne-, cloud- og hypervisoradministratorer, og lad dem skifte automatisk efter hver udlevering eller efter en fast plan.
+      - Send administratorsessioner til servere og netværksudstyr gennem PAM-løsningens sessionsproxy eller jump host, som indsætter loginoplysningerne, så administratorerne aldrig ser dem, og optag sessionerne.
+      - Erstat fast medlemskab af administratorgrupper med just-in-time-anmodninger, der kræver en sag eller begrundelse, godkendelse for de mest vidtgående roller og et automatisk sluttidspunkt.
+      - Giv hver computer en unik lokal administratoradgangskode, der skiftes løbende, fx med Windows LAPS, og lad administratorerne arbejde fra dedikerede, hærdede administratorarbejdsstationer.
+      - Hold to nødadgangskonti uden for det normale flow med loginoplysninger i et forseglet offline-gemme, og alarmér, hver gang de bruges.
+      - Gennemgå hver måned et udsnit af sessionsoptagelserne og al brug af nødadgang, og tjek hvert kvartal, om der stadig er privilegerede konti uden for boksen.
+  pitfalls:
+    en:
+      - Buying a PAM tool but onboarding only a few accounts, while most admins keep their old standing accounts "for emergencies".
+      - Recording every admin session but never watching any of them, so misuse is only found after an incident.
+      - Protecting the PAM vault less well than the systems it guards, although taking it over hands the attacker every secret inside.
+    da:
+      - At købe et PAM-værktøj, men kun flytte nogle få konti ind, mens de fleste administratorer beholder deres gamle faste konti "til nødstilfælde".
+      - At optage alle administratorsessioner, men aldrig se nogen af dem, så misbrug først opdages efter en hændelse.
+      - At beskytte PAM-boksen dårligere end de systemer, den vogter, selv om en overtagelse af den giver angriberen alle hemmeligheder i den.
+  guides:
+    - title: Secure system administration
+      url: https://www.ncsc.gov.uk/collection/secure-system-administration
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Developing a privileged access strategy
+      url: https://learn.microsoft.com/en-us/security/privileged-access-workstations/privileged-access-strategy
+      publisher: Microsoft
+      tier: official-doc
+    - title: Windows LAPS Overview
+      url: https://learn.microsoft.com/en-us/windows-server/identity/laps/laps-overview
+      publisher: Microsoft
+      tier: official-doc
+    - title: Cyberforsvar der virker
+      url: https://samsik.dk/publikation/cyberforsvar-der-virker/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   part-of: [access-management]
   implements: [least-privilege]
