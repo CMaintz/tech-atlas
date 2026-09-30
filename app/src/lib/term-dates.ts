@@ -1,5 +1,5 @@
 /**
- * When each Term was added, from git history (A71). Build-time only (Node).
+ * When each Term was added, from git history. Build-time only (Node).
  *
  * Needs full history: in a shallow clone every file would date to the clone's
  * boundary commit, so a shallow repo (or no git at all) yields no dates, a warning,

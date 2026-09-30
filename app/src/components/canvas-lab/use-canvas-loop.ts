@@ -1,4 +1,4 @@
-/** Mount the canvas lab's (A91) loop, pointer and resize handling once the graph is in. */
+/** Mount the canvas lab's loop, pointer and resize handling once the graph is in. */
 import { useEffect } from 'preact/hooks';
 import type { Graph } from '../../lib/graph-model';
 import type { Engine } from '../../lib/canvas-explorer/engine';

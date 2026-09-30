@@ -1,4 +1,4 @@
-// The `feedback` Edge Function's validation and email (supabase/functions/feedback, A100),
+// The `feedback` Edge Function's validation and email (supabase/functions/feedback),
 // and the browser half of the form (lib/feedback.ts). The handler: feedback-handler.test.ts.
 import { describe, expect, it, vi } from 'vitest';
 import {

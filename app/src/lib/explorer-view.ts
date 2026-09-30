@@ -1,5 +1,5 @@
 /**
- * What the full-map Explorer shows (SPEC §7, A86), as pure functions of its controls:
+ * What the full-map Explorer shows (SPEC §7), as pure functions of its controls:
  * the visible terms and links, a term's knowledge colour, the layout note under the bar,
  * a route's label and where the hover card sits. The island (Explorer.tsx) only wires
  * these to state; they are unit-tested here.
@@ -75,7 +75,7 @@ export type TermFilter = {
   selected: string | null;
 };
 
-/** Terms shown: the domain filter (A86), the time layout's dated terms, a neighbourhood. */
+/** Terms shown: the domain filter, the time layout's dated terms, a neighbourhood. */
 export function visibleTermIds(graph: Graph, f: TermFilter): Set<string> {
   const base = graph.nodes.filter(
     (n) => termVisible(n, f.domains) && (!f.datedOnly || n.era !== undefined),

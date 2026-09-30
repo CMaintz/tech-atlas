@@ -38,12 +38,12 @@ export const UI_TOUR = {
   },
 } as const;
 
-/** The term and compare pair the guided tour walks through (A61). */
+/** The term and compare pair the guided tour walks through. */
 export const TOUR_TERM = 'security/risk';
 export const TOUR_PAIR = 'risk-vs-threat';
 
 /**
- * The guided tour (A61, A85). Pages are relative to the language root; anchors are
+ * The guided tour. Pages are relative to the language root; anchors are
  * tried in order and fall back to a centred card, so a step survives markup changes.
  * A step on a new page carries `via`: the card that first points at the link there.
  */

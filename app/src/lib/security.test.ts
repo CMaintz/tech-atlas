@@ -8,7 +8,7 @@ import { Source } from '../schema';
 const b64 = (o: object) => Buffer.from(JSON.stringify(o)).toString('base64url');
 const jwt = (role: string) => `${b64({ alg: 'HS256', typ: 'JWT' })}.${b64({ role })}.c2ln`;
 
-describe('CSP config (A89)', () => {
+describe('CSP config', () => {
   it('allows only the configured Supabase origins to be fetched', () => {
     const c = cspConfig({
       PUBLIC_SUPABASE_URL: 'https://abc.supabase.co',
@@ -19,7 +19,7 @@ describe('CSP config (A89)', () => {
     expect(cspConfig({}).directives).toContain("connect-src 'self'");
   });
 
-  it('allows the feedback function origin (A100)', () => {
+  it('allows the feedback function origin', () => {
     const c = cspConfig({ PUBLIC_FEEDBACK_URL: 'https://fb.supabase.co/functions/v1/feedback' });
     expect(c.directives).toContain("connect-src 'self' https://fb.supabase.co");
   });

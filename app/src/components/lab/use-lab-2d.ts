@@ -1,5 +1,5 @@
 /**
- * The visual lab's (A96) 2D side: per-edge data the lab rules read, the lab stylesheet
+ * The visual lab's 2D side: per-edge data the lab rules read, the lab stylesheet
  * over the Explorer's own, flow and hover variants, and the lab-only relayout.
  */
 import { useEffect, useRef, type MutableRef } from 'preact/hooks';

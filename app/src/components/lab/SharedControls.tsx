@@ -1,4 +1,4 @@
-/** Controls the visual lab's (A96) 2D and 3D panels share: emphasis, layout and tone. */
+/** Controls the visual lab's 2D and 3D panels share: emphasis, layout and tone. */
 import type { ComponentChildren } from 'preact';
 import { useState } from 'preact/hooks';
 import { toneValues, type Lab2D, type Lab3D } from '../../lib/explorer-lab';

@@ -1,4 +1,4 @@
-// ---- Map themes (A92) --------------------------------------------------------------
+// ---- Map themes --------------------------------------------------------------
 
 /**
  * The map's two looks: a night map (bright hues on near-black) and a cream "paper" map

@@ -1,5 +1,5 @@
 /**
- * Header drop-down menus (theme, language): a button + role="menu" (A92).
+ * Header drop-down menus (theme, language): a button + role="menu".
  * Arrow keys move, Home/End jump, Esc closes and returns focus, Tab leaves.
  */
 

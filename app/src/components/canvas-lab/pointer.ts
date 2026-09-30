@@ -1,5 +1,5 @@
 /**
- * The canvas lab's (A91) pointer: grab a node (elastic), orbit or pan the camera,
+ * The canvas lab's pointer: grab a node (elastic), orbit or pan the camera,
  * pinch-zoom with two fingers, wheel-zoom, hover, and click to select.
  */
 import type { Engine } from '../../lib/canvas-explorer/engine';

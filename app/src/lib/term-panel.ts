@@ -1,7 +1,7 @@
 /**
- * Pure logic behind the Explorer's term panel (A80): relationships derived from the
+ * Pure logic behind the Explorer's term panel: relationships derived from the
  * graph artefact, the per-term record cache, the `?term=` deep link, deep-dive
- * paragraphs, and Previous/Next + Back/Forward (A83). No Astro or zod imports — this runs
+ * paragraphs, and Previous/Next + Back/Forward. No Astro or zod imports — this runs
  * in the browser island.
  */
 import type { Graph, GraphLink, GraphNode } from './graph-model';
@@ -151,7 +151,7 @@ export const paragraphs = (text: string | undefined): string[] =>
     .filter(Boolean);
 
 /**
- * A howTo's guides for a reader of `lang` (A101): guides in the reader's language first,
+ * A howTo's guides for a reader of `lang`: guides in the reader's language first,
  * otherwise in authored order; `other` marks a guide in the other language. A guide
  * without `lang` is in English.
  */

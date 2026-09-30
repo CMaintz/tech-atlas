@@ -3,7 +3,7 @@
 Scope: the whole repository and its full git history, the built site (`app/dist`), the
 GitHub Actions workflows and repository settings, the Supabase backend (checked live
 with the public key) and the `semantic-search` Edge Function (checked live). Branch
-`chore/security-hardening`; decision A89. The model the fixes add up to is described in
+`chore/security-hardening`. The model the fixes add up to is described in
 [docs/SECURITY.md](../docs/SECURITY.md).
 
 Severity is for this project as it stands: a public dictionary whose only personal data

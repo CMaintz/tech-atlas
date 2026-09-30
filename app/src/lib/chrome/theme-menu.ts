@@ -1,5 +1,5 @@
 /**
- * Colour theme (A92): System / Light / Dark. public/theme-init.js applied it before
+ * Colour theme: System / Light / Dark. public/theme-init.js applied it before
  * paint; this keeps it in step with the menu and the OS.
  */
 import { THEME_KEY, parseTheme, resolveTheme, type ThemeChoice } from '../prefs';

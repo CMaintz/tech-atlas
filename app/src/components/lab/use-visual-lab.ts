@@ -1,5 +1,5 @@
 /**
- * The visual lab (A96), wired: toggle state from the address, the built maps, the 2D
+ * The visual lab, wired: toggle state from the address, the built maps, the 2D
  * and 3D lab effects, the frame meter and the benchmark. Toggles start from the address
  * (`?curve=bezier&bench=1`); nothing is stored.
  */
@@ -34,7 +34,7 @@ type LabProps = {
 
 export function useVisualLab({ view, lang, graphUrl, clusterLabels }: LabProps) {
   const t = TEXT[lang];
-  // The maps follow the page theme (A92) through their own `retheme`; the lab re-reads
+  // The maps follow the page theme through their own `retheme`; the lab re-reads
   // the restyled base stylesheet and lays its rules over it again.
   const theme = useTheme();
   const state = useToggles(view);

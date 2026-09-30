@@ -1,5 +1,5 @@
 /**
- * The visual lab's (A96) view of a built 3D map: the slice of 3d-force-graph it drives,
+ * The visual lab's view of a built 3D map: the slice of 3d-force-graph it drives,
  * the lab handles explorer-3d exposes, and what it captures once at setup (today's
  * accessors and fog) so every toggle can return to them.
  */

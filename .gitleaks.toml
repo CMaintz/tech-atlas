@@ -1,4 +1,4 @@
-# Secret scanning for `mise run audit` (A89): gitleaks' default rules plus the
+# Secret scanning for `mise run audit`: gitleaks' default rules plus the
 # credentials this project actually holds. Scans the full git history in the gate.
 title = "Atlas gitleaks config"
 
@@ -24,7 +24,7 @@ description = "Legacy Supabase service_role key (a JWT whose payload says role s
 regex = '''eyJ[\w-]{8,}\.eyJ[\w-]*(?:c2VydmljZV9yb2xl|NlcnZpY2Vfcm9sZ|zZXJ2aWNlX3JvbG)[\w-]*\.[\w-]+'''
 keywords = ["eyj"]
 
-# Per-term passage hashes (A76): 16 hex digits keyed by a term id, which generic-api-key
+# Per-term passage hashes: 16 hex digits keyed by a term id, which generic-api-key
 # mistakes for keys when the id contains "api", "token" or "auth". Narrow: only these
 # generated files, and only lines of exactly that shape. app/public/semantic/vectors.json
 # no longer exists but is in history.

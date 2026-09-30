@@ -27,7 +27,7 @@ export function replyTo(req: Request): Reply {
         ...cors,
         ...extra,
         "Content-Type": "application/json",
-        // Answers are per request and never meant to be rendered as a page (A89).
+        // Answers are per request and never meant to be rendered as a page.
         "Cache-Control": "no-store",
         "X-Content-Type-Options": "nosniff",
       },

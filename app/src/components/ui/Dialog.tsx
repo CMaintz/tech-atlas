@@ -1,5 +1,5 @@
 /**
- * The site's modal dialog shell (About A84, Feedback A100). A native modal <dialog> gives
+ * The site's modal dialog shell (About, Feedback). A native modal <dialog> gives
  * focus containment, an inert page behind it and the top layer; this adds Esc (with
  * preventDefault, so the tour and term panel stand down — and stopPropagation, so Esc in
  * the Feedback dialog opened from About closes only Feedback), backdrop click, a close

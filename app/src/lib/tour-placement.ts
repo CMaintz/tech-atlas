@@ -1,5 +1,5 @@
 /**
- * The guided tour's motion and placement (A85). Pure geometry, so the card's position
+ * The guided tour's motion and placement. Pure geometry, so the card's position
  * and the scroll that precedes each move can be unit-tested; Tour.tsx only measures and
  * writes. Re-exported from `tour.ts`.
  */

@@ -1,5 +1,5 @@
 /**
- * Term labels (A74): zoomed out only hubs keep a (larger) label; labels that would be too
+ * Term labels: zoomed out only hubs keep a (larger) label; labels that would be too
  * small or would overlap a bigger term's, or a name above an island, are not drawn. The
  * cull runs over visible terms once the zoom settles, never mid-gesture.
  */

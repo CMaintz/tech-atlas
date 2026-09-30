@@ -1,5 +1,5 @@
 /**
- * Scene-wide 3D toggles in the visual lab (A96): bloom, node spacing, fog and
+ * Scene-wide 3D toggles in the visual lab: bloom, node spacing, fog and
  * auto-rotation.
  */
 import type { UnrealBloomPass as Bloom } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';

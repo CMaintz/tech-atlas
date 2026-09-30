@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { EXPLORER } from './explorer-config';
 import { beyondSlop, orbitDragKind, ringBox, ringPaint } from './drag-feedback';
 
-describe('orbitDragKind (A95)', () => {
+describe('orbitDragKind', () => {
   it('orbits on a plain left drag', () => {
     expect(orbitDragKind({ button: 0 })).toBe('orbit');
   });

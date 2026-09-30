@@ -34,7 +34,7 @@ const relations = relationsOf(term, all);
 const graph = await loadGraph();
 
 // Auto-link other terms in the body — first mention per page (SPEC §4): the facets,
-// then the technical deep dive (A80), one paragraph per blank-line block.
+// then the technical deep dive, one paragraph per blank-line block.
 const linker = makeLinker(
   all.map((t) => ({ id: t.id, term: t.data.term, aka: t.data.aka })),
   lang,
@@ -72,7 +72,7 @@ const deepDive = paragraphs(d.deepDive?.[lang]).map((p) => linker.link(p, { self
 <script>
   import { RECENT_KEY, parseRecent, pushRecent } from '../../../lib/prefs';
 
-  // Recently viewed (A62) — shown on the home page.
+  // Recently viewed — shown on the home page.
   const id = document.querySelector<HTMLElement>('[data-term-id]')?.dataset.termId;
   try {
     if (id) {

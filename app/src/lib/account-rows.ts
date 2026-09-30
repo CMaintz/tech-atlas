@@ -1,5 +1,5 @@
 /**
- * Reads and writes of the learner's own `learner_state` row (A44–A49). Stateless: the
+ * Reads and writes of the learner's own `learner_state` row. Stateless: the
  * sync loop in account.ts decides when to call these and what to do with the answers.
  */
 import type { SupabaseClient } from '@supabase/supabase-js';
@@ -42,7 +42,7 @@ async function updateRow(c: SupabaseClient, me: Me, row: Row, patch: Record<stri
 /**
  * Write `patch` over the version we read, or insert when there was no row. Returns
  * false when someone else wrote first (0 rows changed / duplicate insert), so the
- * caller re-pulls, re-merges and tries again (A49).
+ * caller re-pulls, re-merges and tries again.
  */
 export function write(
   c: SupabaseClient,
@@ -53,7 +53,7 @@ export function write(
   return row ? updateRow(c, me, row, patch) : insertRow(c, me, patch);
 }
 
-/** Replace the row with a tombstone (A47): empty state, `deleted_at` set. Throws on failure. */
+/** Replace the row with a tombstone: empty state, `deleted_at` set. Throws on failure. */
 export async function writeTombstone(c: SupabaseClient, me: Me): Promise<void> {
   const { error } = await c
     .from(TABLE)

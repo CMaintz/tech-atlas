@@ -1,5 +1,5 @@
 /**
- * The Explorer's reader-set state (SPEC §7, A86): the filters (domains, relationship
+ * The Explorer's reader-set state (SPEC §7): the filters (domains, relationship
  * types, "show all"), the selected term and its neighbourhood, and a lit route.
  */
 import { useEffect, useMemo, useState } from 'preact/hooks';
@@ -12,13 +12,13 @@ import { useLatest } from './use-latest';
 /** Domain and relationship-type filters, and the overview / "show all" switch. */
 export function useFilters(familyColours: Record<string, string>, labShowAll?: boolean) {
   const [domains, setDomains] = useState<Set<string>>(new Set());
-  // The overview starts with the owner's types (A95): contrasts, alternatives and "used
+  // The overview starts with the owner's types: contrasts, alternatives and "used
   // with" are off until ticked; a selected term shows all its relationships regardless.
   const [families, setFamilies] = useState<Set<string>>(
     () => new Set(Object.keys(familyColours).filter((f) => OVERVIEW_FAMILIES.has(f))),
   );
   const [showAll, setShowAll] = useState(false);
-  // The lab (A96) drives "show all" from its own panel.
+  // The lab drives "show all" from its own panel.
   useEffect(() => void (labShowAll !== undefined && setShowAll(labShowAll)), [labShowAll]);
   return {
     domains,
@@ -41,7 +41,7 @@ export function useSelection() {
   return { selected, setSelected, selRef, hops, setHops };
 }
 
-/** The open term is kept in the address (`?term=`), so the view can be shared (A80). */
+/** The open term is kept in the address (`?term=`), so the view can be shared. */
 export function useTermInAddress(graph: Graph | null, selected: string | null) {
   useEffect(() => {
     if (graph)

@@ -105,7 +105,7 @@ edges:
 ## Technical deep dive (optional)
 
 `deepDive: { en, da }` is the expert-level explanation shown as **Technical deep
-dive** on the term page, after the four facets (A80). Both languages are required
+dive** on the term page, after the four facets. Both languages are required
 when the field is present.
 
 - **Plain text**, no Markdown or HTML. Separate paragraphs with a blank line (use a
@@ -118,7 +118,7 @@ when the field is present.
 - Usually 2–5 paragraphs. Longer narrative with history and worked scenarios belongs in
   an Article.
 
-## How to put it into practice (`howTo`, A101)
+## How to put it into practice (`howTo`)
 
 Every **actionable** term (something you do or implement: a process, control, practice,
 framework, a law you must comply with, a tool or technique) explains how to actually do
@@ -214,7 +214,7 @@ Lint E9 fails the build if a referenced article file does not exist.
 
 # Authoring questions (the question bank)
 
-Hand-written questions sit beside the quizzes generated from the graph (A90). Schema:
+Hand-written questions sit beside the quizzes generated from the graph. Schema:
 `Question` / `QuestionFile` in `src/schema.ts`; rules: `src/lib/question-rules.ts`.
 
 ## File
@@ -274,7 +274,7 @@ See `src/content/questions/security/incident-response.yaml` for a full example.
 - A term page's and the Explorer panel's **Check yourself** show hand-written
   questions tagged with the term first, then generated ones — **except** a question
   whose correct option _is_ that term's name (or alias): a question answered by the
-  page's own term tests nothing there (A79). It still appears on the other tagged
+  page's own term tests nothing there. It still appears on the other tagged
   terms' pages and in study sessions. So tag the terms a question is _about_; when the
   answer is a term name, also tag a term the scenario is about, or no page shows it
   (lint W10).

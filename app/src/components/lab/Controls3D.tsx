@@ -1,4 +1,4 @@
-/** The visual lab's (A96) 3D panel: links, flow, glow, scene, emphasis, layout, tone. */
+/** The visual lab's 3D panel: links, flow, glow, scene, emphasis, layout, tone. */
 import type { Lab3D } from '../../lib/explorer-lab';
 import { Note, Pick, Slide, Toggle, binder } from './controls';
 import { FLOWS_3D, GLOWS, LINKS, labelled } from './options';

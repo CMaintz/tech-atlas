@@ -1,5 +1,5 @@
 /**
- * Switching palettes (A92) in place: the stylesheet, and every colour held in element
+ * Switching palettes in place: the stylesheet, and every colour held in element
  * data (edges, bundles, names). No relayout. Term fills come from the View's `colour`,
  * so the caller applies a view with the new theme's colours as well.
  */

@@ -1,4 +1,4 @@
-/** Link curvature in the visual lab's (A96) 3D map: re-bend the merged web and comets. */
+/** Link curvature in the visual lab's 3D map: re-bend the merged web and comets. */
 import { bendPoint, quadAt } from '../../../lib/explorer-lab/geometry';
 import { endOf, type Lab3, type Three } from './context';
 

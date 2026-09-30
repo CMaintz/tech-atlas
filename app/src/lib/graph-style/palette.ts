@@ -1,6 +1,6 @@
 /**
- * Domain colour families and cluster shades (A74): each domain owns a hue, its clusters
- * are shades within it, and the cream map (A92) deepens them until they hold contrast.
+ * Domain colour families and cluster shades: each domain owns a hue, its clusters
+ * are shades within it, and the cream map deepens them until they hold contrast.
  */
 import { contrastRatio, hslToHex, hueDistance, wrapHue } from './colour';
 import { CREAM, type MapTheme } from './theme';

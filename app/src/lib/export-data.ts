@@ -1,5 +1,5 @@
 /**
- * The export records for the whole collection, computed once per build (A69).
+ * The export records for the whole collection, computed once per build.
  * Astro-side glue over the pure `export.ts`.
  */
 import { getCollection } from 'astro:content';

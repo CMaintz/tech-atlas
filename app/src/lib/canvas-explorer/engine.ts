@@ -1,5 +1,5 @@
 /**
- * The canvas lab's (A91) engine: everything the draw loop reads, built once per graph as
+ * The canvas lab's engine: everything the draw loop reads, built once per graph as
  * flat typed arrays and mutated in place (projection, drag springs, filters).
  */
 import type { Graph } from '../graph-model';

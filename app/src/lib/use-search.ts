@@ -1,6 +1,6 @@
 /**
  * The Search island's state: the index once loaded, and for a query its results
- * (lexical, fused with search by meaning for questions, A75) and the shortcut links
+ * (lexical, fused with search by meaning for questions) and the shortcut links
  * an intent or a shared name leads to.
  */
 import { useEffect, useMemo, useState } from 'preact/hooks';

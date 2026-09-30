@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 /*
- * Themes (A92). Semantic colour tokens, one set per theme. The resolved theme is a
+ * Themes. Semantic colour tokens, one set per theme. The resolved theme is a
  * `data-theme` attribute on <html>, set before first paint by public/theme-init.js
  * (the reader's choice, else the OS preference). Tokens hang off the attribute
  * *selector*, so a nested `data-theme` would re-scope a subtree. The maps (Explorer,
@@ -96,7 +96,7 @@
 }
 
 /*
- * A map's ground (A92): a soft vignette, lit at the centre. Night map: near-black round
+ * A map's ground: a soft vignette, lit at the centre. Night map: near-black round
  * a blue-black glow; cream map: warm paper, paler at the centre.
  */
 .map-surface {
@@ -149,7 +149,7 @@ html {
   scroll-padding-top: 1rem;
 }
 
-/* Keyboard focus is always visible (A64); amber = the site's one accent. */
+/* Keyboard focus is always visible; amber = the site's one accent. */
 :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 2px;
@@ -171,7 +171,7 @@ main:focus,
   }
 }
 
-/* The About dialog (A84): dimmed, blurred page behind; a short fade-in. */
+/* The About dialog: dimmed, blurred page behind; a short fade-in. */
 .about-dialog::backdrop {
   background: rgb(0 0 0 / 0.65);
   backdrop-filter: blur(3px);
@@ -198,7 +198,7 @@ main:focus,
   }
 }
 
-/* Guided tour (A61, A85). One eased curve for every move — decelerating, no overshoot.
+/* Guided tour. One eased curve for every move — decelerating, no overshoot.
    The spotlight is a single fixed element whose huge box-shadow dims the rest of the
    page; it and the card move by transform (the spotlight also by width/height). Tour.tsx toggles the data-* states. */
 :root {
@@ -309,7 +309,7 @@ main:focus,
     max-width: none !important;
     padding: 0 !important;
   }
-  /* Sources and other outside links print their address (A73). */
+  /* Sources and other outside links print their address. */
   main a[href^='http']::after {
     content: ' (' attr(href) ')';
     font-size: 0.8em;

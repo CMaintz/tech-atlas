@@ -1,5 +1,5 @@
 /**
- * Link geometry and flow in the visual lab's (A96) 3D map: today's merged lines and
+ * Link geometry and flow in the visual lab's 3D map: today's merged lines and
  * comets, or the old tube and cone per link and per-link particles.
  */
 import { FAMILY_COLOURS, familyColours, isDirected, type MapTheme } from '../../../lib/graph-style';

@@ -1,7 +1,7 @@
 import type { Bi, Lang } from '../lang';
 
 /**
- * The About dialog (A84): owner links and credits. A link whose href is not a real
+ * The About dialog: owner links and credits. A link whose href is not a real
  * URL is not rendered, so a placeholder never becomes a broken link.
  */
 export const ABOUT_LINKS = {

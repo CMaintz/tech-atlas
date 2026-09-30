@@ -6,7 +6,7 @@ import Legend from './canvas-lab/Legend';
 import { useCanvasLab, type CanvasLab, type CanvasLabProps } from './canvas-lab/use-canvas-lab';
 
 /**
- * The canvas Explorer lab (A91): one <canvas>, a 2D context and "fake 3D" — every term
+ * The canvas Explorer lab: one <canvas>, a 2D context and "fake 3D" — every term
  * has x/y/z, projected each frame with yaw/pitch and a simple perspective, drawn back to
  * front. Flat = the front view with pan and zoom; Depth = orbit. One rAF loop that only
  * paints when something changed or is moving. Hidden page for comparison only.
@@ -53,7 +53,7 @@ function AboutCorner({ lab }: { lab: CanvasLab }) {
   );
 }
 
-/** The selected term's panel (A80), as in the Explorer. */
+/** The selected term's panel, as in the Explorer. */
 function LabTermPanel({ lab }: { lab: CanvasLab }) {
   const setSelected = lab.ui.setSelected;
   const closePanel = useCallback(() => setSelected(null), []);

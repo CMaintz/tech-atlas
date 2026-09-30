@@ -1,5 +1,5 @@
 /**
- * The `semantic-search` Edge Function (A75) as a handler with its dependencies passed
+ * The `semantic-search` Edge Function as a handler with its dependencies passed
  * in: index.ts wires it to Deno, and the app's Vitest suite drives it with a mocked
  * fetch (app/src/lib/semantic-handler.test.ts). No Deno APIs here.
  *

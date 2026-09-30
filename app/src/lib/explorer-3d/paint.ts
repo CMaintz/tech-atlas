@@ -1,7 +1,7 @@
 /**
  * Everything the 3D map draws itself, beside 3d-force-graph's spheres and lit links:
  * glow, hub labels, domain names, the resting web, the comets and the relationship
- * names — built in draw order, painted together, and switched between palettes (A92).
+ * names — built in draw order, painted together, and switched between palettes.
  */
 import { EXPLORER } from '../explorer-config';
 import { endId } from './model';

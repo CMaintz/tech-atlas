@@ -1,5 +1,5 @@
 /**
- * The sync state the account UI follows (A44–A49): one value, its listeners, and the
+ * The sync state the account UI follows: one value, its listeners, and the
  * "you were signed out because your data was deleted" notice that outlives a reload.
  * account.ts is the only writer; islands read it through `subscribe`.
  */

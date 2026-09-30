@@ -1,5 +1,5 @@
 /**
- * Edges switched on or off by a view change (A93b): relationship families fade out
+ * Edges switched on or off by a view change: relationship families fade out
  * rather than blink; many changed edges (types, "show all") change a batch per frame and
  * a few fade in at once; all instant under reduced motion. Bundled routes follow.
  */
