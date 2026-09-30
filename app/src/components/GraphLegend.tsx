@@ -47,12 +47,19 @@ export default function GraphLegend(props: Props) {
         {props.text.legend}
         {props.upward && <Chevron />}
       </summary>
-      <div data-legend-body class={props.upward ? UPWARD_BODY : undefined}>
-        <NodeKey {...props} theme={theme} />
-        <EdgeKey {...props} theme={theme} />
-        {props.hint && <p class="mt-3 border-t border-border pt-2 text-subtle">{props.hint}</p>}
-      </div>
+      <LegendBody {...props} theme={theme} />
     </details>
+  );
+}
+
+/** The key itself; upward, it floats above the pill. */
+function LegendBody(props: Props & { theme: MapTheme }) {
+  return (
+    <div data-legend-body class={props.upward ? UPWARD_BODY : undefined}>
+      <NodeKey {...props} />
+      <EdgeKey {...props} />
+      {props.hint && <p class="mt-3 border-t border-border pt-2 text-subtle">{props.hint}</p>}
+    </div>
   );
 }
 
