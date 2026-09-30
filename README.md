@@ -77,8 +77,7 @@ hidden. Setup: [docs/SUPABASE_SETUP.md](docs/SUPABASE_SETUP.md). Security model:
 [docs/SECURITY.md](docs/SECURITY.md). Reporting a vulnerability: [SECURITY.md](SECURITY.md).
 
 The spec and decisions live in [`design/`](design/) (`SPEC.md`, `adr/`,
-`UNIFIED_VISION.md`, `AUTONOMOUS_DECISIONS.md`). When spec and code disagree, the spec
-wins.
+`UNIFIED_VISION.md`). When spec and code disagree, the spec wins.
 
 ## Getting started
 

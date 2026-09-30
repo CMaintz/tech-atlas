@@ -4,7 +4,7 @@ Atlas works fully without this: learner progress lives in the browser and search
 names and aliases. One Supabase project adds two optional features:
 
 - **Accounts + synced progress** — sign-in (GitHub, optionally LinkedIn) so a learner's
-  progress follows them across devices (A44–A50 in `design/AUTONOMOUS_DECISIONS.md`):
+  progress follows them across devices (A44–A50):
   steps 1–6. Until both repository variables in step 5 are set, the site has no account UI.
 - **Search by meaning** — questions like "how do I stop people reusing leaked passwords"
   find _Credential stuffing_, in English or Danish (A75–A78): steps 1, 2 and 7.

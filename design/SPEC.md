@@ -1,8 +1,7 @@
 # Atlas — Authoritative v1 Specification
 
-> **Working name:** `Atlas` (decided — `AUTONOMOUS_DECISIONS.md` A1). **Status:** decided; v1.0
-> live at https://cmaintz.github.io/tech-atlas/ (see `AUTONOMOUS_DECISIONS.md` A22 for what
-> remains). This is the single source of truth for v1. It supersedes the
+> **Working name:** `Atlas` (decided — A1). **Status:** decided; v1.0
+> live at https://cmaintz.github.io/tech-atlas/. This is the single source of truth for v1. It supersedes the
 > exploratory `00`–`09` documents (kept as the *ingestion archive*) and is built on
 > the decisions recorded in [`UNIFIED_VISION.md`](./UNIFIED_VISION.md) (D1–D12) and
 > the schema in [`app/src/schema.ts`](../app/src/schema.ts) (`design/schema.ts` re-exports it). Where this document and the archive
@@ -93,9 +92,8 @@ once written, only `audit` turned out to be two concepts (`cs/audit`,
 `access-control`.
 
 Both clusters ship **bilingual** (EN + DA). `ai` and `platform` are modelled in the
-schema from day one (ADR-0003). They were written after v1.0 (PR #7, decision P1 in
-`AUTONOMOUS_DECISIONS.md`); whether they stay in scope is on the owner's review agenda
-(`DECISIONS_REVIEW.md` §7, item 1).
+schema from day one (ADR-0003). They were written after v1.0 (PR #7, decision P1);
+whether they stay in scope is still open.
 
 **v1 content target:** ~105 terms across the two domains, every one bilingual.
 
@@ -158,7 +156,7 @@ other defined Terms (or their Aliases), or (c) words in the per-language
   (ADR-0009, D7). The course student reads Danish, so Danish is not second-class:
   Danish violations are reported as warnings on every build (a visible to-fix list,
   not silent debt), and the rule flips to blocking once the evidence says Danish is
-  clean enough. That reassessment is still open (`DECISIONS_REVIEW.md` U15).
+  clean enough. That reassessment is still open.
 - **Scoped:** binds `summary` + `body` only. **Articles are exempt** (ADR-0004) —
   long-form writing quotes specs and uses any jargon freely; auto-linking still
   harvests Mentions from it.
@@ -498,7 +496,7 @@ the graph. Beside them sits one hand-authored layer, the **question bank** (A90)
 "What to learn first" paths, the learning system (§9), and the era view (Timeline +
 the Explorer's Time layout), semantic search (§7), and optional accounts with synced
 progress (§9), the Disambiguation page (§5, ADR-0003), lint rules E5, W2 and W3, and the
-depth-histogram and collision-list reports (§5, A56–A60) — see `AUTONOMOUS_DECISIONS.md`.
+depth-histogram and collision-list reports (§5, A56–A60).
 
 Since then: the `ai` and `platform` domains were written (P1; scope pending the owner's
 review), and the open data, feeds, SEO, A–Z index and 404 page (§7, A68–A73).
@@ -521,7 +519,7 @@ review), and the open data, feeds, SEO, A–Z index and 404 page (§7, A68–A73
 ## 13. Open questions
 
 - **Working name** — *resolved (A1):* **Atlas** (repo `tech-atlas`). Chosen
-  autonomously; the owner may still rename it (`DECISIONS_REVIEW.md` A1).
+  autonomously; the owner may still rename it.
 - **Danish drafting order** — *resolved (D7, ADR-0009):* English blocking from term
   one; Danish **advisory** (non-blocking warnings) from day one, reassessed on
   evidence after the pilot (§5). The reassessment itself is still open (U15).
@@ -541,7 +539,4 @@ options. Those documents remain, unchanged, as the ingestion archive:
 - `app/src/schema.ts` — the machine-readable schema this spec describes
   (`design/schema.ts` re-exports it).
 - `adr/0001`–`0009` — the architecture decision records still in force.
-- `AUTONOMOUS_DECISIONS.md` — decisions taken without the owner (A-numbers, plus the
-  P-numbers first stated only in PR bodies); `DECISIONS_REVIEW.md` — the owner's
-  review agenda for them.
 Where any of them disagrees with this document, **this document wins.**
