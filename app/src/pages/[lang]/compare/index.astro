@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import { domainColour, homeDomain } from '../../../lib/graph-style';
-import { CLUSTER_LABELS, DOMAIN_LABELS, LANGS, UI, url, type Lang } from '../../../lib/site';
+import { LANGS, UI, clusterLabel, domainLabel, url, type Lang } from '../../../lib/site';
 import { contrastPairs, pairSlug } from '../../../lib/terms';
 
 export function getStaticPaths() {
@@ -37,13 +37,13 @@ const sections = [...groups]
   .map(([domain, byCluster]) => ({
     domain,
     id: `compare-${domain}`,
-    label: domain === CROSS ? ui.compareAcross : (DOMAIN_LABELS[domain]?.[lang] ?? domain),
+    label: domain === CROSS ? ui.compareAcross : domainLabel(domain, lang),
     colour: domain === CROSS ? '#a3a3a3' : domainColour(domain),
     count: [...byCluster.values()].reduce((n, l) => n + l.length, 0),
     clusters: [...byCluster]
       .map(([cluster, list]) => ({
         cluster,
-        label: cluster === MIXED ? '' : (CLUSTER_LABELS[cluster]?.[lang] ?? cluster),
+        label: cluster === MIXED ? '' : clusterLabel(cluster, lang),
         list,
       }))
       // Named clusters alphabetically, the mixed bucket last.

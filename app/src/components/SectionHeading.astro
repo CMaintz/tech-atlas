@@ -1,0 +1,14 @@
+---
+/** The small, spaced, upper-case label that heads a section or names a group. */
+interface Props {
+  /** The element to render; a heading level where it heads a section. */
+  as?: 'h2' | 'h3' | 'h4' | 'p' | 'div';
+  /** Spacing around it, e.g. `mb-2`. */
+  class?: string;
+}
+const { as: Tag = 'h2', class: spacing } = Astro.props;
+---
+
+<Tag class:list={[spacing, 'text-xs tracking-widest text-subtle uppercase']}>
+  <slot />
+</Tag>

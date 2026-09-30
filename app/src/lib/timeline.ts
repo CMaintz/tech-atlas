@@ -128,25 +128,31 @@ export function packCapped(
   maxTracks: number,
   gap = 0,
 ): { track: Map<string, number>; tracks: number; overflow: string[] } {
-  const sorted = [...spans].sort(
-    (a, b) => a.rank - b.rank || a.start - b.start || a.id.localeCompare(b.id),
-  );
   const rows: Span[][] = [];
   const track = new Map<string, number>();
   const overflow: string[] = [];
-  for (const s of sorted) {
-    const free = (row: Span[]) =>
-      row.every((o) => s.end + gap <= o.start || o.end + gap <= s.start);
-    let t = rows.findIndex(free);
-    if (t < 0 && rows.length < maxTracks) t = rows.push([]) - 1;
-    if (t < 0) {
-      overflow.push(s.id);
-      continue;
-    }
-    rows[t].push(s);
-    track.set(s.id, t);
+  for (const s of [...spans].sort(byRank)) {
+    const t = claimRow(rows, s, maxTracks, gap);
+    if (t < 0) overflow.push(s.id);
+    else track.set(s.id, t);
   }
   return { track, tracks: rows.length, overflow };
+}
+
+const byRank = (a: Span & { rank: number }, b: Span & { rank: number }) =>
+  a.rank - b.rank || a.start - b.start || a.id.localeCompare(b.id);
+
+/**
+ * Puts `s` on the first row where it overlaps nothing (with `gap` to spare), opening a
+ * new row while there are fewer than `maxTracks`. Returns the row, or -1 if none has room.
+ */
+function claimRow(rows: Span[][], s: Span, maxTracks: number, gap: number): number {
+  let t = rows.findIndex((row) =>
+    row.every((o) => s.end + gap <= o.start || o.end + gap <= s.start),
+  );
+  if (t < 0 && rows.length < maxTracks) t = rows.push([]) - 1;
+  if (t >= 0) rows[t].push(s);
+  return t;
 }
 
 /**
@@ -196,6 +202,15 @@ export function lanesOf<T extends TimelineItem>(items: T[], shown: string[]): Ma
   for (const list of lanes.values())
     list.sort((a, b) => a.year - b.year || a.name.localeCompare(b.name));
   return lanes;
+}
+
+/**
+ * The domains shown after toggling `d`, kept in lane order. Hiding the last shown
+ * domain shows them all again, so the chart is never empty.
+ */
+export function toggleDomain(domains: string[], shown: string[], d: string): string[] {
+  const next = shown.includes(d) ? shown.filter((x) => x !== d) : [...shown, d];
+  return next.length ? domains.filter((x) => next.includes(x)) : domains;
 }
 
 /**

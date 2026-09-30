@@ -42,6 +42,52 @@ deepDive:
     I en moderne CI/CD-pipeline bliver aktiviteterne til automatiske gates: secret scanning og SAST ved hvert commit, software composition analysis og SBOM-generering for tredjepartskomponenter, scanning af containere og infrastructure as code, DAST mod et staging-miljø, signeret build-proveniens (fx SLSA-niveauer) og branch protection, der kræver kodegennemgang af en kollega. De manuelle aktiviteter, som automatisering ikke kan erstatte, er trusselsmodellering, gennemgang af sikkerhedsarkitekturen, penetrationstest af højrisikofunktioner og triage af fund op mod en fastlagt bug bar. En hyppig faldgrube er en pipeline fuld af scannere, hvis fund aldrig bliver triageret, hvilket giver bevis for aktivitet frem for færre sårbarheder.
 
     Regulering gør SDL til en pligt for producenter frem for god praksis. EU's Cyber Resilience Act (forordning (EU) 2024/2847) kræver, at produkter med digitale elementer opfylder de væsentlige krav i bilag I, herunder processer for sårbarhedshåndtering og sikkerhedsopdateringer i supportperioden; indberetningspligten for aktivt udnyttede sårbarheder har gældet siden 11. september 2026, og hovedparten af forpligtelserne gælder fra 11. december 2027. SDL adskiller sig fra security by design ved, at security by design er princippet, mens SDL er den gentagelige proces og det dokumentationsspor, der omsætter det til praksis.
+howTo:
+  steps:
+    en:
+      - Write an SDL policy that names the required security activities in each phase, who is responsible for them, and a bug bar that sets which flaws block a release.
+      - Train developers in secure coding and threat modelling, and give them approved tools, libraries and secure coding standards.
+      - At planning, record security and privacy requirements for each feature, and threat model every new or changed design.
+      - While building, require peer code review and run secret scanning, SAST and software composition analysis on every commit or pull request.
+      - Before release, run security tests such as DAST, fuzzing or a penetration test of high-risk features, and hold a final security review against the bug bar.
+      - Protect the pipeline and the builds with branch protection, signed builds and an SBOM for each release.
+      - After release, run a vulnerability disclosure and response process that triages reports, ships fixes and informs customers.
+      - Measure the programme with a maturity model such as OWASP SAMM, and improve it at least once a year.
+    da:
+      - Skriv en SDL-politik, der fastlægger de krævede sikkerhedsaktiviteter i hver fase, hvem der har ansvaret for dem, og en bug bar, der afgør, hvilke fejl der blokerer en frigivelse.
+      - Uddan udviklerne i sikker kodning og trusselsmodellering, og giv dem godkendte værktøjer, biblioteker og standarder for sikker kode.
+      - Registrér ved planlægningen sikkerheds- og privatlivskrav til hver funktion, og lav en trusselsmodel af hvert nyt eller ændret design.
+      - Kræv kodegennemgang af en kollega under udviklingen, og kør secret scanning, SAST og software composition analysis ved hvert commit eller pull request.
+      - Kør før frigivelse sikkerhedstest som DAST, fuzzing eller en penetrationstest af højrisikofunktioner, og afslut med en sikkerhedsgennemgang op mod bug bar'en.
+      - Beskyt pipelinen og jeres builds med branch protection, signerede builds og en SBOM for hver frigivelse.
+      - Hav efter frigivelsen en proces for offentliggørelse og håndtering af sårbarheder, der triagerer rapporter, leverer rettelser og informerer kunderne.
+      - Mål programmet med en modenhedsmodel som OWASP SAMM, og forbedr det mindst en gang om året.
+  pitfalls:
+    en:
+      - Filling the pipeline with scanners whose findings are never triaged, which produces evidence of activity rather than fewer vulnerabilities.
+      - Skipping threat modelling because tools cannot automate it, although design flaws are the most expensive to fix later.
+      - Treating the SDL as a single gate run by the security team at the end, instead of steps built into every phase.
+    da:
+      - At fylde pipelinen med scannere, hvis fund aldrig bliver triageret, hvilket giver bevis for aktivitet frem for færre sårbarheder.
+      - At springe trusselsmodellering over, fordi værktøjer ikke kan automatisere den, selv om designfejl er de dyreste at rette senere.
+      - At behandle SDL som én kontrol, sikkerhedsteamet står for til sidst, i stedet for trin, der er bygget ind i hver fase.
+  guides:
+    - title: 'NIST SP 800-218 - Secure Software Development Framework (SSDF) Version 1.1: Recommendations for Mitigating the Risk of Software Vulnerabilities'
+      url: https://csrc.nist.gov/pubs/sp/800/218/final
+      publisher: NIST
+      tier: standard
+    - title: OWASP SAMM - The Model
+      url: https://owaspsamm.org/model/
+      publisher: OWASP
+      tier: reference
+    - title: Threat Modeling - OWASP Cheat Sheet Series
+      url: https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
+    - title: Microsoft Security Development Lifecycle (SDL)
+      url: https://www.microsoft.com/en-us/securityengineering/sdl
+      publisher: Microsoft
+      tier: official-doc
 edges:
   implements: [security-by-design]
   mitigates:

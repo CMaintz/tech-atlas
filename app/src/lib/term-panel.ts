@@ -4,8 +4,12 @@
  * paragraphs, and Previous/Next + Back/Forward (A83). No Astro or zod imports — this runs
  * in the browser island.
  */
-import type { Graph } from './graph-model';
-import type { ExportTerm } from './export';
+import type { Graph, GraphLink, GraphNode } from './graph-model';
+import type { ExportEdge, ExportTerm } from './export';
+
+/** The four facets of a definition, in reading order. */
+export const FACETS = ['formal', 'plain', 'inPractice', 'whyItMatters'] as const;
+export type Facet = (typeof FACETS)[number];
 
 export type PanelRelation = { type: string; id: string };
 export type PanelRelationGroup = { type: string; ids: string[] };
@@ -60,23 +64,36 @@ export function neighbourhoodGraph(
   );
   const ids = [id, ...neighbourIds(graph, id)].filter((x) => byId.has(x));
   return {
-    nodes: ids.map((x) => {
-      const n = byId.get(x)!;
-      return { id: x, label: n.term[lang], focus: x === id, domain: n.domain, cluster: n.cluster };
-    }),
+    nodes: ids.map((x) => miniNode(byId.get(x)!, x === id, lang)),
     edges: links
       .filter((l) => byId.has(l.source) && byId.has(l.target))
-      .map((l) => ({
-        source: l.source,
-        target: l.target,
-        type: l.type,
-        family: l.family,
-        label: edgeLabels[l.type] ?? l.type,
-      })),
+      .map((l) => miniEdge(l, edgeLabels)),
   };
 }
 
+/** A node of the neighbourhood graph; `focus` marks the term itself. */
+const miniNode = (n: GraphNode, focus: boolean, lang: 'en' | 'da') => ({
+  id: n.id,
+  label: n.term[lang],
+  focus,
+  domain: n.domain,
+  cluster: n.cluster,
+});
+
+/** An edge of the neighbourhood graph, labelled with its relationship type. */
+const miniEdge = (l: GraphLink, edgeLabels: Record<string, string>) => ({
+  source: l.source,
+  target: l.target,
+  type: l.type,
+  family: l.family,
+  label: edgeLabels[l.type] ?? l.type,
+});
+
 export type TermRecord = ExportTerm;
+
+/** Why each authored edge holds, keyed `type|target` — the chips' tooltips. */
+export const relationReasons = (edges: readonly ExportEdge[]) =>
+  new Map(edges.filter((e) => e.why).map((e) => [`${e.type}|${e.to}`, e.why!]));
 
 /**
  * A memoising loader for per-term records (`/api/terms/<id>.json`): one request per
@@ -134,6 +151,19 @@ export const paragraphs = (text: string | undefined): string[] =>
     .filter(Boolean);
 
 /**
+ * A howTo's guides for a reader of `lang` (A101): guides in the reader's language first,
+ * otherwise in authored order; `other` marks a guide in the other language. A guide
+ * without `lang` is in English.
+ */
+export function guidesFor<G extends { lang?: 'en' | 'da' }>(
+  guides: readonly G[],
+  lang: 'en' | 'da',
+): (G & { other: boolean })[] {
+  const marked = guides.map((g) => ({ ...g, other: (g.lang ?? 'en') !== lang }));
+  return [...marked.filter((g) => !g.other), ...marked.filter((g) => g.other)];
+}
+
+/**
  * The anchor term's connections as one list, in the order the relationships list shows
  * them (group by group). A term under two types appears twice, so a position is an index
  * into this list, never a lookup by id. Ids `known` rejects (not on the map) are skipped.
@@ -184,6 +214,18 @@ export function nextCycleState(
   }
   return { anchor: id, index: null };
 }
+
+/**
+ * Whether arriving at a term moves focus to its name (which announces it): a pick from
+ * elsewhere, or "return to" the anchor (whose button then disappears). Previous/Next and
+ * Back/Forward keep focus on their button and announce through the live region instead.
+ */
+export const focusesName = (arrival: Arrival): boolean =>
+  arrival.via === 'other' || (arrival.via === 'step' && arrival.index === null);
+
+/** The live-region text for an arrival: nothing when focus moves to the name. */
+export const arrivalAnnouncement = (name: string, where: string, focusName: boolean): string =>
+  focusName ? '' : where ? `${name} - ${where}` : name;
 
 /** The panel's Back/Forward trail: viewed term ids and the one on screen. */
 export type PanelHistory = { entries: string[]; pos: number };

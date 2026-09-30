@@ -39,17 +39,24 @@ if (errors.length) {
 const { ids, passages, settingsHash, passageHashes } = semanticInputs(terms);
 
 type Embed = (texts: string[]) => Promise<number[][]>;
+type Backend = { name: string; embed: Embed; batch: number };
 
-async function backend(): Promise<{ name: string; embed: Embed; batch: number }> {
+/** Workers AI when its credentials are set, else the local ONNX export of the same weights. */
+async function backend(): Promise<Backend> {
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
   const token = process.env.CLOUDFLARE_API_TOKEN;
-  if (accountId && token) {
-    return {
-      name: `cloudflare:${MODEL.cloudflare}`,
-      embed: async (texts) => (await cloudflareEmbed(texts, { accountId, token })).vectors,
-      batch: 50,
-    };
-  }
+  return accountId && token ? cloudflareBackend(accountId, token) : await onnxBackend();
+}
+
+function cloudflareBackend(accountId: string, token: string): Backend {
+  return {
+    name: `cloudflare:${MODEL.cloudflare}`,
+    embed: async (texts) => (await cloudflareEmbed(texts, { accountId, token })).vectors,
+    batch: 50,
+  };
+}
+
+async function onnxBackend(): Promise<Backend> {
   // Loaded only here: the site itself never depends on transformers.js.
   const { pipeline } = await import('@huggingface/transformers');
   const extract = await pipeline('feature-extraction', MODEL.onnx.id, {

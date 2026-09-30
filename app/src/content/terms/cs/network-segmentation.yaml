@@ -41,6 +41,53 @@ deepDive:
     En række referencemodeller former designet af zoner. Tjenester, der vender mod internettet, placeres i en DMZ, adskilt både fra internettet og fra de interne zoner. I industrielle miljøer adskiller Purdue-modellen og IEC 62443's begreb om zoner og conduits virksomhedens IT fra styresystemerne, typisk med en industriel DMZ imellem. Under PCI DSS er segmentering ikke obligatorisk, men den kan indskrænke omfanget af kortdatamiljøet, forudsat at penetrationstest bekræfter, at segmenteringen faktisk isolerer det. CIS Controls v8, safeguard 12.2, kræver en dokumenteret sikker netværksarkitektur, der adresserer segmentering, mindste privilegium og tilgængelighed.
 
     Segmentering fejler typisk ved de fælles tjenester. Domænecontrollere, backupservere, overvågnings- og administrationssystemer, jump hosts og maskiner med ben i flere netværk skal kunne nå mange zoner, og en angriber, der kompromitterer én af dem eller får fat i domæneadministrator-legitimationsoplysninger, kan bevæge sig via tilladte protokoller som SMB, RDP og WinRM uanset zonemodellen. NotPetya viste i 2017, hvor hurtigt malware spreder sig i flade Windows-miljøer med delte legitimationsoplysninger. God praksis er at tage udgangspunkt i en aktivoversigt og kortlagte dataflows, definere zoner efter følsomhed og tillid, afvise trafik mellem zoner som standard, lægge administrationsgrænseflader og backup i egne, begrænsede zoner, overvåge øst-vest-trafik og efterprøve reglerne ved at scanne indefra i hver zone i stedet for at stole på tegningerne.
+howTo:
+  steps:
+    en:
+      - Start from the asset inventory and map which systems need to talk to which, on which ports, and why.
+      - Define zones by sensitivity and trust, for example clients, servers, management, backup, OT, guest wifi and a DMZ for internet-facing services.
+      - Put each zone in its own subnet and VLAN, and force all traffic between zones through a firewall instead of letting the core switch route freely.
+      - Deny traffic between zones by default and allow only documented flows, with an owner and a business reason for each rule.
+      - Place management interfaces, domain controllers and backups in restricted zones that can be reached only from dedicated admin hosts.
+      - Harden the switches by locking access ports, turning off automatic trunking and leaving the native VLAN unused.
+      - Monitor and log traffic between zones, and alert on unexpected east-west connections.
+      - Verify the segmentation at least yearly by scanning from inside each zone and reviewing the firewall rules, removing rules that are no longer needed.
+    da:
+      - Tag udgangspunkt i aktivoversigten, og kortlæg, hvilke systemer der skal tale med hvilke, på hvilke porte og hvorfor.
+      - Definér zoner efter følsomhed og tillid, fx klienter, servere, administration, backup, OT, gæste-wifi og en DMZ til internetvendte tjenester.
+      - Læg hver zone i sit eget subnet og VLAN, og tving al trafik mellem zonerne gennem en firewall i stedet for at lade core-switchen route frit.
+      - Afvis trafik mellem zoner som standard, og tillad kun dokumenterede forbindelser med en ejer og en forretningsmæssig begrundelse for hver regel.
+      - Placér administrationsgrænseflader, domænecontrollere og backup i begrænsede zoner, der kun kan nås fra dedikerede administrationsmaskiner.
+      - Hærd switchene ved at låse access-porte fast, slå automatisk trunking fra og holde native VLAN ubrugt.
+      - Overvåg og log trafikken mellem zonerne, og alarmér ved uventede øst-vest-forbindelser.
+      - Efterprøv segmenteringen mindst en gang om året ved at scanne indefra i hver zone og gennemgå firewallreglerne, og fjern regler, der ikke længere er brug for.
+  pitfalls:
+    en:
+      - Creating VLANs but letting the core switch route freely between them, so the network stays flat.
+      - Leaving shared services such as backup, monitoring or jump hosts able to reach every zone without tight control.
+      - Trusting the network diagram instead of testing from inside each zone.
+    da:
+      - At oprette VLAN'er, men lade core-switchen route frit mellem dem, så netværket forbliver fladt.
+      - At lade fælles tjenester som backup, overvågning eller jump hosts nå alle zoner uden stram kontrol.
+      - At stole på netværkstegningen i stedet for at teste indefra i hver zone.
+  guides:
+    - title: Preventing Lateral Movement
+      url: https://www.ncsc.gov.uk/guidance/preventing-lateral-movement
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Layering Network Security Through Segmentation Infographic
+      url: https://www.cisa.gov/resources-tools/resources/layering-network-security-through-segmentation-infographic
+      publisher: CISA
+      tier: official-doc
+    - title: CIS Critical Security Control 12 - Network Infrastructure Management
+      url: https://www.cisecurity.org/controls/network-infrastructure-management
+      publisher: Center for Internet Security
+      tier: standard
+    - title: Cyberforsvar der virker
+      url: https://samsik.dk/publikation/cyberforsvar-der-virker/
+      publisher: Center for Cybersikkerhed (Styrelsen for Samfundssikkerhed)
+      tier: official-doc
+      lang: da
 edges:
   requires: [network, router, firewall]
   implements: [least-privilege]

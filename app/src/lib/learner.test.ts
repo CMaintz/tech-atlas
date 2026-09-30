@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { buildGraph, type ModelTerm } from './graph-model';
-import { isDue, isKnown, recordAnswer, recommendNext, setStatus, type Learner } from './learner';
+import {
+  isDue,
+  isKnown,
+  progressOf,
+  recordAnswer,
+  recommendNext,
+  setStatus,
+  type Learner,
+} from './learner';
 
 const DAY = 24 * 60 * 60 * 1000;
 const empty: Learner = { terms: {} };
@@ -30,6 +38,16 @@ describe('recordAnswer (Leitner spaced repetition)', () => {
   it('does not mutate the previous state', () => {
     recordAnswer(empty, 't', true);
     expect(empty.terms).toEqual({});
+  });
+});
+
+describe('progressOf', () => {
+  it('counts practised, known, due and weak terms', () => {
+    let l = setStatus(empty, 'known', 'know', 0);
+    l = recordAnswer(l, 'right', true, 0);
+    l = recordAnswer(l, 'wrong', false, 0);
+    expect(progressOf(l, DAY)).toEqual({ practised: 2, known: 1, due: 2, weak: 1 });
+    expect(progressOf(l, 0)).toEqual({ practised: 2, known: 1, due: 0, weak: 1 });
   });
 });
 

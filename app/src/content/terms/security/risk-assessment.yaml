@@ -41,6 +41,56 @@ deepDive:
     NIST SP 800-30 Rev. 1 opdeler vurderingen i forberedelse, gennemførelse, kommunikation og vedligeholdelse og placerer den på de tre niveauer fra SP 800-39: organisation, forretningsproces og informationssystem. Risikomodellen forbinder trusselskilder, trusselshændelser, sårbarheder og disponerende forhold, sandsynlighed og konsekvens, med eksempler på skalaer i bilag D til I. Metoden kan være kvalitativ, semikvantitativ eller kvantitativ; valget påvirker præcision og omkostning, men ikke den grundlæggende struktur.
 
     Nabodisciplinerne har et andet genstandsfelt og resultat. En sårbarhedsvurdering lister konkrete tekniske svagheder, men vurderer ikke i sig selv forretningsrisikoen; trusselsmodellering analyserer et design for, hvad der kan gå galt, typisk under udviklingen; en BIA måler konsekvens over tid uden at se på sandsynlighed; og en konsekvensanalyse vedrørende databeskyttelse efter databeskyttelsesforordningens art. 35 vurderer risikoen for de registreredes rettigheder og frihedsrettigheder frem for risikoen for organisationen. En risikovurdering bruger alle fire som input. Typiske fejl er scoring uden aftalte kriterier, registre, der beskriver systemer i stedet for forretningskonsekvenser, og engangsvurderinger, der aldrig gentages, når omgivelserne ændrer sig.
+howTo:
+  steps:
+    en:
+      - Define scope and criteria first - which processes and systems are covered, the likelihood and consequence scales, and the level at which risk is acceptable.
+      - List the critical assets (processes, information, systems, suppliers) with their owners, working from an up-to-date system overview.
+      - For each asset, identify relevant threats and vulnerabilities, using threat and vulnerability catalogues and the current SAMSIK threat assessment as input.
+      - Describe each risk as a scenario with a business consequence, for example customer data leaked after phishing, not just as a system name.
+      - Rate likelihood and consequence for each scenario on the agreed scales, taking existing controls into account; the SAMSIK risk assessment template is a free starting point.
+      - Evaluate the results against the acceptance criteria and rank the risks that need treatment.
+      - Document the assessment, have the risk owners sign it off and present the top risks to management.
+      - Repeat the assessment at planned intervals and when significant changes occur (ISO 27001 clause 8.2), and keep earlier versions for comparison.
+    da:
+      - Fastlæg omfang og kriterier først - hvilke processer og systemer der er med, skalaerne for sandsynlighed og konsekvens, og hvornår en risiko kan accepteres.
+      - Lav en liste over de kritiske aktiver (processer, information, systemer, leverandører) med ejere ud fra et opdateret systemoverblik.
+      - Identificér relevante trusler og sårbarheder for hvert aktiv med trussels- og sårbarhedskataloger og SAMSIK's aktuelle trusselsvurdering som input.
+      - Beskriv hver risiko som et scenarie med en forretningskonsekvens, fx kundedata lækket efter phishing, og ikke kun som et systemnavn.
+      - Vurdér sandsynlighed og konsekvens for hvert scenarie på de aftalte skalaer under hensyn til eksisterende kontroller; SAMSIK's skabelon til risikovurderinger er et gratis udgangspunkt.
+      - Evaluér resultaterne mod acceptkriterierne, og prioritér de risici, der skal håndteres.
+      - Dokumentér vurderingen, få den godkendt af risikoejerne, og præsentér de største risici for ledelsen.
+      - Gentag vurderingen med planlagte mellemrum og ved væsentlige ændringer (ISO 27001 punkt 8.2), og gem tidligere versioner til sammenligning.
+  pitfalls:
+    en:
+      - Scoring risks without agreed criteria, so the same risk gets different ratings from different people.
+      - Treating a vulnerability scan or a DPIA as the risk assessment instead of as inputs to it.
+      - Rating on gut feeling alone, without using incident history or threat intelligence.
+      - Doing it once for certification and never updating it when systems or threats change.
+    da:
+      - At score risici uden aftalte kriterier, så den samme risiko får forskellige vurderinger af forskellige personer.
+      - At bruge en sårbarhedsscanning eller en konsekvensanalyse (DPIA) som selve risikovurderingen i stedet for som input til den.
+      - At vurdere ud fra mavefornemmelse alene uden at bruge hændelseshistorik eller trusselsefterretninger.
+      - At lave den én gang til certificeringen og aldrig opdatere den, når systemer eller trusler ændrer sig.
+  guides:
+    - title: NIST SP 800-30 Rev. 1 - Guide for Conducting Risk Assessments
+      url: https://csrc.nist.gov/pubs/sp/800/30/r1/final
+      publisher: NIST
+      tier: standard
+    - title: Vejledning i risikostyring inden for informationssikkerhed (2025)
+      url: https://www.sikkerdigital.dk/Media/639001951976452337/Vejledning%20i%20risikostyring%20inden%20for%20informationssikkerhed%202025.pdf
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Introduktion til risikostyring
+      url: https://www.sikkerdigital.dk/myndighed/iso-27001-implementering/risikostyring
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: NIS2 Technical Implementation Guidance
+      url: https://www.enisa.europa.eu/publications/nis2-technical-implementation-guidance
+      publisher: ENISA
+      tier: official-doc
 edges:
   part-of: [risk-management]
   requires: [risk, likelihood, impact, asset]

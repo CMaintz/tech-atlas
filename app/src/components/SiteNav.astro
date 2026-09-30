@@ -1,0 +1,63 @@
+---
+/** The main nav: the site's sections, the tour, and the account menu when accounts are on. */
+import AccountMenu from './AccountMenu';
+import { ACCOUNTS, UI, url, type Lang } from '../lib/site';
+import { isCurrentNav } from '../lib/prefs';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const ui = UI[lang];
+const path = Astro.url.pathname;
+const langBase = url(`${lang}/`);
+const nav = [
+  { href: langBase, label: ui.index },
+  { href: url(`${lang}/explorer/`), label: ui.explorer },
+  { href: url(`${lang}/timeline/`), label: ui.timeline },
+  { href: url(`${lang}/compare/`), label: ui.compare },
+  { href: url(`${lang}/study/`), label: ui.study },
+];
+const current = (href: string) => isCurrentNav(path, href, langBase);
+---
+
+<nav
+  id="site-nav"
+  aria-label={ui.menu}
+  class="absolute inset-x-0 top-full z-30 hidden max-h-[calc(100dvh-4rem)] flex-col overflow-y-auto overscroll-contain border-b border-border bg-bg px-4 py-2 shadow-lg shadow-black/20 group-data-[open]:flex md:static md:flex md:flex-row md:flex-wrap md:justify-end md:gap-x-5 md:gap-y-1 md:border-0 md:bg-transparent md:p-0"
+>
+  {nav.map((n) => (
+    <a
+      class="flex min-h-11 items-center hover:text-fg aria-[current=page]:text-fg md:min-h-0"
+      href={n.href}
+      aria-current={current(n.href) ? 'page' : undefined}
+    >
+      {n.label}
+    </a>
+  ))}
+  <button
+    type="button"
+    class="flex min-h-11 items-center text-left hover:text-fg md:min-h-0"
+    data-tour-start
+  >
+    {ui.tourStart}
+  </button>
+  {ACCOUNTS && (
+    <AccountMenu
+      client:only="preact"
+      href={url(`${lang}/account/`)}
+      ui={{
+        signIn: ui.signIn,
+        account: ui.account,
+        sync_error: ui.sync_error,
+        sync_offline: ui.sync_offline,
+        syncRetry: ui.syncRetry,
+        syncShort_syncing: ui.syncShort_syncing,
+        syncShort_synced: ui.syncShort_synced,
+        syncShort_offline: ui.syncShort_offline,
+        syncShort_error: ui.syncShort_error,
+        stoppedNote: ui.stoppedNote,
+      }}
+    />
+  )}
+</nav>

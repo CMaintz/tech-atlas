@@ -10,6 +10,7 @@
     "embed": "tsx scripts/embed.ts",
     "lint:content": "tsx scripts/lint.ts",
     "lint:eslint": "eslint -c eslint.recommended.config.js .",
+    "lint:size": "tsx scripts/size-check.ts",
     "build": "npm run lint:content && npm run build:graph && astro build",
     "preview": "astro preview",
     "check": "astro check",

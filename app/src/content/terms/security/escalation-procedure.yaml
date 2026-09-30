@@ -41,6 +41,51 @@ deepDive:
     Lovbestemte tærskler hører hjemme i matricen. Efter NIS2 artikel 23, stk. 3, er en hændelse væsentlig, hvis den har forårsaget eller kan forårsage alvorlige driftsforstyrrelser eller økonomiske tab, eller hvis den har påvirket eller kan påvirke andre ved at forvolde betydelig materiel eller immateriel skade, og Kommissionens gennemførelsesforordning (EU) 2024/2690 fastsætter kvantitative tærskler for udbydere af digital infrastruktur og digitale tjenester. Fordi fristen på 24 timer for den tidlige varsling løber fra kendskabet til en væsentlig hændelse, skal proceduren hurtigt sende mulige hændelser videre til den, der vurderer væsentligheden. På samme måde skal enhver hændelse, der kan involvere personoplysninger, straks eskaleres til databeskyttelsesfunktionen, fordi fristen på 72 timer efter databeskyttelsesforordningens artikel 33 løber sideløbende.
 
     Typiske fejl er procedurer, der nævner roller, men ikke personer eller stedfortrædere, kontaktoplysninger, der kun ligger i systemer, som hændelsen har ramt, eskalering, der afhænger af, om den første på vagt tør vække en direktør om natten, og alvorlighedsniveauer, der er så vagt defineret, at alt enten er kritisk eller ignoreres. Kriterier for nedskalering og en registrering af hver eskaleringsbeslutning med tidsstempel hører også til proceduren, fordi de fødes ind i hændelsesrapporten og erfaringsopsamlingen.
+howTo:
+  steps:
+    en:
+      - Build a severity matrix with four or five levels and objective criteria, such as which systems are hit and how critical they are, how many users or customers are affected, whether personal data may be involved and whether there are signs of an active attacker.
+      - For each level, write who must be told, within how many minutes, over which channel, and who has the authority to decide.
+      - Define both routes - functional escalation to people with more specialist skill, such as tier 2, the network team or your external IR provider, and hierarchical escalation to people with more authority, such as the security manager, the IT director or the crisis team - and let either be triggered on its own.
+      - Add time limits that escalate automatically, for example to the next person if an alert is not acknowledged within 15 minutes, and set them up as escalation policies in your on-call tool.
+      - Route every possible significant incident straight to the person who assesses NIS2 significance, because the 24-hour early warning runs from awareness, and send anything that may involve personal data to the data protection function at once.
+      - Name people and deputies, not just roles, and keep phone numbers on paper or in a channel that does not depend on the systems under attack.
+      - Log every escalation and de-escalation decision with a timestamp, and write the criteria for stepping down again.
+      - Test the procedure in exercises and review it after each real incident and at least once a year, so the matrix and contact details stay current.
+    da:
+      - Byg en alvorlighedsmatrix med fire eller fem niveauer og objektive kriterier, fx hvilke systemer der er ramt, og hvor kritiske de er, hvor mange brugere eller kunder der er berørt, om personoplysninger kan være involveret, og om der er tegn på en aktiv angriber.
+      - Skriv for hvert niveau, hvem der skal have besked, inden for hvor mange minutter, via hvilken kanal, og hvem der har beslutningskompetencen.
+      - Fastlæg begge veje - funktionel eskalering til folk med mere specialviden, fx tier 2, netværksteamet eller jeres eksterne incident response-leverandør, og hierarkisk eskalering til folk med mere beslutningskompetence, fx den sikkerhedsansvarlige, IT-direktøren eller krisestaben - og lad hver af dem kunne udløses for sig.
+      - Tilføj tidsgrænser, der eskalerer automatisk, fx til den næste i kæden, hvis en alarm ikke er kvitteret inden for 15 minutter, og sæt dem op som eskaleringspolitikker i jeres vagtværktøj.
+      - Send enhver mulig væsentlig hændelse direkte til den, der vurderer væsentlighed efter NIS2, fordi fristen på 24 timer for tidlig varsling løber fra kendskabet, og send alt, der kan involvere personoplysninger, til databeskyttelsesfunktionen med det samme.
+      - Navngiv personer og stedfortrædere, ikke kun roller, og hav telefonnumrene på papir eller i en kanal, der ikke afhænger af de angrebne systemer.
+      - Registrér hver beslutning om eskalering og nedskalering med tidsstempel, og skriv kriterierne for at skalere ned igen.
+      - Afprøv proceduren i øvelser, og gennemgå den efter hver reel hændelse og mindst én gang om året, så matrix og kontaktoplysninger er opdaterede.
+  pitfalls:
+    en:
+      - Severity levels so vague that everything ends up either critical or ignored.
+      - Escalation that depends on whether the person on duty dares to wake a director at night, instead of on clear rules.
+      - Contact details kept only in the email or directory service that the incident has taken down.
+      - Holding back a possible NIS2 or GDPR case until it is certain, so the reporting deadline has already passed.
+    da:
+      - Alvorlighedsniveauer, der er så vage, at alt enten bliver kritisk eller ignoreret.
+      - Eskalering, der afhænger af, om den vagthavende tør vække en direktør om natten, i stedet for af klare regler.
+      - Kontaktoplysninger, der kun ligger i den mail- eller katalogtjeneste, som hændelsen har lagt ned.
+      - At holde en mulig NIS2- eller GDPR-sag tilbage, til den er sikker, så fristen for indberetning allerede er overskredet.
+  guides:
+    - title: Plan - Your cyber incident response processes
+      url: https://www.ncsc.gov.uk/collection/incident-management/cyber-incident-response-processes
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Vejledning til NIS 2-loven - Hændelsesunderretning
+      url: https://samsik.dk/wp-content/uploads/2025/06/SAMSIK-vejledning-om-handelsesunderretning-2025.pdf
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Site Reliability Engineering - Managing Incidents
+      url: https://sre.google/sre-book/managing-incidents/
+      publisher: Google
+      tier: textbook
 edges:
   part-of: [contingency-plan]
   requires: [incident-response]

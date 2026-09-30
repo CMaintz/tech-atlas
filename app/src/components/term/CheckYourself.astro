@@ -1,0 +1,28 @@
+---
+/** Check yourself: self-assessment and a short quiz on the term (islands). */
+import KnowledgeStatus from '../KnowledgeStatus';
+import Quiz from '../Quiz';
+import { UI, url, type Lang } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+  termId: string;
+}
+
+const { lang, termId } = Astro.props;
+const ui = UI[lang];
+---
+
+<section class="mt-10 space-y-5 rounded border border-border p-4 print:hidden" id="check-yourself">
+  <h2 class="text-xs tracking-widest text-subtle uppercase">{ui.checkYourself}</h2>
+  <KnowledgeStatus client:only="preact" termId={termId} ui={{ ...ui }} />
+  <Quiz
+    client:visible
+    lang={lang}
+    graphUrl={url('graph.json')}
+    termBase={url(`${lang}/terms/`)}
+    ui={{ ...ui }}
+    termId={termId}
+    count={3}
+  />
+</section>

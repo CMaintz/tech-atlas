@@ -41,6 +41,64 @@ deepDive:
     Udbydere af højrisikosystemer skal opfylde art. 9-15 (risikostyring, datastyring, teknisk dokumentation, logning, gennemsigtighed over for idriftsættere, menneskeligt tilsyn, nøjagtighed, robusthed og cybersikkerhed), have et kvalitetsstyringssystem (art. 17), gennemføre overensstemmelsesvurdering (art. 43 - for de fleste bilag III-systemer intern kontrol efter bilag VI), påføre CE-mærkning, registrere systemet i EU-databasen (art. 49), udføre overvågning efter omsætningen (art. 72) og indberette alvorlige hændelser (art. 73). Idriftsættere har pligterne i art. 26, og offentlige myndigheder og visse private idriftsættere skal udarbejde en konsekvensanalyse vedrørende grundlæggende rettigheder (art. 27). Art. 50 fastsætter gennemsigtighedskrav for chatbots, syntetisk indhold og deepfakes, og kapitel V (art. 51-55) regulerer AI-modeller til almen brug under tilsyn af Kommissionens AI-kontor. Bøderne efter art. 99 når 35 mio. EUR eller 7 % af den globale omsætning for forbudte praksisser og 15 mio. EUR eller 3 % for de fleste andre overtrædelser, idet det laveste beløb gælder for SMV'er.
 
     Anvendelsen er trinvis efter art. 113, som ændret ved forordning (EU) 2026/1744 (Digital Omnibus om AI, i kraft siden 27. juli 2026): forbud og AI-færdigheder fra 2. februar 2025; regler for AI-modeller til almen brug, governance og sanktioner fra 2. august 2025; gennemsigtighed efter art. 50 fra 2. august 2026; højrisikokrav for bilag III fra 2. december 2027; højrisikokrav for AI indbygget i produkter efter bilag I fra 2. august 2028. Omnibus-ændringen flyttede datoerne uden at ændre indholdet af højrisikokravene, blødte kravet om AI-færdigheder i art. 4 op og tilføjede et forbud mod systemer, der genererer intime billeder uden samtykke. I Danmark udpeger lov nr. 467 af 14. maj 2025 Digitaliseringsstyrelsen som bemyndigende myndighed og primær markedsovervågningsmyndighed, mens Datatilsynet og Domstolsstyrelsen dækker særlige områder.
+howTo:
+  steps:
+    en:
+      - Make an inventory of every AI system and general-purpose AI model you build, sell or use, and record your role for each under Art. 3 (provider, deployer, importer, distributor), remembering that rebranding, substantially modifying or repurposing a high-risk system makes you its provider (Art. 25).
+      - Screen every use against the prohibited practices in Art. 5, which have applied since 2 February 2025, and the new ban on systems generating non-consensual intimate images or child sexual abuse material added by the AI Omnibus (from 2 December 2026), and stop anything that falls under them.
+      - Classify the rest as high-risk under Art. 6(1) and Annex I or Art. 6(2) and Annex III, as subject to the Art. 50 transparency duties, or as minimal risk, and document any Art. 6(3) decision that an Annex III system is not high-risk (never possible when it profiles people).
+      - As a provider of a high-risk system, meet Arts. 9-15 (risk management, data governance, technical documentation, logging, instructions, human oversight, accuracy and robustness), run a quality management system (Art. 17), complete conformity assessment (Art. 43), affix the CE marking and, for Annex III systems, register in the EU database (Art. 49) by 2 December 2027 for Annex III and 2 August 2028 for Annex I.
+      - As a deployer of a high-risk system, use it according to the instructions, assign human oversight to people with the competence and authority to act, monitor it, keep its logs for at least six months (Art. 26), and as a public body carry out a fundamental rights impact assessment (Art. 27).
+      - For chatbots, synthetic content and deepfakes, tell people they are dealing with AI and label generated content as Art. 50 requires, and check the Commission's code of practice on marking and labelling.
+      - If you provide a general-purpose AI model, keep the technical documentation and downstream information required by Art. 53, and for models with systemic risk also the evaluations, adversarial testing and incident reporting in Art. 55; the GPAI Code of Practice shows how.
+      - Take measures to support AI literacy among staff and others who operate AI on your behalf (Art. 4, as softened by the AI Omnibus).
+      - Use Digitaliseringsstyrelsen's pages, as the Danish coordinating supervisory authority, and the Commission's AI Act Service Desk and Compliance Checker when in doubt.
+      - Run post-market monitoring (Art. 72), report serious incidents (Art. 73, Art. 26(5) for deployers) and reclassify whenever a system, its purpose or the guidance changes.
+    da:
+      - Lav en oversigt over alle AI-systemer og AI-modeller til almen brug, I udvikler, sælger eller bruger, og notér jeres rolle for hver efter art. 3 (udbyder, idriftsætter, importør, distributør); husk, at I bliver udbyder af et højrisikosystem, hvis I sætter jeres navn på det, ændrer det væsentligt eller ændrer dets formål (art. 25).
+      - Hold al brug op mod de forbudte praksisser i art. 5, der har gældet siden 2. februar 2025, og det nye forbud fra AI-omnibussen mod systemer, der genererer intime billeder uden samtykke eller materiale med seksuelt misbrug af børn (fra 2. december 2026), og stop alt, der falder ind under dem.
+      - Klassificér resten som højrisiko efter art. 6, stk. 1, og bilag I eller art. 6, stk. 2, og bilag III, som omfattet af gennemsigtighedskravene i art. 50 eller som minimal risiko, og dokumentér enhver beslutning efter art. 6, stk. 3, om, at et bilag III-system ikke er højrisiko (aldrig muligt, når det profilerer personer).
+      - Som udbyder af et højrisikosystem skal I opfylde art. 9-15 (risikostyring, datastyring, teknisk dokumentation, logning, brugsanvisning, menneskeligt tilsyn, nøjagtighed og robusthed), have et kvalitetsstyringssystem (art. 17), gennemføre overensstemmelsesvurdering (art. 43), påføre CE-mærkning og, for bilag III-systemer, registrere systemet i EU-databasen (art. 49) senest 2. december 2027 for bilag III og 2. august 2028 for bilag I.
+      - Som idriftsætter af et højrisikosystem skal I bruge det efter brugsanvisningen, overdrage det menneskelige tilsyn til personer med kompetence og myndighed til at gribe ind, overvåge det, opbevare dets logs i mindst seks måneder (art. 26) og som offentlig myndighed udarbejde en konsekvensanalyse vedrørende grundlæggende rettigheder (art. 27).
+      - Ved chatbots, syntetisk indhold og deepfakes skal I fortælle folk, at de har med AI at gøre, og mærke genereret indhold, som art. 50 kræver, og tjekke Kommissionens adfærdskodeks om mærkning af AI-genereret indhold.
+      - Udbyder I en AI-model til almen brug, skal I føre den tekniske dokumentation og give de oplysninger til efterfølgende udbydere, som art. 53 kræver, og for modeller med systemisk risiko også evaluering, adversarial testing og indberetning af hændelser efter art. 55; adfærdskodeksen for AI-modeller til almen brug viser hvordan.
+      - Tag skridt til at understøtte AI-færdigheder hos medarbejdere og andre, der betjener AI på jeres vegne (art. 4, som blødt op af AI-omnibussen).
+      - Brug Digitaliseringsstyrelsens sider, da styrelsen er den koordinerende danske tilsynsmyndighed, og Kommissionens AI Act Service Desk og Compliance Checker, når I er i tvivl.
+      - Overvåg systemerne efter omsætningen (art. 72), indberet alvorlige hændelser (art. 73 og art. 26, stk. 5, for idriftsættere), og klassificér igen, når et system, dets formål eller vejledningen ændrer sig.
+  pitfalls:
+    en:
+      - Assuming the Act only concerns AI developers, although deployers carry their own duties under Art. 26 and can become providers under Art. 25.
+      - Planning for the original 2 August 2026 high-risk date or, worse, relaxing because the AI Omnibus moved it, instead of using the time until December 2027 to build documentation and oversight.
+      - Using an Art. 6(3) exemption for an Annex III system without documenting it, or for a system that profiles people, where it is never allowed.
+      - Forgetting that GDPR still applies alongside the Act, so a DPIA and a legal basis are needed as well when personal data is involved.
+    da:
+      - At tro, at forordningen kun handler om dem, der udvikler AI, selv om idriftsættere har deres egne pligter efter art. 26 og kan blive udbydere efter art. 25.
+      - At planlægge efter den oprindelige højrisikodato 2. august 2026 eller, værre, at slappe af, fordi AI-omnibussen flyttede den, i stedet for at bruge tiden frem til december 2027 til at opbygge dokumentation og tilsyn.
+      - At bruge undtagelsen i art. 6, stk. 3, for et bilag III-system uden at dokumentere det, eller for et system, der profilerer personer, hvor den aldrig gælder.
+      - At glemme, at GDPR stadig gælder ved siden af forordningen, så der også kræves en konsekvensanalyse og et behandlingsgrundlag, når der indgår personoplysninger.
+  guides:
+    - title: AI Act - Shaping Europe's digital future
+      url: https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
+      publisher: European Commission
+      tier: official-doc
+    - title: EU AI Act Compliance Checker
+      url: https://ai-act-service-desk.ec.europa.eu/en/eu-ai-act-compliance-checker
+      publisher: European Commission
+      tier: official-doc
+    - title: Implementation Timeline - EU Artificial Intelligence Act
+      url: https://artificialintelligenceact.eu/implementation-timeline/
+      publisher: Future of Life Institute
+      tier: reference
+    - title: Tilsyn med AI-forordningen
+      url: https://digst.dk/tilsyn/ai-forordningen/
+      publisher: Digitaliseringsstyrelsen
+      tier: official-doc
+      lang: da
+    - title: AI Omnibus
+      url: https://digst.dk/tilsyn/ai-forordningen/ai-omnibus/
+      publisher: Digitaliseringsstyrelsen
+      tier: official-doc
+      lang: da
 edges:
   kind-of: [eu-regulation]
   requires: [risk, artificial-intelligence]

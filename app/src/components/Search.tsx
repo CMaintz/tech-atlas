@@ -1,42 +1,121 @@
-import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
-import MiniSearch from 'minisearch';
-import { exactName, parseIntent } from '../lib/intent';
-import { pairSlugFromIds } from '../lib/slug';
-import { collisionForQuery, collisionsOf } from '../lib/collisions';
-import { dropStopwords, looksNaturalLanguage, mergeHits } from '../lib/semantic';
-import { useSemanticHits } from '../lib/use-semantic';
+import { useEffect, useRef, useState } from 'preact/hooks';
+import type { SearchLink } from '../lib/search';
+import type { Hit } from '../lib/semantic';
+import { useSearch, type SearchOptions, type SearchState } from '../lib/use-search';
 
 type Lang = 'en' | 'da';
-type Doc = {
-  id: string;
-  term: Record<Lang, string>;
-  aka: Record<Lang, string[]>;
-  summary: Record<Lang, string>;
-  contrasts: string[];
-};
 
-interface Props {
-  lang: Lang;
-  indexUrl: string;
-  /** The `semantic-search` Edge Function, or '' when no backend is configured. */
-  semanticUrl: string;
-  /** Base URL of this language, e.g. /tech-atlas/en/ */
-  langBase: string;
+interface Props extends SearchOptions {
   placeholder: string;
   noResults: string;
   /** Shown while the index is still loading. */
   loadingLabel: string;
   /** Shown under the box: the "/" shortcut. */
   hint?: string;
-  /** Templates with {a} / {b} placeholders. */
-  intentLabels: { compare: string; route: string; before: string };
-  /** Shown when the query is a name several terms share; {name} and {n} placeholders. */
-  disambiguationLabel: string;
   /** Label on hits found only by meaning. */
   byMeaningLabel: string;
 }
 
-const MAX = 8;
+/** A ref to an element that takes focus when the page was opened at `#<hash>`. */
+function useFocusOnHash<T extends HTMLElement>(hash: string) {
+  const ref = useRef<T>(null);
+  useEffect(() => {
+    if (location.hash === `#${hash}`) ref.current?.focus();
+  }, []);
+  return ref;
+}
+
+type BoxProps = { value: string; placeholder: string; onInput: (v: string) => void };
+
+function SearchBox({ value, placeholder, onInput }: BoxProps) {
+  // Arriving via the "/" shortcut from another page (…/#search): focus the box.
+  const box = useFocusOnHash<HTMLInputElement>('search');
+  return (
+    <input
+      ref={box}
+      id="search"
+      type="search"
+      autocomplete="off"
+      value={value}
+      onInput={(e) => onInput((e.target as HTMLInputElement).value)}
+      placeholder={placeholder}
+      aria-label={placeholder}
+      class="w-full rounded border border-border-strong bg-surface px-3 py-2.5 text-base sm:py-2 text-fg placeholder:text-subtle focus:border-border-hover focus:outline-none"
+    />
+  );
+}
+
+/** A result row that leads somewhere other than a term: an intent or a Disambiguation page. */
+function ShortcutItem({ link }: { link: SearchLink }) {
+  return (
+    <li>
+      <a
+        class="block border-b border-border bg-surface-2/60 px-3 py-2 text-fg hover:bg-surface-2"
+        href={link.href}
+      >
+        → {link.label}
+      </a>
+    </li>
+  );
+}
+
+type HitProps = {
+  hit: Hit;
+  found: SearchState;
+  lang: Lang;
+  langBase: string;
+  byMeaningLabel: string;
+};
+
+function HitItem({ hit, found, lang, langBase, byMeaningLabel }: HitProps) {
+  const d = found.byId.get(hit.id);
+  if (!d) return null;
+  return (
+    <li>
+      <a class="block px-3 py-2 hover:bg-surface-2" href={`${langBase}terms/${d.id}/`}>
+        <span class="text-fg">{d.term[lang]}</span>
+        {!hit.from.includes('lexical') && (
+          <span class="ml-2 rounded bg-sky-100 px-1.5 py-0.5 text-xs text-sky-800 dark:bg-sky-950 dark:text-sky-300">
+            ✦ {byMeaningLabel}
+          </span>
+        )}
+        <span class="block text-sm text-subtle">{d.summary[lang]}</span>
+      </a>
+    </li>
+  );
+}
+
+function Results({ found, ...props }: Props & { found: SearchState }) {
+  const { action, disambiguation, results } = found;
+  const nothing = results.length === 0 && !action && !disambiguation;
+  return (
+    <ul
+      class="absolute z-10 mt-1 max-h-[70dvh] w-full overflow-y-auto overscroll-contain rounded border border-border bg-surface shadow-lg"
+      aria-live="polite"
+    >
+      {action && <ShortcutItem link={action} />}
+      {disambiguation && <ShortcutItem link={disambiguation} />}
+      {nothing ? (
+        <li class="px-3 py-2 text-subtle">{props.noResults}</li>
+      ) : (
+        results.map((r) => <HitItem key={r.id} hit={r} found={found} {...props} />)
+      )}
+    </ul>
+  );
+}
+
+/** Under the box while there is a query: a loading note until the index is ready, then results. */
+function Dropdown(props: Props & { found: SearchState }) {
+  if (props.found.ready) return <Results {...props} />;
+  return (
+    <p
+      class="absolute z-10 mt-1 w-full rounded border border-border bg-surface px-3 py-2 text-subtle"
+      role="status"
+    >
+      {props.loadingLabel}
+    </p>
+  );
+}
 
 /**
  * Client-side bilingual search: typo-tolerant over names and aliases in both
@@ -46,189 +125,15 @@ const MAX = 8;
  * lexical ranking by RRF. Without a backend, or when it fails or is slow, the lexical
  * results simply stand.
  */
-export default function Search({
-  lang,
-  indexUrl,
-  semanticUrl,
-  langBase,
-  placeholder,
-  noResults,
-  loadingLabel,
-  hint,
-  intentLabels,
-  disambiguationLabel,
-  byMeaningLabel,
-}: Props) {
-  const [docs, setDocs] = useState<Doc[] | null>(null);
+export default function Search(props: Props) {
   const [query, setQuery] = useState('');
-  const box = useRef<HTMLInputElement>(null);
-
-  // Arriving via the "/" shortcut from another page (…/#search): focus the box.
-  useEffect(() => {
-    if (location.hash === '#search') box.current?.focus();
-  }, []);
-
-  useEffect(() => {
-    fetch(indexUrl)
-      .then((r) => r.json())
-      .then(setDocs)
-      .catch(() => setDocs([]));
-  }, [indexUrl]);
-
-  const engine = useMemo(() => {
-    if (!docs) return null;
-    const ms = new MiniSearch({
-      fields: ['en', 'da', 'akaEn', 'akaDa', 'summary'],
-      searchOptions: { boost: { en: 3, da: 3, akaEn: 2, akaDa: 2 }, fuzzy: 0.2, prefix: true },
-    });
-    ms.addAll(
-      docs.map((d) => ({
-        id: d.id,
-        en: d.term.en,
-        da: d.term.da,
-        akaEn: d.aka.en.join(' '),
-        akaDa: d.aka.da.join(' '),
-        summary: d.summary[lang],
-      })),
-    );
-    return ms;
-  }, [docs, lang]);
-
-  const byId = useMemo(() => new Map((docs ?? []).map((d) => [d.id, d])), [docs]);
-  const collisions = useMemo(() => collisionsOf((docs ?? []).map((d) => d.id)), [docs]);
-  const best = (phrase: string) => {
-    const exact = exactName(docs ?? [], phrase);
-    if (exact) return exact;
-    const hit = engine?.search(phrase, { fields: ['en', 'da', 'akaEn', 'akaDa'] })[0];
-    return hit ? byId.get(hit.id as string) : undefined;
-  };
-
-  const q = query.trim();
-  const intent = engine ? parseIntent(query) : null;
-  const plain = engine && q ? engine.search(q) : [];
-  // A question or description: drop function words lexically, and ask the server.
-  const natural = Boolean(engine) && !intent && looksNaturalLanguage(q, plain.length);
-  const lexical = natural && engine ? engine.search(q, { processTerm: dropStopwords }) : plain;
-  const lexicalIds = lexical.slice(0, MAX).map((r) => r.id as string);
-  // In fusion the lexical side is names and aliases only: for a question, a word from the
-  // summaries ("stopping", "people") is noise, while a named term ("MFA") is a strong signal.
-  const nameIds =
-    natural && engine
-      ? engine
-          .search(q, { processTerm: dropStopwords, fields: ['en', 'da', 'akaEn', 'akaDa'] })
-          .slice(0, MAX)
-          .map((r) => r.id as string)
-      : [];
-
-  // Debounced and abortable; without a backend, or on failure, the lexical results stand.
-  const semantic = useSemanticHits(semanticUrl, q, lang, natural);
-  const results = mergeHits(lexicalIds, natural ? semantic : null, { names: nameIds, max: MAX });
-
-  // An intent resolves each phrase to its best-matching term.
-  let action: { href: string; label: string } | null = null;
-  if (intent) {
-    const a = best(intent.a);
-    const b = intent.kind === 'before' ? undefined : best(intent.b);
-    const fill = (t: string) =>
-      t.replace('{a}', a?.term[lang] ?? '').replace('{b}', b?.term[lang] ?? '');
-    if (intent.kind === 'before' && a) {
-      action = { href: `${langBase}terms/${a.id}/#learn-first`, label: fill(intentLabels.before) };
-    } else if (a && b && a.id !== b.id) {
-      action =
-        intent.kind === 'compare' && a.contrasts.includes(b.id)
-          ? {
-              href: `${langBase}compare/${pairSlugFromIds(a.id, b.id)}/`,
-              label: fill(intentLabels.compare),
-            }
-          : {
-              href: `${langBase}explorer/?from=${encodeURIComponent(a.id)}&to=${encodeURIComponent(b.id)}`,
-              label: fill(intentLabels.route),
-            };
-    }
-  }
-
-  // A query that is exactly a name several terms share goes to its Disambiguation page (ADR-0003).
-  const shared = collisionForQuery(q, collisions);
-  const disambiguation = shared
-    ? {
-        href: `${langBase}terms/${shared}/`,
-        label: disambiguationLabel
-          .replace('{name}', shared.replace(/-/g, ' '))
-          .replace('{n}', String(collisions.get(shared)!.length)),
-      }
-    : null;
-
+  const found = useSearch(props, query);
   return (
     <div class="relative">
-      <input
-        ref={box}
-        id="search"
-        type="search"
-        autocomplete="off"
-        value={query}
-        onInput={(e) => setQuery((e.target as HTMLInputElement).value)}
-        placeholder={placeholder}
-        aria-label={placeholder}
-        class="w-full rounded border border-border-strong bg-surface px-3 py-2.5 text-base sm:py-2 text-fg placeholder:text-subtle focus:border-border-hover focus:outline-none"
-      />
-      {q && !engine && (
-        <p
-          class="absolute z-10 mt-1 w-full rounded border border-border bg-surface px-3 py-2 text-subtle"
-          role="status"
-        >
-          {loadingLabel}
-        </p>
-      )}
-      {q && engine && (
-        <ul
-          class="absolute z-10 mt-1 max-h-[70dvh] w-full overflow-y-auto overscroll-contain rounded border border-border bg-surface shadow-lg"
-          aria-live="polite"
-        >
-          {action && (
-            <li>
-              <a
-                class="block border-b border-border bg-surface-2/60 px-3 py-2 text-fg hover:bg-surface-2"
-                href={action.href}
-              >
-                → {action.label}
-              </a>
-            </li>
-          )}
-          {disambiguation && (
-            <li>
-              <a
-                class="block border-b border-border bg-surface-2/60 px-3 py-2 text-fg hover:bg-surface-2"
-                href={disambiguation.href}
-              >
-                → {disambiguation.label}
-              </a>
-            </li>
-          )}
-          {results.length === 0 && !action && !disambiguation ? (
-            <li class="px-3 py-2 text-subtle">{noResults}</li>
-          ) : (
-            results.map((r) => {
-              const d = byId.get(r.id);
-              if (!d) return null;
-              return (
-                <li key={d.id}>
-                  <a class="block px-3 py-2 hover:bg-surface-2" href={`${langBase}terms/${d.id}/`}>
-                    <span class="text-fg">{d.term[lang]}</span>
-                    {!r.from.includes('lexical') && (
-                      <span class="ml-2 rounded bg-sky-100 px-1.5 py-0.5 text-xs text-sky-800 dark:bg-sky-950 dark:text-sky-300">
-                        ✦ {byMeaningLabel}
-                      </span>
-                    )}
-                    <span class="block text-sm text-subtle">{d.summary[lang]}</span>
-                  </a>
-                </li>
-              );
-            })
-          )}
-        </ul>
-      )}
+      <SearchBox value={query} placeholder={props.placeholder} onInput={setQuery} />
+      {found.q && <Dropdown found={found} {...props} />}
       {/* The "/" shortcut means nothing without a keyboard. */}
-      {hint && <p class="mt-2 text-xs text-subtle pointer-coarse:hidden">{hint}</p>}
+      {props.hint && <p class="mt-2 text-xs text-subtle pointer-coarse:hidden">{props.hint}</p>}
     </div>
   );
 }

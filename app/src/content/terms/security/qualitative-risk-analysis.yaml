@@ -41,6 +41,56 @@ deepDive:
     Pålideligheden afhænger af processen. Scorerne bør komme fra folk, der kender systemerne og forretningen, helst først afgivet uafhængigt og derefter drøftet, som i en Delphi-runde, så man mindsker tendensen til at forankre sig i den mest seniore stemme. Når der noteres et sikkerhedsniveau og en begrundelse på én linje for hver vurdering, kan den efterprøves senere, og gætværk bliver synligt. Konsistens på tværs af forretningsenheder kræver fælles skalaer og jævnlige kalibreringsmøder, hvor teams scorer de samme referencescenarier.
 
     Metodens styrker er hastighed, lave krav til data og et resultat, som ledelsen let kan læse, og derfor er de fleste risikovurderinger efter ISO/IEC 27001 kvalitative. Begrænsningerne er lige så tydelige: Vurderingerne kan ikke lægges sammen på tværs af risici, kan ikke direkte sammenlignes med prisen på en kontrol og inviterer til falsk præcision, når de lægges sammen i gennemsnit eller ganges. En udbredt hybrid er at screene hele risikoregistret kvalitativt og derefter flytte de få risici, der er knyttet til store investerings- eller forsikringsbeslutninger, over i en kvantitativ analyse, hvor sandsynlighed og konsekvens udtrykkes som sandsynlighedsfordelinger og kroner.
+howTo:
+  steps:
+    en:
+      - Before any scoring, agree 4 or 5 levels for likelihood and consequence, and give each level a concrete description per type of harm, such as "happens about once a year" or "more than a day of downtime".
+      - Have management set the acceptance line in the resulting matrix, that is which combinations of likelihood and consequence can be accepted and which must be treated.
+      - Invite people who know the systems and the business to a workshop, and have each person score the scenarios on their own before the group discusses them, so the most senior voice does not set the score.
+      - Score each scenario for likelihood and consequence with the existing controls in place, and write a one-line reason and a confidence level next to every rating.
+      - Show the results in a heat map and a sorted list, and flag the risks where participants disagreed widely for a second look.
+      - Hold a short calibration session once a year where teams score the same reference scenarios, and sharpen the level descriptions where their ratings spread.
+      - Move the few risks tied to large investment or insurance decisions to a quantitative analysis instead of multiplying or averaging the scores.
+      - Score again when systems, threats or incidents change and at least once a year, keeping earlier ratings so the trend is visible.
+    da:
+      - Aftal, før der scores, 4 eller 5 niveauer for sandsynlighed og konsekvens, og giv hvert niveau en konkret beskrivelse for hver type skade, fx "sker cirka én gang om året" eller "mere end et døgns nedetid".
+      - Lad ledelsen fastlægge acceptgrænsen i den matrice, der kommer ud af det, altså hvilke kombinationer af sandsynlighed og konsekvens der kan accepteres, og hvilke der skal håndteres.
+      - Saml folk, der kender systemerne og forretningen, til en workshop, og lad hver deltager score scenarierne alene, før gruppen drøfter dem, så den mest seniore stemme ikke sætter scoren.
+      - Scor hvert scenarie for sandsynlighed og konsekvens med de eksisterende kontroller, og skriv en begrundelse på én linje og et sikkerhedsniveau ud for hver vurdering.
+      - Vis resultatet i et heatmap og en sorteret liste, og markér de risici, hvor deltagerne var meget uenige, til en ekstra gennemgang.
+      - Hold en gang om året et kort kalibreringsmøde, hvor teams scorer de samme referencescenarier, og skærp niveaubeskrivelserne, hvor vurderingerne spreder sig.
+      - Flyt de få risici, der er knyttet til store investerings- eller forsikringsbeslutninger, over i en kvantitativ analyse i stedet for at gange scorerne eller tage gennemsnit af dem.
+      - Scor igen, når systemer, trusler eller hændelser ændrer sig, og mindst én gang om året, og gem de tidligere vurderinger, så udviklingen kan ses.
+  pitfalls:
+    en:
+      - Using bare labels such as "high" or "likely" without anchored descriptions, so each person reads them differently.
+      - Multiplying or adding ordinal scores and treating the result as a precise number or as a total across risks.
+      - Letting the most senior person in the room set the score for everyone.
+      - Recording ratings without a reason, so nobody can check or challenge them later.
+    da:
+      - At bruge løse ord som "høj" eller "sandsynlig" uden forankrede beskrivelser, så hver person forstår dem forskelligt.
+      - At gange eller lægge ordinale scorer sammen og behandle resultatet som et præcist tal eller som en sum på tværs af risici.
+      - At lade den mest seniore person i lokalet sætte scoren for alle.
+      - At registrere vurderinger uden begrundelse, så ingen senere kan efterprøve eller udfordre dem.
+  guides:
+    - title: NIST SP 800-30 Rev. 1 - Guide for Conducting Risk Assessments
+      url: https://csrc.nist.gov/pubs/sp/800/30/r1/final
+      publisher: NIST
+      tier: standard
+    - title: Vejledning i risikostyring inden for informationssikkerhed (2025)
+      url: https://www.sikkerdigital.dk/Media/639001951976452337/Vejledning%20i%20risikostyring%20inden%20for%20informationssikkerhed%202025.pdf
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Skabelon til risikovurderinger (2025, Excel)
+      url: https://sikkerdigital.dk/Media/638974114561846937/Skabelon%20til%20risikovurderinger%20-%202025.xlsx
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: NIST IR 8286A Rev. 1 - Identifying and Estimating Cybersecurity Risk for Enterprise Risk Management
+      url: https://csrc.nist.gov/pubs/ir/8286/a/r1/final
+      publisher: NIST
+      tier: standard
 edges:
   kind-of: [risk-assessment]
   requires: [risk, likelihood, impact]

@@ -41,6 +41,55 @@ deepDive:
     Sikkerheden for, at leverandøren lever op til kravene, kommer i niveauer: leverandørspørgeskemaer (selvevalueringer som CSA's CAIQ eller kundens egne), certifikater (ISO/IEC 27001, hvor man skal tjekke, at omfanget faktisk dækker den købte ydelse), uafhængige revisorerklæringer (ISAE 3402 eller SOC 2 type 2, der dækker en driftsperiode; i Danmark er ISAE 3000-erklæringer udbredte for databehandlere) og kundens egne audits. Tekniske signaler som eksterne vurderinger af angrebsfladen og SBOM'er supplerer, men erstatter dem ikke.
 
     Typiske fejl: leverandørerne klassificeres én gang ved onboarding og aldrig igen; kontrakter mangler frister for underretning ved brud, auditret eller exitklausuler; blinde vinkler for fjerdeparter, fx en SaaS-udbyders egen hosting og underleverandører; privilegeret fjernadgang for leverandører uden MFA, sessionslogning eller tidsbegrænsning; og tillid til et certifikat, hvis omfang ikke omfatter den ydelse, der faktisk bruges. Hændelser som kompromitteringen af SolarWinds Orion i 2020 og udnyttelsen af MOVEit Transfer i 2023 viste, hvordan én leverandør kan blive indgangen til tusindvis af kunder, og derfor overlapper leverandørstyring med sikkerhed i softwareforsyningskæden i stedet for at være en indkøbsformalitet.
+howTo:
+  steps:
+    en:
+      - Build a register of every supplier with access to your data, systems or premises, including cloud and SaaS services, and name an internal owner for each relationship.
+      - Classify the suppliers by criticality and data access, so the most important ones get the closest scrutiny.
+      - Set security requirements before you buy, and ask critical suppliers for evidence such as an ISO/IEC 27001 certificate whose scope covers the service, an ISAE 3402 or ISAE 3000 report, or a SOC 2 Type II report.
+      - Write the requirements into the contract, including incident notification deadlines, audit rights, rules for subcontractors, a data processing agreement where personal data is involved, and exit terms.
+      - Give suppliers remote access only through named accounts with MFA, logging and time limits.
+      - Follow up on critical suppliers at least once a year by reviewing new assurance reports, incidents and changes, and reassess their classification.
+      - Include key suppliers in your incident response and continuity plans and exercises, with contact details and agreed response times.
+      - When the relationship ends, remove all access, get data returned or deleted with documentation, and move the service according to the exit plan.
+    da:
+      - Opbyg et register over alle leverandører med adgang til jeres data, systemer eller lokaler, inklusive cloud- og SaaS-tjenester, og udpeg en intern ejer af hvert samarbejde.
+      - Klassificér leverandørerne efter kritikalitet og adgang til data, så de vigtigste får det grundigste eftersyn.
+      - Fastsæt sikkerhedskrav, før I køber, og bed kritiske leverandører om dokumentation som et ISO/IEC 27001-certifikat, hvis omfang dækker ydelsen, en ISAE 3402- eller ISAE 3000-erklæring eller en SOC 2 type 2-rapport.
+      - Skriv kravene ind i kontrakten, herunder frister for underretning om hændelser, auditret, regler for underleverandører, en databehandleraftale, hvis der indgår personoplysninger, og exitvilkår.
+      - Giv kun leverandører fjernadgang via navngivne konti med MFA, logning og tidsbegrænsning.
+      - Følg op på kritiske leverandører mindst én gang om året ved at gennemgå nye erklæringer, hændelser og ændringer, og vurdér klassificeringen igen.
+      - Tag de vigtigste leverandører med i jeres planer og øvelser for hændelseshåndtering og driftskontinuitet, med kontaktoplysninger og aftalte responstider.
+      - Når samarbejdet ophører, så fjern alle adgange, få data tilbageleveret eller slettet med dokumentation, og flyt ydelsen efter exitplanen.
+  pitfalls:
+    en:
+      - Classifying suppliers once at onboarding and never again.
+      - Accepting a certificate without checking that its scope covers the service you actually buy.
+      - Overlooking subcontractors and fourth parties, such as a SaaS provider's own hosting.
+      - Leaving supplier remote access permanently open without MFA or logging.
+    da:
+      - At klassificere leverandørerne én gang ved onboarding og aldrig igen.
+      - At godtage et certifikat uden at tjekke, at omfanget dækker den ydelse, man faktisk køber.
+      - At overse underleverandører og fjerdeparter, fx en SaaS-udbyders egen hosting.
+      - At lade leverandørers fjernadgang stå permanent åben uden MFA eller logning.
+  guides:
+    - title: Good Practices for Supply Chain Cybersecurity
+      url: https://www.enisa.europa.eu/publications/good-practices-for-supply-chain-cybersecurity
+      publisher: ENISA
+      tier: official-doc
+    - title: NIST SP 800-161 Rev. 1 - Cybersecurity Supply Chain Risk Management Practices for Systems and Organizations
+      url: https://csrc.nist.gov/pubs/sp/800/161/r1/upd1/final
+      publisher: NIST
+      tier: standard
+    - title: Supply chain security guidance
+      url: https://www.ncsc.gov.uk/collection/supply-chain-security
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Cybersikkerhed i leverandørforhold
+      url: https://samsik.dk/publikation/cybersikkerhed-i-leverandoerforhold/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   part-of: [risk-management]
   requires: [risk]

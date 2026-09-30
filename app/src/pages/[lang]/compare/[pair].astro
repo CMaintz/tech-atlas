@@ -1,7 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
-import { CLUSTER_LABELS, LANGS, UI, termUrl, url, type Lang } from '../../../lib/site';
+import CopyLinkButton from '../../../components/CopyLinkButton.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import { LANGS, UI, clusterLabel, termUrl, url, type Lang } from '../../../lib/site';
 import { contrastPairs, pairSlug, relationsOf, type ContrastPair } from '../../../lib/terms';
 
 export async function getStaticPaths() {
@@ -33,29 +35,22 @@ const title = `${pair.a.data.term[lang]} ${ui.versus} ${pair.b.data.term[lang]}`
 
 <Base lang={lang} title={title}>
   <div id="compare">
-    <p class="mb-1 text-xs tracking-widest text-subtle uppercase">
+    <SectionHeading as="p" class="mb-1">
       <a
         class="inline-flex min-h-11 items-center hover:text-fg-soft sm:min-h-0"
         href={url(`${lang}/compare/`)}
       >
         {ui.compareTitle}
       </a>
-    </p>
+    </SectionHeading>
     <div class="mb-6 flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
       <h1 class="text-3xl font-semibold">{title}</h1>
-      <button
-        type="button"
-        data-copy-link
-        data-copied={ui.linkCopied}
-        class="mt-1.5 min-h-11 rounded border border-border px-3 py-1 text-sm text-muted sm:min-h-0 sm:px-2 sm:text-xs hover:border-border-hover hover:text-fg print:hidden"
-      >
-        <span data-label>{ui.copyLink}</span>
-      </button>
+      <CopyLinkButton lang={lang} />
     </div>
 
     {pair.why && (
       <div class="mb-8 rounded border border-border bg-surface px-4 py-3">
-        <h2 class="mb-1 text-xs tracking-widest text-subtle uppercase">{ui.whyDiffer}</h2>
+        <SectionHeading class="mb-1">{ui.whyDiffer}</SectionHeading>
         <p class="text-fg-soft">{pair.why[lang]}</p>
       </div>
     )}
@@ -66,13 +61,15 @@ const title = `${pair.a.data.term[lang]} ${ui.versus} ${pair.b.data.term[lang]}`
           <a class="text-xl font-semibold hover:underline" href={termUrl(lang, t.id)}>
             {t.data.term[lang]}
           </a>
-          <p class="mt-1 text-xs tracking-widest text-subtle uppercase">
-            {CLUSTER_LABELS[t.data.cluster]?.[lang] ?? t.data.cluster}
-          </p>
+          <SectionHeading as="p" class="mt-1">
+            {clusterLabel(t.data.cluster, lang)}
+          </SectionHeading>
           <p class="mt-3 text-fg-soft">{t.data.summary[lang]}</p>
           {facets.map((f) => (
             <div class="mt-4">
-              <h3 class="mb-1 text-xs tracking-widest text-subtle uppercase">{ui[f]}</h3>
+              <SectionHeading as="h3" class="mb-1">
+                {ui[f]}
+              </SectionHeading>
               <p class="text-sm text-fg-soft">{t.data.body[f][lang]}</p>
             </div>
           ))}
@@ -83,7 +80,7 @@ const title = `${pair.a.data.term[lang]} ${ui.versus} ${pair.b.data.term[lang]}`
 
   {shared.length > 0 && (
     <section class="mt-10">
-      <h2 class="mb-2 text-xs tracking-widest text-subtle uppercase">{ui.shared}</h2>
+      <SectionHeading class="mb-2">{ui.shared}</SectionHeading>
       <div class="flex flex-wrap gap-2">
         {shared.map((t) => (
           <a

@@ -41,6 +41,58 @@ deepDive:
     Sikkerheden for, at rettighederne stadig er korrekte, kommer fra periodiske rettighedsgennemgange (recertificering), hvor data- eller systemejere bekræfter eller fjerner hver rettighed. Gennemgangene bliver til ren afkrydsning, når ejerne præsenteres for tusindvis af kryptiske gruppenavne; velfungerende programmer gennemgår pr. forretningsrolle, fremhæver afvigelser fra kolleger med samme rolle og følger andelen af fjernede rettigheder. Forældreløse konti uden ejer, delte konti og servicekonti med hemmeligheder, der aldrig udløber, er klassiske revisionsfund.
 
     I kontrolrammerne er emnet fordelt på flere kontroller: ISO/IEC 27002:2022 5.15 (adgangsstyring), 5.16 (identitetsstyring), 5.17 (autentificeringsinformation), 5.18 (adgangsrettigheder) og 8.2 (privilegerede adgangsrettigheder); CIS Controls v8 Control 5 (Account Management) og Control 6 (Access Control Management), hvor Safeguard 6.1 og 6.2 kræver dokumenterede processer for tildeling og fjernelse af adgang. NIS2 art. 21, stk. 2, litra i, nævner politikker for adgangskontrol direkte. Adgangsstyring skal holdes adskilt fra autentificering (at bevise, hvem man er) og fra adgangskontrol som håndhævelsesmekanisme: det er den styringsproces, der afgør, hvad håndhævelsespunktet skal håndhæve.
+howTo:
+  steps:
+    en:
+      - Name an owner for access management, and appoint a data or system owner for each important system who decides who may use it.
+      - List every user, admin, service and guest account per system, and link each account to a named person or owner.
+      - Define roles from job functions with the rights each role needs, and write down forbidden combinations, such as creating suppliers and approving payments to them.
+      - Connect the HR system to the directory so joiners, movers and leavers trigger account creation, change and removal, using SCIM or connectors where possible.
+      - Require the manager's approval for any right beyond the role's standard access, and log who approved what and when.
+      - On a job change, remove the old role's rights in the same step as granting the new ones; on departure, disable the account on the last day and revoke tokens, keys and local accounts.
+      - Run access reviews at least yearly, and quarterly for admin roles and sensitive systems, where owners confirm or remove each right and the result is recorded.
+      - Report orphaned accounts, removed rights and overdue reviews to management, and fix the process where the numbers show gaps.
+    da:
+      - Udpeg en ansvarlig for adgangsstyring, og giv hvert vigtigt system en data- eller systemejer, der afgør, hvem der må bruge det.
+      - Lav en oversigt over alle bruger-, administrator-, service- og gæstekonti pr. system, og knyt hver konto til en navngiven person eller ejer.
+      - Definér roller ud fra jobfunktioner med de rettigheder, hver rolle kræver, og skriv forbudte kombinationer ned, fx at oprette leverandører og godkende betalinger til dem.
+      - Forbind HR-systemet med kataloget, så nyansættelser, jobskift og fratrædelser automatisk opretter, ændrer og nedlægger konti, via SCIM eller konnektorer hvor det er muligt.
+      - Kræv lederens godkendelse af enhver rettighed ud over rollens standardadgang, og log, hvem der godkendte hvad og hvornår.
+      - Fjern den gamle rolles rettigheder i samme ombæring, som de nye tildeles, ved jobskift; ved fratrædelse deaktiveres kontoen på sidste arbejdsdag, og tokens, nøgler og lokale konti tilbagekaldes.
+      - Gennemfør rettighedsgennemgange mindst en gang om året og hvert kvartal for administratorroller og følsomme systemer, hvor ejerne bekræfter eller fjerner hver rettighed, og resultatet dokumenteres.
+      - Rapportér forældreløse konti, fjernede rettigheder og forsinkede gennemgange til ledelsen, og ret processen der, hvor tallene viser huller.
+  pitfalls:
+    en:
+      - Adding rights when people change jobs without removing the old ones, so privileges pile up over the years.
+      - Rubber-stamp reviews where owners approve long lists of cryptic group names they do not understand.
+      - Disabling only the directory account when someone leaves and forgetting local application accounts, API keys and active sessions.
+    da:
+      - At tildele nye rettigheder ved jobskift uden at fjerne de gamle, så rettighederne hober sig op gennem årene.
+      - Rettighedsgennemgange, der bliver ren afkrydsning, fordi ejerne godkender lange lister af kryptiske gruppenavne, de ikke forstår.
+      - Kun at deaktivere katalogkontoen ved fratrædelse og glemme lokale applikationskonti, API-nøgler og aktive sessioner.
+  guides:
+    - title: Identity and access management - 10 Steps to Cyber Security
+      url: https://www.ncsc.gov.uk/collection/10-steps/identity-and-access-management
+      publisher: NCSC UK
+      tier: official-doc
+    - title: CIS Critical Security Control 6 - Access Control Management
+      url: https://www.cisecurity.org/controls/access-control-management
+      publisher: Center for Internet Security
+      tier: standard
+    - title: What are access reviews? - Microsoft Entra ID Governance
+      url: https://learn.microsoft.com/en-us/entra/id-governance/access-reviews-overview
+      publisher: Microsoft
+      tier: official-doc
+    - title: Cyberforsvar der virker
+      url: https://samsik.dk/publikation/cyberforsvar-der-virker/
+      publisher: Center for Cybersikkerhed (Styrelsen for Samfundssikkerhed)
+      tier: official-doc
+      lang: da
+    - title: Referencearkitektur for brugerstyring
+      url: https://arkitektur.digst.dk/rammearkitektur/referencearkitekturer/referencearkitektur-brugerstyring
+      publisher: Digitaliseringsstyrelsen
+      tier: official-doc
+      lang: da
 edges:
   kind-of: [control]
   implements: [access-control]

@@ -42,6 +42,53 @@ deepDive:
     TLS 1.3 fjernede en lang række gamle funktioner, som var roden til tidligere angreb: statisk RSA-nøgletransport (oracle-angreb i Bleichenbacher-stil, ROBOT), CBC-baserede algoritmer (BEAST, Lucky Thirteen, POODLE mod SSL 3.0), RC4, komprimering (CRIME), genforhandling samt eksport-svage og selvdefinerede Diffie-Hellman-grupper (FREAK, Logjam). Der er kun fem cipher suites tilbage, alle AEAD, og hvert fuldt håndtryk giver forward secrecy. En nedgraderingsmarkør i de sidste otte byte af ServerHello.random (§4.1.3) lader en TLS 1.3-klient opdage, hvis en angriber tvinger en ældre version igennem. Heartbleed (2014) var derimod en implementeringsfejl i OpenSSL, ikke en fejl i protokollen.
 
     Serverautentifikation afhænger af validering af X.509-certifikatet: en kæde til et betroet rodcertifikat, et navn, der passer til en subjectAltName-post, gyldighedsdatoer og kontrol af tilbagekaldelse, som i praksis er svag - én af grundene til, at CA/Browser Forum forkorter certifikaternes levetid. Mutual TLS tilføjer et klientcertifikat og er almindeligt mellem tjenester. Åbne problemer er de metadata, TLS efterlader synlige (IP-adresser, størrelser og SNI, medmindre Encrypted Client Hello, RFC 9849, er indført), og kvanterisikoen, som imødegås med den hybride nøgleudveksling X25519MLKEM768, som de store browsere og CDN'er allerede forhandler. Sammenlignet med en VPN sikrer TLS én applikationsforbindelse fra ende til ende ved grænsen mellem transport- og applikationslaget, mens en VPN tunnelerer al IP-trafik mellem en enhed og en netværksgateway; mange "SSL VPN"-produkter er i virkeligheden TLS, der bærer tunnelerede IP-pakker.
+howTo:
+  steps:
+    en:
+      - List every service that speaks TLS - web servers, load balancers, mail servers, VPN gateways, databases, APIs and internal service-to-service links - with its owner, TLS library and certificate.
+      - Set a TLS baseline in writing, for example TLS 1.3 preferred, TLS 1.2 only with ECDHE and AEAD cipher suites, and SSL 3.0, TLS 1.0 and TLS 1.1 switched off.
+      - Apply the baseline on each server using a vetted configuration template, such as the Mozilla-derived Intermediate profile, instead of hand-picking cipher lists.
+      - Use certificates with at least RSA 2048-bit or ECDSA P-256 keys, correct names in subjectAltName and a complete chain, and add CAA records in DNS that name the CAs allowed to issue for your domains.
+      - Keep a certificate inventory with expiry dates, automate renewal, and alert well before any certificate expires.
+      - Encrypt internal traffic too, and use mutual TLS where services must prove to each other who they are, with certificates from an internal CA.
+      - Make sure client programs and scripts validate certificates, and remove any setting that turns validation off.
+      - Test every public endpoint with a TLS scanner after each change and at least quarterly, keep the TLS libraries patched, and update the baseline when guidance changes, including the move to post-quantum key exchange.
+    da:
+      - Lav en liste over alle tjenester, der bruger TLS - webservere, load balancere, mailservere, VPN-gateways, databaser, API'er og interne forbindelser mellem tjenester - med ejer, TLS-bibliotek og certifikat.
+      - Skriv en TLS-baseline ned, fx TLS 1.3 som foretrukket, TLS 1.2 kun med ECDHE og AEAD-ciphersuites, og SSL 3.0, TLS 1.0 og TLS 1.1 slået fra.
+      - Anvend baselinen på hver server ud fra en gennemprøvet konfigurationsskabelon, fx den Mozilla-baserede Intermediate-profil, i stedet for at vælge ciphersuites i hånden.
+      - Brug certifikater med mindst RSA 2048-bit- eller ECDSA P-256-nøgler, korrekte navne i subjectAltName og en komplet kæde, og tilføj CAA-records i DNS, der angiver, hvilke CA'er der må udstede til jeres domæner.
+      - Hold en oversigt over certifikater med udløbsdatoer, automatisér fornyelsen, og alarmér i god tid, før et certifikat udløber.
+      - Kryptér også intern trafik, og brug mutual TLS, hvor tjenester skal bevise over for hinanden, hvem de er, med certifikater fra en intern CA.
+      - Sørg for, at klientprogrammer og scripts validerer certifikater, og fjern enhver indstilling, der slår valideringen fra.
+      - Test alle offentlige endpoints med en TLS-scanner efter hver ændring og mindst hvert kvartal, hold TLS-bibliotekerne patchet, og opdatér baselinen, når vejledningen ændres, også ved overgangen til kvantesikker nøgleudveksling.
+  pitfalls:
+    en:
+      - Turning off certificate validation in code or scripts to get past an error, which silently removes all protection against a man in the middle.
+      - Keeping TLS 1.0 or weak cipher suites switched on for one old client and forgetting them for years.
+      - Forgetting certificates on internal systems and appliances, so they expire unnoticed and stop a critical service.
+    da:
+      - At slå certifikatvalidering fra i kode eller scripts for at komme forbi en fejl, hvilket i det stille fjerner al beskyttelse mod en man-in-the-middle.
+      - At lade TLS 1.0 eller svage ciphersuites være slået til for én gammel klient og glemme dem i årevis.
+      - At glemme certifikater på interne systemer og appliances, så de udløber ubemærket og stopper en kritisk tjeneste.
+  guides:
+    - title: NIST SP 800-52 Rev. 2 - Guidelines for the Selection, Configuration, and Use of Transport Layer Security (TLS) Implementations
+      url: https://csrc.nist.gov/pubs/sp/800/52/r2/final
+      publisher: NIST
+      tier: standard
+    - title: RFC 9325 - Recommendations for Secure Use of Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)
+      url: https://www.rfc-editor.org/rfc/rfc9325
+      publisher: IETF
+      tier: standard
+    - title: Transport Layer Security Cheat Sheet
+      url: https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Security_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
+    - title: Sikker brug af Transport Layer Security (TLS)
+      url: https://samsik.dk/publikation/sikker-brug-af-transport-layer-security-tls/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   kind-of: [protocol]
   requires: [tcp-ip, encryption, digital-certificate]
