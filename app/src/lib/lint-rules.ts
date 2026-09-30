@@ -4,6 +4,8 @@
  */
 import type { EdgeType } from '../schema';
 import { namesOf } from './autolink';
+import { stronglyConnected } from './strongly-connected';
+import { containsWord } from './whole-word';
 
 type Localized = { en: string; da: string };
 type RawEdge = string | { to: string };
@@ -20,7 +22,6 @@ export type RuleTerm = {
 export type Resolve = (ref: string, fromId: string) => string | null;
 
 const refOf = (e: RawEdge) => (typeof e === 'string' ? e : e.to);
-const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 /** Resolved authored edges of a term as `type|target` keys. */
 function edgeKeys(t: RuleTerm, resolve: Resolve): Set<string> {
@@ -33,10 +34,6 @@ function edgeKeys(t: RuleTerm, resolve: Resolve): Set<string> {
   }
   return keys;
 }
-
-/** Whether `text` contains `name` as a whole word (case-insensitive). */
-const containsName = (text: string, name: string) =>
-  new RegExp(`(?<![\\p{L}\\p{N}])${escape(name)}(?![\\p{L}\\p{N}])`, 'iu').test(text);
 
 /**
  * W2 redundant child (ADR-0002 tests 2 + 3): the term's authored Edges — other than
@@ -54,16 +51,20 @@ export function redundantChildren(
       const parentId = resolve(refOf(p), t.id);
       const parent = parentId ? byId.get(parentId) : undefined;
       if (!parent || parent.id === t.id) continue;
-      const parentEdges = edgeKeys(parent, resolve);
-      const own = [...edgeKeys(t, resolve)].filter((k) => k !== `kind-of|${parent.id}`);
-      if (!own.every((k) => parentEdges.has(k))) continue;
-      const named = (['en', 'da'] as const).some((lang) =>
-        namesOf(parent.term[lang]).some((n) => containsName(t.summary[lang], n)),
-      );
-      if (named) out.push({ id: t.id, parent: parent.id });
+      if (redundantUnder(t, parent, resolve)) out.push({ id: t.id, parent: parent.id });
     }
   }
   return out;
+}
+
+/** Whether `t` adds no Edge beyond `parent`'s and its summary names the parent. */
+function redundantUnder(t: RuleTerm, parent: RuleTerm, resolve: Resolve): boolean {
+  const parentEdges = edgeKeys(parent, resolve);
+  const own = [...edgeKeys(t, resolve)].filter((k) => k !== `kind-of|${parent.id}`);
+  if (!own.every((k) => parentEdges.has(k))) return false;
+  return (['en', 'da'] as const).some((lang) =>
+    namesOf(parent.term[lang]).some((n) => containsWord(t.summary[lang], n)),
+  );
 }
 
 /**
@@ -100,49 +101,10 @@ export function circularDefinitions(
   const nodes = ids.filter((id) => !grounded(id));
   const inGraph = new Set(nodes);
   const next = (id: string) => names(id).filter((n) => n !== id && inGraph.has(n));
-  // Tarjan's strongly connected components, iterative to stay safe on deep chains.
-  const index = new Map<string, number>();
-  const low = new Map<string, number>();
-  const stack: string[] = [];
-  const onStack = new Set<string>();
-  const loops: string[][] = [];
-  let counter = 0;
-  for (const root of nodes) {
-    if (index.has(root)) continue;
-    const work: { id: string; edges: string[]; i: number }[] = [];
-    const open = (id: string) => {
-      index.set(id, counter);
-      low.set(id, counter);
-      counter++;
-      stack.push(id);
-      onStack.add(id);
-      work.push({ id, edges: next(id), i: 0 });
-    };
-    open(root);
-    while (work.length) {
-      const frame = work[work.length - 1];
-      if (frame.i < frame.edges.length) {
-        const w = frame.edges[frame.i++];
-        if (!index.has(w)) open(w);
-        else if (onStack.has(w)) low.set(frame.id, Math.min(low.get(frame.id)!, index.get(w)!));
-        continue;
-      }
-      work.pop();
-      const parent = work[work.length - 1];
-      if (parent) low.set(parent.id, Math.min(low.get(parent.id)!, low.get(frame.id)!));
-      if (low.get(frame.id) === index.get(frame.id)) {
-        const component: string[] = [];
-        let w: string;
-        do {
-          w = stack.pop()!;
-          onStack.delete(w);
-          component.push(w);
-        } while (w !== frame.id);
-        if (component.length > 1) loops.push(component.sort());
-      }
-    }
-  }
-  return loops.sort((a, b) => a[0].localeCompare(b[0]));
+  return stronglyConnected(nodes, next)
+    .filter((component) => component.length > 1)
+    .map((component) => component.sort())
+    .sort((a, b) => a[0].localeCompare(b[0]));
 }
 
 /** Depth histogram report: how many terms sit at each `requires` depth, 0 upwards. */

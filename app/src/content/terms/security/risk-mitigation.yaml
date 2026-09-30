@@ -41,6 +41,51 @@ deepDive:
     Den forventede effekt af en kontrol er en antagelse, indtil den er efterprøvet. Inden for erklæringsarbejde skelnes der mellem designeffektivitet, om kontrollen som beskrevet ville dække scenariet, og driftseffektivitet, om den faktisk har virket over en periode, hvilket er forskellen på SOC 2 Type I og Type II. Residuale vurderinger bør bygge på dokumentation som testresultater, dækningsmålinger og hændelsesdata, ikke på, at en kontrol står på listen. Kompenserende kontroller bruges, når den foretrukne kontrol ikke kan lade sig gøre, fx ekstra overvågning og netværksisolering omkring et ældre system, der ikke kan patches, og bør dokumenteres med det hul, de dækker.
 
     Reduktion har aftagende udbytte: De første kontroller mod en risiko fjerner som regel det meste af sandsynligheden billigt, og hvert næste skridt koster mere. Defence in depth begrunder lagdeling, men når meromkostningen overstiger den ekstra reduktion af det forventede tab, er accept eller overførsel af resten det rationelle valg. I modsætning til overførsel ændrer reduktion selve risikoen; i modsætning til undgåelse fortsætter aktiviteten.
+howTo:
+  steps:
+    en:
+      - For each risk to be reduced, note whether it is driven mainly by likelihood or by consequence, since that decides which kind of control will help.
+      - Select controls from any source, such as the CIS Controls or NIST SP 800-53, and combine preventive, detective and corrective types instead of relying on prevention alone.
+      - Compare the selection with ISO 27001 Annex A, and record in the Statement of Applicability which controls you use against the risk.
+      - Estimate the expected residual risk and the cost of each control, and stop adding controls where the extra cost exceeds the reduction in expected loss.
+      - Where the preferred control is not possible, such as patching a legacy system, document a compensating control like isolation and extra monitoring together with the gap it covers.
+      - Implement each control with a named owner and a deadline, and track progress in the risk treatment plan.
+      - Test that each control works in practice, for example with restore tests, coverage metrics or a penetration test, before lowering the residual rating.
+      - Recheck the controls at least once a year and after incidents, and pass any residual risk still above appetite on to acceptance or transfer.
+    da:
+      - Notér for hver risiko, der skal reduceres, om den primært drives af sandsynlighed eller af konsekvens, fordi det afgør, hvilken type kontrol der hjælper.
+      - Vælg kontroller fra en hvilken som helst kilde, fx CIS Controls eller NIST SP 800-53, og kombinér forebyggende, opdagende og korrigerende typer i stedet for kun at satse på forebyggelse.
+      - Sammenhold valget med ISO 27001 bilag A, og notér i Statement of Applicability (SoA), hvilke kontroller I bruger mod risikoen.
+      - Skøn den forventede restrisiko og prisen på hver kontrol, og stop med at tilføje kontroller, når meromkostningen overstiger faldet i det forventede tab.
+      - Dokumentér en kompenserende kontrol som isolering og ekstra overvågning, hvor den foretrukne kontrol ikke kan lade sig gøre, fx patching af et ældre system, sammen med det hul, den dækker.
+      - Gennemfør hver kontrol med en navngiven ejer og en frist, og følg fremdriften i risikohåndteringsplanen.
+      - Test, at hver kontrol virker i praksis, fx med gendannelsestest, dækningsmålinger eller en penetrationstest, før den residuale vurdering sænkes.
+      - Efterprøv kontrollerne mindst én gang om året og efter hændelser, og send den restrisiko, der stadig ligger over appetitten, videre til accept eller overførsel.
+  pitfalls:
+    en:
+      - Lowering the risk rating as soon as a control is bought or listed, before it has been shown to work.
+      - Relying only on preventive controls against an impact-driven risk such as ransomware.
+      - Adding layer after layer of controls long after the extra cost has stopped paying off.
+      - Undocumented compensating controls that nobody remembers to maintain.
+    da:
+      - At sænke risikovurderingen, så snart en kontrol er købt eller står på listen, før den har vist sig at virke.
+      - Kun at bruge forebyggende kontroller mod en konsekvensdrevet risiko som ransomware.
+      - At lægge lag på lag af kontroller længe efter, at meromkostningen er holdt op med at betale sig.
+      - Udokumenterede kompenserende kontroller, som ingen husker at vedligeholde.
+  guides:
+    - title: The 18 CIS Critical Security Controls
+      url: https://www.cisecurity.org/controls/cis-controls-list
+      publisher: Center for Internet Security
+      tier: standard
+    - title: NIST SP 800-53 Rev. 5 - Security and Privacy Controls for Information Systems and Organizations
+      url: https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final
+      publisher: NIST
+      tier: standard
+    - title: SoA-dokumentet
+      url: https://sikkerdigital.dk/myndighed/iso-27001-implementering/forstaa-arbejdet-med-informationssikkerhed/soa-dokumentet
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   kind-of: [risk-treatment]
   requires: [control]

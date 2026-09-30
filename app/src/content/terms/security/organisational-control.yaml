@@ -41,6 +41,7 @@ deepDive:
     I europæisk ret optræder samme idé som "tekniske og organisatoriske foranstaltninger", som kræves af databeskyttelsesforordningens art. 32 og art. 25 og af NIS2 art. 21, stk. 1, der taler om "passende og forholdsmæssige tekniske, operationelle og organisatoriske foranstaltninger". Databehandleraftaler efter forordningens art. 28 indeholder typisk et bilag med databehandlerens foranstaltninger, og den dataansvarlige skal kunne dokumentere over for Datatilsynet, at de er tilstrækkelige.
 
     Den typiske svaghed ved organisatoriske kontroller er kløften mellem design og drift. En politik, der findes, men ikke følges, en procedure for leverandørvurdering, der aldrig sættes i gang, eller et godkendelsesflow, der rutinemæssigt omgås, ser compliant ud på papiret. Revisorer tester derfor både designeffektivitet (ville kontrollen håndtere risikoen, hvis den blev fulgt?) og operationel effektivitet over en periode, fx i ISAE 3402 type 2- eller SOC 2 type II-erklæringer, ved at udtage stikprøver af dokumentation som underskrevne godkendelser, gennemgangslogs og mødereferater. Organisatoriske kontroller står stærkest, når de understøttes af teknisk håndhævelse - fx et flow for adgangsanmodninger, der er den eneste vej til en rolle - frem for at bero på, at folk husker reglen.
+actionable: false
 edges:
   kind-of: [control]
   requires: [governance]

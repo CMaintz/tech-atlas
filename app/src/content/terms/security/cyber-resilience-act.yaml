@@ -42,6 +42,54 @@ deepDive:
     Indberetningspligten i art. 14 har gældt siden 11. september 2026. Når producenten får kendskab til en aktivt udnyttet sårbarhed eller en alvorlig hændelse, der påvirker produktets sikkerhed, skal der sendes en tidlig varsling inden for 24 timer, en underretning inden for 72 timer og en endelig rapport senest 14 dage efter, at en afhjælpende foranstaltning er tilgængelig (sårbarheder), eller inden for en måned (hændelser). Indberetningen sendes én gang via ENISA's fælles indberetningsplatform (art. 16) til den CSIRT, der er udpeget som koordinator, og til ENISA. Reglerne om bemyndigede organer har gældt siden 11. juni 2026; resten af forpligtelserne gælder fra 11. december 2027.
 
     Art. 64 har tre bødeniveauer: op til 15 mio. euro eller 2,5 % af den globale omsætning for overtrædelse af de væsentlige krav og producentens centrale pligter, 10 mio. euro eller 2 % for andre forpligtelser og 5 mio. euro eller 1 % for vildledende oplysninger til myndigheder. Open source udviklet uden for en kommerciel aktivitet er ikke omfattet, men "open source-forvaltere", der systematisk støtter sådanne projekter, får en lettere ordning (art. 24). CRA adskiller sig fra NIS2 ved sit genstandsfelt: NIS2 regulerer operatører, CRA regulerer produktets livscyklus, så en NIS2-enheds leverandørstyring i stigende grad vil hvile på leverandørernes CRA-dokumentation.
+howTo:
+  steps:
+    en:
+      - List every product with digital elements you place on the EU market, including the remote data processing it needs to work, and check the exclusions such as medical devices, vehicles and aviation, using the Commission's implementation guidance from July 2026.
+      - Classify each product as default, important class I or II (Annex III) or critical (Annex IV), since the class decides the conformity route - self-assessment, harmonised standards, a notified body or certification.
+      - Carry out and document a cybersecurity risk assessment for each product, and use it to meet the Annex I Part I requirements, such as no known exploitable vulnerabilities at release, secure default settings, protection against unauthorised access, data minimisation and security logging.
+      - Set up vulnerability handling under Annex I Part II - an SBOM covering at least top-level dependencies, a coordinated vulnerability disclosure policy with a contact address, and free security updates kept separate from feature updates where possible.
+      - Set a support period that reflects how long the product is expected to be used, at least five years unless it is used for less (Art. 13(8)), and state its end date clearly at the time of purchase.
+      - Since 11 September 2026, report actively exploited vulnerabilities and severe incidents through ENISA's single reporting platform - an early warning within 24 hours, a notification within 72 hours and a final report within 14 days after a fix is available (vulnerabilities) or within one month (incidents).
+      - Before 11 December 2027, complete the conformity assessment, draw up the technical documentation and the EU declaration of conformity, and affix the CE mark.
+      - Keep monitoring components for new vulnerabilities and keep the documentation current during the whole support period, and repeat the assessment when a product is substantially modified.
+    da:
+      - Lav en liste over alle produkter med digitale elementer, som I bringer i omsætning i EU, inklusive den fjerndatabehandling, de skal bruge for at virke, og tjek undtagelserne som medicinsk udstyr, køretøjer og luftfart ved hjælp af Kommissionens vejledning om gennemførelsen fra juli 2026.
+      - Klassificér hvert produkt som almindeligt, vigtigt i klasse I eller II (bilag III) eller kritisk (bilag IV), for klassen afgør vejen til overensstemmelse - selvvurdering, harmoniserede standarder, et bemyndiget organ eller certificering.
+      - Gennemfør og dokumentér en cybersikkerhedsrisikovurdering for hvert produkt, og brug den til at opfylde kravene i bilag I, del I, fx ingen kendte udnyttelige sårbarheder ved frigivelse, sikre standardindstillinger, beskyttelse mod uautoriseret adgang, dataminimering og sikkerhedslogning.
+      - Indfør sårbarhedshåndtering efter bilag I, del II - en SBOM, der mindst dækker de øverste afhængigheder, en politik for koordineret offentliggørelse af sårbarheder med en kontaktadresse og gratis sikkerhedsopdateringer, der så vidt muligt holdes adskilt fra funktionsopdateringer.
+      - Fastsæt en supportperiode, der afspejler, hvor længe produktet forventes brugt, mindst fem år, medmindre det bruges kortere (art. 13, stk. 8), og oplys slutdatoen tydeligt ved købet.
+      - Indberet siden 11. september 2026 aktivt udnyttede sårbarheder og alvorlige hændelser via ENISA's fælles indberetningsplatform - tidlig varsling inden for 24 timer, underretning inden for 72 timer og endelig rapport senest 14 dage efter, at en rettelse er tilgængelig (sårbarheder), eller inden for en måned (hændelser).
+      - Gennemfør inden 11. december 2027 overensstemmelsesvurderingen, udarbejd den tekniske dokumentation og EU-overensstemmelseserklæringen, og sæt CE-mærket på.
+      - Bliv ved med at overvåge komponenterne for nye sårbarheder, og hold dokumentationen opdateret i hele supportperioden, og gentag vurderingen, når et produkt ændres væsentligt.
+  pitfalls:
+    en:
+      - Assuming the CRA only starts in December 2027, when the duty to report actively exploited vulnerabilities has applied since 11 September 2026.
+      - Self-assessing every product as default class, when routers, VPNs, password managers or firewalls may be important products that need harmonised standards or a notified body.
+      - Producing an SBOM once at release and never updating it, so new vulnerabilities in components go unnoticed during the support period.
+      - Assuming that SaaS or open source is always outside the scope, without checking the rules on remote data processing and commercial activity.
+    da:
+      - At tro, at CRA først begynder i december 2027, selv om pligten til at indberette aktivt udnyttede sårbarheder har gældt siden 11. september 2026.
+      - At selvvurdere alle produkter som almindelige, selv om routere, VPN, password managers eller firewalls kan være vigtige produkter, der kræver harmoniserede standarder eller et bemyndiget organ.
+      - At lave en SBOM én gang ved frigivelsen og aldrig opdatere den, så nye sårbarheder i komponenterne går ubemærket hen i supportperioden.
+      - At gå ud fra, at SaaS eller open source altid falder uden for, uden at tjekke reglerne om fjerndatabehandling og kommerciel aktivitet.
+  guides:
+    - title: Cyber Resilience Act
+      url: https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act
+      publisher: European Commission
+      tier: official-doc
+    - title: Cyber Resilience Act - Implementation
+      url: https://digital-strategy.ec.europa.eu/en/factpages/cyber-resilience-act-implementation
+      publisher: European Commission
+      tier: official-doc
+    - title: Cyber Resilience Act - Reporting obligations
+      url: https://digital-strategy.ec.europa.eu/en/policies/cra-reporting
+      publisher: European Commission
+      tier: official-doc
+    - title: Commission publishes new guidance to support timely Cyber Resilience Act implementation
+      url: https://digital-strategy.ec.europa.eu/en/library/commission-publishes-new-guidance-support-timely-cyber-resilience-act-implementation
+      publisher: European Commission
+      tier: official-doc
 edges:
   mandates:
     - to: security-by-design

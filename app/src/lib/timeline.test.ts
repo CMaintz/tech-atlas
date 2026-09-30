@@ -12,6 +12,7 @@ import {
   shareRows,
   fitPerYear,
   stretchScale,
+  toggleDomain,
   type Span,
   yearLoad,
   type TimelineItem,
@@ -150,6 +151,17 @@ describe('lanes', () => {
     expect([...lanes.keys()]).toEqual(['security', 'cs']);
     expect(lanes.get('cs')!.map((i) => i.id)).toEqual(['rsa', 'tls']);
     expect(lanes.get('security')!.map((i) => i.id)).toEqual(['gdpr']);
+  });
+});
+
+describe('toggleDomain', () => {
+  const all = ['a', 'b', 'c'];
+  it('hides a shown domain and brings one back in lane order', () => {
+    expect(toggleDomain(all, all, 'b')).toEqual(['a', 'c']);
+    expect(toggleDomain(all, ['c'], 'a')).toEqual(['a', 'c']);
+  });
+  it('shows everything again rather than nothing', () => {
+    expect(toggleDomain(all, ['b'], 'b')).toEqual(all);
   });
 });
 

@@ -42,6 +42,53 @@ deepDive:
     Det svageste punkt er overgangen fra HTTP. Skriver brugeren blot domænenavnet, kan den første forespørgsel gå ud over almindelig HTTP, og en angriber på vejen kan holde offeret på HTTP, mens angriberen selv taler HTTPS med det rigtige websted (SSL stripping, demonstreret af Moxie Marlinspike i 2009). HTTP Strict Transport Security (RFC 6797) fortæller browseren, at domænet kun må tilgås over HTTPS i max-age sekunder, eventuelt inklusive subdomæner, og browsernes preload-liste fjerner selv den første usikre forespørgsel. Sessionscookies skal også have Secure-attributten, ellers kan de lække via en HTTP-forespørgsel til samme vært. Browsere blokerer det meste blandede indhold og mærker HTTP-sider "Ikke sikker"; Chrome udskiftede hængelåsen med et neutralt ikon i 2023, netop fordi brugerne læste den som et tegn på, at et websted er troværdigt.
 
     I virkelige installationer slutter HTTPS ofte, før applikationen gør. CDN'er og load balancere afslutter TLS, og strækningen til den bagvedliggende server er kun beskyttet, hvis den krypteres igen; virksomheders TLS-inspektionsproxyer bryder bevidst end-to-end-krypteringen ved at installere deres eget rodcertifikat på administrerede enheder. Driftstjek dækker derfor hele kæden: omdirigering fra HTTP til HTTPS og HSTS, deaktivering af gamle protokolversioner, certifikatoversigt og automatisk fornyelse (levetiden for offentlige certifikater skæres ned i trin, til 200 dage fra marts 2026) samt kryptering mellem de interne lag.
+howTo:
+  steps:
+    en:
+      - List every website, subdomain and web API the organisation runs, including test sites and old campaign pages, and name an owner for each.
+      - Get a certificate for each name from a trusted certificate authority, and automate issuing and renewal with ACME, for example through the hosting provider or a client such as Certbot, so certificates never expire by surprise.
+      - Serve every page and API over HTTPS only, and redirect all plain HTTP requests on port 80 permanently to the same address on HTTPS.
+      - Send the Strict-Transport-Security header, starting with a short max-age and raising it to at least a year with includeSubDomains once every subdomain works over HTTPS.
+      - Mark all session and login cookies Secure and HttpOnly, and fix mixed content by loading every script, style, image and form target over HTTPS.
+      - Make sure traffic is also encrypted behind the CDN or load balancer, all the way to the application servers, and not only on the public side.
+      - Scan your sites every month for expired certificates, missing HSTS, mixed content and HTTP pages, and fix what the scan finds.
+      - Watch Certificate Transparency logs for certificates issued for your domains, and investigate any you did not order.
+    da:
+      - Lav en liste over alle websites, subdomæner og web-API'er, organisationen driver, også testsites og gamle kampagnesider, og udpeg en ejer for hver.
+      - Skaf et certifikat til hvert navn fra en betroet certifikatudsteder, og automatisér udstedelse og fornyelse med ACME, fx via hostingudbyderen eller en klient som Certbot, så certifikater aldrig udløber uventet.
+      - Lever alle sider og API'er udelukkende over HTTPS, og omdiriger alle almindelige HTTP-forespørgsler på port 80 permanent til samme adresse på HTTPS.
+      - Send Strict-Transport-Security-headeren, start med en kort max-age, og hæv den til mindst et år med includeSubDomains, når alle subdomæner virker over HTTPS.
+      - Markér alle session- og login-cookies med Secure og HttpOnly, og ret mixed content ved at hente alle scripts, styles, billeder og formularmål over HTTPS.
+      - Sørg for, at trafikken også er krypteret bag CDN eller load balancer helt ind til applikationsserverne og ikke kun på den offentlige side.
+      - Scan jeres sites hver måned for udløbne certifikater, manglende HSTS, mixed content og HTTP-sider, og ret det, scanningen finder.
+      - Hold øje med Certificate Transparency-logs efter certifikater udstedt til jeres domæner, og undersøg dem, I ikke selv har bestilt.
+  pitfalls:
+    en:
+      - Renewing certificates by hand from a calendar reminder, so one is forgotten and the site shows a security warning to every visitor.
+      - Adding HSTS preload with includeSubDomains before checking that every subdomain supports HTTPS, which locks users out of the ones that do not.
+      - Treating the padlock as proof a site is honest, although phishing sites get free certificates just as easily.
+    da:
+      - At forny certifikater manuelt ud fra en kalenderpåmindelse, så et bliver glemt, og sitet viser en sikkerhedsadvarsel til alle besøgende.
+      - At tilmelde HSTS preload med includeSubDomains, før det er tjekket, at alle subdomæner understøtter HTTPS, så brugerne bliver låst ude af dem, der ikke gør.
+      - At tage hængelåsen som bevis på, at et site er redeligt, selv om phishingsites lige så let får gratis certifikater.
+  guides:
+    - title: Strict-Transport-Security header
+      url: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Strict-Transport-Security
+      publisher: Mozilla
+      tier: reference
+    - title: Mixed content
+      url: https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content
+      publisher: Mozilla
+      tier: reference
+    - title: Getting Started - Let's Encrypt
+      url: https://letsencrypt.org/getting-started/
+      publisher: Let's Encrypt
+      tier: official-doc
+    - title: Sikker brug af Transport Layer Security (TLS)
+      url: https://samsik.dk/publikation/sikker-brug-af-transport-layer-security-tls/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   kind-of: [protocol]
   requires:

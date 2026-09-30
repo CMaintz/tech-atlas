@@ -41,6 +41,60 @@ deepDive:
     Ved revision læner kunden sig op ad udbyderens kontroller gennem SOC 2 Type II- eller ISAE 3402-erklæringer. Erklæringerne opregner komplementære kontroller hos brugervirksomheden, som kunden selv skal udføre, for at udbyderens kontroller er effektive, og de angiver, om underleverandører er udeladt (carve-out) eller medtaget. Ulæste komplementære kontroller og udeladte underleverandører er en almindelig blind vinkel i leverandørgennemgange. Amerikanske føderale godkendelser bruger en tilsvarende customer responsibility matrix.
 
     At fordele opgaver er ikke det samme som at fordele ansvaret. Efter databeskyttelsesforordningen forbliver den dataansvarlige ansvarlig (art. 5, stk. 2, og art. 24), mens art. 28, stk. 3, litra c, forpligter databehandleren til at træffe sikkerhedsforanstaltningerne efter art. 32; NIS2-direktivets art. 21, stk. 2, litra d, dækker sikkerhed i forsyningskæden; og for finanssektoren fastlægger DORA (forordning (EU) 2022/2554) art. 28-30 styring af IKT-tredjepartsrisici og obligatoriske kontraktvilkår. En kendt begrænsning er, at modellen fordeler opgaver, men siger lidt om kompromitteringer hos udbyderen, som kunden ikke kan forhindre, fx tyveriet af en Microsoft-signeringsnøgle i Storm-0558-hændelsen i 2023; kunden har stadig brug for detektion, logning og exitplaner til den restrisiko.
+howTo:
+  steps:
+    en:
+      - List every cloud service you use with its service model (IaaS, PaaS or SaaS) and the data it holds.
+      - For each service, read the provider's responsibility documentation and record in a responsibility matrix which controls sit with the provider, with you or with both, for example using the CSA Cloud Controls Matrix.
+      - Mark the areas that are always yours - data, identities and access, configuration, the devices that connect, and often backup of SaaS data.
+      - Read the provider's SOC 2 Type II or ISAE 3402 report, list its complementary user entity controls, and note whether subservice organisations are carved out.
+      - Give every customer-side control a named internal owner, and write the split into the contract and the data processing agreement.
+      - Implement your side - secure configuration, MFA, logging, backup, and key management if you use customer-managed keys.
+      - Plan for provider-side failures you cannot prevent, with detection, logging and a tested exit plan.
+      - Review the matrix at least once a year and whenever you adopt a new service or feature, as part of supplier management.
+    da:
+      - List alle cloudtjenester, I bruger, med servicemodel (IaaS, PaaS eller SaaS) og de data, de rummer.
+      - Læs for hver tjeneste udbyderens beskrivelse af ansvarsfordelingen, og registrér i en ansvarsmatrix, hvilke kontroller der ligger hos udbyderen, hos jer eller hos begge, fx med CSA Cloud Controls Matrix.
+      - Markér de områder, der altid er jeres - data, identiteter og adgang, konfiguration, de enheder, der kobler på, og ofte backup af SaaS-data.
+      - Læs udbyderens SOC 2 Type II- eller ISAE 3402-erklæring, list de komplementære kontroller hos brugervirksomheden, og notér, om underleverandører er udeladt (carve-out).
+      - Giv hver kontrol på kundesiden en navngiven intern ejer, og skriv fordelingen ind i kontrakten og databehandleraftalen.
+      - Implementér jeres del - sikker konfiguration, MFA, logning, backup og nøglehåndtering, hvis I bruger kundestyrede nøgler.
+      - Planlæg for fejl hos udbyderen, som I ikke kan forhindre, med detektion, logning og en afprøvet exitplan.
+      - Gennemgå matrixen mindst én gang om året, og når I tager en ny tjeneste eller funktion i brug, som en del af leverandørstyringen.
+  pitfalls:
+    en:
+      - Assuming the provider backs up your SaaS data or configures security for you.
+      - Thinking that handing over tasks also hands over legal accountability, for example as data controller under GDPR.
+      - Never reading the complementary user entity controls in the provider's audit report.
+      - Using one generic matrix per service model and ignoring that the split differs per service and even per feature.
+    da:
+      - At gå ud fra, at udbyderen tager backup af jeres SaaS-data eller sætter sikkerheden op for jer.
+      - At tro, at det juridiske ansvar følger med, når man overlader opgaver, fx som dataansvarlig efter databeskyttelsesforordningen.
+      - Aldrig at læse de komplementære kontroller hos brugervirksomheden i udbyderens revisionserklæring.
+      - At bruge én generel matrix pr. servicemodel og overse, at fordelingen er forskellig for hver tjeneste og endda hver funktion.
+  guides:
+    - title: Cloud security shared responsibility model
+      url: https://www.ncsc.gov.uk/collection/cloud/understanding-cloud-services/cloud-security-shared-responsibility-model
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Shared responsibility in the cloud - Microsoft Azure
+      url: https://learn.microsoft.com/en-us/azure/security/fundamentals/shared-responsibility
+      publisher: Microsoft
+      tier: official-doc
+    - title: Shared Responsibility Model - Amazon Web Services
+      url: https://aws.amazon.com/compliance/shared-responsibility-model/
+      publisher: AWS
+      tier: official-doc
+    - title: Vejledning i anvendelse af cloudservices
+      url: https://sikkerdigital.dk/media/7011/vejledning-i-anvendelse-af-cloudservices-v11-juli-2020.pdf
+      publisher: Digitaliseringsstyrelsen
+      tier: official-doc
+      lang: da
+    - title: Vejledning om cloud
+      url: https://www.datatilsynet.dk/regler-og-vejledning/cloud
+      publisher: Datatilsynet
+      tier: official-doc
+      lang: da
 edges:
   requires: [cloud-computing]
   used-with:

@@ -42,6 +42,51 @@ deepDive:
     Fejlkilderne er veldokumenterede. Attributioner afhænger af den valgte baseline eller baggrundsfordeling; korrelerede features deler æren vilkårligt; saliency maps kan se plausible ud og samtidig være ufølsomme over for modellens vægte (Adebayo et al., 2018, "Sanity Checks for Saliency Maps"); og LIME og SHAP kan manipuleres, så en biased model ser ud til at bygge på harmløse features. For LLM'er er en chain-of-thought genereret tekst og ikke nødvendigvis en tro gengivelse af beregningen; mekanistisk interpretability (kredsløb, probing, sparse autoencoders på aktiveringer) sigter mod tro forklaringer, men er stadig et forskningsfelt. NIST IR 8312 opstiller derfor fire principper: forklaring, meningsfuldhed, forklaringens nøjagtighed og videnens grænser.
 
     Juridisk giver GDPR art. 13, stk. 2, litra f, art. 14, stk. 2, litra g, og art. 15, stk. 1, litra h, den registrerede ret til meningsfulde oplysninger om logikken i automatiske afgørelser efter art. 22. EU-Domstolen fastslog i SCHUFA (C-634/21, 2023), at en kreditscore i sig selv kan være en sådan afgørelse, og i Dun & Bradstreet Austria (C-203/22, 2025), at forklaringen skal sætte personen i stand til at forstå den fremgangsmåde og de principper, der faktisk er anvendt, uden at hensynet til forretningshemmeligheder generelt kan afskære den. AI-forordningen tilføjer art. 13 (brugsanvisning, der sætter idriftsættere i stand til at fortolke output), art. 14 (menneskeligt tilsyn) og art. 86, en ret for berørte personer til at få en klar og meningsfuld forklaring på visse afgørelser, der bygger på højrisikosystemer efter bilag III.
+howTo:
+  steps:
+    en:
+      - For each AI system that affects people, write down who needs an explanation (the affected person, the caseworker, the developer, the auditor), what they must be able to do with it, and which rules apply, such as GDPR Arts. 13-15 and 22 and AI Act Arts. 13 and 86.
+      - For decisions on tabular data, first try an interpretable model such as a scorecard, a shallow decision tree or a GAM, and choose a black-box model only if it is clearly better and you can explain it well enough.
+      - Pick explanation methods to fit the audience, for example global feature importance for developers and auditors, local attributions such as SHAP for caseworkers, and counterfactuals ("had income been above X, the application would have been approved") for affected people.
+      - Test that the explanations are faithful before you rely on them, with sanity checks such as randomising the model weights, comparing baselines and checking correlated features, and note their limits as NIST IR 8312 recommends.
+      - Build the explanation into the workflow, so the caseworker sees the main reasons next to the result and the letter to the citizen states the role of the AI and the main elements of the decision in plain language.
+      - Document the chosen methods, their limits and example explanations in the technical documentation or model card, and train the staff who have to pass explanations on.
+      - Review explanations with every model update and sample complaints and appeals to see whether people understood them, then adjust the wording or method.
+    da:
+      - Skriv for hvert AI-system, der påvirker mennesker, ned, hvem der har brug for en forklaring (den berørte person, sagsbehandleren, udvikleren, revisoren), hvad de skal kunne bruge den til, og hvilke regler der gælder, fx GDPR art. 13-15 og 22 og AI-forordningens art. 13 og 86.
+      - Prøv ved afgørelser på tabeldata først en fortolkelig model som et pointkort, et lavt beslutningstræ eller en GAM, og vælg kun en black box-model, hvis den er klart bedre, og I kan forklare den godt nok.
+      - Vælg forklaringsmetoder efter målgruppen, fx global feature importance til udviklere og revisorer, lokale attributioner som SHAP til sagsbehandlere og kontrafaktiske forklaringer ("havde indkomsten været over X, var ansøgningen blevet godkendt") til berørte personer.
+      - Test, at forklaringerne er tro mod modellen, før I stoler på dem, med sanity checks som at randomisere modellens vægte, sammenligne baselines og tjekke korrelerede features, og beskriv deres begrænsninger, som NIST IR 8312 anbefaler.
+      - Byg forklaringen ind i arbejdsgangen, så sagsbehandleren ser de vigtigste grunde ved siden af resultatet, og brevet til borgeren i et klart sprog oplyser AI'ens rolle og de vigtigste elementer i afgørelsen.
+      - Dokumentér de valgte metoder, deres begrænsninger og eksempler på forklaringer i den tekniske dokumentation eller modelkortet, og uddan de medarbejdere, der skal give forklaringerne videre.
+      - Gennemgå forklaringerne ved hver modelopdatering, og tag stikprøver af klager og anker for at se, om folk forstod dem, og justér så formuleringen eller metoden.
+  pitfalls:
+    en:
+      - Trusting a saliency map or SHAP chart because it looks plausible, without checking that it actually reflects what the model does.
+      - Giving affected people a technical feature list or a trade-secret refusal instead of the procedure and principles actually applied, which the CJEU has said they are entitled to understand.
+      - Presenting an LLM's chain-of-thought as the real reason for its answer, although it is generated text and not a faithful record of the computation.
+    da:
+      - At stole på et saliency map eller et SHAP-diagram, fordi det ser plausibelt ud, uden at tjekke, at det faktisk afspejler, hvad modellen gør.
+      - At give berørte personer en teknisk liste over features eller et afslag med henvisning til forretningshemmeligheder i stedet for den fremgangsmåde og de principper, der faktisk er brugt, som EU-Domstolen har sagt, at de har krav på at forstå.
+      - At fremstille en LLM's chain-of-thought som den egentlige grund til svaret, selv om det er genereret tekst og ikke en tro gengivelse af beregningen.
+  guides:
+    - title: NIST IR 8312 - Four Principles of Explainable Artificial Intelligence
+      url: https://www.nist.gov/publications/four-principles-explainable-artificial-intelligence
+      publisher: NIST
+      tier: standard
+    - title: Explaining decisions made with AI
+      url: https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/explaining-decisions-made-with-artificial-intelligence/
+      publisher: ICO
+      tier: official-doc
+    - title: AI Act, Article 86 - Right to explanation of individual decision-making
+      url: https://artificialintelligenceact.eu/article/86/
+      publisher: Future of Life Institute
+      tier: reference
+    - title: Offentlige myndigheders brug af kunstig intelligens - Inden I går i gang
+      url: https://www.datatilsynet.dk/Media/638321084132236143/Offentlige%20myndigheders%20brug%20af%20kunstig%20intelligens%20-%20Inden%20I%20g%C3%A5r%20i%20gang.pdf
+      publisher: Datatilsynet
+      tier: official-doc
+      lang: da
 edges:
   requires: [machine-learning]
   mitigates:

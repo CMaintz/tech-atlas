@@ -41,6 +41,49 @@ deepDive:
     Undgåelse har omkostninger og faldgruber. Man opgiver aktivitetens værdi, så den passer til risici, hvor aktiviteten giver lille gevinst, eller hvor alle andre muligheder efterlader en residual risiko over appetitten. Den skal være fuldstændig for at virke: Data, der er slettet i produktion, men stadig ligger i backup, logfiler, eksporter, testmiljøer eller i en SaaS-leverandørs opbevaring, er ikke undgået, kun flyttet ud af syne, så sletning bør verificeres og backupens opbevaringstid tilpasses. Og forbud uden alternativ flytter ofte risikoen i stedet for at fjerne den: Et forbud mod et populært værktøj til fildeling eller AI uden et godkendt alternativ driver typisk brugen over i private konti som skygge-IT, hvor organisationen hverken har overblik eller kontraktlig kontrol.
 
     Fordi beslutningen som regel har forretningsmæssige konsekvenser ud over sikkerheden, træffes den normalt af ejeren af aktiviteten eller af ledelsen på grundlag af risikovurderingen, ikke dikteret af den. Det er den eneste mulighed, der bringer en risiko ned på nul, men kun for netop den risiko; organisationen skal stadig sikre sig, at en eventuel erstatningsproces ikke introducerer nye.
+howTo:
+  steps:
+    en:
+      - Look through the risk register for risks above appetite where the activity behind them brings little value, such as unused data, legacy systems or features nobody needs.
+      - For each candidate, work out with the owner of the activity what the business would give up, and whether a changed form of the activity would be enough, which would be mitigation rather than avoidance.
+      - Have the activity owner or management make and record the decision to stop or not start the activity, with the reason taken from the risk assessment.
+      - Plan the exit in full, including data in backups, logs, exports, test environments and at SaaS providers, and align backup retention and deletion deadlines with it.
+      - Offer an approved alternative where people still need the function, so a ban on a tool does not push them into personal accounts and shadow IT.
+      - Carry out the deletion or shutdown and verify it, for example by searching for the data and checking that the system and its accounts are gone.
+      - Close the risk in the register with the evidence, and check that any replacement process has been assessed for new risks.
+      - Build avoidance into daily work with data minimisation and deletion deadlines in new projects, so data that is not needed is never collected.
+    da:
+      - Gennemgå risikoregistret for risici over appetitten, hvor den bagvedliggende aktivitet giver lille værdi, fx ubrugte data, ældre systemer eller funktioner, ingen har brug for.
+      - Afklar for hver kandidat sammen med ejeren af aktiviteten, hvad forretningen giver afkald på, og om en ændret form af aktiviteten er nok, hvilket i så fald er reduktion og ikke undgåelse.
+      - Lad ejeren af aktiviteten eller ledelsen træffe og dokumentere beslutningen om at stoppe eller ikke starte aktiviteten, med begrundelsen fra risikovurderingen.
+      - Planlæg udfasningen helt, også data i backup, logfiler, eksporter, testmiljøer og hos SaaS-leverandører, og tilpas backupens opbevaringstid og slettefristerne til det.
+      - Tilbyd et godkendt alternativ, hvor folk stadig har brug for funktionen, så et forbud mod et værktøj ikke driver dem over i private konti og skygge-IT.
+      - Gennemfør sletningen eller nedlukningen, og kontrollér den, fx ved at søge efter data og tjekke, at systemet og dets konti er væk.
+      - Luk risikoen i registret med dokumentationen, og tjek, at en eventuel erstatningsproces er vurderet for nye risici.
+      - Byg undgåelse ind i det daglige arbejde med dataminimering og slettefrister i nye projekter, så data, der ikke er brug for, aldrig bliver indsamlet.
+  pitfalls:
+    en:
+      - Deleting data in production while copies live on in backups, exports and test systems.
+      - Banning a tool without an approved alternative, which moves the risk into shadow IT instead of removing it.
+      - Calling it avoidance when the activity continues in a changed form without a fresh risk assessment.
+    da:
+      - At slette data i produktion, mens kopier lever videre i backup, eksporter og testsystemer.
+      - At forbyde et værktøj uden et godkendt alternativ, hvilket flytter risikoen over i skygge-IT i stedet for at fjerne den.
+      - At kalde det undgåelse, når aktiviteten fortsætter i ændret form uden en ny risikovurdering.
+  guides:
+    - title: NIST SP 800-39 - Managing Information Security Risk
+      url: https://csrc.nist.gov/pubs/sp/800/39/final
+      publisher: NIST
+      tier: standard
+    - title: Sletning
+      url: https://www.datatilsynet.dk/regler-og-vejledning/behandlingssikkerhed/sletning
+      publisher: Datatilsynet
+      tier: official-doc
+      lang: da
+    - title: Risk management guidance
+      url: https://www.ncsc.gov.uk/collection/risk-management
+      publisher: NCSC UK
+      tier: official-doc
 edges:
   kind-of: [risk-treatment]
   requires: [risk-assessment]

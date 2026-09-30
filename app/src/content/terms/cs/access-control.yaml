@@ -42,6 +42,53 @@ deepDive:
     Arkitekturen beskrives typisk med XACML's begreber: Et policy enforcement point (PEP) opfanger forespørgslen, et policy decision point (PDP) træffer afgørelsen, et policy information point (PIP) leverer attributter, og et policy administration point (PAP) forvalter reglerne. NIST SP 800-207 genbruger opdelingen i PEP og PDP til Zero Trust. Eksterne regelmotorer som Open Policy Agent (Rego) eller Cedar holder politikken ude af applikationskoden. Fornuftige standardvalg er afvisning som udgangspunkt, kontrol på serveren ved hver forespørgsel og for hvert objekt, afvisning hvis PDP'en ikke kan nås (fail closed), og logning af både tilladte og afviste afgørelser.
 
     Fejlene er udbredte: Broken Access Control er A01 i både OWASP Top 10:2021 og Top 10:2025 og dækker usikre direkte objektreferencer (IDOR), manglende kontrol på funktionsniveau, forced browsing, manipulerede tokens og fra 2025 også SSRF. Confused deputy-problemet (Hardy, 1988) viser, hvordan et privilegeret program kan narres til at bruge sin egen myndighed på en kalders vegne; huller mellem kontrol og brug (TOCTOU) og cachede afgørelser, der overlever en tilbagekaldelse, er andre klassiske fejl. Adgangskontrol er mekanismen ved hver forespørgsel; adgangsstyring er livscyklussen med at tildele, recertificere og fjerne rettigheder. ISO/IEC 27001:2022 dækker begge i bilag A 5.15-5.18, med 7.2 for fysisk adgang og 8.3 for begrænsning af adgang til information.
+howTo:
+  steps:
+    en:
+      - For each system, have the system owner write down the access rules in plain words - which roles or attributes may read, change or delete which data - and get them approved before anything is built.
+      - Choose the model that fits the rules, such as roles for simple job-based access and attributes or relationships for rules like "only patients on my own ward", and write the choice into the design.
+      - Put the check in one central enforcement point on the server, such as a middleware, API gateway or policy engine, instead of scattering if-statements through the code or relying on hiding buttons in the user interface.
+      - Deny by default, so any request, page, file or API call without an explicit rule is refused, and make the system refuse access if the policy engine or directory cannot be reached.
+      - Check the rights on every request and on every single record, not only at login, so a user cannot open another person's case by changing an ID in the URL.
+      - Log both refused and allowed access to sensitive data with user, object and time, and alert on repeated refusals from the same account.
+      - Write automated tests for the access rules, including attempts to reach other users' records and admin functions, and run them in the build pipeline on every change.
+      - Test access control in every penetration test or code review, and review the rules with the system owner at least yearly and whenever the system changes.
+    da:
+      - Lad systemejeren skrive adgangsreglerne ned i klart sprog for hvert system - hvilke roller eller attributter der må læse, ændre eller slette hvilke data - og få dem godkendt, før der bygges noget.
+      - Vælg den model, der passer til reglerne, fx roller til simpel jobbaseret adgang og attributter eller relationer til regler som "kun patienter på mit eget afsnit", og skriv valget ind i designet.
+      - Placér kontrollen i ét centralt håndhævelsespunkt på serveren, fx en middleware, en API-gateway eller en policy engine, i stedet for at sprede if-sætninger ud i koden eller nøjes med at skjule knapper i brugerfladen.
+      - Afvis som udgangspunkt, så enhver anmodning, side, fil eller API-kald uden en udtrykkelig regel bliver afvist, og lad systemet nægte adgang, hvis policy engine eller katalog ikke kan nås.
+      - Tjek rettighederne ved hver anmodning og for hver enkelt post, ikke kun ved login, så en bruger ikke kan åbne en andens sag ved at ændre et ID i URL'en.
+      - Log både afviste og tilladte opslag i følsomme data med bruger, objekt og tidspunkt, og alarmér ved gentagne afvisninger fra samme konto.
+      - Skriv automatiske tests af adgangsreglerne, også forsøg på at nå andre brugeres data og administratorfunktioner, og kør dem i build-pipelinen ved hver ændring.
+      - Test adgangskontrollen ved hver penetrationstest eller kodegennemgang, og gennemgå reglerne med systemejeren mindst en gang om året og hver gang systemet ændres.
+  pitfalls:
+    en:
+      - Hiding a menu item or button in the user interface but leaving the API behind it open to anyone who calls it directly.
+      - Checking that a user is logged in without checking that the record they ask for is one they may see, which gives insecure direct object references.
+      - Failing open, so everyone is let in when the policy engine, directory or permission lookup times out.
+    da:
+      - At skjule et menupunkt eller en knap i brugerfladen, men lade API'et bag den stå åbent for alle, der kalder det direkte.
+      - At tjekke, at brugeren er logget ind, uden at tjekke, at den post, der bedes om, er en, brugeren må se, hvilket giver insecure direct object references.
+      - At fejle åbent, så alle bliver lukket ind, når policy engine, katalog eller rettighedsopslag ikke svarer.
+  guides:
+    - title: Authorization Cheat Sheet
+      url: https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
+    - title: A01 Broken Access Control - OWASP Top 10:2025
+      url: https://top10.owasp.org/2025/A01_2025-Broken_Access_Control
+      publisher: OWASP
+      tier: reference
+    - title: NIST SP 800-162 - Guide to Attribute Based Access Control (ABAC) Definition and Considerations
+      url: https://csrc.nist.gov/pubs/sp/800/162/upd2/final
+      publisher: NIST
+      tier: standard
+    - title: Rettighedsstyring
+      url: https://www.datatilsynet.dk/regler-og-vejledning/behandlingssikkerhed/rettighedsstyring
+      publisher: Datatilsynet
+      tier: official-doc
+      lang: da
 edges:
   kind-of: [control]
   requires: [authentication]
