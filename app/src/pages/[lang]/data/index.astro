@@ -1,6 +1,7 @@
 ---
 /** Data & downloads (A69): every export, its format, and the content licence (A66). */
 import Base from '../../../layouts/Base.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
 import { LANGS, REPO, url, type Lang } from '../../../lib/site';
 import { UI_EXTRA } from '../../../lib/ui-extra';
 
@@ -56,7 +57,7 @@ const rows = [
       ))}
     </tbody>
   </table>
-  <h2 class="mb-2 text-xs tracking-widest text-subtle uppercase">{x.dataLicence}</h2>
+  <SectionHeading class="mb-2">{x.dataLicence}</SectionHeading>
   <p class="mb-3 text-fg-soft">{x.dataLicenceText}</p>
   <p class="text-fg-soft">
     <a
