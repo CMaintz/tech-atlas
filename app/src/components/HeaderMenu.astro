@@ -1,0 +1,37 @@
+---
+/**
+ * A header drop-down (A92): a button (slot "button") that opens a role="menu" list
+ * (default slot: the <li role="none"> items). Wired up by lib/chrome/dropdowns.ts.
+ */
+import { MENU_CLASS } from '../lib/chrome/menu-style';
+
+interface Props {
+  buttonId: string;
+  buttonClass: string;
+  /** The button's accessible name; defaults to `label`. */
+  buttonLabel?: string;
+  menuId: string;
+  /** The menu's name, also the button's tooltip. */
+  label: string;
+}
+const { buttonId, buttonClass, buttonLabel, menuId, label } = Astro.props;
+---
+
+<div class="relative" data-dropdown>
+  <button
+    type="button"
+    id={buttonId}
+    class={buttonClass}
+    aria-haspopup="menu"
+    aria-expanded="false"
+    aria-controls={menuId}
+    aria-label={buttonLabel ?? label}
+    title={label}
+    data-dropdown-button
+  >
+    <slot name="button" />
+  </button>
+  <ul id={menuId} role="menu" aria-label={label} hidden class={MENU_CLASS}>
+    <slot />
+  </ul>
+</div>

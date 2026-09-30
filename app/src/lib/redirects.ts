@@ -32,24 +32,27 @@ export const slugify = (s: string) =>
  */
 export function shortNames(terms: RedirectTerm[]): Map<string, string> {
   const ids = terms.map((t) => t.id);
-  const collisions = collisionsOf(ids);
-  const reserved = new Set([...ids.map((id) => id.split('/')[0]), ...collisions.keys()]);
+  const reserved = new Set([...ids.map((id) => id.split('/')[0]), ...collisionsOf(ids).keys()]);
   const out = new Map<string, string>();
   for (const id of ids) {
     const name = bareName(id);
     if (!reserved.has(name)) out.set(name, id);
   }
-  const named = new Map<string, Set<string>>();
-  for (const t of terms) {
-    for (const n of [t.term.en, t.term.da, ...t.aka.en, ...t.aka.da]) {
-      const slug = slugify(n);
-      if (!slug) continue;
-      named.set(slug, (named.get(slug) ?? new Set()).add(t.id));
-    }
-  }
-  for (const [slug, targets] of [...named.entries()].sort(([a], [b]) => a.localeCompare(b))) {
+  for (const [slug, targets] of [...slugTargets(terms)].sort(([a], [b]) => a.localeCompare(b))) {
     if (out.has(slug) || reserved.has(slug) || targets.size !== 1) continue;
     out.set(slug, [...targets][0]);
   }
   return out;
+}
+
+/** Every display-name and alias slug → the Terms it names (usually one). */
+function slugTargets(terms: RedirectTerm[]): Map<string, Set<string>> {
+  const named = new Map<string, Set<string>>();
+  for (const t of terms) {
+    for (const n of [t.term.en, t.term.da, ...t.aka.en, ...t.aka.da]) {
+      const slug = slugify(n);
+      if (slug) named.set(slug, (named.get(slug) ?? new Set()).add(t.id));
+    }
+  }
+  return named;
 }

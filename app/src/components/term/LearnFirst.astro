@@ -1,0 +1,42 @@
+---
+/** What to learn first: the prerequisite path that ends at this term. */
+import { UI, termUrl, type Lang } from '../../lib/site';
+import { prerequisitesOf, type Graph } from '../../lib/graph-model';
+import type { TermEntry } from '../../lib/terms';
+
+interface Props {
+  lang: Lang;
+  term: TermEntry;
+  graph: Graph;
+}
+
+const { lang, term, graph } = Astro.props;
+const ui = UI[lang];
+const path = prerequisitesOf(graph, term.id);
+---
+
+{path.length > 0 && (
+  <section class="mt-10" id="learn-first">
+    <h2 class="mb-1 text-xs tracking-widest text-subtle uppercase">{ui.learnFirst}</h2>
+    <p class="mb-2 text-sm text-subtle">{ui.learnFirstIntro}</p>
+    <ol class="flex flex-wrap items-center gap-1 text-sm">
+      {path.map((n, i) => (
+        <li class="flex items-center gap-1">
+          {i > 0 && <span class="text-subtle">→</span>}
+          <a
+            class="inline-flex min-h-11 items-center rounded border border-border px-2 py-1 text-fg-soft hover:border-border-hover sm:min-h-0"
+            href={termUrl(lang, n.id)}
+          >
+            {n.term[lang]}
+          </a>
+        </li>
+      ))}
+      <li class="flex items-center gap-1">
+        <span class="text-subtle">→</span>
+        <span class="rounded border border-border-hover px-2 py-1 text-fg">
+          {term.data.term[lang]}
+        </span>
+      </li>
+    </ol>
+  </section>
+)}

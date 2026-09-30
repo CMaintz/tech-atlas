@@ -1,0 +1,51 @@
+---
+/**
+ * Every relationship of the term, grouped by type in reading order. A contrast links to
+ * the comparison page; a primary relation is drawn stronger.
+ */
+import { UI, termUrl, url, type Lang } from '../../lib/site';
+import { EDGE_LABELS, pairSlug, type Relation, type TermEntry } from '../../lib/terms';
+import { relationsByType } from '../../lib/term-page';
+
+interface Props {
+  lang: Lang;
+  term: TermEntry;
+  relations: Relation[];
+}
+
+const { lang, term, relations } = Astro.props;
+const groups = relationsByType(relations);
+const hrefOf = (type: string, r: Relation) =>
+  type === 'contrasts-with'
+    ? url(`${lang}/compare/${pairSlug(term, r.target)}/`)
+    : termUrl(lang, r.target.id);
+---
+
+{groups.length > 0 && (
+  <section class="mt-10" id="relationships">
+    <h2 class="mb-3 text-xs tracking-widest text-subtle uppercase">{UI[lang].relationships}</h2>
+    <dl class="space-y-3">
+      {groups.map((g) => (
+        <div>
+          <dt class="text-sm text-muted">{EDGE_LABELS[g.type]?.[lang] ?? g.type}</dt>
+          <dd class="mt-1 flex flex-wrap gap-2">
+            {g.items.map((r) => (
+              <a
+                href={hrefOf(g.type, r)}
+                title={r.why?.[lang]}
+                class:list={[
+                  'inline-flex min-h-11 items-center rounded border px-2 py-1 text-sm hover:border-border-hover sm:min-h-0',
+                  r.strength === 'primary'
+                    ? 'border-border-hover text-fg'
+                    : 'border-border text-fg-soft',
+                ]}
+              >
+                {r.target.data.term[lang]}
+              </a>
+            ))}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+)}

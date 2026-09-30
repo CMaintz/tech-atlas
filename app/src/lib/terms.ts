@@ -36,40 +36,52 @@ export function makeResolver(all: TermEntry[]) {
 const edgesOf = (t: TermEntry) =>
   Object.entries(t.data.edges ?? {}) as [EdgeType, RawEdge[] | undefined][];
 
+type Resolver = ReturnType<typeof makeResolver>;
+
+/** The ref an edge points at: a bare string is its own target. */
+const refOf = (e: RawEdge) => (typeof e === 'string' ? e : e.to);
+
+/** An edge's reason and strength; a bare-string edge has neither. */
+const metaOf = (e: RawEdge) =>
+  typeof e === 'string'
+    ? { why: undefined, strength: undefined }
+    : { why: e.why, strength: e.strength };
+
 /** Authored edges plus every generated inverse, for one term. */
 export function relationsOf(term: TermEntry, all: TermEntry[]): Relation[] {
   const resolve = makeResolver(all);
+  return [...authoredRelations(term, resolve), ...inverseRelations(term, all, resolve)];
+}
+
+function authoredRelations(term: TermEntry, resolve: Resolver): Relation[] {
   const rels: Relation[] = [];
   for (const [type, list] of edgesOf(term)) {
     for (const e of list ?? []) {
-      const target = resolve(typeof e === 'string' ? e : e.to, term);
-      if (!target) continue;
-      rels.push({
-        type,
-        generated: false,
-        target,
-        why: typeof e === 'string' ? undefined : e.why,
-        strength: typeof e === 'string' ? undefined : e.strength,
-      });
+      const target = resolve(refOf(e), term);
+      if (target) rels.push({ type, generated: false, target, ...metaOf(e) });
     }
   }
+  return rels;
+}
+
+/** Every other term's edge that points at `term`, turned round to read from it. */
+function inverseRelations(term: TermEntry, all: TermEntry[], resolve: Resolver): Relation[] {
+  const rels: Relation[] = [];
   for (const other of all) {
     if (other.id === term.id) continue;
     for (const [type, list] of edgesOf(other)) {
       for (const e of list ?? []) {
-        if (resolve(typeof e === 'string' ? e : e.to, other)?.id !== term.id) continue;
-        const meta = EDGE_TYPES[type];
-        rels.push({
-          type: meta.symmetric ? type : meta.inverse,
-          generated: true,
-          target: other,
-          why: typeof e === 'string' ? undefined : e.why,
-          strength: typeof e === 'string' ? undefined : e.strength,
-        });
+        if (resolve(refOf(e), other)?.id === term.id) rels.push(inverseOf(type, e, other));
       }
     }
   }
   return rels;
+}
+
+/** `other`'s edge of `type`, read from its target: a symmetric type reads the same both ways. */
+function inverseOf(type: EdgeType, e: RawEdge, other: TermEntry): Relation {
+  const { symmetric, inverse } = EDGE_TYPES[type];
+  return { type: symmetric ? type : inverse, generated: true, target: other, ...metaOf(e) };
 }
 
 export type ContrastPair = { a: TermEntry; b: TermEntry; why?: Localized };
@@ -81,12 +93,12 @@ export function contrastPairs(all: TermEntry[]): ContrastPair[] {
   const pairs: ContrastPair[] = [];
   for (const t of all) {
     for (const e of (t.data.edges?.['contrasts-with'] ?? []) as RawEdge[]) {
-      const other = resolve(typeof e === 'string' ? e : e.to, t);
+      const other = resolve(refOf(e), t);
       if (!other || other.id === t.id) continue;
       const key = [t.id, other.id].sort().join('|');
       if (seen.has(key)) continue;
       seen.add(key);
-      pairs.push({ a: t, b: other, why: typeof e === 'string' ? undefined : e.why });
+      pairs.push({ a: t, b: other, why: metaOf(e).why });
     }
   }
   return pairs;

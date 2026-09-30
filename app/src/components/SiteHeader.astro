@@ -1,0 +1,54 @@
+---
+/**
+ * The site header: the wordmark, the nav (a drop-down panel on phones), and the theme
+ * and language menus. Behaviour: lib/chrome/mobile-menu.ts and dropdowns.ts.
+ */
+import LangMenu from './LangMenu.astro';
+import SiteNav from './SiteNav.astro';
+import ThemeMenu from './ThemeMenu.astro';
+import { UI, url, type Lang } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const ui = UI[lang];
+---
+
+<header
+  class="group relative flex items-center justify-between gap-4 border-b border-border px-4 py-2 sm:px-6 md:py-4 print:hidden"
+  data-site-header
+>
+  <div class="flex items-center gap-2">
+    <a
+      href={url(`${lang}/`)}
+      class="inline-flex min-h-11 items-center font-mono text-lg tracking-tight md:min-h-0"
+    >
+      atlas
+    </a>
+    {/* Phones: a badge here, as the corner ribbon would cover content and controls. */}
+    <span
+      aria-hidden="true"
+      class="rounded bg-amber-400/90 px-1.5 py-0.5 text-[10px] leading-none font-bold tracking-widest text-on-accent md:hidden"
+    >
+      BETA
+    </span>
+  </div>
+  <div class="flex items-center gap-1 text-sm text-muted md:gap-4">
+    <SiteNav lang={lang} />
+    <ThemeMenu lang={lang} />
+    <LangMenu lang={lang} />
+    <button
+      type="button"
+      class="-mr-2 flex h-11 w-11 items-center justify-center rounded text-fg-soft hover:text-fg md:hidden"
+      aria-controls="site-nav"
+      aria-expanded="false"
+      aria-label={ui.menu}
+      data-menu-toggle
+    >
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2"></path>
+      </svg>
+    </button>
+  </div>
+</header>

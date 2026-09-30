@@ -6,7 +6,7 @@
  */
 import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
-import { CLUSTER_LABELS, LANGS, termUrl, type Lang } from '../../../lib/site';
+import { LANGS, clusterLabel, termUrl, type Lang } from '../../../lib/site';
 import { UI_EXTRA } from '../../../lib/ui-extra';
 
 export function getStaticPaths() {
@@ -54,10 +54,7 @@ const anchor = (l: string) => `letter-${l === '#' ? 'other' : encodeURIComponent
             <a class="text-fg hover:underline" href={termUrl(lang, t.id)}>
               {t.data.term[lang]}
             </a>
-            <span class="text-xs text-subtle">
-              {' '}
-              · {CLUSTER_LABELS[t.data.cluster]?.[lang] ?? t.data.cluster}
-            </span>
+            <span class="text-xs text-subtle"> · {clusterLabel(t.data.cluster, lang)}</span>
             <span class="text-subtle"> - {t.data.summary[lang]}</span>
           </li>
         ))}

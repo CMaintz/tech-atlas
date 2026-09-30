@@ -47,11 +47,20 @@ export function actionableReason(t: ActionableInput): string | null {
   if (t.actionable !== undefined) return t.actionable ? 'explicit' : null;
   if (t.howTo) return 'has howTo';
   if (t.status === 'legacy') return null; // a repealed law or retired practice
+  return edgeReason(t) ?? placeReason(t) ?? mitigatesReason(t);
+}
+
+/** A `mandates` edge, or `kind-of` one of the actionable parents. */
+function edgeReason(t: ActionableInput): string | null {
   if (refs(t, 'mandates').length) return 'mandates';
   const parent = refs(t, 'kind-of').find((p) =>
     (ACTIONABLE_PARENTS as readonly string[]).includes(p),
   );
-  if (parent) return `kind-of ${parent}`;
+  return parent ? `kind-of ${parent}` : null;
+}
+
+/** Where the term sits: its domain folder, cluster and layer. */
+function placeReason(t: ActionableInput): string | null {
   const folder = t.id.split('/')[0];
   if (folder === 'security' && t.cluster === 'controls') return 'controls cluster';
   if (
@@ -62,11 +71,16 @@ export function actionableReason(t: ActionableInput): string | null {
     return 'incident-response plan or exercise';
   if (folder === 'platform' && (t.layer === 'delivery' || t.layer === 'process'))
     return 'platform practice';
-  if (refs(t, 'mitigates').length) {
-    if (folder !== 'ai' || (AI_PRACTICE_CLUSTERS as readonly string[]).includes(t.cluster))
-      return 'mitigates';
-  }
   return null;
+}
+
+/** A `mitigates` edge; in AI only for the practice clusters. */
+function mitigatesReason(t: ActionableInput): string | null {
+  if (!refs(t, 'mitigates').length) return null;
+  const ai = t.id.split('/')[0] === 'ai';
+  return !ai || (AI_PRACTICE_CLUSTERS as readonly string[]).includes(t.cluster)
+    ? 'mitigates'
+    : null;
 }
 
 export const isActionable = (t: ActionableInput) => actionableReason(t) !== null;
@@ -83,6 +97,10 @@ export type HowToShape = {
  * E10): blank items and a guide listed twice.
  */
 export function howToIssues(h: HowToShape): string[] {
+  return [...blankItems(h), ...repeatedGuides(h)];
+}
+
+function blankItems(h: HowToShape): string[] {
   const out: string[] = [];
   for (const [name, list] of [
     ['steps', h.steps],
@@ -94,6 +112,11 @@ export function howToIssues(h: HowToShape): string[] {
       });
     }
   }
+  return out;
+}
+
+function repeatedGuides(h: HowToShape): string[] {
+  const out: string[] = [];
   const seen = new Set<string>();
   for (const g of h.guides) {
     const key = g.url.replace(/\/+$/, '').toLowerCase();
