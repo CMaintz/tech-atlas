@@ -36,13 +36,14 @@ type Measure = ReturnType<typeof createMeasure>;
 
 /** Boxes of the island names written above their islands (labels give way to them). */
 const nameBoxes = (cy: cytoscape.Core, m: Measure) =>
-  cy
-    .nodes('.tag')
-    .not('.gone')
-    .filter((t) => t.data('valign') === 'top')
-    .map((t) =>
-      labelAbove(t.position(), m.textWidth(t.data('label'), t.data('font'), '600'), t.data('font')),
-    );
+  (
+    cy
+      .nodes('.tag')
+      .not('.gone')
+      .filter((t) => t.data('valign') === 'top') as cytoscape.NodeCollection
+  ).map((t) =>
+    labelAbove(t.position(), m.textWidth(t.data('label'), t.data('font'), '600'), t.data('font')),
+  );
 
 /** Zoomed out, a lit term's label keeps a constant size on screen. */
 function syncHoverFont(terms: cytoscape.NodeCollection, zoom: number) {
@@ -50,16 +51,20 @@ function syncHoverFont(terms: cytoscape.NodeCollection, zoom: number) {
   if (terms.first().data('hoverFont') !== hoverFont) terms.data('hoverFont', hoverFont);
 }
 
+/** Bigger terms first; ties in id order, so the cull is stable. */
+const bySizeThenId = (a: cytoscape.NodeSingular, b: cytoscape.NodeSingular) =>
+  b.data('size') - a.data('size') || (a.id() < b.id() ? -1 : 1);
+
 /** Hide the labels that are too small or would overlap (bigger terms win). */
 function cull(p: MapParts, m: Measure) {
   const zoom = p.cy.zoom();
   const far = zoom < FAR_ZOOM;
   if (far) syncHoverFont(p.terms, zoom);
   const fontOf = (n: cytoscape.NodeSingular): number => (far ? n.data('farFont') : n.data('font'));
-  const shown = p.terms.not('.gone');
+  const shown = p.terms.not('.gone') as cytoscape.NodeCollection;
   const candidates = shown
     .filter((n) => fontOf(n) > 0 && fontOf(n) * zoom >= MIN_LABEL_PX)
-    .sort((a, b) => b.data('size') - a.data('size') || (a.id() < b.id() ? -1 : 1));
+    .sort(bySizeThenId) as cytoscape.NodeCollection;
   const below = (n: cytoscape.NodeSingular) =>
     labelBelow(n.position(), n.data('size'), m.labelWidth(n, fontOf(n)), fontOf(n));
   const hidden = cullLabels(
