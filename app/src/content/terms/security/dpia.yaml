@@ -42,6 +42,47 @@ deepDive:
     Art. 35, stk. 7, fastsætter mindsteindholdet: en systematisk beskrivelse af behandlingen og formålene, herunder en eventuel legitim interesse; en vurdering af, om behandlingen er nødvendig og proportional i forhold til formålene; en vurdering af risiciene for de registrerede; og de planlagte foranstaltninger mod risiciene, herunder garantier og sikkerhedsforanstaltninger. Den dataansvarlige skal søge råd hos databeskyttelsesrådgiveren, hvor en sådan er udpeget (art. 35, stk. 2), og om nødvendigt indhente de registreredes eller deres repræsentanters synspunkter (art. 35, stk. 9). Én konsekvensanalyse kan dække flere ensartede behandlinger, og den skal tages op igen, når risikoen ændrer sig (art. 35, stk. 11).
 
     Er restrisikoen stadig høj efter afhjælpning, kræver art. 36 forudgående høring af tilsynsmyndigheden, før behandlingen påbegyndes; myndigheden har otte uger til at give skriftlig rådgivning, som kan forlænges med seks uger i komplekse sager, og kan bruge sine beføjelser efter art. 58, herunder forbud. Den afgørende forskel fra en risikovurdering efter ISO 27005 eller NIS2 er, hvem skaden rammer: en konsekvensanalyse vurderer risikoen for de registrerede (diskrimination, tab af fortrolighed, nedkølende effekt, økonomisk tab), ikke for organisationens aktiver. Typiske fejl er at lave analysen, efter at indkøbet har låst designet, at behandle den som et engangsdokument frem for en levende vurdering og at kopiere generiske sikkerhedskontroller uden at koble dem til konkrete, identificerede risici.
+howTo:
+  steps:
+    en:
+      - Screen every new or changed processing early in the project against Art. 35(3), Datatilsynet's list of processing that always needs a DPIA and the nine WP248 criteria, and record the conclusion even when no DPIA is needed.
+      - Name an owner on the controller side, seek the advice of the DPO (Art. 35(2)) and involve IT security and any processor, who must assist.
+      - Describe the processing systematically, covering data, people, purposes, systems, recipients and retention, for example in Datatilsynet's template.
+      - Assess necessity and proportionality, including the legal basis, data minimisation, retention periods and how people are informed and can use their rights.
+      - Identify the risks to the data subjects, not to the organisation, such as discrimination, loss of confidentiality or financial loss, and rate each by likelihood and severity.
+      - Choose measures that reduce each risk and link them to it, and seek the views of the data subjects or their representatives where appropriate (Art. 35(9)).
+      - If a high residual risk remains, consult Datatilsynet before the processing starts (Art. 36); the authority has eight weeks to give written advice, extendable by six.
+      - Have the DPIA approved, keep it with the record of processing and review it whenever the processing or the risk changes (Art. 35(11)).
+    da:
+      - Screen alle nye eller ændrede behandlinger tidligt i projektet mod art. 35, stk. 3, Datatilsynets liste over behandlinger, der altid kræver en konsekvensanalyse, og de ni kriterier i WP248, og notér konklusionen, også når der ikke skal laves en analyse.
+      - Udpeg en ansvarlig hos den dataansvarlige, søg råd hos databeskyttelsesrådgiveren (art. 35, stk. 2), og inddrag IT-sikkerhed og en eventuel databehandler, som har pligt til at bistå.
+      - Beskriv behandlingen systematisk med oplysninger, registrerede, formål, systemer, modtagere og slettefrister, fx i Datatilsynets skabelon.
+      - Vurdér nødvendighed og proportionalitet, herunder behandlingsgrundlag, dataminimering, opbevaringsperioder og hvordan de registrerede oplyses og kan udøve deres rettigheder.
+      - Identificér risiciene for de registrerede, ikke for organisationen, fx diskrimination, tab af fortrolighed eller økonomisk tab, og vurdér hver enkelt efter sandsynlighed og konsekvens.
+      - Vælg foranstaltninger, der nedbringer hver risiko, og kobl dem til den, og indhent de registreredes eller deres repræsentanters synspunkter, hvor det er relevant (art. 35, stk. 9).
+      - Er restrisikoen stadig høj, skal Datatilsynet høres, før behandlingen går i gang (art. 36); tilsynet har otte uger til at give skriftlig rådgivning, som kan forlænges med seks.
+      - Få konsekvensanalysen godkendt, opbevar den sammen med fortegnelsen, og tag den op igen, når behandlingen eller risikoen ændrer sig (art. 35, stk. 11).
+  pitfalls:
+    en:
+      - Doing the DPIA after procurement has already locked the design, when the findings can no longer change anything.
+      - Assessing risks to the organisation's assets instead of risks to the people whose data is processed.
+      - Copying generic security controls into the DPIA without linking them to specific identified risks.
+      - Treating the DPIA as a one-off document rather than a living assessment that follows the system.
+    da:
+      - At lave konsekvensanalysen, efter at indkøbet har låst designet, så resultaterne ikke længere kan ændre noget.
+      - At vurdere risici for organisationens aktiver i stedet for risici for de personer, hvis oplysninger behandles.
+      - At kopiere generiske sikkerhedskontroller ind i analysen uden at koble dem til konkrete, identificerede risici.
+      - At behandle konsekvensanalysen som et engangsdokument frem for en levende vurdering, der følger systemet.
+  guides:
+    - title: Konsekvensanalyse
+      url: https://www.datatilsynet.dk/regler-og-vejledning/behandlingssikkerhed/konsekvensanalyse
+      publisher: Datatilsynet
+      tier: official-doc
+      lang: da
+    - title: Guidelines on Data Protection Impact Assessment (DPIA) (wp248rev.01)
+      url: https://ec.europa.eu/newsroom/article29/items/611236
+      publisher: Article 29 Working Party (endorsed by the EDPB)
+      tier: official-doc
 edges:
   kind-of: [risk-assessment]
   requires: [personal-data, gdpr]

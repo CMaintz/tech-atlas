@@ -42,6 +42,59 @@ deepDive:
     Fordi ISO 27001 bruger den harmoniserede struktur, som også ISO 9001, ISO 22301 og ISO/IEC 42001 bygger på, drives et ISMS ofte som én del af et integreret ledelsessystem med fælles dokumentstyring, et samlet internt auditprogram og én ledelsesevaluering. ISO/IEC 27701:2025 følger samme skelet som et selvstændigt ledelsessystem for privatlivsbeskyttelse og er ikke længere en udvidelse, der forudsætter 27001.
 
     Typiske fejl er et "papir-ISMS", hvor politikkerne findes, men risikoregistret ikke er rørt siden certificeringsaudit, et omfang, der er skåret til, så de vanskelige dele af forretningen falder udenfor, risikoejere, der er IT-medarbejdere frem for ledere med mandat til at acceptere risiko, og nøgletal, der tæller aktivitet (afholdte kurser) frem for effekt. Et ISMS adskiller sig også fra et kontrolkatalog som CIS Controls eller et resultatorienteret rammeværk som NIST CSF: de beskriver, hvad der skal opnås, mens ISMS'et er det styringsmaskineri, der afgør, hvad der gælder, hvem der ejer det, og om det virker. Akkrediteret certificering over en treårig cyklus med certificerings-, overvågnings- og gencertificeringsaudit efterprøver dette maskineri, ikke at organisationen er sikker.
+howTo:
+  steps:
+    en:
+      - Secure a top management decision to establish an ISMS, with an approved information security policy, a budget and a named coordinator.
+      - Map the context, interested parties and their requirements, and write a scope statement that says which units, locations, systems and suppliers are covered.
+      - Set up roles and responsibilities, including system owners and a security committee, and put the ISMS documents under version control.
+      - Run the risk assessment and treatment process, and produce the Statement of Applicability and a risk treatment plan approved by the risk owners.
+      - Implement the selected controls together with awareness training, and set measurable security objectives.
+      - Measure and monitor the controls, and run a risk-based internal audit programme that covers the whole ISMS over a planned cycle.
+      - Hold a management review at planned intervals that covers audit results, objectives, incidents and changes, and records decisions.
+      - Handle nonconformities through correction, root-cause analysis and corrective action, and feed the lessons into the next cycle.
+      - If certification is the goal, book an accredited certification body only after at least one full round of internal audit and management review.
+    da:
+      - Sikr en beslutning i topledelsen om at etablere et ISMS med en godkendt informationssikkerhedspolitik, et budget og en navngiven koordinator.
+      - Kortlæg kontekst, interessenter og deres krav, og skriv en omfangsbeskrivelse, der angiver, hvilke enheder, lokationer, systemer og leverandører der er med.
+      - Fastlæg roller og ansvar, herunder systemejere og et sikkerhedsudvalg, og få ISMS-dokumenterne under versionsstyring.
+      - Gennemfør risikovurdering og risikohåndtering, og udarbejd Statement of Applicability og en risikohåndteringsplan, som risikoejerne har godkendt.
+      - Implementér de valgte kontroller sammen med awareness-træning, og fastsæt målbare sikkerhedsmål.
+      - Mål og overvåg kontrollerne, og kør et risikobaseret internt auditprogram, der dækker hele ISMS'et over en planlagt cyklus.
+      - Hold ledelsens evaluering med planlagte mellemrum, hvor auditresultater, mål, hændelser og ændringer gennemgås, og beslutninger noteres.
+      - Håndtér afvigelser med korrektion, årsagsanalyse og korrigerende handlinger, og tag erfaringerne med ind i næste cyklus.
+      - Hvis målet er certificering, så book først et akkrediteret certificeringsorgan efter mindst én fuld runde med intern audit og ledelsens evaluering.
+  pitfalls:
+    en:
+      - A paper ISMS where the policies exist but the risk register has not changed since the certification audit.
+      - Drawing the scope narrowly to leave the difficult parts of the business outside.
+      - Making IT staff the risk owners instead of managers with authority to accept risk.
+      - Measuring activity, such as courses held, instead of whether the controls work.
+    da:
+      - Et papir-ISMS, hvor politikkerne findes, men risikoregistret ikke er ændret siden certificeringsaudit.
+      - At trække omfanget snævert for at holde de vanskelige dele af forretningen udenfor.
+      - At gøre IT-medarbejdere til risikoejere i stedet for ledere med mandat til at acceptere risiko.
+      - At måle aktivitet, fx afholdte kurser, i stedet for om kontrollerne virker.
+  guides:
+    - title: Vejledning i etablering og drift af et ledelsessystem for informationssikkerhed (ISMS) med udgangspunkt i ISO 27001
+      url: https://www.sikkerdigital.dk/Media/637653926782093355/Vejledning-i-etablering-og-drift-af-et-ledelsessytem-for-informationssikkerhed-(ISMS)-med-udgangspunkt-i-ISO-27001-aug2021.pdf
+      publisher: Digitaliseringsstyrelsen
+      tier: official-doc
+      lang: da
+    - title: Ledelsessystem for informationssikkerhed (ISMS)
+      url: https://www.sikkerdigital.dk/myndighed/iso-27001-implementering/forstaa-arbejdet-med-informationssikkerhed/ledelsessystem
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Evaluering og forbedring
+      url: https://www.sikkerdigital.dk/myndighed/iso-27001-implementering/evaluering-og-forbedring
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: NIS2 Technical Implementation Guidance
+      url: https://www.enisa.europa.eu/publications/nis2-technical-implementation-guidance
+      publisher: ENISA
+      tier: official-doc
 edges:
   requires: [risk-management, security-policy]
   used-with:

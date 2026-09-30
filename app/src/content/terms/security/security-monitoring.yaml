@@ -41,6 +41,54 @@ deepDive:
     Detektionsindholdet skrives som use cases, i stigende grad kortlagt til MITRE ATT&CK-teknikker, så huller i dækningen kan måles. David Biancos Pyramid of Pain (2013) forklarer, hvorfor adfærdsbaserede detektioner foretrækkes frem for indikatorer: hashværdier og IP-adresser er trivielle for angriberen at skifte, mens værktøjer og taktikker er dyre at ændre. Tuning er en løbende opgave; utunede regler giver alarmtræthed, hvor analytikerne vænner sig til at afvise alarmer og overser den rigtige. OT-miljøer kræver som regel passiv overvågning, fordi aktive forespørgsler kan forstyrre industrielle styringer.
 
     Effektiviteten udtrykkes i tid. Dwell time - fra første kompromittering til opdagelse - er faldet over det seneste årti, men måles stadig i dage til uger: Mandiants M-Trends 2026 angiver en global median på 14 dage, op fra 11 året før, og langt længere medianer for spionagesager. Mean time to detect og mean time to respond er de sædvanlige interne nøgletal. Overvågning har også juridiske grænser: overvågning af medarbejderes aktivitet indebærer behandling af personoplysninger, så den skal i Danmark og EU have et lovligt grundlag, være proportional og være oplyst over for medarbejderne, og opbevaringen af logs skal kunne begrundes. NIS2 art. 21, stk. 2, litra b om hændelseshåndtering og litra f om vurdering af foranstaltningernes effektivitet forudsætter begge overvågning, ligesom overholdelse af fristen på 24 timer for den tidlige varsling i art. 23 gør det.
+howTo:
+  steps:
+    en:
+      - Write a monitoring strategy approved by management that says what is monitored and why - attacks and misuse, but also whether controls still work, such as patch levels and configuration drift.
+      - Keep a coverage register of which assets and log types are collected, starting with internet-facing systems, identity, endpoints, email, cloud control planes and the central infrastructure, and mark the gaps.
+      - Synchronise the clocks on all systems with NTP, so events from different sources can be put in the right order.
+      - Before you monitor staff activity, document the lawful basis, check that it is proportionate, tell employees about it and set a retention period for the logs that you can justify.
+      - Decide who watches the data and at what hours - your own SOC, an MSSP or an on-call rota - and how a finding is handed on to incident response.
+      - In OT and industrial networks, use passive monitoring that listens to traffic without querying the controllers.
+      - Alert when a log source goes silent, and check the coverage register every quarter against new systems and suppliers.
+      - Measure how long it takes from an attack starting to someone noticing, and use incidents and exercises to find the blind spots that let it take longer.
+    da:
+      - Skriv en overvågningsstrategi, som ledelsen godkender, og som siger, hvad der overvåges og hvorfor - angreb og misbrug, men også om kontrollerne stadig virker, fx patchniveauer og ændringer i konfigurationen.
+      - Før et register over dækningen, der viser, hvilke aktiver og logtyper der indsamles, begyndende med internetvendte systemer, identitet, endpoints, mail, cloudens kontrolplan og den centrale infrastruktur, og markér hullerne.
+      - Synkronisér urene på alle systemer med NTP, så hændelser fra forskellige kilder kan sættes i den rigtige rækkefølge.
+      - Før I overvåger medarbejdernes aktivitet, så dokumentér det lovlige grundlag, tjek, at det er proportionalt, oplys medarbejderne om det, og fastsæt en opbevaringsperiode for loggene, som I kan begrunde.
+      - Beslut, hvem der holder øje med data og hvornår - jeres egen SOC, en MSSP eller en vagtordning - og hvordan et fund sendes videre til hændelseshåndteringen.
+      - Brug passiv overvågning i OT- og industrinetværk, der lytter på trafikken uden at spørge styringerne.
+      - Slå alarm, når en logkilde går tavs, og gennemgå registeret over dækningen hvert kvartal i lyset af nye systemer og leverandører.
+      - Mål, hvor lang tid der går, fra et angreb begynder, til nogen opdager det, og brug hændelser og øvelser til at finde de blinde vinkler, der får tiden til at vokse.
+  pitfalls:
+    en:
+      - Collecting logs from everything except the systems attackers actually use, such as cloud admin portals and identity services.
+      - Monitoring employees without a lawful basis or without telling them, which turns a security measure into a data protection breach.
+      - Not noticing that a key log source stopped sending data weeks ago.
+    da:
+      - At indsamle logs fra alt andet end de systemer, angriberne faktisk bruger, fx administrationsportaler i skyen og identitetstjenester.
+      - At overvåge medarbejdere uden et lovligt grundlag eller uden at fortælle dem det, så et sikkerhedstiltag bliver til et brud på databeskyttelsen.
+      - Ikke at opdage, at en vigtig logkilde holdt op med at sende data for flere uger siden.
+  guides:
+    - title: NIST SP 800-137 - Information Security Continuous Monitoring (ISCM) for Federal Information Systems and Organizations
+      url: https://csrc.nist.gov/pubs/sp/800/137/final
+      publisher: NIST
+      tier: standard
+    - title: CIS Critical Security Control 13 - Network Monitoring and Defense
+      url: https://www.cisecurity.org/controls/network-monitoring-and-defense
+      publisher: Center for Internet Security
+      tier: standard
+    - title: Logning - en del af et godt cyberforsvar
+      url: https://samsik.dk/publikationer/vejledning-logning/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
+    - title: Beskyt dig mod destruktive cyberangreb
+      url: https://samsik.dk/cyb-publikationer/beskyt-dig-mod-destruktive-cyberangreb/
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   requires: [log]
   used-with:

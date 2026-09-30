@@ -42,6 +42,50 @@ deepDive:
     EDR har velkendte begrænsninger. Angribere deaktiverer eller blænder sensorer med "bring your own vulnerable driver" (BYOVD), hvor en legitimt signeret, men sårbar kernel-driver indlæses for at dræbe beskyttede processer, ved at fjerne hooks i user mode eller ved at operere fra aktiver uden sensor - hypervisorer, netværksudstyr, OT- og IoT-enheder og uadministrerede maskiner. Manipulationsbeskyttelse (tamper protection) og alarmer, når en sensor går tavs, er derfor afgørende. Tilstedeværelsen i kernen er også en tilgængelighedsrisiko: den 19. juli 2024 fik en fejlbehæftet indholdsopdatering til CrowdStrike Falcon omkring 8,5 millioner Windows-maskiner til at gå ned, hvilket fik Microsoft til at arbejde med leverandørerne om at flytte sikkerhedsfunktionalitet ud af kernen.
 
     Nabobegreber: XDR udvider samme detektions- og responsmodel til mail, identitet, cloud og netværk; MDR er en managed service, hvor en ekstern SOC driver EDR'en; en SIEM modtager EDR-alarmer til korrelation med andre logs, men erstatter ikke sensoren. EDR understøtter CIS Controls v8 Control 10 (Malware Defenses) og ISO/IEC 27002:2022 kontrol 8.7 (beskyttelse mod malware) og 8.16 (overvågningsaktiviteter). En EDR-udrulning er aldrig bedre end dens dækning og triage: de tal, der tæller, er andelen af endpoints med en sund sensor og tiden fra alarm til isolering.
+howTo:
+  steps:
+    en:
+      - Start from the asset inventory, count endpoints and servers per operating system, and list the devices that cannot run a sensor, such as network appliances, hypervisors and OT equipment, so they get other monitoring.
+      - Decide who watches and acts on EDR alerts around the clock - your own SOC or an MDR provider - and which response actions, such as isolating a host, may be taken without asking first.
+      - Roll the sensor out in waves, starting with a pilot group and then servers and admin workstations, and check performance and conflicts with other security software before going wide.
+      - Turn on tamper protection, so users and attackers cannot stop or uninstall the sensor, and limit who can change EDR policies.
+      - Set the policies from audit mode to blocking once you have tuned the exclusions, keeping exclusions few and documented.
+      - Send EDR alerts and key telemetry to the SIEM, and keep the telemetry long enough for investigations and threat hunting.
+      - Alert when a sensor goes silent or unhealthy, and report every month the share of endpoints with a working sensor and the time from alert to containment.
+      - Rehearse the response actions - isolating a host, killing a process, collecting forensic data - and plan how you roll back a faulty sensor or content update.
+    da:
+      - Tag udgangspunkt i aktivfortegnelsen, tæl endpoints og servere pr. styresystem, og list de enheder, der ikke kan køre en sensor, fx netværksudstyr, hypervisorer og OT-udstyr, så de får anden overvågning.
+      - Beslut, hvem der holder øje med og reagerer på EDR-alarmer døgnet rundt - jeres egen SOC eller en MDR-leverandør - og hvilke responshandlinger, fx at isolere en maskine, der må udføres uden at spørge først.
+      - Rul sensoren ud i bølger, begyndende med en pilotgruppe og derefter servere og administratorarbejdsstationer, og tjek ydelse og konflikter med anden sikkerhedssoftware, før I går bredt ud.
+      - Slå manipulationsbeskyttelse (tamper protection) til, så brugere og angribere ikke kan stoppe eller afinstallere sensoren, og begræns, hvem der kan ændre EDR-politikkerne.
+      - Skift politikkerne fra overvågningstilstand til blokering, når undtagelserne er tunet, og hold undtagelserne få og dokumenterede.
+      - Send EDR-alarmer og vigtig telemetri til SIEM'en, og gem telemetrien længe nok til undersøgelser og threat hunting.
+      - Slå alarm, når en sensor går tavs eller er usund, og rapportér hver måned andelen af endpoints med en fungerende sensor og tiden fra alarm til isolering.
+      - Øv responshandlingerne - isolering af en maskine, stop af en proces, indsamling af forensiske data - og planlæg, hvordan I ruller en fejlbehæftet sensor- eller indholdsopdatering tilbage.
+  pitfalls:
+    en:
+      - Counting licences instead of healthy sensors, so machines without a working agent go unnoticed.
+      - Buying EDR without anyone to act on its alerts at night and at weekends, so an alarm can sit unread until the damage is done.
+      - Adding broad exclusions for folders or tools to stop false positives, which gives attackers a place to hide.
+      - Forgetting the devices without a sensor, which attackers use precisely because nobody is watching them.
+    da:
+      - At tælle licenser i stedet for sunde sensorer, så maskiner uden en fungerende agent går under radaren.
+      - At købe EDR uden nogen til at reagere på alarmerne om natten og i weekenden, så en alarm kan ligge ulæst, til skaden er sket.
+      - At lave brede undtagelser for mapper eller værktøjer for at slippe for falske positiver, hvilket giver angribere et sted at gemme sig.
+      - At glemme enhederne uden sensor, som angribere netop bruger, fordi ingen holder øje med dem.
+  guides:
+    - title: CIS Critical Security Control 10 - Malware Defenses
+      url: https://www.cisecurity.org/controls/malware-defenses
+      publisher: Center for Internet Security
+      tier: standard
+    - title: NIST SP 800-83 Rev. 1 - Guide to Malware Incident Prevention and Handling for Desktops and Laptops
+      url: https://csrc.nist.gov/pubs/sp/800/83/r1/final
+      publisher: NIST
+      tier: standard
+    - title: Get started with your Microsoft Defender for Endpoint deployment
+      url: https://learn.microsoft.com/en-us/defender-endpoint/mde-planning-guide
+      publisher: Microsoft
+      tier: official-doc
 edges:
   kind-of: [control]
   requires: [endpoint]

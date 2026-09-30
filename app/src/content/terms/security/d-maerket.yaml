@@ -42,6 +42,49 @@ deepDive:
     Processen har fem trin: en gratis selvevaluering online, der samtidig fungerer som gap-analyse, en anmodning om kontrol, når alle relevante krav kan besvares med ja og dokumenteres, et opstartsmøde og en dokumentgennemgang med D-mærkets egne auditorer, tildeling af mærket og en årlig fornyelse, hvor selvevaluering og kontrol gentages. Der betales først, når man anmoder om kontrol. Fordi mærket gælder i ét år og ikke i en treårig cyklus med opfølgende audits, fanges afdrift gennem den årlige fornyelse frem for kontrol midt i perioden.
 
     Begrænsningerne er vigtige, når mærket bruges som dokumentation over for kunder. Kontrollen er dokumentbaseret og afgrænset af selvevalueringen, så den siger mindre om den faktiske drift end en ISO 27001-audit på trin 2 eller en ISAE 3000/3402-erklæring, der dækker en periode. Mærket viser ikke i sig selv NIS2-overholdelse eller de "fornødne garantier" efter GDPR art. 28, selv om kriterie 3-5 overlapper betydeligt med tiltagene i NIS2 art. 21 og GDPR art. 32. For en lille virksomhed er det et struktureret og overkommeligt grundniveau; for en reguleret kunde er det ét input til leverandørvurderingen, ikke en erstatning for sikkerhedskrav i kontrakten.
+howTo:
+  steps:
+    en:
+      - Get management to decide to pursue the label and name an owner who can pull in IT, HR and the people who manage suppliers.
+      - Complete the free online self-evaluation, which places the company in one of four groups (I-IV) and shows which criteria and requirements apply.
+      - Use the answers as a gap analysis; criteria 1-5 (management, awareness, technical IT security, supplier requirements, transparency and control over data) apply to everyone, criteria 6-8 depending on your activities and group.
+      - Close the gaps and collect documentation for every requirement, such as policies, backup test records, supplier agreements and privacy information.
+      - When every question can be answered yes with documentation, request control in the tool, sign the declaration and pay the invoice.
+      - Take part in the start-up meeting with D-mærket's auditors, upload the documentation and answer their questions until it is approved and the label and report are issued.
+      - Act on the observations in the report and repeat the self-evaluation and control every year before the label expires.
+    da:
+      - Få ledelsen til at beslutte, at virksomheden skal have mærket, og udpeg en ansvarlig, der kan trække på IT, HR og dem, der styrer leverandørerne.
+      - Gennemfør den gratis selvevaluering online, som placerer virksomheden i en af fire grupper (I-IV) og viser, hvilke kriterier og krav der gælder.
+      - Brug svarene som gap-analyse; kriterie 1-5 (ledelse, awareness, teknisk IT-sikkerhed, krav til leverandører samt transparens og kontrol med data) gælder alle, kriterie 6-8 afhænger af aktiviteter og gruppe.
+      - Luk hullerne, og saml dokumentation for hvert krav, fx politikker, dokumenterede backuptest, leverandøraftaler og information om behandling af data.
+      - Når alle spørgsmål kan besvares med ja og dokumenteres, anmoder I om kontrol i værktøjet, underskriver erklæringen og betaler fakturaen.
+      - Deltag i opstartsmødet med D-mærkets auditorer, upload dokumentationen, og besvar deres spørgsmål, indtil den er godkendt, og mærket og rapporten udstedes.
+      - Følg op på rapportens observationer, og gentag selvevaluering og kontrol hvert år, før mærket udløber.
+  pitfalls:
+    en:
+      - Presenting the label as proof of NIS2 compliance or of the sufficient guarantees GDPR Art. 28 demands, which it does not provide on its own.
+      - Producing documents for the control that do not match how the company actually works day to day.
+      - Letting the yearly renewal slip so the label expires.
+    da:
+      - At fremstille mærket som bevis for NIS2-overholdelse eller for de fornødne garantier efter GDPR art. 28, hvilket det ikke i sig selv er.
+      - At lave dokumenter til kontrollen, som ikke svarer til, hvordan virksomheden faktisk arbejder i hverdagen.
+      - At lade den årlige fornyelse glide, så mærket udløber.
+  guides:
+    - title: D-mærkets kriterier
+      url: https://www.d-maerket.dk/bliv-d-maerket/kriterier
+      publisher: D-mærket
+      tier: official-doc
+      lang: da
+    - title: Processen for at blive D-mærket
+      url: https://d-maerket.dk/da/bliv-d-maerket/proces
+      publisher: D-mærket
+      tier: official-doc
+      lang: da
+    - title: Virksomhedsgrupper
+      url: https://d-maerket.dk/da/bliv-d-maerket/virksomhedsgrupper
+      publisher: D-mærket
+      tier: official-doc
+      lang: da
 edges:
   requires: [compliance]
   used-with:

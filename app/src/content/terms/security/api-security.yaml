@@ -42,6 +42,59 @@ deepDive:
     Ressourcekontroller rammer API4 Unrestricted Resource Consumption og API6 Unrestricted Access to Sensitive Business Flows: rate limits pr. identitet frem for pr. IP-adresse, maksimal sidestørrelse, grænser for body-størrelse, timeouts og for GraphQL grænser for forespørgselsdybde og -omkostning samt slået introspection fra i produktion. API9 Improper Inventory Management er problemet med skygge- og zombie-API'er: gamle versioner som /v1, der stadig kan nås uden de rettelser, der er lavet i /v2. En OpenAPI-beskrivelse, der vedligeholdes i build-pipelinen, giver både et inventar og et skema, som en gateway kan håndhæve.
 
     En API-gateway eller WAF er god til grove kontroller (TLS-terminering, tokenvalidering, kvoter, skematjek), men den kan ikke vide, om bruger 17 ejer faktura 4711. Autorisation på objektniveau skal derfor ligge i selve tjenesten, helst i ét centralt politiklag, og den skal testes med to konti, fordi scannere med én identitet sjældent finder BOLA. NIST SP 800-228 beskriver de samme kontroller for cloud-native API'er mellem tjenester, hvor øst-vest-trafik mellem microservices kræver autentificering lige så meget som den offentlige kant.
+howTo:
+  steps:
+    en:
+      - Build an inventory of every API, version and environment from gateway logs and the code, and keep an OpenAPI description for each API in its repository.
+      - Require authentication on every endpoint by default, with OAuth 2.0 access tokens or mutual TLS, and validate the signature, issuer, audience and expiry of every token.
+      - Check authorisation for every object and every function inside the service, through one shared policy layer, so a caller can only read or change the records it owns.
+      - Return only the fields the client needs, and bind incoming bodies to explicit objects so callers cannot read or set fields such as ownerId or isAdmin.
+      - Set rate limits per identity, maximum page and body sizes and timeouts, and protect sensitive business flows such as sign-up or checkout against automated abuse.
+      - Validate requests against the OpenAPI schema at the gateway and in the service, and reject unknown content types, methods and properties.
+      - Test every release with two accounts in different roles to find broken object and function level authorisation, which scanners using one account rarely find.
+      - Log access decisions and anomalies to the SIEM, and retire old API versions on a published schedule instead of leaving them reachable.
+    da:
+      - Lav en oversigt over alle API'er, versioner og miljøer ud fra gateway-logs og koden, og hold en OpenAPI-beskrivelse for hvert API i dets repository.
+      - Kræv som udgangspunkt autentificering på alle endpoints med OAuth 2.0-access tokens eller gensidig TLS, og validér signatur, udsteder, modtager (audience) og udløb på hvert token.
+      - Tjek autorisation for hvert objekt og hver funktion inde i selve tjenesten via ét fælles politiklag, så en kalder kun kan læse eller ændre de poster, den selv ejer.
+      - Returnér kun de felter, klienten har brug for, og bind indkommende bodies til eksplicitte objekter, så kaldere ikke kan læse eller sætte felter som ownerId eller isAdmin.
+      - Sæt rate limits pr. identitet, grænser for side- og body-størrelse og timeouts, og beskyt følsomme forretningsflows som oprettelse og betaling mod automatiseret misbrug.
+      - Validér forespørgsler mod OpenAPI-skemaet både i gatewayen og i tjenesten, og afvis ukendte content types, metoder og felter.
+      - Test hver release med to konti i forskellige roller for at finde manglende autorisation på objekt- og funktionsniveau, som scannere med én konto sjældent finder.
+      - Log adgangsbeslutninger og afvigelser til SIEM'en, og luk gamle API-versioner efter en offentliggjort plan i stedet for at lade dem stå åbne.
+  pitfalls:
+    en:
+      - Trusting the API gateway or WAF to know who owns which record, although only the service itself can check that.
+      - Leaving old versions such as /v1 or test endpoints reachable after the new version is live.
+      - Treating an API key as proof of which user is calling, when it only identifies the client application.
+      - Accepting JWTs without checking the algorithm, audience and expiry.
+    da:
+      - At regne med, at API-gatewayen eller WAF'en ved, hvem der ejer hvilken post, selv om kun tjenesten selv kan tjekke det.
+      - At lade gamle versioner som /v1 eller test-endpoints stå åbne, efter at den nye version er i drift.
+      - At betragte en API-nøgle som bevis for, hvilken bruger der kalder, selv om den kun identificerer klientapplikationen.
+      - At acceptere JWT'er uden at tjekke algoritme, audience og udløb.
+  guides:
+    - title: OWASP Top 10 API Security Risks - 2023
+      url: https://api-security.owasp.org/editions/2023/en/0x11-t10
+      publisher: OWASP
+      tier: reference
+    - title: OWASP Cheat Sheet Series - REST Security
+      url: https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
+    - title: NIST SP 800-228 - Guidelines for API Protection for Cloud-Native Systems
+      url: https://csrc.nist.gov/pubs/sp/800/228/upd1/final
+      publisher: NIST
+      tier: standard
+    - title: Securing HTTP-based APIs
+      url: https://www.ncsc.gov.uk/collection/securing-http-based-apis
+      publisher: NCSC UK
+      tier: official-doc
+    - title: Retningslinjer for webservices
+      url: https://arkitektur.digst.dk/metoder/begrebs-og-datametoder/retningslinjer-webservices/retningslinjer-webservices
+      publisher: Digitaliseringsstyrelsen
+      tier: official-doc
+      lang: da
 edges:
   requires: [api, authentication, authorization]
   mitigates:

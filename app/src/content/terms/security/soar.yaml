@@ -41,6 +41,46 @@ deepDive:
     Det vigtigste designprincip er graduering af automatiseringen. Berigelse og deduplikering kan trygt automatiseres fuldt ud; reversibel inddæmning (karantæne af en fil, tvungen nulstilling af en adgangskode) kan ofte automatiseres ved detektioner med høj konfidens; forstyrrende eller irreversible handlinger (spærring af en direktørs konto, isolering af en produktionsserver, blokering af en cloududbyders IP-interval) bør kræve en menneskelig beslutning. Automatiserede handlinger oven på støjende detektioner skalerer falske positiver op til nedbrud, så kvaliteten af en playbook er begrænset af kvaliteten af detektionen.
 
     SOAR medfører sine egne risici. Platformen gemmer API-nøgler med brede rettigheder på tværs af hele sikkerhedsstakken og er derfor et mål af høj værdi, der kræver streng adgangskontrol, håndtering af hemmeligheder, ændringsstyring af playbooks og auditlogning af platformens egne handlinger. Playbooks forfalder i stilhed, når de tilkoblede API'er ændrer sig, så de skal testes som kode. SOAR adskiller sig fra en SIEM, der indsamler og korrelerer hændelser for at rejse alarmer, mens SOAR handler på de alarmer; kategorierne smelter sammen, efterhånden som SIEM- og XDR-platforme bygger automatisering ind, og AI-assistenter bruges i stigende grad til berigelse og opsummering i disse arbejdsgange, hvilket kræver de samme godkendelsestrin som enhver anden automatiseret handling.
+howTo:
+  steps:
+    en:
+      - Pick the handful of alert types that take the most analyst time and follow the same steps every time, such as reported phishing emails, and write those steps down as they are done by hand today.
+      - Sort each step by risk - enrichment and deduplication can run fully automatically, reversible containment such as quarantining a file can run on high-confidence detections, and disruptive actions such as isolating a server or disabling an executive's account need a human approval step.
+      - Connect the tools the playbook needs, such as SIEM, EDR, email, identity and ticketing, using service accounts with only the rights each action requires, and store their API keys in a secrets vault.
+      - Build the first playbook, run it in a mode that only suggests actions, and compare its verdicts with the analysts' before letting it act.
+      - Keep playbooks under version control with an owner, review changes before they go live, and test them again whenever a connected tool or API changes.
+      - Restrict who can edit playbooks and administer the platform, and send the platform's own audit log to the SIEM.
+      - Measure time saved, time to respond and wrong automatic actions every month, and only expand automation where the underlying detections are reliable.
+    da:
+      - Vælg de få alarmtyper, der tager mest analytikertid og altid følger de samme trin, fx indberettede phishing-mails, og skriv trinnene ned, som de udføres i hånden i dag.
+      - Sortér hvert trin efter risiko - berigelse og deduplikering kan køre helt automatisk, reversibel inddæmning som karantæne af en fil kan køre ved detektioner med høj konfidens, og forstyrrende handlinger som at isolere en server eller spærre en direktørs konto kræver et menneskeligt godkendelsestrin.
+      - Tilslut de værktøjer, playbooken skal bruge, fx SIEM, EDR, mail, identitet og ticketsystem, med servicekonti, der kun har de rettigheder, hver handling kræver, og gem deres API-nøgler i en secrets manager.
+      - Byg den første playbook, lad den køre i en tilstand, hvor den kun foreslår handlinger, og sammenlign dens vurderinger med analytikernes, før den får lov at handle.
+      - Hold playbooks under versionsstyring med en ejer, gennemgå ændringer, før de går i drift, og test dem igen, hver gang et tilkoblet værktøj eller API ændrer sig.
+      - Begræns, hvem der kan redigere playbooks og administrere platformen, og send platformens egen auditlog til SIEM'en.
+      - Mål sparet tid, tid til reaktion og forkerte automatiske handlinger hver måned, og udvid kun automatiseringen, hvor de underliggende detektioner er pålidelige.
+  pitfalls:
+    en:
+      - Automating actions on top of noisy detections, so false positives turn into outages.
+      - Giving the platform broad administrator rights across every tool, which makes it a prize target for attackers.
+      - Letting playbooks break silently when a connected API changes, so nobody notices that the automation stopped working.
+    da:
+      - At automatisere handlinger oven på støjende detektioner, så falske positiver bliver til nedbrud.
+      - At give platformen brede administratorrettigheder i alle værktøjer, hvilket gør den til et attraktivt mål for angribere.
+      - At lade playbooks gå i stykker i stilhed, når et tilkoblet API ændrer sig, så ingen opdager, at automatiseringen er holdt op med at virke.
+  guides:
+    - title: Guidance for SIEM and SOAR Implementation
+      url: https://www.cisa.gov/resources-tools/resources/guidance-siem-and-soar-implementation
+      publisher: CISA
+      tier: official-doc
+    - title: Automation in Microsoft Sentinel
+      url: https://learn.microsoft.com/en-us/azure/sentinel/automation/automation
+      publisher: Microsoft
+      tier: official-doc
+    - title: CACAO Security Playbooks Version 2.0
+      url: https://docs.oasis-open.org/cacao/security-playbooks/v2.0/security-playbooks-v2.0.html
+      publisher: OASIS
+      tier: standard
 edges:
   kind-of: [control]
   requires:

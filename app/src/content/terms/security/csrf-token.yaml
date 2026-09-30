@@ -41,6 +41,46 @@ deepDive:
     Hvor tokenet sendes, har betydning. Det må aldrig stå i en URL, da URL'er lækker via Referer-headers, logs og browserhistorik. Single page-applikationer læser det typisk fra en cookie eller et endpoint og sender det i en brugerdefineret header som X-CSRF-Token eller X-XSRF-TOKEN (den konvention, Angulars HttpClient bruger). Frameworks maskerer tokenet ved hver rendering, hvor det XOR'es med en ny tilfældig værdi, som Django og Rails gør, så værdien i et komprimeret HTTPS-svar ikke kan genskabes via en længdebaseret sidekanal af BREACH-typen.
 
     Et CSRF-token er ikke en autentificeringshemmelighed og beskytter ikke mod XSS: ethvert script, der kører i samme origin, kan læse det fra DOM'en. Det gør heller intet for forespørgsler, der autentificeres med et bearer token i Authorization-headeren, fordi browsere ikke sender den med automatisk, så API'er uden cookies har som regel ikke brug for et. At generere et nyt token, når brugeren logger ind, forhindrer, at et token hentet før autentificering genbruges på samme måde som ved session fixation.
+howTo:
+  steps:
+    en:
+      - List every request that changes state (POST, PUT, PATCH, DELETE), and make sure no GET request changes data.
+      - Turn on the framework's built-in CSRF protection, such as the anti-forgery tokens in ASP.NET Core, Django or Spring Security, instead of writing your own.
+      - Generate the token with a cryptographically secure random generator, tie it to the user's session and issue a new one when the user logs in.
+      - Put the token in a hidden form field or, in a single-page app, send it in a custom header such as X-CSRF-Token, and never put it in a URL.
+      - Check the token on the server for every state-changing request with a constant-time comparison, and reject the request when it is missing or wrong.
+      - If the application is stateless, use the signed double-submit cookie pattern with an HMAC bound to the session, and give the cookie the __Host- prefix.
+      - Add defence in depth with SameSite=Lax or Strict on session cookies and a check of the Fetch Metadata or Origin headers on unsafe requests.
+      - Test that a forged request from another origin is rejected, and keep that test in the automated suite so a new endpoint cannot skip the check.
+    da:
+      - Lav en liste over alle forespørgsler, der ændrer tilstand (POST, PUT, PATCH, DELETE), og sørg for, at ingen GET-forespørgsel ændrer data.
+      - Slå frameworkets indbyggede CSRF-beskyttelse til, fx anti-forgery tokens i ASP.NET Core, Django eller Spring Security, i stedet for at skrive jeres egen.
+      - Generér tokenet med en kryptografisk sikker tilfældighedsgenerator, knyt det til brugerens session, og udsted et nyt, når brugeren logger ind.
+      - Læg tokenet i et skjult formularfelt eller, i en single page-app, send det i en brugerdefineret header som X-CSRF-Token, og læg det aldrig i en URL.
+      - Tjek tokenet på serveren ved hver forespørgsel, der ændrer tilstand, med en sammenligning i konstant tid, og afvis forespørgslen, hvis det mangler eller er forkert.
+      - Er applikationen tilstandsløs, så brug den signerede double-submit-cookie med en HMAC bundet til sessionen, og giv cookien præfikset __Host-.
+      - Tilføj et ekstra forsvarslag med SameSite=Lax eller Strict på sessionscookies og et tjek af Fetch Metadata- eller Origin-headers på usikre forespørgsler.
+      - Test, at en forfalsket forespørgsel fra en anden origin bliver afvist, og hold testen i den automatiske testsuite, så et nyt endpoint ikke kan springe tjekket over.
+  pitfalls:
+    en:
+      - Exempting single endpoints, such as JSON or file-upload endpoints, from the CSRF check to make a client work.
+      - Using the naive double-submit cookie without a signature, which an attacker who controls a subdomain can defeat.
+      - Relying on SameSite cookies alone, although requests from sibling subdomains count as same-site and still get through.
+      - Believing the token helps against XSS, when any script running on the page can read it.
+    da:
+      - At undtage enkelte endpoints, fx JSON- eller upload-endpoints, fra CSRF-tjekket for at få en klient til at virke.
+      - At bruge den naive double-submit-cookie uden signatur, som en angriber med kontrol over et subdomæne kan omgå.
+      - At stole på SameSite-cookies alene, selv om forespørgsler fra søster-subdomæner tæller som same-site og stadig slipper igennem.
+      - At tro, at tokenet hjælper mod XSS, når ethvert script, der kører på siden, kan læse det.
+  guides:
+    - title: OWASP Cheat Sheet Series - Cross-Site Request Forgery Prevention
+      url: https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html
+      publisher: OWASP
+      tier: reference
+    - title: Prevent Cross-Site Request Forgery (XSRF/CSRF) attacks in ASP.NET Core
+      url: https://learn.microsoft.com/en-us/aspnet/core/security/anti-request-forgery
+      publisher: Microsoft
+      tier: official-doc
 edges:
   requires: [session, web-application]
   mitigates:

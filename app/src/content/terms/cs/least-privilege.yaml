@@ -42,6 +42,53 @@ deepDive:
     Mindste privilegium har tre dimensioner: omfang (hvilke handlinger på hvilke ressourcer), tid (faste rettigheder over for just-in-time-adgang, der udløber) og kontekst (kun fra en administreret enhed, kun til en godkendt ændring). På styresystemniveau betyder det, at en dæmon binder sin port og derefter opgiver root eller kun har Linux-capabilityen CAP_NET_BIND_SERVICE; seccomp-filtre og Windows UAC's opdelte token arbejder i samme ånd. I containere betyder det at køre som ikke-root, fjerne alle capabilities, bruge et skrivebeskyttet rodfilsystem og undlade privileged-flaget; i Kubernetes navnerumsafgrænsede Roles i stedet for ClusterRoles og intet automatisk monteret service-account-token, hvor der ikke er brug for det. I cloud-IAM betyder det ressourceafgrænsede politikker uden wildcards, permission boundaries og værktøjer, der genererer politikker ud fra faktisk aktivitet eller markerer ubrugte rettigheder.
 
     Det svære er vedligeholdelsen, ikke designet. Rettigheder, der hober sig op ved jobskift, "midlertidige" tildelinger, der aldrig udløber, rolleeksplosion, der skubber administratorer mod brede roller, og servicekonti, der gøres til domæneadministratorer "for at få det til at virke", er de typiske fejl. God praksis måler forskellen mellem tildelte og brugte rettigheder og beskærer løbende, mens der bevares auditerede nødadgange, så mindste privilegium ikke går ud over tilgængeligheden. Mindste privilegium er et princip; RBAC, PAM og just-in-time-eskalering er mekanismer, der implementerer det, og funktionsadskillelse er et beslægtet, men særskilt princip, der fordeler én følsom opgave på flere personer.
+howTo:
+  steps:
+    en:
+      - Have management approve a policy that every account, service and application gets only the rights its task needs, and only for as long as it needs them.
+      - List the privileged accounts and roles in the directory, cloud platforms, databases and business systems, and record who holds each one and why.
+      - Give administrators a separate admin account used only for admin work, and remove local admin rights from ordinary users' computers.
+      - Replace standing admin rights with just-in-time elevation, for example through a PAM or PIM tool, with MFA, a stated reason and a time limit on each activation.
+      - Give each service and application its own account limited to the resources it uses, and remove wildcard permissions and domain admin rights from service accounts.
+      - Compare granted and used permissions every quarter with reports from the cloud platform or identity governance tool, and remove rights that are not used.
+      - Set up audited break-glass accounts for emergencies, so least privilege does not lock the organisation out during an incident.
+      - Log all use of privileged functions, review the logs regularly, and re-certify privileged roles at a fixed interval, for example every six months.
+    da:
+      - Lad ledelsen godkende en politik om, at hver konto, tjeneste og applikation kun får de rettigheder, opgaven kræver, og kun så længe den kræver dem.
+      - Lav en oversigt over privilegerede konti og roller i kataloget, cloudplatforme, databaser og forretningssystemer, og notér, hvem der har hver enkelt og hvorfor.
+      - Giv administratorer en separat administratorkonto, der kun bruges til administrativt arbejde, og fjern lokale administratorrettigheder fra almindelige brugeres computere.
+      - Erstat faste administratorrettigheder med just-in-time-eskalering, fx via et PAM- eller PIM-værktøj, med MFA, en begrundelse og en tidsgrænse for hver aktivering.
+      - Giv hver tjeneste og applikation sin egen konto, der er begrænset til de ressourcer, den bruger, og fjern wildcard-rettigheder og domæneadministratorrettigheder fra servicekonti.
+      - Sammenlign tildelte og brugte rettigheder hvert kvartal med rapporter fra cloudplatformen eller IGA-værktøjet, og fjern rettigheder, der ikke bruges.
+      - Opret auditerede nødadgangskonti, så mindste privilegium ikke låser organisationen ude under en hændelse.
+      - Log al brug af privilegerede funktioner, gennemgå loggene jævnligt, og recertificér privilegerede roller med faste mellemrum, fx hvert halve år.
+  pitfalls:
+    en:
+      - Granting a broad role temporarily to make something work and never taking it back.
+      - Letting administrators read email and browse the web with the same account that holds domain or global admin rights.
+      - Running service accounts as domain administrators because nobody mapped what they actually need.
+    da:
+      - At tildele en bred rolle midlertidigt for at få noget til at virke og aldrig fjerne den igen.
+      - At lade administratorer læse mail og surfe på nettet med den samme konto, som har domæne- eller globale administratorrettigheder.
+      - At køre servicekonti som domæneadministratorer, fordi ingen har kortlagt, hvad de faktisk har brug for.
+  guides:
+    - title: Secure system administration
+      url: https://www.ncsc.gov.uk/collection/secure-system-administration
+      publisher: NCSC UK
+      tier: official-doc
+    - title: What is Privileged Identity Management? - Microsoft Entra ID Governance
+      url: https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-configure
+      publisher: Microsoft
+      tier: official-doc
+    - title: CIS Critical Security Control 6 - Access Control Management
+      url: https://www.cisecurity.org/controls/access-control-management
+      publisher: Center for Internet Security
+      tier: standard
+    - title: Cyberforsvar der virker
+      url: https://samsik.dk/publikation/cyberforsvar-der-virker/
+      publisher: Center for Cybersikkerhed (Styrelsen for Samfundssikkerhed)
+      tier: official-doc
+      lang: da
 edges:
   requires: [permission]
   part-of: [zero-trust]

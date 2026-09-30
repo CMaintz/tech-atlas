@@ -42,6 +42,49 @@ deepDive:
     Det svageste led er som regel ikke den primære andenfaktor, men reservevejen. Tjenester, der tilbyder sms som backup til en sikkerhedsnøgle, kontogendannelse via mail eller nulstilling hos servicedesken på baggrund af kontrolspørgsmål, reducerer den reelle styrke til den svageste aktiverede vej; angribere går efter netop de veje, fordi hovedfaktoren er stærk. Gendannelseskoder - en kort liste af engangshemmeligheder udstedt ved tilmelding - er en bedre reserve, hvis de opbevares offline.
 
     2FA beskytter heller ikke det, der sker efter login. Sessionscookies og refresh tokens opsnappet af adversary-in-the-middle-proxyer, malware der stjæler browsercookies, og ældre protokoller, der kun kræver adgangskode, omgår alle den anden faktor. Organisationer håndhæver derfor 2FA via central politik (betinget adgang i identitetsudbyderen) frem for frivilligt tilvalg pr. applikation, slår ældre autentificering fra og overvåger registrering af nye enheder, som er et typisk persistenstrin efter en kontoovertagelse. I Danmark leverer MitID (til borgere) og MitID Erhverv (til virksomheder og organisationer) det nationale multifaktorlogin, baseret på et bruger-ID og et identifikationsmiddel som MitID-appen, en kodeviser, en kodelæser eller en MitID-chip.
+howTo:
+  steps:
+    en:
+      - List the accounts that matter most, starting with email because it can reset other passwords, then banking, accounting, cloud storage, social media and the company's domain and website hosting.
+      - Turn on 2FA, sometimes called two-step verification, in the security settings of each of these services.
+      - Pick the strongest second factor each service offers, a passkey or security key first, then an authenticator app, and SMS only when nothing else is available.
+      - Save the recovery codes when you enrol, keep them offline or in a password manager, and register a backup factor such as a spare key or a second device.
+      - Give each employee their own account instead of shared logins, and where a shared account cannot be avoided, keep its second factor in a company-controlled password manager or device, not on one person's phone.
+      - Use MitID Erhverv when employees act on behalf of the company in public self-service, and have the administrator remove their access when they leave.
+      - Teach everyone to reject login prompts they did not start and never to read out a code to a caller, and to change the password at once if an unexpected prompt appears.
+      - Check at least once a year and whenever someone leaves that 2FA is still on for every important account and that recovery phone numbers and addresses are current.
+    da:
+      - Lav en liste over de vigtigste konti, først e-mail, fordi den kan nulstille andre adgangskoder, derefter netbank, regnskab, cloudlager, sociale medier og virksomhedens domæne og webhotel.
+      - Slå to-faktor login, også kaldet totrinsbekræftelse, til i sikkerhedsindstillingerne på hver af tjenesterne.
+      - Vælg den stærkeste anden faktor, tjenesten tilbyder, først en passkey eller sikkerhedsnøgle, derefter en autentifikator-app og kun sms, hvis intet andet findes.
+      - Gem gendannelseskoderne ved tilmelding, opbevar dem offline eller i en password manager, og registrér en reservefaktor som en ekstra nøgle eller en anden enhed.
+      - Giv hver medarbejder sin egen konto i stedet for fælles logins, og hvor en fælles konto ikke kan undgås, så læg dens anden faktor i en password manager eller på en enhed, virksomheden styrer, og ikke på én medarbejders telefon.
+      - Brug MitID Erhverv, når medarbejdere handler på virksomhedens vegne i offentlig selvbetjening, og lad administratoren fjerne deres adgang, når de stopper.
+      - Lær alle at afvise login-anmodninger, de ikke selv har startet, aldrig at læse en kode op for nogen, der ringer, og straks at skifte adgangskode, hvis en uventet anmodning dukker op.
+      - Tjek mindst én gang om året, og når nogen stopper, at to-faktor login stadig er slået til på alle vigtige konti, og at telefonnumre og adresser til gendannelse er opdaterede.
+  pitfalls:
+    en:
+      - Losing access when a phone is replaced, because the recovery codes were never saved.
+      - Leaving SMS or email recovery switched on as a fallback, which undoes a strong second factor.
+      - Approving a prompt or reading out a code to someone who calls claiming to be from the bank or IT support.
+    da:
+      - At miste adgangen, når telefonen udskiftes, fordi gendannelseskoderne aldrig blev gemt.
+      - At lade gendannelse via sms eller e-mail stå til som reserve, hvilket ophæver en stærk anden faktor.
+      - At godkende en anmodning eller læse en kode op for en, der ringer og udgiver sig for at være fra banken eller IT-supporten.
+  guides:
+    - title: Setting up 2-Step Verification (2SV)
+      url: https://www.ncsc.gov.uk/guidance/setting-2-step-verification-2sv
+      publisher: NCSC UK
+      tier: official-doc
+    - title: More than a Password
+      url: https://www.cisa.gov/MFA
+      publisher: CISA
+      tier: official-doc
+    - title: 'Guide: Aktiver to-trins-login på dine digitale tjenester'
+      url: https://www.sikkerdigital.dk/borger/tekniske-setup/guide-to-trins-login
+      publisher: Styrelsen for Samfundssikkerhed
+      tier: official-doc
+      lang: da
 edges:
   kind-of: [mfa]
   requires: [password, authentication-factor]

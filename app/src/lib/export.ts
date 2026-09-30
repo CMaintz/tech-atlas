@@ -40,6 +40,8 @@ export type ExportTerm = {
   body: TermData['body'];
   /** Optional long technical explanation, plain text, paragraphs split by blank lines. */
   deepDive?: { en: string; da: string };
+  /** How to put it into practice (A101): steps, pitfalls and guides. */
+  howTo?: TermData['howTo'];
   /** Authored edges, targets resolved to full ids. Inverses are left to the reader. */
   edges: ExportEdge[];
   /** Derived (ADR-0001): longest `requires` chain below this Term. */
@@ -95,6 +97,7 @@ export function exportTerms(terms: ExportInput[], siteUrl: string): ExportTerm[]
         summary: d.summary,
         body: d.body,
         ...(d.deepDive ? { deepDive: d.deepDive } : {}),
+        ...(d.howTo ? { howTo: d.howTo } : {}),
         edges,
         depth,
         sources: d.sources,
