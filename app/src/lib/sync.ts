@@ -1,6 +1,6 @@
 /**
  * Pure merge of two copies of the learner's state (this browser's and the synced
- * row, A45). It is commutative and idempotent, so it doesn't matter which device
+ * row). It is commutative and idempotent, so it doesn't matter which device
  * syncs first or how often: every copy converges on the same result.
  */
 import { STATUSES, type Learner, type Status, type TermState } from './learner';
@@ -70,7 +70,7 @@ function mergeStates(
   return out;
 }
 
-/** Union of both copies' terms (and hand-written questions, A90), merged per key. */
+/** Union of both copies' terms (and hand-written questions), merged per key. */
 export function mergeLearner(a: Learner, b: Learner): Learner {
   const terms = mergeStates(a.terms, b.terms);
   if (!a.questions && !b.questions) return { terms };

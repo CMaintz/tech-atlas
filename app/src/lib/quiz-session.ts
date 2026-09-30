@@ -72,7 +72,7 @@ function questionPicker(quizzer: Quizzer, learner: Learner, now: number) {
 /**
  * A study session: due reviews first, then terms never practised, then the rest;
  * one question per term. A term with a hand-written question that is new or due
- * (by the question's own record, A90) gets that — never the same one twice in a
+ * (by the question's own record) gets that — never the same one twice in a
  * session; otherwise a generated one, rotating question kinds so the session mixes
  * definition → term, term → definition, relationships, odd-one-out and true/false.
  */

@@ -1,5 +1,5 @@
 /**
- * Pure 3D geometry for the visual lab's (A96) 3D runtime: link curves (a quadratic
+ * Pure 3D geometry for the visual lab's 3D runtime: link curves (a quadratic
  * bezier bent sideways), grouping and centroids, and sub-domain cluster positions.
  */
 export type Vec = { x: number; y: number; z: number };

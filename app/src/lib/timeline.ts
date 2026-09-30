@@ -1,5 +1,5 @@
 /**
- * Timeline v2 layout (A81): pure geometry for the
+ * Timeline v2 layout: pure geometry for the
  * swim-lane timeline — axis scales, decade ticks, collision-free stacking, lane
  * assignment and milestone picking. No DOM, so the page (SSR) and the island share it
  * and the tests pin it.
@@ -118,7 +118,7 @@ export function packTracks(spans: Span[], gap = 0): { track: Map<string, number>
 }
 
 /**
- * Stacking under a row budget (A81, fit zoom): spans are placed in priority order
+ * Stacking under a row budget (fit zoom): spans are placed in priority order
  * (lower `rank` first, e.g. hubs before the rest) on the first of `maxTracks` tracks
  * where they overlap nothing; a span that fits nowhere is returned in `overflow`
  * instead, for the caller to fold into a "+N" chip.

@@ -2,7 +2,7 @@
  * Quiz questions generated from the graph (SPEC §9: learning falls out of the
  * relationships). Pure — the caller supplies the random source.
  *
- * Two families of question (A79):
+ * Two families of question:
  *  - **about** a term X — its relationships, where the answer is always ANOTHER term
  *    (or true/false): what X requires, what builds on X, what X is a kind of, what
  *    protects against X, which term is not connected to X, …
@@ -43,7 +43,7 @@ function generatedForPage(ctx: QuizContext, t: GraphNode): Question[] {
 
 /**
  * "Check yourself" on the page of `id`: hand-written questions that test it first
- * (never one whose answer is `id` itself, A79), then generated questions about it, plus definition
+ * (never one whose answer is `id` itself), then generated questions about it, plus definition
  * questions whose answers are its neighbours. Never one answered by `id` itself,
  * never `id` among the options, and never its own summary as a stem or option.
  */
@@ -58,7 +58,7 @@ function pageQuestions(ctx: QuizContext, bank: BankIndex, id: string, count: num
 }
 
 /**
- * `bank` is the hand-written question bank for `lang` (A90, `/questions-<lang>.json`);
+ * `bank` is the hand-written question bank for `lang` (`/questions-<lang>.json`);
  * without it every question is generated from the graph.
  */
 export function makeQuizzer(

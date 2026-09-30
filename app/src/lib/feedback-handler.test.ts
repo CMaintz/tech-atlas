@@ -1,4 +1,4 @@
-// The `feedback` Edge Function's handler (supabase/functions/feedback, A100), driven
+// The `feedback` Edge Function's handler (supabase/functions/feedback), driven
 // with a mocked fetch.
 import { describe, expect, it } from 'vitest';
 import {

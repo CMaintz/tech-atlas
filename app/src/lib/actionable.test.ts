@@ -8,7 +8,7 @@ const t = (over: Partial<ActionableInput> & { id: string }): ActionableInput => 
   ...over,
 });
 
-describe('actionableReason (A101)', () => {
+describe('actionableReason', () => {
   it('lets the explicit field win over every rule', () => {
     expect(
       isActionable(t({ id: 'security/control', cluster: 'controls', actionable: false })),
@@ -79,7 +79,7 @@ const valid = {
   guides: [guide('https://a.example/x'), guide('https://b.example/y')],
 };
 
-describe('HowTo schema (A101, E10)', () => {
+describe('HowTo schema (E10)', () => {
   it('accepts 5-10 steps and 2-5 guides', () => {
     expect(HowTo.safeParse(valid).success).toBe(true);
   });

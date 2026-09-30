@@ -20,7 +20,7 @@ export const BASE = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 export const url = (path = '') => BASE + path.replace(/^\//, '');
 
 /**
- * Accounts + synced progress (A44) exist only when the build is given a Supabase
+ * Accounts + synced progress exist only when the build is given a Supabase
  * project. Without these two public values every account surface is left out and
  * the site is exactly the local-only one.
  */
@@ -29,7 +29,7 @@ export const SUPABASE_ANON_KEY: string = import.meta.env.PUBLIC_SUPABASE_ANON_KE
 export const ACCOUNTS = !!SUPABASE_URL && !!SUPABASE_ANON_KEY;
 
 /**
- * Sign-in providers offered (A87), from `PUBLIC_AUTH_PROVIDERS` — e.g.
+ * Sign-in providers offered, from `PUBLIC_AUTH_PROVIDERS` — e.g.
  * `github,linkedin_oidc`; unset = GitHub only. A provider's button appears only once the
  * owner has configured it in Supabase and listed it here. Email: `EMAIL_SIGNIN` in
  * auth-config.ts.
@@ -37,7 +37,7 @@ export const ACCOUNTS = !!SUPABASE_URL && !!SUPABASE_ANON_KEY;
 export const AUTH_PROVIDERS = parseAuthProviders(import.meta.env.PUBLIC_AUTH_PROVIDERS);
 
 /**
- * Search by meaning (A75) is switched on separately, by the full URL of the
+ * Search by meaning is switched on separately, by the full URL of the
  * `semantic-search` Edge Function, so a build with only sync configured never calls a
  * function that isn't deployed. Empty = name search only.
  */
@@ -46,7 +46,7 @@ export const SEMANTIC_SEARCH_URL: string = (import.meta.env.PUBLIC_SEMANTIC_SEAR
   .replace(/\/+$/, '');
 
 /**
- * The feedback form (A100) appears only when the build is given the full URL of the
+ * The feedback form appears only when the build is given the full URL of the
  * `feedback` Edge Function. Empty = no Feedback button anywhere.
  */
 export const FEEDBACK_URL: string = (import.meta.env.PUBLIC_FEEDBACK_URL ?? '')
@@ -100,7 +100,7 @@ export {
   clusterLabel,
   domainLabel,
 } from './strings/taxonomy';
-/** Cluster and relationship-family colours live with the rest of the graph style (A74). */
+/** Cluster and relationship-family colours live with the rest of the graph style. */
 export { CLUSTER_COLOURS, FAMILY_COLOURS } from './graph-style';
 export { GRAPH_UI } from './strings/explorer';
 export { PANEL_UI } from './strings/panel';

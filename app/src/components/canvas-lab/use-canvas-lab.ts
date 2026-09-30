@@ -1,4 +1,4 @@
-/** The canvas lab (A91), wired: state, graph, loop sync and the chrome's shared props. */
+/** The canvas lab, wired: state, graph, loop sync and the chrome's shared props. */
 import { useMemo } from 'preact/hooks';
 import type { Graph } from '../../lib/graph-model';
 import { familyColours, type MapTheme } from '../../lib/graph-style';

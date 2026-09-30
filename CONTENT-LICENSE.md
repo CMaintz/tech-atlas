@@ -21,8 +21,6 @@ If you adapt it, share your adaptation under CC BY-SA 4.0 or a
 
 ## Why CC BY-SA 4.0
 
-Decision A66 in [`design/AUTONOMOUS_DECISIONS.md`](design/AUTONOMOUS_DECISIONS.md):
-
 - The Closed Vocabulary lint is built on CC BY-SA 4.0 wordlists, so ShareAlike keeps
   the whole content side under one licence that is compatible with them.
 - It is the licence Wikipedia uses, so text can move between the two.
@@ -30,4 +28,4 @@ Decision A66 in [`design/AUTONOMOUS_DECISIONS.md`](design/AUTONOMOUS_DECISIONS.m
 
 **Still open for the owner:** some Danish security definitions were seeded from the
 course compendium (_Cyber Security Fast Track_). Whether that wording needs the course
-owner's permission or credit is not settled by this licence (DECISIONS_REVIEW U16).
+owner's permission or credit is not settled by this licence.

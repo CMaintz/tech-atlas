@@ -1,5 +1,5 @@
 /**
- * "Find a term" works like the home search (A95): names and aliases at once, then, for
+ * "Find a term" works like the home search: names and aliases at once, then, for
  * a question or description, the terms nearest in meaning, fused by RRF.
  */
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';

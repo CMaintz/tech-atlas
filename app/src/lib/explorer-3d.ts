@@ -1,5 +1,5 @@
 /**
- * The Explorer's 3D map (A86): galaxies of terms, computed once (`galaxyLayout`) and
+ * The Explorer's 3D map: galaxies of terms, computed once (`galaxyLayout`) and
  * fixed — no live physics, so the GPU only draws. One scene for the life of the page:
  * filters, hover and selection re-evaluate accessors in place. Glow is a single
  * additive point cloud (a shared term's glow is its second domain's colour — a halo
@@ -24,7 +24,7 @@ export type { View3D } from './explorer-3d/types';
 type Camera3 = ReturnType<typeof createCamera>;
 type Parts = { painter: Painter; camera: Camera3; hover: ReturnType<typeof createHover> };
 
-/** Hooks for the hidden visual lab only (A96): the three.js objects it restyles. */
+/** Hooks for the hidden visual lab only: the three.js objects it restyles. */
 function labObjects({ fg, THREE, scene }: Ctx, { web, glow, flow }: Painter) {
   return {
     fg,
@@ -39,7 +39,7 @@ function labObjects({ fg, THREE, scene }: Ctx, { web, glow, flow }: Painter) {
   };
 }
 
-/** Hooks for the hidden visual lab only (A96): the data and predicates it reads or tunes. */
+/** Hooks for the hidden visual lab only: the data and predicates it reads or tunes. */
 function labData({ model, lens }: Ctx, p: Painter) {
   return {
     /** Each link's length along its curve (the comets wrap at it), term radius, hub labels. */
@@ -60,7 +60,7 @@ function labData({ model, lens }: Ctx, p: Painter) {
 }
 
 /**
- * Switch palettes (A92) in place: background, fog, blending (additive glow on the
+ * Switch palettes in place: background, fog, blending (additive glow on the
  * night map, a multiplied soft shadow on the cream one), labels and colours. Term
  * fills come from the View's `colour`, so the caller applies a new view as well.
  */
@@ -93,12 +93,12 @@ function handleOf(ctx: Ctx, parts: Parts, undrag: () => void) {
   const { painter, camera } = parts;
   return {
     apply: (next: View3D) => applyView(ctx, painter, camera, next),
-    /** Hooks for the hidden visual lab only (A96); the Explorer never uses them. */
+    /** Hooks for the hidden visual lab only; the Explorer never uses them. */
     lab: { ...labObjects(ctx, painter), ...labData(ctx, painter) },
     /** Bring a term into view (Find a term, even when it is already selected). */
     focus: (id: string) => camera.flyTo(id),
     /**
-     * Keyboard navigation (A97), for dt seconds: fly (the orbit centre travels with the
+     * Keyboard navigation, for dt seconds: fly (the orbit centre travels with the
      * camera, so a mouse orbit afterwards turns about what is in front) and orbit.
      */
     nudge: (v: Axes, dt: number) => camera.nudge(v, dt),

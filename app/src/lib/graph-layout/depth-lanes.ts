@@ -1,4 +1,4 @@
-/** The "By depth" layout (A86): one vertical lane per domain, depth rows across them. */
+/** The "By depth" layout: one vertical lane per domain, depth rows across them. */
 import { EXPLORER } from '../explorer-config';
 import type { Point } from '../graph-style';
 import { byDomain, type LaneLayout } from './lanes';
@@ -138,7 +138,7 @@ function placeLane(
 }
 
 /**
- * "By depth" (A86): one vertical lane per domain, depth rows shared by every lane
+ * "By depth": one vertical lane per domain, depth rows shared by every lane
  * (foundations at the bottom), long rows wrapped into sub-rows so lanes stay compact,
  * and terms ordered inside rows by the barycentre of their neighbours in the rows
  * below and above (a few sweeps), which cuts edge crossings.

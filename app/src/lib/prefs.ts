@@ -1,5 +1,5 @@
 /**
- * Small browser-side helpers for site chrome (A62–A64), kept pure so they can be
+ * Small browser-side helpers for site chrome, kept pure so they can be
  * unit-tested: recently viewed terms, the Danish-language suggestion and the "/"
  * search shortcut.
  */
@@ -26,7 +26,7 @@ export function pushRecent(list: readonly string[], id: string, max = RECENT_MAX
 export const LANG_SUGGEST_KEY = 'atlas.langSuggest.dismissed';
 
 /**
- * Colour theme (A92). The stored choice is 'light' or 'dark'; no stored value means
+ * Colour theme. The stored choice is 'light' or 'dark'; no stored value means
  * "System" (follow the OS). public/theme-init.js repeats this logic before first
  * paint — it must stay a plain blocking script, so it cannot import this module.
  */

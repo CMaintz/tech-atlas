@@ -1,4 +1,4 @@
-/** The "By time" layout (A86): x is the year, one horizontal lane per domain. */
+/** The "By time" layout: x is the year, one horizontal lane per domain. */
 import { EXPLORER } from '../explorer-config';
 import type { Point } from '../graph-style';
 import { byDomain, type LaneLayout } from './lanes';
@@ -79,7 +79,7 @@ export function yearTicks(minYear: number, maxYear: number, y: number): LaneLayo
 }
 
 /**
- * "By time" (A86): x = the year a term entered use, one horizontal lane per domain,
+ * "By time": x = the year a term entered use, one horizontal lane per domain,
  * terms of the same year (and near years) stacked into the nearest free slot of their
  * lane. Undated terms are left out (`hidden`), not piled into a grid.
  */

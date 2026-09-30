@@ -1,5 +1,5 @@
 /**
- * The Explorer's flow (A86): small dots drift source → target along every visible
+ * The Explorer's flow: small dots drift source → target along every visible
  * one-way edge of the 2D map, all the time. They are drawn on a canvas laid over the
  * map, so Cytoscape never restyles or redraws for the animation — the only per-frame
  * work is one clear and a few batched fills of on-screen dots. Edge geometry is sampled
@@ -44,7 +44,7 @@ function groupPaths(directed: cytoscape.EdgeCollection) {
  * The one-way edges' paths, re-sampled only after edges, classes or positions change;
  * and whether the view moved since the last frame (pan and zoom: the dots follow the
  * live viewport in the very next frame, outside the fps throttle, so they stay locked to
- * the map and never blink out mid-gesture, A86).
+ * the map and never blink out mid-gesture).
  */
 function watchScene(cy: cytoscape.Core, edges: cytoscape.EdgeCollection) {
   const directed = edges.filter((e) => e.data('directed') === 1);
@@ -201,7 +201,7 @@ export function startDots(
   paused: () => boolean,
   /** Resting opacity (the cream map needs more than the night map). */
   restAlpha: () => number = () => EXPLORER.dots.alpha,
-  /** The settings, read every frame (the hidden visual lab tunes a copy live, A96). */
+  /** The settings, read every frame (the hidden visual lab tunes a copy live). */
   cfg: DotsConfig = EXPLORER.dots,
 ): { stop: () => void; resize: () => void } {
   const layer = mountCanvas(cy.container()!);

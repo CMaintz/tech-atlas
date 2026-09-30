@@ -1,7 +1,7 @@
 /**
  * What every map island (the Explorer and its labs) is given by its page: the graph and
  * term URLs, the UI strings, labels and colours in the page language, and the term
- * panel's tables (A80) — so no island bundles the schema. Build-time only.
+ * panel's tables — so no island bundles the schema. Build-time only.
  */
 import { localise, panelConfig } from './panel-config';
 import {

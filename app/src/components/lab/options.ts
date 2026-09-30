@@ -1,5 +1,5 @@
 /**
- * The visual lab's (A96) choice lists: each option's value and its label's key in TEXT,
+ * The visual lab's choice lists: each option's value and its label's key in TEXT,
  * in menu order. The address accepts exactly these values (CHOICES_2D / CHOICES_3D).
  */
 import { EMPHASES, type Emphasis, type Lab2D, type Lab3D } from '../../lib/explorer-lab';

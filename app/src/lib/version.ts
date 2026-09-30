@@ -1,5 +1,5 @@
 /**
- * The site's version, read from app/package.json when the site is built (A99).
+ * The site's version, read from app/package.json when the site is built.
  * release-please bumps that version in its Release PR, so the footer and the About
  * dialog always show the release that is deployed. Server-only (it reads the file
  * system): import it from .astro frontmatter or about-assets.ts, never from an island.

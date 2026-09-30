@@ -1,5 +1,5 @@
 /**
- * The visual lab's (A96) 3D runtime: built once per 3D map, it applies a toggle state
+ * The visual lab's 3D runtime: built once per 3D map, it applies a toggle state
  * (and the theme), touching only what changed since the last one.
  */
 import type { Map3D } from '../../../lib/explorer-3d';

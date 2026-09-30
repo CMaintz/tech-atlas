@@ -121,7 +121,7 @@ describe('legendDomains', () => {
   });
 });
 
-describe('cream map palette (A92, light theme)', () => {
+describe('cream map palette (light theme)', () => {
   const domains = [...Object.keys(DOMAIN_HUES), 'some-new-domain'];
 
   it('keeps the dark palette as the default', () => {

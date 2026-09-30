@@ -1,4 +1,4 @@
-/** Time-based motion in the canvas lab (A91): the elastic snap-back and edge pulses. */
+/** Time-based motion in the canvas lab: the elastic snap-back and edge pulses. */
 import { LAB } from './config';
 
 /**

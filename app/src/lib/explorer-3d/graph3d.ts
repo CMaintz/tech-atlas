@@ -70,7 +70,7 @@ type Obj3 = {
 };
 
 /**
- * Draw order (A97): every sphere is transparent (nodeOpacity < 1), so three.js sorted
+ * Draw order: every sphere is transparent (nodeOpacity < 1), so three.js sorted
  * each against the one merged web by distance, and a receded sphere drawn first wrote
  * depth and erased every line behind it. A fixed order instead: glow, the solid spheres
  * (they write depth, so they still hide what is behind them), the lines, the receded
@@ -104,7 +104,7 @@ function cameraWatch({ THREE, fg }: Ctx) {
 }
 
 /**
- * Before every render: fix the draw order, feed camera motion to the gate (A97a) —
+ * Before every render: fix the draw order, feed camera motion to the gate —
  * `onMoveStart` when it starts, after the render — and run `eachFrame`.
  */
 export function watchFrames(ctx: Ctx, onMoveStart: () => void, eachFrame: () => void) {

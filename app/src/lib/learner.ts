@@ -1,8 +1,8 @@
 /**
  * The learner's own state — quiz history, spaced-repetition schedule and
- * self-assessed knowledge. Local-first (A24): localStorage is what the UI reads;
- * when accounts are configured, `account.ts` syncs it to the learner's own row
- * (A44), merging per term with `mergeLearner` (sync.ts).
+ * self-assessed knowledge. Local-first: localStorage is what the UI reads;
+ * when accounts are configured, `account.ts` syncs it to the learner's own row,
+ * merging per term with `mergeLearner` (sync.ts).
  */
 import type { Graph, GraphNode } from './graph-model';
 
@@ -21,7 +21,7 @@ export type TermState = {
   statusAt?: number;
 };
 /**
- * `terms` is keyed by term id. `questions`, keyed by hand-written question id (A90),
+ * `terms` is keyed by term id. `questions`, keyed by hand-written question id,
  * schedules each bank question on its own, so a question answered right recently
  * is not asked again before it is due; absent until one is answered.
  */
@@ -29,7 +29,7 @@ export type Learner = { terms: Record<string, TermState>; questions?: Record<str
 
 export const STATUSES: readonly Status[] = ['know', 'familiar', 'learning', 'unknown'];
 
-/** One key, one format; no migration from the pre-sync shape (A50: no users yet). */
+/** One key, one format; no migration from the pre-sync shape (no users yet). */
 export const LEARNER_KEY = 'atlas:learner:v2';
 const KEY = LEARNER_KEY;
 const DAY = 24 * 60 * 60 * 1000;
@@ -40,7 +40,7 @@ const blank = (): TermState => ({ box: 0, due: 0, right: 0, wrong: 0 });
 /**
  * A change's timestamp: now, but always after the term's previous change, so a
  * local edit made after merging a copy from a device whose clock runs ahead still
- * counts as newer (A48).
+ * counts as newer.
  */
 const stamp = (prev: number | undefined, now: number) =>
   prev === undefined ? now : Math.max(now, prev + 1);
@@ -49,7 +49,7 @@ const stamp = (prev: number | undefined, now: number) =>
  * Normalise stored or synced data into the current shape. Missing timestamps stay
  * absent (the merge treats them as 0, i.e. older than any timestamped change).
  * Anything malformed is dropped rather than trusted, and change timestamps more
- * than a day ahead of this clock are pulled back to now (A48), so one device with
+ * than a day ahead of this clock are pulled back to now, so one device with
  * a wrong clock can't make its changes unbeatable.
  */
 export function parseLearner(value: unknown, now = Date.now()): Learner {
@@ -113,7 +113,7 @@ export function recordAnswer(l: Learner, id: string, correct: boolean, now = Dat
   return { ...l, terms: { ...l.terms, [id]: step(l.terms[id], correct, now) } };
 }
 
-/** The same schedule for one hand-written question, keyed by its id (A90). */
+/** The same schedule for one hand-written question, keyed by its id. */
 export function recordQuestion(
   l: Learner,
   id: string,
@@ -194,7 +194,7 @@ export function recommendNext(graph: Graph, l: Learner, limit = 8): GraphNode[] 
 }
 
 /**
- * The learner's progress as a downloadable JSON document (data portability, A88):
+ * The learner's progress as a downloadable JSON document (data portability):
  * exactly what this browser stores and, when signed in, what is synced.
  */
 export function learnerExport(l: Learner, now = Date.now()): string {

@@ -50,7 +50,7 @@ export const SourceTier = z.enum([
 export const Source = z
   .object({
     title: z.string().min(1),
-    // Web links only: `.url()` alone accepts `javascript:` and `data:` URLs (A89).
+    // Web links only: `.url()` alone accepts `javascript:` and `data:` URLs.
     url: z
       .string()
       .url()
@@ -137,7 +137,7 @@ export const Body = z
   .strict();
 export type Body = z.infer<typeof Body>;
 
-/* ---- How to put it into practice (A101) ----------------------------- */
+/* ---- How to put it into practice ----------------------------- */
 
 /** A step-by-step list, the same number of items in both languages. */
 const StepList = (min: number, max: number) =>
@@ -195,7 +195,7 @@ export const TermFrontmatter = z
     summary: LocalizedMax(140),
     body: Body,
     /**
-     * Optional technical deep dive for the term page (A80): plain text, paragraphs
+     * Optional technical deep dive for the term page: plain text, paragraphs
      * separated by a blank line. Exempt from Closed Vocabulary, like an Article.
      */
     deepDive: z
@@ -205,10 +205,10 @@ export const TermFrontmatter = z
     /**
      * Is this something you do or implement (a process, control, practice, framework,
      * law to comply with, tool or technique)? Omitted: decided by `isActionable`'s
-     * cluster, layer and edge rules (src/lib/actionable.ts, A101).
+     * cluster, layer and edge rules (src/lib/actionable.ts).
      */
     actionable: z.boolean().optional(),
-    /** How to put it into practice (A101): steps, pitfalls and guides. */
+    /** How to put it into practice: steps, pitfalls and guides. */
     howTo: HowTo.optional(),
     edges: Edges.default({}),
     article: z.object({ en: z.string().optional(), da: z.string().optional() }).strict().optional(),
@@ -226,7 +226,7 @@ export type TermFrontmatter = z.infer<typeof TermFrontmatter>;
 export const TermData = TermFrontmatter.omit({ id: true });
 export type TermData = z.infer<typeof TermData>;
 
-/* ---- Hand-written questions (the question bank, A90) --------------- */
+/* ---- Hand-written questions (the question bank) --------------- */
 
 /** A namespaced term id, as the graph, the learner and the collections key terms. */
 export const TermKey = z

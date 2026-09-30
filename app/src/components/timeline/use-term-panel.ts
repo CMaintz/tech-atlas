@@ -17,7 +17,7 @@ async function loadPanelKit(graphUrl: string): Promise<PanelKit> {
 }
 
 /**
- * The Explorer's term panel (A80) on the timeline: its code and graph load on the first
+ * The Explorer's term panel on the timeline: its code and graph load on the first
  * click, so the page itself stays a small island. `open` shows a term; `onLoaded` runs
  * once the kit has arrived (a failed load leaves the popover, and a later click retries).
  */

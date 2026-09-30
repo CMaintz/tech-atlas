@@ -1,5 +1,5 @@
 /**
- * The graph's visual language, in one place (A74): domain colour families, cluster
+ * The graph's visual language, in one place: domain colour families, cluster
  * shades, relationship-family edge colours, which edges are directed, edge curvature,
  * layout distances and the 3D cluster force. Pure — no DOM, no Cytoscape — so the
  * Explorer, the term-page neighbourhood graph, the Timeline and the tests share it.

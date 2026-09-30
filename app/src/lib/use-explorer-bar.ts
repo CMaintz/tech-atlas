@@ -9,7 +9,7 @@ import {
 import { useMedia } from './use-media';
 
 /**
- * How much of the control bar fits (A93b): named domain pills and an open search field
+ * How much of the control bar fits: named domain pills and an open search field
  * when there is room, dot chips next, then short labels and a search icon, and — when
  * even that would wrap — the phones' "Controls" sheet. Measured, never a second row.
  */

@@ -1,7 +1,7 @@
 /**
  * The 3D map's camera: a slow swoop in from far out, framing the part of the canvas the
- * legend leaves clear, gliding to a term, keyboard flight (A97), auto-rotation, and the
- * drag ring while the mouse orbits or pans (A95).
+ * legend leaves clear, gliding to a term, keyboard flight, auto-rotation, and the
+ * drag ring while the mouse orbits or pans.
  */
 import { EXPLORER } from '../explorer-config';
 import { createDragFeedback, orbitDragKind } from '../drag-feedback';
@@ -122,7 +122,7 @@ export const spinner =
     if (spinning) opts.onPoint?.(null);
   };
 
-/** A drag (not the wheel): a rotate cursor and a ring while orbiting, a closed hand while panning (A95). */
+/** A drag (not the wheel): a rotate cursor and a ring while orbiting, a closed hand while panning. */
 export function watchDrags({ el, fg, opts }: Ctx) {
   el.style.cursor = 'grab';
   const drag = createDragFeedback(el);

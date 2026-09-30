@@ -41,7 +41,7 @@ export function arrive(g: Graph, { lang, filters, selection, route }: Arrive) {
     selection.setSelected(focus);
     selection.setHops(1);
   }
-  // A deep link (`?term=`) opens that term's panel (A80).
+  // A deep link (`?term=`) opens that term's panel.
   if (term) selection.setSelected(term);
 }
 

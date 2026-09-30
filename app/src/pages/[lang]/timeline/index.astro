@@ -31,7 +31,7 @@ const graph = await loadGraph();
 const nodes: GraphNode[] = graph.nodes;
 
 // Swim-lane timeline (Timeline v2): every dated term in its domain's lane, coloured by
-// domain like the graph (A74); the most connected terms are emphasised as milestones.
+// domain like the graph; the most connected terms are emphasised as milestones.
 const dated: TimelineItem[] = nodes
   .filter((n) => n.era !== undefined)
   .map((n) => ({
@@ -58,7 +58,7 @@ const domains = [...new Set(dated.map((t) => t.home))].sort(
 const domainLabels = localise(DOMAIN_LABELS, lang);
 const allDomains = [...new Set([...domains, ...dated.flatMap((t) => t.domain)])];
 const domainColours = Object.fromEntries(allDomains.map((d) => [d, domainColour(d)]));
-// The cream map's deeper shades (A92); the page shows whichever matches the theme.
+// The cream map's deeper shades; the page shows whichever matches the theme.
 const domainColoursLight = Object.fromEntries(allDomains.map((d) => [d, domainColour(d, 'light')]));
 const range = axisRange(dated.map((t) => t.year));
 
@@ -70,7 +70,7 @@ const { decades } = groupByDecade(
 );
 const { eras, ...tlText } = tl;
 
-// Clicking a term opens the Explorer's term panel (A80), loaded on demand.
+// Clicking a term opens the Explorer's term panel, loaded on demand.
 const panel = {
   ...panelConfig(lang),
   lang,

@@ -1,8 +1,8 @@
 name: release-please
 # Keeps a Release PR open that bumps the version (app/package.json, version.txt) and
 # prepends CHANGELOG.md from the conventional commits merged since the last release.
-# Merging that PR (owner only) tags vX.Y.Z[-beta.N] and publishes the GitHub release
-# (A99). Config: release-please-config.json + .release-please-manifest.json. After
+# Merging that PR (owner only) tags vX.Y.Z[-beta.N] and publishes the GitHub release.
+# Config: release-please-config.json + .release-please-manifest.json. After
 # v2.0.0-beta.1 is out, delete "release-as" and "last-release-sha" from the config
 # (they only seed the first release); see README "Releasing".
 #

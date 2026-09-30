@@ -1,5 +1,5 @@
 /**
- * The hand-written question bank (A90): content rules and the client payload.
+ * The hand-written question bank: content rules and the client payload.
  * Pure — no file system, no Astro, no zod — so lint.ts, the questions.json
  * endpoint and vitest share one implementation.
  */
@@ -43,7 +43,7 @@ export type ClientQuestion = {
   answer: number;
   explanation: string;
   difficulty: number;
-  /** Tested terms the correct option names outright — never asked on their own page (A79). */
+  /** Tested terms the correct option names outright — never asked on their own page. */
   answeredBy: string[];
 };
 
@@ -63,7 +63,7 @@ export function namesOfTerm(t: NamedTerm): string[] {
 
 /**
  * The tested terms whose name IS the correct option (in either language): the
- * question is "answered by" them, so it must never be asked on their page (A79).
+ * question is "answered by" them, so it must never be asked on their page.
  */
 export function answeredBy(q: BankQuestion, terms: Map<string, NamedTerm>): string[] {
   const right = q.options[q.answer];

@@ -1,4 +1,4 @@
-/** The 2D map's stylesheet with the visual lab's (A96) rules laid over the Explorer's. */
+/** The 2D map's stylesheet with the visual lab's rules laid over the Explorer's. */
 import type cytoscape from 'cytoscape';
 import { EXPLORER } from '../../lib/explorer-config';
 import { FADE_TRANSITIONS } from '../../lib/graph-cytoscape';
