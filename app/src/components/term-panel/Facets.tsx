@@ -1,6 +1,7 @@
 import { useRef, useState } from 'preact/hooks';
 import { tabKeyTarget } from '../../lib/key-intent';
 import { FACETS, type Facet } from '../../lib/term-panel';
+import { tabAttrs } from './attrs';
 import PanelHeading from './PanelHeading';
 import type { PartProps } from './types';
 
@@ -33,8 +34,11 @@ function FacetGrid({ panel }: PartProps) {
 
 type TabsProps = PartProps & { facet: Facet; onFacet: (f: Facet) => void };
 
-/** The facet tabs; ←/→ and Home/End move between them (WAI-ARIA tabs). */
-function FacetTabList({ panel, facet, onFacet }: TabsProps) {
+/**
+ * Arrow-key focus for the facet tablist: ←/→ and Home/End pick the neighbouring tab and
+ * move focus onto it. Returns the list's ref and the tabs' key handler.
+ */
+function useTabKeys(facet: Facet, onFacet: (f: Facet) => void) {
   const list = useRef<HTMLDivElement>(null);
   const onKey = (e: KeyboardEvent) => {
     const next = tabKeyTarget(e.key, FACETS.indexOf(facet), FACETS.length);
@@ -43,6 +47,12 @@ function FacetTabList({ panel, facet, onFacet }: TabsProps) {
     onFacet(FACETS[next]);
     list.current?.querySelector<HTMLElement>(`#tp-tab-${FACETS[next]}`)?.focus();
   };
+  return { list, onKey };
+}
+
+/** The facet tabs; ←/→ and Home/End move between them (WAI-ARIA tabs). */
+function FacetTabList({ panel, facet, onFacet }: TabsProps) {
+  const { list, onKey } = useTabKeys(facet, onFacet);
   const tab = (f: Facet) => (
     <FacetTab
       label={panel.props.ui[f]}
@@ -81,11 +91,7 @@ function FacetTab({ label, facet, selected, onFacet, onKey }: TabProps) {
   return (
     <button
       type="button"
-      role="tab"
-      id={`tp-tab-${facet}`}
-      aria-selected={selected}
-      aria-controls="tp-facet"
-      tabIndex={selected ? 0 : -1}
+      {...tabAttrs(facet, selected)}
       class={`${TAB} ${selected ? TAB_ON : TAB_OFF}`}
       onClick={() => onFacet(facet)}
       onKeyDown={onKey}

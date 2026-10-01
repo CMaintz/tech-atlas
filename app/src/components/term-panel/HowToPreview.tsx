@@ -45,12 +45,19 @@ export default function HowToPreview({ panel }: PartProps) {
       <PanelHeading spacing="mb-2" id="tp-howto">
         {props.text.howTo}
       </PanelHeading>
-      <ol class="space-y-2 text-sm">
-        {steps.map((s, i) => (
-          <HowToStep n={i + 1} text={s} />
-        ))}
-      </ol>
+      <HowToSteps steps={steps} />
       <HowToMore panel={panel} />
     </section>
+  );
+}
+
+/** The previewed steps, numbered from 1. */
+function HowToSteps({ steps }: { steps: string[] }) {
+  return (
+    <ol class="space-y-2 text-sm">
+      {steps.map((s, i) => (
+        <HowToStep n={i + 1} text={s} />
+      ))}
+    </ol>
   );
 }

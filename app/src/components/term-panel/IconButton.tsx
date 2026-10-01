@@ -1,4 +1,5 @@
 import type { JSX, Ref } from 'preact';
+import { ICON_SVG } from './attrs';
 
 // 16×16 stroke icons (paths on a 24-unit grid).
 export const ARROW_LEFT = 'M19 12H5m6-6-6 6 6 6';
@@ -14,17 +15,7 @@ const ICON_BTN =
 
 function Icon({ d }: { d: string }) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      width="16"
-      height="16"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      aria-hidden="true"
-    >
+    <svg {...ICON_SVG}>
       <path d={d} />
     </svg>
   );

@@ -107,15 +107,27 @@ function useFocusName(id: string, heading: RefObject<HTMLElement>, focusName: Re
 }
 
 /**
+ * Navigation's state, starting on term `id`: the walk through the anchor's connections,
+ * the panel's history, the live-region text, the move in flight and whether the next
+ * arrival focuses the term's name.
+ */
+function useNavState(id: string) {
+  const [walk, setWalk] = useState<CycleState>(() => ({ anchor: id, index: null }));
+  const [trail, setTrail] = useState<PanelHistory>(() => startHistory(id));
+  const [announce, setAnnounce] = useState('');
+  const pending = useRef<{ id: string; arrival: Arrival } | null>(null);
+  const focusName = useRef(true);
+  return { walk, setWalk, trail, setTrail, announce, setAnnounce, pending, focusName };
+}
+
+/**
  * The panel's navigation (A83): Previous/Next walk the anchor term's connections;
  * Back/Forward walk the terms viewed in this panel.
  */
 export function usePanelNav(o: NavSource, heading: RefObject<HTMLElement>): PanelNav {
-  const [walk, setWalk] = useState<CycleState>(() => ({ anchor: o.id, index: null }));
-  const [trail, setTrail] = useState<PanelHistory>(() => startHistory(o.id));
-  const [announce, setAnnounce] = useState('');
-  const pending = useRef<{ id: string; arrival: Arrival } | null>(null);
-  const focusName = useRef(true);
+  const { walk, setWalk, trail, setTrail, announce, setAnnounce, pending, focusName } = useNavState(
+    o.id,
+  );
   const view = cycleView(o, walk);
   useArrival(o, { walk, setWalk, setTrail, setAnnounce, pending, focusName, view });
   useFocusName(o.id, heading, focusName);

@@ -3,26 +3,40 @@ import type { PartProps } from './types';
 
 /** The term's colour, cluster and domains. */
 function TermBadges({ panel }: PartProps) {
-  const { node, theme, props } = panel;
+  const { node, props } = panel;
   return (
     <div class="mb-2 flex flex-wrap items-center gap-1.5 text-xs">
-      <span
-        class="inline-block h-2.5 w-2.5 rounded-full"
-        style={{ background: nodePaint(node, theme).fill }}
-        aria-hidden="true"
-      />
+      <TermSwatch panel={panel} />
       <span class="tracking-widest text-muted uppercase">
         {props.clusterLabels[node.cluster] ?? node.cluster}
       </span>
       {node.domain.map((d) => (
-        <span
-          class="rounded-full border px-2 py-0.5 text-fg-soft"
-          style={{ borderColor: domainColour(d, theme) }}
-        >
-          {props.domainLabels[d] ?? d}
-        </span>
+        <DomainBadge panel={panel} domain={d} />
       ))}
     </div>
+  );
+}
+
+/** A dot in the term's colour on the map. */
+function TermSwatch({ panel: { node, theme } }: PartProps) {
+  return (
+    <span
+      class="inline-block h-2.5 w-2.5 rounded-full"
+      style={{ background: nodePaint(node, theme).fill }}
+      aria-hidden="true"
+    />
+  );
+}
+
+/** One of the term's domains, outlined in the domain's colour. */
+function DomainBadge({ panel, domain }: PartProps & { domain: string }) {
+  return (
+    <span
+      class="rounded-full border px-2 py-0.5 text-fg-soft"
+      style={{ borderColor: domainColour(domain, panel.theme) }}
+    >
+      {panel.props.domainLabels[domain] ?? domain}
+    </span>
   );
 }
 
@@ -35,6 +49,15 @@ function DraftNote({ text }: { text: string }) {
   );
 }
 
+/** "Also known as: …". */
+function OtherNames({ label, names }: { label: string; names: string[] }) {
+  return (
+    <p class="mt-1 text-sm text-subtle">
+      {label}: {names.join(', ')}
+    </p>
+  );
+}
+
 /** Other names, the summary and the draft notice — once the record has them. */
 function TermIntro({ panel }: PartProps) {
   const { record, node, props } = panel;
@@ -42,11 +65,7 @@ function TermIntro({ panel }: PartProps) {
   const summary = record?.summary[props.lang] ?? node.summary?.[props.lang];
   return (
     <>
-      {aka.length > 0 && (
-        <p class="mt-1 text-sm text-subtle">
-          {props.ui.aka}: {aka.join(', ')}
-        </p>
-      )}
+      {aka.length > 0 && <OtherNames label={props.ui.aka} names={aka} />}
       {summary && <p class="mt-3 font-medium text-fg-soft">{summary}</p>}
       {record?.draft && <DraftNote text={props.ui.draft} />}
     </>
@@ -61,15 +80,22 @@ export default function TermHeader({ panel }: PartProps) {
   return (
     <header>
       <TermBadges panel={panel} />
-      <h2
-        id="tp-title"
-        ref={panel.refs.heading}
-        tabIndex={-1}
-        class={`font-semibold outline-none ${panel.expanded ? 'text-4xl' : 'text-2xl'}`}
-      >
-        {panel.node.term[panel.props.lang]}
-      </h2>
+      <TermName panel={panel} />
       <TermIntro panel={panel} />
     </header>
+  );
+}
+
+/** The term's name: the panel's title, and the focus target when a term opens. */
+function TermName({ panel }: PartProps) {
+  return (
+    <h2
+      id="tp-title"
+      ref={panel.refs.heading}
+      tabIndex={-1}
+      class={`font-semibold outline-none ${panel.expanded ? 'text-4xl' : 'text-2xl'}`}
+    >
+      {panel.node.term[panel.props.lang]}
+    </h2>
   );
 }

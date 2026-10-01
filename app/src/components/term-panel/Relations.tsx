@@ -65,22 +65,29 @@ function RelationGroup({ panel, group, why }: GroupProps) {
   );
 }
 
+/** The relationship groups as a list; a chip's tooltip comes from the loaded record. */
+function RelationList({ panel, groups }: PartProps & { groups: PanelRelationGroup[] }) {
+  const why = relationReasons(panel.record?.edges ?? []);
+  return (
+    <dl class="space-y-3">
+      {groups.map((g) => (
+        <RelationGroup panel={panel} group={g} why={why} />
+      ))}
+    </dl>
+  );
+}
+
 /** Every relationship of the term, grouped by type in reading order. */
 export function Relationships({ panel }: PartProps) {
-  const { props, record } = panel;
+  const { props } = panel;
   const groups = relationGroups(props.graph, props.id, props.edgeInverse, props.relationOrder);
-  const why = relationReasons(record?.edges ?? []);
   return (
     <section>
       <PanelHeading spacing="mb-2">{props.ui.relationships}</PanelHeading>
       {groups.length === 0 ? (
         <p class="text-sm text-subtle">{props.text.noRelations}</p>
       ) : (
-        <dl class="space-y-3">
-          {groups.map((g) => (
-            <RelationGroup panel={panel} group={g} why={why} />
-          ))}
-        </dl>
+        <RelationList panel={panel} groups={groups} />
       )}
     </section>
   );

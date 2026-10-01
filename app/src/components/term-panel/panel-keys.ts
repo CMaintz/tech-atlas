@@ -3,12 +3,14 @@ import type { Panel } from './types';
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])';
 
+/** The focusable elements inside `root` that are actually rendered (not hidden). */
+const visibleFocusables = (root: HTMLElement) =>
+  [...root.querySelectorAll<HTMLElement>(FOCUSABLE)].filter((el) => el.offsetParent !== null);
+
 /** Keep Tab inside `root` (the expanded panel is a modal dialog): wrap at either end. */
 function trapTab(e: KeyboardEvent, root: HTMLElement) {
   if (e.key !== 'Tab') return;
-  const items = [...root.querySelectorAll<HTMLElement>(FOCUSABLE)].filter(
-    (el) => el.offsetParent !== null,
-  );
+  const items = visibleFocusables(root);
   if (!items.length) return;
   const first = items[0];
   const last = items[items.length - 1];

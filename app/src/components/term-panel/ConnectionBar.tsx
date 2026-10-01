@@ -21,6 +21,18 @@ function ReturnToAnchor({ panel }: PartProps) {
 const connectionCount = (text: Dict, n: number) =>
   n === 1 ? text.connectionCountOne : text.connectionCount.replace('{n}', String(n));
 
+/** Away from the anchor: the position in its connections, then the way back to it. */
+function WalkPosition({ panel }: PartProps) {
+  const { nav } = panel;
+  return (
+    <>
+      {nav.positionOf(nav.walk.index)}
+      {' · '}
+      <ReturnToAnchor panel={panel} />
+    </>
+  );
+}
+
 /** Where Previous/Next stand: the connection count, or the position and a way back. */
 function CyclePosition({ panel }: PartProps) {
   const { nav } = panel;
@@ -29,11 +41,7 @@ function CyclePosition({ panel }: PartProps) {
       {nav.atAnchor ? (
         connectionCount(panel.props.text, nav.cycle.length)
       ) : (
-        <>
-          {nav.positionOf(nav.walk.index)}
-          {' · '}
-          <ReturnToAnchor panel={panel} />
-        </>
+        <WalkPosition panel={panel} />
       )}
     </p>
   );
@@ -80,13 +88,18 @@ function PanelActions({ label, children }: { label?: string; children: Component
       data-panel-actions
       class="flex flex-wrap items-center gap-x-0.5 gap-y-1 [&>button]:border-transparent [&>button]:px-1.5 [&>button]:py-0.5 [&>button]:text-muted [&>button:hover]:bg-surface-2 [&>button:hover]:text-fg [&>button[aria-pressed=true]]:bg-surface-2 [&>button[aria-pressed=true]]:text-fg"
     >
-      {label && (
-        <span class="mr-1 text-subtle" aria-hidden="true">
-          {label}:
-        </span>
-      )}
+      {label && <ActionsLabel label={label} />}
       {children}
     </div>
+  );
+}
+
+/** The actions group's visible name (screen readers get it from `aria-label`). */
+function ActionsLabel({ label }: { label: string }) {
+  return (
+    <span class="mr-1 text-subtle" aria-hidden="true">
+      {label}:
+    </span>
   );
 }
 

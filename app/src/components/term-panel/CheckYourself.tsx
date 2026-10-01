@@ -2,15 +2,14 @@ import { useState } from 'preact/hooks';
 import KnowledgeStatus from '../KnowledgeStatus';
 import Quiz from '../Quiz';
 import PanelHeading from './PanelHeading';
-import type { PartProps } from './types';
+import type { PanelProps, PartProps } from './types';
 
 const BTN =
   'rounded border border-border-strong px-2 py-1 text-xs text-fg-soft hover:border-border-hover hover:text-fg focus-visible:outline-2 focus-visible:outline-(--focus)';
 
-/** The quick quiz: a button until asked for, then three questions on the term. */
-function QuickQuiz({ panel: { props } }: PartProps) {
-  const [quiz, setQuiz] = useState(false);
-  return quiz ? (
+/** Three questions on the panel's term. */
+function TermQuiz({ props }: { props: PanelProps }) {
+  return (
     <Quiz
       lang={props.lang}
       graphUrl={props.graphUrl}
@@ -19,6 +18,14 @@ function QuickQuiz({ panel: { props } }: PartProps) {
       termId={props.id}
       count={3}
     />
+  );
+}
+
+/** The quick quiz: a button until asked for, then three questions on the term. */
+function QuickQuiz({ panel: { props } }: PartProps) {
+  const [quiz, setQuiz] = useState(false);
+  return quiz ? (
+    <TermQuiz props={props} />
   ) : (
     <button type="button" class={BTN} onClick={() => setQuiz(true)}>
       {props.text.quickQuiz}

@@ -23,22 +23,30 @@ function ReadMore({ panel }: PartProps) {
   );
 }
 
-/** Expanded only: the term's neighbourhood graph beside the text. */
-function Neighbourhood({ panel: { props } }: PartProps) {
+/** The graph of the term and its direct relations; a pick re-focuses the panel. */
+function NeighbourhoodGraph({ panel: { props } }: PartProps) {
   const mini = neighbourhoodGraph(props.graph, props.id, props.lang, props.edgeLabels);
   return (
-    <aside aria-label={props.ui.connections} class="lg:sticky lg:top-0 lg:self-start">
-      <PanelHeading spacing="mb-2">{props.ui.connections}</PanelHeading>
-      <GraphView
-        key={props.id}
-        {...mini}
-        termBase={props.termBase}
-        familyLabels={props.familyLabels}
-        domainLabels={props.domainLabels}
-        clusterLabels={props.clusterLabels}
-        text={props.graphUi}
-        onSelect={props.onSelect}
-      />
+    <GraphView
+      key={props.id}
+      {...mini}
+      termBase={props.termBase}
+      familyLabels={props.familyLabels}
+      domainLabels={props.domainLabels}
+      clusterLabels={props.clusterLabels}
+      text={props.graphUi}
+      onSelect={props.onSelect}
+    />
+  );
+}
+
+/** Expanded only: the term's neighbourhood graph beside the text. */
+function Neighbourhood({ panel }: PartProps) {
+  const { ui } = panel.props;
+  return (
+    <aside aria-label={ui.connections} class="lg:sticky lg:top-0 lg:self-start">
+      <PanelHeading spacing="mb-2">{ui.connections}</PanelHeading>
+      <NeighbourhoodGraph panel={panel} />
     </aside>
   );
 }

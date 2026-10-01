@@ -1,4 +1,5 @@
 import type { ComponentChildren } from 'preact';
+import { frameAttrs } from './term-panel/attrs';
 import ConnectionBar from './term-panel/ConnectionBar';
 import { panelKeyHandler } from './term-panel/panel-keys';
 import PanelBody from './term-panel/PanelBody';
@@ -15,11 +16,7 @@ function PanelFrame({ panel, children }: PartProps & { children: ComponentChildr
   return (
     <div
       ref={panel.refs.root}
-      role={expanded ? 'dialog' : 'complementary'}
-      aria-modal={expanded ? true : undefined}
-      aria-labelledby="tp-title"
-      data-term-panel={panel.props.id}
-      data-expanded={expanded ? '' : undefined}
+      {...frameAttrs(expanded, panel.props.id)}
       onKeyDown={panelKeyHandler(panel)}
       class={`absolute top-0 right-0 bottom-0 z-20 flex w-full flex-col border-l border-border bg-bg/97 shadow-2xl shadow-black/20 dark:shadow-black/60 backdrop-blur transition-[width] duration-300 ease-out motion-reduce:transition-none ${expanded ? '' : 'lg:w-[26rem]'}`}
     >
