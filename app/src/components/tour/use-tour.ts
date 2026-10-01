@@ -3,7 +3,29 @@ import { pageOf, type TourScreen, type TourStep } from '../../lib/tour';
 import { useTourRefs } from './overlay';
 import { useBridgeLinks, useTourBoot, useTourEscape } from './use-tour-listeners';
 import { useFollowTarget, useTourMove, useTourReveal } from './use-tour-motion';
-import { useTourNav, type Shown, type TourNavDeps } from './use-tour-nav';
+import { useTourNav, type Shown, type TourNav, type TourNavDeps } from './use-tour-nav';
+
+type EffectsInput = {
+  view: TourScreen;
+  shown: Shown | null;
+  dontShow: boolean;
+  autoStart: boolean;
+  deps: TourNavDeps;
+  nav: TourNav;
+};
+
+/**
+ * What the tour does on its own: start on load, keep the card on its target, travel to
+ * each new step and reveal it, follow bridge links, and close on Escape.
+ */
+function useTourEffects({ view, shown, dontShow, autoStart, deps, nav }: EffectsInput) {
+  useTourBoot(deps, nav, autoStart);
+  useFollowTarget(shown !== null, deps.refs);
+  useTourMove(view, deps, nav);
+  useTourReveal(shown, deps.refs);
+  useBridgeLinks(shown, deps, nav);
+  useTourEscape(view, dontShow, deps.refs.card, nav.finish);
+}
 
 /**
  * The tour's state and behaviour: `view` is where the tour is heading; `shown` is what
@@ -19,12 +41,7 @@ export function useTour(steps: TourStep[], langBase: string, autoStart: boolean)
   const page = typeof location === 'undefined' ? null : pageOf(location.pathname, langBase);
   const deps: TourNavDeps = { steps, langBase, page, refs, viewRef, setView, setShown };
   const nav = useTourNav(deps);
-  useTourBoot(deps, nav, autoStart);
-  useFollowTarget(shown !== null, refs);
-  useTourMove(view, deps, nav);
-  useTourReveal(shown, refs);
-  useBridgeLinks(shown, deps, nav);
-  useTourEscape(view, dontShow, refs.card, nav.finish);
+  useTourEffects({ view, shown, dontShow, autoStart, deps, nav });
   return { view, setView, shown, dontShow, setDontShow, refs, ...nav };
 }
 

@@ -18,14 +18,21 @@ export function ResumePill({ step, total, ui, onResume, onEnd }: ResumePillProps
         label={fillCount(ui.tourContinue, step, total)}
         onClick={() => onResume(step)}
       />
-      <button
-        type="button"
-        class="min-h-11 text-subtle hover:text-fg-soft sm:min-h-0"
-        onClick={onEnd}
-      >
-        {ui.tourEnd}
-      </button>
+      <EndButton label={ui.tourEnd} onClick={onEnd} />
     </div>
+  );
+}
+
+/** Ends the tour here. */
+function EndButton({ label, onClick }: { label: string; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      class="min-h-11 text-subtle hover:text-fg-soft sm:min-h-0"
+      onClick={onClick}
+    >
+      {label}
+    </button>
   );
 }
 

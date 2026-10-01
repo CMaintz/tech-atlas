@@ -1,3 +1,4 @@
+import type { ComponentChildren } from 'preact';
 import { cardModel, fillCount, type TourStep } from '../../lib/tour';
 import type { TourUi } from './types';
 import type { Tour } from './use-tour';
@@ -11,6 +12,15 @@ const BODY_ID = 'tour-body';
 const btn = 'min-h-11 rounded border px-3 py-1.5 text-sm sm:min-h-0';
 const primary = `${btn} border-amber-400 bg-amber-400 font-medium text-on-accent hover:bg-amber-300`;
 const secondary = `${btn} border-border-strong text-fg-soft hover:border-border-hover`;
+
+/** The card is a non-modal dialog, named by its title and described by its body. */
+const DIALOG = {
+  role: 'dialog',
+  'aria-modal': 'false',
+  'aria-labelledby': TITLE_ID,
+  'aria-describedby': BODY_ID,
+  tabIndex: -1,
+} as const;
 
 /** The overlay: the spotlight, and the (non-modal) card describing what it lights. */
 export function TourOverlay(props: CardProps) {
@@ -29,11 +39,7 @@ function TourDialog(props: CardProps) {
   return (
     <div
       ref={tour.refs.card}
-      role="dialog"
-      aria-modal="false"
-      aria-labelledby={TITLE_ID}
-      aria-describedby={BODY_ID}
-      tabIndex={-1}
+      {...DIALOG}
       class="tour-card max-h-[60dvh] overflow-y-auto rounded border border-border-strong bg-surface p-4 text-fg shadow-2xl focus:outline-none"
     >
       <CardText {...props} m={m} />
@@ -46,19 +52,30 @@ function TourDialog(props: CardProps) {
 function CardText({ tour, steps, ui, m }: PartProps) {
   const current = steps[m.textStep];
   const bridgeBody = tour.shown?.via === 'menu' ? ui.tourBridgeMenu : ui.tourBridgeLink;
-  const close = () => tour.finish(m.welcome ? tour.dontShow : false);
   return (
     <>
-      <div class="mb-1 flex items-start justify-between gap-4">
-        <h2 id={TITLE_ID} class="text-base font-semibold">
-          {m.bridge ? (current.via ?? current.title) : current.title}
-        </h2>
-        <CloseButton label={ui.tourClose} onClick={close} />
-      </div>
+      <CardTitle tour={tour} ui={ui} m={m}>
+        {m.bridge ? (current.via ?? current.title) : current.title}
+      </CardTitle>
       <p id={BODY_ID} class="text-sm text-fg-soft">
         {m.bridge ? bridgeBody : current.body}
       </p>
     </>
+  );
+}
+
+type TitleProps = Pick<PartProps, 'tour' | 'ui' | 'm'> & { children: ComponentChildren };
+
+/** The card's title and its close button (on the welcome card, closing honours "don't show"). */
+function CardTitle({ tour, ui, m, children }: TitleProps) {
+  const close = () => tour.finish(m.welcome ? tour.dontShow : false);
+  return (
+    <div class="mb-1 flex items-start justify-between gap-4">
+      <h2 id={TITLE_ID} class="text-base font-semibold">
+        {children}
+      </h2>
+      <CloseButton label={ui.tourClose} onClick={close} />
+    </div>
   );
 }
 
@@ -145,9 +162,16 @@ function StepButtons(props: PartProps) {
           {ui.tourBack}
         </button>
       )}
-      <button type="button" class={primary} onClick={next} data-tour-next>
-        {m.last ? ui.tourFinish : ui.tourNext}
-      </button>
+      <NextButton label={m.last ? ui.tourFinish : ui.tourNext} onClick={next} />
     </>
+  );
+}
+
+/** Next (or Finish, on the last step). */
+function NextButton({ label, onClick }: { label: string; onClick: () => void }) {
+  return (
+    <button type="button" class={primary} onClick={onClick} data-tour-next>
+      {label}
+    </button>
   );
 }

@@ -61,6 +61,18 @@ const anchorsOf = (view: Moving, steps: TourStep[], langBase: string) =>
     : steps[view.step].anchors;
 
 /**
+ * Let the page settle (before the tour's first card) and scroll `el` into the card's
+ * band. Resolves false as soon as the move has gone `stale()`.
+ */
+async function bringIntoView(el: HTMLElement | null, r: TourRefs, stale: () => boolean) {
+  if (!r.appeared.current) await pageSettled();
+  if (stale()) return false;
+  const scrolling = el && scrollIntoBand(el, r);
+  if (scrolling) await scrolling;
+  return !stale();
+}
+
+/**
  * One move: find the target, scroll it into view, then hand the view to the card (the
  * glide runs once the new text has rendered). Gives up as soon as `stale()`.
  */
@@ -71,13 +83,7 @@ async function travel(view: Moving, d: TourNavDeps, nav: TourNav, stale: () => b
   if (stale()) return;
   // Nothing nearby leads there: a card pointing at nothing is just an extra click.
   if (bridge && !el) return nav.leave(view.to, d.steps[view.to].page ?? '');
-  if (!d.refs.appeared.current) await pageSettled();
-  if (stale()) return;
-  const scrolling = el && scrollIntoBand(el, d.refs);
-  if (scrolling) {
-    await scrolling;
-    if (stale()) return;
-  }
+  if (!(await bringIntoView(el, d.refs, stale))) return;
   d.refs.target.current = el;
   d.setShown({ view, via: viaOf(el) });
 }
