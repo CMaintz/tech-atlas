@@ -20,3 +20,15 @@ export const inkOf =
 /** A decade's background: every other one faintly shaded. */
 export const stripe = (i: number) =>
   i % 2 ? 'color-mix(in srgb, var(--fg) 4.5%, transparent)' : 'transparent';
+
+/**
+ * A term dot's box-shadow: a ring in `var(--ink2)` for a term in a second domain, a glow
+ * for a hub; empty for neither.
+ */
+export const dotShadow = (ringed: boolean, hub: boolean) =>
+  [
+    ringed ? '0 0 0 1.5px var(--chart-bg), 0 0 0 3.5px var(--ink2)' : '',
+    hub ? '0 0 10px var(--ink)' : '',
+  ]
+    .filter(Boolean)
+    .join(', ');

@@ -25,9 +25,18 @@ export default function Timeline(props: TimelineProps) {
         <HorizontalChart chart={t.chart} more={t.more} />
         <MorePopover list={t.more} byId={t.byId} />
         <VerticalChart chart={t.chart} single={t.filter.shown.length === 1} />
-        <PanelHost panel={t.panel} config={props.panel} domainLabels={props.domainLabels} />
-        <TermPopover selection={t.selection} byId={t.byId} />
+        <SelectedTerm t={t} props={props} />
       </div>
     </TimelineContext.Provider>
+  );
+}
+
+/** The picked term: in the term panel once its code has loaded, else in the summary popover. */
+function SelectedTerm({ t, props }: { t: ReturnType<typeof useTimeline>; props: TimelineProps }) {
+  return (
+    <>
+      <PanelHost panel={t.panel} config={props.panel} domainLabels={props.domainLabels} />
+      <TermPopover selection={t.selection} byId={t.byId} />
+    </>
   );
 }

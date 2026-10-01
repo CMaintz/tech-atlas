@@ -35,14 +35,21 @@ function LaneLabel({ lane, count }: { lane: string; count: number }) {
       class="map-ink sticky left-0 z-10 flex shrink-0 items-start gap-2 border-r border-border bg-(--chart-bg) px-3 pt-2 text-sm font-medium"
       style={`${inkVars(ink(lane))}width:${LABEL_COL}px;color:var(--ink)`}
     >
-      <span
-        aria-hidden="true"
-        class="mt-1.5 inline-block h-2 w-2 shrink-0 rounded-full"
-        style={{ background: 'var(--ink)' }}
-      />
+      <LaneDot />
       {label(lane)}
       <span class="sr-only">({count})</span>
     </h2>
+  );
+}
+
+/** The lane label's dot, in the lane's colour. */
+function LaneDot() {
+  return (
+    <span
+      aria-hidden="true"
+      class="mt-1.5 inline-block h-2 w-2 shrink-0 rounded-full"
+      style={{ background: 'var(--ink)' }}
+    />
   );
 }
 
@@ -53,14 +60,13 @@ function LaneTerm({ it, lane, layout }: TermProps) {
   const flipped = lane.flip.has(it.id);
   return (
     <li class="absolute flex items-center" style={termBox(it, lane, layout, flipped)}>
-      <LaneTermLink it={it} lane={lane} layout={layout} />
+      <LaneTermLink it={it} lane={lane} layout={layout} flipped={flipped} />
     </li>
   );
 }
 
-function LaneTermLink({ it, lane, layout }: TermProps) {
-  const { ink, ringOf, item, selId } = useTimelineCtx();
-  const flipped = lane.flip.has(it.id);
+function LaneTermLink({ it, lane, layout, flipped }: TermProps & { flipped: boolean }) {
+  const { item, selId } = useTimelineCtx();
   return (
     <a
       href={it.href}
@@ -70,9 +76,19 @@ function LaneTermLink({ it, lane, layout }: TermProps) {
       aria-label={`${it.name}, ${it.year}`}
       {...item(it)}
     >
-      <Dot colour={ink(lane.lane)} ring={ringOf(it, lane.lane)} hub={it.hub} />
-      {it.name}
+      <LaneTermMark it={it} lane={lane.lane} />
     </a>
+  );
+}
+
+/** The term's dot, in its lane's colour (ringed for a second domain), then its name. */
+function LaneTermMark({ it, lane }: { it: TimelineEntry; lane: string }) {
+  const { ink, ringOf } = useTimelineCtx();
+  return (
+    <>
+      <Dot colour={ink(lane)} ring={ringOf(it, lane)} hub={it.hub} />
+      {it.name}
+    </>
   );
 }
 
@@ -97,16 +113,22 @@ function MoreChip({ chip, top, row, more }: ChipProps) {
   );
 }
 
-function MoreButton({ chip, more }: { chip: Chip; more: MoreList }) {
+/** A "+N" chip's state: whether its list is open, and its accessible name. */
+function useMoreChip(chip: Chip, more: MoreList) {
   const { text } = useTimelineCtx();
-  const on = more.more?.key === chip.key;
+  const label = text.moreLabel.replace('{n}', String(chip.ids.length));
+  return { on: more.more?.key === chip.key, label };
+}
+
+function MoreButton({ chip, more }: { chip: Chip; more: MoreList }) {
+  const { on, label } = useMoreChip(chip, more);
   return (
     <button
       type="button"
       data-tl-more
       class={`rounded-full border px-1.5 text-[10px] leading-4 hover:border-fg-soft hover:text-fg ${on ? 'border-fg-soft bg-surface-2 text-fg' : 'border-border-strong bg-surface-2 text-fg-soft'}`}
       aria-expanded={on && more.more!.pinned}
-      aria-label={text.moreLabel.replace('{n}', String(chip.ids.length))}
+      aria-label={label}
       {...chipHandlers(chip, more)}
     >
       +{chip.ids.length}

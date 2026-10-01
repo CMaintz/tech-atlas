@@ -2,9 +2,9 @@ import type { ComponentChildren, JSX, Ref } from 'preact';
 import { useTimelineCtx } from './context';
 import { inkVars } from './ink';
 import type { TimelineEntry, TimelinePanel } from './types';
-import type { MoreList } from './use-more-list';
-import type { Selection } from './use-selection';
-import type { useTermPanel } from './use-term-panel';
+import type { More, MoreList } from './use-more-list';
+import type { Sel, Selection } from './use-selection';
+import { panelCallbacks, type useTermPanel } from './use-term-panel';
 
 /** Desktop: below the anchor, kept on screen. Phones use the CSS bottom sheet instead. */
 function popStyle(x: number, y: number): Record<string, string> | undefined {
@@ -50,6 +50,11 @@ const byYearThenName = (a: TimelineEntry, b: TimelineEntry) =>
 export function MorePopover({ list, byId }: { list: MoreList; byId: ById }) {
   const { more } = list;
   if (!more) return null;
+  return <MoreCard more={more} list={list} byId={byId} />;
+}
+
+/** The open list's card; the pointer resting on it keeps a hover preview open. */
+function MoreCard({ more, list, byId }: { more: More; list: MoreList; byId: ById }) {
   return (
     <Popover
       data-tl-more
@@ -76,22 +81,29 @@ function MoreTerms({ ids, byId, list }: { ids: string[]; byId: ById; list: MoreL
 }
 
 function MoreTerm({ it, list }: { it: TimelineEntry; list: MoreList }) {
+  return (
+    <li>
+      <MoreTermLink it={it} list={list} />
+    </li>
+  );
+}
+
+/** A folded term, dated: picking it acts like clicking the term, then closes the list. */
+function MoreTermLink({ it, list }: { it: TimelineEntry; list: MoreList }) {
   const { item } = useTimelineCtx();
   const pick = (e: MouseEvent) => {
     item(it).onClick(e);
     list.close();
   };
   return (
-    <li>
-      <a
-        href={it.href}
-        class="flex items-baseline gap-2 rounded px-1.5 py-1 text-fg-soft hover:bg-surface-2 hover:text-fg"
-        onClick={pick}
-      >
-        <span class="font-mono text-[10px] text-subtle">{it.year}</span>
-        <span class={it.hub ? 'font-semibold' : ''}>{it.name}</span>
-      </a>
-    </li>
+    <a
+      href={it.href}
+      class="flex items-baseline gap-2 rounded px-1.5 py-1 text-fg-soft hover:bg-surface-2 hover:text-fg"
+      onClick={pick}
+    >
+      <span class="font-mono text-[10px] text-subtle">{it.year}</span>
+      <span class={it.hub ? 'font-semibold' : ''}>{it.name}</span>
+    </a>
   );
 }
 
@@ -100,6 +112,13 @@ export function TermPopover({ selection, byId }: { selection: Selection; byId: B
   const { sel } = selection;
   const it = sel && byId.get(sel.id);
   if (!sel || !it) return null;
+  return <TermCard selection={selection} sel={sel} it={it} />;
+}
+
+type TermCardProps = { selection: Selection; sel: Sel; it: TimelineEntry };
+
+/** The summary card for `it`; a pinned one has a close button. */
+function TermCard({ selection, sel, it }: TermCardProps) {
   return (
     <Popover
       popRef={selection.popRef}
@@ -185,8 +204,7 @@ export function PanelHost({ panel, config, domainLabels }: PanelHostProps) {
         domainLabels={domainLabels}
         id={id}
         graph={kit.graph}
-        onSelect={panel.setId}
-        onClose={() => panel.setId(null)}
+        {...panelCallbacks(panel.setId)}
       />
     </div>
   );

@@ -40,3 +40,8 @@ export function useTermPanel(cfg: TimelinePanel | undefined, onLoaded: () => voi
   };
   return { id, setId, kit, open };
 }
+
+/** The hosted panel's callbacks: picking a term shows it in the panel; closing hides it. */
+export function panelCallbacks(setId: (id: string | null) => void) {
+  return { onSelect: setId, onClose: () => setId(null) };
+}

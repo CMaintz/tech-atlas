@@ -20,13 +20,18 @@ function useDomainFilter(domains: string[]) {
 
 export type DomainFilter = ReturnType<typeof useDomainFilter>;
 
-/** Both charts' geometry for the shown lanes at this zoom (the desktop one fits the screen). */
-function useChartLayout(props: TimelineProps, shown: string[], zoom: number) {
-  const { items } = props;
-  const [start, end] = props.range;
-  const size = useChartSize();
+/** The shown domains' lanes of terms, and each year's load (its busiest lane's count). */
+function useLanes(items: TimelineEntry[], shown: string[]) {
   const lanes = useMemo(() => lanesOf(items, shown), [items, shown]);
   const load = useMemo(() => yearLoad(lanes.values()), [lanes]);
+  return { lanes, load };
+}
+
+/** Both charts' geometry for the shown lanes at this zoom (the desktop one fits the screen). */
+function useChartLayout(props: TimelineProps, shown: string[], zoom: number) {
+  const [start, end] = props.range;
+  const size = useChartSize();
+  const { lanes, load } = useLanes(props.items, shown);
   const axis = { start, end, zoom, load };
   const { avail, budget } = size;
   const h = useMemo(

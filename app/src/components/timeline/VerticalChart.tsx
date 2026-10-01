@@ -86,13 +86,20 @@ function EraBand({ band, scale }: { band: Band; scale: Scale }) {
       class="absolute right-0 left-0 border-t border-border-hover"
       style={{ top: scale.at(band.from), height: scale.at(band.to) - scale.at(band.from) }}
     >
-      <span
-        class="absolute top-1 left-0.5 text-[10px] tracking-widest whitespace-nowrap text-subtle uppercase"
-        style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
-      >
-        {eraLabels[band.id]}
-      </span>
+      <EraLabel label={eraLabels[band.id]} />
     </div>
+  );
+}
+
+/** An era's name, written sideways up the band. */
+function EraLabel({ label }: { label: string }) {
+  return (
+    <span
+      class="absolute top-1 left-0.5 text-[10px] tracking-widest whitespace-nowrap text-subtle uppercase"
+      style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
+    >
+      {label}
+    </span>
   );
 }
 
@@ -146,10 +153,17 @@ function ColumnTerm({ it, lane, single }: { it: TimelineEntry; lane: string; sin
       {...item(it)}
     >
       <Dot colour={ink(lane)} ring={ringOf(it, lane)} hub={it.hub} />
-      <span class="truncate">
-        {single && <span class="mr-1 font-mono text-subtle">{it.year}</span>}
-        {it.name}
-      </span>
+      <ColumnTermName it={it} single={single} />
     </a>
+  );
+}
+
+/** The term's name; dated too when a single domain is shown. */
+function ColumnTermName({ it, single }: { it: TimelineEntry; single: boolean }) {
+  return (
+    <span class="truncate">
+      {single && <span class="mr-1 font-mono text-subtle">{it.year}</span>}
+      {it.name}
+    </span>
   );
 }
