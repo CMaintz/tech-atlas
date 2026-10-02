@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   security:
-    uses: CMaintz/foundry/.github/workflows/security.yml@467d6f5feb6f2d7258d4478f98043570f4da2c6e # v2.3.0
+    uses: CMaintz/foundry/.github/workflows/security.yml@2112a422a905c329602701d7a0a40fbdb5b91a19 # v2.5.1
     permissions:
       contents: read
       pull-requests: read # gitleaks-action lists the PR's commits
