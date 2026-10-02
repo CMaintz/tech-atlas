@@ -10,7 +10,7 @@ permissions:
   contents: read
 jobs:
   bootstrap:
-    uses: CMaintz/foundry/.github/workflows/bootstrap.yml@323a0ebbb78012cf933a5a24717ca9630cfb445c # v2.5.0
+    uses: CMaintz/foundry/.github/workflows/bootstrap.yml@2112a422a905c329602701d7a0a40fbdb5b91a19 # v2.5.1
     permissions:
       contents: write
       pull-requests: write
