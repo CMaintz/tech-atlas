@@ -1,8 +1,8 @@
 # Changelog
 
 Atlas follows [semantic versioning](https://semver.org) with beta pre-releases
-(v2.0.0-beta.1, beta.2, ... then v2.0.0 at launch). New entries are written by
-release-please from conventional commits; see README "Releasing".
+(v2.0.0-beta.1, beta.2, ... then v2.0.0 at launch). New entries are generated from
+conventional commits by `scripts/cut-release.sh`; see README "Releasing".
 
 ## v1.0.0 to v2.0.0-beta.1: summary
 
