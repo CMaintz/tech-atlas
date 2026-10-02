@@ -1,0 +1,31 @@
+name: security
+# Foundry v2 security facade: secret scan (gitleaks over full history, .gitleaks.toml),
+# ruleset-guard (a PR that changes a gate-defining file alongside source, in a way that
+# may loosen the gate, needs the `ruleset-change` label) and diff-aware SAST (Semgrep).
+# Branch protection requires `security / security-ok`.
+#
+# PR-only (Foundry OVERVIEW §13): the facade's Semgrep diffs against the PR base
+# (`--baseline-commit`), which a push has no value for. Every change reaches main
+# through a PR, and nothing (deploy/backend) waits on this workflow.
+on:
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  security:
+    uses: CMaintz/foundry/.github/workflows/security.yml@467d6f5feb6f2d7258d4478f98043570f4da2c6e # v2.3.0
+    permissions:
+      contents: read
+      pull-requests: read # gitleaks-action lists the PR's commits
+    with:
+      # Gate-defining files. Add a new one here in the same change (Foundry OVERVIEW §7).
+      # app/package.json holds the verbs' npm scripts; scripts/ holds ruleset_guard.py itself;
+      # the allowed-words lists and wordlists are the content lint's allowlists.
+      ruleset_paths: '^(mise\.toml|app/package\.json|scripts/|app/content/allowed-words\.[a-z]+\.txt|app/content/wordlists/|app/\.audit-allowlist\.json|app/\.habit-hooks/|app/\.jscpd\.json|app/tsconfig\.json|app/\.npmrc|app/\.prettierrc\.json|app/\.prettierignore|\.gitleaks\.toml|\.github/workflows/)'
+      # Production source: the app and its build scripts, and the Edge Functions.
+      source_paths: '^(app/(src|scripts|integrations)|supabase/functions)/'
+      test_paths: '\.(test|spec)\.[jt]sx?$'
+      semgrep_version: '1.178.0'

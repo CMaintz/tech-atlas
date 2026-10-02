@@ -1,4 +1,10 @@
 name: gate
+# Foundry v2 language gate (CMaintz/foundry `gate.yml` facade, stack ts): the verbs one
+# step each (lint, typecheck, test, audit from mise.toml) plus the structural-smell job
+# (habit-hooks, app/.habit-hooks/). Branch protection requires `gate / gate-ok`.
+#
+# deploy.yml and backend.yml run after this workflow (by its name, `gate`) succeeds on a
+# push to main (A65), so it keeps its name and both triggers.
 on:
   pull_request:
   push:
@@ -10,22 +16,10 @@ concurrency:
   cancel-in-progress: true
 jobs:
   gate:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          # Full history: the RSS feeds date each term by the commit that added it (A71).
-          # Also what the secret scan (`mise run audit`, gitleaks) reads (A89).
-          fetch-depth: 0
-          persist-credentials: false
-      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
-        with:
-          version: 2026.8.5
-      - name: Install dependencies
-        working-directory: app
-        # onnxruntime-node (used only by a local `npm run embed`) otherwise downloads CUDA binaries (A75).
-        env:
-          ONNXRUNTIME_NODE_INSTALL: skip
-        run: npm ci
-      - name: Gate
-        run: mise run gate
+    # The public facade, pinned by SHA (Dependabot bumps it). Never pin the _-prefixed internals.
+    uses: CMaintz/foundry/.github/workflows/gate.yml@467d6f5feb6f2d7258d4478f98043570f4da2c6e # v2.3.0
+    with:
+      stack: ts
+      # package.json, package-lock.json, .npmrc and .habit-hooks/ live in app/; the verbs
+      # come from the root mise.toml, which mise finds from app/ by parent lookup.
+      working_directory: app

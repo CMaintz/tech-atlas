@@ -10,19 +10,17 @@ import type { Pop } from './types';
 
 /**
  * The control bar: one compact row (dot-only domain chips, a search icon) centred over
- * the top of the map. Equal insets keep it clear of the collapsed legend (top-left,
- * also in Danish) and the About "i" (top-right); while the legend is open the bar
- * sits right of it. It never moves when the term panel opens, which simply sits above
- * it. On phones it condenses to 2D/3D and a "Controls" sheet, and the legend sits
- * below it.
+ * the top of the map. Equal insets keep it centred and clear of the About "i"
+ * (top-right); the legend lives bottom-left, so the bar has the full width. It never
+ * moves when the term panel opens, which simply sits above it. On phones it condenses
+ * to 2D/3D and a "Controls" sheet.
  */
 export function ExplorerBar({ p, x }: Section) {
   const note = layoutNote(p.ui, x.controls.mode, x.controls.layout, x.shown.undated);
-  const left = x.bar.legend.open ? 'md:left-(--xp-legend-open)' : 'md:left-(--xp-legend)';
   return (
     <div
       ref={x.bar.size.slot}
-      class={`pointer-events-none absolute top-3 right-14 left-14 z-20 flex flex-col items-center gap-1.5 md:right-36 ${left}`}
+      class="pointer-events-none absolute top-3 right-14 left-14 z-20 flex flex-col items-center gap-1.5"
     >
       <ControlBar p={p} x={x} note={note} />
       {!x.bar.size.sheet && note && (

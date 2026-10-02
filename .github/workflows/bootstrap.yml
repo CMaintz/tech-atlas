@@ -1,0 +1,19 @@
+name: bootstrap
+# Foundry v2 habit-hooks baseline refresh, run on Linux: the first run seeds
+# app/.habit-hooks/snooze.json (a PR for the owner to review); later runs prune it
+# (shrink-only, auto-merge armed). Never a required check.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * *'
+permissions:
+  contents: read
+jobs:
+  bootstrap:
+    uses: CMaintz/foundry/.github/workflows/bootstrap.yml@467d6f5feb6f2d7258d4478f98043570f4da2c6e # v2.3.0
+    permissions:
+      contents: write
+      pull-requests: write
+    with:
+      working_directory: app
+      habit_hooks_plugin: habit-hooks-typescript
