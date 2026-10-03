@@ -3,3 +3,6 @@ dist
 .astro
 src/generated
 package-lock.json
+coverage
+test-results
+playwright-report

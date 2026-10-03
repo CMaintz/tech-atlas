@@ -27,7 +27,7 @@ run = "npx prettier --write ."
 [tasks.lint]
 description = "Report style violations, content-model smells, and oversized functions/files."
 dir = "app"
-run = ["npx prettier --check .", "npm run lint:content", "npm run lint:size"]
+run = ["npx prettier --check .", "npm run lint:eslint", "npm run lint:content", "npm run lint:size"]
 
 [tasks.typecheck]
 description = "Static type analysis: the Astro app (astro check), then the Edge Functions (deno check)."
@@ -44,6 +44,20 @@ run = [
 description = "Unit tests (vitest), then the full production build as a smoke test."
 dir = "app"
 run = ["npm test", "npm run build"]
+
+# Not part of `gate`: CI runs these in tests.yml, alongside the gate.
+[tasks.e2e]
+description = "Browser smoke tests (Playwright, Chromium) against the production build."
+dir = "app"
+# The Chromium build is the one the locked @playwright/test version ships with, so
+# package-lock.json pins the browser. On a bare Linux runner, install its system
+# libraries first: `npx playwright install-deps chromium` (tests.yml does).
+run = ["npx playwright install chromium", "npm run build", "npm run test:e2e"]
+
+[tasks.coverage]
+description = "Unit tests with a v8 coverage report (app/coverage/). No floor yet."
+dir = "app"
+run = "npm run test:coverage"
 
 [tasks.audit]
 description = "Dependency vulnerabilities, registry signatures, and secrets anywhere in git history."
