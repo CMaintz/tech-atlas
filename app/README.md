@@ -49,7 +49,7 @@ npm run build          # lint -> build:graph -> astro build
 ```
 
 The repo is gated by **Foundry** (`mise run gate` = lint → typecheck → test → audit) and
-deployed to GitHub Pages on every push to `main`: https://cmaintz.github.io/tech-atlas/
+deployed to GitHub Pages on every push to `main`: https://atlas.maintz.dev/
 
 ## Content quality
 

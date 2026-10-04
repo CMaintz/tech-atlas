@@ -12,7 +12,7 @@ import {
   floodFilter,
 } from '../../../supabase/functions/semantic-search/logic';
 
-const SITE = 'https://cmaintz.github.io';
+const SITE = 'https://atlas.maintz.dev';
 const URL_ = 'https://ref.supabase.co/functions/v1/semantic-search';
 const ENV: Record<string, string> = {
   CLOUDFLARE_ACCOUNT_ID: 'acc',

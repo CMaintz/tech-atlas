@@ -108,35 +108,13 @@ same grants as `search_allow`; not yet checked live.)
 - No HTML is built from strings at run time; the one `set:html` (JSON-LD) escapes `<`.
   Source links must be `http(s)` (schema). No `target="_blank"` links.
 
-## Known limitation: the shared origin
+## Origin isolation
 
-The site is served from `https://cmaintz.github.io/tech-atlas/`. **Every** GitHub Pages
-site of the `CMaintz` account shares the origin `https://cmaintz.github.io`, and the
-browser gives all of them the same `localStorage`. Atlas keeps the Supabase session
-(access + refresh token), the PKCE verifier and learner progress there. A script running
-on _any_ other `cmaintz.github.io/*` site — through an XSS bug or a compromised
-dependency there — could read them and act as the signed-in learner (read or overwrite
-their progress, delete it). Atlas's CSP cannot prevent this; it only governs Atlas's own
-pages.
-
-Options, best first:
-
-1. **A custom domain** (e.g. `atlas.<your-domain>`): the site gets its own origin and
-   storage. Set it in **Settings → Pages → Custom domain** (add the CNAME record at your
-   DNS provider, tick **Enforce HTTPS**), then update `site`/`base` in
-   `app/astro.config.mjs`, the CORS origin in
-   `supabase/functions/semantic-search/logic.ts`, and Supabase's Site URL + redirect
-   allowlist. Putting Cloudflare (free) in front would also allow real response headers
-   (`frame-ancestors`, `X-Content-Type-Options`, HSTS).
-2. Publish from a separate GitHub organisation (`<org>.github.io`) that hosts nothing
-   else — same effect, no domain needed.
-3. Until then: keep every other `cmaintz.github.io` site free of third-party scripts
-   and user-supplied HTML, and keep sessions short (**Supabase → Authentication →
-   Sessions**: e.g. time-box sessions, and keep refresh-token reuse detection on).
-
-The data at stake is study progress, not money or secrets, which is why this is
-documented rather than blocking — but it is the first thing to fix before storing
-anything more sensitive.
+The site is served from its own origin, `https://atlas.maintz.dev` (a custom domain on
+GitHub Pages). It previously lived at `https://cmaintz.github.io/tech-atlas/`, whose
+origin — and so `localStorage`, where Atlas keeps the Supabase session, the PKCE
+verifier and learner progress — was shared with every other `cmaintz.github.io` site.
+The custom domain removed that exposure; GitHub now 301-redirects the old addresses.
 
 ## Owner actions (repository settings and dashboards)
 
@@ -160,7 +138,7 @@ These can't be done from code. In order of value:
 5. **Dependabot security updates** — **Settings → Security → Dependabot security
    updates → Enable**; also **Secret scanning → Non-provider patterns** on.
 6. **Supabase → Authentication → URL Configuration**: the redirect allowlist should be
-   exactly `https://cmaintz.github.io/tech-atlas/**` (plus `http://localhost:4321/**`
+   exactly `https://atlas.maintz.dev/**` (plus `http://localhost:4321/**`
    only while developing sign-in locally — remove it otherwise).
 7. **Supabase → Authentication**: keep "Confirm email" on; set up custom SMTP before
    inviting learners (docs/SUPABASE_SETUP.md step 4); review **Rate Limits** (emails per

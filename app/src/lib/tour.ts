@@ -53,8 +53,8 @@ export function parseTourState(raw: string | null, stepCount: number): TourState
 }
 
 /**
- * The current page relative to the language root: `/tech-atlas/en/study/` with root
- * `/tech-atlas/en/` → `study/`. Always ends in '/' unless it is the home page (''),
+ * The current page relative to the language root: `/en/study/` with root
+ * `/en/` → `study/`. Always ends in '/' unless it is the home page (''),
  * so `/study`, `/study/` and `/study/index.html` agree. Outside the root → null.
  */
 export function pageOf(pathname: string, langRoot: string): string | null {

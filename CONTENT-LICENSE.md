@@ -14,7 +14,7 @@ SPDX: code `MIT`; content `CC-BY-SA-4.0`.
 
 When you reuse Atlas content, credit it like this and link the licence:
 
-> Atlas, a bilingual technical dictionary, https://cmaintz.github.io/tech-atlas/ (CC BY-SA 4.0)
+> Atlas, a bilingual technical dictionary, https://atlas.maintz.dev/ (CC BY-SA 4.0)
 
 If you adapt it, share your adaptation under CC BY-SA 4.0 or a
 [compatible licence](https://creativecommons.org/share-your-work/licensing-considerations/compatible-licenses).

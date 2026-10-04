@@ -3,7 +3,7 @@
 import { vi } from 'vitest';
 import type { Deps } from '../../../supabase/functions/feedback/logic';
 
-export const SITE = 'https://cmaintz.github.io';
+export const SITE = 'https://atlas.maintz.dev';
 export const ENV: Record<string, string> = {
   SUPABASE_URL: 'https://ref.supabase.co',
   SUPABASE_SERVICE_ROLE_KEY: 'service-key',

@@ -41,7 +41,7 @@ export type SearchOptions = {
   indexUrl: string;
   /** The `semantic-search` Edge Function, or '' when no backend is configured. */
   semanticUrl: string;
-  /** Base URL of this language, e.g. /tech-atlas/en/ */
+  /** Base URL of this language, e.g. /en/ */
   langBase: string;
   /** Templates with {a} / {b} placeholders. */
   intentLabels: { compare: string; route: string; before: string };

@@ -4,7 +4,7 @@
 
 ![Atlas Explorer: the 3D knowledge map rotating, then a term selected and its panel opened](docs/media/atlas-explorer.gif)
 
-**Live site:** https://cmaintz.github.io/tech-atlas/
+**Live site:** https://atlas.maintz.dev/
 
 ## What it is
 

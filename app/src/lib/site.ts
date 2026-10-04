@@ -13,7 +13,7 @@ import type { Lang } from './lang';
 export { LANGS, type Bi, type Lang } from './lang';
 
 const rawBase = import.meta.env.BASE_URL;
-/** Always ends in '/'. GitHub Pages serves the site under /tech-atlas/. */
+/** Always ends in '/'. The site is served from the domain root, so today this is '/'. */
 export const BASE = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 
 /** Base-path-aware URL for an internal path. */

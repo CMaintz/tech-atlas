@@ -11,6 +11,7 @@ const BODY_ID = 'tour-body';
 const btn = 'min-h-11 rounded border px-3 py-1.5 text-sm sm:min-h-0';
 const primary = `${btn} border-amber-400 bg-amber-400 font-medium text-on-accent hover:bg-amber-300`;
 const secondary = `${btn} border-border-strong text-fg-soft hover:border-border-hover`;
+const quiet = `${btn} border-transparent text-muted underline-offset-2 hover:text-fg hover:underline`;
 
 /** The overlay: the spotlight, and the (non-modal) card describing what it lights. */
 export function TourOverlay(props: CardProps) {
@@ -46,7 +47,7 @@ function TourDialog(props: CardProps) {
 function CardText({ tour, steps, ui, m }: PartProps) {
   const current = steps[m.textStep];
   const bridgeBody = tour.shown?.via === 'menu' ? ui.tourBridgeMenu : ui.tourBridgeLink;
-  const close = () => tour.finish(m.welcome ? tour.dontShow : false);
+  const close = () => tour.finish(false);
   return (
     <>
       <div class="mb-1 flex items-start justify-between gap-4">
@@ -76,33 +77,23 @@ function CloseButton({ label, onClick }: { label: string; onClick: () => void })
   );
 }
 
-/** The welcome card: start, not now, and "don't show again". */
+/**
+ * The welcome card: start, not now (asks again next visit), and never (asks no more;
+ * "Take the tour" still starts it).
+ */
 function WelcomeActions({ tour, ui }: CardProps) {
   return (
-    <div class="mt-4 space-y-3">
-      <div class="flex flex-wrap gap-2">
-        <button type="button" class={primary} onClick={() => tour.go(1)}>
-          {ui.tourWelcomeStart}
-        </button>
-        <button type="button" class={secondary} onClick={() => tour.finish(tour.dontShow)}>
-          {ui.tourNotNow}
-        </button>
-      </div>
-      <DontShowAgain tour={tour} label={ui.tourDontShow} />
+    <div class="mt-4 flex flex-wrap items-center gap-2">
+      <button type="button" class={primary} onClick={() => tour.go(1)}>
+        {ui.tourWelcomeStart}
+      </button>
+      <button type="button" class={secondary} onClick={() => tour.finish(false)}>
+        {ui.tourNotNow}
+      </button>
+      <button type="button" class={quiet} onClick={() => tour.finish(true)}>
+        {ui.tourNever}
+      </button>
     </div>
-  );
-}
-
-function DontShowAgain({ tour, label }: { tour: Tour; label: string }) {
-  return (
-    <label class="flex min-h-11 items-center gap-2 text-sm text-muted sm:min-h-0 sm:text-xs">
-      <input
-        type="checkbox"
-        checked={tour.dontShow}
-        onChange={(e) => tour.setDontShow((e.target as HTMLInputElement).checked)}
-      />
-      {label}
-    </label>
   );
 }
 

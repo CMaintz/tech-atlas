@@ -21,7 +21,7 @@ without details, and we'll get in touch.
 
 In scope:
 
-- The site at <https://cmaintz.github.io/tech-atlas/> and the code in this repository.
+- The site at <https://atlas.maintz.dev/> and the code in this repository.
 - The Supabase backend it uses: sign-in, synced progress (`learner_state`) and the
   `semantic-search` Edge Function.
 - The GitHub Actions workflows (`.github/workflows/`).

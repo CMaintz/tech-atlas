@@ -51,14 +51,14 @@ Check: **Table Editor → learner_state** exists (columns `user_id`, `state`, `v
 
 **Authentication → URL Configuration:**
 
-- **Site URL:** `https://cmaintz.github.io/tech-atlas/`
+- **Site URL:** `https://atlas.maintz.dev/`
 - **Redirect URLs** — add:
-  - `https://cmaintz.github.io/tech-atlas/**`
+  - `https://atlas.maintz.dev/**`
   - `http://localhost:4321/**` (only while you try sign-in with `npm run dev`; remove it
     afterwards — see [SECURITY.md](SECURITY.md))
 
-Sign-in links and the GitHub flow return to `/tech-atlas/en/account/` or
-`/tech-atlas/da/account/`; the wildcard covers both.
+Sign-in links and the GitHub flow return to `/en/account/` or
+`/da/account/`; the wildcard covers both.
 
 ## 4. Sign-in providers
 
@@ -76,7 +76,7 @@ line). Do that only once custom SMTP (below) works. In Supabase it is on by defa
 
 1. On GitHub: **Settings → Developer settings → OAuth Apps → New OAuth App**.
    - Application name: `Atlas`
-   - Homepage URL: `https://cmaintz.github.io/tech-atlas/`
+   - Homepage URL: `https://atlas.maintz.dev/`
    - Authorization callback URL: `https://<project-ref>.supabase.co/auth/v1/callback`
      (copy the exact value shown in Supabase's GitHub provider panel).
 2. Register, then **Generate a new client secret**.
@@ -95,7 +95,7 @@ older plain "LinkedIn" provider is deprecated, don't use it.
 2. Go to <https://www.linkedin.com/developers/apps> → **Create app**:
    - App name: `Atlas`
    - LinkedIn Page: the Company Page from step 1
-   - Privacy policy URL: `https://cmaintz.github.io/tech-atlas/en/privacy/`
+   - Privacy policy URL: `https://atlas.maintz.dev/en/privacy/`
    - App logo: any square image (required)
    - Accept the terms → **Create app**. If asked, verify the app (**Settings** tab →
      **Verify** → open the link as the page admin and approve it).
@@ -141,7 +141,7 @@ They must be **variables**, not secrets — `deploy.yml` reads `vars.*`.
 ## 6. Deploy and check
 
 1. **Actions → deploy → Run workflow** (or merge anything to `main`).
-2. Open <https://cmaintz.github.io/tech-atlas/en/> — the header now shows **Sign in**.
+2. Open <https://atlas.maintz.dev/en/> — the header now shows **Sign in**.
 3. Sign in with GitHub, answer a quiz question, then open the site in another browser,
    sign in there, and check **Study** shows the same progress.
 4. In Supabase, **Table Editor → learner_state** shows one row per signed-in learner.
@@ -228,7 +228,7 @@ secrets it applies the migrations only and leaves search by meaning undeployed.
 2 KB of request body, accepts queries up to 200 characters, and — in Postgres, shared by
 every instance — allows **30 searches a minute per client** (keyed by a hash of the IP,
 never the address) and **50,000 a day in total**, answering 429 beyond that. CORS answers
-only `https://cmaintz.github.io` and `localhost`. The binding free-tier budget is
+only `https://atlas.maintz.dev` and `localhost`. The binding free-tier budget is
 **Supabase Edge Function invocations: 500,000 a month**; Workers AI's 10,000 neurons a day
 cover far more queries than the daily cap allows. To change the caps, edit
 `public.search_allow` in a new migration. **Retention (A88):** expired counters are
