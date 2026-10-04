@@ -2,7 +2,7 @@
 export type TourUi = {
   tourWelcomeStart: string;
   tourNotNow: string;
-  tourNever: string;
+  tourDontShow: string;
   tourNext: string;
   tourBack: string;
   tourFinish: string;

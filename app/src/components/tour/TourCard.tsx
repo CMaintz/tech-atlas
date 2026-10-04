@@ -78,8 +78,8 @@ function CloseButton({ label, onClick }: { label: string; onClick: () => void })
 }
 
 /**
- * The welcome card: start, not now (asks again next visit), and never (asks no more;
- * "Take the tour" still starts it).
+ * The welcome card: start, not now (asks again next visit), and don't show again (asks
+ * no more; "Take the tour" still starts it).
  */
 function WelcomeActions({ tour, ui }: CardProps) {
   return (
@@ -91,7 +91,7 @@ function WelcomeActions({ tour, ui }: CardProps) {
         {ui.tourNotNow}
       </button>
       <button type="button" class={quiet} onClick={() => tour.finish(true)}>
-        {ui.tourNever}
+        {ui.tourDontShow}
       </button>
     </div>
   );
