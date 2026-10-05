@@ -1,5 +1,5 @@
 /** Load and validate every hand-written question file (A90). Shared by lint and tests. */
-import fg from 'fast-glob';
+import { globSync } from 'tinyglobby';
 import { parse } from 'yaml';
 import { readFileSync } from 'node:fs';
 import { QuestionFile } from '../src/schema';
@@ -8,7 +8,7 @@ import type { BankQuestion } from '../src/lib/question-rules';
 export function loadQuestions(root = 'src/content/questions') {
   const questions: BankQuestion[] = [];
   const errors: string[] = [];
-  for (const path of fg.sync(`${root}/**/*.yaml`)) {
+  for (const path of globSync(`${root}/**/*.yaml`)) {
     const file = path.slice(root.length + 1).replace(/\.yaml$/, '');
     const res = QuestionFile.safeParse(parse(readFileSync(path, 'utf8')) ?? {});
     if (!res.success) {
