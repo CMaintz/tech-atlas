@@ -1,7 +1,7 @@
 # Atlas — Authoritative v1 Specification
 
 > **Working name:** `Atlas` (decided). **Status:** decided; v1.0
-> live at https://cmaintz.github.io/tech-atlas/. This is the single source of truth for v1. It supersedes the
+> live at https://atlas.maintz.dev/. This is the single source of truth for v1. It supersedes the
 > exploratory `00`–`09` documents (kept as the *ingestion archive*) and is built on
 > the decisions recorded in [`UNIFIED_VISION.md`](./UNIFIED_VISION.md) (D1–D12) and
 > the schema in [`app/src/schema.ts`](../app/src/schema.ts) (`design/schema.ts` re-exports it). Where this document and the archive
