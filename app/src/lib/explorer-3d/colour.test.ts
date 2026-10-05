@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { atStrength, rgba } from './colour';
 
-describe('atStrength (A92)', () => {
+describe('atStrength', () => {
   const red = { r: 1, g: 0.5, b: 0 };
   it('scales a colour down on the night map: black is invisible', () => {
     expect(atStrength(red, 0.5, false)).toEqual([0.5, 0.25, 0]);

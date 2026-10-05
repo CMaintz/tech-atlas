@@ -20,21 +20,21 @@ interface Props {
   onToggle?: (open: boolean) => void;
   /** Compact: one domain row each, no cluster list (term-page graph). */
   compact?: boolean;
-  /** Explorer only: the overview/all-relationships toggle (A86). */
+  /** Explorer only: the overview/all-relationships toggle. */
   showAll?: boolean;
   onShowAll?: (on: boolean) => void;
-  /** Explorer only: a one-line keyboard hint at the foot (A97). */
+  /** Explorer only: a one-line keyboard hint at the foot. */
   hint?: string;
-  /** The map theme its colours match (A92); dark by default. */
+  /** The map theme its colours match; dark by default. */
   theme?: MapTheme;
   /**
-   * Explorer only (A93b): the closed legend is a pill and the open body floats above it,
+   * Explorer only: the closed legend is a pill and the open body floats above it,
    * growing upward from the pill, so it can sit in a bottom corner of the map.
    */
   upward?: boolean;
 }
 
-/** The graph legend (A74): domains and their cluster shades, edge families, arrow meaning. */
+/** The graph legend: domains and their cluster shades, edge families, arrow meaning. */
 export default function GraphLegend(props: Props) {
   const theme = props.theme ?? 'dark';
   return (

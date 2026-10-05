@@ -1,5 +1,5 @@
 /**
- * The 2D stylesheet rules the visual lab's (A96) toggles lay over the Explorer's own
+ * The 2D stylesheet rules the visual lab's toggles lay over the Explorer's own
  * (later rules win): curves, gradients, the old dashes, glow and labels, emphasis by
  * importance, the cream map's tone, and the state rules laid again on top.
  */

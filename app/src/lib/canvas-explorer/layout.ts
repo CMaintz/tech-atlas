@@ -1,5 +1,5 @@
 /**
- * Where every term of the canvas lab (A91) sits and how big it is: domain regions on a
+ * Where every term of the canvas lab sits and how big it is: domain regions on a
  * grid, cluster seats inside them, heights by depth, a short seeded relaxation, then the
  * spacing pass. Pure and deterministic (the seed fixes every random draw, in order).
  */
@@ -38,7 +38,7 @@ export function radii(
 }
 
 /**
- * Where every term sits (A91), computed once. Each domain is a region on a grid in the
+ * Where every term sits, computed once. Each domain is a region on a grid in the
  * front view (x, y), sized by its term count; a term shared by domains sits in its
  * primary (cluster's) domain. Inside a region, clusters get seats across x and back to
  * front in z (the depth you see when orbiting), and height is a soft pull towards Depth

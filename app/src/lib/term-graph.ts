@@ -1,5 +1,5 @@
 /**
- * The term page's neighbourhood graph (A74), as data for Cytoscape: its stylesheet, the
+ * The term page's neighbourhood graph, as data for Cytoscape: its stylesheet, the
  * ring order of the neighbours, their elements and where each label sits. The component
  * (Graph.tsx) only builds the graph from these and wires it to the page.
  */
@@ -56,7 +56,7 @@ const edgeStyle = (theme: MapTheme) => ({
   },
 });
 
-/** The term-page graph's stylesheet for a map theme (A92). */
+/** The term-page graph's stylesheet for a map theme. */
 export const termGraphStyle = (theme: MapTheme) =>
   [
     ...(graphStyle(theme) as unknown[]),

@@ -1,5 +1,5 @@
 /**
- * Which ways to sign in the account page offers (A87). Pure, so it is unit-tested;
+ * Which ways to sign in the account page offers. Pure, so it is unit-tested;
  * `site.ts` applies it to the build's environment.
  */
 

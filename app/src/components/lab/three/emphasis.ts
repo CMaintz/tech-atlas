@@ -1,5 +1,5 @@
 /**
- * Emphasis by importance and the cream map's tone in the visual lab's (A96) 3D map:
+ * Emphasis by importance and the cream map's tone in the visual lab's 3D map:
  * per-link intensity fed to explorer-3d's web gain / tint hooks and to the tubes, and
  * term colour and glow strength.
  */

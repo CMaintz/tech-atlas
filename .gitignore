@@ -23,7 +23,7 @@ supabase/.temp/
 # local agent worktrees and session state
 .claude/
 
-# Local secrets, anywhere in the tree (A89): e.g. the CLOUDFLARE_* env file for
+# Local secrets, anywhere in the tree: e.g. the CLOUDFLARE_* env file for
 # `supabase functions serve`. app/.gitignore covers app/; this covers the rest.
 .env
 .env.*
@@ -31,6 +31,9 @@ supabase/.temp/
 *.pem
 *.key
 /about/
+
+# owner-only working notes (decision logs etc.) — never committed
+.local/
 
 # Foundry loop telemetry (local observability)
 .foundry/

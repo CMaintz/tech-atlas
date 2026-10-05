@@ -12,7 +12,7 @@ import type { View3D } from './types';
 /**
  * Only the relationship types or "show all" changed, with nothing focused: no
  * 3d-force-graph object can change, so its accessors need no re-evaluating and the web
- * may be revealed a batch per frame (A93b).
+ * may be revealed a batch per frame.
  */
 export function onlyToggled(prev: View3D | null, next: View3D, hovering: boolean) {
   return (

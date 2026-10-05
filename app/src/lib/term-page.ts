@@ -18,7 +18,7 @@ export const relationsByType = (relations: readonly Relation[]) =>
   })).filter((g) => g.items.length > 0);
 
 /**
- * The authored type behind a relation (A74): a generated inverse ("unlocks") is turned
+ * The authored type behind a relation: a generated inverse ("unlocks") is turned
  * back into the authored edge ("requires").
  */
 export const authoredType = (r: Relation): EdgeType =>
@@ -58,7 +58,7 @@ export function termNeighbourhood(term: TermEntry, relations: readonly Relation[
   };
 }
 
-/** Continue learning (SPEC §7, A73): sources grouped by tier, best tier first. */
+/** Continue learning (SPEC §7): sources grouped by tier, best tier first. */
 export const sourcesByTier = (sources: readonly Source[]) =>
   TIER_ORDER.map((tier) => ({
     tier,
@@ -79,7 +79,7 @@ export function termCrumbs(term: TermEntry, lang: Lang, indexLabel: string) {
   ];
 }
 
-/** Structured data (A68): a schema.org DefinedTerm in the Atlas DefinedTermSet. */
+/** Structured data: a schema.org DefinedTerm in the Atlas DefinedTermSet. */
 export function termJsonLd(term: TermEntry, lang: Lang, site: URL | undefined) {
   const d = term.data;
   const aka = d.aka[lang];

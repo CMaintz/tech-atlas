@@ -1,4 +1,4 @@
-/** The signed-out account view (A87): the email form and one button per sign-in provider. */
+/** The signed-out account view: the email form and one button per sign-in provider. */
 import { useState } from 'preact/hooks';
 import { signInWith, signInWithEmail, type SyncState } from '../lib/account';
 import { EMAIL_SIGNIN, signInOptions, type AuthProvider } from '../lib/auth-config';
@@ -12,7 +12,7 @@ import {
   type ViewProps,
 } from './AccountShared';
 
-/** What the signed-out view offers (A87): email only behind EMAIL_SIGNIN, providers by build variable. */
+/** What the signed-out view offers: email only behind EMAIL_SIGNIN, providers by build variable. */
 const options = signInOptions({ emailSignin: EMAIL_SIGNIN, providers: AUTH_PROVIDERS });
 
 const providerLabel: Record<AuthProvider, string> = {

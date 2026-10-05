@@ -1,6 +1,6 @@
 import type { Section } from './use-explorer';
 
-/** The map host: focusable, so the keyboard can move the map (A97). Both maps live here. */
+/** The map host: focusable, so the keyboard can move the map. Both maps live here. */
 export function MapHost({ p, x }: Section) {
   const { onPoint } = x.maps;
   return (

@@ -135,11 +135,11 @@ export function draftRatioByDomain(
     .map(([domain, r]) => ({ domain, ...r }));
 }
 
-/** Dashes readers must never see (A94): en dash U+2013, em dash U+2014, bar U+2015. */
+/** Dashes readers must never see: en dash U+2013, em dash U+2014, bar U+2015. */
 export const FORBIDDEN_DASHES = /[–—―]/g;
 
 /**
- * E12 forbidden dashes (A94): every en/em dash (or horizontal bar) in a text, with its
+ * E12 forbidden dashes: every en/em dash (or horizontal bar) in a text, with its
  * 1-based line, code point and a short excerpt. Write a hyphen-minus "-" instead.
  */
 export function forbiddenDashes(text: string): { line: number; char: string; excerpt: string }[] {

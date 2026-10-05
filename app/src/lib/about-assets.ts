@@ -1,5 +1,5 @@
 /**
- * Build-time props for the About dialog (A84). Server-only: it reads the file system,
+ * Build-time props for the About dialog. Server-only: it reads the file system,
  * so import it from .astro frontmatter, never from an island.
  *
  * A photo is passed to the island only if app/public/about/<photo> exists when the

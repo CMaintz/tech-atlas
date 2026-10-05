@@ -1,5 +1,5 @@
 /**
- * The 2D map's own stylesheet rules, layered over the shared `graphStyle` (A86): the
+ * The 2D map's own stylesheet rules, layered over the shared `graphStyle`: the
  * resting backbone, revealed edges, bundles, label culling, tags, hover and selection,
  * and relationship names. The order matters (later rules win; the lab appends its own).
  */
@@ -12,7 +12,7 @@ type Rule = { selector: string; style: Record<string, string | number> };
 
 const HIDDEN: Rule[] = [
   // Cytoscape's own press marker is a dark disc, invisible on the night map: the drag
-  // ring (drag-feedback.ts) replaces it (A95).
+  // ring (drag-feedback.ts) replaces it.
   { selector: 'core', style: { 'active-bg-opacity': 0 } },
   { selector: '.gone', style: { display: 'none' } },
   { selector: 'edge.off', style: { display: 'none' } },
@@ -21,7 +21,7 @@ const HIDDEN: Rule[] = [
 const EDGES: Rule[] = [
   // Resting backbone: the cluster's own shade, no arrow, straight and solid — a calm
   // constellation, and the cheapest edges Cytoscape draws (haystack), so ~950 of them
-  // still pan smoothly (A86).
+  // still pan smoothly.
   {
     selector: 'edge.bb',
     style: {
@@ -143,7 +143,7 @@ const FOCUS: Rule[] = [
     style: { 'text-opacity': 1, 'min-zoomed-font-size': 0, 'z-index': 20 },
   },
   { selector: 'node.far.nb', style: { 'font-size': 'data(hoverFont)' } },
-  // A term hovered over a selection or route (A97a): it and its link to the selection
+  // A term hovered over a selection or route: it and its link to the selection
   // come forward; the selection's look stays.
   {
     selector: 'node.pv',
@@ -152,7 +152,7 @@ const FOCUS: Rule[] = [
   { selector: 'edge.pv', style: { opacity: 1, 'z-index': 19 } },
 ];
 
-/** Relationship names on the lit links (A97a), upright along the line, just above it. */
+/** Relationship names on the lit links, upright along the line, just above it. */
 const relationNameRule = (theme: MapTheme): Rule => ({
   selector: 'edge.rl, edge.rlh',
   style: {

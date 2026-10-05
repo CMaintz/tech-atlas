@@ -1,5 +1,5 @@
 /**
- * The visual lab's (A96) typed controls: a labelled row, a pick list, a toggle, a
+ * The visual lab's typed controls: a labelled row, a pick list, a toggle, a
  * slider, a titled section and a note. `binder` ties a control to one key of a state.
  */
 import type { ComponentChildren } from 'preact';

@@ -9,7 +9,7 @@ export type Run = (
 ) => Promise<void>;
 
 /**
- * One account action at a time (A44): `busy` while it runs, then `message` says how it
+ * One account action at a time: `busy` while it runs, then `message` says how it
  * went — `done`, or `failed` / `authError` with `{msg}` filled in. On mount the message
  * starts as any auth error handed back in the redirect URL.
  */

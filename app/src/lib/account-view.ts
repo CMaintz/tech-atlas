@@ -1,4 +1,4 @@
-/** The account page's text that depends on where the learner is (A44, A79). Pure. */
+/** The account page's text that depends on where the learner is. Pure. */
 import type { SyncState } from './account-state';
 import type { Lang } from './site';
 

@@ -1,5 +1,5 @@
 /**
- * Pure graph maths for the Explorer (A86): the domain filter, which edges form the
+ * Pure graph maths for the Explorer: the domain filter, which edges form the
  * overview backbone, PageRank for node size, cluster-to-cluster bundles, the "By depth"
  * and "By time" layouts, map orientation, overlap removal and the 3D galaxy layout.
  * No DOM, no Cytoscape, no three.js — everything here is deterministic and unit-tested.

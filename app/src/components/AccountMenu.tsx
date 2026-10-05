@@ -98,9 +98,9 @@ function SignedIn({ href, ui, s }: Props & { s: SyncState }) {
 }
 
 /**
- * Header entry to the account page. Rendered only when accounts are configured
- * (A44); it also starts sync on every page, since any page can change progress.
- * Sync runs by itself (A79): this shows a small status — ✓ synced, syncing…,
+ * Header entry to the account page. Rendered only when accounts are configured;
+ * it also starts sync on every page, since any page can change progress.
+ * Sync runs by itself: this shows a small status — ✓ synced, syncing…,
  * offline, or not synced with "Try again" — and nothing else to press.
  */
 export default function AccountMenu({ href, ui }: Props) {

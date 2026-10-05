@@ -1,5 +1,5 @@
 /**
- * Timeline v2 chart geometry (A81): where every label, lane and "+N" chip goes for a
+ * Timeline v2 chart geometry: where every label, lane and "+N" chip goes for a
  * given zoom and screen, in both orientations. Pure — the island's hooks feed it
  * measurements and the chart components only paint what it returns.
  */

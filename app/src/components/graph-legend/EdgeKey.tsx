@@ -8,7 +8,7 @@ type Props = {
   familyColours: Dict;
   familyLabels: Dict;
   text: Dict;
-  /** Explorer only: the overview/all-relationships toggle (A86). */
+  /** Explorer only: the overview/all-relationships toggle. */
   showAll?: boolean;
   onShowAll?: (on: boolean) => void;
   theme: MapTheme;

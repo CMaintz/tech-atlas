@@ -1,5 +1,5 @@
 /**
- * Colour shifts for the visual lab (A96): fade an edge by its importance, or tone a
+ * Colour shifts for the visual lab: fade an edge by its importance, or tone a
  * term or edge on the cream map. Hex in, hex out; anything else passes through.
  */
 type Rgb = [number, number, number];

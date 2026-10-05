@@ -1,6 +1,6 @@
 /**
- * The browser side of search by meaning (A75), shared by the home search and the
- * Explorer's "Find a term" (A95): after a pause in typing it asks the `semantic-search`
+ * The browser side of search by meaning, shared by the home search and the
+ * Explorer's "Find a term": after a pause in typing it asks the `semantic-search`
  * function for the terms nearest `q`, aborting a request a newer keystroke overtakes.
  * Returns the near-best hits for exactly this query, or null until they arrive, when
  * disabled or without a backend, and on any failure or timeout (the caller then keeps

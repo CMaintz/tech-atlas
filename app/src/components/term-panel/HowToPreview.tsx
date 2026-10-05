@@ -1,7 +1,7 @@
 import PanelHeading from './PanelHeading';
 import type { PartProps } from './types';
 
-/** How many how-to steps the panel previews (A101). */
+/** How many how-to steps the panel previews. */
 const HOW_TO_PREVIEW = 3;
 
 /** One numbered step. */
@@ -33,7 +33,7 @@ function HowToMore({ panel: { props } }: PartProps) {
 }
 
 /**
- * How to put it into practice (A101): the first steps only, and a link to the term page,
+ * How to put it into practice: the first steps only, and a link to the term page,
  * which has them all, with pitfalls and guides. Absent when the term has no how-to.
  */
 export default function HowToPreview({ panel }: PartProps) {

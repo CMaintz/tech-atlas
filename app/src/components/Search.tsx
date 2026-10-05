@@ -120,8 +120,8 @@ function Dropdown(props: Props & { found: SearchState }) {
 /**
  * Client-side bilingual search: typo-tolerant over names and aliases in both
  * languages, plus intents — "X vs Y" (compare), "from X to Y" (route) and
- * "before X" (prerequisites) — and, for questions and descriptions, search by meaning
- * (A75): the `semantic-search` Edge Function ranks terms server-side, fused with the
+ * "before X" (prerequisites) — and, for questions and descriptions, search by meaning:
+ * the `semantic-search` Edge Function ranks terms server-side, fused with the
  * lexical ranking by RRF. Without a backend, or when it fails or is slow, the lexical
  * results simply stand.
  */

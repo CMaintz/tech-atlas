@@ -107,7 +107,7 @@ function useFocusName(id: string, heading: RefObject<HTMLElement>, focusName: Re
 }
 
 /**
- * The panel's navigation (A83): Previous/Next walk the anchor term's connections;
+ * The panel's navigation: Previous/Next walk the anchor term's connections;
  * Back/Forward walk the terms viewed in this panel.
  */
 export function usePanelNav(o: NavSource, heading: RefObject<HTMLElement>): PanelNav {

@@ -13,7 +13,7 @@ type Props = {
   legend: string;
 };
 
-/** "Show all" (else the overview), and a tick per relationship type (A86, A95). */
+/** "Show all" (else the overview), and a tick per relationship type. */
 export function RelationshipTypes({ filters, graphUi, ...types }: Props) {
   const { showAll, setShowAll } = filters;
   return (

@@ -1,4 +1,4 @@
-/** Scripted motion for the visual lab's (A96) benchmark: a 2D pan and zoom, a 3D orbit. */
+/** Scripted motion for the visual lab's benchmark: a 2D pan and zoom, a 3D orbit. */
 import type cytoscape from 'cytoscape';
 import type { Map3D } from '../../lib/explorer-3d';
 

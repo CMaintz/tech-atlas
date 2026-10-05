@@ -47,7 +47,7 @@ describe('backboneOf', () => {
   });
 });
 
-describe('OVERVIEW_FAMILIES (A95)', () => {
+describe('OVERVIEW_FAMILIES', () => {
   const drawn = (Object.keys(FAMILY) as (keyof typeof FAMILY)[])
     .filter((t) => OVERVIEW_FAMILIES.has(FAMILY[t]))
     .sort();

@@ -1,4 +1,4 @@
-/** Which edges form the overview's backbone (A86, A95). */
+/** Which edges form the overview's backbone. */
 import { EXPLORER } from '../explorer-config';
 import { linkVisible } from './visibility';
 import type { LayoutNode, WeightedLink } from './types';
@@ -38,7 +38,7 @@ export function incidence(
 }
 
 /**
- * The overview's edges (A86): every `requires` edge and every edge authored
+ * The overview's edges: every `requires` edge and every edge authored
  * `strength: primary` is always drawn; each term also keeps its `perNode` strongest
  * relationships to terms sharing one of its domains, in any cluster (structure and
  * prerequisites count 1.5×) — so a hub whose links all leave its cluster still shows
@@ -64,7 +64,7 @@ export function backbone(
 }
 
 /**
- * The relationship families the overview draws by default (A95, owner-approved): kind-of,
+ * The relationship families the overview draws by default (owner-approved): kind-of,
  * part-of, implements (structure), requires (dependency), mitigates, exploits, causes
  * (security), mandates (regulation) and supersedes (lineage). Contrasts, alternatives
  * and "used with" are off: they appear when a term is selected (a selected term always

@@ -10,7 +10,7 @@ import { useExplorer, type Section } from './explorer/use-explorer';
 export type { ExplorerProps } from './explorer/types';
 
 /**
- * The full-map explorer (SPEC §7, A86). Every node links to a real, statically rendered
+ * The full-map explorer (SPEC §7). Every node links to a real, statically rendered
  * page: the canvas is an index, not a container. The 2D and 3D maps are each built once
  * and kept; every control below only changes what they show.
  */

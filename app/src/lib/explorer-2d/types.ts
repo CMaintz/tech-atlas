@@ -24,9 +24,9 @@ export type Map2DOptions = {
    * moved (null) — for the Explorer's resting hover card.
    */
   onPoint?: (hit: { id: string; x: number; y: number } | null) => void;
-  /** The map's palette (A92); change it later with `retheme`. */
+  /** The map's palette; change it later with `retheme`. */
   theme?: MapTheme;
-  /** Relationship names, written on the lit links (A97a); none without. */
+  /** Relationship names, written on the lit links; none without. */
   relationNames?: RelationNames;
 };
 

@@ -12,7 +12,7 @@ import type { Lang } from './site';
 const EMPTY: FeedbackForm = { category: 'bug', message: '', email: '', website: '' };
 
 /**
- * The Feedback form's state (A100): the fields, what is wrong with them, and how
+ * The Feedback form's state: the fields, what is wrong with them, and how
  * sending went. `submit` checks the form first and hands an invalid field to
  * `onInvalid` (synchronously, so the caller can focus it) instead of sending.
  */

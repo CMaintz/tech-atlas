@@ -62,7 +62,7 @@ export const UI_TERM = {
   },
 } as const;
 
-/** The term page's deep dive and provenance note (A80). `da` must carry every key `en` has. */
+/** The term page's deep dive and provenance note. `da` must carry every key `en` has. */
 const DEEP_EN = {
   deepDive: 'Technical deep dive',
   sourcesFurther: 'Sources & further reading',

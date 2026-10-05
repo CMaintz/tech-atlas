@@ -1,4 +1,4 @@
-/** The canvas lab's (A91) label painter: priority order, collision-checked, haloed. */
+/** The canvas lab's label painter: priority order, collision-checked, haloed. */
 import { LabelSlots, labelCandidates } from '../../lib/canvas-explorer/labels';
 import type { Frame } from './frame';
 

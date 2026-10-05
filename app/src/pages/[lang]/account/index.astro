@@ -12,7 +12,7 @@ const ui = UI[lang];
 ---
 
 <Base lang={lang} title={ui.account}>
-  {/* Signed out, the page *is* the sign-in page; the island owns the heading (A92). */}
+  {/* Signed out, the page *is* the sign-in page; the island owns the heading. */}
   {ACCOUNTS ? (
     <Account client:only="preact" lang={lang} ui={{ ...ui }} />
   ) : (

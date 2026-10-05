@@ -1,4 +1,4 @@
-/** The canvas lab's (A91) floating toolbar: one slim row over the top of the map. */
+/** The canvas lab's floating toolbar: one slim row over the top of the map. */
 import { useMemo } from 'preact/hooks';
 import type { Graph } from '../../lib/graph-model';
 import { domainColour } from '../../lib/graph-style';

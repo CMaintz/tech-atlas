@@ -39,7 +39,7 @@ const SyncSummary = ({ s, ui, lang }: SignedInProps) => (
   </div>
 );
 
-/** Sync runs by itself (A79); a button appears only when it needs the learner. */
+/** Sync runs by itself; a button appears only when it needs the learner. */
 const SyncActions = ({ s, ui, busy, run }: SignedInProps) => (
   <div class="flex flex-wrap gap-2">
     {s.status === 'stopped' && (
@@ -58,7 +58,7 @@ const SyncActions = ({ s, ui, busy, run }: SignedInProps) => (
   </div>
 );
 
-/** "Delete my synced data" (A47), after a confirm. */
+/** "Delete my synced data", after a confirm. */
 function DeleteData({ ui, busy, run }: ViewProps) {
   const onClick = () => {
     if (confirm(ui.deleteConfirm)) void run(deleteSyncedData, ui.deleted, ui.signOutFailed);
@@ -91,7 +91,7 @@ function AccountSignedIn(props: SignedInProps & { message: string }) {
   );
 }
 
-/** Sign in / out, sync status, "delete my data" and "download my progress" (A44, A47, A88). */
+/** Sign in / out, sync status, "delete my data" and "download my progress". */
 export default function Account({ lang, ui }: Props) {
   const s = useSyncState();
   const { busy, message, run } = useAccountAction(ui.authError);

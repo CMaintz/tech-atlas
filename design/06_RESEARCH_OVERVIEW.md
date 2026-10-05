@@ -60,13 +60,13 @@ recommendations:
 
 ## PART 2 — The external deep-research report  ·  [S7]
 
-Source: `deep-research-report.md` (a comprehensive external research report on
+Source: `docs/research/deep-research-report.md` (a comprehensive external research report on
 building a technical glossary site). Sections 1 and 4–10 are reproduced verbatim;
 sections 2–3 are lightly condensed (a few illustrative example sentences, sample
 definitions, and inline citation markers were trimmed for length).
 
 > **Fidelity note:** the **complete, unabridged report** is preserved untouched at
-> the repository root as `deep-research-report.md` — nothing was discarded. If you
+> `docs/research/deep-research-report.md` — nothing was discarded. If you
 > want the full text inlined here verbatim instead, say so and I will restore the
 > trimmed passages.
 

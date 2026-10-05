@@ -3,7 +3,7 @@
 # working_directory = app/, which finds this root config by mise's parent-directory lookup.
 [tools]
 node = "22.14.0"
-# Secret scanner for `mise run audit` (A89); rules and allowlist in .gitleaks.toml.
+# Secret scanner for `mise run audit`; rules and allowlist in .gitleaks.toml.
 gitleaks = "8.30.1"
 # Type checker for the Supabase Edge Functions (Deno runtime), in `mise run typecheck`.
 deno = "2.9.7"

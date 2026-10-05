@@ -1,9 +1,9 @@
 /**
- * Semantic (vector) search — the pure half (A75, superseding A51–A55). CI embeds every
+ * Semantic (vector) search — the pure half. CI embeds every
  * term through Workers AI into Postgres (pgvector) next to the learner data
  * (scripts/seed-vectors.ts), and the `semantic-search` Supabase Edge Function embeds each
  * query with the same call and returns the nearest terms; `npm run embed` keeps a
- * committed copy for the lint's hashes and the offline ranking tests (A76). The
+ * committed copy for the lint's hashes and the offline ranking tests. The
  * browser never downloads a model: it calls the function (fetchSemantic) and merges its
  * ranking with the lexical one (MiniSearch) by reciprocal rank fusion. Pure, unit-tested.
  *
@@ -110,8 +110,8 @@ export function nearBest(scored: Scored[], margin = 0.06): Scored[] {
 export type Hit = { id: string; from: string[] };
 
 /**
- * The list a search box shows (A75; the home search and the Explorer's "Find a term",
- * A95): the lexical hits as they are until the server's meaning-based hits for this
+ * The list a search box shows (the home search and the Explorer's "Find a term"):
+ * the lexical hits as they are until the server's meaning-based hits for this
  * very query arrive, then both fused by RRF (semantic first, so a tie goes to meaning).
  * `names` is the lexical side in fusion (names and aliases only); ids `known` rejects
  * (terms this page cannot show) are dropped.

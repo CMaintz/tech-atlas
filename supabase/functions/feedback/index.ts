@@ -1,5 +1,5 @@
 /**
- * `feedback` — the site's feedback form (A100). POST `{ category, message, email?,
+ * `feedback` — the site's feedback form. POST `{ category, message, email?,
  * page?, lang, website? }` -> `{ ok: true }`: stores the row in private.feedback (via
  * the service-role-only `feedback_submit`, which also rate-limits: 5 an hour per hashed
  * IP, 50 a day in total) and emails the owner through Resend. The handler lives in

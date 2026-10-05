@@ -1,5 +1,5 @@
 /**
- * Pure helpers for the About dialog (A84). No DOM and no node:fs: this module is
+ * Pure helpers for the About dialog. No DOM and no node:fs: this module is
  * bundled into the client island. The photo check lives in about-assets.ts (server).
  */
 

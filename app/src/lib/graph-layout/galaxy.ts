@@ -1,5 +1,5 @@
 /**
- * The 3D galaxy layout (A86): domains as galaxies on a ring, clusters as star systems
+ * The 3D galaxy layout: domains as galaxies on a ring, clusters as star systems
  * round them, terms settled by a seeded force simulation (galaxy-forces.ts).
  */
 import { EXPLORER } from '../explorer-config';
@@ -85,7 +85,7 @@ const startAt = (seat: Seat, y: number, rand: () => number): Point3 => ({
 });
 
 /**
- * Where every term sits in 3D (A86), computed once from the whole graph: each domain is
+ * Where every term sits in 3D, computed once from the whole graph: each domain is
  * a galaxy on a horizontal ring, each cluster a star system round its galaxy's centre,
  * terms spread by repulsion and drawn together by their relationships; a term in two
  * domains stays in its own cluster's galaxy. Height is a *soft* pull towards Depth (foundations low), never a plane.
@@ -102,7 +102,7 @@ export function galaxyLayout(
   const targetY = depthTargets(nodes, rand);
   const P = nodes.map((n, i) => startAt(seats.get(n.cluster)!, targetY[i], rand));
   const V = nodes.map(() => ({ x: 0, y: 0, z: 0 }));
-  // A term's horizontal home: its own cluster's galaxy, like any other term (A86).
+  // A term's horizontal home: its own cluster's galaxy, like any other term.
   const home = nodes.map((n) => anchor.get(homeDomain(n))!);
   simulate({ nodes, P, V, springs: springsOf(nodes, links), home, targetY });
   return new Map(nodes.map((nd, i) => [nd.id, P[i]]));

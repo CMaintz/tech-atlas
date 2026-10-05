@@ -1,4 +1,4 @@
-/** The Feedback dialog's form (A100): its fields, the error line and the buttons. */
+/** The Feedback dialog's form: its fields, the error line and the buttons. */
 import type { ComponentChildren } from 'preact';
 import {
   FEEDBACK_CATEGORIES,
