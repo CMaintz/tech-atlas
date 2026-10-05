@@ -49,11 +49,11 @@ function useExplorerGraph(props: ExplorerProps, reader: Reader) {
   return { graph, index: useGraphIndex(graph, lang) };
 }
 
-/** The bar's chrome: the legend beside it, the search field, its measured size, popovers. */
+/** The bar's chrome: the legend's open state, the search field, its measured size, popovers. */
 function useBar(mode: string, lang: string) {
   const legend = useLegendOpen();
   const find = useFindField();
-  const size = useBarSize(find.open, [mode, legend.open, lang]);
+  const size = useBarSize(find.open, [mode, lang]);
   const [pop, setPop] = usePopoverGroup<Pop>(size.bar, 'xp-');
   return { legend, find, size, pop, setPop };
 }

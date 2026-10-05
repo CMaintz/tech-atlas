@@ -57,7 +57,7 @@ function useFullOnResize(slot: MutableRef<HTMLElement | null>, reset: () => void
 export function useBarSize(findOpen: boolean, resetOn: Inputs) {
   const narrow = useMedia(NARROW);
   const bar = useRef<HTMLDivElement>(null);
-  /** The space the bar is centred in (between the legend and the "i"). */
+  /** The space the bar is centred in (clear of the About "i"). */
   const slot = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<BarSize>('full');
   useFullOnResize(slot, () => setSize('full'));

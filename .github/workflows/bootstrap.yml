@@ -10,10 +10,13 @@ permissions:
   contents: read
 jobs:
   bootstrap:
-    uses: CMaintz/foundry/.github/workflows/bootstrap.yml@467d6f5feb6f2d7258d4478f98043570f4da2c6e # v2.3.0
+    uses: CMaintz/foundry/.github/workflows/bootstrap.yml@2112a422a905c329602701d7a0a40fbdb5b91a19 # v2.5.1
     permissions:
       contents: write
       pull-requests: write
+    secrets:
+      app_private_key: ${{ secrets.BOOTSTRAP_APP_PRIVATE_KEY }}
     with:
       working_directory: app
       habit_hooks_plugin: habit-hooks-typescript
+      app_client_id: ${{ vars.BOOTSTRAP_APP_CLIENT_ID }}

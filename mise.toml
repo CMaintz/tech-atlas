@@ -31,10 +31,10 @@ run = ["npx prettier --check .", "npm run lint:eslint", "npm run lint:content", 
 
 [tasks.typecheck]
 description = "Static type analysis: the Astro app (astro check), then the Edge Functions (deno check)."
-# Unlike Foundry's ts template, there is no "tsconfig.json required" guard yet: the
-# app has no tsconfig, so `astro check` covers .astro files only. Adding one exposes
-# errors in files the open size PRs rewrite; it lands with its guard in #96.
+# As in Foundry's ts template, a missing tsconfig.json fails loudly: without it
+# `astro check` silently covers .astro files only.
 run = [
+  "test -f app/tsconfig.json || { echo 'app/tsconfig.json is required' >&2; exit 1; }",
   "cd app && npm run check",
   # Unquoted on purpose: a space-separated list of directories/files.
   "deno check $FOUNDRY_DENO_PATHS",

@@ -27,25 +27,68 @@ interface Props {
   hint?: string;
   /** The map theme its colours match (A92); dark by default. */
   theme?: MapTheme;
+  /**
+   * Explorer only (A93b): the closed legend is a pill and the open body floats above it,
+   * growing upward from the pill, so it can sit in a bottom corner of the map.
+   */
+  upward?: boolean;
 }
 
 /** The graph legend (A74): domains and their cluster shades, edge families, arrow meaning. */
 export default function GraphLegend(props: Props) {
-  const { text } = props;
   const theme = props.theme ?? 'dark';
   return (
     <details
       open={props.open}
       onToggle={(e) => props.onToggle?.((e.currentTarget as HTMLDetailsElement).open)}
-      class={`max-h-[60vh] ${props.compact ? 'w-full p-3' : 'w-fit px-3 py-2 open:w-64'} max-w-[calc(100vw-2rem)] overflow-y-auto rounded-lg text-xs text-fg-soft ${GLASS}`}
+      class={detailsClass(props)}
     >
-      <summary class="cursor-pointer text-[11px] tracking-widest text-muted uppercase select-none">
-        {text.legend}
+      <summary class={summaryClass(props.upward)}>
+        {props.text.legend}
+        {props.upward && <Chevron />}
       </summary>
-      <NodeKey {...props} theme={theme} />
-      <EdgeKey {...props} theme={theme} />
-      {props.hint && <p class="mt-3 border-t border-border pt-2 text-subtle">{props.hint}</p>}
+      <LegendBody {...props} theme={theme} />
     </details>
+  );
+}
+
+/** The key itself; upward, it floats above the pill. */
+function LegendBody(props: Props & { theme: MapTheme }) {
+  return (
+    <div data-legend-body class={props.upward ? UPWARD_BODY : undefined}>
+      <NodeKey {...props} />
+      <EdgeKey {...props} />
+      {props.hint && <p class="mt-3 border-t border-border pt-2 text-subtle">{props.hint}</p>}
+    </div>
+  );
+}
+
+/** Inline (term page): a box that scrolls; upward (Explorer): a pill its body floats over. */
+function detailsClass({ upward, compact }: Pick<Props, 'upward' | 'compact'>) {
+  if (upward) return `group relative w-fit rounded-lg px-3 text-xs text-fg-soft ${GLASS}`;
+  const size = compact ? 'w-full p-3' : 'w-fit px-3 py-2 open:w-64';
+  return `max-h-[60vh] ${size} max-w-[calc(100vw-2rem)] overflow-y-auto rounded-lg text-xs text-fg-soft ${GLASS}`;
+}
+
+/** The label; as a pill it is at least 44 px tall on phones and holds the chevron. */
+const summaryClass = (upward?: boolean) =>
+  `cursor-pointer text-[11px] tracking-widest text-muted uppercase select-none ${upward ? 'flex min-h-11 items-center justify-between gap-2 md:min-h-0 md:py-2' : ''}`;
+
+/** The open body above the pill: capped at 50dvh on phones (60dvh from md), scrolling. */
+const UPWARD_BODY = `absolute bottom-full left-0 mb-1.5 max-h-[50dvh] max-w-[calc(100vw-1.5rem)] overflow-y-auto overscroll-contain rounded-lg px-3 pt-1 pb-2 md:max-h-[60dvh] ${GLASS}`;
+
+/** Points up while closed (the body opens upward), down while open. */
+function Chevron() {
+  return (
+    <svg
+      width="10"
+      height="6"
+      viewBox="0 0 10 6"
+      aria-hidden="true"
+      class="shrink-0 transition-transform group-open:rotate-180 motion-reduce:transition-none"
+    >
+      <path d="M1 5 L5 1 L9 5" fill="none" stroke="currentColor" stroke-width="1.5" />
+    </svg>
   );
 }
 
