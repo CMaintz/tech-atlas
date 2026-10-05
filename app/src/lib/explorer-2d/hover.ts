@@ -1,5 +1,5 @@
 /**
- * Hover (A97a): with nothing selected, a hovered term lights its neighbourhood and the
+ * Hover: with nothing selected, a hovered term lights its neighbourhood and the
  * rest fades; with a term selected (or a route shown) the selection's look stays and
  * hover only brings the hovered term forward.
  */

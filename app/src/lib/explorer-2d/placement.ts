@@ -1,5 +1,5 @@
 /**
- * Where terms sit (A86): the island map (force) and the depth and time lanes, each
+ * Where terms sit: the island map (force) and the depth and time lanes, each
  * computed once from the whole graph (lanes on first use) and never changed by filters;
  * `place` puts the terms, anchors and tags of a layout there, gliding on a switch.
  */
@@ -41,7 +41,7 @@ export function createLayouts(
     islands,
     force: forceMap(),
     lanes: laneCache(p.graph),
-    /** Re-space the island map (the lab, A96). */
+    /** Re-space the island map (the lab). */
     respace(tune: IslandTune) {
       withSeededRandom(LAYOUT_SEED, () => shapeIslands(islands, tune));
       layouts.force = forceMap();

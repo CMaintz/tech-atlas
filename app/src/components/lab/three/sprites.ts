@@ -1,5 +1,5 @@
 /**
- * The old 3D glow (A96 visual lab): one additive sprite per term, its colour copied from
+ * The old 3D glow (visual lab only): one additive sprite per term, its colour copied from
  * the point cloud's four times a second, in place of today's single point cloud.
  */
 import type { Lab3, Sprite, Three } from './context';

@@ -1,8 +1,8 @@
 /**
- * The resting web (A86): every link as a gently curved polyline in one merged geometry
+ * The resting web: every link as a gently curved polyline in one merged geometry
  * — a single draw call however many links. Only the lit links are 3d-force-graph
  * objects; the rest are coloured here, and links a toggle switched on arrive a batch
- * per frame (A93b).
+ * per frame.
  */
 import { EXPLORER } from '../explorer-config';
 import { clusterColour, homeDomain } from '../graph-style';
@@ -59,7 +59,7 @@ export function createWeb(ctx: Ctx, segments: Float32Array) {
   const { web, colours } = webLines(ctx, segments);
   const n = ctx.model.links.length;
   let tints = tintsOf(ctx);
-  /** The hidden visual lab (A96) may scale or recolour each resting link; inert by default. */
+  /** The hidden visual lab may scale or recolour each resting link; inert by default. */
   const gain = new Float32Array(n).fill(1);
   const tint: (Colour | null)[] = ctx.model.links.map(() => null);
   /** Each link's drawn strength (0 = hidden). */

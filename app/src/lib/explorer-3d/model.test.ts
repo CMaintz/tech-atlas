@@ -10,7 +10,7 @@ describe('endId', () => {
   });
 });
 
-describe('buildModel (A86)', () => {
+describe('buildModel', () => {
   const model = buildModel(graph);
   it('fixes every term where it sits', () => {
     for (const n of model.nodes) expect([n.fx, n.fy, n.fz]).toEqual([n.x, n.y, n.z]);
@@ -61,7 +61,7 @@ describe('hubsOf', () => {
   });
 });
 
-describe('domainGroups (A93b)', () => {
+describe('domainGroups', () => {
   it('names each galaxy over its centre, above its highest term', () => {
     const at = (id: string, cluster: string, x: number, y: number, z: number) =>
       ({ id, cluster, domain: [], x, y, z }) as never;

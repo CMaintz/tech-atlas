@@ -1,4 +1,4 @@
--- Atlas: a firm retention limit for the search rate-limit counters (A88).
+-- Atlas: a firm retention limit for the search rate-limit counters.
 --
 -- private.search_rate holds, per client, a hash of the IP address (pseudonymised, but
 -- still personal data: an IPv4 address can be guessed back from its hash) with a

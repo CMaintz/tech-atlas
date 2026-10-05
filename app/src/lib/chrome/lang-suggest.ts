@@ -1,4 +1,4 @@
-/** Danish readers on an English page: suggest the Danish one (A63). */
+/** Danish readers on an English page: suggest the Danish one. */
 import { LANG_SUGGEST_KEY, prefersDanish } from '../prefs';
 
 function dismissed(): boolean {

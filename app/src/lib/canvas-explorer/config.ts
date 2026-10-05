@@ -1,4 +1,4 @@
-/** The canvas Explorer lab's (A91) shared numbers and the world-point type. */
+/** The canvas Explorer lab's shared numbers and the world-point type. */
 export type Vec3 = { x: number; y: number; z: number };
 
 /** Every tunable number of the lab's layout and look, in one place. */

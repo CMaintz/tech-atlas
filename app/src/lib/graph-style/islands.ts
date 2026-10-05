@@ -1,5 +1,5 @@
 /**
- * The 2D map's island layout (A74): each cluster is an island, each domain a region of
+ * The 2D map's island layout: each cluster is an island, each domain a region of
  * islands, and both levels are packed as discs so they read as separate and coherent.
  */
 import { packDiscs, type DiscLink } from './discs';
@@ -74,7 +74,7 @@ function domainLinks(list: Island[], links: IslandLink[]): IslandLink[] {
 }
 
 /**
- * Where each cluster island goes (A74), in two levels: each domain's islands are
+ * Where each cluster island goes, in two levels: each domain's islands are
  * packed into a region (ISLAND_GAP apart, related islands drawn together), then the
  * regions are packed as discs (DOMAIN_GAP apart, drawn together by the links between
  * domains). Clusters read as separate islands, domains as separate, coherent regions.

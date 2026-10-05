@@ -1,5 +1,5 @@
 /**
- * Label placement for the canvas lab (A91): which terms get a label, in priority order,
+ * Label placement for the canvas lab: which terms get a label, in priority order,
  * and where each fits (below its disc, else above) without overlapping those placed.
  */
 import { LAB } from './config';

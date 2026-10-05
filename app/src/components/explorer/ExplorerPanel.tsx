@@ -7,7 +7,7 @@ import type { Section } from './use-explorer';
 import { actionClass } from './styles';
 import type { Dict } from './types';
 
-/** The selected term's docked panel (A80), with the map's actions for it. */
+/** The selected term's docked panel, with the map's actions for it. */
 export function ExplorerPanel({ p, x }: Section) {
   const { selected, setSelected } = x.selection;
   const onClose = useCallback(() => setSelected(null), []);

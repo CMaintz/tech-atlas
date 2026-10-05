@@ -1,4 +1,4 @@
--- Atlas: security review hardening (A89). Idempotent.
+-- Atlas: security review hardening. Idempotent.
 --
 -- Supabase's default privileges grant EXECUTE on every new function in `public` to
 -- anon and authenticated. The trigger function below cannot be called through the Data

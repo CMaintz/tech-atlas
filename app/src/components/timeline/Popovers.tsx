@@ -174,7 +174,7 @@ type PanelHostProps = {
   domainLabels: Record<string, string>;
 };
 
-/** The Explorer's term panel (A80) over the page, once its code has loaded. */
+/** The Explorer's term panel over the page, once its code has loaded. */
 export function PanelHost({ panel, config, domainLabels }: PanelHostProps) {
   const { kit, id } = panel;
   if (!kit || !id || !config) return null;

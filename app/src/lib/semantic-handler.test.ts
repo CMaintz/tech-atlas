@@ -1,5 +1,5 @@
-// The `semantic-search` Edge Function's handler (supabase/functions/semantic-search,
-// A75), driven with a mocked fetch: every answer it gives on the wire.
+// The `semantic-search` Edge Function's handler (supabase/functions/semantic-search),
+// driven with a mocked fetch: every answer it gives on the wire.
 import { describe, expect, it, vi } from 'vitest';
 import {
   handleSearch,

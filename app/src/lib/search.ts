@@ -2,7 +2,7 @@
  * The home search's lexical side and its shortcuts: the MiniSearch index over names,
  * aliases and summaries, the ranking for a query (names only, and without function
  * words, when it reads as a question), and the links an intent or a shared name leads
- * to. Pure given the index; the Search island adds search by meaning (A75).
+ * to. Pure given the index; the Search island adds search by meaning.
  */
 import MiniSearch from 'minisearch';
 import { collisionForQuery } from './collisions';

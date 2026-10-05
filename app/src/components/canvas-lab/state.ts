@@ -1,5 +1,5 @@
 /**
- * The canvas lab's (A91) loop state: what the view shows and where the camera is. Both
+ * The canvas lab's loop state: what the view shows and where the camera is. Both
  * live in refs the rAF loop reads every frame, so the loop is never rebuilt.
  */
 import { LAB } from '../../lib/canvas-explorer';

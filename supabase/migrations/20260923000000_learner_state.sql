@@ -1,10 +1,10 @@
--- Atlas: synced learner progress (A44). One row per user holding the same JSON
+-- Atlas: synced learner progress. One row per user holding the same JSON
 -- the browser keeps in localStorage (`atlas:learner:v2`); the browser merges it.
 -- Row Level Security: a signed-in user can read and write only their own row.
 --
 -- version    — bumped by the server on every write; clients update only the version
---              they read (optimistic concurrency, A49), so no write is silently lost.
--- deleted_at — tombstone (A47): "Delete my synced data" empties `state` and sets it.
+--              they read (optimistic concurrency), so no write is silently lost.
+-- deleted_at — tombstone: "Delete my synced data" empties `state` and sets it.
 --              While set, `state` must stay '{}', so a device that was signed in
 --              before the delete cannot write progress back; only an explicit
 --              "start syncing again" (setting it back to null) reopens the row.

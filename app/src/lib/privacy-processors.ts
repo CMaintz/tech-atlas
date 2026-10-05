@@ -1,4 +1,4 @@
-/** The privacy page: the third parties involved and their own privacy policies (A88). */
+/** The privacy page: the third parties involved and their own privacy policies. */
 import type { Lang } from './site';
 
 type T = Record<Lang, string>;

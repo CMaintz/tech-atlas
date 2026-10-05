@@ -2,10 +2,11 @@
 
 Atlas is a bilingual (English + Danish) technical dictionary whose typed, sourced
 relationships make it a navigable knowledge graph. The authoritative spec is
-[`design/SPEC.md`](design/SPEC.md); decisions are in [`design/adr/`](design/adr/),
-[`design/UNIFIED_VISION.md`](design/UNIFIED_VISION.md), and
-[`design/AUTONOMOUS_DECISIONS.md`](design/AUTONOMOUS_DECISIONS.md). **When spec and
-code disagree, the spec wins.**
+[`design/SPEC.md`](design/SPEC.md); decisions are in [`design/adr/`](design/adr/) and
+[`design/UNIFIED_VISION.md`](design/UNIFIED_VISION.md). **When spec and code disagree,
+the spec wins.** Agents log their autonomous decisions locally, in the git-ignored
+`.local/` (never committed): don't add decision logs to the repo, and don't cite
+decision IDs (A12, U37, ...) in code or docs; a comment states its reason in plain words.
 
 ## The gate — six verbs (Foundry)
 
@@ -15,7 +16,7 @@ Invoke verbs, never tools. `mise run gate` is the only authority for "done".
 |---|---|
 | `mise run fix` | Apply mechanically-safe fixes (format). |
 | `mise run lint` | Report style + content-model violations, and size: no function over 18 logical lines, no code file over 300 lines (`npm run lint:size`, `app/scripts/size-rules.ts`). |
-| `mise run typecheck` | Static type analysis: `astro check` for the app, `deno check` for the Edge Functions (`supabase/functions/**`, incl. `_shared`). |
+| `mise run typecheck` | Static type analysis: `astro check` for the app (everything `app/tsconfig.json` includes: `src/`, `scripts/`, `integrations/`, tests; Astro's strict preset), `deno check` for the Edge Functions (`supabase/functions/**`, incl. `_shared`). |
 | `mise run test` | Unit tests (Vitest) + the production build as a smoke test. No coverage floor yet. |
 | `mise run audit` | Dependency vulnerabilities (ratcheted: high+ fails unless accepted with a reason in `app/.audit-allowlist.json`), registry signatures, secrets in git history. |
 | `mise run gate` | lint -> typecheck -> test -> audit. **Green gate from a clean tree, or it is not done.** |

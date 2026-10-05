@@ -1,5 +1,5 @@
 /**
- * The canvas lab's (A91) component state: the controls, the graph and engine, and the
+ * The canvas lab's component state: the controls, the graph and engine, and the
  * effects that push that state into the loop's view and camera.
  */
 import { useEffect, useRef, useState, type MutableRef } from 'preact/hooks';
@@ -26,7 +26,7 @@ export type LabRefs = {
   eng: MutableRef<Engine | null>;
   view: MutableRef<View>;
   cam: MutableRef<Cam>;
-  /** The palette follows the page theme live (A92); the loop reads it every frame. */
+  /** The palette follows the page theme live; the loop reads it every frame. */
   theme: MutableRef<MapTheme>;
 };
 
@@ -80,7 +80,7 @@ export function useLabGraph(url: string, refs: LabRefs, ui: ViewUi, filters: Fil
         openDeepLink(g, refs, ui.setSelected);
       });
   }, [url]);
-  // The open term is kept in the address (`?term=`), as in the Explorer (A80).
+  // The open term is kept in the address (`?term=`), as in the Explorer.
   useEffect(() => {
     if (graph)
       history.replaceState(history.state, '', withTermParam(window.location.href, ui.selected));

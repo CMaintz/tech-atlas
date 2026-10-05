@@ -1,5 +1,5 @@
 /**
- * What the Explorer's maps light up, as pure state (A97a): a selection (or a route)
+ * What the Explorer's maps light up, as pure state: a selection (or a route)
  * always wins over hover, hover is ignored while the map moves, and the relationship
  * labels on lit links. Shared by the 2D and 3D maps; no DOM, so it is unit-tested.
  */

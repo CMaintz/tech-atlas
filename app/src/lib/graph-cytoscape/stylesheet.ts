@@ -1,5 +1,5 @@
 /**
- * The Cytoscape stylesheet shared by the Explorer and the term-page graph (A74). Rule
+ * The Cytoscape stylesheet shared by the Explorer and the term-page graph. Rule
  * order is the cascade: base node and edge looks first, then hover, then highlight and
  * selection, each overriding what came before.
  */
@@ -51,7 +51,7 @@ const nodeRule = (ink: Ink, u: Underlay) => ({
 /** Domain rings and the edge looks: the same in every theme. */
 const EDGE_RULES = [
   // A term in several domains: a solid fill in its own shade and a thin ring in the
-  // other domain's colour (A86; the split fill is left to the canvas lab).
+  // other domain's colour (the split fill is left to the canvas lab).
   {
     selector: 'node[ring]',
     style: { 'border-width': 2, 'border-color': 'data(ring)', 'border-opacity': 0.95 },
@@ -122,8 +122,8 @@ const highlightRules = (ink: Ink, u: Underlay) => [
 
 /**
  * The shared look: glowing nodes, domain rings, curved family-coloured edges. No style
- * transitions here: on the full map they animate every restyled element each frame
- * (A86); small graphs add `FADE_TRANSITIONS`.
+ * transitions here: on the full map they animate every restyled element each frame;
+ * small graphs add `FADE_TRANSITIONS`.
  */
 export const graphStyle = (theme: MapTheme = 'dark') => {
   const ink = MAP_INK[theme];

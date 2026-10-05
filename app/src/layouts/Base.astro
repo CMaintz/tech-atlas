@@ -21,7 +21,7 @@ interface Props {
   ogType?: 'website' | 'article';
   /** Keep out of search engines (the 404 page); also drops canonical + og:url. */
   noindex?: boolean;
-  /** Structured data for this page (schema.org JSON-LD), e.g. a DefinedTerm (A68). */
+  /** Structured data for this page (schema.org JSON-LD), e.g. a DefinedTerm. */
   jsonLd?: Record<string, unknown>;
 }
 const {
@@ -50,8 +50,8 @@ const ui = UI[lang];
     />
   </head>
   <body class="flex min-h-dvh flex-col bg-bg font-sans text-fg antialiased">
-    {/* Blocking, before any content is parsed, so there is no flash of the wrong theme
-        (A92). Not in <head>: Astro appends the CSP meta there last, and nothing may
+    {/* Blocking, before any content is parsed, so there is no flash of the wrong theme.
+        Not in <head>: Astro appends the CSP meta there last, and nothing may
         run before the policy. */}
     <script is:inline src={url('theme-init.js')}></script>
     <a
@@ -81,7 +81,7 @@ const ui = UI[lang];
       import { initSearchShortcut } from '../lib/chrome/search-shortcut';
       import { initThemeMenu } from '../lib/chrome/theme-menu';
 
-      // Pages can't send frame-ancestors / X-Frame-Options (A89): refuse to render
+      // Pages can't send frame-ancestors / X-Frame-Options: refuse to render
       // inside another site's frame, so account actions can't be clickjacked.
       if (window.top !== window.self) document.documentElement.style.display = 'none';
 

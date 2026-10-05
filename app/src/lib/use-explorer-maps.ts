@@ -1,5 +1,5 @@
 /**
- * The Explorer's two maps (A86): each built once from the graph and kept, then only
+ * The Explorer's two maps: each built once from the graph and kept, then only
  * told what to show. The 3D map loads the first time it is opened and is paused while
  * hidden. Their options come from one wiring, so both answer the reader the same way.
  */
@@ -47,7 +47,7 @@ function options2D(container: HTMLElement, graph: Graph, w: MapWiring): Map2DOpt
     reserveRight: selectedReserve(w),
     centreReserve: panelReserve,
     onSelect: w.onSelect,
-    // A double click opens the panel too — never a page load (A80).
+    // A double click opens the panel too — never a page load.
     onOpen: w.onSelect,
     onHover: (id) => prefetchTerm(w.apiBase, id),
     onPoint: w.onPoint,
@@ -161,7 +161,7 @@ type Moved = {
   onPoint: (hit: Point | null) => void;
 };
 
-/** WASD / arrows move the shown map while it has focus or the pointer (A97). */
+/** WASD / arrows move the shown map while it has focus or the pointer. */
 export function useKeyNav({ host, mode, map2d, map3d, onPoint }: Moved) {
   const modeRef = useLatest(mode);
   const map3dRef = useLatest(map3d);
@@ -178,7 +178,7 @@ export function useKeyNav({ host, mode, map2d, map3d, onPoint }: Moved) {
   }, []);
 }
 
-/** The hidden lab (A96) is handed the built maps, to tune them live. */
+/** The hidden lab is handed the built maps, to tune them live. */
 export function useLabMaps(
   onMaps: ((maps: { map2d: Map2D | null; map3d: Map3D | null }) => void) | undefined,
   graph: Graph | null,

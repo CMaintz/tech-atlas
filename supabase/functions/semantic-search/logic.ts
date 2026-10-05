@@ -1,5 +1,5 @@
 /**
- * The pure half of the `semantic-search` Edge Function (A75): its limits, request
+ * The pure half of the `semantic-search` Edge Function: its limits, request
  * validation and the database answers it parses. No Deno APIs, so the app's Vitest
  * suite tests it (app/src/lib/semantic-function.test.ts). It also re-exports the
  * shared request plumbing (../_shared) and the Workers AI client (cloudflare.ts) under

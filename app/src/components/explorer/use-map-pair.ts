@@ -54,7 +54,7 @@ type Hands = {
 /** The maps' wiring, and the hover card their pointer callback raises. */
 function useWiring(props: ExplorerProps, theme: MapTheme, selection: Selection) {
   const { card, onPoint } = useHoverCard();
-  /** Relationship names for the lit links, read from either end (A97a). */
+  /** Relationship names for the lit links, read from either end. */
   const { edgeLabels: label, edgeInverse: inverse } = props.panel;
   const relationNames = useMemo(() => ({ label, inverse }), [props.panel]);
   return { card, wiring: wiringOf(props, { theme, selection, onPoint, relationNames }) };

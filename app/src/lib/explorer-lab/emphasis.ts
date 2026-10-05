@@ -1,4 +1,4 @@
-/** The visual lab's (A96) emphasis by importance: how much each edge matters, and how. */
+/** The visual lab's emphasis by importance: how much each edge matters, and how. */
 import type { EdgeType } from '../../schema';
 
 /** How an edge's importance shows: off (today), opacity, colour, width, or all three. */

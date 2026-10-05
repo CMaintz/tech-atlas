@@ -1,5 +1,5 @@
 /**
- * The 3D map's fixed model (A86), computed once: where every term sits (the galaxy
+ * The 3D map's fixed model, computed once: where every term sits (the galaxy
  * layout, spread so no two terms crowd), how big it is (by PageRank), who its
  * neighbours are, which terms carry hub labels and where each domain's name goes.
  * Pure: no three.js, no DOM.
@@ -36,7 +36,7 @@ export const radiusBy =
   (n: GraphNode): number =>
     EXPLORER.three.nodeRel * (1.2 + 5 * Math.sqrt(rank.get(n.id) ?? 0));
 
-/** The galaxy layout, spread: no two terms closer than a click target and a label (A86). */
+/** The galaxy layout, spread: no two terms closer than a click target and a label. */
 export function placeTerms(graph: Graph, radius: (n: GraphNode) => number) {
   const pos = galaxyLayout(graph.nodes, graph.links);
   const pts: Point3[] = graph.nodes.map((n) => ({ ...pos.get(n.id)! }));

@@ -1,5 +1,5 @@
 /**
- * Which terms are "actionable" (A101): something you do or implement (a process,
+ * Which terms are "actionable": something you do or implement (a process,
  * control, practice, framework, law you must comply with, tool or technique), so the
  * term should say how to put it into practice (`howTo`). Pure, so the lint (W11), the
  * follow-up report and the tests share one definition. The rules are documented in
@@ -93,7 +93,7 @@ export type HowToShape = {
 };
 
 /**
- * E13 (A101): what the schema cannot see in a `howTo` (its counts, lengths and URLs are
+ * E13: what the schema cannot see in a `howTo` (its counts, lengths and URLs are
  * E10): blank items and a guide listed twice.
  */
 export function howToIssues(h: HowToShape): string[] {

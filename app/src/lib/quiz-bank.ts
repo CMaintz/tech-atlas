@@ -1,4 +1,4 @@
-/** Hand-written questions (A90) as quiz questions, looked up by the terms they test. */
+/** Hand-written questions as quiz questions, looked up by the terms they test. */
 import type { ClientQuestion } from './question-rules';
 import { shuffle } from './quiz-random';
 import type { Question, Rng } from './quiz-types';
@@ -12,7 +12,7 @@ export function indexBank(bank: ClientQuestion[]): BankIndex {
   return byTerm;
 }
 
-/** Hand-written questions that test `id`. `onPage`: not those `id` itself answers (A79). */
+/** Hand-written questions that test `id`. `onPage`: not those `id` itself answers. */
 export const bankFor = (bank: BankIndex, id: string, onPage = false): ClientQuestion[] =>
   (bank.get(id) ?? []).filter((q) => !onPage || !q.answeredBy.includes(id));
 

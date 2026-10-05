@@ -1,4 +1,4 @@
-/** Camera moves in the canvas lab (A91): fit, zoom, pan, reset and a search focus. */
+/** Camera moves in the canvas lab: fit, zoom, pan, reset and a search focus. */
 import type { Engine } from '../../lib/canvas-explorer/engine';
 import { midY, modeView, panelReserve, TOP, type Cam, type Mode, type View } from './state';
 

@@ -1,4 +1,4 @@
-/** Overlap removal for term positions (A86), in 2D or 3D. */
+/** Overlap removal for term positions, in 2D or 3D. */
 
 type Pt = { x: number; y: number; z?: number };
 type Offset = { dx: number; dy: number; dz: number; d: number };
@@ -47,7 +47,7 @@ function sweep(pts: Pt[], min: (i: number, j: number) => number): boolean {
 }
 
 /**
- * Push points apart until every pair `i`, `j` is at least `min(i, j)` apart (A86), in
+ * Push points apart until every pair `i`, `j` is at least `min(i, j)` apart, in
  * place, in 2D or 3D. Each sweep moves both points of a too-close pair half the
  * shortfall along the line between them; coincident points split along a fixed
  * direction, so the result is deterministic. A dense cluster grows instead of stacking

@@ -1,5 +1,5 @@
 /**
- * Edge geometry for the flow dots (A86, `explorer-flow.ts`): an edge's curve sampled as
+ * Edge geometry for the flow dots (`explorer-flow.ts`): an edge's curve sampled as
  * Cytoscape draws it, its cumulative lengths and box, and where its dots sit at a given
  * shift along it. Pure.
  */

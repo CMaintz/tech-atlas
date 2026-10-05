@@ -12,7 +12,8 @@ describe('visual lab: tone', () => {
     expect(toneActive({ ...DEFAULT_3D, shadow: 2 })).toBe(true);
   });
   it('notices a change in any shared tone value', () => {
-    expect(toneChanged(DEFAULT_3D, { ...DEFAULT_3D, bloom: true })).toBe(false);
+    const bloomOn = { ...DEFAULT_3D, bloom: true }; // a lab state, not only its tone
+    expect(toneChanged(DEFAULT_3D, bloomOn)).toBe(false);
     expect(toneChanged(DEFAULT_3D, { ...DEFAULT_3D, edgeDark: 0.1 })).toBe(true);
   });
   it('tones hex colours only, and leaves them alone at 1 × / + 0', () => {

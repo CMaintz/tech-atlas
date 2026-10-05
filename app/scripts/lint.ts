@@ -117,7 +117,7 @@ for (const [id, t] of terms) {
   }
 }
 
-// E12 forbidden dashes (A94): en/em dashes anywhere in a term, article or question file.
+// E12 forbidden dashes: en/em dashes anywhere in a term, article or question file.
 // Raw file text, so every field (names, aka, summary, facets, deep dive, sources) counts.
 for (const path of globSync('src/content/**/*.{yaml,md}').sort()) {
   for (const f of forbiddenDashes(readFileSync(path, 'utf8'))) {
@@ -125,7 +125,7 @@ for (const path of globSync('src/content/**/*.{yaml,md}').sort()) {
   }
 }
 
-// E13 malformed howTo · W11 actionable term without one (A101). Counts, lengths and URLs
+// E13 malformed howTo · W11 actionable term without one. Counts, lengths and URLs
 // are schema checks (E10); dashes are E12.
 const actionableIds: string[] = [];
 const withHowTo: string[] = [];
@@ -167,7 +167,7 @@ for (const { id, parent } of redundantChildren(list, resolve)) {
 for (const id of missingPrerequisites(list, resolve)) {
   warnings.push(`W3 no prerequisites: ${id} requires nothing and nothing requires it`);
 }
-// The definition = summary + the four facets (English, the blocking language — A58).
+// The definition = summary + the four facets (English, the blocking language).
 const definitionNames = new Map(
   list.map((t) => [
     t.id,
@@ -193,7 +193,7 @@ for (const r of vocab) {
   else warnings.push(`E1 advisory ${line}`);
 }
 
-// E11 / W8 semantic vectors out of sync with the content they embed (A52, A76)
+// E11 / W8 semantic vectors out of sync with the content they embed
 if (!existsSync(VECTORS_PATH)) {
   errors.push(`E11 missing ${VECTORS_PATH} — run \`npm run embed\``);
 } else {
@@ -208,7 +208,7 @@ if (!existsSync(VECTORS_PATH)) {
   }
 }
 
-// Q1–Q9 / W9–W10 the hand-written question bank (A90)
+// Q1–Q9 / W9–W10 the hand-written question bank
 const bank = loadQuestions();
 errors.push(...bank.errors);
 const questionCheck = checkQuestions(

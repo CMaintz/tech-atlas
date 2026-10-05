@@ -1,4 +1,4 @@
-/** The canvas lab's (A91) "fake 3D": rotate a world point and apply a simple perspective. */
+/** The canvas lab's "fake 3D": rotate a world point and apply a simple perspective. */
 import type { Vec3 } from './config';
 
 export type Camera = { yaw: number; pitch: number };

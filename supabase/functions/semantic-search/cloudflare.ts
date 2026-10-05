@@ -1,5 +1,5 @@
 /**
- * The Cloudflare Workers AI embedding client (A75, A76) — the one code path used both
+ * The Cloudflare Workers AI embedding client — the one code path used both
  * for queries (the function) and for the stored term vectors (seed-vectors.ts,
  * `npm run embed`), so the two always come from the same service. No Deno APIs.
  */

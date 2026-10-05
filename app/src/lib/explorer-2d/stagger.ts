@@ -1,5 +1,5 @@
 /**
- * A staggered change (A93b): many edges switched on or off at once change a batch per
+ * A staggered change: many edges switched on or off at once change a batch per
  * frame (`EXPLORER.motion.revealBatch`), each batch inside a Cytoscape batch (no per-edge
  * fade: a style bypass per edge costs more than the batch). A new view finishes the one
  * in flight at once (`flush`).

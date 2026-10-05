@@ -1,5 +1,5 @@
 /**
- * Accounts and synced progress (A44–A49) — with account-rows.ts, the only code that
+ * Accounts and synced progress — with account-rows.ts, the only code that
  * talks to Supabase.
  *
  * Local-first: localStorage (learner.ts) stays what the UI reads and writes. When
@@ -46,7 +46,7 @@ let failures = 0;
 
 function getClient(): SupabaseClient | null {
   if (!ACCOUNTS) return null;
-  // PKCE (A46): the sign-in link or GitHub redirect returns a one-time code that
+  // PKCE: the sign-in link or GitHub redirect returns a one-time code that
   // only this browser can exchange; detectSessionInUrl completes it on load.
   client ??= createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     auth: {
@@ -69,7 +69,7 @@ function applyLocally(merged: Learner) {
 }
 
 /**
- * The row is a tombstone (A47). A session that predates the deletion belongs to a
+ * The row is a tombstone. A session that predates the deletion belongs to a
  * device that should stop: sign it out here with a notice. A session started after
  * it is the learner coming back: keep them signed in, but write nothing until they
  * choose "start syncing again".
@@ -140,7 +140,7 @@ function afterSync() {
 }
 
 /**
- * Pull, merge and push now. Runs by itself (A44); called directly only by "Try
+ * Pull, merge and push now. Runs by itself; called directly only by "Try
  * again" after an error. Calls made while one is running coalesce into one more pass.
  */
 export function syncNow(): Promise<void> {
@@ -215,7 +215,7 @@ export async function signInWithEmail(email: string, lang: Lang): Promise<string
   return error?.message ?? null;
 }
 
-/** Sign in with an OAuth provider (A46, A87): a PKCE redirect back to the account page. */
+/** Sign in with an OAuth provider: a PKCE redirect back to the account page. */
 export async function signInWith(provider: AuthProvider, lang: Lang): Promise<string | null> {
   const c = getClient();
   if (!c) return 'Accounts are not configured.';
@@ -252,7 +252,7 @@ async function signOutEverywhere(c: SupabaseClient): Promise<string | null> {
 }
 
 /**
- * "Delete my synced data" (A47): replace the row with a tombstone (empty state,
+ * "Delete my synced data": replace the row with a tombstone (empty state,
  * `deleted_at` set), then sign out every session. Other devices signed in before
  * this find the tombstone on their next sync and sign themselves out — they cannot
  * write progress back. Progress in this browser is kept (it was never the server's).
