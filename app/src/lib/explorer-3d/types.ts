@@ -60,7 +60,8 @@ export type State3 = {
   underLink: number | null;
 };
 
-export type Graph3D = ForceGraph3DInstance;
+/** Typed with our node and link shapes, so its accessors and handlers take them. */
+export type Graph3D = ForceGraph3DInstance<GraphNode, Link3>;
 export type Sprite = InstanceType<Three['Sprite']>;
 export type CanvasTexture = InstanceType<Three['CanvasTexture']>;
 export type Colour = InstanceType<Three['Color']>;
