@@ -1,5 +1,5 @@
 /**
- * Open-data exports (A69): every Term as JSON, CSV and Anki import text. Pure — no
+ * Open-data exports: every Term as JSON, CSV and Anki import text. Pure — no
  * Astro imports — so the endpoints stay thin and this is unit-tested.
  */
 import type { EdgeType, TermData } from '../schema';
@@ -8,7 +8,7 @@ import { makeRefResolver } from './graph-model';
 type Lang = 'en' | 'da';
 const LANGS: Lang[] = ['en', 'da'];
 
-/** The content licence (CONTENT-LICENSE.md, A66). Carried inside every data file. */
+/** The content licence (CONTENT-LICENSE.md). Carried inside every data file. */
 export const LICENCE = {
   name: 'CC BY-SA 4.0',
   spdx: 'CC-BY-SA-4.0',
@@ -40,7 +40,7 @@ export type ExportTerm = {
   body: TermData['body'];
   /** Optional long technical explanation, plain text, paragraphs split by blank lines. */
   deepDive?: { en: string; da: string };
-  /** How to put it into practice (A101): steps, pitfalls and guides. */
+  /** How to put it into practice: steps, pitfalls and guides. */
   howTo?: TermData['howTo'];
   /** Authored edges, targets resolved to full ids. Inverses are left to the reader. */
   edges: ExportEdge[];

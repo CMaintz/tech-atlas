@@ -69,7 +69,7 @@ function RecentHeading({ ui, onClear }: { ui: Props['ui']; onClear: () => void }
   );
 }
 
-/** The entries this browser opened most recently (A62); nothing when there are none. */
+/** The entries this browser opened most recently; nothing when there are none. */
 export default function RecentTerms({ names, termBase, ui }: Props) {
   const { ids, clear } = useRecentIds(names);
   if (ids.length === 0) return null;

@@ -1,5 +1,5 @@
 /**
- * The `feedback` request (A100): its limits and its validation. `website` is a
+ * The `feedback` request: its limits and its validation. `website` is a
  * honeypot: a bot that fills it gets the same success answer and nothing is stored.
  */
 import { type Lang, langError } from "../_shared/lang.ts";

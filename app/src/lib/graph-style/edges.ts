@@ -8,7 +8,7 @@ import { EXPLORER } from '../explorer-config';
 import { domainColour, homeDomain, type Paintable } from './palette';
 import type { MapTheme } from './theme';
 
-/** Edge colour by relationship family (SPEC §7, A29). */
+/** Edge colour by relationship family (SPEC §7). */
 export const FAMILY_COLOURS: Record<Family, string> = {
   structure: '#94a3b8',
   dependency: '#fbbf24',

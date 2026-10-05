@@ -222,7 +222,7 @@ function AboutDialog({ dialog, ...props }: AboutProps & { dialog: DialogHandle }
   );
 }
 
-/** The About dialog and the button that opens it (A84); the dialog shell is ui/Dialog. */
+/** The About dialog and the button that opens it; the dialog shell is ui/Dialog. */
 export default function AboutButton({ variant = 'circle', ...props }: Props) {
   const dialog = useDialog();
   const Opener = variant === 'circle' ? CircleOpener : LinkOpener;

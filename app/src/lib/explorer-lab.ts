@@ -1,5 +1,5 @@
 /**
- * The hidden visual lab (A96): the pure half. Toggle state read from the address (so a
+ * The hidden visual lab: the pure half. Toggle state read from the address (so a
  * headless run is a list of URLs, and nothing is stored), frame-time statistics for the
  * FPS meter, the 2D stylesheet rules each toggle adds over the Explorer's own, and
  * emphasis by importance. The parts live under explorer-lab/.

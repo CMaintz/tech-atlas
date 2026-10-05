@@ -1,5 +1,5 @@
 /**
- * Glow: one additive point cloud, a soft halo per term (A86). A shared term glows in
+ * Glow: one additive point cloud, a soft halo per term. A shared term glows in
  * its second domain's colour — a halo round a sphere in its own; a receded term barely.
  */
 import { EXPLORER } from '../explorer-config';

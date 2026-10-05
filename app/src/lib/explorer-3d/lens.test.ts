@@ -32,7 +32,7 @@ function lensOn(v: View3D | null, hover: string | null = null) {
   return { s, lens: createLens(neighbours, s) };
 }
 
-describe('createLens (A86, A97a)', () => {
+describe('createLens', () => {
   it('lights nothing and recedes nothing in the overview', () => {
     const { lens } = lensOn(view({}));
     expect([lens.focusOf(ab), lens.faded('d')]).toEqual([false, false]);
@@ -80,7 +80,7 @@ describe('createLens (A86, A97a)', () => {
   });
 });
 
-describe('onlyToggled (A93b)', () => {
+describe('onlyToggled', () => {
   it('holds when only the families or "show all" changed', () => {
     expect(onlyToggled(overview, withView({ showAll: true }), false)).toBe(true);
     expect(onlyToggled(overview, withView({ families: new Set() }), false)).toBe(true);

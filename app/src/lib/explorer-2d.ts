@@ -1,5 +1,5 @@
 /**
- * The Explorer's 2D map (A74, A86): one Cytoscape instance for the life of the page.
+ * The Explorer's 2D map: one Cytoscape instance for the life of the page.
  * The island layout is computed once from the whole graph; filters only hide and show
  * elements in place, layouts (force / depth / time) and the lab's relayout glide nodes
  * to new positions, and nothing here ever re-creates the instance. Browser-only.
@@ -41,7 +41,7 @@ const createCy = (opts: Map2DOptions, theme: MapTheme) =>
     maxZoom: 3,
     autoungrabify: true,
     boxSelectionEnabled: false,
-    // Pan and zoom move a snapshot of the map; it is redrawn crisp when they stop (A86).
+    // Pan and zoom move a snapshot of the map; it is redrawn crisp when they stop.
     textureOnViewport: true,
     pixelRatio: Math.min(window.devicePixelRatio || 1, 2),
   });
@@ -62,7 +62,7 @@ function createParts(opts: Map2DOptions, theme: MapTheme) {
   return { p, layouts };
 }
 
-/** The flow dots, paused while terms glide; the lab (A96) tunes a copy and can pause them. */
+/** The flow dots, paused while terms glide; the lab tunes a copy and can pause them. */
 function startMapDots(p: MapParts, s: MapState) {
   const cfg: { -readonly [K in keyof DotsConfig]: number } = { ...EXPLORER.dots };
   let on = true;
@@ -101,7 +101,7 @@ function assemble(opts: Map2DOptions) {
 
 type Assembled = ReturnType<typeof assemble>;
 
-/** Hooks for the hidden visual lab only (A96); the Explorer never uses them. */
+/** Hooks for the hidden visual lab only; the Explorer never uses them. */
 const labHooks = (m: Assembled) => ({
   dots: m.dots.cfg,
   setDots(on: boolean) {
@@ -129,7 +129,7 @@ export function createMap2D(opts: Map2DOptions) {
   return {
     cy: p.cy,
     apply: m.apply,
-    /** Switch palettes (A92) in place; see `explorer-2d/theme.ts`. */
+    /** Switch palettes in place; see `explorer-2d/theme.ts`. */
     retheme(next: MapTheme) {
       if (next === s.theme) return;
       s.theme = next;
@@ -137,7 +137,7 @@ export function createMap2D(opts: Map2DOptions) {
     },
     /** Bring a term into view (Find a term, even when it is already selected). */
     focus: (id: string) => void centreOn(p, id, [0.9, 1.2]),
-    /** Keyboard navigation (A97): pan and zoom about the clear part's centre, for dt s. */
+    /** Keyboard navigation: pan and zoom about the clear part's centre, for dt s. */
     nudge: (v: Axes, dt: number) => nudge(p, v, dt),
     resize() {
       p.cy.resize();

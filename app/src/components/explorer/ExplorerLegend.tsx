@@ -23,7 +23,7 @@ function legendProps({ p, x }: Section, visible: Graph): ComponentProps<typeof G
 }
 
 /**
- * The legend: a pill bottom-left of the map that opens upward (A93b), so it never meets
+ * The legend: a pill bottom-left of the map that opens upward, so it never meets
  * the bar. From md it sits right of the fixed BETA corner ribbon (8rem square). It steps
  * aside while the phones' Controls sheet is open (and, by the page's CSS, while the term
  * panel covers it).

@@ -134,7 +134,7 @@ describe('reciprocalRankFusion', () => {
   });
 });
 
-describe('mergeHits (A95)', () => {
+describe('mergeHits', () => {
   it('shows the name matches alone until meaning-based hits arrive', () => {
     expect(mergeHits(['a', 'b'], null)).toEqual([
       { id: 'a', from: ['lexical'] },

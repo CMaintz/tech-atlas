@@ -13,7 +13,7 @@ export type ViewProps = { lang: Lang; ui: AccountUi; busy: boolean; run: Run };
 export const ACCOUNT_BUTTON =
   'min-h-11 rounded border border-border-strong px-3 py-1.5 text-sm hover:border-border-hover disabled:opacity-50 sm:min-h-0';
 
-/** Save this browser's progress as a JSON file (data portability, A88). */
+/** Save this browser's progress as a JSON file (data portability). */
 function downloadProgress() {
   const blob = new Blob([learnerExport(loadLearner())], { type: 'application/json' });
   const a = document.createElement('a');

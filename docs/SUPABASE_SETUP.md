@@ -4,13 +4,13 @@ Atlas works fully without this: learner progress lives in the browser and search
 names and aliases. One Supabase project adds two optional features:
 
 - **Accounts + synced progress** — sign-in (GitHub, optionally LinkedIn) so a learner's
-  progress follows them across devices (A44–A50 in `design/AUTONOMOUS_DECISIONS.md`):
+  progress follows them across devices:
   steps 1–6. Until both repository variables in step 5 are set, the site has no account UI.
 - **Search by meaning** — questions like "how do I stop people reusing leaked passwords"
-  find _Credential stuffing_, in English or Danish (A75–A78): steps 1, 2 and 7.
+  find _Credential stuffing_, in English or Danish: steps 1, 2 and 7.
   The language model runs on the backend; visitors download nothing.
 - **Feedback form** — a Feedback button (footer and About dialog) whose messages are
-  stored in the database and emailed to the owner through Resend (A100): steps 1, 2 and 8.
+  stored in the database and emailed to the owner through Resend: steps 1, 2 and 8.
 
 Everything below is on free tiers. Roughly 15 minutes per feature.
 
@@ -62,7 +62,7 @@ Sign-in links and the GitHub flow return to `/en/account/` or
 
 ## 4. Sign-in providers
 
-**Email (magic link)** — **hidden on the site for now** (A87): the account page shows no
+**Email (magic link)** — **hidden on the site for now**: the account page shows no
 email field until `EMAIL_SIGNIN` in `app/src/lib/auth-config.ts` is set to `true` (one
 line). Do that only once custom SMTP (below) works. In Supabase it is on by default
 (**Authentication → Sign In / Providers → Email**); leave "Confirm email" on.
@@ -151,7 +151,7 @@ They must be **variables**, not secrets — `deploy.yml` reads `vars.*`.
 How it fits together: after every push to `main` that passes the gate, the `backend`
 workflow applies the migrations, deploys the `semantic-search` Edge Function, **embeds every
 term through Cloudflare Workers AI** (bge-m3 — too large to run inside a Supabase Edge
-Function, A75) into `public.term_vectors`, and finally runs a **smoke test** that fails the
+Function) into `public.term_vectors`, and finally runs a **smoke test** that fails the
 workflow unless three known questions (one Danish, two English) find their terms. The site
 calls the function; the function embeds the query with the very same Workers AI call and
 ranks terms in Postgres. Stored and query vectors therefore always come from one service.
@@ -224,14 +224,14 @@ secrets it applies the migrations only and leaves search by meaning undeployed.
 4. On the site, type `how do I stop people reusing leaked passwords`: _Credential
    stuffing_ appears, labelled **by meaning**.
 
-**Limits and budget (A77).** The function is public (no key needed). It reads at most
+**Limits and budget.** The function is public (no key needed). It reads at most
 2 KB of request body, accepts queries up to 200 characters, and — in Postgres, shared by
 every instance — allows **30 searches a minute per client** (keyed by a hash of the IP,
 never the address) and **50,000 a day in total**, answering 429 beyond that. CORS answers
 only `https://atlas.maintz.dev` and `localhost`. The binding free-tier budget is
 **Supabase Edge Function invocations: 500,000 a month**; Workers AI's 10,000 neurons a day
 cover far more queries than the daily cap allows. To change the caps, edit
-`public.search_allow` in a new migration. **Retention (A88):** expired counters are
+`public.search_allow` in a new migration. **Retention:** expired counters are
 deleted on every search and by a pg_cron job (`atlas-search-rate-purge`, every 10 minutes;
 the migration enables **pg_cron** itself), so a per-client row (a hash of an IP address)
 is gone within ~12 minutes and the daily total (no identifier) after 2 days — the privacy
@@ -245,7 +245,7 @@ re-embedded through Workers AI by the workflow. With `CLOUDFLARE_ACCOUNT_ID` +
 `CLOUDFLARE_API_TOKEN` in your environment `npm run embed` uses Workers AI (seconds);
 otherwise it runs the same model locally (~2.3 GB download once, then a few minutes).
 
-## 8. Feedback form (A100)
+## 8. Feedback form
 
 How it fits together: the site's Feedback dialog posts to the `feedback` Edge Function,
 which validates the message, stores it in `private.feedback` (through

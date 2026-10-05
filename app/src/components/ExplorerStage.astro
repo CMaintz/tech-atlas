@@ -21,8 +21,8 @@ interface Props {
 
 <style is:global>
   /*
-   * The About button (A84) owns the map's top-right corner; the floating control bar
-   * (A93) is centred between insets that keep it clear of the button.
+   * The About button owns the map's top-right corner; the floating control bar
+   * is centred between insets that keep it clear of the button.
    */
   #explorer {
     position: relative;
@@ -38,10 +38,10 @@ interface Props {
     }
   }
   /*
-   * The term panel (A80) must never hide the "i". Full width (phones, or expanded), the
+   * The term panel must never hide the "i". Full width (phones, or expanded), the
    * button sits above the panel and the panel's header row keeps its corner clear;
    * docked on a wide screen, the button moves left of the panel and down below the bar
-   * row, which stays put under the panel (A93a) — so the two never overlap.
+   * row, which stays put under the panel — so the two never overlap.
    */
   #explorer:has([data-term-panel]) [data-about-corner] {
     z-index: 30;
@@ -50,7 +50,7 @@ interface Props {
     padding-right: 3.5rem;
   }
   /*
-   * Drag feedback (A95, drag-feedback.ts): the maps set `data-drag` while they are
+   * Drag feedback (drag-feedback.ts): the maps set `data-drag` while they are
    * panned or orbited. A closed hand for panning; a light, dark-outlined rotate arrow for
    * orbiting (falls back to the closed hand). Both read on dark and light backgrounds.
    */
@@ -65,7 +65,7 @@ interface Props {
         12 12,
       grabbing !important;
   }
-  /* The cream map (A92): the same arrow, dark with a light outline. */
+  /* The cream map: the same arrow, dark with a light outline. */
   :root[data-theme='light'] #explorer [data-drag='orbit'],
   :root[data-theme='light'] #explorer [data-drag='orbit'] * {
     cursor:
@@ -76,7 +76,7 @@ interface Props {
   /*
    * Expanded, the panel fills the map and its header's right end holds its own controls
    * (Expand, Close): the "i" would sit on them, so it steps aside until the panel is
-   * docked or closed again (A95). `visibility` also takes it out of the tab order.
+   * docked or closed again. `visibility` also takes it out of the tab order.
    */
   #explorer:has([data-term-panel][data-expanded]) [data-about-corner] {
     visibility: hidden;

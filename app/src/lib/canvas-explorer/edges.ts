@@ -1,5 +1,5 @@
 /**
- * Which edges the canvas lab (A91) draws and how: the default backbone, each edge's alpha
+ * Which edges the canvas lab draws and how: the default backbone, each edge's alpha
  * this frame, and the batches (one canvas path per family × alpha step × lit) that the
  * edge and pulse painters stroke. Pure: reads the engine's arrays only.
  */
@@ -25,7 +25,7 @@ export type EdgeState = {
 export type EdgeBatches = { batches: Map<string, number[]>; alpha: Float32Array };
 
 /**
- * The default edge set (A91): every `requires` link plus the Explorer's backbone (each
+ * The default edge set: every `requires` link plus the Explorer's backbone (each
  * term's strongest in-cluster links; graph.json folds an edge's strength into `weight`,
  * so "primary" edges are the heavy ones the backbone keeps). Indices into `links`.
  */

@@ -1,5 +1,5 @@
 /**
- * Questions generated from the graph (SPEC §9), in the two families of A79:
+ * Questions generated from the graph (SPEC §9), in two families:
  *  - **answered by** a term: definition → term and term → definition;
  *  - **about** a term, where the answer is always another term (or true/false):
  *    its relationships, the odd one out among its neighbours, and true/false

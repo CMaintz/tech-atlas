@@ -1,5 +1,5 @@
 /**
- * What the 3D map lights and recedes (A86, A97a), read from its state: the hovered
+ * What the 3D map lights and recedes, read from its state: the hovered
  * neighbourhood, a selection or a route, and which links the filters let through.
  * Pure over the state it is given, so the paint modules and the lab share one answer.
  */
@@ -40,8 +40,8 @@ export function createLens(neighbours: Map<string, Set<string>>, s: State3) {
   };
   /**
    * Receded terms: outside the hovered neighbourhood, else outside a route, else —
-   * with a term selected — everything not connected to it (A86). A term hovered over a
-   * selection or route comes forward on its own (A97a).
+   * with a term selected — everything not connected to it. A term hovered over a
+   * selection or route comes forward on its own.
    */
   const faded = (id: string) => {
     const h = hood();

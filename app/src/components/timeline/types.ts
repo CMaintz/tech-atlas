@@ -21,13 +21,13 @@ export interface TimelineProps {
   domains: string[];
   domainLabels: Record<string, string>;
   domainColours: Record<string, string>;
-  /** The same domains' colours on the cream map (A92). */
+  /** The same domains' colours on the cream map. */
   domainColoursLight: Record<string, string>;
   /** Axis range in years, [start, end). */
   range: [number, number];
   eraLabels: Record<string, string>;
   text: Record<string, string>;
-  /** The Explorer's term panel (A80), loaded on first click; absent → popover only. */
+  /** The Explorer's term panel, loaded on first click; absent → popover only. */
   panel?: TimelinePanel;
 }
 

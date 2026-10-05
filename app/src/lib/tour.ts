@@ -1,5 +1,5 @@
 /**
- * The guided tour (A61) — pure logic. The tour spans several static pages, so its
+ * The guided tour — pure logic. The tour spans several static pages, so its
  * position lives in localStorage and every page load decides afresh what to show.
  */
 
@@ -154,7 +154,7 @@ export function stepFromQuery(search: string, stepCount: number): number | null 
 export const fillCount = (template: string, n: number, m: number) =>
   template.replace('{n}', String(n)).replace('{m}', String(m));
 
-// Motion and placement (A85) live in tour-placement.ts; re-exported for callers.
+// Motion and placement live in tour-placement.ts; re-exported for callers.
 export {
   CARD_GAP,
   EDGE,
@@ -173,8 +173,8 @@ export {
 export const NAV_PAGES: readonly string[] = ['', 'explorer/', 'timeline/', 'compare/', 'study/'];
 
 /**
- * Where to look for the control that leads to `page` before the tour navigates there
- * (A85): the site nav, then a link in the page itself, then the header (the logo); for
+ * Where to look for the control that leads to `page` before the tour navigates there:
+ * the site nav, then a link in the page itself, then the header (the logo); for
  * a nav page on a phone, the menu button that reveals the nav.
  */
 export function bridgeSelectors(langBase: string, page: string): string[] {

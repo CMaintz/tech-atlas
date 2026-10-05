@@ -1,5 +1,5 @@
 /**
- * Relationship names on the lit links (A97a): the selected term's links, or a hovered
+ * Relationship names on the lit links: the selected term's links, or a hovered
  * term's when it has few, each named from that term's side. Names that would overlap give
  * way to heavier links, and the link under the pointer shows its own. A constant size on
  * screen when zoomed out.
@@ -14,12 +14,17 @@ import {
   rotatedSize,
   type RelationNames,
 } from '../explorer-focus';
+import { collectEdges } from './collect';
 import { linkOf, type MapParts, type MapState } from './context';
 import type { View } from './types';
 
 /** A term's drawn relationship edges. */
 const litOf = (p: MapParts, id: string) =>
-  p.cy.getElementById(id).connectedEdges().intersection(p.links).not('.off');
+  p.cy
+    .getElementById(id)
+    .connectedEdges()
+    .intersection(p.links)
+    .not('.off') as cytoscape.EdgeCollection;
 
 /** The term whose links are named (the selection, or a hovered term with few), if any. */
 function povOf(p: MapParts, s: MapState, v: View) {
@@ -51,7 +56,10 @@ function nameLinks(p: MapParts, pov: string, names: RelationNames) {
     return { id: e.id(), x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 - 6, ...r };
   });
   const kept = cullBoxes(boxes);
-  const named = p.cy.collection(edges.map(({ e }) => e)) as cytoscape.EdgeCollection;
+  const named = collectEdges(
+    p.cy,
+    edges.map(({ e }) => e),
+  );
   named.filter((e) => kept.has(e.id())).addClass('rl');
   return named;
 }

@@ -1,8 +1,7 @@
 # Atlas — Authoritative v1 Specification
 
-> **Working name:** `Atlas` (decided — `AUTONOMOUS_DECISIONS.md` A1). **Status:** decided; v1.0
-> live at https://cmaintz.github.io/tech-atlas/ (see `AUTONOMOUS_DECISIONS.md` A22 for what
-> remains). This is the single source of truth for v1. It supersedes the
+> **Working name:** `Atlas` (decided). **Status:** decided; v1.0
+> live at https://cmaintz.github.io/tech-atlas/. This is the single source of truth for v1. It supersedes the
 > exploratory `00`–`09` documents (kept as the *ingestion archive*) and is built on
 > the decisions recorded in [`UNIFIED_VISION.md`](./UNIFIED_VISION.md) (D1–D12) and
 > the schema in [`app/src/schema.ts`](../app/src/schema.ts) (`design/schema.ts` re-exports it). Where this document and the archive
@@ -86,16 +85,15 @@ collisions and bridges:
 **Collisions** (same name, different meaning → namespaced Terms, ADR-0003): the
 candidates were `endpoint`, `policy`, `control`, `audit`, `patch`, `backup`, `port`;
 once written, only `audit` turned out to be two concepts (`cs/audit`,
-`security/audit`). The others are one shared Term each (A10).
+`security/audit`). The others are one shared Term each.
 **Bridges** (one concept across both domains, or a control targeting a CS concept):
 `mfa` implements `authentication`; `zero-trust` builds on `identity`; `siem`
 `used-with` `log`; `ids`/`ips` guard the `network`; `access-management` realises
 `access-control`.
 
 Both clusters ship **bilingual** (EN + DA). `ai` and `platform` are modelled in the
-schema from day one (ADR-0003). They were written after v1.0 (PR #7, decision P1 in
-`AUTONOMOUS_DECISIONS.md`); whether they stay in scope is on the owner's review agenda
-(`DECISIONS_REVIEW.md` §7, item 1).
+schema from day one (ADR-0003). They were written after v1.0 (PR #7, decision P1);
+whether they stay in scope is still open.
 
 **v1 content target:** ~105 terms across the two domains, every one bilingual.
 
@@ -115,7 +113,7 @@ schema in [`app/src/schema.ts`](../app/src/schema.ts); shape:
 | `cluster` | the one group it is taught alongside (§3). |
 | `layer` | optional facet (`network`, `identity`, `governance`, …); a colour/filter, never a position. |
 | `status` | `current` \| `legacy` \| `emerging`. |
-| `era` | optional year the idea entered use (powers the Timeline and the Explorer's Time layout, A41). |
+| `era` | optional year the idea entered use (powers the Timeline and the Explorer's Time layout). |
 | `summary` | `{ en, da }`, **≤140 chars each**, Closed Vocabulary. The lookup line and search snippet. |
 | `body` | four bilingual facets, Closed Vocabulary (§5). |
 | `edges` | typed relationships, authored one direction (§6). |
@@ -158,7 +156,7 @@ other defined Terms (or their Aliases), or (c) words in the per-language
   (ADR-0009, D7). The course student reads Danish, so Danish is not second-class:
   Danish violations are reported as warnings on every build (a visible to-fix list,
   not silent debt), and the rule flips to blocking once the evidence says Danish is
-  clean enough. That reassessment is still open (`DECISIONS_REVIEW.md` U15).
+  clean enough. That reassessment is still open.
 - **Scoped:** binds `summary` + `body` only. **Articles are exempt** (ADR-0004) —
   long-form writing quotes specs and uses any jargon freely; auto-linking still
   harvests Mentions from it.
@@ -176,7 +174,7 @@ ambiguous cross-domain edge (must be namespaced) · E4 `requires` cycle · E5 ci
 definition · E6 tautological summary · E7 duplicate identity · E8 layer out of domain
 · E9 missing article file · E10 schema violation · E11 semantic vectors missing a term or
 built with other model settings (run `npm run embed`) · E12 an en/em dash in a term,
-article or question file (A94).
+article or question file.
 
 ### Warnings (visible, non-blocking)
 W1 orphan (no edges) · W2 redundant child · W3 no prerequisites · W4 thin
@@ -271,10 +269,10 @@ Adding a 13th edge type is a deliberate schema change. Deferred candidates:
 ### The Term page (primary)
 The default surface and the primary learning experience. Structure: title + domain
 tags + status; `summary`; the four Body facets; the optional *Technical deep dive*
-(`deepDive`, exempt from Closed Vocabulary, A80); then generated relationship sections
+(`deepDive`, exempt from Closed Vocabulary); then generated relationship sections
 (*contrasts with · requires · unlocks · mitigates/mitigated-by · mandates* …, from
 edges); *Sources & further reading* (the Term's sources grouped by source tier,
-standards first, A73) with a *Where this data comes from* note (A80); an **Explore connections**
+standards first) with a *Where this data comes from* note; an **Explore connections**
 action that opens the graph centred on this Term; "Read the full entry" for Terms
 with an Article. Statically rendered, SEO-friendly, fast on a phone, bilingual with a
 language toggle.
@@ -289,14 +287,14 @@ real, statically rendered page ("the canvas is an index, not a container").
   derived from `requires` (ADR-0001) — foundations lie lower, advanced terms higher.
   Depth is a soft bias with a spread, not a set of planes, so the cloud stays
   volumetric; each domain is a separate galaxy, and a term shared by two domains sits
-  in its own cluster's galaxy with a halo in the other domain's colour (A86).
+  in its own cluster's galaxy with a halo in the other domain's colour.
 - Edge *family* drives colour and filtering — seven readable groups (structure,
   prerequisites, contrasts, attacks & defences, regulation, lineage, used together)
-  instead of twelve raw types (A29); the exact type is shown in edge labels. *Domain*
+  instead of twelve raw types; the exact type is shown in edge labels. *Domain*
   owns a colour family and *cluster* is a shade within it; a term in two domains wears
-  a ring in the other domain's colour; *domain* drives filtering (A74): a term shows
+  a ring in the other domain's colour; *domain* drives filtering: a term shows
   while at least one of its domains is enabled, never merely because it is linked to
-  a shown term (A86). One-way relationships carry an arrow and a slow, subtle flow
+  a shown term. One-way relationships carry an arrow and a slow, subtle flow
   towards their target — in the Explorer on every visible one-way edge, all the time
   (dots on an overlay canvas; still under `prefers-reduced-motion`); symmetric ones
   (contrasts, alternatives, used-with) have neither; an edge crossing domains fades
@@ -305,7 +303,7 @@ real, statically rendered page ("the canvas is an index, not a container").
   lighter); a legend explains colours, rings and arrows.
   Progressive: arriving from a term starts at the focal node + direct edges; expand
   one hop at a time, or open the whole map.
-- **The Explorer overview draws a backbone, not the hairball** (A86): every
+- **The Explorer overview draws a backbone, not the hairball**: every
   `requires` and `strength: primary` relationship, plus each term's strongest
   relationships to terms sharing a domain (any cluster), with one faint ribbon per pair
   of related clusters (their count sets its width); hovering or selecting a term shows
@@ -313,7 +311,7 @@ real, statically rendered page ("the canvas is an index, not a container").
   clusters then bundle through their islands). Node size is PageRank; no two terms
   sit closer than a click target plus a label, so clusters grow instead of stacking.
   A term shared by several domains sits in its own cluster like any other.
-- **The map is stable** (A86): layouts are computed once from the whole graph;
+- **The map is stable**: layouts are computed once from the whole graph;
   relationship and domain filters only hide and show in place, and switching layout
   glides terms to their new places. The map fits itself on open and on a layout
   switch; otherwise the reader pans and zooms. Terms cannot be dragged.
@@ -324,9 +322,9 @@ real, statically rendered page ("the canvas is an index, not a container").
   highlighting. Clicking a term opens its **term panel** on the right (facets in both
   languages, what to learn first, relationships that re-focus the map); the panel
   expands in place to fill the page below the header, and "Read more" opens the Term
-  page; `?term=<id>` deep-links it (A80). The 2D force layout is deterministic and cluster-aware: clusters
+  page; `?term=<id>` deep-links it. The 2D force layout is deterministic and cluster-aware: clusters
   settle into named systems, domains into loose regions, and terms shared by two
-  domains sit on the side of their island facing the other domain (A74, A86). 3D uses
+  domains sit on the side of their island facing the other domain. 3D uses
   the same colours, curved links, a soft glow, labels on the hub terms, and particles
   only along the hovered or selected term's one-way links.
 
@@ -335,7 +333,7 @@ real, statically rendered page ("the canvas is an index, not a container").
 per domain (domain colours, decade ticks, era bands, hub terms emphasised), horizontal
 on wide screens and vertical on phones, with domain toggles, zoom and a summary
 popover; a list view by decade is the accessible fallback. Terms without an `era` are
-omitted and counted (A41, A81).
+omitted and counted.
 
 ### Compare / "Don't confuse" view
 Driven by `contrasts-with`. Side-by-side for the pairs learners mix up
@@ -344,11 +342,11 @@ Driven by `contrasts-with`. Side-by-side for the pairs learners mix up
 
 ### Index & search (static)
 An A–Z / by-cluster index, and client-side search over terms, **aliases (both
-languages)**, and summaries, with typo tolerance. Search also understands intents
-(A39): "X vs Y" opens the comparison, "how are X and Y related" / "from X to Y" opens
+languages)**, and summaries, with typo tolerance. Search also understands intents:
+"X vs Y" opens the comparison, "how are X and Y related" / "from X to Y" opens
 the route in the Explorer, "before X" opens what to learn first.
 
-**Semantic search (A75–A78, superseding A51–A55)** answers questions and descriptions
+**Semantic search (replacing the earlier in-browser model)** answers questions and descriptions
 ("how do I stop people reusing leaked passwords" → Credential stuffing), in Danish or
 English and across the two. **The model runs on the backend, never in the browser.**
 The model is **bge-m3** (`BAAI/bge-m3`, multilingual, 1024 dimensions) on Cloudflare
@@ -369,18 +367,18 @@ labelled. There is no opt-in and no download: when the backend is not configured
 or takes over 6 s (cold starts can take several seconds), the lexical results simply stand.
 
 ### Open data, feeds and SEO
-Every Term is published as data under the content licence (CC BY-SA 4.0, A66):
+Every Term is published as data under the content licence (CC BY-SA 4.0):
 `/api/terms.json`, one file per Term at `/api/terms/<folder>/<id>.json`, a CSV, an
 Anki import file per language, the derived `/graph.json`, and an RSS feed of new Terms
-per language (`/[lang]/feed.xml`); `/[lang]/data/` lists them (A69, A71). Each page
+per language (`/[lang]/feed.xml`); `/[lang]/data/` lists them. Each page
 carries a canonical URL, `hreflang` alternates (with `x-default`) and Open Graph tags;
 Term pages also carry a `DefinedTerm` description; `/sitemap-index.xml` lists every
-page (A68). `/[lang]/terms/` is the A–Z index, and a bare `/[lang]/terms/<id>/`
-redirects to the Term when the name is not a Collision (A72). Unknown URLs get a
+page. `/[lang]/terms/` is the A–Z index, and a bare `/[lang]/terms/<id>/`
+redirects to the Term when the name is not a Collision. Unknown URLs get a
 bilingual 404 page.
 
 ### Linked prose and Mentions
-Body facets link every other term at its first mention on the page (A38). Terms whose
+Body facets link every other term at its first mention on the page. Terms whose
 prose names this term, but that have no typed edge to it, are listed as "Mentioned in"
 — the weaker, derived relation of §6.
 
@@ -398,10 +396,10 @@ language**.
 
 ## 9. Learning (built — generated from the data, plus a hand-written bank)
 
-Built after v1.0 (A34–A37) exactly as the data model intended: the quizzes fall out of
-the graph. Beside them sits one hand-authored layer, the **question bank** (A90).
+Built after v1.0 exactly as the data model intended: the quizzes fall out of
+the graph. Beside them sits one hand-authored layer, the **question bank**.
 
-- **Hand-written question bank** (A90) — researched questions in
+- **Hand-written question bank** — researched questions in
   `src/content/questions/<folder>/<cluster>.yaml` (schema `Question`, rules in
   `content/AUTHORING.md`): `terms` (what it tests), `kind` (scenario / concept /
   compare / order / true-false), bilingual stem, four options (two for true/false),
@@ -409,14 +407,14 @@ the graph. Beside them sits one hand-authored layer, the **question bank** (A90)
   `difficulty`, sources, `draft`. Mostly scenarios in Danish workplaces. Served as
   `/questions-<lang>.json` (no sources; `answeredBy` = tested terms the correct option
   names, derived). A term page's and the Explorer panel's *Check yourself* show the
-  term's hand-written questions first, never one whose answer is the term itself (the
-  A79 rule), then generated ones; study sessions give a term its hand-written question
+  term's hand-written questions first, never one whose answer is the term itself (it
+  would test nothing there), then generated ones; study sessions give a term its hand-written question
   when that question is new or due (each question has its own Leitner record, keyed by
   id, beside the term's), else a generated one, never the same question twice. A
   hand-written answer updates every term it tests. The explanation shows after
   answering. Lint Q1–Q9 / W9–W10 check it.
 
-- **Quizzes generated from edges** (A79) — two families of question. *About* a term
+- **Quizzes generated from edges** — two families of question. *About* a term
   X, where the answer is always another term: its relationships in both directions
   ("what should you understand before X", "which of these builds on X", "what is X a
   kind of", "what does X protect against", "what protects against X", "which is
@@ -441,15 +439,15 @@ the graph. Beside them sits one hand-authored layer, the **question bank** (A90)
 - **Personal knowledge map** — mark each term Know / Familiar / Learning / Don't
   understand; the Explorer can colour by it; the study hub recommends terms whose
   prerequisites you already know.
-- **Local-first** — learner state lives in the browser (A24) and the UI reads only
+- **Local-first** — learner state lives in the browser and the UI reads only
   that; signed out, offline, or on a build without accounts, everything works as before.
-- **Optional accounts + synced progress** (A44–A47) — sign in with an email magic link
+- **Optional accounts + synced progress** — sign in with an email magic link
   or GitHub (Supabase Auth, called from the browser; the site stays static). A signed-in
   learner's state is one row in `learner_state` (Postgres, Row Level Security: own row
   only). Sync pulls and merges on sign-in, page load, returning to the tab and coming
   back online, and pushes a moment after each change; a failed sync retries by itself
   with a growing delay. There is no "Sync now" button: the header shows a small status
-  (✓ synced / syncing… / offline / not synced with "Try again", A79). The merge is per
+  (✓ synced / syncing… / offline / not synced with "Try again"). The merge is per
   term, pure and order-independent: the schedule (box, due) from the most recent answer, the status
   from the most recent change (clearing counts), right/wrong counts = the larger side.
   Change timestamps are monotonic per term and far-future ones are pulled back, so a
@@ -475,8 +473,8 @@ the graph. Beside them sits one hand-authored layer, the **question bank** (A90)
   queries are large-scale concerns for later.
 - A database (Postgres + pgvector, or a graph DB) is **deferred** to the phase where
   learning or personalization actually need it. *Post-v1:* learner progress sync uses
-  Supabase (hosted Postgres + Auth) straight from the browser (A44), and semantic search
-  keeps its term vectors in the same Postgres (pgvector) behind an Edge Function (A75);
+  Supabase (hosted Postgres + Auth) straight from the browser, and semantic search
+  keeps its term vectors in the same Postgres (pgvector) behind an Edge Function;
   content, pages and the graph stay static and never touch it. Both are optional: an
   unconfigured build is the fully static site, with name search only.
 
@@ -498,10 +496,10 @@ the graph. Beside them sits one hand-authored layer, the **question bank** (A90)
 "What to learn first" paths, the learning system (§9), and the era view (Timeline +
 the Explorer's Time layout), semantic search (§7), and optional accounts with synced
 progress (§9), the Disambiguation page (§5, ADR-0003), lint rules E5, W2 and W3, and the
-depth-histogram and collision-list reports (§5, A56–A60) — see `AUTONOMOUS_DECISIONS.md`.
+depth-histogram and collision-list reports (§5).
 
 Since then: the `ai` and `platform` domains were written (P1; scope pending the owner's
-review), and the open data, feeds, SEO, A–Z index and 404 page (§7, A68–A73).
+review), and the open data, feeds, SEO, A–Z index and 404 page (§7).
 
 **Still deferred:** AI tutor; a database for content; centrality/community features. Each is enabled by, not blocked on, the data model.
 
@@ -520,11 +518,11 @@ review), and the open data, feeds, SEO, A–Z index and 404 page (§7, A68–A73
 
 ## 13. Open questions
 
-- **Working name** — *resolved (A1):* **Atlas** (repo `tech-atlas`). Chosen
-  autonomously; the owner may still rename it (`DECISIONS_REVIEW.md` A1).
+- **Working name** — *resolved:* **Atlas** (repo `tech-atlas`). Chosen
+  autonomously; the owner may still rename it.
 - **Danish drafting order** — *resolved (D7, ADR-0009):* English blocking from term
   one; Danish **advisory** (non-blocking warnings) from day one, reassessed on
-  evidence after the pilot (§5). The reassessment itself is still open (U15).
+  evidence after the pilot (§5). The reassessment itself is still open.
 - **CS term list** — the ~40 CS terms are sketched (§3); finalise which earn a Term
   vs a paragraph via the granularity test, using textbook indexes as the CS oracle.
 - **Body facet optionality** — keep four mandatory, or make `inPractice` /
@@ -541,7 +539,4 @@ options. Those documents remain, unchanged, as the ingestion archive:
 - `app/src/schema.ts` — the machine-readable schema this spec describes
   (`design/schema.ts` re-exports it).
 - `adr/0001`–`0009` — the architecture decision records still in force.
-- `AUTONOMOUS_DECISIONS.md` — decisions taken without the owner (A-numbers, plus the
-  P-numbers first stated only in PR bodies); `DECISIONS_REVIEW.md` — the owner's
-  review agenda for them.
 Where any of them disagrees with this document, **this document wins.**

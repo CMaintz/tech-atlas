@@ -1,6 +1,6 @@
 // @ts-check
 /**
- * The site's Content-Security-Policy (A89). GitHub Pages cannot send headers, so Astro
+ * The site's Content-Security-Policy. GitHub Pages cannot send headers, so Astro
  * writes the policy into every page as `<meta http-equiv="content-security-policy">`
  * (`security.csp`), hashing each inline script it emits (island loaders, directives).
  *
@@ -11,7 +11,7 @@
  *   can be hashed ahead of time; with a hash present browsers would ignore
  *   `'unsafe-inline'`, so Astro is told to emit none (see its render/csp.js).
  * - connect-src: `'self'` + the Supabase project (auth, the learner_state table) and the
- *   semantic-search and feedback functions (A100) — taken from the same PUBLIC_* build variables the client
+ *   semantic-search and feedback functions — taken from the same PUBLIC_* build variables the client
  *   uses, so an unconfigured build allows no third-party origin at all.
  *
  * Not expressible in a meta policy (browsers ignore them there): `frame-ancestors`,
@@ -58,6 +58,10 @@ const FIXED_DIRECTIVES = [
   "manifest-src 'self'",
 ];
 
+/** Astro's `security.csp` object, and its directive list (typed `name value` strings). */
+/** @typedef {Extract<NonNullable<import('astro').AstroUserConfig['security']>['csp'], object>} CspSettings */
+/** @typedef {NonNullable<CspSettings['directives']>} CspDirectives */
+
 /**
  * Astro `security.csp` settings for the given build environment.
  * @param {Record<string, string | undefined>} env
@@ -65,11 +69,11 @@ const FIXED_DIRECTIVES = [
 export function cspConfig(env) {
   return {
     algorithm: /** @type {const} */ ('SHA-256'),
-    directives: [
+    directives: /** @type {CspDirectives} */ ([
       "default-src 'self'",
       ['connect-src', "'self'", ...connectOrigins(env)].join(' '),
       ...FIXED_DIRECTIVES,
-    ],
+    ]),
     styleDirective: { resources: ["'self'", "'unsafe-inline'"] },
   };
 }

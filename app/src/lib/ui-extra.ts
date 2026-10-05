@@ -1,6 +1,6 @@
 /**
- * UI strings for the open-data, feed, A–Z, 404 and "Continue learning" surfaces
- * (A68–A73). Kept apart from `UI` in site.ts so those pages don't churn the main
+ * UI strings for the open-data, feed, A–Z, 404 and "Continue learning" surfaces.
+ * Kept apart from `UI` in site.ts so those pages don't churn the main
  * string table.
  */
 import type { Lang } from './site';

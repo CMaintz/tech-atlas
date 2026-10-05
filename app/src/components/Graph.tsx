@@ -33,13 +33,13 @@ interface Props {
 
 /**
  * The term page's neighbourhood graph (2D, Cytoscape), in the Explorer's visual
- * language (A74): the focal term at the centre, its neighbours on a ring grouped by
+ * language: the focal term at the centre, its neighbours on a ring grouped by
  * relationship family, one-way edges flowing towards what they point at.
  */
 export default function Graph({ nodes, edges, termBase, onSelect, ...props }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const select = useLatest(onSelect);
-  // The palette follows the page theme live (A92): a restyle in place, never a relayout.
+  // The palette follows the page theme live: a restyle in place, never a relayout.
   const theme = useTheme();
   useTermGraph(ref, { nodes, edges, theme }, (id) => {
     if (select.current) select.current(id);

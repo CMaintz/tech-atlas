@@ -1,5 +1,5 @@
 /**
- * Which relationships the 2D map draws, and how (A86, A93b): the backbone at rest, every
+ * Which relationships the 2D map draws, and how: the backbone at rest, every
  * edge with "show all", a selected term's or a route's edges in focus; the island bundles
  * summarising what crosses between islands; and bundled routes for "show all".
  */
@@ -90,7 +90,7 @@ function refreshBundles(p: MapParts, v: View) {
 
 /**
  * Restyle the edges for the current view. Worked out in plain data; only edges whose
- * classes change are touched (A93b), so a toggle restyles the edges it changes, not every
+ * classes change are touched, so a toggle restyles the edges it changes, not every
  * edge. `defer` hands the changes back to be applied a batch per frame.
  */
 export function createEdges(p: MapParts, s: MapState) {

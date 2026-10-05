@@ -1,6 +1,6 @@
 /**
  * The 3D map's written names: text sprites above the most central terms (hub labels),
- * and each domain's name, large and faint above its galaxy (A93b). Sprites always face
+ * and each domain's name, large and faint above its galaxy. Sprites always face
  * the camera; they are not 3d-force-graph objects, so they never take a click or hover.
  */
 import { EXPLORER } from '../explorer-config';
@@ -62,7 +62,7 @@ function domainName(ctx: Ctx, g: DomainGroup): DomainArt {
   return { text, c, tex, sprite, domain: g.domain, ids: g.ids };
 }
 
-/** Each domain's name over its galaxy, like the 2D map (A93b). */
+/** Each domain's name over its galaxy, like the 2D map. */
 export function createDomainNames(ctx: Ctx) {
   const names = domainGroups(ctx.model.nodes).map((g) => domainName(ctx, g));
   for (const a of names) ctx.scene.add(a.sprite);

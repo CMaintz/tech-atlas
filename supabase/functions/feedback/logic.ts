@@ -1,5 +1,5 @@
 /**
- * The `feedback` Edge Function (A100), as a handler with its dependencies passed in:
+ * The `feedback` Edge Function, as a handler with its dependencies passed in:
  * index.ts wires it to Deno, and the app's Vitest suite drives it with a mocked fetch
  * (app/src/lib/feedback-handler.test.ts). No Deno APIs here. The request is validated
  * in parse.ts and the email built in email.ts; both are re-exported from here.

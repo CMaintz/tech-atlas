@@ -1,4 +1,4 @@
-/** The visual lab's (A96) 2D panel: edges, flow, hover, labels, emphasis, layout, tone. */
+/** The visual lab's 2D panel: edges, flow, hover, labels, emphasis, layout, tone. */
 import type { Lab2D } from '../../lib/explorer-lab';
 import { Note, Pick, Slide, Toggle, binder } from './controls';
 import { CURVES, FLOWS_2D, HOVERS, LABELS, labelled } from './options';

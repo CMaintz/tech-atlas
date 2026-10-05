@@ -28,11 +28,11 @@ export type Map3DOptions = {
   onHover?: (id: string) => void;
   /** The pointer is over a term (screen position in the container), or left it (null). */
   onPoint?: (hit: { id: string; x: number; y: number } | null) => void;
-  /** The scene's palette (A92); change it later with `retheme`. */
+  /** The scene's palette; change it later with `retheme`. */
   theme?: MapTheme;
-  /** Each domain's name, written large and faint across its galaxy (A93b). */
+  /** Each domain's name, written large and faint across its galaxy. */
   domainLabels?: Record<string, string>;
-  /** Relationship names, written on the lit links (A97a); none without. */
+  /** Relationship names, written on the lit links; none without. */
   relationNames?: RelationNames;
 };
 
@@ -52,7 +52,7 @@ export type Link3 = GraphLink & { i: number; bb: boolean };
 export type State3 = {
   theme: MapTheme;
   view: View3D | null;
-  /** What hover adds (A97a): a whole neighbourhood with nothing selected, else a preview. */
+  /** What hover adds: a whole neighbourhood with nothing selected, else a preview. */
   fx: Focus;
   /** The hovered term the map shows (hover is gated: never while the map moves). */
   hoverId: string | null;
@@ -60,7 +60,8 @@ export type State3 = {
   underLink: number | null;
 };
 
-export type Graph3D = ForceGraph3DInstance;
+/** Typed with our node and link shapes, so its accessors and handlers take them. */
+export type Graph3D = ForceGraph3DInstance<GraphNode, Link3>;
 export type Sprite = InstanceType<Three['Sprite']>;
 export type CanvasTexture = InstanceType<Three['CanvasTexture']>;
 export type Colour = InstanceType<Three['Color']>;

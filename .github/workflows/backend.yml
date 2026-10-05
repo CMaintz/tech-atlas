@@ -1,20 +1,20 @@
 name: backend
-# Deploys the Supabase side of search by meaning (A75–A78): migrations, the
+# Deploys the Supabase side of search by meaning: migrations, the
 # `semantic-search` Edge Function + its Cloudflare secrets, the term vectors (re-embedded
 # through Workers AI, the same call the function makes), then a smoke test that fails the
 # job unless known questions find their terms.
 #
-# Like deploy.yml (A65) it deploys only what passed the gate: it runs after a `gate` run
+# Like deploy.yml it deploys only what passed the gate: it runs after a `gate` run
 # on a push to main succeeds, on exactly that commit; a manual run is allowed on main only.
 # Skipped entirely until the repository variable SUPABASE_PROJECT_REF is set; its steps
 # are skipped (not failed) until the secrets SUPABASE_ACCESS_TOKEN and
 # SUPABASE_DB_PASSWORD are set, and everything after the migrations until
 # CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN are set. The `feedback` Edge Function
-# (A100) needs no Cloudflare: it is deployed whenever the migrations run, and its secret
+# needs no Cloudflare: it is deployed whenever the migrations run, and its secret
 # RESEND_API_KEY is copied into it only when that GitHub secret is set (without it the
 # function stores feedback and sends no email). Setup: docs/SUPABASE_SETUP.md.
 #
-# Secrets (A89): each step gets only the secrets it uses — never the checkout, tool
+# Secrets: each step gets only the secrets it uses — never the checkout, tool
 # installs or `npm ci` (whose install scripts are third-party code) — and the job runs in
 # the `backend` environment, which the owner restricts to `main` (docs/SECURITY.md).
 on:

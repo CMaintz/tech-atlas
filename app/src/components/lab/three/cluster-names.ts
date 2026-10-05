@@ -1,4 +1,4 @@
-/** Faint cluster names in the visual lab's (A96) 3D map: one sprite at each cluster's centre. */
+/** Faint cluster names in the visual lab's 3D map: one sprite at each cluster's centre. */
 import { MAP_INK, type MapTheme } from '../../../lib/graph-style';
 import { centroid } from '../../../lib/explorer-lab/geometry';
 import type { Lab3, Sprite } from './context';

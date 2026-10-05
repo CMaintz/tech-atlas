@@ -1,4 +1,4 @@
-# Atlas (A68). Served at the root of atlas.maintz.dev, where crawlers read it.
+# Atlas. Served at the root of atlas.maintz.dev, where crawlers read it.
 User-agent: *
 Allow: /
 

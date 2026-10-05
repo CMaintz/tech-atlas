@@ -64,7 +64,7 @@ export type GraphLink = {
   type: EdgeType;
   family: Family;
   weight: number;
-  /** Authored `strength: primary` (absent otherwise) — always drawn in the overview (A86). */
+  /** Authored `strength: primary` (absent otherwise) — always drawn in the overview. */
   primary?: true;
 };
 export type Graph = { nodes: GraphNode[]; links: GraphLink[] };
@@ -183,7 +183,7 @@ export function buildGraph(terms: ModelTerm[]): Graph {
     cluster: t.cluster,
     summary: t.summary,
     era: t.era,
-    // Aliases only when a term has some: the Explorer's "Find a term" matches them (A95).
+    // Aliases only when a term has some: the Explorer's "Find a term" matches them.
     ...(t.aka && (t.aka.en.length || t.aka.da.length) ? { aka: t.aka } : {}),
     depth: depthOf(t.id),
     degree: degree.get(t.id) ?? 0,

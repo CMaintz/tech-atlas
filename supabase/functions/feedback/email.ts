@@ -1,5 +1,5 @@
 /**
- * The email that tells the owner about new feedback (A100), sent through Resend:
+ * The email that tells the owner about new feedback, sent through Resend:
  * plain text, every field, the reader's address as reply-to when given.
  */
 import type { Category, Feedback } from "./parse.ts";

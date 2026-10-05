@@ -1,4 +1,4 @@
-/** Frame-time statistics for the visual lab's (A96) meter and benchmark. */
+/** Frame-time statistics for the visual lab's meter and benchmark. */
 export type FrameStats = {
   /** Frames drawn in the last second. */
   fps: number;

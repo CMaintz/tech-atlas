@@ -1,5 +1,5 @@
 /**
- * Flow (A86): a small comet drifting along every visible one-way link. One THREE.Points
+ * Flow: a small comet drifting along every visible one-way link. One THREE.Points
  * for all of them: each comet is a head and a fading tail of points (`flow.trail`),
  * positions recomputed on the link's curve every frame for the visible one-way links
  * only (compacted to the front of the buffers, drawRange).
@@ -14,7 +14,7 @@ import { DRAW } from './graph3d';
 import { inkOf, isLight } from './lens';
 import type { Colour, Link3, Three } from './types';
 
-/** The comets' settings: a copy, read every frame, so the hidden lab (A96) tunes it live. */
+/** The comets' settings: a copy, read every frame, so the hidden lab tunes it live. */
 export type FlowConfig = Omit<typeof EXPLORER.three.flow, 'speed'> & { speed: number };
 
 /** Room for `n` comet points: positions, colours and sizes, none drawn yet. */

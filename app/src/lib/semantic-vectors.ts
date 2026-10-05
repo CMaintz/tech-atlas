@@ -1,5 +1,5 @@
 /**
- * Semantic search's vectors (A75, A76): the committed vector file and how it is checked
+ * Semantic search's vectors: the committed vector file and how it is checked
  * against the content, its Int8/base64 encoding, the in-memory index the offline ranking
  * tests query, and the rows the seed script upserts. Pure; re-exported by semantic.ts.
  */

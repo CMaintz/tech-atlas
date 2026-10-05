@@ -1,11 +1,12 @@
 /**
- * Edges switched on or off by a view change (A93b): relationship families fade out
+ * Edges switched on or off by a view change: relationship families fade out
  * rather than blink; many changed edges (types, "show all") change a batch per frame and
  * a few fade in at once; all instant under reduced motion. Bundled routes follow.
  */
 import type cytoscape from 'cytoscape';
 import { EXPLORER } from '../explorer-config';
 import { reducedMotion } from '../graph-cytoscape';
+import { collectEdges } from './collect';
 import { linkOf, reshow, type MapParts, type MapState } from './context';
 import { applyEdge, type EdgeChange, type SetRoutes } from './edges';
 import type { Stagger } from './stagger';
@@ -21,7 +22,10 @@ export type RevealDeps = {
 type Routing = { routes: boolean; bundle: boolean };
 
 const edgesOf = (p: MapParts, cs: EdgeChange[]) =>
-  p.cy.collection(cs.map((c) => c.e)) as cytoscape.EdgeCollection;
+  collectEdges(
+    p.cy,
+    cs.map((c) => c.e),
+  );
 
 /** Edges of families just switched off that fade out first (not the selection's own). */
 export function fadingEdges(p: MapParts, was: ReadonlySet<string> | null, next: View) {

@@ -3,11 +3,16 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { QuestionFile, TermData } from './schema';
 
+// schema.ts is authored against zod 3; Astro 7 types collections with its bundled zod 4.
+// Same runtime schema, typed at the boundary so entries keep their inferred data type.
+const termSchema = TermData as unknown as z.ZodType<TermData>;
+const questionSchema = QuestionFile as unknown as z.ZodType<QuestionFile>;
+
 // Terms are authored as bilingual YAML data files under src/content/terms/<domain>/.
 // The glob loader derives each entry's `id` from its path (e.g. "security/phishing").
 const terms = defineCollection({
   loader: glob({ pattern: '**/*.yaml', base: './src/content/terms' }),
-  schema: TermData,
+  schema: termSchema,
 });
 
 // Optional long-form Articles (ADR-0004: exempt from Closed Vocabulary).
@@ -21,11 +26,11 @@ const articles = defineCollection({
   }),
 });
 
-// The hand-written question bank (A90): src/content/questions/<domain>/<cluster>.yaml,
+// The hand-written question bank: src/content/questions/<domain>/<cluster>.yaml,
 // each file a `questions:` list. Entry id = "<domain>/<cluster>".
 const questions = defineCollection({
   loader: glob({ pattern: '**/*.yaml', base: './src/content/questions' }),
-  schema: QuestionFile,
+  schema: questionSchema,
 });
 
 export const collections = { terms, articles, questions };

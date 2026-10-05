@@ -1,4 +1,4 @@
-// Sets the colour theme before first paint (A92), so a light-theme reader never sees a
+// Sets the colour theme before first paint, so a light-theme reader never sees a
 // dark flash. A blocking external script: the CSP's script-src 'self' covers it, no
 // hash needed. Mirrors parseTheme/resolveTheme in src/lib/prefs.ts.
 (function () {

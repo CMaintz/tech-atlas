@@ -1,7 +1,7 @@
 /**
- * The pointer on the 2D map: pressing and panning the background (with the drag ring,
- * A95), hovering terms and named links, tapping to select and double-tapping to open.
- * No hover while a button is down or the map moves (A97a): restyling mid-pan throws away
+ * The pointer on the 2D map: pressing and panning the background (with the drag ring),
+ * hovering terms and named links, tapping to select and double-tapping to open.
+ * No hover while a button is down or the map moves: restyling mid-pan throws away
  * the viewport snapshot, and Cytoscape does not re-report a term the view slid under a
  * resting pointer, so hover waits until the pointer itself moves once the map stops.
  */

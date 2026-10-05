@@ -1,4 +1,4 @@
-// The feedback form's messages (lib/feedback.ts, A100). The limits, the browser half and
+// The feedback form's messages (lib/feedback.ts). The limits, the browser half and
 // the Edge Function are tested in feedback-function.test.ts.
 import { describe, expect, it } from 'vitest';
 import { FEEDBACK_MAX_CHARS, FEEDBACK_UI, feedbackCounter, feedbackError } from './feedback';

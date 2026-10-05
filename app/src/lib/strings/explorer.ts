@@ -75,7 +75,7 @@ export const UI_EXPLORER = {
   },
 } as const;
 
-/** Graph legend and canvas controls (Explorer + term-page graph, A74). */
+/** Graph legend and canvas controls (Explorer + term-page graph). */
 export const GRAPH_UI = {
   en: {
     legend: 'Legend',

@@ -1,5 +1,5 @@
 /**
- * The hidden visual lab's (A96) toggle state: its shape, today's defaults, reading it
+ * The hidden visual lab's toggle state: its shape, today's defaults, reading it
  * from the address (so a headless run is a list of URLs, and nothing is stored) and
  * reporting what differs from today.
  */

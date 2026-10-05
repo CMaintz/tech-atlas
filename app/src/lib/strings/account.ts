@@ -1,5 +1,5 @@
 /**
- * Accounts, sign-in and progress sync (A44).
+ * Accounts, sign-in and progress sync.
  * A slice of `UI` (site.ts), which merges every area into one table per language.
  */
 export const UI_ACCOUNT = {

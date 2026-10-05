@@ -1,5 +1,5 @@
 /**
- * No en/em dashes in user-facing UI strings (A94; the content files are covered by lint
+ * No en/em dashes in user-facing UI strings (the content files are covered by lint
  * E12). Walks the exported values, not the file text, so code comments may keep theirs.
  */
 import { describe, expect, it } from 'vitest';

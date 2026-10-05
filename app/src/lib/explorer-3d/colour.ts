@@ -1,5 +1,5 @@
 /**
- * Colour at a strength, for the two ways the 3D map blends (A92). Night map (additive):
+ * Colour at a strength, for the two ways the 3D map blends. Night map (additive):
  * a colour's brightness is its strength, and black is invisible. Cream map (multiply):
  * a colour mixed towards white by its strength, and white is invisible. Pure.
  */

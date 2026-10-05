@@ -1,6 +1,6 @@
 // @ts-check
 /**
- * Build guard (A89): fails `astro build` — so the gate and every deploy — when the
+ * Build guard: fails `astro build` — so the gate and every deploy — when the
  * output would ship a secret or a page the Content-Security-Policy doesn't cover.
  *
  * Secrets: the client may carry only the public Supabase URL, the anon/publishable key

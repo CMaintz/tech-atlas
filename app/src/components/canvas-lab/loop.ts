@@ -1,5 +1,5 @@
 /**
- * The canvas lab's (A91) rAF loop: advance what moves (auto-rotate, camera easing,
+ * The canvas lab's rAF loop: advance what moves (auto-rotate, camera easing,
  * family fades, elastic snap-back) and paint only when something changed or is moving.
  */
 import { springAtRest, springStep } from '../../lib/canvas-explorer';

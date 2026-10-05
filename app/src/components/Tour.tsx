@@ -14,7 +14,7 @@ interface Props {
 }
 
 /**
- * The guided tour (A61, motion reworked in A85): a non-modal, step-by-step card with a
+ * The guided tour: a non-modal, step-by-step card with a
  * spotlight on the part of the page it describes. Its position is kept in localStorage,
  * so it follows the reader from page to page; a click on any `[data-tour-start]` element
  * restarts it. Before it changes page it points at the link that goes there.
