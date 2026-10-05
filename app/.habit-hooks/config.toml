@@ -1,0 +1,25 @@
+# Foundry v2 preset presets/habit-hooks/typescript.toml. It lives in app/ because the
+# TypeScript sensors (eslint, knip, ts-morph, jscpd) resolve from app/node_modules and the
+# gate's smell job runs in working_directory app/. Paths are relative to app/.
+plugins = ["typescript", "generic"]
+
+# Tests are not structural-smell-gated: long, mock-heavy specs are normal and fine.
+# CI should police production maintainability, not test structure. (Language-
+# agnostic principle — see README.)
+files = ["**/*.ts", "**/*.tsx", "!**/*.spec.ts", "!**/*.spec.tsx", "!**/*.test.ts", "!**/*.test.tsx"]
+
+# File-length: flag files over 300 lines (oversized-file). 300 rather than the
+# sensor default of 200 — verbose-but-cohesive files (esp. Java) legitimately pass
+# 200, and this is a ratcheted coaching signal, not a hard wall. Config/data/prose
+# are already excluded by the `files` globs; keep big prompts in their own resource file.
+[sensors.line-count]
+args = ["--max", "300"]
+
+# Function length: flag functions over 18 lines (oversized-function), the same limit as
+# `npm run lint:size` (app/scripts/size-rules.ts), instead of the bundled eslint
+# preset's 12. `--rule` overrides max-lines-per-function whichever eslint config is in
+# force (the preset's, or a project eslint.config). Blank and comment lines are skipped
+# to match size-rules' logical lines; unlike size-rules, eslint also counts a nested
+# function's lines toward its parent, so the two can differ on functions with callbacks.
+[sensors.eslint]
+args = ["--rule", "max-lines-per-function: [error, {max: 18, skipBlankLines: true, skipComments: true, IIFEs: true}]"]

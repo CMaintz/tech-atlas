@@ -6,6 +6,7 @@
 import cytoscape from 'cytoscape';
 import fcose from 'cytoscape-fcose';
 import type { GraphLink, GraphNode } from '../graph-model';
+import { collectNodes } from './collect';
 import { EXPLORER } from '../explorer-config';
 import {
   LAYOUT_SEED,
@@ -84,7 +85,10 @@ export function groupClusters(nodes: GraphNode[]) {
 function layOutIslands(cy: cytoscape.Core, g: Pick<IslandGeometry, 'clusters' | 'clusterIds'>) {
   const raw = new Map<string, Point[]>();
   for (const c of g.clusterIds) {
-    const members = cy.collection(g.clusters.get(c)!.map((n) => cy.getElementById(n.id)));
+    const members = collectNodes(
+      cy,
+      g.clusters.get(c)!.map((n) => cy.getElementById(n.id)),
+    );
     if (members.length > 1) members.union(members.edgesWith(members)).layout(FCOSE).run();
     raw.set(
       c,

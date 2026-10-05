@@ -4,6 +4,7 @@
  * camera for motion. Only the lit links are its objects; the resting web is ours.
  */
 import type ForceGraph3D from '3d-force-graph';
+import type { ConfigOptions } from '3d-force-graph';
 import { EXPLORER } from '../explorer-config';
 import { familyColours, isDirected } from '../graph-style';
 import type { GraphNode } from '../graph-model';
@@ -13,6 +14,12 @@ import { inkOf } from './lens';
 import type { Camera, Graph3D, Link3, Orbit } from './types';
 
 export type GraphClass = typeof ForceGraph3D;
+/**
+ * The same constructor, building a graph of our node and link shapes. The library types
+ * its node/link shapes as generics of the instance but exports the constructor with the
+ * defaults, so the shapes are named here, once.
+ */
+type TypedGraphClass = new (el: HTMLElement, config?: ConfigOptions) => Graph3D;
 
 /** Transparent draw order (three.js sorts by renderOrder before distance). */
 export const DRAW = { glow: -1, solid: 0, links: 1, receded: 2, flow: 3, tags: 4 } as const;
@@ -45,7 +52,7 @@ function withLinks(fg: Graph3D, { lens, state }: Base) {
 
 export function createGraph3D(Graph: GraphClass, base: Base): Graph3D {
   const { el, model, opts } = base;
-  const fg = new Graph(el, { controlType: 'orbit' })
+  const fg = new (Graph as unknown as TypedGraphClass)(el, { controlType: 'orbit' })
     .width(el.clientWidth)
     .height(el.clientHeight)
     .backgroundColor(inkOf(base).bg3d)

@@ -22,13 +22,22 @@ function legendProps({ p, x }: Section, visible: Graph): ComponentProps<typeof G
   };
 }
 
-/** The legend: a collapsible box top-left of the map (below the bar on phones). */
+/**
+ * The legend: a pill bottom-left of the map that opens upward, so it never meets
+ * the bar. From md it sits right of the fixed BETA corner ribbon (8rem square). It steps
+ * aside while the phones' Controls sheet is open (and, by the page's CSS, while the term
+ * panel covers it).
+ */
 export function ExplorerLegend({ p, x }: Section) {
   const visible = x.shown.visible;
   if (!visible) return null;
+  const hidden = x.bar.pop === 'sheet' ? 'invisible' : '';
   return (
-    <div class="absolute top-16 left-3 z-10 md:top-3" data-explorer-legend>
-      <GraphLegend {...legendProps({ p, x }, visible)} />
+    <div class={`${LEGEND_PLACE} ${hidden}`} data-explorer-legend>
+      <GraphLegend {...legendProps({ p, x }, visible)} upward />
     </div>
   );
 }
+
+const LEGEND_PLACE =
+  'absolute bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-[max(0.75rem,env(safe-area-inset-left))] z-10 md:left-[8.5rem]';

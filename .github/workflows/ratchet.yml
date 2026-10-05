@@ -1,0 +1,14 @@
+name: ratchet
+# Foundry v2 ratchet report: a PR comment showing how the accepted-debt baseline moved.
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  ratchet:
+    uses: CMaintz/foundry/.github/workflows/ratchet-report.yml@2112a422a905c329602701d7a0a40fbdb5b91a19 # v2.5.1
+    permissions:
+      contents: read
+      pull-requests: write
+    with:
+      baselines: app/.habit-hooks/snooze.json

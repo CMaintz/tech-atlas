@@ -1,8 +1,23 @@
-# Foundry gate — the six-verb contract (see AGENTS.md). Tasks operate in app/.
+# Foundry gate — the six-verb contract (see AGENTS.md), on Foundry v2 (CMaintz/foundry,
+# template mise/ts.toml). CI runs these same verbs through the `gate.yml` facade with
+# working_directory = app/, which finds this root config by mise's parent-directory lookup.
 [tools]
 node = "22.14.0"
 # Secret scanner for `mise run audit`; rules and allowlist in .gitleaks.toml.
 gitleaks = "8.30.1"
+# Type checker for the Supabase Edge Functions (Deno runtime), in `mise run typecheck`.
+deno = "2.9.7"
+
+[env]
+# The app's local binaries, and the repo's scripts/ so the gate can call
+# `foundry-verb-wrap` by name (copied from Foundry's scripts/).
+_.path = ["{{config_root}}/app/node_modules/.bin", "{{config_root}}/scripts"]
+# Loop telemetry: each gate verb appends one JSONL line here (gitignored .foundry/).
+# Read it with `foundry-loop-report`.
+FOUNDRY_TELEMETRY = "{{config_root}}/.foundry/telemetry.jsonl"
+# Deno code for `deno check` in `typecheck` (the Foundry v2.3 ts-template variable):
+# every Edge Function and supabase/functions/_shared, with Deno's own types.
+FOUNDRY_DENO_PATHS = "supabase/functions"
 
 [tasks.fix]
 description = "Apply every mechanically-safe fix (format). No judgement calls."
@@ -15,9 +30,15 @@ dir = "app"
 run = ["npx prettier --check .", "npm run lint:content", "npm run lint:size"]
 
 [tasks.typecheck]
-description = "Static type analysis."
-dir = "app"
-run = "npm run check"
+description = "Static type analysis: the Astro app (astro check), then the Edge Functions (deno check)."
+# As in Foundry's ts template, a missing tsconfig.json fails loudly: without it
+# `astro check` silently covers .astro files only.
+run = [
+  "test -f app/tsconfig.json || { echo 'app/tsconfig.json is required' >&2; exit 1; }",
+  "cd app && npm run check",
+  # Unquoted on purpose: a space-separated list of directories/files.
+  "deno check $FOUNDRY_DENO_PATHS",
+]
 
 [tasks.test]
 description = "Unit tests (vitest), then the full production build as a smoke test."
@@ -27,12 +48,23 @@ run = ["npm test", "npm run build"]
 [tasks.audit]
 description = "Dependency vulnerabilities, registry signatures, and secrets anywhere in git history."
 dir = "app"
+# Foundry's ratcheted npm audit: fails on any high+ advisory not accepted, with a
+# reason, in app/.audit-allowlist.json (none today), and on stale allowlist entries.
+# The level stays at high (Foundry's template default is critical).
 run = [
-  "npm audit --audit-level=high",
+  "npm audit --json | node ../scripts/npm-audit-ratchet.mjs --level=high --allowlist=.audit-allowlist.json",
   "npm audit signatures",
   "gitleaks git --redact --no-banner --config ../.gitleaks.toml ..",
 ]
 
 [tasks.gate]
 description = "lint -> typecheck -> test -> audit, in order. The oracle."
-run = ["mise run lint", "mise run typecheck", "mise run test", "mise run audit"]
+# Sequential run array, never `depends` (mise runs dependencies in parallel, unordered).
+# `foundry-verb-wrap` times each verb, appends to FOUNDRY_TELEMETRY and passes the exit
+# code through unchanged, so a failing verb still stops the sequence.
+run = [
+  "foundry-verb-wrap lint      -- mise run lint",
+  "foundry-verb-wrap typecheck -- mise run typecheck",
+  "foundry-verb-wrap test      -- mise run test",
+  "foundry-verb-wrap audit     -- mise run audit",
+]

@@ -58,6 +58,10 @@ const FIXED_DIRECTIVES = [
   "manifest-src 'self'",
 ];
 
+/** Astro's `security.csp` object, and its directive list (typed `name value` strings). */
+/** @typedef {Extract<NonNullable<import('astro').AstroUserConfig['security']>['csp'], object>} CspSettings */
+/** @typedef {NonNullable<CspSettings['directives']>} CspDirectives */
+
 /**
  * Astro `security.csp` settings for the given build environment.
  * @param {Record<string, string | undefined>} env
@@ -65,11 +69,11 @@ const FIXED_DIRECTIVES = [
 export function cspConfig(env) {
   return {
     algorithm: /** @type {const} */ ('SHA-256'),
-    directives: [
+    directives: /** @type {CspDirectives} */ ([
       "default-src 'self'",
       ['connect-src', "'self'", ...connectOrigins(env)].join(' '),
       ...FIXED_DIRECTIVES,
-    ],
+    ]),
     styleDirective: { resources: ["'self'", "'unsafe-inline'"] },
   };
 }
