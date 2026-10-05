@@ -125,7 +125,7 @@ const FeedbackOpener = ({ ui, variant, dialog, open }: OpenerProps) => (
 );
 
 /**
- * The Feedback dialog and the button that opens it (A100). A native modal <dialog>, like
+ * The Feedback dialog and the button that opens it. A native modal <dialog>, like
  * the About dialog (ui/Dialog): focus containment, an inert page behind it, Esc and
  * backdrop click close it, focus returns to the opener. Rendered only when the build has
  * a feedback function URL (feedbackProps returns null otherwise).

@@ -1,5 +1,5 @@
 /**
- * Every tunable number of the Explorer's look and motion, in one place (A86), so the
+ * Every tunable number of the Explorer's look and motion, in one place, so the
  * owner can iterate on the visuals without touching the code that uses them. Pure data.
  */
 export const EXPLORER = {
@@ -12,7 +12,7 @@ export const EXPLORER = {
   },
 
   /**
-   * Minimum distance between two terms (A86), so dense clusters stay clickable: centres
+   * Minimum distance between two terms, so dense clusters stay clickable: centres
    * at least `factor` × their mean radius plus `labelClearance` apart (2D px; 3D uses
    * `three.labelClearance`). Clusters grow to fit.
    */
@@ -21,7 +21,7 @@ export const EXPLORER = {
     labelClearance: 18,
   },
 
-  /** Which edges the overview draws (A86): a backbone, not the hairball. */
+  /** Which edges the overview draws: a backbone, not the hairball. */
   edges: {
     /**
      * Strongest relationships (to terms sharing a domain, any cluster) each term keeps in
@@ -42,7 +42,7 @@ export const EXPLORER = {
   },
 
   /**
-   * Drag feedback (A95, drag-feedback.ts): a light ring with a crosshair follows the mouse
+   * Drag feedback (drag-feedback.ts): a light ring with a crosshair follows the mouse
    * while the map is panned or orbited. Light stroke, dark outline: reads on any background.
    */
   drag: {
@@ -56,7 +56,7 @@ export const EXPLORER = {
   },
 
   /**
-   * Keyboard navigation (A97, explorer-keys.ts): speeds at full throttle, the ease in and
+   * Keyboard navigation (explorer-keys.ts): speeds at full throttle, the ease in and
    * out (time constant, s; none under reduced motion) and the Shift multiplier.
    */
   keys: {
@@ -77,11 +77,11 @@ export const EXPLORER = {
   /** Hover intent: the pointer must rest this long before the map re-styles. */
   hoverDelayMs: 45,
 
-  /** The pointer must rest on a term this long before its hover card appears (A93). */
+  /** The pointer must rest on a term this long before its hover card appears. */
   hoverCardMs: 1200,
 
   /**
-   * Relationship names on lit links (A97a): the selected term's, or a hovered term's when
+   * Relationship names on lit links: the selected term's, or a hovered term's when
    * it has at most `hoverMax` lit links. Text size on screen (2D keeps it from shrinking
    * when zoomed out); overlapping names give way to heavier links.
    */
@@ -103,7 +103,7 @@ export const EXPLORER = {
   },
 
   /**
-   * The Explorer's flow (A86): small dots drift along every visible one-way edge, all the
+   * The Explorer's flow: small dots drift along every visible one-way edge, all the
    * time, on an overlay canvas — the map itself is never redrawn for it. Symmetric
    * relationships never move; nothing moves under prefers-reduced-motion.
    */
@@ -127,13 +127,13 @@ export const EXPLORER = {
     fadeMs: 180,
     /**
      * Edges a relationship toggle switches on or off (types, "show all") change this many
-     * per frame (A93b), so one toggle never restyles every edge in a single frame.
+     * per frame, so one toggle never restyles every edge in a single frame.
      */
     revealBatch: 120,
     fitMs: 550,
   },
 
-  /** 2D island map (A74) — gaps are in graph-style.ts (ISLAND_GAP, DOMAIN_GAP). */
+  /** 2D island map — gaps are in graph-style.ts (ISLAND_GAP, DOMAIN_GAP). */
   islands: {
     nodeRepulsion: 5200,
     idealEdgeLength: 58,
@@ -189,19 +189,19 @@ export const EXPLORER = {
     glowOpacity: 0.5,
     /**
      * A sphere at least this opaque hides what is behind it; a receded one (dimmed by a
-     * selection, hover or route) writes no depth, so the lines behind it show (A97).
+     * selection, hover or route) writes no depth, so the lines behind it show.
      */
     solidOpacity: 0.5,
     linkAlpha: 0.2,
     hubLabels: 18,
     hubLabelHeight: 24,
-    /** Domain names across each galaxy (A93b): height in scene units, opacity per theme. */
+    /** Domain names across each galaxy: height in scene units, opacity per theme. */
     domainLabelHeight: 110,
     domainLabelAlpha: { dark: 0.26, light: 0.3 },
     /** Minimum distance between terms (see `spacing`), in scene units. */
     labelClearance: 10,
     /**
-     * Flow comets along every visible one-way link (A86): scene units per second, head
+     * Flow comets along every visible one-way link: scene units per second, head
      * size (scene units, clamped to minPx–maxPx on screen), each tail point's brightness
      * (head first) and the gap between them, and brightness at rest, lit (hovered /
      * selected) and dimmed (outside the selection).

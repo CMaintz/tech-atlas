@@ -1,5 +1,5 @@
 /**
- * The island map (A74, A86): each cluster laid out once as its own island (fcose, a fixed
+ * The island map: each cluster laid out once as its own island (fcose, a fixed
  * seed), spaced so no two terms crowd each other, then islands packed into domain
  * regions and the whole map turned so its long axis lies along the screen's.
  */
@@ -26,7 +26,7 @@ import {
 
 cytoscape.use(fcose);
 
-/** How the lab (A96) re-spaces islands: minimum distance ×, island size ×, extra gap px. */
+/** How the lab re-spaces islands: minimum distance ×, island size ×, extra gap px. */
 export type IslandTune = { spacing: number; tight: number; gap: number };
 
 export const NO_TUNE: IslandTune = { spacing: 1, tight: 1, gap: 0 };
@@ -35,7 +35,7 @@ export const NO_TUNE: IslandTune = { spacing: 1, tight: 1, gap: 0 };
 export type IslandGeometry = {
   clusters: Map<string, GraphNode[]>;
   clusterIds: string[];
-  /** Each island's own layout before spacing (kept so the lab can re-space it, A96). */
+  /** Each island's own layout before spacing (kept so the lab can re-space it). */
   raw: Map<string, Point[]>;
   /** Each term's offset from its island's centre. */
   offset: Map<string, Point>;
@@ -119,7 +119,7 @@ export function shapeIsland(raw: Point[], sizes: number[], tune: IslandTune = NO
 }
 
 /**
- * Space every island and measure it. The hidden visual lab (A96) re-runs this with a
+ * Space every island and measure it. The hidden visual lab re-runs this with a
  * larger minimum distance (`spacing` ×), tighter islands (`tight` ×) and wider gaps.
  */
 export function shapeIslands(g: IslandGeometry, tune: IslandTune = NO_TUNE) {
@@ -229,7 +229,7 @@ export function islandMap(
 
 /**
  * A term sits in its own cluster's island like any other, whatever other domains it
- * also belongs to (A86: no seams — hubs that connect everywhere broke them).
+ * also belongs to (no seams — hubs that connect everywhere broke them).
  */
 function termPositions(
   g: IslandGeometry,

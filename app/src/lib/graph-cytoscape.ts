@@ -1,5 +1,5 @@
 /**
- * Cytoscape glue shared by the Explorer and the term-page graph (A74): the stylesheet
+ * Cytoscape glue shared by the Explorer and the term-page graph: the stylesheet
  * (graph-cytoscape/stylesheet.ts), element data built from graph-style, hover
  * highlighting, the animated flow along one-way edges and the eased fit. Browser-only;
  * the pure mapping it relies on lives in graph-style.ts.
@@ -23,7 +23,7 @@ export const reducedMotion = () =>
   typeof window !== 'undefined' && !!window.matchMedia?.(REDUCED_MOTION).matches;
 
 /**
- * The page's resolved theme (A92): `data-theme` on <html>, set before first paint by
+ * The page's resolved theme: `data-theme` on <html>, set before first paint by
  * theme-init.js and kept in step with the menu and the OS by Base.astro; the OS
  * preference when there is no attribute. 'dark' outside a browser.
  */

@@ -1,4 +1,4 @@
-/** The privacy page: everything the site keeps in the browser (A88). */
+/** The privacy page: everything the site keeps in the browser. */
 import type { Lang } from './site';
 
 type T = Record<Lang, string>;

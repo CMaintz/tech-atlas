@@ -1,5 +1,5 @@
 /**
- * Relationship names on the lit links (A97a): a billboarded sprite per lit link of the
+ * Relationship names on the lit links: a billboarded sprite per lit link of the
  * selected (or a lightly linked hovered) term, a constant size on screen just above the
  * link's midpoint, read from that term's side. Each frame the names are projected and
  * those that would overlap give way to heavier links; the link under the pointer always

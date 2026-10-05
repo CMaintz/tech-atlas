@@ -1,6 +1,6 @@
 import type { Lang } from '../lang';
 
-/** The Explorer's term panel (A80). `da` must carry every key `en` has. */
+/** The Explorer's term panel. `da` must carry every key `en` has. */
 const PANEL_EN = {
   panelExpandLabel: 'Expand the panel to fill the page',
   panelCollapseLabel: 'Return the panel to the side of the map',

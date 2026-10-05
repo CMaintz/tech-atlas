@@ -1,4 +1,4 @@
-/** Build the visual lab's (A96) 3D runtime for each 3D map and apply the toggles to it. */
+/** Build the visual lab's 3D runtime for each 3D map and apply the toggles to it. */
 import { useEffect, useRef } from 'preact/hooks';
 import type { Map3D } from '../../../lib/explorer-3d';
 import type { MapTheme } from '../../../lib/graph-style';

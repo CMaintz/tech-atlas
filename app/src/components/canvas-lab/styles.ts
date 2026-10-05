@@ -1,4 +1,4 @@
-/** Class names shared by the canvas lab's (A91) floating toolbar and legend. */
+/** Class names shared by the canvas lab's floating toolbar and legend. */
 
 /** A rounded toggle pill (domains, the relationship menu, Reset view). */
 export const pill = (active: boolean) =>

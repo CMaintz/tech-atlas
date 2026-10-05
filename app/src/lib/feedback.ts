@@ -1,5 +1,5 @@
 /**
- * The feedback form (A100): its limits, its strings (EN + DA) and the request it sends
+ * The feedback form: its limits, its strings (EN + DA) and the request it sends
  * to the `feedback` Edge Function (supabase/functions/feedback). The limits must equal
  * the function's; feedback-function.test.ts checks that they do. Pure: no DOM.
  */

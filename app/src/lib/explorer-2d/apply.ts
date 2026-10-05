@@ -1,5 +1,5 @@
 /**
- * Applying a view in place (A74, A86): domain toggles hide terms where they are, only a
+ * Applying a view in place: domain toggles hide terms where they are, only a
  * layout switch moves them; colours, edges and the selection's look follow; a new
  * selection glides into view (layout and filter changes frame it themselves).
  */

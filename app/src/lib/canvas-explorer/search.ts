@@ -9,7 +9,7 @@ export function matchTier(s: string, q: string): number {
 
 /**
  * A term's score for `q` (lower is better), or undefined for no match: a name at tier t
- * scores 2t, an alias just below it (A95) 2t + 1, an id-only match 6.
+ * scores 2t, an alias just below it 2t + 1, an id-only match 6.
  */
 export function searchScore(n: Searchable, q: string, lang: string): number | undefined {
   const name = matchTier(n.term[lang] ?? '', q);

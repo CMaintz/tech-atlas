@@ -1,4 +1,4 @@
-/** The visual lab's (A96) floating panel: title, frame meter, benchmark, toggles. */
+/** The visual lab's floating panel: title, frame meter, benchmark, toggles. */
 import { useState } from 'preact/hooks';
 import Controls2D from './Controls2D';
 import Controls3D from './Controls3D';

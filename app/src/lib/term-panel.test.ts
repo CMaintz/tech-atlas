@@ -267,7 +267,7 @@ describe('panel history (Back / Forward)', () => {
   });
 });
 
-describe('guidesFor (A101)', () => {
+describe('guidesFor', () => {
   const guides = [
     { title: 'NIST', lang: undefined },
     { title: 'Datatilsynet', lang: 'da' as const },

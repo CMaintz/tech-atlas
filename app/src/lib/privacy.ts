@@ -1,5 +1,5 @@
 /**
- * The privacy page's content (A88), both languages. Kept apart from `UI` in site.ts
+ * The privacy page's content, both languages. Kept apart from `UI` in site.ts
  * (as ui-extra.ts is) so the long text doesn't churn the main string table. Split by
  * section: browser storage, personal data, processors and the page's running text.
  *

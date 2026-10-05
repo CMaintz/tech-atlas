@@ -17,9 +17,9 @@ export interface ExplorerProps {
   familyLabels: Dict;
   familyColours: Dict;
   domainLabels: Dict;
-  /** The term panel's strings and data locations (A80). */
+  /** The term panel's strings and data locations. */
   panel: PanelConfig;
-  /** The hidden visual lab only (A96): opening view, "show all" and the built maps. */
+  /** The hidden visual lab only: opening view, "show all" and the built maps. */
   lab?: {
     mode: Mode;
     showAll: boolean;

@@ -18,6 +18,6 @@ export default defineConfig({
   base: '/tech-atlas',
   integrations: [preact(), sitemap(), distGuard()],
   vite: { plugins: [tailwindcss()] },
-  // Content-Security-Policy as a <meta> in every page (A89; integrations/csp.mjs).
+  // Content-Security-Policy as a <meta> in every page (integrations/csp.mjs).
   security: { csp: cspConfig(env) },
 });

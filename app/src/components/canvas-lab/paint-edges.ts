@@ -1,4 +1,4 @@
-/** The canvas lab's (A91) edge painters: batched strokes, then pulses on one-way edges. */
+/** The canvas lab's edge painters: batched strokes, then pulses on one-way edges. */
 import { pulseAt } from '../../lib/canvas-explorer';
 import { edgeBatches, pulseBatches, type EdgeBatches } from '../../lib/canvas-explorer/edges';
 import type { Frame } from './frame';

@@ -1,5 +1,5 @@
 /**
- * The domain filter (A86): which terms and edges are visible with some domains off, and
+ * The domain filter: which terms and edges are visible with some domains off, and
  * the colours a term takes when its own domain is one of them.
  */
 import {
@@ -12,7 +12,7 @@ import {
 import type { Link } from './types';
 
 /**
- * A term is visible when at least one of its domains is enabled (A86). A term shared by
+ * A term is visible when at least one of its domains is enabled. A term shared by
  * two domains is one node: it stays while either is on. Nothing is ever shown merely
  * because it is connected to a visible term, and edges need both ends visible.
  */
@@ -50,7 +50,7 @@ export function effectivePaint(
 }
 
 /**
- * The domain colours of a term in several enabled domains (A86): its effective home
+ * The domain colours of a term in several enabled domains: its effective home
  * first, then the others. The map fills the term in its own shade and rings it in the
  * second colour. A term in one enabled domain gets none.
  */

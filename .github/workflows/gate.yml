@@ -4,7 +4,7 @@ name: gate
 # (habit-hooks, app/.habit-hooks/). Branch protection requires `gate / gate-ok`.
 #
 # deploy.yml and backend.yml run after this workflow (by its name, `gate`) succeeds on a
-# push to main (A65), so it keeps its name and both triggers.
+# push to main, so it keeps its name and both triggers.
 on:
   pull_request:
   push:

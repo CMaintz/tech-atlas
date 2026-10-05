@@ -29,7 +29,7 @@ function PanelFrame({ panel, children }: PartProps & { children: ComponentChildr
 }
 
 /**
- * The Explorer's term panel (A80): a term's essentials beside the map, in the site's
+ * The Explorer's term panel: a term's essentials beside the map, in the site's
  * language: facets, what to learn first, relationships (which re-focus the map, never navigate),
  * self-assessment and a quick quiz. Expand fills the page below the header, with the
  * term's neighbourhood graph; "Read more", at the end of the panel, opens the full entry page.

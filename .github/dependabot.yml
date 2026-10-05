@@ -1,4 +1,4 @@
-# Weekly, grouped dependency updates (A67). Each PR runs the gate like any other.
+# Weekly, grouped dependency updates. Each PR runs the gate like any other.
 version: 2
 updates:
   - package-ecosystem: npm
@@ -7,7 +7,7 @@ updates:
       interval: weekly
       day: monday
     open-pull-requests-limit: 5
-    # Supply chain (A89): skip releases younger than a few days — most hijacked npm
+    # Supply chain: skip releases younger than a few days — most hijacked npm
     # versions are caught and pulled within that window. Security updates ignore this.
     cooldown:
       default-days: 5
@@ -16,7 +16,7 @@ updates:
       npm-minor-and-patch:
         update-types: [minor, patch]
     ignore:
-      # A pair that moves together, by hand (A55): onnxruntime-web is pinned to exactly
+      # A pair that moves together, by hand: onnxruntime-web is pinned to exactly
       # the dev prerelease @huggingface/transformers requires, and the self-hosted
       # runtime must match it. A bump of either alone can't be caught by the gate.
       - dependency-name: onnxruntime-web

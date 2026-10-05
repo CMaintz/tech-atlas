@@ -1,6 +1,6 @@
 /**
- * The term panel's page-rendered tables (A80), built once per page so the island never
- * bundles the schema. Shared by the Explorer and the Timeline (A81). Build-time only.
+ * The term panel's page-rendered tables, built once per page so the island never
+ * bundles the schema. Shared by the Explorer and the Timeline. Build-time only.
  */
 import type { PanelConfig } from '../components/TermPanel';
 import { EDGE_TYPES } from '../schema';

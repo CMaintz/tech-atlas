@@ -1,4 +1,4 @@
-/** The canvas lab's (A91) compact legend, bottom-left, collapsible. */
+/** The canvas lab's compact legend, bottom-left, collapsible. */
 import type { ComponentChildren } from 'preact';
 import { useState } from 'preact/hooks';
 import { domainColour } from '../../lib/graph-style';

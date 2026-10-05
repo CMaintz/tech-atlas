@@ -17,7 +17,7 @@ import {
 import { useGraph } from './use-graph';
 
 /**
- * The hand-written question bank sits next to graph.json (A90), so every caller
+ * The hand-written question bank sits next to graph.json, so every caller
  * that already passes `graphUrl` (term page, Explorer panel, study hub) gets it.
  */
 export const bankUrl = (graphUrl: string, lang: Lang) =>
@@ -81,7 +81,7 @@ export type QuizOptions = {
 };
 
 /**
- * A term page asks about the term, never questions the page itself answers (A79);
+ * A term page asks about the term, never questions the page itself answers;
  * a session puts due reviews first and mixes question kinds.
  */
 const questionsOf = (graph: Graph, quizzer: Quizzer, o: QuizOptions) =>

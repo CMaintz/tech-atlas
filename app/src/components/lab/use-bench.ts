@@ -1,5 +1,5 @@
 /**
- * The visual lab's (A96) frame meter and scripted benchmark. The meter records every
+ * The visual lab's frame meter and scripted benchmark. The meter records every
  * animation frame's timestamp over the last five seconds; a benchmark run also collects
  * its own frames and reports them as JSON.
  */

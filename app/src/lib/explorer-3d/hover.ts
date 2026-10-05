@@ -1,5 +1,5 @@
 /**
- * Hover (A97a): three-render-objects re-raycasts the last pointer position every frame,
+ * Hover: three-render-objects re-raycasts the last pointer position every frame,
  * so while the camera moves terms drift under a resting pointer. The term under the
  * pointer is tracked always, but shown only through the motion gate: never while the
  * camera moves (auto-rotate, a glide, a drag, the wheel, keys), and not again until the

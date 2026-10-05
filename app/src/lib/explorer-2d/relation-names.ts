@@ -1,5 +1,5 @@
 /**
- * Relationship names on the lit links (A97a): the selected term's links, or a hovered
+ * Relationship names on the lit links: the selected term's links, or a hovered
  * term's when it has few, each named from that term's side. Names that would overlap give
  * way to heavier links, and the link under the pointer shows its own. A constant size on
  * screen when zoomed out.

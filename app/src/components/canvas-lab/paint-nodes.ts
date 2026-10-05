@@ -1,4 +1,4 @@
-/** The canvas lab's (A91) node painter: glow, solid disc or vertical bands, outline, ring. */
+/** The canvas lab's node painter: glow, solid disc or vertical bands, outline, ring. */
 import { LAB } from '../../lib/canvas-explorer';
 import type { Frame } from './frame';
 

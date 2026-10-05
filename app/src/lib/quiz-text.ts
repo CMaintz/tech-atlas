@@ -1,5 +1,5 @@
 /**
- * The wording of generated quiz questions (A79), in both languages, and which edge
+ * The wording of generated quiz questions, in both languages, and which edge
  * types each kind of question may ask about. Pure data.
  */
 import type { EdgeType } from '../schema';

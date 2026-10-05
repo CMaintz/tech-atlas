@@ -1,4 +1,4 @@
-/** The shapes the quiz modules share (A79, A90). */
+/** The shapes the quiz modules share. */
 import type { ClientQuestion } from './question-rules';
 
 export type Lang = 'en' | 'da';
@@ -7,9 +7,9 @@ export type QuestionKind =
 export type Question = {
   /** The term whose spaced-repetition record this answer updates. */
   termId: string;
-  /** Every term the answer updates, when a hand-written question tests several (A90). */
+  /** Every term the answer updates, when a hand-written question tests several. */
   termIds?: string[];
-  /** Id of a hand-written question: it keeps its own repetition record (A90). */
+  /** Id of a hand-written question: it keeps its own repetition record. */
   bankId?: string;
   /** Why the answer is right and the others are not (hand-written questions). */
   explanation?: string;

@@ -3,7 +3,7 @@ import { domainBands, effectiveHome, effectivePaint, termVisible } from '../grap
 import { clusterColour, domainColour } from '../graph-style';
 import { on } from './test-fixtures';
 
-describe('termVisible (A86)', () => {
+describe('termVisible', () => {
   it('shows a term while at least one of its domains is enabled', () => {
     expect(termVisible({ domain: ['cs', 'security'] }, on('security'))).toBe(true);
     expect(termVisible({ domain: ['cs', 'security'] }, on('cs'))).toBe(true);
@@ -34,7 +34,7 @@ describe('effectiveHome / effectivePaint', () => {
   });
 });
 
-describe('domainBands (A86)', () => {
+describe('domainBands', () => {
   const firewall = { domain: ['cs', 'security'], cluster: 'networking' };
   it('gives a shared term one band per enabled domain, home first', () => {
     expect(domainBands(firewall)).toEqual([domainColour('cs'), domainColour('security')]);

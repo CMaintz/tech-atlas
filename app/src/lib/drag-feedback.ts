@@ -1,5 +1,5 @@
 /**
- * Drag feedback for the Explorer's maps (A95): while the reader pans (2D, 3D) or orbits
+ * Drag feedback for the Explorer's maps: while the reader pans (2D, 3D) or orbits
  * (3D), the map's host carries `data-drag="pan" | "orbit"` (the page's CSS turns that
  * into a grabbing / rotate cursor) and a light ring with a crosshair follows the mouse
  * pointer. The ring has a light stroke and a dark outline, so it reads on the night map
@@ -66,7 +66,7 @@ export const ringBox = (size: number) =>
 
 /**
  * The ring's paint: a light stroke with a dark outline and a crosshair. Colours follow
- * the page theme live (A92): global.css sets --drag-ring/--drag-outline (light stroke,
+ * the page theme live: global.css sets --drag-ring/--drag-outline (light stroke,
  * dark outline on the night map; the reverse on the cream map).
  */
 export function ringPaint(cfg: DragConfig) {

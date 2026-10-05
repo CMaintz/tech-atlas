@@ -1,5 +1,5 @@
 /**
- * Each link's gentle curve (A86): a quadratic bend sideways from the link, like
+ * Each link's gentle curve: a quadratic bend sideways from the link, like
  * 3d-force-graph's curvature. The curves are packed nine floats a link (start, bend,
  * end) and shared by the resting web, the comets and the relationship names. Pure.
  */

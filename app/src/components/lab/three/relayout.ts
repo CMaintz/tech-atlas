@@ -1,5 +1,5 @@
 /**
- * Relayout (visual lab only, A96): sub-domain clusters (each cluster pulled out from its
+ * Relayout (visual lab only): sub-domain clusters (each cluster pulled out from its
  * domain's centre and drawn in) and a minimum distance between terms, always from the
  * original layout; the glow, sprites, hub labels, curves and cluster names follow.
  */

@@ -1,4 +1,4 @@
--- Atlas: the feedback form (A100). Idempotent.
+-- Atlas: the feedback form. Idempotent.
 --
 -- private.feedback holds what visitors send through the site's Feedback dialog. It sits
 -- in a schema the Data API doesn't expose, with RLS on and no policies, and no grants

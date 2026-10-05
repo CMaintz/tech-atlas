@@ -29,7 +29,7 @@ here — that is the next step, and this set is designed to make it easy.
 | 07 | `07_DECISIONS_AND_OPEN_QUESTIONS.md` | Everything marked Decided / Recommended / Under Consideration / Open, plus the open-question lists. |
 | 08 | `08_PROJECT_VOCABULARY.md` | The project's own working vocabulary (carried forward from `techlexicon/CONTEXT.md`). |
 | 09 | `09_VISUAL_DIRECTION.md` | Frontend/visual direction — the inspiration images described, the UI mockups from the chats, and the three demo variants. |
-| — | `adr/` | The four architecture decision records, carried forward from `techlexicon/docs/adr/`. |
+| — | `adr/` | The architecture decision records; 0001–0004 were carried forward from `techlexicon/docs/adr/` (since removed from `techlexicon/` as duplicates). |
 
 ---
 
@@ -45,7 +45,7 @@ Every transplanted block is tagged with the source it came from:
 | **[S4]** | `technical-knowledge-graph-product-development-document.docx` | A structured product development document. 24 numbered sections. Uses a 14-type relation set. |
 | **[S5]** | `Feature Inventory.pdf` | The feature inventory of the **built demo** ("Atlas"). 109 terms, 178 edges, 17 relation types, 5 domains. Describes what actually exists in the three demo HTML files. |
 | **[S6]** | `techlexicon/` | The disciplined "Lexicon" working files: `CONTEXT.md`, `docs/spec.md`, `schema.ts`, `docs/lint-rules.md`, `docs/adr/*`. A 9-type *closed* edge set, Closed Vocabulary, Depth derived from prerequisites, 4 domains. |
-| **[S7]** | `deep-research-report.md` | An external research report on glossary sites, sources, schemas, UX, licensing, tooling, visualization. |
+| **[S7]** | `docs/research/deep-research-report.md` | An external research report on glossary sites, sources, schemas, UX, licensing, tooling, visualization. |
 
 ---
 

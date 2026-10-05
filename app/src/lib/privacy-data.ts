@@ -1,4 +1,4 @@
-/** The privacy page: every piece of personal data the site processes, and why (A88). */
+/** The privacy page: every piece of personal data the site processes, and why. */
 import type { Lang } from './site';
 
 type T = Record<Lang, string>;

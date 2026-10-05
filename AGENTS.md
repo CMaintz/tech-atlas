@@ -2,10 +2,11 @@
 
 Atlas is a bilingual (English + Danish) technical dictionary whose typed, sourced
 relationships make it a navigable knowledge graph. The authoritative spec is
-[`design/SPEC.md`](design/SPEC.md); decisions are in [`design/adr/`](design/adr/),
-[`design/UNIFIED_VISION.md`](design/UNIFIED_VISION.md), and
-[`design/AUTONOMOUS_DECISIONS.md`](design/AUTONOMOUS_DECISIONS.md). **When spec and
-code disagree, the spec wins.**
+[`design/SPEC.md`](design/SPEC.md); decisions are in [`design/adr/`](design/adr/) and
+[`design/UNIFIED_VISION.md`](design/UNIFIED_VISION.md). **When spec and code disagree,
+the spec wins.** Agents log their autonomous decisions locally, in the git-ignored
+`.local/` (never committed): don't add decision logs to the repo, and don't cite
+decision IDs (A12, U37, ...) in code or docs; a comment states its reason in plain words.
 
 ## The gate — six verbs (Foundry)
 

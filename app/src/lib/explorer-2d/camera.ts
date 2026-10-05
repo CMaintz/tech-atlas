@@ -1,6 +1,6 @@
 /**
  * The 2D map's camera: fit what is shown, centre a term in the part of the map the docked
- * panel leaves visible (A80), frame a layout, and keyboard pan and zoom (A97).
+ * panel leaves visible, frame a layout, and keyboard pan and zoom.
  */
 import { EXPLORER } from '../explorer-config';
 import { reducedMotion, smoothFit } from '../graph-cytoscape';
@@ -14,7 +14,7 @@ function fit(p: MapParts, s: MapState) {
   smoothFit(p.cy, 24, 1.1, p.opts.reserveRight(), eles);
 }
 
-/** Centre a term in the part of the map the docked panel leaves visible (A80). */
+/** Centre a term in the part of the map the docked panel leaves visible. */
 export function centreOn(p: MapParts, id: string, zoomRange: [number, number] = [0, Infinity]) {
   const { cy } = p;
   const node = cy.getElementById(id);
@@ -42,7 +42,7 @@ export function frame(p: MapParts, s: MapState) {
   fit(p, s);
 }
 
-/** Keyboard navigation (A97): pan and zoom about the clear part's centre, for dt s. */
+/** Keyboard navigation: pan and zoom about the clear part's centre, for dt s. */
 export function nudge(p: MapParts, v: Axes, dt: number) {
   const { cy } = p;
   const k = EXPLORER.keys;

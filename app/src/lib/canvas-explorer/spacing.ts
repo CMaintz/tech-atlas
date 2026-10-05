@@ -1,4 +1,4 @@
-/** Minimum spacing between the canvas lab's (A91) discs in the front view. */
+/** Minimum spacing between the canvas lab's discs in the front view. */
 type Point = { x: number; y: number };
 type CellGrid = Map<string, number[]>;
 

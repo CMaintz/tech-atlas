@@ -1,5 +1,5 @@
 /**
- * One frame of the canvas lab (A91): project the terms, glide to a search focus, sort,
+ * One frame of the canvas lab: project the terms, glide to a search focus, sort,
  * light the selection, then run the painters in order over a shared frame state. The
  * painters leave canvas state (alpha, line cap, text alignment) to the next on purpose.
  */

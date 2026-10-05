@@ -1,5 +1,5 @@
 name: deploy
-# Deploys only what passed the gate (A65): runs after a `gate` run on a push to main
+# Deploys only what passed the gate: runs after a `gate` run on a push to main
 # succeeds, and builds exactly the commit that run checked. A gate run cancelled by a
 # newer push (gate.yml cancel-in-progress) deploys nothing; the newer run deploys.
 on:
@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   build:
-    # Manual runs on main only (A89); the github-pages environment enforces it again.
+    # Manual runs on main only; the github-pages environment enforces it again.
     if: >-
       (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
       (github.event_name == 'workflow_run' &&
@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
-          # Full history: the RSS feeds date each term by the commit that added it (A71).
+          # Full history: the RSS feeds date each term by the commit that added it.
           fetch-depth: 0
           persist-credentials: false
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
@@ -39,21 +39,21 @@ jobs:
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - name: Install dependencies
         working-directory: app
-        # onnxruntime-node (used only by a local `npm run embed`) otherwise downloads CUDA binaries (A75).
+        # onnxruntime-node (used only by a local `npm run embed`) otherwise downloads CUDA binaries.
         env:
           ONNXRUNTIME_NODE_INSTALL: skip
         run: npm ci
       - name: Build
         working-directory: app
-        # Public Supabase config (A44). Unset repo variables => empty => accounts hidden.
+        # Public Supabase config. Unset repo variables => empty => accounts hidden.
         env:
           PUBLIC_SUPABASE_URL: ${{ vars.PUBLIC_SUPABASE_URL }}
           PUBLIC_SUPABASE_ANON_KEY: ${{ vars.PUBLIC_SUPABASE_ANON_KEY }}
-          # Sign-in buttons offered (A87), e.g. github,linkedin_oidc; unset => GitHub only.
+          # Sign-in buttons offered, e.g. github,linkedin_oidc; unset => GitHub only.
           PUBLIC_AUTH_PROVIDERS: ${{ vars.PUBLIC_AUTH_PROVIDERS }}
-          # Search by meaning (A75): the semantic-search function URL; unset => name search only.
+          # Search by meaning: the semantic-search function URL; unset => name search only.
           PUBLIC_SEMANTIC_SEARCH_URL: ${{ vars.PUBLIC_SEMANTIC_SEARCH_URL }}
-          # Feedback form (A100): the feedback function URL; unset => no Feedback button.
+          # Feedback form: the feedback function URL; unset => no Feedback button.
           PUBLIC_FEEDBACK_URL: ${{ vars.PUBLIC_FEEDBACK_URL }}
         run: npm run build
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
