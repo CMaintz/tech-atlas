@@ -45,11 +45,15 @@ npm run embed          # re-embed terms for semantic search (after editing a nam
 npm run seed:vectors   # embed terms via Workers AI into Supabase (CI does this; needs SUPABASE_URL, SUPABASE_SERVICE_KEY, CLOUDFLARE_*)
 npm run smoke:semantic # check the deployed function answers known questions (CI does this; needs SEMANTIC_SEARCH_URL)
 npm run check          # astro check (typecheck)
+npm run lint:eslint    # ESLint (eslint.recommended.config.js)
+npm test               # unit tests (Vitest)
+npm run test:coverage  # unit tests with a coverage report in coverage/
+npm run test:e2e       # Playwright smoke tests against the built site (run `npm run build` first)
 npm run build          # lint -> build:graph -> astro build
 ```
 
 The repo is gated by **Foundry** (`mise run gate` = lint → typecheck → test → audit) and
-deployed to GitHub Pages on every push to `main`: https://cmaintz.github.io/tech-atlas/
+deployed to GitHub Pages on every push to `main`: https://atlas.maintz.dev/
 
 ## Content quality
 

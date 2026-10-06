@@ -13,7 +13,7 @@ export const LICENCE = {
   name: 'CC BY-SA 4.0',
   spdx: 'CC-BY-SA-4.0',
   url: 'https://creativecommons.org/licenses/by-sa/4.0/',
-  attribution: 'Atlas, a bilingual technical dictionary (https://cmaintz.github.io/tech-atlas/)',
+  attribution: 'Atlas, a bilingual technical dictionary (https://atlas.maintz.dev/)',
 } as const;
 
 export type ExportInput = { id: string; data: TermData; depth: number };
@@ -52,7 +52,7 @@ export type ExportTerm = {
 
 /**
  * One record per Term. `siteUrl` is the absolute site root ending in `/`
- * (e.g. https://cmaintz.github.io/tech-atlas/).
+ * (e.g. https://atlas.maintz.dev/).
  */
 export function exportTerms(terms: ExportInput[], siteUrl: string): ExportTerm[] {
   const resolve = makeRefResolver(terms.map((t) => t.id));

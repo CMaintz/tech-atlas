@@ -12,7 +12,6 @@ import { useTourNav, type Shown, type TourNavDeps } from './use-tour-nav';
 export function useTour(steps: TourStep[], langBase: string, autoStart: boolean) {
   const [view, setView] = useState<TourScreen>({ kind: 'off' });
   const [shown, setShown] = useState<Shown | null>(null);
-  const [dontShow, setDontShow] = useState(false);
   const refs = useTourRefs();
   const viewRef = useRef(view);
   viewRef.current = view;
@@ -24,8 +23,8 @@ export function useTour(steps: TourStep[], langBase: string, autoStart: boolean)
   useTourMove(view, deps, nav);
   useTourReveal(shown, refs);
   useBridgeLinks(shown, deps, nav);
-  useTourEscape(view, dontShow, refs.card, nav.finish);
-  return { view, setView, shown, dontShow, setDontShow, refs, ...nav };
+  useTourEscape(view, refs.card, nav.finish);
+  return { view, setView, shown, refs, ...nav };
 }
 
 export type Tour = ReturnType<typeof useTour>;

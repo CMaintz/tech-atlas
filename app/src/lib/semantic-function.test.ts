@@ -56,18 +56,19 @@ describe('parseSearchRequest', () => {
 
 describe('CORS', () => {
   it('allows the site and local dev servers only', () => {
-    expect(allowedOrigin('https://cmaintz.github.io')).toBe(true);
+    expect(allowedOrigin('https://atlas.maintz.dev')).toBe(true);
     expect(allowedOrigin('http://localhost:4321')).toBe(true);
     expect(allowedOrigin('http://127.0.0.1:4321')).toBe(true);
     expect(allowedOrigin('http://localhost')).toBe(true);
     expect(allowedOrigin('https://evil.example')).toBe(false);
-    expect(allowedOrigin('https://cmaintz.github.io.evil.example')).toBe(false);
+    expect(allowedOrigin('https://atlas.maintz.dev.evil.example')).toBe(false);
+    expect(allowedOrigin('https://cmaintz.github.io')).toBe(false);
     expect(allowedOrigin('http://localhost.evil.example')).toBe(false);
     expect(allowedOrigin(null)).toBe(false);
   });
   it('echoes an allowed origin and omits the header otherwise', () => {
-    expect(corsHeaders('https://cmaintz.github.io')['Access-Control-Allow-Origin']).toBe(
-      'https://cmaintz.github.io',
+    expect(corsHeaders('https://atlas.maintz.dev')['Access-Control-Allow-Origin']).toBe(
+      'https://atlas.maintz.dev',
     );
     expect(corsHeaders('https://evil.example')).toEqual({ Vary: 'Origin' });
   });

@@ -6,7 +6,7 @@ import { useTour } from './tour/use-tour';
 
 interface Props {
   steps: TourStep[];
-  /** Language root, e.g. /tech-atlas/en/ */
+  /** Language root, e.g. /en/ */
   langBase: string;
   /** False on pages where a first-time visitor should not be greeted (the 404 page). */
   autoStart?: boolean;

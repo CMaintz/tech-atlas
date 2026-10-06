@@ -9,7 +9,7 @@ import { requireEnv, rpcTarget, supabaseRpc } from '../../../supabase/functions/
 import { RateLimiter } from '../../../supabase/functions/_shared/rate-limit';
 import { replyTo } from '../../../supabase/functions/_shared/reply';
 
-const SITE = 'https://cmaintz.github.io';
+const SITE = 'https://atlas.maintz.dev';
 const post = (body: string | null, headers: Record<string, string> = {}) =>
   new Request('https://ref.supabase.co/functions/v1/x', {
     method: 'POST',
