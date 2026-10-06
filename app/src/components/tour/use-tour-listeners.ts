@@ -90,7 +90,6 @@ function closesTour(e: KeyboardEvent, card: HTMLElement | null) {
 /** Escape ends the tour (on the welcome card, honouring "don't show again"). */
 export function useTourEscape(
   view: TourScreen,
-  dontShow: boolean,
   card: MutableRef<HTMLDivElement | null>,
   finish: TourNav['finish'],
 ) {
@@ -99,7 +98,7 @@ export function useTourEscape(
     return listen<KeyboardEvent>(document, 'keydown', (e) => {
       if (!closesTour(e, card.current)) return;
       e.preventDefault(); // handled: other Escape listeners (the Explorer's panel) stand down
-      finish(view.kind === 'show' && view.step === 0 ? dontShow : false);
+      finish(false); // on the welcome card too: Esc is "not now", never "never"
     });
-  }, [view, dontShow]);
+  }, [view]);
 }

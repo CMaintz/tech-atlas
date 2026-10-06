@@ -9,7 +9,7 @@ import { url } from './site';
 
 let cache: Promise<ExportTerm[]> | undefined;
 
-/** Absolute site root under the base path, e.g. https://cmaintz.github.io/tech-atlas/. */
+/** Absolute site root under the base path, e.g. https://atlas.maintz.dev/. */
 export const siteRoot = (site: URL | undefined) => new URL(url(''), site).href;
 
 export const loadExport = (site: URL | undefined) =>

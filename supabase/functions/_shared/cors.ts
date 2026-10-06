@@ -6,7 +6,7 @@
 /** The deployed site, plus any local dev server. */
 export function allowedOrigin(origin: string | null): boolean {
   if (!origin) return false;
-  if (origin === "https://cmaintz.github.io") return true;
+  if (origin === "https://atlas.maintz.dev") return true;
   return /^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/.test(origin);
 }
 

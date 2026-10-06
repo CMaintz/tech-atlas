@@ -11,11 +11,11 @@ import { cspConfig } from './integrations/csp.mjs';
 // The PUBLIC_* build variables (process env wins over app/.env), for the CSP's connect-src.
 const env = loadEnv('production', fileURLToPath(new URL('.', import.meta.url)), 'PUBLIC_');
 
-// Static-first (ADR-0008), deployed to GitHub Pages under /tech-atlas/.
+// Static-first (ADR-0008), deployed to GitHub Pages at the custom domain atlas.maintz.dev.
+// GitHub 301-redirects the old cmaintz.github.io/tech-atlas/* addresses there.
 // Routing is manual: src/pages/[lang]/... covers /en and /da (ADR-0007).
 export default defineConfig({
-  site: 'https://cmaintz.github.io',
-  base: '/tech-atlas',
+  site: 'https://atlas.maintz.dev',
   integrations: [preact(), sitemap(), distGuard()],
   vite: { plugins: [tailwindcss()] },
   // Content-Security-Policy as a <meta> in every page (integrations/csp.mjs).
