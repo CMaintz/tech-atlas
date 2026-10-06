@@ -9,7 +9,7 @@
  */
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import fg from 'fast-glob';
+import { globSync } from 'tinyglobby';
 import {
   fileLines,
   MAX_FILE_LINES,
@@ -43,7 +43,7 @@ interface Scan {
 
 function scan(): Scan {
   const result: Scan = { functions: [], files: [] };
-  for (const file of fg.sync(INCLUDE, { cwd: REPO, ignore: EXCLUDE }).sort()) {
+  for (const file of globSync(INCLUDE, { cwd: REPO, ignore: EXCLUDE }).sort()) {
     const text = readFileSync(resolve(REPO, file), 'utf8');
     result.functions.push(...measureText(text, file));
     result.files.push({ file, lines: fileLines(text) });

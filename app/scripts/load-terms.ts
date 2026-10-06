@@ -1,5 +1,5 @@
 /** Load and validate every authored Term file. Shared by lint, build-graph and reports. */
-import fg from 'fast-glob';
+import { globSync } from 'tinyglobby';
 import { parse } from 'yaml';
 import { readFileSync } from 'node:fs';
 import { TermFrontmatter } from '../src/schema';
@@ -9,7 +9,7 @@ export type Term = TermFrontmatter;
 export function loadTerms() {
   const terms = new Map<string, Term>();
   const errors: string[] = [];
-  for (const file of fg.sync('src/content/terms/**/*.yaml')) {
+  for (const file of globSync('src/content/terms/**/*.yaml')) {
     const id = file.replace(/^src\/content\/terms\//, '').replace(/\.yaml$/, '');
     const raw = parse(readFileSync(file, 'utf8')) ?? {};
     const res = TermFrontmatter.safeParse({ id: id.split('/').pop(), ...raw });

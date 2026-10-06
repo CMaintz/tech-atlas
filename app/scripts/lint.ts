@@ -4,7 +4,7 @@
  * for English and advisory for Danish (ADR-0009).
  */
 import { existsSync, readFileSync } from 'node:fs';
-import fg from 'fast-glob';
+import { globSync } from 'tinyglobby';
 import { EDGE_TYPES, LAYERS, type EdgeType } from '../src/schema';
 import { checkClosedVocab } from './closed-vocab';
 import { loadTerms, makeResolver } from './load-terms';
@@ -119,7 +119,7 @@ for (const [id, t] of terms) {
 
 // E12 forbidden dashes: en/em dashes anywhere in a term, article or question file.
 // Raw file text, so every field (names, aka, summary, facets, deep dive, sources) counts.
-for (const path of fg.sync('src/content/**/*.{yaml,md}').sort()) {
+for (const path of globSync('src/content/**/*.{yaml,md}').sort()) {
   for (const f of forbiddenDashes(readFileSync(path, 'utf8'))) {
     errors.push(`E12 ${path}:${f.line}: ${f.char} dash, write "-" instead: "${f.excerpt}"`);
   }
