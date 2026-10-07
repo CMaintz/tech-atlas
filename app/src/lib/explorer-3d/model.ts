@@ -36,13 +36,25 @@ export const radiusBy =
   (n: GraphNode): number =>
     EXPLORER.three.nodeRel * (1.2 + 5 * Math.sqrt(rank.get(n.id) ?? 0));
 
+/** How the galaxy is laid out and spread: the Explorer's own, or v2's roomier one. */
+function layoutOf(variant?: 'v2') {
+  const v2 = EXPLORER.v2;
+  if (variant !== 'v2')
+    return {
+      cfg: EXPLORER.three,
+      factor: EXPLORER.spacing.factor,
+      clearance: EXPLORER.three.labelClearance,
+    };
+  const cfg = { ...EXPLORER.three, ...v2.galaxy };
+  return { cfg, factor: v2.spacingFactor, clearance: v2.labelClearance };
+}
+
 /** The galaxy layout, spread: no two terms closer than a click target and a label. */
-export function placeTerms(graph: Graph, radius: (n: GraphNode) => number) {
-  const pos = galaxyLayout(graph.nodes, graph.links);
+export function placeTerms(graph: Graph, radius: (n: GraphNode) => number, variant?: 'v2') {
+  const { cfg, factor, clearance } = layoutOf(variant);
+  const pos = galaxyLayout(graph.nodes, graph.links, undefined, cfg);
   const pts: Point3[] = graph.nodes.map((n) => ({ ...pos.get(n.id)! }));
   const r = graph.nodes.map(radius);
-  const { factor } = EXPLORER.spacing;
-  const clearance = EXPLORER.three.labelClearance;
   separate(pts, (i, j) => (factor * (r[i] + r[j])) / 2 + clearance, 60);
   graph.nodes.forEach((n, i) => pos.set(n.id, pts[i]));
   return pos;
@@ -57,10 +69,10 @@ export function neighbourSets(nodes: readonly { id: string }[], links: readonly 
   return neighbours;
 }
 
-export function buildModel(graph: Graph): Model {
+export function buildModel(graph: Graph, variant?: 'v2'): Model {
   const rank = rankOf(graph);
   const radius = radiusBy(rank);
-  const pos = placeTerms(graph, radius);
+  const pos = placeTerms(graph, radius, variant);
   const nodes: Node3[] = graph.nodes.map((n) => {
     const p = pos.get(n.id)!;
     return { ...n, x: p.x, y: p.y, z: p.z, fx: p.x, fy: p.y, fz: p.z };

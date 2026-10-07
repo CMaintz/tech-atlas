@@ -28,7 +28,7 @@ function createPointerReport(ctx: Ctx, setHover: (id: string | null) => void) {
     window.clearTimeout(timer);
     timer = window.setTimeout(() => gate.open && setHover(under), EXPLORER.hoverDelayMs);
   };
-  const track = (id: string | null) => void (under = id);
+  const track = (id: string | null) => void (under = ctx.state.underTerm = id);
   return { show, track, cancel: () => window.clearTimeout(timer) };
 }
 

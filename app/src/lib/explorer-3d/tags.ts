@@ -11,55 +11,12 @@ import { midpoint } from './curves';
 import { endId } from './model';
 import { tagCanvas } from './text-art';
 import type { Ctx } from './context';
-import { DRAW, cameraOf } from './graph3d';
-import type { CanvasTexture, Camera, Link3, Sprite, Vec3 } from './types';
+import { cameraOf } from './graph3d';
+import { createArtCache, createSpritePool } from './name-sprites';
+import type { Camera, Link3, Sprite, Vec3 } from './types';
 
 type Tag = { i: number; weight: number; aspect: number; sprite: Sprite };
-type TagArt = { tex: CanvasTexture; aspect: number };
-
 const TAG_PX = EXPLORER.edgeLabels.px3d;
-
-/** A name's texture, drawn once per text and theme. */
-function createArtCache(ctx: Ctx) {
-  const cache = new Map<string, TagArt>();
-  const artFor = (text: string) => {
-    const had = cache.get(text);
-    if (had) return had;
-    const c = tagCanvas(text, ctx.state.theme);
-    const art = { tex: new ctx.THREE.CanvasTexture(c), aspect: c.width / c.height };
-    cache.set(text, art);
-    return art;
-  };
-  const clear = () => {
-    for (const a of cache.values()) a.tex.dispose();
-    cache.clear();
-  };
-  return { artFor, clear };
-}
-
-/** Name sprites, made as needed and reused. */
-function createSpritePool({ THREE, scene }: Ctx) {
-  const pool: Sprite[] = [];
-  return (n: number) => {
-    if (pool[n]) return pool[n];
-    const sprite: Sprite = new THREE.Sprite(
-      new THREE.SpriteMaterial({
-        transparent: true,
-        depthTest: false,
-        depthWrite: false,
-        fog: false,
-        sizeAttenuation: false,
-      }),
-    );
-    // Anchored below its centre, so the name sits just above the link.
-    sprite.center.set(0.5, -0.25);
-    sprite.renderOrder = DRAW.tags;
-    sprite.frustumCulled = false;
-    pool.push(sprite);
-    scene.add(sprite);
-    return sprite;
-  };
-}
 
 /** The lit links to name, and the term they are read from; none without a point of view. */
 function namedLinks({ lens, state, model, opts }: Ctx) {
@@ -91,8 +48,8 @@ function screenBox(t: Tag, cam: Camera, at: Vec3, w: number, h: number) {
 }
 
 export function createTags(ctx: Ctx, curve: Float32Array) {
-  const art = createArtCache(ctx);
-  const spriteAt = createSpritePool(ctx);
+  const art = createArtCache(ctx, (text) => tagCanvas(text, ctx.state.theme));
+  const spriteAt = createSpritePool(ctx, -0.25);
   let tags: Tag[] = [];
   const paint = () => {
     for (const t of tags) t.sprite.visible = false;

@@ -13,6 +13,8 @@ export type View3D = {
   showAll: boolean;
   selected: string | null;
   highlight: ReadonlySet<string>;
+  /** The shown terms are the selection's neighbourhood (some hops out), all of it lit. */
+  hoodLit?: boolean;
   colour: (n: GraphNode) => string;
   bands: (n: GraphNode) => string[];
 };
@@ -34,6 +36,13 @@ export type Map3DOptions = {
   domainLabels?: Record<string, string>;
   /** Relationship names, written on the lit links; none without. */
   relationNames?: RelationNames;
+  /** Each cluster's name (v2 writes them over the clusters). */
+  clusterLabels?: Record<string, string>;
+  /**
+   * 'v2' (the next Explorer's lab): clusters as their own spread-out star systems, term
+   * names only when lit, and cluster names that light and frame their cluster.
+   */
+  variant?: 'v2';
 };
 
 /** A term fixed at its galaxy position (fx/fy/fz pin it for 3d-force-graph). */
@@ -58,6 +67,10 @@ export type State3 = {
   hoverId: string | null;
   /** The link under the pointer: its name shows even where names were culled. */
   underLink: number | null;
+  /** The term under the pointer (shown or not yet): a cluster name under it gives way. */
+  underTerm: string | null;
+  /** v2: a hovered cluster name's terms (the rest recede), and its named central terms. */
+  cluster: { ids: ReadonlySet<string>; central: readonly string[] } | null;
 };
 
 /** Typed with our node and link shapes, so its accessors and handlers take them. */

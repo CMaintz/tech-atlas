@@ -20,7 +20,7 @@ export function ExplorerPanel({ p, x }: Section) {
       onSelect={setSelected}
       onClose={onClose}
       actionsLabel={p.ui.mapActions}
-      actions={<MapActions ui={p.ui} {...on} />}
+      actions={<MapActions ui={p.ui} v2={p.variant === 'v2'} {...on} />}
     />
   );
 }
@@ -40,19 +40,38 @@ function panelData(p: Section['p'], graph: Graph, term: GraphNode) {
   } satisfies Partial<ComponentProps<typeof TermPanel>>;
 }
 
-type ActionProps = { ui: Dict; term: GraphNode; graph: Graph; route: Route; selection: Selection };
+type ActionProps = {
+  ui: Dict;
+  term: GraphNode;
+  graph: Graph;
+  route: Route;
+  selection: Selection;
+  v2: boolean;
+};
 
 /** Light the term's prerequisites, then its neighbourhood controls. */
-function MapActions({ ui, term, graph, route, selection }: ActionProps) {
+function MapActions({ ui, term, graph, route, selection, v2 }: ActionProps) {
   return (
     <>
-      {term.requires.length > 0 && (
-        <MapAction active={false} onClick={() => route.prerequisites(graph, term.id)}>
-          {ui.showPrerequisites}
-        </MapAction>
-      )}
+      {term.requires.length > 0 && <PrerequisitesAction {...{ ui, term, graph, route, v2 }} />}
       <HopActions ui={ui} selection={selection} />
     </>
+  );
+}
+
+/** In the next Explorer a toggle that shows whether the prerequisites are lit. */
+function PrerequisitesAction({ ui, term, graph, route, v2 }: Omit<ActionProps, 'selection'>) {
+  if (!v2)
+    return (
+      <MapAction active={false} onClick={() => route.prerequisites(graph, term.id)}>
+        {ui.showPrerequisites}
+      </MapAction>
+    );
+  const lit = route.prerequisitesOfTerm === term.id;
+  return (
+    <MapAction active={lit} pressed={lit} onClick={() => route.togglePrerequisites(graph, term.id)}>
+      {ui.showPrerequisites}
+    </MapAction>
   );
 }
 

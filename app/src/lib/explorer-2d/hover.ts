@@ -36,7 +36,7 @@ function hoodOf(p: MapParts, n: cytoscape.NodeSingular, v: View) {
 }
 
 /** The lit terms' labels that would overlap (the hovered term, then bigger terms, win). */
-function crowdedLabels(p: MapParts, lit: cytoscape.NodeCollection, width: LabelWidth) {
+export function crowdedLabels(p: MapParts, lit: cytoscape.NodeCollection, width: LabelWidth) {
   const far = p.cy.zoom() < FAR_ZOOM;
   const fontOf = (m: cytoscape.NodeSingular): number =>
     far ? m.data('hoverFont') : m.data('font');

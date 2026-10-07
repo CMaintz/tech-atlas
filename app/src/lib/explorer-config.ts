@@ -219,4 +219,41 @@ export const EXPLORER = {
     },
     introMs: 2200,
   },
+
+  /**
+   * The next Explorer's lab (variant 'v2'): no term names at rest, cluster names that
+   * name their cluster's central terms and frame it, and a 3D map where each cluster is
+   * its own star system, held at a fixed seat round its galaxy, with more room per term.
+   */
+  v2: {
+    /** Central terms a hovered cluster name names (and brings forward). */
+    central: 5,
+    /** The closest a clicked cluster name zooms the 2D map. */
+    maxZoom2d: 1.4,
+    /**
+     * 3D layout, over `three`: a wider ring of galaxies, seats round each galaxy widened
+     * to give every cluster `clusterGap` of room, terms pulled to their own seat (not
+     * the galaxy's centre) and only loosely to other clusters.
+     */
+    galaxy: {
+      ringRadius: 1300,
+      clusterRadius: 280,
+      clusterGap: 320,
+      seatHome: true,
+      domainPull: 0.05,
+      clusterPull: 0.03,
+      linkInCluster: 70,
+      springAcross: 0.0015,
+    },
+    /** 3D minimum distance between terms: `factor` × mean radius + clearance. */
+    spacingFactor: 3.6,
+    labelClearance: 26,
+    /** 3D names: lit term names (scene px on screen) and cluster names (scene units). */
+    termLabelPx: 13,
+    clusterLabelHeight: 38,
+    clusterLabelAlpha: { dark: 0.75, light: 0.85 },
+    /** How far a framed cluster's bounding sphere sits from the camera, × the fit. */
+    frameMargin: 1.25,
+    fogDensity: 0.00017,
+  },
 } as const;

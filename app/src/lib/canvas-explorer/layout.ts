@@ -3,7 +3,7 @@
  * grid, cluster seats inside them, heights by depth, a short seeded relaxation, then the
  * spacing pass. Pure and deterministic (the seed fixes every random draw, in order).
  */
-import { pageRank, sizeForRank } from '../graph-layout';
+import { linkEnds, pageRank, sizeForRank } from '../graph-layout';
 import { DOMAIN_HUES, homeDomain, isDirected, seededRandom, type Paintable } from '../graph-style';
 import type { EdgeType } from '../../schema';
 import { LAB, type Vec3 } from './config';
@@ -168,11 +168,9 @@ function inClusterSprings(
   nodes: LayoutNode[],
   links: { source: string; target: string }[],
 ): (readonly [number, number])[] {
-  const index = new Map(nodes.map((n, i) => [n.id, i]));
-  return links
-    .map((l) => [index.get(l.source), index.get(l.target)] as const)
-    .filter((p): p is readonly [number, number] => p[0] !== undefined && p[1] !== undefined)
-    .filter(([a, b]) => a !== b && nodes[a].cluster === nodes[b].cluster);
+  return linkEnds(nodes, links).filter(
+    ([a, b]) => a !== b && nodes[a].cluster === nodes[b].cluster,
+  );
 }
 
 /** The seeded relaxation: springs, short-range repulsion, a pull back to seat and tier. */

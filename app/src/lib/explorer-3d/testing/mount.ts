@@ -10,23 +10,26 @@ import { built } from './fake-force-graph';
 import { fakeContainer, installFakeDom } from './fake-dom';
 import { domainLabels, graph, relationNames } from './fixture';
 
-export type MountOptions = { reduced?: boolean; theme?: MapTheme; reserveRight?: number };
+export type MountOptions = {
+  reduced?: boolean;
+  theme?: MapTheme;
+  reserveRight?: number;
+  variant?: 'v2';
+};
 
-export async function mountMap3D({ reduced = false, theme, reserveRight = 0 }: MountOptions = {}) {
+export async function mountMap3D(opts: MountOptions = {}) {
+  const { reduced = false, theme, reserveRight = 0, variant } = opts;
   const dom = installFakeDom(reduced);
   const el = fakeContainer();
   const calls = { select: vi.fn(), hover: vi.fn(), point: vi.fn() };
+  const hands = { onSelect: calls.select, onHover: calls.hover, onPoint: calls.point };
   const map = await createMap3D({
+    ...hands,
     container: el,
     graph,
     lang: 'en',
-    onSelect: calls.select,
-    onHover: calls.hover,
-    onPoint: calls.point,
     reserveRight: () => reserveRight,
-    theme,
-    domainLabels,
-    relationNames,
+    ...{ theme, domainLabels, relationNames, variant },
   });
   return { map, fg: built[built.length - 1], dom, el, calls };
 }

@@ -27,18 +27,22 @@ type ViewParts = {
   selection: Selection;
   route: Route;
   paint: Paint;
+  /** The next Explorer lights a whole neighbourhood, not just the selection's links. */
+  hoodLit: boolean;
 };
 
 /** What both maps are told to show. */
-export function viewOf({ controls, ids, filters, selection, route, paint }: ViewParts): View {
+export function viewOf(v: ViewParts): View {
+  const { controls, filters, selection, paint } = v;
   return {
     layout: controls.layout,
-    nodes: ids,
+    nodes: v.ids,
     domains: filters.domains,
     families: filters.families,
     showAll: filters.showAll,
     selected: selection.selected,
-    highlight: route.lit,
+    highlight: v.route.lit,
+    hoodLit: v.hoodLit && selection.hops !== null && !!selection.selected,
     colour: paint.colour,
     bands: paint.bands,
   };
@@ -72,6 +76,7 @@ function wiringOf(props: ExplorerProps, { theme, selection, onPoint, relationNam
     selRef: selection.selRef,
     onSelect: selection.setSelected,
     onPoint,
+    variant: props.variant,
   } satisfies MapWiring;
 }
 
