@@ -30,3 +30,4 @@ export { depthLanes } from './graph-layout/depth-lanes';
 export { timeLanes, yearX } from './graph-layout/time-lanes';
 export type { Point3 } from './graph-layout/galaxy-forces';
 export { galaxyLayout } from './graph-layout/galaxy';
+export { linkEnds } from './graph-layout/types';

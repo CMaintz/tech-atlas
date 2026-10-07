@@ -9,7 +9,13 @@ import { usePopoverGroup } from '../../lib/use-popover';
 import { useBarSize } from '../../lib/use-explorer-bar';
 import { useFindField, useTermSearch } from '../../lib/use-explorer-find';
 import { arrive, useGraphIndex, useGraphLoad } from '../../lib/use-explorer-graph';
-import { useFilters, useRoute, useSelection, useTermInAddress } from '../../lib/use-explorer-state';
+import {
+  useFilters,
+  useLeaveClosedTerm,
+  useRoute,
+  useSelection,
+  useTermInAddress,
+} from '../../lib/use-explorer-state';
 import { usePaint, useViewControls, useVisible } from '../../lib/use-explorer-view';
 import type { ExplorerProps, Pop } from './types';
 import { useMapPair, viewOf } from './use-map-pair';
@@ -21,7 +27,8 @@ export function useExplorer(props: ExplorerProps) {
   const controls = useViewControls(props.lab?.mode);
   const shown = useVisible(graph, reader.filters, reader.selection, controls);
   const paint = usePaint(controls.colourMode, reader.filters.domains, theme);
-  const view = viewOf({ controls, ids: shown.ids, paint, ...reader });
+  const hoodLit = props.variant === 'v2';
+  const view = viewOf({ controls, ids: shown.ids, paint, hoodLit, ...reader });
   const maps = useMapPair(props, { graph, theme, selection: reader.selection, controls, view });
   const bar = useBar(controls.mode, props.lang);
   const search = useTermSearch(graph, index.byId, props.lang, props.semanticUrl);
@@ -37,6 +44,7 @@ function useReader(props: ExplorerProps) {
   const filters = useFilters(props.familyColours, props.lab?.showAll);
   const selection = useSelection();
   const route = useRoute(props.ui.noRoute);
+  useLeaveClosedTerm(selection, route, props.variant === 'v2');
   return { filters, selection, route };
 }
 type Reader = ReturnType<typeof useReader>;

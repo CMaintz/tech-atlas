@@ -1,0 +1,32 @@
+---
+/**
+ * The next Explorer, on trial: the real Explorer with quiet term names (shown only when
+ * lit), cluster names that light and frame their cluster, and 3D clusters spread into
+ * their own star systems. Obscure, not secret (the repo is public): linked from nowhere,
+ * noindex (so out of the sitemap), no tour.
+ */
+import Base from '../../../../layouts/Base.astro';
+import '../../../../styles/explorer-page.css';
+import Explorer from '../../../../components/Explorer';
+import ExplorerStage from '../../../../components/ExplorerStage.astro';
+import { mapIslandProps } from '../../../../lib/map-props';
+import { LANGS, SEMANTIC_SEARCH_URL, type Lang } from '../../../../lib/site';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+---
+
+<Base lang={lang} title="Explorer next" wide noindex tourAutoStart={false}>
+  <ExplorerStage lang={lang}>
+    <Explorer
+      client:only="preact"
+      variant="v2"
+      lang={lang}
+      {...mapIslandProps(lang)}
+      semanticUrl={SEMANTIC_SEARCH_URL}
+    />
+  </ExplorerStage>
+</Base>

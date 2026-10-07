@@ -46,6 +46,13 @@ export function drawHub(text: string, c: HTMLCanvasElement, theme: MapTheme) {
 
 export const hubCanvas = (text: string) => textCanvas(text, HUB_FONT, 24, HUB_PX + 20);
 
+/** A term's name in the hub labels' look, on a canvas of its own. */
+export function hubName(text: string, theme: MapTheme) {
+  const c = hubCanvas(text);
+  drawHub(text, c, theme);
+  return c;
+}
+
 /** A domain's name, large, in the domain's colour. */
 export function drawDomain(text: string, c: HTMLCanvasElement, colour: string) {
   const g = centred(c, DOMAIN_FONT);

@@ -55,16 +55,22 @@ function syncHoverFont(terms: cytoscape.NodeCollection, zoom: number) {
 const bySizeThenId = (a: cytoscape.NodeSingular, b: cytoscape.NodeSingular) =>
   b.data('size') - a.data('size') || (a.id() < b.id() ? -1 : 1);
 
+type FontOf = (n: cytoscape.NodeSingular) => number;
+
+/** Terms whose names may show at rest, biggest first; v2 names none (only lit terms). */
+const restNamed = (p: MapParts, shown: cytoscape.NodeCollection, fontOf: FontOf, zoom: number) =>
+  shown
+    .filter((n) => p.opts.variant !== 'v2' && fontOf(n) > 0 && fontOf(n) * zoom >= MIN_LABEL_PX)
+    .sort(bySizeThenId) as cytoscape.NodeCollection;
+
 /** Hide the labels that are too small or would overlap (bigger terms win). */
 function cull(p: MapParts, m: Measure) {
   const zoom = p.cy.zoom();
   const far = zoom < FAR_ZOOM;
   if (far) syncHoverFont(p.terms, zoom);
-  const fontOf = (n: cytoscape.NodeSingular): number => (far ? n.data('farFont') : n.data('font'));
+  const fontOf: FontOf = (n) => (far ? n.data('farFont') : n.data('font'));
   const shown = p.terms.not('.gone') as cytoscape.NodeCollection;
-  const candidates = shown
-    .filter((n) => fontOf(n) > 0 && fontOf(n) * zoom >= MIN_LABEL_PX)
-    .sort(bySizeThenId) as cytoscape.NodeCollection;
+  const candidates = restNamed(p, shown, fontOf, zoom);
   const below = (n: cytoscape.NodeSingular) =>
     labelBelow(n.position(), n.data('size'), m.labelWidth(n, fontOf(n)), fontOf(n));
   const hidden = cullLabels(

@@ -96,8 +96,13 @@ export function fakeContainer(): FakeContainer {
     innerHTML: 'map',
     listeners,
     removed,
-    addEventListener: (type: string, fn: () => void) => void (listeners[type] = fn),
+    // Every listener of a type runs, in the order added (the hover's, then v2's names').
+    addEventListener: (type: string, fn: (e?: unknown) => void) => {
+      const had = listeners[type];
+      listeners[type] = had ? (e?: unknown) => (had(e), fn(e)) : fn;
+    },
     removeEventListener: (type: string) => void removed.push(type),
+    getBoundingClientRect: () => ({ left: 0, top: 0, width: 800, height: 600 }),
   };
   return el as unknown as FakeContainer;
 }

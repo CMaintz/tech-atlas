@@ -28,6 +28,11 @@ export type Map2DOptions = {
   theme?: MapTheme;
   /** Relationship names, written on the lit links; none without. */
   relationNames?: RelationNames;
+  /**
+   * 'v2' (the next Explorer's lab): term names only when lit, and cluster names that
+   * light their cluster's central terms on hover and frame the cluster on a click.
+   */
+  variant?: 'v2';
 };
 
 /** What the map shows; every field is applied in place. */
@@ -40,6 +45,8 @@ export type View = {
   showAll: boolean;
   selected: string | null;
   highlight: ReadonlySet<string>;
+  /** The shown terms are the selection's neighbourhood (some hops out), all of it lit. */
+  hoodLit?: boolean;
   colour: (n: GraphNode) => string;
   /** Domain colours of a shared term, its own first (the second is its ring); else empty. */
   bands: (n: GraphNode) => string[];

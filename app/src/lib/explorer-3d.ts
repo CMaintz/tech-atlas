@@ -15,6 +15,7 @@ import { createContext, type Ctx } from './explorer-3d/context';
 import { watchFrames } from './explorer-3d/graph3d';
 import { createPainter, type Painter } from './explorer-3d/paint';
 import { createHover } from './explorer-3d/hover';
+import { bindClusterPointer } from './explorer-3d/cluster-pointer';
 import { createCamera, spinner, watchDrags } from './explorer-3d/camera';
 import { applyView } from './explorer-3d/apply';
 import type { Map3DOptions, View3D } from './explorer-3d/types';
@@ -22,7 +23,12 @@ import type { Map3DOptions, View3D } from './explorer-3d/types';
 export type { View3D } from './explorer-3d/types';
 
 type Camera3 = ReturnType<typeof createCamera>;
-type Parts = { painter: Painter; camera: Camera3; hover: ReturnType<typeof createHover> };
+type Parts = {
+  painter: Painter;
+  camera: Camera3;
+  hover: ReturnType<typeof createHover>;
+  clusters: ReturnType<typeof bindClusterPointer> | null;
+};
 
 /** Hooks for the hidden visual lab only: the three.js objects it restyles. */
 function labObjects({ fg, THREE, scene }: Ctx, { web, glow, flow }: Painter) {
@@ -79,10 +85,11 @@ function show({ fg }: Ctx, { painter, camera }: Parts, on: boolean) {
   painter.flow.run(on);
 }
 
-function destroy(ctx: Ctx, { painter, camera, hover }: Parts, undrag: () => void) {
+function destroy(ctx: Ctx, { painter, camera, hover, clusters }: Parts, undrag: () => void) {
   painter.flow.run(false);
   painter.web.stop();
   hover.destroy();
+  clusters?.destroy();
   camera.destroy();
   undrag();
   ctx.fg._destructor();
@@ -122,8 +129,17 @@ export async function createMap3D(opts: Map3DOptions) {
   const hover = createHover(ctx, painter.refresh);
   const undrag = watchDrags(ctx);
   const camera = createCamera(ctx, [painter.glow.material, painter.flow.material]);
-  watchFrames(ctx, hover.stop, painter.tags.place);
-  return handleOf(ctx, { painter, camera, hover }, undrag);
+  const clusters =
+    opts.variant === 'v2' ? bindClusterPointer(ctx, painter.clusters, painter.refresh) : null;
+  const onMoveStart = () => {
+    hover.stop();
+    clusters?.stop();
+  };
+  watchFrames(ctx, onMoveStart, () => {
+    painter.tags.place();
+    painter.termNames.place();
+  });
+  return handleOf(ctx, { painter, camera, hover, clusters }, undrag);
 }
 
 export type Map3D = Awaited<ReturnType<typeof createMap3D>>;

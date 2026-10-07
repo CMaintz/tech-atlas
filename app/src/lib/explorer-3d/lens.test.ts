@@ -26,6 +26,8 @@ function lensOn(v: View3D | null, hover: string | null = null) {
     fx: { hood: null, preview: null },
     hoverId: hover,
     underLink: null,
+    underTerm: null,
+    cluster: null,
   };
   const gate = createMotionGate();
   refocus(s, gate);
@@ -52,6 +54,17 @@ describe('createLens', () => {
       false,
     ]);
     expect(['a', 'b', 'c'].map(lens.faded)).toEqual([true, false, false]);
+  });
+  it("lights only the route's links when a selection's prerequisites are lit", () => {
+    const { lens } = lensOn(view({ selected: 'b', highlight: new Set(['b', 'c']) }));
+    expect([lens.focusOf(ab), lens.focusOf(bc)]).toEqual([false, true]);
+    expect(['a', 'b', 'c'].map(lens.faded)).toEqual([true, false, false]);
+  });
+  it('keeps a whole shown neighbourhood lit, not just the links at the selection', () => {
+    const { lens } = lensOn(
+      view({ selected: 'a', nodes: new Set(['a', 'b', 'c']), hoodLit: true }),
+    );
+    expect(['a', 'b', 'c'].map(lens.faded)).toEqual([false, false, false]);
   });
   it('brings a term hovered over a selection forward on its own', () => {
     const { lens } = lensOn(view({ selected: 'c' }), 'd');

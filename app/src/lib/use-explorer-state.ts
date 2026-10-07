@@ -56,26 +56,51 @@ function useRouteFields() {
   return { from, setFrom, to, setTo };
 }
 
+/** The lit terms, whose prerequisites they are (if they are that), and what to say. */
+function useLitTerms() {
+  const [highlight, setHighlight] = useState<string[]>([]);
+  const [prerequisitesOfTerm, setPrerequisitesOfTerm] = useState<string | null>(null);
+  const [message, setMessage] = useState('');
+  const lit = useMemo(() => new Set(highlight), [highlight]);
+  const light = (ids: string[], of: string | null = null, said = '') => {
+    setHighlight(ids);
+    setPrerequisitesOfTerm(of);
+    setMessage(said);
+  };
+  return { highlight, lit, message, prerequisitesOfTerm, light };
+}
+
 /** The lit terms (a route or prerequisites) and the route form's fields and result. */
 export function useRoute(noRoute: string) {
-  const [highlight, setHighlight] = useState<string[]>([]);
-  const lit = useMemo(() => new Set(highlight), [highlight]);
+  const { light, ...state } = useLitTerms();
   const fields = useRouteFields();
-  const [message, setMessage] = useState('');
   /** Light the shortest path from `a` to `b` in `g` and name it (or say there is none). */
   const show = (g: Graph, a: string | undefined, b: string | undefined, name: Namer) => {
     const path = a && b ? shortestPath(g, a, b) : null;
-    setHighlight(path ?? []);
-    setMessage(routeLabel(path, name, noRoute));
-  };
-  const light = (ids: string[]) => {
-    setHighlight(ids);
-    setMessage('');
+    light(path ?? [], null, routeLabel(path, name, noRoute));
   };
   /** Light a term and everything it requires, directly or not. */
   const prerequisites = (g: Graph, id: string) =>
-    light([id, ...prerequisitesOf(g, id).map((n) => n.id)]);
-  return { highlight, lit, message, fields, show, clear: () => light([]), prerequisites };
+    light([id, ...prerequisitesOf(g, id).map((n) => n.id)], id);
+  const clear = () => light([]);
+  /** Light a term's prerequisites, or put them out if they are already lit. */
+  const togglePrerequisites = (g: Graph, id: string) =>
+    state.prerequisitesOfTerm === id ? clear() : prerequisites(g, id);
+  return { ...state, fields, show, clear, prerequisites, togglePrerequisites };
+}
+
+/**
+ * Closing the term (a click on the empty map, or the panel's close) leaves its views:
+ * the map is whole again and its prerequisites go out. Opening another term puts out
+ * the last one's prerequisites too.
+ */
+export function useLeaveClosedTerm(selection: Selection, route: Route, on: boolean) {
+  const { selected, setHops } = selection;
+  useEffect(() => {
+    if (!on) return;
+    if (!selected) setHops(null);
+    if (route.prerequisitesOfTerm && route.prerequisitesOfTerm !== selected) route.clear();
+  }, [on, selected]);
 }
 
 type Namer = (id: string) => string;
