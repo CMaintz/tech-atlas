@@ -95,7 +95,7 @@ export default function ConnectionBar({ panel }: PartProps) {
   const { nav, props, expanded } = panel;
   if (nav.cycle.length === 0 && !props.actions) return null;
   const layout = expanded
-    ? 'mx-auto flex max-w-6xl flex-wrap items-center gap-x-8 gap-y-1 sm:px-5'
+    ? 'mx-auto flex max-w-page flex-wrap items-center gap-x-8 gap-y-1 sm:px-5'
     : 'space-y-1';
   return (
     <div class="shrink-0 border-b border-border px-3 py-1.5 text-xs">

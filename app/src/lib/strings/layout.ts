@@ -36,7 +36,7 @@ export const UI_LAYOUT = {
     tagline: 'En tosproget teknisk ordbog, der læses som en vidensgraf.',
     index: 'Indeks',
     compare: 'Sammenlign',
-    study: 'Øv',
+    study: 'Lær',
     explorer: 'Udforsk',
     timeline: 'Tidslinje',
     sourceCode: 'Kildekode',
