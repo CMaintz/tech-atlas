@@ -59,10 +59,17 @@ export function edgeAlpha(
   if (!e.visible[a] || !e.visible[b]) return undefined;
   const fa = e.famAlpha.get(e.efam[k]) ?? 1;
   if (fa <= 0.01) return undefined;
-  if (!hot && !showAll && !e.eback[k]) return undefined;
-  const base = hot ? 0.95 : showAll ? 0.2 : 0.38;
+  const base = baseAlpha(hot, showAll, e.eback[k] !== 0);
+  if (base === undefined) return undefined;
   const dim = selected && !hot ? LAB.dimAlpha : 1;
   return base * dim * fa * Math.min(e.fog[a], e.fog[b]);
+}
+
+/** Lit edges stand out, "all" shows every edge faintly, and at rest only the backbone shows. */
+function baseAlpha(hot: boolean, showAll: boolean, onBackbone: boolean): number | undefined {
+  if (hot) return 0.95;
+  if (showAll) return 0.2;
+  return onBackbone ? 0.38 : undefined;
 }
 
 /** Edges batched by `family|alpha step (of 12)|lit`, so each batch is one stroke. */

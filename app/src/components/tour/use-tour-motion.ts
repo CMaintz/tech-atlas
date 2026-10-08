@@ -60,26 +60,32 @@ const anchorsOf = (view: Moving, steps: TourStep[], langBase: string) =>
     ? bridgeSelectors(langBase, steps[view.to].page ?? '')
     : steps[view.step].anchors;
 
+/** One move in progress: the screen it heads for, and whether a newer move replaced it. */
+type Move = { view: Moving; stale: () => boolean };
+
 /**
  * One move: find the target, scroll it into view, then hand the view to the card (the
- * glide runs once the new text has rendered). Gives up as soon as `stale()`.
+ * glide runs once the new text has rendered). Gives up as soon as the move is stale.
  */
-async function travel(view: Moving, d: TourNavDeps, nav: TourNav, stale: () => boolean) {
+async function travel({ view, stale }: Move, d: TourNavDeps, nav: TourNav) {
   const anchors = anchorsOf(view, d.steps, d.langBase);
   const bridge = view.kind === 'bridge';
   const el = anchors.length ? await waitForAnchor(anchors, bridge, stale) : null;
   if (stale()) return;
   // Nothing nearby leads there: a card pointing at nothing is just an extra click.
   if (bridge && !el) return nav.leave(view.to, d.steps[view.to].page ?? '');
-  if (!d.refs.appeared.current) await pageSettled();
-  if (stale()) return;
-  const scrolling = el && scrollIntoBand(el, d.refs);
-  if (scrolling) {
-    await scrolling;
-    if (stale()) return;
-  }
+  if (!(await bringIntoView(el, d.refs, stale))) return;
   d.refs.target.current = el;
   d.setShown({ view, via: viaOf(el) });
+}
+
+/** Let a first page settle, then scroll `el` into view. False once the move went stale. */
+async function bringIntoView(el: HTMLElement | null, r: TourRefs, stale: () => boolean) {
+  if (!r.appeared.current) await pageSettled();
+  if (stale()) return false;
+  const scrolling = el && scrollIntoBand(el, r);
+  if (scrolling) await scrolling;
+  return !stale();
 }
 
 /** Each move: find the target, scroll it into view, then glide there. */
@@ -90,7 +96,7 @@ export function useTourMove(view: TourScreen, d: TourNavDeps, nav: TourNav) {
     let stale = false;
     // Marks a move in progress (until the glide or fade-in ends) — also a test hook.
     d.refs.root.current?.setAttribute('data-busy', '');
-    void travel(view, d, nav, () => stale);
+    void travel({ view, stale: () => stale }, d, nav);
     return () => {
       stale = true;
     };

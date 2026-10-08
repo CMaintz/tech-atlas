@@ -9,8 +9,8 @@
  * out, offline, or with accounts unconfigured, nothing here runs and nothing breaks.
  * The row reads/writes live in account-rows.ts, the observable state in account-state.ts.
  */
-import { createClient, type SupabaseClient } from '@supabase/supabase-js';
-import { pull, write, writeTombstone, type Me, type Row } from './account-rows';
+import { createClient, type AuthChangeEvent, type SupabaseClient } from '@supabase/supabase-js';
+import { meOf, pull, write, writeTombstone, type Me, type Row } from './account-rows';
 import { setSyncState, syncState, writeNotice } from './account-state';
 import type { AuthProvider } from './auth-config';
 import { loadLearner, parseLearner, saveLearner, type Learner } from './learner';
@@ -168,29 +168,33 @@ function schedulePush() {
   timer = setTimeout(() => void syncNow(), PUSH_DELAY);
 }
 
+function onSignedOut() {
+  clearTimeout(timer);
+  clearTimeout(retryTimer);
+  failures = 0;
+  setSyncState({ status: 'signed-out', email: undefined, at: undefined });
+}
+
+/** Show who is signed in; a newly signed-in learner syncs at once. */
+function onSignedIn(me: Me, event: AuthChangeEvent, changed: boolean) {
+  if (event === 'SIGNED_IN' && syncState().notice) writeNotice(undefined);
+  const s = syncState();
+  setSyncState({ email: me.email, ...(s.status === 'loading' ? { status: 'syncing' } : {}) });
+  // Supabase calls must not be awaited inside the auth callback; defer the sync.
+  if (changed && !deleting) setTimeout(() => void syncNow(), 0);
+}
+
 /** Start following auth + local changes. Safe to call from every island; runs once. */
 export function startSync() {
   const c = getClient();
   if (!c || started) return;
   started = true;
   c.auth.onAuthStateChange((event, session) => {
-    const u = session?.user;
-    const next: Me | null = u
-      ? { id: u.id, email: u.email ?? '', signedInAt: Date.parse(u.last_sign_in_at ?? '') || 0 }
-      : null;
+    const next = meOf(session?.user);
     const changed = next?.id !== user?.id;
     user = next;
-    if (!user) {
-      clearTimeout(timer);
-      clearTimeout(retryTimer);
-      failures = 0;
-      return setSyncState({ status: 'signed-out', email: undefined, at: undefined });
-    }
-    if (event === 'SIGNED_IN' && syncState().notice) writeNotice(undefined);
-    const s = syncState();
-    setSyncState({ email: user.email, ...(s.status === 'loading' ? { status: 'syncing' } : {}) });
-    // Supabase calls must not be awaited inside this callback; defer the sync.
-    if (changed && !deleting) setTimeout(() => void syncNow(), 0);
+    if (next) onSignedIn(next, event, changed);
+    else onSignedOut();
   });
   window.addEventListener('atlas:learner', schedulePush);
   window.addEventListener('online', () => user && void syncNow());
