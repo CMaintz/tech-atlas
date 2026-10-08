@@ -1,5 +1,7 @@
 # Atlas. Served at the root of atlas.maintz.dev, where crawlers read it.
 User-agent: *
+# Content Signals (https://contentsignals.org/): allow search indexing, AI answers that cite this site, and AI training.
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 
 Sitemap: https://atlas.maintz.dev/sitemap-index.xml
