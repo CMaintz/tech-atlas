@@ -6,7 +6,7 @@ import { THEME_KEY, parseTheme, resolveTheme, type ThemeChoice } from '../prefs'
 import type { Dropdown } from './dropdowns';
 
 /** The browser-chrome colour (`<meta name="theme-color">`) for a theme. */
-export const themeColour = (theme: 'light' | 'dark') => (theme === 'light' ? '#ffffff' : '#0a0a0a');
+export const themeColour = (theme: 'light' | 'dark') => (theme === 'light' ? '#ffffff' : '#121212');
 
 function storedChoice(): ThemeChoice {
   try {
