@@ -113,13 +113,13 @@ const ids = terms.map((t) => t.id);
           <SectionHeading as="h4" class="mb-3">
             {clusterLabel(cluster, lang)} · {items.length}
           </SectionHeading>
-          <ul class="space-y-2">
+          <ul class="gap-x-12 xl:columns-2">
             {items.sort(byName).map((t) => (
-              <li>
+              <li class="mb-2 break-inside-avoid">
                 <a class="text-fg hover:underline" href={termUrl(lang, t.id)}>
                   {t.data.term[lang]}
                 </a>
-                <span class="text-subtle"> - {t.data.summary[lang]}</span>
+                <span class="text-muted"> - {t.data.summary[lang]}</span>
               </li>
             ))}
           </ul>

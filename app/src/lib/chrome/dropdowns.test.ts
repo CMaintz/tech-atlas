@@ -35,6 +35,6 @@ describe('moveIndex', () => {
 describe('themeColour', () => {
   it('matches the page background of each theme', () => {
     expect(themeColour('light')).toBe('#ffffff');
-    expect(themeColour('dark')).toBe('#0a0a0a');
+    expect(themeColour('dark')).toBe('#121212');
   });
 });
