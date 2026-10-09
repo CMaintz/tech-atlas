@@ -3,10 +3,6 @@
     {
       "package": "http-cache-semantics",
       "reason": "GHSA-ch52-4w7c-c8xp (no patched release yet): max-stale handling can leak responses between users of a shared HTTP cache. Only Astro pulls it in, at build time; Atlas is static files on GitHub Pages and runs no shared cache, so the leak can't happen here. Drop this entry once a fixed version ships (the ratchet fails on stale entries)."
-    },
-    {
-      "package": "source-map-js",
-      "reason": "GHSA-68fv-2mgg-jv7q: a crafted source map with indexed section offsets can stall the event loop. Only the build toolchain (postcss, Tailwind, Vite) reads source maps, and only ours. The fix, 1.2.2, was published 2026-09-30 and min-release-age=7 in .npmrc holds it back until 2026-10-07; run npm update source-map-js after that and drop this entry."
     }
   ]
 }
