@@ -17,7 +17,7 @@ concurrency:
 jobs:
   gate:
     # The public facade, pinned by SHA (Dependabot bumps it). Never pin the _-prefixed internals.
-    uses: CMaintz/foundry/.github/workflows/gate.yml@2112a422a905c329602701d7a0a40fbdb5b91a19 # v2.5.1
+    uses: CMaintz/foundry/.github/workflows/gate.yml@bc980e81bda32af3ef04b8149badf9529c3e6e84 # v2.9.0
     with:
       stack: ts
       # package.json, package-lock.json, .npmrc and .habit-hooks/ live in app/; the verbs
