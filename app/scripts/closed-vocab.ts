@@ -84,6 +84,12 @@ function stemCandidates(stem: string, lang: Lang): string[] {
   return c;
 }
 
+/** What is left of `w` after each suffix it ends in, keeping a stem of 3+ letters. */
+const inflectionStems = (w: string, lang: Lang) =>
+  SUFFIXES[lang]
+    .filter((suf) => w.endsWith(suf) && w.length - suf.length >= 3)
+    .map((suf) => w.slice(0, -suf.length));
+
 /** The words a Summary or Body may use, and the inflections and compounds of them. */
 class Vocabulary {
   private plain: WordSets = {
@@ -111,13 +117,14 @@ class Vocabulary {
 
   private knownWithInflection(w: string, lang: Lang, depth = 0): boolean {
     if (this.known(w, lang)) return true;
-    for (const suf of SUFFIXES[lang]) {
-      if (!w.endsWith(suf) || w.length - suf.length < 3) continue;
-      const stem = w.slice(0, -suf.length);
-      if (stemCandidates(stem, lang).some((c) => this.known(c, lang))) return true;
-      if (depth < 1 && this.knownWithInflection(stem, lang, depth + 1)) return true;
-    }
+    if (inflectionStems(w, lang).some((stem) => this.knownStem(stem, lang, depth))) return true;
     return lang === 'en' && depth === 0 && this.knownWithPrefix(w, lang);
+  }
+
+  /** A stem is known as is (or restored), or, one level deep, as a further inflection. */
+  private knownStem(stem: string, lang: Lang, depth: number): boolean {
+    if (stemCandidates(stem, lang).some((c) => this.known(c, lang))) return true;
+    return depth < 1 && this.knownWithInflection(stem, lang, depth + 1);
   }
 
   // English negating / repeating prefixes: un-readable, re-assembling.

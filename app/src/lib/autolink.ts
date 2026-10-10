@@ -101,10 +101,17 @@ function namePattern(names: string[], lang: Lang): RegExp | null {
     : null;
 }
 
-export function makeLinker(terms: LinkableTerm[], lang: Lang) {
-  const idsOf = nameIndex(terms, lang);
-  const pattern = namePattern([...idsOf.keys()], lang);
+type LinkOpts = { self?: string; seen?: Set<string> };
+type Hit = { m: RegExpExecArray; id: string };
 
+const sameDomain = (self: string | undefined, id: string) =>
+  self !== undefined && domainOf(self) === domainOf(id);
+
+/**
+ * The term a match links to on the page about `self`, if any, marked `seen` so it links
+ * only once: never an everyday word, the page itself, or a term already linked on it.
+ */
+function linkClaimer(idsOf: Map<string, string[]>, lang: Lang) {
   /** A name shared across domains (ADR-0003) resolves to the page's own domain, else stays unlinked. */
   const resolve = (name: string, self?: string) => {
     const ids = idsOf.get(name.toLowerCase()) ?? [];
@@ -112,28 +119,44 @@ export function makeLinker(terms: LinkableTerm[], lang: Lang) {
     const own = self ? ids.filter((id) => domainOf(id) === domainOf(self)) : [];
     return own.length === 1 ? own[0] : undefined;
   };
+  return (m: RegExpExecArray, { self, seen }: LinkOpts) => {
+    if (STOP[lang].has(m[0].toLowerCase())) return undefined;
+    const id = resolve(m[1], self);
+    if (!id || id === self || seen?.has(id)) return undefined;
+    if (SAME_DOMAIN_ONLY[lang].has(m[1].toLowerCase()) && !sameDomain(self, id)) return undefined;
+    seen?.add(id);
+    return id;
+  };
+}
+
+/** `text` cut into plain runs around the linked matches `hits`, in order. */
+function segmentsOf(text: string, hits: Hit[]): Segment[] {
+  const out: Segment[] = [];
+  let last = 0;
+  for (const { m, id } of hits) {
+    if (m.index > last) out.push({ text: text.slice(last, m.index) });
+    out.push({ text: m[0], id });
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) out.push({ text: text.slice(last) });
+  return out;
+}
+
+export function makeLinker(terms: LinkableTerm[], lang: Lang) {
+  const idsOf = nameIndex(terms, lang);
+  const pattern = namePattern([...idsOf.keys()], lang);
+  const claim = linkClaimer(idsOf, lang);
 
   /**
    * Split text into plain and linked segments. `seen` carries across calls so a
    * term is linked only at its first mention on a page; `self` is never linked.
    */
-  const link = (text: string, opts: { self?: string; seen?: Set<string> } = {}): Segment[] => {
+  const link = (text: string, opts: LinkOpts = {}): Segment[] => {
     if (!pattern) return [{ text }];
-    const out: Segment[] = [];
-    let last = 0;
-    for (const m of text.matchAll(pattern)) {
-      if (STOP[lang].has(m[0].toLowerCase())) continue;
-      const id = resolve(m[1], opts.self);
-      if (!id || id === opts.self || opts.seen?.has(id)) continue;
-      const sameDomain = opts.self !== undefined && domainOf(opts.self) === domainOf(id);
-      if (SAME_DOMAIN_ONLY[lang].has(m[1].toLowerCase()) && !sameDomain) continue;
-      opts.seen?.add(id);
-      if (m.index > last) out.push({ text: text.slice(last, m.index) });
-      out.push({ text: m[0], id });
-      last = m.index + m[0].length;
-    }
-    if (last < text.length) out.push({ text: text.slice(last) });
-    return out;
+    const hits = [...text.matchAll(pattern)]
+      .map((m) => ({ m, id: claim(m, opts) }))
+      .filter((h): h is Hit => h.id !== undefined);
+    return segmentsOf(text, hits);
   };
 
   /** Every other term mentioned anywhere in these texts. */

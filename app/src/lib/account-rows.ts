@@ -2,10 +2,16 @@
  * Reads and writes of the learner's own `learner_state` row. Stateless: the
  * sync loop in account.ts decides when to call these and what to do with the answers.
  */
-import type { SupabaseClient } from '@supabase/supabase-js';
+import type { SupabaseClient, User } from '@supabase/supabase-js';
 
 export type Row = { state: unknown; version: number; deleted_at: string | null };
 export type Me = { id: string; email: string; signedInAt: number };
+
+/** The learner a session belongs to, or null when signed out. */
+export function meOf(u: User | undefined): Me | null {
+  if (!u) return null;
+  return { id: u.id, email: u.email ?? '', signedInAt: Date.parse(u.last_sign_in_at ?? '') || 0 };
+}
 
 const TABLE = 'learner_state';
 /** Postgres unique_violation: another device inserted the row first. */

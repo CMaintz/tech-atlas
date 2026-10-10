@@ -1,5 +1,11 @@
-import { H_PAD, LABEL_COL, LANE_PAD, type Chip } from '../../lib/timeline-layout';
-import type { HLane, HLayout } from '../../lib/timeline-layout';
+import {
+  H_PAD,
+  LABEL_COL,
+  LANE_PAD,
+  type Chip,
+  type HLane,
+  type HLayout,
+} from '../../lib/timeline-layout';
 import { useTimelineCtx } from './context';
 import { Dot } from './Dot';
 import { inkVars } from './ink';

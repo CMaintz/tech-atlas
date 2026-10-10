@@ -54,27 +54,47 @@ type Parts = {
   relayout: ReturnType<typeof createRelayout>;
 };
 
+/** A toggle state and the theme it was applied with. */
+type Applied = { s: Lab3D; theme: MapTheme };
+
 function runtime(p: Parts): Lab3DRuntime {
-  let last: Lab3D | null = null;
-  let lastTheme: MapTheme | null = null;
+  let last: Applied | null = null;
   return {
     apply(s, theme) {
-      const emphChanged = !last || lastTheme !== theme || emphasisChanged(last, s);
-      if (emphChanged) p.emphasis.apply(s, theme);
-      p.relayout(s, last?.curvature ?? DEFAULT_3D.curvature);
-      if (!last || last.clabels !== s.clabels || lastTheme !== theme) p.names.set(s.clabels, theme);
-      if (!last || emphChanged || linksChanged(last, s)) {
-        styleLinks(p.ctx, s, theme, p.emphasis);
-        p.bender.bend(s.curvature);
-      }
-      applyScene(p, s, theme);
-      last = s;
-      lastTheme = theme;
+      const next = { s, theme };
+      update(p, last, next);
+      last = next;
     },
     dispose() {
       p.sprites.stop();
       p.names.set(false, 'dark');
     },
+  };
+}
+
+/** Move the scene from the `last` applied state to `next`, redoing only what changed. */
+function update(p: Parts, last: Applied | null, next: Applied) {
+  const { s, theme } = next;
+  const changed = changesSince(last, next);
+  if (changed.emphasis) p.emphasis.apply(s, theme);
+  p.relayout(s, last?.s.curvature ?? DEFAULT_3D.curvature);
+  if (changed.names) p.names.set(s.clabels, theme);
+  if (changed.links) {
+    styleLinks(p.ctx, s, theme, p.emphasis);
+    p.bender.bend(s.curvature);
+  }
+  applyScene(p, s, theme);
+}
+
+/** What needs redoing since `last`: everything the first time; a new theme recolours all three. */
+function changesSince(last: Applied | null, next: Applied) {
+  if (!last) return { emphasis: true, names: true, links: true };
+  const retheme = last.theme !== next.theme;
+  const emphasis = retheme || emphasisChanged(last.s, next.s);
+  return {
+    emphasis,
+    names: retheme || last.s.clabels !== next.s.clabels,
+    links: emphasis || linksChanged(last.s, next.s),
   };
 }
 

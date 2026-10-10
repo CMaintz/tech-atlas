@@ -8,37 +8,14 @@
  */
 import type cytoscape from 'cytoscape';
 import { EXPLORER } from './explorer-config';
-import { eachDot, pathOf, sample, type Box, type Path } from './explorer-flow-path';
+import { groupPaths } from './explorer-flow-edges';
+import { eachDot, type Box, type Path } from './explorer-flow-path';
 
 const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
 const SCENE_EVENTS = 'class style data position add remove';
 
 /** The dots' settings (`EXPLORER.dots`), as plain numbers. */
 export type DotsConfig = { readonly [K in keyof typeof EXPLORER.dots]: number };
-
-/** A drawn one-way edge's path and its fill group (colour, lit), or null when hidden. */
-function edgeDots(e: cytoscape.EdgeSingular) {
-  if (e.hasClass('off') || e.hasClass('dim') || e.hasClass('faded')) return null;
-  if (e.source().hasClass('gone') || e.target().hasClass('gone')) return null;
-  const lit = e.hasClass('focus') || e.hasClass('lit');
-  const s = e.sourceEndpoint();
-  const t = e.targetEndpoint();
-  if (!s || !t || !Number.isFinite(s.x) || !Number.isFinite(t.x)) return null;
-  const colour = (lit || e.hasClass('all') ? e.data('colour') : e.data('tint')) as string;
-  return { key: `${colour}|${lit ? 1 : 0}`, path: pathOf(sample(s, e.controlPoints() ?? [], t)) };
-}
-
-/** Paths grouped by colour, so a frame is one fill per colour. */
-function groupPaths(directed: cytoscape.EdgeCollection) {
-  const groups = new Map<string, Path[]>();
-  directed.forEach((e) => {
-    const d = edgeDots(e);
-    if (!d) return;
-    if (!groups.has(d.key)) groups.set(d.key, []);
-    groups.get(d.key)!.push(d.path);
-  });
-  return groups;
-}
 
 /**
  * The one-way edges' paths, re-sampled only after edges, classes or positions change;
