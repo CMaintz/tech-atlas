@@ -27,9 +27,9 @@ const ctx: QuizContext = { g: indexGraph(graph), lang: 'en', rng: () => 0.5 };
 const node = (id: string) => ctx.g.byId.get(id)!;
 
 describe('distractors', () => {
-  const wrong = distractors(ctx, node('attack'), new Set(['guard']), {
-    type: 'mitigates',
-    dir: 'out',
+  const wrong = distractors(ctx, node('attack'), {
+    exclude: new Set(['guard']),
+    role: { type: 'mitigates', dir: 'out' },
   }).map((n) => n.id);
 
   it('never offers the answer, an excluded term or a relative of the answer', () => {

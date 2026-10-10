@@ -43,7 +43,7 @@ const edgeBetween = (g: Graph, a: string, b: string) =>
   g.links.some((l) => (l.source === a && l.target === b) || (l.source === b && l.target === a));
 
 describe('questions about a term', () => {
-  const quizzer = makeQuizzer(graph, 'en', seeded());
+  const quizzer = makeQuizzer(graph, 'en', { rng: seeded() });
   const qs = quizzer.questionsAbout('security/top');
   const relation = (prompt: string) => qs.find((q) => q.prompt.startsWith(prompt))!;
 
@@ -61,7 +61,7 @@ describe('questions about a term', () => {
     expect(relation('Which of these is a kind of').answer).toBe('security/child');
     expect(relation('What does top help protect against').answer).toBe('security/attack');
     expect(relation('Which of these is easily confused').answer).toBe('security/other');
-    const guard = makeQuizzer(graph, 'en', seeded()).questionsAbout('security/attack2');
+    const guard = makeQuizzer(graph, 'en', { rng: seeded() }).questionsAbout('security/attack2');
     expect(guard.find((q) => q.prompt.startsWith('What helps protect'))!.answer).toBe(
       'security/guard',
     );
@@ -94,7 +94,7 @@ describe('questions about a term', () => {
 
   it('true/false: a relationship statement, false only by reversing it', () => {
     for (let seed = 1; seed < 30; seed++) {
-      const q = makeQuizzer(graph, 'en', seeded(seed))
+      const q = makeQuizzer(graph, 'en', { rng: seeded(seed) })
         .questionsAbout('security/top')
         .find((x) => x.kind === 'true-false')!;
       expect(ids(q)).toEqual(['true', 'false']);
@@ -108,7 +108,7 @@ describe('questions about a term', () => {
   });
 
   it('localises prompts and labels', () => {
-    const da = makeQuizzer(graph, 'da', seeded()).questionsAbout('security/top');
+    const da = makeQuizzer(graph, 'da', { rng: seeded() }).questionsAbout('security/top');
     for (const q of da.filter((x) => x.kind !== 'true-false'))
       expect(q.options.every((o) => o.label.endsWith('-da'))).toBe(true);
     expect(da.some((q) => q.prompt.startsWith('Hvad bør du forstå før'))).toBe(true);
@@ -121,7 +121,7 @@ describe('questions about a term', () => {
 });
 
 describe('questions answered by a term', () => {
-  const qs = makeQuizzer(graph, 'en', seeded()).questionsFor('security/top');
+  const qs = makeQuizzer(graph, 'en', { rng: seeded() }).questionsFor('security/top');
 
   it('definition → term, never offering a structural relative', () => {
     const q = qs.find((x) => x.kind === 'definition')!;
@@ -141,7 +141,7 @@ describe('questions answered by a term', () => {
 describe('a term page', () => {
   it('shows its neighbours’ definitions but never its own', () => {
     for (let seed = 1; seed < 20; seed++) {
-      const qs = makeQuizzer(graph, 'en', seeded(seed)).pageQuestions('security/top', 20);
+      const qs = makeQuizzer(graph, 'en', { rng: seeded(seed) }).pageQuestions('security/top', 20);
       expect(qs.some((q) => q.kind === 'definition' || q.kind === 'meaning')).toBe(true);
       for (const q of qs) {
         expect(q.answer).not.toBe('security/top');
@@ -152,7 +152,7 @@ describe('a term page', () => {
   });
 
   it('mixes kinds in a short check', () => {
-    const qs = makeQuizzer(graph, 'en', seeded()).pageQuestions('security/top', 3);
+    const qs = makeQuizzer(graph, 'en', { rng: seeded() }).pageQuestions('security/top', 3);
     expect(qs).toHaveLength(3);
     expect(new Set(qs.map((q) => q.kind)).size).toBe(3);
   });
@@ -168,21 +168,31 @@ describe('buildSession', () => {
   };
 
   it('draws weak terms only for "weak"', () => {
-    const qs = buildSession(graph, learner, 'weak', makeQuizzer(graph, 'en', seeded()), 10, 1);
+    const qs = buildSession(
+      { graph, learner, scope: 'weak', quizzer: makeQuizzer(graph, 'en', { rng: seeded() }) },
+      10,
+      1,
+    );
     expect(new Set(qs.map((q) => q.termId))).toEqual(new Set(['security/mid', 'security/attack']));
   });
 
   it('draws one cluster or one domain', () => {
-    const q = makeQuizzer(graph, 'en', seeded());
-    expect(buildSession(graph, learner, 'cluster:elsewhere', q).map((x) => x.termId)).toEqual([
-      'security/far',
-    ]);
-    expect(buildSession(graph, learner, 'domain:ai', q)).toEqual([]);
-    expect(buildSession(graph, learner, 'domain:security', q, 5)).toHaveLength(5);
+    const q = makeQuizzer(graph, 'en', { rng: seeded() });
+    expect(
+      buildSession({ graph, learner, scope: 'cluster:elsewhere', quizzer: q }).map((x) => x.termId),
+    ).toEqual(['security/far']);
+    expect(buildSession({ graph, learner, scope: 'domain:ai', quizzer: q })).toEqual([]);
+    expect(buildSession({ graph, learner, scope: 'domain:security', quizzer: q }, 5)).toHaveLength(
+      5,
+    );
   });
 
   it('puts due reviews first and mixes question kinds', () => {
-    const qs = buildSession(graph, learner, 'all', makeQuizzer(graph, 'en', seeded()), 8, 1);
+    const qs = buildSession(
+      { graph, learner, scope: 'all', quizzer: makeQuizzer(graph, 'en', { rng: seeded() }) },
+      8,
+      1,
+    );
     expect(qs[0].termId).toBe('security/mid');
     expect(new Set(qs.map((q) => q.kind)).size).toBeGreaterThanOrEqual(3);
   });
@@ -192,7 +202,7 @@ describe('on the real map', { timeout: 30_000 }, () => {
   const { terms } = loadTerms();
   const real = buildGraph([...terms.entries()].map(([id, t]) => ({ ...t, id }) as ModelTerm));
   const byId = new Map(real.nodes.map((n) => [n.id, n]));
-  const quizzer = makeQuizzer(real, 'en', seeded(7));
+  const quizzer = makeQuizzer(real, 'en', { rng: seeded(7) });
 
   it('no term page ever asks a question answered by that term', () => {
     for (const n of real.nodes) {
@@ -207,7 +217,10 @@ describe('on the real map', { timeout: 30_000 }, () => {
   it('OAuth’s definition is asked on the access-control page', () => {
     const seen = new Set<string>();
     for (let seed = 1; seed < 40; seed++)
-      for (const q of makeQuizzer(real, 'en', seeded(seed)).pageQuestions('cs/access-control', 50))
+      for (const q of makeQuizzer(real, 'en', { rng: seeded(seed) }).pageQuestions(
+        'cs/access-control',
+        50,
+      ))
         seen.add(q.answer);
     expect(seen).toContain('cs/oauth');
   });

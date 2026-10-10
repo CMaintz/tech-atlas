@@ -1,15 +1,3 @@
-/**
- * Closed Vocabulary check (lint E1 — ADR-0004, ADR-0009).
- *
- * A word in a Summary or Body facet is allowed when it is:
- *   - plain language (content/wordlists/<lang>.txt — common-word frequency lists),
- *   - a token of a defined Term's name or alias (any language: loanwords are shared),
- *   - listed in content/allowed-words.<lang>.txt,
- *   - or an inflection / Danish compound of the above.
- * English is blocking; Danish is advisory in v1 (ADR-0009).
- *
- * Run `tsx scripts/vocab-report.ts` for a frequency report of unknown words.
- */
 import { readFileSync } from 'node:fs';
 import type { TermFrontmatter } from '../src/schema';
 
@@ -60,7 +48,6 @@ export type VocabResult = { id: string; lang: Lang; unknown: string[] };
 
 type WordSets = Record<Lang, Set<string>>;
 
-/** Tokens of every term name, alias and id, in both languages (loanwords are shared). */
 function termTokensOf(terms: Map<string, TermFrontmatter>): Set<string> {
   const tokens = new Set<string>();
   for (const [id, t] of terms) {
@@ -74,8 +61,6 @@ function termTokensOf(terms: Map<string, TermFrontmatter>): Set<string> {
   return tokens;
 }
 
-// English stems also try restoring a dropped -e (approv-ing), undoubling a
-// consonant (label-led) and y->i (worthi-ness).
 function stemCandidates(stem: string, lang: Lang): string[] {
   if (lang !== 'en') return [stem];
   const c = [stem, `${stem}e`];
@@ -84,13 +69,11 @@ function stemCandidates(stem: string, lang: Lang): string[] {
   return c;
 }
 
-/** What is left of `w` after each suffix it ends in, keeping a stem of 3+ letters. */
 const inflectionStems = (w: string, lang: Lang) =>
   SUFFIXES[lang]
     .filter((suf) => w.endsWith(suf) && w.length - suf.length >= 3)
     .map((suf) => w.slice(0, -suf.length));
 
-/** The words a Summary or Body may use, and the inflections and compounds of them. */
 class Vocabulary {
   private plain: WordSets = {
     en: readSet('content/wordlists/en.txt'),
@@ -121,13 +104,11 @@ class Vocabulary {
     return lang === 'en' && depth === 0 && this.knownWithPrefix(w, lang);
   }
 
-  /** A stem is known as is (or restored), or, one level deep, as a further inflection. */
   private knownStem(stem: string, lang: Lang, depth: number): boolean {
     if (stemCandidates(stem, lang).some((c) => this.known(c, lang))) return true;
     return depth < 1 && this.knownWithInflection(stem, lang, depth + 1);
   }
 
-  // English negating / repeating prefixes: un-readable, re-assembling.
   private knownWithPrefix(w: string, lang: Lang) {
     return ['un', 're', 'non', 'dis', 'mis'].some(
       (pre) =>
@@ -137,8 +118,6 @@ class Vocabulary {
     );
   }
 
-  // Danish compounds (English is not split — it stays strict): split into two known parts, with an
-  // optional linking -s- or -e-.
   private knownCompound(w: string, lang: Lang): boolean {
     for (let i = 3; i <= w.length - 3; i++) {
       const left = w.slice(0, i);
@@ -153,7 +132,6 @@ class Vocabulary {
   }
 }
 
-/** The words of a term's Summary and Body facets (one language) the vocabulary lacks, sorted. */
 function unknownWords(t: TermFrontmatter, lang: Lang, vocab: Vocabulary): string[] {
   const texts = [t.summary[lang], ...FACETS.map((f) => t.body[f][lang])];
   const unknown = new Set<string>();

@@ -1,16 +1,3 @@
-/**
- * `npm run seed:vectors` — fill Postgres `public.term_vectors`: embed every term's
- * passages through Cloudflare Workers AI with **the same `cloudflareEmbed` call the
- * `semantic-search` function uses for queries**, upsert every (term, language) row, then
- * delete rows for terms that no longer exist. The stored and query vectors therefore
- * come from one service by construction; the committed vector file is only the lint's
- * hash source and must match the content (else this refuses to run). Idempotent; run by
- * .github/workflows/backend.yml after the migrations.
- *
- * Needs SUPABASE_URL, SUPABASE_SERVICE_KEY (secret / service_role key — CI reads it
- * with the Supabase CLI; never stored in the repo or shipped to the site),
- * CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN.
- */
 import { readFileSync } from 'node:fs';
 import { createClient } from '@supabase/supabase-js';
 import {
@@ -52,7 +39,7 @@ for (let i = 0; i < inputs.passages.length; i += 50) {
 }
 console.log(`Workers AI: ${vectors.length} passages embedded; pooling ${[...poolings].join(', ')}`);
 
-const rows = toVectorLiteralRows(inputs.ids, EMBED_LANGS, vectors, inputs.passageHashes);
+const rows = toVectorLiteralRows(inputs, EMBED_LANGS, vectors);
 const db = createClient(url, key, { auth: { persistSession: false } });
 for (let i = 0; i < rows.length; i += 100) {
   const { error } = await db.from('term_vectors').upsert(rows.slice(i, i + 100));

@@ -1,4 +1,3 @@
-/** Load and validate every authored Term file. Shared by lint, build-graph and reports. */
 import { globSync } from 'tinyglobby';
 import { parse } from 'yaml';
 import { readFileSync } from 'node:fs';
@@ -24,16 +23,14 @@ export function loadTerms() {
   return { terms, errors };
 }
 
-/** Resolve a bare or namespaced edge target to a loaded id, preferring the source's domain. */
 export function makeResolver(terms: Map<string, Term>) {
   const byName = new Map<string, string[]>();
   for (const id of terms.keys()) {
-    const name = id.split('/').pop()!;
+    const name = id.slice(id.lastIndexOf('/') + 1);
     byName.set(name, [...(byName.get(name) ?? []), id]);
   }
   const resolve = (ref: string, fromId?: string): string | null => {
     if (terms.has(ref)) return ref;
-    // A namespaced ref must match exactly — never fall back across domains (ADR-0003).
     if (ref.includes('/')) return null;
     const ids = byName.get(ref) ?? [];
     if (ids.length <= 1) return ids[0] ?? null;

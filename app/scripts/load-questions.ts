@@ -1,4 +1,3 @@
-/** Load and validate every hand-written question file. Shared by lint and tests. */
 import { globSync } from 'tinyglobby';
 import { parse } from 'yaml';
 import { readFileSync } from 'node:fs';

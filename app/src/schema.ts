@@ -1,14 +1,5 @@
 import { z } from 'zod';
 
-/**
- * Atlas — the authored Term schema (v1). See design/SPEC.md and design/adr/.
- * Bilingual (EN+DA), fully-faceted Body, curated closed edge set, rich edges.
- * Anything derived (depth, inverse edges, mentions, visual weight, collisions)
- * is computed at build time (see scripts/build-graph.ts) and never authored.
- */
-
-/* ---- Bilingual strings (ADR-0007) ---------------------------------- */
-
 export const Localized = z.object({ en: z.string(), da: z.string() }).strict();
 export type Localized = z.infer<typeof Localized>;
 
@@ -22,8 +13,6 @@ export const LocalizedList = z
   })
   .strict();
 
-/* ---- Identity ------------------------------------------------------- */
-
 export const TermId = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'must be kebab-case');
 
 export const Domain = z.enum(['security', 'cs', 'ai', 'platform']);
@@ -35,8 +24,6 @@ export const TermRef = z
     /^(security\/|cs\/|ai\/|platform\/)?[a-z0-9]+(-[a-z0-9]+)*$/,
     'must be `id` or `domain/id`, kebab-case',
   );
-
-/* ---- Sources & provenance (ADR / D11) ------------------------------ */
 
 export const SourceTier = z.enum([
   'standard',
@@ -50,7 +37,6 @@ export const SourceTier = z.enum([
 export const Source = z
   .object({
     title: z.string().min(1),
-    // Web links only: `.url()` alone accepts `javascript:` and `data:` URLs.
     url: z
       .string()
       .url()
@@ -61,8 +47,6 @@ export const Source = z
   })
   .strict();
 export type Source = z.infer<typeof Source>;
-
-/* ---- Edges — curated closed set + rich first-class edges (ADR-0006) - */
 
 export const EDGE_TYPES = {
   requires: { inverse: 'unlocks', symmetric: false },
@@ -103,8 +87,6 @@ export const Edges = z
   )
   .strict();
 
-/* ---- Layer — a facet, never a position (ADR-0001) ------------------ */
-
 export const LAYERS = {
   cs: [
     'hardware',
@@ -125,8 +107,6 @@ export const LAYERS = {
 
 const AnyLayer = z.enum(Object.values(LAYERS).flat() as [string, ...string[]]);
 
-/* ---- Body — fully faceted, bilingual, Closed Vocabulary (ADR-0004/9) */
-
 export const Body = z
   .object({
     formal: Localized,
@@ -137,9 +117,6 @@ export const Body = z
   .strict();
 export type Body = z.infer<typeof Body>;
 
-/* ---- How to put it into practice ----------------------------- */
-
-/** A step-by-step list, the same number of items in both languages. */
 const StepList = (min: number, max: number) =>
   z
     .object({
@@ -151,7 +128,6 @@ const StepList = (min: number, max: number) =>
       message: 'en and da must have the same number of items',
     });
 
-/** An external guide for doing it: official or primary sources first. */
 export const HowToGuide = z
   .object({
     title: z.string().min(1),
@@ -161,16 +137,11 @@ export const HowToGuide = z
       .regex(/^https?:\/\//, 'must be an http(s) URL'),
     publisher: z.string().min(1),
     tier: SourceTier,
-    /** The guide's language; omitted means English. */
     lang: z.enum(['en', 'da']).optional(),
   })
   .strict();
 export type HowToGuide = z.infer<typeof HowToGuide>;
 
-/**
- * Practical guidance for an actionable term: ordered steps, common pitfalls and good
- * guides. Exempt from Closed Vocabulary (technical guidance), like a deep dive.
- */
 export const HowTo = z
   .object({
     steps: StepList(5, 10),
@@ -179,8 +150,6 @@ export const HowTo = z
   })
   .strict();
 export type HowTo = z.infer<typeof HowTo>;
-
-/* ---- Term frontmatter ---------------------------------------------- */
 
 export const TermFrontmatter = z
   .object({
@@ -194,21 +163,11 @@ export const TermFrontmatter = z
     status: z.enum(['current', 'legacy', 'emerging']).default('current'),
     summary: LocalizedMax(140),
     body: Body,
-    /**
-     * Optional technical deep dive for the term page: plain text, paragraphs
-     * separated by a blank line. Exempt from Closed Vocabulary, like an Article.
-     */
     deepDive: z
       .object({ en: z.string().min(1), da: z.string().min(1) })
       .strict()
       .optional(),
-    /**
-     * Is this something you do or implement (a process, control, practice, framework,
-     * law to comply with, tool or technique)? Omitted: decided by `isActionable`'s
-     * cluster, layer and edge rules (src/lib/actionable.ts).
-     */
     actionable: z.boolean().optional(),
-    /** How to put it into practice: steps, pitfalls and guides. */
     howTo: HowTo.optional(),
     edges: Edges.default({}),
     article: z.object({ en: z.string().optional(), da: z.string().optional() }).strict().optional(),
@@ -219,16 +178,9 @@ export const TermFrontmatter = z
 
 export type TermFrontmatter = z.infer<typeof TermFrontmatter>;
 
-/**
- * The content-collection schema: a Term minus `id`, which Astro's glob loader
- * derives from the file path. Used by src/content.config.ts.
- */
 export const TermData = TermFrontmatter.omit({ id: true });
 export type TermData = z.infer<typeof TermData>;
 
-/* ---- Hand-written questions (the question bank) --------------- */
-
-/** A namespaced term id, as the graph, the learner and the collections key terms. */
 export const TermKey = z
   .string()
   .regex(/^(security|cs|ai|platform)\/[a-z0-9]+(-[a-z0-9]+)*$/, 'must be `domain/id`, kebab-case');
@@ -238,15 +190,11 @@ export const QUESTION_KINDS = ['scenario', 'concept', 'compare', 'order', 'true-
 export const Question = z
   .object({
     id: TermId,
-    /** What the question tests: its answer updates each of these terms' repetition record. */
     terms: z.array(TermKey).min(1),
     kind: z.enum(QUESTION_KINDS),
     stem: LocalizedMax(1200),
-    /** Four options; two (true, then false) for a true-false question. */
     options: z.array(LocalizedMax(300)).min(2).max(4),
-    /** Index into `options` of the single best answer. */
     answer: z.number().int().min(0),
-    /** Why the answer is right, and why the tempting wrong ones are wrong. */
     explanation: LocalizedMax(2000),
     difficulty: z.number().int().min(1).max(3),
     sources: z.array(Source).min(1),
@@ -270,6 +218,5 @@ export const Question = z
   });
 export type Question = z.infer<typeof Question>;
 
-/** One question file: `src/content/questions/<domain>/<cluster>.yaml`. */
 export const QuestionFile = z.object({ questions: z.array(Question).min(1) }).strict();
 export type QuestionFile = z.infer<typeof QuestionFile>;

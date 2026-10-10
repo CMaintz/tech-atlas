@@ -1,7 +1,3 @@
-/**
- * Closed Vocabulary report: which unknown words recur most. Use it to decide
- * whether a word should become a Term, go in allowed-words, or be rephrased away.
- */
 import { checkClosedVocab } from './closed-vocab';
 import { loadTerms } from './load-terms';
 

@@ -1,13 +1,8 @@
-/**
- * The wording of generated quiz questions, in both languages, and which edge
- * types each kind of question may ask about. Pure data.
- */
 import type { EdgeType } from '../schema';
 import type { Dir, Lang } from './quiz-types';
 
 type Bi = Record<Lang, (x: string) => string>;
 
-/** Relation questions: one template per edge type and direction. `x` is the question's term. */
 export const ASK: Partial<Record<EdgeType, Partial<Record<Dir, Bi>>>> = {
   requires: {
     out: {
@@ -101,14 +96,8 @@ export const ASK: Partial<Record<EdgeType, Partial<Record<Dir, Bi>>>> = {
   },
 };
 export const SYMMETRIC = new Set<EdgeType>(['contrasts-with', 'alternative-to', 'used-with']);
-/** Types whose chains are also right answers (a prerequisite's prerequisite is one too). */
 export const TRANSITIVE = new Set<EdgeType>(['requires', 'kind-of', 'part-of', 'supersedes']);
 
-/**
- * True/false statements, only for edge types whose reverse is certainly false in
- * the map (a `requires` cycle is a lint error; nothing is a kind of its own kind),
- * so the false version is never true by accident.
- */
 export const STATE: Partial<Record<EdgeType, Record<Lang, (a: string, b: string) => string>>> = {
   requires: {
     en: (a, b) => `You need to understand ${b} before ${a}.`,
