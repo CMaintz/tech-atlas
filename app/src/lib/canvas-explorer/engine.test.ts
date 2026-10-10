@@ -44,24 +44,30 @@ describe('buildEngine', () => {
 describe('edge alpha and batches', () => {
   const e = { ...buildEngine(graph), famAlpha: new Map([['association', 1]]) };
   const none = new Uint8Array(4);
+  const hot3 = new Uint8Array([0, 0, 0, 1]);
+  const look = (litEdge: Uint8Array, showAll: boolean, selected: boolean) => ({
+    litEdge,
+    showAll,
+    selected,
+  });
   it('draws backbone edges at rest, others only with "all"', () => {
-    expect(edgeAlpha(e, 3, false, false, false)).toBeCloseTo(0.38);
+    expect(edgeAlpha(e, 3, look(none, false, false))).toBeCloseTo(0.38);
     e.eback[0] = 0;
-    expect(edgeAlpha(e, 0, false, false, false)).toBeUndefined();
-    expect(edgeAlpha(e, 0, false, true, false)).toBeCloseTo(0.2);
+    expect(edgeAlpha(e, 0, look(none, false, false))).toBeUndefined();
+    expect(edgeAlpha(e, 0, look(none, true, false))).toBeCloseTo(0.2);
   });
   it('dims unlit edges beside a selection and hides faded families', () => {
-    expect(edgeAlpha(e, 3, false, false, true)).toBeCloseTo(0.38 * LAB.dimAlpha);
-    expect(edgeAlpha(e, 3, true, false, true)).toBeCloseTo(0.95);
+    expect(edgeAlpha(e, 3, look(none, false, true))).toBeCloseTo(0.38 * LAB.dimAlpha);
+    expect(edgeAlpha(e, 3, look(hot3, false, true))).toBeCloseTo(0.95);
     e.famAlpha.set('dependency', 0);
-    expect(edgeAlpha(e, 3, false, false, false)).toBeUndefined();
+    expect(edgeAlpha(e, 3, look(none, false, false))).toBeUndefined();
     e.famAlpha.delete('dependency');
   });
   it('batches by family, alpha step and lit; pulses only one-way edges', () => {
-    const drawn = edgeBatches(e, none, false, false);
+    const drawn = edgeBatches(e, look(none, false, false));
     expect(drawn.batches.get('dependency|5|0')).toEqual([3]);
     expect(drawn.alpha[3]).toBeCloseTo(0.38);
-    expect([...pulseBatches(e, drawn, none, false)]).toEqual([['dependency|0', [3]]]);
+    expect([...pulseBatches(e, drawn, look(none, false, false))]).toEqual([['dependency|0', [3]]]);
   });
 });
 
@@ -70,13 +76,17 @@ describe('lightSelection', () => {
   const lit = new Uint8Array(4);
   const litEdge = new Uint8Array(4);
   it('lights the term, its neighbours over enabled families, and those edges', () => {
-    expect(lightSelection(e, 0, new Set(['association']), lit, litEdge)).toBe(0);
+    expect(
+      lightSelection(e, { selected: 0, families: new Set(['association']) }, { lit, litEdge }),
+    ).toBe(0);
     expect([...lit]).toEqual([1, 1, 0, 0]);
     expect([...litEdge]).toEqual([1, 0, 0, 0]);
   });
   it('lights nothing for a hidden or no selection', () => {
     e.visible[0] = 0;
-    expect(lightSelection(e, 0, new Set(['association']), lit, litEdge)).toBe(-1);
+    expect(
+      lightSelection(e, { selected: 0, families: new Set(['association']) }, { lit, litEdge }),
+    ).toBe(-1);
     expect([...lit, ...litEdge].every((x) => x === 0)).toBe(true);
   });
 });

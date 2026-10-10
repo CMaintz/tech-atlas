@@ -1,10 +1,5 @@
-/**
- * The visual lab's typed controls: a labelled row, a pick list, a toggle, a
- * slider, a titled section and a note. `binder` ties a control to one key of a state.
- */
 import type { ComponentChildren } from 'preact';
 
-/** A control's value and change handler for key `k` of state `s` (a new state per change). */
 export function binder<S extends object>(s: S, set: (s: S) => void) {
   return <K extends keyof S>(k: K) => ({ value: s[k], on: (v: S[K]) => set({ ...s, [k]: v }) });
 }
@@ -18,14 +13,14 @@ function Row(p: { label: string; children: ComponentChildren }) {
   );
 }
 
-type PickProps<T extends string> = {
+type PickListProps<T extends string> = {
   label: string;
   value: T;
   options: readonly (readonly [T, string])[];
   on: (v: T) => void;
 };
 
-export function Pick<T extends string>(p: PickProps<T>) {
+export function PickList<T extends string>(p: PickListProps<T>) {
   const onChange = (e: Event) => p.on((e.target as HTMLSelectElement).value as T);
   return (
     <Row label={p.label}>
@@ -55,7 +50,7 @@ export function Toggle(p: { label: string; value: boolean; on: (v: boolean) => v
   );
 }
 
-type SlideProps = {
+type SliderProps = {
   label: string;
   value: number;
   min: number;
@@ -64,8 +59,7 @@ type SlideProps = {
   on: (v: number) => void;
 };
 
-/** A slider; its label shows the value to two decimals. */
-export function Slide(p: SlideProps) {
+export function Slider(p: SliderProps) {
   const onInput = (e: Event) => p.on(Number((e.target as HTMLInputElement).value));
   return (
     <Row label={`${p.label} ${p.value.toFixed(2)}`}>
@@ -82,7 +76,6 @@ export function Slide(p: SlideProps) {
   );
 }
 
-/** A titled group of controls below a rule. */
 export function Section(p: { title: string; children: ComponentChildren }) {
   return (
     <section class="space-y-2 border-t border-border pt-2">
@@ -92,7 +85,6 @@ export function Section(p: { title: string; children: ComponentChildren }) {
   );
 }
 
-/** A muted line of explanation (shown only when `when` holds, if given). */
 export function Note(p: { text: string; when?: boolean }) {
   return p.when === false ? null : <p class="text-muted">{p.text}</p>;
 }

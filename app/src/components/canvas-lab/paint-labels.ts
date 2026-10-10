@@ -1,27 +1,39 @@
-/** The canvas lab's label painter: priority order, collision-checked, haloed. */
-import { LabelSlots, labelCandidates } from '../../lib/canvas-explorer/labels';
+import { LabelSlots, labelCandidates, type LabelBox } from '../../lib/canvas-explorer/labels';
 import type { Frame } from './frame';
 
-/** Labels for the selection, hover, lit neighbours and hubs, where each fits. */
+const BIG_FONT = '700 13px system-ui, sans-serif';
+const SMALL_FONT = '600 11px system-ui, sans-serif';
+
+const isBig = (f: Frame, i: number) => i === f.sel || i === f.v.hover;
+
 export function paintLabels(f: Frame) {
   const { ctx, e, v } = f;
   const slots = new LabelSlots(f.c.w, f.c.h);
+  const box: LabelBox = { x: 0, y: 0, r: 0, tw: 0, size: 0, big: false };
   ctx.textAlign = 'center';
   ctx.textBaseline = 'top';
   ctx.lineJoin = 'round';
-  for (const i of labelCandidates(e, f.lit, f.sel, v.hover)) {
-    const big = i === f.sel || i === v.hover;
-    const size = big ? 13 : 11;
-    const font = `${big ? 700 : 600} ${size}px system-ui, sans-serif`;
-    const tw = f.measure(font, e.names[i]);
-    const top = slots.place(e.sx[i], e.sy[i], e.dr[i], tw, size, big);
-    if (top !== undefined) paintLabel(f, i, font, top, big);
+  for (const i of labelCandidates(e, { lit: f.lit, sel: f.sel, hover: v.hover })) {
+    const top = slots.place(measureLabel(f, i, box));
+    if (top !== undefined) paintLabel(f, i, top);
   }
 }
 
-/** One label: a halo stroke under the text, fogged with its term. */
-function paintLabel({ ctx, e, ink }: Frame, i: number, font: string, top: number, big: boolean) {
-  ctx.font = font;
+function measureLabel(f: Frame, i: number, box: LabelBox): LabelBox {
+  const { e } = f;
+  box.big = isBig(f, i);
+  box.size = box.big ? 13 : 11;
+  box.tw = f.textWidth(box.big ? BIG_FONT : SMALL_FONT, e.names[i]);
+  box.x = e.sx[i];
+  box.y = e.sy[i];
+  box.r = e.dr[i];
+  return box;
+}
+
+function paintLabel(f: Frame, i: number, top: number) {
+  const { ctx, e, ink } = f;
+  const big = isBig(f, i);
+  ctx.font = big ? BIG_FONT : SMALL_FONT;
   ctx.globalAlpha = e.fog[i];
   ctx.lineWidth = 3;
   ctx.strokeStyle = ink.halo;

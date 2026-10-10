@@ -1,4 +1,3 @@
-/** The canvas lab, wired: state, graph, loop sync and the chrome's shared props. */
 import { useMemo } from 'preact/hooks';
 import type { Graph } from '../../lib/graph-model';
 import { familyColours, type MapTheme } from '../../lib/graph-style';
@@ -34,7 +33,6 @@ export interface CanvasLabProps {
   about: AboutProps;
 }
 
-/** What the toolbar and legend share: strings, theme, domains and families. */
 export type Chrome = {
   t: Dict;
   lang: Lang;
@@ -53,25 +51,25 @@ export function useCanvasLab(props: CanvasLabProps) {
   const refs = useLabRefs(theme);
   const ui = useViewUi();
   const filters = useFilters(familyKeys);
-  const graph = useLabGraph(props.graphUrl, refs, ui, filters);
-  useViewPush(refs, graph, ui, filters);
-  useTermPaint(refs, graph, filters.domains, props.lang, theme);
-  useCanvasLoop(refs, graph, familyKeys, pointerHooks(ui, props.panel.apiBase));
-  const actions = useLabActions(refs, graph, ui, filters);
+  const graph = useLabGraph(props.graphUrl, { refs, ui, filters });
+  const lab = { refs, ui, filters, graph };
+  useViewPush(lab);
+  useTermPaint(lab, { lang: props.lang, theme });
+  const hooks = pointerHooks(ui, props.panel.apiBase);
+  useCanvasLoop(refs, graph, { allFamilies: familyKeys, hooks });
+  const actions = useLabActions(lab);
   const { byId, allDomains } = useGraphIndex(graph);
-  const chrome = chromeOf(props, theme, allDomains, familyKeys);
+  const chrome = chromeOf(props, { theme, allDomains, familyKeys });
   const sel = ui.selected ? byId.get(ui.selected) : undefined;
   return { refs, ui, filters, graph, actions, chrome, sel };
 }
 
-/** Select on click, stop auto-rotate on a grab, prefetch the hovered term's panel. */
 const pointerHooks = (ui: ViewUi, apiBase: string) => ({
   select: ui.setSelected,
   stopSpin: () => ui.setSpin(false),
   prefetch: (id: string) => prefetchTerm(apiBase, id),
 });
 
-/** Terms by id, and the domains present in canonical order. */
 function useGraphIndex(graph: Graph | null) {
   const byId = useMemo(() => new Map((graph?.nodes ?? []).map((n) => [n.id, n])), [graph]);
   const allDomains = useMemo(
@@ -83,9 +81,7 @@ function useGraphIndex(graph: Graph | null) {
 
 function chromeOf(
   site: CanvasLabProps,
-  theme: MapTheme,
-  allDomains: string[],
-  familyKeys: string[],
+  { theme, allDomains, familyKeys }: Pick<Chrome, 'theme' | 'allDomains' | 'familyKeys'>,
 ): Chrome {
   const famColours = familyColours(theme) as Record<string, string>;
   return { t: TEXT[site.lang], lang: site.lang, theme, allDomains, familyKeys, famColours, site };

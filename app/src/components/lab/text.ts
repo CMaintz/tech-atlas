@@ -1,4 +1,3 @@
-/** The visual lab's own strings: a hidden page, so they stay out of site.ts. */
 export const TEXT = {
   en: {
     title: 'Visual lab',

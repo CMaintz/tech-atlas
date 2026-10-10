@@ -1,15 +1,9 @@
-/**
- * Which edges the canvas lab draws and how: the default backbone, each edge's alpha
- * this frame, and the batches (one canvas path per family × alpha step × lit) that the
- * edge and pulse painters stroke. Pure: reads the engine's arrays only.
- */
 import { backbone } from '../graph-layout';
 import { LAB } from './config';
 import type { LayoutNode } from './layout';
 
 type LayoutLink = { source: string; target: string; weight: number; family: string; type: string };
 
-/** The engine arrays an edge's look depends on. */
 export type EdgeState = {
   es: Int32Array;
   et: Int32Array;
@@ -21,14 +15,13 @@ export type EdgeState = {
   famAlpha: Map<string, number>;
 };
 
-/** Edge indices by batch key, and every edge's alpha (0 when not drawn). */
+export type EdgeLook = { litEdge: Uint8Array; showAll: boolean; selected: boolean };
+
 export type EdgeBatches = { batches: Map<string, number[]>; alpha: Float32Array };
 
-/**
- * The default edge set: every `requires` link plus the Explorer's backbone (each
- * term's strongest in-cluster links; graph.json folds an edge's strength into `weight`,
- * so "primary" edges are the heavy ones the backbone keeps). Indices into `links`.
- */
+type SelectionPick = { selected: number; families: ReadonlySet<string> };
+type LitMarks = { lit: Uint8Array; litEdge: Uint8Array };
+
 export function labBackbone(nodes: LayoutNode[], links: LayoutLink[], perNode = 2): Set<number> {
   const chosen = backbone(nodes, links, perNode);
   links.forEach((l, i) => {
@@ -43,95 +36,67 @@ const addTo = (m: Map<string, number[]>, key: string, k: number) => {
   else m.set(key, [k]);
 };
 
-/**
- * Edge k's alpha, or undefined when it is not drawn: both ends visible, its family not
- * faded out, and lit, or "all" on, or on the backbone; dimmed beside a selection, fogged.
- */
-export function edgeAlpha(
-  e: EdgeState,
-  k: number,
-  hot: boolean,
-  showAll: boolean,
-  selected: boolean,
-): number | undefined {
+export function edgeAlpha(e: EdgeState, k: number, look: EdgeLook): number | undefined {
   const a = e.es[k];
   const b = e.et[k];
   if (!e.visible[a] || !e.visible[b]) return undefined;
   const fa = e.famAlpha.get(e.efam[k]) ?? 1;
   if (fa <= 0.01) return undefined;
-  const base = baseAlpha(hot, showAll, e.eback[k] !== 0);
+  const hot = look.litEdge[k] === 1;
+  const base = baseAlpha(hot, look.showAll, e.eback[k] !== 0);
   if (base === undefined) return undefined;
-  const dim = selected && !hot ? LAB.dimAlpha : 1;
+  const dim = look.selected && !hot ? LAB.dimAlpha : 1;
   return base * dim * fa * Math.min(e.fog[a], e.fog[b]);
 }
 
-/** Lit edges stand out, "all" shows every edge faintly, and at rest only the backbone shows. */
 function baseAlpha(hot: boolean, showAll: boolean, onBackbone: boolean): number | undefined {
   if (hot) return 0.95;
   if (showAll) return 0.2;
   return onBackbone ? 0.38 : undefined;
 }
 
-/** Edges batched by `family|alpha step (of 12)|lit`, so each batch is one stroke. */
-export function edgeBatches(
-  e: EdgeState,
-  litEdge: Uint8Array,
-  showAll: boolean,
-  selected: boolean,
-): EdgeBatches {
+export function edgeBatches(e: EdgeState, look: EdgeLook): EdgeBatches {
   const batches = new Map<string, number[]>();
   const alpha = new Float32Array(e.es.length);
   for (let k = 0; k < e.es.length; k++) {
-    const hot = litEdge[k] === 1;
-    const al = edgeAlpha(e, k, hot, showAll, selected);
+    const al = edgeAlpha(e, k, look);
     if (al === undefined) continue;
     alpha[k] = al;
-    addTo(batches, `${e.efam[k]}|${Math.round(al * 12)}|${hot ? 1 : 0}`, k);
+    addTo(batches, `${e.efam[k]}|${Math.round(al * 12)}|${look.litEdge[k] === 1 ? 1 : 0}`, k);
   }
   return { batches, alpha };
 }
 
-/** One-way drawn edges batched by `family|state`: 1 lit, d dimmed, 0 resting. */
 export function pulseBatches(
   e: EdgeState,
   drawn: EdgeBatches,
-  litEdge: Uint8Array,
-  selected: boolean,
+  look: Omit<EdgeLook, 'showAll'>,
 ): Map<string, number[]> {
   const dots = new Map<string, number[]>();
   for (const list of drawn.batches.values())
     for (const k of list) {
       if (!e.edir[k] || drawn.alpha[k] < 0.05) continue;
-      addTo(dots, e.efam[k] + (litEdge[k] ? '|1' : selected ? '|d' : '|0'), k);
+      addTo(dots, e.efam[k] + (look.litEdge[k] ? '|1' : look.selected ? '|d' : '|0'), k);
     }
   return dots;
 }
 
-/**
- * Selection: the term, its neighbours over enabled families and the edges between them
- * are lit (written into `lit` / `litEdge`). Returns the selected index, or -1 when
- * nothing (visible) is selected.
- */
 export function lightSelection(
   e: EdgeState & { adj: number[][] },
-  selected: number,
-  families: ReadonlySet<string>,
-  lit: Uint8Array,
-  litEdge: Uint8Array,
+  pick: SelectionPick,
+  marks: LitMarks,
 ): number {
-  const sel = selected >= 0 && e.visible[selected] ? selected : -1;
-  lit.fill(0);
-  litEdge.fill(0);
-  if (sel >= 0) lightNeighbours(e, sel, families, lit, litEdge);
+  const sel = pick.selected >= 0 && e.visible[pick.selected] ? pick.selected : -1;
+  marks.lit.fill(0);
+  marks.litEdge.fill(0);
+  if (sel >= 0) lightNeighbours(e, pick, marks);
   return sel;
 }
 
 function lightNeighbours(
   e: EdgeState & { adj: number[][] },
-  sel: number,
-  families: ReadonlySet<string>,
-  lit: Uint8Array,
-  litEdge: Uint8Array,
+  { selected: sel, families }: SelectionPick,
+  { lit, litEdge }: LitMarks,
 ) {
   lit[sel] = 1;
   for (const k of e.adj[sel]) {

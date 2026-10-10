@@ -105,19 +105,19 @@ describe('spaceOut', () => {
 
 describe('project', () => {
   it('is the identity in the flat front view', () => {
-    const p = project({ x: 12, y: -7, z: 300 }, { yaw: 0, pitch: 0 }, Infinity);
+    const p = project({ x: 12, y: -7, z: 300 }, { yaw: 0, pitch: 0, focal: Infinity });
     expect(p).toEqual({ x: 12, y: -7, z: 300, s: 1 });
   });
 
   it('turns a quarter yaw so +x goes away from the viewer', () => {
-    const p = project({ x: 100, y: 0, z: 0 }, { yaw: Math.PI / 2, pitch: 0 }, Infinity);
+    const p = project({ x: 100, y: 0, z: 0 }, { yaw: Math.PI / 2, pitch: 0, focal: Infinity });
     expect(p.x).toBeCloseTo(0);
     expect(p.z).toBeCloseTo(100);
   });
 
   it('shrinks far points and enlarges near ones', () => {
-    const far = project({ x: 100, y: 0, z: 500 }, { yaw: 0, pitch: 0 }, 1000);
-    const near = project({ x: 100, y: 0, z: -500 }, { yaw: 0, pitch: 0 }, 1000);
+    const far = project({ x: 100, y: 0, z: 500 }, { yaw: 0, pitch: 0, focal: 1000 });
+    const near = project({ x: 100, y: 0, z: -500 }, { yaw: 0, pitch: 0, focal: 1000 });
     expect(far.s).toBeLessThan(1);
     expect(near.s).toBeGreaterThan(1);
     expect(Math.abs(far.x)).toBeLessThan(Math.abs(near.x));
@@ -144,12 +144,12 @@ describe('HitGrid', () => {
     const ys = new Float32Array([10, 10, 200]);
     const rs = new Float32Array([8, 8, 8]);
     const order = new Int32Array([0, 1, 2]);
-    const g = new HitGrid(40);
-    g.build(xs, ys, rs, () => true);
-    expect(g.nearest(11, 10, xs, ys, rs, order)).toBe(1);
-    expect(g.nearest(100, 100, xs, ys, rs, order)).toBe(-1);
-    g.build(xs, ys, rs, (i) => i !== 1);
-    expect(g.nearest(11, 10, xs, ys, rs, order)).toBe(0);
+    const g = new HitGrid({ xs, ys, rs, order }, 40);
+    g.build(() => true);
+    expect(g.nearest(11, 10)).toBe(1);
+    expect(g.nearest(100, 100)).toBe(-1);
+    g.build((i) => i !== 1);
+    expect(g.nearest(11, 10)).toBe(0);
   });
 });
 

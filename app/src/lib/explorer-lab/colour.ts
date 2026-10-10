@@ -1,10 +1,5 @@
-/**
- * Colour shifts for the visual lab: fade an edge by its importance, or tone a
- * term or edge on the cream map. Hex in, hex out; anything else passes through.
- */
 type Rgb = [number, number, number];
 
-/** #rrggbb as hue (0 to 6), saturation and lightness (0 to 1). */
 function toHsl(hex: string): Rgb {
   const v = parseInt(hex.slice(1, 7), 16);
   const [r, g, b] = [(v >> 16) & 255, (v >> 8) & 255, v & 255].map((c) => c / 255);
@@ -22,7 +17,6 @@ function toHsl(hex: string): Rgb {
   return [h, s, l];
 }
 
-/** The (r, g, b) before lightness is added, for hue sextant 0–5 (chroma c, second x). */
 function sextant(h: number, c: number, x: number): Rgb {
   const table: Rgb[] = [
     [c, x, 0],
@@ -50,17 +44,12 @@ function fromHsl(h: number, s0: number, l0: number): string {
 
 const isHex = (c: string) => /^#[0-9a-f]{6}$/i.test(c);
 
-/**
- * A colour faded by intensity: saturation falls and lightness drifts towards the map's
- * background (night map: darker; cream map: lighter), so unimportant edges recede.
- */
 export function emphasise(hex: string, k: number, light: boolean): string {
   if (!isHex(hex)) return hex;
   const [h, s, l] = toHsl(hex);
   return fromHsl(h, s * (0.15 + 0.85 * k), l + ((light ? 0.92 : 0.1) - l) * (1 - k) * 0.75);
 }
 
-/** A colour with its saturation scaled and its lightness shifted (non-hex passes through). */
 export function tone(hex: string, sat: number, light: number): string {
   if (!isHex(hex) || (sat === 1 && light === 0)) return hex;
   const [h, s, l] = toHsl(hex);

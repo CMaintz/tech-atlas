@@ -1,56 +1,50 @@
-/**
- * The old 3D glow (visual lab only): one additive sprite per term, its colour copied from
- * the point cloud's four times a second, in place of today's single point cloud.
- */
 import type { Lab3, Sprite, Three } from './context';
+
+type Group = InstanceType<Three['Group']>;
+type SpriteState = { group: Group | null; timer: number };
 
 export type GlowSprites = ReturnType<typeof createSprites>;
 
 export function createSprites(ctx: Lab3) {
-  const { L } = ctx;
-  let group: InstanceType<Three['Group']> | null = null;
-  let timer = 0;
+  const state: SpriteState = { group: null, timer: 0 };
   const set = (on: boolean) => {
-    L.glow.visible = !on;
-    if (on === !!group) return;
-    window.clearInterval(timer);
-    if (on) {
-      const g = buildSprites(ctx);
-      timer = window.setInterval(syncer(ctx, g), 250);
-      group = g;
-      L.scene.add(g);
-    } else {
-      L.scene.remove(group!);
-      group!.children.forEach((c) => (c as Sprite).material.dispose());
-      group = null;
-    }
+    ctx.L.glow.visible = !on;
+    if (on === !!state.group) return;
+    window.clearInterval(state.timer);
+    if (on) showSprites(ctx, state);
+    else hideSprites(ctx, state);
   };
-  /** Each sprite, with its term's index. */
   const each = (fn: (s: Sprite, i: number) => void) =>
-    group?.children.forEach((c, i) => fn(c as Sprite, i));
-  return { set, each, stop: () => window.clearInterval(timer), size: spriteSize(ctx) };
+    state.group?.children.forEach((c, i) => fn(c as Sprite, i));
+  return { set, each, stop: () => window.clearInterval(state.timer), size: spriteSize(ctx) };
 }
 
-/** A term's sprite size, from the point cloud's own. */
+function showSprites(ctx: Lab3, state: SpriteState) {
+  const g = buildSprites(ctx);
+  state.timer = window.setInterval(syncer(ctx, g), 250);
+  state.group = g;
+  ctx.L.scene.add(g);
+}
+
+function hideSprites(ctx: Lab3, state: SpriteState) {
+  const g = state.group;
+  if (!g) return;
+  ctx.L.scene.remove(g);
+  g.children.forEach((c) => (c as Sprite).material.dispose());
+  state.group = null;
+}
+
 const spriteSize = (ctx: Lab3) => {
   const glowSize = ctx.L.glow.geometry.getAttribute('size');
   return (i: number) => (glowSize.getX(i) / ctx.cfg.glowScale) * 5;
 };
 
 function buildSprites(ctx: Lab3) {
-  const { L, THREE } = ctx;
-  const texture = L.glowMat.uniforms.map.value as InstanceType<Three['Texture']>;
+  const texture = ctx.L.glowMat.uniforms.map.value as InstanceType<Three['Texture']>;
   const size = spriteSize(ctx);
-  const g = new THREE.Group();
+  const g = new ctx.THREE.Group();
   ctx.nodes.forEach((n, i) => {
-    const material = new THREE.SpriteMaterial({
-      map: texture,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-      transparent: true,
-      opacity: 0.55,
-    });
-    const sp = new THREE.Sprite(material);
+    const sp = termSprite(ctx, texture);
     sp.scale.set(size(i), size(i), 1);
     sp.position.set(n.x, n.y, n.z);
     g.add(sp);
@@ -58,8 +52,18 @@ function buildSprites(ctx: Lab3) {
   return g;
 }
 
-/** Copy the point cloud's colours and blending onto the sprites; runs once now. */
-function syncer(ctx: Lab3, g: InstanceType<Three['Group']>) {
+function termSprite({ THREE }: Lab3, texture: InstanceType<Three['Texture']>) {
+  const material = new THREE.SpriteMaterial({
+    map: texture,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    transparent: true,
+    opacity: 0.55,
+  });
+  return new THREE.Sprite(material);
+}
+
+function syncer(ctx: Lab3, g: Group) {
   const glowCol = ctx.L.glow.geometry.getAttribute('color');
   const sync = () =>
     g.children.forEach((c, i) => {
@@ -73,10 +77,6 @@ function syncer(ctx: Lab3, g: InstanceType<Three['Group']>) {
   return sync;
 }
 
-/**
- * The light theme multiplies instead of adding (explorer-3d `setBlend`); three.js needs
- * premultiplied alpha for that.
- */
 function matchBlending({ L, THREE }: Lab3, sp: Sprite) {
   const multiply = L.glowMat.blending === THREE.MultiplyBlending;
   if (sp.material.premultipliedAlpha !== multiply) {

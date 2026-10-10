@@ -1,12 +1,8 @@
-/**
- * The canvas lab's loop state: what the view shows and where the camera is. Both
- * live in refs the rAF loop reads every frame, so the loop is never rebuilt.
- */
 import { LAB } from '../../lib/canvas-explorer';
+import type { Engine } from '../../lib/canvas-explorer/engine';
 
 export type Mode = 'flat' | 'depth';
 
-/** What the loop reads each frame (pushed from component state). */
 export type View = {
   mode: Mode;
   showAll: boolean;
@@ -18,7 +14,6 @@ export type View = {
   dirty: boolean;
 };
 
-/** The camera: current and target angles, zoom, pan, fit, size and a search focus. */
 export type Cam = {
   yaw: number;
   pitch: number;
@@ -37,6 +32,8 @@ export type Cam = {
   focus: number;
   focusUntil: number;
 };
+
+export type Rig = { e: Engine; v: View; c: Cam };
 
 export const newView = (): View => ({
   mode: 'flat',
@@ -68,16 +65,14 @@ export const newCam = (): Cam => ({
   focusUntil: 0,
 });
 
-/** Room the floating toolbar takes at the top of the map (px); the map centres below it. */
-export const TOP = 56;
-export const midY = (h: number) => (h + TOP) / 2;
+export const TOOLBAR_ROOM_PX = 56;
+export const midY = (h: number) => (h + TOOLBAR_ROOM_PX) / 2;
 export const panelReserve = () => (window.innerWidth >= 1024 ? 416 : 0);
 export const reducedMotion = () =>
   typeof window !== 'undefined' &&
   !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
-/** The camera's resting angles and perspective for a mode. */
-export const modeView = (mode: Mode) =>
+export const restingView = (mode: Mode) =>
   mode === 'depth'
     ? { yaw: 0.55, pitch: -0.28, focal: LAB.focal as number }
     : { yaw: 0, pitch: 0, focal: Infinity };

@@ -1,19 +1,28 @@
-/** The canvas lab's edge painters: batched strokes, then pulses on one-way edges. */
 import { pulseAt } from '../../lib/canvas-explorer';
-import { edgeBatches, pulseBatches, type EdgeBatches } from '../../lib/canvas-explorer/edges';
+import {
+  edgeBatches,
+  pulseBatches,
+  type EdgeBatches,
+  type EdgeLook,
+} from '../../lib/canvas-explorer/edges';
 import type { Frame } from './frame';
 
-const FALLBACK = '#94a3b8';
+const FALLBACK_EDGE_COLOUR = '#94a3b8';
 
-/** Edges, batched by family × alpha step × lit: one stroke per batch. */
+const edgeLook = (f: Frame): EdgeLook => ({
+  litEdge: f.litEdge,
+  showAll: f.v.showAll,
+  selected: f.sel >= 0,
+});
+
 export function paintEdges(f: Frame): EdgeBatches {
   const { ctx, e } = f;
-  const drawn = edgeBatches(e, f.litEdge, f.v.showAll, f.sel >= 0);
+  const drawn = edgeBatches(e, edgeLook(f));
   ctx.lineCap = 'round';
   for (const [key, list] of drawn.batches) {
     const [fam, step, hot] = key.split('|');
     ctx.globalAlpha = Number(step) / 12;
-    ctx.strokeStyle = f.fams[fam] ?? FALLBACK;
+    ctx.strokeStyle = f.fams[fam] ?? FALLBACK_EDGE_COLOUR;
     ctx.lineWidth = hot === '1' ? 1.8 : 1;
     ctx.beginPath();
     for (const k of list) {
@@ -25,13 +34,12 @@ export function paintEdges(f: Frame): EdgeBatches {
   return drawn;
 }
 
-/** Pulses along one-way edges: source → target, slow; one fill per family and state. */
 export function paintPulses(f: Frame, drawn: EdgeBatches) {
   const { ctx } = f;
-  for (const [key, list] of pulseBatches(f.e, drawn, f.litEdge, f.sel >= 0)) {
+  for (const [key, list] of pulseBatches(f.e, drawn, edgeLook(f))) {
     const [fam, state] = key.split('|');
     ctx.globalAlpha = state === '1' ? 1 : state === 'd' ? 0.18 : 0.75;
-    ctx.fillStyle = f.fams[fam] ?? FALLBACK;
+    ctx.fillStyle = f.fams[fam] ?? FALLBACK_EDGE_COLOUR;
     const rad = state === '1' ? 2.4 : 1.6;
     ctx.beginPath();
     for (const k of list) pulseDot(f, k, rad);
@@ -39,7 +47,6 @@ export function paintPulses(f: Frame, drawn: EdgeBatches) {
   }
 }
 
-/** Add edge k's pulse dot to the path (none on edges too short to show it). */
 function pulseDot({ ctx, e, now }: Frame, k: number, rad: number) {
   const a = e.es[k];
   const b = e.et[k];
