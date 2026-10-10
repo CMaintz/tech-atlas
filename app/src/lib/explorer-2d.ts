@@ -18,9 +18,10 @@ import { centreOn, nudge } from './explorer-2d/camera';
 import type { MapParts, MapState } from './explorer-2d/context';
 import { createEdges, createRoutes } from './explorer-2d/edges';
 import { anchorElements, bundleElements, mapElements } from './explorer-2d/elements';
-import { createHover } from './explorer-2d/hover';
+import { bindClusterFocus } from './explorer-2d/cluster-focus';
+import { createHover, crowdedLabels } from './explorer-2d/hover';
 import { buildIslands, type IslandTune } from './explorer-2d/islands';
-import { createLabelCull } from './explorer-2d/labels';
+import { createLabelCull, type LabelWidth } from './explorer-2d/labels';
 import { createLayouts, createPlacement } from './explorer-2d/placement';
 import { bindPointer } from './explorer-2d/pointer';
 import { createRelationNames } from './explorer-2d/relation-names';
@@ -35,7 +36,7 @@ const createCy = (opts: Map2DOptions, theme: MapTheme) =>
   cytoscape({
     container: opts.container,
     elements: mapElements(opts.graph, opts.lang, theme),
-    style: mapStylesheet(theme),
+    style: mapStylesheet(theme, opts.variant),
     layout: { name: 'preset', fit: false } as cytoscape.LayoutOptions,
     minZoom: 0.08,
     maxZoom: 3,
@@ -53,6 +54,8 @@ function createParts(opts: Map2DOptions, theme: MapTheme) {
   const byId = new Map(graph.nodes.map((n) => [n.id, n]));
   const clusterOf = (id: string) => byId.get(id)?.cluster;
   const terms = cy.nodes('[size]');
+  // v2 names no term at rest, from the first frame (the cull only runs once zoom settles).
+  if (opts.variant === 'v2') terms.addClass('nolabel');
   const links = cy.edges().not('.bundle');
   const layouts = createLayouts({ graph, clusterOf, opts }, buildIslands(cy, graph.nodes));
   cy.add(anchorElements(layouts.islands.clusterIds, layouts.force.centre));
@@ -80,6 +83,13 @@ const initialState = (p: MapParts, theme: MapTheme, centre: MapState['centreNow'
   centreNow: centre,
 });
 
+/** v2 only: a selection's crowded neighbour names, and the cluster names' hover and click. */
+function v2Parts(p: MapParts, s: MapState, labelWidth: LabelWidth) {
+  if (p.opts.variant !== 'v2') return { crowd: undefined, clusters: () => {} };
+  const crowd = (lit: cytoscape.NodeCollection) => crowdedLabels(p, lit, labelWidth);
+  return { crowd, clusters: bindClusterFocus(p, s, crowd) };
+}
+
 /** Every part of the map, wired together. */
 function assemble(opts: Map2DOptions) {
   const theme = opts.theme ?? 'dark';
@@ -93,10 +103,11 @@ function assemble(opts: Map2DOptions) {
   const pointer = bindPointer(p, s, { hover, names });
   const dots = startMapDots(p, s);
   const deps = { routes, recull: labels.recull, paintNames: names.paint, moved: pointer.moved };
+  const { crowd, clusters } = v2Parts(p, s, labels.labelWidth);
   const place = createPlacement(p, s, layouts, deps);
   const stagger = createStagger(p.cy);
-  const apply = createApply(p, s, { ...deps, refreshEdges, stagger, place, hover });
-  return { p, s, layouts, labels, hover, pointer, dots, place, stagger, apply };
+  const apply = createApply(p, s, { ...deps, refreshEdges, stagger, place, hover, crowd });
+  return { p, s, layouts, labels, hover, pointer, dots, place, stagger, apply, clusters };
 }
 
 type Assembled = ReturnType<typeof assemble>;
@@ -119,6 +130,7 @@ const destroyer = (m: Assembled) => () => {
   m.stagger.cancel();
   m.labels.stop();
   m.hover.stop();
+  m.clusters();
   m.pointer.destroy();
   m.p.cy.destroy();
 };

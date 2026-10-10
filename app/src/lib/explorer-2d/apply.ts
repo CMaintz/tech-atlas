@@ -6,7 +6,7 @@
 import { centreOn, frame } from './camera';
 import type { MapParts, MapState } from './context';
 import type { HoverPart } from './hover';
-import { paintFocus } from './focus';
+import { paintFocus, type Crowd } from './focus';
 import { refreshTags, type Place } from './placement';
 import { fadeOut, fadingEdges, revealEdges, type RevealDeps } from './reveal';
 import type { View } from './types';
@@ -16,6 +16,8 @@ export type ApplyDeps = Omit<RevealDeps, 'paintFocus'> & {
   hover: HoverPart;
   recull: (force?: boolean) => void;
   paintNames: () => void;
+  /** v2: the neighbours' names a selection hides where they would overlap. */
+  crowd?: Crowd;
 };
 
 /** Show and hide terms; a layout switch also relabels them (years in the time layout). */
@@ -56,7 +58,7 @@ function placeTerms(p: MapParts, d: ApplyDeps, prev: View | null, next: View) {
 
 /** Edges, focus and (after a filter change) the frame, once families have faded. */
 function finish(p: MapParts, s: MapState, d: ApplyDeps, prev: View | null, next: View) {
-  const focus = () => paintFocus(p, s, next, d.paintNames);
+  const focus = () => paintFocus(p, s, next, d.paintNames, d.crowd);
   revealEdges(p, s, { ...d, paintFocus: focus }, prev, next);
   const layoutChanged = !prev || prev.layout !== next.layout;
   if (!layoutChanged && prev.nodes !== next.nodes) {

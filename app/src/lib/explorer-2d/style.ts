@@ -181,6 +181,22 @@ export const extraStyle = (theme: MapTheme): Rule[] => [
   relationNameRule(theme),
 ];
 
-/** The whole 2D stylesheet for a palette. */
-export const mapStylesheet = (theme: MapTheme) =>
-  [...(graphStyle(theme) as unknown[]), ...extraStyle(theme)] as cytoscape.StylesheetJson;
+/**
+ * v2 only, last so they win: lit names draw over every other term, neighbours' names
+ * that would overlap give way, and cluster names take the pointer (on their text).
+ */
+const V2: Rule[] = [
+  { selector: 'node.lit, node.sel', style: { 'z-index': 20 } },
+  { selector: 'node.nbhide', style: { 'text-opacity': 0 } },
+  { selector: 'node.nbhide.pv', style: { 'text-opacity': 1 } },
+  { selector: 'node.tag[id ^= "tag:c:"]', style: { events: 'yes', 'text-events': 'yes' } },
+  { selector: 'node.tag.named', style: { 'text-opacity': 1 } },
+];
+
+/** The whole 2D stylesheet for a palette (and the v2 rules, for that variant). */
+export const mapStylesheet = (theme: MapTheme, variant?: 'v2') =>
+  [
+    ...(graphStyle(theme) as unknown[]),
+    ...extraStyle(theme),
+    ...(variant === 'v2' ? V2 : []),
+  ] as cytoscape.StylesheetJson;

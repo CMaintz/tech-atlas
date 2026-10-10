@@ -2,20 +2,29 @@
  * The 3D galaxy layout's force simulation: repulsion, springs along relationships, the
  * pulls towards cluster, galaxy and depth, and a damped integration step.
  */
-import { EXPLORER } from '../explorer-config';
 import type { Paintable } from '../graph-style';
 
 export type Point3 = { x: number; y: number; z: number };
 export type Spring = { a: number; b: number; len: number; k: number };
+/** The simulation's tunables (`EXPLORER.three`, or a variant's own). */
+export type ForceConfig = {
+  charge: number;
+  chargeCutoff: number;
+  clusterPull: number;
+  domainPull: number;
+  depthStrength: number;
+  ticks: number;
+};
 /** Everything a simulation step reads and moves; `P` and `V` are updated in place. */
 export type Galaxy = {
   nodes: Paintable[];
   P: Point3[];
   V: Point3[];
   springs: Spring[];
-  /** Each term's galaxy centre (horizontal), and the height its depth pulls it to. */
+  /** Each term's horizontal home (`domainPull` draws it there), and its depth height. */
   home: { x: number; z: number }[];
   targetY: number[];
+  cfg: ForceConfig;
 };
 
 const delta = (from: Point3, to: Point3): Point3 => ({
@@ -33,7 +42,7 @@ const nudge = (v: Point3, d: Point3, f: number) => {
 
 /** Repulsion, cut off beyond chargeCutoff so galaxies don't push each other apart. */
 function repel(g: Galaxy, alpha: number): void {
-  const cfg = EXPLORER.three;
+  const cfg = g.cfg;
   const cut2 = cfg.chargeCutoff * cfg.chargeCutoff;
   for (let i = 0; i < g.P.length; i++)
     for (let j = i + 1; j < g.P.length; j++) {
@@ -72,9 +81,9 @@ function clusterSums(g: Galaxy): Map<string, Point3 & { n: number }> {
   return sums;
 }
 
-/** Pull every term towards its cluster's centre, its galaxy's centre and its depth height. */
+/** Pull every term towards its cluster's centre, its home and its depth height. */
 function pullHome(g: Galaxy, alpha: number): void {
-  const cfg = EXPLORER.three;
+  const cfg = g.cfg;
   const sums = clusterSums(g);
   const k = cfg.clusterPull * alpha;
   g.nodes.forEach((node, i) => {
@@ -102,9 +111,9 @@ function integrate(g: Galaxy): void {
   });
 }
 
-/** Run the simulation for `EXPLORER.three.ticks` steps, cooling as it goes. */
+/** Run the simulation for `cfg.ticks` steps, cooling as it goes. */
 export function simulate(g: Galaxy): void {
-  const ticks = EXPLORER.three.ticks;
+  const ticks = g.cfg.ticks;
   for (let step = 0; step < ticks; step++) {
     const alpha = 1 - step / ticks;
     repel(g, alpha);

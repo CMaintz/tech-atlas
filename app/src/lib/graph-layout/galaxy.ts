@@ -5,16 +5,34 @@
 import { EXPLORER } from '../explorer-config';
 import { homeDomain, seededRandom } from '../graph-style';
 import { domainRank } from '../graph-style/palette';
-import { simulate, type Point3, type Spring } from './galaxy-forces';
+import { simulate, type ForceConfig, type Point3, type Spring } from './galaxy-forces';
 import { byDomain } from './lanes';
-import type { LayoutNode, Link } from './types';
+import { linkEnds, type LayoutNode, type Link } from './types';
 
 type DepthNode = LayoutNode & { depth: number };
 type Seat = { x: number; z: number };
 
+/** The layout's tunables: `EXPLORER.three`, or a variant's own. */
+export type GalaxyConfig = ForceConfig & {
+  ringRadius: number;
+  clusterRadius: number;
+  depthSpacing: number;
+  depthJitter: number;
+  linkInCluster: number;
+  linkAcross: number;
+  springIn: number;
+  springAcross: number;
+  /** Room per cluster round its galaxy: the seat ring widens to fit them all. */
+  clusterGap?: number;
+  /** Home each term at its own cluster's seat, not its galaxy's centre. */
+  seatHome?: boolean;
+};
+
 /** Each domain's galaxy centre, evenly spaced round a horizontal ring in domain order. */
-export function galaxyAnchors(nodes: LayoutNode[]): Map<string, Seat> {
-  const r = EXPLORER.three.ringRadius;
+export function galaxyAnchors(
+  nodes: LayoutNode[],
+  r: number = EXPLORER.three.ringRadius,
+): Map<string, Seat> {
   const domains = [...new Set(nodes.map((n) => homeDomain(n)))].sort(byDomain);
   return new Map(
     domains.map((d, i) => {
@@ -36,11 +54,16 @@ function clustersByDomain(nodes: LayoutNode[]): Map<string, string[]> {
 }
 
 /** Each cluster's seat: round its galaxy's centre (or on it, for a lone cluster). */
-function clusterSeats(nodes: LayoutNode[], anchor: Map<string, Seat>): Map<string, Seat> {
+function clusterSeats(
+  nodes: LayoutNode[],
+  anchor: Map<string, Seat>,
+  cfg: GalaxyConfig,
+): Map<string, Seat> {
   const seats = new Map<string, Seat>();
   for (const [d, cs] of clustersByDomain(nodes)) {
     const c = anchor.get(d)!;
-    const r = cs.length > 1 ? EXPLORER.three.clusterRadius : 0;
+    const fit = ((cfg.clusterGap ?? 0) * cs.length) / (2 * Math.PI);
+    const r = cs.length > 1 ? Math.max(cfg.clusterRadius, fit) : 0;
     cs.sort().forEach((cl, i) => {
       const a = (2 * Math.PI * i) / cs.length + domainRank(d);
       seats.set(cl, { x: c.x + r * Math.cos(a), z: c.z + r * Math.sin(a) });
@@ -50,26 +73,20 @@ function clusterSeats(nodes: LayoutNode[], anchor: Map<string, Seat>): Map<strin
 }
 
 /** A spring per relationship between known terms: short and stiff inside a cluster. */
-function springsOf(nodes: LayoutNode[], links: Link[]): Spring[] {
-  const cfg = EXPLORER.three;
-  const index = new Map(nodes.map((n, i) => [n.id, i]));
-  return links
-    .map((l) => [index.get(l.source), index.get(l.target)] as const)
-    .filter((p): p is readonly [number, number] => p[0] !== undefined && p[1] !== undefined)
-    .map(([a, b]) => {
-      const same = nodes[a].cluster === nodes[b].cluster;
-      return {
-        a,
-        b,
-        len: same ? cfg.linkInCluster : cfg.linkAcross,
-        k: same ? cfg.springIn : cfg.springAcross,
-      };
-    });
+function springsOf(nodes: LayoutNode[], links: Link[], cfg: GalaxyConfig): Spring[] {
+  return linkEnds(nodes, links).map(([a, b]) => {
+    const same = nodes[a].cluster === nodes[b].cluster;
+    return {
+      a,
+      b,
+      len: same ? cfg.linkInCluster : cfg.linkAcross,
+      k: same ? cfg.springIn : cfg.springAcross,
+    };
+  });
 }
 
 /** Height each term is drawn to: its depth about the mean, with a seeded spread. */
-function depthTargets(nodes: DepthNode[], rand: () => number): number[] {
-  const cfg = EXPLORER.three;
+function depthTargets(nodes: DepthNode[], rand: () => number, cfg: GalaxyConfig): number[] {
   const meanDepth = nodes.reduce((s, n) => s + n.depth, 0) / Math.max(1, nodes.length);
   // Depth is a bias with a spread, so a row of equal-depth terms is a band, not a floor.
   return nodes.map(
@@ -95,15 +112,18 @@ export function galaxyLayout(
   nodes: DepthNode[],
   links: Link[],
   seed = 20260925,
+  cfg: GalaxyConfig = EXPLORER.three,
 ): Map<string, Point3> {
   const rand = seededRandom(seed);
-  const anchor = galaxyAnchors(nodes);
-  const seats = clusterSeats(nodes, anchor);
-  const targetY = depthTargets(nodes, rand);
+  const anchor = galaxyAnchors(nodes, cfg.ringRadius);
+  const seats = clusterSeats(nodes, anchor, cfg);
+  const targetY = depthTargets(nodes, rand, cfg);
   const P = nodes.map((n, i) => startAt(seats.get(n.cluster)!, targetY[i], rand));
   const V = nodes.map(() => ({ x: 0, y: 0, z: 0 }));
-  // A term's horizontal home: its own cluster's galaxy, like any other term.
-  const home = nodes.map((n) => anchor.get(homeDomain(n))!);
-  simulate({ nodes, P, V, springs: springsOf(nodes, links), home, targetY });
+  // A term's horizontal home: its own cluster's galaxy (or seat), like any other term.
+  const home = nodes.map((n) =>
+    cfg.seatHome ? seats.get(n.cluster)! : anchor.get(homeDomain(n))!,
+  );
+  simulate({ nodes, P, V, springs: springsOf(nodes, links, cfg), home, targetY, cfg });
   return new Map(nodes.map((nd, i) => [nd.id, P[i]]));
 }

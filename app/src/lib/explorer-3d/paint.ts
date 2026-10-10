@@ -11,6 +11,8 @@ import { createDomainNames, createHubLabels } from './labels';
 import { createWeb } from './web';
 import { createFlow } from './flow';
 import { createTags } from './tags';
+import { createTermNames } from './term-names';
+import { createClusterNames } from './clusters';
 import type { Ctx } from './context';
 import { inkOf, isLight } from './lens';
 
@@ -32,7 +34,10 @@ function createParts(ctx: Ctx) {
   const flow = createFlow(ctx, curve, linkLength);
   flow.run(true);
   const tags = createTags(ctx, curve);
-  return { glow, hubs, domains, web, flow, tags, curve, linkLength };
+  // v2 only (both are empty otherwise): lit terms' names, and the cluster names.
+  const termNames = createTermNames(ctx);
+  const clusters = createClusterNames(ctx);
+  return { glow, hubs, domains, web, flow, tags, termNames, clusters, curve, linkLength };
 }
 
 type Parts = ReturnType<typeof createParts>;
@@ -60,6 +65,8 @@ function repalette(ctx: Ctx, parts: Parts) {
   parts.tags.clearArt();
   parts.hubs.redraw();
   parts.domains.redraw();
+  parts.termNames.clearArt();
+  parts.clusters.redraw();
 }
 
 export function createPainter(ctx: Ctx) {
@@ -73,6 +80,8 @@ export function createPainter(ctx: Ctx) {
     parts.hubs.paint();
     parts.domains.paint();
     parts.tags.paint();
+    parts.termNames.paint();
+    parts.clusters.paint();
   };
   /** Re-evaluate 3d-force-graph's accessors (its idiom), paint ours, land new objects. */
   const refresh = () => {

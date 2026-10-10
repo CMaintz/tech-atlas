@@ -1,0 +1,29 @@
+/*
+ * The legend is a pill in the map's bottom-left corner whose body opens upward,
+ * so it never meets the bar. It scales with the screen: a wider pill on big screens and
+ * a wider open body. It steps aside while the term panel covers it: full width below
+ * lg, or expanded.
+ */
+#explorer {
+  --xp-legend-w: clamp(18rem, 22vw, 28rem);
+}
+#explorer [data-explorer-legend] [data-legend-body] {
+  width: var(--xp-legend-w);
+}
+@media (min-width: 1440px) {
+  #explorer [data-explorer-legend] details {
+    min-width: 10rem;
+  }
+  #explorer [data-explorer-legend] summary {
+    font-size: 0.8125rem;
+    padding-block: 0.625rem;
+  }
+}
+#explorer:has([data-term-panel][data-expanded]) [data-explorer-legend] {
+  visibility: hidden;
+}
+@media (max-width: 1023px) {
+  #explorer:has([data-term-panel]) [data-explorer-legend] {
+    visibility: hidden;
+  }
+}

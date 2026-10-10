@@ -43,5 +43,5 @@ export function retheme(p: MapParts, theme: MapTheme) {
     rethemeBundles(p, theme);
     p.cy.nodes('.tag').forEach((n) => void n.data('colour', tagColour(n.id(), theme)));
   });
-  p.cy.style(mapStylesheet(theme));
+  p.cy.style(mapStylesheet(theme, p.opts.variant));
 }

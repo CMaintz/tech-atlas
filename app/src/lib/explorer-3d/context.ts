@@ -27,13 +27,15 @@ export type Base = {
 export type Ctx = Base & { fg: Graph3D; scene: ReturnType<ForceGraph3DInstance['scene']> };
 
 function baseOf(THREE: Three, opts: Map3DOptions): Base {
-  const model = buildModel(opts.graph);
+  const model = buildModel(opts.graph, opts.variant);
   const state: State3 = {
     theme: opts.theme ?? 'dark',
     view: null,
     fx: { hood: null, preview: null },
     hoverId: null,
     underLink: null,
+    underTerm: null,
+    cluster: null,
   };
   const lens = createLens(model.neighbours, state);
   const gate = createMotionGate();
@@ -44,6 +46,8 @@ export function createContext(ForceGraph3D: GraphClass, THREE: Three, opts: Map3
   const base = baseOf(THREE, opts);
   const fg = createGraph3D(ForceGraph3D, base);
   const scene = fg.scene();
-  scene.fog = new THREE.FogExp2(inkOf(base).bg3d, EXPLORER.three.fogDensity);
+  // v2's galaxies spread twice as wide: a thinner fog keeps the far ones legible.
+  const fog = opts.variant === 'v2' ? EXPLORER.v2.fogDensity : EXPLORER.three.fogDensity;
+  scene.fog = new THREE.FogExp2(inkOf(base).bg3d, fog);
   return { ...base, fg, scene };
 }

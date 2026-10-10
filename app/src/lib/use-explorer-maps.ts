@@ -30,6 +30,7 @@ export type MapWiring = {
   selRef: MutableRef<string | null>;
   onSelect: (id: string | null) => void;
   onPoint: (hit: Point | null) => void;
+  variant?: 'v2';
 };
 
 /** Pixels the docked term panel covers on the right of the map (lg: 26rem). */
@@ -53,6 +54,7 @@ function options2D(container: HTMLElement, graph: Graph, w: MapWiring): Map2DOpt
     onPoint: w.onPoint,
     theme: w.theme,
     relationNames: w.relationNames,
+    variant: w.variant,
   };
 }
 
@@ -67,7 +69,9 @@ function options3D(container: HTMLElement, graph: Graph, w: MapWiring): Map3DOpt
     onPoint: w.onPoint,
     theme: w.theme,
     domainLabels: w.domainLabels,
+    clusterLabels: w.clusterLabels,
     relationNames: w.relationNames,
+    variant: w.variant,
   };
 }
 
@@ -95,10 +99,22 @@ export function useMap2D(
 
 /** The 2D map is told what to show whenever any part of the view changes. */
 function useShow2D(map: MutableRef<Map2D | null>, graph: Graph | null, v: View) {
-  const { layout, nodes, domains, families, showAll, selected, highlight, colour, bands } = v;
+  const { layout, nodes, domains, families, showAll, selected, highlight, hoodLit } = v;
   useEffect(() => {
     map.current?.apply(v);
-  }, [graph, layout, nodes, domains, families, showAll, selected, highlight, colour, bands]);
+  }, [
+    graph,
+    layout,
+    nodes,
+    domains,
+    families,
+    showAll,
+    selected,
+    highlight,
+    hoodLit,
+    v.colour,
+    v.bands,
+  ]);
 }
 
 /** The 3D map in `box`: built (lazily loaded) the first time 3D is opened, then kept. */
@@ -146,10 +162,10 @@ export function useMap3DView(map: Map3D | null, s: Shown, view: View) {
       s.map2d.current.resize();
     }
   }, [s.mode, map]);
-  const { nodes, families, showAll, selected, highlight, colour, bands } = view;
+  const { nodes, families, showAll, selected, highlight, hoodLit, colour, bands } = view;
   useEffect(() => {
-    map?.apply({ nodes, families, showAll, selected, highlight, colour, bands });
-  }, [map, nodes, families, showAll, selected, highlight, colour, bands]);
+    map?.apply({ nodes, families, showAll, selected, highlight, hoodLit, colour, bands });
+  }, [map, nodes, families, showAll, selected, highlight, hoodLit, colour, bands]);
 }
 
 type Moved = {

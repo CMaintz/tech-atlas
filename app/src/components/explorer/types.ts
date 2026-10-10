@@ -25,6 +25,8 @@ export interface ExplorerProps {
     showAll: boolean;
     onMaps: (maps: { map2d: Map2D | null; map3d: Map3D | null }) => void;
   };
+  /** The next Explorer's lab only: quiet term names, cluster focus, spread 3D clusters. */
+  variant?: 'v2';
   /** The `semantic-search` Edge Function, or '' when none is configured (names only). */
   semanticUrl?: string;
 }
