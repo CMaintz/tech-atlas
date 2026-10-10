@@ -50,7 +50,7 @@ export function useFilters(familyKeys: string[]) {
   const [showAll, setShowAll] = useState(false);
   return { domains, setDomains, families, setFamilies, showAll, setShowAll };
 }
-export type Filters = ReturnType<typeof useFilters>;
+type Filters = ReturnType<typeof useFilters>;
 
 export type LabControls = { refs: LabRefs; ui: ViewUi; filters: Filters };
 export type LabState = LabControls & { graph: Graph | null };
