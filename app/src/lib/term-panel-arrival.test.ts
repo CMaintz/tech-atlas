@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { arrivalAnnouncement, focusesName } from './term-panel';
+import { arrivalAnnouncement, focusesName } from './panel-nav';
 
 describe('focusesName', () => {
   it('moves focus to the name for a pick from elsewhere or a return to the anchor', () => {

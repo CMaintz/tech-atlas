@@ -9,8 +9,7 @@ import { usePanel } from './term-panel/use-panel';
 export type { PanelConfig } from './term-panel/types';
 export { prefetchTerm } from './term-panel/term-cache';
 
-/** The panel's box: docked beside the map, or expanded over the page as a modal dialog. */
-function PanelFrame({ panel, children }: PartProps & { children: ComponentChildren }) {
+function DockedOrModalPanelFrame({ panel, children }: PartProps & { children: ComponentChildren }) {
   const { expanded } = panel;
   return (
     <div
@@ -28,23 +27,17 @@ function PanelFrame({ panel, children }: PartProps & { children: ComponentChildr
   );
 }
 
-/**
- * The Explorer's term panel: a term's essentials beside the map, in the site's
- * language: facets, what to learn first, relationships (which re-focus the map, never navigate),
- * self-assessment and a quick quiz. Expand fills the page below the header, with the
- * term's neighbourhood graph; "Read more", at the end of the panel, opens the full entry page.
- */
 export default function TermPanel(props: PanelProps) {
   const panel = usePanel(props);
   if (!panel) return null;
   return (
-    <PanelFrame panel={panel}>
+    <DockedOrModalPanelFrame panel={panel}>
       <PanelToolbar panel={panel} />
       <ConnectionBar panel={panel} />
       <p class="sr-only" aria-live="polite" data-panel-announce>
         {panel.nav.announce}
       </p>
       <PanelBody panel={panel} />
-    </PanelFrame>
+    </DockedOrModalPanelFrame>
   );
 }

@@ -1,7 +1,6 @@
 import { useTimelineCtx } from './context';
 import { Dot } from './Dot';
 
-/** The key under the controls: a milestone, a term in a second domain, a "+N" chip. */
 export function Legend({ domains }: { domains: string[] }) {
   const { ink, text } = useTimelineCtx();
   return (
@@ -9,14 +8,13 @@ export function Legend({ domains }: { domains: string[] }) {
       <span class="flex items-center gap-2">
         <Dot colour={ink(domains[0])} ring={null} hub /> {text.milestone}
       </span>
-      <OtherDomainKey domains={domains} />
-      <MoreKey />
+      <SecondDomainRingKey domains={domains} />
+      <DesktopMoreChipKey />
     </p>
   );
 }
 
-/** A dot ringed in a second domain's colour. */
-function OtherDomainKey({ domains }: { domains: string[] }) {
+function SecondDomainRingKey({ domains }: { domains: string[] }) {
   const { ink, text } = useTimelineCtx();
   return (
     <span class="flex items-center gap-2.5">
@@ -28,8 +26,7 @@ function OtherDomainKey({ domains }: { domains: string[] }) {
   );
 }
 
-/** A sample "+N" chip (desktop only: phones show every term). */
-function MoreKey() {
+function DesktopMoreChipKey() {
   const { text } = useTimelineCtx();
   return (
     <span class="hidden items-center gap-2 sm:flex">

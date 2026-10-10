@@ -7,34 +7,22 @@ type LegendDomain = ReturnType<typeof legendDomains>[number];
 
 interface Props {
   nodes: Paintable[];
-  /** Families to list (those present or enabled), with their colours and labels. */
   families: string[];
   familyColours: Dict;
   familyLabels: Dict;
   domainLabels: Dict;
   clusterLabels: Dict;
   text: Dict;
-  /** Start open (desktop) or closed (small screens). */
   open?: boolean;
-  /** The reader opened or closed the legend. */
   onToggle?: (open: boolean) => void;
-  /** Compact: one domain row each, no cluster list (term-page graph). */
   compact?: boolean;
-  /** Explorer only: the overview/all-relationships toggle. */
   showAll?: boolean;
   onShowAll?: (on: boolean) => void;
-  /** Explorer only: a one-line keyboard hint at the foot. */
   hint?: string;
-  /** The map theme its colours match; dark by default. */
   theme?: MapTheme;
-  /**
-   * Explorer only: the closed legend is a pill and the open body floats above it,
-   * growing upward from the pill, so it can sit in a bottom corner of the map.
-   */
   upward?: boolean;
 }
 
-/** The graph legend: domains and their cluster shades, edge families, arrow meaning. */
 export default function GraphLegend(props: Props) {
   const theme = props.theme ?? 'dark';
   return (
@@ -43,16 +31,15 @@ export default function GraphLegend(props: Props) {
       onToggle={(e) => props.onToggle?.((e.currentTarget as HTMLDetailsElement).open)}
       class={detailsClass(props)}
     >
-      <summary class={summaryClass(props.upward)}>
+      <summary class={pillSummaryClass(props.upward)}>
         {props.text.legend}
-        {props.upward && <Chevron />}
+        {props.upward && <PillChevron />}
       </summary>
       <LegendBody {...props} theme={theme} />
     </details>
   );
 }
 
-/** The key itself; upward, it floats above the pill. */
 function LegendBody(props: Props & { theme: MapTheme }) {
   return (
     <div data-legend-body class={props.upward ? UPWARD_BODY : undefined}>
@@ -63,22 +50,18 @@ function LegendBody(props: Props & { theme: MapTheme }) {
   );
 }
 
-/** Inline (term page): a box that scrolls; upward (Explorer): a pill its body floats over. */
 function detailsClass({ upward, compact }: Pick<Props, 'upward' | 'compact'>) {
   if (upward) return `group relative w-fit rounded-lg px-3 text-xs text-fg-soft ${GLASS}`;
   const size = compact ? 'w-full p-3' : 'w-fit px-3 py-2 open:w-64';
   return `max-h-[60vh] ${size} max-w-[calc(100vw-2rem)] overflow-y-auto rounded-lg text-xs text-fg-soft ${GLASS}`;
 }
 
-/** The label; as a pill it is at least 44 px tall on phones and holds the chevron. */
-const summaryClass = (upward?: boolean) =>
+const pillSummaryClass = (upward?: boolean) =>
   `cursor-pointer text-[11px] tracking-widest text-muted uppercase select-none ${upward ? 'flex min-h-11 items-center justify-between gap-2 md:min-h-0 md:py-2' : ''}`;
 
-/** The open body above the pill: capped at 50dvh on phones (60dvh from md), scrolling. */
 const UPWARD_BODY = `absolute bottom-full left-0 mb-1.5 max-h-[50dvh] max-w-[calc(100vw-1.5rem)] overflow-y-auto overscroll-contain rounded-lg px-3 pt-1 pb-2 md:max-h-[60dvh] ${GLASS}`;
 
-/** Points up while closed (the body opens upward), down while open. */
-function Chevron() {
+function PillChevron() {
   return (
     <svg
       width="10"
@@ -96,34 +79,23 @@ type ListProps = Pick<Props, 'nodes' | 'compact' | 'domainLabels' | 'clusterLabe
   theme: MapTheme;
 };
 
-/** The legend's terms: each domain (with its clusters), and what a shared term's ring means. */
 function NodeKey(props: ListProps & { text: Dict }) {
   const shared = props.nodes.some((n) => n.domain.length > 1);
   return (
     <>
       <p class="mt-2 mb-1 text-subtle">{props.text.nodes}</p>
       <DomainList {...props} />
-      {shared && <RingNote text={props.text.ring} theme={props.theme} />}
+      {shared && <SharedTermRingNote text={props.text.ring} theme={props.theme} />}
     </>
   );
 }
 
-/** Each shown domain in its colour, with (unless compact) its clusters' shades. */
 function DomainList({ nodes, compact, domainLabels, clusterLabels, theme }: ListProps) {
   return (
     <ul class={compact ? 'space-y-1.5' : 'space-y-1'}>
       {legendDomains(nodes, theme).map((d) => (
         <li>
-          <div class="flex items-center gap-2 font-medium" style={{ color: d.colour }}>
-            <span
-              class="inline-block h-2.5 w-2.5 rounded-full"
-              style={{
-                background: d.colour,
-                boxShadow: theme === 'dark' ? `0 0 6px ${d.colour}` : undefined,
-              }}
-            />
-            {domainLabels[d.domain] ?? d.domain}
-          </div>
+          <DomainName domain={d} label={domainLabels[d.domain] ?? d.domain} theme={theme} />
           {!compact && <ClusterShades domain={d} labels={clusterLabels} />}
         </li>
       ))}
@@ -131,7 +103,23 @@ function DomainList({ nodes, compact, domainLabels, clusterLabels, theme }: List
   );
 }
 
-/** A domain's clusters, each a dot in its shade. */
+type DomainNameProps = { domain: LegendDomain; label: string; theme: MapTheme };
+
+function DomainName({ domain, label, theme }: DomainNameProps) {
+  return (
+    <div class="flex items-center gap-2 font-medium" style={{ color: domain.colour }}>
+      <span
+        class="inline-block h-2.5 w-2.5 rounded-full"
+        style={{
+          background: domain.colour,
+          boxShadow: theme === 'dark' ? `0 0 6px ${domain.colour}` : undefined,
+        }}
+      />
+      {label}
+    </div>
+  );
+}
+
 function ClusterShades({ domain, labels }: { domain: LegendDomain; labels: Dict }) {
   return (
     <div class="mt-0.5 ml-4 flex flex-wrap gap-x-2 gap-y-0.5 text-muted">
@@ -145,8 +133,7 @@ function ClusterShades({ domain, labels }: { domain: LegendDomain; labels: Dict 
   );
 }
 
-/** A shared term wears a ring in its second domain's colour. */
-function RingNote({ text, theme }: { text: string; theme: MapTheme }) {
+function SharedTermRingNote({ text, theme }: { text: string; theme: MapTheme }) {
   return (
     <p class="mt-2 flex items-center gap-2 text-muted">
       <span

@@ -3,16 +3,10 @@ import type { Chip } from '../../lib/timeline-layout';
 import { useDismiss } from '../../lib/use-dismiss';
 import { canHover } from './use-selection';
 
-/** The open "+N" list: which chip's terms, where, and whether it is pinned. */
 export type More = { key: string; ids: string[]; pinned: boolean; x: number; y: number };
 
-/** Grace period for the pointer to move from a chip into its list. */
-const LEAVE_MS = 180;
+const LEAVE_GRACE_MS = 180;
 
-/**
- * The "+N" chip list: a preview on hover, pinned on click (then Escape or a click
- * outside closes it). Closed whenever the chart changes (`resetOn`: zoom, domains).
- */
 export function useMoreList(resetOn: unknown[]) {
   const [more, setMore] = useState<More | null>(null);
   const timer = useRef<number>();
@@ -24,7 +18,7 @@ export function useMoreList(resetOn: unknown[]) {
   };
   const leave = () => {
     hold();
-    timer.current = window.setTimeout(() => setMore((m) => (m?.pinned ? m : null)), LEAVE_MS);
+    timer.current = window.setTimeout(() => setMore((m) => (m?.pinned ? m : null)), LEAVE_GRACE_MS);
   };
   const close = () => setMore(null);
   useEffect(close, resetOn);
@@ -34,7 +28,6 @@ export function useMoreList(resetOn: unknown[]) {
 
 export type MoreList = ReturnType<typeof useMoreList>;
 
-/** A "+N" chip's handlers: hover previews its list, a click pins it (or closes it again). */
 export function chipHandlers(chip: Chip, list: MoreList) {
   const { more } = list;
   const pinned = more?.key === chip.key && more.pinned;

@@ -8,31 +8,37 @@ type Props = {
   familyColours: Dict;
   familyLabels: Dict;
   text: Dict;
-  /** Explorer only: the overview/all-relationships toggle. */
   showAll?: boolean;
   onShowAll?: (on: boolean) => void;
   theme: MapTheme;
 };
 
-/** The legend's edges: the show-all toggle (when offered), each family, the line kinds. */
 export function EdgeKey({ families, familyColours, familyLabels, text, theme, ...all }: Props) {
   return (
     <>
       <p class="mt-3 mb-1 text-subtle">{text.edges}</p>
       {all.onShowAll && <ShowAll text={text} showAll={all.showAll} onShowAll={all.onShowAll} />}
-      <ul class="space-y-1">
-        {families.map((f) => (
-          <li class="flex items-center gap-2">
-            <span
-              class="inline-block h-0.5 w-5 shrink-0 rounded"
-              style={{ background: familyColours[f] }}
-            />
-            {familyLabels[f] ?? f}
-          </li>
-        ))}
-      </ul>
-      <LineKinds text={text} theme={theme} />
+      <FamilyList families={families} familyColours={familyColours} familyLabels={familyLabels} />
+      <LineKindKeys text={text} theme={theme} />
     </>
+  );
+}
+
+type FamilyListProps = Pick<Props, 'families' | 'familyColours' | 'familyLabels'>;
+
+function FamilyList({ families, familyColours, familyLabels }: FamilyListProps) {
+  return (
+    <ul class="space-y-1">
+      {families.map((f) => (
+        <li class="flex items-center gap-2">
+          <span
+            class="inline-block h-0.5 w-5 shrink-0 rounded"
+            style={{ background: familyColours[f] }}
+          />
+          {familyLabels[f] ?? f}
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -54,13 +60,12 @@ function ShowAll({ text, showAll, onShowAll }: ShowAllProps) {
   );
 }
 
-/** One-way (dashed, arrowed), two-way (solid) and cross-domain (gradient) links. */
-function LineKinds({ text, theme }: { text: Dict; theme: MapTheme }) {
+function LineKindKeys({ text, theme }: { text: Dict; theme: MapTheme }) {
   return (
     <ul class="mt-3 space-y-1.5 text-muted">
       <KeyRow sample={<OneWayIcon />} label={text.oneWay} />
       <KeyRow sample={<TwoWayIcon />} label={text.twoWay} />
-      <KeyRow sample={<CrossDomainLine theme={theme} />} label={text.crossDomain} />
+      <KeyRow sample={<CrossDomainGradientLine theme={theme} />} label={text.crossDomain} />
     </ul>
   );
 }
@@ -76,7 +81,7 @@ function KeyRow({ sample, label }: { sample: ComponentChildren; label: string })
 
 function OneWayIcon() {
   return (
-    <LineIcon>
+    <LegendLineSample>
       <line
         x1="1"
         y1="5"
@@ -87,28 +92,26 @@ function OneWayIcon() {
         stroke-dasharray="3 3"
       />
       <path d="M14 1 L21 5 L14 9 Z" fill="currentColor" />
-    </LineIcon>
+    </LegendLineSample>
   );
 }
 
 function TwoWayIcon() {
   return (
-    <LineIcon>
+    <LegendLineSample>
       <line x1="1" y1="5" x2="21" y2="5" stroke="currentColor" stroke-width="1.5" />
-    </LineIcon>
+    </LegendLineSample>
   );
 }
 
-/** A link between domains fades from one domain's colour to the other's. */
-function CrossDomainLine({ theme }: { theme: MapTheme }) {
+function CrossDomainGradientLine({ theme }: { theme: MapTheme }) {
   const gradient = `linear-gradient(90deg, ${domainColour('security', theme)}, ${domainColour('cs', theme)})`;
   return (
     <span class="mt-1 inline-block h-0.5 w-5 shrink-0 rounded" style={{ background: gradient }} />
   );
 }
 
-/** A small line sample in the legend's key. */
-function LineIcon({ children }: { children: ComponentChildren }) {
+function LegendLineSample({ children }: { children: ComponentChildren }) {
   return (
     <svg
       width="22"

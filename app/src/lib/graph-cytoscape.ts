@@ -1,9 +1,3 @@
-/**
- * Cytoscape glue shared by the Explorer and the term-page graph: the stylesheet
- * (graph-cytoscape/stylesheet.ts), element data built from graph-style, hover
- * highlighting, the animated flow along one-way edges and the eased fit. Browser-only;
- * the pure mapping it relies on lives in graph-style.ts.
- */
 import type cytoscape from 'cytoscape';
 import type { EdgeType } from '../schema';
 import type { Family } from './graph-model';
@@ -22,11 +16,6 @@ const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
 export const reducedMotion = () =>
   typeof window !== 'undefined' && !!window.matchMedia?.(REDUCED_MOTION).matches;
 
-/**
- * The page's resolved theme: `data-theme` on <html>, set before first paint by
- * theme-init.js and kept in step with the menu and the OS by Base.astro; the OS
- * preference when there is no attribute. 'dark' outside a browser.
- */
 export function currentTheme(): MapTheme {
   if (typeof document === 'undefined') return 'dark';
   const t = document.documentElement.dataset.theme;
@@ -34,7 +23,6 @@ export function currentTheme(): MapTheme {
   return window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
 }
 
-/** Call `fn` with the new theme whenever it changes (menu or OS). Returns a stop function. */
 export function watchTheme(fn: (theme: MapTheme) => void): () => void {
   let last = currentTheme();
   const obs = new MutationObserver(() => {
@@ -47,8 +35,8 @@ export function watchTheme(fn: (theme: MapTheme) => void): () => void {
 
 type Endpoint = Paintable & { id: string };
 type Link = { source: string; target: string; type: EdgeType; family: Family };
+type EndpointLookup = (id: string) => Endpoint | undefined;
 
-/** The Cytoscape data fields an edge's paint sets. */
 const paintData = (p: EdgePaint) => ({
   colour: p.colour,
   arrow: p.directed ? 'triangle' : 'none',
@@ -57,32 +45,35 @@ const paintData = (p: EdgePaint) => ({
   gradient: p.gradient ? p.gradient.join(' ') : undefined,
 });
 
-/** Cytoscape edge data for a list of links: colour, arrow, curve and cross-domain gradient. */
 export function edgeData(
   links: Link[],
-  nodeOf: (id: string) => Endpoint | undefined,
+  nodeOf: EndpointLookup,
   width: (l: Link, i: number) => number,
-  /** Resting opacity; hover, flow and highlight raise it. */
   alpha = 0.5,
   theme: MapTheme = 'dark',
 ) {
   const curves = curveOffsets(links);
   return links.map((l, i) => ({
     id: `e${i}`,
-    source: l.source,
-    target: l.target,
-    type: l.type,
-    ...paintData(edgePaint(l, nodeOf(l.source)!, nodeOf(l.target)!, theme)),
+    ...paintedLink(l, nodeOf, theme),
     curve: curves[i],
     width: width(l, i),
     alpha,
   }));
 }
 
-/**
- * Hovering a node lights its neighbourhood, fades the rest and sets its one-way edges
- * flowing. Only childless nodes react (never a compound parent, should one be added).
- */
+function paintedLink(l: Link, nodeOf: EndpointLookup, theme: MapTheme) {
+  const ends = { source: endpointOf(nodeOf, l.source), target: endpointOf(nodeOf, l.target) };
+  const paint = edgePaint(l, ends, theme);
+  return { source: l.source, target: l.target, type: l.type, ...paintData(paint) };
+}
+
+function endpointOf(nodeOf: EndpointLookup, id: string): Endpoint {
+  const node = nodeOf(id);
+  if (!node) throw new Error(`edgeData: no node for edge endpoint ${id}`);
+  return node;
+}
+
 export function attachHover(cy: cytoscape.Core) {
   cy.on('mouseover', 'node:childless', (e) => {
     const hood = e.target.closedNeighborhood();
@@ -91,91 +82,98 @@ export function attachHover(cy: cytoscape.Core) {
       hood.addClass('lit');
       hood.edges('[?directed]').addClass('hflow');
     });
-    cy.container()!.style.cursor = 'pointer';
+    setCursor(cy, 'pointer');
   });
   cy.on('mouseout', 'node:childless', () => {
     cy.batch(() => cy.elements().removeClass('faded lit hflow'));
-    cy.container()!.style.cursor = 'default';
+    setCursor(cy, 'default');
   });
 }
 
-/**
- * Animate dashes along every edge carrying `flow`/`hflow`, source → target, at `fps`.
- * The loop idles while nothing (or too much) flows and wakes when edge classes change;
- * it stops and starts with the prefers-reduced-motion setting, live (the dashes stay
- * still while motion is reduced). Returns a stop function.
- */
+function setCursor(cy: cytoscape.Core, cursor: string) {
+  const container = cy.container();
+  if (!container) throw new Error('attachHover: the graph has no container');
+  container.style.cursor = cursor;
+}
+
 export function startFlow(cy: cytoscape.Core, limit = 160, fps = 30): () => void {
   const motion = typeof window !== 'undefined' ? window.matchMedia?.(REDUCED_MOTION) : undefined;
-  let raf = 0;
-  let last = 0;
-  let stopped = false;
-  const tick = (t: number) => {
-    raf = 0;
-    if (stopped || motion?.matches) return;
-    const flowing = cy.edges('.flow, .hflow');
-    // Nothing to animate: idle until a class change wakes the loop.
-    if (flowing.empty() || flowing.length > limit) return;
-    raf = requestAnimationFrame(tick);
-    if (t - last < 1000 / fps) return;
-    last = t;
-    flowing.style('line-dash-offset', flowOffset(t));
-  };
-  const wake = () => {
-    if (!raf && !stopped && !motion?.matches) raf = requestAnimationFrame(tick);
-  };
-  cy.on('class', 'edge', wake);
-  motion?.addEventListener?.('change', wake);
-  wake();
+  const loop = new FlowLoop(cy, { limit, fps }, motion);
+  cy.on('class', 'edge', loop.wake);
+  motion?.addEventListener?.('change', loop.wake);
+  loop.wake();
   return () => {
-    stopped = true;
-    cancelAnimationFrame(raf);
-    cy.removeListener('class', 'edge', wake);
-    motion?.removeEventListener?.('change', wake);
+    loop.stop();
+    cy.removeListener('class', 'edge', loop.wake);
+    motion?.removeEventListener?.('change', loop.wake);
   };
 }
 
-/**
- * Fit the graph with a short ease-in zoom (instant under reduced motion). `reserveRight`
- * keeps that many pixels on the right clear, for an overlay such as the legend.
- */
+type FlowPace = { limit: number; fps: number };
+
+class FlowLoop {
+  private raf = 0;
+  private last = 0;
+  private stopped = false;
+  private readonly cy: cytoscape.Core;
+  private readonly pace: FlowPace;
+  private readonly motion: MediaQueryList | undefined;
+
+  constructor(cy: cytoscape.Core, pace: FlowPace, motion: MediaQueryList | undefined) {
+    this.cy = cy;
+    this.pace = pace;
+    this.motion = motion;
+  }
+
+  readonly wake = () => {
+    if (!this.raf && !this.stopped && !this.motion?.matches) {
+      this.raf = requestAnimationFrame(this.tick);
+    }
+  };
+
+  stop() {
+    this.stopped = true;
+    cancelAnimationFrame(this.raf);
+  }
+
+  private readonly tick = (t: number) => {
+    this.raf = 0;
+    if (this.stopped || this.motion?.matches) return;
+    const flowing = this.cy.edges('.flow, .hflow');
+    if (flowing.empty() || flowing.length > this.pace.limit) return;
+    this.raf = requestAnimationFrame(this.tick);
+    if (t - this.last < 1000 / this.pace.fps) return;
+    this.last = t;
+    flowing.style('line-dash-offset', flowOffset(t));
+  };
+}
+
 export function smoothFit(
   cy: cytoscape.Core,
   padding = 40,
   maxZoom = 1.1,
   reserveRight = 0,
-  /** What to fit; every node (with its label) by default. */
   eles: cytoscape.CollectionReturnValue | cytoscape.NodeCollection = cy.nodes(),
 ) {
-  // Fit every node with its label, so region and cluster names stay in view.
   const bb = eles.boundingBox();
   if (!bb.w || !bb.h) return;
-  const { width, zoom } = fitFrame(cy, bb, padding, maxZoom, reserveRight);
-  const pan = centredPan(bb, zoom, width, cy.height());
-  if (reducedMotion()) cy.viewport({ zoom, pan });
-  else easeIn(cy, bb, width, zoom, pan);
+  const frame = fitFrame(cy, bb, { padding, maxZoom, reserveRight });
+  const pan = centredPan(bb, { ...frame, height: cy.height() });
+  if (reducedMotion()) cy.viewport({ zoom: frame.zoom, pan });
+  else easeIn(cy, bb, { ...frame, pan });
 }
 
 type Box = { x1: number; y1: number; w: number; h: number };
 type Pan = { x: number; y: number };
+type Frame = { width: number; zoom: number };
+type Framing = { padding: number; maxZoom: number; reserveRight: number };
 
-/** The pan that centres a box in a `width` × `height` view at `zoom`. */
-const centredPan = (bb: Box, zoom: number, width: number, height: number): Pan => ({
-  x: width / 2 - zoom * (bb.x1 + bb.w / 2),
-  y: height / 2 - zoom * (bb.y1 + bb.h / 2),
+const centredPan = (bb: Box, view: Frame & { height: number }): Pan => ({
+  x: view.width / 2 - view.zoom * (bb.x1 + bb.w / 2),
+  y: view.height / 2 - view.zoom * (bb.y1 + bb.h / 2),
 });
 
-/**
- * The width to fit into — the view less `reserveRight`, unless that would leave less
- * than half of it — and the zoom that fits the box there with `padding` round it.
- */
-function fitFrame(
-  cy: cytoscape.Core,
-  bb: Box,
-  padding: number,
-  maxZoom: number,
-  reserveRight: number,
-): { width: number; zoom: number } {
+function fitFrame(cy: cytoscape.Core, bb: Box, { padding, maxZoom, reserveRight }: Framing): Frame {
   const width = cy.width() - (cy.width() - reserveRight > cy.width() / 2 ? reserveRight : 0);
   const zoom = Math.min(
     maxZoom,
@@ -185,9 +183,8 @@ function fitFrame(
   return { width, zoom };
 }
 
-/** Start a little further out than `zoom` and ease in to it. */
-function easeIn(cy: cytoscape.Core, bb: Box, width: number, zoom: number, pan: Pan): void {
+function easeIn(cy: cytoscape.Core, bb: Box, { width, zoom, pan }: Frame & { pan: Pan }): void {
   const from = zoom * 0.8;
-  cy.viewport({ zoom: from, pan: centredPan(bb, from, width, cy.height()) });
+  cy.viewport({ zoom: from, pan: centredPan(bb, { width, zoom: from, height: cy.height() }) });
   cy.animate({ zoom, pan }, { duration: 550, easing: 'ease-out-cubic' });
 }

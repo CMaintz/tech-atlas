@@ -1,4 +1,5 @@
 import type { ComponentChildren, JSX, Ref } from 'preact';
+import { getOrThrow } from '../../lib/map-get';
 import { useTimelineCtx } from './context';
 import { inkVars } from './ink';
 import type { TimelineEntry, TimelinePanel } from './types';
@@ -6,8 +7,7 @@ import type { MoreList } from './use-more-list';
 import type { Selection } from './use-selection';
 import type { useTermPanel } from './use-term-panel';
 
-/** Desktop: below the anchor, kept on screen. Phones use the CSS bottom sheet instead. */
-function popStyle(x: number, y: number): Record<string, string> | undefined {
+function belowAnchorOnScreenStyle(x: number, y: number): Record<string, string> | undefined {
   if (typeof window === 'undefined' || window.innerWidth < 640) return undefined;
   const left = Math.min(Math.max(8, x - 8), window.innerWidth - 336);
   const below = y + 8 + 180 < window.innerHeight;
@@ -17,23 +17,20 @@ function popStyle(x: number, y: number): Record<string, string> | undefined {
 }
 
 type PopoverProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, 'ref'> & {
-  /** A pinned popover is a dialog; a hover/focus preview is a tooltip. */
   pinned: boolean;
-  /** The anchor's bottom-left corner, in viewport px. */
   at: { x: number; y: number };
   popRef?: Ref<HTMLDivElement>;
   class: string;
   children: ComponentChildren;
 };
 
-/** The floating card both popovers share: frosted surface, placed below its anchor. */
-function Popover({ pinned, at, popRef, class: extra, children, ...rest }: PopoverProps) {
+function FrostedPopover({ pinned, at, popRef, class: extra, children, ...rest }: PopoverProps) {
   return (
     <div
       ref={popRef}
       role={pinned ? 'dialog' : 'tooltip'}
       class={`fixed z-50 rounded-lg border border-border-strong bg-surface/95 shadow-xl shadow-black/20 dark:shadow-black/50 backdrop-blur ${extra}`}
-      style={popStyle(at.x, at.y)}
+      style={belowAnchorOnScreenStyle(at.x, at.y)}
       {...rest}
     >
       {children}
@@ -46,12 +43,11 @@ type ById = Map<string, TimelineEntry>;
 const byYearThenName = (a: TimelineEntry, b: TimelineEntry) =>
   a.year - b.year || a.name.localeCompare(b.name);
 
-/** The terms behind the open "+N" chip, oldest first; picking one acts like clicking it. */
 export function MorePopover({ list, byId }: { list: MoreList; byId: ById }) {
   const { more } = list;
   if (!more) return null;
   return (
-    <Popover
+    <FrostedPopover
       data-tl-more
       pinned={more.pinned}
       at={more}
@@ -60,12 +56,12 @@ export function MorePopover({ list, byId }: { list: MoreList; byId: ById }) {
       onMouseLeave={list.leave}
     >
       <MoreTerms ids={more.ids} byId={byId} list={list} />
-    </Popover>
+    </FrostedPopover>
   );
 }
 
 function MoreTerms({ ids, byId, list }: { ids: string[]; byId: ById; list: MoreList }) {
-  const terms = ids.map((id) => byId.get(id)!).sort(byYearThenName);
+  const terms = ids.map((id) => getOrThrow(byId, id, 'timeline entry')).sort(byYearThenName);
   return (
     <ul class="space-y-0.5">
       {terms.map((it) => (
@@ -88,20 +84,27 @@ function MoreTerm({ it, list }: { it: TimelineEntry; list: MoreList }) {
         class="flex items-baseline gap-2 rounded px-1.5 py-1 text-fg-soft hover:bg-surface-2 hover:text-fg"
         onClick={pick}
       >
-        <span class="font-mono text-[10px] text-subtle">{it.year}</span>
-        <span class={it.hub ? 'font-semibold' : ''}>{it.name}</span>
+        <YearAndName it={it} />
       </a>
     </li>
   );
 }
 
-/** The selected term's summary: a preview on hover/focus, a dialog once pinned. */
+function YearAndName({ it }: { it: TimelineEntry }) {
+  return (
+    <>
+      <span class="font-mono text-[10px] text-subtle">{it.year}</span>
+      <span class={it.hub ? 'font-semibold' : ''}>{it.name}</span>
+    </>
+  );
+}
+
 export function TermPopover({ selection, byId }: { selection: Selection; byId: ById }) {
   const { sel } = selection;
   const it = sel && byId.get(sel.id);
   if (!sel || !it) return null;
   return (
-    <Popover
+    <FrostedPopover
       popRef={selection.popRef}
       pinned={sel.pinned}
       at={sel}
@@ -109,8 +112,8 @@ export function TermPopover({ selection, byId }: { selection: Selection; byId: B
       class="inset-x-4 bottom-[max(1rem,env(safe-area-inset-bottom))] p-4 text-sm sm:inset-x-auto sm:bottom-auto sm:w-80"
     >
       <TermSummary it={it} />
-      <TermFooter it={it} onClose={sel.pinned ? selection.clear : undefined} />
-    </Popover>
+      <OpenTermAndClose it={it} onClose={sel.pinned ? selection.clear : undefined} />
+    </FrostedPopover>
   );
 }
 
@@ -140,8 +143,7 @@ function TermDomains({ domains }: { domains: string[] }) {
   );
 }
 
-/** "Open term", and — on a pinned popover (`onClose` given) — a close button. */
-function TermFooter({ it, onClose }: { it: TimelineEntry; onClose?: () => void }) {
+function OpenTermAndClose({ it, onClose }: { it: TimelineEntry; onClose?: () => void }) {
   const { text } = useTimelineCtx();
   return (
     <div class="flex items-center justify-between">
@@ -174,7 +176,6 @@ type PanelHostProps = {
   domainLabels: Record<string, string>;
 };
 
-/** The Explorer's term panel over the page, once its code has loaded. */
 export function PanelHost({ panel, config, domainLabels }: PanelHostProps) {
   const { kit, id } = panel;
   if (!kit || !id || !config) return null;

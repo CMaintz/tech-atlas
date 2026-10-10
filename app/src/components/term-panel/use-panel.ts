@@ -6,10 +6,6 @@ import { usePanelChrome } from './use-panel-chrome';
 import { usePanelNav } from './use-panel-nav';
 import { useTermRecord } from './use-term-record';
 
-/**
- * Everything one open panel shares between its parts; null when the term is not on the
- * map (every hook has still run, so the hook order never changes).
- */
 export function usePanel(props: PanelProps): Panel | null {
   const { graph, id, lang } = props;
   const theme = useTheme();

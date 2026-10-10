@@ -27,14 +27,14 @@ describe('edges', () => {
   it('paints a cross-domain edge with a domain → family → domain gradient', () => {
     const a = { domain: ['security'], cluster: 'controls' };
     const b = { domain: ['cs'], cluster: 'cryptography' };
-    const p = edgePaint({ type: 'requires', family: 'dependency' }, a, b);
+    const p = edgePaint({ type: 'requires', family: 'dependency' }, { source: a, target: b });
     expect(p).toEqual({
       colour: FAMILY_COLOURS.dependency,
       directed: true,
       crossDomain: true,
       gradient: [domainColour('security'), FAMILY_COLOURS.dependency, domainColour('cs')],
     });
-    const same = edgePaint({ type: 'used-with', family: 'association' }, a, a);
+    const same = edgePaint({ type: 'used-with', family: 'association' }, { source: a, target: a });
     expect(same.directed).toBe(false);
     expect(same.gradient).toBeNull();
   });

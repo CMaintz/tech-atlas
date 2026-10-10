@@ -3,7 +3,6 @@ import { relationGroups, relationReasons, type PanelRelationGroup } from '../../
 import PanelHeading from './PanelHeading';
 import type { PartProps } from './types';
 
-/** A related term: re-focuses the map (and the panel) on it, never navigates. */
 function TermChip({ panel, id, title }: PartProps & { id: string; title?: string }) {
   const { cache } = panel;
   return (
@@ -20,7 +19,6 @@ function TermChip({ panel, id, title }: PartProps & { id: string; title?: string
   );
 }
 
-/** What to learn first: the prerequisite path to this term, as chips. */
 export function LearnFirst({ panel }: PartProps) {
   const { props } = panel;
   const path = prerequisitesOf(props.graph, props.id);
@@ -29,19 +27,25 @@ export function LearnFirst({ panel }: PartProps) {
     <section>
       <PanelHeading spacing="mb-1">{props.ui.learnFirst}</PanelHeading>
       <p class="mb-2 text-xs text-subtle">{props.ui.learnFirstIntro}</p>
-      <ol class="flex flex-wrap items-center gap-1">
-        {path.map((n, i) => (
-          <li class="flex items-center gap-1">
-            {i > 0 && (
-              <span class="text-subtle" aria-hidden="true">
-                →
-              </span>
-            )}
-            <TermChip panel={panel} id={n.id} />
-          </li>
-        ))}
-      </ol>
+      <PrerequisitePath panel={panel} ids={path.map((n) => n.id)} />
     </section>
+  );
+}
+
+function PrerequisitePath({ panel, ids }: PartProps & { ids: string[] }) {
+  return (
+    <ol class="flex flex-wrap items-center gap-1">
+      {ids.map((id, i) => (
+        <li class="flex items-center gap-1">
+          {i > 0 && (
+            <span class="text-subtle" aria-hidden="true">
+              →
+            </span>
+          )}
+          <TermChip panel={panel} id={id} />
+        </li>
+      ))}
+    </ol>
   );
 }
 
@@ -50,7 +54,6 @@ type GroupProps = PartProps & {
   why: ReturnType<typeof relationReasons>;
 };
 
-/** One relationship type and its terms; a chip's tooltip says why the relation holds. */
 function RelationGroup({ panel, group, why }: GroupProps) {
   const { edgeLabels, lang } = panel.props;
   return (
@@ -65,10 +68,12 @@ function RelationGroup({ panel, group, why }: GroupProps) {
   );
 }
 
-/** Every relationship of the term, grouped by type in reading order. */
 export function Relationships({ panel }: PartProps) {
   const { props, record } = panel;
-  const groups = relationGroups(props.graph, props.id, props.edgeInverse, props.relationOrder);
+  const groups = relationGroups(props.graph, props.id, {
+    inverse: props.edgeInverse,
+    order: props.relationOrder,
+  });
   const why = relationReasons(record?.edges ?? []);
   return (
     <section>
@@ -76,12 +81,22 @@ export function Relationships({ panel }: PartProps) {
       {groups.length === 0 ? (
         <p class="text-sm text-subtle">{props.text.noRelations}</p>
       ) : (
-        <dl class="space-y-3">
-          {groups.map((g) => (
-            <RelationGroup panel={panel} group={g} why={why} />
-          ))}
-        </dl>
+        <RelationList panel={panel} groups={groups} why={why} />
       )}
     </section>
+  );
+}
+
+function RelationList({
+  panel,
+  groups,
+  why,
+}: Omit<GroupProps, 'group'> & { groups: PanelRelationGroup[] }) {
+  return (
+    <dl class="space-y-3">
+      {groups.map((g) => (
+        <RelationGroup panel={panel} group={g} why={why} />
+      ))}
+    </dl>
   );
 }

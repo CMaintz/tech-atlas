@@ -1,25 +1,14 @@
-/**
- * The Cytoscape stylesheet shared by the Explorer and the term-page graph. Rule
- * order is the cascade: base node and edge looks first, then hover, then highlight and
- * selection, each overriding what came before.
- */
 import type cytoscape from 'cytoscape';
 import { FLOW_DASH, MAP_INK, type MapTheme } from '../graph-style';
 
 type Ink = (typeof MAP_INK)[MapTheme];
-/** Scales a night-map underlay opacity to the theme's. */
-type Underlay = (alpha: number) => number;
+type ScaleUnderlayToTheme = (alpha: number) => number;
 
-/**
- * Underlay opacities are tuned for the night map's glow; the cream map's soft shadow
- * scales them down.
- */
 const underlayScale =
-  (ink: Ink): Underlay =>
+  (ink: Ink): ScaleUnderlayToTheme =>
   (a) =>
     +((a * ink.underlayAlpha) / MAP_INK.dark.underlayAlpha).toFixed(3);
 
-/** A term: a filled disc with its label below, haloed so it reads over edges. */
 const NODE_LOOK = {
   'background-color': 'data(colour)',
   width: 'data(size)',
@@ -35,21 +24,18 @@ const NODE_LOOK = {
   'underlay-shape': 'ellipse',
 };
 
-/** The term look in a theme's ink. */
-const nodeRule = (ink: Ink, u: Underlay) => ({
+const themedNodeRule = (ink: Ink, u: ScaleUnderlayToTheme) => ({
   selector: 'node[size]',
   style: {
     ...NODE_LOOK,
     color: ink.label,
     'text-outline-color': ink.halo,
-    // A glow in the node's own colour on the night map; a soft shadow on the cream one.
     'underlay-color': ink.underlay ?? 'data(colour)',
     'underlay-opacity': u(0.2),
   },
 });
 
-/** Domain rings and the edge looks: the same in every theme. */
-const EDGE_RULES = [
+const RING_AND_EDGE_RULES = [
   // A term in several domains: a solid fill in its own shade and a thin ring in the
   // other domain's colour (the split fill is left to the canvas lab).
   {
@@ -86,8 +72,7 @@ const EDGE_RULES = [
   },
 ];
 
-/** Hover: the neighbourhood stays lit, everything else fades back. */
-const hoverRules = (u: Underlay) => [
+const hoverRules = (u: ScaleUnderlayToTheme) => [
   { selector: 'node.faded', style: { opacity: 0.1, 'text-opacity': 0, 'underlay-opacity': 0 } },
   { selector: 'edge.faded', style: { opacity: 0.04 } },
   {
@@ -102,8 +87,7 @@ const hoverRules = (u: Underlay) => [
   { selector: 'edge.lit', style: { opacity: 0.95, 'z-index': 19 } },
 ];
 
-/** Route / prerequisite highlight and selection (Explorer). */
-const highlightRules = (ink: Ink, u: Underlay) => [
+const routeHighlightAndSelectionRules = (ink: Ink, u: ScaleUnderlayToTheme) => [
   { selector: '.dim', style: { opacity: 0.1 } },
   { selector: 'node.hl', style: { 'underlay-opacity': u(0.5), 'underlay-padding': 8 } },
   { selector: 'edge.hl', style: { opacity: 1, width: 3 } },
@@ -120,26 +104,19 @@ const highlightRules = (ink: Ink, u: Underlay) => [
   },
 ];
 
-/**
- * The shared look: glowing nodes, domain rings, curved family-coloured edges. No style
- * transitions here: on the full map they animate every restyled element each frame;
- * small graphs add `FADE_TRANSITIONS`.
- */
 export const graphStyle = (theme: MapTheme = 'dark') => {
   const ink = MAP_INK[theme];
   const u = underlayScale(ink);
   return [
-    nodeRule(ink, u),
-    ...EDGE_RULES,
+    themedNodeRule(ink, u),
+    ...RING_AND_EDGE_RULES,
     ...hoverRules(u),
-    ...highlightRules(ink, u),
+    ...routeHighlightAndSelectionRules(ink, u),
   ] as unknown as cytoscape.StylesheetJson;
 };
 
-/** The night map's stylesheet (the default). */
 export const GRAPH_STYLE = graphStyle('dark');
 
-/** Soft fades for small graphs (the term page), where restyling is cheap. */
 export const FADE_TRANSITIONS = [
   {
     selector: 'node[size]',

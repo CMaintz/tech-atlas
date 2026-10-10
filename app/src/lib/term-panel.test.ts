@@ -1,15 +1,9 @@
 import { describe, expect, it, vi } from 'vitest';
 import type { Graph, GraphLink, GraphNode } from './graph-model';
+import { connectionCycle, nextCycleState, positionText, stepCycle } from './panel-nav';
 import {
   guidesFor,
-  connectionCycle,
   makeTermCache,
-  nextCycleState,
-  positionText,
-  startHistory,
-  stepCycle,
-  travel,
-  visit,
   neighbourIds,
   neighbourhoodGraph,
   paragraphs,
@@ -57,7 +51,7 @@ const order = ['has-kind', 'requires', 'unlocks', 'contrasts-with'];
 
 describe('relationGroups', () => {
   it('keeps outgoing types, inverts incoming ones, in reading order', () => {
-    expect(relationGroups(graph, 'a', inverse, order)).toEqual([
+    expect(relationGroups(graph, 'a', { inverse, order })).toEqual([
       { type: 'has-kind', ids: ['d'] },
       { type: 'requires', ids: ['b'] },
       { type: 'unlocks', ids: ['c'] },
@@ -66,7 +60,7 @@ describe('relationGroups', () => {
   });
 
   it('maps symmetric types to themselves and sorts unknown types last', () => {
-    expect(relationGroups(graph, 'c', inverse, order)).toEqual([
+    expect(relationGroups(graph, 'c', { inverse, order })).toEqual([
       { type: 'requires', ids: ['a'] },
       { type: 'used-with', ids: ['b'] },
     ]);
@@ -74,7 +68,7 @@ describe('relationGroups', () => {
 
   it('is empty for an isolated term and ignores self-links', () => {
     const g: Graph = { nodes: [node('x')], links: [link('x', 'requires', 'x')] };
-    expect(relationGroups(g, 'x', inverse, order)).toEqual([]);
+    expect(relationGroups(g, 'x', { inverse, order })).toEqual([]);
   });
 });
 
@@ -173,7 +167,7 @@ describe('paragraphs', () => {
 });
 
 describe('connection cycle (Previous / Next)', () => {
-  const cycle = connectionCycle(relationGroups(graph, 'a', inverse, order));
+  const cycle = connectionCycle(relationGroups(graph, 'a', { inverse, order }));
 
   it('lists connections in the relationships order, one entry per group membership', () => {
     expect(cycle).toEqual([
@@ -186,7 +180,7 @@ describe('connection cycle (Previous / Next)', () => {
 
   it('skips ids that are not on the map', () => {
     const known = (x: string) => x !== 'd';
-    expect(connectionCycle(relationGroups(graph, 'a', inverse, order), known)).toEqual([
+    expect(connectionCycle(relationGroups(graph, 'a', { inverse, order }), known)).toEqual([
       { type: 'requires', id: 'b' },
       { type: 'unlocks', id: 'c' },
     ]);
@@ -203,12 +197,12 @@ describe('connection cycle (Previous / Next)', () => {
   });
 
   it('keeps the anchor while stepping, and a full lap comes back round', () => {
-    let s = nextCycleState(null, 'a', { via: 'other' }, []);
+    let s = nextCycleState(null, { id: 'a', arrival: { via: 'other' } }, []);
     expect(s).toEqual({ anchor: 'a', index: null });
     const seen: string[] = [];
     for (let k = 0; k < cycle.length + 1; k++) {
       const i = stepCycle(cycle.length, s.index, 1)!;
-      s = nextCycleState(s, cycle[i].id, { via: 'step', index: i }, cycle);
+      s = nextCycleState(s, { id: cycle[i].id, arrival: { via: 'step', index: i } }, cycle);
       seen.push(`${cycle[i].type}:${cycle[i].id}`);
     }
     expect(s).toEqual({ anchor: 'a', index: 0 });
@@ -223,47 +217,36 @@ describe('connection cycle (Previous / Next)', () => {
 
   it('re-anchors on any other pick, even of a connection', () => {
     const s = { anchor: 'a', index: 1 };
-    expect(nextCycleState(s, 'c', { via: 'other' }, cycle)).toEqual({ anchor: 'c', index: null });
+    expect(nextCycleState(s, { id: 'c', arrival: { via: 'other' } }, cycle)).toEqual({
+      anchor: 'c',
+      index: null,
+    });
   });
 
   it('keeps the anchor when Back/Forward land on it or on one of its connections', () => {
     const s = { anchor: 'a', index: 2 };
-    expect(nextCycleState(s, 'a', { via: 'history' }, cycle)).toEqual({ anchor: 'a', index: null });
-    expect(nextCycleState(s, 'b', { via: 'history' }, cycle)).toEqual({ anchor: 'a', index: 1 });
-    expect(nextCycleState(s, 'd', { via: 'history' }, cycle)).toEqual({ anchor: 'a', index: 0 });
-    expect(nextCycleState(s, 'z', { via: 'history' }, cycle)).toEqual({ anchor: 'z', index: null });
+    expect(nextCycleState(s, { id: 'a', arrival: { via: 'history' } }, cycle)).toEqual({
+      anchor: 'a',
+      index: null,
+    });
+    expect(nextCycleState(s, { id: 'b', arrival: { via: 'history' } }, cycle)).toEqual({
+      anchor: 'a',
+      index: 1,
+    });
+    expect(nextCycleState(s, { id: 'd', arrival: { via: 'history' } }, cycle)).toEqual({
+      anchor: 'a',
+      index: 0,
+    });
+    expect(nextCycleState(s, { id: 'z', arrival: { via: 'history' } }, cycle)).toEqual({
+      anchor: 'z',
+      index: null,
+    });
   });
 
   it('formats the position text', () => {
-    expect(positionText('{i} of {n} · {type}', 2, 12, 'requires')).toBe('3 of 12 · requires');
-  });
-});
-
-describe('panel history (Back / Forward)', () => {
-  it('visits push, and re-visiting the current term is a no-op', () => {
-    const h = visit(visit(startHistory('a'), 'b'), 'b');
-    expect(h).toEqual({ entries: ['a', 'b'], pos: 1 });
-  });
-
-  it('goes back and forward, and stops at the ends', () => {
-    const h = visit(visit(startHistory('a'), 'b'), 'c');
-    const back = travel(h, -1)!;
-    expect(back.id).toBe('b');
-    expect(travel(travel(back.history, -1)!.history, -1)).toBeNull();
-    expect(travel(back.history, 1)!.id).toBe('c');
-    expect(travel(h, 1)).toBeNull();
-  });
-
-  it('drops the forward trail on a new visit, like a browser', () => {
-    const h = visit(visit(startHistory('a'), 'b'), 'c');
-    const back = travel(travel(h, -1)!.history, -1)!.history;
-    expect(visit(back, 'd')).toEqual({ entries: ['a', 'd'], pos: 1 });
-  });
-
-  it('remembers at most the limit', () => {
-    let h = startHistory('t0');
-    for (let k = 1; k < 10; k++) h = visit(h, `t${k}`, 3);
-    expect(h).toEqual({ entries: ['t7', 't8', 't9'], pos: 2 });
+    expect(positionText('{i} of {n} · {type}', { index: 2, length: 12, type: 'requires' })).toBe(
+      '3 of 12 · requires',
+    );
   });
 });
 

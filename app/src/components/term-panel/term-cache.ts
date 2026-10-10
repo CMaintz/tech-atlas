@@ -8,16 +8,14 @@ const getJson = (u: string) =>
     return r.json() as Promise<unknown>;
   });
 
-/** One cache per page: prefetches from the map and the panel share it. */
-let shared: TermCache | undefined;
-let sharedBase = '';
+let pageWideCache: TermCache | undefined;
+let pageWideCacheBase = '';
 export const termCache = (apiBase: string) => {
-  if (!shared || sharedBase !== apiBase) {
-    shared = makeTermCache(getJson, apiBase);
-    sharedBase = apiBase;
+  if (!pageWideCache || pageWideCacheBase !== apiBase) {
+    pageWideCache = makeTermCache(getJson, apiBase);
+    pageWideCacheBase = apiBase;
   }
-  return shared;
+  return pageWideCache;
 };
 
-/** Warm the record for `id` (e.g. on hover), so opening it is instant. */
 export const prefetchTerm = (apiBase: string, id: string) => termCache(apiBase).prefetch(id);

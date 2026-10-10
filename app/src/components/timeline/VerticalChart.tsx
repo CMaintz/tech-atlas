@@ -2,13 +2,12 @@ import type { Scale } from '../../lib/timeline';
 import { AXIS_COL } from '../../lib/timeline-layout';
 import { useTimelineCtx } from './context';
 import { Dot } from './Dot';
-import { inkVars, stripe } from './ink';
+import { alternateDecadeShade, inkVars } from './ink';
 import type { TimelineEntry } from './types';
 import type { ChartLayout } from './use-timeline';
 
 type Band = ChartLayout['bands'][number];
 
-/** The chart for phones: years down the page, one narrow column per shown domain. */
 export function VerticalChart({ chart, single }: { chart: ChartLayout; single: boolean }) {
   const { text } = useTimelineCtx();
   return (
@@ -17,7 +16,7 @@ export function VerticalChart({ chart, single }: { chart: ChartLayout; single: b
       class="relative rounded-lg border border-border chart-surface sm:hidden"
     >
       {!single && <p class="px-3 pt-3 text-xs text-subtle">{text.mobileHint}</p>}
-      <LaneHeads lanes={[...chart.lanes.keys()]} />
+      <StickyLaneHeads lanes={[...chart.lanes.keys()]} />
       <Columns chart={chart} single={single} />
     </section>
   );
@@ -27,7 +26,7 @@ function Columns({ chart, single }: { chart: ChartLayout; single: boolean }) {
   const { v, lanes } = chart;
   return (
     <div class="relative mt-3 flex" style={{ height: v.scale.length + 16 }}>
-      <Backdrop scale={v.scale} ticks={chart.ticks} bands={chart.bands} />
+      <StripesErasAndTicks scale={v.scale} ticks={chart.ticks} bands={chart.bands} />
       <span style={{ width: AXIS_COL }} class="shrink-0" />
       {[...lanes].map(([lane, list]) => (
         <Column lane={lane} list={list} pos={v.pos} single={single} />
@@ -36,8 +35,7 @@ function Columns({ chart, single }: { chart: ChartLayout; single: boolean }) {
   );
 }
 
-/** The sticky row of domain names over the columns. */
-function LaneHeads({ lanes }: { lanes: string[] }) {
+function StickyLaneHeads({ lanes }: { lanes: string[] }) {
   const { ink, label } = useTimelineCtx();
   return (
     <div class="sticky top-0 z-10 flex border-b border-border bg-(--chart-bg)/95 backdrop-blur">
@@ -54,21 +52,12 @@ function LaneHeads({ lanes }: { lanes: string[] }) {
   );
 }
 
-/** Decade stripes, era bands (labelled sideways) and decade ticks, behind the columns. */
-function Backdrop({ scale, ticks, bands }: { scale: Scale; ticks: number[]; bands: Band[] }) {
+type BackdropProps = { scale: Scale; ticks: number[]; bands: Band[] };
+
+function StripesErasAndTicks({ scale, ticks, bands }: BackdropProps) {
   return (
     <div aria-hidden="true" class="pointer-events-none absolute inset-0">
-      {ticks.slice(0, -1).map((t, i) => (
-        <div
-          class="absolute right-0"
-          style={{
-            left: AXIS_COL,
-            top: scale.at(t),
-            height: scale.at(ticks[i + 1]) - scale.at(t),
-            background: stripe(i),
-          }}
-        />
-      ))}
+      <DecadeStripes scale={scale} ticks={ticks} />
       {bands.map((b) => (
         <EraBand band={b} scale={scale} />
       ))}
@@ -76,6 +65,24 @@ function Backdrop({ scale, ticks, bands }: { scale: Scale; ticks: number[]; band
         <Tick year={t} scale={scale} />
       ))}
     </div>
+  );
+}
+
+function DecadeStripes({ scale, ticks }: { scale: Scale; ticks: number[] }) {
+  return (
+    <>
+      {ticks.slice(0, -1).map((t, i) => (
+        <div
+          class="absolute right-0"
+          style={{
+            left: AXIS_COL,
+            top: scale.at(t),
+            height: scale.at(ticks[i + 1]) - scale.at(t),
+            background: alternateDecadeShade(i),
+          }}
+        />
+      ))}
+    </>
   );
 }
 
@@ -119,7 +126,6 @@ type ColumnProps = {
   single: boolean;
 };
 
-/** One domain's terms, each at its year; with a single domain shown, larger and dated. */
 function Column({ lane, list, pos, single }: ColumnProps) {
   return (
     <ul class="relative min-w-0 flex-1 border-l border-border">

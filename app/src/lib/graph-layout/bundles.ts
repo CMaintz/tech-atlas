@@ -1,4 +1,3 @@
-/** Cluster-to-cluster bundles: ribbon counts and bundled edge control points. */
 import { EXPLORER } from '../explorer-config';
 import type { Point } from '../graph-style';
 import { pairKey } from '../graph-style/edges';
@@ -7,7 +6,6 @@ import type { Link } from './types';
 
 export { pairKey };
 
-/** How many links join each pair of different clusters, keyed by `pairKey`. */
 export function countClusterPairs(
   links: Link[],
   clusterOf: (id: string) => string | undefined,
@@ -23,11 +21,6 @@ export function countClusterPairs(
   return counts;
 }
 
-/**
- * How many relationships a cross-cluster ribbon stands for, per cluster pair: only
- * edges with both ends visible count, so a ribbon thins as a cluster's terms hide and
- * is gone once all of one side is hidden.
- */
 export function visibleBundleCounts(
   links: Link[],
   clusterOf: (id: string) => string | undefined,
@@ -39,7 +32,6 @@ export function visibleBundleCounts(
   );
 }
 
-/** Relationships between each pair of clusters, as one bundle per pair (a < b). */
 export function clusterBundles(
   links: Link[],
   clusterOf: (id: string) => string | undefined,
@@ -54,12 +46,6 @@ export function clusterBundles(
     });
 }
 
-/**
- * Hierarchical edge bundling, lite: an edge between two islands bends through points
- * pulled (by `beta`) towards each island's centre, so edges between the same islands
- * share a path. Returned as Cytoscape `unbundled-bezier` control points: distances
- * perpendicular to the edge and weights along it.
- */
 export function bundleControls(
   s: Point,
   t: Point,
@@ -75,7 +61,6 @@ export function bundleControls(
   return relativeControls(s, t, [pull(along(1 / 3), cs), pull(along(2 / 3), ct)]);
 }
 
-/** Absolute control points → Cytoscape's edge-relative distances and weights. */
 export function relativeControls(
   s: Point,
   t: Point,
@@ -86,7 +71,6 @@ export function relativeControls(
   const len2 = dx * dx + dy * dy || 1;
   const len = Math.sqrt(len2);
   return {
-    // Cytoscape measures distance to the right of the source → target direction.
     distances: points.map((p) => ((p.x - s.x) * dy - (p.y - s.y) * dx) / len),
     weights: points.map((p) => ((p.x - s.x) * dx + (p.y - s.y) * dy) / len2),
   };

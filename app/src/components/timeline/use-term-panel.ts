@@ -1,10 +1,9 @@
-import { useRef, useState } from 'preact/hooks';
+import { useRef, useState, type MutableRef } from 'preact/hooks';
 import type { Graph } from '../../lib/graph-model';
 import type { PanelView, TimelinePanel } from './types';
 
 type PanelKit = { View: PanelView; graph: Graph };
 
-/** TermPanel's code (with the graph renderer) and graph.json, fetched together. */
 async function loadPanelKit(graphUrl: string): Promise<PanelKit> {
   const [m, graph] = await Promise.all([
     import('../TermPanel'),
@@ -16,11 +15,6 @@ async function loadPanelKit(graphUrl: string): Promise<PanelKit> {
   return { View: m.default as unknown as PanelView, graph };
 }
 
-/**
- * The Explorer's term panel on the timeline: its code and graph load on the first
- * click, so the page itself stays a small island. `open` shows a term; `onLoaded` runs
- * once the kit has arrived (a failed load leaves the popover, and a later click retries).
- */
 export function useTermPanel(cfg: TimelinePanel | undefined, onLoaded: () => void) {
   const [id, setId] = useState<string | null>(null);
   const [kit, setKit] = useState<PanelKit | null>(null);
@@ -29,14 +23,15 @@ export function useTermPanel(cfg: TimelinePanel | undefined, onLoaded: () => voi
     if (!cfg) return;
     setId(termId);
     if (kit || loading.current) return;
-    loading.current = true;
-    loadPanelKit(cfg.graphUrl).then(
-      (k) => {
-        setKit(k);
-        onLoaded();
-      },
-      () => (loading.current = false),
-    );
+    loadKitOnce(cfg.graphUrl, loading, (k) => {
+      setKit(k);
+      onLoaded();
+    });
   };
   return { id, setId, kit, open };
+}
+
+function loadKitOnce(graphUrl: string, loading: MutableRef<boolean>, onKit: (k: PanelKit) => void) {
+  loading.current = true;
+  loadPanelKit(graphUrl).then(onKit, () => (loading.current = false));
 }

@@ -17,19 +17,14 @@ export type TimelinePanel = PanelConfig & {
 };
 export interface TimelineProps {
   items: TimelineEntry[];
-  /** Lane order (every domain with a dated term). */
   domains: string[];
   domainLabels: Record<string, string>;
   domainColours: Record<string, string>;
-  /** The same domains' colours on the cream map. */
   domainColoursLight: Record<string, string>;
-  /** Axis range in years, [start, end). */
   range: [number, number];
   eraLabels: Record<string, string>;
   text: Record<string, string>;
-  /** The Explorer's term panel, loaded on first click; absent → popover only. */
   panel?: TimelinePanel;
 }
 
-/** TermPanel's props, loosely: it is imported on demand, so only its type is known here. */
 export type PanelView = ComponentType<Record<string, unknown>>;

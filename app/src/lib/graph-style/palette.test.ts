@@ -160,7 +160,11 @@ describe('cream map palette (light theme)', () => {
     });
     expect(legendDomains([n], 'light')[0].colour).toBe(domainColour('security', 'light'));
     const other = { domain: ['ai'], cluster: 'llm' };
-    const p = edgePaint({ type: 'requires', family: 'dependency' }, n, other, 'light');
+    const p = edgePaint(
+      { type: 'requires', family: 'dependency' },
+      { source: n, target: other },
+      'light',
+    );
     expect(p.colour).toBe(FAMILY_COLOURS_LIGHT.dependency);
     expect(p.gradient?.[0]).toBe(domainColour('security', 'light'));
   });

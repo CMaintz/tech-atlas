@@ -43,7 +43,7 @@ describe('pushApart', () => {
   it('moves a too-close pair symmetrically, a hair past the minimum', () => {
     const a = { x: 0, y: 0 };
     const b = { x: 4, y: 0 };
-    expect(pushApart(a, b, 10, 0, 1)).toBe(true);
+    expect(pushApart({ a, b, i: 0, j: 1 }, 10)).toBe(true);
     expect(a.x).toBeCloseTo(-3.06);
     expect(b.x).toBeCloseTo(7.06);
     expect(a.y).toBe(0);
@@ -51,16 +51,16 @@ describe('pushApart', () => {
   it('reports no move for a pair already far enough apart', () => {
     const a = { x: 0, y: 0, z: 0 };
     const b = { x: 0, y: 0, z: 10 };
-    expect(pushApart(a, b, 10, 0, 1)).toBe(false);
+    expect(pushApart({ a, b, i: 0, j: 1 }, 10)).toBe(false);
     expect(b).toEqual({ x: 0, y: 0, z: 10 });
   });
   it('moves z only when both points have one', () => {
     const a = { x: 0, y: 0, z: 0 };
     const b = { x: 0, y: 1, z: 1 };
-    pushApart(a, b, 10, 0, 1);
+    pushApart({ a, b, i: 0, j: 1 }, 10);
     expect(a.z).toBeLessThan(0);
     const flat = { x: 0, y: 0 };
-    pushApart(flat, b, 20, 0, 1);
+    pushApart({ a: flat, b, i: 0, j: 1 }, 20);
     expect(flat).not.toHaveProperty('z');
   });
 });

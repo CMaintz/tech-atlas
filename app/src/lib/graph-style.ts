@@ -1,12 +1,3 @@
-/**
- * The graph's visual language, in one place: domain colour families, cluster
- * shades, relationship-family edge colours, which edges are directed, edge curvature,
- * layout distances and the 3D cluster force. Pure — no DOM, no Cytoscape — so the
- * Explorer, the term-page neighbourhood graph, the Timeline and the tests share it.
- *
- * The implementation lives in `graph-style/`, one module per concern; this module is
- * the public surface every caller imports.
- */
 export { contrastRatio, hslToHex, hueDistance } from './graph-style/colour';
 export { CREAM, MAP_INK, type MapTheme } from './graph-style/theme';
 export {

@@ -1,11 +1,6 @@
-/** Node importance: PageRank over the relationships, and the size it gives a term. */
 import { EXPLORER } from '../explorer-config';
 import type { Link } from './types';
 
-/**
- * Each term's outgoing neighbours, by index into `ids`: the authored direction, plus
- * the reverse for a symmetric (`directed: false`) relationship. Unknown ends are skipped.
- */
 export function outNeighbours(ids: string[], links: (Link & { directed?: boolean })[]) {
   const index = new Map(ids.map((id, i) => [id, i]));
   const out: number[][] = ids.map(() => []);
@@ -19,7 +14,6 @@ export function outNeighbours(ids: string[], links: (Link & { directed?: boolean
   return out;
 }
 
-/** One PageRank iteration; rank held by terms with no links is spread over everyone. */
 function rankStep(rank: number[], out: number[][], damping: number): number[] {
   const n = rank.length;
   const next = new Array(n).fill((1 - damping) / n);
@@ -32,10 +26,6 @@ function rankStep(rank: number[], out: number[][], damping: number): number[] {
   return next;
 }
 
-/**
- * PageRank over the relationships (authored direction; symmetric types count both
- * ways), normalised so the top term is 1. Terms that many others build on rank high.
- */
 export function pageRank(
   ids: string[],
   links: (Link & { directed?: boolean })[],
@@ -48,6 +38,5 @@ export function pageRank(
   return new Map(ids.map((id, i) => [id, rank[i] / max]));
 }
 
-/** On-screen size for a normalised rank: √ so the long tail stays visible. */
 export const sizeForRank = (r: number) =>
   EXPLORER.node.minSize + (EXPLORER.node.maxSize - EXPLORER.node.minSize) * Math.sqrt(r);
