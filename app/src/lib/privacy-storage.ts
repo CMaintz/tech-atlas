@@ -1,4 +1,3 @@
-/** The privacy page: everything the site keeps in the browser. */
 import type { Lang } from './site';
 
 type T = Record<Lang, string>;
@@ -9,7 +8,6 @@ export type StorageItem = {
   purpose: T;
 };
 
-/** Everything the site keeps in the browser. No cookies are set. */
 export const STORAGE: StorageItem[] = [
   {
     key: 'atlas:learner:v2',

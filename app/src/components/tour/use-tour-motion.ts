@@ -5,7 +5,6 @@ import { pageSettled, viaOf, waitForAnchor } from './dom';
 import { appear, apply, glide, measure, scrollIntoBand, type TourRefs } from './overlay';
 import type { Shown, TourNav, TourNavDeps } from './use-tour-nav';
 
-/** `fn` at most once per animation frame, however often it is requested. */
 function oncePerFrame(fn: () => void) {
   let raf = 0;
   const request = () => {
@@ -18,7 +17,6 @@ function oncePerFrame(fn: () => void) {
   return { request, cancel: () => cancelAnimationFrame(raf) };
 }
 
-/** Call `cb` when the page, the card or the target changes size. Returns the cleanup. */
 function observeLayout(r: TourRefs, cb: () => void) {
   const ro = new ResizeObserver(cb);
   ro.observe(document.documentElement);
@@ -32,7 +30,6 @@ function observeLayout(r: TourRefs, cb: () => void) {
   };
 }
 
-/** Follow the target while the page scrolls, resizes or reflows: one measurement per frame. */
 export function useFollowTarget(active: boolean, r: TourRefs) {
   useEffect(() => {
     if (!active) return;
@@ -54,32 +51,24 @@ export function useFollowTarget(active: boolean, r: TourRefs) {
 
 type Moving = Extract<TourScreen, { kind: 'show' | 'bridge' }>;
 
-/** The selectors a screen points at: its step's anchors, or (a bridge) the link onwards. */
 const anchorsOf = (view: Moving, steps: TourStep[], langBase: string) =>
   view.kind === 'bridge'
     ? bridgeSelectors(langBase, steps[view.to].page ?? '')
     : steps[view.step].anchors;
 
-/** One move in progress: the screen it heads for, and whether a newer move replaced it. */
 type Move = { view: Moving; stale: () => boolean };
 
-/**
- * One move: find the target, scroll it into view, then hand the view to the card (the
- * glide runs once the new text has rendered). Gives up as soon as the move is stale.
- */
 async function travel({ view, stale }: Move, d: TourNavDeps, nav: TourNav) {
   const anchors = anchorsOf(view, d.steps, d.langBase);
   const bridge = view.kind === 'bridge';
   const el = anchors.length ? await waitForAnchor(anchors, bridge, stale) : null;
   if (stale()) return;
-  // Nothing nearby leads there: a card pointing at nothing is just an extra click.
   if (bridge && !el) return nav.leave(view.to, d.steps[view.to].page ?? '');
   if (!(await bringIntoView(el, d.refs, stale))) return;
   d.refs.target.current = el;
   d.setShown({ view, via: viaOf(el) });
 }
 
-/** Let a first page settle, then scroll `el` into view. False once the move went stale. */
 async function bringIntoView(el: HTMLElement | null, r: TourRefs, stale: () => boolean) {
   if (!r.appeared.current) await pageSettled();
   if (stale()) return false;
@@ -88,13 +77,11 @@ async function bringIntoView(el: HTMLElement | null, r: TourRefs, stale: () => b
   return !stale();
 }
 
-/** Each move: find the target, scroll it into view, then glide there. */
 export function useTourMove(view: TourScreen, d: TourNavDeps, nav: TourNav) {
   const viewKey = JSON.stringify(view);
   useEffect(() => {
     if (view.kind !== 'show' && view.kind !== 'bridge') return;
     let stale = false;
-    // Marks a move in progress (until the glide or fade-in ends) — also a test hook.
     d.refs.root.current?.setAttribute('data-busy', '');
     void travel({ view, stale: () => stale }, d, nav);
     return () => {
@@ -103,7 +90,6 @@ export function useTourMove(view: TourScreen, d: TourNavDeps, nav: TourNav) {
   }, [viewKey]);
 }
 
-/** The card now shows the new step: measure it and glide (or fade in on arrival). */
 export function useTourReveal(shown: Shown | null, r: TourRefs) {
   useLayoutEffect(() => {
     if (!shown) return;

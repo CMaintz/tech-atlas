@@ -1,38 +1,20 @@
-/**
- * The guided tour — pure logic. The tour spans several static pages, so its
- * position lives in localStorage and every page load decides afresh what to show.
- */
-
 export interface TourStep<T = string> {
-  /**
-   * The page the step belongs to, relative to the language root ('' = home,
-   * 'study/' …). `null` = any page (the welcome card).
-   */
   page: string | null;
-  /** CSS selectors to spotlight, tried in order; none found → a centred card. */
   anchors: string[];
   title: T;
   body: T;
-  /**
-   * Required when the step lives on a different page from the one before it: the
-   * card that points at the link leading there ("Next: the Explorer").
-   */
   via?: T;
 }
 
-/** Persisted position of a running tour. */
 export interface TourState {
   active: boolean;
   step: number;
 }
 
 export const TOUR_KEY = 'atlas.tour';
-/** Set when the tour is finished or the reader chose "don't show again". */
 export const TOUR_DONE_KEY = 'atlas.tour.done';
-/** Session-only: the welcome card was closed ("not now"), so don't auto-start again. */
 export const TOUR_SNOOZE_KEY = 'atlas.tour.snoozed';
 
-/** Parse a stored state; anything malformed means "no tour running". */
 export function parseTourState(raw: string | null, stepCount: number): TourState | null {
   if (!raw) return null;
   try {
@@ -47,16 +29,11 @@ export function parseTourState(raw: string | null, stepCount: number): TourState
       return { active: true, step: v.step };
     }
   } catch {
-    /* fall through */
+    return null;
   }
   return null;
 }
 
-/**
- * The current page relative to the language root: `/en/study/` with root
- * `/en/` → `study/`. Always ends in '/' unless it is the home page (''),
- * so `/study`, `/study/` and `/study/index.html` agree. Outside the root → null.
- */
 export function pageOf(pathname: string, langRoot: string): string | null {
   const root = langRoot.endsWith('/') ? langRoot : `${langRoot}/`;
   let path: string;
@@ -76,14 +53,12 @@ export type TourView =
   | { kind: 'resume'; step: number }
   | { kind: 'off' };
 
-/** Decide what the tour shows on a page load. */
 export function resolveTour(opts: {
   steps: readonly TourStep<unknown>[];
   state: TourState | null;
   done: boolean;
   snoozed: boolean;
   page: string | null;
-  /** Auto-start the welcome card for a first-time visitor (false on e.g. the 404 page). */
   autoStart: boolean;
 }): TourView {
   const { steps, state, done, snoozed, page, autoStart } = opts;
@@ -92,7 +67,6 @@ export function resolveTour(opts: {
   return { kind: 'off' };
 }
 
-/** A running tour at `step`: shown if the step lives on this page, else offered to resume. */
 function runningView(
   steps: readonly TourStep<unknown>[],
   step: number,
@@ -103,14 +77,8 @@ function runningView(
   return s.page === null || s.page === page ? { kind: 'show', step } : { kind: 'resume', step };
 }
 
-/** A running tour, plus the "this link takes you there" card shown before a page change. */
 export type TourScreen = TourView | { kind: 'bridge'; from: number; to: number };
 
-/**
- * What the card shows for a screen: its step (a bridge card counts as the step it
- * leaves from), whether that is the welcome card or the last step, and whose title and
- * body it uses (`textStep`: a bridge card's come from the step it leads to).
- */
 export function cardModel(screen: TourScreen | undefined, stepCount: number) {
   const bridge = screen?.kind === 'bridge' ? screen : null;
   const step = screen?.kind === 'show' ? screen.step : bridge ? bridge.from : 0;
@@ -119,10 +87,6 @@ export function cardModel(screen: TourScreen | undefined, stepCount: number) {
   return { step, bridge, welcome, last, textStep: bridge ? bridge.to : step };
 }
 
-/**
- * Where moving to step `to` takes the reader: stay on this page, go to another, or
- * finish (past either end).
- */
 export function moveTo(
   steps: readonly TourStep<unknown>[],
   to: number,
@@ -136,13 +100,8 @@ export function moveTo(
     : { kind: 'go', step: to, page: target };
 }
 
-/**
- * Query parameter that carries the tour's step across a page load when storage is
- * unavailable (private mode, blocked site data): `?tour=4`.
- */
 export const TOUR_PARAM = 'tour';
 
-/** The step carried in a URL query string, if valid. */
 export function stepFromQuery(search: string, stepCount: number): number | null {
   const raw = new URLSearchParams(search).get(TOUR_PARAM);
   if (raw === null || !/^\d+$/.test(raw)) return null;
@@ -150,11 +109,9 @@ export function stepFromQuery(search: string, stepCount: number): number | null 
   return n < stepCount ? n : null;
 }
 
-/** "Step {n} of {m}" style templating. */
 export const fillCount = (template: string, n: number, m: number) =>
   template.replace('{n}', String(n)).replace('{m}', String(m));
 
-// Motion and placement live in tour-placement.ts; re-exported for callers.
 export {
   CARD_GAP,
   EDGE,
@@ -169,14 +126,8 @@ export {
   type Size,
 } from './tour-placement';
 
-/** Pages linked from the site nav (relative to the language root). */
 export const NAV_PAGES: readonly string[] = ['', 'explorer/', 'timeline/', 'compare/', 'study/'];
 
-/**
- * Where to look for the control that leads to `page` before the tour navigates there:
- * the site nav, then a link in the page itself, then the header (the logo); for
- * a nav page on a phone, the menu button that reveals the nav.
- */
 export function bridgeSelectors(langBase: string, page: string): string[] {
   const href = `${langBase}${page}`.replace(/["\\]/g, '\\$&');
   return [
@@ -187,11 +138,9 @@ export function bridgeSelectors(langBase: string, page: string): string[] {
   ];
 }
 
-/** The step a bridge card leads to: forward moves onto another page get one. */
 export function needsBridge(
   steps: readonly TourStep<unknown>[],
-  from: number,
-  to: number,
+  { from, to }: { from: number; to: number },
   page: string | null,
 ): boolean {
   const move = moveTo(steps, to, page);

@@ -1,7 +1,3 @@
-/**
- * The Explorer's controls, layouts and route finder.
- * A slice of `UI` (site.ts), which merges every area into one table per language.
- */
 export const UI_EXPLORER = {
   en: {
     view: 'View',
@@ -17,7 +13,6 @@ export const UI_EXPLORER = {
     autoRotate: 'Auto-rotate',
     findTerm: 'Find a term',
     routeShort: 'Route',
-    /** The bar's Relationships button (the popover keeps the full heading). */
     linksShort: 'Links',
     explorerIntro:
       'The whole map. Click a term to open it in the side panel; expand the panel to read it in full.',
@@ -75,7 +70,6 @@ export const UI_EXPLORER = {
   },
 } as const;
 
-/** Graph legend and canvas controls (Explorer + term-page graph). */
 export const GRAPH_UI = {
   en: {
     legend: 'Legend',

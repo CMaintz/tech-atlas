@@ -1,6 +1,5 @@
 import { isSearchShortcut, isTypingTarget } from '../prefs';
 
-/** "/" focuses the search box — or goes to the home page's. */
 export function initSearchShortcut() {
   document.addEventListener('keydown', (e) => {
     if (!isSearchShortcut(e) || isTypingTarget(document.activeElement as HTMLElement)) return;

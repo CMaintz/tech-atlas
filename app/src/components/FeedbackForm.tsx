@@ -1,4 +1,3 @@
-/** The Feedback dialog's form: its fields, the error line and the buttons. */
 import type { ComponentChildren } from 'preact';
 import {
   FEEDBACK_CATEGORIES,
@@ -17,7 +16,6 @@ export const FEEDBACK_BUTTON =
   'inline-flex min-h-11 items-center justify-center rounded-full border px-4 text-sm disabled:opacity-50';
 export const QUIET_BUTTON = `${FEEDBACK_BUTTON} border-border-strong text-fg-soft hover:border-border-hover hover:text-fg`;
 
-/** Element ids, minted by the dialog, so it can focus an invalid field by id. */
 export type FeedbackIds = Record<
   'title' | 'intro' | 'message' | 'counter' | 'email' | 'emailHint' | 'category' | 'honeypot',
   string
@@ -28,8 +26,7 @@ type FieldProps = { ids: FeedbackIds; ui: FeedbackUi; state: FormState };
 
 type LabelledProps = { id: string; label: string; children: ComponentChildren };
 
-/** A labelled field: the label above its control (and any hint). */
-const Field = ({ id, label, children }: LabelledProps) => (
+const LabelledField = ({ id, label, children }: LabelledProps) => (
   <div class="space-y-1.5">
     <label for={id} class={LABEL}>
       {label}
@@ -38,7 +35,6 @@ const Field = ({ id, label, children }: LabelledProps) => (
   </div>
 );
 
-/** The small print under a field, which the field points to with aria-describedby. */
 const Hint = ({ id, children }: { id: string; children: ComponentChildren }) => (
   <p id={id} class="text-xs text-subtle">
     {children}
@@ -46,7 +42,7 @@ const Hint = ({ id, children }: { id: string; children: ComponentChildren }) => 
 );
 
 const CategoryField = ({ ids, ui, state }: FieldProps) => (
-  <Field id={ids.category} label={ui.category}>
+  <LabelledField id={ids.category} label={ui.category}>
     <select
       id={ids.category}
       value={state.form.category}
@@ -59,11 +55,11 @@ const CategoryField = ({ ids, ui, state }: FieldProps) => (
         </option>
       ))}
     </select>
-  </Field>
+  </LabelledField>
 );
 
 const MessageField = ({ ids, ui, state }: FieldProps) => (
-  <Field id={ids.message} label={ui.message}>
+  <LabelledField id={ids.message} label={ui.message}>
     <textarea
       id={ids.message}
       autofocus
@@ -77,11 +73,11 @@ const MessageField = ({ ids, ui, state }: FieldProps) => (
       class={`${FIELD} resize-y`}
     />
     <Hint id={ids.counter}>{feedbackCounter(state.form.message.length, ui)}</Hint>
-  </Field>
+  </LabelledField>
 );
 
 const EmailField = ({ ids, ui, state }: FieldProps) => (
-  <Field id={ids.email} label={ui.email}>
+  <LabelledField id={ids.email} label={ui.email}>
     <input
       id={ids.email}
       type="email"
@@ -94,10 +90,9 @@ const EmailField = ({ ids, ui, state }: FieldProps) => (
       class={FIELD}
     />
     <Hint id={ids.emailHint}>{ui.emailHint}</Hint>
-  </Field>
+  </LabelledField>
 );
 
-/** Honeypot: off-screen and out of the tab order; people leave it empty. */
 const Honeypot = ({ ids, ui, state }: FieldProps) => (
   <div aria-hidden="true" class="absolute -left-[9999px] h-px w-px overflow-hidden">
     <label for={ids.honeypot}>{ui.honeypot}</label>

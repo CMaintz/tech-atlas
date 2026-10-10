@@ -5,7 +5,6 @@ import FeedbackForm, { FEEDBACK_BUTTON, QUIET_BUTTON, type FeedbackIds } from '.
 import Dialog, { useDialog, type DialogHandle } from './ui/Dialog';
 
 type Props = NonNullable<FeedbackProps> & {
-  /** 'link': a plain footer link. 'pill': a rounded button (inside the About dialog). */
   variant?: 'link' | 'pill';
 };
 
@@ -32,7 +31,6 @@ function useFeedbackIds(): FeedbackIds {
 
 type SentProps = { ui: FeedbackUi; close: () => void; reset: () => void };
 
-/** After a send: the thanks, "Close" and "Send more". */
 const FeedbackSent = ({ ui, close, reset }: SentProps) => (
   <div class="space-y-4">
     <p role="status" class="text-base text-fg">
@@ -60,8 +58,11 @@ const FeedbackHeader = ({ ui, ids }: { ui: FeedbackUi; ids: FeedbackIds }) => (
   </div>
 );
 
-/** Submit: check the form, and on a problem focus the field it is about. */
-function submitHandler(dialog: DialogHandle, ids: FeedbackIds, submit: FormState['submit']) {
+function submitFocusingInvalidField(
+  dialog: DialogHandle,
+  ids: FeedbackIds,
+  submit: FormState['submit'],
+) {
   return (e: Event) => {
     e.preventDefault();
     void submit((field) => {
@@ -73,7 +74,6 @@ function submitHandler(dialog: DialogHandle, ids: FeedbackIds, submit: FormState
 
 type DialogProps = Props & { dialog: DialogHandle; state: FormState };
 
-/** The thanks once sent, else the form. */
 function FeedbackContent({
   dialog,
   state,
@@ -84,7 +84,7 @@ function FeedbackContent({
   if (state.status === 'sent') {
     return <FeedbackSent ui={ui} close={dialog.close} reset={state.reset} />;
   }
-  const onSubmit = submitHandler(dialog, ids, state.submit);
+  const onSubmit = submitFocusingInvalidField(dialog, ids, state.submit);
   return <FeedbackForm {...{ ids, ui, state, onSubmit, privacyHref }} close={dialog.close} />;
 }
 
@@ -124,12 +124,6 @@ const FeedbackOpener = ({ ui, variant, dialog, open }: OpenerProps) => (
   </button>
 );
 
-/**
- * The Feedback dialog and the button that opens it. A native modal <dialog>, like
- * the About dialog (ui/Dialog): focus containment, an inert page behind it, Esc and
- * backdrop click close it, focus returns to the opener. Rendered only when the build has
- * a feedback function URL (feedbackProps returns null otherwise).
- */
 export default function FeedbackButton({ variant = 'link', ...props }: Props) {
   const dialog = useDialog();
   const state = useFeedbackForm(props.url, props.lang);

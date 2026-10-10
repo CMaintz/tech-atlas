@@ -1,4 +1,3 @@
-/** The tour's UI strings (site.ts UI[lang]). */
 export type TourUi = {
   tourWelcomeStart: string;
   tourNotNow: string;

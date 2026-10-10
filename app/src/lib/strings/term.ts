@@ -1,9 +1,5 @@
 import type { Lang } from '../lang';
 
-/**
- * Term entries: the term page, disambiguation and the review queue.
- * A slice of `UI` (site.ts), which merges every area into one table per language.
- */
 export const UI_TERM = {
   en: {
     learnFirst: 'What to learn first',
@@ -62,7 +58,6 @@ export const UI_TERM = {
   },
 } as const;
 
-/** The term page's deep dive and provenance note. `da` must carry every key `en` has. */
 const DEEP_EN = {
   deepDive: 'Technical deep dive',
   sourcesFurther: 'Sources & further reading',

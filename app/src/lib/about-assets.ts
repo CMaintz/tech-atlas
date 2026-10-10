@@ -1,17 +1,21 @@
-/**
- * Build-time props for the About dialog. Server-only: it reads the file system,
- * so import it from .astro frontmatter, never from an island.
- *
- * A photo is passed to the island only if app/public/about/<photo> exists when the
- * site is built, so a missing photo is an initials circle, never a runtime 404.
- * Builds run from app/ (npm scripts, mise `dir = "app"`), so public/ is resolved there.
- */
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { ABOUT_LINKS, ABOUT_PEOPLE, ABOUT_UI, url, type Lang } from './site';
 import { feedbackProps } from './feedback-props';
 import { visibleLinks } from './about';
 import { CHANGELOG_URL, VERSION } from './version';
+
+const photoUrl = (photo: string) =>
+  existsSync(resolve(process.cwd(), 'public', 'about', photo)) ? url(`about/${photo}`) : undefined;
+
+const aboutPeople = (lang: Lang) =>
+  ABOUT_PEOPLE.map((p) => ({
+    section: p.section,
+    name: p.name,
+    role: p.role[lang],
+    photo: photoUrl(p.photo),
+    photoPosition: p.photoPosition ?? 'center',
+  }));
 
 export const aboutProps = (lang: Lang) => ({
   ui: { ...ABOUT_UI[lang] },
@@ -20,15 +24,7 @@ export const aboutProps = (lang: Lang) => ({
     { id: 'linkedin', label: 'LinkedIn', href: ABOUT_LINKS.linkedin },
     { id: 'website', label: 'maintz.dev', href: ABOUT_LINKS.website },
   ]),
-  people: ABOUT_PEOPLE.map((p) => ({
-    section: p.section,
-    name: p.name,
-    role: p.role[lang],
-    photo: existsSync(resolve(process.cwd(), 'public', 'about', p.photo))
-      ? url(`about/${p.photo}`)
-      : undefined,
-    photoPosition: p.photoPosition ?? 'center',
-  })),
+  people: aboutPeople(lang),
   version: { label: VERSION, href: CHANGELOG_URL },
   feedback: feedbackProps(lang),
 });

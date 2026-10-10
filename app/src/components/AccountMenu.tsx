@@ -21,11 +21,9 @@ interface Props {
   ui: Ui;
 }
 
-/** A sync that finishes faster than this never shows "Syncing…" — no flicker on every change. */
 const SHOW_SYNCING_AFTER = 400;
 
-/** The status to show: follows `status`, except "syncing" only once it has lasted a moment. */
-function useShownStatus(status: SyncState['status']): SyncState['status'] {
+function useStatusWithDelayedSyncing(status: SyncState['status']): SyncState['status'] {
   const [shown, setShown] = useState<SyncState['status']>('loading');
   useEffect(() => {
     if (status !== 'syncing') return setShown(status);
@@ -41,7 +39,6 @@ const Synced = ({ ui }: { ui: Ui }) => (
   </span>
 );
 
-/** "Not synced" with a "Try again" button. */
 const SyncFailed = ({ ui }: { ui: Ui }) => (
   <span
     class="inline-flex items-center gap-1.5 text-xs text-red-700 dark:text-red-400"
@@ -72,8 +69,7 @@ const Stopped = ({ ui }: { ui: Ui }) => (
   <span class="h-1.5 w-1.5 rounded-full bg-amber-500" title={ui.stoppedNote} />
 );
 
-/** The small status beside "Account", per sync status; none for the rest. */
-const BADGES: Partial<Record<SyncState['status'], (p: { ui: Ui }) => JSX.Element>> = {
+const STATUS_BADGES: Partial<Record<SyncState['status'], (p: { ui: Ui }) => JSX.Element>> = {
   synced: Synced,
   syncing: Syncing,
   offline: Offline,
@@ -81,10 +77,9 @@ const BADGES: Partial<Record<SyncState['status'], (p: { ui: Ui }) => JSX.Element
   stopped: Stopped,
 };
 
-/** "Account" with its sync status beside it. */
 function SignedIn({ href, ui, s }: Props & { s: SyncState }) {
-  const shown = useShownStatus(s.status);
-  const Badge = BADGES[shown];
+  const shown = useStatusWithDelayedSyncing(s.status);
+  const Badge = STATUS_BADGES[shown];
   return (
     <span class="inline-flex min-h-11 items-center gap-2 md:min-h-0">
       <a class="hover:text-fg" href={href} title={s.email}>
@@ -97,15 +92,8 @@ function SignedIn({ href, ui, s }: Props & { s: SyncState }) {
   );
 }
 
-/**
- * Header entry to the account page. Rendered only when accounts are configured;
- * it also starts sync on every page, since any page can change progress.
- * Sync runs by itself: this shows a small status — ✓ synced, syncing…,
- * offline, or not synced with "Try again" — and nothing else to press.
- */
 export default function AccountMenu({ href, ui }: Props) {
   const s = useSyncState();
-  // Render nothing until the stored session is known, so "Sign in" never flashes.
   if (s.status === 'loading' || s.status === 'off') return null;
   if (s.status === 'signed-out') {
     return (

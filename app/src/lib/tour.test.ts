@@ -128,10 +128,10 @@ describe('cardModel', () => {
 
 describe('needsBridge', () => {
   it('points at the link first only when moving forward onto another page', () => {
-    expect(needsBridge(steps, 2, 3, '')).toBe(true); // home → study/
-    expect(needsBridge(steps, 1, 2, '')).toBe(false); // same page
-    expect(needsBridge(steps, 3, 2, 'study/')).toBe(false); // back: go straight there
-    expect(needsBridge(steps, 0, 1, 'study/')).toBe(true); // welcome on a deep page → home
+    expect(needsBridge(steps, { from: 2, to: 3 }, '')).toBe(true); // home → study/
+    expect(needsBridge(steps, { from: 1, to: 2 }, '')).toBe(false); // same page
+    expect(needsBridge(steps, { from: 3, to: 2 }, 'study/')).toBe(false); // back: go straight there
+    expect(needsBridge(steps, { from: 0, to: 1 }, 'study/')).toBe(true); // welcome on a deep page → home
   });
 });
 
