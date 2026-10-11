@@ -1,8 +1,3 @@
-/**
- * What an Explorer address asks for on arrival: a route between two terms (`?from=&to=`,
- * from a search intent), a focal term with its direct edges (`?focus=`, from a term
- * page) and an open term panel (`?term=`, a shared view). Unknown ids are ignored.
- */
 import type { GraphNode } from './graph-model';
 import { termFromSearch } from './term-panel';
 

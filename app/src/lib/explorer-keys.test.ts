@@ -45,20 +45,24 @@ describe('targetAxes', () => {
 describe('ease', () => {
   const go = { ...STILL, x: 1 };
   it('starts gently and closes in on the target', () => {
-    const a = ease(STILL, go, 0.016, 0.12, false);
+    const a = ease(STILL, go, { dt: 0.016, tau: 0.12, reduced: false });
     expect(a.x).toBeGreaterThan(0);
     expect(a.x).toBeLessThan(0.2);
     let v = STILL;
-    for (let i = 0; i < 120; i++) v = ease(v, go, 0.016, 0.12, false);
+    for (let i = 0; i < 120; i++) v = ease(v, go, { dt: 0.016, tau: 0.12, reduced: false });
     expect(v.x).toBeCloseTo(1, 3);
   });
   it('is frame-rate independent: two half steps equal one whole step', () => {
-    const one = ease(STILL, go, 0.032, 0.12, false);
-    const two = ease(ease(STILL, go, 0.016, 0.12, false), go, 0.016, 0.12, false);
+    const one = ease(STILL, go, { dt: 0.032, tau: 0.12, reduced: false });
+    const two = ease(ease(STILL, go, { dt: 0.016, tau: 0.12, reduced: false }), go, {
+      dt: 0.016,
+      tau: 0.12,
+      reduced: false,
+    });
     expect(two.x).toBeCloseTo(one.x, 10);
   });
   it('jumps straight to the target under reduced motion', () => {
-    expect(ease(STILL, go, 0.016, 0.12, true)).toEqual(go);
-    expect(ease(go, STILL, 0.016, 0.12, true)).toEqual(STILL);
+    expect(ease(STILL, go, { dt: 0.016, tau: 0.12, reduced: true })).toEqual(go);
+    expect(ease(go, STILL, { dt: 0.016, tau: 0.12, reduced: true })).toEqual(STILL);
   });
 });

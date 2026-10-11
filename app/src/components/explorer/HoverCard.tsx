@@ -10,8 +10,7 @@ import type { Dict, Lang } from './types';
 type Props = {
   card: Point | null;
   byId: ReadonlyMap<string, GraphNode>;
-  /** The 2D map's box, the card's frame (else the window). */
-  box: MutableRef<HTMLElement | null>;
+  frame: MutableRef<HTMLElement | null>;
   domains: ReadonlySet<string>;
   theme: MapTheme;
   lang: Lang;
@@ -19,12 +18,14 @@ type Props = {
   domainLabels: Dict;
 };
 
-/** The card's place beside `p`, kept inside the map's box (else the window). */
-const placeIn = (box: HTMLElement | null, p: Point) =>
-  hoverCardPlace(p, box?.clientWidth ?? window.innerWidth, box?.clientHeight ?? window.innerHeight);
+const placeIn = (frame: HTMLElement | null, p: Point) =>
+  hoverCardPlace(
+    p,
+    frame?.clientWidth ?? window.innerWidth,
+    frame?.clientHeight ?? window.innerHeight,
+  );
 
-/** A resting pointer's term: its name, cluster, home domain and summary, beside it. */
-export function HoverCard({ card, byId, box, lang, ...labels }: Props) {
+export function HoverCard({ card, byId, frame, lang, ...labels }: Props) {
   const node = card ? byId.get(card.id) : undefined;
   if (!card || !node) return null;
   return (
@@ -32,7 +33,7 @@ export function HoverCard({ card, byId, box, lang, ...labels }: Props) {
       aria-hidden="true"
       data-hover-card={node.id}
       class={`pointer-events-none absolute z-10 w-64 rounded-xl px-3 py-2 text-xs text-fg-soft ${GLASS}`}
-      style={placeIn(box.current, card)}
+      style={placeIn(frame.current, card)}
     >
       <div class="text-sm font-semibold text-fg">{node.term[lang]}</div>
       <CardTags node={node} {...labels} />
@@ -43,9 +44,8 @@ export function HoverCard({ card, byId, box, lang, ...labels }: Props) {
   );
 }
 
-type TagProps = Omit<Props, 'card' | 'byId' | 'box' | 'lang'> & { node: GraphNode };
+type TagProps = Omit<Props, 'card' | 'byId' | 'frame' | 'lang'> & { node: GraphNode };
 
-/** The card's cluster (with its colour) and home domain. */
 function CardTags({ node, domains, theme, clusterLabels, domainLabels }: TagProps) {
   const home = effectiveHome(node, domains);
   return (

@@ -8,15 +8,8 @@ import { ControlsSheet } from './ControlsSheet';
 import { ColourSegment, LayoutControl, ModeSegment } from './ViewControls';
 import type { Pop } from './types';
 
-/**
- * The control bar: one compact row (dot-only domain chips, a search icon) centred over
- * the top of the map. Equal insets keep it centred and clear of the About "i"
- * (top-right); the legend lives bottom-left, so the bar has the full width. It never
- * moves when the term panel opens, which simply sits above it. On phones it condenses
- * to 2D/3D and a "Controls" sheet.
- */
 export function ExplorerBar({ p, x }: Section) {
-  const note = layoutNote(p.ui, x.controls.mode, x.controls.layout, x.shown.undated);
+  const note = layoutNote(p.ui, x.controls, x.shown.undated);
   return (
     <div
       ref={x.bar.size.slot}
@@ -32,7 +25,6 @@ export function ExplorerBar({ p, x }: Section) {
   );
 }
 
-/** The bar itself: 2D/3D and the layouts, then the row's controls or the sheet. */
 function ControlBar({ p, x, note }: Section & { note: string }) {
   const { size } = x.bar;
   return (
@@ -50,7 +42,6 @@ function ControlBar({ p, x, note }: Section & { note: string }) {
   );
 }
 
-/** 2D/3D, and (outside the sheet) the layouts or auto-rotate. */
 function ViewGroup({ p, x }: Section) {
   return (
     <div class="flex shrink-0 items-center gap-1.5" data-tour="explorer-layouts">
@@ -60,7 +51,6 @@ function ViewGroup({ p, x }: Section) {
   );
 }
 
-/** The desktop row: domains, relationship types, colouring, find, route. */
 function BarRow({ p, x }: Section) {
   return (
     <>
@@ -73,23 +63,28 @@ function BarRow({ p, x }: Section) {
   );
 }
 
-/** Relationship types: a short label in a compact bar; filled while "show all" is on. */
 function LinksPopover({ p, x }: Section) {
   const label = x.bar.size.size === 'compact' ? p.ui.linksShort : p.ui.relationshipTypes;
   const name = p.ui.relationshipTypes;
   return (
-    <BarPopover x={x} pop="links" label={label} name={name} active={x.filters.showAll}>
+    <BarPopover x={x} pop="links" buttonLabel={label} panelName={name} active={x.filters.showAll}>
       <Relationships p={p} x={x} />
     </BarPopover>
   );
 }
 
-/** Route between two terms: filled while a found route is lit. */
 function RoutePopover({ p, x }: Section) {
   const routed = x.route.highlight.length > 0 && !!x.route.message;
   const { routeShort, route } = p.ui;
   return (
-    <BarPopover x={x} pop="route" label={routeShort} name={route} active={routed} right>
+    <BarPopover
+      x={x}
+      pop="route"
+      buttonLabel={routeShort}
+      panelName={route}
+      active={routed}
+      alignRight
+    >
       <Route p={p} x={x} />
     </BarPopover>
   );
@@ -97,30 +92,26 @@ function RoutePopover({ p, x }: Section) {
 
 type PopProps = Pick<Section, 'x'> & {
   pop: Pop;
-  /** The button's label. */
-  label: string;
-  /** The panel's accessible name. */
-  name: string;
+  buttonLabel: string;
+  panelName: string;
   active: boolean;
-  /** Align the panel to the button's right edge (else its left). */
-  right?: boolean;
+  alignRight?: boolean;
   children: ComponentChildren;
 };
 
-const popPlace = (right?: boolean) =>
-  `absolute top-full ${right ? 'right-0' : 'left-0'} z-20 mt-2 w-72 max-w-[calc(100vw-2rem)] rounded-xl p-3 text-xs text-fg-soft`;
+const popPlace = (alignRight?: boolean) =>
+  `absolute top-full ${alignRight ? 'right-0' : 'left-0'} z-20 mt-2 w-72 max-w-[calc(100vw-2rem)] rounded-xl p-3 text-xs text-fg-soft`;
 
-/** A bar button and, while open, its popover under it. The tour points at the route's. */
-function BarPopover({ x, pop, label, name, active, right, children }: PopProps) {
+function BarPopover({ x, pop, buttonLabel, panelName, active, alignRight, children }: PopProps) {
   const open = x.bar.pop === pop;
   const toggle = () => x.bar.setPop(open ? null : pop);
   return (
     <div class="relative shrink-0" data-tour={pop === 'route' ? 'explorer-route' : undefined}>
       <PopoverButton id={`xp-${pop}`} open={open} active={active} onToggle={toggle}>
-        {label}
+        {buttonLabel}
       </PopoverButton>
       {open && (
-        <PopoverPanel id={`xp-${pop}`} label={name} place={popPlace(right)}>
+        <PopoverPanel id={`xp-${pop}`} label={panelName} place={popPlace(alignRight)}>
           {children}
         </PopoverPanel>
       )}

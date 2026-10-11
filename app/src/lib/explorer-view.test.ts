@@ -55,11 +55,19 @@ describe('toggled', () => {
 describe('neighbourhood', () => {
   const ids = new Set(['a', 'b', 'c', 'd', 'e']);
   it('grows one hop at a time, in both link directions', () => {
-    expect([...neighbourhood(graph.links, ids, 'b', 1)].sort()).toEqual(['a', 'b', 'c']);
-    expect([...neighbourhood(graph.links, ids, 'b', 2)].sort()).toEqual(['a', 'b', 'c', 'd', 'e']);
+    expect([...neighbourhood({ links: graph.links, ids }, 'b', 1)].sort()).toEqual(['a', 'b', 'c']);
+    expect([...neighbourhood({ links: graph.links, ids }, 'b', 2)].sort()).toEqual([
+      'a',
+      'b',
+      'c',
+      'd',
+      'e',
+    ]);
   });
   it('walks only links between allowed terms', () => {
-    expect([...neighbourhood(graph.links, new Set(['a', 'b']), 'a', 3)].sort()).toEqual(['a', 'b']);
+    expect(
+      [...neighbourhood({ links: graph.links, ids: new Set(['a', 'b']) }, 'a', 3)].sort(),
+    ).toEqual(['a', 'b']);
   });
 });
 
@@ -128,14 +136,14 @@ describe('layoutNote', () => {
     undatedNote: '{n} left out',
   };
   it('names the view', () => {
-    expect(layoutNote(ui, '3d', 'time', 5)).toBe('G');
-    expect(layoutNote(ui, '2d', 'depth', 5)).toBe('D');
-    expect(layoutNote(ui, '2d', 'force', 5)).toBe('');
+    expect(layoutNote(ui, { mode: '3d', layout: 'time' }, 5)).toBe('G');
+    expect(layoutNote(ui, { mode: '2d', layout: 'depth' }, 5)).toBe('D');
+    expect(layoutNote(ui, { mode: '2d', layout: 'force' }, 5)).toBe('');
   });
   it('counts undated terms on the time layout', () => {
-    expect(layoutNote(ui, '2d', 'time', 0)).toBe('T');
-    expect(layoutNote(ui, '2d', 'time', 1)).toBe('T one left out');
-    expect(layoutNote(ui, '2d', 'time', 4)).toBe('T 4 left out');
+    expect(layoutNote(ui, { mode: '2d', layout: 'time' }, 0)).toBe('T');
+    expect(layoutNote(ui, { mode: '2d', layout: 'time' }, 1)).toBe('T one left out');
+    expect(layoutNote(ui, { mode: '2d', layout: 'time' }, 4)).toBe('T 4 left out');
   });
 });
 

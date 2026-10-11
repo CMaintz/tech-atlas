@@ -37,3 +37,4 @@ supabase/.temp/
 
 # Foundry loop telemetry (local observability)
 .foundry/
+why-notes/

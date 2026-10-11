@@ -1,4 +1,3 @@
-/** The Explorer's graph: loaded once, arrival deep links applied, indexed by id and name. */
 import { useEffect, useMemo, useState } from 'preact/hooks';
 import type { Graph } from './graph-model';
 import { readArrival } from './explorer-arrival';
@@ -6,10 +5,11 @@ import type { Filters, Route, Selection } from './use-explorer-state';
 
 type Lang = 'en' | 'da';
 
-/**
- * The graph at `url`, null until loaded. `onLoad` runs in the same update as the graph
- * arriving, so the first render with a graph already has its domains and deep links.
- */
+function knownTerm<T>(term: T | undefined, id: string): T {
+  if (term === undefined) throw new Error(`Unknown term id: ${id}`);
+  return term;
+}
+
 export function useGraphLoad(url: string, onLoad: (g: Graph) => void): Graph | null {
   const [graph, setGraph] = useState<Graph | null>(null);
   useEffect(() => {
@@ -25,27 +25,28 @@ export function useGraphLoad(url: string, onLoad: (g: Graph) => void): Graph | n
 
 type Arrive = { lang: Lang; filters: Filters; selection: Selection; route: Route };
 
-/** Every domain on, then what the address asks for (a route, a focus, an open term). */
-export function arrive(g: Graph, { lang, filters, selection, route }: Arrive) {
+type RouteEnds = [from: string, to: string];
+
+function showSearchIntentRoute(g: Graph, [from, to]: RouteEnds, { route, lang }: Arrive) {
+  const nodeOf = (id: string) => g.nodes.find((n) => n.id === id);
+  const name = (id: string) => knownTerm(nodeOf(id), id).term[lang];
+  route.fields.setFrom(name(from));
+  route.fields.setTo(name(to));
+  route.show(g, from, to, name);
+}
+
+export function arrive(g: Graph, reader: Arrive) {
+  const { filters, selection } = reader;
   filters.setDomains(new Set(g.nodes.flatMap((n) => n.domain)));
   const { route: path, focus, term } = readArrival(g.nodes, window.location.search);
-  const name = (id: string) => g.nodes.find((n) => n.id === id)!.term[lang];
-  if (path) {
-    // Arriving from a search intent: show the route between the two terms.
-    route.fields.setFrom(name(path[0]));
-    route.fields.setTo(name(path[1]));
-    route.show(g, path[0], path[1], name);
-  }
+  if (path) showSearchIntentRoute(g, path, reader);
   if (focus) {
-    // Arriving from a term page: start at the focal term and its direct edges.
     selection.setSelected(focus);
     selection.setHops(1);
   }
-  // A deep link (`?term=`) opens that term's panel.
   if (term) selection.setSelected(term);
 }
 
-/** Terms by id, ids by lower-cased name, and every domain (in first-seen order). */
 export function useGraphIndex(graph: Graph | null, lang: Lang) {
   const byId = useMemo(() => new Map((graph?.nodes ?? []).map((n) => [n.id, n])), [graph]);
   const nameToId = useMemo(
@@ -53,6 +54,6 @@ export function useGraphIndex(graph: Graph | null, lang: Lang) {
     [graph, lang],
   );
   const allDomains = [...new Set((graph?.nodes ?? []).flatMap((n) => n.domain))];
-  const name = (id: string) => byId.get(id)!.term[lang];
+  const name = (id: string) => knownTerm(byId.get(id), id).term[lang];
   return { byId, nameToId, allDomains, name };
 }

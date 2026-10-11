@@ -6,7 +6,6 @@ import { LANGS, type Lang } from '../../lib/site';
 import { termAddedDates } from '../../lib/term-dates';
 import { UI_EXTRA } from '../../lib/ui-extra';
 
-/** RSS of the 50 newest Terms per language: /en/feed.xml, /da/feed.xml. */
 export const getStaticPaths = (() =>
   LANGS.map((lang) => ({ params: { lang } }))) satisfies GetStaticPaths;
 
