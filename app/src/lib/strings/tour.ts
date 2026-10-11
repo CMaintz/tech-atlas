@@ -154,8 +154,8 @@ export const TOUR_STEPS: TourStep<Bi>[] = [
   {
     page: 'study/',
     anchors: ['#study'],
-    via: { en: 'Next: Study', da: 'Næste: Øv' },
-    title: { en: 'Study', da: 'Øv' },
+    via: { en: 'Next: Study', da: 'Næste: Lær' },
+    title: { en: 'Study', da: 'Lær' },
     body: {
       en: 'Quizzes built from the map, with spaced repetition: right answers come back later, wrong ones soon. It also recommends terms whose prerequisites you already know.',
       da: 'Quizzer bygget ud fra kortet, med spredt repetition: rigtige svar vender tilbage senere, forkerte snart. Siden anbefaler også begreber, hvis forudsætninger du allerede kender.',

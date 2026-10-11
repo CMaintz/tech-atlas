@@ -61,7 +61,7 @@ function PanelSections({ panel }: PartProps) {
 /** The scrolling body: one column docked; text and graph side by side expanded. */
 export default function PanelBody({ panel }: PartProps) {
   const layout = panel.expanded
-    ? 'mx-auto grid max-w-6xl gap-8 px-4 py-6 sm:px-8 lg:grid-cols-[minmax(0,1fr)_22rem]'
+    ? 'mx-auto grid max-w-page gap-8 px-4 py-6 sm:px-8 lg:grid-cols-[minmax(0,48rem)_minmax(22rem,1fr)]'
     : 'px-4 py-4';
   return (
     <div class="min-h-0 flex-1 overflow-y-auto">

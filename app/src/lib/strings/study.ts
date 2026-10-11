@@ -47,7 +47,7 @@ export const UI_STUDY = {
     readAbout: 'Læs om',
     score: 'Du fik {n} af {m} rigtige.',
     noQuestions: 'Ingen spørgsmål til dette begreb endnu.',
-    practise: 'Øv',
+    practise: 'Træn',
     quizMeOn: 'Quiz mig i:',
     everything: 'Det hele',
     weakTerms: 'Mine svage begreber ({n})',
