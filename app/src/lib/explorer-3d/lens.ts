@@ -29,25 +29,29 @@ export function refocus(s: State3, gate: MotionGate) {
 
 export function createLens(neighbours: Map<string, Set<string>>, s: State3) {
   const hood = () => (s.fx.hood ? neighbours.get(s.fx.hood) : undefined);
-  /** A lit link: in the hovered neighbourhood, else at the selection or along the route. */
+  /** A lit link: in the hovered neighbourhood, else along the route, else at the selection. */
   const focusOf = (l: Ends) => {
     if (!s.view) return false;
     const [a, b] = endsOf(l);
+    if (s.cluster) return false;
     const h = hood();
     if (h) return h.has(a) && h.has(b) && (s.fx.hood === a || s.fx.hood === b);
     const { selected, highlight } = s.view;
-    return a === selected || b === selected || (highlight.has(a) && highlight.has(b));
+    if (highlight.size) return highlight.has(a) && highlight.has(b);
+    return a === selected || b === selected;
   };
   /**
-   * Receded terms: outside the hovered neighbourhood, else outside a route, else —
-   * with a term selected — everything not connected to it. A term hovered over a
-   * selection or route comes forward on its own.
+   * Receded terms: outside a hovered cluster name's cluster, else outside the hovered
+   * neighbourhood, else outside a route, else (with a term selected) everything not
+   * connected to it (unless the whole shown neighbourhood is lit). A term hovered over a selection or route comes forward on its own.
    */
   const faded = (id: string) => {
+    if (s.cluster) return !s.cluster.ids.has(id);
     const h = hood();
     if (h) return !h.has(id);
     if (!s.view || id === s.fx.preview) return false;
     if (s.view.highlight.size) return !s.view.highlight.has(id);
+    if (s.view.hoodLit) return false;
     if (s.view.selected) return !neighbours.get(s.view.selected)?.has(id);
     return false;
   };

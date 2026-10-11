@@ -18,23 +18,40 @@ function dimForRoute(p: MapParts, s: MapState, route: ReadonlySet<string>) {
   s.shown.edges('.focus').removeClass('dim').addClass('hl');
 }
 
-/** A selection: the term, its visible neighbours and the edges between them stay lit. */
-function dimForSelection(p: MapParts, s: MapState, selected: string) {
-  const sel = p.cy.getElementById(selected);
+/** The lit terms whose names would overlap (v2 hides them); none by default. */
+export type Crowd = (lit: cytoscape.NodeCollection) => cytoscape.NodeCollection;
+
+/** The selected term first, then bigger terms: whose names win where they overlap. */
+const selFirst =
+  (sel: cytoscape.NodeSingular) => (a: cytoscape.NodeSingular, b: cytoscape.NodeSingular) =>
+    a.same(sel) ? -1 : b.same(sel) ? 1 : b.data('size') - a.data('size');
+
+/** A selection: the term, its visible neighbours (or the whole shown neighbourhood) stay lit. */
+function dimForSelection(p: MapParts, s: MapState, next: View, crowd?: Crowd) {
+  const sel = p.cy.getElementById(next.selected ?? '');
   if (sel.empty() || sel.hasClass('gone')) return;
-  const edges = sel.connectedEdges().filter((e) => !e.hasClass('off'));
-  const hood = edges.connectedNodes().union(sel) as cytoscape.Collection;
-  s.shown.not(hood).not(edges).addClass('dim');
+  const edges = next.hoodLit ? s.shown.edges() : sel.connectedEdges();
+  const shownEdges = edges.filter((e) => !e.hasClass('off'));
+  const hood = (next.hoodLit ? s.shown.nodes('[size]') : shownEdges.connectedNodes()).union(sel);
+  s.shown.not(hood).not(shownEdges).addClass('dim');
   p.cy.nodes('.tag').addClass('dim');
   hood.not(sel).addClass('nb');
+  const lit = hood.nodes('[size]').sort(selFirst(sel)) as cytoscape.NodeCollection;
+  crowd?.(lit).addClass('nbhide');
 }
 
 /** Paint the view's selection or route (and the relationship names that go with it). */
-export const paintFocus = (p: MapParts, s: MapState, next: View, paintNames: () => void) =>
+export const paintFocus = (
+  p: MapParts,
+  s: MapState,
+  next: View,
+  paintNames: () => void,
+  crowd?: Crowd,
+) =>
   p.cy.batch(() => {
-    p.cy.elements('.sel, .hl, .dim, .nb').removeClass('sel hl dim nb');
+    p.cy.elements('.sel, .hl, .dim, .nb, .nbhide').removeClass('sel hl dim nb nbhide');
     if (next.highlight.size) dimForRoute(p, s, next.highlight);
-    else if (next.selected) dimForSelection(p, s, next.selected);
+    else if (next.selected) dimForSelection(p, s, next, crowd);
     if (next.selected) p.cy.getElementById(next.selected).removeClass('dim').addClass('sel');
     paintNames();
   });

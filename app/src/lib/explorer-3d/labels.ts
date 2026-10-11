@@ -27,7 +27,9 @@ function hubLabel(ctx: Ctx, n: Ctx['model']['nodes'][number]) {
 export function createHubLabels(ctx: Ctx) {
   const labels = new Map<string, Sprite>();
   const art: Art[] = [];
-  for (const n of hubsOf(ctx.model.nodes, ctx.model.rank, EXPLORER.three.hubLabels)) {
+  // v2 names no term at rest (term-names.ts names the lit ones).
+  const count = ctx.opts.variant === 'v2' ? 0 : EXPLORER.three.hubLabels;
+  for (const n of hubsOf(ctx.model.nodes, ctx.model.rank, count)) {
     const made = hubLabel(ctx, n);
     art.push(made.art);
     labels.set(n.id, made.sprite);
@@ -69,7 +71,7 @@ export function createDomainNames(ctx: Ctx) {
   /** A name shows while any of its own terms does; it recedes with a selection. */
   const paint = () => {
     const { view, fx, theme } = ctx.state;
-    const quiet = !!(fx.hood || view?.selected || view?.highlight.size);
+    const quiet = !!(fx.hood || ctx.state.cluster || view?.selected || view?.highlight.size);
     for (const a of names) {
       a.sprite.visible = a.ids.some((id) => view?.nodes.has(id));
       a.sprite.material.opacity = EXPLORER.three.domainLabelAlpha[theme] * (quiet ? 0.35 : 1);
