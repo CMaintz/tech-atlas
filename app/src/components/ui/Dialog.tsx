@@ -1,16 +1,8 @@
-/**
- * The site's modal dialog shell (About, Feedback). A native modal <dialog> gives
- * focus containment, an inert page behind it and the top layer; this adds Esc (with
- * preventDefault, so the tour and term panel stand down — and stopPropagation, so Esc in
- * the Feedback dialog opened from About closes only Feedback), backdrop click, a close
- * button, and focus back on the opener.
- */
 import type { ComponentChildren, JSX, RefObject } from 'preact';
 import { useRef } from 'preact/hooks';
 
 export type DialogHandle = {
   ref: RefObject<HTMLDialogElement>;
-  /** The button that opens the dialog; focus returns to it on close. */
   opener: RefObject<HTMLButtonElement>;
   open: () => void;
   close: () => void;
@@ -27,11 +19,9 @@ export function useDialog(): DialogHandle {
   };
 }
 
-/** Backdrop click and Esc close the dialog; closing puts focus back on the opener. */
 function dialogEvents(dialog: DialogHandle) {
   return {
     onClick: (e: MouseEvent) => {
-      // A click on the dialog box itself (not its content) is a click on the backdrop.
       if (e.target === dialog.ref.current) dialog.close();
     },
     onKeyDown: (e: KeyboardEvent) => {
@@ -45,9 +35,7 @@ function dialogEvents(dialog: DialogHandle) {
 }
 
 type CloseProps = {
-  /** The close button's accessible name. */
   label: string;
-  /** Focus the close button on open (else the first `autofocus` inside). */
   autofocus?: boolean;
 };
 
@@ -69,7 +57,6 @@ const CloseButton = ({ label, autofocus, onClick }: CloseProps & { onClick: () =
 type Props = Omit<JSX.HTMLAttributes<HTMLDialogElement>, 'ref' | 'class'> & {
   dialog: DialogHandle;
   close: CloseProps;
-  /** Classes of the padded box inside the dialog. */
   bodyClass: string;
   children: ComponentChildren;
 };

@@ -1,7 +1,6 @@
 import { useState } from 'preact/hooks';
 import { useLatest } from './use-latest';
 
-/** The legend's open/closed choice is remembered; it starts closed on a first visit. */
 const LEGEND_KEY = 'atlas.explorer.legend';
 
 function storedLegendOpen(): boolean {
@@ -16,11 +15,10 @@ function storeLegendOpen(open: boolean) {
   try {
     localStorage.setItem(LEGEND_KEY, open ? 'open' : 'closed');
   } catch {
-    // Storage blocked (private mode): the choice just isn't remembered.
+    return;
   }
 }
 
-/** The Explorer legend's open state, remembered across visits. */
 export function useLegendOpen() {
   const [open, setOpen] = useState(storedLegendOpen);
   const ref = useLatest(open);

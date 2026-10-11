@@ -1,28 +1,20 @@
-/**
- * The feedback form: its limits, its strings (EN + DA) and the request it sends
- * to the `feedback` Edge Function (supabase/functions/feedback). The limits must equal
- * the function's; feedback-function.test.ts checks that they do. Pure: no DOM.
- */
 import type { Lang } from './site';
 
 export const FEEDBACK_CATEGORIES = ['bug', 'content', 'idea', 'other'] as const;
 export type FeedbackCategory = (typeof FEEDBACK_CATEGORIES)[number];
 export const FEEDBACK_MAX_CHARS = 2000;
 export const FEEDBACK_MAX_EMAIL = 254;
-/** Give up waiting after this long; the function's own deadline is 8 s. */
 export const FEEDBACK_TIMEOUT_MS = 10_000;
 
 export type FeedbackForm = {
   category: FeedbackCategory;
   message: string;
   email: string;
-  /** The hidden honeypot field; people never see it, so it stays empty. */
   website: string;
 };
 
 export type FeedbackIssue = 'message' | 'email' | null;
 
-/** What stops the form from being sent, checked in the browser before sending. */
 export function feedbackIssue(f: Pick<FeedbackForm, 'message' | 'email'>): FeedbackIssue {
   const m = f.message.trim();
   if (!m || f.message.length > FEEDBACK_MAX_CHARS) return 'message';
@@ -35,7 +27,6 @@ export function feedbackIssue(f: Pick<FeedbackForm, 'message' | 'email'>): Feedb
   return null;
 }
 
-/** The JSON body: the form plus the page (path only, never the query) and language. */
 export function feedbackBody(f: FeedbackForm, page: string, lang: Lang) {
   return {
     category: f.category,
@@ -48,10 +39,8 @@ export function feedbackBody(f: FeedbackForm, page: string, lang: Lang) {
 }
 
 export type SendResult = 'sent' | 'limited' | 'failed';
-/** Where the form stands: not yet sent, sending, or how the last send went. */
 export type FeedbackStatus = 'idle' | 'sending' | SendResult;
 
-/** POST the form to the function. Never throws. */
 export async function sendFeedback(
   url: string,
   body: ReturnType<typeof feedbackBody>,
@@ -132,7 +121,6 @@ export const FEEDBACK_UI: Record<Lang, Record<keyof typeof FEEDBACK_EN, string>>
 
 export type FeedbackUi = (typeof FEEDBACK_UI)['en'];
 
-/** The form's error line: a field problem first, else a failed send; '' when all is well. */
 export function feedbackError(
   issue: FeedbackIssue,
   status: FeedbackStatus,
@@ -145,11 +133,9 @@ export function feedbackError(
   return '';
 }
 
-/** The counter under the message: "{n} of {max} characters". */
 export const feedbackCounter = (n: number, ui: FeedbackUi) =>
   ui.messageHint.replace('{n}', String(n)).replace('{max}', String(FEEDBACK_MAX_CHARS));
 
-/** Props for the Feedback island; null when the build has no feedback function. */
 export type FeedbackProps = {
   url: string;
   lang: Lang;

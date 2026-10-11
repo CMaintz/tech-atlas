@@ -1,7 +1,3 @@
-/**
- * The Compare pages ("Don't confuse these").
- * A slice of `UI` (site.ts), which merges every area into one table per language.
- */
 export const UI_COMPARE = {
   en: {
     compareTitle: "Don't confuse these",

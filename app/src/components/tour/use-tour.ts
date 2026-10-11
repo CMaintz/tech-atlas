@@ -5,10 +5,6 @@ import { useBridgeLinks, useTourBoot, useTourEscape } from './use-tour-listeners
 import { useFollowTarget, useTourMove, useTourReveal } from './use-tour-motion';
 import { useTourNav, type Shown, type TourNavDeps } from './use-tour-nav';
 
-/**
- * The tour's state and behaviour: `view` is where the tour is heading; `shown` is what
- * the card shows — it lags `view` while the page scrolls to the next target.
- */
 export function useTour(steps: TourStep[], langBase: string, autoStart: boolean) {
   const [view, setView] = useState<TourScreen>({ kind: 'off' });
   const [shown, setShown] = useState<Shown | null>(null);

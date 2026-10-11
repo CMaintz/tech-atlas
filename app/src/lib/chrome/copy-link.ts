@@ -1,4 +1,3 @@
-/** Copy-link buttons: <button data-copy-link data-copied="…">, optionally with a [data-label]. */
 export function initCopyLinks() {
   document.addEventListener('click', async (e) => {
     const b = (e.target as Element | null)?.closest<HTMLElement>('[data-copy-link]');
@@ -10,7 +9,7 @@ export function initCopyLinks() {
       label.textContent = b.dataset.copied ?? before;
       setTimeout(() => (label.textContent = before), 2000);
     } catch {
-      /* clipboard blocked: nothing to do */
+      return;
     }
   });
 }

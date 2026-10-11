@@ -1,5 +1,3 @@
-// Shared setup for the `feedback` Edge Function tests: a valid body, a request, and a
-// handler Deps with a mocked fetch and captured logs.
 import { vi } from 'vitest';
 import type { Deps } from '../../../supabase/functions/feedback/logic';
 
@@ -26,7 +24,6 @@ export const req = (body: unknown, init: RequestInit = {}) =>
     ...init,
   });
 
-/** A fetch that answers the RPC with `rpc` and Resend with `resend`, recording calls. */
 export function mockFetch(rpc: () => Response, resend: () => Response = () => new Response('{}')) {
   return vi.fn(async (url: string, _init: RequestInit) =>
     url.endsWith('/rest/v1/rpc/feedback_submit') ? rpc() : resend(),

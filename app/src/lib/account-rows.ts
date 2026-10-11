@@ -1,21 +1,17 @@
-/**
- * Reads and writes of the learner's own `learner_state` row. Stateless: the
- * sync loop in account.ts decides when to call these and what to do with the answers.
- */
 import type { SupabaseClient, User } from '@supabase/supabase-js';
 
 export type Row = { state: unknown; version: number; deleted_at: string | null };
 export type Me = { id: string; email: string; signedInAt: number };
+type RowPatch = Record<string, unknown>;
+type VersionedWrite = { read: Row | null; patch: RowPatch };
 
-/** The learner a session belongs to, or null when signed out. */
 export function meOf(u: User | undefined): Me | null {
   if (!u) return null;
   return { id: u.id, email: u.email ?? '', signedInAt: Date.parse(u.last_sign_in_at ?? '') || 0 };
 }
 
 const TABLE = 'learner_state';
-/** Postgres unique_violation: another device inserted the row first. */
-const DUPLICATE = '23505';
+const UNIQUE_VIOLATION = '23505';
 
 export async function pull(c: SupabaseClient, me: Me): Promise<Row | null> {
   const { data, error } = await c
@@ -27,39 +23,32 @@ export async function pull(c: SupabaseClient, me: Me): Promise<Row | null> {
   return data as Row | null;
 }
 
-async function insertRow(c: SupabaseClient, me: Me, patch: Record<string, unknown>) {
+async function insertRow(c: SupabaseClient, me: Me, patch: RowPatch) {
   const { error } = await c.from(TABLE).insert({ user_id: me.id, ...patch });
-  if (error?.code === DUPLICATE) return false;
+  if (error?.code === UNIQUE_VIOLATION) return false;
   if (error) throw error;
   return true;
 }
 
-async function updateRow(c: SupabaseClient, me: Me, row: Row, patch: Record<string, unknown>) {
+async function updateRow(
+  c: SupabaseClient,
+  me: Me,
+  { read, patch }: { read: Row; patch: RowPatch },
+) {
   const { data, error } = await c
     .from(TABLE)
     .update(patch)
     .eq('user_id', me.id)
-    .eq('version', row.version)
+    .eq('version', read.version)
     .select('version');
   if (error) throw error;
   return (data?.length ?? 0) > 0;
 }
 
-/**
- * Write `patch` over the version we read, or insert when there was no row. Returns
- * false when someone else wrote first (0 rows changed / duplicate insert), so the
- * caller re-pulls, re-merges and tries again.
- */
-export function write(
-  c: SupabaseClient,
-  me: Me,
-  row: Row | null,
-  patch: Record<string, unknown>,
-): Promise<boolean> {
-  return row ? updateRow(c, me, row, patch) : insertRow(c, me, patch);
+export function write(c: SupabaseClient, me: Me, w: VersionedWrite): Promise<boolean> {
+  return w.read ? updateRow(c, me, { read: w.read, patch: w.patch }) : insertRow(c, me, w.patch);
 }
 
-/** Replace the row with a tombstone: empty state, `deleted_at` set. Throws on failure. */
 export async function writeTombstone(c: SupabaseClient, me: Me): Promise<void> {
   const { error } = await c
     .from(TABLE)

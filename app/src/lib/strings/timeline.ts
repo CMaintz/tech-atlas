@@ -1,7 +1,3 @@
-/**
- * The timeline page's heading and notes; the island's own controls are TIMELINE_UI below.
- * A slice of `UI` (site.ts), which merges every area into one table per language.
- */
 export const UI_TIMELINE = {
   en: {
     timelineIntro:
@@ -23,7 +19,6 @@ export const UI_TIMELINE = {
   },
 } as const;
 
-/** Timeline v2 controls, era bands and legend (swim-lane timeline). */
 export const TIMELINE_UI = {
   en: {
     zoomIn: 'Zoom in',

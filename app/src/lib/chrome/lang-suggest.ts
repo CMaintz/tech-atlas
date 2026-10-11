@@ -1,4 +1,3 @@
-/** Danish readers on an English page: suggest the Danish one. */
 import { LANG_SUGGEST_KEY, prefersDanish } from '../prefs';
 
 function dismissed(): boolean {
@@ -20,7 +19,7 @@ export function initLangSuggest() {
     try {
       localStorage.setItem(LANG_SUGGEST_KEY, '1');
     } catch {
-      /* hidden for this page only */
+      return;
     }
   });
 }

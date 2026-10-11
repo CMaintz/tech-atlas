@@ -1,8 +1,3 @@
-/**
- * UI strings for the open-data, feed, A–Z, 404 and "Continue learning" surfaces.
- * Kept apart from `UI` in site.ts so those pages don't churn the main
- * string table.
- */
 import type { Lang } from './site';
 
 export const UI_EXTRA = {
@@ -76,7 +71,6 @@ export const UI_EXTRA = {
   },
 } as const satisfies Record<Lang, unknown>;
 
-/** Source tiers, best first (SPEC §5, D11) — the order "Continue learning" uses. */
 export const TIER_ORDER = [
   'standard',
   'official-doc',

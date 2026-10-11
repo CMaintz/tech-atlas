@@ -1,4 +1,3 @@
-/** Names of the map's domains, clusters and relationship families, in both languages. */
 import type { Lang } from '../lang';
 
 export const DOMAIN_LABELS: Record<string, Record<Lang, string>> = {
@@ -49,8 +48,6 @@ export const FAMILY_LABELS: Record<string, Record<Lang, string>> = {
   association: { en: 'Used together', da: 'Bruges sammen' },
 };
 
-/** A domain's name in `lang`; an unlabelled domain shows its id. */
 export const domainLabel = (id: string, lang: Lang) => DOMAIN_LABELS[id]?.[lang] ?? id;
 
-/** A cluster's name in `lang`; an unlabelled cluster shows its id. */
 export const clusterLabel = (id: string, lang: Lang) => CLUSTER_LABELS[id]?.[lang] ?? id;

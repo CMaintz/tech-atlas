@@ -1,7 +1,3 @@
-/**
- * The home page: hero, search box and browse-by-domain.
- * A slice of `UI` (site.ts), which merges every area into one table per language.
- */
 export const UI_HOME = {
   en: {
     heroLead:

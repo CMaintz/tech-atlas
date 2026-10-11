@@ -77,26 +77,30 @@ describe('placeCard', () => {
 describe('scrollDelta', () => {
   const at = { y: 1000, max: 5000 };
   it('leaves the page alone when the target and card already fit', () => {
-    expect(scrollDelta(r(200, 100, 600, 60), card, desk, at)).toBe(0);
-    expect(scrollDelta(r(700, 100, 600, 60), card, desk, at)).toBe(0); // card fits above
-    expect(scrollDelta(r(200, 16, 350, 60), card, phone, at)).toBe(0);
+    expect(scrollDelta(r(200, 100, 600, 60), card, { vp: desk, scroll: at })).toBe(0);
+    expect(scrollDelta(r(700, 100, 600, 60), card, { vp: desk, scroll: at })).toBe(0); // card fits above
+    expect(scrollDelta(r(200, 16, 350, 60), card, { vp: phone, scroll: at })).toBe(0);
   });
   it('brings a target that is off screen (or under the phone sheet) into the free band', () => {
-    const down = scrollDelta(r(1600, 100, 600, 60), card, desk, at);
+    const down = scrollDelta(r(1600, 100, 600, 60), card, { vp: desk, scroll: at });
     expect(down).toBeGreaterThan(0);
     const t = 1600 - down;
     expect(t).toBeGreaterThanOrEqual(EDGE + SPOT_PAD);
     expect(t + 60).toBeLessThanOrEqual(900 - card.height - CARD_GAP - EDGE - SPOT_PAD);
-    const under = scrollDelta(r(700, 16, 350, 60), card, phone, at);
+    const under = scrollDelta(r(700, 16, 350, 60), card, { vp: phone, scroll: at });
     expect(under).toBeGreaterThan(0);
-    expect(scrollDelta(r(-400, 100, 600, 60), card, desk, at)).toBeLessThan(0);
+    expect(scrollDelta(r(-400, 100, 600, 60), card, { vp: desk, scroll: at })).toBeLessThan(0);
   });
   it('brings a tall target to the top, and never past what the page can scroll', () => {
-    expect(scrollDelta(r(500, 0, 1440, 3000), card, desk, at)).toBe(
+    expect(scrollDelta(r(500, 0, 1440, 3000), card, { vp: desk, scroll: at })).toBe(
       500 - EDGE - SPOT_PAD - CARD_GAP * 2,
     );
-    expect(scrollDelta(r(-400, 100, 600, 60), card, desk, { y: 100, max: 5000 })).toBe(-100);
-    expect(scrollDelta(r(1600, 100, 600, 60), card, desk, { y: 0, max: 300 })).toBe(300);
+    expect(
+      scrollDelta(r(-400, 100, 600, 60), card, { vp: desk, scroll: { y: 100, max: 5000 } }),
+    ).toBe(-100);
+    expect(scrollDelta(r(1600, 100, 600, 60), card, { vp: desk, scroll: { y: 0, max: 300 } })).toBe(
+      300,
+    );
   });
 });
 

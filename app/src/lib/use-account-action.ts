@@ -1,27 +1,20 @@
 import { useEffect, useState } from 'preact/hooks';
 import { redirectError } from './account-view';
 
-/** Run an account action: resolves to an error message, or nothing when it worked. */
 export type Run = (
   fn: () => Promise<string | null | void>,
   done?: string,
   failed?: string,
 ) => Promise<void>;
 
-/**
- * One account action at a time: `busy` while it runs, then `message` says how it
- * went — `done`, or `failed` / `authError` with `{msg}` filled in. On mount the message
- * starts as any auth error handed back in the redirect URL.
- */
-export function useAccountAction(authError: string) {
-  const [busy, setBusy] = useState(false);
-  const [message, setMessage] = useState('');
-  useEffect(() => {
-    const error = redirectError(location.search, location.hash);
-    if (error) setMessage(authError.replace('{msg}', error));
-  }, []);
+type RunDeps = {
+  authError: string;
+  setBusy: (busy: boolean) => void;
+  setMessage: (message: string) => void;
+};
 
-  const run: Run = async (fn, done = '', failed = authError) => {
+function makeRun({ authError, setBusy, setMessage }: RunDeps): Run {
+  return async (fn, done = '', failed = authError) => {
     setBusy(true);
     setMessage('');
     try {
@@ -33,5 +26,15 @@ export function useAccountAction(authError: string) {
       setBusy(false);
     }
   };
+}
+
+export function useAccountAction(authError: string) {
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState('');
+  useEffect(() => {
+    const error = redirectError(location.search, location.hash);
+    if (error) setMessage(authError.replace('{msg}', error));
+  }, []);
+  const run = makeRun({ authError, setBusy, setMessage });
   return { busy, message, run };
 }

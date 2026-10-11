@@ -13,7 +13,6 @@ const primary = `${btn} border-amber-400 bg-amber-400 font-medium text-on-accent
 const secondary = `${btn} border-border-strong text-fg-soft hover:border-border-hover`;
 const quiet = `${btn} border-transparent text-muted underline-offset-2 hover:text-fg hover:underline`;
 
-/** The overlay: the spotlight, and the (non-modal) card describing what it lights. */
 export function TourOverlay(props: CardProps) {
   const { refs } = props.tour;
   return (
@@ -43,7 +42,6 @@ function TourDialog(props: CardProps) {
   );
 }
 
-/** Title (a bridge card: the way to the next page), close button and body. */
 function CardText({ tour, steps, ui, m }: PartProps) {
   const current = steps[m.textStep];
   const bridgeBody = tour.shown?.via === 'menu' ? ui.tourBridgeMenu : ui.tourBridgeLink;
@@ -77,10 +75,6 @@ function CloseButton({ label, onClick }: { label: string; onClick: () => void })
   );
 }
 
-/**
- * The welcome card: start, not now (asks again next visit), and don't show again (asks
- * no more; "Take the tour" still starts it).
- */
 function WelcomeActions({ tour, ui }: CardProps) {
   return (
     <div class="mt-4 flex flex-wrap items-center gap-2">
@@ -97,7 +91,6 @@ function WelcomeActions({ tour, ui }: CardProps) {
   );
 }
 
-/** A step (or bridge) card: "Step n of m", then Back and Next/Finish. */
 function StepActions(props: PartProps) {
   const { steps, ui, m } = props;
   return (
@@ -113,11 +106,7 @@ function StepActions(props: PartProps) {
   );
 }
 
-/**
- * What Back and Next do. On a bridge card: Back returns to the step it came from, Next
- * goes to the next page. Otherwise they move one step.
- */
-function stepMoves({ tour, steps, m }: PartProps) {
+function backAndNextMoves({ tour, steps, m }: PartProps) {
   const { bridge } = m;
   if (!bridge) return { back: () => tour.go(m.step - 1), next: () => tour.go(m.step + 1) };
   return {
@@ -128,7 +117,7 @@ function stepMoves({ tour, steps, m }: PartProps) {
 
 function StepButtons(props: PartProps) {
   const { ui, m } = props;
-  const { back, next } = stepMoves(props);
+  const { back, next } = backAndNextMoves(props);
   return (
     <>
       {(m.bridge || m.step > 1) && (

@@ -1,10 +1,8 @@
-/** The privacy page: every piece of personal data the site processes, and why. */
 import type { Lang } from './site';
 
 type T = Record<Lang, string>;
 
 export type DataItem = {
-  /** Anchor on the privacy page, for items linked from elsewhere (e.g. #feedback). */
   id?: string;
   title: T;
   what: T;
@@ -14,7 +12,6 @@ export type DataItem = {
   retention: T;
 };
 
-/** Every piece of personal data, in the order a visitor meets it. */
 export const DATA: DataItem[] = [
   {
     title: { en: 'Visiting the site', da: 'Når du besøger sitet' },

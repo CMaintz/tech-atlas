@@ -1,4 +1,3 @@
-/** The privacy page's headings and running text, both languages. */
 import type { Lang } from './site';
 
 export const PRIVACY_UI = {

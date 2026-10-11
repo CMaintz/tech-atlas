@@ -1,12 +1,7 @@
 import type { Bi, Lang } from '../lang';
 
-/**
- * The About dialog: owner links and credits. A link whose href is not a real
- * URL is not rendered, so a placeholder never becomes a broken link.
- */
 export const ABOUT_LINKS = {
   github: 'https://github.com/CMaintz',
-  // Empty = the LinkedIn pill is left out.
   linkedin: 'https://www.linkedin.com/in/christoffer-maintz/',
   website: 'https://maintz.dev',
 };
@@ -15,12 +10,7 @@ export interface AboutPerson {
   section: 'credits' | 'thanks';
   name: string;
   role: Bi;
-  /**
-   * File under app/public/about/. Any aspect ratio: it is cropped to a centred circle
-   * (object-fit: cover). Missing at build time = an initials circle instead.
-   */
   photo: string;
-  /** CSS object-position for the crop, e.g. '50% 30%' to keep a face in frame. */
   photoPosition?: string;
 }
 
