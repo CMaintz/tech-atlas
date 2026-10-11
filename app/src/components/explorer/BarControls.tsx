@@ -1,7 +1,3 @@
-/**
- * The bar's controls bound to the Explorer model, shared by the one-row bar and the
- * phones' Controls sheet (which lay them out differently).
- */
 import { familyColours } from '../../lib/graph-style';
 import { DomainChips } from './DomainChips';
 import { FindTerm } from './FindTerm';
@@ -46,10 +42,9 @@ export function Find({ p, x }: Section) {
   return (
     <FindTerm
       ui={p.ui}
-      lang={p.lang}
+      name={x.index.name}
       search={x.search}
       field={x.bar.find}
-      byId={x.index.byId}
       size={x.bar.size.size}
       sheet={x.bar.size.sheet}
       onPick={x.pick}

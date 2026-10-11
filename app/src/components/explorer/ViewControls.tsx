@@ -12,7 +12,6 @@ const MODES = [
 
 type Props = { ui: Dict; controls: ViewControls };
 
-/** 2D or 3D. */
 export function ModeSegment({ ui, controls }: Props) {
   return (
     <SegmentedControl<Mode>
@@ -24,13 +23,15 @@ export function ModeSegment({ ui, controls }: Props) {
   );
 }
 
-/** The 2D layouts (force, depth, time), or in 3D the auto-rotate toggle. */
 export function LayoutControl(props: Props) {
-  return props.controls.mode === '3d' ? <SpinToggle {...props} /> : <LayoutSegment {...props} />;
+  return props.controls.mode === '3d' ? (
+    <AutoRotateToggle {...props} />
+  ) : (
+    <LayoutSegment {...props} />
+  );
 }
 
-/** The 3D galaxy's auto-rotate. */
-function SpinToggle({ ui, controls }: Props) {
+function AutoRotateToggle({ ui, controls }: Props) {
   const { spin, setSpin } = controls;
   return (
     <Chip active={spin} aria-pressed={spin} onClick={() => setSpin(!spin)}>
@@ -56,7 +57,6 @@ function LayoutSegment({ ui, controls }: Props) {
   );
 }
 
-/** Colour the terms by cluster or by what the reader knows (SPEC §9). */
 export function ColourSegment({ ui, controls }: Props) {
   const options = [
     { value: 'cluster', label: ui.byCluster },

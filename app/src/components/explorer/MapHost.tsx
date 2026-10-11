@@ -1,6 +1,5 @@
 import type { Section } from './use-explorer';
 
-/** The map host: focusable, so the keyboard can move the map. Both maps live here. */
 export function MapHost({ p, x }: Section) {
   const { onPoint } = x.maps;
   return (
@@ -19,12 +18,10 @@ export function MapHost({ p, x }: Section) {
   );
 }
 
-/** The 2D and 3D maps' boxes, the hidden one kept (invisible) so it keeps its state. */
 function MapBoxes({ p, x }: Section) {
   const mode = x.controls.mode;
   return (
     <>
-      {/* Cytoscape forces its container to position: relative, so it fills a wrapper. */}
       <div class={`absolute inset-0 ${mode === '2d' ? '' : 'invisible'}`}>
         <div ref={x.maps.box2d} class="h-full w-full">
           {!x.graph && <p class="p-6 pt-20 text-subtle">{p.ui.loading}</p>}

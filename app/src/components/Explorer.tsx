@@ -9,11 +9,6 @@ import { useExplorer, type Section } from './explorer/use-explorer';
 
 export type { ExplorerProps } from './explorer/types';
 
-/**
- * The full-map explorer (SPEC §7). Every node links to a real, statically rendered
- * page: the canvas is an index, not a container. The 2D and 3D maps are each built once
- * and kept; every control below only changes what they show.
- */
 export default function Explorer(props: ExplorerProps) {
   const x = useExplorer(props);
   return (
@@ -30,13 +25,12 @@ export default function Explorer(props: ExplorerProps) {
   );
 }
 
-/** The hover card, framed by the 2D map's box. */
 function MapHoverCard({ p, x }: Section) {
   return (
     <HoverCard
       card={x.maps.card}
       byId={x.index.byId}
-      box={x.maps.box2d}
+      frame={x.maps.box2d}
       domains={x.filters.domains}
       theme={x.theme}
       lang={p.lang}

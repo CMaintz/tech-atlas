@@ -3,7 +3,7 @@ import { eachDot, pathOf, sample } from './explorer-flow-path';
 
 const dots = (pts: number[], shift: number, spacing: number) => {
   const out: [number, number][] = [];
-  eachDot(pathOf(pts), shift, spacing, (x, y) => out.push([x, y]));
+  eachDot(pathOf(pts), { shift, spacing }, (x, y) => out.push([x, y]));
   return out;
 };
 

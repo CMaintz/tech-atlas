@@ -1,58 +1,51 @@
-/**
- * The Explorer's flow: small dots drift source → target along every visible
- * one-way edge of the 2D map, all the time. They are drawn on a canvas laid over the
- * map, so Cytoscape never restyles or redraws for the animation — the only per-frame
- * work is one clear and a few batched fills of on-screen dots. Edge geometry is sampled
- * once and re-sampled only when edges, classes or positions change. Symmetric
- * relationships never move; nothing moves under prefers-reduced-motion. Browser-only.
- */
 import type cytoscape from 'cytoscape';
 import { EXPLORER } from './explorer-config';
 import { groupPaths } from './explorer-flow-edges';
-import { eachDot, type Box, type Path } from './explorer-flow-path';
+import { eachDot, type Box, type DotSpacing, type Path } from './explorer-flow-path';
 
 const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
 const SCENE_EVENTS = 'class style data position add remove';
 
-/** The dots' settings (`EXPLORER.dots`), as plain numbers. */
 export type DotsConfig = { readonly [K in keyof typeof EXPLORER.dots]: number };
 
-/**
- * The one-way edges' paths, re-sampled only after edges, classes or positions change;
- * and whether the view moved since the last frame (pan and zoom: the dots follow the
- * live viewport in the very next frame, outside the fps throttle, so they stay locked to
- * the map and never blink out mid-gesture).
- */
+function orThrow<T>(value: T | null | undefined, what: string): T {
+  if (value === null || value === undefined) throw new Error(`${what} is missing`);
+  return value;
+}
+
+type SceneState = { groups: Map<string, Path[]>; dirty: boolean; moved: boolean };
+
+function scenePaths(state: SceneState, directed: cytoscape.EdgeCollection) {
+  if (state.dirty) {
+    state.dirty = false;
+    state.groups = groupPaths(directed);
+  }
+  return state.groups;
+}
+
+function takeMoved(state: SceneState) {
+  const was = state.moved;
+  state.moved = false;
+  return was;
+}
+
 function watchScene(cy: cytoscape.Core, edges: cytoscape.EdgeCollection) {
   const directed = edges.filter((e) => e.data('directed') === 1);
-  let groups = new Map<string, Path[]>();
-  let dirty = true;
-  let moved = false;
-  const markDirty = () => void (dirty = true);
-  const onViewport = () => void (moved = true);
+  const state: SceneState = { groups: new Map(), dirty: true, moved: false };
+  const markDirty = () => void (state.dirty = true);
+  const onViewport = () => void (state.moved = true);
   cy.on(SCENE_EVENTS, markDirty);
   cy.on('viewport', onViewport);
-  const paths = () => {
-    if (dirty) {
-      dirty = false;
-      groups = groupPaths(directed);
-    }
-    return groups;
-  };
-  const takeMoved = () => {
-    const was = moved;
-    moved = false;
-    return was;
-  };
   const stop = () => {
     cy.removeListener(SCENE_EVENTS, markDirty);
     cy.removeListener('viewport', onViewport);
   };
-  return { paths, takeMoved, stop };
+  return { paths: () => scenePaths(state, directed), takeMoved: () => takeMoved(state), stop };
 }
 
-/** A canvas laid over the map, letting the pointer through. */
-function overlay(container: HTMLElement) {
+type Scene = ReturnType<typeof watchScene>;
+
+function pointerTransparentOverlay(container: HTMLElement) {
   if (getComputedStyle(container).position === 'static') container.style.position = 'relative';
   const canvas = document.createElement('canvas');
   canvas.setAttribute('aria-hidden', 'true');
@@ -61,48 +54,48 @@ function overlay(container: HTMLElement) {
   return canvas;
 }
 
-/** The overlay, sized to the map at the device's pixel ratio (at most 2). */
-function mountCanvas(container: HTMLElement) {
-  const canvas = overlay(container);
-  const ctx = canvas.getContext('2d')!;
-  const layer = {
-    container,
-    canvas,
-    ctx,
-    dpr: 1,
-    /** Whether anything is on the canvas (a clear is skipped otherwise). */
-    drawn: false,
-    resize() {
-      layer.dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.round(container.clientWidth * layer.dpr);
-      canvas.height = Math.round(container.clientHeight * layer.dpr);
-      canvas.style.width = `${container.clientWidth}px`;
-      canvas.style.height = `${container.clientHeight}px`;
-    },
-    clear() {
-      if (!layer.drawn) return;
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      layer.drawn = false;
-    },
-  };
-  layer.resize();
+type Layer = {
+  container: HTMLElement;
+  canvas: HTMLCanvasElement;
+  ctx: CanvasRenderingContext2D;
+  dpr: number;
+  drawn: boolean;
+};
+
+function resizeLayer(layer: Layer) {
+  const { canvas, container } = layer;
+  layer.dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = Math.round(container.clientWidth * layer.dpr);
+  canvas.height = Math.round(container.clientHeight * layer.dpr);
+  canvas.style.width = `${container.clientWidth}px`;
+  canvas.style.height = `${container.clientHeight}px`;
+}
+
+function clearLayer(layer: Layer) {
+  if (!layer.drawn) return;
+  layer.ctx.setTransform(1, 0, 0, 1, 0, 0);
+  layer.ctx.clearRect(0, 0, layer.canvas.width, layer.canvas.height);
+  layer.drawn = false;
+}
+
+function mountCanvas(container: HTMLElement): Layer {
+  const canvas = pointerTransparentOverlay(container);
+  const ctx = orThrow(canvas.getContext('2d'), 'The flow canvas 2D context');
+  const layer = { container, canvas, ctx, dpr: 1, drawn: false };
+  resizeLayer(layer);
   return layer;
 }
 
-type Layer = ReturnType<typeof mountCanvas>;
-
-type Frame = { ext: Box; r: number; shift: number; spacing: number };
+type Frame = DotSpacing & { ext: Box; r: number; litAlpha: number; restAlpha: number };
 
 const onScreen = (b: Box, ext: Box) =>
   !(b.x2 < ext.x1 || b.x1 > ext.x2 || b.y2 < ext.y1 || b.y1 > ext.y2);
 
-/** One fill of a group's on-screen dots. */
-function fillGroup(ctx: CanvasRenderingContext2D, paths: Path[], f: Frame) {
+function fillOnScreenDots(ctx: CanvasRenderingContext2D, paths: Path[], f: Frame) {
   ctx.beginPath();
   for (const p of paths) {
     if (!onScreen(p.box, f.ext)) continue;
-    eachDot(p, f.shift, f.spacing, (x, y) => {
+    eachDot(p, f, (x, y) => {
       ctx.moveTo(x + f.r, y);
       ctx.arc(x, y, f.r, 0, Math.PI * 2);
     });
@@ -112,87 +105,90 @@ function fillGroup(ctx: CanvasRenderingContext2D, paths: Path[], f: Frame) {
 
 type Look = { cfg: DotsConfig; restAlpha: () => number };
 
-/** Lay the canvas over the live viewport; the dots' size and shift at time `t` (ms). */
-function viewFrame(cy: cytoscape.Core, layer: Layer, cfg: DotsConfig, t: number): Frame {
+type Flow = { cy: cytoscape.Core; layer: Layer; scene: Scene; look: Look; paused: () => boolean };
+
+function frameOnViewport({ cy, layer, look }: Flow, t: number): Frame {
+  const { cfg } = look;
   const zoom = cy.zoom();
   const pan = cy.pan();
   const k = layer.dpr * zoom;
   layer.ctx.setTransform(k, 0, 0, k, layer.dpr * pan.x, layer.dpr * pan.y);
   const shift = ((t / 1000) * cfg.speed) % cfg.spacing;
-  return { ext: cy.extent(), r: cfg.radius / zoom, shift, spacing: cfg.spacing };
+  const alpha = { litAlpha: cfg.litAlpha, restAlpha: look.restAlpha() };
+  return { ext: cy.extent(), r: cfg.radius / zoom, shift, spacing: cfg.spacing, ...alpha };
 }
 
-/** Draw every group's dots, one fill per colour. */
-function drawDots(layer: Layer, groups: Map<string, Path[]>, f: Frame, look: Look) {
+function drawDotsByColour(layer: Layer, groups: Map<string, Path[]>, f: Frame) {
   const { ctx } = layer;
   for (const [key, paths] of groups) {
-    ctx.globalAlpha = key.endsWith('|1') ? look.cfg.litAlpha : look.restAlpha();
+    ctx.globalAlpha = key.endsWith('|1') ? f.litAlpha : f.restAlpha;
     ctx.fillStyle = key.slice(0, key.lastIndexOf('|'));
-    fillGroup(ctx, paths, f);
+    fillOnScreenDots(ctx, paths, f);
     layer.drawn = true;
   }
   ctx.globalAlpha = 1;
 }
 
+function drawFrame(flow: Flow, t: number) {
+  clearLayer(flow.layer);
+  if (flow.paused() || !flow.layer.container.offsetParent) return;
+  drawDotsByColour(flow.layer, flow.scene.paths(), frameOnViewport(flow, t));
+}
+
 type LoopHooks = { draw: (t: number) => void; moved: () => boolean; still: () => void };
 
-/**
- * The frame loop: `draw` at most `cfg.fps` times a second (every frame while the view
- * moves); none under reduced motion (`still` clears), resumed when that changes.
- */
+type Loop = {
+  cfg: DotsConfig;
+  on: LoopHooks;
+  motion: MediaQueryList | undefined;
+  raf: number;
+  last: number;
+  stopped: boolean;
+};
+
+function tick(loop: Loop, t: number) {
+  loop.raf = 0;
+  if (loop.stopped) return;
+  if (loop.motion?.matches) return loop.on.still();
+  loop.raf = requestAnimationFrame((next) => tick(loop, next));
+  if (!loop.on.moved() && t - loop.last < 1000 / loop.cfg.fps) return;
+  loop.last = t;
+  loop.on.draw(t);
+}
+
+function wake(loop: Loop) {
+  if (!loop.raf && !loop.stopped) loop.raf = requestAnimationFrame((t) => tick(loop, t));
+}
+
 function runLoop(cfg: DotsConfig, on: LoopHooks) {
   const motion = window.matchMedia?.(REDUCED_MOTION);
-  let raf = 0;
-  let last = 0;
-  let stopped = false;
-  const tick = (t: number) => {
-    raf = 0;
-    if (stopped) return;
-    if (motion?.matches) return on.still();
-    raf = requestAnimationFrame(tick);
-    if (!on.moved() && t - last < 1000 / cfg.fps) return;
-    last = t;
-    on.draw(t);
-  };
-  const wake = () => {
-    if (!raf && !stopped) raf = requestAnimationFrame(tick);
-  };
-  motion?.addEventListener?.('change', wake);
-  wake();
+  const loop: Loop = { cfg, on, motion, raf: 0, last: 0, stopped: false };
+  const onMotionChange = () => wake(loop);
+  motion?.addEventListener?.('change', onMotionChange);
+  wake(loop);
   const stop = () => {
-    stopped = true;
-    cancelAnimationFrame(raf);
-    motion?.removeEventListener?.('change', wake);
+    loop.stopped = true;
+    cancelAnimationFrame(loop.raf);
+    motion?.removeEventListener?.('change', onMotionChange);
   };
   return { stop };
 }
 
-/**
- * Start the flow over `cy`'s `edges` (the one-way ones are chosen here). `paused` is
- * checked every frame (e.g. while nodes glide to a new layout). Returns a stop function
- * and a `resize` to call when the container changes size.
- */
 export function startDots(
   cy: cytoscape.Core,
   edges: cytoscape.EdgeCollection,
   paused: () => boolean,
-  /** Resting opacity (the cream map needs more than the night map). */
   restAlpha: () => number = () => EXPLORER.dots.alpha,
-  /** The settings, read every frame (the hidden visual lab tunes a copy live). */
   cfg: DotsConfig = EXPLORER.dots,
 ): { stop: () => void; resize: () => void } {
-  const layer = mountCanvas(cy.container()!);
-  const scene = watchScene(cy, edges);
-  const draw = (t: number) => {
-    layer.clear();
-    if (paused() || !layer.container.offsetParent) return;
-    drawDots(layer, scene.paths(), viewFrame(cy, layer, cfg, t), { cfg, restAlpha });
-  };
-  const loop = runLoop(cfg, { draw, moved: scene.takeMoved, still: layer.clear });
+  const layer = mountCanvas(orThrow(cy.container(), 'The map container'));
+  const flow: Flow = { cy, layer, scene: watchScene(cy, edges), paused, look: { cfg, restAlpha } };
+  const draw = (t: number) => drawFrame(flow, t);
+  const loop = runLoop(cfg, { draw, moved: flow.scene.takeMoved, still: () => clearLayer(layer) });
   const stop = () => {
     loop.stop();
-    scene.stop();
+    flow.scene.stop();
     layer.canvas.remove();
   };
-  return { resize: layer.resize, stop };
+  return { resize: () => resizeLayer(layer), stop };
 }

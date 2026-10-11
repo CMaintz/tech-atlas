@@ -1,4 +1,3 @@
-/** How the Explorer draws: the view controls, the shown terms, and each term's paint. */
 import { useMemo, useState } from 'preact/hooks';
 import type { Graph, GraphNode } from './graph-model';
 import type { MapTheme } from './graph-style';
@@ -16,7 +15,6 @@ import type { Filters, Selection } from './use-explorer-state';
 
 export type ColourMode = 'cluster' | 'knowledge';
 
-/** The bar's view choices: 2D/3D, the 2D layout, the colouring, the 3D auto-rotate. */
 export function useViewControls(labMode?: Mode) {
   const [mode, setMode] = useState<Mode>(labMode ?? '2d');
   const [layout, setLayout] = useState<Layout>('force');
@@ -26,7 +24,6 @@ export function useViewControls(labMode?: Mode) {
 }
 export type ViewControls = ReturnType<typeof useViewControls>;
 
-/** The shown terms and links, and how many dated-layout terms have no era. */
 export function useVisible(
   graph: Graph | null,
   { domains, families }: Filters,
@@ -46,7 +43,6 @@ export function useVisible(
   return { ids, visible, undated };
 }
 
-/** Each term's fill and split bands, by the colour mode and theme. */
 export function usePaint(colourMode: ColourMode, domains: ReadonlySet<string>, theme: MapTheme) {
   const learner = useLearner();
   const colour = useMemo(
@@ -56,7 +52,6 @@ export function usePaint(colourMode: ColourMode, domains: ReadonlySet<string>, t
         : knowledgeColour(learner.terms[n.id], theme),
     [colourMode, learner, domains, theme],
   );
-  /** A shared term's split fill, one band per enabled domain (cluster colouring only). */
   const bands = useMemo(
     () => (n: GraphNode) => (colourMode === 'cluster' ? domainBands(n, domains, theme) : []),
     [colourMode, domains, theme],

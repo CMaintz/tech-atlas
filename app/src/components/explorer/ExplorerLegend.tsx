@@ -5,7 +5,6 @@ import { familyColours } from '../../lib/graph-style';
 import { legendNodes } from '../../lib/explorer-view';
 import type { Section } from './use-explorer';
 
-/** The legend's content: the shown terms' domains, the enabled types, the key hint. */
 function legendProps({ p, x }: Section, visible: Graph): ComponentProps<typeof GraphLegend> {
   return {
     nodes: legendNodes(visible.nodes, x.filters.domains),
@@ -22,12 +21,6 @@ function legendProps({ p, x }: Section, visible: Graph): ComponentProps<typeof G
   };
 }
 
-/**
- * The legend: a pill bottom-left of the map that opens upward, so it never meets
- * the bar. From md it sits right of the fixed BETA corner ribbon (8rem square). It steps
- * aside while the phones' Controls sheet is open (and, by the page's CSS, while the term
- * panel covers it).
- */
 export function ExplorerLegend({ p, x }: Section) {
   const visible = x.shown.visible;
   if (!visible) return null;
