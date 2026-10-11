@@ -10,7 +10,7 @@ permissions:
   contents: read
 jobs:
   bootstrap:
-    uses: CMaintz/foundry/.github/workflows/bootstrap.yml@d36a057ee8686248395692e67575cb7678abe12e # main after v2.7.0: formats the baseline (foundry#59)
+    uses: CMaintz/foundry/.github/workflows/bootstrap.yml@a7ce66217276e6a279be2d3861fa1da7c40cfa76 # v2.11.1
     permissions:
       contents: write
       pull-requests: write
