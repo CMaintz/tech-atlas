@@ -1,7 +1,3 @@
-/**
- * The export records for the whole collection, computed once per build.
- * Astro-side glue over the pure `export.ts`.
- */
 import { getCollection } from 'astro:content';
 import { exportTerms, type ExportTerm } from './export';
 import { loadGraph } from './graph';
@@ -9,7 +5,6 @@ import { url } from './site';
 
 let cache: Promise<ExportTerm[]> | undefined;
 
-/** Absolute site root under the base path, e.g. https://atlas.maintz.dev/. */
 export const siteRoot = (site: URL | undefined) => new URL(url(''), site).href;
 
 export const loadExport = (site: URL | undefined) =>

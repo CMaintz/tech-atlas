@@ -24,7 +24,7 @@ import { SMOKE_QUERIES, VECTORS_PATH } from '../../scripts/semantic-inputs';
 describe('toVectorLiteralRows', () => {
   it('pairs vector i*langs+j with term i, language j, as unit vectors in pgvector text form', () => {
     const rows = toVectorLiteralRows(
-      ['t', 'u'],
+      { ids: ['t', 'u'], passageHashes: { t: 'h1', u: 'h2' } },
       ['en', 'da'],
       [
         [3, 4],
@@ -32,7 +32,6 @@ describe('toVectorLiteralRows', () => {
         [1, 0],
         [0, 5],
       ],
-      { t: 'h1', u: 'h2' },
     );
     expect(rows.map((r) => [r.id, r.lang, r.passage_hash, JSON.parse(r.embedding)])).toEqual([
       ['t', 'en', 'h1', [0.6, 0.8]],
@@ -42,16 +41,19 @@ describe('toVectorLiteralRows', () => {
     ]);
   });
   it('refuses a vector count that does not match terms × languages', () => {
-    expect(() => toVectorLiteralRows(['t'], ['en', 'da'], [[1, 0]], { t: 'h' })).toThrow();
+    const one = { ids: ['t'], passageHashes: { t: 'h' } };
+    expect(() => toVectorLiteralRows(one, ['en', 'da'], [[1, 0]])).toThrow();
   });
 });
 
 describe('fetchSemantic', () => {
+  const query = { url: 'u', q: 'q', lang: 'en' } as const;
   const ok = (body: unknown) => async () => new Response(JSON.stringify(body), { status: 200 });
 
   it('posts {q, lang, k} and returns the hits', async () => {
     let sent: RequestInit | undefined;
-    const hits = await fetchSemantic('https://x/fn', 'hvem ejer data', 'da', {
+    const asked = { url: 'https://x/fn', q: 'hvem ejer data', lang: 'da' } as const;
+    const hits = await fetchSemantic(asked, {
       fetch: async (_url, init) => {
         sent = init;
         return new Response(JSON.stringify({ hits: [{ id: 'a/b', score: 0.7 }] }));
@@ -64,10 +66,10 @@ describe('fetchSemantic', () => {
 
   it('rejects an HTTP error or a malformed body', async () => {
     const err = async () => new Response('{}', { status: 503 });
-    await expect(fetchSemantic('u', 'q', 'en', { fetch: err })).rejects.toThrow('503');
-    await expect(fetchSemantic('u', 'q', 'en', { fetch: ok({ nope: 1 }) })).rejects.toThrow();
+    await expect(fetchSemantic(query, { fetch: err })).rejects.toThrow('503');
+    await expect(fetchSemantic(query, { fetch: ok({ nope: 1 }) })).rejects.toThrow();
     await expect(
-      fetchSemantic('u', 'q', 'en', { fetch: ok({ hits: [{ id: 1, score: 'x' }] }) }),
+      fetchSemantic(query, { fetch: ok({ hits: [{ id: 1, score: 'x' }] }) }),
     ).rejects.toThrow();
   });
 
@@ -77,14 +79,14 @@ describe('fetchSemantic', () => {
     );
 
   it('gives up after the timeout', async () => {
-    await expect(fetchSemantic('u', 'q', 'en', { fetch: hanging, timeoutMs: 20 })).rejects.toThrow(
+    await expect(fetchSemantic(query, { fetch: hanging, timeoutMs: 20 })).rejects.toThrow(
       'aborted',
     );
   });
 
   it('stops when the caller aborts (a newer keystroke)', async () => {
     const ctrl = new AbortController();
-    const pending = fetchSemantic('u', 'q', 'en', { fetch: hanging, signal: ctrl.signal });
+    const pending = fetchSemantic(query, { fetch: hanging, signal: ctrl.signal });
     ctrl.abort();
     await expect(pending).rejects.toThrow('aborted');
   });

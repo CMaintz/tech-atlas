@@ -11,14 +11,11 @@ interface Props {
   graphUrl: string;
   termBase: string;
   ui: Dict;
-  /** Quiz a single term (the term page's "Check yourself"); otherwise a session over `scope`. */
   termId?: string;
-  /** What a session draws from: 'all', 'weak', 'domain:<id>' or 'cluster:<id>'. */
   scope?: Scope;
   count?: number;
 }
 
-/** Start and "again": the quiz's own call to action. */
 function QuizButton({ onClick, children }: { onClick: () => void; children: ComponentChildren }) {
   return (
     <button
@@ -53,10 +50,6 @@ const Note = ({ children }: { children: ComponentChildren }) => (
   <p class="text-sm text-subtle">{children}</p>
 );
 
-/**
- * A short quiz session: hand-written questions first where a term has them, the rest
- * generated from the graph; every answer feeds spaced repetition.
- */
 export default function Quiz(props: Props) {
   const { lang, termBase, ui, termId, scope = 'all' } = props;
   const quiz = useQuiz({ ...props, scope, count: props.count ?? 10 });

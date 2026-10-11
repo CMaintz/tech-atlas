@@ -2,7 +2,6 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { loadGraph } from '../lib/graph';
 
-/** Static search index consumed by the Search island (names, aliases, summaries, contrasts). */
 export const GET: APIRoute = async () => {
   const [terms, graph] = await Promise.all([getCollection('terms'), loadGraph()]);
   const contrasts = new Map<string, string[]>();

@@ -1,7 +1,3 @@
-/**
- * The exact inputs of the semantic vectors, shared by `npm run embed` (which
- * writes them) and the content lint (which checks they are still in sync — E11/W8).
- */
 import { createHash } from 'node:crypto';
 import {
   EMBED_LANGS,
@@ -14,21 +10,15 @@ import {
 } from '../src/lib/semantic';
 import type { Term } from './load-terms';
 
-/** Outside the site (never shipped to the browser): the lint's hash source. */
 export const VECTORS_PATH = '../supabase/seed/term-vectors.json';
 export const FIXTURE_PATH = 'src/lib/semantic.fixture.json';
 
-/**
- * Checked against the deployed function after every backend deploy
- * (scripts/smoke-semantic.ts): each query must return its term in the top 3.
- */
 export const SMOKE_QUERIES: [query: string, lang: 'en' | 'da', expected: string][] = [
   ['hvem har ansvaret for persondata', 'da', 'security/data-controller'],
   ['a program that locks your files and demands money', 'en', 'security/ransomware'],
   ['sneaking database commands into a login form', 'en', 'security/sql-injection'],
 ];
 
-/** Queries embedded alongside the terms, so a unit test can check real rankings offline. */
 export const FIXTURE_QUERIES = [
   'how do I stop people reusing leaked passwords',
   'hvordan forhindrer jeg at folk genbruger lækkede adgangskoder',
@@ -52,12 +42,11 @@ const sha = (x: unknown, len = 64) =>
   createHash('sha256').update(JSON.stringify(x)).digest('hex').slice(0, len);
 
 export function semanticInputs(terms: Map<string, Term>) {
-  const ids = [...terms.keys()].sort();
-  const perTerm = ids.map((id) => EMBED_LANGS.map((l) => passageText(terms.get(id)!, l)));
+  const sorted = [...terms].sort(([a], [b]) => (a < b ? -1 : 1));
+  const ids = sorted.map(([id]) => id);
+  const perTerm = sorted.map(([, term]) => EMBED_LANGS.map((l) => passageText(term, l)));
   const expected: ExpectedVectors = {
     settingsHash: sha({
-      // The model's identity, not where it ran: Workers AI and the local ONNX export are
-      // the same weights, so either may (re-)embed without invalidating the other.
       model: MODEL.id,
       dim: MODEL.dim,
       embed: EMBED_OPTIONS,

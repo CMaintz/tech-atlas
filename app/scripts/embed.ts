@@ -1,19 +1,3 @@
-/**
- * `npm run embed` — embed every Term (name + aliases + summary + plain facet, per
- * language) with bge-m3 and write the committed vector file: the source of the
- * content lint's per-term hashes (E11/W8) and of the offline ranking test (with the
- * FIXTURE_QUERIES it also embeds). The database is NOT seeded from this file — CI
- * re-embeds every passage through Workers AI (scripts/seed-vectors.ts), so stored and
- * query vectors always come from the same service.
- *
- * Backend: with CLOUDFLARE_ACCOUNT_ID + CLOUDFLARE_API_TOKEN set it calls Workers AI —
- * exactly the model the function embeds queries with. Otherwise it runs the
- * full-precision ONNX export of the same weights locally (a one-off ~2.3 GB download,
- * cached by transformers.js; several minutes on a laptop CPU).
- *
- * Run it after changing any term's name, aliases, summary or plain facet; the content
- * lint fails (E11) on an added/removed term and warns (W8) on changed text until you do.
- */
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import {
@@ -41,7 +25,6 @@ const { ids, passages, settingsHash, passageHashes } = semanticInputs(terms);
 type Embed = (texts: string[]) => Promise<number[][]>;
 type Backend = { name: string; embed: Embed; batch: number };
 
-/** Workers AI when its credentials are set, else the local ONNX export of the same weights. */
 async function backend(): Promise<Backend> {
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
   const token = process.env.CLOUDFLARE_API_TOKEN;
@@ -57,7 +40,6 @@ function cloudflareBackend(accountId: string, token: string): Backend {
 }
 
 async function onnxBackend(): Promise<Backend> {
-  // Loaded only here: the site itself never depends on transformers.js.
   const { pipeline } = await import('@huggingface/transformers');
   const extract = await pipeline('feature-extraction', MODEL.onnx.id, {
     dtype: MODEL.onnx.dtype,

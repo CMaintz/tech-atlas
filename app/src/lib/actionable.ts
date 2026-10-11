@@ -1,15 +1,8 @@
-/**
- * Which terms are "actionable": something you do or implement (a process,
- * control, practice, framework, law you must comply with, tool or technique), so the
- * term should say how to put it into practice (`howTo`). Pure, so the lint (W11), the
- * follow-up report and the tests share one definition. The rules are documented in
- * content/AUTHORING.md ("How to put it into practice").
- */
+import { bareName } from './collisions';
 
 type RawEdge = string | { to: string };
 
 export type ActionableInput = {
-  /** `domain/id`, e.g. `security/mfa`. */
   id: string;
   domain: readonly string[];
   cluster: string;
@@ -20,7 +13,6 @@ export type ActionableInput = {
   edges?: Partial<Record<string, RawEdge[] | undefined>>;
 };
 
-/** `kind-of` parents that make a term actionable: it is a control, framework, treatment or assessment. */
 export const ACTIONABLE_PARENTS = [
   'control',
   'security-framework',
@@ -28,21 +20,11 @@ export const ACTIONABLE_PARENTS = [
   'risk-assessment',
 ] as const;
 
-/** AI clusters whose `mitigates` terms are practices (not modelling techniques). */
 export const AI_PRACTICE_CLUSTERS = ['ai-risk', 'agents', 'ai-coding'] as const;
 
-const bare = (ref: string) => ref.split('/').pop()!;
 const refs = (t: ActionableInput, type: string) =>
-  (t.edges?.[type] ?? []).map((e) => bare(typeof e === 'string' ? e : e.to));
+  (t.edges?.[type] ?? []).map((e) => bareName(typeof e === 'string' ? e : e.to));
 
-/**
- * Why a term counts as actionable, or null when it does not. In order: the explicit
- * `actionable` field; an authored `howTo`; not when `status: legacy`; a `mandates` edge (a law, standard or
- * framework to comply with); `kind-of` a control, framework, treatment or assessment;
- * the security `controls` cluster; security `incident-response` plans and exercises
- * (layer governance or people); platform delivery and process practices; a `mitigates`
- * edge (in AI only for the risk, agent and coding clusters).
- */
 export function actionableReason(t: ActionableInput): string | null {
   if (t.actionable !== undefined) return t.actionable ? 'explicit' : null;
   if (t.howTo) return 'has howTo';
@@ -50,7 +32,6 @@ export function actionableReason(t: ActionableInput): string | null {
   return edgeReason(t) ?? placeReason(t) ?? mitigatesReason(t);
 }
 
-/** A `mandates` edge, or `kind-of` one of the actionable parents. */
 function edgeReason(t: ActionableInput): string | null {
   if (refs(t, 'mandates').length) return 'mandates';
   const parent = refs(t, 'kind-of').find((p) =>
@@ -59,7 +40,6 @@ function edgeReason(t: ActionableInput): string | null {
   return parent ? `kind-of ${parent}` : null;
 }
 
-/** Where the term sits: its domain folder, cluster and layer. */
 function placeReason(t: ActionableInput): string | null {
   const folder = t.id.split('/')[0];
   if (folder === 'security' && t.cluster === 'controls') return 'controls cluster';
@@ -74,7 +54,6 @@ function placeReason(t: ActionableInput): string | null {
   return null;
 }
 
-/** A `mitigates` edge; in AI only for the practice clusters. */
 function mitigatesReason(t: ActionableInput): string | null {
   if (!refs(t, 'mitigates').length) return null;
   const ai = t.id.split('/')[0] === 'ai';
@@ -92,10 +71,6 @@ export type HowToShape = {
   guides: { url: string }[];
 };
 
-/**
- * E13: what the schema cannot see in a `howTo` (its counts, lengths and URLs are
- * E10): blank items and a guide listed twice.
- */
 export function howToIssues(h: HowToShape): string[] {
   return [...blankItems(h), ...repeatedGuides(h)];
 }

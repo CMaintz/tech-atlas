@@ -1,10 +1,3 @@
-/**
- * Short URLs: `/[lang]/terms/<name>/` for any name a reader might type —
- * a Term's bare id, its display name or an alias (SPEC §4: aliases "redirect here").
- * Each short name that points at exactly one Term becomes a redirect page; a bare id
- * held by two folders is a Collision and keeps its Disambiguation page (ADR-0003).
- * Pure — shared by the route and its tests.
- */
 import { bareName, collisionsOf } from './collisions';
 
 export type RedirectTerm = {
@@ -15,7 +8,6 @@ export type RedirectTerm = {
 
 const FOLD: Record<string, string> = { æ: 'ae', ø: 'oe', å: 'aa', ß: 'ss' };
 
-/** URL slug for a name: lower case, Danish letters spelled out, other marks dropped. */
 export const slugify = (s: string) =>
   s
     .toLowerCase()
@@ -25,11 +17,6 @@ export const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
-/**
- * Every short name → the one Term it names. Bare ids win; a display-name or alias
- * slug that names two Terms is dropped (a reader is better served by search than by
- * a guess); names equal to a folder or a Collision are never redirects.
- */
 export function shortNames(terms: RedirectTerm[]): Map<string, string> {
   const ids = terms.map((t) => t.id);
   const reserved = new Set([...ids.map((id) => id.split('/')[0]), ...collisionsOf(ids).keys()]);
@@ -45,7 +32,6 @@ export function shortNames(terms: RedirectTerm[]): Map<string, string> {
   return out;
 }
 
-/** Every display-name and alias slug → the Terms it names (usually one). */
 function slugTargets(terms: RedirectTerm[]): Map<string, Set<string>> {
   const named = new Map<string, Set<string>>();
   for (const t of terms) {

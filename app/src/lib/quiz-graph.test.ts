@@ -43,9 +43,9 @@ describe('indexGraph', () => {
   });
 
   it('keeps a direction apart, except for symmetric types', () => {
-    expect(ends(g, 'b', 'requires', 'out')).toEqual(['c']);
-    expect(ends(g, 'b', 'requires', 'in')).toEqual(['a']);
-    expect(ends(g, 'e', 'contrasts-with', 'out')).toEqual(['d']);
+    expect(ends(g, 'b', { type: 'requires', dir: 'out' })).toEqual(['c']);
+    expect(ends(g, 'b', { type: 'requires', dir: 'in' })).toEqual(['a']);
+    expect(ends(g, 'e', { type: 'contrasts-with', dir: 'out' })).toEqual(['d']);
   });
 
   it('collects neighbours whatever the edge', () => {
@@ -55,8 +55,8 @@ describe('indexGraph', () => {
 
 describe('what counts as related', () => {
   it('follows a chain to everything also right, never back to the start', () => {
-    expect([...closure(g, 'a', 'requires', 'out')].sort()).toEqual(['b', 'c']);
-    expect([...closure(g, 'c', 'requires', 'in')].sort()).toEqual(['a', 'b']);
+    expect([...closure(g, 'a', { type: 'requires', dir: 'out' })].sort()).toEqual(['b', 'c']);
+    expect([...closure(g, 'c', { type: 'requires', dir: 'in' })].sort()).toEqual(['a', 'b']);
   });
 
   it('treats structural relatives as kin, and confusable terms too', () => {

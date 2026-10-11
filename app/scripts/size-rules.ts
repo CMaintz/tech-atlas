@@ -1,16 +1,3 @@
-/**
- * Size rules (pure; `size-check.ts` walks the files): every function stays at or
- * under MAX_FUNCTION_LINES logical lines and every code file at or under
- * MAX_FILE_LINES lines.
- *
- * "Logical lines" = non-blank, non-comment lines of the whole function, signature
- * to closing brace. A nested function's interior counts toward the nested function,
- * not its parent (the parent keeps the lines that open and close it). Test-framework blocks
- * (`describe`, `it`, `beforeEach`…) are grouping, not functions, and are not
- * measured themselves; functions inside them are. Astro files contribute their
- * frontmatter and inline <script> blocks as TypeScript; the whole .astro file
- * counts toward the file limit.
- */
 import ts from 'typescript';
 
 export const MAX_FUNCTION_LINES = 18;
@@ -33,6 +20,13 @@ interface Segment {
   lineOffset: number;
 }
 
+interface Measuring {
+  source: ts.SourceFile;
+  lines: Set<number>;
+  file: string;
+  lineOffset: number;
+}
+
 const FUNCTION_KINDS = new Set([
   ts.SyntaxKind.FunctionDeclaration,
   ts.SyntaxKind.FunctionExpression,
@@ -43,7 +37,6 @@ const FUNCTION_KINDS = new Set([
   ts.SyntaxKind.SetAccessor,
 ]);
 
-/** Test-framework blocks are grouping, not functions — `describe(..., () => {})`. */
 const TEST_BLOCKS = new Set([
   'describe',
   'it',
@@ -54,11 +47,6 @@ const TEST_BLOCKS = new Set([
   'afterAll',
 ]);
 
-/**
- * Line numbers (0-based) that hold code, not just whitespace or comments: every line
- * a token of the parsed tree touches (so template literals and JSX are read in
- * context; comments are trivia and never tokens).
- */
 export function codeLines(source: ts.SourceFile): Set<number> {
   const lines = new Set<number>();
   const lineOf = (pos: number) => source.getLineAndCharacterOfPosition(pos).line;
@@ -74,11 +62,9 @@ export function codeLines(source: ts.SourceFile): Set<number> {
   return lines;
 }
 
-/** A `/** … *\/` doc comment, which the parser attaches to the tree as nodes. */
 const isJSDoc = (node: ts.Node): boolean =>
   node.kind >= ts.SyntaxKind.FirstJSDocNode && node.kind <= ts.SyntaxKind.LastJSDocNode;
 
-/** JSX text spans lines of indentation; only the lines with visible text count. */
 function markJsxText(node: ts.JsxText, source: ts.SourceFile, lines: Set<number>): void {
   const first = source.getLineAndCharacterOfPosition(node.pos).line;
   node.text.split('\n').forEach((line, i) => {
@@ -106,16 +92,14 @@ function isTestBlock(node: ts.Node): boolean {
   return ts.isIdentifier(base) && TEST_BLOCKS.has(base.text);
 }
 
-/** Measure every function in one TypeScript segment. */
 export function measureCode(code: string, file: string, lineOffset = 0): FunctionSize[] {
   const kind =
     file.endsWith('.tsx') || file.endsWith('.astro') ? ts.ScriptKind.TSX : ts.ScriptKind.TS;
   const source = ts.createSourceFile(file, code, ts.ScriptTarget.Latest, true, kind);
-  const lines = codeLines(source);
+  const measuring: Measuring = { source, lines: codeLines(source), file, lineOffset };
   const out: FunctionSize[] = [];
   const visit = (node: ts.Node): void => {
-    if (FUNCTION_KINDS.has(node.kind) && !isTestBlock(node))
-      out.push(measureOne(node, source, lines, file, lineOffset));
+    if (FUNCTION_KINDS.has(node.kind) && !isTestBlock(node)) out.push(measureOne(node, measuring));
     ts.forEachChild(node, visit);
   };
   visit(source);
@@ -128,13 +112,8 @@ function span(node: ts.Node, source: ts.SourceFile): [number, number] {
   return [start, end];
 }
 
-function measureOne(
-  node: ts.Node,
-  source: ts.SourceFile,
-  lines: Set<number>,
-  file: string,
-  lineOffset: number,
-): FunctionSize {
+function measureOne(node: ts.Node, measuring: Measuring): FunctionSize {
+  const { source, lines, file, lineOffset } = measuring;
   const [start, end] = span(node, source);
   const owned = new Set<number>();
   for (let l = start; l <= end; l++) if (lines.has(l)) owned.add(l);
@@ -155,7 +134,6 @@ function nestedFunctions(node: ts.Node): ts.Node[] {
   return found;
 }
 
-/** The TypeScript inside an .astro file: frontmatter plus inline <script> blocks. */
 export function astroSegments(text: string): Segment[] {
   const segments: Segment[] = [];
   const front = /^---\r?\n([\s\S]*?)\r?\n---/.exec(text);
@@ -169,16 +147,13 @@ export function astroSegments(text: string): Segment[] {
   return segments;
 }
 
-/** Line count of a file's text (a trailing newline does not start another line). */
 export const fileLines = (text: string): number =>
   text.split('\n').length - (text.endsWith('\n') ? 1 : 0);
 
-/** Every function in one file's text (an .astro file by its TypeScript segments). */
 export function measureText(text: string, file: string): FunctionSize[] {
   const segments = file.endsWith('.astro') ? astroSegments(text) : [{ code: text, lineOffset: 0 }];
   return segments.flatMap((s) => measureCode(s.code, file, s.lineOffset));
 }
 
-/** The items over `max` lines, largest first. */
 export const oversized = <T extends { lines: number }>(items: T[], max: number): T[] =>
   items.filter((i) => i.lines > max).sort((a, b) => b.lines - a.lines);

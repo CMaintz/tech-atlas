@@ -1,11 +1,11 @@
-/**
- * Strongly connected components of a directed graph (Tarjan), iterative so a deep
- * chain cannot overflow the call stack. Pure; used by the E5 circular-definition rule.
- */
-
 type Frame = { id: string; edges: string[]; i: number };
 
-/** Every component, in the order Tarjan completes them (members in pop order). */
+function numberOf(numbers: Map<string, number>, id: string): number {
+  const n = numbers.get(id);
+  if (n === undefined) throw new Error(`no Tarjan number for ${id}`);
+  return n;
+}
+
 export function stronglyConnected(nodes: string[], next: (id: string) => string[]): string[][] {
   const search = new TarjanSearch(next);
   for (const root of nodes) if (!search.visited(root)) search.run(root);
@@ -29,10 +29,13 @@ class TarjanSearch {
 
   run(root: string) {
     this.open(root);
-    while (this.work.length) {
-      const frame = this.work[this.work.length - 1];
-      if (frame.i < frame.edges.length) this.follow(frame, frame.edges[frame.i++]);
-      else this.close(this.work.pop()!);
+    for (let frame = this.work.at(-1); frame; frame = this.work.at(-1)) {
+      if (frame.i < frame.edges.length) {
+        this.follow(frame, frame.edges[frame.i++]);
+      } else {
+        this.work.pop();
+        this.close(frame);
+      }
     }
   }
 
@@ -47,29 +50,29 @@ class TarjanSearch {
 
   private follow(frame: Frame, w: string) {
     if (!this.index.has(w)) this.open(w);
-    else if (this.onStack.has(w)) this.lower(frame.id, this.index.get(w)!);
+    else if (this.onStack.has(w)) this.lower(frame.id, numberOf(this.index, w));
   }
 
   private close(frame: Frame) {
     const parent = this.work[this.work.length - 1];
-    if (parent) this.lower(parent.id, this.low.get(frame.id)!);
+    if (parent) this.lower(parent.id, numberOf(this.low, frame.id));
     if (this.low.get(frame.id) === this.index.get(frame.id)) {
       this.components.push(this.popComponent(frame.id));
     }
   }
 
   private lower(id: string, value: number) {
-    this.low.set(id, Math.min(this.low.get(id)!, value));
+    this.low.set(id, Math.min(numberOf(this.low, id), value));
   }
 
   private popComponent(root: string): string[] {
     const component: string[] = [];
-    let w: string;
-    do {
-      w = this.stack.pop()!;
+    for (;;) {
+      const w = this.stack.pop();
+      if (w === undefined) throw new Error(`component root ${root} is not on the stack`);
       this.onStack.delete(w);
       component.push(w);
-    } while (w !== root);
-    return component;
+      if (w === root) return component;
+    }
   }
 }

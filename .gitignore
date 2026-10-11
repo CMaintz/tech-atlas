@@ -22,6 +22,7 @@ supabase/.temp/
 
 # local agent worktrees and session state
 .claude/
+why-notes/
 
 # Local secrets, anywhere in the tree: e.g. the CLOUDFLARE_* env file for
 # `supabase functions serve`. app/.gitignore covers app/; this covers the rest.

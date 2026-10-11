@@ -8,15 +8,11 @@ type Lang = 'en' | 'da';
 interface Props extends SearchOptions {
   placeholder: string;
   noResults: string;
-  /** Shown while the index is still loading. */
   loadingLabel: string;
-  /** Shown under the box: the "/" shortcut. */
   hint?: string;
-  /** Label on hits found only by meaning. */
   byMeaningLabel: string;
 }
 
-/** A ref to an element that takes focus when the page was opened at `#<hash>`. */
 function useFocusOnHash<T extends HTMLElement>(hash: string) {
   const ref = useRef<T>(null);
   useEffect(() => {
@@ -28,7 +24,6 @@ function useFocusOnHash<T extends HTMLElement>(hash: string) {
 type BoxProps = { value: string; placeholder: string; onInput: (v: string) => void };
 
 function SearchBox({ value, placeholder, onInput }: BoxProps) {
-  // Arriving via the "/" shortcut from another page (…/#search): focus the box.
   const box = useFocusOnHash<HTMLInputElement>('search');
   return (
     <input
@@ -45,7 +40,6 @@ function SearchBox({ value, placeholder, onInput }: BoxProps) {
   );
 }
 
-/** A result row that leads somewhere other than a term: an intent or a Disambiguation page. */
 function ShortcutItem({ link }: { link: SearchLink }) {
   return (
     <li>
@@ -104,7 +98,6 @@ function Results({ found, ...props }: Props & { found: SearchState }) {
   );
 }
 
-/** Under the box while there is a query: a loading note until the index is ready, then results. */
 function Dropdown(props: Props & { found: SearchState }) {
   if (props.found.ready) return <Results {...props} />;
   return (
@@ -117,14 +110,6 @@ function Dropdown(props: Props & { found: SearchState }) {
   );
 }
 
-/**
- * Client-side bilingual search: typo-tolerant over names and aliases in both
- * languages, plus intents — "X vs Y" (compare), "from X to Y" (route) and
- * "before X" (prerequisites) — and, for questions and descriptions, search by meaning:
- * the `semantic-search` Edge Function ranks terms server-side, fused with the
- * lexical ranking by RRF. Without a backend, or when it fails or is slow, the lexical
- * results simply stand.
- */
 export default function Search(props: Props) {
   const [query, setQuery] = useState('');
   const found = useSearch(props, query);

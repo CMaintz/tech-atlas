@@ -1,9 +1,7 @@
-/** Hand-written questions as quiz questions, looked up by the terms they test. */
 import type { ClientQuestion } from './question-rules';
 import { shuffle } from './quiz-random';
 import type { Question, Rng } from './quiz-types';
 
-/** The bank keyed by tested term. */
 export type BankIndex = Map<string, ClientQuestion[]>;
 
 export function indexBank(bank: ClientQuestion[]): BankIndex {
@@ -12,15 +10,9 @@ export function indexBank(bank: ClientQuestion[]): BankIndex {
   return byTerm;
 }
 
-/** Hand-written questions that test `id`. `onPage`: not those `id` itself answers. */
 export const bankFor = (bank: BankIndex, id: string, onPage = false): ClientQuestion[] =>
   (bank.get(id) ?? []).filter((q) => !onPage || !q.answeredBy.includes(id));
 
-/**
- * A bank question as a quiz question. Options are shuffled (true/false keeps its
- * order); a wrong answer links to the term the answer names, else to a tested
- * term other than the one being practised.
- */
 export function fromBank(rng: Rng, q: ClientQuestion, practised = q.terms[0]): Question {
   const options = q.options.map((label, i) => ({ id: String(i), label }));
   return {

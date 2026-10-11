@@ -1,8 +1,3 @@
-/**
- * Search intents (the "search architecture" of the product spec): a query can ask
- * to compare two terms, find the route between them, or list what comes before one.
- * Pure — returns the raw phrases; the caller resolves them to terms.
- */
 export type Intent =
   | { kind: 'compare'; a: string; b: string }
   | { kind: 'route'; a: string; b: string }
@@ -42,11 +37,6 @@ export function parseIntent(query: string): Intent | null {
 
 type Named = { term: Record<string, string>; aka: Record<string, string[]> };
 
-/**
- * The term whose name or alias (any language) is exactly `phrase`, ignoring case and
- * surrounding space — so "threat" in "risk vs threat" means Threat, not the
- * higher-ranked fuzzy/prefix hit "Threat hunting".
- */
 export function exactName<T extends Named>(docs: readonly T[], phrase: string): T | undefined {
   const p = phrase.trim().toLocaleLowerCase();
   if (!p) return undefined;

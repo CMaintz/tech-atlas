@@ -1,7 +1,3 @@
-/**
- * Build the derived graph artefact (src/generated/graph.json) from authored Terms,
- * using the same model the site serves at /graph.json (src/lib/graph-model.ts).
- */
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { buildGraph, type ModelTerm } from '../src/lib/graph-model';
 import { loadTerms } from './load-terms';

@@ -102,12 +102,19 @@ describe('intentLink', () => {
 
 describe('disambiguationLink', () => {
   it('sends a shared name to its Disambiguation page', () => {
-    expect(disambiguationLink('Audit', index.collisions, '/en/', '{name}: {n} terms')).toEqual({
+    expect(
+      disambiguationLink('Audit', index.collisions, {
+        langBase: '/en/',
+        template: '{name}: {n} terms',
+      }),
+    ).toEqual({
       href: '/en/terms/audit/',
       label: 'audit: 2 terms',
     });
   });
   it('is null for any other query', () => {
-    expect(disambiguationLink('risk', index.collisions, '/en/', '{name}')).toBeNull();
+    expect(
+      disambiguationLink('risk', index.collisions, { langBase: '/en/', template: '{name}' }),
+    ).toBeNull();
   });
 });

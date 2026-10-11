@@ -175,7 +175,7 @@ const bank = clientQuestions(BANK, graphTerms, 'en');
 describe('term pages', () => {
   it('show hand-written questions first, never one the page’s own term answers', () => {
     for (let seed = 1; seed < 30; seed++) {
-      const quizzer = makeQuizzer(graph, 'en', seeded(seed), bank);
+      const quizzer = makeQuizzer(graph, 'en', { rng: seeded(seed), bank });
       const onMfa = quizzer.pageQuestions('security/mfa', 5);
       expect(onMfa.map((x) => x.bankId)).not.toContain('answer-is-mfa');
       expect(onMfa[0].bankId).toBe('about-both');
@@ -186,7 +186,7 @@ describe('term pages', () => {
   });
 
   it('link a wrong answer to the term it names, else another tested term', () => {
-    const quizzer = makeQuizzer(graph, 'en', seeded(), bank);
+    const quizzer = makeQuizzer(graph, 'en', { rng: seeded(), bank });
     const [x] = quizzer
       .pageQuestions('security/phishing', 3)
       .filter((y) => y.bankId === 'answer-is-mfa');
@@ -196,7 +196,7 @@ describe('term pages', () => {
   });
 
   it('fall back to generated questions when the bank has none', () => {
-    const quizzer = makeQuizzer(graph, 'en', seeded(), bank);
+    const quizzer = makeQuizzer(graph, 'en', { rng: seeded(), bank });
     expect(quizzer.pageQuestions('security/backup', 3).some((x) => x.bankId)).toBe(false);
   });
 });
@@ -205,7 +205,10 @@ describe('study sessions', () => {
   const learner: Learner = { terms: {} };
 
   it('prefer hand-written questions and never repeat one', () => {
-    const qs = buildSession(graph, learner, 'all', makeQuizzer(graph, 'en', seeded(), bank), 10);
+    const qs = buildSession(
+      { graph, learner, scope: 'all', quizzer: makeQuizzer(graph, 'en', { rng: seeded(), bank }) },
+      10,
+    );
     const hand = qs.filter((x) => x.bankId).map((x) => x.bankId);
     // One question per term: phishing and mfa each get one of theirs, never the same one.
     expect(hand.length).toBe(2);
@@ -215,10 +218,19 @@ describe('study sessions', () => {
 
   it('skip a hand-written question that is not yet due again', () => {
     const now = 1_000_000;
-    let l = recordQuestion(learner, 'about-phishing', true, now);
-    l = recordQuestion(l, 'answer-is-mfa', true, now);
-    l = recordQuestion(l, 'about-both', true, now);
-    const qs = buildSession(graph, l, 'all', makeQuizzer(graph, 'en', seeded(), bank), 10, now);
+    let l = recordQuestion(learner, { id: 'about-phishing', correct: true }, now);
+    l = recordQuestion(l, { id: 'answer-is-mfa', correct: true }, now);
+    l = recordQuestion(l, { id: 'about-both', correct: true }, now);
+    const qs = buildSession(
+      {
+        graph,
+        learner: l,
+        scope: 'all',
+        quizzer: makeQuizzer(graph, 'en', { rng: seeded(), bank }),
+      },
+      10,
+      now,
+    );
     expect(qs.some((x) => x.bankId)).toBe(false);
   });
 });
@@ -226,12 +238,14 @@ describe('study sessions', () => {
 describe('learner records per question', () => {
   it('keeps a question schedule beside the term schedule, through parse and merge', () => {
     let l: Learner = { terms: {} };
-    l = recordAnswer(l, 'security/phishing', false, 10);
-    l = recordQuestion(l, 'about-phishing', false, 10);
+    l = recordAnswer(l, { id: 'security/phishing', correct: false }, 10);
+    l = recordQuestion(l, { id: 'about-phishing', correct: false }, 10);
     expect(l.terms['security/phishing'].wrong).toBe(1);
     expect(l.questions!['about-phishing'].box).toBe(1);
     // Recording a term answer keeps question records and vice versa.
-    expect(recordAnswer(l, 'security/mfa', true, 11).questions).toEqual(l.questions);
+    expect(recordAnswer(l, { id: 'security/mfa', correct: true }, 11).questions).toEqual(
+      l.questions,
+    );
     expect(parseLearner(JSON.parse(JSON.stringify(l)), 20)).toEqual(l);
     const merged = mergeLearner({ terms: {} }, l);
     expect(merged.questions!['about-phishing'].wrong).toBe(1);
@@ -253,7 +267,7 @@ describe('the real bank', { timeout: 30_000 }, () => {
     const real = buildGraph([...terms.entries()].map(([id, t]) => ({ ...t, id }) as ModelTerm));
     for (const lang of ['en', 'da'] as const) {
       const clientBank = clientQuestions(questions, named, lang);
-      const quizzer = makeQuizzer(real, lang, seeded(3), clientBank);
+      const quizzer = makeQuizzer(real, lang, { rng: seeded(3), bank: clientBank });
       for (const id of new Set(questions.flatMap((x) => x.terms))) {
         for (const x of quizzer.pageQuestions(id, 50)) {
           expect(x.answer, `${id}: ${x.prompt}`).not.toBe(id);

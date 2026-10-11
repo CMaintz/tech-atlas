@@ -1,9 +1,3 @@
-/**
- * Content lint - the quality gate (design/SPEC.md §5, design/02_SCHEMA.md §6).
- * Errors fail the build; warnings are reported. Closed Vocabulary (E1) is blocking
- * for English and advisory for Danish (ADR-0009). Checks run in a fixed order, which
- * is the order their findings are printed in.
- */
 import { createLintContext } from './lint-context';
 import { checkEdges, checkRequiresCycles } from './lint-graph';
 import { checkArticleFiles, checkForbiddenDashes, checkHowTos, checkNames } from './lint-terms';

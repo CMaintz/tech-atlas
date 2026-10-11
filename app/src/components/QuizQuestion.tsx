@@ -4,10 +4,13 @@ import type { QuizState } from '../lib/use-quiz';
 type Lang = 'en' | 'da';
 type Dict = Record<string, string>;
 type Option = Question['options'][number];
-/** Every part of a question's view gets the same props. */
 type Props = { quiz: QuizState; q: Question; lang: Lang; termBase: string; ui: Dict };
 
-/** An option's look: neutral until answered, then the right one green, a wrong choice red. */
+function required<T>(value: T | null | undefined, what: string): T {
+  if (value === null || value === undefined) throw new Error(`${what} is missing`);
+  return value;
+}
+
 function optionClass(o: Option, q: Question, chosen: string | null) {
   if (!chosen) return 'border-border-strong hover:border-border-hover';
   if (o.id === q.answer) return 'border-green-600 bg-green-50 dark:bg-green-950/40';
@@ -16,7 +19,6 @@ function optionClass(o: Option, q: Question, chosen: string | null) {
 }
 
 function Options({ quiz, q }: Props) {
-  // Term → definition options are whole sentences: one per row reads better.
   const long = q.options.some((o) => o.label.length > 60);
   return (
     <div class={`grid gap-2 ${long ? '' : 'sm:grid-cols-2'}`}>
@@ -32,11 +34,16 @@ function Options({ quiz, q }: Props) {
   );
 }
 
-/** Right, or wrong with the right answer — linked to its term unless an explanation follows. */
+const answerOption = (q: Question) =>
+  required(
+    q.options.find((o) => o.id === q.answer),
+    'answer',
+  );
+
 function Verdict({ quiz, q, termBase, ui }: Props) {
   if (quiz.chosen === q.answer)
     return <span class="text-green-700 dark:text-green-400">{ui.correct}</span>;
-  const answerLabel = q.options.find((o) => o.id === q.answer)!.label;
+  const answerLabel = answerOption(q).label;
   return (
     <span class="text-red-700 dark:text-red-400">
       {ui.incorrect}{' '}
@@ -51,7 +58,6 @@ function Verdict({ quiz, q, termBase, ui }: Props) {
   );
 }
 
-/** Why, for a hand-written question, with a link to the term to read. */
 function Explanation({ quiz, q, lang, termBase, ui }: Props) {
   const linkName = quiz.graph?.nodes.find((n) => n.id === q.link)?.term[lang];
   return (
@@ -81,13 +87,12 @@ function Feedback(props: Props) {
   );
 }
 
-/** One question of a session: counter, prompt, options and, once answered, the feedback. */
 export default function QuizQuestion(props: Props) {
   const { quiz, q } = props;
   return (
     <div class="space-y-3">
       <p class="text-xs text-subtle">
-        {quiz.index + 1} / {quiz.session!.length}
+        {quiz.index + 1} / {required(quiz.session, 'quiz session').length}
       </p>
       <p class="text-fg">{q.prompt}</p>
       <Options {...props} />

@@ -1,14 +1,9 @@
-/**
- * Open-data exports: every Term as JSON, CSV and Anki import text. Pure — no
- * Astro imports — so the endpoints stay thin and this is unit-tested.
- */
 import type { EdgeType, TermData } from '../schema';
 import { makeRefResolver } from './graph-model';
 
 type Lang = 'en' | 'da';
 const LANGS: Lang[] = ['en', 'da'];
 
-/** The content licence (CONTENT-LICENSE.md). Carried inside every data file. */
 export const LICENCE = {
   name: 'CC BY-SA 4.0',
   spdx: 'CC-BY-SA-4.0',
@@ -38,22 +33,14 @@ export type ExportTerm = {
   era?: number;
   summary: { en: string; da: string };
   body: TermData['body'];
-  /** Optional long technical explanation, plain text, paragraphs split by blank lines. */
   deepDive?: { en: string; da: string };
-  /** How to put it into practice: steps, pitfalls and guides. */
   howTo?: TermData['howTo'];
-  /** Authored edges, targets resolved to full ids. Inverses are left to the reader. */
   edges: ExportEdge[];
-  /** Derived (ADR-0001): longest `requires` chain below this Term. */
   depth: number;
   sources: TermData['sources'];
   draft: boolean;
 };
 
-/**
- * One record per Term. `siteUrl` is the absolute site root ending in `/`
- * (e.g. https://atlas.maintz.dev/).
- */
 export function exportTerms(terms: ExportInput[], siteUrl: string): ExportTerm[] {
   const resolve = makeRefResolver(terms.map((t) => t.id));
   return [...terms]
@@ -64,7 +51,6 @@ export function exportTerms(terms: ExportInput[], siteUrl: string): ExportTerm[]
 type RefResolver = ReturnType<typeof makeRefResolver>;
 type AuthoredEdge = NonNullable<TermData['edges'][EdgeType]>[number];
 
-/** One authored edge; a bare-string edge gets the schema's defaults. */
 function exportEdge(type: EdgeType, e: AuthoredEdge, to: string): ExportEdge {
   if (typeof e === 'string') return { type, to, confidence: 'high', strength: 'normal' };
   return {
@@ -76,7 +62,6 @@ function exportEdge(type: EdgeType, e: AuthoredEdge, to: string): ExportEdge {
   };
 }
 
-/** A Term's authored edges with targets resolved to full ids; dangling ones dropped. */
 function exportEdges({ id, data }: ExportInput, resolve: RefResolver): ExportEdge[] {
   const edges: ExportEdge[] = [];
   const lists = Object.entries(data.edges ?? {}) as [EdgeType, AuthoredEdge[] | undefined][];
@@ -106,7 +91,6 @@ function exportTerm(
   };
 }
 
-/** The authored description of a Term, optional fields only when present. */
 function termContent(d: TermData) {
   return {
     term: d.term,
@@ -123,11 +107,6 @@ function termContent(d: TermData) {
   };
 }
 
-/**
- * RFC 4180 field: quoted when it holds a comma, quote or line break. A text cell that
- * starts with = + - @, a tab or a carriage return gets a leading ' so spreadsheets
- * read it as text, never as a formula (CSV injection). Numbers are left alone.
- */
 export const csvField = (v: string | number | boolean | undefined) => {
   let s = v === undefined ? '' : String(v);
   if (typeof v === 'string' && /^[=+\-@\t\r]/.test(s)) s = `'${s}`;
@@ -153,13 +132,11 @@ export const CSV_COLUMNS = [
   'draft',
 ] as const;
 
-/** One row per Term, both languages; list fields joined with `; `. CRLF line ends. */
 export function toCsv(terms: ExportTerm[]): string {
   const rows = terms.map((t) => csvCells(t).map(csvField).join(','));
   return [CSV_COLUMNS.join(','), ...rows].join('\r\n') + '\r\n';
 }
 
-/** A Term's cells, in CSV_COLUMNS order. */
 const csvCells = (t: ExportTerm) => [
   t.id,
   t.term.en,
@@ -181,18 +158,9 @@ const csvCells = (t: ExportTerm) => [
 
 const escapeHtml = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-/** A tab or line break would split an Anki field or note. */
 const oneLine = (s: string) => s.replace(/[\t\r\n]+/g, ' ');
-/** Anki reads a line starting with # as a header or comment, so escape a leading #. */
 const noHash = (s: string) => s.replace(/^#/, '&#35;');
 
-/**
- * Anki's plain-text import (File → Import), one note per Term: front = the name,
- * back = summary + plain-language facet + a link back. The header lines tell Anki the
- * separator, that fields are HTML, the deck, and the tags column, so no import
- * settings need touching. Each note carries a stable id (column 4), so re-importing a
- * newer file updates the notes instead of duplicating them.
- */
 export function toAnki(terms: ExportTerm[], lang: Lang, deck: string): string {
   const header = [
     '#separator:tab',
@@ -205,7 +173,6 @@ export function toAnki(terms: ExportTerm[], lang: Lang, deck: string): string {
   return [...header, ...terms.map((t) => ankiNote(t, lang))].join('\n') + '\n';
 }
 
-/** One note line: front, back, tags and the stable guid, tab-separated. */
 function ankiNote(t: ExportTerm, lang: Lang): string {
   const front = noHash(escapeHtml(oneLine(t.term[lang])));
   const back = [

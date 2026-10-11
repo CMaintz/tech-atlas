@@ -1,41 +1,21 @@
-/**
- * Semantic search's vectors: the committed vector file and how it is checked
- * against the content, its Int8/base64 encoding, the in-memory index the offline ranking
- * tests query, and the rows the seed script upserts. Pure; re-exported by semantic.ts.
- */
 import type { Lang } from './semantic';
 
-/**
- * The committed vector file (supabase/seed/term-vectors.json): the lint's per-term hash
- * source and the offline ranking tests' index. The database is seeded by re-embedding.
- */
 export interface VectorFile {
   model: string;
-  /** Where the vectors were computed (Workers AI, or the ONNX export on the author's machine). */
   backend: string;
   dim: number;
   langs: Lang[];
-  /** Hash of the model, pooling, dimension, passage format, quantisation, languages (E11). */
   settingsHash: string;
-  /** Per term, a hash of its embedded passages (lint W8 when one changes). */
   passageHashes: Record<string, string>;
-  /** Term ids; vector i*langs.length + j is term i in language j. */
   ids: string[];
-  /** Int8 components, base64; each vector scaled so its largest component is ±127. */
   data: string;
 }
 
-/** What the content expects of the vector file (computed by scripts/semantic-inputs.ts). */
 export interface ExpectedVectors {
   settingsHash: string;
   passageHashes: Record<string, string>;
 }
 
-/**
- * Compare a committed vector file with the content. Errors (lint E11) make search wrong
- * — other model settings, or a term added or removed; `changed` (lint W8) lists terms
- * whose text changed since they were embedded, which only makes their vector a bit stale.
- */
 export function compareVectors(
   file: Pick<VectorFile, 'settingsHash' | 'passageHashes'>,
   expected: ExpectedVectors,
@@ -50,7 +30,6 @@ export function compareVectors(
   return { errors: termSetErrors(have, expected.passageHashes), changed };
 }
 
-/** Terms added since the vectors were made, and vectors of terms since removed. */
 function termSetErrors(have: Record<string, string>, want: Record<string, string>): string[] {
   const missing = Object.keys(want).filter((id) => !(id in have));
   const removed = Object.keys(have).filter((id) => !(id in want));
@@ -60,7 +39,6 @@ function termSetErrors(have: Record<string, string>, want: Record<string, string
   ];
 }
 
-/** Quantise vectors to Int8, one scale per vector (direction is all cosine needs). */
 export function quantize(vectors: ArrayLike<number>[]): Int8Array {
   const dim = vectors[0]?.length ?? 0;
   const out = new Int8Array(vectors.length * dim);
@@ -73,7 +51,6 @@ export function quantize(vectors: ArrayLike<number>[]): Int8Array {
   return out;
 }
 
-/** Dequantise to unit-length Float32 vectors, so cosine is a dot product. */
 export function dequantize(q: Int8Array, dim: number): Float32Array[] {
   const out: Float32Array[] = [];
   for (let i = 0; i < q.length / dim; i++) out.push(normalize(q.subarray(i * dim, (i + 1) * dim)));
@@ -115,7 +92,6 @@ export function fromBase64(b64: string): Int8Array {
   return out;
 }
 
-/** An index ready to query: per term, one unit vector per language. */
 export interface SemanticIndex {
   ids: string[];
   vectors: Float32Array[][];
@@ -127,7 +103,6 @@ export function loadIndex(file: VectorFile): SemanticIndex {
   return { ids: file.ids, vectors: file.ids.map((_, i) => flat.slice(i * n, (i + 1) * n)) };
 }
 
-/** One `public.term_vectors` row: the vector in pgvector's text form. */
 export interface VectorRow {
   id: string;
   lang: Lang;
@@ -135,15 +110,12 @@ export interface VectorRow {
   passage_hash: string;
 }
 
-/**
- * The rows the seed script upserts: vector `i * langs.length + j` belongs to term `i` in
- * language `j` (the order semanticInputs emits passages in), normalised to unit length.
- */
+type EmbeddedTerms = { ids: readonly string[]; passageHashes: Record<string, string> };
+
 export function toVectorLiteralRows(
-  ids: readonly string[],
+  { ids, passageHashes }: EmbeddedTerms,
   langs: readonly Lang[],
   vectors: readonly ArrayLike<number>[],
-  passageHashes: Record<string, string>,
 ): VectorRow[] {
   if (vectors.length !== ids.length * langs.length) {
     throw new Error(`expected ${ids.length * langs.length} vectors, got ${vectors.length}`);
@@ -163,10 +135,6 @@ export interface Scored {
   score: number;
 }
 
-/**
- * Rank terms by similarity to a query vector. A term scores its best language, so a
- * Danish query finds a term whose name is English (and vice versa).
- */
 export function rankBySimilarity(index: SemanticIndex, query: ArrayLike<number>, k = 8): Scored[] {
   const q = normalize(query);
   const scored = index.ids.map((id, i) => {

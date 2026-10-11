@@ -1,21 +1,19 @@
-/**
- * `npm run smoke:semantic` — ask the deployed `semantic-search` function the
- * SMOKE_QUERIES and fail unless each expected term is in its top 3. Run by
- * .github/workflows/backend.yml after seeding; needs SEMANTIC_SEARCH_URL.
- */
 import { SMOKE_QUERIES } from './semantic-inputs';
 
-const url = process.env.SEMANTIC_SEARCH_URL;
-if (!url) {
-  console.error('SEMANTIC_SEARCH_URL must be set');
-  process.exit(1);
+function semanticSearchUrl(): string {
+  const value = process.env.SEMANTIC_SEARCH_URL;
+  if (!value) {
+    console.error('SEMANTIC_SEARCH_URL must be set');
+    process.exit(1);
+  }
+  return value;
 }
+const url = semanticSearchUrl();
 
-/** A fresh deploy can cold-start; retry a failed request a couple of times. */
 async function ask(q: string, lang: string): Promise<string[]> {
   let last = '';
   for (let attempt = 0; attempt < 3; attempt++) {
-    const res = await fetch(url!, {
+    const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ q, lang, k: 3 }),

@@ -1,12 +1,3 @@
-/**
- * The size gate (`npm run lint:size`): fails when any function is over
- * MAX_FUNCTION_LINES logical lines or any code file over MAX_FILE_LINES lines.
- * How lines are counted: size-rules.ts.
- *
- * Usage: tsx scripts/size-check.ts [--top N] [--byfile]
- *   --top N    list only the N largest offenders of each kind
- *   --byfile   also print how many long functions each file has
- */
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { globSync } from 'tinyglobby';
@@ -22,11 +13,6 @@ import {
 
 const REPO = resolve(import.meta.dirname, '..', '..');
 
-/**
- * What is scanned: the code that ships or gates the site. Not scanned: content
- * (YAML/Markdown), JSON data, lockfiles, generated output, and the archival design
- * sketches `design/schema.ts` and `techlexicon/schema.ts`.
- */
 const INCLUDE = [
   'app/src/**/*.{ts,tsx,astro,mjs}',
   'app/scripts/**/*.{ts,mjs}',

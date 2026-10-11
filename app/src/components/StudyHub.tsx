@@ -54,6 +54,19 @@ type RecommendedProps = {
   ui: Dict;
 };
 
+function RecommendedTerm({ href, name }: { href: string; name: string }) {
+  return (
+    <li>
+      <a
+        class="inline-flex min-h-11 items-center rounded border border-border-strong px-2 py-1 text-sm hover:border-border-hover sm:min-h-0"
+        href={href}
+      >
+        {name}
+      </a>
+    </li>
+  );
+}
+
 function Recommended({ graph, learner, lang, termBase, ui }: RecommendedProps) {
   const next = graph ? recommendNext(graph, learner) : [];
   return (
@@ -62,21 +75,13 @@ function Recommended({ graph, learner, lang, termBase, ui }: RecommendedProps) {
       <p class="mb-3 text-sm text-subtle">{ui.recommendedIntro}</p>
       <ul class="flex flex-wrap gap-2">
         {next.map((n) => (
-          <li>
-            <a
-              class="inline-flex min-h-11 items-center rounded border border-border-strong px-2 py-1 text-sm hover:border-border-hover sm:min-h-0"
-              href={`${termBase}${n.id}/`}
-            >
-              {n.term[lang]}
-            </a>
-          </li>
+          <RecommendedTerm href={`${termBase}${n.id}/`} name={n.term[lang]} />
         ))}
       </ul>
     </section>
   );
 }
 
-/** One group of scopes (domains, or clusters): `<prefix>:<id>` per label. */
 function ScopeGroup({ label, prefix, labels }: { label: string; prefix: string; labels: Dict }) {
   return (
     <optgroup label={label}>
@@ -89,7 +94,6 @@ function ScopeGroup({ label, prefix, labels }: { label: string; prefix: string; 
 
 type ScopeSelectProps = Props & { scope: Scope; weak: number; onChange: (s: Scope) => void };
 
-/** What to quiz on: everything, weak terms, one domain or one cluster. */
 function ScopeSelect({ scope, weak, ui, domainLabels, clusterLabels, onChange }: ScopeSelectProps) {
   return (
     <select
@@ -105,7 +109,6 @@ function ScopeSelect({ scope, weak, ui, domainLabels, clusterLabels, onChange }:
   );
 }
 
-/** Pick a scope and quiz on it; each pick starts a fresh session. */
 function Practise(props: Props & { weak: number }) {
   const [scope, setScope] = useState<Scope>('all');
   const [round, setRound] = useState(0);
@@ -125,7 +128,6 @@ function Practise(props: Props & { weak: number }) {
   );
 }
 
-/** Progress, what to learn next, and a quiz session — all from local learner state. */
 export default function StudyHub(props: Props) {
   const graph = useGraph(props.graphUrl);
   const learner = useLearner();

@@ -1,4 +1,3 @@
-/** The learner's local state, kept current as any island saves it ('atlas:learner'). */
 import { useEffect, useState } from 'preact/hooks';
 import { loadLearner, type Learner } from './learner';
 

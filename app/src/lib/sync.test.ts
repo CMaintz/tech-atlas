@@ -24,21 +24,37 @@ describe('parseLearner', () => {
 
 describe('timestamps', () => {
   it('records when a term was answered and when its status changed', () => {
-    const l = setStatus(recordAnswer(empty, 't', true, 10), 't', 'know', 20);
+    const l = setStatus(
+      recordAnswer(empty, { id: 't', correct: true }, 10),
+      { id: 't', status: 'know' },
+      20,
+    );
     expect(l.terms.t.reviewed).toBe(10);
     expect(l.terms.t.statusAt).toBe(20);
   });
 
   it('records clearing a status', () => {
-    const l = setStatus(setStatus(empty, 't', 'know', 1), 't', undefined, 2);
+    const l = setStatus(
+      setStatus(empty, { id: 't', status: 'know' }, 1),
+      { id: 't', status: undefined },
+      2,
+    );
     expect(l.terms.t.status).toBeUndefined();
     expect(l.terms.t.statusAt).toBe(2);
   });
 });
 
 describe('mergeLearner', () => {
-  const laptop = setStatus(recordAnswer(empty, 'a', true, 0), 'b', 'learning', 5);
-  const phone = recordAnswer(recordAnswer(empty, 'a', true, 0), 'a', true, DAY);
+  const laptop = setStatus(
+    recordAnswer(empty, { id: 'a', correct: true }, 0),
+    { id: 'b', status: 'learning' },
+    5,
+  );
+  const phone = recordAnswer(
+    recordAnswer(empty, { id: 'a', correct: true }, 0),
+    { id: 'a', correct: true },
+    DAY,
+  );
 
   it('keeps terms from both sides', () => {
     const other: Learner = { terms: { c: phone.terms.a } };
@@ -47,7 +63,7 @@ describe('mergeLearner', () => {
 
   it('takes the schedule from the most recent answer, even when it demotes', () => {
     expect(mergeLearner(laptop, phone).terms.a.box).toBe(2);
-    const wrongLater = recordAnswer(phone, 'a', false, 2 * DAY);
+    const wrongLater = recordAnswer(phone, { id: 'a', correct: false }, 2 * DAY);
     const m = mergeLearner(wrongLater, phone);
     expect(m.terms.a.box).toBe(1);
     expect(m.terms.a.due).toBe(3 * DAY);
@@ -61,10 +77,10 @@ describe('mergeLearner', () => {
   });
 
   it('takes the most recent status change, including a clear', () => {
-    const set = setStatus(empty, 't', 'know', 1);
-    const cleared = setStatus(set, 't', undefined, 2);
+    const set = setStatus(empty, { id: 't', status: 'know' }, 1);
+    const cleared = setStatus(set, { id: 't', status: undefined }, 2);
     expect(mergeLearner(set, cleared).terms.t.status).toBeUndefined();
-    const relearn = setStatus(cleared, 't', 'learning', 3);
+    const relearn = setStatus(cleared, { id: 't', status: 'learning' }, 3);
     expect(mergeLearner(cleared, relearn).terms.t.status).toBe('learning');
   });
 
@@ -72,7 +88,7 @@ describe('mergeLearner', () => {
     const old = parseLearner({
       terms: { t: { box: 0, due: 0, right: 0, wrong: 0, status: 'know' } },
     });
-    const now = setStatus(empty, 't', 'unknown', 1);
+    const now = setStatus(empty, { id: 't', status: 'unknown' }, 1);
     expect(mergeLearner(old, now).terms.t.status).toBe('unknown');
   });
 
@@ -81,7 +97,10 @@ describe('mergeLearner', () => {
     const pairs: [Learner, Learner][] = [
       [laptop, phone],
       [laptop, tie],
-      [setStatus(empty, 't', 'know', 1), setStatus(empty, 't', 'unknown', 1)],
+      [
+        setStatus(empty, { id: 't', status: 'know' }, 1),
+        setStatus(empty, { id: 't', status: 'unknown' }, 1),
+      ],
     ];
     for (const [x, y] of pairs) {
       const m = mergeLearner(x, y);
@@ -94,11 +113,21 @@ describe('mergeLearner', () => {
   it('lets a local change after merging a future-stamped remote win', () => {
     const now = 1_000_000;
     // The other device's clock runs an hour fast.
-    const remote = parseLearner(setStatus(empty, 't', 'know', now + 3_600_000), now);
-    const local = setStatus(mergeLearner(empty, remote), 't', 'learning', now);
+    const remote = parseLearner(
+      setStatus(empty, { id: 't', status: 'know' }, now + 3_600_000),
+      now,
+    );
+    const local = setStatus(mergeLearner(empty, remote), { id: 't', status: 'learning' }, now);
     expect(mergeLearner(local, remote).terms.t.status).toBe('learning');
-    const answeredAhead = parseLearner(recordAnswer(empty, 't', false, now + 3_600_000), now);
-    const answered = recordAnswer(mergeLearner(empty, answeredAhead), 't', true, now);
+    const answeredAhead = parseLearner(
+      recordAnswer(empty, { id: 't', correct: false }, now + 3_600_000),
+      now,
+    );
+    const answered = recordAnswer(
+      mergeLearner(empty, answeredAhead),
+      { id: 't', correct: true },
+      now,
+    );
     expect(mergeLearner(answered, answeredAhead).terms.t.right).toBe(1);
     expect(mergeLearner(answered, answeredAhead).terms.t.reviewed).toBe(now + 3_600_001);
   });
@@ -106,15 +135,14 @@ describe('mergeLearner', () => {
   it('pulls timestamps more than a day ahead back to now', () => {
     const now = 1_000_000;
     const broken = setStatus(
-      recordAnswer(empty, 't', true, now + 10 * DAY),
-      't',
-      'know',
+      recordAnswer(empty, { id: 't', correct: true }, now + 10 * DAY),
+      { id: 't', status: 'know' },
       now + 10 * DAY,
     );
     const parsed = parseLearner(broken, now);
     expect(parsed.terms.t.reviewed).toBe(now);
     expect(parsed.terms.t.statusAt).toBe(now);
-    const later = setStatus(mergeLearner(empty, parsed), 't', 'unknown', now + 1);
+    const later = setStatus(mergeLearner(empty, parsed), { id: 't', status: 'unknown' }, now + 1);
     expect(mergeLearner(later, parsed).terms.t.status).toBe('unknown');
   });
 
