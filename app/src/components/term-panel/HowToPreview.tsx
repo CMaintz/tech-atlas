@@ -1,11 +1,9 @@
 import PanelHeading from './PanelHeading';
 import type { PartProps } from './types';
 
-/** How many how-to steps the panel previews. */
-const HOW_TO_PREVIEW = 3;
+const HOW_TO_PREVIEW_STEPS = 3;
 
-/** One numbered step. */
-function HowToStep({ n, text }: { n: number; text: string }) {
+function NumberedHowToStep({ n, text }: { n: number; text: string }) {
   return (
     <li class="flex gap-2">
       <span
@@ -19,8 +17,7 @@ function HowToStep({ n, text }: { n: number; text: string }) {
   );
 }
 
-/** "All steps and guides": the how-to section of the term page. */
-function HowToMore({ panel: { props } }: PartProps) {
+function AllStepsLink({ panel: { props } }: PartProps) {
   return (
     <a
       class="mt-2 inline-flex min-h-11 items-center text-sm text-muted underline-offset-2 hover:text-fg hover:underline sm:min-h-0"
@@ -32,13 +29,9 @@ function HowToMore({ panel: { props } }: PartProps) {
   );
 }
 
-/**
- * How to put it into practice: the first steps only, and a link to the term page,
- * which has them all, with pitfalls and guides. Absent when the term has no how-to.
- */
 export default function HowToPreview({ panel }: PartProps) {
   const { record, props } = panel;
-  const steps = record?.howTo?.steps[props.lang].slice(0, HOW_TO_PREVIEW) ?? [];
+  const steps = record?.howTo?.steps[props.lang].slice(0, HOW_TO_PREVIEW_STEPS) ?? [];
   if (steps.length === 0) return null;
   return (
     <section aria-labelledby="tp-howto" data-panel-howto>
@@ -47,10 +40,10 @@ export default function HowToPreview({ panel }: PartProps) {
       </PanelHeading>
       <ol class="space-y-2 text-sm">
         {steps.map((s, i) => (
-          <HowToStep n={i + 1} text={s} />
+          <NumberedHowToStep n={i + 1} text={s} />
         ))}
       </ol>
-      <HowToMore panel={panel} />
+      <AllStepsLink panel={panel} />
     </section>
   );
 }

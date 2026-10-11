@@ -1,36 +1,19 @@
-// ---- Map themes --------------------------------------------------------------
-
-/**
- * The map's two looks: a night map (bright hues on near-black) and a cream "paper" map
- * (deeper, more saturated shades of the same hues on warm off-white). Every colour
- * function takes a theme and defaults to dark, so server-rendered callers are unchanged.
- */
 export type MapTheme = 'dark' | 'light';
 
-/** Colours of everything on a map that is not a domain, cluster or family colour. */
 export const MAP_INK: Record<
   MapTheme,
   {
-    /** The 3D scene's background and fog (2D maps use the `--map-bg` CSS token). */
     bg3d: string;
-    /** Term labels, and the halo round them that keeps them legible over edges. */
     label: string;
     halo: string;
-    /** Year ticks, depth rows and other quiet map text (AA on the map background). */
     tick: string;
-    /** The selected term's outline (2D) and fill (3D). */
     selected: string;
-    /** Glow (dark) or soft shadow (light) round a term: colour (null = its own) and opacity. */
     underlay: string | null;
     underlayAlpha: number;
-    /** A receded term in 3D. */
     faded3d: string;
-    /** 3D hub labels: text and the blur behind it. */
     label3d: string;
     labelShadow3d: string;
-    /** Knowledge colour of a term with no status yet. */
     unknown: string;
-    /** Resting opacity of the 2D flow dots. */
     dotAlpha: number;
   }
 > = {
@@ -64,5 +47,4 @@ export const MAP_INK: Record<
   },
 };
 
-/** The darker of the two cream map backgrounds (the vignette's edge). */
 export const CREAM = '#f6f1e7';

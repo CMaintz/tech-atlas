@@ -11,7 +11,6 @@ import { useTermPanel } from './use-term-panel';
 
 const DEFAULT_ZOOM = 0;
 
-/** Which domains' lanes are shown (all, to start). */
 function useDomainFilter(domains: string[]) {
   const [shown, setShown] = useState<string[]>(domains);
   const toggle = (d: string) => setShown((cur) => toggleDomain(domains, cur, d));
@@ -20,7 +19,6 @@ function useDomainFilter(domains: string[]) {
 
 export type DomainFilter = ReturnType<typeof useDomainFilter>;
 
-/** Both charts' geometry for the shown lanes at this zoom (the desktop one fits the screen). */
 function useChartLayout(props: TimelineProps, shown: string[], zoom: number) {
   const { items } = props;
   const [start, end] = props.range;
@@ -30,7 +28,7 @@ function useChartLayout(props: TimelineProps, shown: string[], zoom: number) {
   const axis = { start, end, zoom, load };
   const { avail, budget } = size;
   const h = useMemo(
-    () => horizontalLayout(lanes, axis, avail, budget),
+    () => horizontalLayout(lanes, axis, { avail, budget }),
     [lanes, load, zoom, start, end, avail, budget],
   );
   const v = useMemo(() => verticalLayout(lanes, axis), [lanes, load, zoom, start, end]);
@@ -40,14 +38,13 @@ function useChartLayout(props: TimelineProps, shown: string[], zoom: number) {
 
 export type ChartLayout = ReturnType<typeof useChartLayout>;
 
-/** Everything the island keeps: filter, zoom, layout, the popovers and the term panel. */
 export function useTimeline(props: TimelineProps) {
   const filter = useDomainFilter(props.domains);
   const [zoom, setZoom] = useState(DEFAULT_ZOOM);
   const chart = useChartLayout(props, filter.shown, zoom);
   const byId = useMemo(() => new Map(props.items.map((i) => [i.id, i])), [props.items]);
   const selection = useSelection();
-  const panel = useTermPanel(props.panel, selection.clear); // the panel replaces the popover
+  const panel = useTermPanel(props.panel, selection.clear);
   const more = useMoreList([zoom, filter.shown]);
   const ctx = chartContext(props, itemHandlers(selection, panel), selection.sel?.id);
   return { filter, zoom, setZoom, chart, byId, selection, panel, more, ctx };

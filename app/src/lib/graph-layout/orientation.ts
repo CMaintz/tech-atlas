@@ -1,10 +1,5 @@
-/** Map orientation: turn a point cloud so it lies landscape. */
 import type { Point } from '../graph-style';
 
-/**
- * The rotation (radians) that lays a point cloud's long axis horizontal (principal
- * component), so a map fills a landscape screen instead of standing on end.
- */
 export function levelAngle(points: Point[]): number {
   if (points.length < 2) return 0;
   const mx = points.reduce((s, p) => s + p.x, 0) / points.length;
@@ -17,8 +12,8 @@ export function levelAngle(points: Point[]): number {
     syy += (p.y - my) ** 2;
     sxy += (p.x - mx) * (p.y - my);
   }
-  const axis = 0.5 * Math.atan2(2 * sxy, sxx - syy);
-  return -axis;
+  const principalAxis = 0.5 * Math.atan2(2 * sxy, sxx - syy);
+  return -principalAxis;
 }
 
 export const rotateAbout = (p: Point, c: Point, a: number): Point => ({

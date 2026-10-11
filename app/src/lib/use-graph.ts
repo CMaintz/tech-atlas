@@ -1,4 +1,3 @@
-/** The published graph (graph.json) for an island; null until it has loaded. */
 import { useEffect, useState } from 'preact/hooks';
 import type { Graph } from './graph-model';
 

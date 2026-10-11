@@ -1,8 +1,7 @@
 import { ARROW_LEFT, ARROW_RIGHT, CLOSE, COLLAPSE, EXPAND, IconButton } from './IconButton';
 import type { PartProps } from './types';
 
-/** Back (-1) or Forward (1) through the terms viewed in this panel. */
-function HistoryButton({ panel, dir }: PartProps & { dir: 1 | -1 }) {
+function BackForwardButton({ panel, dir }: PartProps & { dir: 1 | -1 }) {
   const { nav, props } = panel;
   const atEnd = dir === -1 ? nav.trail.pos <= 0 : nav.trail.pos >= nav.trail.entries.length - 1;
   return (
@@ -18,8 +17,7 @@ function HistoryButton({ panel, dir }: PartProps & { dir: 1 | -1 }) {
   );
 }
 
-/** Expand over the page (with the neighbourhood graph) or dock beside the map again. */
-function ExpandButton({ panel }: PartProps) {
+function ExpandCollapseButton({ panel }: PartProps) {
   const { expanded, setExpanded, props } = panel;
   return (
     <IconButton
@@ -34,13 +32,12 @@ function ExpandButton({ panel }: PartProps) {
   );
 }
 
-/** The panel's header bar: Back/Forward, Expand/Collapse and Close. */
 export default function PanelToolbar({ panel }: PartProps) {
   return (
     <div class="flex shrink-0 items-center gap-1 border-b border-border px-3 py-1.5">
-      <HistoryButton panel={panel} dir={-1} />
-      <HistoryButton panel={panel} dir={1} />
-      <ExpandButton panel={panel} />
+      <BackForwardButton panel={panel} dir={-1} />
+      <BackForwardButton panel={panel} dir={1} />
+      <ExpandCollapseButton panel={panel} />
       <IconButton
         icon={CLOSE}
         label={panel.props.text.panelClose}

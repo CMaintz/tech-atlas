@@ -25,7 +25,7 @@ const item = (id: string, year: number, domain: string, hub = false, degree = 1)
 });
 
 describe('labelSpan', () => {
-  const scale = stretchScale(2000, 2010, 50, () => 0); // 500px, 50px a year
+  const scale = stretchScale({ start: 2000, end: 2010 }, 50, () => 0); // 500px, 50px a year
   it('puts the label right of its dot, hubs first', () => {
     const { span, flip } = labelSpan(item('a', 2001, 'x', true), scale, 12);
     expect(flip).toBe(false);
@@ -63,13 +63,15 @@ describe('horizontalLayout', () => {
   const axis = { start: 1990, end: 2020, zoom: 0, load: yearLoad(lanes.values()) };
 
   it('fits the axis to the available width at zoom 0', () => {
-    const h = horizontalLayout(lanes, axis, 1280, 560);
+    const h = horizontalLayout(lanes, axis, { avail: 1280, budget: 560 });
     expect(h.width).toBeCloseTo(1280 - LABEL_COL - 2, 0);
     expect(h.row).toBe(ROW_FIT);
-    expect(horizontalLayout(lanes, { ...axis, zoom: 1 }, 1280, 560).row).toBe(ROW);
+    expect(horizontalLayout(lanes, { ...axis, zoom: 1 }, { avail: 1280, budget: 560 }).row).toBe(
+      ROW,
+    );
   });
   it('places every term once, in a row or a chip, within the height budget', () => {
-    const h = horizontalLayout(lanes, axis, 1280, 200);
+    const h = horizontalLayout(lanes, axis, { avail: 1280, budget: 200 });
     const sec = h.lanes[0];
     const shown = sec.list.map((it) => it.id);
     const chipped = sec.chips.flatMap((c) => c.ids);

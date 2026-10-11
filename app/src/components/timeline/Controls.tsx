@@ -12,28 +12,36 @@ type ControlsProps = {
   setZoom: Dispatch<StateUpdater<number>>;
 };
 
-/** The chart's controls: domain filter chips, then zoom out/in. */
 export function Controls({ domains, filter, zoom, setZoom }: ControlsProps) {
   const { text } = useTimelineCtx();
   return (
     <div class="mb-4 flex flex-wrap items-center gap-2">
       <span class="sr-only">{text.filter}</span>
-      <FilterChip
-        class="border-border-strong text-muted"
-        pressed={filter.shown.length === domains.length}
-        onClick={filter.all}
-      >
-        {text.allDomains}
-      </FilterChip>
-      {domains.map((d) => (
-        <DomainChip domain={d} on={filter.shown.includes(d)} onToggle={() => filter.toggle(d)} />
-      ))}
+      <DomainFilterChips domains={domains} filter={filter} />
       <ZoomControls zoom={zoom} setZoom={setZoom} />
     </div>
   );
 }
 
-type FilterChipProps = {
+function DomainFilterChips({ domains, filter }: Pick<ControlsProps, 'domains' | 'filter'>) {
+  const { text } = useTimelineCtx();
+  return (
+    <>
+      <TogglePill
+        class="border-border-strong text-muted"
+        pressed={filter.shown.length === domains.length}
+        onClick={filter.all}
+      >
+        {text.allDomains}
+      </TogglePill>
+      {domains.map((d) => (
+        <DomainChip domain={d} on={filter.shown.includes(d)} onToggle={() => filter.toggle(d)} />
+      ))}
+    </>
+  );
+}
+
+type TogglePillProps = {
   pressed: boolean;
   onClick: () => void;
   class: string;
@@ -41,8 +49,7 @@ type FilterChipProps = {
   children: ComponentChildren;
 };
 
-/** A pill that switches something on or off (`aria-pressed`). */
-function FilterChip({ pressed, onClick, class: extra, style, children }: FilterChipProps) {
+function TogglePill({ pressed, onClick, class: extra, style, children }: TogglePillProps) {
   return (
     <button
       type="button"
@@ -58,11 +65,10 @@ function FilterChip({ pressed, onClick, class: extra, style, children }: FilterC
 
 type DomainChipProps = { domain: string; on: boolean; onToggle: () => void };
 
-/** A domain's filter chip: outlined and dotted in its colour while its lane is shown. */
 function DomainChip({ domain, on, onToggle }: DomainChipProps) {
   const { ink, label } = useTimelineCtx();
   return (
-    <FilterChip
+    <TogglePill
       class="map-ink flex items-center gap-1.5 text-muted"
       style={`${inkVars(ink(domain))}border-color:${on ? 'var(--ink)' : 'var(--border-strong)'}`}
       pressed={on}
@@ -74,7 +80,7 @@ function DomainChip({ domain, on, onToggle }: DomainChipProps) {
         style={{ background: on ? 'var(--ink)' : 'var(--subtle)' }}
       />
       {label(domain)}
-    </FilterChip>
+    </TogglePill>
   );
 }
 
@@ -96,7 +102,6 @@ function ZoomControls(props: Zoom) {
 
 type ZoomButtonProps = Zoom & { step: -1 | 1; label: string; children: ComponentChildren };
 
-/** One zoom step out (-1) or in (+1); disabled at the end of the range. */
 function ZoomButton({ step, label, zoom, setZoom, children }: ZoomButtonProps) {
   const max = H_ZOOM.length - 1;
   const next = zoom + step;

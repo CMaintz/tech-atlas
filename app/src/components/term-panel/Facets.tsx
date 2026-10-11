@@ -4,8 +4,7 @@ import { FACETS, type Facet } from '../../lib/term-panel';
 import PanelHeading from './PanelHeading';
 import type { PartProps } from './types';
 
-/** One facet's text; a placeholder while the record loads, or the load error. */
-function FacetText({ panel, facet }: PartProps & { facet: Facet }) {
+function FacetTextOrPlaceholder({ panel, facet }: PartProps & { facet: Facet }) {
   const { record, failed, props } = panel;
   if (record) return <p class="text-fg-soft">{record.body[facet][props.lang]}</p>;
   if (failed) return <p class="text-sm text-red-700 dark:text-red-300">{props.text.loadError}</p>;
@@ -17,14 +16,13 @@ function FacetText({ panel, facet }: PartProps & { facet: Facet }) {
   );
 }
 
-/** Expanded: every facet at once, in a grid. */
-function FacetGrid({ panel }: PartProps) {
+function ExpandedFacetGrid({ panel }: PartProps) {
   return (
     <div class="grid gap-5 sm:grid-cols-2">
       {FACETS.map((f) => (
         <div>
           <PanelHeading spacing="mb-1">{panel.props.ui[f]}</PanelHeading>
-          <FacetText panel={panel} facet={f} />
+          <FacetTextOrPlaceholder panel={panel} facet={f} />
         </div>
       ))}
     </div>
@@ -33,8 +31,7 @@ function FacetGrid({ panel }: PartProps) {
 
 type TabsProps = PartProps & { facet: Facet; onFacet: (f: Facet) => void };
 
-/** The facet tabs; ←/→ and Home/End move between them (WAI-ARIA tabs). */
-function FacetTabList({ panel, facet, onFacet }: TabsProps) {
+function useTabArrowKeys(facet: Facet, onFacet: (f: Facet) => void) {
   const list = useRef<HTMLDivElement>(null);
   const onKey = (e: KeyboardEvent) => {
     const next = tabKeyTarget(e.key, FACETS.indexOf(facet), FACETS.length);
@@ -43,15 +40,12 @@ function FacetTabList({ panel, facet, onFacet }: TabsProps) {
     onFacet(FACETS[next]);
     list.current?.querySelector<HTMLElement>(`#tp-tab-${FACETS[next]}`)?.focus();
   };
-  const tab = (f: Facet) => (
-    <FacetTab
-      label={panel.props.ui[f]}
-      facet={f}
-      selected={facet === f}
-      onFacet={onFacet}
-      onKey={onKey}
-    />
-  );
+  return { list, onKey };
+}
+
+function FacetTabList({ panel, facet, onFacet }: TabsProps) {
+  const { list, onKey } = useTabArrowKeys(facet, onFacet);
+  const tabs = { facet, onFacet, onKey };
   return (
     <div
       ref={list}
@@ -59,7 +53,9 @@ function FacetTabList({ panel, facet, onFacet }: TabsProps) {
       aria-label={panel.props.text.facets}
       class="flex flex-wrap gap-1 border-b border-border"
     >
-      {FACETS.map(tab)}
+      {FACETS.map((f) => (
+        <FacetTab label={panel.props.ui[f]} tab={f} {...tabs} />
+      ))}
     </div>
   );
 }
@@ -71,23 +67,24 @@ const TAB_OFF = 'border-transparent text-subtle hover:text-fg-soft';
 
 type TabProps = {
   label: string;
+  tab: Facet;
   facet: Facet;
-  selected: boolean;
   onFacet: (f: Facet) => void;
   onKey: (e: KeyboardEvent) => void;
 };
 
-function FacetTab({ label, facet, selected, onFacet, onKey }: TabProps) {
+function FacetTab({ label, tab, facet, onFacet, onKey }: TabProps) {
+  const selected = facet === tab;
   return (
     <button
       type="button"
       role="tab"
-      id={`tp-tab-${facet}`}
+      id={`tp-tab-${tab}`}
       aria-selected={selected}
       aria-controls="tp-facet"
       tabIndex={selected ? 0 : -1}
       class={`${TAB} ${selected ? TAB_ON : TAB_OFF}`}
-      onClick={() => onFacet(facet)}
+      onClick={() => onFacet(tab)}
       onKeyDown={onKey}
     >
       {label}
@@ -95,30 +92,25 @@ function FacetTab({ label, facet, selected, onFacet, onKey }: TabProps) {
   );
 }
 
-/** Docked: one facet at a time, behind tabs. */
-function FacetTabs(p: TabsProps) {
+function DockedFacetTabs(p: TabsProps) {
   return (
     <>
       <FacetTabList {...p} />
       <div id="tp-facet" role="tabpanel" aria-labelledby={`tp-tab-${p.facet}`} class="pt-3">
-        <FacetText panel={p.panel} facet={p.facet} />
+        <FacetTextOrPlaceholder panel={p.panel} facet={p.facet} />
       </div>
     </>
   );
 }
 
-/**
- * The four facets (formal, plain, in practice, why it matters). The chosen tab outlives
- * a change of term and a switch between docked and expanded.
- */
 export default function Facets({ panel }: PartProps) {
   const [facet, setFacet] = useState<Facet>('formal');
   return (
     <section aria-label={panel.props.text.facets}>
       {panel.expanded ? (
-        <FacetGrid panel={panel} />
+        <ExpandedFacetGrid panel={panel} />
       ) : (
-        <FacetTabs panel={panel} facet={facet} onFacet={setFacet} />
+        <DockedFacetTabs panel={panel} facet={facet} onFacet={setFacet} />
       )}
     </section>
   );

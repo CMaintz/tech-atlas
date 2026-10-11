@@ -1,8 +1,3 @@
-/**
- * The term page's neighbourhood graph, as data for Cytoscape: its stylesheet, the
- * ring order of the neighbours, their elements and where each label sits. The component
- * (Graph.tsx) only builds the graph from these and wires it to the page.
- */
 import type cytoscape from 'cytoscape';
 import type { EdgeType } from '../schema';
 import type { Family } from './graph-model';
@@ -17,7 +12,6 @@ export type GNode = {
   domain: string[];
   cluster: string;
 };
-/** An edge in its authored direction, with the label for that type. */
 export type GEdge = {
   source: string;
   target: string;
@@ -26,8 +20,7 @@ export type GEdge = {
   label: string;
 };
 
-/** The focal term: outlined, its label above it. */
-const focusStyle = (theme: MapTheme) => ({
+const focalTermStyle = (theme: MapTheme) => ({
   selector: 'node[focus = 1]',
   style: {
     'outline-width': 2,
@@ -41,8 +34,7 @@ const focusStyle = (theme: MapTheme) => ({
   },
 });
 
-/** Edges carry their relationship name, shown on hover so the resting graph stays calm. */
-const edgeStyle = (theme: MapTheme) => ({
+const hoverLabelledEdgeStyle = (theme: MapTheme) => ({
   selector: 'edge',
   style: {
     label: 'data(label)',
@@ -56,18 +48,16 @@ const edgeStyle = (theme: MapTheme) => ({
   },
 });
 
-/** The term-page graph's stylesheet for a map theme. */
 export const termGraphStyle = (theme: MapTheme) =>
   [
     ...(graphStyle(theme) as unknown[]),
     ...(FADE_TRANSITIONS as unknown[]),
-    focusStyle(theme),
-    edgeStyle(theme),
+    focalTermStyle(theme),
+    hoverLabelledEdgeStyle(theme),
     { selector: 'edge.flow', style: { opacity: 0.85 } },
     { selector: 'edge.lit', style: { 'text-opacity': 1, 'font-size': 9 } },
   ] as cytoscape.StylesheetJson;
 
-/** Neighbours in ring order: by relationship family, then cluster, then name, so kin sit together. */
 export function ringOrder(nodes: GNode[], edges: GEdge[], focus: GNode | undefined): GNode[] {
   const familyOf = new Map<string, string>();
   for (const e of edges) {
@@ -84,7 +74,6 @@ export function ringOrder(nodes: GNode[], edges: GEdge[], focus: GNode | undefin
     );
 }
 
-/** A term's element data: its paint (a shared term's ring), size and font by focus. */
 function nodeData(n: GNode, theme: MapTheme) {
   const ring = domainBands(n, undefined, theme)[1];
   return {
@@ -98,7 +87,6 @@ function nodeData(n: GNode, theme: MapTheme) {
   };
 }
 
-/** Edge paint (colour, gradient, direction) for the graph's edges. */
 export const edgePaintData = (nodes: GNode[], edges: GEdge[], theme: MapTheme) => {
   const byId = new Map(nodes.map((n) => [n.id, n]));
   return edgeData(
@@ -110,7 +98,6 @@ export const edgePaintData = (nodes: GNode[], edges: GEdge[], theme: MapTheme) =
   );
 };
 
-/** The focal term, then its neighbours in ring order, then the labelled edges. */
 export function termGraphElements(nodes: GNode[], edges: GEdge[], theme: MapTheme) {
   const focus = nodes.find((n) => n.focus);
   const ordered = [...(focus ? [focus] : []), ...ringOrder(nodes, edges, focus)];
@@ -123,17 +110,15 @@ export function termGraphElements(nodes: GNode[], edges: GEdge[], theme: MapThem
   ];
 }
 
-/** Where a value sits along one axis from the centre: low side, high side or centred. */
-const side = (v: number, r: number, lo: string, hi: string) =>
+const sideFromCentre = (v: number, r: number, [lo, hi]: [string, string]) =>
   v < -0.15 * r ? lo : v > 0.15 * r ? hi : 'center';
 
-/** A ring label's placement, pointing away from the centre so neighbours don't collide. */
 export function labelPlacement(dx: number, dy: number) {
   const r = Math.hypot(dx, dy) || 1;
-  const h = side(dx, r, 'left', 'right');
+  const h = sideFromCentre(dx, r, ['left', 'right']);
   return {
     'text-halign': h,
-    'text-valign': h === 'center' ? side(dy, r, 'top', 'bottom') : 'center',
+    'text-valign': h === 'center' ? sideFromCentre(dy, r, ['top', 'bottom']) : 'center',
     'text-margin-x': h === 'left' ? -4 : h === 'right' ? 4 : 0,
     'text-margin-y': h === 'center' ? (dy < 0 ? -3 : 3) : 0,
   };

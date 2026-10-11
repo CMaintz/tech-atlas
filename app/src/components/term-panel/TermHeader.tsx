@@ -1,8 +1,7 @@
 import { domainColour, nodePaint } from '../../lib/graph-style';
 import type { PartProps } from './types';
 
-/** The term's colour, cluster and domains. */
-function TermBadges({ panel }: PartProps) {
+function ColourClusterDomainBadges({ panel }: PartProps) {
   const { node, theme, props } = panel;
   return (
     <div class="mb-2 flex flex-wrap items-center gap-1.5 text-xs">
@@ -14,6 +13,14 @@ function TermBadges({ panel }: PartProps) {
       <span class="tracking-widest text-muted uppercase">
         {props.clusterLabels[node.cluster] ?? node.cluster}
       </span>
+      <DomainBadges panel={panel} />
+    </div>
+  );
+}
+
+function DomainBadges({ panel: { node, theme, props } }: PartProps) {
+  return (
+    <>
       {node.domain.map((d) => (
         <span
           class="rounded-full border px-2 py-0.5 text-fg-soft"
@@ -22,12 +29,11 @@ function TermBadges({ panel }: PartProps) {
           {props.domainLabels[d] ?? d}
         </span>
       ))}
-    </div>
+    </>
   );
 }
 
-/** The record is a draft, not yet reviewed. */
-function DraftNote({ text }: { text: string }) {
+function UnreviewedDraftNote({ text }: { text: string }) {
   return (
     <p class="mt-3 rounded border border-amber-300 bg-amber-50 px-2 py-1 text-xs text-amber-900 dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-300">
       {text}
@@ -35,8 +41,7 @@ function DraftNote({ text }: { text: string }) {
   );
 }
 
-/** Other names, the summary and the draft notice — once the record has them. */
-function TermIntro({ panel }: PartProps) {
+function AliasesSummaryDraft({ panel }: PartProps) {
   const { record, node, props } = panel;
   const aka = record?.aka[props.lang] ?? [];
   const summary = record?.summary[props.lang] ?? node.summary?.[props.lang];
@@ -48,19 +53,15 @@ function TermIntro({ panel }: PartProps) {
         </p>
       )}
       {summary && <p class="mt-3 font-medium text-fg-soft">{summary}</p>}
-      {record?.draft && <DraftNote text={props.ui.draft} />}
+      {record?.draft && <UnreviewedDraftNote text={props.ui.draft} />}
     </>
   );
 }
 
-/**
- * The panel's header: badges, the term's name — focused (and so announced) when a term
- * opens — and its intro.
- */
 export default function TermHeader({ panel }: PartProps) {
   return (
     <header>
-      <TermBadges panel={panel} />
+      <ColourClusterDomainBadges panel={panel} />
       <h2
         id="tp-title"
         ref={panel.refs.heading}
@@ -69,7 +70,7 @@ export default function TermHeader({ panel }: PartProps) {
       >
         {panel.node.term[panel.props.lang]}
       </h2>
-      <TermIntro panel={panel} />
+      <AliasesSummaryDraft panel={panel} />
     </header>
   );
 }

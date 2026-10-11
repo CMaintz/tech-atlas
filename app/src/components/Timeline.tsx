@@ -9,12 +9,6 @@ import { VerticalChart } from './timeline/VerticalChart';
 
 export type { TimelineEntry, TimelinePanel } from './timeline/types';
 
-/**
- * The swim-lane timeline (Timeline v2): one lane per domain along a year axis with
- * decade ticks and era bands. Horizontal on wide screens, vertical on phones; both are
- * rendered server-side (CSS picks one), so it reads without JavaScript. The island adds
- * domain filtering, zoom and a summary popover.
- */
 export default function Timeline(props: TimelineProps) {
   const t = useTimeline(props);
   return (

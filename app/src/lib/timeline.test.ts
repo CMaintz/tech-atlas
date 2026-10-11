@@ -7,16 +7,13 @@ import {
   lanesOf,
   densityScale,
   milestones,
-  packTracks,
-  packCapped,
-  shareRows,
   fitPerYear,
   stretchScale,
   toggleDomain,
-  type Span,
   yearLoad,
   type TimelineItem,
 } from './timeline';
+import { packCapped, packTracks, shareRows, type Span } from './timeline-stacking';
 
 const item = (id: string, year: number, domain: string[], degree = 1): TimelineItem => ({
   id,
@@ -52,7 +49,7 @@ describe('yearLoad and densityScale', () => {
     ]);
   });
   it('widens busy years, keeps empty ones short and stays in order', () => {
-    const s = densityScale(2000, 2005, 20, yearLoad(lanes));
+    const s = densityScale({ start: 2000, end: 2005 }, 20, yearLoad(lanes));
     const width = (y: number) => s.at(y + 1) - s.at(y);
     expect(width(2002)).toBe(9); // empty: 0.45 × 20
     expect(width(2001)).toBeCloseTo(28); // 20 × (0.8 + 0.6)
@@ -65,7 +62,7 @@ describe('yearLoad and densityScale', () => {
 
 describe('stretchScale', () => {
   it('gives empty years the minimum and crowded years room for their stack', () => {
-    const s = stretchScale(2000, 2004, 5, (y) => (y === 2002 ? 60 : 0));
+    const s = stretchScale({ start: 2000, end: 2004 }, 5, (y) => (y === 2002 ? 60 : 0));
     expect(s.at(2000)).toBe(0);
     expect(s.at(2002)).toBe(10);
     expect(s.at(2003)).toBe(70);
@@ -73,7 +70,7 @@ describe('stretchScale', () => {
     expect(s.at(2002.5)).toBe(40);
   });
   it('is monotone', () => {
-    const s = stretchScale(1950, 2030, 3, (y) => (y % 7) * 11);
+    const s = stretchScale({ start: 1950, end: 2030 }, 3, (y) => (y % 7) * 11);
     for (let y = 1950; y < 2030; y++) expect(s.at(y + 1)).toBeGreaterThanOrEqual(s.at(y));
   });
 });
@@ -226,8 +223,8 @@ describe('fitPerYear', () => {
       [2000, 3],
       [2010, 1],
     ]);
-    const p = fitPerYear(1990, 2020, 900, load);
-    expect(densityScale(1990, 2020, p, load).length).toBeCloseTo(900);
+    const p = fitPerYear({ start: 1990, end: 2020 }, 900, load);
+    expect(densityScale({ start: 1990, end: 2020 }, p, load).length).toBeCloseTo(900);
   });
 });
 

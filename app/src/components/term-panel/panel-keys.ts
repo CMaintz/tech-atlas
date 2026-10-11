@@ -3,8 +3,7 @@ import type { Panel } from './types';
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])';
 
-/** Keep Tab inside `root` (the expanded panel is a modal dialog): wrap at either end. */
-function trapTab(e: KeyboardEvent, root: HTMLElement) {
+function wrapTabWithinModal(e: KeyboardEvent, root: HTMLElement) {
   if (e.key !== 'Tab') return;
   const items = [...root.querySelectorAll<HTMLElement>(FOCUSABLE)].filter(
     (el) => el.offsetParent !== null,
@@ -21,15 +20,9 @@ function trapTab(e: KeyboardEvent, root: HTMLElement) {
   }
 }
 
-/**
- * The panel's keys: Tab cycles inside it while expanded; ←/→ step through the
- * connections and Alt+←/→ go back/forward — while focus is in the panel, outside fields.
- * Widgets that use the arrows themselves (the facet tabs) handle them first and call
- * preventDefault.
- */
 export const panelKeyHandler = (panel: Panel) => (e: KeyboardEvent) => {
   const root = panel.refs.root.current;
-  if (panel.expanded && root) trapTab(e, root);
+  if (panel.expanded && root) wrapTabWithinModal(e, root);
   if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.shiftKey) return;
   const dir = arrowDir(e.key);
   if (!dir || isTyping(e.target as HTMLElement | null)) return;

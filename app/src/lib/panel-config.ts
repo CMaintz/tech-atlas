@@ -1,13 +1,8 @@
-/**
- * The term panel's page-rendered tables, built once per page so the island never
- * bundles the schema. Shared by the Explorer and the Timeline. Build-time only.
- */
 import type { PanelConfig } from '../components/TermPanel';
 import { EDGE_TYPES } from '../schema';
 import { PANEL_UI, UI, url, type Lang } from './site';
 import { EDGE_LABELS, RELATION_ORDER } from './terms';
 
-/** `{ key: { en, da } }` → `{ key: text }` in one language. */
 export const localise = (m: Record<string, Record<Lang, string>>, lang: Lang) =>
   Object.fromEntries(Object.entries(m).map(([k, v]) => [k, v[lang]]));
 
