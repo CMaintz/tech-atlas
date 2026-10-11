@@ -1,4 +1,3 @@
-/** The 2D map's stylesheet with the visual lab's rules laid over the Explorer's. */
 import type cytoscape from 'cytoscape';
 import { EXPLORER } from '../../lib/explorer-config';
 import { FADE_TRANSITIONS } from '../../lib/graph-cytoscape';
@@ -7,14 +6,8 @@ import { rules2D, stateRules, toneActive, toneRules, type Lab2D } from '../../li
 
 type Rule = ReturnType<typeof rules2D>[number];
 
-/** A base stylesheet entry, re-laid as a lab rule. */
 const asRule = (r: { selector: string }) => r as Rule;
 
-/**
- * The base stylesheet, then the cream map's tone (light theme, when changed), then the
- * toggles (emphasis wins over tone), the old fades, and — when emphasis or tone is on —
- * the base's hover, selection and route states again, so those still win.
- */
 export function labStylesheet(base: unknown[], s: Lab2D, theme: MapTheme) {
   const toned = theme === 'light' && toneActive(s);
   const extra = [...(toned ? creamTone(s) : []), ...rules2D(s, FLOW_DASH)];
@@ -24,7 +17,6 @@ export function labStylesheet(base: unknown[], s: Lab2D, theme: MapTheme) {
   return [...base, ...extra] as cytoscape.StylesheetJson;
 }
 
-/** The cream map's tone rules at the Explorer's resting edge opacities. */
 function creamTone(s: Lab2D): Rule[] {
   const alpha = {
     rest: EXPLORER.edges.restAlpha,

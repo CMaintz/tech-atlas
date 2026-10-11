@@ -5,12 +5,6 @@ import Toolbar from './canvas-lab/Toolbar';
 import Legend from './canvas-lab/Legend';
 import { useCanvasLab, type CanvasLab, type CanvasLabProps } from './canvas-lab/use-canvas-lab';
 
-/**
- * The canvas Explorer lab: one <canvas>, a 2D context and "fake 3D" — every term
- * has x/y/z, projected each frame with yaw/pitch and a simple perspective, drawn back to
- * front. Flat = the front view with pan and zoom; Depth = orbit. One rAF loop that only
- * paints when something changed or is moving. Hidden page for comparison only.
- */
 export default function CanvasExplorer(props: CanvasLabProps) {
   const lab = useCanvasLab(props);
   const { t } = lab.chrome;
@@ -27,7 +21,6 @@ export default function CanvasExplorer(props: CanvasLabProps) {
   );
 }
 
-/** The one canvas the loop paints (a grab cursor in Flat, move in Depth). */
 function LabCanvas({ lab }: { lab: CanvasLab }) {
   const { t } = lab.chrome;
   return (
@@ -41,7 +34,6 @@ function LabCanvas({ lab }: { lab: CanvasLab }) {
   );
 }
 
-/** About "i": top-right of the map, moving left of the term panel when it opens. */
 function AboutCorner({ lab }: { lab: CanvasLab }) {
   return (
     <div
@@ -53,7 +45,6 @@ function AboutCorner({ lab }: { lab: CanvasLab }) {
   );
 }
 
-/** The selected term's panel, as in the Explorer. */
 function LabTermPanel({ lab }: { lab: CanvasLab }) {
   const setSelected = lab.ui.setSelected;
   const closePanel = useCallback(() => setSelected(null), []);
@@ -69,7 +60,6 @@ function LabTermPanel({ lab }: { lab: CanvasLab }) {
   );
 }
 
-/** The page's panel config, language, links and labels, as the term panel takes them. */
 function panelProps(site: CanvasLabProps) {
   const { panel, lang, termBase, clusterLabels, domainLabels, familyLabels, graphUi } = site;
   return { ...panel, lang, termBase, clusterLabels, domainLabels, familyLabels, graphUi };

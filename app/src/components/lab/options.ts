@@ -1,7 +1,3 @@
-/**
- * The visual lab's choice lists: each option's value and its label's key in TEXT,
- * in menu order. The address accepts exactly these values (CHOICES_2D / CHOICES_3D).
- */
 import { EMPHASES, type Emphasis, type Lab2D, type Lab3D } from '../../lib/explorer-lab';
 import type { Text } from './text';
 
@@ -48,13 +44,11 @@ export const GLOWS: Options<Lab3D['glow']> = [
   ['sprites', 'sprites'],
 ];
 
-/** An option list with its labels in the reader's language. */
 export const labelled = <T extends string>(t: Text, options: Options<T>) =>
   options.map(([v, key]) => [v, t[key]] as const);
 
 const values = <T extends string>(options: Options<T>) => options.map(([v]) => v);
 
-/** The values each 2D / 3D choice may take in the address. */
 export const CHOICES_2D = {
   curve: values(CURVES),
   flow: values(FLOWS_2D),

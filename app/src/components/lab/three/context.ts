@@ -1,12 +1,9 @@
-/**
- * The visual lab's view of a built 3D map: the slice of 3d-force-graph it drives,
- * the lab handles explorer-3d exposes, and what it captures once at setup (today's
- * accessors and fog) so every toggle can return to them.
- */
 import type { Map3D } from '../../../lib/explorer-3d';
 import { EXPLORER } from '../../../lib/explorer-config';
+import { required } from '../../../lib/required';
 import type { EdgeType } from '../../../schema';
-import type { FAMILY_COLOURS } from '../../../lib/graph-style';
+import type { FAMILY_COLOURS, MapTheme } from '../../../lib/graph-style';
+import type { Lab3D } from '../../../lib/explorer-lab';
 
 export type LinkLike = {
   source: NodeLike | string;
@@ -28,8 +25,8 @@ export type Obj = {
   scale: { setScalar(v: number): void; set(x: number, y: number, z: number): void };
 };
 export type Acc<T> = (l: LinkLike) => T;
+export type LabLook = { s: Lab3D; theme: MapTheme };
 
-/** The slice of 3d-force-graph the lab drives (accessors are re-evaluated on set). */
 export type Fg = {
   linkVisibility(): Acc<boolean>;
   linkVisibility(f: Acc<boolean>): Fg;
@@ -57,7 +54,6 @@ export type Fg = {
 export type Three = Map3D['lab']['THREE'];
 export type Sprite = InstanceType<Three['Sprite']>;
 
-/** The map, its lab handles and graph, and today's link and node accessors. */
 export type Lab3 = ReturnType<typeof labContext>;
 
 export function labContext(m: Map3D) {
@@ -73,7 +69,6 @@ export function labContext(m: Map3D) {
     links,
     cfg: EXPLORER.three,
     byId: new Map(nodes.map((n) => [n.id, n])),
-    /** Today's accessors, captured before the lab changes any. */
     prod: todays(fg),
     drawn: L.drawn as unknown as Acc<boolean>,
     focusOf: L.focusOf as unknown as Acc<boolean>,
@@ -87,9 +82,9 @@ const todays = (fg: Fg) => ({
   node: fg.nodeColor(),
 });
 
-/** A link end's id (3d-force-graph swaps ids for node objects once it has run). */
 export const endOf = (x: LinkLike['source']) => (typeof x === 'string' ? x : x.id);
 
-/** A link end's node. */
 export const nodeOf = (ctx: Lab3, x: LinkLike['source']) =>
-  typeof x === 'string' ? ctx.byId.get(x)! : x;
+  typeof x === 'string' ? required(ctx.byId, x, 'term') : x;
+
+export const endNode = (ctx: Lab3, x: LinkLike['source']) => required(ctx.byId, endOf(x), 'term');

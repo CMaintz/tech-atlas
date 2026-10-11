@@ -9,24 +9,27 @@ describe('labelCandidates', () => {
     rank: new Float32Array([0.5, 0.1, 0.9, 1]),
   };
   it('without a selection: hubs and the hover, best rank first', () => {
-    expect(labelCandidates(e, new Uint8Array(4), -1, 1)).toEqual([1, 2, 0]);
+    expect(labelCandidates(e, { lit: new Uint8Array(4), sel: -1, hover: 1 })).toEqual([1, 2, 0]);
   });
   it('with a selection: it, the hover, then lit neighbours (hidden terms never)', () => {
     const lit = new Uint8Array([1, 0, 1, 1]);
-    expect(labelCandidates(e, lit, 0, 1)).toEqual([0, 1, 2]);
+    expect(labelCandidates(e, { lit, sel: 0, hover: 1 })).toEqual([0, 1, 2]);
   });
 });
 
 describe('LabelSlots', () => {
   it('places below, then above, then gives up (unless big)', () => {
     const slots = new LabelSlots(400, 400);
-    expect(slots.place(100, 100, 10, 40, 11, false)).toBe(114);
-    expect(slots.place(100, 100, 10, 40, 11, false)).toBe(75);
-    expect(slots.place(100, 100, 10, 40, 11, false)).toBeUndefined();
-    expect(slots.place(100, 100, 10, 40, 11, true)).toBe(75);
+    const label = { x: 100, y: 100, r: 10, tw: 40, size: 11, big: false };
+    expect(slots.place(label)).toBe(114);
+    expect(slots.place(label)).toBe(75);
+    expect(slots.place(label)).toBeUndefined();
+    expect(slots.place({ ...label, big: true })).toBe(75);
   });
   it('keeps labels inside the view', () => {
-    expect(new LabelSlots(100, 100).place(2, 50, 5, 40, 11, false)).toBeUndefined();
+    expect(
+      new LabelSlots(100, 100).place({ x: 2, y: 50, r: 5, tw: 40, size: 11, big: false }),
+    ).toBeUndefined();
   });
 });
 

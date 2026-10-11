@@ -3,7 +3,6 @@ import type { MapTheme } from '../../lib/graph-style';
 export type Lang = 'en' | 'da';
 export type Dict = Record<string, string>;
 
-/** The lab's own strings: a hidden test page, so they stay out of site.ts. */
 export const TEXT: Record<Lang, Dict> = {
   en: {
     title: 'Canvas lab',
@@ -46,7 +45,6 @@ export const TEXT: Record<Lang, Dict> = {
   },
 };
 
-/** What the canvas paints besides term and family colours. */
 export type Ink = {
   ring: string;
   outline: string;
@@ -58,7 +56,6 @@ export type Ink = {
   glow: number;
 };
 
-/** The canvas's ink per map theme. */
 export const LAB_INK: Record<MapTheme, Ink> = {
   dark: {
     ring: 'rgba(255,255,255,0.75)',
@@ -78,7 +75,6 @@ export const LAB_INK: Record<MapTheme, Ink> = {
     halo: 'rgba(250,246,238,0.92)',
     big: '#1c1917',
     text: '#292524',
-    // A glow reads as a smudge on paper: a fainter, soft shadow instead.
     glow: 0.45,
   },
 };

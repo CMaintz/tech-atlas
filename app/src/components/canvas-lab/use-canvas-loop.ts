@@ -1,15 +1,16 @@
-/** Mount the canvas lab's loop, pointer and resize handling once the graph is in. */
-import { useEffect } from 'preact/hooks';
+import { useEffect, type MutableRef } from 'preact/hooks';
 import type { Graph } from '../../lib/graph-model';
-import type { Engine } from '../../lib/canvas-explorer/engine';
+import type { MapTheme } from '../../lib/graph-style';
 import { fitCanvas } from './camera';
 import { drawFrame, newFrame } from './frame';
 import { startLoop } from './loop';
 import { PointerControl, type PointerHooks } from './pointer';
-import type { View } from './state';
+import type { Rig, View } from './state';
 import type { LabRefs } from './use-lab-state';
 
-/** Follow the reduced-motion preference live; returns its stop. */
+export type LoopWiring = { allFamilies: string[]; hooks: PointerHooks };
+type Mounting = LoopWiring & { theme: MutableRef<MapTheme> };
+
 function watchReducedMotion(v: View) {
   const motionQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)');
   v.reduced = !!motionQuery?.matches;
@@ -21,38 +22,38 @@ function watchReducedMotion(v: View) {
   return () => motionQuery?.removeEventListener('change', onMotion);
 }
 
-/** Refit the canvas whenever its box changes (and now); returns its stop. */
-function watchSize(el: HTMLCanvasElement, e: Engine, refs: LabRefs) {
-  const resize = () => fitCanvas(el, e, refs.view.current, refs.cam.current);
+function watchSize(el: HTMLCanvasElement, rig: Rig) {
+  const resize = () => fitCanvas(el, rig);
   const ro = new ResizeObserver(resize);
   ro.observe(el);
   resize();
   return () => ro.disconnect();
 }
 
-/** The loop, pointer and observers, for one graph; everything stops on unmount. */
-export function useCanvasLoop(
-  refs: LabRefs,
-  graph: Graph | null,
-  families: string[],
-  hooks: PointerHooks,
-) {
+export function useCanvasLoop(refs: LabRefs, graph: Graph | null, wiring: LoopWiring) {
   useEffect(() => {
     const el = refs.canvas.current;
     const e = refs.eng.current;
     if (!graph || !el || !e) return;
-    const [v, c] = [refs.view.current, refs.cam.current];
-    const stopMotion = watchReducedMotion(v);
-    const stopSize = watchSize(el, e, refs);
-    const frame = newFrame(el.getContext('2d')!, e, v, c);
-    const pointer = new PointerControl(el, e, v, c, hooks);
-    const draw = (now: number) => drawFrame(frame, now, refs.theme.current);
-    const stopLoop = startLoop({ e, v, c, families, dragging: () => !!pointer.drag, draw });
-    return () => {
-      stopLoop();
-      stopSize();
-      stopMotion();
-      pointer.detach();
-    };
+    const rig = { e, v: refs.view.current, c: refs.cam.current };
+    return mountLoop(el, rig, { ...wiring, theme: refs.theme });
   }, [graph]);
+}
+
+function mountLoop(el: HTMLCanvasElement, rig: Rig, m: Mounting) {
+  const ctx = el.getContext('2d');
+  if (!ctx) throw new Error('canvas lab: no 2D context for the map canvas');
+  const stopMotion = watchReducedMotion(rig.v);
+  const stopSize = watchSize(el, rig);
+  const frame = newFrame(ctx, rig);
+  const pointer = new PointerControl(el, rig, m.hooks);
+  const draw = (now: number) => drawFrame(frame, now, m.theme.current);
+  const dragging = () => !!pointer.drag;
+  const stopLoop = startLoop({ ...rig, allFamilies: m.allFamilies, dragging, draw });
+  return () => {
+    stopLoop();
+    stopSize();
+    stopMotion();
+    pointer.detach();
+  };
 }

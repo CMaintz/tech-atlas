@@ -1,20 +1,20 @@
-/**
- * The canvas lab's rAF loop: advance what moves (auto-rotate, camera easing,
- * family fades, elastic snap-back) and paint only when something changed or is moving.
- */
 import { springAtRest, springStep } from '../../lib/canvas-explorer';
 import type { Engine } from '../../lib/canvas-explorer/engine';
-import type { Cam, View } from './state';
+import type { Cam, Rig, View } from './state';
 
-/** Slow auto-rotation in Depth (not while dragging or with reduced motion). */
-function autoRotate(c: Cam, v: View, dt: number, dragging: boolean): boolean {
-  if (v.mode !== 'depth' || !v.spin || v.reduced || dragging) return false;
+export type LoopParts = Rig & {
+  allFamilies: string[];
+  dragging: () => boolean;
+  draw: (now: number) => void;
+};
+
+function autoRotate({ c, v, dragging }: LoopParts, dt: number): boolean {
+  if (v.mode !== 'depth' || !v.spin || v.reduced || dragging()) return false;
   c.yaw += dt * 0.06;
   c.tyaw = c.yaw;
   return true;
 }
 
-/** Camera easing (mode switch, panel open/close, search focus). */
 function easeCamera(c: Cam, v: View, dt: number): boolean {
   const ease = 1 - Math.pow(0.001, dt);
   let moving = false;
@@ -32,10 +32,9 @@ function easeCamera(c: Cam, v: View, dt: number): boolean {
   return moving;
 }
 
-/** Family toggles fade (no relayout). */
-function fadeFamilies(e: Engine, v: View, families: string[], dt: number): boolean {
+function fadeFamilies({ e, v, allFamilies }: LoopParts, dt: number): boolean {
   let moving = false;
-  for (const f of families) {
+  for (const f of allFamilies) {
     const target = v.families.has(f) ? 1 : 0;
     const a = e.famAlpha.get(f) ?? target;
     const next = v.reduced ? target : a + (target - a) * Math.min(1, dt * 8);
@@ -46,7 +45,6 @@ function fadeFamilies(e: Engine, v: View, families: string[], dt: number): boole
   return moving;
 }
 
-/** Elastic snap-back of released nodes. */
 function springBack(e: Engine, dt: number): boolean {
   const moving = e.springing.size > 0;
   for (const i of e.springing) {
@@ -60,35 +58,26 @@ function springBack(e: Engine, dt: number): boolean {
   return moving;
 }
 
-export type LoopParts = {
-  e: Engine;
-  v: View;
-  c: Cam;
-  /** Every family key (their fades advance each frame). */
-  families: string[];
-  dragging: () => boolean;
-  draw: (now: number) => void;
-};
+function advance(p: LoopParts, dt: number): boolean {
+  const rotated = autoRotate(p, dt);
+  const eased = easeCamera(p.c, p.v, dt);
+  const faded = fadeFamilies(p, dt);
+  const sprung = springBack(p.e, dt);
+  return rotated || eased || faded || sprung;
+}
 
-/** Start the loop; returns its stop. */
-export function startLoop({ e, v, c, families, dragging, draw }: LoopParts): () => void {
+export function startLoop(p: LoopParts): () => void {
   let last = performance.now();
   let raf = 0;
   const step = (now: number) => {
     raf = requestAnimationFrame(step);
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
-    const moved = [
-      autoRotate(c, v, dt, dragging()),
-      easeCamera(c, v, dt),
-      fadeFamilies(e, v, families, dt),
-      springBack(e, dt),
-    ];
-    // Pulses move every frame unless motion is reduced.
-    const pulsing = !v.reduced;
-    if (!moved.some(Boolean) && !v.dirty && !pulsing) return;
-    v.dirty = false;
-    draw(now);
+    const moved = advance(p, dt);
+    const pulsing = !p.v.reduced;
+    if (!moved && !p.v.dirty && !pulsing) return;
+    p.v.dirty = false;
+    p.draw(now);
   };
   raf = requestAnimationFrame(step);
   return () => cancelAnimationFrame(raf);

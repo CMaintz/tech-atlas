@@ -1,15 +1,9 @@
-/**
- * The canvas lab's pointer: grab a node (elastic), orbit or pan the camera,
- * pinch-zoom with two fingers, wheel-zoom, hover, and click to select.
- */
-import type { Engine } from '../../lib/canvas-explorer/engine';
 import { orbitBy, panBy, zoomAt } from './camera';
-import type { Cam, View } from './state';
+import type { Rig } from './state';
 
 type Point = { x: number; y: number };
 type Drag = { id: number; node: number; x: number; y: number; moved: number; pan: boolean };
 
-/** What the pointer asks of the component. */
 export type PointerHooks = {
   select: (id: string | null) => void;
   stopSpin: () => void;
@@ -17,7 +11,6 @@ export type PointerHooks = {
 };
 
 export class PointerControl {
-  /** The current press (null while pinching or up). */
   drag: Drag | null = null;
   private touches = new Map<number, Point>();
   private pinch: null | { d: number; x: number; y: number } = null;
@@ -25,9 +18,7 @@ export class PointerControl {
 
   constructor(
     private el: HTMLCanvasElement,
-    private e: Engine,
-    private v: View,
-    private c: Cam,
+    private rig: Rig,
     private hooks: PointerHooks,
   ) {
     this.listeners = [
@@ -52,11 +43,9 @@ export class PointerControl {
   }
 
   private hit(p: Point) {
-    const { e } = this;
-    return e.grid.nearest(p.x, p.y, e.sx, e.sy, e.dr, e.order);
+    return this.rig.e.grid.nearest(p.x, p.y);
   }
 
-  /** Two fingers down: pinch-zoom about their centre (and pan with it). */
   private pinchState() {
     const [a, b] = [...this.touches.values()];
     return { d: Math.hypot(a.x - b.x, a.y - b.y) || 1, x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
@@ -73,11 +62,10 @@ export class PointerControl {
     this.el.setPointerCapture(ev.pointerId);
   };
 
-  /** A press: on a node it grabs the node, else it pans (Flat, Shift, other buttons) or orbits. */
   private press(ev: PointerEvent, node: number) {
-    const pan = this.v.mode === 'flat' || ev.shiftKey || ev.button !== 0;
+    const pan = this.rig.v.mode === 'flat' || ev.shiftKey || ev.button !== 0;
     this.drag = { id: ev.pointerId, node, x: ev.clientX, y: ev.clientY, moved: 0, pan };
-    if (node >= 0) this.e.springing.delete(node);
+    if (node >= 0) this.rig.e.springing.delete(node);
   }
 
   private onMove = (ev: PointerEvent) => {
@@ -89,39 +77,39 @@ export class PointerControl {
 
   private pinchMove(pinch: { d: number; x: number; y: number }) {
     const next = this.pinchState();
-    this.c.panX += next.x - pinch.x;
-    this.c.panY += next.y - pinch.y;
-    zoomAt(this.c, this.v, next, next.d / pinch.d);
+    this.rig.c.panX += next.x - pinch.x;
+    this.rig.c.panY += next.y - pinch.y;
+    zoomAt(this.rig, next, next.d / pinch.d);
     this.pinch = next;
   }
 
   private hover(p: Point) {
-    const { v, el } = this;
+    const { el } = this;
+    const { v, e } = this.rig;
     const hov = this.hit(p);
     if (hov === v.hover) return;
     v.hover = hov;
     v.dirty = true;
     el.style.cursor = hov >= 0 ? 'pointer' : v.mode === 'flat' ? 'grab' : 'move';
-    if (hov >= 0) this.hooks.prefetch(this.e.ids[hov]);
+    if (hov >= 0) this.hooks.prefetch(e.ids[hov]);
   }
 
-  /** Past 5 px of travel: pull the node, pan, or orbit. */
   private dragMove(ev: PointerEvent, drag: Drag) {
+    const { e, v, c } = this.rig;
     const dx = ev.clientX - drag.x;
     const dy = ev.clientY - drag.y;
     [drag.x, drag.y] = [ev.clientX, ev.clientY];
     drag.moved += Math.abs(dx) + Math.abs(dy);
     if (drag.moved < 5) return;
     if (drag.node >= 0) {
-      this.e.ox[drag.node] += dx;
-      this.e.oy[drag.node] += dy;
-    } else if (drag.pan) panBy(this.c, dx, dy);
+      e.ox[drag.node] += dx;
+      e.oy[drag.node] += dy;
+    } else if (drag.pan) panBy(c, dx, dy);
     else {
-      // As in the demo: taking hold of the view stops the auto-rotation.
-      if (this.v.spin) this.hooks.stopSpin();
-      orbitBy(this.c, dx, dy);
+      if (v.spin) this.hooks.stopSpin();
+      orbitBy(c, dx, dy);
     }
-    this.v.dirty = true;
+    v.dirty = true;
   }
 
   private onUp = (ev: PointerEvent) => {
@@ -133,13 +121,12 @@ export class PointerControl {
     if (!this.drag) return;
     const { node, moved } = this.drag;
     this.drag = null;
-    if (moved < 5) this.hooks.select(node >= 0 ? this.e.ids[node] : null);
+    if (moved < 5) this.hooks.select(node >= 0 ? this.rig.e.ids[node] : null);
     else if (node >= 0) this.release(node);
   };
 
-  /** Let go of a pulled node: it springs back (or snaps, with reduced motion). */
   private release(node: number) {
-    const { e, v } = this;
+    const { e, v } = this.rig;
     if (v.reduced) {
       e.ox[node] = e.oy[node] = 0;
       v.dirty = true;
@@ -150,13 +137,14 @@ export class PointerControl {
   }
 
   private onLeave = () => {
-    if (this.v.hover < 0) return;
-    this.v.hover = -1;
-    this.v.dirty = true;
+    const { v } = this.rig;
+    if (v.hover < 0) return;
+    v.hover = -1;
+    v.dirty = true;
   };
 
   private onWheel = (ev: WheelEvent) => {
     ev.preventDefault();
-    zoomAt(this.c, this.v, this.local(ev), Math.exp(-ev.deltaY * 0.0012));
+    zoomAt(this.rig, this.local(ev), Math.exp(-ev.deltaY * 0.0012));
   };
 }

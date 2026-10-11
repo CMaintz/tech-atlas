@@ -1,4 +1,3 @@
-/** The visual lab's floating panel: title, frame meter, benchmark, toggles. */
 import { useState } from 'preact/hooks';
 import Controls2D from './Controls2D';
 import Controls3D from './Controls3D';
@@ -22,7 +21,6 @@ export default function LabPanel({ lab }: P) {
   );
 }
 
-/** The title and view, and Hide / Show lab. */
 function Header({ lab, open, toggle }: P & { open: boolean; toggle: () => void }) {
   const { t, view } = lab;
   return (
@@ -42,7 +40,6 @@ function Header({ lab, open, toggle }: P & { open: boolean; toggle: () => void }
   );
 }
 
-/** The frame meter, the benchmark button and its result, and the active toggles. */
 function Status({ lab }: P) {
   const { t } = lab;
   return (
@@ -58,7 +55,6 @@ function Status({ lab }: P) {
   );
 }
 
-/** Run the scripted benchmark (disabled until the map is built, or while running). */
 function Bench({ lab }: P) {
   const { t, view } = lab;
   const { result, running, runBench } = lab.bench;
@@ -78,7 +74,6 @@ function Bench({ lab }: P) {
   );
 }
 
-/** The last run's average fps and 1% low (its full JSON in `data-lab-result`). */
 function BenchResult({ lab, result }: P & { result: string }) {
   const { t } = lab;
   const res = JSON.parse(result) as { fps: number; low: number };
@@ -89,7 +84,6 @@ function BenchResult({ lab, result }: P & { result: string }) {
   );
 }
 
-/** This view's toggles, scrolling inside the panel. */
 function Controls({ lab }: P) {
   return (
     <div class="mt-2 max-h-[50vh] space-y-2 overflow-y-auto border-t border-border pt-2">

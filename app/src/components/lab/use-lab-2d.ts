@@ -1,7 +1,3 @@
-/**
- * The visual lab's 2D side: per-edge data the lab rules read, the lab stylesheet
- * over the Explorer's own, flow and hover variants, and the lab-only relayout.
- */
 import { useEffect, useRef, type MutableRef } from 'preact/hooks';
 import type cytoscape from 'cytoscape';
 import type { Graph } from '../../lib/graph-model';
@@ -19,46 +15,33 @@ import {
 import { labStylesheet } from './style-2d';
 import type { Maps } from './use-visual-lab';
 
-/**
- * Sub-domain clustering in 2D: islands shrink to `tight` × and sit `gap` px further apart.
- */
 const SUB_2D = { tight: 0.8, gap: 70 };
 
-/** Everything the 2D lab does to the Explorer's 2D map. */
-export function useLab2D(
-  maps: Maps,
-  graph: Graph | null,
-  s2: Lab2D,
-  view: '2d' | '3d',
-  theme: MapTheme,
-) {
-  const cy = maps.map2d?.cy;
+type Lab2DSetting = { s2: Lab2D; view: '2d' | '3d'; theme: MapTheme };
+type Lab2DScene = Lab2DSetting & {
+  maps: Maps;
+  graph: Graph | null;
+  cy: cytoscape.Core | undefined;
+  base: MutableRef<unknown[] | null>;
+};
+
+export function useLab2D(maps: Maps, graph: Graph | null, setting: Lab2DSetting) {
   const base = useRef<unknown[] | null>(null);
-  useEdgeData(cy, graph, theme, base);
-  useEmphasisData(cy, graph, s2, theme);
-  useLabStyle(maps, cy, base, graph, s2, view, theme);
+  const scene: Lab2DScene = { ...setting, maps, graph, cy: maps.map2d?.cy, base };
+  const { s2 } = setting;
+  useEdgeData(scene);
+  useEmphasisData(scene);
+  useLabStyle(scene);
   useRelayout(maps, s2);
-  useOldHover(cy, s2.hover);
-  useOldDashes(cy, s2.flow, s2.speed);
+  useOldHover(scene.cy, s2.hover);
+  useOldDashes(scene.cy, s2.flow, s2.speed);
 }
 
-/** The base stylesheet (re-read after a retheme), each edge's gradient and its curve. */
-function useEdgeData(
-  cy: cytoscape.Core | undefined,
-  graph: Graph | null,
-  theme: MapTheme,
-  base: MutableRef<unknown[] | null>,
-) {
+function useEdgeData({ cy, graph, theme, base }: Lab2DScene) {
   useEffect(() => {
     if (!cy || !graph) return;
     base.current = (cy.style() as unknown as { json(): unknown[] }).json();
-    const byId = new Map(graph.nodes.map((n) => [n.id, n]));
-    const colour = (id: string) => {
-      const n = byId.get(id);
-      return n ? domainColour(homeDomain(n), theme) : '#888888';
-    };
-    const gradient = (e: cytoscape.EdgeSingular) =>
-      `${colour(e.data('source'))} ${colour(e.data('target'))}`;
+    const gradient = edgeGradient(graph, theme);
     forLabEdges(cy, (e) => {
       e.data('labGradient', gradient(e));
       e.data('labCurve', e.data('curve'));
@@ -66,18 +49,20 @@ function useEdgeData(
   }, [cy, graph, theme]);
 }
 
-/** Every edge but the bundles, in one batch. */
+function edgeGradient(graph: Graph, theme: MapTheme) {
+  const byId = new Map(graph.nodes.map((n) => [n.id, n]));
+  const colour = (id: string) => {
+    const n = byId.get(id);
+    return n ? domainColour(homeDomain(n), theme) : '#888888';
+  };
+  return (e: cytoscape.EdgeSingular) => `${colour(e.data('source'))} ${colour(e.data('target'))}`;
+}
+
 function forLabEdges(cy: cytoscape.Core, fn: (e: cytoscape.EdgeSingular) => void) {
   cy.batch(() => cy.edges().not('.bundle').forEach(fn));
 }
 
-/** Emphasis by importance: each edge's opacity, colour and width as data the rules read. */
-function useEmphasisData(
-  cy: cytoscape.Core | undefined,
-  graph: Graph | null,
-  s2: Lab2D,
-  theme: MapTheme,
-) {
+function useEmphasisData({ cy, graph, s2, theme }: Lab2DScene) {
   useEffect(() => {
     if (!cy || !graph || s2.emph === 'off') return;
     const imp = importance(graph.links);
@@ -88,7 +73,6 @@ function useEmphasisData(
   }, [cy, graph, s2.emph, s2.spread, theme]);
 }
 
-/** An edge's emphasised opacities (per edge class), width and colours at intensity k. */
 function emphasisData(e: cytoscape.EdgeSingular, k: number, light: boolean) {
   const { restAlpha, crossAlpha, allAlpha } = EXPLORER.edges;
   const a = alphaGain(k);
@@ -102,16 +86,7 @@ function emphasisData(e: cytoscape.EdgeSingular, k: number, light: boolean) {
   };
 }
 
-/** The lab stylesheet over the base, the dots' flow and speed, and snapshot panning. */
-function useLabStyle(
-  maps: Maps,
-  cy: cytoscape.Core | undefined,
-  base: MutableRef<unknown[] | null>,
-  graph: Graph | null,
-  s2: Lab2D,
-  view: '2d' | '3d',
-  theme: MapTheme,
-) {
+function useLabStyle({ maps, cy, base, graph, s2, view, theme }: Lab2DScene) {
   useEffect(() => {
     const m = maps.map2d;
     if (!m || !cy || !base.current || view !== '2d') return;
@@ -121,12 +96,15 @@ function useLabStyle(
       .update();
     m.lab.setDots(s2.flow === 'dots');
     m.lab.dots.speed = EXPLORER.dots.speed * s2.speed;
-    (cy as unknown as { renderer(): { textureOnViewport: boolean } }).renderer().textureOnViewport =
-      s2.texture;
+    setSnapshotPanning(cy, s2.texture);
   }, [maps, cy, graph, s2, view, theme]);
 }
 
-/** Relayout (lab only): minimum distance and sub-domain clustering re-space the islands. */
+function setSnapshotPanning(cy: cytoscape.Core, on: boolean) {
+  (cy as unknown as { renderer(): { textureOnViewport: boolean } }).renderer().textureOnViewport =
+    on;
+}
+
 function useRelayout(maps: Maps, s2: Lab2D) {
   const laid = useRef('1|false');
   useEffect(() => {
@@ -142,7 +120,6 @@ function useRelayout(maps: Maps, s2: Lab2D) {
   }, [maps, s2.mindist, s2.sub]);
 }
 
-/** The old hover: every element restyled on each hover (graph-cytoscape `attachHover`). */
 function useOldHover(cy: cytoscape.Core | undefined, hover: Lab2D['hover']) {
   useEffect(() => {
     if (!cy || hover !== 'old') return;
@@ -155,7 +132,6 @@ function useOldHover(cy: cytoscape.Core | undefined, hover: Lab2D['hover']) {
   }, [cy, hover]);
 }
 
-/** The old flow: every visible one-way edge dashed, the dash offset restyled each tick. */
 function useOldDashes(cy: cytoscape.Core | undefined, flow: Lab2D['flow'], speed: number) {
   useEffect(() => {
     if (!cy || flow !== 'dashes') return;
@@ -173,7 +149,6 @@ function useOldDashes(cy: cytoscape.Core | undefined, flow: Lab2D['flow'], speed
   }, [cy, flow, speed]);
 }
 
-/** Call `fn` on animation frames at most EXPLORER.flow.fps times a second; returns stop. */
 function everyFlowTick(fn: (now: number) => void) {
   let raf = 0;
   let last = 0;

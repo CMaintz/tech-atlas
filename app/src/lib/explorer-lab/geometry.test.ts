@@ -10,9 +10,9 @@ describe('visual lab 3D geometry', () => {
   });
   it('walks the quadratic curve from start to end through the bend', () => {
     const c = { x: 5, y: 0, z: 5 };
-    expect(quadAt(a, c, b, 0)).toEqual([0, 0, 0]);
-    expect(quadAt(a, c, b, 1)).toEqual([10, 0, 0]);
-    expect(quadAt(a, c, b, 0.5)).toEqual([5, 0, 2.5]);
+    expect(quadAt({ a, c, b }, 0)).toEqual([0, 0, 0]);
+    expect(quadAt({ a, c, b }, 1)).toEqual([10, 0, 0]);
+    expect(quadAt({ a, c, b }, 0.5)).toEqual([5, 0, 2.5]);
   });
   it('groups indices by key and averages them', () => {
     expect([...groupIndices(['x', 'y', 'x'], (s) => s)]).toEqual([
@@ -28,10 +28,12 @@ describe('visual lab 3D geometry', () => {
       ['left', [0, 1]],
       ['right', [2, 3]],
     ]);
-    subClusters(ps, orig, clusters, new Map([['d', [0, 1, 2, 3]]]), () => 'd', {
-      spread: 2,
-      tight: 0.5,
-    });
+    const groups = {
+      byCluster: clusters,
+      byDomain: new Map([['d', [0, 1, 2, 3]]]),
+      domainOf: () => 'd',
+    };
+    subClusters({ ps, orig }, groups, { spread: 2, tight: 0.5 });
     expect(ps.map((p) => p.x)).toEqual([-3.5, -2.5, 12.5, 13.5]);
   });
 });

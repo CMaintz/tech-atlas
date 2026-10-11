@@ -1,9 +1,3 @@
-/**
- * Pure maths for the canvas Explorer lab: a hand-rolled 2D-context renderer with
- * "fake 3D" (the owner's Atlas.dc demo). Layout, minimum spacing, projection, the elastic
- * snap-back spring, the hit-test grid and the edge backbone live under canvas-explorer/ —
- * no DOM, no canvas, deterministic and unit-tested. The components only draw.
- */
 export { LAB, type Vec3 } from './canvas-explorer/config';
 export { domainOrder, labLayout, radii } from './canvas-explorer/layout';
 export { minClearance, spaceOut } from './canvas-explorer/spacing';

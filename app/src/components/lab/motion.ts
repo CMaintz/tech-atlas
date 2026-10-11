@@ -1,29 +1,29 @@
-/** Scripted motion for the visual lab's benchmark: a 2D pan and zoom, a 3D orbit. */
 import type cytoscape from 'cytoscape';
 import type { Map3D } from '../../lib/explorer-3d';
 
 export type Motion = { at: (k: number) => void; done: () => void };
 
-/** Five seconds of panning in a loop while zooming out and in about the centre. */
+type View2D = { zoom: number; pan: { x: number; y: number } };
+
 export function panZoom(cy: cytoscape.Core): Motion {
-  const z0 = cy.zoom();
-  const p0 = { ...cy.pan() };
-  const cx = cy.width() / 2;
-  const cyy = cy.height() / 2;
+  const start: View2D = { zoom: cy.zoom(), pan: { ...cy.pan() } };
+  const centre = { x: cy.width() / 2, y: cy.height() / 2 };
   return {
-    at(k) {
-      const a = k * Math.PI * 2;
-      const zoom = z0 * (1 + 0.6 * Math.sin(a * 2));
-      const f = zoom / z0;
-      cy.viewport({
-        zoom,
-        pan: {
-          x: cx - (cx - p0.x) * f + 220 * Math.sin(a),
-          y: cyy - (cyy - p0.y) * f + 140 * Math.sin(a * 2),
-        },
-      });
+    at: (k) => void cy.viewport(panZoomAt(start, centre, k)),
+    done: () => void cy.viewport({ zoom: start.zoom, pan: start.pan }),
+  };
+}
+
+function panZoomAt(start: View2D, centre: { x: number; y: number }, k: number): View2D {
+  const a = k * Math.PI * 2;
+  const zoom = start.zoom * (1 + 0.6 * Math.sin(a * 2));
+  const f = zoom / start.zoom;
+  return {
+    zoom,
+    pan: {
+      x: centre.x - (centre.x - start.pan.x) * f + 220 * Math.sin(a),
+      y: centre.y - (centre.y - start.pan.y) * f + 140 * Math.sin(a * 2),
     },
-    done: () => void cy.viewport({ zoom: z0, pan: p0 }),
   };
 }
 
@@ -33,7 +33,6 @@ type Camera3 = {
   controls(): { target: Vec };
 };
 
-/** One full turn of the camera about the orbit target. */
 export function orbit(m: Map3D): Motion {
   const fg = m.lab.fg as unknown as Camera3;
   const c = { ...fg.controls().target };

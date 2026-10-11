@@ -1,45 +1,44 @@
-/**
- * Scene-wide 3D toggles in the visual lab: bloom, node spacing, fog and
- * auto-rotation.
- */
 import type { UnrealBloomPass as Bloom } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import type { OutputPass as Output } from 'three/examples/jsm/postprocessing/OutputPass.js';
 import type { MapTheme } from '../../../lib/graph-style';
 import type { Lab3D } from '../../../lib/explorer-lab';
-import type { Lab3, Obj } from './context';
+import type { Fg, Lab3, Obj } from './context';
 import type { GlowSprites } from './sprites';
+
+type BloomPasses = { Bloom: typeof Bloom; Output: typeof Output };
 
 export type BloomToggle = ReturnType<typeof createBloom>;
 
-/**
- * Bloom: an UnrealBloomPass on 3d-force-graph's composer and an OutputPass for the colour
- * space. Bloom brightens what is already bright: on the cream map it only washes it out,
- * so it is disabled there.
- */
-export function createBloom(ctx: Lab3, passes: { Bloom: typeof Bloom; Output: typeof Output }) {
-  const { fg, THREE } = ctx;
+export function createBloom(ctx: Lab3, passes: BloomPasses) {
   let bloom: Bloom | null = null;
   const output = new passes.Output();
   const set = (on: boolean, theme: MapTheme) => {
-    if (on !== !!bloom) {
-      const composer = fg.postProcessingComposer();
-      if (on) {
-        bloom = new passes.Bloom(new THREE.Vector2(fg.width(), fg.height()), 0.9, 0.5, 0.55);
-        composer.addPass(bloom);
-        composer.addPass(output);
-      } else {
-        composer.removePass(bloom);
-        composer.removePass(output);
-        bloom!.dispose();
-        bloom = null;
-      }
+    const current = bloom;
+    if (on && !current) bloom = addBloom(ctx, passes, output);
+    else if (!on && current) {
+      removeBloom(ctx.fg, current, output);
+      bloom = null;
     }
     if (bloom) bloom.enabled = theme !== 'light';
   };
   return { set, enabled: () => !!bloom?.enabled };
 }
 
-/** Spacing: the scene scales about the origin; terms, labels and sprites keep their size. */
+function addBloom({ fg, THREE }: Lab3, passes: BloomPasses, output: Output) {
+  const composer = fg.postProcessingComposer();
+  const bloom = new passes.Bloom(new THREE.Vector2(fg.width(), fg.height()), 0.9, 0.5, 0.55);
+  composer.addPass(bloom);
+  composer.addPass(output);
+  return bloom;
+}
+
+function removeBloom(fg: Fg, bloom: Bloom, output: Output) {
+  const composer = fg.postProcessingComposer();
+  composer.removePass(bloom);
+  composer.removePass(output);
+  bloom.dispose();
+}
+
 export function createSpacing(ctx: Lab3, sprites: GlowSprites) {
   const { L, THREE } = ctx;
   const labelScale = new Map<object, [number, number]>();
@@ -54,13 +53,8 @@ export function createSpacing(ctx: Lab3, sprites: GlowSprites) {
   };
 }
 
-/**
- * Auto-rotate, fog (the scene's and the shaders'), and — with bloom on — an opaque
- * background in the theme's colour (bloom needs one; the canvas is transparent).
- */
 export function createSceneLook(ctx: Lab3) {
   const { L, THREE, fg, cfg } = ctx;
-  // The scene's own fog, recoloured by `retheme`; the lab only switches it off and on.
   const fog = L.scene.fog;
   return (s: Lab3D, bloomOn: boolean) => {
     ctx.m.spin(s.spin);

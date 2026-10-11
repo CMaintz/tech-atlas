@@ -1,29 +1,22 @@
-/** Minimum spacing between the canvas lab's discs in the front view. */
 type Point = { x: number; y: number };
 type CellGrid = Map<string, number[]>;
+type DiscSpacing = { r: number[]; gap: number; cell: number };
 
-/**
- * Minimum spacing in the front view (x, y): push apart every pair whose discs (plus
- * `gap`) overlap, until none do. In place; returns the passes used. Clickability in the
- * Flat mode depends on this; in Depth mode rotation may still stack nodes, as in any 3D.
- */
 export function spaceOut(P: Point[], r: number[], gap: number, maxPasses = 400): number {
-  const cell = 2 * Math.max(1, ...r) + gap;
-  for (let pass = 1; pass <= maxPasses; pass++) if (!spacingPass(P, r, gap, cell)) return pass;
+  const spec = { r, gap, cell: 2 * Math.max(1, ...r) + gap };
+  for (let pass = 1; pass <= maxPasses; pass++) if (!spacingPass(P, spec)) return pass;
   return maxPasses;
 }
 
-/** One pass over every close pair; true if anything moved. */
-function spacingPass(P: Point[], r: number[], gap: number, cell: number): boolean {
+function spacingPass(P: Point[], { r, gap, cell }: DiscSpacing): boolean {
   const grid = cellGrid(P, cell);
   let moved = false;
   for (let i = 0; i < P.length; i++)
     for (const j of around(grid, P[i], cell))
-      if (j > i && pushApart(P, i, j, r[i] + r[j] + gap)) moved = true;
+      if (j > i && pushApart(P, [i, j], r[i] + r[j] + gap)) moved = true;
   return moved;
 }
 
-/** Every point's index, bucketed by its grid cell. */
 function cellGrid(P: Point[], cell: number): CellGrid {
   const grid: CellGrid = new Map();
   P.forEach((p, i) => {
@@ -35,7 +28,6 @@ function cellGrid(P: Point[], cell: number): CellGrid {
   return grid;
 }
 
-/** The indices in the 3 × 3 cells around `p` (read before anything moves). */
 function around(grid: CellGrid, p: Point, cell: number): number[] {
   const cx = Math.floor(p.x / cell);
   const cy = Math.floor(p.y / cell);
@@ -45,18 +37,15 @@ function around(grid: CellGrid, p: Point, cell: number): number[] {
   return out;
 }
 
-/** Push i and j apart to `min` centre distance, if closer; true if they moved. */
-function pushApart(P: Point[], i: number, j: number, min: number): boolean {
+function pushApart(P: Point[], [i, j]: [number, number], min: number): boolean {
   let dx = P[j].x - P[i].x;
   let dy = P[j].y - P[i].y;
   let d = Math.hypot(dx, dy);
   if (d >= min - 1e-6) return false;
   if (d < 1e-6) {
-    // Coincident: separate along a fixed direction chosen from the pair.
     const a = ((i * 7 + j * 13) % 360) * (Math.PI / 180);
     [dx, dy, d] = [Math.cos(a), Math.sin(a), 1];
   }
-  // Slightly over-correct so the pass converges.
   const push = ((min - d) / 2) * 1.02;
   P[i].x -= (dx / d) * push;
   P[i].y -= (dy / d) * push;
@@ -65,7 +54,6 @@ function pushApart(P: Point[], i: number, j: number, min: number): boolean {
   return true;
 }
 
-/** Smallest rim-to-rim distance between any two discs (for tests and diagnostics). */
 export function minClearance(P: Point[], r: number[]): number {
   let best = Infinity;
   for (let i = 0; i < P.length; i++)
