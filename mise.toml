@@ -1,4 +1,4 @@
-# Foundry gate — the six-verb contract (see AGENTS.md), on Foundry v2 (CMaintz/foundry,
+# Foundry gate - the six-verb contract (see AGENTS.md), on Foundry v2 (CMaintz/foundry,
 # template mise/ts.toml). CI runs these same verbs through the `gate.yml` facade with
 # working_directory = app/, which finds this root config by mise's parent-directory lookup.
 [tools]
@@ -9,15 +9,57 @@ gitleaks = "8.30.1"
 deno = "2.9.7"
 
 [env]
-# The app's local binaries, and the repo's scripts/ so the gate can call
-# `foundry-verb-wrap` by name (copied from Foundry's scripts/).
-_.path = ["{{config_root}}/app/node_modules/.bin", "{{config_root}}/scripts"]
+# The Foundry gate scripts (foundry-verb-wrap, npm-audit-ratchet.mjs) are provisioned by
+# setup:foundry-scripts into a cache dir at this ref, not vendored into the repo (see that
+# task for why). Renovate tracks the pin via the comment above it.
+# renovate: datasource=github-tags depName=CMaintz/foundry
+FOUNDRY_SCRIPTS_REF = "v2.12.0"
+# The app's local binaries, the Foundry gate scripts cached by setup:foundry-scripts (so the
+# gate can call `foundry-verb-wrap` by name), and the repo's own scripts/ last.
+_.path = [
+    "{{config_root}}/app/node_modules/.bin",
+    "{{env.HOME}}/.local/opt/foundry-scripts-{{env.FOUNDRY_SCRIPTS_REF}}",
+    "{{config_root}}/scripts",
+]
 # Loop telemetry: each gate verb appends one JSONL line here (gitignored .foundry/).
 # Read it with `foundry-loop-report`.
 FOUNDRY_TELEMETRY = "{{config_root}}/.foundry/telemetry.jsonl"
 # Deno code for `deno check` in `typecheck` (the Foundry v2.3 ts-template variable):
 # every Edge Function and supabase/functions/_shared, with Deno's own types.
 FOUNDRY_DENO_PATHS = "supabase/functions"
+
+[hooks]
+# Provision the pinned Foundry gate scripts on `mise install` (local and CI alike); no-ops
+# on a warm install.
+postinstall = "mise run setup:foundry-scripts"
+
+# Fetch the pinned Foundry gate scripts into a cache dir, rather than vendoring copies into
+# the repo. Why: these are agent/CI plumbing, not the repo's own code; a vendored copy
+# drifts from Foundry and has to be re-synced on every bump. Pinned to FOUNDRY_SCRIPTS_REF
+# and provisioned once (postinstall / `mise install`), like any pinned-tool setup.
+# Offline-safe: when every script is already cached at this ref it makes no network call, so
+# the gate hot path never depends on the network. A ref bump needs the network once (same
+# contract as any pinned-tool bump).
+[tasks."setup:foundry-scripts"]
+description = "Fetch the pinned Foundry gate scripts into a cache dir (de-vendored)"
+run = '''
+set -eu
+dst="$HOME/.local/opt/foundry-scripts-$FOUNDRY_SCRIPTS_REF"
+scripts="foundry-verb-wrap npm-audit-ratchet.mjs"
+need=""
+for s in $scripts; do [ -f "$dst/$s" ] || need="$need $s"; done
+[ -z "$need" ] && exit 0
+mkdir -p "$dst"
+base="https://raw.githubusercontent.com/CMaintz/foundry/$FOUNDRY_SCRIPTS_REF/scripts"
+for s in $need; do
+  if ! curl -fsSL "$base/$s" -o "$dst/$s.part"; then
+    echo "setup:foundry-scripts: cannot fetch $s at $FOUNDRY_SCRIPTS_REF (network needed once per ref)" >&2
+    rm -f "$dst/$s.part"; exit 1
+  fi
+  mv "$dst/$s.part" "$dst/$s"
+  case "$s" in *.mjs) : ;; *) chmod +x "$dst/$s" 2>/dev/null || true ;; esac
+done
+'''
 
 [tasks.fix]
 description = "Apply every mechanically-safe fix (format). No judgement calls."
@@ -64,16 +106,23 @@ description = "Dependency vulnerabilities, registry signatures, and secrets anyw
 dir = "app"
 # Foundry's ratcheted npm audit: fails on any high+ advisory not accepted, with a
 # reason, in app/.audit-allowlist.json (none today), and on stale allowlist entries.
-# The level stays at high (Foundry's template default is critical).
+# The level stays at high (Foundry's template default is critical). The ratchet script is
+# cached by setup:foundry-scripts; address it through $HOME in plain shell, NOT a mise
+# `{{...}}` template, because on Windows a templated path carries backslashes bash would strip.
 run = [
-  "npm audit --json | node ../scripts/npm-audit-ratchet.mjs --level=high --allowlist=.audit-allowlist.json",
+  "npm audit --json | node \"$HOME/.local/opt/foundry-scripts-$FOUNDRY_SCRIPTS_REF/npm-audit-ratchet.mjs\" --level=high --allowlist=.audit-allowlist.json",
   "npm audit signatures",
   "gitleaks git --redact --no-banner --config ../.gitleaks.toml ..",
 ]
 
 [tasks.gate]
 description = "lint -> typecheck -> test -> audit, in order. The oracle."
-# Sequential run array, never `depends` (mise runs dependencies in parallel, unordered).
+# The one setup:foundry-scripts dep provisions the cached gate scripts first (idempotent,
+# ordered-first) - a safety net for a ref bump not yet followed by `mise install`. Do NOT
+# add the VERBS as `depends`: mise runs dependencies in parallel with no ordering guarantee,
+# which makes gate output unreadable and hides which check failed first. The verbs stay in
+# the sequential array below.
+depends = ["setup:foundry-scripts"]
 # `foundry-verb-wrap` times each verb, appends to FOUNDRY_TELEMETRY and passes the exit
 # code through unchanged, so a failing verb still stops the sequence.
 run = [
