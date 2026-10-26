@@ -38,7 +38,6 @@ export const Source = z
   .object({
     title: z.string().min(1),
     url: z
-      .string()
       .url()
       .regex(/^https?:\/\//, 'must be an http(s) URL')
       .optional(),
@@ -131,10 +130,7 @@ const StepList = (min: number, max: number) =>
 export const HowToGuide = z
   .object({
     title: z.string().min(1),
-    url: z
-      .string()
-      .url()
-      .regex(/^https?:\/\//, 'must be an http(s) URL'),
+    url: z.url().regex(/^https?:\/\//, 'must be an http(s) URL'),
     publisher: z.string().min(1),
     tier: SourceTier,
     lang: z.enum(['en', 'da']).optional(),
@@ -205,13 +201,13 @@ export const Question = z
     const want = q.kind === 'true-false' ? 2 : 4;
     if (q.options.length !== want)
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: 'custom',
         path: ['options'],
         message: `a ${q.kind} question has ${want} options`,
       });
     if (q.answer >= q.options.length)
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: 'custom',
         path: ['answer'],
         message: 'answer must index an option',
       });
