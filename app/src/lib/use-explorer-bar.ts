@@ -1,11 +1,5 @@
-import {
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-  type Inputs,
-  type MutableRef,
-} from 'preact/hooks';
+import type { RefObject } from 'preact';
+import { useEffect, useLayoutEffect, useRef, useState, type Inputs } from 'preact/hooks';
 import { useMedia } from './use-media';
 
 export type BarSize = 'full' | 'medium' | 'compact' | 'sheet';
@@ -26,7 +20,7 @@ function oneRowWidth(el: HTMLElement): number {
   );
 }
 
-function useFullOnResize(slot: MutableRef<HTMLElement | null>, reset: () => void) {
+function useFullOnResize(slot: RefObject<HTMLElement | null>, reset: () => void) {
   useEffect(() => {
     const el = slot.current;
     if (!el) return;

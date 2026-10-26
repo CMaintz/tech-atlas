@@ -1,4 +1,4 @@
-import type { MutableRef } from 'preact/hooks';
+import type { RefObject } from 'preact';
 import { GLASS } from '../ui/glass';
 import type { GraphNode } from '../../lib/graph-model';
 import type { MapTheme } from '../../lib/graph-style';
@@ -10,7 +10,7 @@ import type { Dict, Lang } from './types';
 type Props = {
   card: Point | null;
   byId: ReadonlyMap<string, GraphNode>;
-  frame: MutableRef<HTMLElement | null>;
+  frame: RefObject<HTMLElement | null>;
   domains: ReadonlySet<string>;
   theme: MapTheme;
   lang: Lang;

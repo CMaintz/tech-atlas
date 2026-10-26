@@ -21,7 +21,7 @@
     "smoke:semantic": "tsx scripts/smoke-semantic.ts"
   },
   "dependencies": {
-    "@astrojs/preact": "^6.0.5",
+    "@astrojs/preact": "^6.1.0",
     "@supabase/supabase-js": "^2.117.2",
     "@tailwindcss/vite": "^4.3.3",
     "3d-force-graph": "^1.80.0",
@@ -29,7 +29,7 @@
     "cytoscape": "^3.31.2",
     "cytoscape-fcose": "^2.2.0",
     "minisearch": "^7.1.2",
-    "preact": "^10.26.0",
+    "preact": "^11.0.1",
     "tailwindcss": "^4.3.3",
     "three": "^0.186.1",
     "zod": "^4.6.7"

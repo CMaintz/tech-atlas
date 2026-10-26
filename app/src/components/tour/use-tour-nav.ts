@@ -1,4 +1,4 @@
-import type { MutableRef } from 'preact/hooks';
+import type { RefObject } from 'preact';
 import { moveTo, type TourScreen, type TourStep } from '../../lib/tour';
 import { FADE_MS, reducedMotion, type Via } from './dom';
 import type { TourRefs } from './overlay';
@@ -11,7 +11,7 @@ export type TourNavDeps = {
   langBase: string;
   page: string | null;
   refs: TourRefs;
-  viewRef: MutableRef<TourScreen>;
+  viewRef: RefObject<TourScreen>;
   setView: (v: TourScreen) => void;
   setShown: (s: Shown | null) => void;
 };

@@ -1,9 +1,9 @@
-import type { ComponentChildren, JSX, RefObject } from 'preact';
+import type { ComponentChildren, DialogHTMLAttributes, RefObject } from 'preact';
 import { useRef } from 'preact/hooks';
 
 export type DialogHandle = {
-  ref: RefObject<HTMLDialogElement>;
-  opener: RefObject<HTMLButtonElement>;
+  ref: RefObject<HTMLDialogElement | null>;
+  opener: RefObject<HTMLButtonElement | null>;
   open: () => void;
   close: () => void;
 };
@@ -54,7 +54,7 @@ const CloseButton = ({ label, autofocus, onClick }: CloseProps & { onClick: () =
   </button>
 );
 
-type Props = Omit<JSX.HTMLAttributes<HTMLDialogElement>, 'ref' | 'class'> & {
+type Props = Omit<DialogHTMLAttributes<HTMLDialogElement>, 'ref' | 'class'> & {
   dialog: DialogHandle;
   close: CloseProps;
   bodyClass: string;

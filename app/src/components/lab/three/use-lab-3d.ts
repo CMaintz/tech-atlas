@@ -1,9 +1,10 @@
-import { useEffect, useRef, type MutableRef } from 'preact/hooks';
+import type { RefObject } from 'preact';
+import { useEffect, useRef } from 'preact/hooks';
 import type { Map3D } from '../../../lib/explorer-3d';
 import type { LabLook } from './context';
 import { setup3D, type Lab3DRuntime } from './runtime';
 
-type RuntimeSlot = { three: MutableRef<Lab3DRuntime | null>; look: LabLook };
+type RuntimeSlot = { three: RefObject<Lab3DRuntime | null>; look: LabLook };
 
 export function useLab3D(
   map3d: Map3D | null,

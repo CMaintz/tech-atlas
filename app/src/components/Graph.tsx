@@ -1,4 +1,5 @@
-import { useEffect, useRef, type MutableRef } from 'preact/hooks';
+import type { RefObject } from 'preact';
+import { useEffect, useRef } from 'preact/hooks';
 import cytoscape from 'cytoscape';
 import { FAMILY_COLOURS, familyColours, nodePaint, type MapTheme } from '../lib/graph-style';
 import { domainBands } from '../lib/graph-layout';
@@ -73,7 +74,7 @@ const neighbourRingFromTopLayout = () =>
 type Shown = { nodes: GNode[]; edges: GEdge[]; theme: MapTheme };
 
 function useTermGraph(
-  ref: MutableRef<HTMLElement | null>,
+  ref: RefObject<HTMLElement | null>,
   shown: Shown,
   open: (id: string) => void,
 ) {
@@ -92,8 +93,8 @@ function useTermGraph(
 }
 
 function useRethemeInPlace(
-  cyRef: MutableRef<cytoscape.Core | null>,
-  painted: MutableRef<MapTheme>,
+  cyRef: RefObject<cytoscape.Core | null>,
+  painted: RefObject<MapTheme>,
   shown: Shown,
 ) {
   useEffect(() => {

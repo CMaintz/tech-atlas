@@ -1,4 +1,5 @@
-import { useRef, useState, type MutableRef } from 'preact/hooks';
+import type { RefObject } from 'preact';
+import { useRef, useState } from 'preact/hooks';
 import type { Graph } from '../../lib/graph-model';
 import type { PanelView, TimelinePanel } from './types';
 
@@ -31,7 +32,7 @@ export function useTermPanel(cfg: TimelinePanel | undefined, onLoaded: () => voi
   return { id, setId, kit, open };
 }
 
-function loadKitOnce(graphUrl: string, loading: MutableRef<boolean>, onKit: (k: PanelKit) => void) {
+function loadKitOnce(graphUrl: string, loading: RefObject<boolean>, onKit: (k: PanelKit) => void) {
   loading.current = true;
   loadPanelKit(graphUrl).then(onKit, () => (loading.current = false));
 }

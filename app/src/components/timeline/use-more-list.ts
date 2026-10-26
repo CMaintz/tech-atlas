@@ -9,7 +9,7 @@ const LEAVE_GRACE_MS = 180;
 
 export function useMoreList(resetOn: unknown[]) {
   const [more, setMore] = useState<More | null>(null);
-  const timer = useRef<number>();
+  const timer = useRef<number | undefined>(undefined);
   const hold = () => clearTimeout(timer.current);
   const open = (chip: Chip, el: HTMLElement, pinned: boolean) => {
     hold();

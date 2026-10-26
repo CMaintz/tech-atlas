@@ -1,4 +1,4 @@
-import type { JSX, Ref } from 'preact';
+import type { ButtonHTMLAttributes, Ref } from 'preact';
 
 export const ARROW_LEFT = 'M19 12H5m6-6-6 6 6 6';
 export const ARROW_RIGHT = 'M5 12h14m-6-6 6 6-6 6';
@@ -29,7 +29,7 @@ function Icon({ d }: { d: string }) {
   );
 }
 
-type IconButtonProps = Omit<JSX.HTMLAttributes<HTMLButtonElement>, 'icon' | 'label'> & {
+type IconButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'icon' | 'label'> & {
   icon: string;
   label: string;
   extraClass?: string;

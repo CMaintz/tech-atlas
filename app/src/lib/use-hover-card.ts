@@ -1,11 +1,12 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type MutableRef } from 'preact/hooks';
+import type { RefObject } from 'preact';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { EXPLORER } from './explorer-config';
 import { matchesMedia } from './use-media';
 import type { Point } from './use-explorer-maps';
 
 type CardDelay = {
-  shown: MutableRef<boolean>;
-  timer: MutableRef<number>;
+  shown: RefObject<boolean>;
+  timer: RefObject<number>;
   setCard: (card: Point | null) => void;
   finePointer: boolean;
 };
