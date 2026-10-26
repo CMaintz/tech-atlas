@@ -59,6 +59,17 @@ jobs:
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: app/dist
+      # The published JSON the MCP Worker bundles, so it serves exactly this build's data.
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: mcp-data
+          path: |
+            app/dist/api/terms.json
+            app/dist/graph.json
+            app/dist/search-index.json
+            app/dist/questions-en.json
+            app/dist/questions-da.json
+          retention-days: 1
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -71,3 +82,68 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+  # The MCP server (app/mcp), a Cloudflare Worker at mcp.atlas.maintz.dev, deployed from
+  # the same build as the site. Its steps skip (not fail) until CLOUDFLARE_API_TOKEN and
+  # CLOUDFLARE_ACCOUNT_ID are set; the token needs Workers Scripts edit plus, for the
+  # custom domain, Workers Routes and DNS edit on the maintz.dev zone.
+  mcp:
+    # After the Pages deploy, so the Worker never serves data the live site does not show.
+    needs: [build, deploy]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    concurrency:
+      group: mcp
+      cancel-in-progress: false
+    steps:
+      - name: Check configuration
+        id: cfg
+        # Only whether each secret is set, never its value.
+        env:
+          HAS_CLOUDFLARE: ${{ secrets.CLOUDFLARE_ACCOUNT_ID != '' && secrets.CLOUDFLARE_API_TOKEN != '' }}
+        run: |
+          if [ "$HAS_CLOUDFLARE" = true ]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::CLOUDFLARE_ACCOUNT_ID / CLOUDFLARE_API_TOKEN not set - skipping the MCP Worker deploy."
+          fi
+      - if: steps.cfg.outputs.deploy == 'true'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          persist-credentials: false
+      - if: steps.cfg.outputs.deploy == 'true'
+        uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
+        with:
+          version: 2026.8.5
+      - name: Install dependencies
+        if: steps.cfg.outputs.deploy == 'true'
+        working-directory: app
+        env:
+          ONNXRUNTIME_NODE_INSTALL: skip
+        run: npm ci
+      - if: steps.cfg.outputs.deploy == 'true'
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: mcp-data
+          path: app/dist
+      - name: Bundle the data and check the Worker builds
+        if: steps.cfg.outputs.deploy == 'true'
+        working-directory: app
+        run: npm run build -w mcp
+      - name: Deploy the Worker
+        if: steps.cfg.outputs.deploy == 'true'
+        working-directory: app/mcp
+        # Only this step sees the Cloudflare secrets.
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: npx wrangler deploy
+      - name: Smoke test the MCP endpoint
+        # Set MCP_URL (e.g. https://mcp.atlas.maintz.dev/mcp) once the custom domain is live.
+        if: steps.cfg.outputs.deploy == 'true' && vars.MCP_URL != ''
+        working-directory: app
+        env:
+          MCP_URL: ${{ vars.MCP_URL }}
+        run: npm run smoke -w mcp -- "$MCP_URL"

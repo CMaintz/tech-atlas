@@ -1,0 +1,42 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    "src/cli.ts!",
+    "src/index.ts!",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.spec.ts",
+    "src/**/*.spec.tsx",
+    "tests/**"
+  ],
+  "project": ["src/**/*.ts!", "src/**/*.tsx!"],
+  "ignore": ["dist/**"],
+  "ignoreDependencies": [
+    "eslint",
+    "ts-morph",
+    "@typescript-eslint/parser",
+    "@typescript-eslint/eslint-plugin",
+    "jscpd"
+  ],
+  "workspaces": {
+    ".": {
+      "entry": [
+        "src/cli.ts!",
+        "src/index.ts!",
+        "src/**/*.test.ts",
+        "src/**/*.test.tsx",
+        "src/**/*.spec.ts",
+        "src/**/*.spec.tsx",
+        "tests/**"
+      ],
+      "project": ["src/**/*.ts!", "src/**/*.tsx!"],
+      "ignore": ["dist/**"]
+    },
+    "mcp": {
+      "entry": ["src/worker.ts!", "scripts/*.ts!", "src/**/*.test.ts"],
+      "project": ["src/**/*.ts!", "scripts/**/*.ts!", "test/**/*.ts"],
+      "ignore": ["dist/**", ".data/**", ".wrangler/**"],
+      "ignoreDependencies": ["atlas"]
+    }
+  }
+}

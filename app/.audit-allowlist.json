@@ -3,6 +3,10 @@
     {
       "package": "http-cache-semantics",
       "reason": "GHSA-ch52-4w7c-c8xp (no patched release yet): max-stale handling can leak responses between users of a shared HTTP cache. Only Astro pulls it in, at build time; Atlas is static files on GitHub Pages and runs no shared cache, so the leak can't happen here. Drop this entry once a fixed version ships (the ratchet fails on stale entries)."
+    },
+    {
+      "package": "body-parser",
+      "reason": "GHSA-27r3-jxmh-p828: trailing bytes after a compressed body crash a Node process. Only the MCP SDK's Express helpers pull it in; the Worker (app/mcp) imports the web-standard transport, so Express and body-parser are never bundled or run. The fix (2.4.0, 2026-10-22) is younger than min-release-age; drop this entry once npm can resolve it (from 2026-10-29)."
     }
   ]
 }

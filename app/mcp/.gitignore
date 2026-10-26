@@ -1,0 +1,5 @@
+# Written by scripts/bundle-data.ts from the site build.
+.data/
+# wrangler's local state and dry-run output.
+.wrangler/
+dist/
