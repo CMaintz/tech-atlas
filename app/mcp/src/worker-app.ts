@@ -9,6 +9,8 @@ export type WorkerOptions = { fetch?: typeof fetch; random?: () => number };
 
 const ENDPOINT = /^\/mcp\/?$/;
 
+// Public, read-only and cookie-free, so any origin may call it; browser-based MCP clients
+// (the Inspector) need this.
 const CORS = {
   'access-control-allow-origin': '*',
   'access-control-allow-methods': 'POST, OPTIONS',
@@ -26,6 +28,8 @@ function withCors(res: Response): Response {
   return out;
 }
 
+// Stateless: a fresh server and transport per request, answered as plain JSON rather than
+// an SSE stream, so nothing has to live between requests in the isolate.
 async function serveMcp(req: Request, ctx: ToolContext): Promise<Response> {
   const transport = new WebStandardStreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
@@ -47,12 +51,15 @@ const NO_BATCHES = () =>
     { status: 400 },
   );
 
+// A JSON-RPC batch would let one POST make many tool calls for a single rate-limit token.
+// Protocol 2025-06-18 dropped batching anyway.
 async function isBatch(req: Request): Promise<boolean> {
   return (await req.clone().text()).trimStart().startsWith('[');
 }
 
 async function serveEndpoint(req: Request, env: Env, base: Omit<ToolContext, 'env' | 'ip'>) {
   if (req.method === 'OPTIONS') return new Response(null, { status: 204 });
+  // There is nothing to push, and a GET would otherwise hold an SSE stream open per client.
   if (req.method !== 'POST')
     return new Response('Method not allowed', { status: 405, headers: { allow: 'POST, OPTIONS' } });
   const ip = req.headers.get('cf-connecting-ip') ?? 'unknown';
@@ -69,6 +76,8 @@ function route(req: Request, env: Env, base: Omit<ToolContext, 'env' | 'ip'>) {
 }
 
 export function createWorker(bundle: AtlasBundle, options: WorkerOptions = {}) {
+  // Built once per isolate: indexing is too costly for a request's CPU budget, while
+  // startup has a 1 s allowance.
   const atlas: Atlas = makeAtlas(bundle);
   const base = {
     atlas,

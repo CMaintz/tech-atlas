@@ -5,6 +5,7 @@ import type { ToolContext } from './context';
 import { ATTRIBUTED, fail, langSchema, READ_ONLY, reply, withLicence } from './reply';
 import { termRef, termRefSchema } from './views';
 
+// The semantic-search function's own MAX_K; asking for more would be refused upstream.
 const MAX_SEMANTIC_LIMIT = 20;
 const UPSTREAM_TIMEOUT_MS = 7000;
 
@@ -48,6 +49,8 @@ function joined(ctx: ToolContext, hits: { id: string; score: number }[], lang: L
   });
 }
 
+// Every MCP caller reaches the function from the Worker's egress IPs and so shares its
+// per-IP limit and daily cap with the site; the global key caps the MCP's share of that.
 async function withinBudget({ env, ip }: ToolContext): Promise<boolean> {
   if (!(await env.SEMANTIC_LIMITER.limit({ key: ip })).success) return false;
   return (await env.SEMANTIC_GLOBAL_LIMITER.limit({ key: 'all' })).success;

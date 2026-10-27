@@ -48,6 +48,7 @@ const related =
     const found = ctx.atlas.resolve(term);
     if (!found) return notFound(ctx, term);
     const { id, term: name } = found.term;
+    // One past the cap, so `truncated` can tell a full page from a cut one.
     const walk = { depth, relations: edge_types, max: MAX_NEIGHBOURS + 1 };
     const all = neighbours(ctx.atlas.graph, id, walk).map(({ other, ...step }) => ({
       id: other,
