@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'preact/hooks';
 import { isField } from '../../lib/key-intent';
 import type { PanelChrome } from './types';
 
-function useReturnFocusToOpener(root: RefObject<HTMLElement>) {
+function useReturnFocusToOpener(root: RefObject<HTMLElement | null>) {
   const opener = useRef<Element | null>(null);
   useEffect(() => {
     const active = document.activeElement;
@@ -26,7 +26,7 @@ function panelOwnsEscape(e: KeyboardEvent, root: HTMLElement | null): boolean {
 
 type EscapeLadder = { expanded: boolean; collapse: () => void; close: () => void };
 
-function useEscapeLadder(root: RefObject<HTMLElement>, ladder: EscapeLadder) {
+function useEscapeLadder(root: RefObject<HTMLElement | null>, ladder: EscapeLadder) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (!panelOwnsEscape(e, root.current)) return;

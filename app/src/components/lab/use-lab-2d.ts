@@ -1,4 +1,5 @@
-import { useEffect, useRef, type MutableRef } from 'preact/hooks';
+import type { RefObject } from 'preact';
+import { useEffect, useRef } from 'preact/hooks';
 import type cytoscape from 'cytoscape';
 import type { Graph } from '../../lib/graph-model';
 import { EXPLORER } from '../../lib/explorer-config';
@@ -22,7 +23,7 @@ type Lab2DScene = Lab2DSetting & {
   maps: Maps;
   graph: Graph | null;
   cy: cytoscape.Core | undefined;
-  base: MutableRef<unknown[] | null>;
+  base: RefObject<unknown[] | null>;
 };
 
 export function useLab2D(maps: Maps, graph: Graph | null, setting: Lab2DSetting) {

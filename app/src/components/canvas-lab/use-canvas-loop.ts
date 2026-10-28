@@ -1,4 +1,5 @@
-import { useEffect, type MutableRef } from 'preact/hooks';
+import type { RefObject } from 'preact';
+import { useEffect } from 'preact/hooks';
 import type { Graph } from '../../lib/graph-model';
 import type { MapTheme } from '../../lib/graph-style';
 import { fitCanvas } from './camera';
@@ -9,7 +10,7 @@ import type { Rig, View } from './state';
 import type { LabRefs } from './use-lab-state';
 
 export type LoopWiring = { allFamilies: string[]; hooks: PointerHooks };
-type Mounting = LoopWiring & { theme: MutableRef<MapTheme> };
+type Mounting = LoopWiring & { theme: RefObject<MapTheme> };
 
 function watchReducedMotion(v: View) {
   const motionQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)');

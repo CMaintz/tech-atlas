@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type MutableRef } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import type { RefObject } from 'preact';
 import type { Graph } from '../../lib/graph-model';
 import type { MapTheme } from '../../lib/graph-style';
@@ -18,11 +18,11 @@ import {
 } from './state';
 
 export type LabRefs = {
-  canvas: RefObject<HTMLCanvasElement>;
-  eng: MutableRef<Engine | null>;
-  view: MutableRef<View>;
-  cam: MutableRef<Cam>;
-  theme: MutableRef<MapTheme>;
+  canvas: RefObject<HTMLCanvasElement | null>;
+  eng: RefObject<Engine | null>;
+  view: RefObject<View>;
+  cam: RefObject<Cam>;
+  theme: RefObject<MapTheme>;
 };
 
 export function useLabRefs(theme: MapTheme): LabRefs {

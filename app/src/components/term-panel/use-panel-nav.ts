@@ -94,14 +94,18 @@ function useArrival(o: NavSource, s: NavState) {
   }, [o.id]);
 }
 
-function useFocusName(id: string, heading: RefObject<HTMLElement>, focusName: RefObject<boolean>) {
+function useFocusName(
+  id: string,
+  heading: RefObject<HTMLElement | null>,
+  focusName: RefObject<boolean>,
+) {
   useEffect(() => {
     if (focusName.current) heading.current?.focus({ preventScroll: true });
     focusName.current = true;
   }, [id]);
 }
 
-export function usePanelNav(o: NavSource, heading: RefObject<HTMLElement>): PanelNav {
+export function usePanelNav(o: NavSource, heading: RefObject<HTMLElement | null>): PanelNav {
   const [walk, setWalk] = useState<CycleState>(() => ({ anchor: o.id, index: null }));
   const [trail, setTrail] = useState<PanelHistory>(() => startHistory(o.id));
   const [announce, setAnnounce] = useState('');

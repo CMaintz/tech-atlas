@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState, type MutableRef } from 'preact/hooks';
+import type { RefObject } from 'preact';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import { benchReport, frameStats } from '../../lib/explorer-lab';
 import { orbit, panZoom, type Motion } from './motion';
 import type { Text } from './text';
@@ -41,7 +42,7 @@ type BenchInput = {
   maps: Maps;
   ready: boolean;
   active: string[];
-  bench: MutableRef<number[] | null>;
+  bench: RefObject<number[] | null>;
 };
 
 export function useBenchmark(p: BenchInput) {

@@ -34,9 +34,9 @@ export interface PanelProps extends PanelConfig {
 }
 
 export type PanelRefs = {
-  root: RefObject<HTMLDivElement>;
-  heading: RefObject<HTMLHeadingElement>;
-  expandBtn: RefObject<HTMLButtonElement>;
+  root: RefObject<HTMLDivElement | null>;
+  heading: RefObject<HTMLHeadingElement | null>;
+  expandBtn: RefObject<HTMLButtonElement | null>;
 };
 
 export type PanelChrome = {

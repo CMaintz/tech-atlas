@@ -1,4 +1,4 @@
-import type { ComponentChildren, JSX, Ref } from 'preact';
+import type { ComponentChildren, HTMLAttributes, Ref } from 'preact';
 import { getOrThrow } from '../../lib/map-get';
 import { useTimelineCtx } from './context';
 import { inkVars } from './ink';
@@ -16,7 +16,7 @@ function belowAnchorOnScreenStyle(x: number, y: number): Record<string, string> 
     : { left: `${left}px`, bottom: `${window.innerHeight - y + 32}px` };
 }
 
-type PopoverProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, 'ref'> & {
+type PopoverProps = Omit<HTMLAttributes<HTMLDivElement>, 'ref'> & {
   pinned: boolean;
   at: { x: number; y: number };
   popRef?: Ref<HTMLDivElement>;

@@ -1,9 +1,10 @@
+import type { RefObject } from 'preact';
 /**
  * The Explorer's two maps: each built once from the graph and kept, then only
  * told what to show. The 3D map loads the first time it is opened and is paused while
  * hidden. Their options come from one wiring, so both answer the reader the same way.
  */
-import { useEffect, useRef, useState, type MutableRef } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import type { Graph } from './graph-model';
 import type { MapTheme } from './graph-style';
 import { createMap2D, type Map2D, type Map2DOptions, type View } from './explorer-2d';
@@ -27,7 +28,7 @@ export type MapWiring = {
   domainLabels: Dict;
   apiBase: string;
   relationNames: { label: Dict; inverse: Dict };
-  selRef: MutableRef<string | null>;
+  selRef: RefObject<string | null>;
   onSelect: (id: string | null) => void;
   onPoint: (hit: Point | null) => void;
   variant?: 'v2';
@@ -77,7 +78,7 @@ function options3D(container: HTMLElement, graph: Graph, w: MapWiring): Map3DOpt
 
 /** The 2D map in `box`: built once the graph is in, rethemed live, told what to show. */
 export function useMap2D(
-  box: MutableRef<HTMLElement | null>,
+  box: RefObject<HTMLElement | null>,
   graph: Graph | null,
   w: MapWiring,
   view: View,
@@ -98,7 +99,7 @@ export function useMap2D(
 }
 
 /** The 2D map is told what to show whenever any part of the view changes. */
-function useShow2D(map: MutableRef<Map2D | null>, graph: Graph | null, v: View) {
+function useShow2D(map: RefObject<Map2D | null>, graph: Graph | null, v: View) {
   const { layout, nodes, domains, families, showAll, selected, highlight, hoodLit } = v;
   useEffect(() => {
     map.current?.apply(v);
@@ -119,7 +120,7 @@ function useShow2D(map: MutableRef<Map2D | null>, graph: Graph | null, v: View) 
 
 /** The 3D map in `box`: built (lazily loaded) the first time 3D is opened, then kept. */
 export function useMap3D(
-  box: MutableRef<HTMLElement | null>,
+  box: RefObject<HTMLElement | null>,
   graph: Graph | null,
   mode: Mode,
   w: MapWiring,
@@ -146,7 +147,7 @@ type Shown = {
   mode: Mode;
   spin: boolean;
   theme: MapTheme;
-  map2d: MutableRef<Map2D | null>;
+  map2d: RefObject<Map2D | null>;
   /** The pointer's hover card is dropped when the view switches. */
   onPoint: (hit: Point | null) => void;
 };
@@ -169,9 +170,9 @@ export function useMap3DView(map: Map3D | null, s: Shown, view: View) {
 }
 
 type Moved = {
-  host: MutableRef<HTMLElement | null>;
+  host: RefObject<HTMLElement | null>;
   mode: Mode;
-  map2d: MutableRef<Map2D | null>;
+  map2d: RefObject<Map2D | null>;
   map3d: Map3D | null;
   /** A key setting the map moving drops the hover card. */
   onPoint: (hit: Point | null) => void;
@@ -198,7 +199,7 @@ export function useKeyNav({ host, mode, map2d, map3d, onPoint }: Moved) {
 export function useLabMaps(
   onMaps: ((maps: { map2d: Map2D | null; map3d: Map3D | null }) => void) | undefined,
   graph: Graph | null,
-  map2d: MutableRef<Map2D | null>,
+  map2d: RefObject<Map2D | null>,
   map3d: Map3D | null,
 ) {
   useEffect(() => onMaps?.({ map2d: map2d.current, map3d }), [graph, map3d]);

@@ -1,4 +1,5 @@
-import { useEffect, type MutableRef } from 'preact/hooks';
+import type { RefObject } from 'preact';
+import { useEffect } from 'preact/hooks';
 import { listen } from '../../lib/listen';
 import { isTypingTarget } from '../../lib/prefs';
 import { bridgeSelectors, pageOf, type TourScreen } from '../../lib/tour';
@@ -78,7 +79,7 @@ function closesTour(e: KeyboardEvent, card: HTMLElement | null) {
 
 export function useTourEscape(
   view: TourScreen,
-  card: MutableRef<HTMLDivElement | null>,
+  card: RefObject<HTMLDivElement | null>,
   finish: TourNav['finish'],
 ) {
   useEffect(() => {

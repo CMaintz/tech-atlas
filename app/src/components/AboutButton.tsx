@@ -29,7 +29,7 @@ const ExternalIcon = () => (
   </svg>
 );
 
-type OpenerProps = { ui: Ui; opener: RefObject<HTMLButtonElement>; open: () => void };
+type OpenerProps = { ui: Ui; opener: RefObject<HTMLButtonElement | null>; open: () => void };
 
 const CIRCLE =
   'flex h-9 w-9 items-center justify-center rounded-full border border-border-strong bg-bg/85 font-serif text-lg leading-none text-fg-soft italic shadow-lg shadow-black/40 backdrop-blur transition-colors hover:border-border-hover hover:text-fg';

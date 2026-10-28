@@ -1,6 +1,7 @@
-import { useEffect, useState, type MutableRef } from 'preact/hooks';
+import type { RefObject } from 'preact';
+import { useEffect, useState } from 'preact/hooks';
 
-type Bar = { bar: MutableRef<HTMLElement | null>; prefix: string };
+type Bar = { bar: RefObject<HTMLElement | null>; prefix: string };
 
 function closeOnEscOrOutside<K extends string>({ bar, prefix }: Bar, open: K, close: () => void) {
   const onKey = (e: KeyboardEvent) => {
@@ -16,7 +17,7 @@ function closeOnEscOrOutside<K extends string>({ bar, prefix }: Bar, open: K, cl
 }
 
 export function usePopoverGroup<K extends string>(
-  bar: MutableRef<HTMLElement | null>,
+  bar: RefObject<HTMLElement | null>,
   prefix: string,
 ) {
   const [open, setOpen] = useState<K | null>(null);
