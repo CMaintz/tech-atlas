@@ -13,7 +13,7 @@ deno = "2.9.7"
 # setup:foundry-scripts into a cache dir at this ref, not vendored into the repo (see that
 # task for why). Renovate tracks the pin via the comment above it.
 # renovate: datasource=github-tags depName=CMaintz/foundry
-FOUNDRY_SCRIPTS_REF = "v2.13.0"
+FOUNDRY_SCRIPTS_REF = "v2.14.0"
 # The app's local binaries, the Foundry gate scripts cached by setup:foundry-scripts (so the
 # gate can call `foundry-verb-wrap` by name), and the repo's own scripts/ last.
 _.path = [
