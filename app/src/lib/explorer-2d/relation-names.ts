@@ -61,7 +61,7 @@ function nameLinks(p: MapParts, pov: string, names: RelationNames) {
   const size = EXPLORER.edgeLabels.px2d / Math.min(1, p.cy.zoom());
   const edges = heaviestFirst(p, pov);
   const boxes = edges.map(({ e, l }) => {
-    const text = relationLabel(l, pov, names.label, names.inverse);
+    const text = relationLabel(l, pov, names);
     e.data({ rel: text, relFont: size });
     return nameBox(e, text, size);
   });
