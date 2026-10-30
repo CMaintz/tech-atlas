@@ -4,6 +4,10 @@
     "**/src/main/resources/**",
     "**/build/**",
     "**/target/**",
-    "**/*.golden.txt"
+    "**/*.golden.txt",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/src/content/**",
+    "**/package-lock.json"
   ]
 }
