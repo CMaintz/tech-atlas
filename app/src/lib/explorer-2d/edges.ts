@@ -112,7 +112,7 @@ function createSpine(graph: MapParts['graph']) {
   return (v: View) => {
     const same = spineFor?.[0] === v.families && spineFor[1] === v.nodes;
     spineFor = [v.families, v.nodes];
-    return same ? null : backboneOf(graph.nodes, graph.links, v.families, v.nodes);
+    return same ? null : backboneOf(graph.nodes, graph.links, v);
   };
 }
 

@@ -29,7 +29,7 @@ export function onlyToggled(prev: View3D | null, next: View3D, hovering: boolean
 
 /** Mark the overview's backbone, over the shown terms only (none stranded by a hidden domain). */
 function markBackbone({ opts, model }: Ctx, next: View3D) {
-  const spine = backboneOf(opts.graph.nodes, opts.graph.links, next.families, next.nodes);
+  const spine = backboneOf(opts.graph.nodes, opts.graph.links, next);
   for (const l of model.links) l.bb = spine.has(l.i);
 }
 

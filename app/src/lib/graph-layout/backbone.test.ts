@@ -19,8 +19,10 @@ describe('backboneOf', () => {
     L('a', 'd', 1, 'contrast'),
   ];
   it('lets a family that is on fill the slots of one switched off', () => {
-    expect(backboneOf(nodes, links, new Set(['association', 'contrast'])).has(4)).toBe(false);
-    expect([...backboneOf(nodes, links, new Set(['contrast']))]).toEqual([4]);
+    expect(
+      backboneOf(nodes, links, { families: new Set(['association', 'contrast']) }).has(4),
+    ).toBe(false);
+    expect([...backboneOf(nodes, links, { families: new Set(['contrast']) })]).toEqual([4]);
   });
   it('strands no visible term: hide AI and data poisoning keeps a visible edge', () => {
     const t = (id: string, domain: string[]) => ({ id, domain, cluster: 'k' });
@@ -41,9 +43,9 @@ describe('backboneOf', () => {
     ];
     const types = new Set(['security', 'dependency']);
     // Over the whole graph its two slots go to AI-only terms: hidden with AI off.
-    expect(backboneOf(terms, edges, types).has(2)).toBe(false);
+    expect(backboneOf(terms, edges, { families: types }).has(2)).toBe(false);
     const securityOnly = new Set(['ai/data-poisoning', 'ai/prompt-injection']);
-    expect([...backboneOf(terms, edges, types, securityOnly)]).toEqual([2]);
+    expect([...backboneOf(terms, edges, { families: types, nodes: securityOnly })]).toEqual([2]);
   });
 });
 
@@ -87,9 +89,8 @@ describe('OVERVIEW_FAMILIES', () => {
     ];
     const chosen = backboneOf(nodes, links);
     expect([...chosen]).toEqual([2]);
-    expect(backboneOf(nodes, links, new Set(['association', 'contrast', 'structure'])).has(0)).toBe(
-      true,
-    );
+    const families = new Set(['association', 'contrast', 'structure']);
+    expect(backboneOf(nodes, links, { families }).has(0)).toBe(true);
   });
 });
 
