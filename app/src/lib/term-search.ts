@@ -14,12 +14,9 @@ export function searchScore(n: Searchable, q: string, lang: string): number | un
   return n.id.toLowerCase().includes(q) ? 6 : undefined;
 }
 
-export function searchTerms<T extends Searchable>(
-  nodes: T[],
-  query: string,
-  lang: string,
-  limit = 8,
-): T[] {
+const MAX_MATCHES = 8;
+
+export function searchTerms<T extends Searchable>(nodes: T[], query: string, lang: string): T[] {
   const q = query.trim().toLowerCase();
   if (!q) return [];
   const scored: [number, T][] = [];
@@ -29,6 +26,6 @@ export function searchTerms<T extends Searchable>(
   }
   return scored
     .sort((a, b) => a[0] - b[0] || a[1].term[lang].localeCompare(b[1].term[lang]))
-    .slice(0, limit)
+    .slice(0, MAX_MATCHES)
     .map(([, n]) => n);
 }

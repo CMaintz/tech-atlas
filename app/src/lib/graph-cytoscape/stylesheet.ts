@@ -37,7 +37,7 @@ const themedNodeRule = (ink: Ink, u: ScaleUnderlayToTheme) => ({
 
 const RING_AND_EDGE_RULES = [
   // A term in several domains: a solid fill in its own shade and a thin ring in the
-  // other domain's colour (the split fill is left to the canvas lab).
+  // other domain's colour.
   {
     selector: 'node[ring]',
     style: { 'border-width': 2, 'border-color': 'data(ring)', 'border-opacity': 0.95 },
