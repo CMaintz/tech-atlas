@@ -1,5 +1,5 @@
 import type { RefObject } from 'preact';
-import { moveTo, type TourScreen, type TourStep } from '../../lib/tour';
+import { moveTo, needsBridge, type TourScreen, type TourStep } from '../../lib/tour';
 import { FADE_MS, reducedMotion, type Via } from './dom';
 import type { TourRefs } from './overlay';
 import { pageHref, persistStep, recordEnd } from './persistence';
@@ -43,13 +43,11 @@ type Leave = ReturnType<typeof makeLeave>;
 function makeGo(d: TourNavDeps, finish: Finish, leave: Leave) {
   return (to: number) => {
     const cur = d.viewRef.current;
+    if (cur.kind === 'show' && needsBridge(d.steps, { from: cur.step, to }, d.page))
+      return d.setView({ kind: 'bridge', from: cur.step, to });
     const move = moveTo(d.steps, to, d.page);
     if (move.kind === 'finish') return finish(true);
-    if (move.kind === 'go') {
-      if (cur.kind === 'show' && to > cur.step)
-        return d.setView({ kind: 'bridge', from: cur.step, to });
-      return leave(move.step, move.page);
-    }
+    if (move.kind === 'go') return leave(move.step, move.page);
     persistStep(move.step);
     d.setView({ kind: 'show', step: move.step });
   };
