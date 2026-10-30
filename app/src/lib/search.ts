@@ -1,6 +1,7 @@
 import MiniSearch from 'minisearch';
 import { collisionForQuery } from './collisions';
 import { exactName, type Intent } from './intent';
+import { getOrThrow } from './map-get';
 import { dropStopwords, looksNaturalLanguage } from './semantic';
 import { pairSlugFromIds } from './slug';
 
@@ -99,8 +100,7 @@ export function disambiguationLink(
 ): SearchLink | null {
   const shared = collisionForQuery(q, collisions);
   if (!shared) return null;
-  const ids = collisions.get(shared);
-  if (!ids) throw new Error(`no collision named ${shared}`);
+  const ids = getOrThrow(collisions, shared, 'collision');
   const label = template
     .replace('{name}', shared.replace(/-/g, ' '))
     .replace('{n}', String(ids.length));

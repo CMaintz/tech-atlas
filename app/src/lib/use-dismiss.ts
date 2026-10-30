@@ -1,17 +1,17 @@
 import { useEffect } from 'preact/hooks';
-import { listen } from './listen';
+import { listenAll } from './listen';
 
 function listenForDismiss(dismiss: () => void, inside: (target: HTMLElement) => boolean) {
-  const offKey = listen<KeyboardEvent>(document, 'keydown', (e) => {
+  const onKey = (e: KeyboardEvent) => {
     if (e.key === 'Escape') dismiss();
-  });
-  const offDown = listen<PointerEvent>(document, 'pointerdown', (e) => {
-    if (!inside(e.target as HTMLElement)) dismiss();
-  });
-  return () => {
-    offKey();
-    offDown();
   };
+  const onDown = (e: PointerEvent) => {
+    if (!inside(e.target as HTMLElement)) dismiss();
+  };
+  return listenAll([
+    [document, 'keydown', onKey],
+    [document, 'pointerdown', onDown],
+  ]);
 }
 
 export function useDismiss(

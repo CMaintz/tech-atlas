@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect } from 'preact/hooks';
 import { bridgeSelectors, type TourScreen, type TourStep } from '../../lib/tour';
-import { listen } from '../../lib/listen';
+import { listenAll } from '../../lib/listen';
 import { pageSettled, viaOf, waitForAnchor } from './dom';
 import { appear, apply, glide, measure, scrollIntoBand, type TourRefs } from './overlay';
 import type { Shown, TourNav, TourNavDeps } from './use-tour-nav';
@@ -15,6 +15,13 @@ function oncePerFrame(fn: () => void) {
     });
   };
   return { request, cancel: () => cancelAnimationFrame(raf) };
+}
+
+function observeViewport(cb: () => void) {
+  return listenAll([
+    [window, 'scroll', cb, { capture: true, passive: true }],
+    [window, 'resize', cb],
+  ]);
 }
 
 function observeLayout(r: TourRefs, cb: () => void) {
@@ -37,11 +44,7 @@ export function useFollowTarget(active: boolean, r: TourRefs) {
       const p = measure(r);
       if (p) apply(r, p);
     });
-    const offs = [
-      listen(window, 'scroll', track.request, { capture: true, passive: true }),
-      listen(window, 'resize', track.request),
-      observeLayout(r, track.request),
-    ];
+    const offs = [observeViewport(track.request), observeLayout(r, track.request)];
     return () => {
       track.cancel();
       offs.forEach((off) => off());

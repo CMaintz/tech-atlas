@@ -1,4 +1,5 @@
 import type { Graph, GraphNode } from './graph-model';
+import { getOrThrow } from './map-get';
 import { SYMMETRIC } from './quiz-text';
 import type { Dir } from './quiz-types';
 import type { EdgeType } from '../schema';
@@ -18,11 +19,7 @@ export function indexGraph(graph: Graph): QuizGraph {
   return { graph, byId: new Map(graph.nodes.map((n) => [n.id, n])), edges };
 }
 
-export function nodeOf(g: QuizGraph, id: string): GraphNode {
-  const node = g.byId.get(id);
-  if (!node) throw new Error(`unknown term: ${id}`);
-  return node;
-}
+export const nodeOf = (g: QuizGraph, id: string): GraphNode => getOrThrow(g.byId, id, 'term');
 
 export const edgesOf = (g: QuizGraph, id: string) => g.edges.get(id) ?? [];
 

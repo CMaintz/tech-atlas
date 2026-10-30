@@ -1,10 +1,6 @@
-type Frame = { id: string; edges: string[]; i: number };
+import { getOrThrow } from './map-get';
 
-function numberOf(numbers: Map<string, number>, id: string): number {
-  const n = numbers.get(id);
-  if (n === undefined) throw new Error(`no Tarjan number for ${id}`);
-  return n;
-}
+type Frame = { id: string; edges: string[]; i: number };
 
 export function stronglyConnected(nodes: string[], next: (id: string) => string[]): string[][] {
   const search = new TarjanSearch(next);
@@ -50,19 +46,19 @@ class TarjanSearch {
 
   private follow(frame: Frame, w: string) {
     if (!this.index.has(w)) this.open(w);
-    else if (this.onStack.has(w)) this.lower(frame.id, numberOf(this.index, w));
+    else if (this.onStack.has(w)) this.lower(frame.id, getOrThrow(this.index, w, 'Tarjan index'));
   }
 
   private close(frame: Frame) {
     const parent = this.work[this.work.length - 1];
-    if (parent) this.lower(parent.id, numberOf(this.low, frame.id));
+    if (parent) this.lower(parent.id, getOrThrow(this.low, frame.id, 'Tarjan low-link'));
     if (this.low.get(frame.id) === this.index.get(frame.id)) {
       this.components.push(this.popComponent(frame.id));
     }
   }
 
   private lower(id: string, value: number) {
-    this.low.set(id, Math.min(numberOf(this.low, id), value));
+    this.low.set(id, Math.min(getOrThrow(this.low, id, 'Tarjan low-link'), value));
   }
 
   private popComponent(root: string): string[] {
