@@ -1,18 +1,5 @@
 export type Span = { id: string; start: number; end: number };
 
-export function packTracks(spans: Span[], gap = 0): { track: Map<string, number>; tracks: number } {
-  const sorted = [...spans].sort((a, b) => a.start - b.start || a.id.localeCompare(b.id));
-  const ends: number[] = [];
-  const track = new Map<string, number>();
-  for (const s of sorted) {
-    let t = ends.findIndex((e) => e + gap <= s.start);
-    if (t < 0) t = ends.push(0) - 1;
-    ends[t] = s.end;
-    track.set(s.id, t);
-  }
-  return { track, tracks: ends.length };
-}
-
 export function packCapped(
   spans: (Span & { rank: number })[],
   maxTracks: number,
