@@ -18,6 +18,9 @@ const INCLUDE = [
   'app/scripts/**/*.{ts,mjs}',
   'app/integrations/**/*.{ts,mjs}',
   'app/astro.config.mjs',
+  'app/mcp/src/**/*.ts',
+  'app/mcp/scripts/**/*.ts',
+  'app/mcp/test/**/*.ts',
   'supabase/functions/**/*.ts',
 ];
 const EXCLUDE = ['**/node_modules/**', '**/*.d.ts'];

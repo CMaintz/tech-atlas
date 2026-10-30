@@ -3,6 +3,9 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
+  "workspaces": [
+    "mcp"
+  ],
   "scripts": {
     "dev": "astro dev",
     "sync": "astro sync",
@@ -57,5 +60,8 @@
     "typescript": "^6.0.0",
     "vitest": "^5.0.1",
     "yaml": "^2.7.0"
+  },
+  "overrides": {
+    "undici@7.29.1": "7.30.1"
   }
 }

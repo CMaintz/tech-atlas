@@ -10,7 +10,10 @@
     "src/**/*",
     "scripts/**/*",
     "integrations/**/*",
-    "astro.config.mjs"
+    "astro.config.mjs",
+    "mcp/src/**/*",
+    "mcp/scripts/**/*",
+    "mcp/test/**/*"
   ],
   "exclude": ["dist", "node_modules"]
 }

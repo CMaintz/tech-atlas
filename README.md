@@ -153,6 +153,33 @@ The site publishes its content as open data: every term as JSON (`/api/terms.jso
 language, the derived graph (`/graph.json`) and an RSS feed of new terms per language.
 The list, with formats, is on the site's **Data** page (`/en/data/`, `/da/data/`).
 
+## Use Atlas in Claude
+
+Atlas is also a public, read-only [MCP](https://modelcontextprotocol.io/) server, so an
+assistant can look up, translate and explore the terms instead of guessing:
+
+```
+https://mcp.atlas.maintz.dev/mcp
+```
+
+- **claude.ai / Claude Desktop:** Settings > Connectors > Add custom connector, paste the URL.
+- **Claude Code:** `claude mcp add --transport http atlas https://mcp.atlas.maintz.dev/mcp`
+- **Cursor and others:** add it as a Streamable HTTP server.
+
+Then ask, for example, "What is the Danish term for encryption, and what does it require?"
+
+Tools: `lookup_term`, `search_terms`, `semantic_search`, `translate_term`, `related_terms`
+(typed relations, both directions, up to 2 hops) and `quiz_question`. Each term is also a
+resource (`atlas://terms/<domain>/<id>`), and the `explain-like-atlas` prompt explains a
+term from its prerequisites up. Every result carries the CC BY-SA attribution line. No
+account is needed; requests are rate-limited per IP, `semantic_search` more tightly.
+
+The server is a Cloudflare Worker in [`app/mcp/`](app/mcp/), built from the same commit's
+published JSON (`npm run build` in `app`, then `npm run build -w mcp`) and deployed by the
+`mcp` job in `deploy.yml`. It answers on `/mcp` under any host, so instead of its own
+subdomain it can also run as the route `atlas.maintz.dev/mcp*` once that DNS record is
+proxied (see the comment in `app/mcp/wrangler.jsonc`).
+
 ## License
 
 - **Code:** MIT, see [LICENSE](LICENSE).

@@ -113,9 +113,11 @@ run = [
 ]
 
 [tasks.test]
-description = "Unit tests (vitest), then the full production build as a smoke test."
+description = "Unit tests (vitest), the full production build, then the MCP Worker bundled from it."
 dir = "app"
-run = ["npm test", "npm run build"]
+# The Worker step bundles the build's JSON and runs `wrangler deploy --dry-run`, so a
+# Worker that will not bundle (or a site JSON shape it cannot read) fails here, not at deploy.
+run = ["npm test", "npm run build", "npm run build -w mcp"]
 
 # Not part of `gate`: CI runs these in tests.yml, alongside the gate.
 [tasks.e2e]

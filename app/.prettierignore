@@ -6,3 +6,5 @@ package-lock.json
 coverage
 test-results
 playwright-report
+mcp/.data
+mcp/.wrangler

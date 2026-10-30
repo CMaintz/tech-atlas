@@ -1,0 +1,32 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "atlas-mcp",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-10-19",
+  "alias": { "atlas:data": "./.data/atlas.json" },
+  // Default: its own hostname. Wrangler creates the DNS record for it on deploy; the
+  // atlas.maintz.dev record (GitHub Pages, DNS-only) is untouched.
+  "routes": [{ "pattern": "mcp.atlas.maintz.dev", "custom_domain": true }],
+  // Alternative, once the atlas.maintz.dev record is proxied (orange cloud):
+  // "routes": [{ "pattern": "atlas.maintz.dev/mcp*", "zone_name": "maintz.dev" }],
+  "workers_dev": false,
+  "ratelimits": [
+    // Every MCP request, per client IP.
+    { "name": "MCP_LIMITER", "namespace_id": "4801", "simple": { "limit": 60, "period": 60 } },
+    // semantic_search costs an embedding, so each IP gets far fewer of those.
+    { "name": "SEMANTIC_LIMITER", "namespace_id": "4802", "simple": { "limit": 5, "period": 60 } },
+    // All MCP callers reach the semantic-search function from the Worker's egress IPs, so
+    // they share its 30/min per-IP limit and its daily cap with the site: one fixed key
+    // keeps the MCP's total under that.
+    {
+      "name": "SEMANTIC_GLOBAL_LIMITER",
+      "namespace_id": "4803",
+      "simple": { "limit": 20, "period": 60 },
+    },
+  ],
+  "vars": {
+    "SEMANTIC_SEARCH_URL": "https://sufkpasdqwettabdmtcp.supabase.co/functions/v1/semantic-search",
+  },
+  "observability": { "enabled": true },
+  "send_metrics": false,
+}
