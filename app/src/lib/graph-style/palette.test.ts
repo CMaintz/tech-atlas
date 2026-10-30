@@ -4,7 +4,6 @@ import {
   CLUSTER_DOMAIN,
   CLUSTER_HUE_SPREAD,
   CREAM,
-  DOMAIN_HUES,
   FAMILY_COLOURS_LIGHT,
   MAP_INK,
   clusterColour,
@@ -18,6 +17,9 @@ import {
   nodePaint,
 } from '../graph-style';
 import { domainRank, rankIn } from './palette';
+
+/** The domains with a hand-picked hue, in palette order. */
+const LISTED = ['security', 'cs', 'ai', 'platform'];
 
 /** Hue (degrees) of a `#rrggbb` colour. */
 const hueOf = (hex: string) => {
@@ -44,7 +46,7 @@ describe('hslToHex', () => {
 
 describe('domain colours', () => {
   it('keeps the listed domains well apart on the colour wheel', () => {
-    const hues = Object.values(DOMAIN_HUES);
+    const hues = LISTED.map(domainHue);
     for (let i = 0; i < hues.length; i++)
       for (let j = i + 1; j < hues.length; j++)
         expect(hueDistance(hues[i], hues[j])).toBeGreaterThanOrEqual(60);
@@ -53,17 +55,16 @@ describe('domain colours', () => {
     for (const d of ['law', 'hardware', 'finance', 'robotics']) {
       const h = domainHue(d);
       expect(domainHue(d)).toBe(h);
-      for (const t of Object.values(DOMAIN_HUES)) expect(hueDistance(h, t)).toBeGreaterThan(30);
+      for (const t of LISTED.map(domainHue)) expect(hueDistance(h, t)).toBeGreaterThan(30);
     }
     expect(domainColour('law')).toMatch(/^#[0-9a-f]{6}$/);
   });
 });
 
 describe('domainRank / rankIn', () => {
-  it('orders the listed domains first, in DOMAIN_HUES order, then any other', () => {
-    const listed = Object.keys(DOMAIN_HUES);
-    expect(listed.map(domainRank)).toEqual(listed.map((_, i) => i));
-    expect(domainRank('law')).toBe(listed.length);
+  it('orders the listed domains first, in palette order, then any other', () => {
+    expect(LISTED.map(domainRank)).toEqual(LISTED.map((_, i) => i));
+    expect(domainRank('law')).toBe(LISTED.length);
     expect(rankIn(['a', 'b'], 'b')).toBe(1);
     expect(rankIn(['a', 'b'], 'z')).toBe(2);
   });
@@ -72,16 +73,16 @@ describe('domainRank / rankIn', () => {
 describe('cluster colours', () => {
   it('maps every labelled cluster to a domain', () => {
     expect(Object.keys(CLUSTER_DOMAIN).sort()).toEqual(Object.keys(CLUSTER_LABELS).sort());
-    for (const d of Object.values(CLUSTER_DOMAIN)) expect(DOMAIN_HUES).toHaveProperty(d);
+    for (const d of Object.values(CLUSTER_DOMAIN)) expect(LISTED).toContain(d);
   });
   it('shades each cluster within its domain hue band', () => {
     for (const [cluster, domain] of Object.entries(CLUSTER_DOMAIN)) {
-      const drift = hueDistance(hueOf(clusterColour(cluster)), DOMAIN_HUES[domain]);
+      const drift = hueDistance(hueOf(clusterColour(cluster)), domainHue(domain));
       expect(drift).toBeLessThanOrEqual(CLUSTER_HUE_SPREAD + 2);
     }
   });
   it('gives clusters of one domain distinct colours', () => {
-    for (const domain of Object.keys(DOMAIN_HUES)) {
+    for (const domain of LISTED) {
       const colours = Object.entries(CLUSTER_DOMAIN)
         .filter(([, d]) => d === domain)
         .map(([c]) => clusterColour(c));
@@ -122,7 +123,7 @@ describe('legendDomains', () => {
 });
 
 describe('cream map palette (light theme)', () => {
-  const domains = [...Object.keys(DOMAIN_HUES), 'some-new-domain'];
+  const domains = [...LISTED, 'some-new-domain'];
 
   it('keeps the dark palette as the default', () => {
     for (const d of domains) expect(domainColour(d, 'dark')).toBe(domainColour(d));

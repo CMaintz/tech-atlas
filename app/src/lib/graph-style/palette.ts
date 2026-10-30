@@ -1,7 +1,7 @@
 import { contrastRatio, hslToHex, hueDistance, wrapHue } from './colour';
 import { CREAM, type MapTheme } from './theme';
 
-export const DOMAIN_HUES: Record<string, number> = {
+const DOMAIN_HUES: Record<string, number> = {
   security: 355, // pink → red-orange
   cs: 212, // cyan → indigo
   ai: 285, // violet → magenta
