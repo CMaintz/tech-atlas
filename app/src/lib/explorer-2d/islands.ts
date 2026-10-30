@@ -30,7 +30,7 @@ cytoscape.use(fcose);
 /** How the lab re-spaces islands: minimum distance ×, island size ×, extra gap px. */
 export type IslandTune = { spacing: number; tight: number; gap: number };
 
-export const NO_TUNE: IslandTune = { spacing: 1, tight: 1, gap: 0 };
+const NO_TUNE: IslandTune = { spacing: 1, tight: 1, gap: 0 };
 
 /** Every island's terms, its raw layout, the spaced result, and the links between terms. */
 export type IslandGeometry = {

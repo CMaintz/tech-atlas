@@ -10,7 +10,7 @@ import {
   type Paintable,
 } from './graph-style';
 
-export { FADE_TRANSITIONS, GRAPH_STYLE, graphStyle } from './graph-cytoscape/stylesheet';
+export { FADE_TRANSITIONS, graphStyle } from './graph-cytoscape/stylesheet';
 
 const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
 export const reducedMotion = () =>

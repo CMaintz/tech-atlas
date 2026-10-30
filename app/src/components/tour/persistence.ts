@@ -11,10 +11,10 @@ import {
 } from '../../lib/tour';
 
 type Store = () => Storage;
-export const local: Store = () => localStorage;
-export const session: Store = () => sessionStorage;
+const local: Store = () => localStorage;
+const session: Store = () => sessionStorage;
 
-export const read = (store: Store, key: string) => {
+const read = (store: Store, key: string) => {
   try {
     return store().getItem(key);
   } catch {
@@ -22,7 +22,7 @@ export const read = (store: Store, key: string) => {
   }
 };
 
-export const write = (store: Store, key: string, value: string | null) => {
+const write = (store: Store, key: string, value: string | null) => {
   try {
     if (value === null) store().removeItem(key);
     else store().setItem(key, value);

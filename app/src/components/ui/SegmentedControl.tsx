@@ -1,12 +1,12 @@
 import type { ComponentChildren } from 'preact';
 
-export const SEGMENT_GROUP =
+const SEGMENT_GROUP =
   'flex w-fit shrink-0 overflow-hidden rounded-full border border-border-strong';
 
-export const segmentClass = (active: boolean) =>
+const segmentClass = (active: boolean) =>
   `px-2 py-1 text-xs whitespace-nowrap focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-(--focus) ${active ? 'bg-fg text-bg' : 'text-muted hover:text-fg'}`;
 
-export type Segment<T extends string> = { value: T; label: ComponentChildren };
+type Segment<T extends string> = { value: T; label: ComponentChildren };
 
 interface Props<T extends string> {
   label: string;

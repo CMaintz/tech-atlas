@@ -20,7 +20,7 @@ export function cullLabels(
 
 const LINE_HEIGHT = 1.25;
 const OUTLINE_ALLOWANCE = 4;
-export const LABEL_MARGIN = 4;
+const LABEL_MARGIN = 4;
 
 export function labelBelow(at: Point, nodeSize: number, width: number, font: number): Box {
   const top = at.y + nodeSize / 2 + LABEL_MARGIN;

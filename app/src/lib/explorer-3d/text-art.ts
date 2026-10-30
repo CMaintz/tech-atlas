@@ -8,8 +8,8 @@ import type { Sprite, Three } from './types';
 const HUB_PX = 44;
 const DOMAIN_PX = 120;
 const TAG_PX = 36;
-export const HUB_FONT = `600 ${HUB_PX}px system-ui, sans-serif`;
-export const DOMAIN_FONT = `700 ${DOMAIN_PX}px system-ui, sans-serif`;
+const HUB_FONT = `600 ${HUB_PX}px system-ui, sans-serif`;
+const DOMAIN_FONT = `700 ${DOMAIN_PX}px system-ui, sans-serif`;
 const TAG_FONT = `500 ${TAG_PX}px system-ui, sans-serif`;
 
 /** A kind of text's canvas: its font, the width added to the text's, and its height. */
@@ -25,7 +25,7 @@ function context2d(c: HTMLCanvasElement) {
 }
 
 /** A canvas as wide as `text` in the look's font plus its padding, and the look's height. */
-export function textCanvas(text: string, { font, padW, height }: Look) {
+function textCanvas(text: string, { font, padW, height }: Look) {
   const c = document.createElement('canvas');
   const g = context2d(c);
   g.font = font;

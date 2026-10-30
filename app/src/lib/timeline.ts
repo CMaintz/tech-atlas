@@ -105,15 +105,13 @@ export function milestones(items: TimelineItem[], share = 0.12): Set<string> {
 
 export const labelWidth = (text: string, fontPx = 12) => Math.ceil(text.length * fontPx * 0.56);
 
-export const ERA_BANDS = [
+const ERA_BANDS = [
   { id: 'mainframe', from: 1950, to: 1975 },
   { id: 'networks', from: 1975, to: 1991 },
   { id: 'web', from: 1991, to: 2006 },
   { id: 'cloud', from: 2006, to: 2017 },
   { id: 'ai', from: 2017, to: 2100 },
 ] as const;
-
-export type EraBandId = (typeof ERA_BANDS)[number]['id'];
 
 export function bandsWithin(start: number, end: number) {
   return ERA_BANDS.map((b) => ({

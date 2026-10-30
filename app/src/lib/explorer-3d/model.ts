@@ -29,7 +29,7 @@ export type Model = {
 export const endNode = ({ byId }: Pick<Model, 'byId'>, end: unknown) =>
   getOrThrow(byId, endId(end), 'link end');
 
-export function rankOf(graph: Graph) {
+function rankOf(graph: Graph) {
   return pageRank(
     graph.nodes.map((n) => n.id),
     graph.links.map((l) => ({ ...l, directed: isDirected(l.type) })),
@@ -55,7 +55,7 @@ function layoutOf(variant?: 'v2') {
 }
 
 /** The galaxy layout, spread: no two terms closer than a click target and a label. */
-export function placeTerms(graph: Graph, radius: (n: GraphNode) => number, variant?: 'v2') {
+function placeTerms(graph: Graph, radius: (n: GraphNode) => number, variant?: 'v2') {
   const { cfg, factor, clearance } = layoutOf(variant);
   const pos = galaxyLayout(graph.nodes, graph.links, undefined, cfg);
   const pts: Point3[] = graph.nodes.map((n) => ({ ...getOrThrow(pos, n.id, 'galaxy layout') }));

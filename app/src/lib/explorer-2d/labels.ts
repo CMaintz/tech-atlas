@@ -16,7 +16,7 @@ const HOVER_LABEL_PX = 11;
 export type LabelWidth = (n: cytoscape.NodeSingular, px: number) => number;
 
 /** Text widths measured on a canvas in the map's font, cached per term and size. */
-export function createMeasure(terms: cytoscape.NodeCollection) {
+function createMeasure(terms: cytoscape.NodeCollection) {
   const measure = document.createElement('canvas').getContext('2d');
   if (!measure) throw new Error('labels: no 2D canvas context to measure text with');
   const family = terms.first().style('font-family') as string;

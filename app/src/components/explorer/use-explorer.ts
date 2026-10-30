@@ -35,7 +35,7 @@ export function useExplorer(props: ExplorerProps) {
   const x = { theme, graph, index, ...reader, controls, shown, maps, bar, search };
   return { ...x, pick: (id: string) => pick(id, x), findRoute: () => findRoute(x) };
 }
-export type Explorer = ReturnType<typeof useExplorer>;
+type Explorer = ReturnType<typeof useExplorer>;
 /** The island's props and model: what each of its sections reads. */
 export type Section = { p: ExplorerProps; x: Explorer };
 

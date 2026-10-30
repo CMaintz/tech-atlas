@@ -12,7 +12,7 @@ import { edgeData } from '../graph-cytoscape';
 import { getOrThrow } from '../map-get';
 
 /** Each term's PageRank over the whole graph (one-way relationships directed). */
-export const rankOf = (graph: Graph) =>
+const rankOf = (graph: Graph) =>
   pageRank(
     graph.nodes.map((n) => n.id),
     graph.links.map((l) => ({ ...l, directed: isDirected(l.type) })),
