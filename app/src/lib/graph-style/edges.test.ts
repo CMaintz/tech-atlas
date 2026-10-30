@@ -6,11 +6,10 @@ import {
   domainColour,
   edgePaint,
   flowOffset,
-  isCrossDomain,
   isDirected,
 } from '../graph-style';
 import { FAMILY } from '../graph-model';
-import { pairKey } from './edges';
+import { isCrossDomain, pairKey } from './edges';
 
 describe('edges', () => {
   it('matches the schema: symmetric types have no direction', () => {

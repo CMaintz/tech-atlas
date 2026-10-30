@@ -2,7 +2,6 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
   compareVectors,
-  cosine,
   dequantize,
   dropStopwords,
   fromBase64,
@@ -92,16 +91,17 @@ describe('fetchSemantic', () => {
   });
 });
 
-describe('cosine', () => {
-  it('is 1 for parallel, 0 for orthogonal, -1 for opposite vectors', () => {
-    expect(cosine([1, 2, 3], [2, 4, 6])).toBeCloseTo(1);
-    expect(cosine([1, 0], [0, 5])).toBeCloseTo(0);
-    expect(cosine([1, 1], [-1, -1])).toBeCloseTo(-1);
-  });
-  it('is 0 (not NaN) for a zero vector', () => {
-    expect(cosine([0, 0], [1, 1])).toBe(0);
-  });
-});
+function cosine(a: ArrayLike<number>, b: ArrayLike<number>): number {
+  let dot = 0;
+  let na = 0;
+  let nb = 0;
+  for (let k = 0; k < a.length; k++) {
+    dot += a[k] * b[k];
+    na += a[k] * a[k];
+    nb += b[k] * b[k];
+  }
+  return na && nb ? dot / Math.sqrt(na * nb) : 0;
+}
 
 describe('Int8 quantisation', () => {
   it('round-trips through base64 and keeps direction', () => {

@@ -117,10 +117,6 @@ export function clusterColour(
     : hslToHex(hue, s, l);
 }
 
-export const CLUSTER_COLOURS: Record<string, string> = Object.fromEntries(
-  Object.keys(CLUSTER_DOMAIN).map((c) => [c, clusterColour(c)]),
-);
-
 export type Paintable = { domain: string[]; cluster: string };
 
 export const homeDomain = (n: Paintable) => CLUSTER_DOMAIN[n.cluster] ?? n.domain[0] ?? '';

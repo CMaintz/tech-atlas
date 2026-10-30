@@ -13,7 +13,7 @@ import {
   yearLoad,
   type TimelineItem,
 } from './timeline';
-import { packCapped, packTracks, shareRows, type Span } from './timeline-stacking';
+import { packCapped, shareRows } from './timeline-stacking';
 
 const item = (id: string, year: number, domain: string[], degree = 1): TimelineItem => ({
   id,
@@ -72,60 +72,6 @@ describe('stretchScale', () => {
   it('is monotone', () => {
     const s = stretchScale({ start: 1950, end: 2030 }, 3, (y) => (y % 7) * 11);
     for (let y = 1950; y < 2030; y++) expect(s.at(y + 1)).toBeGreaterThanOrEqual(s.at(y));
-  });
-});
-
-describe('packTracks', () => {
-  const overlaps = (a: Span, b: Span, gap: number) =>
-    a.start < b.end + gap && b.start < a.end + gap;
-
-  it('puts non-overlapping spans on one track', () => {
-    const { tracks } = packTracks([
-      { id: 'a', start: 0, end: 10 },
-      { id: 'b', start: 12, end: 20 },
-    ]);
-    expect(tracks).toBe(1);
-  });
-
-  it('stacks overlapping spans and honours the gap', () => {
-    const spans = [
-      { id: 'a', start: 0, end: 10 },
-      { id: 'b', start: 5, end: 15 },
-      { id: 'c', start: 12, end: 20 },
-    ];
-    const { track, tracks } = packTracks(spans, 4);
-    expect(tracks).toBe(3);
-    expect(track.get('a')).toBe(0);
-    expect(track.get('b')).toBe(1);
-    // c starts 2px after a ends, inside the 4px gap, so it can't reuse track 0.
-    expect(track.get('c')).toBe(2);
-  });
-
-  it('never places two overlapping spans on the same track (randomised)', () => {
-    let seed = 7;
-    const rnd = () => ((seed = (seed * 1103515245 + 12345) % 2 ** 31) / 2 ** 31) * 1000;
-    const spans: Span[] = Array.from({ length: 200 }, (_, i) => {
-      const start = rnd();
-      return { id: `t${i}`, start, end: start + 20 + (rnd() % 120) };
-    });
-    const { track, tracks } = packTracks(spans, 6);
-    for (const a of spans)
-      for (const b of spans)
-        if (a !== b && track.get(a.id) === track.get(b.id)) expect(overlaps(a, b, 6)).toBe(false);
-    // Greedy first-fit is optimal: tracks = max overlap at any span start.
-    const depth = Math.max(
-      ...spans.map((s) => spans.filter((o) => o.start <= s.start && s.start < o.end + 6).length),
-    );
-    expect(tracks).toBe(depth);
-  });
-
-  it('is deterministic regardless of input order', () => {
-    const spans = [
-      { id: 'b', start: 0, end: 10 },
-      { id: 'a', start: 0, end: 10 },
-    ];
-    expect([...packTracks(spans).track]).toEqual([...packTracks([...spans].reverse()).track]);
-    expect(packTracks(spans).track.get('a')).toBe(0);
   });
 });
 

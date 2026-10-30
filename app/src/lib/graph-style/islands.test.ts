@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { DOMAIN_GAP, ISLAND_GAP, packIslands } from '../graph-style';
+import { packIslands } from '../graph-style';
 import { packDiscs, separateDiscs } from './discs';
-import { canonicalLinks } from './islands';
+import { DOMAIN_GAP, ISLAND_GAP, canonicalLinks } from './islands';
 
 describe('packIslands', () => {
   const islands = [

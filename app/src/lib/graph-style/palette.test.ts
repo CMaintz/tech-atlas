@@ -1,22 +1,17 @@
 import { describe, expect, it } from 'vitest';
 import { CLUSTER_LABELS } from '../site';
 import {
-  CLUSTER_DOMAIN,
-  CLUSTER_HUE_SPREAD,
-  CREAM,
-  FAMILY_COLOURS_LIGHT,
   MAP_INK,
   clusterColour,
-  contrastRatio,
   domainColour,
-  domainHue,
   edgePaint,
-  hslToHex,
-  hueDistance,
   legendDomains,
   nodePaint,
 } from '../graph-style';
-import { domainRank, rankIn } from './palette';
+import { contrastRatio, hslToHex, hueDistance } from './colour';
+import { FAMILY_COLOURS_LIGHT } from './edges';
+import { CLUSTER_DOMAIN, CLUSTER_HUE_SPREAD, domainHue, domainRank, rankIn } from './palette';
+import { CREAM } from './theme';
 
 /** The domains with a hand-picked hue, in palette order. */
 const LISTED = ['security', 'cs', 'ai', 'platform'];
