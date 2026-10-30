@@ -21,15 +21,15 @@ const TAG_PX = EXPLORER.edgeLabels.px3d;
 /** The lit links to name, and the term they are read from; none without a point of view. */
 function namedLinks({ lens, state, model, opts }: Ctx) {
   const view = state.view;
-  if (!view || !opts.relationNames) return [];
+  const names = opts.relationNames;
+  if (!view || !names) return [];
   const lit = model.links.filter(lens.linkShown);
   const pov = labelPov(state.fx, view.selected, lit.length, EXPLORER.edgeLabels.hoverMax);
   if (!pov || !view.nodes.has(pov)) return [];
-  const { label, inverse } = opts.relationNames;
   return lit.flatMap((l: Link3) => {
     const [source, target] = [endId(l.source), endId(l.target)];
     if (source !== pov && target !== pov) return [];
-    return [{ l, text: relationLabel({ source, target, type: l.type }, pov, label, inverse) }];
+    return [{ l, text: relationLabel({ source, target, type: l.type }, pov, names) }];
   });
 }
 

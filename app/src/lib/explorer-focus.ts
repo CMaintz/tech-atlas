@@ -36,21 +36,20 @@ export function createMotionGate() {
 }
 export type MotionGate = ReturnType<typeof createMotionGate>;
 
+export type RelationNames = {
+  label: Readonly<Record<string, string>>;
+  inverse: Readonly<Record<string, string>>;
+};
+
 export function relationLabel(
   link: { source: string; target: string; type: string },
   pov: string,
-  label: Readonly<Record<string, string>>,
-  inverse: Readonly<Record<string, string>>,
+  { label, inverse }: RelationNames,
 ) {
   const type = link.source === pov ? link.type : (inverse[link.type] ?? link.type);
   const text = label[type] ?? type;
   return text.charAt(0).toLocaleLowerCase() + text.slice(1);
 }
-
-export type RelationNames = {
-  label: Readonly<Record<string, string>>;
-  inverse: Readonly<Record<string, string>>;
-};
 
 export type LabelBox = { id: string; x: number; y: number; w: number; h: number };
 

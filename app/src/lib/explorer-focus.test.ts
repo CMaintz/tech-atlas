@@ -55,14 +55,15 @@ describe('createMotionGate', () => {
 describe('relationLabel', () => {
   const labels = { requires: 'Requires', unlocks: 'Unlocks', 'used-with': 'Used with' };
   const inverse = { requires: 'unlocks', 'used-with': 'used-with' };
+  const names = { label: labels, inverse };
   const l = { source: 'tls', target: 'pki', type: 'requires' };
   it("reads the link in the arrow's direction from the term's side", () => {
-    expect(relationLabel(l, 'tls', labels, inverse)).toBe('requires');
-    expect(relationLabel(l, 'pki', labels, inverse)).toBe('unlocks');
+    expect(relationLabel(l, 'tls', names)).toBe('requires');
+    expect(relationLabel(l, 'pki', names)).toBe('unlocks');
   });
   it('keeps symmetric types and falls back to the type', () => {
-    expect(relationLabel({ ...l, type: 'used-with' }, 'pki', labels, inverse)).toBe('used with');
-    expect(relationLabel({ ...l, type: 'mandates' }, 'tls', labels, inverse)).toBe('mandates');
+    expect(relationLabel({ ...l, type: 'used-with' }, 'pki', names)).toBe('used with');
+    expect(relationLabel({ ...l, type: 'mandates' }, 'tls', names)).toBe('mandates');
   });
 });
 
