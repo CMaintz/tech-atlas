@@ -9,6 +9,7 @@ import { EXPLORER } from '../explorer-config';
 import { clusterColour, homeDomain, isDirected, type MapTheme, type Point } from '../graph-style';
 import { backbone, clusterBundles, pageRank, sizeForRank } from '../graph-layout';
 import { edgeData } from '../graph-cytoscape';
+import { getOrThrow } from '../map-get';
 
 /** Each term's PageRank over the whole graph (one-way relationships directed). */
 export const rankOf = (graph: Graph) =>
@@ -42,8 +43,8 @@ export function linkElements(graph: Graph, byId: Map<string, GraphNode>, theme: 
     EXPLORER.edges.restAlpha,
     theme,
   ).map((data, i) => {
-    const s = byId.get(data.source)!;
-    const t = byId.get(data.target)!;
+    const s = getOrThrow(byId, data.source, 'link source');
+    const t = getOrThrow(byId, data.target, 'link target');
     const cross = s.cluster !== t.cluster;
     return {
       data: { ...data, tint: clusterColour(s.cluster, homeDomain(s), theme) },
@@ -71,28 +72,40 @@ export const bundleWidth = (count: number, top: number) => {
 export const bundleGradient = (a: string, b: string, theme: MapTheme) =>
   `${clusterColour(a, undefined, theme)} ${clusterColour(b, undefined, theme)}`;
 
+/** A bundle's palette-dependent data: its first island's shade and the gradient. */
+export const bundleInk = (a: string, b: string, theme: MapTheme) => ({
+  colour: clusterColour(a, undefined, theme),
+  gradient: bundleGradient(a, b, theme),
+});
+
+type ClusterBundle = ReturnType<typeof clusterBundles>[number];
+type BundleLook = ReturnType<typeof bundleInk> & { width: number };
+
+/** The `i`th bundle edge, bending to alternate sides. */
+const bundleElement = (b: ClusterBundle, i: number, look: BundleLook) => ({
+  group: 'edges' as const,
+  data: {
+    id: `bundle:${i}`,
+    source: `anc:${b.a}`,
+    target: `anc:${b.b}`,
+    a: b.a,
+    b: b.b,
+    count: b.count,
+    curve: (i % 2 ? 1 : -1) * 24,
+    alpha: 0,
+    arrow: 'none',
+    ...look,
+  },
+  classes: 'bundle',
+});
+
 /** One bundle edge between each pair of linked islands. */
 export function bundleElements(graph: Graph, byId: Map<string, GraphNode>, theme: MapTheme) {
   const bundles = clusterBundles(graph.links, (id) => byId.get(id)?.cluster, 1);
   const top = Math.max(1, ...bundles.map((b) => b.count));
-  return bundles.map((b, i) => ({
-    group: 'edges' as const,
-    data: {
-      id: `bundle:${i}`,
-      source: `anc:${b.a}`,
-      target: `anc:${b.b}`,
-      a: b.a,
-      b: b.b,
-      count: b.count,
-      width: bundleWidth(b.count, top),
-      curve: (i % 2 ? 1 : -1) * 24,
-      alpha: 0,
-      colour: clusterColour(b.a, undefined, theme),
-      arrow: 'none',
-      gradient: bundleGradient(b.a, b.b, theme),
-    },
-    classes: 'bundle',
-  }));
+  return bundles.map((b, i) =>
+    bundleElement(b, i, { width: bundleWidth(b.count, top), ...bundleInk(b.a, b.b, theme) }),
+  );
 }
 
 /** The map's first elements: terms and relationships (anchors and bundles follow). */

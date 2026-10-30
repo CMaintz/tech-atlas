@@ -5,8 +5,9 @@
  */
 import { clusterColour, homeDomain, type MapTheme } from '../graph-style';
 import { edgeData } from '../graph-cytoscape';
+import { getOrThrow } from '../map-get';
 import type { MapParts } from './context';
-import { bundleGradient } from './elements';
+import { bundleInk } from './elements';
 import { mapStylesheet } from './style';
 import { tagColour } from './tags';
 
@@ -20,7 +21,7 @@ function rethemeLinks(p: MapParts, theme: MapTheme) {
   );
   p.links.forEach((e) => {
     const c = paint[Number(e.id().slice(1))];
-    const s = p.byId.get(e.data('source'))!;
+    const s = getOrThrow(p.byId, e.data('source'), 'link source');
     e.data({
       colour: c.colour,
       gradient: c.gradient,
@@ -30,12 +31,7 @@ function rethemeLinks(p: MapParts, theme: MapTheme) {
 }
 
 const rethemeBundles = (p: MapParts, theme: MapTheme) =>
-  p.bundleEdges.forEach((e) => {
-    e.data({
-      colour: clusterColour(e.data('a'), undefined, theme),
-      gradient: bundleGradient(e.data('a'), e.data('b'), theme),
-    });
-  });
+  p.bundleEdges.forEach((e) => void e.data(bundleInk(e.data('a'), e.data('b'), theme)));
 
 export function retheme(p: MapParts, theme: MapTheme) {
   p.cy.batch(() => {

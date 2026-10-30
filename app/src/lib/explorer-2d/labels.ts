@@ -17,7 +17,8 @@ export type LabelWidth = (n: cytoscape.NodeSingular, px: number) => number;
 
 /** Text widths measured on a canvas in the map's font, cached per term and size. */
 export function createMeasure(terms: cytoscape.NodeCollection) {
-  const measure = document.createElement('canvas').getContext('2d')!;
+  const measure = document.createElement('canvas').getContext('2d');
+  if (!measure) throw new Error('labels: no 2D canvas context to measure text with');
   const family = terms.first().style('font-family') as string;
   const textWidth = (text: string, px: number, weight = 'normal') => {
     measure.font = `${weight} ${px}px ${family}`;
@@ -26,8 +27,9 @@ export function createMeasure(terms: cytoscape.NodeCollection) {
   const cache = new Map<string, number>();
   const labelWidth: LabelWidth = (n, px) => {
     const key = `${n.id()}\u0000${px}\u0000${n.data('label')}`;
-    if (!cache.has(key)) cache.set(key, textWidth(n.data('label'), px));
-    return cache.get(key)!;
+    const width = cache.get(key) ?? textWidth(n.data('label'), px);
+    cache.set(key, width);
+    return width;
   };
   return { textWidth, labelWidth };
 }
@@ -58,10 +60,12 @@ const bySizeThenId = (a: cytoscape.NodeSingular, b: cytoscape.NodeSingular) =>
 type FontOf = (n: cytoscape.NodeSingular) => number;
 
 /** Terms whose names may show at rest, biggest first; v2 names none (only lit terms). */
-const restNamed = (p: MapParts, shown: cytoscape.NodeCollection, fontOf: FontOf, zoom: number) =>
-  shown
+function restNamed(p: MapParts, shown: cytoscape.NodeCollection, fontOf: FontOf) {
+  const zoom = p.cy.zoom();
+  return shown
     .filter((n) => p.opts.variant !== 'v2' && fontOf(n) > 0 && fontOf(n) * zoom >= MIN_LABEL_PX)
     .sort(bySizeThenId) as cytoscape.NodeCollection;
+}
 
 /** Hide the labels that are too small or would overlap (bigger terms win). */
 function cull(p: MapParts, m: Measure) {
@@ -70,7 +74,7 @@ function cull(p: MapParts, m: Measure) {
   if (far) syncHoverFont(p.terms, zoom);
   const fontOf: FontOf = (n) => (far ? n.data('farFont') : n.data('font'));
   const shown = p.terms.not('.gone') as cytoscape.NodeCollection;
-  const candidates = restNamed(p, shown, fontOf, zoom);
+  const candidates = restNamed(p, shown, fontOf);
   const below = (n: cytoscape.NodeSingular) =>
     labelBelow(n.position(), n.data('size'), m.labelWidth(n, fontOf(n)), fontOf(n));
   const hidden = cullLabels(
@@ -83,13 +87,8 @@ function cull(p: MapParts, m: Measure) {
   });
 }
 
-/**
- * Keep labels culled for the zoom: `recull` re-runs the cull once the zoom settles in a
- * new step (or at once with `force`), and the near/far switch follows every zoom.
- */
-export function createLabelCull(p: MapParts) {
-  const { bundleEdges } = p;
-  const m = createMeasure(p.terms);
+/** `recull` re-runs the cull once the zoom settles in a new step (or at once with `force`). */
+function createRecull(p: MapParts, m: Measure) {
   let cullAt = NaN;
   let timer = 0;
   const recull = (force = false) => {
@@ -100,15 +99,26 @@ export function createLabelCull(p: MapParts) {
     window.clearTimeout(timer);
     timer = window.setTimeout(() => cull(p, m), 120);
   };
-  const setFar = () => {
-    const far = p.cy.zoom() < FAR_ZOOM;
-    if (far !== p.terms.first().hasClass('far')) p.terms.toggleClass('far', far);
-    // Bundles are an overview device: zoomed in, the real edges take over.
-    if (far === bundleEdges.first().hasClass('near')) bundleEdges.toggleClass('near', !far);
+  return { recull, stop: () => window.clearTimeout(timer) };
+}
+
+/** The near/far look, which follows every zoom. */
+function syncFar({ cy, terms, bundleEdges }: MapParts) {
+  const far = cy.zoom() < FAR_ZOOM;
+  if (far !== terms.first().hasClass('far')) terms.toggleClass('far', far);
+  // Bundles are an overview device: zoomed in, the real edges take over.
+  if (far === bundleEdges.first().hasClass('near')) bundleEdges.toggleClass('near', !far);
+}
+
+/** Keep labels culled for the zoom; the near/far switch follows every zoom. */
+export function createLabelCull(p: MapParts) {
+  const m = createMeasure(p.terms);
+  const { recull, stop } = createRecull(p, m);
+  p.cy.on('zoom viewport', () => {
+    syncFar(p);
     // Everything else waits until the zoom settles (see `cull`): restyling mid-gesture
     // would throw away the viewport snapshot.
     recull();
-  };
-  p.cy.on('zoom viewport', setFar);
-  return { recull, labelWidth: m.labelWidth, stop: () => window.clearTimeout(timer) };
+  });
+  return { recull, labelWidth: m.labelWidth, stop };
 }
