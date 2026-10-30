@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
-import { fetchSemantic, nearBest, type Lang, type Scored } from './semantic';
+import { fetchSemantic, nearBest, type Scored, type SemanticQuery } from './semantic';
 
 export const DEBOUNCE_MS = 300;
 
-type Ask = { url: string; q: string; lang: Lang; key: string };
+type Ask = SemanticQuery & { key: string };
 type Answer = { key: string; hits: Scored[] };
 
 function askAfterPause(ask: Ask, answered: Map<string, Scored[]>, onAnswer: (a: Answer) => void) {
@@ -30,12 +30,8 @@ function recallOrAsk(ask: Ask, answered: Map<string, Scored[]>, onAnswer: (a: An
   return undefined;
 }
 
-export function useSemanticHits(
-  url: string,
-  q: string,
-  lang: Lang,
-  enabled: boolean,
-): Scored[] | null {
+export function useSemanticHits(query: SemanticQuery, enabled: boolean): Scored[] | null {
+  const { url, q, lang } = query;
   const [answer, setAnswer] = useState<Answer | null>(null);
   const answered = useRef(new Map<string, Scored[]>());
   const key = `${lang}:${q}`;

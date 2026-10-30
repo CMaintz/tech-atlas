@@ -76,13 +76,19 @@ function options3D(container: HTMLElement, graph: Graph, w: MapWiring): Map3DOpt
   };
 }
 
+/** Where a map is built, and the graph it is built from: it waits for both. */
+type MapSite = { box: RefObject<HTMLElement | null>; graph: Graph | null };
+
 /** The 2D map in `box`: built once the graph is in, rethemed live, told what to show. */
-export function useMap2D(
-  box: RefObject<HTMLElement | null>,
-  graph: Graph | null,
-  w: MapWiring,
-  view: View,
-) {
+export function useMap2D(site: MapSite, w: MapWiring, view: View) {
+  const map = useBuilt2D(site, w);
+  useEffect(() => map.current?.retheme(w.theme), [w.theme]);
+  useShow2D(map, site.graph, view);
+  return map;
+}
+
+/** Only a new graph rebuilds the 2D map; the wiring it was built with stays. */
+function useBuilt2D({ box, graph }: MapSite, w: MapWiring) {
   const map = useRef<Map2D | null>(null);
   useEffect(() => {
     if (!graph || !box.current) return;
@@ -93,8 +99,6 @@ export function useMap2D(
       map.current = null;
     };
   }, [graph]);
-  useEffect(() => map.current?.retheme(w.theme), [w.theme]);
-  useShow2D(map, graph, view);
   return map;
 }
 
@@ -119,22 +123,16 @@ function useShow2D(map: RefObject<Map2D | null>, graph: Graph | null, v: View) {
 }
 
 /** The 3D map in `box`: built (lazily loaded) the first time 3D is opened, then kept. */
-export function useMap3D(
-  box: RefObject<HTMLElement | null>,
-  graph: Graph | null,
-  mode: Mode,
-  w: MapWiring,
-) {
+export function useMap3D({ box, graph }: MapSite, mode: Mode, w: MapWiring) {
   const [map, setMap] = useState<Map3D | null>(null);
   useEffect(() => {
-    if (mode !== '3d' || map || !graph || !box.current) return;
+    const container = box.current;
+    if (mode !== '3d' || map || !graph || !container) return;
     let cancelled = false;
-    import('./explorer-3d')
-      .then(({ createMap3D }) => createMap3D(options3D(box.current!, graph, w)))
-      .then((m) => {
-        if (cancelled) m.destroy();
-        else setMap(m);
-      });
+    loadMap3D(options3D(container, graph, w)).then((m) => {
+      if (cancelled) m.destroy();
+      else setMap(m);
+    });
     return () => {
       cancelled = true;
     };
@@ -142,6 +140,10 @@ export function useMap3D(
   useEffect(() => () => map?.destroy(), [map]);
   return map;
 }
+
+/** The 3D map's code is fetched only when it is first built. */
+const loadMap3D = (o: Map3DOptions) =>
+  import('./explorer-3d').then(({ createMap3D }) => createMap3D(o));
 
 type Shown = {
   mode: Mode;
@@ -199,8 +201,7 @@ export function useKeyNav({ host, mode, map2d, map3d, onPoint }: Moved) {
 export function useLabMaps(
   onMaps: ((maps: { map2d: Map2D | null; map3d: Map3D | null }) => void) | undefined,
   graph: Graph | null,
-  map2d: RefObject<Map2D | null>,
-  map3d: Map3D | null,
+  { map2d, map3d }: { map2d: RefObject<Map2D | null>; map3d: Map3D | null },
 ) {
   useEffect(() => onMaps?.({ map2d: map2d.current, map3d }), [graph, map3d]);
 }

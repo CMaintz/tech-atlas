@@ -102,7 +102,7 @@ function parseHits(body: { hits?: unknown }): Scored[] {
   });
 }
 
-type SemanticQuery = { url: string; q: string; lang: Lang };
+export type SemanticQuery = { url: string; q: string; lang: Lang };
 
 export async function fetchSemantic(
   { url, q, lang }: SemanticQuery,

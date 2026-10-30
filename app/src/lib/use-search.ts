@@ -44,7 +44,7 @@ export function useSearch(o: SearchOptions, query: string) {
   const q = query.trim();
   const intent = index.engine ? parseIntent(query) : null;
   const { natural, lexicalIds, nameIds } = rankLexical(index.engine, q, Boolean(intent));
-  const semantic = useSemanticHits(o.semanticUrl, q, o.lang, natural);
+  const semantic = useSemanticHits({ url: o.semanticUrl, q, lang: o.lang }, natural);
   const results = mergeHits(lexicalIds, natural ? semantic : null, { names: nameIds, max: MAX });
   const labels = { lang: o.lang, langBase: o.langBase, labels: o.intentLabels };
   const disambiguate = { langBase: o.langBase, template: o.disambiguationLabel };

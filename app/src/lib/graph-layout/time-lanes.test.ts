@@ -6,10 +6,10 @@ import { term } from './test-fixtures';
 
 describe('timeLanes', () => {
   const nodes = [
-    term('a', 'security', 'fundamentals', 0, 1995),
-    term('b', 'security', 'fundamentals', 0, 1995),
-    term('c', 'cs', 'networking', 0, 2010),
-    term('u', 'cs', 'networking', 0),
+    term('a', { domain: 'security', cluster: 'fundamentals', depth: 0, era: 1995 }),
+    term('b', { domain: 'security', cluster: 'fundamentals', depth: 0, era: 1995 }),
+    term('c', { domain: 'cs', cluster: 'networking', depth: 0, era: 2010 }),
+    term('u', { domain: 'cs', cluster: 'networking', depth: 0 }),
   ];
   const t = timeLanes(nodes);
   it('hides undated terms instead of piling them into a grid', () => {

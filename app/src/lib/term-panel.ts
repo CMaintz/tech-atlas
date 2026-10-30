@@ -42,12 +42,9 @@ export const neighbourIds = (graph: Graph, id: string): string[] => [
   ),
 ];
 
-export function neighbourhoodGraph(
-  graph: Graph,
-  id: string,
-  lang: 'en' | 'da',
-  edgeLabels: Record<string, string>,
-) {
+type MiniWording = { lang: 'en' | 'da'; edgeLabels: Record<string, string> };
+
+export function neighbourhoodGraph(graph: Graph, id: string, { lang, edgeLabels }: MiniWording) {
   const byId = new Map(graph.nodes.map((n) => [n.id, n]));
   const links = graph.links.filter(
     (l) => (l.source === id || l.target === id) && l.source !== l.target,

@@ -25,7 +25,7 @@ function ReadMore({ panel }: PartProps) {
 
 /** Expanded only: the term's neighbourhood graph beside the text. */
 function Neighbourhood({ panel: { props } }: PartProps) {
-  const mini = neighbourhoodGraph(props.graph, props.id, props.lang, props.edgeLabels);
+  const mini = neighbourhoodGraph(props.graph, props.id, props);
   return (
     <aside aria-label={props.ui.connections} class="lg:sticky lg:top-0 lg:self-start">
       <PanelHeading spacing="mb-2">{props.ui.connections}</PanelHeading>

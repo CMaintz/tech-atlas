@@ -98,11 +98,11 @@ export function useMapPair(
   const host = useRef<HTMLDivElement>(null);
   const { card, wiring } = useWiring(props, theme, selection);
   const onPoint = wiring.onPoint;
-  const map2d = useMap2D(box2d, graph, wiring, view);
+  const map2d = useMap2D({ box: box2d, graph }, wiring, view);
   const { mode, spin } = controls;
-  const map3d = useMap3D(box3d, graph, mode, wiring);
+  const map3d = useMap3D({ box: box3d, graph }, mode, wiring);
   useKeyNav({ host, mode, map2d, map3d, onPoint });
   useMap3DView(map3d, { mode, spin, theme, map2d, onPoint }, view);
-  useLabMaps(props.lab?.onMaps, graph, map2d, map3d);
+  useLabMaps(props.lab?.onMaps, graph, { map2d, map3d });
   return { box2d, box3d, host, map2d, map3d, card, onPoint };
 }

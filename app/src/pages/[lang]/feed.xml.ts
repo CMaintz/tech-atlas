@@ -2,12 +2,11 @@ import type { APIRoute, GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
 import { termFeed, toRss } from '../../lib/feed';
 import { siteRoot } from '../../lib/export-data';
-import { LANGS, type Lang } from '../../lib/site';
+import { langParams, type Lang } from '../../lib/site';
 import { termAddedDates } from '../../lib/term-dates';
 import { UI_EXTRA } from '../../lib/ui-extra';
 
-export const getStaticPaths = (() =>
-  LANGS.map((lang) => ({ params: { lang } }))) satisfies GetStaticPaths;
+export const getStaticPaths = langParams satisfies GetStaticPaths;
 
 export const GET: APIRoute = async ({ params, site }) => {
   const lang = params.lang as Lang;

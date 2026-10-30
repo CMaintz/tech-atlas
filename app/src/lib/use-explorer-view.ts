@@ -24,12 +24,13 @@ export function useViewControls(labMode?: Mode) {
 }
 export type ViewControls = ReturnType<typeof useViewControls>;
 
-export function useVisible(
-  graph: Graph | null,
-  { domains, families }: Filters,
-  { selected, hops }: Selection,
-  { mode, layout }: ViewControls,
-) {
+/** What the reader has chosen to see. */
+type Chosen = { filters: Filters; selection: Selection };
+
+export function useVisible(graph: Graph | null, reader: Chosen, controls: ViewControls) {
+  const { domains, families } = reader.filters;
+  const { selected, hops } = reader.selection;
+  const { mode, layout } = controls;
   const ids = useMemo<Set<string>>(() => {
     if (!graph) return new Set();
     const datedOnly = mode === '2d' && layout === 'time';

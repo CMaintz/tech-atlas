@@ -5,11 +5,11 @@ import { term } from './test-fixtures';
 
 describe('depthLanes', () => {
   const nodes = [
-    term('s0', 'security', 'fundamentals', 0),
-    term('s1', 'security', 'fundamentals', 1),
-    term('c0', 'cs', 'networking', 0),
-    term('c1', 'cs', 'networking', 1),
-    term('c2', 'cs', 'networking', 1),
+    term('s0', { domain: 'security', cluster: 'fundamentals', depth: 0 }),
+    term('s1', { domain: 'security', cluster: 'fundamentals', depth: 1 }),
+    term('c0', { domain: 'cs', cluster: 'networking', depth: 0 }),
+    term('c1', { domain: 'cs', cluster: 'networking', depth: 1 }),
+    term('c2', { domain: 'cs', cluster: 'networking', depth: 1 }),
   ];
   const { positions, lanes, ticks } = depthLanes(nodes, [{ source: 'c2', target: 'c0' }]);
   it('puts foundations at the bottom, one lane per domain, rows shared across lanes', () => {
@@ -23,7 +23,9 @@ describe('depthLanes', () => {
     expect(ticks.map((t) => t.label)).toEqual(['0', '1']);
   });
   it('wraps long rows so a lane stays compact', () => {
-    const many = Array.from({ length: 60 }, (_, i) => term(`t${i}`, 'ai', 'llm', 0));
+    const many = Array.from({ length: 60 }, (_, i) =>
+      term(`t${i}`, { domain: 'ai', cluster: 'llm', depth: 0 }),
+    );
     const p = depthLanes(many, []).positions;
     const ys = new Set(Object.values(p).map((q) => q.y));
     expect(ys.size).toBeGreaterThan(1);
@@ -37,7 +39,11 @@ describe('depthLanes', () => {
 
 describe('neighbourMap', () => {
   it('links both ends and ignores links to unknown terms', () => {
-    const nodes = [term('a', 'cs', 'web'), term('b', 'cs', 'web'), term('c', 'cs', 'web')];
+    const nodes = [
+      term('a', { domain: 'cs', cluster: 'web' }),
+      term('b', { domain: 'cs', cluster: 'web' }),
+      term('c', { domain: 'cs', cluster: 'web' }),
+    ];
     const near = neighbourMap(nodes, [
       { source: 'a', target: 'b' },
       { source: 'b', target: 'ghost' },

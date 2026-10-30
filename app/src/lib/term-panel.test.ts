@@ -78,7 +78,10 @@ describe('neighbourIds / neighbourhoodGraph', () => {
   });
 
   it('builds the focal term plus neighbours with authored, labelled edges', () => {
-    const g = neighbourhoodGraph(graph, 'b', 'da', { requires: 'Forudsætter' });
+    const g = neighbourhoodGraph(graph, 'b', {
+      lang: 'da',
+      edgeLabels: { requires: 'Forudsætter' },
+    });
     expect(g.nodes.map((n) => [n.id, n.label, n.focus])).toEqual([
       ['b', 'b-da', true],
       ['a', 'a-da', false],

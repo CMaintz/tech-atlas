@@ -4,11 +4,12 @@ import { searchTerms } from './canvas-explorer';
 import { looksNaturalLanguage, mergeHits } from './semantic';
 import { useSemanticHits } from './use-semantic';
 
+type SearchSetting = { lang: 'en' | 'da'; semanticUrl?: string };
+
 export function useTermSearch(
   graph: Graph | null,
   byId: ReadonlyMap<string, GraphNode>,
-  lang: 'en' | 'da',
-  semanticUrl = '',
+  { lang, semanticUrl = '' }: SearchSetting,
 ) {
   const [query, setQuery] = useState('');
   const q = query.trim();
@@ -17,7 +18,7 @@ export function useTermSearch(
     [graph, q, lang],
   );
   const natural = !!graph && looksNaturalLanguage(q, named.length);
-  const meaning = useSemanticHits(semanticUrl, q, lang, natural);
+  const meaning = useSemanticHits({ url: semanticUrl, q, lang }, natural);
   const matches = mergeHits(named, natural ? meaning : null, { known: (id) => byId.has(id) });
   return { query, setQuery, matches };
 }
