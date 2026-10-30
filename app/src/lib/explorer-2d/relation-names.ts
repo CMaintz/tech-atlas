@@ -12,6 +12,7 @@ import {
   labelPov,
   relationLabel,
   rotatedSize,
+  type LabelBox,
   type RelationNames,
 } from '../explorer-focus';
 import { collectEdges } from './collect';
@@ -40,20 +41,29 @@ function povOf(p: MapParts, s: MapState, v: View) {
   return !pov || !node || node.empty() || node.hasClass('gone') ? null : pov;
 }
 
-/** Write each of `pov`'s links' names and show those that do not overlap. */
-function nameLinks(p: MapParts, pov: string, names: RelationNames) {
-  const size = EXPLORER.edgeLabels.px2d / Math.min(1, p.cy.zoom());
-  const edges = litOf(p, pov)
+/** Where a link's name of `size` px sits: just above the link's middle, turned along it. */
+function nameBox(e: cytoscape.EdgeSingular, text: string, size: number): LabelBox {
+  const a = e.source().position();
+  const b = e.target().position();
+  const r = rotatedSize(text.length * size * 0.55, size * 1.3, Math.atan2(b.y - a.y, b.x - a.x));
+  return { id: e.id(), x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 - 6, ...r };
+}
+
+/** A term's drawn links with their graph links, heaviest first (their names win overlaps). */
+const heaviestFirst = (p: MapParts, id: string) =>
+  litOf(p, id)
     .toArray()
     .map((e) => ({ e, l: linkOf(p, e) }))
     .sort((a, b) => b.l.weight - a.l.weight);
+
+/** Write each of `pov`'s links' names and show those that do not overlap. */
+function nameLinks(p: MapParts, pov: string, names: RelationNames) {
+  const size = EXPLORER.edgeLabels.px2d / Math.min(1, p.cy.zoom());
+  const edges = heaviestFirst(p, pov);
   const boxes = edges.map(({ e, l }) => {
     const text = relationLabel(l, pov, names.label, names.inverse);
     e.data({ rel: text, relFont: size });
-    const a = e.source().position();
-    const b = e.target().position();
-    const r = rotatedSize(text.length * size * 0.55, size * 1.3, Math.atan2(b.y - a.y, b.x - a.x));
-    return { id: e.id(), x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 - 6, ...r };
+    return nameBox(e, text, size);
   });
   const kept = cullBoxes(boxes);
   const named = collectEdges(

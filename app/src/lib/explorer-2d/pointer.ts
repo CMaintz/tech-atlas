@@ -14,8 +14,14 @@ import type { HoverPart } from './hover';
 import type { RelationNamesPart } from './relation-names';
 
 type PointerDeps = { hover: HoverPart; names: RelationNamesPart };
-/** A button is down; the term under the pointer, hovered or not. */
-type Pointer = { pressing: boolean; under: cytoscape.NodeSingular | null };
+/**
+ * A button is down; the term under the pointer, hovered or not; and the gate that holds
+ * hover back while the map moves.
+ */
+type Pointer = { pressing: boolean; under: cytoscape.NodeSingular | null; gate: MotionGate };
+
+/** Hover may follow the pointer: no button down, and the map still. */
+const mayHover = (ptr: Pointer) => !ptr.pressing && ptr.gate.open;
 
 /** Only a press on the background pans: an open hand at rest, a closed one and a ring. */
 function bindPress(p: MapParts, ptr: Pointer, drag: DragFeedback) {
@@ -58,31 +64,36 @@ function createMotion(p: MapParts, s: MapState, deps: PointerDeps) {
   return { gate, moved, stop: () => window.clearTimeout(quiet) };
 }
 
+/**
+ * The pointer moving again opens the gate once the map is still; a term already under it
+ * (the view slid under a resting pointer) is hovered then.
+ */
+const resumeHover = (ptr: Pointer, hover: HoverPart) => () => {
+  const was = ptr.gate.open;
+  ptr.gate.pointer();
+  if (!was && ptr.under && mayHover(ptr)) hover.point(ptr.under);
+};
+
 /** Hover terms under a still pointer; returns the pointermove listener to remove. */
-function bindTermHover(p: MapParts, ptr: Pointer, gate: MotionGate, hover: HoverPart) {
+function bindTermHover(p: MapParts, ptr: Pointer, hover: HoverPart) {
   p.cy.on('mouseover', 'node[size]', (e) => {
     ptr.under = e.target as cytoscape.NodeSingular;
-    if (ptr.pressing || !gate.open) return;
-    hover.point(ptr.under);
+    if (mayHover(ptr)) hover.point(ptr.under);
   });
   p.cy.on('mouseout', 'node[size]', () => {
     ptr.under = null;
     hover.unhover();
     p.opts.onPoint?.(null);
   });
-  const onPointerMove = () => {
-    const was = gate.open;
-    gate.pointer();
-    if (!was && gate.open && ptr.under && !ptr.pressing) hover.point(ptr.under);
-  };
+  const onPointerMove = resumeHover(ptr, hover);
   p.opts.container.addEventListener('pointermove', onPointerMove);
   return onPointerMove;
 }
 
 /** A named link under the pointer shows its own name; taps select and open terms. */
-function bindLinksAndTaps(p: MapParts, ptr: Pointer, gate: MotionGate, names: RelationNamesPart) {
+function bindLinksAndTaps(p: MapParts, ptr: Pointer, names: RelationNamesPart) {
   p.cy.on('mouseover', 'edge', (e) => {
-    if (gate.open && !ptr.pressing && names.named().contains(e.target)) e.target.addClass('rlh');
+    if (mayHover(ptr) && names.named().contains(e.target)) e.target.addClass('rlh');
   });
   p.cy.on('mouseout', 'edge', (e) => void e.target.removeClass('rlh'));
   p.cy.on('tap', 'node[size]', (e) => p.opts.onSelect(e.target.id()));
@@ -90,19 +101,23 @@ function bindLinksAndTaps(p: MapParts, ptr: Pointer, gate: MotionGate, names: Re
   p.cy.on('dbltap', 'node[size]', (e) => p.opts.onOpen(e.target.id()));
 }
 
+/** The view moving takes the hover card away and holds hover until it is still. */
+const bindViewport = (p: MapParts, moved: () => void) =>
+  p.cy.on('viewport', () => {
+    p.opts.onPoint?.(null);
+    moved();
+  });
+
 /** Wire the pointer to the map; `moved` is also called when the map is moved in code. */
 export function bindPointer(p: MapParts, s: MapState, deps: PointerDeps) {
-  const ptr: Pointer = { pressing: false, under: null };
+  const motion = createMotion(p, s, deps);
+  const ptr: Pointer = { pressing: false, under: null, gate: motion.gate };
   p.opts.container.style.cursor = 'grab';
   const drag = createDragFeedback(p.opts.container);
   bindPress(p, ptr, drag);
-  const motion = createMotion(p, s, deps);
-  p.cy.on('viewport', () => {
-    p.opts.onPoint?.(null);
-    motion.moved();
-  });
-  const onPointerMove = bindTermHover(p, ptr, motion.gate, deps.hover);
-  bindLinksAndTaps(p, ptr, motion.gate, deps.names);
+  bindViewport(p, motion.moved);
+  const onPointerMove = bindTermHover(p, ptr, deps.hover);
+  bindLinksAndTaps(p, ptr, deps.names);
   const destroy = () => {
     motion.stop();
     p.opts.container.removeEventListener('pointermove', onPointerMove);

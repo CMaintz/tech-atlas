@@ -13,6 +13,8 @@ import { FAR_ZOOM, type LabelWidth } from './labels';
 import type { View } from './types';
 
 type HoverDeps = { paintNames: () => void; labelWidth: LabelWidth };
+/** What hover works with: the map, its state and the parts it calls. */
+type Hovering = { p: MapParts; s: MapState; d: HoverDeps };
 
 /** Over a selection: the hovered term and its link to the selection come forward. */
 function preview(p: MapParts, n: cytoscape.NodeSingular, sel: string | null) {
@@ -49,13 +51,13 @@ export function crowdedLabels(p: MapParts, lit: cytoscape.NodeCollection, width:
   return lit.filter((m) => hidden.has(m.id()));
 }
 
-/** Light a term's neighbourhood and fade the rest. */
-function lightHood(p: MapParts, s: MapState, n: cytoscape.NodeSingular, deps: HoverDeps) {
-  const { extra, hood } = hoodOf(p, n, s.view!);
+/** Light a term's neighbourhood in view `v` and fade the rest. */
+function lightHood({ p, s, d }: Hovering, n: cytoscape.NodeSingular, v: View) {
+  const { extra, hood } = hoodOf(p, n, v);
   const lit = hood
     .nodes('[size]')
     .sort((a, b) => (a.same(n) ? -1 : b.same(n) ? 1 : b.data('size') - a.data('size')));
-  const crowded = crowdedLabels(p, lit, deps.labelWidth);
+  const crowded = crowdedLabels(p, lit, d.labelWidth);
   p.cy.batch(() => {
     extra.removeClass('off').addClass('hoverlink');
     s.shown.not(hood).addClass('faded');
@@ -66,9 +68,11 @@ function lightHood(p: MapParts, s: MapState, n: cytoscape.NodeSingular, deps: Ho
 }
 
 /** Hover a term: its neighbourhood, or a preview over a selection. */
-function hover(p: MapParts, s: MapState, n: cytoscape.NodeSingular, deps: HoverDeps) {
+function hover(h: Hovering, n: cytoscape.NodeSingular) {
+  const { p, s, d } = h;
+  const v = s.view;
+  if (!v) return;
   s.hovered = n;
-  const v = s.view!;
   p.opts.container.style.cursor = 'pointer';
   const f = effectiveFocus({
     selected: v.selected,
@@ -77,13 +81,13 @@ function hover(p: MapParts, s: MapState, n: cytoscape.NodeSingular, deps: HoverD
     moving: false,
   });
   if (f.hood) {
-    lightHood(p, s, n, deps);
-    deps.paintNames();
+    lightHood(h, n, v);
+    d.paintNames();
   } else if (f.preview) preview(p, n, v.selected);
 }
 
 /** Undo the hover's look. */
-function unhover(p: MapParts, s: MapState, deps: HoverDeps) {
+function unhover({ p, s, d }: Hovering) {
   if (!s.hovered) return;
   const was = s.hovered;
   s.hovered = null;
@@ -95,29 +99,35 @@ function unhover(p: MapParts, s: MapState, deps: HoverDeps) {
     was.connectedEdges('.hoverlink').removeClass('hoverlink').addClass('off');
     p.cy.nodes('.tag').removeClass('faded');
   });
-  deps.paintNames();
+  d.paintNames();
   p.opts.container.style.cursor = 'grab';
+}
+
+/** Tell the Explorer the pointer is over a term (to prefetch it, and for the hover card). */
+function report(p: MapParts, n: cytoscape.NodeSingular) {
+  p.opts.onHover?.(n.id());
+  const at = n.renderedPosition();
+  p.opts.onPoint?.({ id: n.id(), x: at.x, y: at.y });
 }
 
 /**
  * Hover with a little intent: `point` reports the term at once (prefetch, hover card) and
  * hovers it after `EXPLORER.hoverDelayMs`; `unhover` cancels a pending hover too.
  */
-export function createHover(p: MapParts, s: MapState, deps: HoverDeps) {
+export function createHover(p: MapParts, s: MapState, d: HoverDeps) {
+  const h: Hovering = { p, s, d };
   let timer = 0;
   const off = () => {
     window.clearTimeout(timer);
-    unhover(p, s, deps);
+    unhover(h);
   };
   const point = (n: cytoscape.NodeSingular) => {
-    p.opts.onHover?.(n.id());
-    const at = n.renderedPosition();
-    p.opts.onPoint?.({ id: n.id(), x: at.x, y: at.y });
+    report(p, n);
     window.clearTimeout(timer);
     timer = window.setTimeout(() => {
       if (s.hovered?.same(n)) return;
       off();
-      hover(p, s, n, deps);
+      hover(h, n);
     }, EXPLORER.hoverDelayMs);
   };
   return { point, unhover: off, stop: () => window.clearTimeout(timer) };

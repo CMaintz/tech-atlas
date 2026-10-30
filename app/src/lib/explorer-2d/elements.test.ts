@@ -5,7 +5,7 @@ import { sizeForRank } from '../graph-layout';
 import {
   anchorElements,
   bundleElements,
-  bundleGradient,
+  bundleInk,
   bundleWidth,
   linkElements,
   mapElements,
@@ -68,7 +68,7 @@ describe('bundles', () => {
       ['anc:fundamentals', 'anc:networking', 1],
     ]);
     expect(bundles.map((b) => b.data.curve)).toEqual([-24, 24, -24]);
-    expect(bundles[0].data.gradient).toBe(bundleGradient('awareness', 'fundamentals', 'light'));
+    expect(bundles[0].data.gradient).toBe(bundleInk('awareness', 'fundamentals', 'light').gradient);
   });
   it('hang off an anchor at each island centre', () => {
     expect(anchorElements(['a'], { a: { x: 1, y: 2 } })).toEqual([
