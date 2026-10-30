@@ -3,6 +3,7 @@
  * pulls towards cluster, galaxy and depth, and a damped integration step.
  */
 import type { Paintable } from '../graph-style';
+import { getOrThrow } from '../map-get';
 
 export type Point3 = { x: number; y: number; z: number };
 export type Spring = { a: number; b: number; len: number; k: number };
@@ -87,7 +88,7 @@ function pullHome(g: Galaxy, alpha: number): void {
   const sums = clusterSums(g);
   const k = cfg.clusterPull * alpha;
   g.nodes.forEach((node, i) => {
-    const c = sums.get(node.cluster)!;
+    const c = getOrThrow(sums, node.cluster, 'cluster sums');
     const [P, V, home] = [g.P[i], g.V[i], g.home[i]];
     V.x += (c.x / c.n - P.x) * k;
     V.z += (c.z / c.n - P.z) * k;

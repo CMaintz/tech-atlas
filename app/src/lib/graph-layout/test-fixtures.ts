@@ -1,6 +1,8 @@
 export const on = (...d: string[]) => new Set(d);
 
-export const term = (id: string, domain: string, cluster: string, depth = 0, era?: number) => ({
+type TermAt = { domain: string; cluster: string; depth?: number; era?: number };
+
+export const term = (id: string, { domain, cluster, depth = 0, era }: TermAt) => ({
   id,
   domain: [domain],
   cluster,

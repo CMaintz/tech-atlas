@@ -25,13 +25,13 @@ export function useExplorer(props: ExplorerProps) {
   const reader = useReader(props);
   const { graph, index } = useExplorerGraph(props, reader);
   const controls = useViewControls(props.lab?.mode);
-  const shown = useVisible(graph, reader.filters, reader.selection, controls);
+  const shown = useVisible(graph, reader, controls);
   const paint = usePaint(controls.colourMode, reader.filters.domains, theme);
   const hoodLit = props.variant === 'v2';
   const view = viewOf({ controls, ids: shown.ids, paint, hoodLit, ...reader });
   const maps = useMapPair(props, { graph, theme, selection: reader.selection, controls, view });
   const bar = useBar(controls.mode, props.lang);
-  const search = useTermSearch(graph, index.byId, props.lang, props.semanticUrl);
+  const search = useTermSearch(graph, index.byId, props);
   const x = { theme, graph, index, ...reader, controls, shown, maps, bar, search };
   return { ...x, pick: (id: string) => pick(id, x), findRoute: () => findRoute(x) };
 }

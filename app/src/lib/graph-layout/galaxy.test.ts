@@ -6,8 +6,12 @@ import { term } from './test-fixtures';
 
 describe('galaxyLayout', () => {
   const nodes = [
-    ...Array.from({ length: 12 }, (_, i) => term(`s${i}`, 'security', `sc${i % 2}`, i % 3)),
-    ...Array.from({ length: 12 }, (_, i) => term(`a${i}`, 'ai', `ac${i % 2}`, i % 3)),
+    ...Array.from({ length: 12 }, (_, i) =>
+      term(`s${i}`, { domain: 'security', cluster: `sc${i % 2}`, depth: i % 3 }),
+    ),
+    ...Array.from({ length: 12 }, (_, i) =>
+      term(`a${i}`, { domain: 'ai', cluster: `ac${i % 2}`, depth: i % 3 }),
+    ),
     { id: 'bridge', domain: ['security', 'ai'], cluster: 'sc0', depth: 1 },
   ];
   const links = [
@@ -47,7 +51,10 @@ describe('galaxyLayout', () => {
 describe('galaxyAnchors', () => {
   it('spaces domain galaxies evenly round the ring, in domain order', () => {
     const r = EXPLORER.three.ringRadius;
-    const anchors = galaxyAnchors([term('p', 'platform', 'cloud'), term('s', 'security', 'x')]);
+    const anchors = galaxyAnchors([
+      term('p', { domain: 'platform', cluster: 'cloud' }),
+      term('s', { domain: 'security', cluster: 'x' }),
+    ]);
     expect([...anchors.keys()]).toEqual(['security', 'platform']);
     expect(anchors.get('security')!.x).toBeCloseTo(r);
     expect(anchors.get('platform')!.x).toBeCloseTo(-r);

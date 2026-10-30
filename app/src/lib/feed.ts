@@ -80,8 +80,10 @@ export function newest<T extends { id: string }>(
   limit: number,
 ): (T & { date: string })[] {
   return terms
-    .filter((t) => added.has(t.id))
-    .map((t) => ({ ...t, date: added.get(t.id)! }))
+    .flatMap((t) => {
+      const date = added.get(t.id);
+      return date === undefined ? [] : [{ ...t, date }];
+    })
     .sort((a, b) => Date.parse(b.date) - Date.parse(a.date) || a.id.localeCompare(b.id))
     .slice(0, limit);
 }

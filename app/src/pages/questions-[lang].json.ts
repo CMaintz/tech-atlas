@@ -1,10 +1,9 @@
 import type { APIRoute, GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
 import { clientQuestions, type NamedTerm } from '../lib/question-rules';
-import { LANGS, type Lang } from '../lib/site';
+import { langParams, type Lang } from '../lib/site';
 
-export const getStaticPaths = (() =>
-  LANGS.map((lang) => ({ params: { lang } }))) satisfies GetStaticPaths;
+export const getStaticPaths = langParams satisfies GetStaticPaths;
 
 export const GET: APIRoute = async ({ params }) => {
   const [terms, files] = await Promise.all([getCollection('terms'), getCollection('questions')]);
