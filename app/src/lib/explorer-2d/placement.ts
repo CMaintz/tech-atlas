@@ -12,31 +12,27 @@ import { frame } from './camera';
 import type { MapParts, MapState } from './context';
 import type { SetRoutes } from './edges';
 import { islandMap, shapeIslands, type IslandGeometry, type IslandTune } from './islands';
-import { tagHidden, tagsFor } from './tags';
+import { tagHidden, tagsFor, type TagSource } from './tags';
 import type { View } from './types';
 
 /** The depth and time lanes, each computed on first use and kept. */
 function laneCache(graph: MapParts['graph']) {
   const lanes = new Map<'depth' | 'time', LaneLayout>();
   return (layout: 'depth' | 'time') => {
-    if (!lanes.has(layout))
-      lanes.set(
-        layout,
-        layout === 'depth' ? depthLanes(graph.nodes, graph.links) : timeLanes(graph.nodes),
-      );
-    return lanes.get(layout)!;
+    let lane = lanes.get(layout);
+    if (!lane) {
+      lane = layout === 'depth' ? depthLanes(graph.nodes, graph.links) : timeLanes(graph.nodes);
+      lanes.set(layout, lane);
+    }
+    return lane;
   };
 }
 
 /** The whole-graph layouts: the island map now, depth and time lanes when first used. */
-export function createLayouts(
-  p: Pick<MapParts, 'graph' | 'clusterOf' | 'opts'>,
-  islands: IslandGeometry,
-) {
+export function createLayouts(p: Pick<MapParts, 'graph' | 'opts'>, islands: IslandGeometry) {
   const everyone = new Set(p.graph.nodes.map((n) => n.id));
-  const graph = { links: p.graph.links, clusterOf: p.clusterOf };
   const wide = () => p.opts.container.clientWidth >= p.opts.container.clientHeight;
-  const forceMap = () => islandMap(islands, graph, everyone, wide());
+  const forceMap = () => islandMap(islands, everyone, wide());
   const layouts = {
     islands,
     force: forceMap(),
@@ -53,18 +49,27 @@ export function createLayouts(
 export type Layouts = ReturnType<typeof createLayouts>;
 
 type PlaceDeps = {
+  layouts: Layouts;
   routes: SetRoutes;
   recull: (force?: boolean) => void;
   paintNames: () => void;
   moved: () => void;
 };
 
-/** A view's term positions, tags and island centres (force only). */
-function targetFor(p: MapParts, s: MapState, layouts: Layouts, v: View) {
-  const m = v.layout === 'force' ? layouts.force : layouts.lanes(v.layout);
-  const tags = tagsFor(v.layout, m, layouts.islands.sizeOf, p.opts, s.theme);
-  const centre = v.layout === 'force' ? layouts.force.centre : undefined;
-  return { positions: m.positions, tags, centre };
+/** What placing a layout works with: the map, its state and the parts it calls. */
+type Placing = { p: MapParts; s: MapState; d: PlaceDeps };
+
+/** A view's term positions, island centres (force only) and what its tags are written from. */
+type Target = { positions: Record<string, Point>; centre?: Record<string, Point>; tags: TagSource };
+
+function targetFor(layouts: Layouts, v: View): Target {
+  if (v.layout === 'force') {
+    const map = layouts.force;
+    const tags: TagSource = { layout: 'force', map, sizeOf: layouts.islands.sizeOf };
+    return { positions: map.positions, centre: map.centre, tags };
+  }
+  const lanes = layouts.lanes(v.layout);
+  return { positions: lanes.positions, tags: { layout: v.layout, lanes } };
 }
 
 const setTags = (p: MapParts, defs: cytoscape.ElementDefinition[]) =>
@@ -86,6 +91,14 @@ const moveAnchors = (p: MapParts, clusterIds: string[], centre: Record<string, P
     clusterIds.forEach((c) => centre[c] && p.cy.getElementById(`anc:${c}`).position(centre[c])),
   );
 
+/** A layout's tags and island anchors, put in place before the terms move. */
+function markLayout({ p, s, d }: Placing, v: View, t: Target) {
+  s.centreNow = t.centre;
+  setTags(p, tagsFor(t.tags, p.opts, s.theme));
+  refreshTags(p, v);
+  if (t.centre) moveAnchors(p, d.layouts.islands.clusterIds, t.centre);
+}
+
 /** Glide terms to their new positions; `done` once they land. */
 const glide = (
   move: cytoscape.NodeCollection,
@@ -105,38 +118,30 @@ const glide = (
     .run();
 
 /** Terms are in place: routes back, labels culled, the view framed, names placed. */
-function landed(
-  p: MapParts,
-  s: MapState,
-  deps: PlaceDeps,
-  v: View,
-  centre?: Record<string, Point>,
-) {
+function landed({ p, s, d }: Placing, v: View, centre?: Record<string, Point>) {
   s.moving = false;
-  deps.routes(v.layout === 'force' && v.showAll, centre);
-  deps.recull(true);
+  d.routes(v.layout === 'force' && v.showAll, centre);
+  d.recull(true);
   frame(p, s);
-  deps.paintNames();
+  d.paintNames();
 }
 
 /** Put a view's layout in place: at once, or gliding (not under reduced motion). */
-export function createPlacement(p: MapParts, s: MapState, layouts: Layouts, deps: PlaceDeps) {
+export function createPlacement(p: MapParts, s: MapState, d: PlaceDeps) {
+  const placing: Placing = { p, s, d };
   return (v: View, animate: boolean) => {
-    const t = targetFor(p, s, layouts, v);
-    s.centreNow = t.centre;
-    setTags(p, t.tags);
-    refreshTags(p, v);
-    if (t.centre) moveAnchors(p, layouts.islands.clusterIds, t.centre);
+    const t = targetFor(d.layouts, v);
+    markLayout(placing, v, t);
     const move = p.terms.filter((n) => !!t.positions[n.id()]);
-    const done = () => landed(p, s, deps, v, t.centre);
+    const done = () => landed(placing, v, t.centre);
     if (!animate || reducedMotion()) {
       p.cy.batch(() => move.forEach((n) => void n.position(t.positions[n.id()])));
       return done();
     }
     // Straight-line routes bend badly mid-flight; drop them until nodes land.
-    deps.routes(false);
+    d.routes(false);
     s.moving = true;
-    deps.moved();
+    d.moved();
     glide(move, t.positions, done);
   };
 }

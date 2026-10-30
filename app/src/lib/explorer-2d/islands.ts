@@ -5,7 +5,8 @@
  */
 import cytoscape from 'cytoscape';
 import fcose from 'cytoscape-fcose';
-import type { GraphLink, GraphNode } from '../graph-model';
+import type { Graph, GraphLink, GraphNode } from '../graph-model';
+import { getOrThrow } from '../map-get';
 import { collectNodes } from './collect';
 import { EXPLORER } from '../explorer-config';
 import {
@@ -31,10 +32,12 @@ export type IslandTune = { spacing: number; tight: number; gap: number };
 
 export const NO_TUNE: IslandTune = { spacing: 1, tight: 1, gap: 0 };
 
-/** Every island's terms, its raw layout, and the spaced result. */
+/** Every island's terms, its raw layout, the spaced result, and the links between terms. */
 export type IslandGeometry = {
   clusters: Map<string, GraphNode[]>;
   clusterIds: string[];
+  links: GraphLink[];
+  clusterOf: (id: string) => string | undefined;
   /** Each island's own layout before spacing (kept so the lab can re-space it). */
   raw: Map<string, Point[]>;
   /** Each term's offset from its island's centre. */
@@ -87,7 +90,7 @@ function layOutIslands(cy: cytoscape.Core, g: Pick<IslandGeometry, 'clusters' | 
   for (const c of g.clusterIds) {
     const members = collectNodes(
       cy,
-      g.clusters.get(c)!.map((n) => cy.getElementById(n.id)),
+      getOrThrow(g.clusters, c, 'island').map((n) => cy.getElementById(n.id)),
     );
     if (members.length > 1) members.union(members.edgesWith(members)).layout(FCOSE).run();
     raw.set(
@@ -124,9 +127,9 @@ export function shapeIsland(raw: Point[], sizes: number[], tune: IslandTune = NO
  */
 export function shapeIslands(g: IslandGeometry, tune: IslandTune = NO_TUNE) {
   for (const c of g.clusterIds) {
-    const members = g.clusters.get(c)!;
+    const members = getOrThrow(g.clusters, c, 'island');
     const shaped = shapeIsland(
-      g.raw.get(c)!,
+      getOrThrow(g.raw, c, 'island layout'),
       members.map((n) => g.sizeOf(n.id)),
       tune,
     );
@@ -136,12 +139,15 @@ export function shapeIslands(g: IslandGeometry, tune: IslandTune = NO_TUNE) {
 }
 
 /** Lay out and space every island, once, from the whole graph (a fixed seed). */
-export function buildIslands(cy: cytoscape.Core, nodes: GraphNode[]): IslandGeometry {
+export function buildIslands(cy: cytoscape.Core, graph: Graph): IslandGeometry {
   const sizeOf = (id: string) => cy.getElementById(id).data('size') as number;
-  const grouped = groupClusters(nodes);
+  const grouped = groupClusters(graph.nodes);
+  const byId = new Map(graph.nodes.map((n) => [n.id, n]));
   return withSeededRandom(LAYOUT_SEED, () => {
     const g = {
       ...grouped,
+      links: graph.links,
+      clusterOf: (id: string) => byId.get(id)?.cluster,
       raw: layOutIslands(cy, grouped),
       offset: new Map(),
       islandR: new Map(),
@@ -156,7 +162,7 @@ export function buildIslands(cy: cytoscape.Core, nodes: GraphNode[]): IslandGeom
 function visibleMembers(g: IslandGeometry, visible: ReadonlySet<string>) {
   const members = new Map<string, GraphNode[]>();
   for (const c of g.clusterIds) {
-    const mine = g.clusters.get(c)!.filter((n) => visible.has(n.id));
+    const mine = getOrThrow(g.clusters, c, 'island').filter((n) => visible.has(n.id));
     if (mine.length) members.set(c, mine);
   }
   return members;
@@ -172,21 +178,20 @@ export function islandDomain(mine: GraphNode[], enabled?: ReadonlySet<string>) {
   return [...votes.entries()].sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1))[0][0];
 }
 
-/** An island's circle: its full radius, or a partial island's reach plus a margin. */
-function islandCircle(g: IslandGeometry, c: string, mine: GraphNode[], domain: string): Island {
-  const reach = (n: GraphNode) => Math.hypot(g.offset.get(n.id)!.x, g.offset.get(n.id)!.y);
-  const all = mine.length === g.clusters.get(c)!.length;
-  const r = all ? g.islandR.get(c)! : Math.max(...mine.map(reach)) + 26;
-  return { id: c, domain, r };
+/** An island's radius: its full radius, or a partial island's reach plus a margin. */
+function islandRadius(g: IslandGeometry, c: string, mine: GraphNode[]) {
+  if (mine.length === getOrThrow(g.clusters, c, 'island').length)
+    return getOrThrow(g.islandR, c, 'island radius');
+  const reach = (n: GraphNode) => {
+    const o = getOrThrow(g.offset, n.id, 'term offset');
+    return Math.hypot(o.x, o.y);
+  };
+  return Math.max(...mine.map(reach)) + 26;
 }
 
 /** Cluster-to-cluster link weights between visible terms. */
-function islandLinks(
-  links: GraphLink[],
-  clusterOf: (id: string) => string | undefined,
-  visible: ReadonlySet<string>,
-): IslandLink[] {
-  return [...visibleBundleCounts(links, clusterOf, visible).entries()].map(([k, w]) => {
+function islandLinks(g: IslandGeometry, visible: ReadonlySet<string>): IslandLink[] {
+  return [...visibleBundleCounts(g.links, g.clusterOf, visible).entries()].map(([k, w]) => {
     const [a, b] = k.split('\u0000');
     return { a, b, w };
   });
@@ -209,19 +214,19 @@ function levelMap(m: IslandMap, wide: boolean) {
   return m;
 }
 
-/** Pack the given islands (only their visible members count) into domain regions. */
+/** Pack the islands (only their visible members count) into domain regions. */
 export function islandMap(
   g: IslandGeometry,
-  graph: { links: GraphLink[]; clusterOf: (id: string) => string | undefined },
   visible: ReadonlySet<string>,
   wide: boolean,
-  enabled?: ReadonlySet<string>,
 ): IslandMap {
   const members = visibleMembers(g, visible);
-  const islands = [...members].map(([c, mine]) =>
-    islandCircle(g, c, mine, islandDomain(mine, enabled)),
-  );
-  const packed = packIslands(islands, islandLinks(graph.links, graph.clusterOf, visible));
+  const islands = [...members].map(([c, mine]): Island => ({
+    id: c,
+    domain: islandDomain(mine),
+    r: islandRadius(g, c, mine),
+  }));
+  const packed = packIslands(islands, islandLinks(g, visible));
   const centre = { ...packed.islands };
   const positions = termPositions(g, members, centre);
   return levelMap({ positions, centre, islands, regions: packed.regions, members }, wide);
@@ -239,7 +244,7 @@ function termPositions(
   const positions: Record<string, Point> = {};
   for (const [c, mine] of members)
     for (const n of mine) {
-      const o = g.offset.get(n.id)!;
+      const o = getOrThrow(g.offset, n.id, 'term offset');
       positions[n.id] = { x: centre[c].x + o.x, y: centre[c].y + o.y };
     }
   return positions;

@@ -14,6 +14,7 @@ import {
   type Point,
 } from '../graph-style';
 import { effectiveHome, type LaneLayout } from '../graph-layout';
+import { getOrThrow } from '../map-get';
 import type { IslandMap } from './islands';
 import type { Layout } from './types';
 
@@ -22,35 +23,41 @@ export type TagLabels = {
   domainLabels: Record<string, string>;
 };
 
+/** What a layout's tags are written from: the island map (with term sizes), or its lanes. */
+export type TagSource =
+  | { layout: 'force'; map: IslandMap; sizeOf: (id: string) => number }
+  | { layout: Exclude<Layout, 'force'>; lanes: LaneLayout };
+
+type IslandSource = Extract<TagSource, { layout: 'force' }>;
+type LaneSource = Extract<TagSource, { layout: 'depth' | 'time' }>;
+
 type Box = { x1: number; y1: number; x2: number; y2: number };
 
-const tag = (
-  id: string,
-  label: string,
-  colour: string,
-  font: number,
-  at: Point & { valign: string; halign: string },
-  classes: string,
-): cytoscape.ElementDefinition => ({
+type TagSpec = {
+  id: string;
+  label: string;
+  colour: string;
+  font: number;
+  at: Point & { valign: string; halign: string };
+  classes: string;
+};
+
+const tag = ({ id, label, colour, font, at, classes }: TagSpec): cytoscape.ElementDefinition => ({
   data: { id, label, colour, font, valign: at.valign, halign: at.halign },
   position: { x: at.x, y: at.y },
   classes,
 });
 
 /** Each island of three or more terms is named just above its top term. */
-function clusterTags(
-  s: IslandMap,
-  sizeOf: (id: string) => number,
-  labels: TagLabels,
-  theme: MapTheme,
-) {
-  return s.islands.flatMap((isl) => {
-    const mine = s.members.get(isl.id)!;
+function clusterTags({ map, sizeOf }: IslandSource, labels: TagLabels, theme: MapTheme) {
+  return map.islands.flatMap((isl) => {
+    const mine = getOrThrow(map.members, isl.id, 'island members');
     if (mine.length < 3) return [];
-    const top = Math.min(...mine.map((n) => s.positions[n.id].y - sizeOf(n.id) / 2));
-    const at = { x: s.centre[isl.id].x, y: top - 8, valign: 'top', halign: 'center' };
-    const name = labels.clusterLabels[isl.id] ?? isl.id;
-    return [tag(`tag:c:${isl.id}`, name, clusterColour(isl.id, isl.domain, theme), 30, at, 'tag')];
+    const top = Math.min(...mine.map((n) => map.positions[n.id].y - sizeOf(n.id) / 2));
+    const at = { x: map.centre[isl.id].x, y: top - 8, valign: 'top', halign: 'center' };
+    const label = labels.clusterLabels[isl.id] ?? isl.id;
+    const colour = clusterColour(isl.id, isl.domain, theme);
+    return [tag({ id: `tag:c:${isl.id}`, label, colour, font: 30, at, classes: 'tag' })];
   });
 }
 
@@ -85,49 +92,51 @@ function domainTags(s: IslandMap, labels: TagLabels, theme: MapTheme) {
   };
   return [...new Set(s.islands.map((i) => i.domain))].map((d) => {
     const at = domainTagAt(domainBox(s, d), mapCentre);
-    const name = labels.domainLabels[d] ?? d;
-    return tag(`tag:d:${d}`, name, domainColour(d, theme), 96, at, 'tag domain');
+    const label = labels.domainLabels[d] ?? d;
+    const colour = domainColour(d, theme);
+    return tag({ id: `tag:d:${d}`, label, colour, font: 96, at, classes: 'tag domain' });
   });
 }
 
-function laneTags(layout: Layout, s: LaneLayout, labels: TagLabels, theme: MapTheme) {
+function laneTags({ layout, lanes: s }: LaneSource, labels: TagLabels, theme: MapTheme) {
   const depth = layout === 'depth';
-  return s.lanes.map((l) => {
-    const at = { ...l, valign: depth ? 'top' : 'center', halign: depth ? 'center' : 'left' };
-    const name = labels.domainLabels[l.domain] ?? l.domain;
-    return tag(
-      `tag:l:${l.domain}`,
-      name,
-      domainColour(l.domain, theme),
-      depth ? 44 : 30,
-      at,
-      'tag domain',
-    );
-  });
+  return s.lanes.map((l) =>
+    tag({
+      id: `tag:l:${l.domain}`,
+      label: labels.domainLabels[l.domain] ?? l.domain,
+      colour: domainColour(l.domain, theme),
+      font: depth ? 44 : 30,
+      at: { ...l, valign: depth ? 'top' : 'center', halign: depth ? 'center' : 'left' },
+      classes: 'tag domain',
+    }),
+  );
 }
 
-function tickTags(layout: Layout, s: LaneLayout, theme: MapTheme) {
+function tickTags({ layout, lanes: s }: LaneSource, theme: MapTheme) {
   const time = layout === 'time';
   return s.ticks.map((t) => {
     const at = { ...t, valign: time ? 'bottom' : 'center', halign: time ? 'center' : 'left' };
-    return tag(`tag:t:${t.label}`, t.label, MAP_INK[theme].tick, 22, at, 'tag tick');
+    const colour = MAP_INK[theme].tick;
+    return tag({
+      id: `tag:t:${t.label}`,
+      label: t.label,
+      colour,
+      font: 22,
+      at,
+      classes: 'tag tick',
+    });
   });
 }
 
 /** Every tag of a layout. */
 export function tagsFor(
-  layout: Layout,
-  state: IslandMap | LaneLayout,
-  sizeOf: (id: string) => number,
+  source: TagSource,
   labels: TagLabels,
   theme: MapTheme,
 ): cytoscape.ElementDefinition[] {
-  if (layout === 'force') {
-    const s = state as IslandMap;
-    return [...clusterTags(s, sizeOf, labels, theme), ...domainTags(s, labels, theme)];
-  }
-  const s = state as LaneLayout;
-  return [...laneTags(layout, s, labels, theme), ...tickTags(layout, s, theme)];
+  if (source.layout === 'force')
+    return [...clusterTags(source, labels, theme), ...domainTags(source.map, labels, theme)];
+  return [...laneTags(source, labels, theme), ...tickTags(source, theme)];
 }
 
 /** A tag's colour in a palette, from its id (`tag:<kind>:<key>`). */

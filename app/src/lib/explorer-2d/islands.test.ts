@@ -13,9 +13,6 @@ const headless = () =>
     elements: mapElements(FIXTURE, 'en', 'dark'),
     style: mapStylesheet('dark'),
   });
-const links = FIXTURE.links;
-const byId = new Map(FIXTURE.nodes.map((n) => [n.id, n]));
-const graph = { links, clusterOf: (id: string) => byId.get(id)?.cluster };
 const everyone = new Set(FIXTURE.nodes.map((n) => n.id));
 const round = (ps: Record<string, { x: number; y: number }>) =>
   Object.fromEntries(Object.entries(ps).map(([k, p]) => [k, [Math.round(p.x), Math.round(p.y)]]));
@@ -77,8 +74,8 @@ describe('islandDomain', () => {
 });
 
 describe('islandMap (characterization: a fixed seed lays the fixture out the same)', () => {
-  const g = buildIslands(headless(), FIXTURE.nodes);
-  const map = islandMap(g, graph, everyone, true);
+  const g = buildIslands(headless(), FIXTURE);
+  const map = islandMap(g, everyone, true);
 
   it('places every term, offset from its island centre', () => {
     expect(Object.keys(map.positions).sort()).toEqual([...everyone].sort());
@@ -105,19 +102,19 @@ describe('islandMap (characterization: a fixed seed lays the fixture out the sam
     expect(Object.keys(map.regions).sort()).toEqual(['cs', 'security']);
   });
   it('is deterministic and pinned', () => {
-    const again = islandMap(buildIslands(headless(), FIXTURE.nodes), graph, everyone, true);
+    const again = islandMap(buildIslands(headless(), FIXTURE), everyone, true);
     expect(round(again.positions)).toEqual(round(map.positions));
     expect(round(map.positions)).toEqual(PINNED);
   });
   it('turns a quarter for a tall screen; hidden terms drop out', () => {
-    const tall = islandMap(g, graph, everyone, false);
+    const tall = islandMap(g, everyone, false);
     const w = (ps: typeof map.positions) => {
       const xs = Object.values(ps).map((p) => p.x);
       return Math.max(...xs) - Math.min(...xs);
     };
     expect(w(tall.positions)).toBeLessThan(w(map.positions));
     const some = new Set(['cs/network', 'cs/protocol', 'security/cia']);
-    const part = islandMap(g, graph, some, true);
+    const part = islandMap(g, some, true);
     expect(Object.keys(part.positions).sort()).toEqual([...some].sort());
     expect(part.islands.map((i) => i.id)).toEqual(['fundamentals', 'networking']);
   });

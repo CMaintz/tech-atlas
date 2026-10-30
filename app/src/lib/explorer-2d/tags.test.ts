@@ -42,7 +42,7 @@ const LANES: LaneLayout = {
 
 describe('tagsFor (characterization)', () => {
   it('names islands of three or more above their top term, and domains outside', () => {
-    const tags = tagsFor('force', ISLANDS, () => 20, LABELS, 'dark');
+    const tags = tagsFor({ layout: 'force', map: ISLANDS, sizeOf: () => 20 }, LABELS, 'dark');
     expect(tags).toEqual([
       {
         data: {
@@ -83,13 +83,13 @@ describe('tagsFor (characterization)', () => {
     ]);
   });
   it('names lanes and ticks per layout', () => {
-    const depth = tagsFor('depth', LANES, () => 0, LABELS, 'light');
+    const depth = tagsFor({ layout: 'depth', lanes: LANES }, LABELS, 'light');
     expect(depth.map((t) => [t.data.id, t.data.font, t.data.valign, t.data.halign])).toEqual([
       ['tag:l:security', 44, 'top', 'center'],
       ['tag:t:1990', 22, 'center', 'left'],
     ]);
     expect(depth[1].data.colour).toBe(MAP_INK.light.tick);
-    const time = tagsFor('time', LANES, () => 0, LABELS, 'dark');
+    const time = tagsFor({ layout: 'time', lanes: LANES }, LABELS, 'dark');
     expect(time.map((t) => [t.data.font, t.data.valign, t.data.halign])).toEqual([
       [30, 'center', 'left'],
       [22, 'bottom', 'center'],

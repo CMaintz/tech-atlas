@@ -57,7 +57,7 @@ function createParts(opts: Map2DOptions, theme: MapTheme) {
   // v2 names no term at rest, from the first frame (the cull only runs once zoom settles).
   if (opts.variant === 'v2') terms.addClass('nolabel');
   const links = cy.edges().not('.bundle');
-  const layouts = createLayouts({ graph, clusterOf, opts }, buildIslands(cy, graph.nodes));
+  const layouts = createLayouts({ graph, opts }, buildIslands(cy, graph));
   cy.add(anchorElements(layouts.islands.clusterIds, layouts.force.centre));
   cy.add(bundleElements(graph, byId, theme));
   const bundleEdges = cy.edges('.bundle');
@@ -104,7 +104,7 @@ function assemble(opts: Map2DOptions) {
   const dots = startMapDots(p, s);
   const deps = { routes, recull: labels.recull, paintNames: names.paint, moved: pointer.moved };
   const { crowd, clusters } = v2Parts(p, s, labels.labelWidth);
-  const place = createPlacement(p, s, layouts, deps);
+  const place = createPlacement(p, s, { ...deps, layouts });
   const stagger = createStagger(p.cy);
   const apply = createApply(p, s, { ...deps, refreshEdges, stagger, place, hover, crowd });
   return { p, s, layouts, labels, hover, pointer, dots, place, stagger, apply, clusters };
@@ -125,6 +125,13 @@ const labHooks = (m: Assembled) => ({
   },
 });
 
+/** Switch palettes in place; see `explorer-2d/theme.ts`. */
+const rethemer = (m: Assembled) => (next: MapTheme) => {
+  if (next === m.s.theme) return;
+  m.s.theme = next;
+  retheme(m.p, next);
+};
+
 const destroyer = (m: Assembled) => () => {
   m.dots.dots.stop();
   m.stagger.cancel();
@@ -137,16 +144,11 @@ const destroyer = (m: Assembled) => () => {
 
 export function createMap2D(opts: Map2DOptions) {
   const m = assemble(opts);
-  const { p, s } = m;
+  const { p } = m;
   return {
     cy: p.cy,
     apply: m.apply,
-    /** Switch palettes in place; see `explorer-2d/theme.ts`. */
-    retheme(next: MapTheme) {
-      if (next === s.theme) return;
-      s.theme = next;
-      retheme(p, next);
-    },
+    retheme: rethemer(m),
     /** Bring a term into view (Find a term, even when it is already selected). */
     focus: (id: string) => void centreOn(p, id, [0.9, 1.2]),
     /** Keyboard navigation: pan and zoom about the clear part's centre, for dt s. */
