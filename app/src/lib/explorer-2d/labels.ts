@@ -15,6 +15,10 @@ const HOVER_LABEL_PX = 11;
 
 export type LabelWidth = (n: cytoscape.NodeSingular, px: number) => number;
 
+/** The box a term's label takes below it at `font` px, for the overlap cull. */
+export const termLabelBox = (n: cytoscape.NodeSingular, font: number, width: LabelWidth) =>
+  labelBelow(n.position(), n.data('size'), { width: width(n, font), font });
+
 /** Text widths measured on a canvas in the map's font, cached per term and size. */
 export function createMeasure(terms: cytoscape.NodeCollection) {
   const measure = document.createElement('canvas').getContext('2d');
@@ -43,9 +47,10 @@ const nameBoxes = (cy: cytoscape.Core, m: Measure) =>
       .nodes('.tag')
       .not('.gone')
       .filter((t) => t.data('valign') === 'top') as cytoscape.NodeCollection
-  ).map((t) =>
-    labelAbove(t.position(), m.textWidth(t.data('label'), t.data('font'), '600'), t.data('font')),
-  );
+  ).map((t) => {
+    const font: number = t.data('font');
+    return labelAbove(t.position(), { width: m.textWidth(t.data('label'), font, '600'), font });
+  });
 
 /** Zoomed out, a lit term's label keeps a constant size on screen. */
 function syncHoverFont(terms: cytoscape.NodeCollection, zoom: number) {
@@ -75,10 +80,8 @@ function cull(p: MapParts, m: Measure) {
   const fontOf: FontOf = (n) => (far ? n.data('farFont') : n.data('font'));
   const shown = p.terms.not('.gone') as cytoscape.NodeCollection;
   const candidates = restNamed(p, shown, fontOf);
-  const below = (n: cytoscape.NodeSingular) =>
-    labelBelow(n.position(), n.data('size'), m.labelWidth(n, fontOf(n)), fontOf(n));
   const hidden = cullLabels(
-    candidates.map((n) => ({ id: n.id(), ...below(n) })),
+    candidates.map((n) => ({ id: n.id(), ...termLabelBox(n, fontOf(n), m.labelWidth) })),
     nameBoxes(p.cy, m),
   );
   p.cy.batch(() => {

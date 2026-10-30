@@ -5,11 +5,11 @@
  */
 import type cytoscape from 'cytoscape';
 import { EXPLORER } from '../explorer-config';
-import { cullLabels, labelBelow } from '../graph-style';
+import { cullLabels } from '../graph-style';
 import { linkVisible } from '../graph-layout';
 import { effectiveFocus } from '../explorer-focus';
 import { linkOf, type MapParts, type MapState } from './context';
-import { FAR_ZOOM, type LabelWidth } from './labels';
+import { FAR_ZOOM, termLabelBox, type LabelWidth } from './labels';
 import type { View } from './types';
 
 type HoverDeps = { paintNames: () => void; labelWidth: LabelWidth };
@@ -42,12 +42,7 @@ export function crowdedLabels(p: MapParts, lit: cytoscape.NodeCollection, width:
   const far = p.cy.zoom() < FAR_ZOOM;
   const fontOf = (m: cytoscape.NodeSingular): number =>
     far ? m.data('hoverFont') : m.data('font');
-  const hidden = cullLabels(
-    lit.map((m) => ({
-      id: m.id(),
-      ...labelBelow(m.position(), m.data('size'), width(m, fontOf(m)), fontOf(m)),
-    })),
-  );
+  const hidden = cullLabels(lit.map((m) => ({ id: m.id(), ...termLabelBox(m, fontOf(m), width) })));
   return lit.filter((m) => hidden.has(m.id()));
 }
 
