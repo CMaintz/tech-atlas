@@ -69,8 +69,11 @@ function createParts(opts: Map2DOptions, theme: MapTheme) {
 function startMapDots(p: MapParts, s: MapState) {
   const cfg: { -readonly [K in keyof DotsConfig]: number } = { ...EXPLORER.dots };
   let on = true;
-  const paused = () => s.moving || !on;
-  const dots = startDots(p.cy, p.links, paused, () => MAP_INK[s.theme].dotAlpha, cfg);
+  const dots = startDots(p.cy, p.links, {
+    cfg,
+    restAlpha: () => MAP_INK[s.theme].dotAlpha,
+    paused: () => s.moving || !on,
+  });
   return { cfg, dots, setOn: (v: boolean) => void (on = v) };
 }
 
