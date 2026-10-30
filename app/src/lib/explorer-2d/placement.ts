@@ -46,7 +46,7 @@ export function createLayouts(p: Pick<MapParts, 'graph' | 'opts'>, islands: Isla
   return layouts;
 }
 
-type Layouts =ReturnType<typeof createLayouts>;
+type Layouts = ReturnType<typeof createLayouts>;
 
 type PlaceDeps = {
   layouts: Layouts;
