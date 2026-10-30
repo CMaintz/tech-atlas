@@ -58,12 +58,12 @@ export const OVERVIEW_FAMILIES: ReadonlySet<string> = new Set([
 ]);
 
 /** The relationship families switched on and, when filtered, the ids of the terms shown. */
-type Shown = { families?: ReadonlySet<string>; nodes?: ReadonlySet<string> };
+type ShownView = { families?: ReadonlySet<string>; nodes?: ReadonlySet<string> };
 
 export function backboneOf(
   nodes: LayoutNode[],
   links: BackboneLink[],
-  { families = OVERVIEW_FAMILIES, nodes: visible }: Shown = {},
+  { families = OVERVIEW_FAMILIES, nodes: visible }: ShownView = {},
 ): Set<number> {
   const on = links.flatMap((l, i) =>
     families.has(l.family) && (!visible || linkVisible(l, visible)) ? [i] : [],

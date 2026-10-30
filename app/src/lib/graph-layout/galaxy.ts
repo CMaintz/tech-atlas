@@ -5,8 +5,8 @@
 import { EXPLORER } from '../explorer-config';
 import { homeDomain, seededRandom } from '../graph-style';
 import { domainRank } from '../graph-style/palette';
-import { simulate, type ForceConfig, type Point3, type Spring } from './galaxy-forces';
 import { getOrThrow } from '../map-get';
+import { simulate, type ForceConfig, type Point3, type Spring } from './galaxy-forces';
 import { byDomain } from './lanes';
 import { linkEnds, type LayoutNode, type Link } from './types';
 
