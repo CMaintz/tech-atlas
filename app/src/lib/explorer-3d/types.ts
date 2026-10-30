@@ -3,21 +3,13 @@ import type { ForceGraph3DInstance } from '3d-force-graph';
 import type { Graph, GraphLink, GraphNode } from '../graph-model';
 import type { MapTheme } from '../graph-style';
 import type { Focus, RelationNames } from '../explorer-focus';
+import type { View } from '../explorer-2d/types';
 
 /** three.js, loaded on demand with the map (the type import is erased). */
 export type Three = typeof import('three');
 
-export type View3D = {
-  nodes: ReadonlySet<string>;
-  families: ReadonlySet<string>;
-  showAll: boolean;
-  selected: string | null;
-  highlight: ReadonlySet<string>;
-  /** The shown terms are the selection's neighbourhood (some hops out), all of it lit. */
-  hoodLit?: boolean;
-  colour: (n: GraphNode) => string;
-  bands: (n: GraphNode) => string[];
-};
+/** The Explorer's View, less what only the 2D map lays out (its layout, domain filter). */
+export type View3D = Omit<View, 'layout' | 'domains'>;
 
 export type Map3DOptions = {
   container: HTMLElement;

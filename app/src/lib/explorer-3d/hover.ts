@@ -32,36 +32,53 @@ function createPointerReport(ctx: Ctx, setHover: (id: string | null) => void) {
   return { show, track, cancel: () => window.clearTimeout(timer) };
 }
 
-export function createHover(ctx: Ctx, refresh: () => void) {
-  const { el, opts, fg, gate, state } = ctx;
-  const setHover = (id: string | null) => {
+type Report = ReturnType<typeof createPointerReport>;
+
+/** Light a hovered term's neighbourhood (or none), repainting only on a change. */
+const hoverSetter =
+  ({ state, gate }: Ctx, refresh: () => void) =>
+  (id: string | null) => {
     if (id === state.hoverId) return;
     state.hoverId = id;
     refocus(state, gate);
     refresh();
   };
-  const report = createPointerReport(ctx, setHover);
+
+/** What 3d-force-graph finds under the pointer: the term, and the link whose name shows. */
+function listenHover({ fg, gate, state }: Ctx, report: Report) {
   fg.onNodeHover((n: GraphNode | null) => {
     report.track(n ? n.id : null);
     if (gate.open) report.show();
   });
   fg.onLinkHover((l: Link3 | null) => void (state.underLink = l && gate.open ? l.i : null));
-  /** The camera started moving: drop the hover and its card at once. */
-  const stop = () => {
-    report.cancel();
-    state.underLink = null;
-    opts.onPoint?.(null);
-    setHover(null);
-  };
+}
+
+/** The pointer's own move reopens the gate, showing what is under it; returns the unwatch. */
+function watchPointer({ el, gate }: Ctx, report: Report) {
   const onPointerMove = () => {
     const was = gate.open;
     gate.pointer();
     if (!was && gate.open) report.show();
   };
   el.addEventListener('pointermove', onPointerMove);
+  return () => el.removeEventListener('pointermove', onPointerMove);
+}
+
+export function createHover(ctx: Ctx, refresh: () => void) {
+  const setHover = hoverSetter(ctx, refresh);
+  const report = createPointerReport(ctx, setHover);
+  listenHover(ctx, report);
+  const unwatch = watchPointer(ctx, report);
+  /** The camera started moving: drop the hover and its card at once. */
+  const stop = () => {
+    report.cancel();
+    ctx.state.underLink = null;
+    ctx.opts.onPoint?.(null);
+    setHover(null);
+  };
   const destroy = () => {
     report.cancel();
-    el.removeEventListener('pointermove', onPointerMove);
+    unwatch();
   };
   return { stop, destroy };
 }

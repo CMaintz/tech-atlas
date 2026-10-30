@@ -1,10 +1,13 @@
 /** A small two-domain graph and views of it for the 3D map's tests. */
-import type { EdgeType } from '../../../schema';
 import { FAMILY, type Graph, type GraphLink, type GraphNode } from '../../graph-model';
 import { domainColour, homeDomain } from '../../graph-style';
 import type { View3D } from '../../explorer-3d';
 
-const node = (id: string, cluster: string, depth: number, domain: string[]): GraphNode => ({
+/** Named, so two string fields cannot silently trade places; the rest are defaults. */
+type NodeRow = Pick<GraphNode, 'id' | 'cluster' | 'depth' | 'domain'>;
+type LinkRow = Pick<GraphLink, 'source' | 'type' | 'target' | 'weight'>;
+
+const node = ({ id, cluster, depth, domain }: NodeRow): GraphNode => ({
   id,
   term: { en: id.split('/')[1].toUpperCase(), da: id.split('/')[1] },
   domain,
@@ -16,7 +19,7 @@ const node = (id: string, cluster: string, depth: number, domain: string[]): Gra
   mentions: [],
 });
 
-const link = (source: string, type: EdgeType, target: string, weight: number): GraphLink => ({
+const link = ({ source, type, target, weight }: LinkRow): GraphLink => ({
   source,
   target,
   type,
@@ -26,24 +29,29 @@ const link = (source: string, type: EdgeType, target: string, weight: number): G
 
 export const graph: Graph = {
   nodes: [
-    node('security/cia', 'fundamentals', 0, ['security']),
-    node('security/threat', 'fundamentals', 1, ['security']),
-    node('security/firewall', 'controls', 2, ['security', 'cs']),
-    node('security/mfa', 'controls', 1, ['security']),
-    node('cs/tcp', 'networking', 0, ['cs']),
-    node('cs/ip', 'networking', 0, ['cs']),
-    node('cs/kernel', 'os', 1, ['cs']),
-    node('cs/process', 'os', 2, ['cs']),
+    node({ id: 'security/cia', cluster: 'fundamentals', depth: 0, domain: ['security'] }),
+    node({ id: 'security/threat', cluster: 'fundamentals', depth: 1, domain: ['security'] }),
+    node({ id: 'security/firewall', cluster: 'controls', depth: 2, domain: ['security', 'cs'] }),
+    node({ id: 'security/mfa', cluster: 'controls', depth: 1, domain: ['security'] }),
+    node({ id: 'cs/tcp', cluster: 'networking', depth: 0, domain: ['cs'] }),
+    node({ id: 'cs/ip', cluster: 'networking', depth: 0, domain: ['cs'] }),
+    node({ id: 'cs/kernel', cluster: 'os', depth: 1, domain: ['cs'] }),
+    node({ id: 'cs/process', cluster: 'os', depth: 2, domain: ['cs'] }),
   ],
   links: [
-    link('security/firewall', 'requires', 'cs/tcp', 3),
-    link('security/mfa', 'mitigates', 'security/threat', 2.5),
-    link('cs/tcp', 'requires', 'cs/ip', 2),
-    link('cs/process', 'part-of', 'cs/kernel', 1.5),
-    link('security/cia', 'used-with', 'security/threat', 1),
-    link('security/firewall', 'mitigates', 'security/threat', 2.2),
-    link('cs/process', 'requires', 'cs/ip', 0.8),
-    link('security/firewall', 'implements', 'security/cia', 1.2),
+    link({ source: 'security/firewall', type: 'requires', target: 'cs/tcp', weight: 3 }),
+    link({ source: 'security/mfa', type: 'mitigates', target: 'security/threat', weight: 2.5 }),
+    link({ source: 'cs/tcp', type: 'requires', target: 'cs/ip', weight: 2 }),
+    link({ source: 'cs/process', type: 'part-of', target: 'cs/kernel', weight: 1.5 }),
+    link({ source: 'security/cia', type: 'used-with', target: 'security/threat', weight: 1 }),
+    link({
+      source: 'security/firewall',
+      type: 'mitigates',
+      target: 'security/threat',
+      weight: 2.2,
+    }),
+    link({ source: 'cs/process', type: 'requires', target: 'cs/ip', weight: 0.8 }),
+    link({ source: 'security/firewall', type: 'implements', target: 'security/cia', weight: 1.2 }),
   ],
 };
 

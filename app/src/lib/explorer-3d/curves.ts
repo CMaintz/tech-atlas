@@ -59,11 +59,16 @@ export const curveLengths = (curve: Float32Array, count: number) =>
     ),
   );
 
-/** Coordinate `axis` of the point at u along packed curve `i`. */
-export function packedAt(curve: Float32Array, i: number, u: number, axis: number) {
-  const o = i * 9 + axis;
+/** Packed curve `i`'s own nine floats: a view, not a copy. */
+export const curveOf = (curve: Float32Array, i: number) => curve.subarray(i * 9, i * 9 + 9);
+
+/**
+ * Coordinate `axis` of the point at u along one link's curve (`curveOf`). One axis at a
+ * time, so the comets write straight into their buffer every frame without allocating.
+ */
+export function packedAt(link: Float32Array, u: number, axis: number) {
   const v = 1 - u;
-  return v * v * curve[o] + 2 * v * u * curve[o + 3] + u * u * curve[o + 6];
+  return v * v * link[axis] + 2 * v * u * link[axis + 3] + u * u * link[axis + 6];
 }
 
 /** The curve's midpoint: a quarter of each end and half of the bend. */

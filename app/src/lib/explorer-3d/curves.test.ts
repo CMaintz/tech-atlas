@@ -1,5 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { SEGMENTS, bend, curveLengths, midpoint, packCurves, packedAt, pointAt } from './curves';
+import {
+  SEGMENTS,
+  bend,
+  curveLengths,
+  curveOf,
+  midpoint,
+  packCurves,
+  packedAt,
+  pointAt,
+} from './curves';
 
 const a = { x: 0, y: 0, z: 0 };
 const b = { x: 100, y: 20, z: 0 };
@@ -28,7 +37,7 @@ describe('pointAt / packedAt / midpoint', () => {
   it('reads the same curve back from the packed floats', () => {
     for (const u of [0, 0.3, 1])
       for (let axis = 0; axis < 3; axis++)
-        expect(packedAt(curve, 0, u, axis)).toBeCloseTo(pointAt(k, u)[axis], 3);
+        expect(packedAt(curveOf(curve, 0), u, axis)).toBeCloseTo(pointAt(k, u)[axis], 3);
   });
   it('puts the midpoint at t = ½', () => {
     midpoint(curve, 0).forEach((v, axis) => expect(v).toBeCloseTo(pointAt(k, 0.5)[axis], 3));

@@ -70,7 +70,8 @@ const FLOW_FRAGMENT = `
 function glowTexture(THREE: Three) {
   const c = document.createElement('canvas');
   c.width = c.height = 64;
-  const g = c.getContext('2d')!;
+  const g = c.getContext('2d');
+  if (!g) throw new Error('3D map: no 2D context for the glow texture');
   const grad = g.createRadialGradient(32, 32, 0, 32, 32, 32);
   grad.addColorStop(0, 'rgba(255,255,255,0.85)');
   grad.addColorStop(0.25, 'rgba(255,255,255,0.3)');

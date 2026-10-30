@@ -45,7 +45,7 @@ function nameOf(ctx: Ctx, g: ClusterGroup): Named {
   const c = domainCanvas(text);
   drawDomain(text, c, clusterColour(g.cluster, g.domain, ctx.state.theme));
   const h = EXPLORER.v2.clusterLabelHeight;
-  const { sprite, tex } = textSprite(ctx.THREE, c, h, true);
+  const { sprite, tex } = textSprite(ctx.THREE, c, { height: h, fog: true });
   sprite.position.set(g.x, g.top + h, g.z);
   return { ...g, text, c, tex, sprite };
 }

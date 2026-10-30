@@ -2,8 +2,7 @@
  * Text drawn on canvases for the 3D map's sprites: hub labels, domain names and the
  * relationship names on lit links. Each has its own look; all are sized to their text.
  */
-import type { MapTheme } from '../graph-style';
-import { MAP_INK } from '../graph-style';
+import { MAP_INK, type MapTheme } from '../graph-style';
 import type { Sprite, Three } from './types';
 
 const HUB_PX = 44;
@@ -13,10 +12,22 @@ export const HUB_FONT = `600 ${HUB_PX}px system-ui, sans-serif`;
 export const DOMAIN_FONT = `700 ${DOMAIN_PX}px system-ui, sans-serif`;
 const TAG_FONT = `500 ${TAG_PX}px system-ui, sans-serif`;
 
-/** A canvas as wide as `text` in `font` plus `padW`, and `height` tall. */
-export function textCanvas(text: string, font: string, padW: number, height: number) {
+/** A kind of text's canvas: its font, the width added to the text's, and its height. */
+type Look = { font: string; padW: number; height: number };
+const HUB: Look = { font: HUB_FONT, padW: 24, height: HUB_PX + 20 };
+const DOMAIN: Look = { font: DOMAIN_FONT, padW: 40, height: DOMAIN_PX + 40 };
+const TAG: Look = { font: TAG_FONT, padW: 16, height: Math.ceil(TAG_PX * 1.4) };
+
+function context2d(c: HTMLCanvasElement) {
+  const g = c.getContext('2d');
+  if (!g) throw new Error('3D map: no 2D context for a text sprite');
+  return g;
+}
+
+/** A canvas as wide as `text` in the look's font plus its padding, and the look's height. */
+export function textCanvas(text: string, { font, padW, height }: Look) {
   const c = document.createElement('canvas');
-  const g = c.getContext('2d')!;
+  const g = context2d(c);
   g.font = font;
   c.width = Math.ceil(g.measureText(text).width) + padW;
   c.height = height;
@@ -25,7 +36,7 @@ export function textCanvas(text: string, font: string, padW: number, height: num
 
 /** A fresh, centred text context on `c` (resizing a canvas resets its context). */
 function centred(c: HTMLCanvasElement, font: string) {
-  const g = c.getContext('2d')!;
+  const g = context2d(c);
   g.clearRect(0, 0, c.width, c.height);
   g.font = font;
   g.textAlign = 'center';
@@ -44,7 +55,7 @@ export function drawHub(text: string, c: HTMLCanvasElement, theme: MapTheme) {
   if (theme === 'light') g.fillText(text, c.width / 2, c.height / 2);
 }
 
-export const hubCanvas = (text: string) => textCanvas(text, HUB_FONT, 24, HUB_PX + 20);
+export const hubCanvas = (text: string) => textCanvas(text, HUB);
 
 /** A term's name in the hub labels' look, on a canvas of its own. */
 export function hubName(text: string, theme: MapTheme) {
@@ -60,11 +71,11 @@ export function drawDomain(text: string, c: HTMLCanvasElement, colour: string) {
   g.fillText(text, c.width / 2, c.height / 2);
 }
 
-export const domainCanvas = (text: string) => textCanvas(text, DOMAIN_FONT, 40, DOMAIN_PX + 40);
+export const domainCanvas = (text: string) => textCanvas(text, DOMAIN);
 
 /** A relationship's name: label ink with a stroked halo. */
 export function tagCanvas(text: string, theme: MapTheme) {
-  const c = textCanvas(text, TAG_FONT, 16, Math.ceil(TAG_PX * 1.4));
+  const c = textCanvas(text, TAG);
   const g = centred(c, TAG_FONT);
   g.lineJoin = 'round';
   g.lineWidth = 8;
@@ -75,8 +86,11 @@ export function tagCanvas(text: string, theme: MapTheme) {
   return c;
 }
 
-/** A billboard of canvas `c`, `height` scene units tall, and its texture. */
-export function textSprite(THREE: Three, c: HTMLCanvasElement, height: number, fog: boolean) {
+/** A sprite's height in scene units, and whether the scene's fog dims it. */
+type SpriteLook = { height: number; fog: boolean };
+
+/** A billboard of canvas `c`, and its texture. */
+export function textSprite(THREE: Three, c: HTMLCanvasElement, { height, fog }: SpriteLook) {
   const tex = new THREE.CanvasTexture(c);
   const sprite: Sprite = new THREE.Sprite(
     new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false, fog }),

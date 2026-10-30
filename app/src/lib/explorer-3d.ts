@@ -99,7 +99,7 @@ function destroy(ctx: Ctx, { painter, camera, hover, clusters }: Parts, undrag: 
 function handleOf(ctx: Ctx, parts: Parts, undrag: () => void) {
   const { painter, camera } = parts;
   return {
-    apply: (next: View3D) => applyView(ctx, painter, camera, next),
+    apply: (next: View3D) => applyView(ctx, parts, next),
     /** Hooks for the hidden visual lab only; the Explorer never uses them. */
     lab: { ...labObjects(ctx, painter), ...labData(ctx, painter) },
     /** Bring a term into view (Find a term, even when it is already selected). */
@@ -119,6 +119,18 @@ function handleOf(ctx: Ctx, parts: Parts, undrag: () => void) {
   };
 }
 
+/** When the camera starts moving, drop the hover; every frame, place the lit names. */
+function followFrames(ctx: Ctx, { painter, hover, clusters }: Parts) {
+  const onMoveStart = () => {
+    hover.stop();
+    clusters?.stop();
+  };
+  watchFrames(ctx, onMoveStart, () => {
+    painter.tags.place();
+    painter.termNames.place();
+  });
+}
+
 export async function createMap3D(opts: Map3DOptions) {
   const [{ default: ForceGraph3D }, THREE] = await Promise.all([
     import('3d-force-graph'),
@@ -131,15 +143,9 @@ export async function createMap3D(opts: Map3DOptions) {
   const camera = createCamera(ctx, [painter.glow.material, painter.flow.material]);
   const clusters =
     opts.variant === 'v2' ? bindClusterPointer(ctx, painter.clusters, painter.refresh) : null;
-  const onMoveStart = () => {
-    hover.stop();
-    clusters?.stop();
-  };
-  watchFrames(ctx, onMoveStart, () => {
-    painter.tags.place();
-    painter.termNames.place();
-  });
-  return handleOf(ctx, { painter, camera, hover, clusters }, undrag);
+  const parts = { painter, camera, hover, clusters };
+  followFrames(ctx, parts);
+  return handleOf(ctx, parts, undrag);
 }
 
 export type Map3D = Awaited<ReturnType<typeof createMap3D>>;

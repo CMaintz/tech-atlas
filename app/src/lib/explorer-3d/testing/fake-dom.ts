@@ -85,15 +85,11 @@ export type FakeContainer = HTMLElement & {
   removed: string[];
 };
 
-/** An 800 × 600 map container that records its listeners. */
-export function fakeContainer(): FakeContainer {
+/** Listeners by type, and the types removed, in order. */
+function listenerLog() {
   const listeners: Record<string, (e?: unknown) => void> = {};
   const removed: string[] = [];
-  const el = {
-    clientWidth: 800,
-    clientHeight: 600,
-    style: {},
-    innerHTML: 'map',
+  return {
     listeners,
     removed,
     // Every listener of a type runs, in the order added (the hover's, then v2's names').
@@ -102,6 +98,17 @@ export function fakeContainer(): FakeContainer {
       listeners[type] = had ? (e?: unknown) => (had(e), fn(e)) : fn;
     },
     removeEventListener: (type: string) => void removed.push(type),
+  };
+}
+
+/** An 800 × 600 map container that records its listeners. */
+export function fakeContainer(): FakeContainer {
+  const el = {
+    clientWidth: 800,
+    clientHeight: 600,
+    style: {},
+    innerHTML: 'map',
+    ...listenerLog(),
     getBoundingClientRect: () => ({ left: 0, top: 0, width: 800, height: 600 }),
   };
   return el as unknown as FakeContainer;

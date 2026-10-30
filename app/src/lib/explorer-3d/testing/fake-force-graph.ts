@@ -57,6 +57,14 @@ function makeState(): FakeGraph {
   };
 }
 
+/** `cameraPosition(pos, lookAt, ms)`: logged, and the camera jumps there at once. */
+const cameraMover = (s: FakeGraph) => (pos: P3, look: P3 | undefined, ms?: number) => {
+  s.moves.push([pos, look, ms]);
+  s.camera.position.set(pos.x, pos.y, pos.z);
+  if (look) s.camera.lookAt(look.x, look.y, look.z);
+  s.camera.updateMatrixWorld();
+};
+
 function specials(s: FakeGraph): Record<string, Handler> {
   const count = (name: string) => () => void (s.calls[name] = (s.calls[name] ?? 0) + 1);
   return {
@@ -64,12 +72,7 @@ function specials(s: FakeGraph): Record<string, Handler> {
     camera: () => s.camera,
     controls: () => s.controls,
     graph2ScreenCoords: ((x: number, y: number) => ({ x, y })) as Handler,
-    cameraPosition: ((pos: P3, look: P3 | undefined, ms?: number) => {
-      s.moves.push([pos, look, ms]);
-      s.camera.position.set(pos.x, pos.y, pos.z);
-      if (look) s.camera.lookAt(look.x, look.y, look.z);
-      s.camera.updateMatrixWorld();
-    }) as Handler,
+    cameraPosition: cameraMover(s) as Handler,
     d3ReheatSimulation: count('d3ReheatSimulation'),
     pauseAnimation: count('pauseAnimation'),
     resumeAnimation: count('resumeAnimation'),
