@@ -41,10 +41,10 @@ describe('outerSide', () => {
 
 describe('label boxes', () => {
   it('puts a node label below the node and a region label above its point', () => {
-    const below = labelBelow({ x: 0, y: 0 }, 20, 40, 10);
+    const below = labelBelow({ x: 0, y: 0 }, 20, { width: 40, font: 10 });
     expect(below.y1).toBeGreaterThan(8);
     expect(below.x2 - below.x1).toBeGreaterThanOrEqual(40);
-    const above = labelAbove({ x: 0, y: 0 }, 40, 10);
+    const above = labelAbove({ x: 0, y: 0 }, { width: 40, font: 10 });
     expect(above.y2).toBeLessThanOrEqual(4);
     expect(above.y1).toBeLessThan(-10);
   });
