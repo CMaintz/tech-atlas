@@ -66,18 +66,6 @@ function normalize(v: ArrayLike<number>): Float32Array {
   return out;
 }
 
-export function cosine(a: ArrayLike<number>, b: ArrayLike<number>): number {
-  let dot = 0;
-  let na = 0;
-  let nb = 0;
-  for (let k = 0; k < a.length; k++) {
-    dot += a[k] * b[k];
-    na += a[k] * a[k];
-    nb += b[k] * b[k];
-  }
-  return na && nb ? dot / Math.sqrt(na * nb) : 0;
-}
-
 export function toBase64(bytes: Int8Array): string {
   const u = new Uint8Array(bytes.buffer, bytes.byteOffset, bytes.byteLength);
   let s = '';
