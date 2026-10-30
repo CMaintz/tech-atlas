@@ -5,7 +5,7 @@ describe('listen', () => {
   it('adds a listener and hands back its removal, with the same options', () => {
     const t = new EventTarget();
     const seen: string[] = [];
-    const off = listen(t, 'x', (e) => seen.push(e.type), { capture: true });
+    const off = listen([t, 'x', (e: Event) => seen.push(e.type), { capture: true }]);
     t.dispatchEvent(new Event('x'));
     off();
     t.dispatchEvent(new Event('x'));

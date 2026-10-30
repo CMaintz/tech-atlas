@@ -2,16 +2,12 @@ import type cytoscape from 'cytoscape';
 import { EXPLORER } from './explorer-config';
 import { groupPaths } from './explorer-flow-edges';
 import { eachDot, type Box, type DotSpacing, type Path } from './explorer-flow-path';
+import { orThrow } from './or-throw';
 
 const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
 const SCENE_EVENTS = 'class style data position add remove';
 
 export type DotsConfig = { readonly [K in keyof typeof EXPLORER.dots]: number };
-
-function orThrow<T>(value: T | null | undefined, what: string): T {
-  if (value === null || value === undefined) throw new Error(`${what} is missing`);
-  return value;
-}
 
 type SceneState = { groups: Map<string, Path[]>; dirty: boolean; moved: boolean };
 

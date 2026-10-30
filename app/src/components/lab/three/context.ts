@@ -1,6 +1,6 @@
 import type { Map3D } from '../../../lib/explorer-3d';
 import { EXPLORER } from '../../../lib/explorer-config';
-import { required } from '../../../lib/required';
+import { getOrThrow as required } from '../../../lib/map-get';
 import type { EdgeType } from '../../../schema';
 import type { FAMILY_COLOURS, MapTheme } from '../../../lib/graph-style';
 import type { Lab3D } from '../../../lib/explorer-lab';

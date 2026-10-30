@@ -1,15 +1,11 @@
 import type { Question } from '../lib/quiz';
 import type { QuizState } from '../lib/use-quiz';
+import { orThrow } from '../lib/or-throw';
 
 type Lang = 'en' | 'da';
 type Dict = Record<string, string>;
 type Option = Question['options'][number];
 type Props = { quiz: QuizState; q: Question; lang: Lang; termBase: string; ui: Dict };
-
-function required<T>(value: T | null | undefined, what: string): T {
-  if (value === null || value === undefined) throw new Error(`${what} is missing`);
-  return value;
-}
 
 function optionClass(o: Option, q: Question, chosen: string | null) {
   if (!chosen) return 'border-border-strong hover:border-border-hover';
@@ -35,7 +31,7 @@ function Options({ quiz, q }: Props) {
 }
 
 const answerOption = (q: Question) =>
-  required(
+  orThrow(
     q.options.find((o) => o.id === q.answer),
     'answer',
   );
@@ -92,7 +88,7 @@ export default function QuizQuestion(props: Props) {
   return (
     <div class="space-y-3">
       <p class="text-xs text-subtle">
-        {quiz.index + 1} / {required(quiz.session, 'quiz session').length}
+        {quiz.index + 1} / {orThrow(quiz.session, 'quiz session').length}
       </p>
       <p class="text-fg">{q.prompt}</p>
       <Options {...props} />

@@ -5,7 +5,7 @@ import { HitGrid } from './hit-grid';
 import { labBackbone } from './edges';
 import { labLayout, radii } from './layout';
 import { phaseOf } from './motion';
-import { required } from '../required';
+import { getOrThrow as required } from '../map-get';
 
 type Links = Graph['links'];
 type LinkEnds = { links: Links; es: Int32Array; et: Int32Array };

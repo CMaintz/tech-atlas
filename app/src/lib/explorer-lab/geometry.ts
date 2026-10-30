@@ -1,4 +1,4 @@
-import { required } from '../required';
+import { getOrThrow as required } from '../map-get';
 
 export type Vec = { x: number; y: number; z: number };
 export type QuadCurve = { a: Vec; c: Vec; b: Vec };

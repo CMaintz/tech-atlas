@@ -23,7 +23,7 @@ export function useChartSize() {
 function remeasureOnResize(el: HTMLElement, measure: () => void) {
   const ro = new ResizeObserver(measure);
   ro.observe(el);
-  const offResize = listen(window, 'resize', measure);
+  const offResize = listen([window, 'resize', measure]);
   return () => {
     ro.disconnect();
     offResize();

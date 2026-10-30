@@ -2,13 +2,10 @@ import { useEffect, useMemo, useState } from 'preact/hooks';
 import type { Graph } from './graph-model';
 import { readArrival } from './explorer-arrival';
 import type { Filters, Route, Selection } from './use-explorer-state';
+import { getOrThrow } from './map-get';
+import { orThrow } from './or-throw';
 
 type Lang = 'en' | 'da';
-
-function knownTerm<T>(term: T | undefined, id: string): T {
-  if (term === undefined) throw new Error(`Unknown term id: ${id}`);
-  return term;
-}
 
 export function useGraphLoad(url: string, onLoad: (g: Graph) => void): Graph | null {
   const [graph, setGraph] = useState<Graph | null>(null);
@@ -29,7 +26,7 @@ type RouteEnds = [from: string, to: string];
 
 function showSearchIntentRoute(g: Graph, [from, to]: RouteEnds, { route, lang }: Arrive) {
   const nodeOf = (id: string) => g.nodes.find((n) => n.id === id);
-  const name = (id: string) => knownTerm(nodeOf(id), id).term[lang];
+  const name = (id: string) => orThrow(nodeOf(id), `term ${id}`).term[lang];
   route.fields.setFrom(name(from));
   route.fields.setTo(name(to));
   route.show(g, from, to, name);
@@ -54,6 +51,6 @@ export function useGraphIndex(graph: Graph | null, lang: Lang) {
     [graph, lang],
   );
   const allDomains = [...new Set((graph?.nodes ?? []).flatMap((n) => n.domain))];
-  const name = (id: string) => knownTerm(byId.get(id), id).term[lang];
+  const name = (id: string) => getOrThrow(byId, id, 'term').term[lang];
   return { byId, nameToId, allDomains, name };
 }

@@ -1,6 +1,6 @@
 import type { RefObject } from 'preact';
 import { useEffect } from 'preact/hooks';
-import { listen } from '../../lib/listen';
+import { listen, listenAll } from '../../lib/listen';
 import { isTypingTarget } from '../../lib/prefs';
 import { bridgeSelectors, pageOf, type TourScreen } from '../../lib/tour';
 import { findAnchor, viaOf } from './dom';
@@ -21,14 +21,13 @@ export function useTourBoot(d: TourNavDeps, nav: TourNav, autoStart: boolean) {
   useEffect(() => {
     d.refs.storageOk.current = storageWorks();
     d.setView(initialView(d.steps, d.page, autoStart && d.refs.storageOk.current));
-    const offStart = listen(document, 'click', (e) => startOnClick(e, d.refs, nav.go));
-    const offShow = listen<PageTransitionEvent>(window, 'pageshow', (e) => {
+    const onShow = (e: PageTransitionEvent) => {
       if (e.persisted) d.refs.root.current?.removeAttribute('data-leaving');
-    });
-    return () => {
-      offStart();
-      offShow();
     };
+    return listenAll([
+      [document, 'click', (e: MouseEvent) => startOnClick(e, d.refs, nav.go)],
+      [window, 'pageshow', onShow],
+    ]);
   }, []);
 }
 
@@ -61,7 +60,7 @@ export function useBridgeLinks(shown: Shown | null, d: TourNavDeps, nav: TourNav
       e.preventDefault();
       nav.leave(to, dest ?? '');
     };
-    const offClick = listen(document, 'click', onClick, { capture: true });
+    const offClick = listen([document, 'click', onClick, { capture: true }]);
     const offMenu = retargetOnMenu(shown, d, dest ?? '');
     return () => {
       offClick();
@@ -84,10 +83,14 @@ export function useTourEscape(
 ) {
   useEffect(() => {
     if (view.kind !== 'show' && view.kind !== 'bridge') return;
-    return listen<KeyboardEvent>(document, 'keydown', (e) => {
-      if (!closesTour(e, card.current)) return;
-      e.preventDefault(); // handled: other Escape listeners (the Explorer's panel) stand down
-      finish(false); // on the welcome card too: Esc is "not now", never "never"
-    });
+    return listen([
+      document,
+      'keydown',
+      (e: KeyboardEvent) => {
+        if (!closesTour(e, card.current)) return;
+        e.preventDefault(); // handled: other Escape listeners (the Explorer's panel) stand down
+        finish(false); // on the welcome card too: Esc is "not now", never "never"
+      },
+    ]);
   }, [view]);
 }
