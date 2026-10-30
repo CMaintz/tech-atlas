@@ -36,18 +36,17 @@ export function termElement(n: GraphNode, r: number, lang: 'en' | 'da') {
 /** Relationship edges, tinted by their source's cluster; `bb` backbone, `xc` cross-island. */
 export function linkElements(graph: Graph, byId: Map<string, GraphNode>, theme: MapTheme) {
   const spine = backbone(graph.nodes, graph.links);
-  return edgeData(
-    graph.links,
-    (id) => byId.get(id),
-    (_, i) => 0.7 + graph.links[i].weight * 0.35,
-    EXPLORER.edges.restAlpha,
-    theme,
-  ).map((data, i) => {
+  return edgeData(graph.links, (id) => byId.get(id), theme).map((data, i) => {
     const s = getOrThrow(byId, data.source, 'link source');
     const t = getOrThrow(byId, data.target, 'link target');
     const cross = s.cluster !== t.cluster;
     return {
-      data: { ...data, tint: clusterColour(s.cluster, homeDomain(s), theme) },
+      data: {
+        ...data,
+        width: 0.7 + graph.links[i].weight * 0.35,
+        alpha: EXPLORER.edges.restAlpha,
+        tint: clusterColour(s.cluster, homeDomain(s), theme),
+      },
       classes: [spine.has(i) ? 'bb' : '', cross ? 'xc' : ''].join(' '),
     };
   });

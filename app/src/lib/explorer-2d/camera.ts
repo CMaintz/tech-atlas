@@ -11,7 +11,7 @@ import type { MapParts, MapState } from './context';
 function fit(p: MapParts, s: MapState) {
   p.cy.stop(true);
   const eles = s.shown.nodes().union(p.cy.nodes('.tag').not('.gone'));
-  smoothFit(p.cy, 24, 1.1, p.opts.reserveRight(), eles);
+  smoothFit(p.cy, { padding: 24, maxZoom: 1.1, reserveRight: p.opts.reserveRight() }, eles);
 }
 
 /** Centre a term in the part of the map the docked panel leaves visible. */
