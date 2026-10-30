@@ -6,26 +6,26 @@ export type Localized = z.infer<typeof Localized>;
 const LocalizedMax = (n: number) =>
   z.object({ en: z.string().min(1).max(n), da: z.string().min(1).max(n) }).strict();
 
-export const LocalizedList = z
+const LocalizedList = z
   .object({
     en: z.array(z.string()).default([]),
     da: z.array(z.string()).default([]),
   })
   .strict();
 
-export const TermId = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'must be kebab-case');
+const TermId = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'must be kebab-case');
 
-export const Domain = z.enum(['security', 'cs', 'ai', 'platform']);
-export type Domain = z.infer<typeof Domain>;
+const Domain = z.enum(['security', 'cs', 'ai', 'platform']);
+type Domain = z.infer<typeof Domain>;
 
-export const TermRef = z
+const TermRef = z
   .string()
   .regex(
     /^(security\/|cs\/|ai\/|platform\/)?[a-z0-9]+(-[a-z0-9]+)*$/,
     'must be `id` or `domain/id`, kebab-case',
   );
 
-export const SourceTier = z.enum([
+const SourceTier = z.enum([
   'standard',
   'official-doc',
   'course-material',
@@ -64,7 +64,7 @@ export const EDGE_TYPES = {
 
 export type EdgeType = keyof typeof EDGE_TYPES;
 
-export const RichEdge = z
+const RichEdge = z
   .object({
     to: TermRef,
     why: Localized.optional(),
@@ -73,11 +73,11 @@ export const RichEdge = z
     sources: z.array(Source).default([]),
   })
   .strict();
-export type RichEdge = z.infer<typeof RichEdge>;
+type RichEdge = z.infer<typeof RichEdge>;
 
-export const Edge = z.union([TermRef, RichEdge]);
+const Edge = z.union([TermRef, RichEdge]);
 
-export const Edges = z
+const Edges = z
   .object(
     Object.fromEntries(Object.keys(EDGE_TYPES).map((k) => [k, z.array(Edge).optional()])) as Record<
       EdgeType,
@@ -106,7 +106,7 @@ export const LAYERS = {
 
 const AnyLayer = z.enum(Object.values(LAYERS).flat() as [string, ...string[]]);
 
-export const Body = z
+const Body = z
   .object({
     formal: Localized,
     plain: Localized,
@@ -114,7 +114,7 @@ export const Body = z
     whyItMatters: Localized,
   })
   .strict();
-export type Body = z.infer<typeof Body>;
+type Body = z.infer<typeof Body>;
 
 const StepList = (min: number, max: number) =>
   z
@@ -177,11 +177,11 @@ export type TermFrontmatter = z.infer<typeof TermFrontmatter>;
 export const TermData = TermFrontmatter.omit({ id: true });
 export type TermData = z.infer<typeof TermData>;
 
-export const TermKey = z
+const TermKey = z
   .string()
   .regex(/^(security|cs|ai|platform)\/[a-z0-9]+(-[a-z0-9]+)*$/, 'must be `domain/id`, kebab-case');
 
-export const QUESTION_KINDS = ['scenario', 'concept', 'compare', 'order', 'true-false'] as const;
+const QUESTION_KINDS = ['scenario', 'concept', 'compare', 'order', 'true-false'] as const;
 
 export const Question = z
   .object({

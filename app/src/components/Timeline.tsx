@@ -7,7 +7,7 @@ import type { TimelineProps } from './timeline/types';
 import { useTimeline } from './timeline/use-timeline';
 import { VerticalChart } from './timeline/VerticalChart';
 
-export type { TimelineEntry, TimelinePanel } from './timeline/types';
+export type { TimelineEntry } from './timeline/types';
 
 export default function Timeline(props: TimelineProps) {
   const t = useTimeline(props);

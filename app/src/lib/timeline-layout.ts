@@ -20,7 +20,7 @@ export const BOTTOM_AXIS = 26;
 export const CHIP_W = 34;
 export const SSR_WIDTH = 1280;
 export const SSR_BUDGET = 560;
-export const V_ZOOM = [4, 6, 10, 16, 22];
+const V_ZOOM = [4, 6, 10, 16, 22];
 export const V_ITEM = 24; // one phone row (h-6): a 24px tap target, the WCAG 2.5.8 minimum
 export const AXIS_COL = 44;
 
@@ -130,7 +130,7 @@ export function horizontalLayout<T extends ChartItem>(
   return { scale, lanes: out, width: scale.length + H_PAD * 2, row, font };
 }
 
-export function horizontalScale(axis: AxisInput, avail: number): Scale {
+function horizontalScale(axis: AxisInput, avail: number): Scale {
   const { zoom, load } = axis;
   const perYear = fitPerYear(axis, avail - LABEL_COL - H_PAD * 2 - 2, load) * H_ZOOM[zoom];
   return densityScale(axis, perYear, load);

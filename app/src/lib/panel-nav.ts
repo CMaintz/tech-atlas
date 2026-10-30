@@ -40,7 +40,7 @@ export const arrivalAnnouncement = (name: string, where: string, focusName: bool
 
 export type PanelHistory = { entries: string[]; pos: number };
 
-export const HISTORY_LIMIT = 50;
+const HISTORY_LIMIT = 50;
 
 export const startHistory = (id: string): PanelHistory => ({ entries: [id], pos: 0 });
 

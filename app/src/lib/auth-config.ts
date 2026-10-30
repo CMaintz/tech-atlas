@@ -1,9 +1,9 @@
 export const EMAIL_SIGNIN = false;
 
-export const KNOWN_PROVIDERS = ['github', 'linkedin_oidc'] as const;
+const KNOWN_PROVIDERS = ['github', 'linkedin_oidc'] as const;
 export type AuthProvider = (typeof KNOWN_PROVIDERS)[number];
 
-export const DEFAULT_PROVIDERS: readonly AuthProvider[] = ['github'];
+const DEFAULT_PROVIDERS: readonly AuthProvider[] = ['github'];
 
 export function parseAuthProviders(raw: string | undefined | null): AuthProvider[] {
   const asked = new Set(

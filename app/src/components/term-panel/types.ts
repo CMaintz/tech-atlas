@@ -5,7 +5,7 @@ import type { TermRecord } from '../../lib/term-panel';
 import type { TermCache } from './term-cache';
 import type { PanelNav } from './use-panel-nav';
 
-export type Lang = 'en' | 'da';
+type Lang = 'en' | 'da';
 export type Dict = Record<string, string>;
 
 export type PanelConfig = {
@@ -33,7 +33,7 @@ export interface PanelProps extends PanelConfig {
   actionsLabel?: string;
 }
 
-export type PanelRefs = {
+type PanelRefs = {
   root: RefObject<HTMLDivElement | null>;
   heading: RefObject<HTMLHeadingElement | null>;
   expandBtn: RefObject<HTMLButtonElement | null>;

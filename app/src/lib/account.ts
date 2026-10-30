@@ -5,13 +5,7 @@ import { setSyncState, syncState, writeNotice } from './account-state';
 import { loadLearner, parseLearner, saveLearner, type Learner } from './learner';
 import { mergeLearner, sameLearner } from './sync';
 
-export {
-  dismissNotice,
-  subscribe,
-  type SyncNotice,
-  type SyncState,
-  type SyncStatus,
-} from './account-state';
+export { dismissNotice, subscribe, type SyncState } from './account-state';
 
 const PUSH_DELAY = 1500;
 const ATTEMPTS = 4;

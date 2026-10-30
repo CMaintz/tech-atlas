@@ -29,7 +29,7 @@ export function parseAddLog(log: string): Map<string, string> {
   return added;
 }
 
-export type FeedItem = { title: string; link: string; description: string; date: string };
+type FeedItem = { title: string; link: string; description: string; date: string };
 export type Feed = {
   title: string;
   description: string;
@@ -89,7 +89,7 @@ export function newest<T extends { id: string }>(
 }
 
 /** How many Terms each language's feed carries. */
-export const FEED_SIZE = 50;
+const FEED_SIZE = 50;
 
 export type FeedTerm = {
   id: string;
