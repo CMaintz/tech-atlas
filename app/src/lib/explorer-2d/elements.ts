@@ -68,14 +68,10 @@ export const bundleWidth = (count: number, top: number) => {
   return wMin + (wMax - wMin) * Math.sqrt(count / top);
 };
 
-/** A bundle's gradient from one island's shade to the other's. */
-export const bundleGradient = (a: string, b: string, theme: MapTheme) =>
-  `${clusterColour(a, undefined, theme)} ${clusterColour(b, undefined, theme)}`;
-
-/** A bundle's palette-dependent data: its first island's shade and the gradient. */
+/** A bundle's palette-dependent data: its first island's shade, and a gradient to the other's. */
 export const bundleInk = (a: string, b: string, theme: MapTheme) => ({
   colour: clusterColour(a, undefined, theme),
-  gradient: bundleGradient(a, b, theme),
+  gradient: `${clusterColour(a, undefined, theme)} ${clusterColour(b, undefined, theme)}`,
 });
 
 type ClusterBundle = ReturnType<typeof clusterBundles>[number];
