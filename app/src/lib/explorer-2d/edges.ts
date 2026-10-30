@@ -13,6 +13,7 @@ import {
   pairKey,
   visibleBundleCounts,
 } from '../graph-layout';
+import { getOrThrow } from '../map-get';
 import { reshow, type MapParts, type MapState } from './context';
 import { bundleWidth } from './elements';
 import type { View } from './types';
@@ -27,8 +28,12 @@ export type EdgeChange = {
 };
 
 type Ends = { s: string; t: string; family: string; bb: boolean };
-type EdgeMeta = Ends & { e: cytoscape.EdgeSingular; bits: number };
+/** A relationship's edge, its index among the graph's links, and its last class bits. */
+type EdgeMeta = Ends & { e: cytoscape.EdgeSingular; i: number; bits: number };
 type LookView = Pick<View, 'nodes' | 'families' | 'showAll' | 'selected' | 'highlight'>;
+
+const touches = (m: Ends, id: string | null) => m.s === id || m.t === id;
+const withinRoute = (m: Ends, route: ReadonlySet<string>) => route.has(m.s) && route.has(m.t);
 
 /**
  * How a relationship is drawn in a view. The families filter the overview only: a
@@ -37,9 +42,7 @@ type LookView = Pick<View, 'nodes' | 'families' | 'showAll' | 'selected' | 'high
 export function edgeLook(m: Ends, v: LookView) {
   const shown = linkVisible({ source: m.s, target: m.t }, v.nodes);
   const ends = shown && v.families.has(m.family);
-  const hl = v.highlight;
-  const focus =
-    (shown && (m.s === v.selected || m.t === v.selected)) || (ends && hl.has(m.s) && hl.has(m.t));
+  const focus = (shown && touches(m, v.selected)) || (ends && withinRoute(m, v.highlight));
   const on = focus || (ends && (v.showAll || m.bb));
   return { on, all: on && v.showAll, focus };
 }
@@ -56,8 +59,8 @@ export const applyEdge = (c: EdgeChange) =>
     .toggleClass('focus', c.focus);
 
 /** The change to one edge in a view, or null when its classes stay. */
-function restyle(m: EdgeMeta, i: number, v: LookView, spine: Set<number> | null) {
-  if (spine) m.bb = spine.has(i);
+function restyle(m: EdgeMeta, v: LookView, spine: Set<number> | null): EdgeChange | null {
+  if (spine) m.bb = spine.has(m.i);
   const look = edgeLook(m, v);
   const bits = lookBits(m.bb, look);
   if (bits === m.bits && m.e.hasClass('off') === !look.on) return null;
@@ -65,16 +68,16 @@ function restyle(m: EdgeMeta, i: number, v: LookView, spine: Set<number> | null)
   return { e: m.e, bb: m.bb, ...look };
 }
 
+/** How many visible relationships each island pair's bundle stands for (force overview only). */
+function bundleCounts(p: MapParts, v: View) {
+  if (v.layout !== 'force' || v.showAll) return new Map<string, number>();
+  const links = p.graph.links.filter((l) => v.families.has(l.family));
+  return visibleBundleCounts(links, p.clusterOf, v.nodes);
+}
+
 /** Bundles summarise the visible cross-cluster relationships in the force overview. */
 function refreshBundles(p: MapParts, v: View) {
-  const counts =
-    v.layout === 'force' && !v.showAll
-      ? visibleBundleCounts(
-          p.graph.links.filter((l) => v.families.has(l.family)),
-          p.clusterOf,
-          v.nodes,
-        )
-      : new Map<string, number>();
+  const counts = bundleCounts(p, v);
   const top = Math.max(1, ...counts.values());
   const [aMin, aMax] = EXPLORER.edges.bundleAlpha;
   p.bundleEdges.forEach((e) => {
@@ -88,44 +91,50 @@ function refreshBundles(p: MapParts, v: View) {
   });
 }
 
-/**
- * Restyle the edges for the current view. Worked out in plain data; only edges whose
- * classes change are touched, so a toggle restyles the edges it changes, not every
- * edge. `defer` hands the changes back to be applied a batch per frame.
- */
-export function createEdges(p: MapParts, s: MapState) {
-  /** Each relationship's edge, ends and family by index, and its last class bits. */
-  const meta: EdgeMeta[] = p.graph.links.map((l, i) => ({
+const edgeMeta = (p: MapParts): EdgeMeta[] =>
+  p.graph.links.map((l, i) => ({
     e: p.cy.getElementById(`e${i}`) as cytoscape.EdgeSingular,
+    i,
     s: l.source,
     t: l.target,
     family: l.family,
     bb: false,
     bits: -1,
   }));
-  // The backbone over the families switched on and the terms shown, recomputed when
-  // either changes: a term whose strongest links went to hidden terms keeps a visible one.
+
+/**
+ * The backbone over the families switched on and the terms shown, recomputed when either
+ * changes (a term whose strongest links went to hidden terms keeps a visible one); null
+ * when neither did.
+ */
+function createSpine(graph: MapParts['graph']) {
   let spineFor: [ReadonlySet<string>, ReadonlySet<string>] | null = null;
-  const spineOf = (v: View) => {
+  return (v: View) => {
     const same = spineFor?.[0] === v.families && spineFor[1] === v.nodes;
     spineFor = [v.families, v.nodes];
-    return same ? null : backboneOf(p.graph.nodes, p.graph.links, v.families, v.nodes);
+    return same ? null : backboneOf(graph.nodes, graph.links, v.families, v.nodes);
   };
+}
+
+/**
+ * Restyle the edges for the current view. Worked out in plain data; only edges whose
+ * classes change are touched, so a toggle restyles the edges it changes, not every
+ * edge. `defer` hands the changes back to be applied a batch per frame.
+ */
+export function createEdges(p: MapParts, s: MapState) {
+  const meta = edgeMeta(p);
+  const spineOf = createSpine(p.graph);
   return (defer = false): EdgeChange[] => {
-    const changes: EdgeChange[] = [];
     const v = s.view;
-    if (!v) return changes;
+    if (!v) return [];
     const spine = spineOf(v);
+    const changes = meta.flatMap((m) => restyle(m, v, spine) ?? []);
     p.cy.batch(() => {
-      meta.forEach((m, i) => {
-        const c = restyle(m, i, v, spine);
-        if (c && defer) changes.push(c);
-        else if (c) applyEdge(c);
-      });
+      if (!defer) changes.forEach(applyEdge);
       refreshBundles(p, v);
     });
     reshow(p, s);
-    return changes;
+    return defer ? changes : [];
   };
 }
 
@@ -135,8 +144,9 @@ function route(p: MapParts, e: cytoscape.EdgeSingular, centre?: Record<string, P
     e.removeStyle('curve-style control-point-distances control-point-weights');
     return;
   }
-  const from = centre[p.clusterOf(e.data('source'))!];
-  const to = centre[p.clusterOf(e.data('target'))!];
+  const islandCentre = (id: string) => centre[getOrThrow(p.byId, id, 'edge end').cluster];
+  const from = islandCentre(e.data('source'));
+  const to = islandCentre(e.data('target'));
   const r = bundleControls(e.source().position(), e.target().position(), from, to);
   e.style({
     'curve-style': 'unbundled-bezier',
