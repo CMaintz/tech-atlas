@@ -46,17 +46,22 @@ export function fadingEdges(p: MapParts, was: ReadonlySet<string> | null, next: 
   });
 }
 
-export const fadeOut = (edges: cytoscape.Collection, then: () => void) =>
+export function fadeOut(edges: cytoscape.Collection, then: () => void) {
+  // Cytoscape runs `complete` once per element; `then` starts a staggered change, and
+  // one per faded edge would put many changes in flight at once.
+  let left = edges.length;
   edges.animate(
     { style: { opacity: 0 } },
     {
       duration: EXPLORER.motion.fadeMs,
       complete: () => {
+        if (--left > 0) return;
         edges.removeStyle('opacity');
         then();
       },
     },
   );
+}
 
 const fadeIn = (edges: cytoscape.EdgeCollection) =>
   edges.forEach((e) => {
