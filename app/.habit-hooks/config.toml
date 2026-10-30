@@ -21,8 +21,13 @@ args = ["--max", "300"]
 # force (the preset's, or a project eslint.config). Blank and comment lines are skipped
 # to match size-rules' logical lines; unlike size-rules, eslint also counts a nested
 # function's lines toward its parent, so the two can differ on functions with callbacks.
+# The bundled eslint preset also reports oversized-file, from its own max-lines of 200,
+# so the line-count limit above only holds if eslint is given the same 300.
 [sensors.eslint]
-args = ["--rule", "max-lines-per-function: [error, {max: 18, skipBlankLines: true, skipComments: true, IIFEs: true}]"]
+args = [
+  "--rule", "max-lines-per-function: [error, {max: 18, skipBlankLines: true, skipComments: true, IIFEs: true}]",
+  "--rule", "max-lines: [error, {max: 300, skipBlankLines: false, skipComments: false}]",
+]
 
 # The TS plugin's comment sensor flags every comment over a few characters and coaches the
 # agent to delete it, so why-comments go too. Foundry wants why-comments and only objects
