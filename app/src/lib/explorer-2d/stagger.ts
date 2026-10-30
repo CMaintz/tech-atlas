@@ -7,42 +7,56 @@
 import type cytoscape from 'cytoscape';
 import { EXPLORER } from '../explorer-config';
 
+/** The change in flight: the frame that runs its next batch, and a way to finish it now. */
+type Pending = { raf: number; rest: () => void };
+/** The one slot for the change in flight, which every run's frames reschedule through. */
+type Slot = { job: Pending | null };
+/** A staggered change: `step` runs over `all` a batch at a time, then `end`. */
+type Staggered<T> = { all: T[]; step: (chunk: T[]) => void; end: () => void };
+
+/**
+ * Each call steps over the next `count` items in one Cytoscape batch; how many are left
+ * (zero or less once at or past the end).
+ */
+function batcher<T>(cy: cytoscape.Core, all: T[], step: (chunk: T[]) => void) {
+  let i = 0;
+  return (count: number) => {
+    const chunk = all.slice(i, (i += count));
+    cy.batch(() => step(chunk));
+    return all.length - i;
+  };
+}
+
+function startBatches<T>(cy: cytoscape.Core, { all, step, end }: Staggered<T>, slot: Slot) {
+  const batch = batcher(cy, all, step);
+  const tick = () => {
+    if (batch(EXPLORER.motion.revealBatch) <= 0) {
+      slot.job = null;
+      return end();
+    }
+    if (!slot.job) throw new Error('stagger: a batch is left but no change is in flight');
+    slot.job.raf = requestAnimationFrame(tick);
+  };
+  const rest = () => {
+    batch(all.length);
+    end();
+  };
+  slot.job = { raf: requestAnimationFrame(tick), rest };
+}
+
 export function createStagger(cy: cytoscape.Core) {
-  /** The change in flight: its remaining batches, and the frame that runs the next. */
-  let pending: { rest: () => void; raf: number } | null = null;
-  const flush = () => {
-    if (!pending) return;
-    cancelAnimationFrame(pending.raf);
-    const p = pending;
-    pending = null;
-    p.rest();
+  const slot: Slot = { job: null };
+  /** Stop the change in flight from running its next frame; that change, if any. */
+  const take = () => {
+    const p = slot.job;
+    slot.job = null;
+    if (p) cancelAnimationFrame(p.raf);
+    return p;
   };
   /** Run `step` over `all` a batch per frame, then `end`. */
-  const run = <T>(all: T[], step: (chunk: T[]) => void, end: () => void) => {
-    let i = 0;
-    const batch = (count: number) => {
-      const chunk = all.slice(i, (i += count));
-      cy.batch(() => step(chunk));
-    };
-    const tick = () => {
-      batch(EXPLORER.motion.revealBatch);
-      if (i < all.length) pending!.raf = requestAnimationFrame(tick);
-      else {
-        pending = null;
-        end();
-      }
-    };
-    const rest = () => {
-      batch(all.length - i);
-      end();
-    };
-    pending = { raf: requestAnimationFrame(tick), rest };
-  };
-  const cancel = () => {
-    if (pending) cancelAnimationFrame(pending.raf);
-    pending = null;
-  };
-  return { run, flush, cancel };
+  const run = <T>(all: T[], step: (chunk: T[]) => void, end: () => void) =>
+    startBatches(cy, { all, step, end }, slot);
+  return { run, flush: () => take()?.rest(), cancel: () => void take() };
 }
 
 export type Stagger = ReturnType<typeof createStagger>;

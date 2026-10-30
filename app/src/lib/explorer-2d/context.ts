@@ -32,6 +32,11 @@ export type MapState = {
   centreNow: Record<string, Point> | undefined;
 };
 
+/** A view replacing the one before it (none before the first). */
+export type ViewChange = { prev: View | null; next: View };
+
+export const layoutChanged = ({ prev, next }: ViewChange) => !prev || prev.layout !== next.layout;
+
 /** The graph link behind a relationship edge (`e<index>`). */
 export const linkOf = (p: Pick<MapParts, 'graph'>, e: cytoscape.EdgeSingular) =>
   p.graph.links[Number(e.id().slice(1))];
