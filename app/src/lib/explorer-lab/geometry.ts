@@ -1,4 +1,4 @@
-import { getOrThrow } from '../map-get';
+import { getOrThrow as required } from '../map-get';
 
 export type Vec = { x: number; y: number; z: number };
 export type QuadCurve = { a: Vec; c: Vec; b: Vec };
@@ -50,7 +50,7 @@ export function subClusters(
   const domC = new Map([...byDomain].map(([d, ids]) => [d, centroid(ids, orig)]));
   for (const ids of byCluster.values()) {
     const c = centroid(ids, orig);
-    const d = getOrThrow(domC, domainOf(ids[0]), 'domain centre');
+    const d = required(domC, domainOf(ids[0]), 'domain centre');
     for (const i of ids)
       for (const a of AXES) ps[i][a] = d[a] + (c[a] - d[a]) * spread + (orig[i][a] - c[a]) * tight;
   }

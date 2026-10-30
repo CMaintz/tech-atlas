@@ -1,6 +1,6 @@
 import type { Map3D } from '../../../lib/explorer-3d';
 import { EXPLORER } from '../../../lib/explorer-config';
-import { getOrThrow } from '../../../lib/map-get';
+import { getOrThrow as required } from '../../../lib/map-get';
 import type { EdgeType } from '../../../schema';
 import type { FAMILY_COLOURS, MapTheme } from '../../../lib/graph-style';
 import type { Lab3D } from '../../../lib/explorer-lab';
@@ -85,6 +85,6 @@ const todays = (fg: Fg) => ({
 export const endOf = (x: LinkLike['source']) => (typeof x === 'string' ? x : x.id);
 
 export const nodeOf = (ctx: Lab3, x: LinkLike['source']) =>
-  typeof x === 'string' ? getOrThrow(ctx.byId, x, 'term') : x;
+  typeof x === 'string' ? required(ctx.byId, x, 'term') : x;
 
-export const endNode = (ctx: Lab3, x: LinkLike['source']) => getOrThrow(ctx.byId, endOf(x), 'term');
+export const endNode = (ctx: Lab3, x: LinkLike['source']) => required(ctx.byId, endOf(x), 'term');

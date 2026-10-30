@@ -5,7 +5,7 @@ import { HitGrid } from './hit-grid';
 import { labBackbone } from './edges';
 import { labLayout, radii } from './layout';
 import { phaseOf } from './motion';
-import { getOrThrow } from '../map-get';
+import { getOrThrow as required } from '../map-get';
 
 type Links = Graph['links'];
 type LinkEnds = { links: Links; es: Int32Array; et: Int32Array };
@@ -118,11 +118,11 @@ function linkAdjacency(e: Engine) {
 
 function placeNodes(e: Engine, graph: Graph) {
   const rad = radii(graph.nodes, graph.links);
-  const pos = labLayout(graph.nodes, graph.links, (id) => getOrThrow(rad, id, 'radius').r);
+  const pos = labLayout(graph.nodes, graph.links, (id) => required(rad, id, 'radius').r);
   const box = { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity };
   graph.nodes.forEach((nd, i) => {
-    const p = getOrThrow(pos, nd.id, 'position');
-    const size = getOrThrow(rad, nd.id, 'radius');
+    const p = required(pos, nd.id, 'position');
+    const size = required(rad, nd.id, 'radius');
     [e.wx[i], e.wy[i], e.wz[i]] = [p.x, p.y, p.z];
     [e.r[i], e.rank[i]] = [size.r, size.rank];
     box.minX = Math.min(box.minX, p.x - e.r[i]);
