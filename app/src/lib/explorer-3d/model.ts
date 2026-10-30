@@ -8,6 +8,7 @@ import type { Graph, GraphNode } from '../graph-model';
 import { EXPLORER } from '../explorer-config';
 import { homeDomain, isDirected } from '../graph-style';
 import { galaxyLayout, pageRank, separate, type Point3 } from '../graph-layout';
+import { getOrThrow } from '../map-get';
 import type { Link3, Node3 } from './types';
 
 // 3d-force-graph swaps link endpoints for node objects once it has run.
@@ -23,6 +24,10 @@ export type Model = {
   /** A term's sphere radius, by its PageRank. */
   radius: (n: GraphNode) => number;
 };
+
+/** The term at one end of a link: every link joins two terms of the model. */
+export const endNode = ({ byId }: Pick<Model, 'byId'>, end: unknown) =>
+  getOrThrow(byId, endId(end), 'link end');
 
 export function rankOf(graph: Graph) {
   return pageRank(
@@ -53,7 +58,7 @@ function layoutOf(variant?: 'v2') {
 export function placeTerms(graph: Graph, radius: (n: GraphNode) => number, variant?: 'v2') {
   const { cfg, factor, clearance } = layoutOf(variant);
   const pos = galaxyLayout(graph.nodes, graph.links, undefined, cfg);
-  const pts: Point3[] = graph.nodes.map((n) => ({ ...pos.get(n.id)! }));
+  const pts: Point3[] = graph.nodes.map((n) => ({ ...getOrThrow(pos, n.id, 'galaxy layout') }));
   const r = graph.nodes.map(radius);
   separate(pts, (i, j) => (factor * (r[i] + r[j])) / 2 + clearance, 60);
   graph.nodes.forEach((n, i) => pos.set(n.id, pts[i]));
@@ -74,7 +79,7 @@ export function buildModel(graph: Graph, variant?: 'v2'): Model {
   const radius = radiusBy(rank);
   const pos = placeTerms(graph, radius, variant);
   const nodes: Node3[] = graph.nodes.map((n) => {
-    const p = pos.get(n.id)!;
+    const p = getOrThrow(pos, n.id, 'term placement');
     return { ...n, x: p.x, y: p.y, z: p.z, fx: p.x, fy: p.y, fz: p.z };
   });
   const links: Link3[] = graph.links.map((l, i) => ({ ...l, i, bb: false }));

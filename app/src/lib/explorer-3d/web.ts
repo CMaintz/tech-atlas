@@ -8,7 +8,7 @@ import { EXPLORER } from '../explorer-config';
 import { clusterColour, homeDomain } from '../graph-style';
 import { atStrength } from './colour';
 import { SEGMENTS } from './curves';
-import { endId } from './model';
+import { endNode } from './model';
 import type { Ctx } from './context';
 import { DRAW } from './graph3d';
 import { isLight } from './lens';
@@ -18,10 +18,11 @@ const PER_LINK = SEGMENTS * 2;
 
 /** A resting link's strength: 0 hidden, faint when either end recedes. */
 function restStrength({ lens, state }: Ctx, l: Link3) {
-  if (!lens.drawn(l) || lens.focusOf(l)) return 0;
+  const { view } = state;
+  if (!view || !lens.drawn(l) || lens.focusOf(l)) return 0;
   if (lens.dimmed(l)) return 0.02;
   const alpha = EXPLORER.three.linkAlpha;
-  return state.view!.showAll && !l.bb ? alpha * 0.6 : alpha;
+  return view.showAll && !l.bb ? alpha * 0.6 : alpha;
 }
 
 /** Per-vertex colours, added to the night map (multiplied into the cream one: `setBlend`). */
@@ -51,12 +52,14 @@ function webLines(ctx: Ctx, segments: Float32Array) {
 /** Each link's resting tint: its source term's cluster colour. */
 const tintsOf = ({ THREE, model, state }: Ctx) =>
   model.links.map((l) => {
-    const s = model.byId.get(endId(l.source))!;
+    const s = endNode(model, l.source);
     return new THREE.Color(clusterColour(s.cluster, homeDomain(s), state.theme));
   });
 
-export function createWeb(ctx: Ctx, segments: Float32Array) {
-  const { web, colours } = webLines(ctx, segments);
+type Colours = ReturnType<typeof webLines>['colours'];
+
+/** Writes each link's colour at a strength, and remembers the strength it was drawn at. */
+function linkWriter(ctx: Ctx, colours: Colours) {
   const n = ctx.model.links.length;
   let tints = tintsOf(ctx);
   /** The hidden visual lab may scale or recolour each resting link; inert by default. */
@@ -71,20 +74,28 @@ export function createWeb(ctx: Ctx, segments: Float32Array) {
     const rgb = atStrength(tint[i] ?? tints[i], light ? Math.min(1, g * 1.5) : g, light);
     for (let j = 0; j < PER_LINK; j++) colours.array.set(rgb, (i * PER_LINK + j) * 3);
   };
-  const reveal = createReveal(write, () => void (colours.needsUpdate = true));
+  return { gain, tint, shown, write, retint: () => void (tints = tintsOf(ctx)) };
+}
+
+export function createWeb(ctx: Ctx, segments: Float32Array) {
+  const { web, colours } = webLines(ctx, segments);
+  const links = linkWriter(ctx, colours);
+  const reveal = createReveal(links.write, () => void (colours.needsUpdate = true));
   const paint = (stagger = false) => {
     const next = ctx.model.links.map((l) => restStrength(ctx, l));
-    reveal.show(next, (i, k) => stagger && ctx.motion && k > 0 && shown[i] === 0);
+    reveal.show(next, (i, k) => stagger && ctx.motion && k > 0 && links.shown[i] === 0);
   };
-  const retint = () => void (tints = tintsOf(ctx));
+  const { gain, tint, retint } = links;
   return { web, gain, tint, paint, retint, stop: reveal.stop };
 }
 
 type Write = (i: number, k: number) => void;
 
-/** Writes strengths now, or — those `later` picks — a batch per animation frame. */
-function createReveal(write: Write, flush: () => void) {
-  let waiting: { i: number; k: number }[] = [];
+type Pending = { i: number; k: number }[];
+
+/** Writes the strengths it is given a batch per animation frame, until none are left. */
+function frameBatches(write: Write, flush: () => void) {
+  let waiting: Pending = [];
   let raf = 0;
   const tick = () => {
     for (const { i, k } of waiting.splice(0, EXPLORER.motion.revealBatch)) write(i, k);
@@ -95,12 +106,22 @@ function createReveal(write: Write, flush: () => void) {
     cancelAnimationFrame(raf);
     raf = 0;
   };
-  const show = (strengths: number[], later: (i: number, k: number) => boolean) => {
-    stop();
-    waiting = [];
-    strengths.forEach((k, i) => (later(i, k) ? waiting.push({ i, k }) : write(i, k)));
-    flush();
+  const start = (next: Pending) => {
+    waiting = next;
     if (waiting.length) raf = requestAnimationFrame(tick);
   };
-  return { show, stop };
+  return { start, stop };
+}
+
+/** Writes strengths now, or (those `later` picks) a batch per animation frame. */
+function createReveal(write: Write, flush: () => void) {
+  const batches = frameBatches(write, flush);
+  const show = (strengths: number[], later: (i: number, k: number) => boolean) => {
+    batches.stop();
+    const waiting: Pending = [];
+    strengths.forEach((k, i) => (later(i, k) ? waiting.push({ i, k }) : write(i, k)));
+    flush();
+    batches.start(waiting);
+  };
+  return { show, stop: batches.stop };
 }

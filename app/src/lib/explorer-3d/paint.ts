@@ -4,7 +4,7 @@
  * names — built in draw order, painted together, and switched between palettes.
  */
 import { EXPLORER } from '../explorer-config';
-import { endId } from './model';
+import { endNode } from './model';
 import { bend, curveLengths, packCurves } from './curves';
 import { createGlow } from './glow';
 import { createDomainNames, createHubLabels } from './labels';
@@ -18,9 +18,8 @@ import { inkOf, isLight } from './lens';
 
 /** Each link's curve, packed (shared by the web, comets and names), and its length. */
 function curvesOf({ model }: Ctx) {
-  const ends = (id: unknown) => model.byId.get(endId(id))!;
   const { curve, segments } = packCurves(
-    model.links.map((l) => bend(ends(l.source), ends(l.target))),
+    model.links.map((l) => bend(endNode(model, l.source), endNode(model, l.target))),
   );
   return { curve, segments, linkLength: curveLengths(curve, model.links.length) };
 }
@@ -31,7 +30,7 @@ function createParts(ctx: Ctx) {
   const domains = createDomainNames(ctx);
   const { curve, segments, linkLength } = curvesOf(ctx);
   const web = createWeb(ctx, segments);
-  const flow = createFlow(ctx, curve, linkLength);
+  const flow = createFlow(ctx, { curve, linkLength });
   flow.run(true);
   const tags = createTags(ctx, curve);
   // v2 only (both are empty otherwise): lit terms' names, and the cluster names.
@@ -69,31 +68,37 @@ function repalette(ctx: Ctx, parts: Parts) {
   parts.clusters.redraw();
 }
 
+/** Paint all of ours; `stagger` reveals newly shown links a batch per frame. */
+function paintParts(parts: Parts, stagger: boolean) {
+  parts.web.paint(stagger);
+  parts.flow.paint();
+  parts.glow.paint();
+  parts.hubs.paint();
+  parts.domains.paint();
+  parts.tags.paint();
+  parts.termNames.paint();
+  parts.clusters.paint();
+}
+
+/** Re-evaluate 3d-force-graph's accessors by setting each to itself (its idiom). */
+function reevaluate(fg: Ctx['fg']) {
+  fg.nodeColor(fg.nodeColor())
+    .linkVisibility(fg.linkVisibility())
+    .linkColor(fg.linkColor())
+    .linkDirectionalArrowLength(fg.linkDirectionalArrowLength())
+    .linkDirectionalParticles(fg.linkDirectionalParticles());
+}
+
 export function createPainter(ctx: Ctx) {
   const parts = createParts(ctx);
   setBlend(ctx, parts);
-  /** Paint all of ours; `stagger` reveals newly shown links a batch per frame. */
-  const paint = (stagger = false) => {
-    parts.web.paint(stagger);
-    parts.flow.paint();
-    parts.glow.paint();
-    parts.hubs.paint();
-    parts.domains.paint();
-    parts.tags.paint();
-    parts.termNames.paint();
-    parts.clusters.paint();
-  };
-  /** Re-evaluate 3d-force-graph's accessors (its idiom), paint ours, land new objects. */
+  const paint = (stagger = false) => paintParts(parts, stagger);
+  /** Re-evaluate 3d-force-graph's accessors, paint ours, land new objects. */
   const refresh = () => {
-    const { fg } = ctx;
-    fg.nodeColor(fg.nodeColor())
-      .linkVisibility(fg.linkVisibility())
-      .linkColor(fg.linkColor())
-      .linkDirectionalArrowLength(fg.linkDirectionalArrowLength())
-      .linkDirectionalParticles(fg.linkDirectionalParticles());
+    reevaluate(ctx.fg);
     paint();
     // New objects start at the origin until the (fixed-node) engine runs one tick.
-    fg.d3ReheatSimulation();
+    ctx.fg.d3ReheatSimulation();
   };
   return { ...parts, paint, refresh, repalette: () => repalette(ctx, parts) };
 }

@@ -18,13 +18,13 @@ function hubLabel(ctx: Ctx, n: Ctx['model']['nodes'][number]) {
   const c = hubCanvas(text);
   drawHub(text, c, ctx.state.theme);
   const h = EXPLORER.three.hubLabelHeight;
-  const { sprite, tex } = textSprite(ctx.THREE, c, h, true);
+  const { sprite, tex } = textSprite(ctx.THREE, c, { height: h, fog: true });
   sprite.position.set(n.x, n.y + ctx.model.radius(n) + h * 0.7, n.z);
   return { sprite, art: { text, c, tex } };
 }
 
-/** Text sprites for the most central terms; they recede with the terms they name. */
-export function createHubLabels(ctx: Ctx) {
+/** The hub labels' sprites by term, in the scene, and their art. */
+function hubSprites(ctx: Ctx) {
   const labels = new Map<string, Sprite>();
   const art: Art[] = [];
   // v2 names no term at rest (term-names.ts names the lit ones).
@@ -35,6 +35,12 @@ export function createHubLabels(ctx: Ctx) {
     labels.set(n.id, made.sprite);
     ctx.scene.add(made.sprite);
   }
+  return { labels, art };
+}
+
+/** Text sprites for the most central terms; they recede with the terms they name. */
+export function createHubLabels(ctx: Ctx) {
+  const { labels, art } = hubSprites(ctx);
   const paint = () => {
     for (const [id, s] of labels) {
       s.visible = !!ctx.state.view?.nodes.has(id);
@@ -57,31 +63,32 @@ function domainName(ctx: Ctx, g: DomainGroup): DomainArt {
   const c = domainCanvas(text);
   drawDomain(text, c, domainColour(g.domain, ctx.state.theme));
   const h = EXPLORER.three.domainLabelHeight;
-  const { sprite, tex } = textSprite(ctx.THREE, c, h, false);
+  const { sprite, tex } = textSprite(ctx.THREE, c, { height: h, fog: false });
   // Just above the galaxy, so the name labels its region without covering its terms.
   sprite.position.set(g.x, g.top + h * 0.5, g.z);
   sprite.renderOrder = -1;
   return { text, c, tex, sprite, domain: g.domain, ids: g.ids };
 }
 
+/** A name shows while any of its own terms does; it recedes with a selection. */
+function paintDomainNames({ state }: Ctx, names: readonly DomainArt[]) {
+  const { view, fx, theme } = state;
+  const quiet = !!(fx.hood || state.cluster || view?.selected || view?.highlight.size);
+  for (const a of names) {
+    a.sprite.visible = a.ids.some((id) => view?.nodes.has(id));
+    a.sprite.material.opacity = EXPLORER.three.domainLabelAlpha[theme] * (quiet ? 0.35 : 1);
+  }
+}
+
 /** Each domain's name over its galaxy, like the 2D map. */
 export function createDomainNames(ctx: Ctx) {
   const names = domainGroups(ctx.model.nodes).map((g) => domainName(ctx, g));
   for (const a of names) ctx.scene.add(a.sprite);
-  /** A name shows while any of its own terms does; it recedes with a selection. */
-  const paint = () => {
-    const { view, fx, theme } = ctx.state;
-    const quiet = !!(fx.hood || ctx.state.cluster || view?.selected || view?.highlight.size);
-    for (const a of names) {
-      a.sprite.visible = a.ids.some((id) => view?.nodes.has(id));
-      a.sprite.material.opacity = EXPLORER.three.domainLabelAlpha[theme] * (quiet ? 0.35 : 1);
-    }
-  };
   const redraw = () => {
     for (const a of names) {
       drawDomain(a.text, a.c, domainColour(a.domain, ctx.state.theme));
       a.tex.needsUpdate = true;
     }
   };
-  return { paint, redraw };
+  return { paint: () => paintDomainNames(ctx, names), redraw };
 }

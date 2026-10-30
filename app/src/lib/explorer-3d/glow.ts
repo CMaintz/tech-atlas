@@ -20,8 +20,8 @@ function glowOf(ctx: Ctx, n: Node3, col: Colour) {
   return col.set(n.id === view.selected ? inkOf(ctx).selected : (ring ?? view.colour(n)));
 }
 
-export function createGlow(ctx: Ctx) {
-  const { THREE, model } = ctx;
+/** A point at every term, sized to its sphere; colours written by `paint`. */
+function glowGeometry({ THREE, model }: Ctx) {
   const geo = new THREE.BufferGeometry();
   const at = model.nodes.flatMap((n) => [n.x, n.y, n.z]);
   geo.setAttribute('position', new THREE.Float32BufferAttribute(at, 3));
@@ -29,6 +29,12 @@ export function createGlow(ctx: Ctx) {
   geo.setAttribute('color', colours);
   const sizes = model.nodes.map((n) => model.radius(n) * EXPLORER.three.glowScale);
   geo.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
+  return { geo, colours };
+}
+
+export function createGlow(ctx: Ctx) {
+  const { THREE, model } = ctx;
+  const { geo, colours } = glowGeometry(ctx);
   const material = glowMaterial(THREE, ctx.el.clientHeight);
   const points = new THREE.Points(geo, material);
   points.frustumCulled = false;

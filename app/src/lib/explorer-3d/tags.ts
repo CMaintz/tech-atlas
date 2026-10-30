@@ -33,8 +33,11 @@ function namedLinks({ lens, state, model, opts }: Ctx) {
   });
 }
 
-/** Where a name lands on screen, or null when it is off it. */
-function screenBox(t: Tag, cam: Camera, at: Vec3, w: number, h: number) {
+/** This frame's camera and canvas size, read once for every name. */
+type Screen = { cam: Camera; w: number; h: number };
+
+/** Where a name lands on screen, or null when it is off it (`at` is scratch). */
+function screenBox(t: Tag, { cam, w, h }: Screen, at: Vec3) {
   at.copy(t.sprite.position).project(cam);
   if (at.z > 1 || Math.abs(at.x) > 1.2 || Math.abs(at.y) > 1.2) return null;
   const box: LabelBox = {
@@ -66,21 +69,25 @@ export function createTags(ctx: Ctx, curve: Float32Array) {
   return { paint, place: createPlacer(ctx, () => tags), clearArt: art.clear };
 }
 
+/** The name of the link under the pointer first: the cull keeps the earliest of an overlap. */
+const underFirst = (tags: Tag[], under: number | null) => [
+  ...tags.filter((t) => t.i === under),
+  ...tags.filter((t) => t.i !== under),
+];
+
 /** Per frame: size every name for the camera, and cull the overlapping ones. */
-function createPlacer({ THREE, fg, el, state }: Ctx, current: () => Tag[]) {
-  const at = new THREE.Vector3();
+function createPlacer(ctx: Ctx, current: () => Tag[]) {
+  const at = new ctx.THREE.Vector3();
   return () => {
     const tags = current();
     if (!tags.length) return;
-    const cam = cameraOf(fg);
-    const [w, h] = [el.clientWidth, el.clientHeight];
+    const screen = { cam: cameraOf(ctx.fg), w: ctx.el.clientWidth, h: ctx.el.clientHeight };
     // With sizeAttenuation off a sprite's height on screen is scale × P[5] × h / 2.
-    const k = (2 * TAG_PX) / (cam.projectionMatrix.elements[5] * h);
-    const under = tags.filter((t) => t.i === state.underLink);
+    const k = (2 * TAG_PX) / (screen.cam.projectionMatrix.elements[5] * screen.h);
     const boxes: LabelBox[] = [];
-    for (const t of [...under, ...tags.filter((x) => x.i !== state.underLink)]) {
+    for (const t of underFirst(tags, ctx.state.underLink)) {
       t.sprite.scale.set(k * t.aspect, k, 1);
-      const box = screenBox(t, cam, at, w, h);
+      const box = screenBox(t, screen, at);
       if (box) boxes.push(box);
     }
     const kept = cullBoxes(boxes);

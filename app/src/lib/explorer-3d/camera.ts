@@ -57,23 +57,29 @@ function fitter({ fg, el, opts, state }: Ctx, points: PointsMaterial3[]) {
   };
 }
 
+/** The camera, the orbit centre it looks at, and its offset from that centre. */
+type Rig = { camera: Camera; target: Vec3; offset: Vec3 };
+
+/** A keyboard step: the axes held, for dt seconds. */
+type Step = { v: Axes; dt: number };
+
 /** Turn the camera about the orbit centre (yaw, pitch), clear of the poles. */
-function orbit(THREE: Ctx['THREE'], offset: Vec3, v: Axes, turn: number) {
+function orbit(THREE: Ctx['THREE'], { camera, target, offset }: Rig, { v, dt }: Step) {
+  const turn = EXPLORER.keys.orbitRad * dt;
   const s = new THREE.Spherical().setFromVector3(offset);
   s.theta += v.yaw * turn;
   s.phi = Math.min(Math.PI - 0.05, Math.max(0.05, s.phi - v.pitch * turn));
   offset.setFromSpherical(s);
+  camera.position.copy(target).add(offset);
 }
-
-/** A keyboard step: the axes held, for dt seconds, at `dist` from the orbit centre. */
-type Step = { v: Axes; dt: number; dist: number };
 
 /**
  * Sideways and up/down move camera and orbit centre together (a pan); forward closes
  * in on the centre, and pushes it on ahead once near it.
  */
-function travel(THREE: Ctx['THREE'], camera: Camera, target: Vec3, { v, dt, dist }: Step) {
+function travel(THREE: Ctx['THREE'], { camera, target, offset }: Rig, { v, dt }: Step) {
   const k = EXPLORER.keys;
+  const dist = offset.length();
   const speed = Math.max(k.moveMin, dist * k.moveRel) * dt;
   const ahead = camera.getWorldDirection(new THREE.Vector3());
   const right = ahead.clone().cross(camera.up).normalize();
@@ -85,8 +91,20 @@ function travel(THREE: Ctx['THREE'], camera: Camera, target: Vec3, { v, dt, dist
   if (dist - fwd < k.near) target.addScaledVector(ahead, k.near - (dist - fwd));
 }
 
+/** Keyboard flight for dt seconds: orbit, then travel, still looking at the orbit centre. */
+const nudger =
+  ({ THREE, fg }: Ctx) =>
+  (v: Axes, dt: number) => {
+    const camera = cameraOf(fg);
+    const target = orbitOf(fg).target;
+    const rig = { camera, target, offset: camera.position.clone().sub(target) };
+    if (v.yaw || v.pitch) orbit(THREE, rig, { v, dt });
+    travel(THREE, rig, { v, dt });
+    camera.lookAt(target);
+  };
+
 export function createCamera(ctx: Ctx, points: PointsMaterial3[]) {
-  const { THREE, fg, motion } = ctx;
+  const { fg, motion } = ctx;
   swoopIn(ctx);
   const resize = fitter(ctx, points);
   resize();
@@ -96,19 +114,8 @@ export function createCamera(ctx: Ctx, points: PointsMaterial3[]) {
     const n = ctx.model.byId.get(id);
     if (n) fg.cameraPosition(viewOf(n), { x: n.x, y: n.y, z: n.z }, motion ? 1200 : 0);
   };
-  const nudge = (v: Axes, dt: number) => {
-    const camera = cameraOf(fg);
-    const target = orbitOf(fg).target;
-    const offset = camera.position.clone().sub(target);
-    if (v.yaw || v.pitch) {
-      orbit(THREE, offset, v, EXPLORER.keys.orbitRad * dt);
-      camera.position.copy(target).add(offset);
-    }
-    travel(THREE, camera, target, { v, dt, dist: offset.length() });
-    camera.lookAt(target);
-  };
   const destroy = () => window.removeEventListener('resize', resize);
-  return { resize, flyTo, nudge, destroy };
+  return { resize, flyTo, nudge: nudger(ctx), destroy };
 }
 
 /** Slow auto-rotation about the scene centre (off under reduced motion). */
@@ -126,23 +133,33 @@ export const spinner =
 export function watchDrags({ el, fg, opts }: Ctx) {
   el.style.cursor = 'grab';
   const drag = createDragFeedback(el);
-  let press: PointerEvent | null = null;
-  const onPress = (e: PointerEvent) => void (press = e);
-  const onRelease = () => void (press = null);
-  el.addEventListener('pointerdown', onPress, true);
-  window.addEventListener('pointerup', onRelease);
+  const press = trackPress(el);
   const controls = orbitOf(fg);
   // Orbiting, zooming or panning the camera hides the hover card. The press is seen
   // first, in the capture phase.
   controls.addEventListener('start', () => {
     opts.onPoint?.(null);
-    const kind = press && orbitDragKind(press);
-    if (press && kind) drag.start(kind, press);
+    const e = press.current();
+    const kind = e && orbitDragKind(e);
+    if (e && kind) drag.start(kind, e);
   });
   controls.addEventListener('end', () => drag.end());
   return () => {
-    window.removeEventListener('pointerup', onRelease);
-    el.removeEventListener('pointerdown', onPress, true);
+    press.stop();
     drag.destroy();
   };
+}
+
+/** The pointer press on the map not yet released, if any. */
+function trackPress(el: HTMLElement) {
+  let press: PointerEvent | null = null;
+  const onPress = (e: PointerEvent) => void (press = e);
+  const onRelease = () => void (press = null);
+  el.addEventListener('pointerdown', onPress, true);
+  window.addEventListener('pointerup', onRelease);
+  const stop = () => {
+    window.removeEventListener('pointerup', onRelease);
+    el.removeEventListener('pointerdown', onPress, true);
+  };
+  return { current: () => press, stop };
 }
