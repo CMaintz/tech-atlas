@@ -16,7 +16,7 @@ export function orbitDragKind(p: Press): DragKind | null {
   return p.ctrlKey || p.metaKey || p.shiftKey ? 'pan' : 'orbit';
 }
 
-export const beyondSlop = (dx: number, dy: number, slop = EXPLORER.drag.slopPx) =>
+const beyondSlop = (dx: number, dy: number, slop = EXPLORER.drag.slopPx) =>
   dx * dx + dy * dy > slop * slop;
 
 type PointerLike = { clientX: number; clientY: number; pointerType?: string };
@@ -32,7 +32,7 @@ const reduced = () =>
 
 type DragConfig = typeof EXPLORER.drag;
 
-export const ringBox = (size: number) =>
+const ringBox = (size: number) =>
   ({
     position: 'absolute',
     left: '0',
@@ -48,7 +48,7 @@ export const ringBox = (size: number) =>
     visibility: 'hidden',
   }) satisfies Partial<CSSStyleDeclaration>;
 
-export function ringPaint(cfg: DragConfig) {
+function ringPaint(cfg: DragConfig) {
   const colour = `var(--drag-ring, ${cfg.ringColour})`;
   const outline = `var(--drag-outline, ${cfg.ringOutline})`;
   const bar = `linear-gradient(${colour}, ${colour}) center`;
