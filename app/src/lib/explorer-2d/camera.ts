@@ -4,7 +4,7 @@
  */
 import { EXPLORER } from '../explorer-config';
 import { reducedMotion, smoothFit } from '../graph-cytoscape';
-import type { Axes } from '../explorer-keys';
+import type { Axes } from '../explorer-key-axes';
 import type { MapParts, MapState } from './context';
 
 /** Fit the shown terms and names, clear of the open legend. */

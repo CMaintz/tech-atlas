@@ -5,7 +5,7 @@
  */
 import { EXPLORER } from '../explorer-config';
 import { createDragFeedback, orbitDragKind } from '../drag-feedback';
-import type { Axes } from '../explorer-keys';
+import type { Axes } from '../explorer-key-axes';
 import type { Point3 } from '../graph-layout';
 import type { Ctx } from './context';
 import type { PointsMaterial3 } from './shaders';

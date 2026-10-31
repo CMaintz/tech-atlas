@@ -4,7 +4,7 @@
  */
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { EXPLORER } from './explorer-config';
-import { STILL } from './explorer-keys';
+import { STILL } from './explorer-key-axes';
 import { removeFakeDom } from './explorer-3d/testing/fake-dom';
 import type { FakeGraph } from './explorer-3d/testing/fake-force-graph';
 import { graph, overview, withView } from './explorer-3d/testing/fixture';
