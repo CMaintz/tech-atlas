@@ -15,7 +15,6 @@ import {
 import {
   FEEDBACK_CATEGORIES,
   FEEDBACK_MAX_CHARS,
-  FEEDBACK_MAX_EMAIL,
   FEEDBACK_UI,
   feedbackBody,
   feedbackIssue,
@@ -27,7 +26,9 @@ describe('the form and the function agree', () => {
   it('uses the same limits and categories', () => {
     expect(FEEDBACK_CATEGORIES).toEqual(CATEGORIES);
     expect(FEEDBACK_MAX_CHARS).toBe(MAX_MESSAGE_CHARS);
-    expect(FEEDBACK_MAX_EMAIL).toBe(MAX_EMAIL_CHARS);
+    const email = (length: number) => `${'a'.repeat(length - '@x.dk'.length)}@x.dk`;
+    expect(feedbackIssue({ message: 'm', email: email(MAX_EMAIL_CHARS) })).toBeNull();
+    expect(feedbackIssue({ message: 'm', email: email(MAX_EMAIL_CHARS + 1) })).toBe('email');
   });
 
   it('has every string in both languages', () => {
