@@ -4,7 +4,6 @@ export {
   CLUSTER_COLOURS,
   CLUSTER_DOMAIN,
   CLUSTER_HUE_SPREAD,
-  DOMAIN_HUES,
   clusterColour,
   domainColour,
   domainHue,

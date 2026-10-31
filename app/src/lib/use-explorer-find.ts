@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import type { Graph, GraphNode } from './graph-model';
-import { searchTerms } from './canvas-explorer';
+import { searchTerms } from './term-search';
 import { looksNaturalLanguage, mergeHits } from './semantic';
 import { useSemanticHits } from './use-semantic';
 

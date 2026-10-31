@@ -5,8 +5,8 @@
  * `data-theme` attribute on <html>, set before first paint by public/theme-init.js
  * (the reader's choice, else the OS preference). Tokens hang off the attribute
  * *selector*, so a nested `data-theme` would re-scope a subtree. The maps (Explorer,
- * canvas lab, timeline chart, term-page graph) follow the page theme: a night map in the
- * dark theme; in the light one only the Explorer and the canvas lab sit on cream paper
+ * timeline chart, term-page graph) follow the page theme: a night map in the dark
+ * theme; in the light one only the Explorer sits on cream paper
  * (`--map-*`, `.map-surface`); the timeline chart and term-page graph use the normal light
  * surface (`--chart-*`, `.chart-surface`). `.map-ink` carries per-theme colours.
  * Without JavaScript there is no attribute and the OS preference decides.
