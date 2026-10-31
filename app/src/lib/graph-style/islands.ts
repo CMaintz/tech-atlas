@@ -6,8 +6,8 @@ import type { Point } from './point';
 export type Island = { id: string; domain: string; r: number };
 export type IslandLink = DiscLink;
 
-export const ISLAND_GAP = 45;
-export const DOMAIN_GAP = 150;
+const ISLAND_GAP = 45;
+const DOMAIN_GAP = 150;
 
 type Circle = Point & { r: number };
 type Region = { local: Map<string, Point>; r: number };
