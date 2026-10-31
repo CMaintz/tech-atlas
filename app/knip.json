@@ -1,15 +1,10 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "entry": [
-    "src/cli.ts!",
-    "src/index.ts!",
-    "src/**/*.test.ts",
-    "src/**/*.test.tsx",
-    "src/**/*.spec.ts",
-    "src/**/*.spec.tsx",
-    "tests/**"
+    "src/content.config.ts!",
+    "scripts/{build-graph,embed,lint,seed-vectors,size-check,smoke-semantic,vocab-report}.ts!"
   ],
-  "project": ["src/**/*.ts!", "src/**/*.tsx!"],
+  "project": ["src/**/*.{ts,tsx,astro}!", "scripts/*.ts!"],
   "ignore": ["dist/**"],
   "ignoreDependencies": [
     "eslint",
