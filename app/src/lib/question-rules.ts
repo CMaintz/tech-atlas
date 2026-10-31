@@ -53,7 +53,7 @@ function namesOfTerm(t: NamedTerm): string[] {
   return [...new Set([...labels.flatMap(namesOf), slug].map(norm).filter(Boolean))];
 }
 
-export function answeredBy(q: BankQuestion, terms: Map<string, NamedTerm>): string[] {
+function answeredBy(q: BankQuestion, terms: Map<string, NamedTerm>): string[] {
   const right = q.options[q.answer];
   if (!right) return [];
   const labels = LANGS.flatMap((l) => namesOf(right[l])).map(norm);
