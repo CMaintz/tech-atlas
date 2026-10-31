@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { containsWord, escapeRegExp } from './whole-word';
+import { containsWord } from './whole-word';
 
 describe('containsWord', () => {
   it('matches a whole word in any case', () => {
@@ -15,6 +15,7 @@ describe('containsWord', () => {
     expect(containsWord('we use CCC here', 'C++')).toBe(false);
     expect(containsWord('node.js runs it', 'node.js')).toBe(true);
     expect(containsWord('nodexjs runs it', 'node.js')).toBe(false);
-    expect(escapeRegExp('a.b*(c)')).toBe('a\\.b\\*\\(c\\)');
+    expect(containsWord('see a.b*(c) here', 'a.b*(c)')).toBe(true);
+    expect(containsWord('see axbbc here', 'a.b*(c)')).toBe(false);
   });
 });
