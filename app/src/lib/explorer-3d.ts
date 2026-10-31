@@ -10,7 +10,7 @@
  * what is lit), the painter (glow, web, comets, names), hover, and the camera.
  */
 import type { MapTheme } from './graph-style';
-import type { Axes } from './explorer-keys';
+import type { Axes } from './explorer-key-axes';
 import { createContext, type Ctx } from './explorer-3d/context';
 import { watchFrames } from './explorer-3d/graph3d';
 import { createPainter, type Painter } from './explorer-3d/paint';

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { STILL, ease, isStill, navKey, targetAxes } from './explorer-keys';
+import { STILL, ease, isStill, navKey, targetAxes } from './explorer-key-axes';
 import { EXPLORER } from './explorer-config';
 
 const key = (code: string, key = '') => ({ code, key });
