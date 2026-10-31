@@ -5,16 +5,17 @@ import {
   clusterColour,
   domainColour,
   edgePaint,
+  familyColours,
   legendDomains,
   nodePaint,
 } from '../graph-style';
 import { contrastRatio, hslToHex, hueDistance } from './colour';
-import { FAMILY_COLOURS_LIGHT } from './edges';
-import { CLUSTER_DOMAIN, CLUSTER_HUE_SPREAD, domainHue, domainRank, rankIn } from './palette';
+import { clustersOf, domainRank, rankIn } from './palette';
 import { CREAM } from './theme';
 
-/** The domains with a hand-picked hue, in palette order. */
-const LISTED = ['security', 'cs', 'ai', 'platform'];
+/** The domains with a hand-picked hue (degrees), in palette order. */
+const LISTED_HUES: Record<string, number> = { security: 355, cs: 212, ai: 285, platform: 150 };
+const LISTED = Object.keys(LISTED_HUES);
 
 /** Hue (degrees) of a `#rrggbb` colour. */
 const hueOf = (hex: string) => {
@@ -25,6 +26,9 @@ const hueOf = (hex: string) => {
   const h = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
   return (h * 60 + 360) % 360;
 };
+
+/** Every listed cluster with its domain. */
+const CLUSTER_DOMAIN = Object.fromEntries(LISTED.flatMap((d) => clustersOf(d).map((c) => [c, d])));
 
 describe('hslToHex', () => {
   it('converts primaries and greys', () => {
@@ -41,16 +45,17 @@ describe('hslToHex', () => {
 
 describe('domain colours', () => {
   it('keeps the listed domains well apart on the colour wheel', () => {
-    const hues = LISTED.map(domainHue);
+    const hues = LISTED.map((d) => hueOf(domainColour(d)));
     for (let i = 0; i < hues.length; i++)
       for (let j = i + 1; j < hues.length; j++)
         expect(hueDistance(hues[i], hues[j])).toBeGreaterThanOrEqual(60);
   });
   it('gives a new domain a stable hue clear of every listed one', () => {
     for (const d of ['law', 'hardware', 'finance', 'robotics']) {
-      const h = domainHue(d);
-      expect(domainHue(d)).toBe(h);
-      for (const t of LISTED.map(domainHue)) expect(hueDistance(h, t)).toBeGreaterThan(30);
+      const colour = domainColour(d);
+      expect(domainColour(d)).toBe(colour);
+      for (const t of Object.values(LISTED_HUES))
+        expect(hueDistance(hueOf(colour), t)).toBeGreaterThan(30);
     }
     expect(domainColour('law')).toMatch(/^#[0-9a-f]{6}$/);
   });
@@ -68,12 +73,11 @@ describe('domainRank / rankIn', () => {
 describe('cluster colours', () => {
   it('maps every labelled cluster to a domain', () => {
     expect(Object.keys(CLUSTER_DOMAIN).sort()).toEqual(Object.keys(CLUSTER_LABELS).sort());
-    for (const d of Object.values(CLUSTER_DOMAIN)) expect(LISTED).toContain(d);
   });
   it('shades each cluster within its domain hue band', () => {
     for (const [cluster, domain] of Object.entries(CLUSTER_DOMAIN)) {
-      const drift = hueDistance(hueOf(clusterColour(cluster)), domainHue(domain));
-      expect(drift).toBeLessThanOrEqual(CLUSTER_HUE_SPREAD + 2);
+      const drift = hueDistance(hueOf(clusterColour(cluster)), LISTED_HUES[domain]);
+      expect(drift).toBeLessThanOrEqual(24);
     }
   });
   it('gives clusters of one domain distinct colours', () => {
@@ -137,7 +141,7 @@ describe('cream map palette (light theme)', () => {
   it('gives cluster shades and family colours 3:1 on cream (non-text contrast)', () => {
     for (const c of Object.keys(CLUSTER_DOMAIN))
       expect(contrastRatio(clusterColour(c, undefined, 'light'), CREAM)).toBeGreaterThanOrEqual(3);
-    for (const hex of Object.values(FAMILY_COLOURS_LIGHT))
+    for (const hex of Object.values(familyColours('light')))
       expect(contrastRatio(hex, CREAM)).toBeGreaterThanOrEqual(3);
   });
 
@@ -161,7 +165,7 @@ describe('cream map palette (light theme)', () => {
       { source: n, target: other },
       'light',
     );
-    expect(p.colour).toBe(FAMILY_COLOURS_LIGHT.dependency);
+    expect(p.colour).toBe(familyColours('light').dependency);
     expect(p.gradient?.[0]).toBe(domainColour('security', 'light'));
   });
 });

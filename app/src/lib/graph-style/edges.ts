@@ -14,7 +14,7 @@ export const FAMILY_COLOURS: Record<Family, string> = {
   association: '#7dd3fc',
 };
 
-export const FAMILY_COLOURS_LIGHT: Record<Family, string> = {
+const FAMILY_COLOURS_LIGHT: Record<Family, string> = {
   structure: '#64748b',
   dependency: '#b45309',
   contrast: '#be185d',
@@ -35,7 +35,7 @@ const SYMMETRIC_TYPES: ReadonlySet<EdgeType> = new Set<EdgeType>([
 
 export const isDirected = (type: EdgeType) => !SYMMETRIC_TYPES.has(type);
 
-export const isCrossDomain = (a: string[], b: string[]) => !a.some((d) => b.includes(d));
+const isCrossDomain = (a: string[], b: string[]) => !a.some((d) => b.includes(d));
 
 export type EdgePaint = {
   colour: string;
