@@ -6,7 +6,7 @@ import type { Layout } from './explorer-2d';
 
 export type Mode = '2d' | '3d';
 
-export const KNOWLEDGE_COLOURS: Record<MapTheme, Record<string, string>> = {
+const KNOWLEDGE_COLOURS: Record<MapTheme, Record<string, string>> = {
   dark: {
     know: '#22c55e',
     familiar: '#84cc16',
@@ -25,7 +25,7 @@ export function toggled(set: ReadonlySet<string>, key: string): Set<string> {
 
 type LinkedTerms = { links: GraphLink[]; ids: ReadonlySet<string> };
 
-export function neighbourhood(within: LinkedTerms, start: string, hops: number): Set<string> {
+function neighbourhood(within: LinkedTerms, start: string, hops: number): Set<string> {
   const near = new Set([start]);
   let frontier = new Set([start]);
   for (let h = 0; h < hops; h++) {
