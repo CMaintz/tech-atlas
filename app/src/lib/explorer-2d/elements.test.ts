@@ -7,7 +7,6 @@ import {
   bundleElements,
   bundleInk,
   bundleWidth,
-  linkElements,
   mapElements,
   termElement,
 } from './elements';
@@ -33,14 +32,15 @@ describe('termElement', () => {
   });
 });
 
-describe('linkElements', () => {
+describe('mapElements relationship edges', () => {
   it('marks edges between islands and tints each by its source cluster', () => {
-    const edges = linkElements(FIXTURE, byId, 'dark');
+    const edges = mapElements(FIXTURE, 'en', 'dark').slice(FIXTURE.nodes.length);
+    const classes = (e: (typeof edges)[number]) => String(e.classes).split(' ');
     const firewallToThreat = edges[7];
     expect(firewallToThreat.data.source).toBe('cs/firewall');
-    expect(firewallToThreat.classes.split(' ')).toContain('xc');
+    expect(classes(firewallToThreat)).toContain('xc');
     expect(firewallToThreat.data.tint).toBe(clusterColour('networking', 'cs', 'dark'));
-    expect(edges[0].classes.split(' ')).not.toContain('xc');
+    expect(classes(edges[0])).not.toContain('xc');
     expect(edges.map((e) => e.data.id)).toEqual(FIXTURE.links.map((_, i) => `e${i}`));
   });
 });
