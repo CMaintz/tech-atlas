@@ -1,7 +1,7 @@
 import cytoscape from 'cytoscape';
 import { describe, expect, it } from 'vitest';
 import { EXPLORER } from '../explorer-config';
-import { buildIslands, groupClusters, islandDomain, islandMap, shapeIsland } from './islands';
+import { buildIslands, islandDomain, islandMap, shapeIsland } from './islands';
 import { mapElements } from './elements';
 import { mapStylesheet } from './style';
 import { FIXTURE } from './test-fixture';
@@ -17,9 +17,9 @@ const everyone = new Set(FIXTURE.nodes.map((n) => n.id));
 const round = (ps: Record<string, { x: number; y: number }>) =>
   Object.fromEntries(Object.entries(ps).map(([k, p]) => [k, [Math.round(p.x), Math.round(p.y)]]));
 
-describe('groupClusters', () => {
+describe('buildIslands', () => {
   it('groups terms by cluster, clusters in a stable order', () => {
-    const { clusters, clusterIds } = groupClusters(FIXTURE.nodes);
+    const { clusters, clusterIds } = buildIslands(headless(), FIXTURE);
     expect(clusterIds).toEqual(['awareness', 'fundamentals', 'networking']);
     expect(clusters.get('networking')!.map((n) => n.id)).toEqual([
       'cs/network',
