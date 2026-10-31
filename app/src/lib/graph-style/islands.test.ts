@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { packIslands } from '../graph-style';
 import { packDiscs, separateDiscs } from './discs';
-import { DOMAIN_GAP, ISLAND_GAP, canonicalLinks } from './islands';
+import { canonicalLinks } from './islands';
 
 describe('packIslands', () => {
+  const [ISLAND_GAP, DOMAIN_GAP] = [45, 150];
   const islands = [
     { id: 'controls', domain: 'security', r: 120 },
     { id: 'compliance', domain: 'security', r: 150 },
