@@ -1,56 +1,69 @@
-import ts from 'typescript';
 import { describe, expect, it } from 'vitest';
-import {
-  astroSegments,
-  codeLines,
-  fileLines,
-  measureCode,
-  measureText,
-  oversized,
-} from './size-rules';
+import { fileLines, measureText, oversized } from './size-rules';
 
 const sizes = (code: string, file = 'x.ts') =>
-  Object.fromEntries(measureCode(code, file).map((f) => [f.name, f.lines]));
+  Object.fromEntries(measureText(code, file).map((f) => [f.name, f.lines]));
 
-const parse = (code: string, file = 'x.tsx') =>
-  ts.createSourceFile(file, code, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+const lines = (...l: string[]) => l.join('\n');
 
-describe('codeLines', () => {
+describe('which lines count as code', () => {
   it('skips blank and comment-only lines', () => {
-    const code = ['// a comment', 'const a = 1;', '', '/* block', '   still */', 'a;'].join('\n');
-    expect([...codeLines(parse(code))]).toEqual([1, 5]);
-  });
-
-  it('counts every line a multi-line string spans', () => {
-    expect(codeLines(parse('const s = `one\n\ntwo`;')).size).toBe(3);
-  });
-
-  it('reads the code after a template substitution as code, not string', () => {
-    const code = ['const s = `a${b}c`;', '', '// note', 'f();'].join('\n');
-    expect([...codeLines(parse(code))]).toEqual([0, 3]);
-  });
-
-  it('skips doc comments the parser attaches to the tree', () => {
-    const code = ['const o = {', '  /** doc */', '  a: 1,', '};'].join('\n');
-    expect([...codeLines(parse(code))]).toEqual([0, 2, 3]);
-  });
-
-  it('counts JSX text only on lines with visible text', () => {
-    const code = ['<div>', '  hello', '', '  <b />', '</div>;'].join('\n');
-    expect([...codeLines(parse(code))].sort()).toEqual([0, 1, 3, 4]);
-  });
-});
-
-describe('measureCode', () => {
-  it('counts a function from signature to closing brace, without comments', () => {
-    const code = ['function f() {', '  // why', '  const a = 1;', '', '  return a;', '}'].join(
-      '\n',
+    const code = lines(
+      'function f() {',
+      '  // a comment',
+      '  const a = 1;',
+      '',
+      '  /* block',
+      '     still */',
+      '  a;',
+      '}',
     );
     expect(sizes(code)).toEqual({ f: 4 });
   });
 
+  it('counts every line a multi-line string spans', () => {
+    expect(sizes(lines('function f() {', '  const s = `one', '', 'two`;', '}'))).toEqual({ f: 5 });
+  });
+
+  it('reads the code after a template substitution as code, not string', () => {
+    const code = lines('function f() {', '  const s = `a${b}c`;', '', '  // note', '  g();', '}');
+    expect(sizes(code)).toEqual({ f: 4 });
+  });
+
+  it('skips doc comments the parser attaches to the tree', () => {
+    const code = lines(
+      'function f() {',
+      '  const o = {',
+      '    /** doc */',
+      '    a: 1,',
+      '  };',
+      '}',
+    );
+    expect(sizes(code)).toEqual({ f: 5 });
+  });
+
+  it('counts JSX text only on lines with visible text', () => {
+    const code = lines(
+      'function C() {',
+      '  return <div>',
+      '    hello',
+      '',
+      '    <b />',
+      '  </div>;',
+      '}',
+    );
+    expect(sizes(code, 'c.tsx')).toEqual({ C: 6 });
+  });
+});
+
+describe('measuring functions', () => {
+  it('counts a function from signature to closing brace, without comments', () => {
+    const code = lines('function f() {', '  // why', '  const a = 1;', '', '  return a;', '}');
+    expect(sizes(code)).toEqual({ f: 4 });
+  });
+
   it('gives a nested function its own lines, and the parent only the opening line', () => {
-    const code = [
+    const code = lines(
       'const outer = () => {',
       '  const inner = () => {',
       '    one();',
@@ -58,7 +71,7 @@ describe('measureCode', () => {
       '  };',
       '  return inner;',
       '};',
-    ].join('\n');
+    );
     expect(sizes(code)).toEqual({ outer: 5, inner: 4 });
   });
 
@@ -78,28 +91,33 @@ describe('measureCode', () => {
   });
 });
 
-describe('astroSegments', () => {
-  it('finds the frontmatter and inline scripts, with their line offsets', () => {
-    const text = [
-      '---',
-      'const a = 1;',
-      '---',
-      '<p>{a}</p>',
-      '<script>',
-      'go();',
-      '</script>',
-      '<script type="application/ld+json">{}</script>',
-    ].join('\n');
-    expect(astroSegments(text)).toEqual([
-      { code: 'const a = 1;', lineOffset: 1 },
-      { code: '\ngo();\n', lineOffset: 4 },
-    ]);
-  });
-
-  it('reports astro functions at their line in the file', () => {
+describe('astro files', () => {
+  it('reports frontmatter functions at their line in the file', () => {
     const text = '---\nconst f = () => {\n  return 1;\n};\n---\n<p />';
     expect(measureText(text, 'p.astro')).toEqual([
       { file: 'p.astro', name: 'f', line: 2, lines: 3 },
+    ]);
+  });
+
+  it('measures inline scripts at their line, skipping JSON-LD', () => {
+    const text = lines(
+      '---',
+      'const a = 1;',
+      '---',
+      '<p />',
+      '<script>',
+      'const g = () => {',
+      '  go();',
+      '};',
+      '</script>',
+      '<script type="application/ld+json">',
+      'const h = () => {',
+      '  no();',
+      '};',
+      '</script>',
+    );
+    expect(measureText(text, 'p.astro')).toEqual([
+      { file: 'p.astro', name: 'g', line: 6, lines: 3 },
     ]);
   });
 });

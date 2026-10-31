@@ -108,7 +108,7 @@ export function draftRatioByDomain(
     .map(([domain, r]) => ({ domain, ...r }));
 }
 
-export const FORBIDDEN_DASHES = /[–—―]/g;
+const FORBIDDEN_DASHES = /[–—―]/g;
 
 export function forbiddenDashes(text: string): { line: number; char: string; excerpt: string }[] {
   const out: { line: number; char: string; excerpt: string }[] = [];
