@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { shortNames, slugify } from './redirects';
+import { shortNames } from './redirects';
 
 const t = (id: string, en: string, da: string, akaEn: string[] = [], akaDa: string[] = []) => ({
   id,
@@ -7,7 +7,10 @@ const t = (id: string, en: string, da: string, akaEn: string[] = [], akaDa: stri
   aka: { en: akaEn, da: akaDa },
 });
 
-describe('slugify', () => {
+describe('the slug a name redirects from', () => {
+  const slugify = (name: string) =>
+    [...shortNames([t('x/id', name, 'id')]).keys()].filter((k) => k !== 'id').join();
+
   it('lower-cases, hyphenates and spells out Danish letters', () => {
     expect(slugify('Multi-factor Authentication')).toBe('multi-factor-authentication');
     expect(slugify('Kryptering på hvile')).toBe('kryptering-paa-hvile');
