@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { buildModel, domainGroups, endId, hubsOf, neighbourSets, radiusBy } from './model';
+import { buildModel, domainGroups, endId, hubsOf, radiusBy } from './model';
 import { graph } from './testing/fixture';
-import type { Link3 } from './types';
 
 describe('endId', () => {
   it('reads an endpoint before and after 3d-force-graph swaps in node objects', () => {
@@ -38,12 +37,11 @@ describe('radiusBy', () => {
   });
 });
 
-describe('neighbourSets', () => {
-  it('holds each term and everything one relationship away', () => {
-    const links = [{ source: 'a', target: 'b' }] as Link3[];
-    const sets = neighbourSets([{ id: 'a' }, { id: 'b' }, { id: 'c' }], links);
-    expect([...sets.get('a')!]).toEqual(['a', 'b']);
-    expect([...sets.get('c')!]).toEqual(['c']);
+describe('buildModel neighbours', () => {
+  it('holds each term and everything one relationship away, either way round', () => {
+    const { neighbours } = buildModel(graph);
+    expect([...neighbours.get('cs/ip')!]).toEqual(['cs/ip', 'cs/tcp', 'cs/process']);
+    expect([...neighbours.get('security/mfa')!]).toEqual(['security/mfa', 'security/threat']);
   });
 });
 

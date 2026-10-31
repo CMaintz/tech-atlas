@@ -65,7 +65,7 @@ function placeTerms(graph: Graph, radius: (n: GraphNode) => number, variant?: 'v
   return pos;
 }
 
-export function neighbourSets(nodes: readonly { id: string }[], links: readonly Link3[]) {
+function neighbourSets(nodes: readonly { id: string }[], links: readonly Link3[]) {
   const neighbours = new Map<string, Set<string>>(nodes.map((n) => [n.id, new Set([n.id])]));
   for (const l of links) {
     neighbours.get(l.source)?.add(l.target);
