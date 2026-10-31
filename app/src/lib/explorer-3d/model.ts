@@ -57,7 +57,7 @@ function layoutOf(variant?: 'v2') {
 /** The galaxy layout, spread: no two terms closer than a click target and a label. */
 export function placeTerms(graph: Graph, radius: (n: GraphNode) => number, variant?: 'v2') {
   const { cfg, factor, clearance } = layoutOf(variant);
-  const pos = galaxyLayout(graph.nodes, graph.links, undefined, cfg);
+  const pos = galaxyLayout(graph.nodes, graph.links, cfg);
   const pts: Point3[] = graph.nodes.map((n) => ({ ...getOrThrow(pos, n.id, 'galaxy layout') }));
   const r = graph.nodes.map(radius);
   separate(pts, (i, j) => (factor * (r[i] + r[j])) / 2 + clearance, 60);

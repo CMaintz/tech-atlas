@@ -46,11 +46,12 @@ export function clusterBundles(
     });
 }
 
+/** An edge's two ends, or its two islands' centres, in source-to-target order. */
+type Pair = readonly [Point, Point];
+
 export function bundleControls(
-  s: Point,
-  t: Point,
-  cs: Point,
-  ct: Point,
+  [s, t]: Pair,
+  [cs, ct]: Pair,
   beta: number = EXPLORER.edges.bundleBeta,
 ): { distances: number[]; weights: number[] } {
   const along = (k: number) => ({ x: s.x + (t.x - s.x) * k, y: s.y + (t.y - s.y) * k });

@@ -112,7 +112,7 @@ function createSpine(graph: MapParts['graph']) {
   return (v: View) => {
     const same = spineFor?.[0] === v.families && spineFor[1] === v.nodes;
     spineFor = [v.families, v.nodes];
-    return same ? null : backboneOf(graph.nodes, graph.links, v.families, v.nodes);
+    return same ? null : backboneOf(graph.nodes, graph.links, v);
   };
 }
 
@@ -147,7 +147,7 @@ function route(p: MapParts, e: cytoscape.EdgeSingular, centre?: Record<string, P
   const islandCentre = (id: string) => centre[getOrThrow(p.byId, id, 'edge end').cluster];
   const from = islandCentre(e.data('source'));
   const to = islandCentre(e.data('target'));
-  const r = bundleControls(e.source().position(), e.target().position(), from, to);
+  const r = bundleControls([e.source().position(), e.target().position()], [from, to]);
   e.style({
     'curve-style': 'unbundled-bezier',
     'control-point-distances': r.distances,

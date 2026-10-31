@@ -45,20 +45,12 @@ const paintData = (p: EdgePaint) => ({
   gradient: p.gradient ? p.gradient.join(' ') : undefined,
 });
 
-export function edgeData(
-  links: Link[],
-  nodeOf: EndpointLookup,
-  width: (l: Link, i: number) => number,
-  alpha = 0.5,
-  theme: MapTheme = 'dark',
-) {
+export function edgeData(links: Link[], nodeOf: EndpointLookup, theme: MapTheme) {
   const curves = curveOffsets(links);
   return links.map((l, i) => ({
     id: `e${i}`,
     ...paintedLink(l, nodeOf, theme),
     curve: curves[i],
-    width: width(l, i),
-    alpha,
   }));
 }
 
@@ -150,9 +142,7 @@ class FlowLoop {
 
 export function smoothFit(
   cy: cytoscape.Core,
-  padding = 40,
-  maxZoom = 1.1,
-  reserveRight = 0,
+  { padding = 40, maxZoom = 1.1, reserveRight = 0 }: Partial<Framing> = {},
   eles: cytoscape.CollectionReturnValue | cytoscape.NodeCollection = cy.nodes(),
 ) {
   const bb = eles.boundingBox();

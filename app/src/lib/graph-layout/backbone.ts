@@ -57,11 +57,13 @@ export const OVERVIEW_FAMILIES: ReadonlySet<string> = new Set([
   'lineage',
 ]);
 
+/** The relationship families switched on and, when filtered, the ids of the terms shown. */
+type ShownView = { families?: ReadonlySet<string>; nodes?: ReadonlySet<string> };
+
 export function backboneOf(
   nodes: LayoutNode[],
   links: BackboneLink[],
-  families: ReadonlySet<string> = OVERVIEW_FAMILIES,
-  visible?: ReadonlySet<string>,
+  { families = OVERVIEW_FAMILIES, nodes: visible }: ShownView = {},
 ): Set<number> {
   const on = links.flatMap((l, i) =>
     families.has(l.family) && (!visible || linkVisible(l, visible)) ? [i] : [],
