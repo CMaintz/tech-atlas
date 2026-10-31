@@ -1,14 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  SEGMENTS,
-  bend,
-  curveLengths,
-  curveOf,
-  midpoint,
-  packCurves,
-  packedAt,
-  pointAt,
-} from './curves';
+import { SEGMENTS, bend, curveLengths, curveOf, midpoint, packCurves, packedAt } from './curves';
 
 const a = { x: 0, y: 0, z: 0 };
 const b = { x: 100, y: 20, z: 0 };
@@ -27,20 +18,24 @@ describe('bend', () => {
   });
 });
 
-describe('pointAt / packedAt / midpoint', () => {
-  const k = bend(a, b);
-  const { curve, segments } = packCurves([k, bend(b, a)]);
+describe('the web segments / packedAt / midpoint', () => {
+  const { curve, segments } = packCurves([bend(a, b), bend(b, a)]);
+  /** The first link's web point at t = s / SEGMENTS (the last segment's end for t = 1). */
+  const web = (s: number) => {
+    const o = s < SEGMENTS ? s * 6 : s * 6 - 3;
+    return [...segments.slice(o, o + 3)];
+  };
   it('runs from the start to the end through the bend', () => {
-    expect(pointAt(k, 0)).toEqual([0, 0, 0]);
-    expect(pointAt(k, 1)).toEqual([100, 20, 0]);
+    expect(web(0)).toEqual([0, 0, 0]);
+    expect(web(SEGMENTS)).toEqual([100, 20, 0]);
   });
   it('reads the same curve back from the packed floats', () => {
-    for (const u of [0, 0.3, 1])
+    for (const s of [0, 3, SEGMENTS])
       for (let axis = 0; axis < 3; axis++)
-        expect(packedAt(curveOf(curve, 0), u, axis)).toBeCloseTo(pointAt(k, u)[axis], 3);
+        expect(packedAt(curveOf(curve, 0), s / SEGMENTS, axis)).toBeCloseTo(web(s)[axis], 3);
   });
   it('puts the midpoint at t = ½', () => {
-    midpoint(curve, 0).forEach((v, axis) => expect(v).toBeCloseTo(pointAt(k, 0.5)[axis], 3));
+    midpoint(curve, 0).forEach((v, axis) => expect(v).toBeCloseTo(web(SEGMENTS / 2)[axis], 3));
   });
   it('packs nine floats a curve and joined segments for the web', () => {
     expect(curve).toHaveLength(18);
