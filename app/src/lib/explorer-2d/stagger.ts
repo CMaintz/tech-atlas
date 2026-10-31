@@ -1,8 +1,8 @@
 /**
  * A staggered change: many edges switched on or off at once change a batch per
  * frame (`EXPLORER.motion.revealBatch`), each batch inside a Cytoscape batch (no per-edge
- * fade: a style bypass per edge costs more than the batch). A new view finishes the one
- * in flight at once (`flush`).
+ * fade: a style bypass per edge costs more than the batch). A new view or a new run
+ * finishes the one in flight at once (`flush`).
  */
 import type cytoscape from 'cytoscape';
 import { EXPLORER } from '../explorer-config';
@@ -53,9 +53,11 @@ export function createStagger(cy: cytoscape.Core) {
     if (p) cancelAnimationFrame(p.raf);
     return p;
   };
-  /** Run `step` over `all` a batch per frame, then `end`. */
-  const run = <T>(all: T[], step: (chunk: T[]) => void, end: () => void) =>
+  /** Finish the change in flight, then run `step` over `all` a batch per frame, then `end`. */
+  const run = <T>(all: T[], step: (chunk: T[]) => void, end: () => void) => {
+    take()?.rest();
     startBatches(cy, { all, step, end }, slot);
+  };
   return { run, flush: () => take()?.rest(), cancel: () => void take() };
 }
 
