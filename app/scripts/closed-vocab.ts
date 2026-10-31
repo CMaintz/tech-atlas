@@ -36,7 +36,7 @@ const SUFFIXES: Record<Lang, string[]> = {
 };
 
 const TOKEN = /\p{L}[\p{L}'’-]*/gu;
-export const tokenize = (text: string) =>
+const tokenize = (text: string) =>
   (text.match(TOKEN) ?? []).map((t) =>
     t
       .toLowerCase()

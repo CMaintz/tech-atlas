@@ -47,7 +47,7 @@ const TEST_BLOCKS = new Set([
   'afterAll',
 ]);
 
-export function codeLines(source: ts.SourceFile): Set<number> {
+function codeLines(source: ts.SourceFile): Set<number> {
   const lines = new Set<number>();
   const lineOf = (pos: number) => source.getLineAndCharacterOfPosition(pos).line;
   const visit = (node: ts.Node): void => {
@@ -92,7 +92,7 @@ function isTestBlock(node: ts.Node): boolean {
   return ts.isIdentifier(base) && TEST_BLOCKS.has(base.text);
 }
 
-export function measureCode(code: string, file: string, lineOffset = 0): FunctionSize[] {
+function measureCode(code: string, file: string, lineOffset = 0): FunctionSize[] {
   const kind =
     file.endsWith('.tsx') || file.endsWith('.astro') ? ts.ScriptKind.TSX : ts.ScriptKind.TS;
   const source = ts.createSourceFile(file, code, ts.ScriptTarget.Latest, true, kind);
@@ -134,7 +134,7 @@ function nestedFunctions(node: ts.Node): ts.Node[] {
   return found;
 }
 
-export function astroSegments(text: string): Segment[] {
+function astroSegments(text: string): Segment[] {
   const segments: Segment[] = [];
   const front = /^---\r?\n([\s\S]*?)\r?\n---/.exec(text);
   if (front) segments.push({ code: front[1], lineOffset: 1 });

@@ -9,7 +9,7 @@ import * as uiExtra from './ui-extra';
 import * as about from './about';
 import * as tour from './tour';
 import * as feedback from './feedback';
-import { FORBIDDEN_DASHES } from './lint-rules';
+import { forbiddenDashes } from './lint-rules';
 
 /** Every string reachable from `value`, with its path. */
 function strings(value: unknown, path: string, out: [string, string][] = []): [string, string][] {
@@ -28,7 +28,7 @@ describe('user-facing strings', () => {
   });
 
   it.each(Object.entries(MODULES))('%s has no en/em dash (write "-")', (_, mod) => {
-    const bad = strings(mod, '').filter(([, s]) => new RegExp(FORBIDDEN_DASHES).test(s));
+    const bad = strings(mod, '').filter(([, s]) => forbiddenDashes(s).length > 0);
     expect(bad).toEqual([]);
   });
 });
