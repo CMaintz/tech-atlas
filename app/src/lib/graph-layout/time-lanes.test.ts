@@ -58,6 +58,8 @@ describe('timeLanes ticks', () => {
     );
     expect(ticks.map((t) => Number(t.label))).toEqual([every * 198, every * 199, every * 200]);
     expect(new Set(ticks.map((t) => t.y)).size).toBe(1);
+    // Under the lanes, not over them.
+    expect(ticks[0].y).toBeGreaterThan(Math.max(...Object.values(positions).map((p) => p.y)));
     expect(ticks[0].x).toBe(positions[`y${every * 198}`].x);
   });
 });
