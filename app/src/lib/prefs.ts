@@ -1,5 +1,5 @@
 export const RECENT_KEY = 'atlas.recent';
-export const RECENT_MAX = 8;
+const RECENT_MAX = 8;
 
 export function parseRecent(raw: string | null): string[] {
   if (!raw) return [];
