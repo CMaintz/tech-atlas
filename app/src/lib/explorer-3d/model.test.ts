@@ -43,6 +43,11 @@ describe('buildModel neighbours', () => {
     expect([...neighbours.get('cs/ip')!]).toEqual(['cs/ip', 'cs/tcp', 'cs/process']);
     expect([...neighbours.get('security/mfa')!]).toEqual(['security/mfa', 'security/threat']);
   });
+  it('holds only itself for a term with no relationships', () => {
+    const lone = { ...graph.nodes[0], id: 'cs/lone' };
+    const { neighbours } = buildModel({ ...graph, nodes: [...graph.nodes, lone] });
+    expect([...neighbours.get('cs/lone')!]).toEqual(['cs/lone']);
+  });
 });
 
 describe('hubsOf', () => {
