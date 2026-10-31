@@ -3,7 +3,7 @@ type HasEra = { era: number };
 
 const hasEra = <T extends Dated>(t: T): t is T & HasEra => t.era !== undefined;
 
-export const decadeOf = (year: number) => Math.floor(year / 10) * 10;
+const decadeOf = (year: number) => Math.floor(year / 10) * 10;
 
 export type Decade<T> = { decade: number; items: T[] };
 
