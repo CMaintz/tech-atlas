@@ -156,4 +156,16 @@ describe('createApply', () => {
     expect(shown(cy, 'security')).toBe(0);
     expect(shown(cy, 'dependency')).toBe(familySize('dependency'));
   });
+
+  it('paints the newest route once a fade started for an older one ends', () => {
+    const { cy, apply } = headlessApply(graph);
+    const security = new Set(['security']);
+    apply(both);
+    apply({ ...both, families: security, highlight: new Set(['t5']) });
+    vi.advanceTimersByTime(FRAME);
+    apply({ ...both, families: security, highlight: new Set(['t9']) });
+    vi.advanceTimersByTime(EXPLORER.motion.fadeMs * 10);
+    const lit = cy.nodes('.hl').map((n) => n.id());
+    expect(lit).toEqual(['t9']);
+  });
 });
