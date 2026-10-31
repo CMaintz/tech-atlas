@@ -15,7 +15,7 @@ const splitDirection = (i: number, j: number): Offset => {
 
 type IndexedPair = { a: Pt; b: Pt; i: number; j: number };
 
-export function pushApart({ a, b, i, j }: IndexedPair, want: number): boolean {
+function pushApart({ a, b, i, j }: IndexedPair, want: number): boolean {
   const raw = vectorBetween(a, b);
   if (raw.d >= want) return false;
   const { dx, dy, dz, d } = raw.d < 1e-6 ? splitDirection(i, j) : raw;

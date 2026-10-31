@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import { separate } from '../graph-layout';
-import { pushApart } from './separate';
 
 const gap = (p: { x: number; y: number; z?: number }, q: typeof p) =>
   Math.hypot(p.x - q.x, p.y - q.y, (p.z ?? 0) - (q.z ?? 0));
@@ -39,28 +38,32 @@ describe('separate', () => {
   });
 });
 
-describe('pushApart', () => {
+describe('one sweep of separate', () => {
+  const sweepOnce = (pts: { x: number; y: number; z?: number }[], want: number) =>
+    separate(pts, () => want, 1);
+
   it('moves a too-close pair symmetrically, a hair past the minimum', () => {
     const a = { x: 0, y: 0 };
     const b = { x: 4, y: 0 };
-    expect(pushApart({ a, b, i: 0, j: 1 }, 10)).toBe(true);
+    sweepOnce([a, b], 10);
     expect(a.x).toBeCloseTo(-3.06);
     expect(b.x).toBeCloseTo(7.06);
     expect(a.y).toBe(0);
   });
-  it('reports no move for a pair already far enough apart', () => {
+  it('leaves a pair exactly far enough apart alone', () => {
     const a = { x: 0, y: 0, z: 0 };
     const b = { x: 0, y: 0, z: 10 };
-    expect(pushApart({ a, b, i: 0, j: 1 }, 10)).toBe(false);
+    sweepOnce([a, b], 10);
+    expect(a).toEqual({ x: 0, y: 0, z: 0 });
     expect(b).toEqual({ x: 0, y: 0, z: 10 });
   });
   it('moves z only when both points have one', () => {
     const a = { x: 0, y: 0, z: 0 };
     const b = { x: 0, y: 1, z: 1 };
-    pushApart({ a, b, i: 0, j: 1 }, 10);
+    sweepOnce([a, b], 10);
     expect(a.z).toBeLessThan(0);
     const flat = { x: 0, y: 0 };
-    pushApart({ a: flat, b, i: 0, j: 1 }, 20);
+    sweepOnce([flat, b], 20);
     expect(flat).not.toHaveProperty('z');
   });
 });
