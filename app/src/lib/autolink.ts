@@ -55,7 +55,7 @@ export const namesOf = (label: string) => {
   return m ? [m[1], ...m[2].split('/').map((x) => x.trim())] : [label];
 };
 
-export function nameIndex(terms: LinkableTerm[], lang: Lang): Map<string, string[]> {
+function nameIndex(terms: LinkableTerm[], lang: Lang): Map<string, string[]> {
   const idsOf = new Map<string, string[]>();
   for (const t of terms) {
     const labels = [t.term[lang], ...(t.aka?.[lang] ?? []), ...(lang === 'da' ? [t.term.en] : [])];
