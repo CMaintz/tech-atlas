@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { newest, parseAddLog, termFeed, toRss } from './feed';
+import { parseAddLog, termFeed, toRss } from './feed';
 
 const LOG = `@2026-09-23T14:51:44+02:00
 
@@ -28,19 +28,6 @@ describe('parseAddLog', () => {
   });
 });
 
-describe('newest', () => {
-  it('drops undated terms, sorts newest first with id as the tie-break, and limits', () => {
-    const added = new Map([
-      ['a', '2026-01-01T00:00:00Z'],
-      ['b', '2026-02-01T00:00:00Z'],
-      ['c', '2026-02-01T00:00:00Z'],
-    ]);
-    const out = newest([{ id: 'c' }, { id: 'a' }, { id: 'b' }, { id: 'x' }], added, 2);
-    expect(out.map((t) => t.id)).toEqual(['b', 'c']);
-    expect(out[0].date).toBe('2026-02-01T00:00:00Z');
-  });
-});
-
 describe('termFeed', () => {
   const term = (id: string) => ({
     id,
@@ -52,6 +39,31 @@ describe('termFeed', () => {
     root: 'https://x.test/atlas/',
     title: 'T',
     description: 'D',
+  });
+
+  const ids = (f: { items: { link: string }[] }) =>
+    f.items.map((i) => i.link.slice('https://x.test/atlas/da/terms/'.length, -1));
+  const opts = { lang: 'da', root: 'https://x.test/atlas/', title: 'T', description: 'D' } as const;
+
+  it('drops undated terms and sorts newest first with id as the tie-break', () => {
+    const dates = new Map([
+      ['a', '2026-01-01T00:00:00Z'],
+      ['b', '2026-02-01T00:00:00Z'],
+      ['c', '2026-02-01T00:00:00Z'],
+    ]);
+    const f = termFeed([term('c'), term('a'), term('b'), term('x')], dates, opts);
+    expect(ids(f)).toEqual(['b', 'c', 'a']);
+    expect(f.items[0].date).toBe('2026-02-01T00:00:00Z');
+  });
+
+  it('carries only the newest 50 terms', () => {
+    const many = Array.from({ length: 51 }, (_, i) => term(`t${String(i).padStart(2, '0')}`));
+    const dates = new Map(many.map((t) => [t.id, '2026-01-01T00:00:00Z']));
+    dates.set('t50', '2026-03-01T00:00:00Z');
+    const f = termFeed(many, dates, opts);
+    expect(f.items).toHaveLength(50);
+    expect(ids(f)[0]).toBe('t50');
+    expect(ids(f)).not.toContain('t49');
   });
 
   it('links the language home, its own feed and each dated term in that language', () => {
