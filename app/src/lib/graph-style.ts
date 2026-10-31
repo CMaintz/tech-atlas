@@ -14,13 +14,9 @@ export {
 } from './graph-style/palette';
 export { legendDomains } from './graph-style/legend';
 export {
-  CURVE_BASE,
-  CURVE_STEP,
   FAMILY_COLOURS,
   FAMILY_COLOURS_LIGHT,
   FLOW_DASH,
-  FLOW_SPEED,
-  SYMMETRIC_TYPES,
   curveOffsets,
   edgePaint,
   familyColours,
@@ -37,13 +33,6 @@ export {
   type Island,
   type IslandLink,
 } from './graph-style/islands';
-export {
-  LABEL_MARGIN,
-  cullLabels,
-  labelAbove,
-  labelBelow,
-  outerSide,
-  type Box,
-} from './graph-style/labels';
+export { cullLabels, labelAbove, labelBelow, outerSide } from './graph-style/labels';
 export { LAYOUT_SEED, seededRandom, withSeededRandom } from './graph-style/random';
 export { clusterForce, idealEdgeLength } from './graph-style/forces';

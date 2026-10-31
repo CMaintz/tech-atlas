@@ -112,19 +112,7 @@ export function stepFromQuery(search: string, stepCount: number): number | null 
 export const fillCount = (template: string, n: number, m: number) =>
   template.replace('{n}', String(n)).replace('{m}', String(m));
 
-export {
-  CARD_GAP,
-  EDGE,
-  PHONE_MAX,
-  SPOT_PAD,
-  nearViewport,
-  placeCard,
-  scrollDelta,
-  type CardSide,
-  type Placement,
-  type Rect,
-  type Size,
-} from './tour-placement';
+export { nearViewport, placeCard, scrollDelta, type Placement, type Rect } from './tour-placement';
 
 export const NAV_PAGES: readonly string[] = ['', 'explorer/', 'timeline/', 'compare/', 'study/'];
 

@@ -18,7 +18,7 @@ export type LegendDomain = {
 const byRank = (rank: (x: string) => number) => (a: string, b: string) =>
   rank(a) - rank(b) || a.localeCompare(b);
 
-export function presentClusters(nodes: Paintable[]): Map<string, Set<string>> {
+function presentClusters(nodes: Paintable[]): Map<string, Set<string>> {
   const clusters = new Map<string, Set<string>>();
   for (const n of nodes) {
     const home = homeDomain(n);

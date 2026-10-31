@@ -21,7 +21,7 @@ export type FakeGraph = {
   calls: Record<string, number>;
 };
 
-export type FakeControls = {
+type FakeControls = {
   target: InstanceType<typeof THREE.Vector3>;
   autoRotate: boolean;
   autoRotateSpeed: number;

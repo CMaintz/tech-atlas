@@ -1,6 +1,6 @@
 import { ACCOUNTS } from './site';
 
-export type SyncStatus =
+type SyncStatus =
   | 'off'
   | 'loading'
   | 'signed-out'

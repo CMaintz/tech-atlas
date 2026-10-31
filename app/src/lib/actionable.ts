@@ -13,14 +13,14 @@ export type ActionableInput = {
   edges?: Partial<Record<string, RawEdge[] | undefined>>;
 };
 
-export const ACTIONABLE_PARENTS = [
+const ACTIONABLE_PARENTS = [
   'control',
   'security-framework',
   'risk-treatment',
   'risk-assessment',
 ] as const;
 
-export const AI_PRACTICE_CLUSTERS = ['ai-risk', 'agents', 'ai-coding'] as const;
+const AI_PRACTICE_CLUSTERS = ['ai-risk', 'agents', 'ai-coding'] as const;
 
 const refs = (t: ActionableInput, type: string) =>
   (t.edges?.[type] ?? []).map((e) => bareName(typeof e === 'string' ? e : e.to));
