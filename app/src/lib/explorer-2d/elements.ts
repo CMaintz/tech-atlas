@@ -34,7 +34,7 @@ export function termElement(n: GraphNode, r: number, lang: 'en' | 'da') {
 }
 
 /** Relationship edges, tinted by their source's cluster; `bb` backbone, `xc` cross-island. */
-export function linkElements(graph: Graph, byId: Map<string, GraphNode>, theme: MapTheme) {
+function linkElements(graph: Graph, byId: Map<string, GraphNode>, theme: MapTheme) {
   const spine = backbone(graph.nodes, graph.links);
   return edgeData(
     graph.links,

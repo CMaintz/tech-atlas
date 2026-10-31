@@ -7,7 +7,7 @@ import {
   type Status,
   type TermState,
 } from './learner';
-import { mergeLearner, sameLearner, scheduleSource, statusSource } from './sync';
+import { mergeLearner, sameLearner } from './sync';
 
 const DAY = 24 * 60 * 60 * 1000;
 const empty: Learner = { terms: {} };
@@ -154,7 +154,11 @@ describe('mergeLearner', () => {
   });
 });
 
-describe('scheduleSource', () => {
+/** One term, merged from two devices. */
+const mergedTerm = (a: TermState, b: TermState) =>
+  mergeLearner({ terms: { t: a } }, { terms: { t: b } }).terms.t;
+
+describe('merging the review schedule', () => {
   const t = (box: number, due: number, reviewed?: number): TermState => ({
     box,
     due,
@@ -164,24 +168,20 @@ describe('scheduleSource', () => {
   });
 
   it('takes the most recent answer, even with a lower box', () => {
-    const later = t(0, 1, 20);
-    expect(scheduleSource(t(4, 9, 10), later)).toBe(later);
+    expect(mergedTerm(t(4, 9, 10), t(0, 1, 20))).toMatchObject({ box: 0, due: 1 });
   });
 
   it('breaks a timestamp tie on the higher box, then the later due date', () => {
-    const high = t(3, 1);
-    expect(scheduleSource(t(2, 9), high)).toBe(high);
-    const later = t(2, 9);
-    expect(scheduleSource(t(2, 5), later)).toBe(later);
+    expect(mergedTerm(t(2, 9), t(3, 1))).toMatchObject({ box: 3, due: 1 });
+    expect(mergedTerm(t(2, 5), t(2, 9))).toMatchObject({ box: 2, due: 9 });
   });
 
-  it('picks the first copy on a full tie', () => {
-    const a = t(2, 5, 1);
-    expect(scheduleSource(a, t(2, 5, 1))).toBe(a);
+  it('keeps a term as it is when both copies agree', () => {
+    expect(mergedTerm(t(2, 5, 1), t(2, 5, 1))).toEqual(t(2, 5, 1));
   });
 });
 
-describe('statusSource', () => {
+describe('merging the status', () => {
   const t = (status?: Status, statusAt?: number): TermState => ({
     box: 0,
     due: 0,
@@ -192,12 +192,10 @@ describe('statusSource', () => {
   });
 
   it('takes the most recent change, including a clear', () => {
-    const cleared = t(undefined, 20);
-    expect(statusSource(t('know', 10), cleared)).toBe(cleared);
+    expect(mergedTerm(t('know', 10), t(undefined, 20)).status).toBeUndefined();
   });
 
   it('lets any status beat none on a timestamp tie', () => {
-    const set = t('learning');
-    expect(statusSource(t(), set)).toBe(set);
+    expect(mergedTerm(t(), t('learning')).status).toBe('learning');
   });
 });

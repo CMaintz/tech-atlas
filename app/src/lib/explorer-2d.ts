@@ -11,7 +11,7 @@
 import cytoscape from 'cytoscape';
 import { EXPLORER } from './explorer-config';
 import { MAP_INK, type MapTheme } from './graph-style';
-import type { Axes } from './explorer-keys';
+import type { Axes } from './explorer-key-axes';
 import { startDots, type DotsConfig } from './explorer-flow';
 import { createApply } from './explorer-2d/apply';
 import { centreOn, nudge } from './explorer-2d/camera';

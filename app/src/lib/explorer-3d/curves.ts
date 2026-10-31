@@ -25,7 +25,7 @@ export function bend(a: Point3, b: Point3): Bend {
 }
 
 /** The point at t (0–1) along a bent link. */
-export function pointAt({ a, c, b }: Bend, t: number): [number, number, number] {
+function pointAt({ a, c, b }: Bend, t: number): [number, number, number] {
   const u = 1 - t;
   return [
     u * u * a.x + 2 * u * t * c.x + t * t * b.x,

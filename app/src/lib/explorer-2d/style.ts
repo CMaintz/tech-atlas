@@ -171,7 +171,7 @@ const relationNameRule = (theme: MapTheme): Rule => ({
 });
 
 /** The 2D map's rules on top of the shared look, in cascade order. */
-export const extraStyle = (theme: MapTheme): Rule[] => [
+const extraStyle = (theme: MapTheme): Rule[] => [
   ...HIDDEN,
   ...EDGES,
   ...BUNDLES,

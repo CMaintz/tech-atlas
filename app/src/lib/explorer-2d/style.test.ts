@@ -2,12 +2,18 @@ import { describe, expect, it } from 'vitest';
 import { EXPLORER } from '../explorer-config';
 import { MAP_INK } from '../graph-style';
 import { graphStyle } from '../graph-cytoscape';
-import { extraStyle, mapStylesheet } from './style';
+import { mapStylesheet } from './style';
+
+type Rule = { selector: string; style: Record<string, string | number> };
+
+/** The 2D rules: the stylesheet after the shared look. */
+const extraStyle = (theme: 'dark' | 'light') =>
+  (mapStylesheet(theme) as Rule[]).slice((graphStyle(theme) as unknown[]).length);
 
 const rule = (theme: 'dark' | 'light', selector: string) =>
   extraStyle(theme).find((r) => r.selector === selector)!.style;
 
-describe('extraStyle (characterization: the cascade the lab builds on)', () => {
+describe('the 2D rules (characterization: the cascade the lab builds on)', () => {
   it('keeps its rules in cascade order', () => {
     expect(extraStyle('dark').map((r) => r.selector)).toEqual([
       'core',
@@ -86,10 +92,9 @@ describe('extraStyle (characterization: the cascade the lab builds on)', () => {
 });
 
 describe('mapStylesheet', () => {
-  it('is the shared look, then the 2D rules', () => {
+  it('starts with the shared look', () => {
     const sheet = mapStylesheet('light') as unknown[];
     const shared = graphStyle('light') as unknown[];
     expect(sheet.slice(0, shared.length)).toEqual(shared);
-    expect(sheet.slice(shared.length)).toEqual(extraStyle('light'));
   });
 });

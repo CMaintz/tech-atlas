@@ -1,12 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { lanesOf, stretchScale, yearLoad } from './timeline';
 import {
-  CHIP_W,
   LABEL_COL,
   LANE_PAD,
-  ROW,
-  ROW_FIT,
-  V_ITEM,
   groupChips,
   horizontalLayout,
   labelSpan,
@@ -41,6 +37,7 @@ describe('labelSpan', () => {
 });
 
 describe('groupChips', () => {
+  const CHIP_W = 34;
   it('merges overflowed terms closer than a chip width, in axis order', () => {
     const chips = groupChips('sec', [
       { id: 'c', x: 100 + CHIP_W },
@@ -65,9 +62,9 @@ describe('horizontalLayout', () => {
   it('fits the axis to the available width at zoom 0', () => {
     const h = horizontalLayout(lanes, axis, { avail: 1280, budget: 560 });
     expect(h.width).toBeCloseTo(1280 - LABEL_COL - 2, 0);
-    expect(h.row).toBe(ROW_FIT);
+    expect(h.row).toBe(17);
     expect(horizontalLayout(lanes, { ...axis, zoom: 1 }, { avail: 1280, budget: 560 }).row).toBe(
-      ROW,
+      22,
     );
   });
   it('places every term once, in a row or a chip, within the height budget', () => {
@@ -98,8 +95,8 @@ describe('verticalLayout', () => {
       zoom: 0,
       load: yearLoad(lanes.values()),
     });
-    expect(v.pos.get('b')! - v.pos.get('a')!).toBe(V_ITEM);
+    expect(v.pos.get('b')! - v.pos.get('a')!).toBe(24);
     expect(v.pos.get('c')).toBe(v.pos.get('a'));
-    expect(v.scale.at(2001)).toBe(2 * V_ITEM + 4);
+    expect(v.scale.at(2001)).toBe(2 * 24 + 4);
   });
 });

@@ -2,12 +2,10 @@ import { describe, expect, it } from 'vitest';
 import type { Graph, GraphLink, GraphNode } from './graph-model';
 import { MAP_INK } from './graph-style';
 import {
-  KNOWLEDGE_COLOURS,
   hoverCardPlace,
   knowledgeColour,
   layoutNote,
   legendNodes,
-  neighbourhood,
   routeLabel,
   toggled,
   undatedCount,
@@ -52,25 +50,6 @@ describe('toggled', () => {
   });
 });
 
-describe('neighbourhood', () => {
-  const ids = new Set(['a', 'b', 'c', 'd', 'e']);
-  it('grows one hop at a time, in both link directions', () => {
-    expect([...neighbourhood({ links: graph.links, ids }, 'b', 1)].sort()).toEqual(['a', 'b', 'c']);
-    expect([...neighbourhood({ links: graph.links, ids }, 'b', 2)].sort()).toEqual([
-      'a',
-      'b',
-      'c',
-      'd',
-      'e',
-    ]);
-  });
-  it('walks only links between allowed terms', () => {
-    expect(
-      [...neighbourhood({ links: graph.links, ids: new Set(['a', 'b']) }, 'a', 3)].sort(),
-    ).toEqual(['a', 'b']);
-  });
-});
-
 describe('visibleTermIds', () => {
   const base = { domains: all, datedOnly: false, hops: null, selected: null };
   it('keeps the enabled domains', () => {
@@ -79,6 +58,17 @@ describe('visibleTermIds', () => {
   });
   it('keeps only dated terms for the time layout', () => {
     expect([...visibleTermIds(graph, { ...base, datedOnly: true })]).toEqual(['a', 'c']);
+  });
+  it('grows the neighbourhood one hop at a time, in both link directions', () => {
+    const around = (hops: number) =>
+      [...visibleTermIds(graph, { ...base, hops, selected: 'b' })].sort();
+    expect(around(1)).toEqual(['a', 'b', 'c']);
+    expect(around(2)).toEqual(['a', 'b', 'c', 'd', 'e']);
+  });
+  it('walks only links between shown terms', () => {
+    // a reaches c only through b, which the time layout hides.
+    const ids = visibleTermIds(graph, { ...base, datedOnly: true, hops: 3, selected: 'a' });
+    expect([...ids]).toEqual(['a']);
   });
   it('limits to a neighbourhood of a shown selected term', () => {
     const ids = visibleTermIds(graph, { ...base, hops: 1, selected: 'd' });
@@ -113,13 +103,11 @@ describe('undatedCount', () => {
 describe('knowledgeColour', () => {
   const s = (over: object) => ({ box: 0, due: 0, right: 0, wrong: 0, ...over });
   it('uses a set status first', () => {
-    expect(knowledgeColour(s({ status: 'familiar' }), 'dark')).toBe(
-      KNOWLEDGE_COLOURS.dark.familiar,
-    );
+    expect(knowledgeColour(s({ status: 'familiar' }), 'dark')).toBe('#84cc16');
   });
   it('derives know / learning from the review box', () => {
-    expect(knowledgeColour(s({ box: 3 }), 'light')).toBe(KNOWLEDGE_COLOURS.light.know);
-    expect(knowledgeColour(s({ box: 1 }), 'dark')).toBe(KNOWLEDGE_COLOURS.dark.learning);
+    expect(knowledgeColour(s({ box: 3 }), 'light')).toBe('#15803d');
+    expect(knowledgeColour(s({ box: 1 }), 'dark')).toBe('#f59e0b');
   });
   it('is the map ink for an unseen term', () => {
     expect(knowledgeColour(undefined, 'dark')).toBe(MAP_INK.dark.unknown);

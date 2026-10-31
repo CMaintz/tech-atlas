@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { MAP_INK, clusterColour, domainColour } from '../graph-style';
 import type { LaneLayout } from '../graph-layout';
 import type { IslandMap } from './islands';
-import { domainTagAt, tagColour, tagHidden, tagsFor } from './tags';
+import { tagColour, tagHidden, tagsFor } from './tags';
 import { FIXTURE, LABELS } from './test-fixture';
 
 const node = (id: string) => FIXTURE.nodes.find((n) => n.id === id)!;
@@ -98,16 +98,20 @@ describe('tagsFor (characterization)', () => {
   });
 });
 
-describe('domainTagAt', () => {
-  const box = { x1: -10, y1: -10, x2: 10, y2: 10 };
-  it('goes on the side facing away from the map centre', () => {
-    expect(domainTagAt(box, { x: 0, y: 100 })).toEqual({
-      x: 0,
-      y: -40,
-      valign: 'top',
-      halign: 'center',
-    });
-    expect(domainTagAt(box, { x: 0, y: -100 }).valign).toBe('bottom');
+describe('domain tags of stacked domains', () => {
+  it('go on the side facing away from the map centre', () => {
+    const stacked: IslandMap = {
+      ...ISLANDS,
+      centre: { fundamentals: { x: 0, y: -100 }, networking: { x: 0, y: 100 } },
+      regions: { security: { x: 0, y: -100, r: 80 }, cs: { x: 0, y: 100, r: 50 } },
+    };
+    const tags = tagsFor({ layout: 'force', map: stacked, sizeOf: () => 20 }, LABELS, 'dark');
+    const at = (id: string) => {
+      const t = tags.find((x) => x.data.id === id)!;
+      return { ...t.position, valign: t.data.valign, halign: t.data.halign };
+    };
+    expect(at('tag:d:security')).toEqual({ x: 0, y: -160 - 30, valign: 'top', halign: 'center' });
+    expect(at('tag:d:cs').valign).toBe('bottom');
   });
 });
 
