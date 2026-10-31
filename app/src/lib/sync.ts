@@ -5,7 +5,7 @@ const maxDefined = (a?: number, b?: number) =>
 
 const rank = (s?: Status) => (s ? STATUSES.length - STATUSES.indexOf(s) : 0);
 
-export function scheduleSource(a: TermState, b: TermState): TermState {
+function scheduleSource(a: TermState, b: TermState): TermState {
   const ra = a.reviewed ?? 0;
   const rb = b.reviewed ?? 0;
   if (ra !== rb) return ra > rb ? a : b;
@@ -13,7 +13,7 @@ export function scheduleSource(a: TermState, b: TermState): TermState {
   return a.due >= b.due ? a : b;
 }
 
-export function statusSource(a: TermState, b: TermState): TermState {
+function statusSource(a: TermState, b: TermState): TermState {
   const sa = a.statusAt ?? 0;
   const sb = b.statusAt ?? 0;
   if (sa !== sb) return sa > sb ? a : b;
