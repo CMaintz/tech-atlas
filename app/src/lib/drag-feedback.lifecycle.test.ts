@@ -54,14 +54,30 @@ describe('createDragFeedback', () => {
     expect(ring.style.visibility).toBe('hidden');
     expect(ring.dataset.dragRing).toBe('');
   });
+  it('makes the ring a circle centred on the pointer, letting it through', () => {
+    const { ring } = setup();
+    expect(ring.style).toMatchObject({ width: '30px', height: '30px', borderRadius: '50%' });
+    expect(ring.style).toMatchObject({ marginLeft: '-15px', marginTop: '-15px' });
+    expect(ring.style).toMatchObject({ pointerEvents: 'none', opacity: '0' });
+  });
+  it('takes the ring colours from the page theme, with the config as fallback', () => {
+    const { ring } = setup();
+    expect(ring.style.border).toBe(`1.5px solid var(--drag-ring, ${EXPLORER.drag.ringColour})`);
+    expect(ring.style.boxShadow).toContain(`var(--drag-outline, ${EXPLORER.drag.ringOutline})`);
+    expect(ring.style.background.match(/linear-gradient/g)).toHaveLength(2);
+  });
   it('marks the drag and shows the ring once the pointer passes the slop', () => {
     const { host, ring, drag } = setup();
     drag.start('orbit', { clientX: 100, clientY: 100 });
     expect(host.dataset.drag).toBe('orbit');
     expect(ring.style.transform).toBe('translate(90px, 80px)');
-    fire('pointermove', { clientX: 101, clientY: 100 });
+    fire('pointermove', { clientX: 101, clientY: 101 });
     expect(ring.style.visibility).toBe('hidden');
-    fire('pointermove', { clientX: 100 + EXPLORER.drag.slopPx + 1, clientY: 100 });
+    // Exactly the slop away is still a click; any further is a drag.
+    const slop = EXPLORER.drag.slopPx;
+    fire('pointermove', { clientX: 100 + slop, clientY: 100 });
+    expect(ring.style.visibility).toBe('hidden');
+    fire('pointermove', { clientX: 100 + slop, clientY: 101 });
     expect(ring.style.visibility).toBe('visible');
   });
   it('ends on pointerup: clears the mark, hides the ring and stops listening', () => {
