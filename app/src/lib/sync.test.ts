@@ -175,6 +175,10 @@ describe('merging the review schedule', () => {
     expect(mergedTerm(t(2, 9), t(3, 1))).toMatchObject({ box: 3, due: 1 });
     expect(mergedTerm(t(2, 5), t(2, 9))).toMatchObject({ box: 2, due: 9 });
   });
+
+  it('keeps a term as it is when both copies agree', () => {
+    expect(mergedTerm(t(2, 5, 1), t(2, 5, 1))).toEqual(t(2, 5, 1));
+  });
 });
 
 describe('merging the status', () => {
