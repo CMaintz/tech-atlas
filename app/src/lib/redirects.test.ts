@@ -9,7 +9,9 @@ const t = (id: string, en: string, da: string, akaEn: string[] = [], akaDa: stri
 
 describe('the slug a name redirects from', () => {
   const slugify = (name: string) =>
-    [...shortNames([t('x/id', name, 'id')]).keys()].filter((k) => k !== 'id').join();
+    [...shortNames([t('slugtest/slug-test-id', name, 'slug-test-id')]).keys()]
+      .filter((k) => k !== 'slug-test-id')
+      .join();
 
   it('lower-cases, hyphenates and spells out Danish letters', () => {
     expect(slugify('Multi-factor Authentication')).toBe('multi-factor-authentication');

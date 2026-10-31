@@ -77,7 +77,7 @@ describe('cluster colours', () => {
   it('shades each cluster within its domain hue band', () => {
     for (const [cluster, domain] of Object.entries(CLUSTER_DOMAIN)) {
       const drift = hueDistance(hueOf(clusterColour(cluster)), DOMAIN_HUES[domain]);
-      expect(drift).toBeLessThanOrEqual(24);
+      expect(drift).toBeLessThanOrEqual(22 + 2);
     }
   });
   it('gives clusters of one domain distinct colours', () => {
