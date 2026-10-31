@@ -114,7 +114,7 @@ export const fillCount = (template: string, n: number, m: number) =>
 
 export { nearViewport, placeCard, scrollDelta, type Placement, type Rect } from './tour-placement';
 
-export const NAV_PAGES: readonly string[] = ['', 'explorer/', 'timeline/', 'compare/', 'study/'];
+const NAV_PAGES: readonly string[] = ['', 'explorer/', 'timeline/', 'compare/', 'study/'];
 
 export function bridgeSelectors(langBase: string, page: string): string[] {
   const href = `${langBase}${page}`.replace(/["\\]/g, '\\$&');
