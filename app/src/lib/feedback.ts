@@ -3,8 +3,8 @@ import type { Lang } from './site';
 export const FEEDBACK_CATEGORIES = ['bug', 'content', 'idea', 'other'] as const;
 export type FeedbackCategory = (typeof FEEDBACK_CATEGORIES)[number];
 export const FEEDBACK_MAX_CHARS = 2000;
-export const FEEDBACK_MAX_EMAIL = 254;
-export const FEEDBACK_TIMEOUT_MS = 10_000;
+const FEEDBACK_MAX_EMAIL = 254;
+const FEEDBACK_TIMEOUT_MS = 10_000;
 
 export type FeedbackForm = {
   category: FeedbackCategory;
