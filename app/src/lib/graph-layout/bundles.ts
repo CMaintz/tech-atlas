@@ -6,7 +6,7 @@ import type { Link } from './types';
 
 export { pairKey };
 
-export function countClusterPairs(
+function countClusterPairs(
   links: Link[],
   clusterOf: (id: string) => string | undefined,
 ): Map<string, number> {
@@ -61,7 +61,7 @@ export function bundleControls(
   return relativeControls(s, t, [pull(along(1 / 3), cs), pull(along(2 / 3), ct)]);
 }
 
-export function relativeControls(
+function relativeControls(
   s: Point,
   t: Point,
   points: Point[],
