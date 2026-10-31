@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
   labelPlacement,
-  ringOrder,
   termGraphElements,
   termGraphStyle,
   type GEdge,
@@ -23,18 +22,19 @@ const edge = (source: string, target: string, family: GEdge['family']): GEdge =>
   label: family,
 });
 
-describe('ringOrder', () => {
+describe('the ring order of termGraphElements', () => {
   const focus = node('f', 'c', true);
-  it('orders neighbours by family, then cluster, then name, without the focal term', () => {
+  it('orders neighbours by family, then cluster, then name, after the focal term', () => {
     const nodes = [focus, node('b', 'y'), node('a', 'y'), node('z', 'x')];
     const edges = [
       edge('f', 'b', 'contrast'),
       edge('a', 'f', 'contrast'),
       edge('f', 'z', 'structure'),
     ];
-    const families = ringOrder(nodes, edges, focus).map((n) => n.id);
+    const els = termGraphElements(nodes, edges, 'dark');
+    const order = els.slice(0, nodes.length).map((e) => e.data.id);
     // 'structure' precedes 'contrast' in the family order; within a family, cluster then name.
-    expect(families).toEqual(['z', 'a', 'b']);
+    expect(order).toEqual(['f', 'z', 'a', 'b']);
   });
 });
 
