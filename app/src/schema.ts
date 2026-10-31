@@ -138,14 +138,13 @@ export const HowToGuide = z
   .strict();
 export type HowToGuide = z.infer<typeof HowToGuide>;
 
-export const HowTo = z
+const HowTo = z
   .object({
     steps: StepList(5, 10),
     pitfalls: StepList(1, 8).optional(),
     guides: z.array(HowToGuide).min(2).max(5),
   })
   .strict();
-export type HowTo = z.infer<typeof HowTo>;
 
 export const TermFrontmatter = z
   .object({
@@ -183,7 +182,7 @@ const TermKey = z
 
 const QUESTION_KINDS = ['scenario', 'concept', 'compare', 'order', 'true-false'] as const;
 
-export const Question = z
+const Question = z
   .object({
     id: TermId,
     terms: z.array(TermKey).min(1),
@@ -212,7 +211,6 @@ export const Question = z
         message: 'answer must index an option',
       });
   });
-export type Question = z.infer<typeof Question>;
 
 export const QuestionFile = z.object({ questions: z.array(Question).min(1) }).strict();
 export type QuestionFile = z.infer<typeof QuestionFile>;

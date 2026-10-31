@@ -3,7 +3,6 @@ import type { Source } from '../schema';
 import { FAMILY } from './graph-model';
 import { termUrl, url } from './site';
 import {
-  authoredType,
   relationsByType,
   sourcesByTier,
   termCrumbs,
@@ -44,14 +43,6 @@ describe('relationsByType', () => {
   });
 });
 
-describe('authoredType', () => {
-  it('turns a generated inverse back into the authored type', () => {
-    expect(authoredType(rel('unlocks', 'b', true))).toBe('requires');
-    expect(authoredType(rel('contrasts-with', 'b', true))).toBe('contrasts-with');
-    expect(authoredType(rel('requires', 'b'))).toBe('requires');
-  });
-});
-
 describe('termNeighbourhood', () => {
   it('puts the term first, then each related term once', () => {
     const g = termNeighbourhood(
@@ -76,6 +67,14 @@ describe('termNeighbourhood', () => {
       ['c', 'requires', 'a'],
     ]);
     expect(g.edges[0].family).toBe(FAMILY.requires);
+  });
+  it('turns a generated inverse back into the authored type', () => {
+    const g = termNeighbourhood(
+      entry('a'),
+      [rel('unlocks', 'b', true), rel('contrasts-with', 'c', true), rel('requires', 'd')],
+      'en',
+    );
+    expect(g.edges.map((e) => e.type)).toEqual(['requires', 'contrasts-with', 'requires']);
   });
 });
 

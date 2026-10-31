@@ -10,7 +10,7 @@ export const relationsByType = (relations: readonly Relation[]) =>
     items: relations.filter((r) => r.type === type),
   })).filter((g) => g.items.length > 0);
 
-export const authoredType = (r: Relation): EdgeType =>
+const authoredType = (r: Relation): EdgeType =>
   r.generated
     ? ((Object.entries(EDGE_TYPES).find(([, m]) => m.inverse === r.type)?.[0] ??
         r.type) as EdgeType)

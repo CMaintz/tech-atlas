@@ -39,8 +39,8 @@ export const UI_TOUR = {
 } as const;
 
 /** The term and compare pair the guided tour walks through. */
-export const TOUR_TERM = 'security/risk';
-export const TOUR_PAIR = 'risk-vs-threat';
+const TOUR_TERM = 'security/risk';
+const TOUR_PAIR = 'risk-vs-threat';
 
 /**
  * The guided tour. Pages are relative to the language root; anchors are

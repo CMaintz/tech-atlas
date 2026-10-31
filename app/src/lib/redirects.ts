@@ -8,7 +8,7 @@ export type RedirectTerm = {
 
 const FOLD: Record<string, string> = { æ: 'ae', ø: 'oe', å: 'aa', ß: 'ss' };
 
-export const slugify = (s: string) =>
+const slugify = (s: string) =>
   s
     .toLowerCase()
     .replace(/[æøåß]/g, (c) => FOLD[c])

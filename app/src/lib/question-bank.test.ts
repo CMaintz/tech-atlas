@@ -1,11 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { loadQuestions } from '../../scripts/load-questions';
 import { loadTerms } from '../../scripts/load-terms';
-import { Question as QuestionSchema, QuestionFile } from '../schema';
+import { QuestionFile } from '../schema';
 import { buildGraph, type ModelTerm } from './graph-model';
 import { parseLearner, recordAnswer, recordQuestion, type Learner } from './learner';
 import {
-  answeredBy,
   checkQuestions,
   clientQuestions,
   type BankQuestion,
@@ -56,6 +55,8 @@ const q = (over: Partial<BankQuestion> = {}): BankQuestion => ({
 });
 
 describe('schema', () => {
+  const QuestionSchema = QuestionFile.shape.questions.element;
+
   it('accepts a well-formed question file', () => {
     const { file: _, ...one } = q();
     expect(QuestionFile.safeParse({ questions: [one] }).success).toBe(true);
@@ -126,7 +127,10 @@ describe('lint rules', () => {
   });
 });
 
-describe('answeredBy', () => {
+describe('answeredBy in clientQuestions', () => {
+  const answeredBy = (question: BankQuestion, terms: Map<string, NamedTerm>) =>
+    clientQuestions([question], terms, 'en')[0].answeredBy;
+
   it('matches names, short forms in parentheses and Danish names', () => {
     const mfa = q({
       terms: ['security/mfa', 'security/phishing'],

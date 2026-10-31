@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import { pageRank } from '../graph-layout';
-import { outNeighbours } from './centrality';
 
 describe('pageRank', () => {
   it('ranks what many terms point at highest, normalised to 1', () => {
@@ -19,18 +18,13 @@ describe('pageRank', () => {
     const r = pageRank(['a', 'b'], [{ source: 'a', target: 'b', directed: false }]);
     expect(r.get('a')).toBeCloseTo(r.get('b')!);
   });
-});
-
-describe('outNeighbours', () => {
-  it('follows the authored direction, both ways for symmetric links, and skips unknown ends', () => {
-    const out = outNeighbours(
-      ['a', 'b', 'c'],
-      [
-        { source: 'a', target: 'b' },
-        { source: 'b', target: 'c', directed: false },
-        { source: 'c', target: 'nowhere' },
-      ],
-    );
-    expect(out).toEqual([[1], [2], [1]]);
+  it('ignores links with an end outside the ranked terms', () => {
+    const links = [
+      { source: 'a', target: 'b' },
+      { source: 'b', target: 'c', directed: false },
+    ];
+    const r = pageRank(['a', 'b', 'c'], links);
+    expect(pageRank(['a', 'b', 'c'], [...links, { source: 'c', target: 'nowhere' }])).toEqual(r);
+    expect(pageRank(['a', 'b', 'c'], [{ source: 'nowhere', target: 'a' }, ...links])).toEqual(r);
   });
 });

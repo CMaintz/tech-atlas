@@ -9,7 +9,6 @@ import {
 } from '../graph-layout';
 import { buildGraph, type ModelTerm } from '../graph-model';
 import { loadTerms } from '../../../scripts/load-terms';
-import { countClusterPairs, relativeControls } from './bundles';
 import { on } from './test-fixtures';
 
 describe('linkVisible / visibleBundleCounts: an edge needs both ends visible', () => {
@@ -77,10 +76,10 @@ describe('linkVisible / visibleBundleCounts: an edge needs both ends visible', (
   });
 });
 
-describe('countClusterPairs', () => {
+describe('visibleBundleCounts with every term visible', () => {
   it('counts links between different known clusters, in first-seen order', () => {
     const cl: Record<string, string> = { a: 'p', b: 'q', c: 'p' };
-    const counts = countClusterPairs(
+    const counts = visibleBundleCounts(
       [
         { source: 'b', target: 'a' },
         { source: 'a', target: 'c' },
@@ -88,6 +87,7 @@ describe('countClusterPairs', () => {
         { source: 'c', target: 'b' },
       ],
       (id) => cl[id],
+      on('a', 'b', 'c', 'unknown'),
     );
     expect([...counts]).toEqual([[pairKey('p', 'q'), 2]]);
   });
@@ -112,10 +112,8 @@ describe('clusterBundles', () => {
 
 describe('bundle control points', () => {
   it('turns absolute points back into edge-relative weights and distances', () => {
-    const r = relativeControls({ x: 0, y: 0 }, { x: 10, y: 0 }, [
-      { x: 5, y: 3 },
-      { x: 2.5, y: -1 },
-    ]);
+    // Beta 1 puts the controls on the islands' centres themselves.
+    const r = bundleControls({ x: 0, y: 0 }, { x: 10, y: 0 }, { x: 5, y: 3 }, { x: 2.5, y: -1 }, 1);
     expect(r.weights).toEqual([0.5, 0.25]);
     expect(Math.abs(r.distances[0])).toBeCloseTo(3);
     expect(Math.sign(r.distances[0])).toBe(-Math.sign(r.distances[1]));

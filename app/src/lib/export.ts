@@ -107,13 +107,13 @@ function termContent(d: TermData) {
   };
 }
 
-export const csvField = (v: string | number | boolean | undefined) => {
+const csvField = (v: string | number | boolean | undefined) => {
   let s = v === undefined ? '' : String(v);
   if (typeof v === 'string' && /^[=+\-@\t\r]/.test(s)) s = `'${s}`;
   return /[",\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 };
 
-export const CSV_COLUMNS = [
+const CSV_COLUMNS = [
   'id',
   'term_en',
   'term_da',

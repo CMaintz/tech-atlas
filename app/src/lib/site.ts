@@ -13,7 +13,7 @@ import type { Lang } from './lang';
 export { LANGS, langParams, type Lang } from './lang';
 
 const rawBase = import.meta.env.BASE_URL;
-export const BASE = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const BASE = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 
 export const url = (path = '') => BASE + path.replace(/^\//, '');
 

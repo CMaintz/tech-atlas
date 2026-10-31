@@ -2,7 +2,6 @@ import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { parse } from 'yaml';
 import { TOUR_STEPS, UI } from './site';
-import { TOUR_PAIR, TOUR_TERM } from './strings/tour';
 import { pairSlugFromIds } from './slug';
 import {
   bridgeSelectors,
@@ -174,23 +173,30 @@ describe('TOUR_STEPS', () => {
       expect(s.page === null || s.page === '' || s.page.endsWith('/')).toBe(true);
     }
   });
+  const visited = (prefix: string) => {
+    const pages = TOUR_STEPS.flatMap((s) => (s.page?.startsWith(prefix) ? [s.page] : []));
+    return [...new Set(pages)].map((p) => p.slice(prefix.length, -1));
+  };
   it('visits the pages it promises', () => {
     const pages = new Set(TOUR_STEPS.map((s) => s.page));
-    for (const p of ['', `terms/${TOUR_TERM}/`, `compare/${TOUR_PAIR}/`, 'explorer/', 'study/'])
-      expect(pages).toContain(p);
+    for (const p of ['', 'explorer/', 'study/']) expect(pages).toContain(p);
     expect(pages).toContain('timeline/');
+    expect(visited('terms/')).toHaveLength(1);
+    expect(visited('compare/')).toHaveLength(1);
   });
   it('walks through a term that exists and a compare pair it really has', () => {
-    const file = new URL(`../content/terms/${TOUR_TERM}.yaml`, import.meta.url);
+    const [tourTerm] = visited('terms/');
+    const [tourPair] = visited('compare/');
+    const file = new URL(`../content/terms/${tourTerm}.yaml`, import.meta.url);
     expect(existsSync(file)).toBe(true);
     const term = parse(readFileSync(file, 'utf8')) as {
       edges: { requires?: string[]; 'contrasts-with'?: { to: string }[] };
     };
     expect(term.edges.requires?.length).toBeGreaterThan(0); // "learn first" has content
-    const [folder] = TOUR_TERM.split('/');
+    const [folder] = tourTerm.split('/');
     const partners = (term.edges['contrasts-with'] ?? []).map((e) =>
       e.to.includes('/') ? e.to : `${folder}/${e.to}`,
     );
-    expect(partners.map((p) => pairSlugFromIds(TOUR_TERM, p))).toContain(TOUR_PAIR);
+    expect(partners.map((p) => pairSlugFromIds(tourTerm, p))).toContain(tourPair);
   });
 });

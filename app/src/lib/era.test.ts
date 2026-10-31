@@ -1,13 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { decadeOf, groupByDecade } from './era';
-
-describe('decadeOf', () => {
-  it('floors a year to its decade', () => {
-    expect(decadeOf(1995)).toBe(1990);
-    expect(decadeOf(2000)).toBe(2000);
-    expect(decadeOf(2009)).toBe(2000);
-  });
-});
+import { groupByDecade } from './era';
 
 describe('groupByDecade', () => {
   const items = [
@@ -40,6 +32,18 @@ describe('groupByDecade', () => {
     const { decades, undated } = groupByDecade(items);
     expect(undated).toBe(2);
     expect(decades.flatMap((d) => d.items)).toHaveLength(5);
+  });
+
+  it('floors each year to its decade', () => {
+    const { decades } = groupByDecade([
+      { id: 'a', era: 1995 },
+      { id: 'b', era: 2000 },
+      { id: 'c', era: 2009 },
+    ]);
+    expect(decades.map((d) => [d.decade, d.items.map((t) => t.id)])).toEqual([
+      [1990, ['a']],
+      [2000, ['b', 'c']],
+    ]);
   });
 
   it('handles a corpus with no eras at all', () => {

@@ -2,7 +2,6 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
-  RECENT_MAX,
   THEME_KEY,
   isCurrentNav,
   isSearchShortcut,
@@ -43,11 +42,11 @@ describe('recently viewed', () => {
   it('puts the latest first, without duplicates, capped', () => {
     expect(pushRecent([], 'a')).toEqual(['a']);
     expect(pushRecent(['a', 'b', 'c'], 'b')).toEqual(['b', 'a', 'c']);
-    const many = Array.from({ length: RECENT_MAX }, (_, i) => `t${i}`);
+    const many = Array.from({ length: 8 }, (_, i) => `t${i}`);
     const next = pushRecent(many, 'new');
-    expect(next).toHaveLength(RECENT_MAX);
+    expect(next).toHaveLength(8);
     expect(next[0]).toBe('new');
-    expect(next).not.toContain(`t${RECENT_MAX - 1}`);
+    expect(next).not.toContain('t7');
     expect(pushRecent(['a', 'b'], 'c', 2)).toEqual(['c', 'a']);
   });
 });

@@ -8,7 +8,7 @@ export const DOMAIN_HUES: Record<string, number> = {
   platform: 150, // green → teal
 };
 
-export const CLUSTER_DOMAIN: Record<string, string> = {
+const CLUSTER_DOMAIN: Record<string, string> = {
   fundamentals: 'security',
   awareness: 'security',
   controls: 'security',
@@ -56,7 +56,7 @@ const hashString = (s: string) => {
   return h >>> 0;
 };
 
-export function domainHue(domain: string): number {
+function domainHue(domain: string): number {
   if (domain in DOMAIN_HUES) return DOMAIN_HUES[domain];
   const taken = Object.values(DOMAIN_HUES);
   let hue = hashString(domain) % 360;
@@ -83,7 +83,7 @@ export const domainColour = (domain: string, theme: MapTheme = 'dark') =>
     ? darkenOnCreamUntilContrast({ h: domainHue(domain), s: 78, l: 34 }, DOMAIN_MIN_CONTRAST)
     : hslToHex(domainHue(domain), 82, 62);
 
-export const CLUSTER_HUE_SPREAD = 22;
+const CLUSTER_HUE_SPREAD = 22;
 const CLUSTER_LIGHTNESS: Record<MapTheme, number[]> = {
   dark: [62, 74, 54],
   light: [40, 50, 32],

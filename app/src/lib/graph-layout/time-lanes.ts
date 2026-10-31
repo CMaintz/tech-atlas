@@ -7,7 +7,7 @@ import type { LayoutNode } from './types';
 type TimeNode = LayoutNode & { era?: number };
 type DatedNode = LayoutNode & { era: number };
 
-export function yearX(year: number, minYear: number): number {
+function yearX(year: number, minYear: number): number {
   const cfg = EXPLORER.time;
   const pivot = Math.max(minYear, cfg.compressBefore);
   if (year >= pivot)
@@ -62,7 +62,7 @@ function stackLanes(dated: DatedNode[], minYear: number, enabled?: ReadonlySet<s
   return { positions, lanes, bottom: top };
 }
 
-export function yearTicks(minYear: number, maxYear: number, y: number): LaneLayout['ticks'] {
+function yearTicks(minYear: number, maxYear: number, y: number): LaneLayout['ticks'] {
   const every = EXPLORER.time.tickEvery;
   const ticks: LaneLayout['ticks'] = [];
   for (let yr = Math.ceil(minYear / every) * every; yr <= maxYear; yr += every)
