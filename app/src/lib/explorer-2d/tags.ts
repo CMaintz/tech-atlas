@@ -62,7 +62,7 @@ function clusterTags({ map, sizeOf }: IslandSource, labels: TagLabels, theme: Ma
 }
 
 /** Where a domain's name goes: outside its box, on the side facing away from the map. */
-export function domainTagAt(box: Box, mapCentre: Point) {
+function domainTagAt(box: Box, mapCentre: Point) {
   const midX = (box.x1 + box.x2) / 2;
   const midY = (box.y1 + box.y2) / 2;
   return {
