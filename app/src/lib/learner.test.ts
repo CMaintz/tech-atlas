@@ -1,14 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { buildGraph, type ModelTerm } from './graph-model';
-import {
-  isDue,
-  isKnown,
-  progressOf,
-  recordAnswer,
-  recommendNext,
-  setStatus,
-  type Learner,
-} from './learner';
+import { isDue, progressOf, recordAnswer, recommendNext, setStatus, type Learner } from './learner';
 
 const DAY = 24 * 60 * 60 * 1000;
 const empty: Learner = { terms: {} };
@@ -59,7 +51,7 @@ describe('progressOf', () => {
   });
 });
 
-describe('isDue / isKnown', () => {
+describe('isDue / known terms', () => {
   it('is due once the scheduled time has passed', () => {
     const l = recordAnswer(empty, { id: 't', correct: true }, 0);
     expect(isDue(l.terms.t, DAY - 1)).toBe(false);
@@ -67,11 +59,12 @@ describe('isDue / isKnown', () => {
   });
 
   it('counts a term as known by self-assessment or by three right answers running', () => {
-    expect(isKnown(setStatus(empty, { id: 't', status: 'know' }).terms.t)).toBe(true);
+    expect(progressOf(setStatus(empty, { id: 't', status: 'know' })).known).toBe(1);
     let l = empty;
-    for (const at of [0, DAY, 4 * DAY]) l = recordAnswer(l, { id: 't', correct: true }, at);
-    expect(isKnown(l.terms.t)).toBe(true);
-    expect(isKnown(undefined)).toBe(false);
+    for (const at of [0, DAY]) l = recordAnswer(l, { id: 't', correct: true }, at);
+    expect(progressOf(l).known).toBe(0);
+    l = recordAnswer(l, { id: 't', correct: true }, 4 * DAY);
+    expect(progressOf(l).known).toBe(1);
   });
 });
 

@@ -14,7 +14,7 @@ export type Learner = { terms: Record<string, TermState>; questions?: Record<str
 
 export const STATUSES: readonly Status[] = ['know', 'familiar', 'learning', 'unknown'];
 
-export const LEARNER_KEY = 'atlas:learner:v2';
+const LEARNER_KEY = 'atlas:learner:v2';
 const KEY = LEARNER_KEY;
 const DAY = 24 * 60 * 60 * 1000;
 const REVIEW_DAYS_BY_BOX = [0, 1, 3, 7, 16, 35];
@@ -114,7 +114,7 @@ export function setStatus(l: Learner, { id, status }: StatusChange, now = Date.n
 export const isDue = (s: TermState | undefined, now = Date.now()) =>
   !!s && s.box > 0 && s.due <= now;
 
-export const isKnown = (s: TermState | undefined) => s?.status === 'know' || (s?.box ?? 0) >= 3;
+const isKnown = (s: TermState | undefined) => s?.status === 'know' || (s?.box ?? 0) >= 3;
 
 export const isWeak = (s: TermState | undefined) =>
   !!s && (s.status === 'learning' || s.status === 'unknown' || (s.wrong > 0 && s.box <= 1));

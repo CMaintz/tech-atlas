@@ -1,12 +1,25 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
-import { describe, expect, it } from 'vitest';
-import { LEARNER_KEY, learnerExport } from './learner';
+import { describe, expect, it, vi } from 'vitest';
+import { learnerExport, loadLearner } from './learner';
 import { LANG_SUGGEST_KEY, RECENT_KEY, THEME_KEY } from './prefs';
 import { CONTROLLER, DATA, PRIVACY_UI, PROCESSORS, STORAGE } from './privacy';
 import { TOUR_DONE_KEY, TOUR_KEY, TOUR_SNOOZE_KEY } from './tour';
 
 const listed = new Set(STORAGE.map((s) => s.key));
+
+function learnerKey(): string {
+  const read: string[] = [];
+  vi.stubGlobal('localStorage', {
+    getItem: (key: string) => {
+      read.push(key);
+      return null;
+    },
+  });
+  loadLearner();
+  vi.unstubAllGlobals();
+  return read[0];
+}
 
 function sources(dir: string): string[] {
   return readdirSync(dir).flatMap((name) => {
@@ -19,7 +32,7 @@ function sources(dir: string): string[] {
 describe('privacy page: browser storage inventory', () => {
   it('lists every exported storage key', () => {
     for (const key of [
-      LEARNER_KEY,
+      learnerKey(),
       RECENT_KEY,
       LANG_SUGGEST_KEY,
       THEME_KEY,
@@ -89,7 +102,7 @@ describe('learnerExport', () => {
     const l = { terms: { 'security/mfa': { box: 2, due: 5, right: 3, wrong: 1 } } };
     const out = JSON.parse(learnerExport(l, Date.UTC(2026, 8, 25)));
     expect(out).toEqual({
-      format: LEARNER_KEY,
+      format: 'atlas:learner:v2',
       exportedAt: '2026-09-25T00:00:00.000Z',
       terms: l.terms,
     });
