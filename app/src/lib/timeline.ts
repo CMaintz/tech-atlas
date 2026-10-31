@@ -67,10 +67,7 @@ export const densityScale = (years: AxisYears, perYear: number, load: Map<number
 export const fitPerYear = (years: AxisYears, avail: number, load: Map<number, number>) =>
   Math.max(1, avail / Math.max(1, densityScale(years, 1, load).length));
 
-export function laneOf(
-  item: Pick<TimelineItem, 'domain' | 'home'>,
-  shown: string[],
-): string | null {
+function laneOf(item: Pick<TimelineItem, 'domain' | 'home'>, shown: string[]): string | null {
   if (shown.includes(item.home)) return item.home;
   return item.domain.find((d) => shown.includes(d)) ?? null;
 }
