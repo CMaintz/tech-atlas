@@ -9,9 +9,9 @@ export interface Size {
   height: number;
 }
 
-export const SPOT_PAD = 6;
-export const CARD_GAP = 14;
-export const EDGE = 12;
+const SPOT_PAD = 6;
+const CARD_GAP = 14;
+const EDGE = 12;
 const PHONE_MAX = 640;
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(Math.max(v, lo), Math.max(lo, hi));

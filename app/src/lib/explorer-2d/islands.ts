@@ -78,7 +78,7 @@ const mean = (ps: Point[]): Point => ({
 });
 
 /** Terms by cluster, and the cluster ids in a stable order. */
-export function groupClusters(nodes: GraphNode[]) {
+function groupClusters(nodes: GraphNode[]) {
   const clusters = new Map<string, GraphNode[]>();
   for (const n of nodes) clusters.set(n.cluster, [...(clusters.get(n.cluster) ?? []), n]);
   return { clusters, clusterIds: [...clusters.keys()].sort() };

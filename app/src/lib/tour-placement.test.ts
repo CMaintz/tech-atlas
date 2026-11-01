@@ -1,13 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import {
-  CARD_GAP,
-  EDGE,
-  SPOT_PAD,
-  nearViewport,
-  placeCard,
-  scrollDelta,
-  type Rect,
-} from './tour-placement';
+import { nearViewport, placeCard, scrollDelta, type Rect } from './tour-placement';
+
+/** The spotlight's padding, the card's gap from it, and the margin to the screen edge. */
+const [SPOT_PAD, CARD_GAP, EDGE] = [6, 14, 12];
 const desk = { width: 1440, height: 900 };
 const phone = { width: 390, height: 844 };
 const card = { width: 352, height: 180 };

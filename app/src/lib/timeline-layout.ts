@@ -10,18 +10,18 @@ import {
 import { packCapped, shareRows, type Span } from './timeline-stacking';
 
 export const H_ZOOM = [1, 1.5, 2.2, 3.2, 4.6];
-export const ROW_FIT = 17;
-export const ROW = 22;
+const ROW_FIT = 17;
+const ROW = 22;
 export const LANE_PAD = 6;
 export const LABEL_COL = 116;
 export const H_PAD = 16;
 export const TOP_AXIS = 44;
 export const BOTTOM_AXIS = 26;
-export const CHIP_W = 34;
+const CHIP_W = 34;
 export const SSR_WIDTH = 1280;
 export const SSR_BUDGET = 560;
 const V_ZOOM = [4, 6, 10, 16, 22];
-export const V_ITEM = 24; // one phone row (h-6): a 24px tap target, the WCAG 2.5.8 minimum
+const V_ITEM = 24; // one phone row (h-6): a 24px tap target, the WCAG 2.5.8 minimum
 export const AXIS_COL = 44;
 
 export type ChartItem = TimelineItem & { hub: boolean };
