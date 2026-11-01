@@ -10,7 +10,7 @@ import { UI_TIMELINE } from './strings/timeline';
 import { UI_TOUR } from './strings/tour';
 import type { Lang } from './lang';
 
-export { LANGS, langParams, type Bi, type Lang } from './lang';
+export { LANGS, langParams, type Lang } from './lang';
 
 const rawBase = import.meta.env.BASE_URL;
 export const BASE = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
@@ -72,10 +72,10 @@ export {
   clusterLabel,
   domainLabel,
 } from './strings/taxonomy';
-export { CLUSTER_COLOURS, FAMILY_COLOURS } from './graph-style';
+export { FAMILY_COLOURS } from './graph-style';
 export { GRAPH_UI } from './strings/explorer';
 export { PANEL_UI } from './strings/panel';
 export { DEEP_UI } from './strings/term';
 export { TIMELINE_UI } from './strings/timeline';
-export { TOUR_PAIR, TOUR_STEPS, TOUR_TERM } from './strings/tour';
-export { ABOUT_LINKS, ABOUT_PEOPLE, ABOUT_UI, type AboutPerson } from './strings/about';
+export { TOUR_STEPS } from './strings/tour';
+export { ABOUT_LINKS, ABOUT_PEOPLE, ABOUT_UI } from './strings/about';

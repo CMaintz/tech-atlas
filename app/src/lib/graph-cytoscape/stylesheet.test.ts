@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { GRAPH_STYLE, graphStyle } from './stylesheet';
+import { graphStyle } from './stylesheet';
 import { MAP_INK } from '../graph-style';
 
 type Rule = { selector: string; style: Record<string, unknown> };
@@ -26,7 +26,6 @@ describe('graphStyle', () => {
     ]);
   });
   it('defaults to the night map', () => {
-    expect(GRAPH_STYLE).toEqual(graphStyle());
     expect(graphStyle()).toEqual(graphStyle('dark'));
   });
   it('draws each theme in its own ink, with the glow scaled down on cream', () => {

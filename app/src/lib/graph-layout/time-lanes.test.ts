@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { timeLanes, yearX } from '../graph-layout';
+import { timeLanes } from '../graph-layout';
 import { EXPLORER } from '../explorer-config';
-import { freeSlot, yearTicks } from './time-lanes';
+import { freeSlot, yearTicks, yearX } from './time-lanes';
 import { term } from './test-fixtures';
 
 describe('timeLanes', () => {

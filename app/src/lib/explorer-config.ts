@@ -133,7 +133,7 @@ export const EXPLORER = {
     fitMs: 550,
   },
 
-  /** 2D island map — gaps are in graph-style.ts (ISLAND_GAP, DOMAIN_GAP). */
+  /** 2D island map: gaps are in graph-style/islands.ts (ISLAND_GAP, DOMAIN_GAP). */
   islands: {
     nodeRepulsion: 5200,
     idealEdgeLength: 58,

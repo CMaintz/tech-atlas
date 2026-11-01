@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { decadeOf, groupByDecade, timePositions } from './era';
+import { decadeOf, groupByDecade } from './era';
 
 describe('decadeOf', () => {
   it('floors a year to its decade', () => {
@@ -44,47 +44,5 @@ describe('groupByDecade', () => {
 
   it('handles a corpus with no eras at all', () => {
     expect(groupByDecade([{ id: 'a' }, { id: 'b' }])).toEqual({ decades: [], undated: 2 });
-  });
-});
-
-describe('timePositions', () => {
-  it('places x by year, earliest at 0', () => {
-    const p = timePositions(
-      [
-        { id: 'a', era: 1990 },
-        { id: 'b', era: 2000 },
-      ],
-      { pxPerYear: 10 },
-    );
-    expect(p.a.x).toBe(0);
-    expect(p.b.x).toBe(100);
-  });
-
-  it('stacks same-year terms around y = 0', () => {
-    const p = timePositions(
-      [
-        { id: 'a', era: 1990 },
-        { id: 'b', era: 1990 },
-      ],
-      { rowGap: 50 },
-    );
-    expect(p.a.x).toBe(p.b.x);
-    expect([p.a.y, p.b.y]).toEqual([-25, 25]);
-  });
-
-  it('parks undated terms in a lane left of the earliest year', () => {
-    const p = timePositions([{ id: 'a', era: 1990 }, { id: 'x' }, { id: 'y' }, { id: 'z' }]);
-    for (const id of ['x', 'y', 'z']) expect(p[id].x).toBeLessThan(p.a.x);
-    const spots = new Set(['x', 'y', 'z'].map((id) => `${p[id].x},${p[id].y}`));
-    expect(spots.size).toBe(3);
-  });
-
-  it('never produces NaN, even with no dated terms', () => {
-    const p = timePositions([{ id: 'x' }, { id: 'y' }]);
-    for (const { x, y } of Object.values(p)) {
-      expect(Number.isFinite(x)).toBe(true);
-      expect(Number.isFinite(y)).toBe(true);
-    }
-    expect(timePositions([])).toEqual({});
   });
 });

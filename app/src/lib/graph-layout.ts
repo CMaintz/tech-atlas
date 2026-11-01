@@ -20,13 +20,12 @@ export {
   bundleControls,
   clusterBundles,
   pairKey,
-  relativeControls,
   visibleBundleCounts,
 } from './graph-layout/bundles';
 export { levelAngle, rotateAbout } from './graph-layout/orientation';
 export { separate } from './graph-layout/separate';
 export type { LaneLayout } from './graph-layout/lanes';
 export { depthLanes } from './graph-layout/depth-lanes';
-export { timeLanes, yearX } from './graph-layout/time-lanes';
+export { timeLanes } from './graph-layout/time-lanes';
 export type { Point3 } from './graph-layout/galaxy-forces';
 export { galaxyLayout } from './graph-layout/galaxy';

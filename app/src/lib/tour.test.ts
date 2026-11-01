@@ -1,7 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { parse } from 'yaml';
-import { TOUR_PAIR, TOUR_STEPS, TOUR_TERM, UI } from './site';
+import { TOUR_STEPS, UI } from './site';
+import { TOUR_PAIR, TOUR_TERM } from './strings/tour';
 import { pairSlugFromIds } from './slug';
 import {
   bridgeSelectors,

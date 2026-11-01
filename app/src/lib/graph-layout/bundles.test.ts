@@ -4,13 +4,12 @@ import {
   clusterBundles,
   linkVisible,
   pairKey,
-  relativeControls,
   termVisible,
   visibleBundleCounts,
 } from '../graph-layout';
 import { buildGraph, type ModelTerm } from '../graph-model';
 import { loadTerms } from '../../../scripts/load-terms';
-import { countClusterPairs } from './bundles';
+import { countClusterPairs, relativeControls } from './bundles';
 import { on } from './test-fixtures';
 
 describe('linkVisible / visibleBundleCounts: an edge needs both ends visible', () => {

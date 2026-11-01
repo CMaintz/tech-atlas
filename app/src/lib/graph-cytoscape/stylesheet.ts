@@ -115,8 +115,6 @@ export const graphStyle = (theme: MapTheme = 'dark') => {
   ] as unknown as cytoscape.StylesheetJson;
 };
 
-export const GRAPH_STYLE = graphStyle('dark');
-
 export const FADE_TRANSITIONS = [
   {
     selector: 'node[size]',
