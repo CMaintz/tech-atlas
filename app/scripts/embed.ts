@@ -4,14 +4,13 @@ import {
   EMBED_LANGS,
   EMBED_OPTIONS,
   MODEL,
-  queryText,
   quantize,
   toBase64,
   type VectorFile,
 } from '../src/lib/semantic';
 import { CLOUDFLARE_MODEL, cloudflareEmbed } from '../../supabase/functions/semantic-search/logic';
 import { loadTerms } from './load-terms';
-import { FIXTURE_PATH, FIXTURE_QUERIES, VECTORS_PATH, semanticInputs } from './semantic-inputs';
+import { VECTORS_PATH, semanticInputs } from './semantic-inputs';
 
 if (CLOUDFLARE_MODEL !== MODEL.cloudflare) throw new Error('function and embed models differ');
 
@@ -80,9 +79,5 @@ const file: VectorFile = {
 };
 mkdirSync(dirname(VECTORS_PATH), { recursive: true });
 writeFileSync(VECTORS_PATH, JSON.stringify(file, null, 2) + '\n');
-
-const queries = await embedAll(FIXTURE_QUERIES.map(queryText));
-const fixture = { queries: FIXTURE_QUERIES, dim, data: toBase64(quantize(queries)) };
-writeFileSync(FIXTURE_PATH, JSON.stringify(fixture, null, 2) + '\n');
 
 console.log(`${VECTORS_PATH}: ${ids.length} terms x ${EMBED_LANGS.length} languages, dim ${dim}`);
