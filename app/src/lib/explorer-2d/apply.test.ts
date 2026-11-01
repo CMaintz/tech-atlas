@@ -7,6 +7,8 @@ import { createApply, type ApplyDeps } from './apply';
 import type { MapParts, MapState } from './context';
 import { createEdges, createRoutes } from './edges';
 import { mapElements } from './elements';
+import { buildIslands } from './islands';
+import { createLayouts, createPlacement } from './placement';
 import { createStagger } from './stagger';
 import { mapStylesheet } from './style';
 import type { View } from './types';
@@ -51,12 +53,22 @@ const headlessCy = (graph: Graph) =>
     style: mapStylesheet('dark'),
   });
 
+/** What the map's parts read of its options: the language, the frame and the names. */
+const OPTS = {
+  lang: 'en',
+  container: { clientWidth: 800, clientHeight: 600 },
+  clusterLabels: {},
+  domainLabels: {},
+  reserveRight: () => 0,
+  centreReserve: () => 0,
+};
+
 /** The map's parts, without the island anchors and bundles (not drawn here). */
 function partsOf(cy: cytoscape.Core, graph: Graph) {
   const byId = new Map(graph.nodes.map((n) => [n.id, n]));
   return {
     cy,
-    opts: { lang: 'en', reserveRight: () => 0, centreReserve: () => 0 },
+    opts: OPTS,
     graph,
     byId,
     clusterOf: (id: string) => byId.get(id)?.cluster,
@@ -75,23 +87,32 @@ const freshState = (cy: cytoscape.Core): MapState => ({
   centreNow: { a: { x: -100, y: 0 }, b: { x: 100, y: 0 } },
 });
 
+const noop = () => {};
+type PlaceDeps = Omit<Parameters<typeof createPlacement>[2], 'layouts'>;
+
+/** Lay terms out for real (the island map and lanes, gliding on a switch), or not at all. */
+function placer(p: MapParts, s: MapState, deps: PlaceDeps, placed: boolean) {
+  if (!placed) return noop;
+  const layouts = createLayouts(p, buildIslands(p.cy, p.graph));
+  return createPlacement(p, s, { ...deps, layouts });
+}
+
 /** The 2D map's apply on a headless instance, with the real edges and stagger. */
-function headlessApply(graph: Graph) {
+function headlessApply(graph: Graph, placed = false) {
   const cy = headlessCy(graph);
   const p = partsOf(cy, graph);
   const s = freshState(cy);
-  const noop = () => {};
   const reculls: boolean[] = [];
+  const recull = (force = false) => void reculls.push(force);
+  const deps = { routes: createRoutes(p), recull, paintNames: noop, moved: noop };
   const d = {
+    ...deps,
     refreshEdges: createEdges(p, s),
-    routes: createRoutes(p),
     stagger: createStagger(cy),
-    place: noop,
+    place: placer(p, s, deps, placed),
     hover: { unhover: noop },
-    recull: (force = false) => void reculls.push(force),
-    paintNames: noop,
   } as unknown as ApplyDeps;
-  return { cy, reculls, apply: createApply(p, s, d) };
+  return { cy, s, reculls, apply: createApply(p, s, d) };
 }
 
 const showAll = (graph: Graph, families: string[]): View => ({
@@ -220,6 +241,59 @@ describe('createApply', () => {
       apply({ ...both, families: security, nodes: new Set(['t0', 't1', 't2']) });
       vi.advanceTimersByTime(EXPLORER.motion.fadeMs * 10);
       expect(reculls).toEqual([true]);
+    });
+  });
+
+  describe('a layout switch with "show all" on', () => {
+    const force: View = { ...both, layout: 'force' };
+
+    it('keeps cross-island edges straight while terms glide into force, bent once landed', async () => {
+      const { cy, s, apply } = headlessApply(graph, true);
+      apply(both);
+      apply(force);
+      vi.advanceTimersByTime(FRAME);
+      expect(s.moving).toBe(true);
+      expect(bundled(cy)).toBe(0);
+      // The glide ends in a promise (Cytoscape's layoutstop).
+      await vi.advanceTimersByTimeAsync(EXPLORER.motion.layoutMs * 2);
+      expect(s.moving).toBe(false);
+      expect(bundled(cy)).toBeGreaterThan(0);
+    });
+
+    it('lands straight when "show all" was turned off mid-glide', async () => {
+      const { cy, s, apply } = headlessApply(graph, true);
+      apply(both);
+      apply(force);
+      vi.advanceTimersByTime(FRAME);
+      apply({ ...force, showAll: false, selected: 't3' });
+      await vi.advanceTimersByTimeAsync(EXPLORER.motion.layoutMs * 2);
+      expect(s.moving).toBe(false);
+      expect(bundled(cy)).toBe(0);
+    });
+
+    it('keeps them straight while a newer glide is in flight', async () => {
+      const { cy, s, apply } = headlessApply(graph, true);
+      apply(force);
+      apply(both);
+      await vi.advanceTimersByTimeAsync(EXPLORER.motion.layoutMs / 2);
+      apply(force);
+      // The glide to depth ends here; the glide back to force does not.
+      await vi.advanceTimersByTimeAsync(EXPLORER.motion.layoutMs / 2 + 4 * FRAME);
+      expect(s.moving).toBe(true);
+      expect(bundled(cy)).toBe(0);
+    });
+
+    it('keeps them straight when fades end while terms still glide', () => {
+      const { cy, s, apply } = headlessApply(graph, true);
+      apply(both);
+      apply({ ...both, families: new Set(['security']) });
+      vi.advanceTimersByTime(FRAME);
+      // This view fades a family too, so every restyle (and its routing) comes late; the
+      // selection keeps its cross-island edges drawn.
+      apply({ ...force, families: new Set(), selected: 't3' });
+      vi.advanceTimersByTime(EXPLORER.motion.fadeMs + FRAME);
+      expect(s.moving).toBe(true);
+      expect(bundled(cy)).toBe(0);
     });
   });
 });
