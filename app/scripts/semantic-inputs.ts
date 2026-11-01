@@ -11,31 +11,11 @@ import {
 import type { Term } from './load-terms';
 
 export const VECTORS_PATH = '../supabase/seed/term-vectors.json';
-export const FIXTURE_PATH = 'src/lib/semantic.fixture.json';
 
 export const SMOKE_QUERIES: [query: string, lang: 'en' | 'da', expected: string][] = [
   ['hvem har ansvaret for persondata', 'da', 'security/data-controller'],
   ['a program that locks your files and demands money', 'en', 'security/ransomware'],
   ['sneaking database commands into a login form', 'en', 'security/sql-injection'],
-];
-
-export const FIXTURE_QUERIES = [
-  'how do I stop people reusing leaked passwords',
-  'hvordan forhindrer jeg at folk genbruger lækkede adgangskoder',
-  'a program that locks your files and demands money',
-  'når sprogmodellen finder på ting der ikke er sande',
-  'falske mails der lokker folk til at give deres kodeord',
-  'proving who you are when you log in',
-  'kopier af data så vi kan gendanne efter et nedbrud',
-  'model learns the training examples too well and fails on new data',
-  'a list of all the software components in a product',
-  'hvem har ansvaret for persondata',
-  'tricking someone on the phone into giving information',
-  'giving users only the access they need',
-  'logging in with your fingerprint instead of a password',
-  'a flaw attackers use before the vendor knows about it',
-  'sneaking database commands into a login form',
-  'nogen sidder skjult mellem to parter og læser med',
 ];
 
 const sha = (x: unknown, len = 64) =>

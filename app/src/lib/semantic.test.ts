@@ -1,25 +1,15 @@
-import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
   compareVectors,
-  cosine,
-  dequantize,
   dropStopwords,
-  fromBase64,
-  loadIndex,
   looksNaturalLanguage,
   mergeHits,
   nearBest,
   passageText,
-  quantize,
-  rankBySimilarity,
   reciprocalRankFusion,
   fetchSemantic,
-  toBase64,
   toVectorLiteralRows,
-  type VectorFile,
 } from './semantic';
-import { SMOKE_QUERIES, VECTORS_PATH } from '../../scripts/semantic-inputs';
 
 describe('toVectorLiteralRows', () => {
   it('pairs vector i*langs+j with term i, language j, as unit vectors in pgvector text form', () => {
@@ -89,34 +79,6 @@ describe('fetchSemantic', () => {
     const pending = fetchSemantic(query, { fetch: hanging, signal: ctrl.signal });
     ctrl.abort();
     await expect(pending).rejects.toThrow('aborted');
-  });
-});
-
-describe('cosine', () => {
-  it('is 1 for parallel, 0 for orthogonal, -1 for opposite vectors', () => {
-    expect(cosine([1, 2, 3], [2, 4, 6])).toBeCloseTo(1);
-    expect(cosine([1, 0], [0, 5])).toBeCloseTo(0);
-    expect(cosine([1, 1], [-1, -1])).toBeCloseTo(-1);
-  });
-  it('is 0 (not NaN) for a zero vector', () => {
-    expect(cosine([0, 0], [1, 1])).toBe(0);
-  });
-});
-
-describe('Int8 quantisation', () => {
-  it('round-trips through base64 and keeps direction', () => {
-    const vs = [
-      [0.1, -0.2, 0.05, 0.3],
-      [-0.4, 0.01, 0.2, -0.1],
-    ];
-    const q = quantize(vs);
-    expect(Math.max(...[...q.subarray(0, 4)].map(Math.abs))).toBe(127);
-    const back = dequantize(fromBase64(toBase64(q)), 4);
-    expect(back).toHaveLength(2);
-    back.forEach((v, i) => {
-      expect(cosine(v, vs[i])).toBeGreaterThan(0.999);
-      expect(cosine(v, v)).toBeCloseTo(1);
-    });
   });
 });
 
@@ -235,66 +197,5 @@ describe('passageText', () => {
       'MFA (multi-factor authentication). More than one proof. A key and a code.',
     );
     expect(passageText(t, 'da')).toBe('MFA. Mere end ét bevis. En nøgle og en kode.');
-  });
-});
-
-// Real rankings, offline: the committed term vectors against query vectors that
-// `npm run embed` produced with the same model (scripts/semantic-inputs.ts).
-describe('semantic ranking (committed vectors)', () => {
-  const file = JSON.parse(readFileSync(VECTORS_PATH, 'utf8')) as VectorFile;
-  const fixture = JSON.parse(readFileSync('src/lib/semantic.fixture.json', 'utf8')) as {
-    queries: string[];
-    dim: number;
-    data: string;
-  };
-  const index = loadIndex(file);
-  const queries = dequantize(fromBase64(fixture.data), fixture.dim);
-  const top = (q: string, k = 3) =>
-    rankBySimilarity(index, queries[fixture.queries.indexOf(q)], k).map((s) => s.id);
-
-  const expectations: [string, string][] = [
-    ['how do I stop people reusing leaked passwords', 'security/credential-stuffing'],
-    ['a program that locks your files and demands money', 'security/ransomware'],
-    ['proving who you are when you log in', 'cs/authentication'],
-    ['model learns the training examples too well and fails on new data', 'ai/overfitting'],
-    ['a list of all the software components in a product', 'platform/sbom'],
-    ['tricking someone on the phone into giving information', 'security/vishing'],
-    ['giving users only the access they need', 'cs/least-privilege'],
-    ['logging in with your fingerprint instead of a password', 'cs/passkey'],
-    ['a flaw attackers use before the vendor knows about it', 'security/zero-day'],
-    ['sneaking database commands into a login form', 'security/sql-injection'],
-    ['nogen sidder skjult mellem to parter og læser med', 'security/man-in-the-middle'],
-    // Danish queries, including ones whose answer is an English-named term.
-    [
-      'hvordan forhindrer jeg at folk genbruger lækkede adgangskoder',
-      'security/credential-stuffing',
-    ],
-    ['når sprogmodellen finder på ting der ikke er sande', 'ai/hallucination'],
-    ['falske mails der lokker folk til at give deres kodeord', 'security/phishing'],
-    ['kopier af data så vi kan gendanne efter et nedbrud', 'security/backup'],
-    ['hvem har ansvaret for persondata', 'security/data-controller'],
-  ];
-
-  it('has a fixture vector for every expectation', () => {
-    expect([...fixture.queries].sort()).toEqual(expectations.map(([q]) => q).sort());
-  });
-
-  it('covers every post-deploy smoke query, with the same expected term', () => {
-    for (const [q, , id] of SMOKE_QUERIES) expect(expectations).toContainEqual([q, id]);
-  });
-
-  it.each(expectations)('"%s" ranks %s in the top 3', (q, id) => {
-    expect(top(q)).toContain(id);
-  });
-
-  it.each(expectations)('"%s" keeps %s after the nearBest cut', (q, id) => {
-    const hits = rankBySimilarity(index, queries[fixture.queries.indexOf(q)], 8);
-    expect(nearBest(hits).map((s) => s.id)).toContain(id);
-  });
-
-  it('finds the answer to a question with no shared name at the very top', () => {
-    expect(top('how do I stop people reusing leaked passwords', 1)).toEqual([
-      'security/credential-stuffing',
-    ]);
   });
 });

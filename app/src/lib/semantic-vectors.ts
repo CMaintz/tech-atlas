@@ -51,12 +51,6 @@ export function quantize(vectors: ArrayLike<number>[]): Int8Array {
   return out;
 }
 
-export function dequantize(q: Int8Array, dim: number): Float32Array[] {
-  const out: Float32Array[] = [];
-  for (let i = 0; i < q.length / dim; i++) out.push(normalize(q.subarray(i * dim, (i + 1) * dim)));
-  return out;
-}
-
 export function normalize(v: ArrayLike<number>): Float32Array {
   const out = Float32Array.from(v as ArrayLike<number>);
   let n = 0;
@@ -66,41 +60,11 @@ export function normalize(v: ArrayLike<number>): Float32Array {
   return out;
 }
 
-export function cosine(a: ArrayLike<number>, b: ArrayLike<number>): number {
-  let dot = 0;
-  let na = 0;
-  let nb = 0;
-  for (let k = 0; k < a.length; k++) {
-    dot += a[k] * b[k];
-    na += a[k] * a[k];
-    nb += b[k] * b[k];
-  }
-  return na && nb ? dot / Math.sqrt(na * nb) : 0;
-}
-
 export function toBase64(bytes: Int8Array): string {
   const u = new Uint8Array(bytes.buffer, bytes.byteOffset, bytes.byteLength);
   let s = '';
   for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode(...u.subarray(i, i + 0x8000));
   return btoa(s);
-}
-
-export function fromBase64(b64: string): Int8Array {
-  const s = atob(b64);
-  const out = new Int8Array(s.length);
-  for (let i = 0; i < s.length; i++) out[i] = (s.charCodeAt(i) << 24) >> 24;
-  return out;
-}
-
-export interface SemanticIndex {
-  ids: string[];
-  vectors: Float32Array[][];
-}
-
-export function loadIndex(file: VectorFile): SemanticIndex {
-  const flat = dequantize(fromBase64(file.data), file.dim);
-  const n = file.langs.length;
-  return { ids: file.ids, vectors: file.ids.map((_, i) => flat.slice(i * n, (i + 1) * n)) };
 }
 
 export interface VectorRow {
@@ -133,18 +97,4 @@ export function toVectorLiteralRows(
 export interface Scored {
   id: string;
   score: number;
-}
-
-export function rankBySimilarity(index: SemanticIndex, query: ArrayLike<number>, k = 8): Scored[] {
-  const q = normalize(query);
-  const scored = index.ids.map((id, i) => {
-    let best = -1;
-    for (const v of index.vectors[i]) {
-      let dot = 0;
-      for (let d = 0; d < q.length; d++) dot += q[d] * v[d];
-      if (dot > best) best = dot;
-    }
-    return { id, score: best };
-  });
-  return scored.sort((a, b) => b.score - a.score).slice(0, k);
 }

@@ -240,7 +240,7 @@ page promises this. Check: **Integrations → Cron**, or `select * from cron.job
 
 **After editing terms:** run `npm run embed` in `app/` and commit the updated vector file
 (the content lint fails on a new or removed term, warns on changed text). That file only
-feeds the lint's per-term hashes and the offline ranking tests — the database is always
+feeds the lint's per-term hashes; the database is always
 re-embedded through Workers AI by the workflow. With `CLOUDFLARE_ACCOUNT_ID` +
 `CLOUDFLARE_API_TOKEN` in your environment `npm run embed` uses Workers AI (seconds);
 otherwise it runs the same model locally (~2.3 GB download once, then a few minutes).

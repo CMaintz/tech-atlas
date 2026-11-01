@@ -34,8 +34,6 @@ export function passageText(t: EmbeddableTerm, lang: Lang): string {
   return `${t.term[lang]}${aka}. ${t.summary[lang]} ${t.body.plain[lang]}`;
 }
 
-export const queryText = (q: string) => q.trim();
-
 export interface Fused {
   id: string;
   score: number;
