@@ -8,7 +8,7 @@ export type Scope = 'all' | 'weak' | `domain:${string}` | `cluster:${string}`;
 type SessionPlan = { graph: Graph; learner: Learner; scope: Scope; quizzer: Quizzer };
 type HandPicking = { quizzer: Quizzer; learner: Learner; asked: Set<string>; now: number };
 
-export function inScope(n: GraphNode, scope: Scope, learner: Learner): boolean {
+function inScope(n: GraphNode, scope: Scope, learner: Learner): boolean {
   if (scope === 'all') return true;
   if (scope === 'weak') return isWeak(learner.terms[n.id]);
   if (scope.startsWith('domain:')) return n.domain.includes(scope.slice(7));

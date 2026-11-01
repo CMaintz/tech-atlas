@@ -57,7 +57,7 @@ export function dequantize(q: Int8Array, dim: number): Float32Array[] {
   return out;
 }
 
-export function normalize(v: ArrayLike<number>): Float32Array {
+function normalize(v: ArrayLike<number>): Float32Array {
   const out = Float32Array.from(v as ArrayLike<number>);
   let n = 0;
   for (let k = 0; k < out.length; k++) n += out[k] * out[k];

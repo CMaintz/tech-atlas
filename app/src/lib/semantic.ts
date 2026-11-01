@@ -87,7 +87,7 @@ export function mergeHits(
     .map(({ id, from }) => ({ id, from }));
 }
 
-export const SEMANTIC_TIMEOUT_MS = 6000;
+const SEMANTIC_TIMEOUT_MS = 6000;
 
 type FetchLike = (url: string, init: RequestInit) => Promise<Response>;
 

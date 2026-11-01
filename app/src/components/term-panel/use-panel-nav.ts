@@ -27,7 +27,7 @@ import type { PanelProps } from './types';
 
 type NavSource = PanelProps & { nameOf: (id: string) => string };
 
-export type CycleView = {
+type CycleView = {
   cycle: PanelRelation[];
   atAnchor: boolean;
   anchorName: string;

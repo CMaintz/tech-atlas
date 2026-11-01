@@ -7,8 +7,8 @@ import { isQuestion, type QuizContext } from './quiz-options';
 import { pick, shuffle, varied } from './quiz-random';
 import type { Lang, Question, Rng } from './quiz-types';
 
-export type { Lang, Question, QuestionKind } from './quiz-types';
-export { buildSession, inScope, type Scope } from './quiz-session';
+export type { Lang, Question } from './quiz-types';
+export { buildSession, type Scope } from './quiz-session';
 
 const fitsPage = (q: Question, t: GraphNode, lang: Lang) =>
   q.answer !== t.id &&

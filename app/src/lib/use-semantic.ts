@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { fetchSemantic, nearBest, type Scored, type SemanticQuery } from './semantic';
 
-export const DEBOUNCE_MS = 300;
+const DEBOUNCE_MS = 300;
 
 type Ask = SemanticQuery & { key: string };
 type Answer = { key: string; hits: Scored[] };

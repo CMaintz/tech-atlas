@@ -20,7 +20,7 @@ export function cullLabels(
 
 const LINE_HEIGHT = 1.25;
 const OUTLINE_ALLOWANCE = 4;
-export const LABEL_MARGIN = 4;
+const LABEL_MARGIN = 4;
 
 /** A label's measured text: its width and its font size, in px. */
 type LabelText = { width: number; font: number };

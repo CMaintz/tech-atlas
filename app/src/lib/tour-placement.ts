@@ -12,11 +12,11 @@ export interface Size {
 export const SPOT_PAD = 6;
 export const CARD_GAP = 14;
 export const EDGE = 12;
-export const PHONE_MAX = 640;
+const PHONE_MAX = 640;
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(Math.max(v, lo), Math.max(lo, hi));
 
-export type CardSide = 'below' | 'above' | 'right' | 'left' | 'sheet' | 'centre';
+type CardSide = 'below' | 'above' | 'right' | 'left' | 'sheet' | 'centre';
 
 export interface Placement {
   card: { x: number; y: number };

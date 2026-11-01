@@ -27,7 +27,7 @@ export const FAMILY_COLOURS_LIGHT: Record<Family, string> = {
 export const familyColours = (theme: MapTheme = 'dark') =>
   theme === 'light' ? FAMILY_COLOURS_LIGHT : FAMILY_COLOURS;
 
-export const SYMMETRIC_TYPES: ReadonlySet<EdgeType> = new Set<EdgeType>([
+const SYMMETRIC_TYPES: ReadonlySet<EdgeType> = new Set<EdgeType>([
   'contrasts-with',
   'alternative-to',
   'used-with',
@@ -65,8 +65,8 @@ export function edgePaint(
 
 export const pairKey = (a: string, b: string) => (a < b ? `${a}\u0000${b}` : `${b}\u0000${a}`);
 
-export const CURVE_BASE = 16;
-export const CURVE_STEP = 18;
+const CURVE_BASE = 16;
+const CURVE_STEP = 18;
 
 export function curveOffsets(links: { source: string; target: string }[]): number[] {
   const seen = new Map<string, number>();
@@ -81,7 +81,7 @@ export function curveOffsets(links: { source: string; target: string }[]): numbe
 }
 
 export const FLOW_DASH: [number, number] = [...EXPLORER.flow.dash];
-export const FLOW_SPEED: number = EXPLORER.flow.speed;
+const FLOW_SPEED: number = EXPLORER.flow.speed;
 
 export const flowOffset = (ms: number) =>
   -(((ms / 1000) * FLOW_SPEED) % (FLOW_DASH[0] + FLOW_DASH[1]));

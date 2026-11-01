@@ -64,7 +64,7 @@ function relationQuestion(ctx: QuizContext, about: About, rel: AskedRelation) {
   return multiple(ctx, { termId: about.id, kind: 'relation', prompt, answer, wrong });
 }
 
-export function relationsOf(ctx: QuizContext, id: string): Question[] {
+function relationsOf(ctx: QuizContext, id: string): Question[] {
   const { g } = ctx;
   const near = [...neighbours(g, id)];
   const offLimits = [...near, ...near.flatMap((n) => kin(g, n)), ...mentioned(g, id)];
@@ -91,7 +91,7 @@ function unrelatedTo(ctx: QuizContext, id: string, near: string[]) {
   return odd;
 }
 
-export function oddOneOut(ctx: QuizContext, id: string): Question | null {
+function oddOneOut(ctx: QuizContext, id: string): Question | null {
   const { g, lang } = ctx;
   const near = [...neighbours(g, id)];
   if (near.length < 3) return null;
@@ -126,7 +126,7 @@ function statement(ctx: QuizContext, id: string, fact: Statable & { truth: boole
   return say[ctx.lang](named(a), named(b));
 }
 
-export function trueFalse(ctx: QuizContext, id: string): Question | null {
+function trueFalse(ctx: QuizContext, id: string): Question | null {
   const usable = statable(ctx.g, id);
   if (!usable.length) return null;
   const fact = pick(usable, ctx.rng);

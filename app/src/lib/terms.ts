@@ -15,7 +15,7 @@ export type Relation = {
   strength?: string;
 };
 
-export function makeResolver(all: TermEntry[]) {
+function makeResolver(all: TermEntry[]) {
   const byId = new Map(all.map((t) => [t.id, t]));
   const byName = new Map<string, TermEntry[]>();
   for (const t of all) byName.set(bareName(t.id), [...(byName.get(bareName(t.id)) ?? []), t]);

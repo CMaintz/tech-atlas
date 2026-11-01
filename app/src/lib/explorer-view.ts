@@ -109,7 +109,7 @@ export const routeLabel = (
   noRoute: string,
 ): string => (path ? path.map(name).join(' → ') : noRoute);
 
-export const HOVER_CARD_W = 256;
+const HOVER_CARD_W = 256;
 
 export function hoverCardPlace(p: { x: number; y: number }, w: number, h: number) {
   const left = p.x + 18 + HOVER_CARD_W > w ? Math.max(8, p.x - 18 - HOVER_CARD_W) : p.x + 18;

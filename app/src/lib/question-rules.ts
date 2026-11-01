@@ -47,7 +47,7 @@ const norm = (s: string) =>
     .replace(/[.!?]+$/, '')
     .replace(/\s+/g, ' ');
 
-export function namesOfTerm(t: NamedTerm): string[] {
+function namesOfTerm(t: NamedTerm): string[] {
   const labels = [t.term.en, t.term.da, ...(t.aka?.en ?? []), ...(t.aka?.da ?? [])];
   const slug = bareName(t.id).replace(/-/g, ' ');
   return [...new Set([...labels.flatMap(namesOf), slug].map(norm).filter(Boolean))];

@@ -20,7 +20,7 @@ export function statusSource(a: TermState, b: TermState): TermState {
   return rank(a.status) >= rank(b.status) ? a : b;
 }
 
-export function mergeTerm(a: TermState, b: TermState): TermState {
+function mergeTerm(a: TermState, b: TermState): TermState {
   const sr = scheduleSource(a, b);
   const st = statusSource(a, b);
   const out: TermState = {

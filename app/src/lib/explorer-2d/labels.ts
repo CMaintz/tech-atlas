@@ -20,7 +20,7 @@ export const termLabelBox = (n: cytoscape.NodeSingular, font: number, width: Lab
   labelBelow(n.position(), n.data('size'), { width: width(n, font), font });
 
 /** Text widths measured on a canvas in the map's font, cached per term and size. */
-export function createMeasure(terms: cytoscape.NodeCollection) {
+function createMeasure(terms: cytoscape.NodeCollection) {
   const measure = document.createElement('canvas').getContext('2d');
   if (!measure) throw new Error('labels: no 2D canvas context to measure text with');
   const family = terms.first().style('font-family') as string;

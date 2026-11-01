@@ -12,7 +12,7 @@ import {
 } from './quiz';
 import { useGraph } from './use-graph';
 
-export const bankUrl = (graphUrl: string, lang: Lang) =>
+const bankUrl = (graphUrl: string, lang: Lang) =>
   graphUrl.replace(/graph\.json(\?.*)?$/, `questions-${lang}.json`);
 
 function useBank(graphUrl: string, lang: Lang): ClientQuestion[] | null {
