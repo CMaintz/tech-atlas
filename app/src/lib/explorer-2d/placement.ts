@@ -117,10 +117,14 @@ const glide = (
     .one('layoutstop', done)
     .run();
 
-/** Terms are in place: routes back, labels culled, the view framed, names placed. */
-function landed({ p, s, d }: Placing, v: View, centre?: Record<string, Point>) {
+/**
+ * Terms are in place: routes back, labels culled, the view framed, names placed. Routes
+ * follow the view now, not the one placed: views applied mid-glide left routing to this.
+ */
+function landed({ p, s, d }: Placing, placed: View) {
   s.moving = false;
-  d.routes(v.layout === 'force' && v.showAll, centre);
+  const v = s.view ?? placed;
+  d.routes(v.layout === 'force' && v.showAll, s.centreNow);
   d.recull(true);
   frame(p, s);
   d.paintNames();
@@ -129,11 +133,15 @@ function landed({ p, s, d }: Placing, v: View, centre?: Record<string, Point>) {
 /** Put a view's layout in place: at once, or gliding (not under reduced motion). */
 export function createPlacement(p: MapParts, s: MapState, d: PlaceDeps) {
   const placing: Placing = { p, s, d };
+  let latest = 0;
   return (v: View, animate: boolean) => {
     const t = targetFor(d.layouts, v);
     markLayout(placing, v, t);
     const move = p.terms.filter((n) => !!t.positions[n.id()]);
-    const done = () => landed(placing, v, t.centre);
+    // A new placement does not stop the glide before it, which still ends; landing then
+    // would route and frame terms that are still on their way.
+    const mine = ++latest;
+    const done = () => void (mine === latest && landed(placing, v));
     if (!animate || reducedMotion()) {
       p.cy.batch(() => move.forEach((n) => void n.position(t.positions[n.id()])));
       return done();

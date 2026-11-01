@@ -109,10 +109,14 @@ function revealAtOnce(rv: Revealing, cs: EdgeChange[], r: Routing) {
   return arriving;
 }
 
-/** Routes are redone when "show all" or the layout changes; on for "show all" in force. */
-const routingOf = (c: ViewChange): Routing => ({
-  routes: c.prev?.showAll !== c.next.showAll || layoutChanged(c),
-  bundle: c.next.layout === 'force' && c.next.showAll,
+/**
+ * Routes are redone when "show all" or the layout changes; on for "show all" in force.
+ * While terms glide, placement owns them and routes the view once the terms land: a route
+ * set now is shaped for where the terms start and bends as they move.
+ */
+const routingOf = (c: ViewChange, moving: boolean): Routing => ({
+  routes: !moving && (c.prev?.showAll !== c.next.showAll || layoutChanged(c)),
+  bundle: !moving && c.next.layout === 'force' && c.next.showAll,
 });
 
 /** Restyle the edges for a new view, then paint its focus. */
@@ -121,7 +125,7 @@ export function revealEdges(rv: Revealing, c: ViewChange) {
   // Many edges switched on or off by a toggle (types, "show all") change a batch per frame.
   const toggled = prev && (prev.families !== next.families || prev.showAll !== next.showAll);
   const stagger = !!toggled && !layoutChanged(c) && !reducedMotion();
-  const r = routingOf(c);
+  const r = routingOf(c, rv.s.moving);
   const changes = rv.d.refreshEdges(stagger);
   if (changes.length > EXPLORER.motion.revealBatch) revealInBatches(rv, changes, r);
   else {
