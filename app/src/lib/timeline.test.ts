@@ -3,7 +3,6 @@ import {
   axisRange,
   bandsWithin,
   decadeTicks,
-  laneOf,
   lanesOf,
   densityScale,
   milestones,
@@ -82,6 +81,8 @@ describe('lanes', () => {
     item('gdpr', 2016, ['security']),
     item('llm', 2020, ['ai']),
   ];
+  const laneOf = (item: TimelineItem, shown: string[]) =>
+    [...lanesOf([item], shown)].find(([, list]) => list.length)?.[0] ?? null;
 
   it('puts a term in its home lane, or its first shown domain when home is hidden', () => {
     expect(laneOf(items[0], ['cs', 'security'])).toBe('cs');

@@ -9,7 +9,7 @@ import {
   isDirected,
 } from '../graph-style';
 import { FAMILY } from '../graph-model';
-import { isCrossDomain, pairKey } from './edges';
+import { pairKey } from './edges';
 
 describe('edges', () => {
   it('matches the schema: symmetric types have no direction', () => {
@@ -20,8 +20,13 @@ describe('edges', () => {
     for (const f of Object.values(FAMILY)) expect(FAMILY_COLOURS[f]).toMatch(/^#[0-9a-f]{6}$/);
   });
   it('detects edges that bridge domains', () => {
-    expect(isCrossDomain(['security'], ['cs'])).toBe(true);
-    expect(isCrossDomain(['security', 'cs'], ['cs'])).toBe(false);
+    const crossDomain = (a: string[], b: string[]) =>
+      edgePaint(
+        { type: 'requires', family: 'dependency' },
+        { source: { domain: a, cluster: 'x' }, target: { domain: b, cluster: 'x' } },
+      ).crossDomain;
+    expect(crossDomain(['security'], ['cs'])).toBe(true);
+    expect(crossDomain(['security', 'cs'], ['cs'])).toBe(false);
   });
   it('paints a cross-domain edge with a domain → family → domain gradient', () => {
     const a = { domain: ['security'], cluster: 'controls' };

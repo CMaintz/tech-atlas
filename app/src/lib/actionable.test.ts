@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { actionableReason, howToIssues, isActionable, type ActionableInput } from './actionable';
-import { HowTo } from '../schema';
+import { TermFrontmatter } from '../schema';
 
 const t = (over: Partial<ActionableInput> & { id: string }): ActionableInput => ({
   domain: [over.id.split('/')[0]],
@@ -80,6 +80,8 @@ const valid = {
 };
 
 describe('HowTo schema (E10)', () => {
+  const HowTo = TermFrontmatter.shape.howTo;
+
   it('accepts 5-10 steps and 2-5 guides', () => {
     expect(HowTo.safeParse(valid).success).toBe(true);
   });

@@ -74,7 +74,7 @@ ${latest ? `    <lastBuildDate>${new Date(latest).toUTCString()}</lastBuildDate>
 }
 
 /** The newest `limit` dated Terms, newest first; same-day ties by id for a stable feed. */
-export function newest<T extends { id: string }>(
+function newest<T extends { id: string }>(
   terms: T[],
   added: Map<string, string>,
   limit: number,

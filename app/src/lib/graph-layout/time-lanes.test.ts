@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { timeLanes } from '../graph-layout';
 import { EXPLORER } from '../explorer-config';
-import { freeSlot, yearTicks, yearX } from './time-lanes';
+import { freeSlot } from './time-lanes';
 import { term } from './test-fixtures';
 
 describe('timeLanes', () => {
@@ -23,9 +23,11 @@ describe('timeLanes', () => {
     expect(t.lanes.map((l) => l.domain)).toEqual(['security', 'cs']);
   });
   it('compresses the sparse early years', () => {
-    expect(yearX(1970, 1950) - yearX(1960, 1950)).toBeLessThan(
-      yearX(2000, 1950) - yearX(1990, 1950),
-    );
+    const years = [1950, 1960, 1970, 1990, 2000];
+    const x = timeLanes(
+      years.map((era) => term(`y${era}`, { domain: 'cs', cluster: 'web', depth: 0, era })),
+    ).positions;
+    expect(x.y1970.x - x.y1960.x).toBeLessThan(x.y2000.x - x.y1990.x);
   });
 });
 
@@ -47,12 +49,17 @@ describe('freeSlot', () => {
   });
 });
 
-describe('yearTicks', () => {
+describe('timeLanes ticks', () => {
   it('ticks every tickEvery years from the first round year, at one height', () => {
     const every = EXPLORER.time.tickEvery;
-    const ticks = yearTicks(every * 197 + 1, every * 200, 42);
+    const eras = [every * 197 + 1, every * 198, every * 200];
+    const { ticks, positions } = timeLanes(
+      eras.map((era) => term(`y${era}`, { domain: 'cs', cluster: 'web', depth: 0, era })),
+    );
     expect(ticks.map((t) => Number(t.label))).toEqual([every * 198, every * 199, every * 200]);
-    expect(ticks.every((t) => t.y === 42)).toBe(true);
-    expect(ticks[0].x).toBe(yearX(every * 198, every * 197 + 1));
+    expect(new Set(ticks.map((t) => t.y)).size).toBe(1);
+    // Under the lanes, not over them.
+    expect(ticks[0].y).toBeGreaterThan(Math.max(...Object.values(positions).map((p) => p.y)));
+    expect(ticks[0].x).toBe(positions[`y${every * 198}`].x);
   });
 });

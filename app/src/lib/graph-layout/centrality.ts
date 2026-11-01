@@ -1,7 +1,7 @@
 import { EXPLORER } from '../explorer-config';
 import type { Link } from './types';
 
-export function outNeighbours(ids: string[], links: (Link & { directed?: boolean })[]) {
+function outNeighbours(ids: string[], links: (Link & { directed?: boolean })[]) {
   const index = new Map(ids.map((id, i) => [id, i]));
   const out: number[][] = ids.map(() => []);
   for (const l of links) {

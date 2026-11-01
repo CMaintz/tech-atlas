@@ -58,7 +58,7 @@ export const termGraphStyle = (theme: MapTheme) =>
     { selector: 'edge.lit', style: { 'text-opacity': 1, 'font-size': 9 } },
   ] as cytoscape.StylesheetJson;
 
-export function ringOrder(nodes: GNode[], edges: GEdge[], focus: GNode | undefined): GNode[] {
+function ringOrder(nodes: GNode[], edges: GEdge[], focus: GNode | undefined): GNode[] {
   const familyOf = new Map<string, string>();
   for (const e of edges) {
     const other = e.source === focus?.id ? e.target : e.source;
