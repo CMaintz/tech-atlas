@@ -42,7 +42,12 @@ function fitClusterInView(p: MapParts, tag: cytoscape.NodeSingular) {
   const members = membersBiggestFirst(p, tag);
   if (members.empty()) return;
   p.cy.stop(true);
-  smoothFit(p.cy, 48, EXPLORER.v2.maxZoom2d, p.opts.reserveRight(), members.union(tag));
+  const framing = {
+    padding: 48,
+    maxZoom: EXPLORER.v2.maxZoom2d,
+    reserveRight: p.opts.reserveRight(),
+  };
+  smoothFit(p.cy, framing, members.union(tag));
 }
 
 const mayLight = ({ hovered, view }: MapState) =>

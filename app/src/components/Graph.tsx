@@ -129,7 +129,7 @@ function buildTermGraph(container: HTMLElement, { nodes, edges, theme }: Shown) 
     maxZoom: 2.5,
   });
   pointLabelsAwayFromCentre(cy, nodes.find((n) => n.focus)?.id);
-  smoothFit(cy, 24, 1.4);
+  smoothFit(cy, { padding: 24, maxZoom: 1.4 });
   return cy;
 }
 

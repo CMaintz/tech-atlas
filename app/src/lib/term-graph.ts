@@ -89,13 +89,7 @@ function nodeData(n: GNode, theme: MapTheme) {
 
 export const edgePaintData = (nodes: GNode[], edges: GEdge[], theme: MapTheme) => {
   const byId = new Map(nodes.map((n) => [n.id, n]));
-  return edgeData(
-    edges,
-    (id) => byId.get(id),
-    () => 1.6,
-    0.5,
-    theme,
-  );
+  return edgeData(edges, (id) => byId.get(id), theme);
 };
 
 export function termGraphElements(nodes: GNode[], edges: GEdge[], theme: MapTheme) {
@@ -104,7 +98,7 @@ export function termGraphElements(nodes: GNode[], edges: GEdge[], theme: MapThem
   return [
     ...ordered.map((n) => ({ data: nodeData(n, theme) })),
     ...edgePaintData(nodes, edges, theme).map((data, i) => ({
-      data: { ...data, label: edges[i].label },
+      data: { ...data, width: 1.6, alpha: 0.5, label: edges[i].label },
       classes: data.directed ? 'flow' : '',
     })),
   ];

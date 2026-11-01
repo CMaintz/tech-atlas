@@ -99,18 +99,22 @@ function fillOnScreenDots(ctx: CanvasRenderingContext2D, paths: Path[], f: Frame
   ctx.fill();
 }
 
-type Look = { cfg: DotsConfig; restAlpha: () => number };
+/**
+ * What the map steers the dots by, all read every frame: its tunables (the lab edits
+ * them live), the theme's resting alpha, and whether they hold still.
+ */
+type Controls = { cfg: DotsConfig; restAlpha: () => number; paused: () => boolean };
 
-type Flow = { cy: cytoscape.Core; layer: Layer; scene: Scene; look: Look; paused: () => boolean };
+type Flow = { cy: cytoscape.Core; layer: Layer; scene: Scene; controls: Controls };
 
-function frameOnViewport({ cy, layer, look }: Flow, t: number): Frame {
-  const { cfg } = look;
+function frameOnViewport({ cy, layer, controls }: Flow, t: number): Frame {
+  const { cfg } = controls;
   const zoom = cy.zoom();
   const pan = cy.pan();
   const k = layer.dpr * zoom;
   layer.ctx.setTransform(k, 0, 0, k, layer.dpr * pan.x, layer.dpr * pan.y);
   const shift = ((t / 1000) * cfg.speed) % cfg.spacing;
-  const alpha = { litAlpha: cfg.litAlpha, restAlpha: look.restAlpha() };
+  const alpha = { litAlpha: cfg.litAlpha, restAlpha: controls.restAlpha() };
   return { ext: cy.extent(), r: cfg.radius / zoom, shift, spacing: cfg.spacing, ...alpha };
 }
 
@@ -127,7 +131,7 @@ function drawDotsByColour(layer: Layer, groups: Map<string, Path[]>, f: Frame) {
 
 function drawFrame(flow: Flow, t: number) {
   clearLayer(flow.layer);
-  if (flow.paused() || !flow.layer.container.offsetParent) return;
+  if (flow.controls.paused() || !flow.layer.container.offsetParent) return;
   drawDotsByColour(flow.layer, flow.scene.paths(), frameOnViewport(flow, t));
 }
 
@@ -173,14 +177,13 @@ function runLoop(cfg: DotsConfig, on: LoopHooks) {
 export function startDots(
   cy: cytoscape.Core,
   edges: cytoscape.EdgeCollection,
-  paused: () => boolean,
-  restAlpha: () => number = () => EXPLORER.dots.alpha,
-  cfg: DotsConfig = EXPLORER.dots,
+  controls: Controls,
 ): { stop: () => void; resize: () => void } {
   const layer = mountCanvas(orThrow(cy.container(), 'The map container'));
-  const flow: Flow = { cy, layer, scene: watchScene(cy, edges), paused, look: { cfg, restAlpha } };
+  const flow: Flow = { cy, layer, scene: watchScene(cy, edges), controls };
   const draw = (t: number) => drawFrame(flow, t);
-  const loop = runLoop(cfg, { draw, moved: flow.scene.takeMoved, still: () => clearLayer(layer) });
+  const still = () => clearLayer(layer);
+  const loop = runLoop(controls.cfg, { draw, moved: flow.scene.takeMoved, still });
   const stop = () => {
     loop.stop();
     flow.scene.stop();

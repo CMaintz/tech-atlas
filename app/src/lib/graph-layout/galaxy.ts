@@ -5,12 +5,15 @@
 import { EXPLORER } from '../explorer-config';
 import { homeDomain, seededRandom } from '../graph-style';
 import { domainRank } from '../graph-style/palette';
+import { getOrThrow } from '../map-get';
 import { simulate, type ForceConfig, type Point3, type Spring } from './galaxy-forces';
 import { byDomain } from './lanes';
 import { linkEnds, type LayoutNode, type Link } from './types';
 
 type DepthNode = LayoutNode & { depth: number };
 type Seat = { x: number; z: number };
+
+const SEED = 20260925;
 
 /** The layout's tunables: `EXPLORER.three`, or a variant's own. */
 export type GalaxyConfig = ForceConfig & {
@@ -47,8 +50,9 @@ function clustersByDomain(nodes: LayoutNode[]): Map<string, string[]> {
   const clusters = new Map<string, string[]>();
   for (const n of nodes) {
     const d = homeDomain(n);
-    if (!clusters.has(d)) clusters.set(d, []);
-    if (!clusters.get(d)!.includes(n.cluster)) clusters.get(d)!.push(n.cluster);
+    const cs = clusters.get(d) ?? [];
+    clusters.set(d, cs);
+    if (!cs.includes(n.cluster)) cs.push(n.cluster);
   }
   return clusters;
 }
@@ -61,7 +65,7 @@ function clusterSeats(
 ): Map<string, Seat> {
   const seats = new Map<string, Seat>();
   for (const [d, cs] of clustersByDomain(nodes)) {
-    const c = anchor.get(d)!;
+    const c = getOrThrow(anchor, d, 'galaxy anchor');
     const fit = ((cfg.clusterGap ?? 0) * cs.length) / (2 * Math.PI);
     const r = cs.length > 1 ? Math.max(cfg.clusterRadius, fit) : 0;
     cs.sort().forEach((cl, i) => {
@@ -111,18 +115,18 @@ const startAt = (seat: Seat, y: number, rand: () => number): Point3 => ({
 export function galaxyLayout(
   nodes: DepthNode[],
   links: Link[],
-  seed = 20260925,
   cfg: GalaxyConfig = EXPLORER.three,
 ): Map<string, Point3> {
-  const rand = seededRandom(seed);
+  const rand = seededRandom(SEED);
   const anchor = galaxyAnchors(nodes, cfg.ringRadius);
   const seats = clusterSeats(nodes, anchor, cfg);
   const targetY = depthTargets(nodes, rand, cfg);
-  const P = nodes.map((n, i) => startAt(seats.get(n.cluster)!, targetY[i], rand));
+  const seatOf = (n: LayoutNode) => getOrThrow(seats, n.cluster, 'cluster seat');
+  const P = nodes.map((n, i) => startAt(seatOf(n), targetY[i], rand));
   const V = nodes.map(() => ({ x: 0, y: 0, z: 0 }));
   // A term's horizontal home: its own cluster's galaxy (or seat), like any other term.
   const home = nodes.map((n) =>
-    cfg.seatHome ? seats.get(n.cluster)! : anchor.get(homeDomain(n))!,
+    cfg.seatHome ? seatOf(n) : getOrThrow(anchor, homeDomain(n), 'galaxy anchor'),
   );
   simulate({ nodes, P, V, springs: springsOf(nodes, links, cfg), home, targetY, cfg });
   return new Map(nodes.map((nd, i) => [nd.id, P[i]]));

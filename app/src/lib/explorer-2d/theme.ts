@@ -12,13 +12,7 @@ import { mapStylesheet } from './style';
 import { tagColour } from './tags';
 
 function rethemeLinks(p: MapParts, theme: MapTheme) {
-  const paint = edgeData(
-    p.graph.links,
-    (id) => p.byId.get(id),
-    () => 0,
-    0,
-    theme,
-  );
+  const paint = edgeData(p.graph.links, (id) => p.byId.get(id), theme);
   p.links.forEach((e) => {
     const c = paint[Number(e.id().slice(1))];
     const s = getOrThrow(p.byId, e.data('source'), 'link source');

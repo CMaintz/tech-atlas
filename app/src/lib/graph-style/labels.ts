@@ -22,7 +22,10 @@ const LINE_HEIGHT = 1.25;
 const OUTLINE_ALLOWANCE = 4;
 export const LABEL_MARGIN = 4;
 
-export function labelBelow(at: Point, nodeSize: number, width: number, font: number): Box {
+/** A label's measured text: its width and its font size, in px. */
+type LabelText = { width: number; font: number };
+
+export function labelBelow(at: Point, nodeSize: number, { width, font }: LabelText): Box {
   const top = at.y + nodeSize / 2 + LABEL_MARGIN;
   return {
     x1: at.x - width / 2 - OUTLINE_ALLOWANCE,
@@ -32,7 +35,7 @@ export function labelBelow(at: Point, nodeSize: number, width: number, font: num
   };
 }
 
-export function labelAbove(at: Point, width: number, font: number): Box {
+export function labelAbove(at: Point, { width, font }: LabelText): Box {
   return {
     x1: at.x - width / 2 - OUTLINE_ALLOWANCE,
     x2: at.x + width / 2 + OUTLINE_ALLOWANCE,

@@ -124,9 +124,23 @@ describe('bundle control points', () => {
   it('bends an edge towards its islands’ centres by beta', () => {
     const s = { x: 0, y: 0 };
     const t = { x: 30, y: 0 };
-    const straight = bundleControls(s, t, { x: 10, y: 0 }, { x: 20, y: 0 }, 0.8);
+    const straight = bundleControls(
+      [s, t],
+      [
+        { x: 10, y: 0 },
+        { x: 20, y: 0 },
+      ],
+      0.8,
+    );
     expect(straight.distances.every((d) => Math.abs(d) < 1e-9)).toBe(true);
-    const bent = bundleControls(s, t, { x: 10, y: 20 }, { x: 20, y: 20 }, 0.5);
+    const bent = bundleControls(
+      [s, t],
+      [
+        { x: 10, y: 20 },
+        { x: 20, y: 20 },
+      ],
+      0.5,
+    );
     expect(Math.abs(bent.distances[0])).toBeCloseTo(10);
     expect(bent.weights[0]).toBeCloseTo(1 / 3);
   });
