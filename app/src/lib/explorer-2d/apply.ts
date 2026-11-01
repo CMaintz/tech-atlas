@@ -63,8 +63,11 @@ function placeTerms(p: MapParts, d: ApplyDeps, c: ViewChange) {
 
 /** Edges, focus and (after a filter change) the frame, once families have faded. */
 function finish({ p, s, d, focus }: Applying, c: ViewChange) {
-  // The view now, not `c.next`: a fade can end after a newer view has been applied.
-  revealEdges({ p, s, d: { ...d, paintFocus: () => focus(s.view ?? c.next) } }, c);
+  // A fade can end after a newer view has been applied: restyle up to the view now, or
+  // this change's routing turns back on bundled routes the newer view cleared.
+  const now: ViewChange = { prev: c.prev, next: s.view ?? c.next };
+  revealEdges({ p, s, d: { ...d, paintFocus: () => focus(now.next) } }, now);
+  // Only this change's own filter is framed here: a newer filter frames itself.
   if (c.prev && !layoutChanged(c) && c.prev.nodes !== c.next.nodes) {
     d.recull(true);
     frame(p, s);

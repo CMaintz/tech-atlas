@@ -11,11 +11,11 @@ import { createStagger } from './stagger';
 import { mapStylesheet } from './style';
 import type { View } from './types';
 
-const term = (id: string): GraphNode => ({
+const term = (id: string, cluster: string): GraphNode => ({
   id,
   term: { en: id, da: id },
   domain: ['cs'],
-  cluster: 'c',
+  cluster,
   depth: 0,
   degree: 0,
   requires: [],
@@ -23,10 +23,13 @@ const term = (id: string): GraphNode => ({
   mentions: [],
 });
 
-/** Two families, each with enough edges that switching it off changes a batch per frame. */
+/**
+ * Two families, each with enough edges that switching it off changes a batch per frame,
+ * over two islands so some edges cross between them (bundled routes bend those).
+ */
 function twoFamilies(): Graph {
   const n = 40;
-  const nodes = Array.from({ length: n }, (_, i) => term(`t${i}`));
+  const nodes = Array.from({ length: n }, (_, i) => term(`t${i}`, i % 2 ? 'a' : 'b'));
   const links = (['requires', 'mitigates'] as EdgeType[]).flatMap((type, k) =>
     Array.from({ length: EXPLORER.motion.revealBatch + 10 }, (_, i) => ({
       source: `t${i % n}`,
@@ -53,7 +56,7 @@ function partsOf(cy: cytoscape.Core, graph: Graph) {
   const byId = new Map(graph.nodes.map((n) => [n.id, n]));
   return {
     cy,
-    opts: { lang: 'en' },
+    opts: { lang: 'en', reserveRight: () => 0, centreReserve: () => 0 },
     graph,
     byId,
     clusterOf: (id: string) => byId.get(id)?.cluster,
@@ -69,7 +72,7 @@ const freshState = (cy: cytoscape.Core): MapState => ({
   hovered: null,
   shown: cy.collection(),
   moving: false,
-  centreNow: undefined,
+  centreNow: { a: { x: -100, y: 0 }, b: { x: 100, y: 0 } },
 });
 
 /** The 2D map's apply on a headless instance, with the real edges and stagger. */
@@ -78,16 +81,17 @@ function headlessApply(graph: Graph) {
   const p = partsOf(cy, graph);
   const s = freshState(cy);
   const noop = () => {};
+  const reculls: boolean[] = [];
   const d = {
     refreshEdges: createEdges(p, s),
     routes: createRoutes(p),
     stagger: createStagger(cy),
     place: noop,
     hover: { unhover: noop },
-    recull: noop,
+    recull: (force = false) => void reculls.push(force),
     paintNames: noop,
   } as unknown as ApplyDeps;
-  return { cy, apply: createApply(p, s, d) };
+  return { cy, reculls, apply: createApply(p, s, d) };
 }
 
 const showAll = (graph: Graph, families: string[]): View => ({
@@ -113,6 +117,13 @@ const shown = (cy: cytoscape.Core, family: string) =>
     .edges()
     .not('.bundle, .off')
     .filter((e) => graph.links[Number(e.id().slice(1))].family === family).length;
+
+/** Cross-island edges drawn bent into bundled routes (their classes draw them straight). */
+const bundled = (cy: cytoscape.Core) =>
+  cy
+    .edges('.xc')
+    .filter('.bb, .all, .focus')
+    .filter((e) => e.style('curve-style') === 'unbundled-bezier').length;
 
 describe('createApply', () => {
   beforeEach(() => {
@@ -167,5 +178,48 @@ describe('createApply', () => {
     vi.advanceTimersByTime(EXPLORER.motion.fadeMs * 10);
     const lit = cy.nodes('.hl').map((n) => n.id());
     expect(lit).toEqual(['t9']);
+  });
+
+  describe('a fade that ends after a newer view', () => {
+    const security = new Set(['security']);
+    // Many dependency links cross between the two islands, so routes bend them.
+    const dependency = new Set(['dependency']);
+    // The route keeps a few security links drawn in the overview, to fade.
+    const overview: View = {
+      ...both,
+      layout: 'force',
+      showAll: false,
+      highlight: new Set(['t0', 't2', 't4']),
+    };
+
+    it('keeps routes off when "show all" was turned off again', () => {
+      const { cy, apply } = headlessApply(graph);
+      apply(overview);
+      apply({ ...overview, families: dependency, showAll: true });
+      vi.advanceTimersByTime(FRAME);
+      apply({ ...overview, families: dependency });
+      vi.advanceTimersByTime(EXPLORER.motion.fadeMs * 10);
+      expect(bundled(cy)).toBe(0);
+    });
+
+    it('still bundles routes for "show all" the newer view kept', () => {
+      const { cy, apply } = headlessApply(graph);
+      apply(overview);
+      apply({ ...overview, families: dependency, showAll: true });
+      vi.advanceTimersByTime(FRAME);
+      apply({ ...overview, families: dependency, showAll: true, selected: 't3' });
+      vi.advanceTimersByTime(EXPLORER.motion.fadeMs * 10);
+      expect(bundled(cy)).toBeGreaterThan(0);
+    });
+
+    it('leaves framing a filter to the filter', () => {
+      const { reculls, apply } = headlessApply(graph);
+      apply(both);
+      apply({ ...both, families: security });
+      vi.advanceTimersByTime(FRAME);
+      apply({ ...both, families: security, nodes: new Set(['t0', 't1', 't2']) });
+      vi.advanceTimersByTime(EXPLORER.motion.fadeMs * 10);
+      expect(reculls).toEqual([true]);
+    });
   });
 });
